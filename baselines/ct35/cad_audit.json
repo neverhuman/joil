@@ -1,0 +1,134 @@
+{
+  "status": "cad_audited_not_cfd_or_manufacturing_qualified",
+  "cadquery_version": "2.7.0",
+  "builder_sha256": "dafbcadfa9167691ee8d83533ed3cbf44350ff9716138ab8178a83a83624839d",
+  "geometry_derivation_sha256": "6ed669efcd26afa81cfe98fe7752e872cd2dc47e5aeff3ce3d32cffc3b93bfce",
+  "python_version": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "genome_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+  "dimensions_mm": {
+    "r1": 35.0,
+    "r2": 17.5,
+    "r3": 8.75,
+    "ro": 0.7000000000000001,
+    "l1": 70.0,
+    "lc": 99.24743184330991,
+    "l2": 770.0,
+    "l3": 700.0,
+    "a": 0.17453292519943295,
+    "zc": 169.24743184330993,
+    "zt": 939.2474318433099,
+    "ze": 1639.2474318433099,
+    "zh": 186.74743184330993,
+    "w": 7.754485597711633,
+    "h": 15.508971195423266,
+    "area": 120.26409377023427,
+    "analytic_fluid_volume_mm3": 1105802.5227442957
+  },
+  "tessellation_chord_mm": 0.01,
+  "tessellation_angular_rad": 0.1,
+  "hardware_bore_length_mm": 3.0,
+  "cfd_bore_length_mm": 2.8000000000000003,
+  "limitations": [
+    "CFD extensions are not hardware",
+    "head B-rep corners differ from SDF offset preview",
+    "labelled conformal CFD surface and minimum-wall/print/fit gates pending",
+    "no pressure rating, CFD or physical validation"
+  ],
+  "shapes": {
+    "fluid": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 1105802.5227442947,
+      "reimport_relative_volume_error": 1.6830981053317373e-13,
+      "preview_watertight": true,
+      "preview_winding_consistent": true,
+      "preview_volume_mm3": 1104602.5696399005,
+      "preview_triangles": 13254,
+      "bounds_mm": [
+        [
+          -60.0,
+          -35.0,
+          -22.799999237060547
+        ],
+        [
+          60.0,
+          35.0,
+          1639.2474365234375
+        ]
+      ],
+      "step_declared_length_unit": "millimetre",
+      "metre_surface_bounds_verified": true,
+      "metre_surface_units": "m; STL is unitless, this manifest supplies units"
+    },
+    "head": {
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 128835.34566791299,
+      "reimport_relative_volume_error": 1.3766765505351941e-14,
+      "preview_watertight": true,
+      "preview_winding_consistent": true,
+      "preview_volume_mm3": 128734.10601798522,
+      "preview_triangles": 6238,
+      "bounds_mm": [
+        [
+          -47.0,
+          -38.0,
+          -3.0
+        ],
+        [
+          47.0,
+          38.0,
+          186.7474365234375
+        ]
+      ],
+      "step_declared_length_unit": "millimetre",
+      "metre_surface_bounds_verified": true,
+      "metre_surface_units": "m; STL is unitless, this manifest supplies units"
+    }
+  },
+  "artifacts": {
+    "fluid_m.glb": {
+      "bytes": 266368,
+      "sha256": "5ba40a2525857992978b21f58b7438d39a0084388addce3af077fbb18d551350"
+    },
+    "fluid_mm.step": {
+      "bytes": 50806,
+      "sha256": "232bf17d7842da82a5afbe9d37c47e497b74d5ad28269ca9c04c24e8d5fdede9"
+    },
+    "fluid_preview_m.stl": {
+      "bytes": 3612584,
+      "sha256": "e3fc6c995704c732dac40d22c4f9ceee634e460b28980ea946bc905de325d59a"
+    },
+    "fluid_preview_mm.stl": {
+      "bytes": 662784,
+      "sha256": "1badb5222506c5b3cc2131c884fa6942e35b006e6c2c45fbee43e8ab11129b6a"
+    },
+    "head_m.glb": {
+      "bytes": 125952,
+      "sha256": "425c3e5f8b60224a803b0488326bb75626a09736deecaadc9004b33012f29025"
+    },
+    "head_mm.step": {
+      "bytes": 84292,
+      "sha256": "d457f8d9f4a8947b26cae7774588de4e39327a8a8f2aff88bb734927d386a56e"
+    },
+    "head_preview_m.stl": {
+      "bytes": 5576284,
+      "sha256": "b2311a6a43cb4bd7161bd235885dd677b704ec6f1132d0d7681969ddbb0bdb83"
+    },
+    "head_preview_mm.stl": {
+      "bytes": 311984,
+      "sha256": "fb5d887a6f915f814e8a503ccd1d5b07418faa8ae1e3ad0f7e7397f2bbaa0168"
+    },
+    "patch_contract.json": {
+      "bytes": 1162,
+      "sha256": "1a3f745e3bce465e82ca5b95010f57c8ff08224de971f552fc672cb0c956c568"
+    }
+  },
+  "analytic_fluid_relative_error": -8.881784197001252e-16,
+  "head_mass_g_nominal_density": {
+    "Ti-6Al-4V": 570.7405813088545,
+    "CP-Ti-Grade-2": 581.0474089622876
+  },
+  "elapsed_seconds": 6.719643347023521,
+  "bootstrap_checks_pass": true
+}

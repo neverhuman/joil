@@ -1,0 +1,998 @@
+{
+  "version": 1,
+  "status": "planned_challenge_families_not_executed_test_count",
+  "families": [
+    {
+      "id": "CAD-01",
+      "name": "solid_validity",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "OCCT solid checks plus independent topology",
+      "negative_control": "unsewn shell, disconnected solid, inverted surface",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-02",
+      "name": "analytic_volume",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "independent analytic/SDF/B-rep volume with refinement",
+      "negative_control": "wrong scale, missing inlet or bore",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-03",
+      "name": "step_roundtrip",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "STEP reimport volume/bounds/topology",
+      "negative_control": "faceted shell falsely called solid",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-04",
+      "name": "terminal_contract",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "exact face areas, normals, positions and flow signs",
+      "negative_control": "one reversed inlet, lost patch, changed port",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-05",
+      "name": "frozen_interface",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "geometric difference mask on collar and full liner",
+      "negative_control": "tail shortening or changed reject interface",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-06",
+      "name": "conformal_surface",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "edge incidence/orientation and geometric self-intersections",
+      "negative_control": "independently tessellated unmatched seam",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-07",
+      "name": "minimum_features",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "analytical narrow passage fixtures plus sampling refinement",
+      "negative_control": "subvoxel blockage, wall breakthrough",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-08",
+      "name": "powder_support",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "reachable removal tool/powder path and AM span fixtures",
+      "negative_control": "connected but inaccessible trapped powder",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-09",
+      "name": "manufacturing_variant",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "orientation/finish/process in identity",
+      "negative_control": "Ra silently treated as equivalent sand roughness",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CAD-10",
+      "name": "representation",
+      "owner": "P02",
+      "state": "planned",
+      "independent_oracle": "baseline, split/rejoin, helical, asymmetric and folded fixtures",
+      "negative_control": "unsupported recipe defaults to baseline",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-01",
+      "name": "pipe",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "Poiseuille law pressure/flux convergence in laminar regime",
+      "negative_control": "wrong Pa/kinematic pressure or viscosity",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-02",
+      "name": "hydrostatic",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "pressure versus elevation and gauge/reference invariance",
+      "negative_control": "double buoyancy or wrong gravity sign",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-03",
+      "name": "manufactured_flow",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "analytical source-supported velocity/pressure refinement",
+      "negative_control": "claim order from residual only",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-04",
+      "name": "mass_momentum_energy",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "boundary integrals and storage balances",
+      "negative_control": "unweighted total-pressure average",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-05",
+      "name": "pressure_control",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "same target split with pressure only at outlets",
+      "negative_control": "overconstrained flow and pressure",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-06",
+      "name": "swirl_sign",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "angular momentum integral from actual inlet faces",
+      "negative_control": "opposite sense jets",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-07",
+      "name": "rsm_realizability",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "PSD stress and recorded repair frequency",
+      "negative_control": "persistent stress resets hidden",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-08",
+      "name": "wall_resolution",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "wall model matched to area-weighted y+ and layers",
+      "negative_control": "layers silently dropped at orifice",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-09",
+      "name": "spatial_family",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "three systematic meshes, statistical error controlled",
+      "negative_control": "unrelated adaptive meshes with forced GCI",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-10",
+      "name": "time_correctors",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "time halving and pressure/corrector independence",
+      "negative_control": "pseudo-time used as physical transient",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-11",
+      "name": "domain_extensions",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "fixed taps and longer inlet/outlet sections",
+      "negative_control": "move taps to hide additional loss",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "CARRIER-12",
+      "name": "stationarity",
+      "owner": "P04",
+      "state": "planned",
+      "independent_oracle": "integral time, block CIs, inventory and slow mode",
+      "negative_control": "arbitrary iteration count accepted",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-01",
+      "name": "tracer",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "neutrally buoyant acceleration and carrier following",
+      "negative_control": "heavy-particle model mistaken for oil",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-02",
+      "name": "terminal_rise",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "appropriate Stokes/Hadamard correlation regime",
+      "negative_control": "wrong slip sign or density units",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-03",
+      "name": "rotation",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "inward migration in prescribed rotating flow and d2 trend",
+      "negative_control": "centrifugal force double counting",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-04",
+      "name": "added_mass",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "independent accelerating-flow transient",
+      "negative_control": "pressure acceleration omitted/duplicated",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-05",
+      "name": "dispersion",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "well-mixed box and anisotropic covariance",
+      "negative_control": "spurious accumulation from k-only random walk",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-06",
+      "name": "les_dispersion",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "resolved plus unresolved energy accounting",
+      "negative_control": "full RANS fluctuations added to LES",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-07",
+      "name": "parcel_integrator",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "substep halving versus independent stiff ODE reference",
+      "negative_control": "CFL alone assumed sufficient",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-08",
+      "name": "parcel_weights",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "mass conservation with stratified diameter sampling",
+      "negative_control": "equal number weights mistaken for oil volume",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-09",
+      "name": "terminal_accounting",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "first passage, complete cohort and inventory",
+      "negative_control": "wall hit, numerical loss or recrossing becomes capture",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-10",
+      "name": "breakup_kernel",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "daughter mass conservation and measured spectra holdouts",
+      "negative_control": "instant Hinze clipping called calibrated",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-11",
+      "name": "coalescence",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "mass/number evolution against independent kernel fixture",
+      "negative_control": "concentration-independent reuse despite interactions",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-12",
+      "name": "pbm_resolution",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "class edges and velocity-group refinement",
+      "negative_control": "one velocity erases size migration",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-13",
+      "name": "transfer_reuse",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "linear bin-kernel versus full reruns across feeds",
+      "negative_control": "local enrichment invalidates one-way approximation",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-14",
+      "name": "mpi_restart",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "particle identity/mass/controller/statistics preserved",
+      "negative_control": "rank-local RNG changes injected population",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OIL-15",
+      "name": "regime",
+      "owner": "P05",
+      "state": "planned",
+      "independent_oracle": "free gas, films, high local loading trigger invalid envelope",
+      "negative_control": "out-of-envelope result treated as winner",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-01",
+      "name": "split_correction",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "tracer E=r yields Cu=Ci; .94 capture fails30 at500/.02",
+      "negative_control": "missing denominator",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-02",
+      "name": "common_flow",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "explicit scenario intersection at common Q",
+      "negative_control": "min of independently maximized capacities",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-03",
+      "name": "capacity_band",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "nonmonotone maps and gap refinement",
+      "negative_control": "interpolation across failure island",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-04",
+      "name": "missing_evidence",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "unknown/stale/mismatched observation cannot pass",
+      "negative_control": "timeout becomes Cu=0",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-05",
+      "name": "pressure_fairness",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "bracketed evaluated equal-pressure duty",
+      "negative_control": "constant-Euler guess treated as result",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-06",
+      "name": "uncertainty",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "observable-unit budget, correlated paired analysis",
+      "negative_control": "model disagreement relabelled Gaussian CI",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-07",
+      "name": "zero_censored",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "undefined baseline and detection limits explicit",
+      "negative_control": "epsilon gain or log infinity",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-08",
+      "name": "constraint_dominance",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "feasible fronts and violation fixtures",
+      "negative_control": "weighted sum buys water-quality failure",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "METRIC-09",
+      "name": "evidence_identity",
+      "owner": "P01",
+      "state": "planned",
+      "independent_oracle": "case+subject+model+requirements+extraction digests",
+      "negative_control": "renamed stale result grants validation",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "EXPERIMENT-01",
+      "name": "instrument_method",
+      "owner": "P06",
+      "state": "planned",
+      "independent_oracle": "calibration, sampling transport and analyte limits",
+      "negative_control": "fluorescence response transferred between oils",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "EXPERIMENT-02",
+      "name": "paired_trial",
+      "owner": "P06",
+      "state": "planned",
+      "independent_oracle": "randomized blinded A/B/A and independent preparations",
+      "negative_control": "frames treated as independent replicates",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "EXPERIMENT-03",
+      "name": "endpoint_power",
+      "owner": "P06",
+      "state": "planned",
+      "independent_oracle": "pilot variance, power and capacity endpoint intervals",
+      "negative_control": "three replicates declared sufficient",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "EXPERIMENT-04",
+      "name": "holdout",
+      "owner": "P06",
+      "state": "planned",
+      "independent_oracle": "separate geometries/preparations/conditions",
+      "negative_control": "surrogate leakage or repeated final holdout tuning",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "EXPERIMENT-05",
+      "name": "as_built",
+      "owner": "P06",
+      "state": "planned",
+      "independent_oracle": "CT/metrology/roughness and matched manufacturing",
+      "negative_control": "larger printed bore credited to new geometry",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "EXPERIMENT-06",
+      "name": "commercial_comparator",
+      "owner": "P06",
+      "state": "planned",
+      "independent_oracle": "same duty on current installed comparator",
+      "negative_control": "patent reconstruction presented as industry best",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "STRUCTURE-01",
+      "name": "elasticity",
+      "owner": "P08",
+      "state": "planned",
+      "independent_oracle": "Lam\u00e9 cylinder, patch, energy and reactions",
+      "negative_control": "wrong pressure differential or unconstrained body",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "STRUCTURE-02",
+      "name": "load_transfer",
+      "owner": "P08",
+      "state": "planned",
+      "independent_oracle": "resultant force/moment conserved on mapped faces",
+      "negative_control": "gauge/absolute mismatch or wrong subject",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "STRUCTURE-03",
+      "name": "stress_convergence",
+      "owner": "P08",
+      "state": "planned",
+      "independent_oracle": "finite observables and mesh convergence",
+      "negative_control": "singular corner peak smoothed into PASS",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "STRUCTURE-04",
+      "name": "modal_fatigue",
+      "owner": "P08",
+      "state": "planned",
+      "independent_oracle": "qualified spectrum, material state and independent tests",
+      "negative_control": "knife allowables or universal fatigue knockdown",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "STRUCTURE-05",
+      "name": "material_service",
+      "owner": "P08",
+      "state": "planned",
+      "independent_oracle": "actual process/product form and application evidence",
+      "negative_control": "alloy name implies sour-service approval",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "ENGINE-01",
+      "name": "algorithms",
+      "owner": "P07",
+      "state": "planned",
+      "independent_oracle": "known constrained Pareto fronts, crowding and fixed QD grid",
+      "negative_control": "objective signs/ties wrong",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "ENGINE-02",
+      "name": "restart",
+      "owner": "P07",
+      "state": "planned",
+      "independent_oracle": "killed writes and uninterrupted/resumed scientific state",
+      "negative_control": "changed evaluator silently resumes",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "ENGINE-03",
+      "name": "budget",
+      "owner": "P07",
+      "state": "planned",
+      "independent_oracle": "all attempts/training/audits and phenotype duplicates counted",
+      "negative_control": "success-only cost or unfair representation",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "ENGINE-04",
+      "name": "surrogate",
+      "owner": "P07",
+      "state": "planned",
+      "independent_oracle": "family holdouts, uncertainty and rejected-candidate audits",
+      "negative_control": "infrastructure failure trains bad-physics label",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "ENGINE-05",
+      "name": "search_study",
+      "owner": "P07",
+      "state": "planned",
+      "independent_oracle": "independent runs, frozen protocol and equal budget",
+      "negative_control": "best-of-wave anecdote or winner selection bias",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OPS_VIEW-01",
+      "name": "resource_lease",
+      "owner": "P09",
+      "state": "planned",
+      "independent_oracle": "RSS/scratch/physical-core admission and bounded retry",
+      "negative_control": "SMT mistaken for physical cores",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OPS_VIEW-02",
+      "name": "artifact_binding",
+      "owner": "P09",
+      "state": "planned",
+      "independent_oracle": "field/scalar/scene exact hashes and units",
+      "negative_control": "governing scalar on another mesh image",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OPS_VIEW-03",
+      "name": "blender_scene",
+      "owner": "P09",
+      "state": "planned",
+      "independent_oracle": "roundtrip unit/frame/camera/true deformation scale",
+      "negative_control": "smoothed science feature or invented flow",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    },
+    {
+      "id": "OPS_VIEW-04",
+      "name": "publication",
+      "owner": "P09",
+      "state": "planned",
+      "independent_oracle": "allowlisted public output plus private deny scan",
+      "negative_control": "raw source/customer/credential leak",
+      "required_artifacts": [
+        "fixture_manifest",
+        "raw_log",
+        "observable_error_or_convergence",
+        "receipt_sha256"
+      ],
+      "failure_interpretation": "Block affected qualification; retain diagnostics; never loosen threshold to pass."
+    }
+  ],
+  "implemented_foundation_tests": "crates/joil-core/tests/regression.rs and tests/test_foundation.py; actual executed counts in receipts",
+  "acceptance_policy": "preregister tolerance for each observable/regime; initial loose targets tighten to resolve decision margin"
+}

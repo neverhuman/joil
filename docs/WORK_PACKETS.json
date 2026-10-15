@@ -1,0 +1,487 @@
+{
+  "version": 1,
+  "status": "planned_not_dispatched",
+  "root": "/home/ubuntu/joil",
+  "master": "docs/MASTER_PLAN.md",
+  "forbidden": [
+    "/home/ubuntu/jarambit/**",
+    "other_projects/**",
+    ".private/** (publication)",
+    "frozen_inputs_or_receipts (mutation)"
+  ],
+  "integrator_exclusive": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "requirements-cad*.txt",
+    "apps/explorer/package*.json",
+    "schemas/**",
+    "requirements/**",
+    "baselines/**",
+    "shared_Rust_types"
+  ],
+  "parallel_policy": "Only disjoint owned paths after shared contracts land; P00 writes are completed before future workers start. P06 protocol can prepare after P01, physical completion also consumes P04/P05. No agents have been dispatched.",
+  "packets": [
+    {
+      "id": "P00",
+      "title": "Foundation",
+      "dependencies": [],
+      "write_scope": [
+        "docs/",
+        "baselines/",
+        "crates/joil-core/",
+        "crates/joil-cli/",
+        "cad/ct35/",
+        "apps/explorer/",
+        "tools/",
+        "tests/"
+      ],
+      "owner_role": "integrator",
+      "estimate": "current request",
+      "instructions": "docs/MASTER_PLAN.md section 10 P00",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P01",
+      "title": "Identity, duty and evidence contracts",
+      "dependencies": [
+        "P00"
+      ],
+      "write_scope": [
+        "schemas/",
+        "crates/joil-core/src/identity.rs",
+        "crates/joil-core/src/evidence.rs",
+        "crates/joil-core/src/duty.rs",
+        "analysis/units.py",
+        "analysis/inventory.py",
+        "analysis/operating_map.py",
+        "experiments/protocol-v1.json"
+      ],
+      "owner_role": "integrator",
+      "estimate": "3-5 engineering days",
+      "instructions": "docs/MASTER_PLAN.md section 10 P01",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P02",
+      "title": "Flexible geometry and CAD qualification",
+      "dependencies": [
+        "P01"
+      ],
+      "write_scope": [
+        "cad/program/",
+        "cad/tests/",
+        "tools/cad_audit.py"
+      ],
+      "owner_role": "CAD owner",
+      "estimate": "5-10 engineering days",
+      "instructions": "docs/MASTER_PLAN.md section 10 P02",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P03",
+      "title": "Pinned environment and solver elementary tests",
+      "dependencies": [
+        "P01"
+      ],
+      "write_scope": [
+        "physics/openfoam/environment/",
+        "physics/openfoam/verification/",
+        "tools/verify_environment.py"
+      ],
+      "owner_role": "CFD environment owner",
+      "estimate": "3-7 engineering days",
+      "instructions": "docs/MASTER_PLAN.md section 10 P03",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P04",
+      "title": "Full-liner carrier and measured HPC pilot",
+      "dependencies": [
+        "P02",
+        "P03"
+      ],
+      "write_scope": [
+        "physics/openfoam/carrier/",
+        "physics/openfoam/mesh/",
+        "tools/bench_cfd.py"
+      ],
+      "owner_role": "carrier-flow owner",
+      "estimate": "7-15 engineering days",
+      "instructions": "docs/MASTER_PLAN.md section 10 P04",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P05",
+      "title": "Light-drop transport and population physics",
+      "dependencies": [
+        "P04"
+      ],
+      "write_scope": [
+        "physics/openfoam/oil/",
+        "physics/openfoam/oil_tests/",
+        "analysis/dsd_transfer.py"
+      ],
+      "owner_role": "multiphase owner",
+      "estimate": "10-25 engineering days",
+      "instructions": "docs/MASTER_PLAN.md section 10 P05",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P06",
+      "title": "Experimental protocol and validation",
+      "dependencies": [
+        "P01"
+      ],
+      "write_scope": [
+        "experiments/rig/",
+        "experiments/holdout/",
+        "analysis/validation/",
+        "docs/rig/"
+      ],
+      "owner_role": "experimental owner",
+      "estimate": "5-10 days protocol; physical lead time external",
+      "instructions": "docs/MASTER_PLAN.md section 10 P06",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P07",
+      "title": "Multi-objective engine and campaigns",
+      "dependencies": [
+        "P04",
+        "P05",
+        "P06"
+      ],
+      "write_scope": [
+        "crates/joil-search/",
+        "experiments/search/",
+        "analysis/search/"
+      ],
+      "owner_role": "search owner",
+      "estimate": "7-15 engineering days",
+      "instructions": "docs/MASTER_PLAN.md section 10 P07",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P08",
+      "title": "Solid FEA and manufacturing eligibility",
+      "dependencies": [
+        "P02",
+        "P04"
+      ],
+      "write_scope": [
+        "physics/structure/",
+        "manufacturing/",
+        "analysis/structure/"
+      ],
+      "owner_role": "mechanical owner",
+      "estimate": "7-15 days plus external tests",
+      "instructions": "docs/MASTER_PLAN.md section 10 P08",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P09",
+      "title": "Evidence explorer and Blender bundle",
+      "dependencies": [
+        "P01",
+        "P02"
+      ],
+      "write_scope": [
+        "apps/explorer/src/",
+        "visualization/",
+        "tools/export_scene.py"
+      ],
+      "owner_role": "visualization owner",
+      "estimate": "5-10 engineering days",
+      "instructions": "docs/MASTER_PLAN.md section 10 P09",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    },
+    {
+      "id": "P10",
+      "title": "Independent integration and candidate review",
+      "dependencies": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "P09"
+      ],
+      "write_scope": [
+        "docs/receipts/",
+        "docs/STATUS.json",
+        "docs/release/"
+      ],
+      "owner_role": "integrator",
+      "estimate": "5-10 engineering days",
+      "instructions": "docs/MASTER_PLAN.md section 10 P10",
+      "read_first": [
+        "AGENTS.md",
+        "docs/MASTER_PLAN.md",
+        "docs/SCIENCE.md",
+        "docs/GENOME.md",
+        "docs/TEST_CATALOG.json",
+        "docs/STATUS.json"
+      ],
+      "required_handoff": [
+        "tested_commit",
+        "changed_paths",
+        "commands_exit_codes_timings",
+        "artifact_sha256",
+        "positive_and_negative_checks",
+        "science_eligibility",
+        "resource_allocation",
+        "limitations_and_next_dependency"
+      ],
+      "stop_conditions": [
+        "scope_conflict",
+        "identity_or_units_ambiguity",
+        "missing_required_evidence",
+        "resource_pressure",
+        "unresolved_numerical_or_model_error"
+      ]
+    }
+  ]
+}

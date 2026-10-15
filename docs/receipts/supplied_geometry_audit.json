@@ -1,0 +1,211 @@
+{
+  "status": "independent_supplied_geometry_audit_not_cfd_validation",
+  "meshes": {
+    "ct35_fluid_domain.stl": {
+      "bytes": 17475167,
+      "sha256": "25d35b847b8e78568710150faaf58cde789b609275732e4771843342547b5564",
+      "triangles": 86560,
+      "vertices": 43282,
+      "watertight": true,
+      "winding_consistent": true,
+      "signed_volume_mm3": 1105747.5609665299,
+      "bounds_mm": [
+        [
+          -60.0,
+          -35.0,
+          -22.8
+        ],
+        [
+          60.0,
+          35.0,
+          1639.247432
+        ]
+      ],
+      "euler_number": 2
+    },
+    "ct35_head_cartridge.stl": {
+      "bytes": 22636884,
+      "sha256": "207f71c95ecda56bbee996bde95e2b90071f398ac0871919af21ec515eb2cd8b",
+      "triangles": 452736,
+      "vertices": 226364,
+      "watertight": true,
+      "winding_consistent": true,
+      "signed_volume_mm3": -128341.94264306391,
+      "bounds_mm": [
+        [
+          -47.000003814697266,
+          -38.0,
+          -3.000001907348633
+        ],
+        [
+          46.9998893737793,
+          37.99991226196289,
+          186.7473602294922
+        ]
+      ],
+      "euler_number": -4
+    },
+    "ct35_baseline_rev1/ct35_head_cartridge_preview.stl": {
+      "bytes": 64872884,
+      "sha256": "eb11fa27bf983c4793cc777858ba85b736262c87c23aee893788c34605c2e180",
+      "triangles": 1297456,
+      "vertices": 648724,
+      "watertight": true,
+      "winding_consistent": true,
+      "signed_volume_mm3": 172154.64437856423,
+      "bounds_mm": [
+        [
+          -39.9995002746582,
+          -39.9995002746582,
+          -6.0
+        ],
+        [
+          39.9995002746582,
+          39.9995002746582,
+          169.2474365234375
+        ]
+      ],
+      "euler_number": -4
+    },
+    "ct35_baseline_rev1/ct35_head_fluid_preview.stl": {
+      "bytes": 34888484,
+      "sha256": "20b0737042905f00c9329cd736b6b18e31e63c21e578fe35737cd451d5985609",
+      "triangles": 697768,
+      "vertices": 348886,
+      "watertight": true,
+      "winding_consistent": true,
+      "signed_volume_mm3": 529021.120260697,
+      "bounds_mm": [
+        [
+          -52.51515197753906,
+          -34.99989700317383,
+          -24.0
+        ],
+        [
+          52.51514434814453,
+          34.99989700317383,
+          199.2474365234375
+        ]
+      ],
+      "euler_number": 2
+    }
+  },
+  "archives": {
+    "ct35_baseline_rev1.zip": {
+      "sha256": "a8219875d14f5e751099b11fe12a6b8627b4c3a83b618da888bd3b48aa430b12",
+      "members": [
+        {
+          "name": "ct35_baseline_rev1/README.md",
+          "bytes": 1469,
+          "sha256": "73d989671587a33acf38ae780ffb795dd65ff7d87224e2a8c202c90424a48d5f"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_cadquery.py",
+          "bytes": 6296,
+          "sha256": "83eb6695f0b2a560933d307436b2c0c4aa64f4a2c089e356a996c3947d1a8c2b"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_cutaway.png",
+          "bytes": 72224,
+          "sha256": "a17567958489b973bd24736647da89276bc6e2cefaedc1c790650df287948b38"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_drawing.png",
+          "bytes": 193623,
+          "sha256": "916692ce3555407ec08dc6c83981999b56791927891e02abc190c790ddd6ccef"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_geometry.py",
+          "bytes": 5742,
+          "sha256": "9041c32eb80858c6d5866e56b35379978444b593a9b0d74aeab5eed51d288ea4"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_head_cartridge_preview.stl",
+          "bytes": 64872884,
+          "sha256": "eb11fa27bf983c4793cc777858ba85b736262c87c23aee893788c34605c2e180"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_head_fluid_preview.stl",
+          "bytes": 34888484,
+          "sha256": "20b0737042905f00c9329cd736b6b18e31e63c21e578fe35737cd451d5985609"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_params.json",
+          "bytes": 2924,
+          "sha256": "07daa627420787cd42d47074eac144efc2cc34c2998b53426fdbe61e4c2755e5"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_preview.py",
+          "bytes": 20669,
+          "sha256": "3b8465eab1b50129837c3b46fe4884c2473b703594883baa7a401d2a2ecc29af"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_preview_report.json",
+          "bytes": 2168,
+          "sha256": "aebd10c36f53712fb796ff431fbc655ecf86adef7c93668253def4a68d4ede1f"
+        }
+      ]
+    },
+    "ct35_baseline_rev1 (1).zip": {
+      "sha256": "a8219875d14f5e751099b11fe12a6b8627b4c3a83b618da888bd3b48aa430b12",
+      "members": [
+        {
+          "name": "ct35_baseline_rev1/README.md",
+          "bytes": 1469,
+          "sha256": "73d989671587a33acf38ae780ffb795dd65ff7d87224e2a8c202c90424a48d5f"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_cadquery.py",
+          "bytes": 6296,
+          "sha256": "83eb6695f0b2a560933d307436b2c0c4aa64f4a2c089e356a996c3947d1a8c2b"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_cutaway.png",
+          "bytes": 72224,
+          "sha256": "a17567958489b973bd24736647da89276bc6e2cefaedc1c790650df287948b38"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_drawing.png",
+          "bytes": 193623,
+          "sha256": "916692ce3555407ec08dc6c83981999b56791927891e02abc190c790ddd6ccef"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_geometry.py",
+          "bytes": 5742,
+          "sha256": "9041c32eb80858c6d5866e56b35379978444b593a9b0d74aeab5eed51d288ea4"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_head_cartridge_preview.stl",
+          "bytes": 64872884,
+          "sha256": "eb11fa27bf983c4793cc777858ba85b736262c87c23aee893788c34605c2e180"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_head_fluid_preview.stl",
+          "bytes": 34888484,
+          "sha256": "20b0737042905f00c9329cd736b6b18e31e63c21e578fe35737cd451d5985609"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_params.json",
+          "bytes": 2924,
+          "sha256": "07daa627420787cd42d47074eac144efc2cc34c2998b53426fdbe61e4c2755e5"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_preview.py",
+          "bytes": 20669,
+          "sha256": "3b8465eab1b50129837c3b46fe4884c2473b703594883baa7a401d2a2ecc29af"
+        },
+        {
+          "name": "ct35_baseline_rev1/ct35_preview_report.json",
+          "bytes": 2168,
+          "sha256": "aebd10c36f53712fb796ff431fbc655ecf86adef7c93668253def4a68d4ede1f"
+        }
+      ]
+    }
+  },
+  "duplicate_archives_identical": true,
+  "latest_fluid_relative_volume_error": -4.9703067803719136e-05,
+  "all_surfaces_closed_and_oriented": false,
+  "elapsed_seconds": 32.22747533599613,
+  "expected_exit_code": 1,
+  "known_negative": "Latest supplied head STL has inward winding; original preserved. New B-rep audited separately."
+}

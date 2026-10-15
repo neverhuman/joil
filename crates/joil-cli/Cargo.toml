@@ -1,0 +1,8 @@
+[package]
+name = "joil-cli"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+joil-core = { path = "../joil-core" }
+serde_json.workspace = true

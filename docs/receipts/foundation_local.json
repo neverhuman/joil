@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "run_id": "20261015T060026Z-a50fe5b5",
+  "kind": "foundation_checks_not_physical_validation",
+  "steps": [
+    {
+      "name": "fmt",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 1.8906438751146197,
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 3.285951165948063,
+      "log_bytes": 847,
+      "log_sha256": "471709ef3df2f5052a6dbd6bc755ceaf7ab59ee8ee581fbcf5114293e5362023"
+    },
+    {
+      "name": "rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 1.9825975419953465,
+      "log_bytes": 2452,
+      "log_sha256": "14837dfc56c1ccda35765611e3219ce9589864f394945bff49c15071527d6ab8"
+    },
+    {
+      "name": "baseline",
+      "command": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.38536337530240417,
+      "log_bytes": 1088,
+      "log_sha256": "4ff88bfb3251b0a1043bf9042e32c4cd229d31ba3cf0628de41771a19d59aee4"
+    },
+    {
+      "name": "python-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.05366616742685437,
+      "log_bytes": 646,
+      "log_sha256": "7ac22eb04d037025508dc28c702a8508ccce587c81706b1ed27b5ba778fd8da0"
+    },
+    {
+      "name": "public-check",
+      "command": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.04155987501144409,
+      "log_bytes": 73,
+      "log_sha256": "088861811e1e19861b200c53b8a70de2bbcbda49dd6a17f356819b1c8d211bed"
+    },
+    {
+      "name": "npm-ci",
+      "command": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 0.7849965421482921,
+      "log_bytes": 28,
+      "log_sha256": "9ed16ad7920e3a5a9f0e570b40f58ebe6672bcf33933119c971a57c377607ab9"
+    },
+    {
+      "name": "ui-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 1.3298399592749774,
+      "log_bytes": 407,
+      "log_sha256": "eafbc2651d55582e1b1243c7eb977b7a987623e759187b38062137e5304d96e9"
+    }
+  ],
+  "ui_executed": true,
+  "cad_executed": false,
+  "cfd_executed": false,
+  "all_requested_pass": true,
+  "execution_environment": "macOS arm64; project Cargo target and npm lock; detailed logs private"
+}

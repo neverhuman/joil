@@ -1,0 +1,75 @@
+{
+  "id": "RS-joil-research-v1",
+  "version": 1,
+  "status": "draft_no_campaign_admission",
+  "baseline": "ct35-parametric-v1",
+  "reference": {
+    "flow_m3_h": 4.0,
+    "reject_fraction": 0.02,
+    "reject_tolerance_absolute": 0.0002,
+    "cin_mg_l": 500.0,
+    "dsd_basis": "oil_volume",
+    "dsd_family": "lognormal",
+    "dsd_volume_median_um": 15.0,
+    "dsd_geometric_sd": 1.6,
+    "water_density_kg_m3": 998.0,
+    "water_viscosity_pa_s": 0.001,
+    "oil_density_kg_m3": 850.0,
+    "oil_viscosity_pa_s": 0.005,
+    "interfacial_tension_n_m": 0.025,
+    "all_properties_status": "provisional_measure_on_rig"
+  },
+  "quality": {
+    "research_limit_mg_l": 30.0,
+    "stretch_limit_mg_l": 20.0,
+    "measurement_basis": "dispersed_oil",
+    "site_permit_equivalence": false
+  },
+  "limits": {
+    "pressure_budget_pa": null,
+    "energy_budget_j_per_treated_m3": null,
+    "absolute_pressure_min_pa": null,
+    "required_continuous_duty_band_m3_h": null,
+    "pdr_draft_range": [
+      1.4,
+      2.5
+    ],
+    "wall_min_draft_mm": 1.0,
+    "printed_passage_min_dh_draft_mm": 3.0,
+    "orifice_finishing": "machined_exception_requires_qualification",
+    "overhang_draft_deg_from_horizontal": 45,
+    "radial_envelope_draft_mm": 45,
+    "envelope_status": "conflicts_with_baseline_inlet_ports_unresolved"
+  },
+  "robustness": {
+    "dsd_median_um": [
+      10.0,
+      15.0,
+      25.0
+    ],
+    "cin_mg_l": [
+      100.0,
+      500.0,
+      1000.0
+    ],
+    "probability_distribution": null,
+    "interpretation": "finite_scenarios_not_statistical_reliability"
+  },
+  "promotion": {
+    "physical_paired_point_gain_min": 0.1,
+    "confidence_level": 0.95,
+    "lower_confidence_bound_gain_gt": 0.0,
+    "at_least_10_percent_claim_requires_lower_bound_gt": 0.1,
+    "independent_preparations_pilot_min": 3,
+    "final_replication": "power_analysis_after_variance_pilot",
+    "commercial_comparator_required_for_commercial_claim": true
+  },
+  "blocked_on": [
+    "pressure-flow curve and absolute pressure environment",
+    "vessel drawing, ports and envelope",
+    "actual fluid and AM material/process data",
+    "validated breakup/dispersion regime",
+    "independent laboratory and holdout evidence",
+    "operator-specific acceptance requirements"
+  ]
+}

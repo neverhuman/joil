@@ -1,0 +1,90 @@
+{
+  "status": "source_identity_only_not_validation",
+  "inputs": [
+    {
+      "name": "Deoiling Hydrocyclone Cartridge \u2014 Baseline, References & Engineering Spec.md",
+      "bytes": 17046,
+      "sha256": "1210a5d2731209683529c34a45789e1bb888abe3a2327a7f6528ca26e1a3570e"
+    },
+    {
+      "name": "ct35_fluid_domain.stl",
+      "bytes": 17475167,
+      "sha256": "25d35b847b8e78568710150faaf58cde789b609275732e4771843342547b5564"
+    },
+    {
+      "name": "ct35_baseline_params.json",
+      "bytes": 4246,
+      "sha256": "027ac758ac545a8d35dbe25caca752829e74aec5398833b97e1898d2534a964e"
+    },
+    {
+      "name": "README.md",
+      "bytes": 2246,
+      "sha256": "102827df16afbd17308ae801bc2d08a296d1f20c83d53e35b19471838db618aa"
+    },
+    {
+      "name": "ct35_baseline.py",
+      "bytes": 18960,
+      "sha256": "cb87ba1ece89438ee33232073e5d305706d308f149633899fffa028ea6d1cc53"
+    },
+    {
+      "name": "ct35_head_cartridge.stl",
+      "bytes": 22636884,
+      "sha256": "207f71c95ecda56bbee996bde95e2b90071f398ac0871919af21ec515eb2cd8b"
+    },
+    {
+      "name": "ct35_cadquery_step.py",
+      "bytes": 5627,
+      "sha256": "31076cec851b250e949769c9ad435b61359b3dffb86160c56af8f491f076b92f"
+    },
+    {
+      "name": "ti7.md",
+      "bytes": 17382,
+      "sha256": "caf61e1c180feb16ca238a0651990baf61715e9e4ebb97c436ffee66ec777331"
+    },
+    {
+      "name": "ti6.md",
+      "bytes": 10198,
+      "sha256": "6ac8c0ae9e8a3219f9d8c2f33fdf2c8118a5b2e14d0f9ef318fa8821b4aadd1f"
+    },
+    {
+      "name": "ti5.md",
+      "bytes": 8189,
+      "sha256": "1c44cab1c02e1b3b157336e1eb8a2a0486ac56bcbb4a20b3517dcf8c091bb6f6"
+    },
+    {
+      "name": "ct35_baseline_rev1 (1).zip",
+      "bytes": 23381947,
+      "sha256": "a8219875d14f5e751099b11fe12a6b8627b4c3a83b618da888bd3b48aa430b12"
+    },
+    {
+      "name": "HC35_Simulation_HPC_Engineering_Spec.html",
+      "bytes": 65244,
+      "sha256": "a7d64633142228c4893e6f9d409fccda59abdc12a4af2fa5e9985dbea3e4c1cd"
+    },
+    {
+      "name": "ct35_baseline_rev1.zip",
+      "bytes": 23381947,
+      "sha256": "a8219875d14f5e751099b11fe12a6b8627b4c3a83b618da888bd3b48aa430b12"
+    },
+    {
+      "name": "ti4.md",
+      "bytes": 7652,
+      "sha256": "4cd98ad06bdf90626a64e624aafd7167ad5c58befc42d4f74fb4523ea70ce198"
+    },
+    {
+      "name": "ti3.md",
+      "bytes": 15156,
+      "sha256": "686252224ce15f27e8090ec49115f93c3a1881c5866db50dce184f5d8f9d3d87"
+    },
+    {
+      "name": "ti2.md",
+      "bytes": 9123,
+      "sha256": "a43668a490b7149f085cb801b6cea05cb9f09e2ac97e4e23e499f0092f3282f6"
+    },
+    {
+      "name": "ti1.md",
+      "bytes": 5017,
+      "sha256": "b0e21d88de63d623e7204c1cd148d0dff796fdecf6aa8c6677f1a4329f9d97f3"
+    }
+  ]
+}

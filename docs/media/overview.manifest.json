@@ -1,0 +1,11 @@
+{
+  "kind": "cosmetic_geometry_view_not_simulation",
+  "units": "mm",
+  "source": "baselines/ct35/genome.json",
+  "source_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+  "builder_sha256": "dafbcadfa9167691ee8d83533ed3cbf44350ff9716138ab8178a83a83624839d",
+  "image_sha256": "aebb39594ca7d4d42bd5733e5268b66f221a1ce5123e6e9277e93b1be553fc14",
+  "cutaway": "render derivative only: remove y>=0 from exact head; accepted solid unchanged",
+  "physics_fields": [],
+  "cadquery_version": "2.7.0"
+}

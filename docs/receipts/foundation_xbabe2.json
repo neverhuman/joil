@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "run_id": "20261015T061200Z-7f84cae6",
+  "kind": "foundation_checks_not_physical_validation",
+  "steps": [
+    {
+      "name": "fmt",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.05690996101475321,
+      "log_bytes": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.1797546349989716,
+      "log_bytes": 72,
+      "log_sha256": "4cf86278c1e6d659943a46a3d7e3da429ac15be90f0f17742e24ef85228e7d3e"
+    },
+    {
+      "name": "rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.2003552679962013,
+      "log_bytes": 1866,
+      "log_sha256": "e6bba8fcbd95414fd608328e8891367e5f3609181a31ba24cc48efe16c94f4a8"
+    },
+    {
+      "name": "baseline",
+      "command": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.07356279698433354,
+      "log_bytes": 1019,
+      "log_sha256": "02325004404fe961768f51c58509540a38f387915507356951e8f607e087d85e"
+    },
+    {
+      "name": "python-tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.10087849301635288,
+      "log_bytes": 646,
+      "log_sha256": "7ac22eb04d037025508dc28c702a8508ccce587c81706b1ed27b5ba778fd8da0"
+    },
+    {
+      "name": "public-check",
+      "command": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.05605802600621246,
+      "log_bytes": 73,
+      "log_sha256": "0fc0d1ee305d32884cc7bc8552f1a6bb8fac000b365fb58f79fdb5b85795138f"
+    },
+    {
+      "name": "npm-ci",
+      "command": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 1.0811555100081023,
+      "log_bytes": 28,
+      "log_sha256": "0f1201f03654191eec12375cb844d8d8e292b6e8ba4a51012b657a38ead050f6"
+    },
+    {
+      "name": "ui-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 2.19357478999882,
+      "log_bytes": 407,
+      "log_sha256": "9cb704646537334fb066303a70b1ed6cc20a192394f38d34013ed63a4e3c4223"
+    },
+    {
+      "name": "cad",
+      "command": [
+        "/home/ubuntu/joil/.venv/bin/python",
+        "cad/ct35/build.py",
+        "--out",
+        "/home/ubuntu/joil/artifacts/20261015T061200Z-7f84cae6/ct35"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 9.694943998008966,
+      "log_bytes": 4222,
+      "log_sha256": "7389f0c131888943e1101d7746ac6d239bf1dbafb1f3bfd5beef71b69c9f3b39"
+    }
+  ],
+  "ui_executed": true,
+  "cad_executed": true,
+  "cfd_executed": false,
+  "input_head": null,
+  "source_files_sha256": {
+    ".cargo/config.toml": "dab50e14bd0876be71c7d9b682110f25e2342b8164589b4e51d513753cd25195",
+    ".github/workflows/foundation.yml": "27025cfea916f4d28f8a6f77613349426e78cf886be2820cca9ec22bda700fe0",
+    ".gitignore": "7b6496a199f86ab7056da89982da1c2d5d817b197483dcb4cd8786b28d5add0e",
+    "AGENTS.md": "d1c1e7fa3202b7c11707f44128e82010f2b37e3203a5ef939da2a95a5a8cb2d4",
+    "Cargo.lock": "a7f45dffcf46d3723fc0d42095bdcfd9487815482e07b51bb1e582d58f7b139a",
+    "Cargo.toml": "08a2e19f214689873454ef203e61e5c23b9242a0faa6ca22488e2bb423cb789f",
+    "README.md": "56a8ea3e980a572babf705064f3daa29d9c03ffc014d9339b7b1df5e3bdd61e3",
+    "apps/explorer/index.html": "75e609a79c52f242a02fff796a43d7504e88beaf474f129b3a896f706be051fe",
+    "apps/explorer/package-lock.json": "74855784b01918ca5e674e07cbe145fce42605a2740bb6a2299763b945080e4a",
+    "apps/explorer/package.json": "6e5c2c1d3129067e802a33ea7e71ed3fa5efae18a345e29861e189cdc6d51c04",
+    "apps/explorer/src/main.tsx": "1156db6f00c241ba8f9e64c822b15a7acdc805429ec08ef2d81fc23d2c36ab4f",
+    "apps/explorer/src/style.css": "5a797bf4044e4f9ac27731abc032f0a045706c86a77f363d20dc8d98f3d3ff39",
+    "apps/explorer/src/vite-env.d.ts": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+    "apps/explorer/tsconfig.json": "00c8f9f0e01ba1154f202befc69003fd32044dc89a78b6db7321f0e33932b97f",
+    "baselines/ct35/cad_audit.json": "e981a6f20e2277ff9a42cc8091e34c573fe078bc3f8e5b810c0afe0b18662f7b",
+    "baselines/ct35/genome.json": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+    "baselines/ct35/reference.json": "9db5bbef73005888ca42d2cfe8c2b7fab938b18fa174dc2c41e7a9c95563f994",
+    "cad/ct35/build.py": "dafbcadfa9167691ee8d83533ed3cbf44350ff9716138ab8178a83a83624839d",
+    "cad/ct35/geometry.py": "6ed669efcd26afa81cfe98fe7752e872cd2dc47e5aeff3ce3d32cffc3b93bfce",
+    "crates/joil-cli/Cargo.toml": "a404e4f98f064f2d2e940a9797adae29079eb8a238fb7bae4303da253dabdea7",
+    "crates/joil-cli/src/main.rs": "da7ff06dd40181fbacbc23aeb75998a51fde5f22e62ce7d54b895229c2ce4812",
+    "crates/joil-core/Cargo.toml": "189243660a16f7faba6545ccd5c195830c50be7fa99b7214051bfb42259a7327",
+    "crates/joil-core/src/geometry.rs": "76e9d270bb91b41f1a7e51c27c25d873e57f6cc8a6dffbd76a8c7997921a17b5",
+    "crates/joil-core/src/lib.rs": "f354a66e12de3bec77e28ce2015eeb2893cc9c1304ded83df65fd0d91d8ce897",
+    "crates/joil-core/src/metrics.rs": "b9b3de30d32dce92368a8c7130c8880c2cd38ae3f1eeca3a739c6e66b227e3b6",
+    "crates/joil-core/tests/regression.rs": "eb2b1361df7b8485a89e37891e3a3556e0a1ceb4453e2f718002e00be22d5936",
+    "docs/COMPUTE.md": "3e8e037b6067923bef59a60e8732f859f957491349444c9d9da38513e1ca2eac",
+    "docs/GENOME.md": "d0033bf64680a6d2c442dd4c1d5f3b217f902596ceda3b84d7ae5fff6cf00e28",
+    "docs/HANDOFF.md": "e2c62c9f02d80d405d6ac6b7cd07e2f6da93d9865df568415a0d8b2cdcfc8113",
+    "docs/MASTER_PLAN.md": "216089c5a666790fc053281d39cc87900ecaf2b8ebd6b943d7f8902aabb1c4d6",
+    "docs/REFERENCES.md": "8e34b4063f26e8848986b597d12b391bda89db77691ad2cddfcf262d43ba8459",
+    "docs/SCIENCE.md": "642f34b05c8e906f60a9209a508ab0233c57a57325badb0e1988a5bbd7fa0aa4",
+    "docs/SOURCE_MANIFEST.json": "73e5c760ea9087c0504b80b6d0d1517fdd14e1e9a4355603e4abfd303183d73d",
+    "docs/SOURCE_REVIEW.md": "b6861849cbc29df75800968a5a0223da5b77da41687dfb6ca1749d65ab4242b8",
+    "docs/STATUS.json": "4015817dd53627ad6bee05ff28834a27c91d5f2929364bfe39e119a1c8ab1415",
+    "docs/TEST_CATALOG.json": "eee93c01d094632e3f492440e9216b7383e5593ab91ba927b6462b01dfad09d8",
+    "docs/WORK_PACKETS.json": "85aa220cd969db69ef2458acb1177e41affa1fe839273eb847bd89bb5d188162",
+    "docs/media/overview.manifest.json": "cfe5e81d7d0949c6ec072b7983d20490b38b550477e201d26bc43573b323cc1f",
+    "docs/media/overview.png": "aebb39594ca7d4d42bd5733e5268b66f221a1ce5123e6e9277e93b1be553fc14",
+    "requirements-cad-lock.txt": "264b23c9cd5f1d8662d76af24c5c90186567a02014a0b7ba6fc7db9f3b79946f",
+    "requirements-cad.txt": "1966d5bf06cb3d4a887b22265a3b55b710e955d7737499b14648d2aa2a486344",
+    "requirements/RS-joil-research-v1.json": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+    "tests/test_foundation.py": "771b6e923f63ae61cf8edfebe39db0ed4e7958a22576fdd414d5924f97331243",
+    "tools/audit_supplied.py": "404fa4e75220ac9d83679f80056f4425024f3eadb077609a135436b4f21698b7",
+    "tools/check.py": "49fb15b79e367be19a9d05c513d7381dbcc4329ab83eb0c96670f0dd95544808",
+    "tools/check_public.py": "fa59d3f923d2e2e88d0cc8602a6bb9a238c181776a57f316d2b7a8d33bae0e10",
+    "visualization/render_baseline.py": "1420b603651ec2d49a0e43c9e3fa622be8cee68e98b636201ccf4d43f5064746"
+  },
+  "environment": {
+    "CARGO_BUILD_JOBS": "4",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "RAYON_NUM_THREADS": "4"
+  },
+  "all_requested_pass": true,
+  "execution_environment": "Ubuntu 24.04 x86_64 / Python 3.12 / Rust 1.95.0 / isolated Node 22.22.0 / CadQuery 2.7.0"
+}

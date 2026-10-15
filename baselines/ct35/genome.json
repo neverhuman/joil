@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "family": "ct35-parametric-v1",
+  "parameters": {
+    "d2_mm": 35.0,
+    "d1_over_d2": 2.0,
+    "l1_over_d1": 1.0,
+    "cone_half_angle_deg": 10.0,
+    "l2_over_d2": 22.0,
+    "d3_over_d2": 0.5,
+    "l3_over_d3": 40.0,
+    "do_over_d2": 0.04,
+    "inlet_area_ratio": 0.0625,
+    "n_inlets": 2,
+    "inlet_h_over_w": 2.0,
+    "inlet_z_offset_mm": 0.0,
+    "inlet_length_cfd_mm": 60.0,
+    "inlet_length_part_mm": 47.0,
+    "orifice_length_over_do": 2.0,
+    "plenum_radius_mm": 6.0,
+    "plenum_length_mm": 20.0,
+    "head_spigot_over_d2": 0.5,
+    "wall_thickness_mm": 3.0
+  }
+}
