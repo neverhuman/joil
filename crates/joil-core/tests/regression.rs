@@ -842,7 +842,7 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
     }
     let _ = std::fs::remove_dir_all(&tmp_root);
 
-    // Verify Wave-2 operators preserve watertightness, manifoldness, and RedTeam checks
+    // Verify Wave-2 operators preserve watertightness, manifoldness, RedTeam checks, and 5-patch OpenFOAM meshability across single and chained mutations
     for i in 0..6 {
         let base_prog = &archetypes[i * 3 % archetypes.len()];
         let m1 = base_prog.mutate_diffeomorphic_spline(&mut rng);
@@ -850,14 +850,26 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
         let m3 = base_prog.mutate_tpms_grading(&mut rng);
         let mate = &archetypes[(i * 3 + 5) % archetypes.len()];
         let c1 = base_prog.crossover_homologous_graph(mate, &mut rng);
+        let chained = m1
+            .mutate_branch_topology(&mut rng)
+            .mutate_tpms_grading(&mut rng)
+            .crossover_homologous_graph(&m2, &mut rng)
+            .mutate_diffeomorphic_spline(&mut rng);
+        let rand_exotic = DesignProgram::sample_random_exotic(&mut rng);
 
-        for child in [m1, m2, m3, c1] {
+        for child in [m1, m2, m3, c1, chained, rand_exotic] {
             let (norm_c, pheno, mesh) = child.canonicalize_and_preflight().unwrap();
             let census = mesh.edge_census();
             assert_eq!(census.open_boundary_edges, 0);
             assert_eq!(census.non_manifold_edges, 0);
             assert!(mesh.signed_volume() > 0.0);
             assert!(redteam::check(&norm_c, &pheno, &mesh).is_ok());
+            let surf = MultiPatchSurface::from_program(&norm_c, 0.0).unwrap();
+            assert!(surf.audit.watertight_and_manifold);
+            assert!(surf.audit.all_terminal_patches_valid);
+            assert_eq!(surf.audit.census.open_boundary_edges, 0);
+            assert_eq!(surf.audit.census.non_manifold_edges, 0);
+            assert!(surf.audit.signed_volume_m3 > 0.0);
         }
     }
 

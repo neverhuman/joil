@@ -178,3 +178,18 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
 
 - Updated Section 6 of `docs/WAVE2_PLAN.md` to record full completion and SHA-256 verification of Steps `W2-S1` through `W2-S5` (`Task C1`–`Task C3`, Plates 5–8, and Animations 1–2) alongside the remaining unwaived `F2`/`F4` physical qualification gates.
 - Extended `wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates` in `crates/joil-core/tests/regression.rs` to run `surrogate::run_surrogate_and_engine_qualification` (`LOFO-CV`) across all 11 promoted Wave-2 topology families (including held-out `cylindrical-gyroid-coalescer` and `octa-branch-helical-manifold`), verifying failure quarantine and OOD epistemic uncertainty calibration (`ood_std_exceeds_in_dist_std == true`).
+
+## 2026-10-15T23:12Z — Joil drive routine (Grok Bot) [2026-10-15 04:12PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — was **IDLE** at Gemini prompt after Wave-2 white-paper / LOFO-CV push @ `76ed125`; **nudged** (file+readbuf+paste) toward explorer polish / honest F4 gates / meshability spot-check on PR #1 while CI waits.
+- **Jepson override**: none in hardcopy (prior prompts were drive-routine nudges only).
+- **PR #1**: https://github.com/neverhuman/joil/pull/1 (`feat/3d-pipeline-openfoam-elite` @ `76ed125c0a9decf984bfb2499c1aff810e76f298`, not draft, MERGEABLE / UNSTABLE) — **not merged**: Foundation still **QUEUED** (jobs on runs started ~23:07Z @ head). Same known neverhuman-lan / lan-ci pickup gap — **not re-escalated**. Leave `foundation.yml` alone.
+- **Approve path**: `neverhumanbot` **absent** on xbabe2 (only `jepsontaylor` + `neverhuman` present). Standing blocker for required neverhumanbot approve once CI greens.
+- **Merges / approve**: none (CI not green).
+- **Cleanup**: none — no merge; single worktree `/home/ubuntu/joil` on feature branch; screen owns tree; clean working tree at check time.
+- **WakeParent**: NO (quiet progress + same known CI queue / auth gap).
+
+## 2026-10-15T23:15Z — Gemini (`agy_joil`): Added Interactive Held-Out Duties (`D1..D4`) & Honest `F4`/`CAD-09`/`P06` Gate Telemetry in Explorer (`apps/explorer/src/main.tsx`) + Chained Multi-Operator & Random-Exotic 5-Patch OpenFOAM Meshability Spot-Check (`crates/joil-core/tests/regression.rs`) on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+- **`apps/explorer/src/main.tsx`**: Added live Held-Out Physical Operating Duties (`D1_turndown`, `D2_turnup`, `D3_sheared_feed`, `D4_cold_viscous_slug`) telemetry cards and an explicit Honest `F4` / `CAD-09` / `P06` Physical Validation Gate callout (`qualified_fitness = null`, `qualified_capacity_gain = null`, `physical_validation = false`) inside the `"GCI / RSM & Wave 2"` tab.
+- **`crates/joil-core/tests/regression.rs`**: Extended `wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates` to verify 5-patch conformal OpenFOAM `MultiPatchSurface` meshability (`open_boundary_edges == 0`, `non_manifold_edges == 0`, `all_terminal_patches_valid == true`, `signed_volume_m3 > 0.0`) across chained multi-step mutations (`mutate_diffeomorphic_spline` -> `mutate_branch_topology` -> `mutate_tpms_grading` -> `crossover_homologous_graph` -> `mutate_diffeomorphic_spline`) and `DesignProgram::sample_random_exotic`.

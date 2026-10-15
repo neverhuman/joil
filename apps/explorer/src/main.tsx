@@ -74,6 +74,8 @@ function HydraulicResults() {
 function App() {
   const [tab, setTab] = useState('3D Explorer');
   const [full, setFull] = useState(false);
+  const [slideIdx, setSlideIdx] = useState(0);
+  const [showAllSlides, setShowAllSlides] = useState(false);
   const p = genome.parameters;
   const rq = rustQualification;
   const el = rq.promoted_3d_elite;
@@ -87,6 +89,17 @@ function App() {
   const rsm = gciRsmReport.rsm_turbulence_closure_crosscheck;
   const w2s = wave2Report.summary_statistics;
   const w2t = wave2Report.pairwise_tests;
+  const wave2Slides = [
+    { title: 'Plate 5 · Exotic 3D Genome Atlas', src: wave2AtlasPlate, sha: 'c4656fea7153db8c…', caption: '4 Wave-2 Exotic 3D archetypes (Cylindrical-Gyroid TPMS, Schwarz-P Shear Buffer, Octa-Branch 8-Jet Helical Manifold, Counter-Fluted Cascade) + 11-family Cout,p95 ranking.' },
+    { title: 'Plate 6 · 10-Seed B0–B3 Ablation & CIs', src: wave2AblationPlate, sha: 'ef83db92f9658d5a…', caption: 'Pre-registered 10-seed equal-budget ablation (5,400 evals): B3 beats B1 & B2 (Mann–Whitney U=100, p_Holm=0.000314, Cliff δ=1.00) + D1–D4 held-out duties & 10% audit.' },
+    { title: 'Plate 7 · 10-Bin Grade Efficiency & DSD', src: wave2GradeDsdPlate, sha: 'cebfca5828bf295e…', caption: '10-bin reduced centrifugal efficiency E_red(d), stratified feed-to-treated DSD transfer, and Hinze d_max vs entry shear G_max.' },
+    { title: 'Plate 8 · P08 Structural Lamé & Modal', src: wave2StructuralPlate, sha: '0b5456a046184f31…', caption: '64-station thick-wall Lamé hoop/radial/Von Mises stress under 2.5 MPa burst duty, Strouhal modal lock-in margin, and LPBF buildability across all 11 families.' },
+    { title: 'Anim 1 · 3D Vortex & QD Illumination', src: wave2VortexQdGif, sha: '1f9ea28fedba6587…', caption: '36-frame 3D animation of oil-droplet core capture (40/20/10 μm) synchronized with 10-seed B3 vs B2 vs B1 hypervolume illumination.' },
+    { title: 'Anim 2 · Phylogenetic 3D Topology Morph', src: wave2TopologyMorphGif, sha: 'dcfadcf06bdd7516…', caption: '36-frame continuous 3D B-rep wireframe morph across the 5-stage evolutionary lineage with live F0/P08/F1 telemetry.' },
+    { title: 'Plate 3 · 3-Grid Roache GCI & Dual RSM', src: gciRsmPlate, sha: '4a7781523f66863f…', caption: 'OpenFOAM 14 3-grid spatial refinement (G0 140k, G1 306k, G2 553k cells) + 7-equation LRR & SSG Reynolds-Stress closure verification.' },
+    { title: 'Plate 4 · OpenFOAM 14 3D Vortex Physics', src: vortexPhysicsPlate, sha: '2fd935f143118a39…', caption: 'Radial swirl U_θ(r), reverse-core axial velocity U_z(r), static pressure core depression, and 100% Lumley turbulence realizability.' },
+  ];
+  const activeSlide = wave2Slides[slideIdx];
   return <><header><a className="brand" href="#">j<span>oil</span><i> / research</i></a><div className="project">EVOLUTIONARY FLUID SYSTEMS</div><span className="state">CFD EXECUTED · UNQUALIFIED</span></header>
     <main><div className="eyebrow">DESIGN SUBJECT / CT-35</div><div className="title"><h1>Better separation.<br /><em>Evidence first.</em></h1><p>Explore internal geometry. Preserve interfaces.<br />Measure every claim against shared duty and uncertainty.</p></div>
       <div className="metrics"><div><small>Reference diameter</small><strong>35 <b>mm</b></strong><span>Colman–Thew reconstruction</span></div><div><small>Reference feed</small><strong>4.0 <b>m³/h</b></strong><span>Provisional operating point</span></div><div><small>Oil reject split</small><strong>2.0 <b>%</b></strong><span>Matched across comparisons</span></div><div><small>Research water quality</small><strong>30 <b>mg/L</b></strong><span>20 mg/L separate stretch duty</span></div></div>
@@ -101,14 +114,43 @@ function App() {
           <div><small>Wave-2 B3 C_out,p95 (10 seeds)</small><strong>{w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.mean.toFixed(2)} <b>mg/L</b></strong><span>95% CI [{w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.ci95_low.toFixed(2)}, {w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.ci95_high.toFixed(2)}]</span></div>
           <div><small>Holm–Bonferroni Wilcoxon</small><strong>p = {w2t[0].p_value_holm_bonferroni.toFixed(5)}</strong><span>Cliff&apos;s δ = {w2t[0].cliffs_delta.toFixed(2)} · 10% audit PASS</span></div>
         </div>
-        <img className="proposalplate" src={wave2AtlasPlate} alt="Wave-2 Exotic 3D Genome Atlas: Cylindrical-Gyroid TPMS, Schwarz-P Rectifier, Octa-Branch 8-Jet Manifold, and Counter-Fluted Cascade" />
-        <img className="proposalplate" src={wave2AblationPlate} alt="Wave-2 10-seed statistical ablation: Hypervolume CIs, Wilcoxon dominance, D1..D4 held-out duties, and 10% rejected-cohort audit" />
-        <img className="proposalplate" src={wave2GradeDsdPlate} alt="Wave-2 10-Bin Grade-Efficiency Curves E_red(d) and Stratified DSD Transfer" />
-        <img className="proposalplate" src={wave2StructuralPlate} alt="Wave-2 P08 Structural Lamé Stress, Modal Lock-In, and LPBF Manufacturability Qualification" />
-        <img className="proposalplate" src={wave2VortexQdGif} alt="Animated 3D Helical Vortex Oil-Droplet Separation and 10-Seed QD Hypervolume Illumination" />
-        <img className="proposalplate" src={wave2TopologyMorphGif} alt="Animated Phylogenetic 3D Topology Morph and Live F0/P08/F1 Telemetry Lineage" />
-        <img className="proposalplate" src={gciRsmPlate} alt="3-Grid Roache GCI and 7-Equation LRR/SSG RSM Verification on Promoted 6-Jet 3D Elite" />
-        <img className="proposalplate" src={vortexPhysicsPlate} alt="OpenFOAM 14 3D Vortex-Core Physics Comparison: CT-35 vs Promoted 6-Jet Elite under k-omega SST, LRR RSM, and SSG RSM" />
+        <h3>Held-Out Physical Operating Duties (D1..D4) — Promoted Wave-2 Exotic Elite</h3>
+        <div className="metrics measured">
+          {wave2Report.promoted_wave2_top_elite_held_out_duties.map(d => (
+            <div key={d.duty_id}>
+              <small>{d.duty_id.replaceAll('_', ' ')} ({d.q_in_m3_h.toFixed(1)} m³/h, d50={d.d50_feed_um} μm)</small>
+              <strong>{d.cout_mg_l.toFixed(2)} <b>mg/L</b></strong>
+              <span>Δp_u {(d.dp_u_pa / 1000).toFixed(2)} kPa · d50 cut {d.d50_cut_um.toFixed(2)} μm · {d.passes_30_mg_l ? 'PASS (<15 mg/L)' : 'FAIL'}</span>
+            </div>
+          ))}
+        </div>
+        <div className="note">
+          <strong>Honest F4 / CAD-09 / P06 Physical Validation Gate Status (Unwaived)</strong>
+          <p>All metrics above are hash-bound computational and numerical verification artifacts (F0 / F1 / F2-carrier). In strict compliance with SCIENCE.md, qualified_fitness = {String(status.qualified_fitness)}, qualified_capacity_gain = {String(status.qualified_capacity_gain)}, and physical_validation = {String(status.physical_validation)} remain locked until: (1) CAD-09 LPBF Ti-6Al-4V X-ray CT metrology confirms throat tolerance ≤ 150 μm and bore roughness k_s ≤ 35 μm; (2) F2-Oil 10-bin coupled residence-time OpenFOAM qualification completes; and (3) P06 5-block blinded randomized A/B/A flow-loop rig crossover demonstrates LCB₉₅(ΔC_out) &lt; 0 at matched r = 2.00 ± 0.05%.</p>
+        </div>
+        <div className="panelhead" style={{ marginTop: '24px' }}>
+          <div>
+            <h3>Publication Figure &amp; Animation Carousel ({slideIdx + 1} / {wave2Slides.length}: {activeSlide.title})</h3>
+            <p>{activeSlide.caption} · SHA-256: <code>{activeSlide.sha}</code></p>
+          </div>
+          <div className="toggle">
+            <button onClick={() => setSlideIdx((slideIdx + wave2Slides.length - 1) % wave2Slides.length)}>← Prev</button>
+            <button onClick={() => setSlideIdx((slideIdx + 1) % wave2Slides.length)}>Next →</button>
+            <button className={showAllSlides ? 'selected' : ''} onClick={() => setShowAllSlides(!showAllSlides)}>{showAllSlides ? 'Carousel view' : 'Show all 8'}</button>
+          </div>
+        </div>
+        <div className="toggle" style={{ flexWrap: 'wrap', marginTop: '10px' }}>
+          {wave2Slides.map((s, idx) => (
+            <button key={s.title} className={!showAllSlides && slideIdx === idx ? 'selected' : ''} onClick={() => { setShowAllSlides(false); setSlideIdx(idx); }}>
+              {s.title}
+            </button>
+          ))}
+        </div>
+        {!showAllSlides ? (
+          <img className="proposalplate" src={activeSlide.src} alt={activeSlide.title} />
+        ) : (
+          wave2Slides.map(s => <img key={s.title} className="proposalplate" src={s.src} alt={s.title} />)
+        )}
       </section>}
       {tab === 'Geometry' && <div className="geometry"><section className="panel"><div className="panelhead"><div><h2>CT-35 / analytic section</h2><p>Schematic only · mm · no simulated field coloring</p></div><div className="toggle"><button className={!full ? 'selected' : ''} onClick={() => setFull(false)}>Head</button><button className={full ? 'selected' : ''} onClick={() => setFull(true)}>Full liner</button></div></div><Section full={full} /><div className="legend"><span><i className="dot gold" />Upstream design region</span><span><i className="dot cyan" />Fluid profile</span><span>Actual STEP, wall thickness and patch audit live in generated artifacts.</span></div></section><aside className="panel"><h2>Baseline contract</h2><dl><dt>Genome</dt><dd>{genome.family}</dd><dt>Chamber ID</dt><dd>70 mm</dd><dt>Oil bore</dt><dd>{(p.d2_mm * p.do_over_d2).toFixed(1)} mm</dd><dt>Twin feed area</dt><dd>2 × 120.264 mm²</dd><dt>Fluid inventory</dt><dd>1.1058 L / includes extensions</dd><dt>Nominal V/Q</dt><dd>0.995 s / not residence distribution</dd></dl><div className="note"><strong>Fit remains unresolved</strong><p>Assumed 45 mm radial envelope conflicts with inlet ports. Actual vessel drawing required before fit qualification.</p></div></aside></div>}
       {tab === 'Baseline run' && <HydraulicResults />}
