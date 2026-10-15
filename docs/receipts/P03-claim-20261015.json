@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "P03",
+  "owner": "root_integrator",
+  "input_head": "bd49023c65a132a32104825a8d8d580536434f59",
+  "created_utc": "2026-10-15T06:28:24.358508+00:00",
+  "scope": [
+    "physics/openfoam/",
+    "docs/physics/",
+    "tests/test_openfoam.py"
+  ],
+  "intent": "Pin isolated Foundation 14 runtime, qualify basic capability and implement reproducible full-liner exploratory water pilot. No industrial qualification or oil-removal claim.",
+  "dependencies": "P01 full contracts pending; environment and elementary verification may proceed independently; no campaign admission.",
+  "allocation": {
+    "max_physical_cores": 4,
+    "memory_gib": 12,
+    "output_gib": 5,
+    "gpu": false
+  },
+  "forbidden": [
+    "jarambit and all unrelated projects",
+    ".private raw source modifications",
+    "shared system configuration",
+    "physical validation promotion"
+  ]
+}

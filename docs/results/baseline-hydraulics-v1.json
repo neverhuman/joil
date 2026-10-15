@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "kind": "executed_baseline_hydraulic_diagnostics",
+  "created_utc": "2026-10-15T07:57:13.492790+00:00",
+  "baseline_genome_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+  "requirements_sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+  "extractor_sha256": "4b5182103c7681f046c443005874d701c6184eb9ac809a488045c4f9a028c377",
+  "points": [
+    {
+      "run_id": "ct35-sst-diagnostic-000",
+      "kind": "measured_unqualified_F1_initializer",
+      "model": "kOmegaSST",
+      "numerical_outlet_extension_m": 0,
+      "observations": {
+        "pseudo_iteration": 500.0,
+        "physical_elapsed_time_s": null,
+        "feed_m3_h": 4.0000000000032,
+        "treated_m3_h": 3.9384780427836,
+        "reject_fraction": 0.015366825692429706,
+        "flow_orientation_valid": true,
+        "water_closure_fraction": 1.3663612457902307e-05,
+        "static_tap_drop_pa": 28721.85279893564,
+        "pdr": 4.481669539233268,
+        "port_flow_m3_s": {
+          "inlet1": -0.000555555555556,
+          "inlet2": -0.000555555555556,
+          "overflow": 1.707425076938e-05,
+          "underflow": 0.001094021678551
+        },
+        "port_area_average_static_pressure_pa": {
+          "inlet1": 28720.980926325337,
+          "inlet2": 28722.72467154594,
+          "overflow": -100000.000000396,
+          "underflow": 0.0
+        }
+      },
+      "full_domain_hydraulic_loss_w": 33.5303983708144,
+      "full_domain_hydraulic_loss_j_per_treated_m3": 30648.7513256919,
+      "external_outlet_reverse_flow_m3_s": {
+        "overflow": 4.22317422636431e-05,
+        "underflow": 0
+      },
+      "original_device_overflow": null,
+      "oil_capture": null,
+      "cout_mg_l": null,
+      "fitness": {
+        "policy": "fixed-duty-exploratory-screen-v1",
+        "minimize_screen_vector": null,
+        "screen_units": [
+          "mg/L dispersed oil",
+          "J/m3 treated water"
+        ],
+        "sampled_quality": "unknown",
+        "treated_flow_m3_h": 3.938532697233432,
+        "qualified_multiobjective_vector": null,
+        "qualified_capacity_gain": null,
+        "campaign_admission": "not_implemented_fail_closed",
+        "remaining_qualification_reasons": [
+          "external_outlet_backflow_requires_resolution",
+          "mesh_qualification_failed",
+          "no_independent_physical_validation",
+          "oil_transport_not_included",
+          "outside_draft_pdr_range",
+          "pressure_energy_and_absolute_pressure_limits_unresolved",
+          "spatial_and_temporal_error_unresolved",
+          "steady_initializer_not_transient_statistics",
+          "target_split_not_met"
+        ]
+      },
+      "evidence": {
+        "snapshot": {
+          "path": "runs/ct35-sst-diagnostic-000/snapshot-first/snapshot.json",
+          "sha256": "d3281eb18b65fc12baa99618f77e0982be9df7229f56517d6c0cec18f8de2fc6"
+        },
+        "native_integrals": {
+          "path": "runs/ct35-sst-diagnostic-000/hydraulic-integrals-t500.json",
+          "sha256": "5ace354a1489f3ff4a93b03ec61b409e54c08eef3a0e3538e667c33584fc9aff"
+        },
+        "native_metrics_binary_sha256": "e071e90e7080d412f39573cb3b526aec1fa1af0da7bed8fdd9a38748248d36ac",
+        "execution": {
+          "runs/ct35-sst-diagnostic-000/water-1-mpirun.log.receipt.json": {
+            "sha256": "eff851eaab0f70769424c48358242c92703d1444ba34eac4359ecd3549410ed5",
+            "wall_seconds": 395.54835253200145,
+            "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+            "exit_code": 0
+          },
+          "runs/ct35-sst-diagnostic-000/metrics-t500-0-joilHydraulicMetrics.log.receipt.json": {
+            "sha256": "7f362dacd4f5a008a3f68c38b911dbfbba39a8d199ec044b12cda5c536f74628",
+            "wall_seconds": 2.7888183259929065,
+            "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+            "exit_code": 0
+          }
+        }
+      }
+    },
+    {
+      "run_id": "ct35-sst-split-001",
+      "kind": "measured_unqualified_F1_initializer",
+      "model": "kOmegaSST",
+      "numerical_outlet_extension_m": 0,
+      "observations": {
+        "pseudo_iteration": 300.0,
+        "physical_elapsed_time_s": null,
+        "feed_m3_h": 4.0000000000032,
+        "treated_m3_h": 3.9229746407892,
+        "reject_fraction": 0.019249037943176603,
+        "flow_orientation_valid": true,
+        "water_closure_fraction": 7.301860307985133e-06,
+        "static_tap_drop_pa": 30854.670047333122,
+        "pdr": 6.347650768821477,
+        "port_flow_m3_s": {
+          "inlet1": -0.000555555555556,
+          "inlet2": -0.000555555555556,
+          "overflow": 2.138781993688e-05,
+          "underflow": 0.001089715177997
+        },
+        "port_area_average_static_pressure_pa": {
+          "inlet1": 30853.78235035498,
+          "inlet2": 30855.557744311263,
+          "overflow": -165000.000000354,
+          "underflow": 0.0
+        }
+      },
+      "full_domain_hydraulic_loss_w": 37.7575106612055,
+      "full_domain_hydraulic_loss_j_per_treated_m3": 34648.9719732121,
+      "external_outlet_reverse_flow_m3_s": {
+        "overflow": 5.18175013875158e-05,
+        "underflow": 0
+      },
+      "original_device_overflow": null,
+      "oil_capture": null,
+      "cout_mg_l": null,
+      "fitness": {
+        "policy": "fixed-duty-exploratory-screen-v1",
+        "minimize_screen_vector": null,
+        "screen_units": [
+          "mg/L dispersed oil",
+          "J/m3 treated water"
+        ],
+        "sampled_quality": "unknown",
+        "treated_flow_m3_h": 3.923003848230432,
+        "qualified_multiobjective_vector": null,
+        "qualified_capacity_gain": null,
+        "campaign_admission": "not_implemented_fail_closed",
+        "remaining_qualification_reasons": [
+          "external_outlet_backflow_requires_resolution",
+          "mesh_qualification_failed",
+          "no_independent_physical_validation",
+          "oil_transport_not_included",
+          "outside_draft_pdr_range",
+          "pressure_energy_and_absolute_pressure_limits_unresolved",
+          "spatial_and_temporal_error_unresolved",
+          "steady_initializer_not_transient_statistics",
+          "target_split_not_met"
+        ]
+      },
+      "evidence": {
+        "snapshot": {
+          "path": "runs/ct35-sst-split-001/snapshot-final/snapshot.json",
+          "sha256": "831f9f5f6ca859faff88b0bf6b42055bdffe69e262239393c36f1adf833e9299"
+        },
+        "native_integrals": {
+          "path": "runs/ct35-sst-split-001/hydraulic-integrals-t300.json",
+          "sha256": "a3fe985f0255cad485ef3b9de2e304e22df69059ab422b223fe806f7f4dd6410"
+        },
+        "native_metrics_binary_sha256": "e071e90e7080d412f39573cb3b526aec1fa1af0da7bed8fdd9a38748248d36ac",
+        "execution": {
+          "runs/ct35-sst-split-001/water-1-mpirun.log.receipt.json": {
+            "sha256": "f72eb33c07351c4df60eca480fbe57a25ac6a74dfba458f976bedb97d332c312",
+            "wall_seconds": 163.01581053200061,
+            "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+            "exit_code": 0
+          },
+          "runs/ct35-sst-split-001/metrics-t300-0-joilHydraulicMetrics.log.receipt.json": {
+            "sha256": "af89d58304daa09da0ab96238a56c1cbd4bd3a59a287f940c8423ff783ba0ccd",
+            "wall_seconds": 4.550959349988261,
+            "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+            "exit_code": 0
+          }
+        }
+      }
+    },
+    {
+      "run_id": "ct35-sst-extended-000",
+      "kind": "measured_unqualified_F1_initializer",
+      "model": "kOmegaSST",
+      "numerical_outlet_extension_m": 0.12,
+      "observations": {
+        "pseudo_iteration": 600.0,
+        "physical_elapsed_time_s": null,
+        "feed_m3_h": 4.0000000000032,
+        "treated_m3_h": 3.9199278494664,
+        "reject_fraction": 0.019859604888413113,
+        "flow_orientation_valid": true,
+        "water_closure_fraction": 0.00015843274577089387,
+        "static_tap_drop_pa": 29468.219129471345,
+        "pdr": 7.1082754682007545,
+        "port_flow_m3_s": {
+          "inlet1": -0.000555555555556,
+          "inlet2": -0.000555555555556,
+          "overflow": 2.206622765381e-05,
+          "underflow": 0.001088868847074
+        },
+        "port_area_average_static_pressure_pa": {
+          "inlet1": 29467.30695577974,
+          "inlet2": 29469.131303162958,
+          "overflow": -180000.000000114,
+          "underflow": 0.0
+        }
+      },
+      "full_domain_hydraulic_loss_w": 37.0263787625769,
+      "full_domain_hydraulic_loss_j_per_treated_m3": 34004.4431081692,
+      "external_outlet_reverse_flow_m3_s": {
+        "overflow": 0,
+        "underflow": 0
+      },
+      "original_device_overflow": {
+        "faces": 180,
+        "area_m2": 0.000112942384920101,
+        "signed_flow_m3_s": 2.22348286120989e-05,
+        "reverse_flow_m3_s": 5.28735850997123e-05,
+        "area_average_static_pressure_pa": -182481.536380434,
+        "outward_mechanical_power_w": -3.65033821783853,
+        "device_hydraulic_loss_w": 36.7052753500418,
+        "device_hydraulic_loss_j_per_treated_m3": 33709.5467913188,
+        "interpolation": "linear face p,U; native conservative phi"
+      },
+      "oil_capture": null,
+      "cout_mg_l": null,
+      "fitness": {
+        "policy": "fixed-duty-exploratory-screen-v1",
+        "minimize_screen_vector": null,
+        "screen_units": [
+          "mg/L dispersed oil",
+          "J/m3 treated water"
+        ],
+        "sampled_quality": "unknown",
+        "treated_flow_m3_h": 3.920561580449484,
+        "qualified_multiobjective_vector": null,
+        "qualified_capacity_gain": null,
+        "campaign_admission": "not_implemented_fail_closed",
+        "remaining_qualification_reasons": [
+          "mesh_qualification_failed",
+          "no_independent_physical_validation",
+          "oil_transport_not_included",
+          "outside_draft_pdr_range",
+          "pressure_energy_and_absolute_pressure_limits_unresolved",
+          "spatial_and_temporal_error_unresolved",
+          "steady_initializer_not_transient_statistics"
+        ]
+      },
+      "evidence": {
+        "snapshot": {
+          "path": "runs/ct35-sst-extended-000/snapshot-final/snapshot.json",
+          "sha256": "0e931f5faf7fcc6725224e2b3a0dc8b4e6fb8db28d73e7bf7a713c3bc9116c95"
+        },
+        "native_integrals": {
+          "path": "runs/ct35-sst-extended-000/hydraulic-integrals-t600.json",
+          "sha256": "363da3375ec4057417a2ae1c55e5cc1614a64c062dd9d851dcafc73a5efd45ab"
+        },
+        "native_metrics_binary_sha256": "ce2e33a759000099c7846f20053fe86bab4c10d8da7f4df94a22999f0cc6cb07",
+        "execution": {
+          "runs/ct35-sst-extended-000/water-1-mpirun.log.receipt.json": {
+            "sha256": "fe4b0274c100131551dd40e7e9e8b8a5a8b28676c41e276b1a05539b22e586ec",
+            "wall_seconds": 621.4497782989929,
+            "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+            "exit_code": 0
+          },
+          "runs/ct35-sst-extended-000/metrics-t600-0-joilHydraulicMetrics.log.receipt.json": {
+            "sha256": "e4c4799104e8e29aca9ec0f03c8534304d53f3012b07a06502932753c8760b71",
+            "wall_seconds": 7.3118316550098825,
+            "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+            "exit_code": 0
+          }
+        }
+      }
+    }
+  ],
+  "qualified_baseline": false,
+  "physical_validation": false,
+  "qualified_capacity_gain": null,
+  "limitations": [
+    "Steady pseudo-iterations are not physical sampling times or confidence intervals.",
+    "SST is an initializer; transient Reynolds-stress, grid/time/model and oil qualification remain open.",
+    "The seed mesh fails the all-geometry concave-cell check and has no wall-layer qualification.",
+    "Outlet extension changes the numerical domain, not the fixed device genotype.",
+    "Static pressure taps and mechanical energy flux are distinct; pump/system energy is unknown.",
+    "Oil-removal, compliance, structural suitability and superiority are unknown."
+  ]
+}

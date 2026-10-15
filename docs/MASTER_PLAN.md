@@ -2,6 +2,8 @@
 
 Version 1, 14 October 2026, America/Los_Angeles. Status: final planning baseline, with a small executable foundation. This is a gated research programme, not a claim that the simulator already works. `STATUS.json` distinguishes executed work from planned work. Revisions require a reason and new content identity; retain the old plan and requirement record.
 
+Execution update,15October2026: the user activated baseline implementation and coordination with Gemini. P01–P05/P09 now have partial implementations and source-bound research diagnostics; none is fully qualified. Read `STATUS.json`, `BASELINE_RUN.md`, `PILOT_RUNBOOK.md` and live ignored root `COORD.md`. The original plan/dependency gates and frozen requirement remain in force. In particular, geometry proposals and synthetic search-software tests do not authorize a performance-selected campaign.
+
 ## 1. Objective and decision
 
 Create a reproducible design-and-test system for removable deoiling hydrocyclone heads. Represent CT-35 exactly at baseline and allow substantially different inlet paths, wall contours and connectivity later. Identify designs that increase **compliant treated-water capacity** under the same feed, pressure budget, reject policy, footprint and manufacturing condition. A winning computation must survive numerical refinement, model challenges, measured geometry and paired experiments.

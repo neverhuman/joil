@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "status": "planned_not_dispatched",
+  "status": "P00_complete_P01_to_P05_and_P09_partially_active",
   "root": "/home/ubuntu/joil",
   "master": "docs/MASTER_PLAN.md",
   "forbidden": [
@@ -19,7 +19,7 @@
     "baselines/**",
     "shared_Rust_types"
   ],
-  "parallel_policy": "Only disjoint owned paths after shared contracts land; P00 writes are completed before future workers start. P06 protocol can prepare after P01, physical completion also consumes P04/P05. No agents have been dispatched.",
+  "parallel_policy": "User authorized concurrent Gemini coordination via ignored root COORD.md. Only named disjoint files; root integrator owns shared manifests/status and admission. Partial diagnostic work does not complete dependency gates or authorize performance-selected search.",
   "packets": [
     {
       "id": "P00",
@@ -62,7 +62,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "foundation_complete"
     },
     {
       "id": "P01",
@@ -107,7 +108,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "partial_unqualified"
     },
     {
       "id": "P02",
@@ -147,7 +149,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "partial_unqualified"
     },
     {
       "id": "P03",
@@ -187,7 +190,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "partial_unqualified"
     },
     {
       "id": "P04",
@@ -228,7 +232,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "partial_unqualified"
     },
     {
       "id": "P05",
@@ -268,7 +273,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "partial_unqualified"
     },
     {
       "id": "P06",
@@ -309,7 +315,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "planned"
     },
     {
       "id": "P07",
@@ -351,7 +358,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "planned"
     },
     {
       "id": "P08",
@@ -392,7 +400,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "planned"
     },
     {
       "id": "P09",
@@ -433,7 +442,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "partial_unqualified"
     },
     {
       "id": "P10",
@@ -481,7 +491,8 @@
         "missing_required_evidence",
         "resource_pressure",
         "unresolved_numerical_or_model_error"
-      ]
+      ],
+      "execution_status": "planned"
     }
   ]
 }

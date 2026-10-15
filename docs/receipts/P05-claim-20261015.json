@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "P05",
+  "owner": "root_integrator",
+  "input_head": "bd49023c65a132a32104825a8d8d580536434f59",
+  "created_utc": "2026-10-15T06:41:54.489702+00:00",
+  "scope": [
+    "physics/openfoam/droplets/",
+    "physics/openfoam/verification/droplet*",
+    "analysis/droplets.py",
+    "tests/test_droplets.py"
+  ],
+  "intent": "Native liquid-density force verification and explicit mean-carrier/no-breakup exploratory transport. No promotion to RSM dispersion or physical validation.",
+  "dependencies": "P04 exploratory carrier in progress; elementary tests use prescribed fields, independent of device case."
+}

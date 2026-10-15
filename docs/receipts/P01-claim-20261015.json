@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "P01",
+  "owner": "root_integrator",
+  "input_head": "bd49023c65a132a32104825a8d8d580536434f59",
+  "created_utc": "2026-10-15T06:34:52.130053+00:00",
+  "scope": [
+    "analysis/",
+    "schemas/",
+    "tests/test_evidence.py",
+    "crates/joil-core/src/identity.rs",
+    "crates/joil-core/src/evidence.rs",
+    "crates/joil-core/src/duty.rs"
+  ],
+  "intent": "Bind case, source, runtime, observations and explicit fitness eligibility; exploratory numerical outputs remain separate from qualified comparison.",
+  "boundaries": "No change to frozen CT35 duty or industrial promotion gates. No concurrent writers."
+}

@@ -1,4 +1,5 @@
 .private/
+/COORD.md
 .venv/
 __pycache__/
 *.pyc

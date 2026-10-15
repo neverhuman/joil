@@ -1,0 +1,133 @@
+{
+  "kind": "executed_CPU_environment_capability_not_physics_validation",
+  "passed": true,
+  "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+  "build": "14-a4867fc914c1",
+  "platform": "linux/amd64",
+  "precision": "double",
+  "versions": {
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "mpi": "mpirun (Open MPI) 4.1.6"
+  },
+  "package_manifest_sha256": "0e28f1a11dcd8ffb82f08de51b15d6cc79d59e06bf281ad08ee5f3b7ccf1c403",
+  "lock_sha256": "64fe54e323f398e842345a1d01d2137ec0a8880627d34426199ede4c03a136a4",
+  "doctor_source_sha256": "7efc8ce0937ab27fab972691586cc3a4ac3d744edeac9d5957420e042094ca50",
+  "commands": [
+    {
+      "command": [
+        "foamRun",
+        "-help"
+      ],
+      "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+      "exit_code": 0,
+      "wall_seconds": 1.1175682989996858,
+      "log_sha256": "debfdd260ebfa09b7b04b6035574b69872767248703bcf3abe3288cb51fa3f34",
+      "log_bytes": 833,
+      "stop_reason": null,
+      "driver_source_sha256": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+      "resource_lease_id": "initial_project_allocation",
+      "max_observed_shared_output_bytes": 2624313882,
+      "allocation": {
+        "logical_cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "quota_cores": 4,
+        "memory_gib": 12,
+        "gpu": false
+      }
+    },
+    {
+      "command": [
+        "g++",
+        "--version"
+      ],
+      "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+      "exit_code": 0,
+      "wall_seconds": 0.8045219259802252,
+      "log_sha256": "59d1cbef41d4ae78d5063d525b7aa13d18dc0493ea00537efc19b2ee398cb5a8",
+      "log_bytes": 246,
+      "stop_reason": null,
+      "driver_source_sha256": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+      "resource_lease_id": "initial_project_allocation",
+      "max_observed_shared_output_bytes": 2624315382,
+      "allocation": {
+        "logical_cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "quota_cores": 4,
+        "memory_gib": 12,
+        "gpu": false
+      }
+    },
+    {
+      "command": [
+        "mpirun",
+        "--version"
+      ],
+      "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+      "exit_code": 0,
+      "wall_seconds": 1.32754433399532,
+      "log_sha256": "c2ec9fd7b47e6992ca3248b8d42a2a83bd89b1e8ad8ae679f0e8a1a1425180dd",
+      "log_bytes": 80,
+      "stop_reason": null,
+      "driver_source_sha256": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+      "resource_lease_id": "initial_project_allocation",
+      "max_observed_shared_output_bytes": 2624316295,
+      "allocation": {
+        "logical_cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "quota_cores": 4,
+        "memory_gib": 12,
+        "gpu": false
+      }
+    },
+    {
+      "command": [
+        "dpkg-query",
+        "-W",
+        "-f=${Package}\t${Version}\n"
+      ],
+      "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+      "exit_code": 0,
+      "wall_seconds": 1.3046674200159032,
+      "log_sha256": "0e28f1a11dcd8ffb82f08de51b15d6cc79d59e06bf281ad08ee5f3b7ccf1c403",
+      "log_bytes": 12641,
+      "stop_reason": null,
+      "driver_source_sha256": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+      "resource_lease_id": "initial_project_allocation",
+      "max_observed_shared_output_bytes": 2624317042,
+      "allocation": {
+        "logical_cpus": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "quota_cores": 4,
+        "memory_gib": 12,
+        "gpu": false
+      }
+    }
+  ],
+  "qualified_for": [
+    "native binary startup and version identity only"
+  ],
+  "not_qualified": [
+    "turbulent carrier",
+    "oil transport",
+    "MPI scaling/restart",
+    "GPU",
+    "hydrocyclone performance"
+  ],
+  "rebuild_limitation": "transitive apt dependency snapshot not pinned; revalidate a new build identity"
+}

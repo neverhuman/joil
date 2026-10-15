@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "P02",
+  "owner": "root_integrator",
+  "input_head": "bd49023c65a132a32104825a8d8d580536434f59",
+  "created_utc": "2026-10-15T06:56:58.320729+00:00",
+  "scope": [
+    "cad/program/",
+    "cad/tests/",
+    "experiments/search/proposals-v1.json"
+  ],
+  "intent": "Variable-length smooth chamber-wall design program, exact baseline identity branch, immutable ports/collar/tail, novel CAD proposal archive. Geometry-only exploration; no claimed hydraulic or separation superiority.",
+  "dependency_status": "P01 partial; explicit versioned local contract. P07 performance search remains blocked pending evaluator gates."
+}

@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "seed": 20261015,
+  "operator": "smooth-wall-mode-insertion-v1",
+  "status": "proposal_archive_not_performance_evolution",
+  "fitness": null,
+  "selection": "none; ordered deterministic proposals including zero-mutation baseline",
+  "programmes": [
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": []
+    },
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": [
+        {
+          "azimuthal_order": 5,
+          "cos_mm": -0.9090773746963269,
+          "sin_mm": 0.5427071735516009,
+          "twist_rad": -6.151569697534179
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": [
+        {
+          "azimuthal_order": 3,
+          "cos_mm": -0.20625614995420566,
+          "sin_mm": 0.41334890281389847,
+          "twist_rad": 0.3163098371196469
+        },
+        {
+          "azimuthal_order": 7,
+          "cos_mm": 0.5376397852803781,
+          "sin_mm": -0.2845516186849191,
+          "twist_rad": 2.3772498352402014
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": [
+        {
+          "azimuthal_order": 5,
+          "cos_mm": -0.12969615711395682,
+          "sin_mm": 0.4560519721783927,
+          "twist_rad": 4.1548499029659745
+        },
+        {
+          "azimuthal_order": 8,
+          "cos_mm": -0.10685026712395349,
+          "sin_mm": 0.41930941370665464,
+          "twist_rad": 5.105360146877464
+        },
+        {
+          "azimuthal_order": 2,
+          "cos_mm": -0.44603910094152344,
+          "sin_mm": 0.03135977713410912,
+          "twist_rad": 6.167413917539136
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": [
+        {
+          "azimuthal_order": 3,
+          "cos_mm": 0.15669984268726295,
+          "sin_mm": -1.1705882955108204,
+          "twist_rad": -2.8898095543838114
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": [
+        {
+          "azimuthal_order": 2,
+          "cos_mm": 0.6106594974049308,
+          "sin_mm": -0.49973933000018184,
+          "twist_rad": 2.3574841814241108
+        },
+        {
+          "azimuthal_order": 2,
+          "cos_mm": -0.7508013586745529,
+          "sin_mm": 0.3014076989025744,
+          "twist_rad": 0.4730793790852683
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": [
+        {
+          "azimuthal_order": 7,
+          "cos_mm": 0.4781667839120124,
+          "sin_mm": -0.24286219967155737,
+          "twist_rad": 1.3835103859745477
+        },
+        {
+          "azimuthal_order": 7,
+          "cos_mm": 0.2972127525659648,
+          "sin_mm": -0.1053492111623935,
+          "twist_rad": -5.412120078688525
+        },
+        {
+          "azimuthal_order": 5,
+          "cos_mm": -0.11310111429880822,
+          "sin_mm": -0.2885376745306194,
+          "twist_rad": 0.7329840210380159
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": [
+        {
+          "azimuthal_order": 5,
+          "cos_mm": -0.10071610310707378,
+          "sin_mm": 1.274725473738306,
+          "twist_rad": 5.589484151898954
+        }
+      ]
+    },
+    {
+      "schema_version": 1,
+      "family": "ct35-chamber-wall-field-v1",
+      "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "modes": [
+        {
+          "azimuthal_order": 7,
+          "cos_mm": 0.6326745042878708,
+          "sin_mm": 0.25699515021067704,
+          "twist_rad": 4.094610049045539
+        },
+        {
+          "azimuthal_order": 3,
+          "cos_mm": -0.22062717994100733,
+          "sin_mm": 0.5028137443223099,
+          "twist_rad": 5.374813167752578
+        }
+      ]
+    }
+  ]
+}

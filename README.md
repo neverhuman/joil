@@ -4,7 +4,7 @@ Evidence-driven evolutionary design of deoiling hydrocyclone cartridges.
 
 Goal: more compliant treated water per liner at a fixed pressure budget and reject fraction, with performance established through numerical verification and paired physical tests. Explore unconventional internal geometry without rewarding simulation errors.
 
-**Current status: planning and executable foundation. No CFD result, separation gain, pressure rating, sour-service qualification or manufactured winner is claimed.**
+**Current status: first full-liner hydraulic diagnostics executed; oil fitness and performance-selected evolution remain unqualified.** The extended-outlet SST initializer reaches 4 m³/h and 1.986% reject, with 29.47 kPa static pressure drop and 33.71 kJ/m³ device mechanical loss. Mesh, transient, oil and independent validation gates remain open; these are not industrial performance claims.
 
 - [Master implementation plan](docs/MASTER_PLAN.md)
 - [Physics, scoring and validation contract](docs/SCIENCE.md)
@@ -13,6 +13,8 @@ Goal: more compliant treated water per liner at a fixed pressure budget and reje
 - [Primary references](docs/REFERENCES.md)
 - [Work packets](docs/WORK_PACKETS.json) · [Status](docs/STATUS.json)
 - [Compute and installation runbook](docs/COMPUTE.md)
+- [Actual baseline KPIs, failures and qualification limits](docs/BASELINE_RUN.md)
+- [Reproduce the pinned pilot](docs/PILOT_RUNBOOK.md)
 
 ![CT-35 exact CAD cutaway and head fluid domain; geometry only](docs/media/overview.png)
 
@@ -36,6 +38,6 @@ rtk proxy python3 tools/check.py --cad
 
 CAD outputs include canonical mm STEP, mm and metre STL previews, metre glTF, terminal patch definitions and an audit report. Each check run uses a fresh output directory. Labelled conformal CFD tessellation is a later acceptance gate. See the report before using geometry downstream; scaling STEP coordinates without changing declared units is not a unit conversion.
 
-Stack: Rust numerical contracts and future search/control; Python/Open CASCADE CAD and scientific tools; OpenFOAM CPU/MPI reference planned; Vite/TypeScript/React explorer. Blender assets will carry geometry and field provenance separately.
+Stack: Rust numerical contracts and future search/control; Python/Open CASCADE CAD and scientific tools; pinned OpenFOAM Foundation 14 CPU/MPI pilot; Vite/TypeScript/React evidence explorer. Eight flexible chamber proposals plus the exact baseline have audited STEP/STL/GLB outputs. Geometry and actual saved-field views carry separate provenance; they have no performance-selected winner.
 
 No jarambit code or shared environment is modified or required at runtime. Raw supplied material and installation details stay in ignored private storage. No project software license has been selected yet; dependency licenses remain their own.

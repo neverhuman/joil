@@ -1,0 +1,55 @@
+{
+  "kind": "actual_cad_surface_section_not_simulation",
+  "plane_z_m": 0.0425,
+  "axis_units": "mm",
+  "sources": [
+    {
+      "index": 0,
+      "surface_sha256": "567d66e3a718f82696b046de39bb37b490ef1912af8bb94026eb76f97d1c8e55",
+      "report_sha256": "71c772e1a15d2caca7a8d4cf74bb798d134ef94d59ad77a6bde1769775c01bcc"
+    },
+    {
+      "index": 1,
+      "surface_sha256": "547a11df5da50aead4d5275359b3bdc24cfe007697b36c5213cc18976f9d0dc8",
+      "report_sha256": "7b3514d96696306af140554df70da6efdc0a83583630174a9e4b1f1e2b060031"
+    },
+    {
+      "index": 2,
+      "surface_sha256": "dbc63295a7ad5c61dc0e90e1086dbde507b4f61dba53612be70b6605269212d6",
+      "report_sha256": "a401a4a48875243f6b8c9318caeaf153b80d3fe1fecbc2ae6ad80590edae5634"
+    },
+    {
+      "index": 3,
+      "surface_sha256": "d29f409e143075d333ccc048a04d0f40831d560616a6efa7087528e26df7ec11",
+      "report_sha256": "4a1192eaab4bb2ca5519ddc4b5a34f5d47c69afd42bea5dd43abc645d31da020"
+    },
+    {
+      "index": 4,
+      "surface_sha256": "ffc45be066f6dd2c4bfe0aacf0990cab160ed7ae33c66ec372142a212ab2b7d9",
+      "report_sha256": "94dff12f30aad7ffc55fa0829fa5c04d7a75e38b8942de278dde511b1f7f8b0a"
+    },
+    {
+      "index": 5,
+      "surface_sha256": "205b149a9c094a2a4295db98510d318fd01233c52a1aa1350ea1a46de1fe232e",
+      "report_sha256": "7026fc1f8e9f115d119d450ce1b24f496f165d84fbc014a0c18ebbff8c07b43b"
+    },
+    {
+      "index": 6,
+      "surface_sha256": "55c0d4c4471a5d6e1928cc3c4323d615625d04f74886102fa077ee7539a4773e",
+      "report_sha256": "b94f9da1c210abc04a809eb495d546a0bd441dc2455c4935b0f36ccffc0c6591"
+    },
+    {
+      "index": 7,
+      "surface_sha256": "22a71ffb3d0a75fda7648beb9199924dd5326cfd85f7a9aae0f285b0a890b759",
+      "report_sha256": "ba800e29081496b39f1530ef6d014c33f9d3690a2a5c133f7e248b090f756e53"
+    },
+    {
+      "index": 8,
+      "surface_sha256": "68522c0075e13ad41e96d01aeb64631ff09c1c3d5f53888703eb0c48b40c6293",
+      "report_sha256": "6c0f09febd8881033dac20719c6e82c16833f2fb33ad2bb013b8015afb81ee45"
+    }
+  ],
+  "extractor_sha256": "aed0e9ac350205bc0eaf724fd9aaa20e3387a2f96aadf849bc76aa90f562af82",
+  "image_sha256": "a39c08c091f6ad5dc4f22d0b4d23c47defabf140e050755e0dad9872535e0382",
+  "physics_fields": []
+}

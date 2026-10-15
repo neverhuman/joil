@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "phase": "foundation_complete_physics_not_implemented",
-  "cfd_executed": false,
+  "phase": "baseline_hydraulic_diagnostics_executed_oil_fitness_unqualified",
+  "cfd_executed": true,
   "physical_validation": false,
   "search_engine_implemented": false,
   "flexible_graph_cad_implemented": false,
   "structural_qualification": false,
   "customer_or_site_data_public": false,
-  "next_packet": "P01",
-  "campaign_admission": "blocked_by_unresolved_duty_interfaces_and_validation",
+  "next_packet": "P04_mesh_and_carrier_qualification_with_P03_P05_elementary_tests",
+  "campaign_admission": "blocked_mesh_transient_oil_requirements_and_independent_validation",
   "implemented": [
     "baseline analytic genotype",
     "Rust metric arithmetic",
@@ -16,11 +16,17 @@
     "publication guard",
     "ordered implementation plan",
     "STEP/STL/glTF baseline exports",
-    "read-only React research console"
+    "read-only React research console",
+    "immutable evidence and adverse inventory helpers",
+    "pinned Foundation14 CPU environment",
+    "native channel and light-drop rise/response checks",
+    "full-liner SST diagnostic cases and native mechanical flux",
+    "flexible chamber-wall CAD proposals",
+    "source-bound CAD and CFD saved-field views"
   ],
-  "remaining": "P01-P10 as defined in WORK_PACKETS.json",
+  "remaining": "P01-P10 remain partially implemented or planned; no science promotion gates waived. See BASELINE_RUN.md.",
   "rust_regressions_passed": 24,
-  "python_checks_passed": 6,
+  "python_checks_passed": 19,
   "ui_build": "passed_macos_and_ubuntu",
   "cad_baseline": "passed_brep_roundtrip_declared_units_scale_terminal_and_orientation_audit",
   "source_input_audit": "known_negative_latest_head_stl_inward_winding_detected_and_preserved",
@@ -29,6 +35,23 @@
   "receipts": [
     "docs/receipts/foundation_local.json",
     "docs/receipts/foundation_xbabe2.json",
-    "docs/receipts/supplied_geometry_audit.json"
+    "docs/receipts/supplied_geometry_audit.json",
+    "docs/receipts/native-elementary-20261015.json",
+    "docs/receipts/environment-20261015.json",
+    "docs/receipts/cad-proposals-20261015.json"
+  ],
+  "qualified_baseline": false,
+  "oil_grade_evaluated": false,
+  "qualified_fitness": null,
+  "qualified_capacity_gain": null,
+  "geometry_proposals_audited": 9,
+  "wall_field_cad_implemented": true,
+  "native_elementary_passed": {
+    "channel_resolutions": 2,
+    "light_drop_rise_timesteps": 2,
+    "scope": "elementary only; no hydrocyclone qualification"
+  },
+  "results": [
+    "docs/results/baseline-hydraulics-v1.json"
   ]
 }

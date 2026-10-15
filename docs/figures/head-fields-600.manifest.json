@@ -1,0 +1,28 @@
+{
+  "kind": "executed_unqualified_CFD_saved_field_view",
+  "run_id": "ct35-sst-extended-000",
+  "saved_pseudo_iteration": 600.0,
+  "physical_time_averaging": false,
+  "units": "m",
+  "field_units": {
+    "p": "kinematic SI; displayed kPa after rho998",
+    "U": "m/s"
+  },
+  "input_sha256": {
+    "600/p": "7f0b94aa913e539d0e57fb3b471566f3a94baf368206a227d49fb293b2891360",
+    "600/U": "c791edd867bdaa78ccd057092cf95cbbcd9c4719e3f05c916c8a557a78049721"
+  },
+  "mesh_sha256": {
+    "points": "180e72acef7c0ce0fd087c05fbd08d924b6dc31e8b53da81b6d2162383593799",
+    "faces": "cd8edd8ef87e68ef75b3a674c22d734170e62d1d7b48e340f3ad10d35c4c84d2",
+    "owner": "0090b4e0edd56b29ffb6ea5e4e5d4f20cf5bb5b9b87bf3920fbf06d62a1deb62",
+    "neighbour": "6ea763d0421ee21dea49f690e1e45f4ce1dc483ef4f9ee0cb4badc511639bd01",
+    "boundary": "a3648709f0a3fba53134c4a59bc919ced5bc0885aa5e495de7b4e4ca971fb7f8"
+  },
+  "image_sha256": "1927cc7a4bc174d91c8ffff63536fd0ddd9afa1cf66baddf7c60c725e5d1f2c0",
+  "extractor_sha256": "a03593d4f425f1650aa920d4ff80ae3e6f97a59cdfb079bef254808c121c9e0a",
+  "vtk_version": "9.3.1",
+  "interpolation": "VTK cell-to-point, then mesh-aware probe; masks outside volume; display only",
+  "governing_KPI_extractor": "native conservative face integrals, not image samples",
+  "qualification": "initializer diagnostic, no validated performance claim"
+}

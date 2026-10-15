@@ -2,6 +2,8 @@
 
 Read `docs/MASTER_PLAN.md`, `docs/SCIENCE.md`, `docs/WORK_PACKETS.json`, `docs/STATUS.json`, then the files owned by your packet. This repository is independent of jarambit. Never edit, build in, clean, signal, or change configuration in another project.
 
+Read root `COORD.md`, `docs/COORDINATION.md` and any ignored `.private/coordination/` notices before editing or launching computation when another agent may be active. The user designated root `COORD.md` as the primary live coordination channel: reread it before scoped edits/jobs and append material progress frequently. A proposed allocation is not an acknowledged agreement.
+
 - Use `rtk` for shell commands when available. Isolated Python environments and project-local build caches only. No global installs.
 - `.private/`, `runs/`, `artifacts/`, customer documents, host inventories, credentials, licensed standards and raw external papers are never public Git content. Only deliberately selected, reviewed files may be staged. Run `python3 tools/check_public.py` before every push.
 - Public does not mean permission to disclose customer identity or proprietary interfaces. Public research geometry is separate from private installation adapters. No contact with external parties without direct user authorization.

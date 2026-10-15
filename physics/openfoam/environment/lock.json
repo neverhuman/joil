@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "family": "OpenFOAM Foundation",
+  "release": 14,
+  "package_version": "20261008",
+  "package_sha256": "99fe066c827f2834474692d63c2a3c45ef094a7253d115841635ba35acbb0067",
+  "build": "14-a4867fc914c1",
+  "architecture": "linux/amd64",
+  "precision": "double",
+  "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+  "image_bytes": 589817171,
+  "dockerfile_sha256": "541ea11f75aaaef9e02ebce69a46086d79477ecadf3f85c8e2e8ec8016474713",
+  "repository_key_sha256": "fbaacfe37e704494f6e65ab424e67b031191769e84c31185acb701f9e74fe0a9",
+  "container_network": "none during runs",
+  "not_qualified": [
+    "turbulence",
+    "liquid droplets",
+    "GPU",
+    "hydrocyclone ranking"
+  ]
+}

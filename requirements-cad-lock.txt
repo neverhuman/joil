@@ -11,6 +11,7 @@ cycler==0.12.1
 ezdxf==1.4.4
 fonttools==4.67.0
 frozenlist==1.8.0
+gmsh==4.15.0
 idna==3.20
 ImageIO==2.38.1
 kiwisolver==1.5.1
