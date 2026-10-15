@@ -11,6 +11,7 @@ Goal: more compliant treated water per liner at a fixed pressure budget and reje
   - [Figure Plate 2: Multi-Objective Pareto Front & 4D MAP-Elites Convergence](docs/figures/pareto-map-elites-convergence.png)
   - [Figure Plate 3: 3-Grid Roache `GCI` & Dual 7-Eq. `LRR`/`SSG` RSM Verification](docs/figures/elite-gci-and-rsm-verification.png)
   - [Figure Plate 4: 3D OpenFOAM 14 Internal Swirl-Head & Vortex-Physics Comparison](docs/figures/openfoam14-3d-vortex-physics-comparison.png)
+- **[Wave-2 Execution Plan (Trans-Dimensional 3D Genome, Multi-Seed Baselines, GCI/RSM & Animations)](docs/WAVE2_PLAN.md)**
 - [Master implementation plan](docs/MASTER_PLAN.md)
 - [Physics, scoring and validation contract](docs/SCIENCE.md)
 - [Representation and CAD contract](docs/GENOME.md)
