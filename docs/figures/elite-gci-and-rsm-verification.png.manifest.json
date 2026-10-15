@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "kind": "publication_figure_manifest_not_physical_validation",
+  "figure_path": "docs/figures/elite-gci-and-rsm-verification.png",
+  "figure_sha256": "36106ba1e3aeaaad9f5fa4595175d912b6a809d5109d2c1b2f526e482121e767",
+  "figure_bytes": 746453,
+  "generator_script": "tools/generate_gci_rsm_report_and_figures.py",
+  "generator_sha256": "2f5d8653767ee5c2e367e6dc208dfe89affc3864b11229896f766216f5554c95",
+  "source_dossier": "docs/results/elite-3grid-gci-and-rsm-verification-v1.json",
+  "source_dossier_sha256": "1344ad58e9b4af9cf8163c553e4fc3b25c504ac49a0571981bbb02d3052bc9ac"
+}
