@@ -38,7 +38,9 @@
     "docs/receipts/supplied_geometry_audit.json",
     "docs/receipts/native-elementary-20261015.json",
     "docs/receipts/environment-20261015.json",
-    "docs/receipts/cad-proposals-20261015.json"
+    "docs/receipts/cad-proposals-20261015.json",
+    "docs/receipts/negative-cfd-20261015.json",
+    "docs/receipts/research-pilot-20261015.json"
   ],
   "qualified_baseline": false,
   "oil_grade_evaluated": false,

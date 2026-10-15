@@ -1,0 +1,122 @@
+{
+  "kind": "preserved_negative_CFD_evidence_not_physical_infeasibility",
+  "meshes": [
+    {
+      "case": "ct35-pilot-m0-r3",
+      "audit_path": "runs/ct35-pilot-m0-r3/mesh-audit-strict-v3.json",
+      "audit_sha256": "7f336e0e769601f86fe3d2e9c8cde73622132ae0e27d3c9eadf6bed9d19b8a74",
+      "checks": {
+        "checkMesh_OK": false,
+        "terminal_names_present": true,
+        "no_background_boundary": true,
+        "volume_relative_error_lt_2pct": true,
+        "terminal_area_relative_error_lt_2pct": true,
+        "terminal_normals": true,
+        "terminal_positions": false,
+        "bore_area_error_lt_2pct": true,
+        "cell_cap": true,
+        "max_nonorthogonality_deg": true,
+        "max_skewness": true,
+        "min_determinant": true,
+        "min_face_weight": true,
+        "min_volume_ratio": true
+      },
+      "cells": 302460,
+      "bore_section": {
+        "plane_z_m": -0.0014,
+        "vertices": 20,
+        "area_m2": 1.5100590515828493e-06,
+        "perimeter_m": 0.0043769887899774386,
+        "hydraulic_diameter_m": 0.0013799980982730669,
+        "area_equivalent_diameter_m": 0.0013866026465287591,
+        "relative_analytic_area_error": -0.01904750032624558
+      },
+      "quality_metrics": {
+        "max_nonorthogonality_deg": 52.7030473534,
+        "max_skewness": 1.95701001508,
+        "min_determinant": 0.0815853304708,
+        "min_face_weight": 0.105216367504,
+        "min_volume_ratio": 0.024734841331
+      },
+      "native_check_log_sha256": "bcb9112aa7a866a001eefab5892e527b432a99e79d2ae6ff2684ddbdc2dc1ad3"
+    },
+    {
+      "case": "ct35-pilot-tet0",
+      "audit_path": "runs/ct35-pilot-tet0/mesh-audit.json",
+      "audit_sha256": "070e98f66e7aa9fe004b4f621d75baf8214a5ae1603beb17e48f5d3c09083879",
+      "checks": {
+        "checkMesh_OK": false,
+        "terminal_names_present": true,
+        "no_background_boundary": true,
+        "volume_relative_error_lt_2pct": true,
+        "terminal_area_relative_error_lt_2pct": true,
+        "terminal_normals": true,
+        "cell_cap": true
+      },
+      "cells": 388732,
+      "bore_section": null,
+      "quality_metrics": null,
+      "native_check_log_sha256": "1303fe35af7bc05954e859b2e1a911014d1b7e438f1f3dcf8a564c8dacc25a75"
+    },
+    {
+      "case": "ct35-pilot-tet1",
+      "audit_path": "runs/ct35-pilot-tet1/mesh-audit.json",
+      "audit_sha256": "5736e1ec9493b74b6d77d5974706cc029d2796ec83cef144b165314c4afa6707",
+      "checks": {
+        "checkMesh_OK": false,
+        "terminal_names_present": true,
+        "no_background_boundary": true,
+        "volume_relative_error_lt_2pct": true,
+        "terminal_area_relative_error_lt_2pct": true,
+        "terminal_normals": true,
+        "cell_cap": true
+      },
+      "cells": 391062,
+      "bore_section": null,
+      "quality_metrics": null,
+      "native_check_log_sha256": "039b97fe715841e59594b4daf1c6166cab61f1d272338e5232dd528b63f7a5a7"
+    },
+    {
+      "case": "ct35-pilot-tet-delaunay-inlet-001",
+      "audit_path": "runs/ct35-pilot-tet-delaunay-inlet-001/mesh-audit.json",
+      "audit_sha256": "73a67bb051332087e523c3a837384ee70fcc549673ffa95235977002463f23fa",
+      "checks": {
+        "checkMesh_OK": false,
+        "terminal_names_present": true,
+        "no_background_boundary": true,
+        "volume_relative_error_lt_2pct": true,
+        "terminal_area_relative_error_lt_2pct": true,
+        "terminal_normals": true,
+        "bore_area_error_lt_2pct": true,
+        "cell_cap": true
+      },
+      "cells": 489196,
+      "bore_section": {
+        "plane_z_m": -0.0014,
+        "vertices": 66,
+        "area_m2": 1.531054175887199e-06,
+        "perimeter_m": 0.0043922668699745045,
+        "hydraulic_diameter_m": 0.001394317987691933,
+        "area_equivalent_diameter_m": 0.0013962086956724941,
+        "relative_analytic_area_error": -0.005408815371690356
+      },
+      "quality_metrics": null,
+      "native_check_log_sha256": "12de8b1db1ffafad53651799d1dad8bffba5975f7554e002cd1a3d3502aad314"
+    }
+  ],
+  "ssg_failure": {
+    "case": "ct35-hydraulic-diagnostic-001",
+    "receipt_sha256": "a4a65df44ef7d17cfa0918b564c90c4c8c0d1b09ece9eceee5d673d35fef5345",
+    "exit_code": 136,
+    "wall_seconds": 1008.2792052180157,
+    "log_sha256": "a011836b483498c37fb728bc1d5d40b206dc4e700964345885bdfec34ef5032b",
+    "classification": "unbounded_flow_pressure_then_MPI_floating_point_exception",
+    "eligible_to_seed_oil": false
+  },
+  "thresholds_relaxed": false,
+  "oil_fitness_qualified": false,
+  "limitations": [
+    "historical seed inputs lack explicit terminal plane-position metadata; newer auditor reports that as unknown/fail",
+    "no native mesh result granted campaign admission"
+  ]
+}

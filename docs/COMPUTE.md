@@ -23,7 +23,9 @@ rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'
 
 When remote `rtk` is unavailable, run through local `rtk proxy ssh ...`, or use the underlying command on that host. Rust is available under `~/.cargo/bin`; explicitly add that directory to PATH for noninteractive SSH. The initial CAD environment is project-local Python 3.12 with CadQuery 2.7.0. `requirements-cad-lock.txt` records the installed dependency resolution for the tested Linux environment; exact platform compatibility must be checked before reuse. UI uses Node 22+ via project-local runtime on xbabe2; the host's Node18 is not silently upgraded.
 
-## Future solver installation
+## Reference solver environment
+
+A pinned Foundation14 CPU container is now installed and tested on xbabe2, without sudo or global MPI/driver changes. Exact image/package/build/compiler/MPI identities and the installed package manifest are in `physics/openfoam/environment/` and `docs/receipts/environment-20261015.json`. Use `tools/verify_environment.py --case runs/new-environment-check` for an immutable startup/version receipt. Rebuilding the Dockerfile requires a new checked image identity because transitive apt packages are not a distribution snapshot. See `PILOT_RUNBOOK.md` for executed setup and run commands. The conditional system-install instructions below remain fallback guidance.
 
 P03 first inspects shell environments, existing images and `docker info`; tools absent from PATH are not proof that nothing is installed. Prefer a pinned isolated container, recording image digest, source commit, compiler and MPI ABI. Test MPI startup, rank communication, restart and failure before CFD. Docker permissions must be established; do not add users to groups or change the daemon automatically.
 
@@ -40,6 +42,8 @@ sudo apt-get install --no-install-recommends build-essential cmake ninja-build \
 This is a prospective dependency list, not an executed request or a guaranteed complete Foundation build recipe. Use the [official Foundation-14 Ubuntu instructions](https://openfoam.org/download/14-ubuntu/) to add its **signed** repository and select `openfoam14`; do not substitute Ubuntu's differently packaged `openfoam`. Never pipe a network script directly into sudo. Check actual package candidates, pin versions, then smoke-test P03. Apptainer/Slurm are optional later infrastructure, not prerequisites for the first benchmark. Do not install a new scheduler on shared hosts for this project.
 
 ## Performance experiment and ETAs
+
+Measured15October2026 pilot: full-liner seed302460cells; extended313260cells; 600steadySSTpseudo-iterations took621.45s on four cores. A warm-start300-iteration point took163.02s; an independent500-iteration startup took395.55s. These are single diagnostic timings under shared-host load, not p95 estimates, physical-time CFD rates or oil/LES ETAs. No GPUs were allocated. One CAD proposal took108–242s, with exact-baseline export3.9s. Retained runs/artifacts were about2.6GiB at the environment check. See `BASELINE_RUN.md` and receipts for rejected meshes, SSG divergence, actual KPIs and scope.
 
 Actual minimum bore is 1.4 mm, much smaller than earlier HTML's bore. Resolve geometry/wall treatment and conduct convergence; 1–4 M F2 and 8–30 M F3 cells are initial planning ranges only. They may be inadequate. Measure physical seconds per wall hour, steps/s, pressure solve fraction, parcel updates, RSS, disk and retries at fixed numerical acceptance.
 

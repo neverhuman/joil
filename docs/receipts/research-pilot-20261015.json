@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "kind": "partial_research_pilot_integration_not_science_release",
+  "created_utc": "2026-10-15T08:23:27.894294+00:00",
+  "tested_commit": "99ccc105d205a46232314f30aecbede75dce7c28",
+  "input_head": "bd49023c65a132a32104825a8d8d580536434f59",
+  "clean_committed_tree_check": {
+    "schema_version": 1,
+    "kind": "foundation_checks_not_physical_validation",
+    "steps": [
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.2116181249730289,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 2.9693467910401523,
+        "log_bytes": 993,
+        "log_sha256": "48d4d15c2a25f6d9b8a516a3c01a97a2676386e0831a3123c50a32c9782ffd20"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 1.8114739577285945,
+        "log_bytes": 2598,
+        "log_sha256": "e9b616f0cc8919fcdafd8af7ec3602b568c31d467aa2b4f8ea74f282dd67b71b"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.27261400036513805,
+        "log_bytes": 1161,
+        "log_sha256": "e1bbe6b5aba35437adedb688bdaaeeff8dfd21d77609982c2e976107615230cd"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.11424933420494199,
+        "log_bytes": 2245,
+        "log_sha256": "b4e983079ca1d767b1fb85462e6d4636be9d67206194bb61e5fb093cd2e2c8a7"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.03670800011605024,
+        "log_bytes": 75,
+        "log_sha256": "aa9910e3e9de77b87592bc18846229750203f54293ca36b8fdd98f70cdfb4cf7"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 0.5377992922440171,
+        "log_bytes": 28,
+        "log_sha256": "388dde1b635a63c121533768532dc217a5a7e4ec29e7f49e0949d96db0f7eaf7"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 1.2853803341276944,
+        "log_bytes": 493,
+        "log_sha256": "757a789d3979af462297a0a82b73ce0f4e28d257c281ca381ba448bb6dcee11e"
+      }
+    ],
+    "ui_executed": true,
+    "cad_executed": false,
+    "cfd_executed": false,
+    "input_head": "99ccc105d205a46232314f30aecbede75dce7c28",
+    "environment": {
+      "CARGO_BUILD_JOBS": "4",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "RAYON_NUM_THREADS": "4"
+    },
+    "all_requested_pass": true,
+    "source_files_sha256": {
+      ".gitignore": "ca927831453e25ec325c36096d76621712cc2c8f20fdbadb7931e8c7e222be16",
+      "AGENTS.md": "3239698de1822fdc35fd148f79caefec25b11b118672d313edefa1bea094f2bf",
+      "GEMINI.md": "d52dc2ec9bbcc9860f07f4458e5660dfdcfba3282dfb7033120ca059217a2450",
+      "README.md": "fd1fddeec7290f9701bc30e4c983ad9aa9e68b242f8de8e7430a45de1ef4be64",
+      "apps/explorer/src/main.tsx": "fe779ce1fce7ae53adcc85f1022464454fd12575031b8929812e2e2c31f4bc1a",
+      "apps/explorer/src/style.css": "92d4923fbb24446046295d53fd89360bcae90493a1ee22ef07fedc1b73e35bf0",
+      "analysis/__init__.py": "6ddd2e52a7b3fb6626885332f03399b9886eaa6332cf1ebf90d5443dd1e475f9",
+      "analysis/baseline_report.py": "4b5182103c7681f046c443005874d701c6184eb9ac809a488045c4f9a028c377",
+      "analysis/carrier_snapshot.py": "569612941db73436cc763b555bfd8cfb652e6ba6757b5e99524c66993f497db3",
+      "analysis/evidence.py": "0f5864c57abec1460f296e304cee51f93e48bba00332a2be797fcf63609d0381",
+      "analysis/inventory.py": "28428e168e8c0d825145d7ff93693d9247a3835ec2aad1f3fa2a5cc6986d3553",
+      "analysis/units.py": "13330409bd87f6ca799dd0f9e1267c7787eb7d3703931620d8fd3f68890b9c43",
+      "cad/program/build_proposals.py": "01d97e07f85d636cc31667c0d03414858e2fb44dae1c9c0c5c5a3c829abeac29",
+      "cad/program/propose.py": "091c709b18c4461d9701fd7459a7708a21a774215b974b7c28bb4282e3a44887",
+      "cad/program/wall_field.py": "98efa48597f6e5edb00abf3810359d9b826d30ecac21342c2b244631cca28460",
+      "docs/BASELINE_RUN.md": "cf29ff160f824bcabe7e52ffa9fca482a3cc2576c836b2353836e1d58580eb4e",
+      "docs/COORDINATION.md": "08b88ff8ea3853745fac524fa387f6dc90ed65b441e49b24f228b2d40ca72b0a",
+      "docs/PILOT_RUNBOOK.md": "e7f04775f548b3305a7a3c348ea8b32127c28959b49928f0703cff692d77c2f3",
+      "docs/HANDOFF.md": "a19a7cadb25052fd88040abca9ca9eafcc49f68c2fdd057b5c915c3492dd525a",
+      "docs/MASTER_PLAN.md": "69a1f92e9bec6deba33e27ff16ad8ed23f21f1425429fc56c58c8e0d68a5349a",
+      "docs/STATUS.json": "68e354f779ac38ad9df081aed1bdac9a689452c23f9467a0c1d2d77c7ea95987",
+      "docs/WORK_PACKETS.json": "db58f9ac88b02a713d5bfe97120ae940026150a812b0f59ffa89589e63f39314",
+      "docs/figures/chamber-sections.manifest.json": "2885dcd268f87c05e6666896be3aca9e77227dbc7865bb802e5e6a5978618add",
+      "docs/figures/chamber-sections.png": "a39c08c091f6ad5dc4f22d0b4d23c47defabf140e050755e0dad9872535e0382",
+      "docs/figures/head-fields-600.manifest.json": "a4ce83b75c0681d69f588f158dacf95a55e1ddb01221a32f34a1b46b58d3a769",
+      "docs/figures/head-fields-600.png": "1927cc7a4bc174d91c8ffff63536fd0ddd9afa1cf66baddf7c60c725e5d1f2c0",
+      "docs/receipts/P01-claim-20261015.json": "f39720daf868c9bed7f72814a716ffbcb6d2ff9036d78248ad41d899adb583ec",
+      "docs/receipts/P02-claim-20261015.json": "b108d3fb817cb3cfb31eb5f64031ff2735707c8b3839616cac3b1e6f10684884",
+      "docs/receipts/P03-claim-20261015.json": "b0166c0c7478a18d3d3b7bf349e83fad42baa26ef6b3b0c5289aad7b3aa23c6b",
+      "docs/receipts/P04-claim-20261015.json": "854dfc0609938a76d87b8067ecd5e620cc99a63fe209afb43d0a4a6a3a238d22",
+      "docs/receipts/P05-claim-20261015.json": "d79f4c46c4d535ea868e539b6a5b803792f45449f2cfbff91f6d37c4cb73ca3a",
+      "docs/receipts/P09-claim-20261015.json": "2eae86097e6b5430e6e1428198b3eac0868e568b7b88627105430ce6c51b47d0",
+      "docs/receipts/cad-proposals-20261015.json": "d51d5cef165de367170a6297b8ddf6caa893626e23d8bba94c8d425ee206de5a",
+      "docs/receipts/environment-20261015.json": "3dd4a00be98edf00bd30d1d225903bcc5b247529454bfdc8d35cf11c3132f2d9",
+      "docs/receipts/native-elementary-20261015.json": "e856d93ddae3b01dd1a9750352132afe37fbe75e9f1cde60a1bea91edfba1741",
+      "docs/results/baseline-hydraulics-v1.json": "2c53abe39be29a9ae9a160836773d35be761005a191ea3eaa093e58f5c5e4461",
+      "experiments/search/proposals-v1.json": "a41494adb56c017be5f969e3ccc1599025c8e5884c2ab49ff8b724276d4d3cb3",
+      "physics/openfoam/carrier/configure.py": "7041f2930235191bb6953a51c7ef112d92dd37aaa58629cc388d06de8cd861b1",
+      "physics/openfoam/carrier/hydraulicMetrics/Make/files": "9a4e85b0ef9653c8d1293d8526420af7728bf226893b4181efe7951af0e2818d",
+      "physics/openfoam/carrier/hydraulicMetrics/Make/options": "0e3853fb95fcd3e7b165f157d502a4408f84e2e5b5e7b79e36fff2843d63b6fb",
+      "physics/openfoam/carrier/hydraulicMetrics/hydraulicMetrics.C": "06f9680f5877e07efe9d2c5d741bb4a40b4951dcfd16681e92b28a8eeed09470",
+      "physics/openfoam/carrier/point.py": "446544691ee2d7bc2d0126a45e895c2b284a1f4229a420093b14e6dc72a023b2",
+      "physics/openfoam/environment/Dockerfile": "541ea11f75aaaef9e02ebce69a46086d79477ecadf3f85c8e2e8ec8016474713",
+      "physics/openfoam/environment/lock.json": "64fe54e323f398e842345a1d01d2137ec0a8880627d34426199ede4c03a136a4",
+      "physics/openfoam/environment/openfoam.asc": "fbaacfe37e704494f6e65ab424e67b031191769e84c31185acb701f9e74fe0a9",
+      "physics/openfoam/environment/packages-tested-20261015.tsv": "0e28f1a11dcd8ffb82f08de51b15d6cc79d59e06bf281ad08ee5f3b7ccf1c403",
+      "physics/openfoam/environment/runtime.py": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+      "physics/openfoam/mesh/audit.py": "893f0bfa1f78dd52600c7e43227866f609a82a9c077259d1525441145795ea5b",
+      "physics/openfoam/mesh/extend_outlet.py": "c0601547cef9b4250994c2a34c82f8319c60b5956839e5063e2663025ea15b71",
+      "physics/openfoam/mesh/gmsh_mesh.py": "324e41001318ee1c8c1002ad1d196268b69debd069af1a6607de27631ebe8a16",
+      "physics/openfoam/mesh/prepare.py": "e2519bf00d93e4eb5a8045fe2996edd4f1b289e61e5fefdfa070eb688825850d",
+      "physics/openfoam/mesh/reference_plane.py": "615023533839941104f9083b180e76e425cf8646d5a15786387e512b3db23f43",
+      "physics/openfoam/verification/droplet.py": "d267fb9b26947eff2c72d7472ce4eeba0a83078a0192554ae02897441ac99f46",
+      "physics/openfoam/verification/poiseuille.py": "da1b3e9b02bedfdff60048d4defe1f4d46ad0fdee37a52fe61e9ac34605b6b54",
+      "requirements-cad-lock.txt": "4b336aebfbf6052b8d4be8dbabb872750926814babed6c07a449b90fc27ac8f2",
+      "tests/test_baseline_report.py": "2e728bebb21f08f3b9290bf7003c214ac99a413d240cb8d3d396bd3c9f590749",
+      "tests/test_carrier_snapshot.py": "661315e0cdecd10470494a9a06a510da158e3a626402a0a2d29979f9630c008f",
+      "tests/test_design_program.py": "87a93b966a83018a4664ffd8cabc3b1a6b8a7cc6540f86dcf8763d3493df962b",
+      "tests/test_evidence.py": "fdc3536e6f8bc83a621626043e3b5ca570f91704c626fb2275e2ec8ac46ee248",
+      "tests/test_mesh_section.py": "45682172e5a40d8671286facf9b76a10703dee0bcd66adf282255b684bb2ebea",
+      "tools/bench_cfd.py": "e2d063263ef1b2b0d03a9a4157803beba84bcbaf3ef5a6278def6b0ed974863d",
+      "tools/verify_environment.py": "7efc8ce0937ab27fab972691586cc3a4ac3d744edeac9d5957420e042094ca50",
+      "visualization/render_carrier.py": "a03593d4f425f1650aa920d4ff80ae3e6f97a59cdfb079bef254808c121c9e0a",
+      "visualization/render_proposals.py": "aed0e9ac350205bc0eaf724fd9aaa20e3387a2f96aadf849bc76aa90f562af82"
+    }
+  },
+  "clean_check_receipt_sha256": "6324469c8f63b9e1a5287ce902fabe47a0d5c4bed006a01a7d9455490c01402a",
+  "remote_source_check_receipt_sha256": "755fe34b7e4affa9dbd9802d2b3848707340cbe5a714337520ed43e6501235ab",
+  "source_tests": {
+    "rust": 24,
+    "python": 19,
+    "UI": "build passed locally and Ubuntu; browser verified saved-point switching, blockers and actual CAD image loaded1920x1920"
+  },
+  "science_evidence": [
+    "docs/results/baseline-hydraulics-v1.json",
+    "docs/receipts/native-elementary-20261015.json",
+    "docs/receipts/environment-20261015.json",
+    "docs/receipts/cad-proposals-20261015.json",
+    "docs/receipts/negative-cfd-20261015.json"
+  ],
+  "qualified_baseline": false,
+  "qualified_fitness": null,
+  "performance_selected_evolution": false,
+  "structural_qualification": false,
+  "packets_complete": [
+    "P00"
+  ],
+  "next_dependency": "P03/P04 mesh/carrier and P05 transport qualification; actual requirements/rig data",
+  "concurrent_work": "Gemini source files excluded until scoped reviewed handoff; live COORD.md ignored",
+  "no_other_project_mutation": true,
+  "limitations": [
+    "No acceptable mesh/grid/time/model/rig qualification",
+    "Oil concentration and capacity gain unknown",
+    "SST saved pseudo-iterations are not transient time samples",
+    "Partial contracts and chamber family do not implement the full graph/search/FEA plan"
+  ]
+}
