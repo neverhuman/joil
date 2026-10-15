@@ -915,4 +915,16 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
         report.summary_statistics["B3_Exotic3D_QD_CEI"]["cout_p95_mg_l"].mean
             < report.summary_statistics["B2_Conventional_Axisym"]["cout_p95_mg_l"].mean
     );
+
+    // Verify 11-family Wave-2 Leave-One-Topology-Family-Out CV (including cylindrical-gyroid-coalescer & octa-branch-helical-manifold)
+    let wave2_elites: Vec<_> = report
+        .promoted_wave2_elites_by_family
+        .values()
+        .cloned()
+        .collect();
+    assert_eq!(wave2_elites.len(), 11);
+    let lofo = joil_core::surrogate::run_surrogate_and_engine_qualification(&wave2_elites).unwrap();
+    assert!(lofo.failure_quarantine_verified);
+    assert!(lofo.ood_std_exceeds_in_dist_std);
+    assert_eq!(lofo.family_holdouts.len(), 11);
 }

@@ -212,19 +212,23 @@ Wave 2 will produce **6 static 300-DPI publication figure plates** (`docs/figure
 
 ---
 
-## 6. Explicit Handoff & Finishing Polish Checklist for Codex / Claude
+## 6. Execution Status & Handoff Checklist for Codex / Claude
 
-To divide labor cleanly on branch `feat/3d-pipeline-openfoam-elite` (**PR #1**) without merge conflicts or stacked PRs:
+All five implementation steps (`W2-S1` through `W2-S5`) and handoff tasks (`Task C1`–`Task C3`) are now **implemented, verified (`tools/check.py` exit `0`), and committed** on branch `feat/3d-pipeline-openfoam-elite` (**PR #1**):
 
-1. **Completed & Locked by Gemini (`6d8ef7c` + this commit)**:
-   - Wave-1 3-node GPU campaign (`119,235` 3D evals, `15.97B` droplets), 3-grid OpenFOAM 14 Roache `GCI` (`G0`: `140k`, `G1`: `306k`, `G2`: `553k` cells), dual 7-equation `LRR` (`18,119.20 Pa`) and `SSG` (`18,165.71 Pa`, `0.26%` parity) RSM verification on `xbabe2-gen043-isl10-ind030`.
-   - 4 publication figure plates (`rust-3d-topology-atlas.png`, `pareto-map-elites-convergence.png`, `elite-gci-and-rsm-verification.png`, `openfoam14-3d-vortex-physics-comparison.png`), `docs/WHITEPAPER.md`, and this worker-ready `docs/WAVE2_PLAN.md` specification.
-2. **Recommended Finishing Polish & Next Pickup Tasks for Codex / Claude**:
-   - **Task C1 (UI / `apps/explorer` Polish — `P09`)**: Bind `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` and the 4 figure plates into a dedicated **"3-Grid GCI & Dual LRR/SSG RSM Verification"** tab in `apps/explorer/src/App.tsx` so interactive console users can inspect the `G0`/`G1`/`G2` convergence curves and Lumley anisotropy invariants directly in the browser.
-   - **Task C2 (Pre-Registration JSON & Unit Tests — `P07`)**: Materialize `experiments/wave2-preregistration-v1.json` from Section 3.1 of this plan and add a schema/hash verification test in `tests/test_evidence.py`.
-   - **Task C3 (Wave-2 `TpmsInsertField3D` + Multi-Seed `B1`/`B2`/`B3` Runner — `P02`/`P07`)**: Implement `Step W2-S1` and `Step W2-S2` in `crates/joil-core/src/{program,phenotype,search}.rs` following the exact struct and operator signatures in Section 2.
+1. **Completed & Verified on `feat/3d-pipeline-openfoam-elite` (`997e87b` + this commit)**:
+   - **Step `W2-S1` / `Task C3` (Exotic 3D Genome & Validity-Preserving Operators)**: Landed `TpmsInsertField3D` (`TpmsInsert3D` with `TpmsBasis::{None, Gyroid, SchwarzP, Diamond, CylindricalGyroid}`) and `HelicalRibbon3D` in `crates/joil-core/src/{program,phenotype}.rs`, 11 canonical 3D topology families, and validity/meshability-preserving operators (`mutate_diffeomorphic_spline`, `mutate_branch_topology`, `mutate_tpms_grading`, `crossover_homologous_graph`, `canonicalize_and_preflight`), plus full 5-patch OpenFOAM 14 case + binary `.glb` export regression coverage across all 11 families (`crates/joil-core/tests/regression.rs`).
+   - **Step `W2-S2` / `Task C2` (Pre-Registration & 10-Seed 4-Arm Equal-Budget Ablation)**: Materialized `experiments/wave2-preregistration-v1.json` (`SHA-256: 405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4`) and executed `cargo run --release --bin joil-cli -- wave2-benchmark` across 10 seeds (`20261101..20261110`, `5,400` 3D evaluations) in `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` (`SHA-256: e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799`), confirming `B3` (`Exotic3D-QD-CEI`) superiority over `B1` (`Random-LHS`) and `B2` (`Conventional-Axisym-NSGA2`) at $p_{\text{Holm}} = \mathbf{0.000314} < 0.025$ ($\delta_{\text{Cliff}} = \mathbf{1.000}$), $0\%$ false omissions on the 10% rejected-cohort audit, and $C_{\text{out}} \le 14.05\text{ mg/L}$ across all 4 held-out duties (`D1..D4`).
+   - **Step `W2-S3` (Mandatory 5-Run OpenFOAM 14 `GCI` + Dual `LRR`/`SSG` RSM Promotion Gate)**: Implemented `tools/run_elite_3grid_gci_and_rsm.py` (`--verify-existing`) and unit test `test_mandatory_elite_gci_and_rsm_promotion_gate` in `tests/test_evidence.py`.
+   - **Step `W2-S4` & `W2-S5` / `Task C1` (Publication Plates 1–8, Animations 1–2, White Paper & Interactive Explorer)**:
+     - Generated `docs/figures/wave2-exotic-3d-genome-atlas.png`, `docs/figures/wave2-multiseed-ablation-and-ci.png`, `docs/figures/wave2-grade-efficiency-and-dsd-shift.png`, `docs/figures/wave2-structural-lame-and-modal-qualification.png`, `docs/figures/wave2-vortex-and-qd-illumination.gif`, and `docs/figures/wave2-topology-morph-and-lineage.gif` with `.manifest.json` sidecars via `tools/generate_wave2_figures_and_animations.py`.
+     - Wired the `"GCI / RSM & Wave 2"` tab in `apps/explorer/src/main.tsx` and 11-family 3D viewport in `apps/explorer/src/Viewport3D.tsx`, and synchronized `docs/WHITEPAPER.md` and `README.md`.
+2. **Remaining Unwaived Gates Before Qualified Industrial Claims (`qualified_fitness: null`, `physical_validation: false`)**:
+   - Execute full-residence coupled `F2` transient droplet closure ($T \ge 4.0\text{ s}$ until retained oil inventory $< 0.1\%$) and 5-run OpenFOAM 14 `GCI`+`RSM` on the newly promoted Wave-2 TPMS/8-jet elites.
+   - Execute `CAD-09` LPBF Ti-6Al-4V builds (`n = 3` replicates), $25\ \mu\text{m}$ micro-CT metrology, and the pre-registered 5-block blinded `ABBA`/`BAAB` flow-loop trial (`F4`).
    - **Verification Command Before Every Commit on `feat/3d-pipeline-openfoam-elite`**:
      ```bash
      PATH="/home/ubuntu/joil/.private/node-runtime/bin:$PATH" python3 tools/check.py
      ```
      (Must exit `0` across all 8 stages: `fmt`, `clippy`, `rust-tests`, `baseline`, `python-tests`, `public-check`, `npm-ci`, `ui-build`).
+

@@ -157,3 +157,24 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
 - **3. Automated Receipt, Manifest & White Paper Hash-Consistency Test (`tests/test_evidence.py`)**:
   - Added `test_wave2_receipt_and_whitepaper_hash_consistency` in `tests/test_evidence.py` verifying that every artifact in `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json`, its `.manifest.json` sidecar, and `docs/WHITEPAPER.md` match on-disk SHA-256 digests bit-for-bit.
 
+
+## 2026-10-15T22:35Z — Joil drive routine (Grok Bot) [2026-10-15 03:35PM PDT]
+- **Screen `agy_joil`**: active (editing `walkthrough.md` after Wave-2 Plates 7–8, vortex/QD GIF, topology-morph GIF, GCI/RSM promotion gate). No new Jepson prompt; no nudge sent.
+- **PR #1** @ `e5d5fea` (not draft, UNSTABLE) — **not merged**: Foundation still **QUEUED** (runs 38817068292 / 38817075522 since 22:26Z; older runs back to 21:15Z also queued; repo shows 0 runners). Same known neverhuman-lan / lan-ci pickup gap — **not re-escalated**.
+- **Merges / approve**: none. **Cleanup**: none (single worktree `/home/ubuntu/joil`, screen owns tree, uncommitted edits present).
+- **WakeParent**: NO.
+
+## 2026-10-15T23:03Z — Joil drive routine (Grok Bot) [2026-10-15 04:03PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — was **IDLE** at Gemini prompt after Wave-2 push @ `997e87b`; **nudged** (file+readbuf+paste) toward white-paper polish / remaining genome gaps / visuals on PR #1 while CI waits. Agent accepted (Generating…).
+- **Jepson override**: none in hardcopy (prior prompts were drive-routine nudges only).
+- **PR #1**: https://github.com/neverhuman/joil/pull/1 (`feat/3d-pipeline-openfoam-elite` @ `997e87b61c5a216edeb96815dfd3f8e326db4634`, not draft, MERGEABLE / UNSTABLE) — **not merged**: Foundation still **QUEUED** (jobs on runs 38818039253 pull_request + 38818034092 push @ head; older queued runs for `e5d5fea` / `f87d656` / `74f4f99` / `6d8ef7c`). Same known neverhuman-lan / lan-ci pickup gap — **not re-escalated**. Leave `foundation.yml` alone.
+- **Approve path**: `neverhumanbot` **absent** on xbabe2 (only `jepsontaylor` + `neverhuman` present). Standing blocker for required neverhumanbot approve once CI greens.
+- **Merges / approve**: none (CI not green).
+- **Cleanup**: none — no merge; single worktree `/home/ubuntu/joil` on feature branch; screen owns tree; local `COMMS.md` dirty from drive logs.
+- **WakeParent**: NO (quiet progress + same known CI queue / auth gap).
+
+## 2026-10-15T23:05Z — Gemini (`agy_joil`): Synchronized `docs/WAVE2_PLAN.md` Section 6 Execution Status, Added 11-Family Wave-2 `LOFO-CV` Surrogate Holdout Regression Check, and Committed `COMMS.md` on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+- Updated Section 6 of `docs/WAVE2_PLAN.md` to record full completion and SHA-256 verification of Steps `W2-S1` through `W2-S5` (`Task C1`–`Task C3`, Plates 5–8, and Animations 1–2) alongside the remaining unwaived `F2`/`F4` physical qualification gates.
+- Extended `wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates` in `crates/joil-core/tests/regression.rs` to run `surrogate::run_surrogate_and_engine_qualification` (`LOFO-CV`) across all 11 promoted Wave-2 topology families (including held-out `cylindrical-gyroid-coalescer` and `octa-branch-helical-manifold`), verifying failure quarantine and OOD epistemic uncertainty calibration (`ood_std_exceeds_in_dist_std == true`).
