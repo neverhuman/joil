@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "figure_file": "docs/figures/wave2-structural-lame-and-modal-qualification.png",
+  "figure_sha256": "0b5456a046184f31a56a12e5dbcb543962a1432a8b38149942b0207bc1675aa0",
+  "title": "Wave-2 P08 Structural Lam\u00e9 Stress, Modal Lock-In & LPBF Overhang Qualification",
+  "description": "Axial Von Mises stress profile under 2.5 MPa proof load, vortex-precession vs first bending mode lock-in envelope, LPBF overhang angle <= 45 deg, and 11-family safety factors.",
+  "units_declared": true,
+  "scale_policy": "true_aspect_si_and_mm_annotated",
+  "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
+  "source_artifacts": [
+    {
+      "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+    }
+  ]
+}

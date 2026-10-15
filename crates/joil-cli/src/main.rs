@@ -77,7 +77,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         "qualify-structure" => {
             let mut rng = program::Rng::new(20261015);
-            let archetypes = program::DesignProgram::seed_archetypes(&mut rng);
+            let archetypes = program::DesignProgram::seed_wave2_archetypes(&mut rng);
             let lame_inner =
                 structure::lame_thick_cylinder_oracle(0.035, 0.038, 0.0, 2.5e6, 0.035)?;
             let lame_outer =

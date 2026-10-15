@@ -238,7 +238,7 @@ To prevent experimental confirmation bias, the physical qualification campaign (
 | **Blinded 5-Block `ABBA`/`BAAB` Crossover Rig Trial** | 5 randomized crossover blocks (`20` paired intervals, blinding salt `joil-p06-blinded-protocol-v1`) on single-liner produced-water flow loop ($C_i = 500 \pm 25\text{ mg/L}$, $d_{32} = 22 \pm 2\ \mu\text{m}$, $r = 2.00 \pm 0.15\%$) | Paired t-test statistical power **`89.4%`** at one-sided $\alpha = 0.025$ to detect $\ge 10\%$ capacity gain under realistic run-to-run variance ($\sigma_{\text{rep}} = 3.5\%$, $\sigma_{\text{print}} = 2.5\%$) |
 | **Promotion Decision Rules (`H0` / `H10` / `H20`)** | Primary endpoint: compliant treated-water capacity $Q_{\text{treated}} = Q_i(1-r)$ at fixed $\Delta p_u$ budget and $C_u \le 30\text{ mg/L}$; secondary endpoint: $\Delta p_u$ reduction at fixed $Q_i = 4.00\text{ m}^3/\text{h}$ | **`H10` Promotion**: paired mean $\Delta Q_{\text{treated}} \ge +10.0\%$ with 95% lower confidence bound $> 0.0\%$ and zero water-quality regression ($C_{u,\text{elite}} \le C_{u,\text{CT35}}$) |
 
-### 5.3 Executed Wave-2 Exotic 3D Genome & 10-Seed Statistical Ablation ([`docs/WAVE2_PLAN.md`](WAVE2_PLAN.md))
+### 5.3 Executed Wave-2 Exotic 3D Genome, Pre-Registered 10-Seed 4-Arm Ablation & Held-Out Duty Stress Tests ([`docs/WAVE2_PLAN.md`](WAVE2_PLAN.md))
 
 Implementing [`docs/WAVE2_PLAN.md`](WAVE2_PLAN.md) (`protocol_id: joil-wave2-preregistration-v1`, [`experiments/wave2-preregistration-v1.json`](../experiments/wave2-preregistration-v1.json)), we expanded the compositional 3D genome (`ct35-exotic-head-v2` / `v3` superset in `crates/joil-core/src/program.rs`) to **11 canonical 3D topological families** while preserving 100% bitwise backward compatibility for all Wave-1 candidates:
 1. **Exotic 3D Genome & Validity-Preserving Operators (`TpmsInsertField3D`, `HelicalRibbon3D`, `canonicalize_and_preflight`)**:
@@ -246,17 +246,41 @@ Implementing [`docs/WAVE2_PLAN.md`](WAVE2_PLAN.md) (`protocol_id: joil-wave2-pre
    - **Peripheral Graded TPMS Coalescer/Rectifier Shells (`TpmsInsertField3D`)**: Spatially graded `CylindricalGyroid`, `Gyroid`, `SchwarzP`, and `Diamond` shells confined strictly to the peripheral annulus ($r \ge r_{\text{inner}} \cdot R_{\text{wall}}(z)$ with $r_{\text{inner}} \in [0.62, 0.88]$), leaving the central Rankine vortex and reverse-flowing oil core ($r < r_{\text{inner}} \cdot R_{\text{wall}}$) **100% unobstructed**.
    - **Internal Helical Guide-Ribbon Cascades (`HelicalRibbon3D`)**: Counter-fluted guide cascades (`counter-fluted-recovery-vortex`) that stabilize core precession and recover swirl pressure.
    - **Validity- & Meshability-Preserving Operators**: `mutate_diffeomorphic_spline`, `mutate_branch_topology`, `mutate_tpms_grading`, `crossover_homologous_graph`, and `canonicalize_and_preflight` enforce zero open boundary edges, zero non-manifold edges, minimum wall clearance $\ge 1.0\text{ mm}$, minimum passage diameter $\ge 1.4\text{ mm}$, and LPBF overhang $\le 45^\circ$.
+
 2. **Pre-Registered 10-Seed Equal-Budget 4-Arm Ablation (`docs/results/wave2-multiseed-ablation-and-holdout-v1.json`)**:
-   - Across $N_{\text{seeds}} = 10$ pre-registered master seeds (`20261101..20261110`, `180` 3D evaluations/seed/arm = `5,400` 3D evaluations), **`B3` (`Exotic3D-QD-CEI`)** achieves a 10-seed mean 95th-percentile treated-water oil concentration of **$C_{\text{out,p95}} = 7.21\text{ mg/L}$ (`95% bootstrap CI [7.03, 7.42] mg/L`)** and normalized Pareto hypervolume **$0.2743$ (`95% CI [0.2717, 0.2772]`)**, outperforming:
-     - **`B0` (`Baseline-CT35`)**: $C_{\text{out,p95}} = 25.10\text{ mg/L}$ ($\Delta p_u = 29.47\text{ kPa}$);
-     - **`B2` (`Conventional-Axisym-NSGA2`)**: $C_{\text{out,p95}} = 18.99\text{ mg/L}$ (`95% CI [18.60, 19.37] mg/L`), hypervolume $0.1509$ ($U = 100.0, p_{\text{Holm}} = \mathbf{0.000314}, \delta_{\text{Cliff}} = \mathbf{1.000}$);
-     - **`B1` (`Random-LHS-Exotic3D`)**: $C_{\text{out,p95}} = 9.03\text{ mg/L}$ (`95% CI [8.72, 9.35] mg/L`), hypervolume $0.2506$ ($U = 100.0, p_{\text{Holm}} = \mathbf{0.000314}, \delta_{\text{Cliff}} = \mathbf{1.000}$).
-   - **Mandatory 10% Rejected-Cohort Audit**: Auditing $64 / 640$ (`10.0%`) randomly sampled low-rank/rejected candidates confirms **$0$ false omissions** (`0.0% <= 2.0%` gate, `audit_passed = true`).
-   - **Held-Out Operating Duties (`D1..D4`)**: On unseen turndown ($2.6\text{ m}^3/\text{h}$), turnup ($5.4\text{ m}^3/\text{h}$), sheared feed ($d_{50} = 29.5\ \mu\text{m}$), and cold viscous slug ($C_{\text{in}} = 850\text{ mg/L}, \mu = 1.32\times$) duties, the promoted Wave-2 elite maintains $C_{\text{out}} \in [6.1, 14.0]\text{ mg/L}$ (all $\le 30\text{ mg/L}$), whereas `CT-35` breaches $30\text{ mg/L}$ on `D3` ($44.6\text{ mg/L}$) and `D4` ($44.6\text{ mg/L}$).
+   Across $N_{\text{seeds}} = 10$ pre-registered master seeds (`20261101..20261110`, `180` 3D evaluations/seed/arm = `5,400` 3D evaluations), we compare four equal-budget arms with 10,000-resample bootstrap 95% confidence intervals, exact Mann–Whitney $U$ / Wilcoxon rank-sum tests with Holm–Bonferroni multiplicity control ($\alpha_{\text{FWER}} = 0.025$), and Cliff's $\delta$ effect size:
+
+| Experimental Arm | $N_{\text{seeds}}$ | Evals / Seed | Mean $C_{\text{out,p95}}$ [mg/L] | 95% Bootstrap CI ($C_{\text{out,p95}}$) | Mean $\Delta p_u$ [kPa] | Mean 4D Hypervolume | Mann–Whitney $U$ vs `B3` ($p_{\text{Holm}}$, Cliff's $\delta$) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **`B0`: `Baseline-CT35`** | `1` (Ref) | `1` | `25.10 mg/L` | `[25.10, 25.10] mg/L` | `29.47 kPa` | `0.0000` | Reference comparator |
+| **`B2`: `Conventional-Axisym-NSGA2`** | `10` | `180` | **`18.99 mg/L`** | `[18.60, 19.37] mg/L` | `21.22 kPa` | **`0.1509`** | $U = 100.0$, $p_{\text{Holm}} = \mathbf{0.000314}$, $\delta = \mathbf{1.000}$ |
+| **`B1`: `Random-LHS-Exotic3D`** | `10` | `180` | **`9.03 mg/L`** | `[8.72, 9.35] mg/L` | `18.30 kPa` | **`0.2506`** | $U = 100.0$, $p_{\text{Holm}} = \mathbf{0.000314}$, $\delta = \mathbf{1.000}$ |
+| **`B3`: `Exotic3D-QD-CEI` (Ours)** | `10` | `180` | **`7.21 mg/L`** | **`[7.03, 7.42] mg/L`** | **`18.08 kPa`** | **`0.2743`** | **Superior across all 10 seeds ($\alpha = 0.025$)** |
+
+   - **Mandatory 10% Rejected-Cohort Audit**: Auditing $64 / 640$ (`10.0%`) randomly sampled low-rank/rejected candidates confirms **$0$ false omissions** (`0.0% <= 2.0%` pre-registered gate, `worst_rank_reversal_cout_mg_l = 0.00 mg/L`, `audit_passed = true`).
+
+3. **Pre-Registered Held-Out Operating Duties (`D1..D4` Unseen During Search)**:
+   Without retuning any geometry parameters, the promoted Wave-2 elite and `CT-35` baseline are evaluated across four unseen off-design stress duties defined in [`experiments/wave2-preregistration-v1.json`](../experiments/wave2-preregistration-v1.json):
+
+| Held-Out Duty ID | Feed Flow $Q_i$ [m³/h] | Feed Oil $C_{\text{in}}$ [mg/L] | Feed Median $d_{50,\text{feed}}$ [$\mu$m] | Viscosity Factor $\mu/\mu_0$ | `B0` (`CT-35`) $C_{\text{out}}$ [mg/L] | Promoted `B3` Elite $C_{\text{out}}$ [mg/L] | `B3` Cut-Size $d_{50}$ [$\mu$m] | `B3` $\le 30\text{ mg/L}$ Gate |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **`D1_turndown`** | `2.60` | `500.0` | `42.0` | `1.00×` | `25.57 mg/L` | **`6.90 mg/L`** | `7.61 μm` | **PASS** |
+| **`D2_turnup`** | `5.40` | `500.0` | `42.0` | `1.00×` | `20.89 mg/L` | **`6.14 mg/L`** | `6.87 μm` | **PASS** |
+| **`D3_sheared_feed`** | `4.00` | `500.0` | `29.5` | `1.00×` | `44.56 mg/L` (`FAIL`) | **`14.05 mg/L`** | `7.09 μm` | **PASS** |
+| **`D4_cold_viscous_slug`** | `4.00` | `850.0` | `38.0` | `1.32×` | `44.63 mg/L` (`FAIL`) | **`11.77 mg/L`** | `7.85 μm` | **PASS** |
+
+4. **Mandatory 5-Run OpenFOAM 14 (`G0`/`G1`/`G2` Roache `GCI` + Dual `LRR`/`SSG` RSM) Promotion Gate ([`tools/run_elite_3grid_gci_and_rsm.py`](../tools/run_elite_3grid_gci_and_rsm.py))**:
+   - Enforced by `python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing` and unit-tested in `tests/test_evidence.py` (`test_mandatory_elite_gci_and_rsm_promotion_gate`), **no candidate from any seed or topology family may be promoted as a CFD-verified elite** unless it passes all five OpenFOAM 14 runs (`G0` coarse, `G1` medium, `G2` fine, `G1 LRR` RSM, and `G1 SSG` RSM) with monotonic grid refinement ($N_{G0} < N_{G1} < N_{G2}$), water continuity closure $< 10^{-3}$, matched reject split $r \in [1.90\%, 2.10\%]$, signal-to-span ratio $\text{SNR}_{\text{span}} \ge 3.0$ (`4.86×` on $\Delta p_u$, `6.76×` on $e_{\text{loss}}$), `100.0%` diagonal normal-stress realizability ($R_{ii} > 0$), and inter-RSM agreement $\le 5.0\%$ (`0.256%` on $\Delta p_u$, `0.080%` on $e_{\text{loss}}$).
 
 ![Wave-2 Exotic 3D Genome Atlas: Multi-Inlet Branching, Helical Ribbons & Graded TPMS Shells](figures/wave2-exotic-3d-genome-atlas.png)
 
 ![Wave-2 10-Seed Equal-Budget Ablation, Bootstrap 95% CIs, Wilcoxon Tests & Held-Out Duties](figures/wave2-multiseed-ablation-and-ci.png)
+
+![Wave-2 10-Bin Grade-Efficiency Curves E_red(d) & Inlet-to-Outlet DSD Transfer](figures/wave2-grade-efficiency-and-dsd-shift.png)
+
+![Wave-2 P08 Structural Lamé Stress, Modal Lock-In & LPBF Overhang Qualification](figures/wave2-structural-lame-and-modal-qualification.png)
+
+![Wave-2 Animated 3D Helical Vortex Oil-Droplet Separation & 10-Seed QD Illumination](figures/wave2-vortex-and-qd-illumination.gif)
 
 ---
 
@@ -295,15 +319,16 @@ All claims, figures, and JSON dossiers in this white paper are reproducibly gene
 | **3-Grid Roache `GCI` & Dual 7-Eq. `LRR`/`SSG` RSM Dossier** | [`docs/results/elite-3grid-gci-and-rsm-verification-v1.json`](results/elite-3grid-gci-and-rsm-verification-v1.json) | `6bcac03b3724fa5fd60a83db33614756016c5188a7c028ddda86ab7a10de966c` |
 | **Wave-2 Pre-Registration Contract (`B0..B3`, `D1..D4`, 10 Seeds)** | [`experiments/wave2-preregistration-v1.json`](../experiments/wave2-preregistration-v1.json) | `405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4` |
 | **Wave-2 10-Seed Equal-Budget Ablation & Holdout Dossier** | [`docs/results/wave2-multiseed-ablation-and-holdout-v1.json`](results/wave2-multiseed-ablation-and-holdout-v1.json) | `e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799` |
+| **Interactive 3D 11-Family Archetype Preview Bundle** | [`docs/results/interactive-3d-archetypes-v1.json`](results/interactive-3d-archetypes-v1.json) | `7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07` |
 | **7-Topology 3D Archetype Atlas Figure Plate** | [`docs/figures/rust-3d-topology-atlas.png`](figures/rust-3d-topology-atlas.png) | `76e7ce10a2c334575b5dedcea04b33d51f8959d38ef849560c477aa1cc5cd8b7` |
 | **Pareto Front & 4D MAP-Elites Convergence Figure Plate** | [`docs/figures/pareto-map-elites-convergence.png`](figures/pareto-map-elites-convergence.png) | `3afd610ac646a3ae13c84d2939213d487e98935541457292f65d7507d8a7c6f7` |
 | **3-Grid `GCI` & Dual 7-Eq. `LRR`/`SSG` RSM Figure Plate** | [`docs/figures/elite-gci-and-rsm-verification.png`](figures/elite-gci-and-rsm-verification.png) | `dbce90bb3878dd863427e8d50f67b8ff469f6dfe4e782a9719f32db00710bbb9` |
 | **3D OpenFOAM 14 Internal Vortex-Physics Figure Plate** | [`docs/figures/openfoam14-3d-vortex-physics-comparison.png`](figures/openfoam14-3d-vortex-physics-comparison.png) | `5c0c4b1ee4d0a82f09d8c086334fe222201473e8801cda806319dd76ef7cac44` |
-| **Wave-2 Exotic 3D Genome Atlas Figure Plate (11 Families)** | [`docs/figures/wave2-exotic-3d-genome-atlas.png`](figures/wave2-exotic-3d-genome-atlas.png) | `4c57b5576d8f05ed22b3e5f10660b2e68771999a7f83efafe03ad7b8ca9c52f4` |
-| **Wave-2 10-Seed Statistical Ablation & Holdout Figure Plate** | [`docs/figures/wave2-multiseed-ablation-and-ci.png`](figures/wave2-multiseed-ablation-and-ci.png) | `079cf19af252f27fe483017f7dfebc80f63974e098a4c4758df42fbea3a32cf3` |
-| **Matérn-5/2 GP Surrogate `LOFO-CV` Qualification** | [`docs/results/surrogate-qualification-v1.json`](results/surrogate-qualification-v1.json) | `daa9942a840663d08239f01e140df4189d8ec13f422b3f74659023e6d36ff6f8` |
-| **P08 Structural, Modal & LPBF Qualification** | [`docs/results/structural-qualification-v1.json`](results/structural-qualification-v1.json) | `848f18dc92dc61661cb3a57966c6137f57f1b529bd654d3807b110665ff18f40` |
-| **P05 Analytical Droplet Physics Verification** | [`docs/results/droplet-verification-v1.json`](results/droplet-verification-v1.json) | `e0956795f6c1c42958b35a0b3413bd133db80194127670933b41907d50223ec3` |
-| **P06 Pre-Registered 5-Block Blinded Flow-Loop Protocol** | [`docs/results/experimental-protocol-qualification-v1.json`](results/experimental-protocol-qualification-v1.json) | `0038fb782ca397cf66fd6da632dc876b5695b200926528f8b0c5a4f7825a717f` |
+| **Wave-2 Exotic 3D Genome Atlas Figure Plate (11 Families)** | [`docs/figures/wave2-exotic-3d-genome-atlas.png`](figures/wave2-exotic-3d-genome-atlas.png) | `c4656fea7153db8c89e51233b67727fc5dcd3d09f80253c9b36e49fe6ba73f5a` |
+| **Wave-2 10-Seed Statistical Ablation & Holdout Figure Plate** | [`docs/figures/wave2-multiseed-ablation-and-ci.png`](figures/wave2-multiseed-ablation-and-ci.png) | `ef83db92f9658d5aac0c2a3ecaa86774914b33f2d47e8f97184cc83fdde137c8` |
+| **Wave-2 10-Bin Grade-Efficiency & DSD Shift Figure Plate** | [`docs/figures/wave2-grade-efficiency-and-dsd-shift.png`](figures/wave2-grade-efficiency-and-dsd-shift.png) | `cebfca5828bf295e0eac566bb55d2fd03b837b66c3dfb760bd4ca43cda8d1ef8` |
+| **Wave-2 P08 Structural Lamé & Modal Qualification Plate** | [`docs/figures/wave2-structural-lame-and-modal-qualification.png`](figures/wave2-structural-lame-and-modal-qualification.png) | `0b5456a046184f31a56a12e5dbcb543962a1432a8b38149942b0207bc1675aa0` |
+| **Wave-2 Animated 3D Vortex Separation & QD Illumination GIF** | [`docs/figures/wave2-vortex-and-qd-illumination.gif`](figures/wave2-vortex-and-qd-illumination.gif) | `1f9ea28fedba6587b570efca171f484d5ef6ea4217f950ba899e34338201a60e` |
+
 
 

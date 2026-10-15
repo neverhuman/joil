@@ -18,14 +18,21 @@
     {
       "command": "python3 tools/generate_wave2_figures_and_animations.py",
       "exit_code": 0
+    },
+    {
+      "command": "python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing",
+      "exit_code": 0
     }
   ],
   "artifacts_sha256": {
     "experiments/wave2-preregistration-v1.json": "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4",
     "docs/results/wave2-multiseed-ablation-and-holdout-v1.json": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799",
     "docs/results/interactive-3d-archetypes-v1.json": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07",
-    "docs/figures/wave2-exotic-3d-genome-atlas.png": "4c57b5576d8f05ed22b3e5f10660b2e68771999a7f83efafe03ad7b8ca9c52f4",
-    "docs/figures/wave2-multiseed-ablation-and-ci.png": "079cf19af252f27fe483017f7dfebc80f63974e098a4c4758df42fbea3a32cf3"
+    "docs/figures/wave2-exotic-3d-genome-atlas.png": "c4656fea7153db8c89e51233b67727fc5dcd3d09f80253c9b36e49fe6ba73f5a",
+    "docs/figures/wave2-multiseed-ablation-and-ci.png": "ef83db92f9658d5aac0c2a3ecaa86774914b33f2d47e8f97184cc83fdde137c8",
+    "docs/figures/wave2-grade-efficiency-and-dsd-shift.png": "cebfca5828bf295e0eac566bb55d2fd03b837b66c3dfb760bd4ca43cda8d1ef8",
+    "docs/figures/wave2-structural-lame-and-modal-qualification.png": "0b5456a046184f31a56a12e5dbcb543962a1432a8b38149942b0207bc1675aa0",
+    "docs/figures/wave2-vortex-and-qd-illumination.gif": "1f9ea28fedba6587b570efca171f484d5ef6ea4217f950ba899e34338201a60e"
   },
   "key_findings": {
     "canonical_3d_families_verified": 11,

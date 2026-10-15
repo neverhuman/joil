@@ -13,6 +13,9 @@ Goal: more compliant treated water per liner at a fixed pressure budget and reje
   - [Figure Plate 4: 3D OpenFOAM 14 Internal Swirl-Head & Vortex-Physics Comparison](docs/figures/openfoam14-3d-vortex-physics-comparison.png)
   - [Figure Plate 5: Wave-2 Exotic 3D Genome Atlas (11 Families: TPMS Gyroid, Schwarz-P, Octa-Branch & Counter-Fluted)](docs/figures/wave2-exotic-3d-genome-atlas.png)
   - [Figure Plate 6: Wave-2 10-Seed Statistical Ablation, Bootstrap 95% CIs, Wilcoxon Tests & Held-Out Duties](docs/figures/wave2-multiseed-ablation-and-ci.png)
+  - [Figure Plate 7: Wave-2 10-Bin Grade-Efficiency Curves $E_{\text{red}}(d)$ & Inlet-to-Outlet DSD Transfer](docs/figures/wave2-grade-efficiency-and-dsd-shift.png)
+  - [Figure Plate 8: Wave-2 `P08` Structural Lamé Stress, Modal Lock-In & LPBF Overhang Qualification](docs/figures/wave2-structural-lame-and-modal-qualification.png)
+  - [Animation: 3D Helical Vortex Oil-Droplet Separation & 10-Seed QD Illumination (`GIF`)](docs/figures/wave2-vortex-and-qd-illumination.gif)
 - **[Wave-2 Execution Plan (Trans-Dimensional 3D Genome, Multi-Seed Baselines, GCI/RSM & Animations)](docs/WAVE2_PLAN.md)** · **[Pre-Registration Contract](experiments/wave2-preregistration-v1.json)** · **[10-Seed Ablation Dossier](docs/results/wave2-multiseed-ablation-and-holdout-v1.json)**
 - [Master implementation plan](docs/MASTER_PLAN.md)
 - [Physics, scoring and validation contract](docs/SCIENCE.md)
@@ -32,6 +35,7 @@ The research baseline is CT-35: the Colman–Thew patent example scaled to D2 = 
 rtk cargo test --workspace --locked
 rtk cargo run -p joil-cli -- baseline
 rtk cargo run --release -p joil-cli -- wave2-benchmark
+rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing
 rtk proxy python3 -m unittest discover -s tests -v
 rtk proxy python3 tools/check_public.py
 rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'

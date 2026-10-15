@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "figure_file": "docs/figures/wave2-vortex-and-qd-illumination.gif",
+  "figure_sha256": "1f9ea28fedba6587b570efca171f484d5ef6ea4217f950ba899e34338201a60e",
+  "title": "Wave-2 3D Helical Vortex Oil-Droplet Separation & 10-Seed QD Illumination Animation",
+  "description": "14-frame synchronized animation of 3D helical vortex droplet migration into the reverse-flow oil core alongside 10-seed Pareto hypervolume illumination.",
+  "units_declared": true,
+  "scale_policy": "true_aspect_si_and_mm_annotated",
+  "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
+  "source_artifacts": [
+    {
+      "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+    },
+    {
+      "path": "docs/results/interactive-3d-archetypes-v1.json",
+      "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07"
+    }
+  ]
+}

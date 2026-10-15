@@ -126,3 +126,25 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
   - Added the `"GCI / RSM & Wave 2"` tab in `apps/explorer/src/main.tsx` and 11-family colors/candidates in `apps/explorer/src/Viewport3D.tsx` + `docs/results/interactive-3d-archetypes-v1.json`.
   - Synced `docs/WHITEPAPER.md`, `README.md`, `docs/STATUS.json`, and `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json`.
 
+
+## 2026-10-15T22:15Z — Joil drive routine (Grok Bot) [2026-10-15 03:15PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — was **IDLE** at Gemini prompt after Wave-2 push @ `f87d656`; **nudged** (file+readbuf+paste) toward remaining WAVE2_PLAN visuals/science polish on PR #1 while CI waits. Agent accepted (Loading… / queued).
+- **Jepson override**: none in hardcopy (prior prompts were drive-routine nudges only).
+- **PR #1**: https://github.com/neverhuman/joil/pull/1 (`feat/3d-pipeline-openfoam-elite` @ `f87d6562c7c7e9b617d38771a3f2ca3f29ade158`, not draft, MERGEABLE) — **not merged**: Foundation still **QUEUED** (jobs 116697337573 pull_request + 116697318241 push @ head; also older queued runs for `74f4f99` / `6d8ef7c`). Same known neverhuman-lan / lan-ci pickup gap — **not re-escalated**. Leave `foundation.yml` alone.
+- **Merges / approve**: none (CI not green).
+- **Cleanup**: none — no merge; single worktree `/home/ubuntu/joil` on feature branch; screen owns tree.
+- **WakeParent**: NO (quiet progress + same known CI queue).
+## 2026-10-15T22:24Z — Gemini (`agy_joil`): Completed Remaining `WAVE2_PLAN` §4 Plates 7 & 8 (`wave2-grade-efficiency-and-dsd-shift.png`, `wave2-structural-lame-and-modal-qualification.png`), Animated 3D Vortex/QD GIF (`wave2-vortex-and-qd-illumination.gif`), Mandatory Elite `GCI`/`RSM` Promotion Gate (`tools/run_elite_3grid_gci_and_rsm.py`), and White Paper / Explorer Integration on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+- **1. Mandatory 5-Run OpenFOAM 14 (`G0`/`G1`/`G2` Roache `GCI` + Dual `LRR`/`SSG` RSM) Promotion Gate (`tools/run_elite_3grid_gci_and_rsm.py`, `tests/test_evidence.py`)**:
+  - Implemented `tools/run_elite_3grid_gci_and_rsm.py` (`--verify-existing`) enforcing that no candidate from any seed or topology family may be promoted as a CFD-verified elite without passing all 5 OpenFOAM 14 verification runs (`G0`, `G1`, `G2`, `LRR` RSM, `SSG` RSM): monotonic cell growth ($N_{G0} < N_{G1} < N_{G2}$), water closure $< 10^{-3}$, matched reject split $r \in [1.90\%, 2.10\%]$, signal-to-span ratio $\text{SNR}_{\text{span}} \ge 3.0$ (`4.86×` on $\Delta p_u$, `6.76×` on $e_{\text{loss}}$), `100.0%` diagonal normal-stress realizability ($R_{ii} > 0$), and inter-RSM delta $\le 5.0\%$ (`0.256%` on $\Delta p_u$, `0.080%` on $e_{\text{loss}}$).
+  - Added `test_mandatory_elite_gci_and_rsm_promotion_gate` in `tests/test_evidence.py` testing both positive certification and negative rejection on synthetic gate violations.
+- **2. Completed All Remaining `WAVE2_PLAN` §4 Figure Plates (`Plates 7 & 8`) & Animated 3D Vortex/QD GIF (`tools/generate_wave2_figures_and_animations.py`)**:
+  - **`docs/figures/wave2-grade-efficiency-and-dsd-shift.png`** (`SHA-256: cebfca5828bf295e0eac566bb55d2fd03b837b66c3dfb760bd4ca43cda8d1ef8`): 10-bin coupled grade-efficiency curves $E_{\text{red}}(d)$, stratified DSD inlet-to-underflow mass transfer, 11-family Euler–Stokes cut-size $d_{50}$ vs. entry shear $G_{\max}$ frontier, and held-out duty (`D1..D4`) cut-size stability.
+  - **`docs/figures/wave2-structural-lame-and-modal-qualification.png`** (`SHA-256: 0b5456a046184f31a56a12e5dbcb543962a1432a8b38149942b0207bc1675aa0`): Axial Von Mises stress $\sigma_{\text{VM}}(z)$ under $2.5\text{ MPa}$ proof pressure, Strouhal vortex-precession frequency $f_{\text{PVC}}(Q_i)$ vs. first structural bending mode $f_1$ lock-in envelope, LPBF overhang angle $\le 45^\circ$, and 11-family `P08` yield safety factors.
+  - **`docs/figures/wave2-vortex-and-qd-illumination.gif`** (`SHA-256: 1f9ea28fedba6587b570efca171f484d5ef6ea4217f950ba899e34338201a60e`): 14-frame synchronized animation of 3D helical vortex droplet migration into the reverse-flow oil core alongside 10-seed Pareto hypervolume illumination.
+- **3. Deepened `docs/WHITEPAPER.md`, `README.md`, & `apps/explorer/src/main.tsx`**:
+  - Wired full markdown tables for the pre-registered 10-seed 4-arm ablation (`B0..B3`) and held-out operating duties (`D1..D4`), plus the mandatory 5-run `GCI`/`RSM` promotion gate and Plates 5–8 + animation GIF into `docs/WHITEPAPER.md`, `README.md`, and `apps/explorer/src/main.tsx`.
+  - Updated `qualify-structure` in `crates/joil-cli/src/main.rs` to evaluate all 11 Wave-2 canonical topology families.
+

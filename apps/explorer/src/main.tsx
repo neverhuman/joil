@@ -16,6 +16,9 @@ import gciRsmPlate from '../../../docs/figures/elite-gci-and-rsm-verification.pn
 import vortexPhysicsPlate from '../../../docs/figures/openfoam14-3d-vortex-physics-comparison.png';
 import wave2AtlasPlate from '../../../docs/figures/wave2-exotic-3d-genome-atlas.png';
 import wave2AblationPlate from '../../../docs/figures/wave2-multiseed-ablation-and-ci.png';
+import wave2GradeDsdPlate from '../../../docs/figures/wave2-grade-efficiency-and-dsd-shift.png';
+import wave2StructuralPlate from '../../../docs/figures/wave2-structural-lame-and-modal-qualification.png';
+import wave2VortexQdGif from '../../../docs/figures/wave2-vortex-and-qd-illumination.gif';
 import { Viewport3D } from './Viewport3D';
 import './style.css';
 
@@ -99,6 +102,9 @@ function App() {
         </div>
         <img className="proposalplate" src={wave2AtlasPlate} alt="Wave-2 Exotic 3D Genome Atlas: Cylindrical-Gyroid TPMS, Schwarz-P Rectifier, Octa-Branch 8-Jet Manifold, and Counter-Fluted Cascade" />
         <img className="proposalplate" src={wave2AblationPlate} alt="Wave-2 10-seed statistical ablation: Hypervolume CIs, Wilcoxon dominance, D1..D4 held-out duties, and 10% rejected-cohort audit" />
+        <img className="proposalplate" src={wave2GradeDsdPlate} alt="Wave-2 10-Bin Grade-Efficiency Curves E_red(d) and Stratified DSD Transfer" />
+        <img className="proposalplate" src={wave2StructuralPlate} alt="Wave-2 P08 Structural Lamé Stress, Modal Lock-In, and LPBF Manufacturability Qualification" />
+        <img className="proposalplate" src={wave2VortexQdGif} alt="Animated 3D Helical Vortex Oil-Droplet Separation and 10-Seed QD Hypervolume Illumination" />
         <img className="proposalplate" src={gciRsmPlate} alt="3-Grid Roache GCI and 7-Equation LRR/SSG RSM Verification on Promoted 6-Jet 3D Elite" />
         <img className="proposalplate" src={vortexPhysicsPlate} alt="OpenFOAM 14 3D Vortex-Core Physics Comparison: CT-35 vs Promoted 6-Jet Elite under k-omega SST, LRR RSM, and SSG RSM" />
       </section>}

@@ -65,5 +65,23 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(len(prereg['held_out_operating_duties']),4)
         self.assertEqual(prereg['mandatory_elite_cfd_gates']['rsm_closures_required'],['LRR','SSG'])
 
+    def test_mandatory_elite_gci_and_rsm_promotion_gate(self):
+        import copy
+        from tools.run_elite_3grid_gci_and_rsm import evaluate_elite_gci_rsm_gate
+        root=Path(__file__).resolve().parents[1]
+        dossier=json.loads((root/'docs/results/elite-3grid-gci-and-rsm-verification-v1.json').read_text())
+        prereg=json.loads((root/'experiments/wave2-preregistration-v1.json').read_text())
+        passed=evaluate_elite_gci_rsm_gate(dossier,prereg)
+        self.assertTrue(passed['gate_passed'],passed['failures'])
+        self.assertGreaterEqual(passed['checks']['saving_to_3grid_span_ratio_dp_u'],3.0)
+        self.assertLessEqual(passed['checks']['inter_rsm_dp_u_delta_pct'],5.0)
+        bad=copy.deepcopy(dossier)
+        bad['rsm_turbulence_closure_crosscheck'][0]['reynolds_stress_tensor_diagnostics']['positive_definite_normal_stress_fraction']=0.98
+        bad['roache_gci_analysis']['signal_to_uncertainty_margin']['saving_to_3grid_span_ratio']=2.1
+        failed=evaluate_elite_gci_rsm_gate(bad,prereg)
+        self.assertFalse(failed['gate_passed'])
+        self.assertGreaterEqual(len(failed['failures']),2)
+
 
 if __name__=='__main__':unittest.main()
+
