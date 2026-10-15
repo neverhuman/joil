@@ -53,5 +53,17 @@ class EvidenceTests(unittest.TestCase):
         self.assertIsNone(fail['qualified_capacity_gain'])
         with self.assertRaises(ValueError):research_fitness(cout_bounds=[math.nan,1],**kwargs)
 
+    def test_wave2_preregistration_contract(self):
+        import hashlib
+        root=Path(__file__).resolve().parents[1]
+        prereg=json.loads((root/'experiments/wave2-preregistration-v1.json').read_text())
+        base_sha=hashlib.sha256((root/'baselines/ct35/genome.json').read_bytes()).hexdigest()
+        self.assertEqual(prereg['baseline_file_sha256'],base_sha)
+        self.assertEqual(len(prereg['topology_families_11']),11)
+        self.assertEqual(len(prereg['equal_budget_comparators']),4)
+        self.assertEqual(prereg['multiseed_statistical_protocol']['n_seeds'],10)
+        self.assertEqual(len(prereg['held_out_operating_duties']),4)
+        self.assertEqual(prereg['mandatory_elite_cfd_gates']['rsm_closures_required'],['LRR','SSG'])
+
 
 if __name__=='__main__':unittest.main()

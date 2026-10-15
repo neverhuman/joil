@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "receipt_id": "wave2-genome-and-10seed-ablation-20261015",
+  "timestamp_utc": "2026-10-15T21:58:30Z",
+  "agent": "Antigravity (Gemini)",
+  "branch": "feat/3d-pipeline-openfoam-elite",
+  "pr_number": 1,
+  "scope": "Wave-2 Exotic 3D Genome (TpmsInsertField3D, HelicalRibbon3D, 11 canonical families, validity-preserving operators, canonicalize_and_preflight), Pre-Registration Contract (experiments/wave2-preregistration-v1.json), 10-Seed 4-Arm Equal-Budget Ablation (B0/B1/B2/B3) + Held-Out Duties (D1..D4) + 10% Rejected-Cohort Audit, Wave-2 Figure Plates 5 & 6, and Interactive Explorer GCI/RSM & Wave-2 Tab",
+  "commands_executed": [
+    {
+      "command": "cargo run --release --bin joil-cli -- wave2-benchmark --out docs/results/wave2-multiseed-ablation-and-holdout-v1.json --stl-dir runs/rust-wave2-3d-archetypes/stl",
+      "exit_code": 0
+    },
+    {
+      "command": "cargo run --release --bin joil-cli -- export-3d-preview",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 tools/generate_wave2_figures_and_animations.py",
+      "exit_code": 0
+    }
+  ],
+  "artifacts_sha256": {
+    "experiments/wave2-preregistration-v1.json": "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4",
+    "docs/results/wave2-multiseed-ablation-and-holdout-v1.json": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799",
+    "docs/results/interactive-3d-archetypes-v1.json": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07",
+    "docs/figures/wave2-exotic-3d-genome-atlas.png": "4c57b5576d8f05ed22b3e5f10660b2e68771999a7f83efafe03ad7b8ca9c52f4",
+    "docs/figures/wave2-multiseed-ablation-and-ci.png": "079cf19af252f27fe483017f7dfebc80f63974e098a4c4758df42fbea3a32cf3"
+  },
+  "key_findings": {
+    "canonical_3d_families_verified": 11,
+    "n_seeds": 10,
+    "evaluations_per_seed_per_arm": 180,
+    "b0_baseline_ct35_cout_p95_mg_l": 25.095679,
+    "b1_random_lhs_cout_p95_mean_mg_l": 9.033522,
+    "b2_conventional_axisym_cout_p95_mean_mg_l": 18.986385,
+    "b3_exotic3d_qd_cei_cout_p95_mean_mg_l": 7.209738,
+    "b3_vs_b1_mann_whitney_u": 100.0,
+    "b3_vs_b1_p_holm_bonferroni": 0.0003142,
+    "b3_vs_b1_cliffs_delta": 1.0,
+    "b3_vs_b2_mann_whitney_u": 100.0,
+    "b3_vs_b2_p_holm_bonferroni": 0.0003142,
+    "b3_vs_b2_cliffs_delta": 1.0,
+    "rejected_cohort_10pct_audit_false_omissions": 0,
+    "rejected_cohort_10pct_audit_passed": true
+  },
+  "claim_state": "wave2_f0_geometry_and_f1_multiseed_ablation_verified_qualified_fitness_null_pending_f2_full_residence_and_f4_rig"
+}

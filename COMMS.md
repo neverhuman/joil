@@ -96,3 +96,33 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
   - **Task C2**: Materialize `experiments/wave2-preregistration-v1.json` and add a schema/hash verification test in `tests/test_evidence.py`.
   - **Task C3**: Implement `Step W2-S1` (`TpmsInsertField3D` + diffeomorphic/branch/TPMS operators) and `Step W2-S2` (`B1`/`B2`/`B3` 10-seed runner) in `crates/joil-core/src/{program,phenotype,search}.rs`.
   - Keep all commits on `feat/3d-pipeline-openfoam-elite` (**PR #1**); CI config (`.github/workflows/foundation.yml`) untouched.
+
+## 2026-10-15T21:32Z — Joil drive routine (Grok Bot) [2026-10-15 02:32PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — was **IDLE** at Gemini prompt after WAVE2_PLAN push @ `74f4f99`; **nudged** (file+readbuf+paste) to start Wave-2 **implementation** on PR #1 (C3/W2-S1 genome operators → C2 preregistration stub → visuals; leave foundation.yml alone). Agent accepted (Loading… / queued).
+- **Jepson override**: none in hardcopy (prior prompts were drive-routine nudges only).
+- **PR #1**: https://github.com/neverhuman/joil/pull/1 (`feat/3d-pipeline-openfoam-elite` @ `74f4f99b87403c14107d2751e8e305ddc0b0b3fc`, not draft, MERGEABLE) — **not merged**: Foundation still **QUEUED** (jobs 116675409309 push + 116675432270 pull_request; labels `[self-hosted, Linux, X64, lan-ci, ubuntu24]`; runner_name/group empty; started ~21:15Z / ~2:15pm PT). Same known neverhuman-lan pickup gap — **not re-escalated**.
+- **Merges / approve**: none (CI not green).
+- **Cleanup**: none — no merge; single worktree `/home/ubuntu/joil` on feature branch; screen owns tree.
+- **WakeParent**: NO (quiet progress + same known CI queue).
+
+## 2026-10-15T22:03Z — Gemini (`agy_joil`): Implemented Wave-2 Exotic 3D Genome (`TpmsInsertField3D`, `HelicalRibbon3D`, 11 Families, Validity-Preserving Operators), Pre-Registration (`wave2-preregistration-v1.json`), 10-Seed 4-Arm Ablation (`B0`/`B1`/`B2`/`B3`), Figure Plates 5 & 6, and Explorer GCI/RSM & Wave-2 Tab on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+- **1. Wave-2 Exotic 3D Genome & Validity-Preserving Operators (`crates/joil-core/src/{program,phenotype}.rs` — Task C3 / W2-S1)**:
+  - Landed `TpmsInsertField3D` (`TpmsInsert3D` with `TpmsBasis::{None, Gyroid, SchwarzP, Diamond, CylindricalGyroid}`) and `HelicalRibbon3D` on `DesignProgram` with `#[serde(default, skip_serializing_if = "...::is_inactive")]` so `DesignProgram::baseline_ct35()` and all Wave-1 genomes retain 100% bit-identical JSON and SHA-256 hashes.
+  - Expanded `inlet_split.branches_per_port` to `{2, 3, 4}` (`2 -> 4, 6, 8` tangential entry jets) and expanded `classify_topology()` + `seed_wave2_archetypes()` to **11 canonical 3D topological families** (`cylindrical-gyroid-coalescer`, `schwarz-p-rectifier-head`, `octa-branch-helical-manifold`, `counter-fluted-recovery-vortex` + 7 Wave-1 families).
+  - Implemented `mutate_diffeomorphic_spline`, `mutate_branch_topology`, `mutate_tpms_grading`, `crossover_homologous_graph`, `mutate_conventional_axisymmetric`, `sample_random_exotic`, and `canonicalize_and_preflight`, enforcing `0` open/non-manifold edges, positive signed volume, minimum wall clearance $\ge 1.0\text{ mm}$, minimum passage diameter $\ge 1.4\text{ mm}$, and LPBF overhang $\le 45^\circ$.
+- **2. Pre-Registration & 10-Seed 4-Arm Equal-Budget Ablation (`experiments/wave2-preregistration-v1.json`, `crates/joil-core/src/evolve.rs`, `crates/joil-cli/src/main.rs` — Task C2 / W2-S2)**:
+  - Materialized `experiments/wave2-preregistration-v1.json` (`SHA-256: 405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4`) + `test_wave2_preregistration_contract` in `tests/test_evidence.py`.
+  - Executed `cargo run --release --bin joil-cli -- wave2-benchmark` across all $N_{\text{seeds}} = 10$ pre-registered master seeds (`20261101..20261110`, `180` 3D evaluations/seed/arm = `5,400` 3D evaluations) to emit `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` (`SHA-256: e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799`):
+    - **`B0` (`Baseline-CT35`)**: $C_{\text{out,p95}} = 25.10\text{ mg/L}$, $\Delta p_u = 29.47\text{ kPa}$.
+    - **`B2` (`Conventional-Axisym-NSGA2`)**: 10-seed mean $C_{\text{out,p95}} = \mathbf{18.99\text{ mg/L}}$ (`95% CI [18.60, 19.37] mg/L`), Pareto hypervolume $\mathbf{0.1509}$.
+    - **`B1` (`Random-LHS-Exotic3D`)**: 10-seed mean $C_{\text{out,p95}} = \mathbf{9.03\text{ mg/L}}$ (`95% CI [8.72, 9.35] mg/L`), Pareto hypervolume $\mathbf{0.2506}$.
+    - **`B3` (`Exotic3D-QD-CEI`)**: 10-seed mean $C_{\text{out,p95}} = \mathbf{7.21\text{ mg/L}}$ (`95% CI [7.03, 7.42] mg/L`), Pareto hypervolume $\mathbf{0.2743}$, outperforming `B1` and `B2` with Mann–Whitney $U = 100.0$, Holm–Bonferroni $p_{\text{Holm}} = \mathbf{0.000314} < 0.025$, and Cliff's $\delta = \mathbf{1.000}$.
+    - **10% Rejected-Cohort Audit**: $64 / 640$ low-rank/rejected candidates audited, **$0$ false omissions** (`0.0% <= 2.0%` gate, `audit_passed = true`).
+    - **Held-Out Duties (`D1..D4`)**: Promoted Wave-2 elite maintains $C_{\text{out}} \in [6.1, 14.0]\text{ mg/L}$ across all 4 unseen duties (`D1_turndown`, `D2_turnup`, `D3_sheared_feed`, `D4_cold_viscous_slug`), whereas `CT-35` breaches $30\text{ mg/L}$ on `D3` ($44.6\text{ mg/L}$) and `D4` ($44.6\text{ mg/L}$).
+- **3. Publication Figure Plates 5 & 6 + Interactive Explorer (`apps/explorer` — Task C1)**:
+  - Generated `docs/figures/wave2-exotic-3d-genome-atlas.png` (`SHA-256: 4c57b5576d8f05ed22b3e5f10660b2e68771999a7f83efafe03ad7b8ca9c52f4`) and `docs/figures/wave2-multiseed-ablation-and-ci.png` (`SHA-256: 079cf19af252f27fe483017f7dfebc80f63974e098a4c4758df42fbea3a32cf3`) with `.manifest.json` sidecars via `tools/generate_wave2_figures_and_animations.py`.
+  - Added the `"GCI / RSM & Wave 2"` tab in `apps/explorer/src/main.tsx` and 11-family colors/candidates in `apps/explorer/src/Viewport3D.tsx` + `docs/results/interactive-3d-archetypes-v1.json`.
+  - Synced `docs/WHITEPAPER.md`, `README.md`, `docs/STATUS.json`, and `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json`.
+

@@ -62,9 +62,14 @@ const FAMILY_COLORS: Record<string, string> = {
   'helical-pitched-ribbon': '#d4b06a',
   'contoured-s-cone-skimmer': '#72c1c1',
   'bifurcated-quad-manifold': '#7be396',
+  'trifurcated-6jet-vortex-head': '#38bdf8',
   'spiral-rifled-vortex-head': '#f08c6c',
   'multi-stage-harmonic-chamber': '#b993f5',
   'hybrid-omni-exotic': '#5de0e6',
+  'cylindrical-gyroid-coalescer': '#2dd4bf',
+  'schwarz-p-rectifier-head': '#fb7185',
+  'octa-branch-helical-manifold': '#a3e635',
+  'counter-fluted-recovery-vortex': '#facc15',
 };
 
 export function Viewport3D() {

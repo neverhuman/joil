@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "protocol_id": "joil-wave2-preregistration-v1",
+  "frozen_date_utc": "2026-10-15T21:34:00Z",
+  "parent_plan": "docs/MASTER_PLAN.md",
+  "wave2_plan": "docs/WAVE2_PLAN.md",
+  "requirements_ref": "requirements/RS-joil-research-v1.json",
+  "baseline_genome_ref": "baselines/ct35/genome.json",
+  "baseline_file_sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+  "immutable_interfaces": {
+    "inlet1_x_mm": -60.0,
+    "inlet2_x_mm": 60.0,
+    "inlet_area_each_mm2": 120.26409377023427,
+    "overflow_z_mm": -22.8,
+    "overflow_bore_cfd_mm": 2.0,
+    "frozen_collar_z_range_mm": [
+      151.74743184330993,
+      169.24743184330993
+    ],
+    "frozen_tail_z_min_mm": 169.24743184330993,
+    "evolvable_head_z_range_mm": [
+      0.0,
+      151.74743184330993
+    ]
+  },
+  "topology_families_11": [
+    "baseline-ct35",
+    "helical-pitched-ribbon",
+    "bifurcated-quad-manifold",
+    "trifurcated-6jet-vortex-head",
+    "contoured-s-cone-skimmer",
+    "spiral-rifled-vortex-head",
+    "hybrid-omni-exotic",
+    "cylindrical-gyroid-coalescer",
+    "schwarz-p-rectifier-head",
+    "octa-branch-helical-manifold",
+    "counter-fluted-recovery-vortex"
+  ],
+  "held_out_topology_families_lofo_cv": [
+    "cylindrical-gyroid-coalescer",
+    "octa-branch-helical-manifold"
+  ],
+  "hard_feasibility_gates": {
+    "f0_watertight_manifold": true,
+    "f0_min_wall_clearance_mm": 1.0,
+    "f0_min_tpms_sheet_thickness_mm": 1.2,
+    "f0_min_passage_hydraulic_diameter_mm": 1.4,
+    "f0_min_tpms_pore_diameter_mm": 3.5,
+    "f0_max_lpbf_overhang_deg": 45.0,
+    "f0_trapped_cavities_allowed": 0,
+    "p08_min_yield_safety_factor_ti64": 2.5,
+    "p08_min_modal_lockin_freq_ratio": 3.0,
+    "water_quality_cout_p95_max_mg_l": 30.0,
+    "water_quality_stretch_max_mg_l": 20.0,
+    "reject_split_band": [
+      0.0185,
+      0.0215
+    ]
+  },
+  "objectives_minimize_5d": [
+    {
+      "index": 0,
+      "id": "cout_p95_mg_l",
+      "sense": "minimize",
+      "units": "mg/L",
+      "description": "95th-percentile treated-water oil concentration across Monte Carlo perturbations"
+    },
+    {
+      "index": 1,
+      "id": "specific_energy_j_m3",
+      "sense": "minimize",
+      "units": "J/m^3",
+      "description": "Device mechanical energy dissipation per unit compliant treated water volume"
+    },
+    {
+      "index": 2,
+      "id": "one_minus_grade_20um_p05",
+      "sense": "minimize",
+      "units": "-",
+      "description": "1 - 5th-percentile 20 um droplet grade capture efficiency"
+    },
+    {
+      "index": 3,
+      "id": "d50_p95_um",
+      "sense": "minimize",
+      "units": "um",
+      "description": "95th-percentile centrifugal cut size d50"
+    },
+    {
+      "index": 4,
+      "id": "dp_u_pa",
+      "sense": "minimize",
+      "units": "Pa",
+      "description": "Inlet-to-underflow static pressure drop at nominal 4.000 m^3/h feed"
+    }
+  ],
+  "equal_budget_comparators": [
+    {
+      "arm_id": "B0",
+      "name": "Baseline-CT35",
+      "mode": "Ct35Fixed",
+      "description": "Exact Colman-Thew 35 mm baseline reconstruction"
+    },
+    {
+      "arm_id": "B1",
+      "name": "Random-LHS-Exotic3D",
+      "mode": "RandomLhsExotic3d",
+      "description": "Pure uniform/LHS random sampling over full 11-family 3D space with F0/P08 filtering (no selection/mutation)"
+    },
+    {
+      "arm_id": "B2",
+      "name": "Conventional-Axisym-NSGA2",
+      "mode": "ConventionalAxisymmetricNsga2",
+      "description": "Constrained NSGA-II restricted to conventional 2-port axisymmetric cone/skimmer parameters (no branching, no TPMS, no azimuthal modes)"
+    },
+    {
+      "arm_id": "B3",
+      "name": "Exotic3D-QD-CEI",
+      "mode": "Exotic3dQdCei",
+      "description": "Full Wave-2 multi-island Constrained NSGA-II + 4D MAP-Elites + GP CEI active prescreening across all 11 3D topology families"
+    }
+  ],
+  "multiseed_statistical_protocol": {
+    "n_seeds": 10,
+    "master_seeds": [
+      20261101,
+      20261102,
+      20261103,
+      20261104,
+      20261105,
+      20261106,
+      20261107,
+      20261108,
+      20261109,
+      20261110
+    ],
+    "bootstrap_resamples": 10000,
+    "confidence_level": 0.95,
+    "alpha_one_sided": 0.025,
+    "multiplicity_correction": "Holm-Bonferroni",
+    "rejected_cohort_random_audit_fraction": 0.1
+  },
+  "held_out_operating_duties": [
+    {
+      "duty_id": "D1_turndown",
+      "q_in_m3_h": 2.6,
+      "cin_mg_l": 500.0,
+      "d50_feed_um": 22.0,
+      "viscosity_factor": 1.0,
+      "description": "Low-flow turndown (65% nominal flow) testing core vortex stability"
+    },
+    {
+      "duty_id": "D2_turnup",
+      "q_in_m3_h": 5.4,
+      "cin_mg_l": 500.0,
+      "d50_feed_um": 22.0,
+      "viscosity_factor": 1.0,
+      "description": "High-flow turnup (135% nominal flow) testing entry Hinze shear breakup resistance"
+    },
+    {
+      "duty_id": "D3_sheared_feed",
+      "q_in_m3_h": 4.0,
+      "cin_mg_l": 500.0,
+      "d50_feed_um": 14.5,
+      "viscosity_factor": 1.0,
+      "description": "Choke-sheared fine inlet droplet distribution (d50_feed = 14.5 um)"
+    },
+    {
+      "duty_id": "D4_cold_viscous_slug",
+      "q_in_m3_h": 4.0,
+      "cin_mg_l": 850.0,
+      "d50_feed_um": 20.0,
+      "viscosity_factor": 1.32,
+      "description": "Cold viscous high-oil-cut slug (Cin = 850 mg/L, viscosity +32%)"
+    }
+  ],
+  "mandatory_elite_cfd_gates": {
+    "openfoam_version": "Foundation-14",
+    "three_grid_levels": [
+      "G0_coarse_140k",
+      "G1_medium_305k",
+      "G2_fine_550k"
+    ],
+    "min_signal_to_3grid_span_ratio": 3.0,
+    "rsm_closures_required": [
+      "LRR",
+      "SSG"
+    ],
+    "min_rsm_normal_stress_realizability": 1.0,
+    "max_inter_rsm_dp_discrepancy_pct": 5.0
+  }
+}

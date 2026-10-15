@@ -190,7 +190,7 @@ impl Phenotype3D {
         let zc = d.z_cone_end_mm;
         let zt = d.z_taper_end_mm;
 
-        if z_mm <= l1 {
+        let mut r_wall = if z_mm <= l1 {
             if (20.0..=65.0).contains(&z_mm) && !prog.chamber_modes.is_empty() {
                 let s = (z_mm - 20.0) / 45.0;
                 let env = (PI * s).sin().powi(2);
@@ -223,7 +223,45 @@ impl Phenotype3D {
             r2 + (r3 - r2) * ((z_mm - zc) / d.taper_length_mm)
         } else {
             r3
+        };
+
+        // Wave-2 Layer B2: Internal helical guide-ribbon cascade on z in [12, 12 + axial_span] mm
+        if !prog.ribbon_cascade.is_inactive() {
+            let zs = 12.0;
+            let ze = (12.0 + prog.ribbon_cascade.axial_span_mm).min(66.0);
+            if (zs..=ze).contains(&z_mm) && ze > zs + 1.0 {
+                let s = (z_mm - zs) / (ze - zs);
+                let env = (PI * s).sin().powi(2);
+                let m = prog.ribbon_cascade.vane_count as f64;
+                let phase = m * theta + prog.ribbon_cascade.helical_twist_rad * s;
+                let vane_profile = phase.cos().max(0.0).powi(4);
+                r_wall -= env * (0.35 * prog.ribbon_cascade.radial_chord_mm) * vane_profile;
+            }
         }
+
+        // Wave-2 Layer C2: Peripheral TPMS coalescer/rectifier shell modulation
+        if !prog.tpms_insert.is_inactive() {
+            let zs = prog.tpms_insert.axial_start_mm;
+            let ze = prog.tpms_insert.axial_end_mm;
+            if (zs..=ze).contains(&z_mm) && ze > zs + 1.0 {
+                let s = (z_mm - zs) / (ze - zs);
+                let env = (PI * s).sin().powi(2);
+                let kz = 2.0 * PI * (z_mm - zs) / prog.tpms_insert.axial_wavelength_mm;
+                let kt = 4.0 * theta;
+                let tpms_wave = match prog.tpms_insert.basis {
+                    crate::program::TpmsBasis::None => 0.0,
+                    crate::program::TpmsBasis::Gyroid
+                    | crate::program::TpmsBasis::CylindricalGyroid => {
+                        0.55 * (kt.sin() * kz.cos() + (kt + kz).sin() * 0.5)
+                    }
+                    crate::program::TpmsBasis::SchwarzP => 0.50 * (kt.cos() + kz.cos()) * 0.5,
+                    crate::program::TpmsBasis::Diamond => 0.50 * (kt.sin() * kz.sin()),
+                };
+                r_wall += env * (0.45 * prog.tpms_insert.sheet_thickness_mm) * tpms_wave;
+            }
+        }
+
+        r_wall
     }
 
     /// Build a watertight outward-oriented 3D surface mesh of the full fluid domain (or removable head).
@@ -416,10 +454,39 @@ impl Phenotype3D {
             delta_skim_vol_mm3 = -(frustum_outer - cyl_inner);
         }
 
+        // 6. Wave-2 Helical guide-ribbon cascade & Peripheral TPMS coalescer shell volume/clearance
+        let mut delta_wave2_vol_mm3 = 0.0;
+        if !p.ribbon_cascade.is_inactive() {
+            min_clearance = min_clearance.min(p.ribbon_cascade.thickness_mm);
+            let vane_vol = (p.ribbon_cascade.vane_count as f64)
+                * p.ribbon_cascade.axial_span_mm
+                * p.ribbon_cascade.radial_chord_mm
+                * p.ribbon_cascade.thickness_mm;
+            delta_wave2_vol_mm3 -= vane_vol;
+        }
+        if !p.tpms_insert.is_inactive() {
+            min_clearance = min_clearance.min(p.tpms_insert.sheet_thickness_mm);
+            let r_outer = d.d1_mm / 2.0;
+            let r_inner = r_outer * p.tpms_insert.radial_inner_fraction;
+            let span_z = p.tpms_insert.axial_end_mm - p.tpms_insert.axial_start_mm;
+            let annulus_vol = PI * (r_outer * r_outer - r_inner * r_inner) * span_z;
+            let solid_frac = (p.tpms_insert.sheet_thickness_mm
+                / p.tpms_insert.radial_wavelength_mm)
+                .clamp(0.10, 0.28);
+            delta_wave2_vol_mm3 -= annulus_vol * solid_frac;
+            let pore_d =
+                (p.tpms_insert.radial_wavelength_mm - p.tpms_insert.sheet_thickness_mm).max(3.5);
+            min_passage_d = min_passage_d.min(pore_d);
+        }
+
         let fluid_vol = if is_base {
             d.fluid_volume_mm3
         } else {
-            d.fluid_volume_mm3 + delta_cone_vol_mm3 + delta_inlet_vol_mm3 + delta_skim_vol_mm3
+            d.fluid_volume_mm3
+                + delta_cone_vol_mm3
+                + delta_inlet_vol_mm3
+                + delta_skim_vol_mm3
+                + delta_wave2_vol_mm3
         };
 
         // Baseline B-rep sharp-corner solid head volume is 128,835.217 mm^3 (570.74 g at 4.43 g/cm^3 Ti-6Al-4V).
@@ -428,7 +495,11 @@ impl Phenotype3D {
         let head_solid_vol_mm3 = if is_base {
             baseline_head_vol_mm3
         } else {
-            baseline_head_vol_mm3 - (delta_cone_vol_mm3 + delta_inlet_vol_mm3 + delta_skim_vol_mm3)
+            baseline_head_vol_mm3
+                - (delta_cone_vol_mm3
+                    + delta_inlet_vol_mm3
+                    + delta_skim_vol_mm3
+                    + delta_wave2_vol_mm3)
         };
         let head_mass_ti64_g = (head_solid_vol_mm3 * 1e-3) * 4.43;
 

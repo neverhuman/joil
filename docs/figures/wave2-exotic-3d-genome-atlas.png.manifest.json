@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "figure_file": "docs/figures/wave2-exotic-3d-genome-atlas.png",
+  "figure_sha256": "4c57b5576d8f05ed22b3e5f10660b2e68771999a7f83efafe03ad7b8ca9c52f4",
+  "title": "Wave-2 Exotic 3D Genome Atlas: Multi-Inlet Branching, Helical Ribbons & Graded TPMS Shells",
+  "description": "True-scale 3D cutaway gallery, z=42 mm chamber cross-sections, and 11-family performance comparison for the Wave-2 compositional 3D genome.",
+  "units_declared": true,
+  "scale_policy": "true_aspect_si_and_mm_annotated",
+  "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
+  "source_artifacts": [
+    {
+      "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+    },
+    {
+      "path": "docs/results/interactive-3d-archetypes-v1.json",
+      "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07"
+    }
+  ]
+}

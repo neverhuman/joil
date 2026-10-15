@@ -668,9 +668,71 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }))?
             );
         }
+        "wave2-benchmark" => {
+            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
+                "docs/results/wave2-multiseed-ablation-and-holdout-v1.json".into()
+            }));
+            let stl_dir = parse_arg(&args, "--stl-dir").map(PathBuf::from);
+            let seeds: Vec<u64> = if let Some(s) = parse_arg(&args, "--seeds") {
+                s.split(',')
+                    .filter_map(|tok| tok.trim().parse::<u64>().ok())
+                    .collect()
+            } else {
+                vec![
+                    20261101, 20261102, 20261103, 20261104, 20261105, 20261106, 20261107,
+                    20261108, 20261109, 20261110,
+                ]
+            };
+            let cfg = evolve::EvolutionConfig {
+                islands: parse_arg(&args, "--islands")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(2),
+                pop_per_island: parse_arg(&args, "--pop")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(10),
+                generations: parse_arg(&args, "--generations")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(8),
+                mc_samples: parse_arg(&args, "--mc")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(12),
+                ..evolve::EvolutionConfig::default()
+            };
+            let report = evolve::run_wave2_multiseed_benchmark(&seeds, &cfg)?;
+            if let Some(parent) = out_path.parent() {
+                std::fs::create_dir_all(parent)?;
+            }
+            let out_json = serde_json::to_string_pretty(&report)?;
+            std::fs::write(&out_path, &out_json)?;
+
+            if let Some(dir) = stl_dir {
+                std::fs::create_dir_all(&dir)?;
+                for (fam, ind) in &report.promoted_wave2_elites_by_family {
+                    let (pheno, mesh) = phenotype::Phenotype3D::from_program(&ind.program)?;
+                    redteam::check(&ind.program, &pheno, &mesh)
+                        .map_err(|e| format!("Wave-2 family {fam} failed redteam: {e:?}"))?;
+                    let stl_path = dir.join(format!("{fam}.stl"));
+                    mesh.write_stl(&stl_path, fam, 1.0)?;
+                }
+            }
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&serde_json::json!({
+                    "status": "completed",
+                    "protocol_id": report.protocol_id,
+                    "n_seeds": report.n_seeds,
+                    "evaluations_per_seed": report.evaluations_per_seed,
+                    "summary_statistics": report.summary_statistics,
+                    "pairwise_tests": report.pairwise_tests,
+                    "rejected_cohort_10pct_audit": report.rejected_cohort_10pct_audit,
+                    "promoted_families_count": report.promoted_wave2_elites_by_family.len(),
+                    "out_path": out_path,
+                }))?
+            );
+        }
         _ => {
             return Err(
-                "supported commands: baseline, kpi, verify-rotation, qualify-structure, audit-probe, promote-elite, prepare-cfd-case, qualify-surrogate, qualify-population, qualify-experiment, export-glb-scene, export-3d-preview, compile-3d, evolve, merge-cluster".into(),
+                "supported commands: baseline, kpi, verify-rotation, qualify-structure, audit-probe, promote-elite, prepare-cfd-case, qualify-surrogate, qualify-population, qualify-experiment, export-glb-scene, export-3d-preview, compile-3d, evolve, merge-cluster, wave2-benchmark".into(),
             )
         }
     }

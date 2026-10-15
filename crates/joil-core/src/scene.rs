@@ -613,6 +613,28 @@ pub fn export_interactive_3d_preview_bundle(
             candidates_3d.push(build_3d_candidate_preview(elite)?);
         }
     }
+    let mut wave2_rng = crate::program::Rng::new(20261101);
+    let wave2_seeds = crate::program::DesignProgram::seed_wave2_archetypes(&mut wave2_rng);
+    let mut seen_w2_fam = std::collections::BTreeSet::new();
+    for (idx, w2_prog) in wave2_seeds.into_iter().skip(15).enumerate() {
+        let fam = w2_prog.classify_topology();
+        if !seen_w2_fam.insert(fam) {
+            continue;
+        }
+        let (ind, _) = crate::evolve::evaluate_individual(
+            format!("wave2-exotic-{idx:02}-{}", w2_prog.topology_class),
+            w2_prog,
+            0,
+            0,
+            &campaign.config,
+        )?;
+        if !candidates_3d
+            .iter()
+            .any(|c| c.genome_sha256 == ind.genome_sha256)
+        {
+            candidates_3d.push(build_3d_candidate_preview(&ind)?);
+        }
+    }
 
     let mut archive_points = Vec::new();
     if archive_path.is_file() {
@@ -652,7 +674,7 @@ pub fn export_interactive_3d_preview_bundle(
     if let Some(parent) = out_path.parent() {
         fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     }
-    let json_str = serde_json::to_string_pretty(&bundle).map_err(|e| e.to_string())?;
+    let json_str = serde_json::to_string(&bundle).map_err(|e| e.to_string())?;
     fs::write(out_path, format!("{json_str}\n")).map_err(|e| e.to_string())?;
     Ok(bundle)
 }

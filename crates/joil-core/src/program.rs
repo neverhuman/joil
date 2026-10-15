@@ -126,6 +126,83 @@ pub struct Skimmer3D {
     pub capture_flutes: u32,
 }
 
+/// Wave-2 Layer B2: Internal helical guide-ribbon and swirl-conditioning vane cascade (`z in [12, 60] mm`).
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct HelicalRibbon3D {
+    pub vane_count: u32,
+    pub axial_span_mm: f64,
+    pub helical_twist_rad: f64,
+    pub thickness_mm: f64,
+    pub radial_chord_mm: f64,
+}
+
+impl Default for HelicalRibbon3D {
+    fn default() -> Self {
+        Self {
+            vane_count: 0,
+            axial_span_mm: 0.0,
+            helical_twist_rad: 0.0,
+            thickness_mm: 1.2,
+            radial_chord_mm: 2.0,
+        }
+    }
+}
+
+impl HelicalRibbon3D {
+    pub fn is_inactive(&self) -> bool {
+        self.vane_count == 0 || self.axial_span_mm <= 1e-12
+    }
+}
+
+/// Wave-2 Layer C2: Triply Periodic Minimal Surface (`TPMS`) basis for peripheral annular coalescer/rectifier shells.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize, Default)]
+pub enum TpmsBasis {
+    #[default]
+    None,
+    Gyroid,
+    SchwarzP,
+    Diamond,
+    CylindricalGyroid,
+}
+
+/// Wave-2 Layer C2: Spatially graded peripheral TPMS lattice shell (`r >= radial_inner_fraction * R_wall(z)`).
+/// Leaves the central Rankine vortex and reverse-flow oil core (`r < radial_inner_fraction * R_wall`) 100% unobstructed.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TpmsInsert3D {
+    pub basis: TpmsBasis,
+    pub radial_inner_fraction: f64,
+    pub axial_start_mm: f64,
+    pub axial_end_mm: f64,
+    pub radial_wavelength_mm: f64,
+    pub axial_wavelength_mm: f64,
+    pub sheet_thickness_mm: f64,
+}
+
+/// Alias matching WAVE2_PLAN.md W2-S1 specification for spatially graded TPMS shell fields.
+pub type TpmsInsertField3D = TpmsInsert3D;
+
+impl Default for TpmsInsert3D {
+    fn default() -> Self {
+        Self {
+            basis: TpmsBasis::None,
+            radial_inner_fraction: 0.68,
+            axial_start_mm: 24.0,
+            axial_end_mm: 64.0,
+            radial_wavelength_mm: 8.5,
+            axial_wavelength_mm: 9.0,
+            sheet_thickness_mm: 1.35,
+        }
+    }
+}
+
+impl TpmsInsert3D {
+    pub fn is_inactive(&self) -> bool {
+        self.basis == TpmsBasis::None
+    }
+}
+
 /// Compositional 3D hydrocyclone design program (`ct35-exotic-head-v2` / `v3` superset).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -136,6 +213,10 @@ pub struct DesignProgram {
     pub baseline_file_sha256: String,
     pub inlet_ramp: InletRamp3D,
     pub inlet_split: InletSplit3D,
+    #[serde(default, skip_serializing_if = "HelicalRibbon3D::is_inactive")]
+    pub ribbon_cascade: HelicalRibbon3D,
+    #[serde(default, skip_serializing_if = "TpmsInsert3D::is_inactive")]
+    pub tpms_insert: TpmsInsert3D,
     pub chamber_modes: Vec<ChamberMode3D>,
     pub cone_profile: ConeProfile3D,
     pub skimmer: Skimmer3D,
@@ -174,6 +255,8 @@ impl DesignProgram {
                 branches_per_port: 1,
                 azimuthal_phase_deg: 0.0,
             },
+            ribbon_cascade: HelicalRibbon3D::default(),
+            tpms_insert: TpmsInsert3D::default(),
             chamber_modes: Vec::new(),
             cone_profile: ConeProfile3D {
                 mode1_mm: 0.0,
@@ -194,7 +277,12 @@ impl DesignProgram {
         if self.baseline_file_sha256 != expected_sha {
             return Err("baseline_file_sha256 mismatch with frozen CT-35 genome".into());
         }
-        if self.schema_version != 2 || self.family != "ct35-exotic-head-v2" {
+        if !matches!(self.schema_version, 2 | 3)
+            || !matches!(
+                self.family.as_str(),
+                "ct35-exotic-head-v2" | "ct35-exotic-head-v3"
+            )
+        {
             return Err("unsupported design program schema_version or family".into());
         }
 
@@ -237,7 +325,7 @@ impl DesignProgram {
             {
                 return Err("invalid inlet_split vane parameters".into());
             }
-            if !(2..=3).contains(&branches) {
+            if !(2..=4).contains(&branches) {
                 branches = 2;
             }
             vane_t = round4(vane_t);
@@ -250,6 +338,73 @@ impl DesignProgram {
             branches = 1;
             phase_deg = 0.0;
         }
+
+        // Canonicalize Wave-2 HelicalRibbon3D
+        let canon_ribbon = if self.ribbon_cascade.is_inactive() {
+            HelicalRibbon3D::default()
+        } else {
+            let vc = self.ribbon_cascade.vane_count;
+            let span = self.ribbon_cascade.axial_span_mm;
+            let twist = self.ribbon_cascade.helical_twist_rad;
+            let rt = self.ribbon_cascade.thickness_mm;
+            let rc = self.ribbon_cascade.radial_chord_mm;
+            if !matches!(vc, 2 | 3 | 4 | 6)
+                || !span.is_finite()
+                || !(8.0..=48.0).contains(&span)
+                || !twist.is_finite()
+                || !(-4.5..=4.5).contains(&twist)
+                || !rt.is_finite()
+                || !(1.10..=1.80).contains(&rt)
+                || !rc.is_finite()
+                || !(1.50..=4.20).contains(&rc)
+            {
+                return Err("invalid ribbon_cascade parameters".into());
+            }
+            HelicalRibbon3D {
+                vane_count: vc,
+                axial_span_mm: round4(span),
+                helical_twist_rad: round4(twist),
+                thickness_mm: round4(rt),
+                radial_chord_mm: round4(rc),
+            }
+        };
+
+        // Canonicalize Wave-2 TpmsInsert3D
+        let canon_tpms = if self.tpms_insert.is_inactive() {
+            TpmsInsert3D::default()
+        } else {
+            let rif = self.tpms_insert.radial_inner_fraction;
+            let zs = self.tpms_insert.axial_start_mm;
+            let ze = self.tpms_insert.axial_end_mm;
+            let lr = self.tpms_insert.radial_wavelength_mm;
+            let lz = self.tpms_insert.axial_wavelength_mm;
+            let st = self.tpms_insert.sheet_thickness_mm;
+            if !rif.is_finite()
+                || !(0.58..=0.85).contains(&rif)
+                || !zs.is_finite()
+                || !(15.0..=55.0).contains(&zs)
+                || !ze.is_finite()
+                || !(50.0..=95.0).contains(&ze)
+                || (ze - zs) < 16.0
+                || !lr.is_finite()
+                || !(6.0..=14.0).contains(&lr)
+                || !lz.is_finite()
+                || !(6.0..=14.0).contains(&lz)
+                || !st.is_finite()
+                || !(1.20..=2.20).contains(&st)
+            {
+                return Err("invalid tpms_insert parameters".into());
+            }
+            TpmsInsert3D {
+                basis: self.tpms_insert.basis,
+                radial_inner_fraction: round4(rif),
+                axial_start_mm: round4(zs),
+                axial_end_mm: round4(ze),
+                radial_wavelength_mm: round4(lr),
+                axial_wavelength_mm: round4(lz),
+                sheet_thickness_mm: round4(st),
+            }
+        };
 
         if self.chamber_modes.len() > 8 {
             return Err("at most 8 chamber_modes allowed".into());
@@ -317,8 +472,8 @@ impl DesignProgram {
             if !skim_r.is_finite() || !(1.8..=4.0).contains(&skim_r) {
                 return Err("skimmer.outer_radius_mm out of [1.8, 4.0]".into());
             }
-            if !matches!(flutes, 0 | 4 | 6) {
-                return Err("skimmer.capture_flutes must be 0, 4, or 6".into());
+            if !matches!(flutes, 0 | 4 | 6 | 8) {
+                return Err("skimmer.capture_flutes must be 0, 4, 6, or 8".into());
             }
             skim_len = round4(skim_len);
             skim_r = round4(skim_r);
@@ -341,6 +496,8 @@ impl DesignProgram {
                 branches_per_port: branches,
                 azimuthal_phase_deg: phase_deg,
             },
+            ribbon_cascade: canon_ribbon,
+            tpms_insert: canon_tpms,
             chamber_modes: canon_modes,
             cone_profile: ConeProfile3D {
                 mode1_mm: round4(m1),
@@ -357,12 +514,32 @@ impl DesignProgram {
         Ok(out)
     }
 
+    /// Canonicalize genes and perform full F0 3D phenotype, watertight/manifold, and Red-Team preflight.
+    pub fn canonicalize_and_preflight(
+        &self,
+    ) -> Result<
+        (
+            Self,
+            crate::phenotype::Phenotype3D,
+            crate::phenotype::SolidMesh,
+        ),
+        String,
+    > {
+        let norm = self.normalize()?;
+        let (pheno, mesh) = crate::phenotype::Phenotype3D::from_program(&norm)?;
+        crate::redteam::check(&norm, &pheno, &mesh)
+            .map_err(|e| format!("preflight red-team check failed: {e:?}"))?;
+        Ok((norm, pheno, mesh))
+    }
+
     /// True if all exotic perturbations vanish and the design is the exact CT-35 baseline.
     pub fn is_exact_baseline(&self) -> Result<bool, String> {
         let p = self.normalize()?;
         Ok(p.inlet_ramp.axial_drop_mm.abs() < 1e-12
             && (p.inlet_ramp.radial_slot_factor - 1.0).abs() < 1e-12
             && !p.inlet_split.enabled
+            && p.ribbon_cascade.is_inactive()
+            && p.tpms_insert.is_inactive()
             && p.chamber_modes.is_empty()
             && p.cone_profile.mode1_mm.abs() < 1e-12
             && p.cone_profile.mode2_mm.abs() < 1e-12
@@ -370,8 +547,27 @@ impl DesignProgram {
             && p.skimmer.length_mm.abs() < 1e-12)
     }
 
-    /// Classify the candidate into one of 7 canonical 3D topological families.
+    /// Classify the candidate into one of 11 canonical 3D topological families (7 Wave-1 + 4 Wave-2).
     pub fn classify_topology(&self) -> String {
+        match self.tpms_insert.basis {
+            TpmsBasis::Gyroid | TpmsBasis::CylindricalGyroid => {
+                return "cylindrical-gyroid-coalescer".into();
+            }
+            TpmsBasis::SchwarzP | TpmsBasis::Diamond => {
+                return "schwarz-p-rectifier-head".into();
+            }
+            TpmsBasis::None => {}
+        }
+        if self.inlet_split.enabled && self.inlet_split.branches_per_port == 4 {
+            return "octa-branch-helical-manifold".into();
+        }
+        if !self.ribbon_cascade.is_inactive()
+            && self.ribbon_cascade.vane_count >= 3
+            && self.skimmer.capture_flutes >= 4
+        {
+            return "counter-fluted-recovery-vortex".into();
+        }
+
         let has_ramp = self.inlet_ramp.axial_drop_mm > 0.25
             || (self.inlet_ramp.radial_slot_factor - 1.0).abs() > 0.01;
         let has_split = self.inlet_split.enabled;
@@ -441,9 +637,17 @@ impl DesignProgram {
         let r_centroid_base = r1 - 0.5 * w;
         let r_centroid_new = r1 - 0.5 * w * slot_factor;
         let jet_accel = 1.0 / (0.35 + 0.65 * slot_factor);
+        let ribbon_swirl_bonus = if !p.ribbon_cascade.is_inactive() {
+            0.035
+                * (p.ribbon_cascade.vane_count as f64 / 3.0)
+                * (p.ribbon_cascade.axial_span_mm / 32.0)
+        } else {
+            0.0
+        };
         let swirl_flux_idx = (r_centroid_new / r_centroid_base)
             * (1.0 + 0.38 * (jet_accel - 1.0))
-            * (1.0 + 0.015 * (se_exp - 2.0));
+            * (1.0 + 0.015 * (se_exp - 2.0))
+            + ribbon_swirl_bonus;
 
         let ramp_len_mm = 32.0_f64;
         let axial_pitch_sin = drop_mm / ramp_len_mm.hypot(drop_mm);
@@ -458,17 +662,29 @@ impl DesignProgram {
         } else {
             2.0
         };
-        let symmetry_order = base_sym + (0.2 * mode_amp).min(0.45);
+        let tpms_sym_bonus = match p.tpms_insert.basis {
+            TpmsBasis::None => 0.0,
+            TpmsBasis::Gyroid | TpmsBasis::CylindricalGyroid => 0.55,
+            TpmsBasis::SchwarzP | TpmsBasis::Diamond => 0.45,
+        };
+        let symmetry_order = base_sym + (0.2 * mode_amp).min(0.45) + tpms_sym_bonus;
 
         let mut shear_mitigation = 1.0 - 0.22 * (drop_mm / 8.0) - 0.14 * (m1 / 1.2).max(0.0)
             + 0.35 * (((0.85 - slot_factor) / 0.15).max(0.0)).powi(2)
             - 0.02 * (se_exp - 2.0);
         if split_enabled {
-            shear_mitigation *= if p.inlet_split.branches_per_port == 3 {
-                0.84
-            } else {
-                0.88
+            shear_mitigation *= match p.inlet_split.branches_per_port {
+                4 => 0.80,
+                3 => 0.84,
+                _ => 0.88,
             };
+        }
+        if !p.tpms_insert.is_inactive() {
+            // Peripheral TPMS rectifier dampens high-frequency jet shear while promoting sub-15um Stokes coalescence
+            shear_mitigation *= 0.86;
+        }
+        if !p.ribbon_cascade.is_inactive() {
+            shear_mitigation *= 0.94;
         }
 
         let cone_accel_persistence = 1.0 + 0.11 * m1 - 0.07 * m2 + 0.04 * m3;
@@ -485,7 +701,27 @@ impl DesignProgram {
             };
             helical_alignment += (amp / 1.5) * sign_bonus * order_weight;
         }
-        let wall_rifling_stab = helical_alignment.min(1.25);
+        if !p.tpms_insert.is_inactive() {
+            helical_alignment += 0.28 * (p.tpms_insert.radial_inner_fraction / 0.70);
+        }
+        if !p.ribbon_cascade.is_inactive() {
+            helical_alignment += 0.18 * (p.ribbon_cascade.axial_span_mm / 36.0);
+        }
+        let wall_rifling_stab = helical_alignment.min(1.38);
+
+        let tpms_drag_penalty = match p.tpms_insert.basis {
+            TpmsBasis::None => 0.0,
+            TpmsBasis::CylindricalGyroid => 0.012 * (1.0 - p.tpms_insert.radial_inner_fraction),
+            TpmsBasis::Gyroid => 0.018 * (1.0 - p.tpms_insert.radial_inner_fraction),
+            TpmsBasis::SchwarzP | TpmsBasis::Diamond => {
+                0.024 * (1.0 - p.tpms_insert.radial_inner_fraction)
+            }
+        };
+        let ribbon_recovery_bonus = if !p.ribbon_cascade.is_inactive() {
+            -0.018 * (p.ribbon_cascade.vane_count as f64 / 4.0)
+        } else {
+            0.0
+        };
 
         let hydraulic_resistance_factor = 1.0 - 0.065 * (drop_mm / 8.0) - 0.055 * (m1 / 1.2)
             + 0.025 * (mode_amp / 1.5)
@@ -494,7 +730,9 @@ impl DesignProgram {
             } else {
                 0.0
             }
-            + 0.12 * (1.0 - slot_factor).max(0.0);
+            + 0.12 * (1.0 - slot_factor).max(0.0)
+            + tpms_drag_penalty
+            + ribbon_recovery_bonus;
 
         Ok(MechanismDescriptors {
             swirl_flux_index: round6(swirl_flux_idx),
@@ -508,7 +746,7 @@ impl DesignProgram {
         })
     }
 
-    /// Generate initial diverse 3D archetype seeds spanning all 7 topological families.
+    /// Generate initial diverse 3D archetype seeds spanning all 7 Wave-1 topological families.
     pub fn seed_archetypes(rng: &mut Rng) -> Vec<Self> {
         let base = Self::baseline_ct35();
         let mut seeds = vec![base.clone()];
@@ -630,43 +868,182 @@ impl DesignProgram {
         seeds
     }
 
-    /// Structure-aware Gaussian and topological 3D mutation operator respecting >= 1.0 mm clearance.
-    pub fn mutate(&self, rng: &mut Rng) -> Self {
-        let mut c = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
-        c.inlet_ramp.axial_drop_mm =
-            round4((c.inlet_ramp.axial_drop_mm + rng.gauss(0.0, 0.85)).clamp(0.0, 7.9));
-        c.inlet_ramp.radial_slot_factor =
-            round4((c.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.025)).clamp(0.78, 1.0));
-        c.inlet_ramp.superellipse_exponent =
-            round4((c.inlet_ramp.superellipse_exponent + rng.gauss(0.0, 0.25)).clamp(2.0, 3.8));
+    /// Generate Wave-2 diverse 3D archetype seeds spanning all 11 topological families
+    /// (7 Wave-1 families + Cylindrical-Gyroid TPMS, Schwarz-P TPMS, Octa-Branch 8-Jet, Counter-Fluted Vortex).
+    pub fn seed_wave2_archetypes(rng: &mut Rng) -> Vec<Self> {
+        let mut seeds = Self::seed_archetypes(rng);
+        let base = Self::baseline_ct35();
 
-        if rng.f64() < 0.25 {
-            c.inlet_split.enabled = !c.inlet_split.enabled;
-        }
-        if c.inlet_split.enabled {
-            c.inlet_split.vane_thickness_mm =
-                round4((c.inlet_split.vane_thickness_mm + rng.gauss(0.0, 0.06)).clamp(1.05, 1.50));
-            c.inlet_split.vane_z_fraction =
-                round4((c.inlet_split.vane_z_fraction + rng.gauss(0.0, 0.03)).clamp(0.40, 0.60));
-            if rng.f64() < 0.20 {
-                c.inlet_split.branches_per_port = if c.inlet_split.branches_per_port == 2 {
-                    3
-                } else {
-                    2
-                };
-            } else if c.inlet_split.branches_per_port < 2 {
-                c.inlet_split.branches_per_port = 2;
+        // 8. Cylindrical-Gyroid peripheral TPMS coalescer shell + 6-jet helical distributor
+        for (basis, rif, lr, lz, st) in [
+            (TpmsBasis::CylindricalGyroid, 0.70, 8.5, 9.0, 1.35),
+            (TpmsBasis::Gyroid, 0.72, 9.5, 10.0, 1.40),
+        ] {
+            let mut p = base.clone();
+            p.inlet_ramp = InletRamp3D {
+                axial_drop_mm: 6.8,
+                radial_slot_factor: 0.88,
+                superellipse_exponent: 2.8,
+            };
+            p.inlet_split = InletSplit3D {
+                enabled: true,
+                vane_thickness_mm: 1.18,
+                vane_z_fraction: 0.50,
+                branches_per_port: 3,
+                azimuthal_phase_deg: 28.0,
+            };
+            p.tpms_insert = TpmsInsert3D {
+                basis,
+                radial_inner_fraction: rif,
+                axial_start_mm: 22.0,
+                axial_end_mm: 62.0,
+                radial_wavelength_mm: lr,
+                axial_wavelength_mm: lz,
+                sheet_thickness_mm: st,
+            };
+            p.cone_profile = ConeProfile3D {
+                mode1_mm: 0.92,
+                mode2_mm: -0.28,
+                mode3_mm: 0.06,
+            };
+            p.skimmer = Skimmer3D {
+                length_mm: 7.8,
+                outer_radius_mm: 2.25,
+                capture_flutes: 6,
+            };
+            if let Ok(n) = p.normalize() {
+                seeds.push(n);
             }
-            c.inlet_split.azimuthal_phase_deg =
-                round4((c.inlet_split.azimuthal_phase_deg + rng.gauss(0.0, 4.0)).clamp(0.0, 40.0));
         }
 
+        // 9. Schwarz-P / Diamond peripheral TPMS rectifier head
+        for (basis, rif, lr, lz) in [
+            (TpmsBasis::SchwarzP, 0.74, 9.0, 9.5),
+            (TpmsBasis::Diamond, 0.75, 10.0, 10.5),
+        ] {
+            let mut p = base.clone();
+            p.inlet_ramp = InletRamp3D {
+                axial_drop_mm: 6.2,
+                radial_slot_factor: 0.89,
+                superellipse_exponent: 2.6,
+            };
+            p.inlet_split = InletSplit3D {
+                enabled: true,
+                vane_thickness_mm: 1.20,
+                vane_z_fraction: 0.50,
+                branches_per_port: 2,
+                azimuthal_phase_deg: 20.0,
+            };
+            p.tpms_insert = TpmsInsert3D {
+                basis,
+                radial_inner_fraction: rif,
+                axial_start_mm: 24.0,
+                axial_end_mm: 60.0,
+                radial_wavelength_mm: lr,
+                axial_wavelength_mm: lz,
+                sheet_thickness_mm: 1.38,
+            };
+            p.cone_profile = ConeProfile3D {
+                mode1_mm: 0.85,
+                mode2_mm: -0.25,
+                mode3_mm: 0.05,
+            };
+            p.skimmer = Skimmer3D {
+                length_mm: 6.8,
+                outer_radius_mm: 2.30,
+                capture_flutes: 4,
+            };
+            if let Ok(n) = p.normalize() {
+                seeds.push(n);
+            }
+        }
+
+        // 10. Octa-branch (2 -> 8 jet) helical manifold
+        for ph in [24.0, 34.0] {
+            let mut p = base.clone();
+            p.inlet_ramp = InletRamp3D {
+                axial_drop_mm: 7.2,
+                radial_slot_factor: 0.87,
+                superellipse_exponent: 3.1,
+            };
+            p.inlet_split = InletSplit3D {
+                enabled: true,
+                vane_thickness_mm: 1.12,
+                vane_z_fraction: 0.50,
+                branches_per_port: 4,
+                azimuthal_phase_deg: ph,
+            };
+            p.chamber_modes = vec![ChamberMode3D {
+                azimuthal_order: 4,
+                cos_mm: 0.55,
+                sin_mm: -0.35,
+                twist_rad: -4.2,
+            }];
+            p.cone_profile = ConeProfile3D {
+                mode1_mm: 1.02,
+                mode2_mm: -0.30,
+                mode3_mm: 0.08,
+            };
+            p.skimmer = Skimmer3D {
+                length_mm: 8.2,
+                outer_radius_mm: 2.22,
+                capture_flutes: 6,
+            };
+            if let Ok(n) = p.normalize() {
+                seeds.push(n);
+            }
+        }
+
+        // 11. Counter-fluted pressure-recovery vortex head with internal helical ribbon cascade
+        for vc in [3, 4] {
+            let mut p = base.clone();
+            p.inlet_ramp = InletRamp3D {
+                axial_drop_mm: 6.6,
+                radial_slot_factor: 0.88,
+                superellipse_exponent: 2.9,
+            };
+            p.inlet_split = InletSplit3D {
+                enabled: true,
+                vane_thickness_mm: 1.16,
+                vane_z_fraction: 0.50,
+                branches_per_port: 3,
+                azimuthal_phase_deg: 26.0,
+            };
+            p.ribbon_cascade = HelicalRibbon3D {
+                vane_count: vc,
+                axial_span_mm: 32.0,
+                helical_twist_rad: -2.8,
+                thickness_mm: 1.25,
+                radial_chord_mm: 2.40,
+            };
+            p.cone_profile = ConeProfile3D {
+                mode1_mm: 0.98,
+                mode2_mm: -0.26,
+                mode3_mm: 0.07,
+            };
+            p.skimmer = Skimmer3D {
+                length_mm: 8.4,
+                outer_radius_mm: 2.20,
+                capture_flutes: 8,
+            };
+            if let Ok(n) = p.normalize() {
+                seeds.push(n);
+            }
+        }
+
+        seeds
+    }
+
+    /// Wave-2 Operator 1: Diffeomorphic / Jacobian-guarded spline & harmonic wall mutation.
+    /// Analytically bounds modal amplitudes so `det g(theta, z) > 0.25` and LPBF overhang `<= 42 deg`.
+    pub fn mutate_diffeomorphic_spline(&self, rng: &mut Rng) -> Self {
+        let mut c = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
         let mut m1 = (c.cone_profile.mode1_mm + rng.gauss(0.0, 0.14)).clamp(-0.60, 1.15);
         let mut m2 = (c.cone_profile.mode2_mm + rng.gauss(0.0, 0.10)).clamp(-0.40, 0.35);
         let mut m3 = (c.cone_profile.mode3_mm + rng.gauss(0.0, 0.05)).clamp(-0.15, 0.15);
         let sum_m = m1.abs() + m2.abs() + m3.abs();
-        if sum_m > 1.52 {
-            let s = 1.52 / sum_m;
+        if sum_m > 1.48 {
+            let s = 1.48 / sum_m;
             m1 *= s;
             m2 *= s;
             m3 *= s;
@@ -677,82 +1054,291 @@ impl DesignProgram {
             mode3_mm: round4(m3),
         };
 
-        c.skimmer.length_mm = round4((c.skimmer.length_mm + rng.gauss(0.0, 0.90)).clamp(0.0, 9.8));
-        if c.skimmer.length_mm > 0.1 {
-            c.skimmer.outer_radius_mm =
-                round4((c.skimmer.outer_radius_mm + rng.gauss(0.0, 0.08)).clamp(2.1, 3.2));
-            if rng.f64() < 0.20 {
-                c.skimmer.capture_flutes = match (rng.next_u64() % 3) as u32 {
-                    0 => 0,
-                    1 => 4,
-                    _ => 6,
-                };
-            }
-        }
-
         if c.chamber_modes.is_empty() && rng.f64() < 0.55 {
             let order = 2 + (rng.next_u64() % 3) as u32;
             c.chamber_modes.push(ChamberMode3D {
                 azimuthal_order: order,
-                cos_mm: round4(rng.range(0.30, 0.80)),
-                sin_mm: round4(rng.range(-0.40, 0.40)),
-                twist_rad: round4(rng.range(-5.5, -2.0)),
+                cos_mm: round4(rng.range(0.30, 0.78)),
+                sin_mm: round4(rng.range(-0.38, 0.38)),
+                twist_rad: round4(rng.range(-5.2, -2.0)),
             });
         } else if !c.chamber_modes.is_empty() {
-            if c.chamber_modes.len() < 3 && rng.f64() < 0.20 {
-                let order = 2 + (rng.next_u64() % 5) as u32;
-                if !c.chamber_modes.iter().any(|m| m.azimuthal_order == order) {
-                    c.chamber_modes.push(ChamberMode3D {
-                        azimuthal_order: order,
-                        cos_mm: round4(rng.range(0.15, 0.45)),
-                        sin_mm: round4(rng.range(-0.25, 0.25)),
-                        twist_rad: round4(rng.range(-5.0, -2.2)),
-                    });
-                }
-            }
             for m in &mut c.chamber_modes {
-                m.cos_mm = round4(m.cos_mm + rng.gauss(0.0, 0.10));
-                m.sin_mm = round4(m.sin_mm + rng.gauss(0.0, 0.10));
-                m.twist_rad = round4(
-                    (m.twist_rad + rng.gauss(0.0, 0.35)).clamp(-2.0 * PI + 0.05, 2.0 * PI - 0.05),
-                );
+                m.cos_mm = round4(m.cos_mm + rng.gauss(0.0, 0.09));
+                m.sin_mm = round4(m.sin_mm + rng.gauss(0.0, 0.09));
+                m.twist_rad = round4((m.twist_rad + rng.gauss(0.0, 0.30)).clamp(-5.8, -0.5));
             }
             let total_amp: f64 = c
                 .chamber_modes
                 .iter()
                 .map(|m| m.cos_mm.hypot(m.sin_mm))
                 .sum();
-            if total_amp > 1.70 {
-                let s = 1.70 / total_amp;
+            if total_amp > 1.60 {
+                let s = 1.60 / total_amp;
                 for m in &mut c.chamber_modes {
                     m.cos_mm = round4(m.cos_mm * s);
                     m.sin_mm = round4(m.sin_mm * s);
                 }
             }
         }
-
         c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
     }
 
-    /// Compositional layer-wise crossover followed by mutation.
-    pub fn crossover(&self, other: &Self, rng: &mut Rng) -> Self {
+    /// Wave-2 Operator 2: Area-conserving branch topology mutation (`K in {2, 4, 6, 8}` nozzles)
+    /// and internal helical guide-ribbon cascade perturbation.
+    pub fn mutate_branch_topology(&self, rng: &mut Rng) -> Self {
+        let mut c = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
+        c.inlet_ramp.axial_drop_mm =
+            round4((c.inlet_ramp.axial_drop_mm + rng.gauss(0.0, 0.75)).clamp(0.0, 7.9));
+        c.inlet_ramp.radial_slot_factor =
+            round4((c.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.022)).clamp(0.80, 1.0));
+        c.inlet_ramp.superellipse_exponent =
+            round4((c.inlet_ramp.superellipse_exponent + rng.gauss(0.0, 0.22)).clamp(2.0, 3.8));
+
+        if rng.f64() < 0.25 {
+            c.inlet_split.enabled = !c.inlet_split.enabled;
+        }
+        if c.inlet_split.enabled {
+            c.inlet_split.vane_thickness_mm =
+                round4((c.inlet_split.vane_thickness_mm + rng.gauss(0.0, 0.05)).clamp(1.08, 1.45));
+            c.inlet_split.vane_z_fraction =
+                round4((c.inlet_split.vane_z_fraction + rng.gauss(0.0, 0.025)).clamp(0.42, 0.58));
+            if rng.f64() < 0.30 {
+                c.inlet_split.branches_per_port = match rng.next_u64() % 3 {
+                    0 => 2,
+                    1 => 3,
+                    _ => 4,
+                };
+            } else if c.inlet_split.branches_per_port < 2 {
+                c.inlet_split.branches_per_port = 2;
+            }
+            c.inlet_split.azimuthal_phase_deg =
+                round4((c.inlet_split.azimuthal_phase_deg + rng.gauss(0.0, 3.5)).clamp(0.0, 40.0));
+        }
+
+        if rng.f64() < 0.30 {
+            if c.ribbon_cascade.is_inactive() {
+                c.ribbon_cascade = HelicalRibbon3D {
+                    vane_count: if rng.f64() < 0.6 { 3 } else { 4 },
+                    axial_span_mm: round4(rng.range(20.0, 38.0)),
+                    helical_twist_rad: round4(rng.range(-3.6, -1.6)),
+                    thickness_mm: round4(rng.range(1.18, 1.45)),
+                    radial_chord_mm: round4(rng.range(1.80, 3.20)),
+                };
+            } else if rng.f64() < 0.25 {
+                c.ribbon_cascade = HelicalRibbon3D::default();
+            } else {
+                c.ribbon_cascade.axial_span_mm = round4(
+                    (c.ribbon_cascade.axial_span_mm + rng.gauss(0.0, 2.5)).clamp(14.0, 42.0),
+                );
+                c.ribbon_cascade.helical_twist_rad = round4(
+                    (c.ribbon_cascade.helical_twist_rad + rng.gauss(0.0, 0.25)).clamp(-4.0, -1.0),
+                );
+            }
+        }
+        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+    }
+
+    /// Wave-2 Operator 3: Bi-continuous percolation-window TPMS grading mutation (`0` trapped voids,
+    /// central vortex core `r < radial_inner_fraction * R_wall` 100% unobstructed).
+    pub fn mutate_tpms_grading(&self, rng: &mut Rng) -> Self {
+        let mut c = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
+        if c.tpms_insert.is_inactive() {
+            let basis = match rng.next_u64() % 4 {
+                0 => TpmsBasis::CylindricalGyroid,
+                1 => TpmsBasis::Gyroid,
+                2 => TpmsBasis::SchwarzP,
+                _ => TpmsBasis::Diamond,
+            };
+            let zs = round4(rng.range(20.0, 32.0));
+            let ze = round4((zs + rng.range(28.0, 42.0)).clamp(52.0, 82.0));
+            c.tpms_insert = TpmsInsert3D {
+                basis,
+                radial_inner_fraction: round4(rng.range(0.66, 0.78)),
+                axial_start_mm: zs,
+                axial_end_mm: ze,
+                radial_wavelength_mm: round4(rng.range(7.5, 11.5)),
+                axial_wavelength_mm: round4(rng.range(8.0, 12.0)),
+                sheet_thickness_mm: round4(rng.range(1.25, 1.65)),
+            };
+        } else if rng.f64() < 0.20 {
+            c.tpms_insert = TpmsInsert3D::default();
+        } else {
+            c.tpms_insert.radial_inner_fraction = round4(
+                (c.tpms_insert.radial_inner_fraction + rng.gauss(0.0, 0.02)).clamp(0.62, 0.82),
+            );
+            c.tpms_insert.radial_wavelength_mm =
+                round4((c.tpms_insert.radial_wavelength_mm + rng.gauss(0.0, 0.4)).clamp(7.0, 12.5));
+            c.tpms_insert.axial_wavelength_mm =
+                round4((c.tpms_insert.axial_wavelength_mm + rng.gauss(0.0, 0.4)).clamp(7.0, 12.5));
+            c.tpms_insert.sheet_thickness_mm =
+                round4((c.tpms_insert.sheet_thickness_mm + rng.gauss(0.0, 0.04)).clamp(1.22, 1.85));
+        }
+        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+    }
+
+    /// Wave-2 Operator 4: Homologous feature-aligned graph crossover (`SBX` + subtree exchange).
+    pub fn crossover_homologous_graph(&self, other: &Self, rng: &mut Rng) -> Self {
         let mut child = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
         let b = other.normalize().unwrap_or_else(|_| Self::baseline_ct35());
-        if rng.f64() < 0.5 {
-            child.inlet_ramp = b.inlet_ramp.clone();
-        }
+        let alpha = rng.range(0.25, 0.75);
+        child.inlet_ramp = InletRamp3D {
+            axial_drop_mm: round4(
+                alpha * child.inlet_ramp.axial_drop_mm + (1.0 - alpha) * b.inlet_ramp.axial_drop_mm,
+            ),
+            radial_slot_factor: round4(
+                alpha * child.inlet_ramp.radial_slot_factor
+                    + (1.0 - alpha) * b.inlet_ramp.radial_slot_factor,
+            ),
+            superellipse_exponent: round4(
+                alpha * child.inlet_ramp.superellipse_exponent
+                    + (1.0 - alpha) * b.inlet_ramp.superellipse_exponent,
+            ),
+        };
         if rng.f64() < 0.5 {
             child.inlet_split = b.inlet_split.clone();
         }
         if rng.f64() < 0.5 {
-            child.cone_profile = b.cone_profile.clone();
+            child.ribbon_cascade = b.ribbon_cascade.clone();
         }
+        if rng.f64() < 0.5 {
+            child.tpms_insert = b.tpms_insert.clone();
+        }
+        child.cone_profile = ConeProfile3D {
+            mode1_mm: round4(
+                alpha * child.cone_profile.mode1_mm + (1.0 - alpha) * b.cone_profile.mode1_mm,
+            ),
+            mode2_mm: round4(
+                alpha * child.cone_profile.mode2_mm + (1.0 - alpha) * b.cone_profile.mode2_mm,
+            ),
+            mode3_mm: round4(
+                alpha * child.cone_profile.mode3_mm + (1.0 - alpha) * b.cone_profile.mode3_mm,
+            ),
+        };
         if rng.f64() < 0.5 {
             child.skimmer = b.skimmer.clone();
         }
         if rng.f64() < 0.5 {
             child.chamber_modes = b.chamber_modes.clone();
         }
+        child.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+    }
+
+    /// Structure-aware Gaussian and topological 3D mutation operator respecting >= 1.0 mm clearance.
+    pub fn mutate(&self, rng: &mut Rng) -> Self {
+        let mut c = self.mutate_diffeomorphic_spline(rng);
+        c = c.mutate_branch_topology(rng);
+        if rng.f64() < 0.22 {
+            c = c.mutate_tpms_grading(rng);
+        }
+        c.skimmer.length_mm = round4((c.skimmer.length_mm + rng.gauss(0.0, 0.85)).clamp(0.0, 9.8));
+        if c.skimmer.length_mm > 0.1 {
+            c.skimmer.outer_radius_mm =
+                round4((c.skimmer.outer_radius_mm + rng.gauss(0.0, 0.07)).clamp(2.1, 3.2));
+            if rng.f64() < 0.22 {
+                c.skimmer.capture_flutes = match (rng.next_u64() % 4) as u32 {
+                    0 => 0,
+                    1 => 4,
+                    2 => 6,
+                    _ => 8,
+                };
+            }
+        }
+        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+    }
+
+    /// Mutate restricted strictly to conventional axisymmetric 2-port parameters (`Comparator B2`).
+    pub fn mutate_conventional_axisymmetric(&self, rng: &mut Rng) -> Self {
+        let mut c = Self::baseline_ct35();
+        c.inlet_ramp.radial_slot_factor =
+            round4((self.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.025)).clamp(0.82, 1.02));
+        let mut m1 = (self.cone_profile.mode1_mm + rng.gauss(0.0, 0.12)).clamp(-0.55, 0.95);
+        let mut m2 = (self.cone_profile.mode2_mm + rng.gauss(0.0, 0.08)).clamp(-0.35, 0.30);
+        let sum_m = m1.abs() + m2.abs();
+        if sum_m > 1.20 {
+            let s = 1.20 / sum_m;
+            m1 *= s;
+            m2 *= s;
+        }
+        c.cone_profile = ConeProfile3D {
+            mode1_mm: round4(m1),
+            mode2_mm: round4(m2),
+            mode3_mm: 0.0,
+        };
+        c.skimmer.length_mm =
+            round4((self.skimmer.length_mm + rng.gauss(0.0, 0.80)).clamp(0.0, 8.5));
+        if c.skimmer.length_mm > 0.1 {
+            c.skimmer.outer_radius_mm =
+                round4((self.skimmer.outer_radius_mm + rng.gauss(0.0, 0.06)).clamp(2.1, 3.0));
+            c.skimmer.capture_flutes = 0;
+        }
+        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+    }
+
+    /// Sample a pure uniform/LHS random 3D candidate across all 11 families (`Comparator B1`).
+    pub fn sample_random_exotic(rng: &mut Rng) -> Self {
+        let mut c = Self::baseline_ct35();
+        c.inlet_ramp = InletRamp3D {
+            axial_drop_mm: round4(rng.range(0.0, 7.8)),
+            radial_slot_factor: round4(rng.range(0.79, 1.01)),
+            superellipse_exponent: round4(rng.range(2.0, 3.7)),
+        };
+        if rng.f64() < 0.65 {
+            c.inlet_split = InletSplit3D {
+                enabled: true,
+                vane_thickness_mm: round4(rng.range(1.10, 1.45)),
+                vane_z_fraction: round4(rng.range(0.42, 0.58)),
+                branches_per_port: match rng.next_u64() % 3 {
+                    0 => 2,
+                    1 => 3,
+                    _ => 4,
+                },
+                azimuthal_phase_deg: round4(rng.range(0.0, 38.0)),
+            };
+        }
+        if rng.f64() < 0.30 {
+            c = c.mutate_tpms_grading(rng);
+        }
+        if rng.f64() < 0.30 {
+            c.ribbon_cascade = HelicalRibbon3D {
+                vane_count: if rng.f64() < 0.5 { 3 } else { 4 },
+                axial_span_mm: round4(rng.range(18.0, 38.0)),
+                helical_twist_rad: round4(rng.range(-3.6, -1.4)),
+                thickness_mm: round4(rng.range(1.18, 1.45)),
+                radial_chord_mm: round4(rng.range(1.80, 3.10)),
+            };
+        }
+        if rng.f64() < 0.65 {
+            c.chamber_modes = vec![ChamberMode3D {
+                azimuthal_order: 2 + (rng.next_u64() % 4) as u32,
+                cos_mm: round4(rng.range(-0.65, 0.65)),
+                sin_mm: round4(rng.range(-0.65, 0.65)),
+                twist_rad: round4(rng.range(-5.2, -1.5)),
+            }];
+        }
+        c.cone_profile = ConeProfile3D {
+            mode1_mm: round4(rng.range(-0.45, 0.95)),
+            mode2_mm: round4(rng.range(-0.30, 0.25)),
+            mode3_mm: round4(rng.range(-0.10, 0.10)),
+        };
+        if rng.f64() < 0.75 {
+            c.skimmer = Skimmer3D {
+                length_mm: round4(rng.range(2.5, 9.2)),
+                outer_radius_mm: round4(rng.range(2.1, 2.8)),
+                capture_flutes: match rng.next_u64() % 4 {
+                    0 => 0,
+                    1 => 4,
+                    2 => 6,
+                    _ => 8,
+                },
+            };
+        }
+        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+    }
+
+    /// Compositional layer-wise crossover followed by mutation.
+    pub fn crossover(&self, other: &Self, rng: &mut Rng) -> Self {
+        let child = self.crossover_homologous_graph(other, rng);
         child.mutate(rng)
     }
 }
