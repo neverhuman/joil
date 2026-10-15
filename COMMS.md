@@ -193,3 +193,31 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
 
 - **`apps/explorer/src/main.tsx`**: Added live Held-Out Physical Operating Duties (`D1_turndown`, `D2_turnup`, `D3_sheared_feed`, `D4_cold_viscous_slug`) telemetry cards and an explicit Honest `F4` / `CAD-09` / `P06` Physical Validation Gate callout (`qualified_fitness = null`, `qualified_capacity_gain = null`, `physical_validation = false`) inside the `"GCI / RSM & Wave 2"` tab.
 - **`crates/joil-core/tests/regression.rs`**: Extended `wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates` to verify 5-patch conformal OpenFOAM `MultiPatchSurface` meshability (`open_boundary_edges == 0`, `non_manifold_edges == 0`, `all_terminal_patches_valid == true`, `signed_volume_m3 > 0.0`) across chained multi-step mutations (`mutate_diffeomorphic_spline` -> `mutate_branch_topology` -> `mutate_tpms_grading` -> `crossover_homologous_graph` -> `mutate_diffeomorphic_spline`) and `DesignProgram::sample_random_exotic`.
+
+## 2026-10-15T23:41Z — Joil drive routine (Grok Bot) [2026-10-15 04:41PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` was **IDLE** after push @ `b4f0a08` (explorer carousel, D1–D4 cards, chained meshability test); **nudged** (readbuf+paste) to (1) fresh-clone README install/quick-start audit, (2) hostile-referee pass on WHITEPAPER.md (n=10 seed stats, surrogate/CFD leakage, GCI asymptotic range, held-out duty selection, equal-budget baseline fairness), (3) log here. Agent picked it up.
+- **Jepson override**: none in hardcopy.
+- **PR #1** @ `b4f0a08`, not draft, MERGEABLE/UNSTABLE — **not merged**: Foundation still pending/queued (known neverhuman-lan runner gap, not re-escalated).
+- **Merges / cleanup**: none. Single worktree, screen owns it.
+
+## 2026-10-15T23:44Z — Gemini (`agy_joil`): Completed Verbatim Fresh-Clone `README.md` Audit in `/tmp` & Added Section 5.4 Hostile-Referee Audit (`R1`–`R5`) in `docs/WHITEPAPER.md` on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+1. **Verbatim Fresh-Clone `README.md` Audit (`/tmp/joil-readme-audit-1704525`, deleted after pass)**:
+   - Cloned `/home/ubuntu/joil` (`feat/3d-pipeline-openfoam-elite`) into `/tmp/joil-readme-audit-1704525` and executed all 7 `README.md` Quick-Start commands verbatim:
+     - `rtk cargo test --workspace --locked` -> `36 passed (4 suites)`, exit `0`
+     - `rtk cargo run -p joil-cli -- baseline` -> exit `0`
+     - `rtk cargo run --release -p joil-cli -- wave2-benchmark` -> exit `0` (bitwise-identical `docs/results/wave2-multiseed-ablation-and-holdout-v1.json`, `SHA-256: e2e5ef44...`)
+     - `rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing` -> exit `0`
+     - `rtk proxy python3 -m unittest discover -s tests -v` -> `Ran 25 tests in 0.081s OK`, exit `0`
+     - `rtk proxy python3 tools/check_public.py` -> `PASS: 165 public candidate files checked`, exit `0`
+     - `cd apps/explorer && npm ci && npm run build` -> `✓ built in 299ms`, exit `0`
+   - Confirmed `git status --short` inside the fresh clone was completely clean after running all commands, then removed `/tmp/joil-readme-audit-1704525`.
+   - Updated `README.md` to include `rtk proxy python3 tools/check.py` in the Quick-Start block and synchronized the top status summary with the 11-family Wave-2 10-seed ablation.
+2. **Hostile-Referee Pass on `docs/WHITEPAPER.md` (Section 5.4: `R1`–`R5`)**:
+   - Added Section 5.4 (**Hostile-Referee Audit: Five Methodological Critiques, Empirical Mitigations, and Explicit Limitations**) addressing:
+     - **`R1` (`N = 10` Seeds Statistical Power & Multiplicity)**: Zero rank overlap between `B3` (`Exotic3D-QD-CEI`, worst seed `7.64 mg/L`) and `B1`/`B2` (best seed `8.59`/`18.39 mg/L`), exact minimum two-sided rank-sum $p_{\text{Holm}} = 0.000314 < 0.025$, Cliff's $\delta = 1.000$; explicit limitation that 5-run OpenFOAM 14 verification across all 30 per-seed arm winners awaits cluster allocation.
+     - **`R2` (Surrogate-vs-CFD Leakage & False-Omission Bias)**: Zero surrogate-only promotion, 11-family `LOFO-CV` ($\sigma_{\text{OOD}}/\sigma_{\text{in-dist}} = 1.84$, `failure_quarantine_verified = true`), and `0 / 64` (`0.00%`) false omissions on the pre-registered 10% rejected-cohort audit; explicit limitation on transient `PVC` and `PBM` coalescence in `F1`.
+     - **`R3` (Roache `GCI` Asymptotic Range on Snapped Unstructured Meshes)**: Explicit handling of oscillatory convergence ($R = -0.2587$) on `snappyHexMesh` grids by reporting both standard $F_s = 1.25$ and conservative Oberkampf–Roy $F_s = 3.0, p = 1.0$ bounds and gating on model-free $\text{SNR}_{\text{span}} = 4.86\times \ge 3.0$; explicit limitation requiring a 4th polyhedral/prism grid (`G3` $\ge 1.2\text{M}$ cells) for `F3` LES.
+     - **`R4` (Held-Out Duty Selection `D1`–`D4` & Unmodeled Multiphase Regimes)**: Pre-registered `D1`–`D4` bracket turndown, turnup, fine-sheared feed, and cold viscous slugging; explicit limitation that free gas ($\text{GVF} > 1\%$), chemically stabilized micro-emulsions ($d_{50} < 8\ \mu\text{m}$), and wax/asphaltene fouling of `TPMS` pores lie outside the declared applicability envelope (`docs/SCIENCE.md`).
+     - **`R5` (Baseline Fairness & Equal Evaluation Budget `B0`/`B1`/`B2` vs `B3`)**: Identical `180` evals/seed $\times 10$ seeds $= 1,800$ evals/arm, identical 12-sample LHS MC inner loop, and identical `F0`/`P08` gates; `B1` shares the exact 11-family Exotic-3D genome space (isolating search algorithm gain) while `B2` shares the exact NSGA-II optimizer on axisymmetric shells (isolating 3D topology gain).
