@@ -266,3 +266,474 @@ fn json_roundtrip_and_unknown_field() {
     v["secret_default"] = 1.into();
     assert!(serde_json::from_value::<joil_core::geometry::Genome>(v).is_err());
 }
+
+#[test]
+fn design_program_canonicalizes_inactive_genes_and_rejects_unknown_fields() {
+    use joil_core::program::DesignProgram;
+    let mut prog = DesignProgram::baseline_ct35();
+    prog.inlet_split.enabled = false;
+    prog.inlet_split.vane_thickness_mm = 1.65;
+    prog.inlet_split.branches_per_port = 3;
+    prog.skimmer.length_mm = 0.0;
+    prog.skimmer.outer_radius_mm = 3.5;
+    prog.skimmer.capture_flutes = 6;
+    let norm = prog.normalize().unwrap();
+    assert!(norm.is_exact_baseline().unwrap());
+    assert_eq!(
+        norm.canonical_sha256().unwrap(),
+        DesignProgram::baseline_ct35().canonical_sha256().unwrap()
+    );
+
+    let mut v = serde_json::to_value(&norm).unwrap();
+    v["unexpected_exotic_key"] = serde_json::json!(42);
+    assert!(serde_json::from_value::<DesignProgram>(v).is_err());
+}
+
+#[test]
+fn phenotype3d_watertight_mesh_and_redteam_gates() {
+    use joil_core::{
+        phenotype::Phenotype3D,
+        program::{DesignProgram, Rng},
+        redteam::{self, RedTeamReject},
+    };
+    let mut rng = Rng::new(20261015);
+    let archetypes = DesignProgram::seed_archetypes(&mut rng);
+    assert!(archetypes.len() >= 15);
+    for prog in &archetypes {
+        let (pheno, mesh) = Phenotype3D::from_program(prog).unwrap();
+        let census = mesh.edge_census();
+        assert_eq!(census.open_boundary_edges, 0);
+        assert_eq!(census.non_manifold_edges, 0);
+        assert!(mesh.signed_volume() > 0.0);
+        assert_eq!(pheno.frozen_collar_and_tail_diff_mm3, 0.0);
+        assert!(pheno.minimum_wall_clearance_mm >= 1.0);
+        assert!(pheno.minimum_passage_diameter_mm >= 1.4);
+        assert!(redteam::check(prog, &pheno, &mesh).is_ok());
+    }
+
+    // Negative check: deliberately violate wall clearance and verify RedTeamReject
+    let base = DesignProgram::baseline_ct35();
+    let (mut bad_pheno, mesh) = Phenotype3D::from_program(&base).unwrap();
+    bad_pheno.minimum_wall_clearance_mm = 0.85;
+    let err = redteam::check(&base, &bad_pheno, &mesh).unwrap_err();
+    assert!(err.contains(&RedTeamReject::WallClearanceBelowMinimum));
+}
+
+#[test]
+fn openfoam_strict_parsers_and_rotation_ode_oracle() {
+    use joil_core::openfoam::{
+        checked_near_integer_flux, integrate_coupled_rotation_ode, parse_labels,
+        parse_surface_field_value_sums, parse_vectors,
+    };
+
+    // Valid labelField & vectorField
+    let lbl = parse_labels("FoamFile { object origId; }\n3 ( 10 20 30 )\n").unwrap();
+    assert_eq!(lbl, vec![10, 20, 30]);
+    // Count mismatch rejected
+    assert!(parse_labels("3 ( 10 20 )").is_err());
+
+    let vecs = parse_vectors("2 ( (1.0 2.0 3.0) (4.0 5.0 6.0) )").unwrap();
+    assert_eq!(vecs.len(), 2);
+    // Trailing garbage rejected
+    assert!(parse_vectors("1 ( (1.0 2.0 3.0) ) trailing_token").is_err());
+    // 4-tuple rejected
+    assert!(parse_vectors("1 ( (1.0 2.0 3.0 4.0) )").is_err());
+
+    // Monotonic surfaceFieldValue integration
+    let sfv = "# Time cloudA cloudB\n600.001 1000.0 2000.0\n600.002 1000.0 2000.0\n";
+    let clouds = vec!["cloudA".to_string(), "cloudB".to_string()];
+    let sums = parse_surface_field_value_sums(sfv, &clouds).unwrap();
+    assert!(sums["cloudA"] > 0.0);
+    // Non-monotonic timestamp rejected
+    let sfv_bad = "600.002 100.0\n600.001 100.0\n";
+    assert!(parse_surface_field_value_sums(sfv_bad, &["cloudA".to_string()]).is_err());
+
+    // Near-integer flux check
+    assert_eq!(checked_near_integer_flux(14.0000001, 1e-4).unwrap().0, 14);
+    assert!(checked_near_integer_flux(14.25, 1e-3).is_err());
+
+    // Coupled OIL-03 rotation ODE oracle
+    let r20 = integrate_coupled_rotation_ode(20.0, 0.01, 200.0, 2e-6, 0.002);
+    let r40 = integrate_coupled_rotation_ode(40.0, 0.01, 200.0, 2e-6, 0.002);
+    assert!(r20.radial_displacement_m < 0.0);
+    assert!(r40.radial_displacement_m < r20.radial_displacement_m);
+    let ratio = (r40.u_r_end_m_s / r40.r_end_m) / (r20.u_r_end_m_s / r20.r_end_m);
+    assert!((ratio - 3.850148).abs() < 1e-3);
+}
+
+#[test]
+fn multi_island_evolution_discovers_feasible_3d_elites_with_null_qualified_claims() {
+    use joil_core::evolve::{evaluate_individual, EvolutionConfig};
+    use joil_core::program::{DesignProgram, Rng};
+
+    let cfg = EvolutionConfig {
+        islands: 2,
+        pop_per_island: 8,
+        generations: 3,
+        mc_samples: 6,
+        ..EvolutionConfig::default()
+    };
+    let (base_ind, _) =
+        evaluate_individual("base".into(), DesignProgram::baseline_ct35(), 0, 0, &cfg).unwrap();
+    assert!(base_ind.red_team_passed);
+    assert!(base_ind.qualified_multiobjective_vector.is_none());
+    assert!(base_ind.qualified_capacity_gain.is_none());
+
+    let mut rng = Rng::new(42);
+    let seeds = DesignProgram::seed_archetypes(&mut rng);
+    let mut feasible_count = 0usize;
+    for (idx, p) in seeds.iter().enumerate() {
+        let (ind, _) = evaluate_individual(format!("s{idx}"), p.clone(), 0, 0, &cfg).unwrap();
+        assert!(ind.red_team_passed);
+        assert!(ind.qualified_multiobjective_vector.is_none());
+        assert!(ind.qualified_capacity_gain.is_none());
+        if ind.constraint_violation == 0.0 && ind.nominal_metrics.passes_30_mg_l {
+            feasible_count += 1;
+        }
+    }
+    assert!(feasible_count >= 5);
+}
+
+#[test]
+fn structural_lame_oracle_and_modal_lpbf_qualification() {
+    use joil_core::{
+        phenotype::Phenotype3D,
+        program::{DesignProgram, Rng},
+        structure::{lame_thick_cylinder_oracle, qualify_structure},
+    };
+
+    // STRUCTURE-01: Lamé thick-wall cylinder boundary condition identity check
+    let a = 0.035_f64;
+    let b = 0.038_f64;
+    let pi = 0.5e6_f64;
+    let po = 2.5e6_f64;
+    let s_in = lame_thick_cylinder_oracle(a, b, pi, po, a).unwrap();
+    let s_out = lame_thick_cylinder_oracle(a, b, pi, po, b).unwrap();
+    assert!((s_in.sigma_r_pa - (-pi)).abs() < 1e-6);
+    assert!((s_out.sigma_r_pa - (-po)).abs() < 1e-6);
+    assert!(s_in.von_mises_pa > s_out.von_mises_pa);
+    // Negative check: invalid radii or out-of-domain r_m rejected
+    assert!(lame_thick_cylinder_oracle(0.038, 0.035, pi, po, 0.036).is_err());
+    assert!(lame_thick_cylinder_oracle(a, b, pi, po, 0.040).is_err());
+
+    // STRUCTURE-02..05 across all seed 3D archetypes
+    let mut rng = Rng::new(20261015);
+    for prog in DesignProgram::seed_archetypes(&mut rng) {
+        let (pheno, _) = Phenotype3D::from_program(&prog).unwrap();
+        let sq = qualify_structure(&prog, &pheno, 29468.22, 0.001111111).unwrap();
+        assert!(
+            sq.passed,
+            "archetype failed structure: {:?}",
+            sq.failure_reasons
+        );
+        assert!(!sq.sour_service_qualified);
+        assert!(sq.min_yield_safety_factor >= 2.5);
+        assert!(sq.stress_gci_fine_rel <= 0.01);
+        assert!(sq.load_transfer_rel_error <= 1e-12);
+        assert!(sq.vane_modal_freq_ratio >= 3.0);
+        assert!(sq.skimmer_tip_deflection_mm <= 0.010);
+        assert!(sq.max_lpbf_overhang_from_vertical_deg <= 45.0);
+    }
+}
+
+#[test]
+fn multi_patch_cfd_surface_watertight_and_terminal_patches_valid() {
+    use joil_core::{
+        phenotype::MultiPatchSurface,
+        program::{DesignProgram, Rng},
+    };
+    let mut rng = Rng::new(20261015);
+    for prog in DesignProgram::seed_archetypes(&mut rng) {
+        let surf = MultiPatchSurface::from_program(&prog, 0.0).unwrap();
+        assert!(surf.audit.watertight_and_manifold);
+        assert!(surf.audit.all_terminal_patches_valid);
+        assert_eq!(surf.audit.census.open_boundary_edges, 0);
+        assert_eq!(surf.audit.census.non_manifold_edges, 0);
+        assert!(surf.audit.signed_volume_m3 > 0.0010);
+        for name in ["inlet1", "inlet2", "overflow", "underflow"] {
+            let p = &surf.audit.patches[name];
+            assert!(p.triangle_count >= 16);
+            assert!(p.relative_area_error.unwrap().abs() <= 1e-9);
+            assert!(p.min_normal_alignment.unwrap() >= 0.999999);
+        }
+    }
+}
+
+#[test]
+fn openfoam_candidate_case_builder_and_surrogate_engine_qualification() {
+    use joil_core::{
+        cfd_case::{build_openfoam_candidate_case, CfdCaseConfig},
+        evolve::{evaluate_individual, EvolutionConfig},
+        program::{DesignProgram, Rng},
+        surrogate::{evaluate_batch_with_ledger, run_surrogate_and_engine_qualification},
+    };
+
+    let tmp_dir = std::env::temp_dir().join(format!("joil-cfd-case-test-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&tmp_dir);
+    let mut rng = Rng::new(20261015);
+    let archetypes = DesignProgram::seed_archetypes(&mut rng);
+    let elite_prog = &archetypes[3]; // trifurcated-6jet-vortex-head
+    let cfg = CfdCaseConfig::default();
+    let manifest = build_openfoam_candidate_case(elite_prog, &tmp_dir, &cfg).unwrap();
+    assert!(manifest.multi_patch_audit.watertight_and_manifold);
+    assert!(manifest.multi_patch_audit.all_terminal_patches_valid);
+    assert!(manifest.redteam_passed);
+    assert!(manifest.structural_qualified);
+    assert!(!manifest.qualified_for_oil_grade);
+    assert!(tmp_dir.join("input-manifest.json").is_file());
+    assert!(tmp_dir.join("constant/triSurface/ct35.stl").is_file());
+    // Refuses to overwrite existing case directory
+    assert!(build_openfoam_candidate_case(elite_prog, &tmp_dir, &cfg).is_err());
+    let _ = std::fs::remove_dir_all(&tmp_dir);
+
+    // ENGINE-03 budget ledger conservation with duplicates and infrastructure quarantine
+    let mut batch = archetypes.clone();
+    batch.push(archetypes[0].clone()); // duplicate
+    let (ledger, fam_counts) = evaluate_batch_with_ledger(&batch, 2).unwrap();
+    assert!(ledger.is_conserved());
+    assert!(ledger.phenotype_cache_hits >= 1);
+    assert_eq!(ledger.infrastructure_quarantined, 2);
+    assert!(fam_counts.len() >= 6);
+
+    // ENGINE-02..04 surrogate LOFO-CV and failure quarantine
+    let ev_cfg = EvolutionConfig {
+        mc_samples: 6,
+        ..EvolutionConfig::default()
+    };
+    let mut individuals = Vec::new();
+    for (i, p) in archetypes.iter().enumerate() {
+        let (ind, _) = evaluate_individual(format!("a{i}"), p.clone(), 0, 0, &ev_cfg).unwrap();
+        individuals.push(ind);
+    }
+    let sq = run_surrogate_and_engine_qualification(&individuals).unwrap();
+    assert!(sq.failure_quarantine_verified);
+    assert_eq!(sq.quarantined_failure_records, 2);
+    assert!(sq.checkpoint_determinism_verified);
+    assert!(sq.evaluator_drift_rejection_verified);
+    assert!(sq.budget_conservation_verified);
+    assert!(sq.ood_std_exceeds_in_dist_std);
+    assert!(sq.family_holdouts.len() >= 6);
+}
+
+#[test]
+fn p05_population_pbm_dsd_and_multiphase_regime_gates() {
+    use joil_core::population::{
+        build_stratified_dsd_weights, check_multiphase_regime_envelope,
+        generate_mpi_rank_invariant_cohort, verify_added_mass_and_pressure_gradient,
+        verify_dispersion_and_les_partition, verify_parcel_substep_halving,
+        verify_pbm_breakup_coalescence_and_resolution,
+    };
+
+    let oil04 = verify_added_mass_and_pressure_gradient(30.0, 50.0, 2.0e-7, 0.002).unwrap();
+    assert!(oil04.passed);
+    assert!(oil04.relative_velocity_error < 1e-6);
+    assert!(oil04.exact_initial_accel_ratio_ap_over_af > 1.05);
+    assert!(oil04.wrong_omitted_pressure_accel_ratio < 0.5);
+
+    let oil05_06 = verify_dispersion_and_les_partition(
+        &[0.12, 0.28, 0.54, 0.88, 1.32],
+        0.004,
+        1.45,
+        0.18,
+        0.18,
+    )
+    .unwrap();
+    assert!(oil05_06.passed);
+    assert!(oil05_06.negative_control_rans_on_les_rejected);
+    assert!(verify_dispersion_and_les_partition(
+        &[0.12, 0.28, 0.54, 0.88, 1.32],
+        0.004,
+        1.45,
+        0.18,
+        1.63,
+    )
+    .is_err());
+
+    let oil07 = verify_parcel_substep_halving(3.0, 5.0e-5).unwrap();
+    assert!(oil07.passed);
+    assert!(oil07.single_step_cfl_only_rejected);
+    assert!(oil07.fine_rel_error < 5e-4);
+    assert!(oil07.observed_order > 1.95);
+
+    let oil08 = build_stratified_dsd_weights(25.0, 0.55, false).unwrap();
+    let mass_sum: f64 = oil08.iter().map(|b| b.mass_fraction).sum();
+    let num_sum: f64 = oil08.iter().map(|b| b.number_fraction).sum();
+    assert!((mass_sum - 1.0).abs() < 1e-12);
+    assert!((num_sum - 1.0).abs() < 1e-12);
+    assert!(build_stratified_dsd_weights(25.0, 0.55, true).is_err());
+
+    let oil10_12 =
+        verify_pbm_breakup_coalescence_and_resolution(180.0, false, 0.003, false).unwrap();
+    assert!(oil10_12.passed);
+    assert!(oil10_12.breakup_mass_conservation_rel_err <= 1e-13);
+    assert!(oil10_12.post_breakup_sauter_d32_um < oil10_12.initial_sauter_d32_um);
+    assert!(oil10_12.smoluchowski_coalescence_rel_err < 1e-6);
+    assert!(oil10_12.pbm_grid_10_vs_20_vs_40_gci_rel < 0.025);
+    assert!(verify_pbm_breakup_coalescence_and_resolution(180.0, true, 0.003, false).is_err());
+    assert!(verify_pbm_breakup_coalescence_and_resolution(180.0, false, 0.04, true).is_err());
+
+    let c1 = generate_mpi_rank_invariant_cohort(128, 1).unwrap();
+    let c4 = generate_mpi_rank_invariant_cohort(128, 4).unwrap();
+    let c8 = generate_mpi_rank_invariant_cohort(128, 8).unwrap();
+    assert_eq!(c1, c4);
+    assert_eq!(c1, c8);
+
+    let env_ok = check_multiphase_regime_envelope(0.00059, 0.0, 0.0032, 0.024);
+    assert!(env_ok.within_dilute_lagrangian_envelope);
+    let env_bad = check_multiphase_regime_envelope(0.035, 0.012, 0.22, 0.002);
+    assert!(!env_bad.within_dilute_lagrangian_envelope);
+    assert_eq!(env_bad.exclusion_reasons.len(), 4);
+}
+
+#[test]
+fn p06_experiment_calibration_crossover_holdout_ct_and_comparator_gates() {
+    use joil_core::experiment::{
+        analyze_blinded_aba_crossover, evaluate_as_built_ct_metrology, required_blocks_for_power,
+        verify_holdout_isolation, verify_instrument_calibration, verify_shared_duty_comparator,
+        AbaCrossoverBlock,
+    };
+
+    let cal = verify_instrument_calibration("oil-a", "oil-a", 0.998, 0.4, 1.2, 0.65).unwrap();
+    assert!(cal.passed);
+    assert!((cal.censored_upper_bound_mg_l - 1.2).abs() < 1e-12);
+    assert!(verify_instrument_calibration("oil-a", "oil-b", 0.998, 0.4, 1.2, 10.0).is_err());
+
+    let pwr = required_blocks_for_power(0.025, 0.04).unwrap();
+    assert!(pwr >= 5);
+
+    let blocks = vec![
+        AbaCrossoverBlock {
+            block_id: "B1".into(),
+            independent_preparation: true,
+            baseline_a1_qmax_m3_h: 4.02,
+            candidate_b_qmax_m3_h: 4.65,
+            baseline_a2_qmax_m3_h: 4.00,
+            split_mismatch_abs: 0.00008,
+        },
+        AbaCrossoverBlock {
+            block_id: "B2".into(),
+            independent_preparation: true,
+            baseline_a1_qmax_m3_h: 3.98,
+            candidate_b_qmax_m3_h: 4.58,
+            baseline_a2_qmax_m3_h: 4.01,
+            split_mismatch_abs: 0.00011,
+        },
+        AbaCrossoverBlock {
+            block_id: "B3".into(),
+            independent_preparation: true,
+            baseline_a1_qmax_m3_h: 4.01,
+            candidate_b_qmax_m3_h: 4.62,
+            baseline_a2_qmax_m3_h: 3.99,
+            split_mismatch_abs: 0.00009,
+        },
+        AbaCrossoverBlock {
+            block_id: "B4".into(),
+            independent_preparation: true,
+            baseline_a1_qmax_m3_h: 4.00,
+            candidate_b_qmax_m3_h: 4.60,
+            baseline_a2_qmax_m3_h: 4.02,
+            split_mismatch_abs: 0.00007,
+        },
+        AbaCrossoverBlock {
+            block_id: "B5".into(),
+            independent_preparation: true,
+            baseline_a1_qmax_m3_h: 3.99,
+            candidate_b_qmax_m3_h: 4.64,
+            baseline_a2_qmax_m3_h: 4.01,
+            split_mismatch_abs: 0.00010,
+        },
+        AbaCrossoverBlock {
+            block_id: "B6".into(),
+            independent_preparation: true,
+            baseline_a1_qmax_m3_h: 4.01,
+            candidate_b_qmax_m3_h: 4.61,
+            baseline_a2_qmax_m3_h: 4.00,
+            split_mismatch_abs: 0.00006,
+        },
+    ];
+    let aba = analyze_blinded_aba_crossover(&blocks).unwrap();
+    assert!(aba.passed_10pct_lcb95_gate);
+    assert!(aba.lcb95_paired_gain_fraction >= 0.10);
+    assert!(analyze_blinded_aba_crossover(&blocks[0..3]).is_err());
+
+    assert!(verify_holdout_isolation(&["t1".into()], &["h1".into()], 1).unwrap());
+    assert!(verify_holdout_isolation(&["t1".into(), "h1".into()], &["h1".into()], 1).is_err());
+    assert!(verify_holdout_isolation(&["t1".into()], &["h1".into()], 2).is_err());
+
+    let ct_ok = evaluate_as_built_ct_metrology("SN-01", 2.0, 2.008, 6.5, 28.0, false).unwrap();
+    assert!(ct_ok.passed);
+    assert!(ct_ok.ks_nominal_um > ct_ok.measured_ra_um);
+    assert!(evaluate_as_built_ct_metrology("SN-01", 2.0, 2.008, 6.5, 28.0, true).is_err());
+    assert!(evaluate_as_built_ct_metrology("SN-01", 2.0, 2.045, 6.5, 28.0, false).is_err());
+
+    assert!(verify_shared_duty_comparator("d1", "d1", Some("d1"), true).unwrap());
+    assert!(verify_shared_duty_comparator("d1", "d1", None, true).is_err());
+    assert!(verify_shared_duty_comparator("d1", "d2", None, false).is_err());
+}
+
+#[test]
+fn p09_ops_view_resource_lease_and_glb_scene_bundle_gates() {
+    use joil_core::{
+        phenotype::MultiPatchSurface,
+        program::{DesignProgram, Rng},
+        scene::{export_glb_scene_bundle, verify_resource_lease},
+    };
+
+    let lease_ok = verify_resource_lease("l1", &[0, 1, 2, 3], 4, 16, 8, 1_500_000_000).unwrap();
+    assert!(lease_ok.admitted);
+    assert_eq!(lease_ok.physical_cores_used, 4);
+
+    // SMT sibling threads [0, 16, 1, 17] on 16-core host only occupy 2 physical cores, not 4
+    assert!(verify_resource_lease("l-smt", &[0, 16, 1, 17], 4, 16, 8, 1_500_000_000).is_err());
+    // Oversubscribed 6 cores > 4 limit
+    assert!(verify_resource_lease("l-over", &[0, 1, 2, 3, 4, 5], 6, 16, 8, 1_500_000_000).is_err());
+
+    let tmp_dir = std::env::temp_dir().join(format!("joil-glb-test-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&tmp_dir);
+    let glb_path = tmp_dir.join("scene.glb");
+    let mut rng = Rng::new(20261015);
+    let archetypes = DesignProgram::seed_archetypes(&mut rng);
+    let surf = MultiPatchSurface::from_program(&archetypes[3], 0.0).unwrap();
+    let manifest = export_glb_scene_bundle(&surf, "stl-sha-test", 1.0, &glb_path).unwrap();
+    assert_eq!(manifest.units, "m");
+    assert!((manifest.true_deformation_scale - 1.0).abs() < 1e-12);
+    assert!(glb_path.is_file());
+    assert!(glb_path.with_extension("scene-manifest.json").is_file());
+    let bytes = std::fs::read(&glb_path).unwrap();
+    assert_eq!(&bytes[0..4], &0x46546C67u32.to_le_bytes()); // 'glTF' magic
+    assert!(export_glb_scene_bundle(&surf, "stl-sha-test", 2.5, &glb_path).is_err());
+    let _ = std::fs::remove_dir_all(&tmp_dir);
+}
+
+#[test]
+fn p07_surrogate_constrained_expected_improvement_and_prescreen() {
+    use joil_core::{
+        evolve::{evaluate_individual, EvolutionConfig},
+        program::{DesignProgram, Rng},
+        surrogate::{active_prescreen_offspring, GaussianProcessSurrogate, SurrogateRecord},
+    };
+
+    let mut rng = Rng::new(20261015);
+    let archetypes = DesignProgram::seed_archetypes(&mut rng);
+    let ev_cfg = EvolutionConfig {
+        mc_samples: 6,
+        ..EvolutionConfig::default()
+    };
+    let mut records = Vec::new();
+    for (i, p) in archetypes.iter().enumerate() {
+        let (ind, _) = evaluate_individual(format!("s{i}"), p.clone(), 0, 0, &ev_cfg).unwrap();
+        records.push(SurrogateRecord::from_candidate(&ind));
+    }
+    let gp = GaussianProcessSurrogate::fit(&records, 0.85, 0.015).unwrap();
+    let mut pool = Vec::new();
+    for p in &archetypes {
+        pool.push(p.mutate(&mut rng));
+    }
+    let ranked = active_prescreen_offspring(&gp, &pool, 18.5, 5);
+    assert_eq!(ranked.len(), 5);
+    assert!(
+        ranked[0].1.constrained_expected_improvement
+            >= ranked[4].1.constrained_expected_improvement
+    );
+    assert!(ranked[0].1.feasibility_probability_30_mg_l > 0.0);
+}

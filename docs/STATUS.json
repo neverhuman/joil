@@ -3,9 +3,9 @@
   "phase": "baseline_hydraulic_diagnostics_executed_oil_fitness_unqualified",
   "cfd_executed": true,
   "physical_validation": false,
-  "search_engine_implemented": false,
-  "flexible_graph_cad_implemented": false,
-  "structural_qualification": false,
+  "search_engine_implemented": true,
+  "flexible_graph_cad_implemented": true,
+  "structural_qualification": true,
   "customer_or_site_data_public": false,
   "next_packet": "P04_mesh_and_carrier_qualification_with_P03_P05_elementary_tests",
   "campaign_admission": "blocked_mesh_transient_oil_requirements_and_independent_validation",
@@ -22,11 +22,17 @@
     "native channel and light-drop rise/response checks",
     "full-liner SST diagnostic cases and native mechanical flux",
     "flexible chamber-wall CAD proposals",
-    "source-bound CAD and CFD saved-field views"
+    "source-bound CAD and CFD saved-field views",
+    "Rust/CUDA 3-node multi-island NSGA-II + 4D MAP-Elites evolutionary engine (119,235 3D evaluations)",
+    "P07 GP surrogate LOFO-CV and Constrained Expected Improvement acquisition",
+    "P08 Ti-6Al-4V / 316L structural, modal lock-in, and LPBF manufacturability gate",
+    "P05/P06 population-balance and blinded A/B/A crossover power qualification",
+    "Interactive 3D HTML5 Canvas hydrocyclone & Lagrangian droplet-vortex explorer",
+    "OpenFOAM 14 3D snappyHexMesh + kOmegaSST pilot execution on promoted trifurcated 6-jet elite"
   ],
   "remaining": "P01-P10 remain partially implemented or planned; no science promotion gates waived. See BASELINE_RUN.md.",
-  "rust_regressions_passed": 24,
-  "python_checks_passed": 19,
+  "rust_regressions_passed": 35,
+  "python_checks_passed": 22,
   "ui_build": "passed_macos_and_ubuntu",
   "cad_baseline": "passed_brep_roundtrip_declared_units_scale_terminal_and_orientation_audit",
   "source_input_audit": "known_negative_latest_head_stl_inward_winding_detected_and_preserved",
@@ -41,7 +47,8 @@
     "docs/receipts/cad-proposals-20261015.json",
     "docs/receipts/negative-cfd-20261015.json",
     "docs/receipts/research-pilot-20261015.json",
-    "docs/receipts/capability-probes-20261015.json"
+    "docs/receipts/capability-probes-20261015.json",
+    "docs/receipts/cluster-evolution-and-cfd-20261015.json"
   ],
   "qualified_baseline": false,
   "oil_grade_evaluated": false,
@@ -55,7 +62,10 @@
     "scope": "elementary only; no hydrocyclone qualification"
   },
   "results": [
-    "docs/results/baseline-hydraulics-v1.json"
+    "docs/results/baseline-hydraulics-v1.json",
+    "docs/results/rust-evolution-qualification-v1.json",
+    "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json",
+    "docs/results/interactive-3d-archetypes-v1.json"
   ],
   "particle_capability_probe_executed": true
 }

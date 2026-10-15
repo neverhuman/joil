@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "kind": "rust_cuda_3d_evolution_and_qualification_summary_not_f2_or_f4_validated",
+  "qualified_multiobjective_vector": null,
+  "qualified_capacity_gain": null,
+  "evidence_digests_sha256": {
+    "campaign_summary": "d1823cdaeb9179afde9789f752438ee0ae6e0087a43602125942e4438d31d5eb",
+    "promotion_dossier": "9ff3abe938e196f2fa108acb2a069abe71712e08d4cef9d70a0fa738e88437da",
+    "elite_cfd_case_manifest": "e9af1bb1b25f0c41558d4c1d05a3f45add858c3685d3d4035c14052219c9d5a5",
+    "surrogate_cv_report": "e42bd1f3e45beddeb6fc0ffb3e429f6e09d2c087197f2b2df3e395c9c76c03f6",
+    "p05_population_qualification": "5376eac49c368339af3b8366bff78b8ed01076a26f6caec964241ced44db22c2",
+    "p06_experiment_qualification": "42c2432f7d96526b1dabb850499b918b02c15066342ddcac970298bf04f741f5",
+    "p08_structural_qualification": "9b938f92c8b7807e14330aab33399f88343a3fce88337a52b1175dc0cd614dd0",
+    "p09_scene_qualification": "ad862ea34ed76021b1f798b78c1bf9d83479727d2ab62115e256642a56168d19",
+    "top_elite_scene_glb": "06889035f9564330e7b8e722709cfced1ad29c9f06fe98a315ba4537eaca4d37",
+    "top_elite_scene_manifest": "ad862ea34ed76021b1f798b78c1bf9d83479727d2ab62115e256642a56168d19",
+    "flux_weighted_inlet_audit": "7ce9bce6ad4f231c2c378fe7a729ed879df37bc0394c5ce1a2bc361743479c9c",
+    "engineering_gates_report": "cfec53d071afbe007106a7c8b9d3409606e9d4fbbd884ae976fbaefe073f0ebf",
+    "elite_openfoam14_hydraulic_integrals": "ac84a8f779011bbad8ba4528b4da0ff49cb48b33d7392c2ba2ce7618b57613fa"
+  },
+  "campaign_metrics": {
+    "engine": "joil-core::evolve (3-Node Distributed Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA 85% VRAM Tensor Bridge)",
+    "cluster_nodes_participating": [
+      "xbabe1",
+      "xbabe2",
+      "xbabe3"
+    ],
+    "gpu_devices_used": [
+      "xbabe1 (NVIDIA GeForce RTX 4090)",
+      "xbabe2 (NVIDIA GeForce RTX 3090)",
+      "xbabe3 (NVIDIA GeForce RTX 3090)"
+    ],
+    "peak_gpu_vram_utilization_pct": 85.5,
+    "peak_gpu_vram_used_mib": 20627.12,
+    "total_gpu_lagrangian_parcels_integrated": 15970490852,
+    "total_evaluations": 119235,
+    "valid_f0_evaluations": 119061,
+    "red_team_rejections": 174,
+    "monte_carlo_realizations": 2857464,
+    "map_elites_occupied_cells": 191,
+    "pareto_front_size": 275,
+    "pareto_elites_strictly_dominating_baseline_count": 275,
+    "all_rank0_feasible_zero_violation": true,
+    "all_rank0_pass_redteam_f0": true,
+    "all_rank0_pass_p08_structural": true,
+    "topology_family_counts": {
+      "baseline-ct35": 1,
+      "bifurcated-quad-manifold": 3,
+      "contoured-s-cone-skimmer": 17,
+      "helical-pitched-ribbon": 4,
+      "hybrid-omni-exotic": 96,
+      "spiral-rifled-vortex-head": 6,
+      "trifurcated-6jet-vortex-head": 64
+    },
+    "cpu_gpu_ode_parity_abs_err": 0.0
+  },
+  "promoted_3d_elite": {
+    "id": "xbabe2-gen043-isl10-ind030",
+    "topology_class": "trifurcated-6jet-vortex-head",
+    "genome_sha256": "88da933b54c303e6bda1031c11b3334cf90f997361f90ac6321994c1a2d9e7dd",
+    "min_wall_clearance_mm": 1.2799,
+    "min_passage_diameter_mm": 1.4000000000000001,
+    "frozen_collar_tail_diff_mm3": 0.0,
+    "p08_yield_safety_factor": 4.21556930987895,
+    "p08_max_von_mises_mpa": 195.70310422050437,
+    "p08_vane_modal_freq_ratio": 26.34178733582706,
+    "p08_skimmer_tip_deflection_mm": 1.8502369913753122e-06,
+    "p08_lpbf_overhang_deg": 12.693398727458556,
+    "p08_sour_service_qualified": false,
+    "multi_patch_watertight": true,
+    "multi_patch_all_terminals_valid": true,
+    "multi_patch_open_edges": 0,
+    "multi_patch_non_manifold_edges": 0,
+    "multi_patch_triangles": 6112,
+    "cfd_case_dictionary_count": 16,
+    "glb_scene_bytes": 111344,
+    "executed_openfoam14_snappy_cells": 305522,
+    "executed_openfoam14_inlet_static_pressure_pa": 19526.53356004685,
+    "executed_openfoam14_reject_fraction": 0.0197134128042312,
+    "executed_openfoam14_hydraulic_loss_j_m3": 23124.5724531485
+  },
+  "surrogate_and_engine_qualification": {
+    "in_distribution_rmse_mg_l": 0.4173574258166727,
+    "ood_mean_rmse_mg_l": 4.018076660533768,
+    "ood_mean_2sigma_coverage": 0.8571428571428571,
+    "ood_std_exceeds_in_dist_std": true,
+    "failure_quarantine_verified": true,
+    "checkpoint_determinism_verified": true,
+    "evaluator_drift_rejection_verified": true,
+    "budget_conservation_verified": true
+  },
+  "p05_population_and_pbm_qualification": {
+    "all_p05_gates_passed": true,
+    "oil04_added_mass_rel_err": 2.3767069790966884e-13,
+    "oil07_substep_observed_order": 2.000721915271701,
+    "oil10_breakup_mass_conservation_rel_err": 2.220446049250313e-16,
+    "oil11_smoluchowski_coalescence_rel_err": 1.2001783034065737e-09,
+    "oil12_pbm_grid_gci_rel": 0.0045285872397038025,
+    "oil14_mpi_rank_invariant": true
+  },
+  "p06_experiment_and_metrology_qualification": {
+    "all_p06_gates_passed": true,
+    "loq_censoring_verified": true,
+    "aba_crossover_lcb95_gain_fraction": 0.14700931164780093,
+    "required_blocks_for_90pct_power": 5,
+    "holdout_isolation_verified": true,
+    "ct_metrology_ks_nominal_um": 20.15
+  },
+  "p09_ops_and_scene_qualification": {
+    "resource_lease_admitted": true,
+    "smt_sibling_mistake_rejected": true,
+    "glb_true_scale": 1.0,
+    "glb_units": "m"
+  },
+  "flux_weighted_inlet_cohort_probe": {
+    "audit_passed": true,
+    "launch_time_parent_manifest_verified": true,
+    "total_discrepancy_count": 0,
+    "reference_cloud_discrepancy_count": 0,
+    "is_qualified_grade_curve": false
+  }
+}
