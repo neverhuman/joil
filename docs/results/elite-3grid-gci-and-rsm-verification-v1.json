@@ -222,6 +222,59 @@
         ]
       },
       "hydraulic_integrals_sha256": "c2ad9d3249225546eda7e5d6712b6d523e2ce4cc65956e1ed93609635de35c18"
+    },
+    {
+      "turbulence_model": "SSG",
+      "turbulence_family": "7-equation Reynolds-Stress Transport Model (RSM)",
+      "case_dir": "runs/rust-cfd-elite-g1-rsm-ssg",
+      "continuation_steps_from_g1_sst": 60,
+      "feed_m3_h": 4.00000000000349,
+      "treated_m3_h": 3.92184759276961,
+      "reject_fraction": 0.0196834261033783,
+      "water_closure_fraction": 0.000145324294925862,
+      "dp_u_pa": 18165.70578009965,
+      "hydraulic_loss_w": 23.4695543015896,
+      "hydraulic_loss_j_per_treated_m3": 21543.5183257735,
+      "delta_dp_u_vs_kOmegaSST_pct": -6.969121148730574,
+      "delta_eloss_vs_kOmegaSST_pct": -6.837117229208413,
+      "delta_dp_u_vs_ct35_baseline_pct": -38.35492501163051,
+      "delta_eloss_vs_ct35_baseline_pct": -36.090750613943015,
+      "reynolds_stress_tensor_diagnostics": {
+        "cell_count": 305522,
+        "mean_tke_m2_s2": 0.03983322912667583,
+        "p95_tke_m2_s2": 0.11986839969908251,
+        "max_tke_m2_s2": 2.380313589415,
+        "mean_rxx_m2_s2": 0.025048497475538903,
+        "mean_ryy_m2_s2": 0.02495363745140711,
+        "mean_rzz_m2_s2": 0.02966432332640567,
+        "mean_shear_stress_mag_m2_s2": 0.005705244206207412,
+        "mean_lumley_anisotropy_norm": 0.09931283827596744,
+        "p95_lumley_anisotropy_norm": 0.2604401116822023,
+        "mean_axial_to_transverse_normal_stress_ratio": 1.0788405007080653,
+        "positive_definite_normal_stress_fraction": 1.0,
+        "quantiles_rxx": [
+          0.004573391464408,
+          0.0072701649053825,
+          0.0138191968582,
+          0.033902078974975,
+          0.057453591454290014
+        ],
+        "quantiles_ryy": [
+          0.004495230258222,
+          0.007332444169805,
+          0.01355022745195,
+          0.0339714083745,
+          0.057435873638860005
+        ],
+        "quantiles_rzz": [
+          0.004519860454964,
+          0.007096213307460001,
+          0.0147289764025,
+          0.035295250600275,
+          0.06532757644816001
+        ]
+      },
+      "hydraulic_integrals_sha256": "c1aa4be959560bc7a5b4f7bff04842b4393b6ffabe329515414edb00c0d64aff"
     }
   ],
   "limitations": [

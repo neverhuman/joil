@@ -29,8 +29,8 @@
     "P05/P06 population-balance and blinded A/B/A crossover power qualification",
     "Interactive 3D HTML5 Canvas hydrocyclone & Lagrangian droplet-vortex explorer",
     "OpenFOAM 14 3D snappyHexMesh + kOmegaSST pilot execution on promoted trifurcated 6-jet elite",
-    "OpenFOAM 14 3-grid systematic refinement (G0 140k, G1 306k, G2 553k cells) with Roache GCI and 7-equation LRR RSM turbulence cross-check",
-    "Comprehensive scientific white paper (docs/WHITEPAPER.md) with publication-grade figure plates"
+    "OpenFOAM 14 3-grid systematic refinement (G0 140k, G1 306k, G2 553k cells) with Roache GCI and dual 7-equation LRR/SSG RSM turbulence cross-checks",
+    "Comprehensive scientific white paper (docs/WHITEPAPER.md) with 4 publication-grade figure plates"
   ],
   "remaining": "P01-P10 remain partially implemented or planned; no science promotion gates waived. See BASELINE_RUN.md and WHITEPAPER.md.",
   "rust_regressions_passed": 35,
@@ -51,7 +51,8 @@
     "docs/receipts/research-pilot-20261015.json",
     "docs/receipts/capability-probes-20261015.json",
     "docs/receipts/cluster-evolution-and-cfd-20261015.json",
-    "docs/receipts/gci-and-rsm-verification-20261015.json"
+    "docs/receipts/gci-and-rsm-verification-20261015.json",
+    "docs/receipts/ssg-rsm-and-vortex-plate-20261015.json"
   ],
   "qualified_baseline": false,
   "oil_grade_evaluated": false,

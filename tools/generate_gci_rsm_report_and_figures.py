@@ -441,12 +441,12 @@ def main() -> None:
             rs2 = rsm_models[1]["reynolds_stress_tensor_diagnostics"]
             ax4.plot(xq, rs2["quantiles_rzz"], "--d", color="#fbbf24", linewidth=2.0, markersize=7, label=f"{rsm_models[1]['turbulence_model']} $R_{{zz}}$ (Quadratic Pressure-Strain)")
         ax4.annotate(
-            f"Mean Lumley Anisotropy $\\|b_{{ij}}\\| = {rs['mean_lumley_anisotropy_norm']:.3f}$ (P95: {rs['p95_lumley_anisotropy_norm']:.3f})\n"
+            f"LRR Mean Lumley Anisotropy $\\|b_{{ij}}\\| = {rs['mean_lumley_anisotropy_norm']:.3f}$ (P95: {rs['p95_lumley_anisotropy_norm']:.3f})\n"
             f"Axial/Transverse Ratio $\\langle R_{{zz}} / R_{{\\perp}} \\rangle = {rs['mean_axial_to_transverse_normal_stress_ratio']:.3f}$\n"
             f"Realizability ($R_{{ii}} > 0$): {rs['positive_definite_normal_stress_fraction']*100:.2f}% of 305,522 cells",
-            xy=(0.04, 0.72), xycoords="axes fraction",
-            color="#f8fafc", fontsize=8.8,
-            bbox=dict(boxstyle="round,pad=0.5", facecolor="#1e293b", edgecolor="#475569", alpha=0.92)
+            xy=(0.04, 0.46), xycoords="axes fraction",
+            color="#f8fafc", fontsize=8.5,
+            bbox=dict(boxstyle="round,pad=0.45", facecolor="#1e293b", edgecolor="#475569", alpha=0.92)
         )
     ax4.set_xticks(xq)
     ax4.set_xticklabels(q_labels, fontsize=9, color="#cbd5e1")

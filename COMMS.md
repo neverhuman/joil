@@ -55,3 +55,24 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
   - Authored `docs/WHITEPAPER.md` + `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` + `docs/figures/elite-gci-and-rsm-verification.png` + `docs/receipts/gci-and-rsm-verification-20261015.json`, and synced `README.md` and `docs/STATUS.json`.
   - Ready for Codex/Claude review or merge on **PR #1** (`https://github.com/neverhuman/joil/pull/1`).
 
+
+## 2026-10-15T20:35Z — Joil drive routine (Grok Bot)
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — was **IDLE** at prompt after completing PR #1 dossier; **nudged** (readbuf+paste) toward SSG RSM / GCI appendix / publish-ready exotic-3D visuals / next evolution wave; Gemini accepted and is **Working…**.
+- **Jepson override**: none in recent hardcopy (only prior drive nudges).
+- **PR #1**: https://github.com/neverhuman/joil/pull/1 (`feat/3d-pipeline-openfoam-elite` @ `2f9c155`, MERGEABLE, mergeStateStatus=UNSTABLE, not draft) — **not merged**: Foundation checks still **queued** (~18+ min on head; older runs queued since ~19:38Z). Workflow now targets `group: neverhuman-lan` labels `[self-hosted, Linux, X64, lan-ci, ubuntu24]` (post-`13b0cc3`); jobs not picked up yet. No approve/merge until green.
+- **Approve path**: `gh-role reviewer` present on xbabe2; active `gh` user is `jepsontaylor`.
+- **Cleanup**: none — no merge this cycle; single worktree `/home/ubuntu/joil` on feature branch; screen owns tree.
+- **Blocker for user**: neverhuman-lan / lan-ci self-hosted runners not picking up `neverhuman/joil` Foundation jobs (org-wide queue including stale main pushes from 08:25–08:41Z).
+
+## 2026-10-15T20:49Z — Gemini (`agy_joil`): Completed 7-Eq. `SSG` RSM Sibling, 3D Vortex-Physics Plate, `GCI`/`F4`/Wave-2 White Paper Polish on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+- **7-Equation `SSG` (Speziale–Sarkar–Gatski Quadratic Pressure-Strain) RSM Sibling (`runs/rust-cfd-elite-g1-rsm-ssg`, `305,522` cells)**:
+  - Executed 60 continuation steps in OpenFOAM 14 (`water-1-mpirun.log`: exit 0, `86.24s`): $Q = 4.000\text{ m}^3/\text{h}$, $r = 1.968\%$, water closure `1.45e-4`.
+  - Static pressure drop $\Delta p_u(\text{SSG RSM}) = \mathbf{18,165.71\text{ Pa}}$ (**`-38.35%` vs `CT-35`**, agreeing with `LRR RSM`'s `18,119.20 Pa` within **`0.26%` (`46.5 Pa`)**).
+  - Specific hydraulic energy loss $e_{\text{loss}}(\text{SSG RSM}) = \mathbf{21,543.52\text{ J/m}^3}$ (**`-36.09%` vs `CT-35`**, agreeing with `LRR RSM`'s `21,560.75 J/m³` within **`0.08%` (`17.2 J/m³`)**).
+  - `100.00%` normal-stress realizability ($R_{ii} > 0$) across all `305,522` cells, mean Lumley anisotropy $\|b_{ij}\| = 0.099$ (`P95 = 0.260`), axial-to-transverse ratio $\langle R_{zz}/R_\perp \rangle = 1.079$.
+- **New 3D OpenFOAM 14 Internal Vortex-Physics Figure Plate & White Paper Expansion**:
+  - Generated `docs/figures/openfoam14-3d-vortex-physics-comparison.png` (`SHA-256: 5c0c4b1ee4d0a82f09d8c086334fe222201473e8801cda806319dd76ef7cac44`) comparing 3D OpenFOAM 14 entry-plane ($z = 35\text{ mm}$) tangential swirl velocity $U_\theta(r)$, axial core depression vs wall pressure, and entry-chamber Kolmogorov–Hinze maximum stable droplet size $d_{\max}(\varepsilon)$ (`P99 = 91.6 µm >> 50 µm` feed DSD).
+  - Updated `docs/WHITEPAPER.md` (`SHA-256: 013c770f32300c4bf2c37e248fa4fde2753d9d8a042f8056b47fb03f364faf04`) with dual `LRR`+`SSG` RSM tables, Section 4.4 3D vortex physics, Section 5.2 `F4`/`CAD-09` physical validation protocol, Section 5.3 Wave-2 flexible 3D evolutionary campaign plan, and Appendix A mathematical derivation of unstructured Roache `GCI`.
+  - Linked all 4 publication figure plates from both `docs/WHITEPAPER.md` and `README.md`.

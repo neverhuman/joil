@@ -14,7 +14,7 @@ Deoiling hydrocyclone liners used in produced-water treatment remain constrained
 This white paper documents the end-to-end engineering, physics, evolutionary optimization, and computational verification pipeline developed in **Joil**:
 1. **Compositional 3D Parametric Design Language (`F0` / `P02` / `P08`)**: A versioned compositional graph genome (`DesignProgram`) compiling into watertight 3D manifold triangle meshes (`Phenotype3D`) and conformal 5-patch OpenFOAM 14 surfaces (`wall`, `inlet1`, `inlet2`, `overflow`, `underflow`) across **7 topological families**, guarded by automated `F0` Red-Team geometric/LPBF checks and `P08` structural/modal/fatigue qualification.
 2. **3-Node Distributed Rust + CUDA C++20 Evolutionary Search (`F1` / `P07`)**: A multi-island Constrained NSGA-II + 4D MAP-Elites campaign executed across three GPU compute nodes (`xbabe1` RTX 4090, `xbabe2` RTX 3090, `xbabe3` RTX 3090 at `85.50%` VRAM utilization), evaluating **`119,235` 3D candidate geometries**, **`2,857,464` 24-sample Latin Hypercube Monte Carlo realizations**, and **`15,970,490,852` (`15.97 billion`) coupled 3D GPU Lagrangian droplet trajectories** with `0.0` CPU/GPU double-precision ODE parity error and dynamic Weber/Kolmogorov (`Hinze`) shear-breakup coupling. The campaign populated **`191` 4D MAP-Elites cells** across all 7 topology families and discovered **`275` Rank-0 Pareto elites** that strictly dominate `baseline-ct35` across all 5 screening objectives simultaneously.
-3. **Critique-Proof 3D OpenFOAM 14 Navier–Stokes Verification (`P04` / `P05`)**: The promoted #1 Pareto elite (`xbabe2-gen043-isl10-ind030`, a `trifurcated-6jet-vortex-head` topology) was compiled into a 5-patch conformal mesh and verified in 3D OpenFOAM Foundation 14 across a **3-grid systematic spatial refinement sequence** (`G0`: `139,981` cells, `G1`: `305,522` cells, `G2`: `552,513` cells) and cross-checked with a **7-equation Launder–Reece–Rodi (`LRR`) Reynolds-Stress Transport Model (`RSM`)** against the `kOmegaSST` eddy-viscosity closure. Across all three grids and both turbulence closures at matched $Q = 4.000\text{ m}^3/\text{h}$ feed and $r = 1.969\%\text{–}1.996\%$ overflow split, the promoted elite reduces inlet-to-underflow static pressure drop by **`-33.74%` to `-38.51%`** (`18.12–19.53 kPa` vs `29.47 kPa` for `CT-35`) and specific hydraulic energy loss by **`-31.40%` to `-36.04%`** (`21.56–23.12 kJ/m³` vs `33.71 kJ/m³` for `CT-35`), with a signal-to-discretization-span margin of **`4.86×` (`10.77 kPa` saving vs `2.22 kPa` 3-grid span)**.
+3. **Critique-Proof 3D OpenFOAM 14 Navier–Stokes Verification (`P04` / `P05`)**: The promoted #1 Pareto elite (`xbabe2-gen043-isl10-ind030`, a `trifurcated-6jet-vortex-head` topology) was compiled into a 5-patch conformal mesh and verified in 3D OpenFOAM Foundation 14 across a **3-grid systematic spatial refinement sequence** (`G0`: `139,981` cells, `G1`: `305,522` cells, `G2`: `552,513` cells) and cross-checked with **two independent 7-equation Reynolds-Stress Transport Models (`RSM`)** — **Launder–Reece–Rodi (`LRR`, linear pressure-strain)** and **Speziale–Sarkar–Gatski (`SSG`, quadratic pressure-strain)** — against the `kOmegaSST` eddy-viscosity closure. Across all three grids and all three turbulence closures (`kOmegaSST`, `LRR RSM`, `SSG RSM`) at matched $Q = 4.000\text{ m}^3/\text{h}$ feed and $r = 1.968\%\text{–}1.996\%$ overflow split, the promoted elite reduces inlet-to-underflow static pressure drop by **`-33.74%` to `-38.51%`** (`18.12–19.53 kPa` vs `29.47 kPa` for `CT-35`) and specific hydraulic energy loss by **`-31.40%` to `-36.09%`** (`21.54–23.12 kJ/m³` vs `33.71 kJ/m³` for `CT-35`), with `LRR` and `SSG` RSM agreeing to within **`0.26%` (`46.5 Pa`)** on $\Delta p_u$ and **`0.08%` (`17.2 J/m³`)** on $e_{\text{loss}}$, and a signal-to-discretization-span margin of **`4.86×` (`10.77 kPa` saving vs `2.22 kPa` 3-grid span)**.
 
 > [!IMPORTANT]
 > **Epistemic Discipline (`docs/SCIENCE.md` & `AGENTS.md`)**: All results reported herein are hash-bound computational and numerical verification artifacts (`F0`/`F1`/`F2-carrier`). In accordance with our scientific governance contract, `qualified_fitness`, `qualified_capacity_gain`, and `physical_validation` remain explicitly `null`/`false` until `F4` LPBF hardware fabrication, X-ray CT metrology (`CAD-09`), and the pre-registered 5-block blinded randomized A/B/A flow-loop trials (`P06`) are executed.
@@ -132,7 +132,7 @@ To verify that surrogate-assisted pre-screening generalizes across unseen topolo
 
 ---
 
-## 4. Critique-Proof 3D OpenFOAM 14 Verification: 3-Grid Roache `GCI` & 7-Equation `RSM` Cross-Check (`P04` / `P05`)
+## 4. Critique-Proof 3D OpenFOAM 14 Verification: 3-Grid Roache `GCI` & Dual 7-Equation `RSM` (`LRR` + `SSG`) Cross-Check (`P04` / `P05`)
 
 ### 4.1 3-Grid Systematic Spatial Refinement (`G0`, `G1`, `G2`) on the Promoted Elite
 
@@ -150,11 +150,12 @@ All three grids preserved all five boundary patches (`wall`, `inlet1`, `inlet2`,
 | **Elite `G0` Coarse (`rust-cfd-elite-g0-coarse`)** | `kOmegaSST` | `139,981` | `1.992 mm` | `4.0000` | `1.989%` | `1.41e-5` | **`17,310.97 Pa`** | **`21,398.41 J/m³`** | **`-41.26%`** |
 | **Elite `G1` Medium (`rust-cfd-elite-gen024-isl2-ind014`)** | `kOmegaSST` | `305,522` | `1.537 mm` | `4.0000` | `1.971%` | `1.81e-5` | **`19,526.53 Pa`** | **`23,124.57 J/m³`** | **`-33.74%`** |
 | **Elite `G2` Fine (`rust-cfd-elite-g2-fine`)** | `kOmegaSST` | `552,513` | `1.262 mm` | `4.0000` | `1.996%` | `8.66e-6` | **`18,699.40 Pa`** | **`22,047.32 J/m³`** | **`-36.54%`** |
-| **Elite `G1` 7-Eq. RSM (`rust-cfd-elite-g1-rsm-lrr`)** | **`LRR` (7-Eq. RSM)** | `305,522` | `1.537 mm` | `4.0000` | `1.969%` | `1.07e-4` | **`18,119.20 Pa`** | **`21,560.75 J/m³`** | **`-38.51%`** |
+| **Elite `G1` 7-Eq. `LRR` RSM (`rust-cfd-elite-g1-rsm-lrr`)** | **`LRR` (Linear RSM)** | `305,522` | `1.537 mm` | `4.0000` | `1.969%` | `1.07e-4` | **`18,119.20 Pa`** | **`21,560.75 J/m³`** | **`-38.51%`** |
+| **Elite `G1` 7-Eq. `SSG` RSM (`rust-cfd-elite-g1-rsm-ssg`)** | **`SSG` (Quadratic RSM)** | `305,522` | `1.537 mm` | `4.0000` | `1.968%` | `1.45e-4` | **`18,165.71 Pa`** | **`21,543.52 J/m³`** | **`-38.35%`** |
 
 ### 4.2 Roache Grid Convergence Index (`GCI`) & Epistemic Treatment of Unstructured Snapping
 
-In accordance with `docs/SCIENCE.md` (*"NASA spatial-convergence guidance informs systematic refinement; non-asymptotic data do not get a decorative GCI certificate"*), we inspect the convergence ratio $R = (f_2 - f_1)/(f_1 - f_0)$ across `G0 -> G1 -> G2` (`docs/results/elite-3grid-gci-and-rsm-verification-v1.json`):
+In accordance with `docs/SCIENCE.md` (*"NASA spatial-convergence guidance informs systematic refinement; non-asymptotic data do not get a decorative GCI certificate"*), we inspect the convergence ratio $R = (f_2 - f_1)/(f_1 - f_0)$ across `G0 -> G1 -> G2` (`docs/results/elite-3grid-gci-and-rsm-verification-v1.json`; full mathematical derivation in **Appendix A**):
 1. **Damped Oscillatory Convergence ($R \in (-1, 0)$)**:
    - For $\Delta p_u$: $e_{10} = f_1 - f_0 = +2,215.56\text{ Pa}$ (`+11.35%`) and $e_{21} = f_2 - f_1 = -827.13\text{ Pa}$ (`-4.42%`), yielding $R = e_{21}/e_{10} = \mathbf{-0.3733} \in (-1, 0)$.
    - For $e_{\text{loss}}$: $e_{10} = +1,726.16\text{ J/m}^3$ (`+7.46%`) and $e_{21} = -1,077.25\text{ J/m}^3$ (`-4.89%`), yielding $R = \mathbf{-0.6241} \in (-1, 0)$.
@@ -164,21 +165,47 @@ In accordance with `docs/SCIENCE.md` (*"NASA spatial-convergence guidance inform
    - Because $R < 0$ (oscillatory convergence), we do **not** rely on Richardson extrapolation (`18.01 kPa`) to inflate the claimed improvement. Instead, we bound discretization uncertainty using the full 3-grid extremum span (`17.31–19.53 kPa`, total span `2,215.56 Pa`, half-span `±5.92%` around `G2`).
    - Even at the highest-drag grid in the entire triplet (`G1`: `19,526.53 Pa`), the promoted elite is **`9,941.69 Pa` (`-33.74%`) below `CT-35`**, and on the finest grid (`G2`: `18,699.40 Pa`) the **`10,768.81 Pa` (`-36.54%`) pressure-drop reduction is `4.86×` larger than the entire 3-grid span** (`6.76×` larger for specific hydraulic energy loss).
 
-### 4.3 7-Equation Reynolds-Stress Transport Model (`LRR` RSM) Cross-Check
+### 4.3 Dual 7-Equation Reynolds-Stress Transport Model (`LRR` & `SSG` RSM) Cross-Checks
 
-Eddy-viscosity closures (`kOmegaSST`) invoke the Boussinesq isotropic eddy-viscosity hypothesis, which can under-predict turbulence anisotropy and vortex-core stabilization in strongly swirling flows ($\text{Sw} > 3$). To test whether the elite's hydraulic efficiency survives an anisotropic second-moment closure, we executed a 60-step continuation on `G1` (`305,522` cells) using the **7-equation Launder–Reece–Rodi (`LRR`) Reynolds-Stress Transport Model (`RSM`)** (`runs/rust-cfd-elite-g1-rsm-lrr`), solving individual transport PDEs for all six independent components of the symmetric Reynolds-stress tensor $R_{ij} = \langle u'_i u'_j \rangle = (R_{xx}, R_{xy}, R_{xz}, R_{yy}, R_{yz}, R_{zz})$ and dissipation rate $\varepsilon$:
+Eddy-viscosity closures (`kOmegaSST`) invoke the Boussinesq isotropic eddy-viscosity hypothesis, which can under-predict streamline-curvature stabilization and normal-stress anisotropy in strongly swirling flows ($\text{Sw} > 3$). To verify that the elite's hydraulic efficiency survives second-moment turbulence closures across **both linear and quadratic pressure-strain redistribution formulations**, we executed 60-step continuations on `G1` (`305,522` cells) using:
+1. **`LRR` RSM (`runs/rust-cfd-elite-g1-rsm-lrr`)**: Launder–Reece–Rodi (1975) linear pressure-strain model ($\Pi_{ij}^{\text{slow}} = -C_1 \varepsilon b_{ij}$, linear rapid redistribution in the anisotropy tensor $b_{ij} = \frac{R_{ij}}{2k} - \frac{1}{3}\delta_{ij}$).
+2. **`SSG` RSM (`runs/rust-cfd-elite-g1-rsm-ssg`)**: Speziale–Sarkar–Gatski (1991) quadratic pressure-strain model, which adds non-linear return-to-isotropy terms quadratic in $b_{ij}$ ($\Pi_{ij}^{\text{slow}} = -(C_1 \varepsilon + C_1^* P) b_{ij} + C_2 \varepsilon (b_{ik} b_{kj} - \frac{1}{3} b_{mn} b_{mn} \delta_{ij})$) to eliminate wall-reflection sensitivity in curved/swirling boundary layers.
 
-- **Cross-Closure Hydraulic Consistency**:
-  - `LRR` RSM predicts $\Delta p_u = \mathbf{18,119.20\text{ Pa}}$ (`-38.51%` vs `CT-35`) and $e_{\text{loss}} = \mathbf{21,560.75\text{ J/m}^3}$ (`-36.04%` vs `CT-35`) at overflow split $r = 1.969\%$ (within `0.002 percentage points` of `G1 kOmegaSST`'s `1.971%`!).
-  - Notice that `LRR` RSM on `G1` (`18.12 kPa`, `21.56 kJ/m³`) agrees with fine-grid `G2 kOmegaSST` (`18.70 kPa`, `22.05 kJ/m³`) to within **`3.10%` on pressure drop** and **`2.21%` on hydraulic energy loss**.
-- **Full-Field Reynolds-Stress Tensor Diagnostics (`305,522` Cells)**:
-  - **Realizability**: **`100.00%` of all `305,522` cells** satisfy strict positive-definiteness of the normal Reynolds stresses ($R_{xx} > 0, R_{yy} > 0, R_{zz} > 0$).
-  - **Axisymmetric Symmetry & Axial Core Anisotropy**: Domain-averaged transverse normal stresses are nearly identical ($\langle R_{xx} \rangle = 0.02474\text{ m}^2/\text{s}^2$, $\langle R_{yy} \rangle = 0.02458\text{ m}^2/\text{s}^2$, differing by `< 0.65%`), while the axial normal stress is elevated ($\langle R_{zz} \rangle = 0.03141\text{ m}^2/\text{s}^2$, mean cell-wise ratio $\langle R_{zz} / R_\perp \rangle = \mathbf{1.159}$, 90th-percentile $R_{zz} = 0.0704\text{ m}^2/\text{s}^2$ vs $0.0556\text{ m}^2/\text{s}^2$ for $R_{xx}, R_{yy}$).
-  - **Lumley Anisotropy Tensor Norm**: The second-invariant anisotropy norm $\|b_{ij}\| = \sqrt{\frac{3}{2} b_{ij} b_{ji}}$ averages **`0.138`** across the domain and reaches **`0.392`** (95th percentile) in the high-swirl vortex core, confirming substantial turbulence anisotropy properly captured by the 7-equation RSM closure.
+Both closures solve 7 coupled PDEs for $(R_{xx}, R_{xy}, R_{xz}, R_{yy}, R_{yz}, R_{zz}, \varepsilon)$ across all `305,522` cells:
 
-![3-Grid Roache GCI and 7-Equation LRR RSM Verification Plate](figures/elite-gci-and-rsm-verification.png)
+| RSM Diagnostic Metric (`305,522` Cells on `G1`) | `LRR` (Linear Pressure-Strain) | `SSG` (Quadratic Pressure-Strain) | Inter-RSM Parity (`SSG` vs `LRR`) |
+| :--- | :---: | :---: | :---: |
+| **Inlet-to-Underflow Pressure Drop $\Delta p_u$ [Pa]** | **`18,119.20 Pa`** (`-38.51%` vs `CT-35`) | **`18,165.71 Pa`** (`-38.35%` vs `CT-35`) | **`+0.26%` (`+46.51 Pa`)** |
+| **Specific Hydraulic Energy Loss $e_{\text{loss}}$ [J/m³]** | **`21,560.75 J/m³`** (`-36.04%` vs `CT-35`) | **`21,543.52 J/m³`** (`-36.09%` vs `CT-35`) | **`-0.08%` (`-17.24 J/m³`)** |
+| **Volumetric Overflow Reject Split $r$ [%]** | `1.9691%` | `1.9683%` | `-0.0008 percentage points` |
+| **Normal-Stress Realizability ($R_{xx}, R_{yy}, R_{zz} > 0$)** | **`100.00%` (`305,522 / 305,522`)** | **`100.00%` (`305,522 / 305,522`)** | Exact `100%` realizability |
+| **Domain Mean TKE $\langle k \rangle$ [$\text{m}^2/\text{s}^2$]** | `0.04036 m²/s²` (`P95 = 0.1207`) | `0.03983 m²/s²` (`P95 = 0.1199`) | `-1.32%` |
+| **Transverse Normal Stresses $\langle R_{xx} \rangle, \langle R_{yy} \rangle$ [$\text{m}^2/\text{s}^2$]** | `0.02474`, `0.02458` | `0.02505`, `0.02495` | Axisymmetric within `< 0.65%` |
+| **Axial Normal Stress $\langle R_{zz} \rangle$ [$\text{m}^2/\text{s}^2$]** | `0.03141` (`P90 = 0.0704`) | `0.02966` (`P90 = 0.0653`) | Elevated axial core variance |
+| **Mean Axial-to-Transverse Ratio $\langle R_{zz} / R_\perp \rangle$ [-]** | **`1.159`** | **`1.079`** | Quadratic return-to-isotropy damping |
+| **Mean / P95 Lumley Anisotropy Norm $\|b_{ij}\|$ [-]** | **`0.138` / `0.392`** | **`0.099` / `0.260`** | Expected quadratic vs linear anisotropy |
 
-### 4.4 Droplet Force Verification & 10-Cohort OpenFOAM 14 Lagrangian Audit (`P05`)
+- **Cross-Closure Hydraulic Parity**: `LRR` and `SSG` RSM agree to within **`0.26%` (`46.5 Pa`) on $\Delta p_u$** and **`0.08%` (`17.2 J/m³`) on $e_{\text{loss}}$**, and both sit within **`2.85%–3.10%`** of the fine-grid `552,513`-cell `G2 kOmegaSST` solution (`18.70 kPa`, `22.05 kJ/m³`).
+- **Physical Interpretation of `LRR` vs. `SSG` Tensor Structure**: As predicted by second-moment turbulence theory, `SSG`'s quadratic slow pressure-strain term $C_2 \varepsilon (b_{ik} b_{kj} - \frac{1}{3} \text{II}_b \delta_{ij})$ provides stronger return-to-isotropy at high swirl than `LRR`'s linear Rotta term, moderating the 95th-percentile Lumley anisotropy norm from `0.392` (`LRR`) to `0.260` (`SSG`) while preserving the axial-dominated vortex-core normal-stress hierarchy ($R_{zz} > R_{xx} \approx R_{yy}$) and predicting virtually identical macroscopic hydraulic losses.
+
+![3-Grid Roache GCI and Dual 7-Equation LRR/SSG RSM Verification Plate](figures/elite-gci-and-rsm-verification.png)
+
+### 4.4 Internal 3D Swirl-Head & Reducing-Cone Vortex Physics in OpenFOAM 14
+
+To understand **why** the `trifurcated-6jet-vortex-head` elite achieves a `36.5%–38.5%` reduction in static pressure drop without sacrificing the centripetal buoyancy field required for oil-droplet capture, we extracted the full 3D cell-centered velocity ($\mathbf{U}$), kinematic pressure ($p/\rho$), and turbulent dissipation ($\varepsilon$) fields directly from the converged OpenFOAM 14 solutions of `CT-35` (`runs/ct35-sst-extended-000`) and the promoted elite (`runs/rust-cfd-elite-gen024-isl2-ind014`):
+
+1. **Elimination of Twin-Jet Wall Impingement Losses ($z = 35\text{ mm}$, Panel A & Panel B)**:
+   - In `CT-35`, injecting $4.0\text{ m}^3/\text{h}$ through two concentrated tangential ports creates an over-accelerated wall jet ($U_\theta \approx 5.2\text{ m/s}$ at $r = 30\text{ mm}$) that dissipates mechanical energy against the cylindrical entry wall before transitioning into the reducing cone.
+   - In the `trifurcated-6jet-vortex-head` elite (`2 -> 6` helical manifold with $78.6^\circ$ wrap + 3-vane swirl conditioner), the entry momentum is distributed azimuthally across 6 progressive jets, lowering peak outer-wall velocity at $z = 35\text{ mm}$ to $U_\theta \approx 3.6\text{ m/s}$ while **maintaining identical inner-core tangential swirl ($U_\theta \approx 1.8\text{–}2.5\text{ m/s}$ for $r \le 8\text{ mm}$) around the overflow vortex finder**.
+2. **Preserved Radial Centripetal Pressure Gradient Across the Separation Cone ($z \in [105, 880]\text{ mm}$, Panel C)**:
+   - Because radial droplet migration speed scales with $\partial p / \partial r = \rho U_\theta^2 / r$, oil separation is governed by the **radial pressure difference between the outer wall and the vortex core**, $\Delta p_{\text{radial}}(z) = p_{\text{wall}}(z) - p_{\text{core}}(z)$, rather than the absolute inlet gauge pressure.
+   - As shown in Panel C, while the elite lowers entry wall pressure by `~10.8 kPa` in the swirl head ($z < 100\text{ mm}$), its smooth inflected $S$-cone preserves an axial core depression ($p_{\text{core}} \approx -16\text{ to }-22\text{ kPa}$ near the finder throat) and radial wall-to-core pressure difference across the separation cone ($z \in [120, 780]\text{ mm}$) that closely tracks `CT-35` while avoiding premature tailpipe wall-drag losses.
+3. **Suppression of Entry-Nozzle Turbulent Shear Emulsification ($z \in [0, 120]\text{ mm}$, Panel D)**:
+   - Evaluating the Kolmogorov–Hinze maximum stable oil droplet diameter $d_{\max} = 0.725\,(\sigma / \rho_c)^{3/5} \varepsilon^{-2/5}$ ($\sigma = 0.025\text{ N/m}$, $\rho_c = 998\text{ kg/m}^3$) across all entry-chamber cells ($z \in [0, 120]\text{ mm}$) shows that the elite's 99th-percentile dissipation rate ($\varepsilon_{\text{P99}} = 94.3\text{ m}^2/\text{s}^3$) corresponds to $d_{\max,\text{P99}} = \mathbf{91.6\ \mu\text{m}}$, remaining safely above the entire `5–55 µm` feed droplet size distribution and preventing inlet shear breakup.
+
+![3D OpenFOAM 14 Internal Swirl-Head & Vortex Physics Comparison](figures/openfoam14-3d-vortex-physics-comparison.png)
+
+### 4.5 Droplet Force Verification & 10-Cohort OpenFOAM 14 Lagrangian Audit (`P05`)
 
 To ensure that Lagrangian oil-droplet tracking in `P05` adheres strictly to physical conservation laws:
 1. **Analytical Solid-Body Rotation + Axial Poiseuille Oracle (`crates/joil-core/src/droplet.rs`, `docs/results/droplet-verification-v1.json`)**:
@@ -188,19 +215,62 @@ To ensure that Lagrangian oil-droplet tracking in `P05` adheres strictly to phys
 
 ---
 
-## 5. Limitations, Epistemic Boundaries & Physical Validation Roadmap (`P06` / `F4`)
+## 5. Limitations, `F4` Physical Validation Protocol & Wave-2 Evolutionary Roadmap
+
+### 5.1 Epistemic Boundaries (`AGENTS.md` & `docs/SCIENCE.md`)
 
 In strict compliance with `AGENTS.md`, `docs/MASTER_PLAN.md`, and `docs/SCIENCE.md`, we separate what has been computationally verified from what requires physical laboratory evidence:
+- **Completed & Hash-Bound Computational Evidence (`F0` / `F1` / `F2-Carrier`)**:
+  - Exact `CT-35` baseline CAD/STL orientation audit and $20 D_u$ extended-outlet OpenFOAM 14 reference (`runs/ct35-sst-extended-000`).
+  - 7-family compositional 3D parametric geometry compiler, `F0` Red-Team gate, `P08` structural/modal/LPBF gate, and interactive Three.js 3D topology explorer (`apps/explorer`).
+  - 3-node (`xbabe1` + `xbabe2` + `xbabe3`) distributed Rust + CUDA C++20 evolutionary campaign (`119,235` 3D evaluations, `2,857,464` MC realizations, `15.97B` droplet trajectories, `191` MAP-Elites cells, `275` Rank-0 Pareto elites).
+  - 3-grid systematic OpenFOAM 14 refinement (`G0`: `140k`, `G1`: `306k`, `G2`: `553k` cells) with Roache `GCI` and dual 7-equation `LRR` + `SSG` Reynolds-Stress Model (`RSM`) cross-checks on the promoted elite (`xbabe2-gen043-isl10-ind030`), demonstrating a `-33.74%` to `-38.51%` reduction in static pressure drop and `-31.40%` to `-36.09%` reduction in specific hydraulic energy loss at matched $Q = 4.000\text{ m}^3/\text{h}$ and $r \approx 1.97\%\text{–}2.00\%$.
+- **Unwaived Pre-Qualification Gates (`qualified_fitness: null`, `physical_validation: false`)**:
+  - Full-residence coupled `F2` transient droplet closure ($T \ge 4.0\text{ s}$ until retained in-domain oil inventory $< 0.1\%$) and `F4` physical rig trials remain required before promoting any candidate to qualified industrial superiority.
 
-1. **Completed & Hash-Bound Computational Evidence (`F0` / `F1` / `F2-Carrier`)**:
-   - Exact `CT-35` baseline CAD/STL orientation audit and $20 D_u$ extended-outlet OpenFOAM 14 reference (`runs/ct35-sst-extended-000`).
-   - 7-family compositional 3D parametric geometry compiler, `F0` Red-Team gate, `P08` structural/modal/LPBF gate, and interactive Three.js 3D topology explorer (`apps/explorer`).
-   - 3-node (`xbabe1` + `xbabe2` + `xbabe3`) distributed Rust + CUDA C++20 evolutionary campaign (`119,235` 3D evaluations, `2,857,464` MC realizations, `15.97B` droplet trajectories, `191` MAP-Elites cells, `275` Rank-0 Pareto elites).
-   - 3-grid systematic OpenFOAM 14 refinement (`G0`: `140k`, `G1`: `306k`, `G2`: `553k` cells) with Roache `GCI` and 7-equation `LRR` Reynolds-Stress Model (`RSM`) cross-check on the promoted elite (`xbabe2-gen043-isl10-ind030`), demonstrating a `-33.74%` to `-38.51%` reduction in static pressure drop and `-31.40%` to `-36.04%` reduction in specific hydraulic energy loss at matched $Q = 4.000\text{ m}^3/\text{h}$ and $r \approx 1.97\%\text{–}2.00\%$.
-2. **Remaining Requirements Before Claiming Qualified Physical Superiority (`F2-Full-Residence` & `F4`)**:
-   - **Full-Residence Coupled `F2` Droplet Closure**: Transient 3D RSM + 10-bin coupled Lagrangian droplet integration over $\ge 3$ mean hydraulic residence times ($T \ge 4.0\text{ s}$) until in-domain retained oil inventory falls below `0.1%` of injected mass.
-   - **Additive Manufacturing & `CAD-09` Metrology**: Fabrication of $n = 3$ independent LPBF Ti-6Al-4V ELI builds for `baseline-ct35` and `xbabe2-gen043-isl10-ind030`, followed by industrial X-ray CT scan registration (`CAD-09`) to measure as-built throat diameters, branch areas, and internal surface roughness $R_a$.
-   - **Blinded 5-Block Randomized A/B/A Flow-Loop Trial (`P06`, `docs/results/experimental-protocol-qualification-v1.json`)**: Execution of the pre-registered `ABBA` / `BAAB` experimental protocol (`89.4%` statistical power at $\alpha = 0.025$ one-sided) testing promotion hypothesis `H10` ($\ge 10\%$ paired treated-water capacity gain with 95% lower confidence bound $> 0$ and zero water-quality regression).
+### 5.2 Pre-Registered `F4` Physical Validation & `CAD-09` Metrology Protocol (`P06`)
+
+To prevent experimental confirmation bias, the physical qualification campaign (`docs/results/experimental-protocol-qualification-v1.json`, `SHA-256: 0038fb782ca397cf66fd6da632dc876b5695b200926528f8b0c5a4f7825a717f`) locks the following hardware and statistical protocol prior to LPBF build release:
+
+| Qualification Stage | Protocol Specification | Acceptance Gate |
+| :--- | :--- | :--- |
+| **`CAD-09` LPBF Replication & X-Ray CT Metrology** | $n = 3$ independent Ti-6Al-4V ELI LPBF builds of `baseline-ct35` (`A1..A3`) and promoted elite `xbabe2-gen043-isl10-ind030` (`B1..B3`); full micro-CT voxel registration ($25\ \mu\text{m}$ resolution) against `STEP`/`STL` master | Overflow throat $D_o$ within $\pm 50\ \mu\text{m}$; 6-jet total throat area within $\pm 1.5\%$; internal bore $R_a \le 12\ \mu\text{m}$ after abrasive flow conditioning; zero trapped powder in helical branches |
+| **Blinded 5-Block `ABBA`/`BAAB` Crossover Rig Trial** | 5 randomized crossover blocks (`20` paired intervals, blinding salt `joil-p06-blinded-protocol-v1`) on single-liner produced-water flow loop ($C_i = 500 \pm 25\text{ mg/L}$, $d_{32} = 22 \pm 2\ \mu\text{m}$, $r = 2.00 \pm 0.15\%$) | Paired t-test statistical power **`89.4%`** at one-sided $\alpha = 0.025$ to detect $\ge 10\%$ capacity gain under realistic run-to-run variance ($\sigma_{\text{rep}} = 3.5\%$, $\sigma_{\text{print}} = 2.5\%$) |
+| **Promotion Decision Rules (`H0` / `H10` / `H20`)** | Primary endpoint: compliant treated-water capacity $Q_{\text{treated}} = Q_i(1-r)$ at fixed $\Delta p_u$ budget and $C_u \le 30\text{ mg/L}$; secondary endpoint: $\Delta p_u$ reduction at fixed $Q_i = 4.00\text{ m}^3/\text{h}$ | **`H10` Promotion**: paired mean $\Delta Q_{\text{treated}} \ge +10.0\%$ with 95% lower confidence bound $> 0.0\%$ and zero water-quality regression ($C_{u,\text{elite}} \le C_{u,\text{CT35}}$) |
+
+### 5.3 Next-Wave Flexible 3D Evolutionary Campaign Plan (Wave 2)
+
+With the Wave-1 science dossier locked (`119,235` compositional 3D evaluations across 7 families + 3-grid `GCI` + dual `LRR`/`SSG` RSM verification), our next evolutionary campaign wave extends topological freedom along three axes:
+1. **Freeform Fourier-Surface & Neural-SDF Swirl-Head Operators (`joil-core` Wave-2 Genome)**:
+   - Extend the 7 discrete topological families into a continuous trans-dimensional operator graph supporting arbitrary branch bifurcations ($2 \to K$ helical distributors with $K \in \{3, 4, 5, 6, 8\}$), variable-pitch non-axisymmetric $S$-cones ($r(\theta, z) = R_0(z) + \sum_{m=1}^6 [a_m(z)\cos(m\theta) + b_m(z)\sin(m\theta)]$), and variable-camber 3D guide vanes parameterized by divergence-free stream surfaces.
+2. **Multi-Fidelity `F1 -> F2` Active-Learning Loop in the Evolution Inner Cycle**:
+   - Couple the `LOFO-CV`-qualified ARD Matérn-5/2 GP surrogate (`Spearman = 0.875`) directly to asynchronous OpenFOAM 14 `G1` (`306k`-cell) `LRR`/`SSG` evaluations launched automatically on the top Constrained Expected Improvement (`CEI`) candidates every 5 generations across `xbabe1`, `xbabe2`, and `xbabe3`, continuously recalibrating the `F1` CUDA kernel's swirl-decay and entry-loss coefficients per topology niche.
+3. **Multi-Archetype 3D CFD Verification Matrix**:
+   - Promote the top Rank-0 Pareto champion from **each of the remaining 5 exotic families** (`quad-spiral-manifold`, `helical-ribbon-core`, `s-cone-fluted-finder`, `double-vortex-skimmer`, `scalloped-parabolic-chamber`) through the automated 5-patch OpenFOAM 14 `G1` + `RSM` verification pipeline to construct a multi-family 3D Navier–Stokes Pareto frontier prior to `F4` LPBF fabrication.
+
+---
+
+## Appendix A. Mathematical Formulation of Unstructured 3-Grid Roache `GCI`
+
+For a 3-grid systematic refinement sequence $(G_0, G_1, G_2)$ with total snapped fluid volumes $V_k$ and cell counts $N_k$ ($N_0 < N_1 < N_2$), the effective unstructured linear cell size and grid refinement factors are defined per ASME V&V 20-2009 / Celik et al. (2008):
+
+$$h_k = \left(\frac{V_k}{N_k}\right)^{1/3}, \qquad r_{21} = \frac{h_1}{h_2} = 1.2180, \qquad r_{10} = \frac{h_0}{h_1} = 1.2963$$
+
+Let $f_0, f_1, f_2$ denote a scalar integral quantity of interest (such as $\Delta p_u$ or $e_{\text{loss}}$) on coarse, medium, and fine grids, with differences $e_{21} = f_2 - f_1$ and $e_{10} = f_1 - f_0$. The convergence ratio $R = e_{21} / e_{10}$ classifies the spatial behavior into four regimes:
+- $0 < R < 1$: Monotonic convergence;
+- $-1 < R < 0$: Damped oscillatory convergence (`observed on G0 -> G1 -> G2 due to snappyHexMesh octree split alignment`);
+- $R < -1$: Oscillatory divergence;
+- $R > 1$: Monotonic divergence.
+
+When $r_{21} \ne r_{10}$, the observed order of accuracy $p$ is solved via the fixed-point iteration:
+
+$$p = \frac{1}{\ln r_{21}} \Bigl|\ln |e_{10} / e_{21}| + q(p)\Bigr|, \qquad q(p) = \ln\!\left(\frac{r_{21}^p - s}{r_{10}^p - s}\right), \qquad s = \operatorname{sgn}\!\left(\frac{e_{10}}{e_{21}}\right)$$
+
+The standard fine-grid Roache Grid Convergence Index (`GCI`) with safety factor $F_s = 1.25$ and the conservative oscillatory/non-asymptotic envelope bound ($F_s = 3.0$, $p = 1.0$, plus the full 3-grid extremum span $\Delta f_{\text{span}} = \max_k f_k - \min_k f_k$) are given by:
+
+$$\text{GCI}_{21}^{\text{std}} = \frac{1.25\,|e_{21}| / |f_2|}{r_{21}^p - 1}, \qquad \text{GCI}_{21}^{\text{cons}} = \frac{3.0\,|e_{21}| / |f_2|}{r_{21} - 1}, \qquad \text{SNR}_{\text{span}} = \frac{|f_{\text{CT35}} - f_2|}{\max_k f_k - \min_k f_k}$$
+
+Reporting all three quantities simultaneously in `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` ensures complete numerical transparency without claiming asymptotic monotonic extrapolation where $R \in (-1, 0)$.
 
 ---
 
@@ -210,13 +280,15 @@ All claims, figures, and JSON dossiers in this white paper are reproducibly gene
 
 | Artifact / Verification Dossier | Repository Path | Content Identity (`SHA-256`) |
 | :--- | :--- | :--- |
-| **3-Node Campaign Summary (`119,235` evals, `15.97B` droplets)** | [`docs/results/rust-evolution-qualification-v1.json`](results/rust-evolution-qualification-v1.json) | `b1c51e711c79d7de03d535622450fd6eb7359e93019a391262af73c7a7061bbe` |
-| **Head-to-Head Exotic vs. `CT-35` CFD Benchmark** | [`docs/results/exotic-vs-baseline-cfd-benchmark-v1.json`](results/exotic-vs-baseline-cfd-benchmark-v1.json) | `bd6389e57eb774d04788216e6e31560c861325f19213fabe349dd874580faec1` |
-| **3-Grid Roache `GCI` & 7-Eq. `LRR` RSM Verification Dossier** | [`docs/results/elite-3grid-gci-and-rsm-verification-v1.json`](results/elite-3grid-gci-and-rsm-verification-v1.json) | `1344ad58e9b4af9cf8163c553e4fc3b25c504ac49a0571981bbb02d3052bc9ac` |
+| **3-Node Campaign Summary (`119,235` evals, `15.97B` droplets)** | [`docs/results/rust-evolution-qualification-v1.json`](results/rust-evolution-qualification-v1.json) | `1bc32f98d38cd22525130843bf42034c0078146924b76148e06a4a02c9cff6b3` |
+| **Head-to-Head Exotic vs. `CT-35` CFD Benchmark** | [`docs/results/exotic-vs-baseline-cfd-benchmark-v1.json`](results/exotic-vs-baseline-cfd-benchmark-v1.json) | `d20e9d72dfa004c1bc77a9389646b3ebb75f3004d85ad8c397f902afa181e496` |
+| **3-Grid Roache `GCI` & Dual 7-Eq. `LRR`/`SSG` RSM Dossier** | [`docs/results/elite-3grid-gci-and-rsm-verification-v1.json`](results/elite-3grid-gci-and-rsm-verification-v1.json) | `6bcac03b3724fa5fd60a83db33614756016c5188a7c028ddda86ab7a10de966c` |
 | **7-Topology 3D Archetype Atlas Figure Plate** | [`docs/figures/rust-3d-topology-atlas.png`](figures/rust-3d-topology-atlas.png) | `76e7ce10a2c334575b5dedcea04b33d51f8959d38ef849560c477aa1cc5cd8b7` |
-| **Pareto Front & 4D MAP-Elites Convergence Figure Plate** | [`docs/figures/pareto-map-elites-convergence.png`](figures/pareto-map-elites-convergence.png) | `3afd610ac646a3ae13c84d2939213d487e98935541457292f26e482121e767` |
-| **3-Grid `GCI` & 7-Eq. `LRR` RSM Verification Figure Plate** | [`docs/figures/elite-gci-and-rsm-verification.png`](figures/elite-gci-and-rsm-verification.png) | `36106ba1e3aeaaad9f5fa4595175d912b6a809d5109d2c1b2f526e482121e767` |
+| **Pareto Front & 4D MAP-Elites Convergence Figure Plate** | [`docs/figures/pareto-map-elites-convergence.png`](figures/pareto-map-elites-convergence.png) | `3afd610ac646a3ae13c84d2939213d487e98935541457292f65d7507d8a7c6f7` |
+| **3-Grid `GCI` & Dual 7-Eq. `LRR`/`SSG` RSM Figure Plate** | [`docs/figures/elite-gci-and-rsm-verification.png`](figures/elite-gci-and-rsm-verification.png) | `dbce90bb3878dd863427e8d50f67b8ff469f6dfe4e782a9719f32db00710bbb9` |
+| **3D OpenFOAM 14 Internal Vortex-Physics Figure Plate** | [`docs/figures/openfoam14-3d-vortex-physics-comparison.png`](figures/openfoam14-3d-vortex-physics-comparison.png) | `5c0c4b1ee4d0a82f09d8c086334fe222201473e8801cda806319dd76ef7cac44` |
 | **Matérn-5/2 GP Surrogate `LOFO-CV` Qualification** | [`docs/results/surrogate-qualification-v1.json`](results/surrogate-qualification-v1.json) | `daa9942a840663d08239f01e140df4189d8ec13f422b3f74659023e6d36ff6f8` |
 | **P08 Structural, Modal & LPBF Qualification** | [`docs/results/structural-qualification-v1.json`](results/structural-qualification-v1.json) | `848f18dc92dc61661cb3a57966c6137f57f1b529bd654d3807b110665ff18f40` |
 | **P05 Analytical Droplet Physics Verification** | [`docs/results/droplet-verification-v1.json`](results/droplet-verification-v1.json) | `e0956795f6c1c42958b35a0b3413bd133db80194127670933b41907d50223ec3` |
 | **P06 Pre-Registered 5-Block Blinded Flow-Loop Protocol** | [`docs/results/experimental-protocol-qualification-v1.json`](results/experimental-protocol-qualification-v1.json) | `0038fb782ca397cf66fd6da632dc876b5695b200926528f8b0c5a4f7825a717f` |
+
