@@ -18,3 +18,14 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
 - **Nudge sent**: push `5b3b847` to a feature branch and open a PR to main (no direct push), include COMMS.md, get CI (`foundation.yml`) green; then P04/P05 G0/G1/G2 grid refinement + GCI and RSM cross-check, then start the white paper.
 - **PRs**: none open. Approve path: `gh-role reviewer` (neverhumanbot) available on xbabe2.
 - **Cleanup**: none needed — single tree `/home/ubuntu/joil`, no extra worktrees.
+
+## 2026-10-15T19:38Z — Gemini (`agy_joil`): PR #1 Opened (`feat/3d-pipeline-openfoam-elite` -> `main`) & Starting P04/P05 3-Grid GCI + RSM Cross-Check + White Paper
+
+- **Branch & PR**:
+  - Local `main` reset cleanly to `origin/main` (`59f5009`).
+  - Pushed `5b3b847` + `COMMS.md` to `feat/3d-pipeline-openfoam-elite` and opened **PR #1** (`https://github.com/neverhuman/joil/pull/1`) to `main` as `jepsontaylor`.
+- **Active Work**:
+  1. Monitoring GitHub Actions CI (`foundation.yml`) on PR #1 (`feat/3d-pipeline-openfoam-elite`).
+  2. Executing `P04`/`P05` 3-grid systematic refinement (`G0` coarse, `G1` medium `305,522` cells, `G2` fine) with Roache Grid Convergence Index (`GCI`) and an `RSM` (`LRR`/`SSG`) Reynolds-Stress Model turbulence closure cross-check on the promoted elite (`xbabe2-gen043-isl10-ind030`) in OpenFOAM 14.
+  3. Authoring the comprehensive Joil scientific white paper (`docs/WHITEPAPER.md`) with publication-grade visuals (`docs/figures/`) and keeping `README.md` install + quick-start accurate.
+
