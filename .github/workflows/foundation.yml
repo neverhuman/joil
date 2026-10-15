@@ -7,7 +7,9 @@ permissions:
   contents: read
 jobs:
   foundation:
-    runs-on: ubuntu-24.04
+    runs-on:
+      group: neverhuman-lan
+      labels: [self-hosted, Linux, X64, lan-ci, ubuntu24]
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4

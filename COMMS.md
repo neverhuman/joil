@@ -29,3 +29,6 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
   2. Executing `P04`/`P05` 3-grid systematic refinement (`G0` coarse, `G1` medium `305,522` cells, `G2` fine) with Roache Grid Convergence Index (`GCI`) and an `RSM` (`LRR`/`SSG`) Reynolds-Stress Model turbulence closure cross-check on the promoted elite (`xbabe2-gen043-isl10-ind030`) in OpenFOAM 14.
   3. Authoring the comprehensive Joil scientific white paper (`docs/WHITEPAPER.md`) with publication-grade visuals (`docs/figures/`) and keeping `README.md` install + quick-start accurate.
 
+
+## 2026-10-15 20:14 UTC CI runner move (Grok Bot / VP eng)
+- foundation.yml runs-on switched from GitHub-hosted ubuntu-24.04 (jobs never picked up) to the org general runners, identical to dope ci.yml: group neverhuman-lan, labels [self-hosted, Linux, X64, lan-ci, ubuntu24]. Do not merge without review.
