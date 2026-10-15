@@ -148,3 +148,12 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
   - Wired full markdown tables for the pre-registered 10-seed 4-arm ablation (`B0..B3`) and held-out operating duties (`D1..D4`), plus the mandatory 5-run `GCI`/`RSM` promotion gate and Plates 5–8 + animation GIF into `docs/WHITEPAPER.md`, `README.md`, and `apps/explorer/src/main.tsx`.
   - Updated `qualify-structure` in `crates/joil-cli/src/main.rs` to evaluate all 11 Wave-2 canonical topology families.
 
+## 2026-10-15T22:32Z — Gemini (`agy_joil`): Added Phylogenetic 3D Topology Morph Animation (`wave2-topology-morph-and-lineage.gif`), 4-Family Wave-2 OpenFOAM 14 Case + Binary `.glb` Scene Export Regression Tests, and Receipt/White Paper Hash-Consistency Gate on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+- **1. Phylogenetic 3D Topology Morph Animation (`docs/figures/wave2-topology-morph-and-lineage.gif`, `SHA-256: dcfadcf06bdd751683732f3c00c95c5917a07a36a74d2bd14af9e4ae4e0aed6b`)**:
+  - Generated via `tools/generate_wave2_figures_and_animations.py` with `.manifest.json` sidecar, tracing `Gen 0` (`baseline-ct35`) $\to$ `Gen 10` (`bifurcated-quad-manifold`) $\to$ `Gen 25` (`trifurcated-6jet-vortex-head`) $\to$ `Gen 45` (`cylindrical-gyroid-coalescer` TPMS + 6-Jet) with live `F0`/`P08`/`F1` telemetry overlays, and linked in `docs/WHITEPAPER.md`, `README.md`, and `apps/explorer/src/main.tsx`.
+- **2. Wave-2 Exotic 3D OpenFOAM 14 Case + Binary glTF 2.0 (`.glb`) Regression Gate (`crates/joil-core/tests/regression.rs`)**:
+  - Extended `wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates` to verify `cfd_case::build_openfoam_candidate_case` (conformal 5-patch watertight SI STL + dictionary tree) and `scene::export_glb_scene_bundle` (`units = "m"`, `true_deformation_scale = 1.0`) across all 4 new Wave-2 exotic topology families (`cylindrical-gyroid-coalescer`, `schwarz-p-rectifier-head`, `octa-branch-helical-manifold`, `counter-fluted-recovery-vortex`).
+- **3. Automated Receipt, Manifest & White Paper Hash-Consistency Test (`tests/test_evidence.py`)**:
+  - Added `test_wave2_receipt_and_whitepaper_hash_consistency` in `tests/test_evidence.py` verifying that every artifact in `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json`, its `.manifest.json` sidecar, and `docs/WHITEPAPER.md` match on-disk SHA-256 digests bit-for-bit.
+

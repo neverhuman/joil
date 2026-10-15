@@ -82,6 +82,23 @@ class EvidenceTests(unittest.TestCase):
         self.assertFalse(failed['gate_passed'])
         self.assertGreaterEqual(len(failed['failures']),2)
 
+    def test_wave2_receipt_and_whitepaper_hash_consistency(self):
+        import hashlib
+        root=Path(__file__).resolve().parents[1]
+        receipt=json.loads((root/'docs/receipts/wave2-genome-and-10seed-ablation-20261015.json').read_text())
+        whitepaper=(root/'docs/WHITEPAPER.md').read_text()
+        for rel_path,expected_sha in receipt['artifacts_sha256'].items():
+            full_path=root/rel_path
+            self.assertTrue(full_path.is_file(),f'missing artifact {rel_path}')
+            actual_sha=hashlib.sha256(full_path.read_bytes()).hexdigest()
+            self.assertEqual(actual_sha,expected_sha,f'hash mismatch for {rel_path}')
+            self.assertIn(expected_sha,whitepaper,f'{rel_path} sha256 missing from WHITEPAPER.md')
+            manifest_path=Path(f'{full_path}.manifest.json')
+            if manifest_path.is_file():
+                m=json.loads(manifest_path.read_text())
+                self.assertEqual(m['figure_sha256'],actual_sha)
+
 
 if __name__=='__main__':unittest.main()
+
 

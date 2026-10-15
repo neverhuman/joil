@@ -282,6 +282,8 @@ Implementing [`docs/WAVE2_PLAN.md`](WAVE2_PLAN.md) (`protocol_id: joil-wave2-pre
 
 ![Wave-2 Animated 3D Helical Vortex Oil-Droplet Separation & 10-Seed QD Illumination](figures/wave2-vortex-and-qd-illumination.gif)
 
+![Wave-2 Animated Phylogenetic 3D Topology Morph & Live Telemetry Lineage](figures/wave2-topology-morph-and-lineage.gif)
+
 ---
 
 ## Appendix A. Mathematical Formulation of Unstructured 3-Grid Roache `GCI`
@@ -329,6 +331,7 @@ All claims, figures, and JSON dossiers in this white paper are reproducibly gene
 | **Wave-2 10-Bin Grade-Efficiency & DSD Shift Figure Plate** | [`docs/figures/wave2-grade-efficiency-and-dsd-shift.png`](figures/wave2-grade-efficiency-and-dsd-shift.png) | `cebfca5828bf295e0eac566bb55d2fd03b837b66c3dfb760bd4ca43cda8d1ef8` |
 | **Wave-2 P08 Structural Lamé & Modal Qualification Plate** | [`docs/figures/wave2-structural-lame-and-modal-qualification.png`](figures/wave2-structural-lame-and-modal-qualification.png) | `0b5456a046184f31a56a12e5dbcb543962a1432a8b38149942b0207bc1675aa0` |
 | **Wave-2 Animated 3D Vortex Separation & QD Illumination GIF** | [`docs/figures/wave2-vortex-and-qd-illumination.gif`](figures/wave2-vortex-and-qd-illumination.gif) | `1f9ea28fedba6587b570efca171f484d5ef6ea4217f950ba899e34338201a60e` |
+| **Wave-2 Animated Phylogenetic 3D Topology Morph GIF** | [`docs/figures/wave2-topology-morph-and-lineage.gif`](figures/wave2-topology-morph-and-lineage.gif) | `dcfadcf06bdd751683732f3c00c95c5917a07a36a74d2bd14af9e4ae4e0aed6b` |
 
 
 

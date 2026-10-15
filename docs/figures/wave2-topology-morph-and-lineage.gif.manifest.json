@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "figure_file": "docs/figures/wave2-topology-morph-and-lineage.gif",
+  "figure_sha256": "dcfadcf06bdd751683732f3c00c95c5917a07a36a74d2bd14af9e4ae4e0aed6b",
+  "title": "Wave-2 Phylogenetic 3D Topology Morph & Live Telemetry Lineage Animation",
+  "description": "12-frame 3D phylogenetic morph tracing Gen 0 (baseline-ct35) -> Gen 10 (bifurcated 4-jet) -> Gen 25 (trifurcated 6-jet) -> Gen 45 (Cylindrical-Gyroid TPMS + 6-jet) with live F0/P08/F1 telemetry.",
+  "units_declared": true,
+  "scale_policy": "true_aspect_si_and_mm_annotated",
+  "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
+  "source_artifacts": [
+    {
+      "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+    },
+    {
+      "path": "docs/results/interactive-3d-archetypes-v1.json",
+      "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07"
+    }
+  ]
+}

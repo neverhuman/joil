@@ -19,6 +19,7 @@ import wave2AblationPlate from '../../../docs/figures/wave2-multiseed-ablation-a
 import wave2GradeDsdPlate from '../../../docs/figures/wave2-grade-efficiency-and-dsd-shift.png';
 import wave2StructuralPlate from '../../../docs/figures/wave2-structural-lame-and-modal-qualification.png';
 import wave2VortexQdGif from '../../../docs/figures/wave2-vortex-and-qd-illumination.gif';
+import wave2TopologyMorphGif from '../../../docs/figures/wave2-topology-morph-and-lineage.gif';
 import { Viewport3D } from './Viewport3D';
 import './style.css';
 
@@ -105,6 +106,7 @@ function App() {
         <img className="proposalplate" src={wave2GradeDsdPlate} alt="Wave-2 10-Bin Grade-Efficiency Curves E_red(d) and Stratified DSD Transfer" />
         <img className="proposalplate" src={wave2StructuralPlate} alt="Wave-2 P08 Structural Lamé Stress, Modal Lock-In, and LPBF Manufacturability Qualification" />
         <img className="proposalplate" src={wave2VortexQdGif} alt="Animated 3D Helical Vortex Oil-Droplet Separation and 10-Seed QD Hypervolume Illumination" />
+        <img className="proposalplate" src={wave2TopologyMorphGif} alt="Animated Phylogenetic 3D Topology Morph and Live F0/P08/F1 Telemetry Lineage" />
         <img className="proposalplate" src={gciRsmPlate} alt="3-Grid Roache GCI and 7-Equation LRR/SSG RSM Verification on Promoted 6-Jet 3D Elite" />
         <img className="proposalplate" src={vortexPhysicsPlate} alt="OpenFOAM 14 3D Vortex-Core Physics Comparison: CT-35 vs Promoted 6-Jet Elite under k-omega SST, LRR RSM, and SSG RSM" />
       </section>}

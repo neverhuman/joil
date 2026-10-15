@@ -802,6 +802,46 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
         );
     }
 
+    // Verify full 5-patch OpenFOAM 14 case generation + binary glTF 2.0 (.glb) export on all 4 new Wave-2 exotic families
+    let tmp_root = std::env::temp_dir().join(format!("joil-wave2-cfd-glb-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&tmp_root);
+    for exotic_fam in [
+        "cylindrical-gyroid-coalescer",
+        "schwarz-p-rectifier-head",
+        "octa-branch-helical-manifold",
+        "counter-fluted-recovery-vortex",
+    ] {
+        let prog = archetypes
+            .iter()
+            .find(|p| p.classify_topology() == exotic_fam)
+            .expect("Wave-2 exotic family must exist in archetypes");
+        let (norm, _, _) = prog.canonicalize_and_preflight().unwrap();
+        let case_dir = tmp_root.join(exotic_fam);
+        let cfd_manifest = joil_core::cfd_case::build_openfoam_candidate_case(
+            &norm,
+            &case_dir,
+            &joil_core::cfd_case::CfdCaseConfig::default(),
+        )
+        .unwrap();
+        assert!(cfd_manifest.multi_patch_audit.watertight_and_manifold);
+        assert!(cfd_manifest.multi_patch_audit.all_terminal_patches_valid);
+        assert!(cfd_manifest.redteam_passed);
+        assert!(cfd_manifest.structural_qualified);
+        let surf = MultiPatchSurface::from_program(&norm, 0.0).unwrap();
+        let glb_path = case_dir.join(format!("{exotic_fam}.glb"));
+        let glb_manifest = joil_core::scene::export_glb_scene_bundle(
+            &surf,
+            &cfd_manifest.surface_stl_sha256,
+            1.0,
+            &glb_path,
+        )
+        .unwrap();
+        assert_eq!(glb_manifest.units, "m");
+        assert_eq!(glb_manifest.true_deformation_scale, 1.0);
+        assert!(glb_manifest.glb_bytes > 1024);
+    }
+    let _ = std::fs::remove_dir_all(&tmp_root);
+
     // Verify Wave-2 operators preserve watertightness, manifoldness, and RedTeam checks
     for i in 0..6 {
         let base_prog = &archetypes[i * 3 % archetypes.len()];
