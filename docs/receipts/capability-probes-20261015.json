@@ -1,0 +1,514 @@
+{
+  "schema_version": 1,
+  "kind": "reviewed_collaborator_capability_probe_handoff_not_grade_validation",
+  "created_utc": "2026-10-15T08:33:17.642786+00:00",
+  "source_summary_path": "runs/gemini-ct35-full-liner-oil-pilot-summary-r4.json",
+  "source_summary_sha256": "1f36e8fb117960715a7897f9cf2bae0b0ff970a517cb22f7ed669e438933456f",
+  "cases": [
+    {
+      "kind": "diagnostic_full_liner_capability_probe_not_inlet_dsd_grade_curve",
+      "dt_s": 5e-05,
+      "end_time_s": 0.01,
+      "foamRun_wall_seconds": 29.942895744985435,
+      "parent_carrier_field_hashes": {
+        "constant/polyMesh/boundary": "a3648709f0a3fba53134c4a59bc919ced5bc0885aa5e495de7b4e4ca971fb7f8",
+        "constant/polyMesh/points": "180e72acef7c0ce0fd087c05fbd08d924b6dc31e8b53da81b6d2162383593799",
+        "constant/polyMesh/faces": "cd8edd8ef87e68ef75b3a674c22d734170e62d1d7b48e340f3ad10d35c4c84d2",
+        "constant/polyMesh/owner": "0090b4e0edd56b29ffb6ea5e4e5d4f20cf5bb5b9b87bf3920fbf06d62a1deb62",
+        "constant/polyMesh/neighbour": "6ea763d0421ee21dea49f690e1e45f4ce1dc483ef4f9ee0cb4badc511639bd01",
+        "constant/physicalProperties": "95501818b271f1197e0e2d4adc38038664634cb9d8a65ea64ecfce27f4af9c4f",
+        "600/U": "c791edd867bdaa78ccd057092cf95cbbcd9c4719e3f05c916c8a557a78049721",
+        "600/p": "7f0b94aa913e539d0e57fb3b471566f3a94baf368206a227d49fb293b2891360",
+        "600/phi": "fe1c22a97db7dbc42d3255400124f3435de49eec4d8180374989881d98532d5b"
+      },
+      "boundary_face_metadata": {
+        "nInternalFaces": 908240,
+        "patches": {
+          "wall": {
+            "startFace": 908240,
+            "nFaces": 62061,
+            "endFace": 970301
+          },
+          "inlet1": {
+            "startFace": 970301,
+            "nFaces": 231,
+            "endFace": 970532
+          },
+          "inlet2": {
+            "startFace": 970532,
+            "nFaces": 231,
+            "endFace": 970763
+          },
+          "overflow": {
+            "startFace": 970763,
+            "nFaces": 180,
+            "endFace": 970943
+          },
+          "underflow": {
+            "startFace": 970943,
+            "nFaces": 432,
+            "endFace": 971375
+          }
+        },
+        "boundary_sha256": "a3648709f0a3fba53134c4a59bc919ced5bc0885aa5e495de7b4e4ca971fb7f8"
+      },
+      "inventory_closure_passed": true,
+      "neutral_density_1um_reference_cloud": {
+        "kind": "neutral_density_1um_lagrangian_reference_not_zero_inertia_scalar_oracle",
+        "injected_count": 32,
+        "overflow_terminal_escaped_count": 0,
+        "overflow_flux_integer_residual": 0.0,
+        "underflow_terminal_escaped_count": 8,
+        "underflow_flux_integer_residual": 1.0658141036401503e-14,
+        "wall_stuck_count": 0,
+        "remaining_in_domain_count": 24,
+        "discrepancy_count": 0
+      },
+      "commands": [
+        {
+          "command": [
+            "foamRun"
+          ],
+          "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+          "exit_code": 0,
+          "wall_seconds": 29.942895744985435,
+          "log_sha256": "5ef6bd23ef556cdecf7ad184b3d67514183d1fc378520ba53d21b3ad177d5e7a",
+          "log_bytes": 2722109,
+          "stop_reason": null,
+          "driver_source_sha256": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+          "resource_lease_id": "fda206b7ba873beb6c31acce67873555bc4600fd267a319f09d356bf4bbb755e",
+          "max_observed_shared_output_bytes": 2748193727,
+          "allocation": {
+            "logical_cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "quota_cores": 4,
+            "memory_gib": 12,
+            "gpu": false
+          }
+        },
+        {
+          "command": [
+            "foamPostProcess",
+            "-func",
+            "writeCellCentres",
+            "-time",
+            "0"
+          ],
+          "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+          "exit_code": 0,
+          "wall_seconds": 4.057149716973072,
+          "log_sha256": "d41bde946c07a8e361347b5aca505f44b9d3710dc13a38b45aef7166c057cd54",
+          "log_bytes": 1358,
+          "stop_reason": null,
+          "driver_source_sha256": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+          "resource_lease_id": "fda206b7ba873beb6c31acce67873555bc4600fd267a319f09d356bf4bbb755e",
+          "max_observed_shared_output_bytes": 2727745429,
+          "allocation": {
+            "logical_cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "quota_cores": 4,
+            "memory_gib": 12,
+            "gpu": false
+          }
+        }
+      ],
+      "cohort_counts": [
+        {
+          "diameter_um": 3.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 5.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 8.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 10.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 15.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 20.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 25.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 40.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 60.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 100.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        }
+      ]
+    },
+    {
+      "kind": "diagnostic_full_liner_capability_probe_not_inlet_dsd_grade_curve",
+      "dt_s": 2.5e-05,
+      "end_time_s": 0.01,
+      "foamRun_wall_seconds": 50.37133786000777,
+      "parent_carrier_field_hashes": {
+        "constant/polyMesh/boundary": "a3648709f0a3fba53134c4a59bc919ced5bc0885aa5e495de7b4e4ca971fb7f8",
+        "constant/polyMesh/points": "180e72acef7c0ce0fd087c05fbd08d924b6dc31e8b53da81b6d2162383593799",
+        "constant/polyMesh/faces": "cd8edd8ef87e68ef75b3a674c22d734170e62d1d7b48e340f3ad10d35c4c84d2",
+        "constant/polyMesh/owner": "0090b4e0edd56b29ffb6ea5e4e5d4f20cf5bb5b9b87bf3920fbf06d62a1deb62",
+        "constant/polyMesh/neighbour": "6ea763d0421ee21dea49f690e1e45f4ce1dc483ef4f9ee0cb4badc511639bd01",
+        "constant/physicalProperties": "95501818b271f1197e0e2d4adc38038664634cb9d8a65ea64ecfce27f4af9c4f",
+        "600/U": "c791edd867bdaa78ccd057092cf95cbbcd9c4719e3f05c916c8a557a78049721",
+        "600/p": "7f0b94aa913e539d0e57fb3b471566f3a94baf368206a227d49fb293b2891360",
+        "600/phi": "fe1c22a97db7dbc42d3255400124f3435de49eec4d8180374989881d98532d5b"
+      },
+      "boundary_face_metadata": {
+        "nInternalFaces": 908240,
+        "patches": {
+          "wall": {
+            "startFace": 908240,
+            "nFaces": 62061,
+            "endFace": 970301
+          },
+          "inlet1": {
+            "startFace": 970301,
+            "nFaces": 231,
+            "endFace": 970532
+          },
+          "inlet2": {
+            "startFace": 970532,
+            "nFaces": 231,
+            "endFace": 970763
+          },
+          "overflow": {
+            "startFace": 970763,
+            "nFaces": 180,
+            "endFace": 970943
+          },
+          "underflow": {
+            "startFace": 970943,
+            "nFaces": 432,
+            "endFace": 971375
+          }
+        },
+        "boundary_sha256": "a3648709f0a3fba53134c4a59bc919ced5bc0885aa5e495de7b4e4ca971fb7f8"
+      },
+      "inventory_closure_passed": true,
+      "neutral_density_1um_reference_cloud": {
+        "kind": "neutral_density_1um_lagrangian_reference_not_zero_inertia_scalar_oracle",
+        "injected_count": 32,
+        "overflow_terminal_escaped_count": 0,
+        "overflow_flux_integer_residual": 0.0,
+        "underflow_terminal_escaped_count": 8,
+        "underflow_flux_integer_residual": 2.3092638912203256e-14,
+        "wall_stuck_count": 0,
+        "remaining_in_domain_count": 24,
+        "discrepancy_count": 0
+      },
+      "commands": [
+        {
+          "command": [
+            "foamRun"
+          ],
+          "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+          "exit_code": 0,
+          "wall_seconds": 50.37133786000777,
+          "log_sha256": "75ca73d9d6ef4e974b0c0abfa6e7f301f01f5d604a0e05bb7416eefce4a8bc7f",
+          "log_bytes": 5421900,
+          "stop_reason": null,
+          "driver_source_sha256": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+          "resource_lease_id": "fda206b7ba873beb6c31acce67873555bc4600fd267a319f09d356bf4bbb755e",
+          "max_observed_shared_output_bytes": 2767057255,
+          "allocation": {
+            "logical_cpus": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "quota_cores": 4,
+            "memory_gib": 12,
+            "gpu": false
+          }
+        }
+      ],
+      "cohort_counts": [
+        {
+          "diameter_um": 3.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 5.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 8.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 10.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 15.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 20.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 25.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 40.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 60.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        },
+        {
+          "diameter_um": 100.0,
+          "injected_count": 32,
+          "probe_subgroups_injected": {
+            "swirl_chamber_internal_probe_count": 16,
+            "overflow_pipe_near_terminal_probe_count": 8,
+            "underflow_pipe_near_terminal_probe_count": 8
+          },
+          "overflow_terminal_escaped_count": 0,
+          "underflow_terminal_escaped_count": 8,
+          "wall_stuck_count": 0,
+          "remaining_in_domain_count": 24,
+          "discrepancy_count": 0
+        }
+      ]
+    }
+  ],
+  "oil_concentration_mg_l": null,
+  "qualified_fitness": null,
+  "qualified_capacity_gain": null,
+  "source_integration": "prototype files retained locally pending admission/parser/identity review; not part of current public evaluator",
+  "limitations": [
+    "Mixed internal and near-terminal probes are not a flux-weighted inlet DSD cohort.",
+    "Parent-field manifest was added during post-run review after duplicate fields/mesh were removed; launch-time binding needs a fresh attempt.",
+    "The 1um neutral-density reference is not an exact zero-inertia tracer.",
+    "The failed seed mesh and F1 SST carrier remain unqualified.",
+    "Closing number inventory does not establish oil-removal accuracy."
+  ],
+  "remaining_review": [
+    "strict manifest path and binary identity verification; numerical-failure markers",
+    "no boolean status or empty cohort file can promote oil/fitness eligibility",
+    "native exact tracer, inlet injection, weighted inventory, restart and uncertainty",
+    "draft rig document must retain full1639.247mm length, split\u00b10.0002 and randomized independent preparations",
+    "exotic compiler unknown/inactive genes, effective CAD mutations and exact clearance/interface checks"
+  ]
+}

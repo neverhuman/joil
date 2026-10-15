@@ -43,7 +43,7 @@ This is a prospective dependency list, not an executed request or a guaranteed c
 
 ## Performance experiment and ETAs
 
-Measured15October2026 pilot: full-liner seed302460cells; extended313260cells; 600steadySSTpseudo-iterations took621.45s on four cores. A warm-start300-iteration point took163.02s; an independent500-iteration startup took395.55s. These are single diagnostic timings under shared-host load, not p95 estimates, physical-time CFD rates or oil/LES ETAs. No GPUs were allocated. One CAD proposal took108–242s, with exact-baseline export3.9s. Retained runs/artifacts were about2.6GiB at the environment check. See `BASELINE_RUN.md` and receipts for rejected meshes, SSG divergence, actual KPIs and scope.
+Measured on 15 October 2026: the full-liner seed contains 302,460 cells; the extended mesh contains 313,260 cells. A 600-iteration steady SST run took 621.45 s on four cores. A warm-start 300-iteration point took 163.02 s; an independent 500-iteration startup took 395.55 s. These are single diagnostic timings under shared-host load, not p95 estimates, physical-time CFD rates or oil/LES ETAs. No GPUs were allocated. A mutated CAD proposal took 108–242 s, with exact-baseline export taking 3.9 s. Retained runs/artifacts were about 2.6 GiB at the environment check. See `BASELINE_RUN.md` and receipts for rejected meshes, SSG divergence, actual KPIs and scope.
 
 Actual minimum bore is 1.4 mm, much smaller than earlier HTML's bore. Resolve geometry/wall treatment and conduct convergence; 1–4 M F2 and 8–30 M F3 cells are initial planning ranges only. They may be inadequate. Measure physical seconds per wall hour, steps/s, pressure solve fraction, parcel updates, RSS, disk and retries at fixed numerical acceptance.
 

@@ -43,6 +43,10 @@ Eight asymmetric/twisted chamber-wall proposals plus the exact zero-mutation bas
 
 ![Sections of nine actual exported CAD surfaces](figures/chamber-sections.png)
 
+## Bounded particle capability probes
+
+Gemini ran two 0.01 s frozen-field probes at timesteps of 50 µs and 25 µs. In each size class, 32 particles were placed in the chamber and near the two outlet pipes; 8 escaped through the treated terminal and 24 remained. Revised extraction closes the number inventory exactly. The first extractor missed the ordinary OpenFOAM `labelField` syntax and reported 24 missing particles; that failed result is preserved. These are mixed-placement software/mechanics probes, **not inlet oil-grade cohorts**, so no concentration or separator fitness follows. The 1 µm neutral-density reference is not an exact zero-inertia tracer. Measured solver times were 29.94 s and 50.37 s; linear throughput extrapolation is not a qualified baseline-run ETA. See [the reviewed handoff and limitations](receipts/capability-probes-20261015.json).
+
 ## Next dependency
 
 Finish a geometry-faithful, acceptable mesh family; demonstrate outlet-domain sensitivity at matched conditions; stabilize and verify transient carrier statistics; verify native tracer and light-drop mechanics; then run source-bound full-liner cohorts with complete terminal/wall/remaining/lost accounting and size/timestep/parcel sensitivity. Gemini owns the separate oil/rotation and exotic-program files under the live `COORD.md` agreement. Until those results are reviewed, no oil-quality fitness or performance-selected evolutionary campaign is admitted.
