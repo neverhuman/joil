@@ -1,0 +1,83 @@
+# Sandbox contract only. This file does not admit a physical performance campaign.
+# Original research requirement remains draft; absent mandatory limits stay absent.
+schema = 1
+id = "joil-hydrocyclone-v1"
+revision = "1"
+admission = "sandbox_only"
+scope = "legacy_reduced_screen_software_research_only"
+concentration_basis = "dispersed_oil_mg_per_litre"
+coordinate_frame = "right_handed_SI_z_downstream"
+blockers = ["unresolved pressure/energy/absolute-pressure limits and continuous duty band", "unqualified oil transport and independent validation", "unresolved installation and material/process requirements", "current tail samples insufficient for physical p95 claims"]
+
+[baseline]
+id = "ct35-genome"
+revision = "1"
+sha256 = "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5"
+
+[preregistration]
+id = "joil-wave2-preregistration-v1"
+revision = "1"
+sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4"
+
+[[scenarios]]
+id = "D1_turndown"
+revision = "joil-wave2-preregistration-v1"
+sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4"
+
+[[scenarios]]
+id = "D2_turnup"
+revision = "joil-wave2-preregistration-v1"
+sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4"
+
+[[scenarios]]
+id = "D3_sheared_feed"
+revision = "joil-wave2-preregistration-v1"
+sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4"
+
+[[scenarios]]
+id = "D4_cold_viscous_slug"
+revision = "joil-wave2-preregistration-v1"
+sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4"
+
+[[objectives]]
+id = "cout_p95_mg_l"
+source_id = "cout_p95_mg_l"
+sense = "minimize"
+unit = "mg_per_litre_dispersed_oil"
+transform = "identity"
+
+[[objectives]]
+id = "specific_energy_j_m3"
+source_id = "specific_energy_j_m3"
+sense = "minimize"
+unit = "joule_per_treated_cubic_metre"
+transform = "identity"
+
+[[objectives]]
+id = "one_minus_grade_20um_p05"
+source_id = "grade_20um_p05"
+sense = "minimize"
+unit = "dimensionless"
+transform = "one_minus"
+
+[[objectives]]
+id = "d50_p95_um"
+source_id = "d50_p95_um"
+sense = "minimize"
+unit = "micrometre"
+transform = "identity"
+
+[[objectives]]
+id = "dp_u_pa"
+source_id = "dp_u_pa"
+sense = "minimize"
+unit = "pascal"
+transform = "identity"
+
+[thresholds]
+quality_limit_mg_l = 30.0
+stretch_limit_mg_l = 20.0
+# Preserved historical search settings, not newly approved physical thresholds.
+# TR-16 consumes these only in sandbox mode and records this contract's identity.
+sandbox_pressure_ratio_max = 1.15
+sandbox_pdr_min = 4.5

@@ -2,6 +2,8 @@
 import hashlib
 import json
 import math
+import struct
+import unicodedata
 from enum import Enum
 from pathlib import Path
 
@@ -21,6 +23,88 @@ def evidence_reference(identity, revision, data):
         raise ValueError('exact bytes, identity and revision required')
     return {'id': identity, 'revision': revision,
             'sha256': hashlib.sha256(data).hexdigest()}
+
+
+def strict_json(data):
+    """Same finite-number, duplicate/NFC-key and payload limits as the Rust wire."""
+    if len(data) > 1_048_576:
+        raise ValueError('payload too large')
+
+    def pairs(items):
+        result, normalized = {}, set()
+        for key, value in items:
+            norm = unicodedata.normalize('NFC', key)
+            if norm in normalized:
+                raise ValueError('duplicate_or_normalization_collision')
+            normalized.add(norm)
+            result[key] = value
+        return result
+
+    def floating(token):
+        value = float(token)
+        mantissa = token.lower().split('e')[0]
+        if not math.isfinite(value) or (value == 0 and any(c in '123456789' for c in mantissa)):
+            raise ValueError('nonfinite or underflow number')
+        return value
+
+    def integer(token):
+        if token == '-0':
+            return -0.0
+        value = int(token)
+        if not -(2**63) <= value <= 2**64-1:
+            raise ValueError('integer out of range')
+        return value
+
+    def constant(_):
+        raise ValueError('nonfinite number')
+
+    value = json.loads(data, object_pairs_hook=pairs, parse_float=floating,
+                       parse_int=integer, parse_constant=constant)
+    nodes = 0
+
+    def bounded(item, depth=0):
+        nonlocal nodes
+        nodes += 1
+        if nodes > 100_000 or depth > 64:
+            raise ValueError('payload bounds')
+        children = item.values() if isinstance(item, dict) else item if isinstance(item, list) else []
+        for child in children:
+            bounded(child, depth+1)
+    bounded(value)
+    return value
+
+
+def canonical_wire(value):
+    """Jarambit-derived exact numeric wire shared with joil-evidence identity.rs."""
+    def encode(item):
+        if item is None:
+            return b'n'
+        if isinstance(item, bool):
+            return b't' if item else b'f'
+        if isinstance(item, str):
+            raw = item.encode('utf-8')
+            return f's{len(raw)}:'.encode()+raw
+        if isinstance(item, int):
+            if not -(2**63) <= item <= 2**64-1:
+                raise ValueError('integer out of range')
+            return f'{"u" if item >= 0 else "i"}{item};'.encode()
+        if isinstance(item, float):
+            if not math.isfinite(item):
+                raise ValueError('nonfinite number')
+            return b'd'+struct.pack('>d', item).hex().encode()+b';'
+        if isinstance(item, list):
+            return f'a{len(item)}:'.encode()+b''.join(encode(x) for x in item)
+        if isinstance(item, dict) and all(isinstance(k, str) for k in item):
+            keys = [unicodedata.normalize('NFC', k) for k in item]
+            if len(set(keys)) != len(keys):
+                raise ValueError('normalization_collision')
+            return f'o{len(item)}:'.encode()+b''.join(encode(k)+encode(item[k]) for k in sorted(item))
+        raise ValueError('unsupported canonical value')
+    return encode(value)
+
+
+def scientific_hash(value):
+    return hashlib.sha256(canonical_wire(value)).hexdigest()
 
 
 def sha256(path):
