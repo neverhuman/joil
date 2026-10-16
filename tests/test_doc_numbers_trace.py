@@ -23,7 +23,7 @@ def _copy_tree(dst):
     for rel in ('docs/results', 'docs/receipts', 'experiments', 'baselines/ct35',
                 'crates/joil-evidence/receipts', 'crates/joil-core/tests'):
         shutil.copytree(ROOT / rel, dst / rel)
-    for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', 'README.md', NUMBERS_TRACE,
+    for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', 'README.md', 'docs/RESULTS.md', NUMBERS_TRACE,
                 'crates/joil-core/tests/regression.rs', 'crates/joil-core/src/program.rs',
                 'tools/run_elite_3grid_gci_and_rsm.py', 'crates/joil-cli/src/main.rs',
                 'crates/joil-core/src/structure.rs', 'crates/joil-core/src/evolve.rs',
@@ -96,6 +96,22 @@ class NumbersTraceTests(unittest.TestCase):
         _, errors = build_numbers_trace(self.base)
         self.assertTrue(any('0.025@one-sided' in e and 'stale declaration' in e for e in errors), errors)
 
+    def test_results_page_is_traced(self):
+        self._with('docs/RESULTS.md', '## Software stack\n', '## Software stack\n\nThe elite separates `98.765` % of oil.\n')
+        _, errors = build_numbers_trace(self.base)
+        self.assertTrue(any("RESULTS: numeral '98.765'" in e for e in errors), errors)
+
+    def test_statistic_symbol_outranks_column_header(self):
+        # The header word 'best' also names unrelated `best_candidate` fields; the symbol before the numeral wins.
+        table = ('\n| Arm | Best score vs `B3` |\n| :--- | :--- |\n'
+                 '| `B1` | $p_{\\text{Holm}} = 1.0$ ([`docs/results/wave4-evolution-proof-v1.json`]'
+                 '(results/wave4-evolution-proof-v1.json)) |\n')
+        self._with('docs/RESULTS.md', '## Software stack\n', table + '\n## Software stack\n')
+        text, _ = build_numbers_trace(self.base)
+        results = text[text.index('\n## RESULTS'):]
+        rows = [l for l in results.splitlines() if l.startswith('| `1.0` |')]
+        self.assertTrue(rows and all('p_value_holm_bonferroni' in l for l in rows), rows)
+
     def test_derived_constants_are_checked(self):
         self.assertIsNone(_check_declared('255.8', 'derived', 'ratio', '`5.60293e-5 / 2.19045e-5`', ROOT, []))
         self.assertIn('evaluates to', _check_declared('255.9', 'derived', 'ratio', '`5.60293e-5 / 2.19045e-5`', ROOT, []))
@@ -114,6 +130,7 @@ class NumbersTraceTests(unittest.TestCase):
         self.assertIn('_pa', _affinity(' kPa`'))
         self.assertIn('mg_l', _affinity('\\text{ mg/L}$'))
         self.assertIn('_pa', _affinity('–19.53 kPa`'))  # unit after the far end of a range
+        self.assertIn('_um', _affinity('\\ \\mu\\text{m}$, $9.74'))  # LaTeX micrometre
 
     def test_identifiers_dates_and_lists_are_not_numerals(self):
         tokens = _numeral_tokens('`CAD-09`, S3 P0-09, G2, CT-35, 16 October 2026, grid `[18,12,212]`, 5.6\\times 10^{-5}')
