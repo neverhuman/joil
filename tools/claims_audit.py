@@ -817,6 +817,59 @@ def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str],
     return errors, rows
 
 
+def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]:
+    """Item status from coordination-board lines: MERGED > DONE > BLOCKED > WIP (START/WIP)."""
+    found: dict[str, dict[str, str]] = {}
+    for line in board.splitlines():
+        tokens = line.split()
+        if len(tokens) >= 3 and tokens[0] in ("DONE", "MERGED") and tokens[1] in items:
+            sha = tokens[2] if re.fullmatch(r"[0-9a-f]{7,40}", tokens[2]) else ""
+            if sha:
+                found.setdefault(tokens[1], {})[tokens[0]] = sha
+        elif len(tokens) >= 5 and tokens[0] == "HB":
+            state = tokens[4]
+            for item in tokens[3].split("/"):
+                if item not in items or state not in ("START", "WIP", "BLOCKED", "DONE"):
+                    continue
+                entry = found.setdefault(item, {})
+                if state == "DONE" and len(tokens) > 5 and re.fullmatch(r"[0-9a-f]{7,40}", tokens[5]):
+                    entry.setdefault("DONE", tokens[5])
+                elif state == "BLOCKED":
+                    entry["BLOCKED"] = " ".join(tokens[1:2] + tokens[5:])[:120]
+                elif state in ("START", "WIP"):
+                    entry["WIP"] = tokens[1]
+    ledger = {}
+    for item, entry in found.items():
+        if "MERGED" in entry:
+            ledger[item] = ("MERGED", f"`{entry['MERGED'][:7]}` (board `MERGED {item}`)")
+        elif "DONE" in entry:
+            ledger[item] = ("DONE", f"`{entry['DONE'][:7]}` (board `DONE {item}`)")
+        elif "BLOCKED" in entry:
+            ledger[item] = ("BLOCKED", entry["BLOCKED"].replace("|", "/"))
+        elif "WIP" in entry:
+            ledger[item] = ("WIP", f"board HB {entry['WIP']}")
+    return ledger
+
+
+def sync_ledger(synthesis: str, board: str) -> str:
+    """Rewrite §2 ledger rows whose board-derived status differs (never downgrades MERGED/DONE)."""
+    rank = {"OPEN": 0, "WIP": 1, "BLOCKED": 1, "DONE": 2, "MERGED": 3, "MOVED-§6": 4}
+    items = set(re.findall(r"^\| ([A-Z]{2,3}-\d{2}) \|", _section(synthesis, "## 2."), re.M))
+    derived = ledger_from_board(board, items)
+    out = []
+    in_ledger = False
+    for line in synthesis.splitlines(keepends=True):
+        if line.startswith("## "):
+            in_ledger = line.startswith("## 2.")
+        cells = _table_cells(line) if in_ledger and line.startswith("|") else []
+        if len(cells) == 4 and cells[0] in derived:
+            status, evidence = derived[cells[0]]
+            if rank[status] >= rank.get(cells[2], 0) and (status, evidence) != (cells[2], cells[3]):
+                line = f"| {cells[0]} | {cells[1]} | {status} | {evidence} |\n"
+        out.append(line)
+    return "".join(out)
+
+
 def refresh_review_statuses(synthesis: str, now_utc: str) -> str:
     """Rewrite every finding's Status cell from the §2 ledger and stamp the as-of time."""
     ledger = {}
@@ -892,7 +945,17 @@ def main() -> int:
         action="store_true",
         help=f"Recompute finding statuses in {REVIEW_SYNTHESIS} from its item ledger, then audit",
     )
+    parser.add_argument(
+        "--sync-ledger-from",
+        type=Path,
+        help="Coordination board file; update the synthesis ledger from its DONE/MERGED/HB lines (implies refresh)",
+    )
     args = parser.parse_args()
+    if args.sync_ledger_from:
+        path = args.root.resolve() / REVIEW_SYNTHESIS
+        board = args.sync_ledger_from.read_text(encoding="utf-8")
+        path.write_text(sync_ledger(path.read_text(encoding="utf-8"), board), encoding="utf-8")
+        args.refresh_review_status = True
     if args.refresh_review_status:
         from datetime import datetime, timezone
 
