@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "P00-CI",
+  "owner": "Codex runner integration",
+  "created_utc": "2026-10-16T03:15:46.624929+00:00",
+  "input_head": "806f9e0532dc320627a60ec69f86f8e00ce234f6",
+  "scope": [
+    ".github/workflows/foundation.yml",
+    "tools/check.py",
+    "tests/test_check.py",
+    "docs/CI.md",
+    "docs/receipts/P00-ci-*"
+  ],
+  "purpose": "Enable the existing shared ephemeral runner pool, parallelize all foundation checks, retain exact receipts and the foundation required-check name.",
+  "boundaries": "Separate checkout; no scientific source, requirement, status, manifest, lockfile, existing receipt or other-project changes; no simulation or GPU work."
+}

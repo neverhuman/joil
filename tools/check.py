@@ -11,33 +11,52 @@ import time
 import uuid
 
 ROOT=Path(__file__).resolve().parents[1]
+SUITES=('fmt','clippy','rust-tests','baseline','python-tests','public-check','claims-audit','ui')
+
+
+def check_steps(root, *, suite=None, skip_ui=False, cad=False, runid='local'):
+    """Select independent CI suites; preserve the complete local check by default."""
+    if suite not in (None, *SUITES):
+        raise ValueError(f'unknown check suite: {suite}')
+    if suite and (skip_ui or cad):
+        raise ValueError('--suite cannot be combined with --skip-ui or --cad')
+    steps=[('fmt',['cargo','fmt','--all','--','--check'],root),
+           ('clippy',['cargo','clippy','--workspace','--locked','--all-targets','--','-D','warnings'],root),
+           ('rust-tests',['cargo','test','--workspace','--locked'],root),
+           ('baseline',['cargo','run','--locked','-p','joil-cli','--','baseline'],root),
+           ('python-tests',['python3','-m','unittest','discover','-s','tests','-v'],root),
+           ('public-check',['python3','tools/check_public.py'],root),
+           ('claims-audit',['python3','tools/claims_audit.py'],root)]
+    if not skip_ui:
+        steps += [('npm-ci',['npm','ci','--no-audit','--no-fund'],root/'apps/explorer'),
+                  ('ui-build',['npm','run','build'],root/'apps/explorer')]
+    if cad:
+        steps += [('cad',[str(root/'.venv/bin/python'),'cad/ct35/build.py','--out',str(root/'artifacts'/runid/'ct35')],root)]
+    if suite:
+        names={'npm-ci','ui-build'} if suite=='ui' else {suite}
+        steps=[step for step in steps if step[0] in names]
+    return steps
 
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--cad',action='store_true',help='also run baseline CAD with project .venv')
     ap.add_argument('--skip-ui',action='store_true',help='record UI as unexecuted')
+    ap.add_argument('--suite',choices=SUITES,help='run one independent CI suite (ui includes npm ci)')
     args=ap.parse_args()
+    if args.suite and (args.skip_ui or args.cad):
+        ap.error('--suite cannot be combined with --skip-ui or --cad')
     runid=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8]
     out=ROOT/'.private/checks'/runid;out.mkdir(parents=True)
     (ROOT/'.private').chmod(0o700)
     env=os.environ.copy()
     env['PATH']=os.pathsep.join([str(ROOT/'.private/node-runtime/bin'),str(ROOT/'.private/node-runtime/node_modules/.bin'),str(Path.home()/'joil/.private/node-runtime/bin'),str(Path.home()/'.cargo/bin'),env['PATH']])
     env.update(CARGO_BUILD_JOBS='4',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',RAYON_NUM_THREADS='4')
-    steps=[('fmt',['cargo','fmt','--all','--','--check'],ROOT),
-           ('clippy',['cargo','clippy','--workspace','--locked','--all-targets','--','-D','warnings'],ROOT),
-           ('rust-tests',['cargo','test','--workspace','--locked'],ROOT),
-           ('baseline',['cargo','run','--locked','-p','joil-cli','--','baseline'],ROOT),
-           ('python-tests',['python3','-m','unittest','discover','-s','tests','-v'],ROOT),
-           ('public-check',['python3','tools/check_public.py'],ROOT),
-           ('claims-audit',['python3','tools/claims_audit.py'],ROOT)]
-    if not args.skip_ui:
-        steps += [('npm-ci',['npm','ci','--no-audit','--no-fund'],ROOT/'apps/explorer'),
-                  ('ui-build',['npm','run','build'],ROOT/'apps/explorer')]
-    if args.cad:
-        steps += [('cad',[str(ROOT/'.venv/bin/python'),'cad/ct35/build.py','--out',str(ROOT/'artifacts'/runid/'ct35')],ROOT)]
+    steps=check_steps(ROOT,suite=args.suite,skip_ui=args.skip_ui,cad=args.cad,runid=runid)
     receipt={'schema_version':1,'run_id':runid,'kind':'foundation_checks_not_physical_validation',
-             'steps':[],'ui_executed':not args.skip_ui,'cad_executed':args.cad,'cfd_executed':False}
+             'steps':[],'requested_suite':args.suite or 'all',
+             'ui_executed':any(name=='ui-build' for name,_,_ in steps),
+             'cad_executed':args.cad,'cfd_executed':False}
     revision=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True)
     receipt['input_head']=revision.stdout.strip() if revision.returncode==0 else None
     names=subprocess.check_output(['git','ls-files','-z','--cached','--others','--exclude-standard'],cwd=ROOT).split(b'\0')

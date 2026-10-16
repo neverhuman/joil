@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "kind": "packet_validation_receipt",
+  "packet": "P00-CI",
+  "owner": "Codex runner integration",
+  "created_utc": "2026-10-16T03:20:09.260441+00:00",
+  "input_head": "806f9e0532dc320627a60ec69f86f8e00ce234f6",
+  "science_eligibility": "software checks only; no physical validation or simulations",
+  "commands": [
+    {
+      "command": [
+        "env",
+        "RUSTUP_TOOLCHAIN=1.95.0",
+        "python3",
+        "tools/check.py"
+      ],
+      "exit_code": 0,
+      "steps": [
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 1.842818417120725,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 4.898009541910142,
+          "log_bytes": 987,
+          "log_sha256": "e7d5bbcc616af6f5434cdae5c68b27031e929fdd8a7bc0be8a5d545ac5948a72"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 29.880565584171563,
+          "log_bytes": 3612,
+          "log_sha256": "c1a29d83f8592e422e397bbd8bb121c2403861edb7731b2ce1e1d928eb73d729"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.48782383324578404,
+          "log_bytes": 1158,
+          "log_sha256": "ec17cb7a429c83a0c9674c67e62f68fd78c1194110e94859fcadb43bbc98478c"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 1.073633042164147,
+          "log_bytes": 4134,
+          "log_sha256": "10b64c75603f8ea35e89e7e03b6f95c94cb945fb5a96d27227117a67257f31b4"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.05153175024315715,
+          "log_bytes": 75,
+          "log_sha256": "9ca3c6bf3fe3cacadb7c15e060757ac59a242e6643633a728f9154b4c11059d2"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.8030829997733235,
+          "log_bytes": 132,
+          "log_sha256": "df438a0665ed4d6569dc56915d3cc15c2ae673cfacf8fd3fd53ead7bf4c7ddc2"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 0.5384675832465291,
+          "log_bytes": 28,
+          "log_sha256": "7e8c524facb159bb91a73bf9220944ce27b04218b5f3e13d4843ab1295c4f2a5"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 1.3797611673362553,
+          "log_bytes": 1904,
+          "log_sha256": "f08dda71c383c3c5d51a23b8533795ef5feabe20a4b3ef693fc8c1dbf8b33ff8"
+        }
+      ]
+    },
+    {
+      "command": [
+        "actionlint",
+        ".github/workflows/foundation.yml"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "positive_checks": [
+    "all nine default stages passed",
+    "eight suites cover all default commands exactly once",
+    "partial receipt identifies requested suite"
+  ],
+  "negative_checks": [
+    "invalid suite rejected",
+    "conflicting selection rejected",
+    "failed npm ci returns failure and stops before UI build",
+    "log digest matches stored bytes"
+  ],
+  "artifacts_sha256": {
+    "foundation_check_receipt": "be4a15b60639afb2cba0f0834363dbef2a7c3173b73636afda467026f0760faf"
+  },
+  "allocation": "local four-thread software checks; CI uses pre-existing ephemeral VM allocation; no GPU",
+  "remaining_limitations": [
+    "GitHub runner-group repository access pending confirmation",
+    "Live Linux CI execution pending repository access"
+  ],
+  "next_dependency": "Enable only this repository in the existing selected-repository group, then verify live matrix jobs and aggregate check."
+}

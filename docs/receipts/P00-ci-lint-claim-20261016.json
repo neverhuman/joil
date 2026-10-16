@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim_addendum",
+  "packet": "P00-CI",
+  "owner": "Codex runner integration",
+  "created_utc": "2026-10-16T03:18:59.261867+00:00",
+  "scope": [
+    ".github/actionlint.yaml"
+  ],
+  "purpose": "Declare existing lan-ci custom runner label so actionlint validates the workflow without suppressing errors."
+}
