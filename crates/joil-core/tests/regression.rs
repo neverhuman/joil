@@ -399,7 +399,7 @@ fn structural_lame_oracle_and_modal_lpbf_qualification() {
     use joil_core::{
         phenotype::Phenotype3D,
         program::{DesignProgram, Rng},
-        structure::{lame_thick_cylinder_oracle, qualify_structure},
+        structure::{analytic_structural_screen, lame_thick_cylinder_oracle},
     };
 
     // STRUCTURE-01: Lamé thick-wall cylinder boundary condition identity check
@@ -420,16 +420,17 @@ fn structural_lame_oracle_and_modal_lpbf_qualification() {
     let mut rng = Rng::new(20261015);
     for prog in DesignProgram::seed_archetypes(&mut rng) {
         let (pheno, _) = Phenotype3D::from_program(&prog).unwrap();
-        let sq = qualify_structure(&prog, &pheno, 29468.22, 0.001111111).unwrap();
+        let sq = analytic_structural_screen(&prog, &pheno, 29468.22, 0.001111111).unwrap();
         assert!(
             sq.passed,
             "archetype failed structure: {:?}",
             sq.failure_reasons
         );
-        assert!(!sq.sour_service_qualified);
+        assert!(sq.sour_service_status.starts_with("unknown_"));
         assert!(sq.min_yield_safety_factor >= 2.5);
-        assert!(sq.stress_gci_fine_rel <= 0.01);
-        assert!(sq.load_transfer_rel_error <= 1e-12);
+        assert!(sq.stress_gci_fine_rel.is_none_or(|gci| gci <= 0.01));
+        assert!(sq.load_transfer_audit.is_none());
+        assert!(sq.load_transfer_status.starts_with("unknown_"));
         assert!(sq.vane_modal_freq_ratio >= 3.0);
         assert!(sq.skimmer_tip_deflection_mm <= 0.010);
         assert!(sq.max_lpbf_overhang_from_vertical_deg <= 45.0);
@@ -724,10 +725,10 @@ fn p07_surrogate_constrained_expected_improvement_and_prescreen() {
         let (ind, _) = evaluate_individual(format!("s{i}"), p.clone(), 0, 0, &ev_cfg).unwrap();
         records.push(SurrogateRecord::from_candidate(&ind));
     }
-    let gp = GaussianProcessSurrogate::fit(&records, 0.85, 0.015).unwrap();
+    let gp = GaussianProcessSurrogate::fit_sandbox_prior(&records, 0.85, 0.015).unwrap();
     let mut pool = Vec::new();
     for p in &archetypes {
-        pool.push(p.mutate(&mut rng));
+        pool.push(p.mutate(&mut rng).unwrap().into_child().unwrap());
     }
     let ranked = active_prescreen_offspring(&gp, &pool, 18.5, 5);
     assert_eq!(ranked.len(), 5);
@@ -745,7 +746,7 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
         phenotype::MultiPatchSurface,
         program::{DesignProgram, Rng, TpmsBasis, TpmsInsertField3D},
         redteam,
-        structure::qualify_structure,
+        structure::analytic_structural_screen,
     };
     use std::collections::BTreeSet;
 
@@ -770,7 +771,7 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
         assert!(pheno.minimum_passage_diameter_mm >= 1.4);
         assert!(redteam::check(&norm, &pheno, &mesh).is_ok());
 
-        let sq = qualify_structure(&norm, &pheno, 29468.22, 0.001111111).unwrap();
+        let sq = analytic_structural_screen(&norm, &pheno, 29468.22, 0.001111111).unwrap();
         assert!(
             sq.passed,
             "Wave-2 archetype {fam} failed structure: {:?}",
@@ -845,17 +846,48 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
     // Verify Wave-2 operators preserve watertightness, manifoldness, RedTeam checks, and 5-patch OpenFOAM meshability across single and chained mutations
     for i in 0..6 {
         let base_prog = &archetypes[i * 3 % archetypes.len()];
-        let m1 = base_prog.mutate_diffeomorphic_spline(&mut rng);
-        let m2 = base_prog.mutate_branch_topology(&mut rng);
-        let m3 = base_prog.mutate_tpms_grading(&mut rng);
+        let m1 = base_prog
+            .mutate_diffeomorphic_spline(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
+        let m2 = base_prog
+            .mutate_branch_topology(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
+        let m3 = base_prog
+            .mutate_tpms_grading(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
         let mate = &archetypes[(i * 3 + 5) % archetypes.len()];
-        let c1 = base_prog.crossover_homologous_graph(mate, &mut rng);
+        let c1 = base_prog
+            .crossover_non_homologous_macro(mate, &mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
         let chained = m1
             .mutate_branch_topology(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap()
             .mutate_tpms_grading(&mut rng)
-            .crossover_homologous_graph(&m2, &mut rng)
-            .mutate_diffeomorphic_spline(&mut rng);
-        let rand_exotic = DesignProgram::sample_random_exotic(&mut rng);
+            .unwrap()
+            .into_child()
+            .unwrap()
+            .crossover_non_homologous_macro(&m2, &mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap()
+            .mutate_diffeomorphic_spline(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
+        let rand_exotic = DesignProgram::sample_random_exotic(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
 
         for child in [m1, m2, m3, c1, chained, rand_exotic] {
             let (norm_c, pheno, mesh) = child.canonicalize_and_preflight().unwrap();
@@ -911,22 +943,30 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
             .false_omission_rank0_count,
         0
     );
-    assert!(
-        report.summary_statistics["B3_Exotic3D_QD_CEI"]["pareto_hypervolume"].mean
-            > report.summary_statistics["B1_Random_LHS"]["pareto_hypervolume"].mean
-    );
-    assert!(
-        report.summary_statistics["B3_Exotic3D_QD_CEI"]["pareto_hypervolume"].mean
-            > report.summary_statistics["B2_Conventional_Axisym"]["pareto_hypervolume"].mean
-    );
-    assert!(
-        report.summary_statistics["B3_Exotic3D_QD_CEI"]["cout_p95_mg_l"].mean
-            < report.summary_statistics["B1_Random_LHS"]["cout_p95_mg_l"].mean
-    );
-    assert!(
-        report.summary_statistics["B3_Exotic3D_QD_CEI"]["cout_p95_mg_l"].mean
-            < report.summary_statistics["B2_Conventional_Axisym"]["cout_p95_mg_l"].mean
-    );
+    // Software checks must preserve negative scientific outcomes. No algorithm
+    // is required to beat another on a chosen three-seed synthetic screen.
+    for outcome in report
+        .arm_b1_random_lhs_outcomes
+        .iter()
+        .chain(&report.arm_b2_conventional_axisym_outcomes)
+        .chain(&report.arm_b3_exotic3d_qd_cei_outcomes)
+    {
+        let budget = &outcome.proposal_budget;
+        assert_eq!(
+            budget.budget,
+            cfg.islands * cfg.pop_per_island * (cfg.generations + 1)
+        );
+        assert_eq!(
+            budget.budget,
+            budget.proposals_invalid + budget.proposals_repaired + budget.evaluations
+        );
+        assert_eq!(
+            outcome.total_evaluations,
+            budget.proposals_repaired + budget.evaluations
+        );
+        assert!(outcome.best_cout_p95_mg_l.is_finite());
+        assert!(outcome.pareto_hypervolume.is_finite());
+    }
 
     // Verify 11-family Wave-2 Leave-One-Topology-Family-Out CV (including cylindrical-gyroid-coalescer & octa-branch-helical-manifold)
     let wave2_elites: Vec<_> = report
@@ -942,10 +982,10 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
 }
 
 #[test]
-fn genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit() {
+fn closed_catalog_validity_11family_sampling() {
     use joil_core::program::{DesignProgram, TpmsBasis};
 
-    let audit = DesignProgram::audit_11family_genome_expressiveness(20, 20261115).unwrap();
+    let audit = DesignProgram::closed_catalog_validity(20, 20261115).unwrap();
     assert_eq!(audit.total_sampled, 220);
     assert_eq!(audit.total_preflight_passed, 220);
     assert_eq!(audit.overall_preflight_pass_fraction, 1.0);
@@ -988,11 +1028,11 @@ fn genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit() {
 }
 
 #[test]
-fn operator_random_walk_20step_11family_watertight_stress_test() {
+fn operator_chain_validity_20step_11family() {
     use joil_core::program::DesignProgram;
 
-    assert!(DesignProgram::audit_11family_operator_random_walk(19, 20261116).is_err());
-    let walk = DesignProgram::audit_11family_operator_random_walk(20, 20261116).unwrap();
+    assert!(DesignProgram::operator_chain_validity(19, 20261116).is_err());
+    let walk = DesignProgram::operator_chain_validity(20, 20261116).unwrap();
     println!(
         "OPERATOR_RANDOM_WALK_SUMMARY: total_steps={} total_passed={} pass_fraction={} transitions={} global_families={} min_clearance_mm={:.4}",
         walk.total_steps,

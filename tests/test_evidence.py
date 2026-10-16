@@ -155,7 +155,65 @@ class EvidenceTests(unittest.TestCase):
         self.assertIsNone(rep['qualified_multiobjective_vector'])
         self.assertIsNone(rep['qualified_capacity_gain'])
 
+    def test_tr07_int05_python_gci_order_and_wave2_v2_reports(self):
+        from tools.generate_gci_rsm_report_and_figures import (
+            compute_roache_3grid_gci_v2,
+            compute_roache_4grid_gci_v2,
+        )
+        from tools.run_elite_3grid_gci_and_rsm import evaluate_elite_gci_rsm_gate
+
+        for p_true in (1.5, 2.0, 3.2, 5.5):
+            h = [4.0, 2.0, 1.0, 0.5]
+            vals = [100.0 + 3.0 * (hi**p_true) for hi in h]
+            g3 = compute_roache_3grid_gci_v2(vals[0], vals[1], vals[2], h[0], h[1], h[2])
+            self.assertEqual(g3['gci_validity_state'], 'Monotone')
+            self.assertFalse(g3['asymptotic_range_certified'])
+            self.assertIsNone(g3['gci21_standard_fs125_pct'])
+            self.assertAlmostEqual(g3['observed_order_p'], p_true, places=10)
+
+            g4 = compute_roache_4grid_gci_v2(vals, h, relative_order_tolerance=0.05)
+            self.assertEqual(g4['gci_validity_state'], 'Asymptotic')
+            self.assertTrue(g4['asymptotic_range_certified'])
+            self.assertAlmostEqual(g4['observed_order_p'], p_true, places=10)
+            self.assertIsNotNone(g4['gci21_standard_fs125_pct'])
+
+        osc = compute_roache_3grid_gci_v2(17419.12, 19576.17, 18723.94, 3.55, 2.74, 2.25)
+        self.assertEqual(osc['gci_validity_state'], 'Oscillatory')
+        self.assertFalse(osc['asymptotic_range_certified'])
+        self.assertIsNone(osc['observed_order_p'])
+        self.assertIsNone(osc['gci21_standard_fs125_pct'])
+
+        div = compute_roache_3grid_gci_v2(10.0, 11.0, 13.5, 4.0, 2.0, 1.0)
+        self.assertEqual(div['gci_validity_state'], 'Divergent')
+        self.assertFalse(div['asymptotic_range_certified'])
+        self.assertLess(div['observed_order_p'], 0.0)
+        self.assertIsNone(div['gci21_standard_fs125_pct'])
+
+        ind = compute_roache_3grid_gci_v2(10.0, 10.0, 10.0, 4.0, 2.0, 1.0)
+        self.assertEqual(ind['gci_validity_state'], 'Indeterminate')
+        self.assertIsNone(ind['observed_order_p'])
+        self.assertIsNone(ind['gci21_standard_fs125_pct'])
+
+        root = Path(__file__).resolve().parents[1]
+        prereg = json.loads((root / 'experiments/wave2-preregistration-v1.json').read_text())
+        v2_w1 = json.loads((root / 'docs/results/elite-3grid-gci-and-rsm-verification-v2.json').read_text())
+        self.assertEqual(v2_w1['schema_version'], 2)
+        self.assertEqual(v2_w1['roache_gci_analysis']['dp_u_pa']['gci_validity_state'], 'Oscillatory')
+        self.assertIsNone(v2_w1['roache_gci_analysis']['dp_u_pa']['observed_order_p'])
+        self.assertIsNone(v2_w1['roache_gci_analysis']['dp_u_pa']['gci21_standard_fs125_pct'])
+        self.assertTrue(evaluate_elite_gci_rsm_gate(v2_w1, prereg)['gate_passed'])
+
+        v2_w2 = json.loads((root / 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json').read_text())
+        self.assertEqual(v2_w2['schema_version'], 2)
+        for key in ('wave2_tpms_gyroid_elite_5run_dossier', 'wave2_octa_branch_8jet_elite_5run_dossier'):
+            sub = v2_w2[key]
+            self.assertEqual(sub['roache_gci_analysis']['dp_u_pa']['gci_validity_state'], 'Oscillatory')
+            self.assertIsNone(sub['roache_gci_analysis']['dp_u_pa']['observed_order_p'])
+            self.assertIsNone(sub['roache_gci_analysis']['dp_u_pa']['gci21_standard_fs125_pct'])
+            self.assertTrue(evaluate_elite_gci_rsm_gate(sub, prereg)['gate_passed'])
+
 
 if __name__=='__main__':unittest.main()
+
 
 

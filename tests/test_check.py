@@ -25,7 +25,7 @@ class CheckRunnerTests(unittest.TestCase):
         for kwargs in ({'suite': 'typo'}, {'suite': 'ui', 'skip_ui': True}, {'suite': 'fmt', 'cad': True}):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 check.check_steps(ROOT, **kwargs)
-        self.assertEqual(len(check.check_steps(ROOT, skip_ui=True)), 7)
+        self.assertEqual(len(check.check_steps(ROOT, skip_ui=True)), 8)
         self.assertEqual(check.check_steps(ROOT, cad=True)[-1][0], 'cad')
 
     def run_fake_suite(self, suite, fail):

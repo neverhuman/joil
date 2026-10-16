@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/neverhuman/jarambit",
+  "revision": "c988273",
+  "files": [
+    {
+      "path": "crates/evidence/src/identity.rs",
+      "git_blob": "d3be7c2f3132870ec1b6dabbfcd9ce2c432c3a12",
+      "sha256": "27b99703fc268f28df41d1f973a1c55842d63fbad4759275b4e7e05dbd7b07de"
+    },
+    {
+      "path": "crates/evidence/src/assurance.rs",
+      "git_blob": "8e273a5a6b5b37ee321bdedb3b3edd2d3979739a",
+      "sha256": "e4abcff06c32d13f7529416df0822e0bcffc624bd3890b5a735ef13df88acdd0"
+    }
+  ]
+}

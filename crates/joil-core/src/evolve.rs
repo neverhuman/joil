@@ -1,12 +1,13 @@
 //! Multi-island Constrained NSGA-II + 4D MAP-Elites Quality-Diversity evolutionary engine
 //! for radical 3D hydrocyclone discovery, with Monte Carlo robustness and optional CUDA batch verification.
 
+use crate::experiment::ProposalBudget;
 use crate::metrics;
 use crate::openfoam::STANDARD_BINS_UM;
 use crate::phenotype::{Phenotype3D, SolidMesh};
-use crate::program::{DesignProgram, MechanismDescriptors, Rng};
+use crate::program::{DesignProgram, MechanismDescriptors, Rng, VariationError, VariationOutcome};
 use crate::redteam;
-use crate::structure::{self, StructuralQualification};
+use crate::structure::{self, AnalyticStructuralScreen};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::fs;
@@ -142,7 +143,13 @@ pub struct Individual {
     pub red_team_rejects: Vec<String>,
     pub descriptors: MechanismDescriptors,
     pub phenotype: Option<Phenotype3D>,
-    pub structural_qualification: Option<StructuralQualification>,
+    #[serde(
+        rename = "analytic_structural_screen",
+        alias = "structural_qualification"
+    )]
+    pub structural_qualification: Option<AnalyticStructuralScreen>,
+    #[serde(default)]
+    pub structural_screen_state: StructuralScreenState,
     pub nominal_metrics: CandidateMetrics,
     pub mc_robustness: MonteCarloSummary,
     pub cuda_sdf_audit: Option<CudaSdfSummary>,
@@ -155,8 +162,21 @@ pub struct Individual {
     pub qualified_capacity_gain: Option<f64>,
 }
 
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[serde(tag = "status", rename_all = "snake_case")]
+pub enum StructuralScreenState {
+    Screened,
+    Failed {
+        reason: String,
+    },
+    #[default]
+    Unknown,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CampaignSummary {
+    #[serde(default, flatten)]
+    pub proposal_budget: ProposalBudget,
     pub schema_version: String,
     pub engine: String,
     pub claim_state: String,
@@ -170,6 +190,32 @@ pub struct CampaignSummary {
     pub baseline_reference: Individual,
     pub top_pareto_elites: Vec<Individual>,
     pub exported_mesh_files: Vec<String>,
+}
+
+fn evaluate_proposal(
+    outcome: Result<VariationOutcome, VariationError>,
+    id: String,
+    generation: usize,
+    island: usize,
+    cfg: &EvolutionConfig,
+    budget: &mut ProposalBudget,
+) -> Result<Option<Individual>, String> {
+    let mut outcome = outcome?;
+    let result = match outcome.child.clone() {
+        Some(child) if outcome.failure.is_none() => {
+            match evaluate_individual(id, child, generation, island, cfg) {
+                Ok((individual, _)) => Some(individual),
+                Err(reason) => {
+                    outcome.child = None;
+                    outcome.failure = Some(format!("compilation/evaluation failed: {reason}"));
+                    None
+                }
+            }
+        }
+        _ => None,
+    };
+    budget.record(outcome);
+    Ok(result)
 }
 
 fn lognormal_bin_weights(d50_feed_um: f64, sigma_ln: f64) -> [f64; 10] {
@@ -409,13 +455,36 @@ pub fn evaluate_individual(
         probability_passes_30_mg_l: pass_count as f64 / n_mc as f64,
     };
 
-    let objectives = [
-        mc_robustness.cout_p95_mg_l,
-        nominal_metrics.dp_u_pa,
-        -mc_robustness.grade_20um_p05,
-        nominal_metrics.max_entry_shear_s_inv / 1000.0,
-        nominal_metrics.short_circuit_fraction,
-    ];
+    let requirements = crate::experiment::research_requirements()?;
+    let observations = BTreeMap::from([
+        (
+            "cout_p95_mg_l".into(),
+            joil_evidence::observation::Finite::new(mc_robustness.cout_p95_mg_l)?,
+        ),
+        (
+            "specific_energy_j_m3".into(),
+            joil_evidence::observation::Finite::new(nominal_metrics.specific_energy_j_m3)?,
+        ),
+        (
+            "grade_20um_p05".into(),
+            joil_evidence::observation::Finite::new(mc_robustness.grade_20um_p05)?,
+        ),
+        (
+            "d50_p95_um".into(),
+            joil_evidence::observation::Finite::new(mc_robustness.d50_p95_um)?,
+        ),
+        (
+            "dp_u_pa".into(),
+            joil_evidence::observation::Finite::new(nominal_metrics.dp_u_pa)?,
+        ),
+    ]);
+    let objectives: [f64; 5] = requirements
+        .evaluate_objectives(&observations)?
+        .into_iter()
+        .map(|v| v.get())
+        .collect::<Vec<_>>()
+        .try_into()
+        .map_err(|_| "expected frozen five-objective contract")?;
 
     let mut violation = 0.0_f64;
     if !red_team_passed {
@@ -432,13 +501,24 @@ pub fn evaluate_individual(
         violation += (4.5 - nominal_metrics.pdr) * 10.0;
     }
 
-    let structural_qualification = structure::qualify_structure(
-        &prog,
-        &pheno,
-        nominal_metrics.dp_u_pa,
-        cfg.baseline_hydraulics.q_in_m3_s,
-    )
-    .ok();
+    let (structural_qualification, structural_screen_state) =
+        match structure::analytic_structural_screen(
+            &prog,
+            &pheno,
+            nominal_metrics.dp_u_pa,
+            cfg.baseline_hydraulics.q_in_m3_s,
+        ) {
+            Ok(screen) => {
+                if !screen.passed {
+                    violation += 1.0 + screen.failure_reasons.len() as f64;
+                }
+                (Some(screen), StructuralScreenState::Screened)
+            }
+            Err(reason) => {
+                violation += 1.0;
+                (None, StructuralScreenState::Failed { reason })
+            }
+        };
 
     let ind = Individual {
         id,
@@ -452,6 +532,7 @@ pub fn evaluate_individual(
         descriptors,
         phenotype: Some(pheno),
         structural_qualification,
+        structural_screen_state,
         nominal_metrics,
         mc_robustness,
         cuda_sdf_audit: None,
@@ -470,6 +551,25 @@ pub fn evaluate_individual(
 /// Deb's constrained dominance comparator (`a` dominates `b`).
 pub fn constrained_dominates(a: &Individual, b: &Individual) -> bool {
     const EPS: f64 = 1e-9;
+    let structurally_feasible = |ind: &Individual| {
+        matches!(ind.structural_screen_state, StructuralScreenState::Screened)
+            && ind.structural_qualification.as_ref().is_some_and(|screen| {
+                screen.passed
+                    && screen.genome_sha256 == ind.genome_sha256
+                    && structure::structural_load_case_hash(
+                        &ind.genome_sha256,
+                        ind.nominal_metrics.dp_u_pa,
+                        ind.nominal_metrics.q_in_m3_h / 3600.0,
+                    )
+                    .is_ok_and(|hash| hash == screen.load_case_sha256)
+            })
+    };
+    if structurally_feasible(a) != structurally_feasible(b) {
+        return structurally_feasible(a);
+    }
+    if !structurally_feasible(a) {
+        return false;
+    }
     if a.constraint_violation <= EPS && b.constraint_violation > EPS {
         return true;
     }
@@ -711,140 +811,123 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
     )?;
 
     let archetypes = DesignProgram::seed_archetypes(&mut rng);
+    let mut proposal_budget = ProposalBudget::default();
+    proposal_budget.record(VariationOutcome::introduce(
+        baseline_ind.program.clone(),
+        "insert_baseline_control",
+        &mut rng,
+    )?);
     let mut islands: Vec<Vec<Individual>> = Vec::with_capacity(cfg.islands);
     let mut archive: BTreeMap<String, Individual> = BTreeMap::new();
-
     let mut total_evaluations = 1usize;
-    let mut valid_f0_evaluations = if baseline_ind.red_team_passed { 1 } else { 0 };
-    let mut red_team_rejections = if baseline_ind.red_team_passed { 0 } else { 1 };
-
+    let mut valid_f0_evaluations = usize::from(baseline_ind.red_team_passed);
+    let mut red_team_rejections = usize::from(!baseline_ind.red_team_passed);
     archive.insert(map_elites_key(&baseline_ind), baseline_ind.clone());
 
-    // Generation 0: parallel evaluation across islands
-    let gen0_pops: Result<Vec<Vec<Individual>>, String> = std::thread::scope(|s| {
-        let mut handles = Vec::with_capacity(cfg.islands);
-        let arch_ref = &archetypes;
-        for isl in 0..cfg.islands {
-            let isl_seed = cfg.seed ^ ((isl as u64 + 1).wrapping_mul(0x9E37_79B9_7F4A_7C15));
-            handles.push(s.spawn(move || -> Result<Vec<Individual>, String> {
-                let mut isl_rng = Rng::new(isl_seed);
-                let mut pop = Vec::with_capacity(cfg.pop_per_island);
-                for slot in 0..cfg.pop_per_island {
-                    let mut prog = arch_ref[(isl * 3 + slot) % arch_ref.len()].clone();
-                    if slot >= arch_ref.len() {
-                        prog = prog.mutate(&mut isl_rng);
-                    }
-                    let id = format!("gen000-isl{}-ind{:03}", isl, slot);
-                    let (ind, _) = evaluate_individual(id, prog, 0, isl, cfg)?;
-                    pop.push(ind);
-                }
-                assign_nsga2_ranks_and_crowding(&mut pop);
-                Ok(pop)
-            }));
-        }
-        let mut out = Vec::with_capacity(cfg.islands);
-        for h in handles {
-            out.push(h.join().map_err(|_| "thread panic in gen0".to_string())??);
-        }
-        Ok(out)
-    });
-    for pop in gen0_pops? {
-        for ind in &pop {
-            total_evaluations += 1;
-            if ind.red_team_passed {
-                valid_f0_evaluations += 1;
-                let key = map_elites_key(ind);
-                match archive.get(&key) {
-                    Some(inc) if !is_better_for_archive(ind, inc) => {}
-                    _ => {
-                        archive.insert(key, ind.clone());
-                    }
-                }
+    for isl in 0..cfg.islands {
+        let mut isl_rng =
+            Rng::new(cfg.seed ^ ((isl as u64 + 1).wrapping_mul(0x9E37_79B9_7F4A_7C15)));
+        let mut pop = Vec::with_capacity(cfg.pop_per_island);
+        for slot in 0..cfg.pop_per_island {
+            let parent = &archetypes[(isl * 3 + slot) % archetypes.len()];
+            let outcome = if slot >= archetypes.len() {
+                parent.mutate(&mut isl_rng)
             } else {
-                red_team_rejections += 1;
-            }
-        }
-        islands.push(pop);
-    }
-
-    type IslandGenStep = (Vec<Individual>, Vec<Individual>);
-    for gen in 1..=cfg.generations {
-        let archive_snapshot: Vec<Individual> = archive.values().cloned().collect();
-        let next_islands: Result<Vec<IslandGenStep>, String> = std::thread::scope(|s| {
-            let mut handles = Vec::with_capacity(cfg.islands);
-            let arch_snap_ref = &archive_snapshot;
-            for (isl, isl_pop) in islands.iter().enumerate() {
-                let gen_isl_seed = cfg.seed
-                    ^ ((isl as u64 + 1).wrapping_mul(0x9E37_79B9_7F4A_7C15))
-                    ^ ((gen as u64).wrapping_mul(0xBF58_476D_1CE4_E5B9));
-                handles.push(s.spawn(move || -> Result<IslandGenStep, String> {
-                    let mut isl_rng = Rng::new(gen_isl_seed);
-                    let mut offspring = Vec::with_capacity(cfg.pop_per_island);
-                    for slot in 0..cfg.pop_per_island {
-                        let p1 = tournament_select(isl_pop, &mut isl_rng);
-                        let child_prog = if isl_rng.f64() < cfg.crossover_rate {
-                            let p2 = if !arch_snap_ref.is_empty() && isl_rng.f64() < 0.35 {
-                                &arch_snap_ref[(isl_rng.next_u64() as usize) % arch_snap_ref.len()]
-                            } else {
-                                tournament_select(isl_pop, &mut isl_rng)
-                            };
-                            p1.program.crossover(&p2.program, &mut isl_rng)
-                        } else {
-                            p1.program.mutate(&mut isl_rng)
-                        };
-
-                        let id = format!("gen{:03}-isl{}-ind{:03}", gen, isl, slot);
-                        let (ind, _) = evaluate_individual(id, child_prog, gen, isl, cfg)?;
-                        offspring.push(ind);
-                    }
-
-                    let mut combined = Vec::with_capacity(2 * cfg.pop_per_island);
-                    combined.extend_from_slice(isl_pop);
-                    combined.extend(offspring.clone());
-                    assign_nsga2_ranks_and_crowding(&mut combined);
-                    combined.sort_by(|a, b| {
-                        a.rank
-                            .cmp(&b.rank)
-                            .then_with(|| b.crowding_distance.total_cmp(&a.crowding_distance))
-                    });
-                    combined.truncate(cfg.pop_per_island);
-                    Ok((combined, offspring))
-                }));
-            }
-            let mut out = Vec::with_capacity(cfg.islands);
-            for h in handles {
-                out.push(h.join().map_err(|_| "thread panic in gen".to_string())??);
-            }
-            Ok(out)
-        });
-
-        let mut updated_islands = Vec::with_capacity(cfg.islands);
-        for (combined, offspring) in next_islands? {
-            for ind in &offspring {
+                VariationOutcome::introduce(parent.clone(), "insert_catalog_seed", &mut isl_rng)
+            };
+            if let Some(ind) = evaluate_proposal(
+                outcome,
+                format!("gen000-isl{isl}-ind{slot:03}"),
+                0,
+                isl,
+                cfg,
+                &mut proposal_budget,
+            )? {
                 total_evaluations += 1;
                 if ind.red_team_passed {
                     valid_f0_evaluations += 1;
-                    let key = map_elites_key(ind);
-                    match archive.get(&key) {
-                        Some(inc) if !is_better_for_archive(ind, inc) => {}
-                        _ => {
-                            archive.insert(key, ind.clone());
-                        }
+                    let key = map_elites_key(&ind);
+                    if archive
+                        .get(&key)
+                        .is_none_or(|inc| is_better_for_archive(&ind, inc))
+                    {
+                        archive.insert(key, ind.clone());
                     }
                 } else {
                     red_team_rejections += 1;
                 }
+                pop.push(ind);
             }
-            updated_islands.push(combined);
         }
-        islands = updated_islands;
+        if pop.is_empty() {
+            return Err(format!(
+                "island {isl} has no valid initial proposals; no fallback population permitted"
+            ));
+        }
+        assign_nsga2_ranks_and_crowding(&mut pop);
+        islands.push(pop);
+    }
 
+    for gen in 1..=cfg.generations {
+        let archive_snapshot: Vec<Individual> = archive.values().cloned().collect();
+        for (isl, pop) in islands.iter_mut().enumerate() {
+            let mut isl_rng = Rng::new(
+                cfg.seed
+                    ^ ((isl as u64 + 1).wrapping_mul(0x9E37_79B9_7F4A_7C15))
+                    ^ ((gen as u64).wrapping_mul(0xBF58_476D_1CE4_E5B9)),
+            );
+            let mut offspring = Vec::with_capacity(cfg.pop_per_island);
+            for slot in 0..cfg.pop_per_island {
+                let p1 = tournament_select(pop, &mut isl_rng);
+                let outcome = if isl_rng.f64() < cfg.crossover_rate {
+                    let p2 = if !archive_snapshot.is_empty() && isl_rng.f64() < 0.35 {
+                        &archive_snapshot[(isl_rng.next_u64() as usize) % archive_snapshot.len()]
+                    } else {
+                        tournament_select(pop, &mut isl_rng)
+                    };
+                    p1.program.crossover(&p2.program, &mut isl_rng)
+                } else {
+                    p1.program.mutate(&mut isl_rng)
+                };
+                if let Some(ind) = evaluate_proposal(
+                    outcome,
+                    format!("gen{gen:03}-isl{isl}-ind{slot:03}"),
+                    gen,
+                    isl,
+                    cfg,
+                    &mut proposal_budget,
+                )? {
+                    total_evaluations += 1;
+                    if ind.red_team_passed {
+                        valid_f0_evaluations += 1;
+                        let key = map_elites_key(&ind);
+                        if archive
+                            .get(&key)
+                            .is_none_or(|inc| is_better_for_archive(&ind, inc))
+                        {
+                            archive.insert(key, ind.clone());
+                        }
+                    } else {
+                        red_team_rejections += 1;
+                    }
+                    offspring.push(ind);
+                }
+            }
+            pop.extend(offspring);
+            assign_nsga2_ranks_and_crowding(pop);
+            pop.sort_by(|a, b| {
+                a.rank
+                    .cmp(&b.rank)
+                    .then_with(|| b.crowding_distance.total_cmp(&a.crowding_distance))
+            });
+            pop.truncate(cfg.pop_per_island);
+        }
         if cfg.islands > 1 && gen % cfg.migration_interval.max(1) == 0 {
             let migrants: Vec<Individual> = islands.iter().map(|pop| pop[0].clone()).collect();
-            for (isl, migrant) in migrants.iter().enumerate().take(cfg.islands) {
+            for (isl, migrant) in migrants.into_iter().enumerate() {
                 let target = (isl + 1) % cfg.islands;
                 if let Some(last) = islands[target].last_mut() {
-                    *last = migrant.clone();
+                    *last = migrant;
                 }
                 assign_nsga2_ranks_and_crowding(&mut islands[target]);
             }
@@ -937,6 +1020,7 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
     }
 
     let summary = CampaignSummary {
+        proposal_budget,
         schema_version: "0.2.0".to_string(),
         engine: "joil-core::evolve (Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA Bridge)".to_string(),
         claim_state: "f0_f1_reduced_order_3d_screen_not_f2_cfd_validated".to_string(),
@@ -991,6 +1075,7 @@ pub fn merge_cluster_shards(
     let mut merged_archive: BTreeMap<String, Individual> = BTreeMap::new();
     let mut all_candidates: Vec<Individual> = Vec::new();
     let mut first_summary: Option<CampaignSummary> = None;
+    let mut merged_budget = ProposalBudget::default();
 
     let mut gpu_devices_used: Vec<String> = Vec::new();
     let mut peak_vram_pct = 0.0_f64;
@@ -1013,6 +1098,7 @@ pub fn merge_cluster_shards(
             fs::read_to_string(sdir.join("pareto-front.json")).map_err(|e| e.to_string())?;
         let pf: Vec<Individual> = serde_json::from_str(&pf_raw).map_err(|e| e.to_string())?;
 
+        merged_budget.absorb(sum.proposal_budget.clone());
         total_evaluations += sum.total_evaluations;
         valid_f0_evaluations += sum.valid_f0_evaluations;
         red_team_rejections += sum.red_team_rejections;
@@ -1198,6 +1284,7 @@ pub fn merge_cluster_shards(
     };
 
     let merged_summary = CampaignSummary {
+        proposal_budget: merged_budget,
         schema_version: "0.2.0".to_string(),
         engine: "joil-core::evolve (3-Node Distributed Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA 85% VRAM Tensor Bridge)".to_string(),
         claim_state: "f0_f1_reduced_order_3d_screen_not_f2_cfd_validated".to_string(),
@@ -1309,6 +1396,8 @@ pub fn evaluate_held_out_duties(
 /// Per-seed outcome summary for multi-seed statistical comparisons.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SeedRunOutcome {
+    #[serde(default, flatten)]
+    pub proposal_budget: ProposalBudget,
     pub seed: u64,
     pub mode: SearchBaselineMode,
     pub total_evaluations: usize,
@@ -1386,23 +1475,35 @@ pub struct RejectedCohortAuditSummary {
 }
 
 fn compute_normalized_hypervolume(front: &[Individual], _base_ref: &Individual) -> f64 {
-    // Pre-registered nadir from experiments/wave2-preregistration-v1.json
-    let ref_cout = 45.0_f64;
-    let ref_dp = 38000.0_f64;
-    let ref_e20 = 0.35_f64;
-    let mut best_hv = 0.0_f64;
-    for ind in front {
-        if !ind.red_team_passed || ind.constraint_violation > 1e-9 {
-            continue;
-        }
-        let g1 = ((ref_cout - ind.mc_robustness.cout_p95_mg_l) / ref_cout).clamp(0.0, 1.0);
-        let g2 = ((ref_dp - ind.nominal_metrics.dp_u_pa) / ref_dp).clamp(0.0, 1.0);
-        let g3 = ((ref_e20 - (1.0 - ind.mc_robustness.grade_20um_p05)) / ref_e20).clamp(0.0, 1.0);
-        let box_vol = g1 * g2 * g3;
-        best_hv = best_hv.max(box_vol);
-    }
-    let diversity_bonus = (front.len().min(24) as f64) * 0.0025;
-    ((best_hv + diversity_bonus) * 1e6).round() / 1e6
+    let requirements = crate::experiment::research_requirements()
+        .expect("compiled requirement contract must validate");
+    let policy = &requirements.hypervolume;
+    let reference: Vec<f64> = policy
+        .reference_point
+        .iter()
+        .zip(&policy.normalization)
+        .map(|(r, n)| r.get() / n.get())
+        .collect();
+    let points: Vec<Vec<f64>> = front
+        .iter()
+        .filter(|ind| {
+            ind.red_team_passed
+                && ind.constraint_violation <= 1e-9
+                && ind
+                    .structural_qualification
+                    .as_ref()
+                    .is_some_and(|s| s.passed)
+        })
+        .map(|ind| {
+            ind.objectives
+                .iter()
+                .zip(&policy.normalization)
+                .map(|(v, n)| v / n.get())
+                .collect()
+        })
+        .collect();
+    metrics::pareto_hypervolume(&points, &reference)
+        .expect("finite contract-bound objective vectors")
 }
 
 /// Compute 10,000-resample bootstrap 95% confidence interval over `values`.
@@ -1432,7 +1533,7 @@ pub fn compute_bootstrap_ci(values: &[f64], seed: u64) -> BootstrapConfidenceInt
     let iqr = percentile_sorted(&sorted, 0.75) - percentile_sorted(&sorted, 0.25);
 
     let mut rng = Rng::new(seed);
-    let n_boot = 2000usize;
+    let n_boot = 10000usize;
     let mut boot_means = Vec::with_capacity(n_boot);
     for _ in 0..n_boot {
         let mut s = 0.0;
@@ -1560,142 +1661,103 @@ pub fn run_single_seed_comparator(
     ];
 
     let mut pop: Vec<Individual> = Vec::with_capacity(cfg.islands * cfg.pop_per_island);
-    let pop_size = (cfg.islands * cfg.pop_per_island).max(8);
+    let pop_size = cfg
+        .islands
+        .checked_mul(cfg.pop_per_island)
+        .filter(|n| *n > 0)
+        .ok_or("positive finite population budget required")?;
 
-    // Generation 0 initialization
-    for i in 0..pop_size {
-        let prog = match mode {
-            SearchBaselineMode::Ct35Fixed => DesignProgram::baseline_ct35(),
-            SearchBaselineMode::RandomLhsExotic3d => DesignProgram::sample_random_exotic(&mut rng),
-            SearchBaselineMode::ConventionalAxisymmetricNsga2 => {
-                DesignProgram::baseline_ct35().mutate_conventional_axisymmetric(&mut rng)
-            }
-            SearchBaselineMode::Exotic3dQdCei => {
-                let idx = priority_order[i % priority_order.len()].min(archetypes.len() - 1);
-                if i < priority_order.len() {
-                    archetypes[idx].clone()
-                } else {
-                    archetypes[idx].mutate(&mut rng)
-                }
-            }
-        };
-        let (ind, _) = evaluate_individual(
-            format!("s{seed}-g000-i{i:03}"),
-            prog,
-            0,
-            i % cfg.islands.max(1),
-            &seed_cfg,
-        )?;
-        total_evals += 1;
-        if ind.red_team_passed {
-            valid_f0 += 1;
-            let k = map_elites_key(&ind);
-            match archive.get(&k) {
-                Some(inc) if !is_better_for_archive(&ind, inc) => {}
-                _ => {
-                    archive.insert(k, ind.clone());
-                }
-            }
-        }
-        pop.push(ind);
-    }
-    assign_nsga2_ranks_and_crowding(&mut pop);
-    let init_front: Vec<Individual> = archive.values().cloned().collect();
-    hv_curve.push(compute_normalized_hypervolume(&init_front, &base_ind));
-
-    for gen in 1..=cfg.generations {
+    let mut proposal_budget = ProposalBudget {
+        reference_evaluations: 1,
+        ..ProposalBudget::default()
+    };
+    for gen in 0..=cfg.generations {
         let arch_vals: Vec<Individual> = archive.values().cloned().collect();
-        let selected_progs: Vec<DesignProgram> = match mode {
-            SearchBaselineMode::Exotic3dQdCei => {
-                let records: Vec<crate::surrogate::SurrogateRecord> = arch_vals
-                    .iter()
-                    .map(crate::surrogate::SurrogateRecord::from_candidate)
-                    .collect();
-                let mut pool = Vec::with_capacity(pop_size * 3);
-                for _ in 0..(pop_size * 3) {
-                    let p1 = tournament_select(&pop, &mut rng);
-                    let cand = if rng.f64() < cfg.crossover_rate && !arch_vals.is_empty() {
-                        let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
-                        p1.program.crossover(&p2.program, &mut rng)
-                    } else {
-                        p1.program.mutate(&mut rng)
-                    };
-                    pool.push(cand);
-                }
-                if let Ok(gp) =
-                    crate::surrogate::GaussianProcessSurrogate::fit(&records, 0.85, 0.015)
-                {
-                    let incumbent_best = arch_vals
-                        .iter()
-                        .map(|x| x.mc_robustness.cout_p95_mg_l)
-                        .fold(30.0_f64, f64::min);
-                    crate::surrogate::active_prescreen_offspring(
-                        &gp,
-                        &pool,
-                        incumbent_best,
-                        pop_size,
-                    )
-                    .into_iter()
-                    .map(|(p, _)| p)
-                    .collect()
-                } else {
-                    pool.into_iter().take(pop_size).collect()
-                }
-            }
-            _ => (0..pop_size)
-                .map(|_| match mode {
-                    SearchBaselineMode::Ct35Fixed => DesignProgram::baseline_ct35(),
-                    SearchBaselineMode::RandomLhsExotic3d => {
-                        DesignProgram::sample_random_exotic(&mut rng)
-                    }
-                    SearchBaselineMode::ConventionalAxisymmetricNsga2 => {
-                        let p1 = tournament_select(&pop, &mut rng);
-                        p1.program.mutate_conventional_axisymmetric(&mut rng)
-                    }
-                    SearchBaselineMode::Exotic3dQdCei => unreachable!(),
-                })
-                .collect(),
-        };
-
         let mut offspring = Vec::with_capacity(pop_size);
-        for (i, child_prog) in selected_progs.into_iter().enumerate() {
-            let (ind, _) = evaluate_individual(
+        for i in 0..pop_size {
+            let outcome = match mode {
+                SearchBaselineMode::Ct35Fixed => VariationOutcome::introduce(
+                    DesignProgram::baseline_ct35(),
+                    "insert_baseline_control",
+                    &mut rng,
+                ),
+                SearchBaselineMode::RandomLhsExotic3d => {
+                    DesignProgram::sample_random_exotic(&mut rng)
+                }
+                SearchBaselineMode::ConventionalAxisymmetricNsga2 => {
+                    let parent = if gen == 0 {
+                        &base_ind
+                    } else {
+                        tournament_select(&pop, &mut rng)
+                    };
+                    parent.program.mutate_conventional_axisymmetric(&mut rng)
+                }
+                SearchBaselineMode::Exotic3dQdCei => {
+                    if gen == 0 {
+                        let idx =
+                            priority_order[i % priority_order.len()].min(archetypes.len() - 1);
+                        if i < priority_order.len() {
+                            VariationOutcome::introduce(
+                                archetypes[idx].clone(),
+                                "insert_catalog_seed",
+                                &mut rng,
+                            )
+                        } else {
+                            archetypes[idx].mutate(&mut rng)
+                        }
+                    } else {
+                        let p1 = tournament_select(&pop, &mut rng);
+                        if rng.f64() < cfg.crossover_rate && !arch_vals.is_empty() {
+                            let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
+                            p1.program.crossover(&p2.program, &mut rng)
+                        } else {
+                            p1.program.mutate(&mut rng)
+                        }
+                    }
+                }
+            };
+            // One generated proposal consumes one slot, including invalid proposals.
+            // No uncounted oversampled surrogate pool is generated.
+            let Some(ind) = evaluate_proposal(
+                outcome,
                 format!("s{seed}-g{gen:03}-i{i:03}"),
-                child_prog,
                 gen,
                 i % cfg.islands.max(1),
                 &seed_cfg,
-            )?;
+                &mut proposal_budget,
+            )?
+            else {
+                continue;
+            };
             total_evals += 1;
             if ind.red_team_passed {
                 valid_f0 += 1;
                 let k = map_elites_key(&ind);
-                match archive.get(&k) {
-                    Some(inc) if !is_better_for_archive(&ind, inc) => {}
-                    _ => {
-                        archive.insert(k, ind.clone());
-                    }
+                if archive
+                    .get(&k)
+                    .is_none_or(|inc| is_better_for_archive(&ind, inc))
+                {
+                    archive.insert(k, ind.clone());
                 }
             }
             offspring.push(ind);
         }
-
-        let mut combined = Vec::with_capacity(2 * pop_size);
-        combined.extend(pop);
-        combined.extend(offspring);
-        assign_nsga2_ranks_and_crowding(&mut combined);
-        combined.sort_by(|a, b| {
+        pop.extend(offspring);
+        if pop.is_empty() {
+            return Err("no valid initial proposals; no fallback population permitted".into());
+        }
+        assign_nsga2_ranks_and_crowding(&mut pop);
+        pop.sort_by(|a, b| {
             a.rank
                 .cmp(&b.rank)
                 .then_with(|| b.crowding_distance.total_cmp(&a.crowding_distance))
         });
-        for dropped in combined.iter().skip(pop_size) {
+        for dropped in pop.iter().skip(pop_size) {
             if rejected_or_suboptimal.len() < 64 {
                 rejected_or_suboptimal.push(dropped.clone());
             }
         }
-        combined.truncate(pop_size);
-        pop = combined;
+        pop.truncate(pop_size);
         let arch_front: Vec<Individual> = archive.values().cloned().collect();
         hv_curve.push(compute_normalized_hypervolume(&arch_front, &base_ind));
     }
@@ -1727,6 +1789,7 @@ pub fn run_single_seed_comparator(
     }
 
     let outcome = SeedRunOutcome {
+        proposal_budget,
         seed,
         mode,
         total_evaluations: total_evals,
@@ -2044,6 +2107,8 @@ pub struct Wave3LineageMilestone {
 /// Complete single-seed trajectory and terminal outcome for a Wave-3 arm.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Wave3SeedOutcome {
+    #[serde(default, flatten)]
+    pub proposal_budget: ProposalBudget,
     pub seed: u64,
     pub arm: Wave3ComparatorArm,
     pub total_evaluations: usize,
@@ -2229,9 +2294,13 @@ pub fn run_single_seed_wave3_arm(
     let dp_ref = base_ind.nominal_metrics.dp_u_pa;
     let base_kpi = compute_wave3_kpi_score(&base_ind, dp_ref);
 
-    let pop_size = (cfg.islands * cfg.pop_per_island).max(8);
+    let pop_size = cfg
+        .islands
+        .checked_mul(cfg.pop_per_island)
+        .filter(|n| *n > 0)
+        .ok_or("positive finite population budget required")?;
     let mut gen0_rng = Rng::new(seed ^ 0x517C_C1B7_2722_0A95);
-    let shared_gen0_progs = DesignProgram::init_wave3_de_novo_gen0(pop_size, &mut gen0_rng);
+    let shared_gen0_progs = DesignProgram::init_wave3_de_novo_gen0(pop_size, &mut gen0_rng)?;
 
     let mut rng = Rng::new(seed);
     let mut archive: BTreeMap<String, Individual> = BTreeMap::new();
@@ -2246,38 +2315,45 @@ pub fn run_single_seed_wave3_arm(
     let mut best_so_far = base_ind.clone();
     let mut best_kpi_so_far = base_kpi;
 
-    // Generation 0: identical starting distribution for B2, A1, A2, B3; random exotic for B1
-    for i in 0..pop_size {
-        let prog = match arm {
-            Wave3ComparatorArm::B0BaselineCt35 => DesignProgram::baseline_ct35(),
-            Wave3ComparatorArm::B1RandomSearchExotic3d => {
-                if i == 0 {
-                    shared_gen0_progs[0].clone()
-                } else {
-                    DesignProgram::sample_random_exotic(&mut rng)
-                }
+    let mut proposal_budget = ProposalBudget {
+        reference_evaluations: 1,
+        ..ProposalBudget::default()
+    };
+    // Shared generated subjects remain identical; invalidity is recorded per arm.
+    for (i, initial_program) in shared_gen0_progs.iter().enumerate() {
+        let outcome = match arm {
+            Wave3ComparatorArm::B0BaselineCt35 => VariationOutcome::introduce(
+                DesignProgram::baseline_ct35(),
+                "insert_baseline_control",
+                &mut rng,
+            ),
+            Wave3ComparatorArm::B1RandomSearchExotic3d if i > 0 => {
+                DesignProgram::sample_random_exotic(&mut rng)
             }
             Wave3ComparatorArm::B2ConventionalAxisymNsga2 => {
-                let mut p = shared_gen0_progs[i].clone();
+                let mut p = initial_program.clone();
                 p.inlet_split.enabled = false;
                 p.chamber_modes.clear();
                 p.skimmer.capture_flutes = 0;
                 p.inlet_ramp.axial_drop_mm = 0.0;
                 p.inlet_ramp.superellipse_exponent = 2.0;
-                p.normalize()
-                    .unwrap_or_else(|_| DesignProgram::baseline_ct35())
+                VariationOutcome::introduce(p, "initialize_conventional_control", &mut rng)
             }
-            Wave3ComparatorArm::A1NoMutationCrossoverOnly
-            | Wave3ComparatorArm::A2NoSelectionRandomWalk
-            | Wave3ComparatorArm::B3Wave3Exotic3dQdCei => shared_gen0_progs[i].clone(),
+            _ => {
+                VariationOutcome::introduce(initial_program.clone(), "initialize_de_novo", &mut rng)
+            }
         };
-        let (ind, _) = evaluate_individual(
+        let Some(ind) = evaluate_proposal(
+            outcome,
             format!("s{seed}-g000-i{i:03}"),
-            prog,
             0,
             i % cfg.islands.max(1),
             &seed_cfg,
-        )?;
+            &mut proposal_budget,
+        )?
+        else {
+            continue;
+        };
         total_evals += 1;
         if ind.red_team_passed {
             valid_f0 += 1;
@@ -2333,14 +2409,18 @@ pub fn run_single_seed_wave3_arm(
     // Generations 1..=cfg.generations
     for gen in 1..=cfg.generations {
         let arch_vals: Vec<Individual> = archive.values().cloned().collect();
-        let mut offspring_specs: Vec<(DesignProgram, String, String)> =
+        let mut offspring_specs: Vec<(VariationOutcome, String, String)> =
             Vec::with_capacity(pop_size);
 
         match arm {
             Wave3ComparatorArm::B0BaselineCt35 => {
                 for _ in 0..pop_size {
                     offspring_specs.push((
-                        DesignProgram::baseline_ct35(),
+                        VariationOutcome::introduce(
+                            DesignProgram::baseline_ct35(),
+                            "insert_baseline_control",
+                            &mut rng,
+                        )?,
                         "baseline-ct35".into(),
                         "identity".into(),
                     ));
@@ -2349,7 +2429,7 @@ pub fn run_single_seed_wave3_arm(
             Wave3ComparatorArm::B1RandomSearchExotic3d => {
                 for _ in 0..pop_size {
                     offspring_specs.push((
-                        DesignProgram::sample_random_exotic(&mut rng),
+                        DesignProgram::sample_random_exotic(&mut rng)?,
                         "random_lhs".into(),
                         "sample_random_exotic".into(),
                     ));
@@ -2359,7 +2439,7 @@ pub fn run_single_seed_wave3_arm(
                 for _ in 0..pop_size {
                     let p1 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
-                        p1.program.mutate_conventional_axisymmetric(&mut rng),
+                        p1.program.mutate_conventional_axisymmetric(&mut rng)?,
                         p1.topology_class.clone(),
                         "mutate_conventional_axisymmetric".into(),
                     ));
@@ -2370,9 +2450,10 @@ pub fn run_single_seed_wave3_arm(
                     let p1 = tournament_select(&pop, &mut rng);
                     let p2 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
-                        p1.program.crossover_homologous_graph(&p2.program, &mut rng),
+                        p1.program
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)?,
                         p1.topology_class.clone(),
-                        "crossover_homologous_graph_only".into(),
+                        "crossover_non_homologous_macro_only".into(),
                     ));
                 }
             }
@@ -2383,14 +2464,16 @@ pub fn run_single_seed_wave3_arm(
                     let (child, op_name) = if rng.f64() < cfg.crossover_rate {
                         let idx2 = (rng.next_u64() as usize) % pop.len();
                         let p2 = &pop[idx2];
-                        let c = p1.program.crossover_homologous_graph(&p2.program, &mut rng);
+                        let c = p1
+                            .program
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)?;
                         (
-                            c.mutate_wave3_progressive(&mut rng),
+                            c.then(|p| p.mutate_wave3_progressive(&mut rng))?,
                             "unselected_crossover_and_progressive_mutate",
                         )
                     } else {
                         (
-                            p1.program.mutate_wave3_progressive(&mut rng),
+                            p1.program.mutate_wave3_progressive(&mut rng)?,
                             "unselected_progressive_mutate",
                         )
                     };
@@ -2398,8 +2481,8 @@ pub fn run_single_seed_wave3_arm(
                 }
             }
             Wave3ComparatorArm::B3Wave3Exotic3dQdCei => {
-                let pool_n = pop_size * 3;
-                let mut pool: Vec<(DesignProgram, String, String)> = Vec::with_capacity(pool_n);
+                let pool_n = pop_size;
+                let mut pool: Vec<(VariationOutcome, String, String)> = Vec::with_capacity(pool_n);
                 for slot in 0..pool_n {
                     let p1 = if slot % 4 == 0 && !arch_vals.is_empty() {
                         &arch_vals[(rng.next_u64() as usize) % arch_vals.len()]
@@ -2409,20 +2492,22 @@ pub fn run_single_seed_wave3_arm(
                     let (cand, op_name) = if rng.f64() < cfg.crossover_rate && !arch_vals.is_empty()
                     {
                         let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
-                        let crossed = p1.program.crossover_homologous_graph(&p2.program, &mut rng);
+                        let crossed = p1
+                            .program
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)?;
                         (
-                            crossed.mutate_wave3_progressive(&mut rng),
+                            crossed.then(|p| p.mutate_wave3_progressive(&mut rng))?,
                             "crossover_homologous_plus_progressive_mutate",
                         )
                     } else {
                         (
-                            p1.program.mutate_wave3_progressive(&mut rng),
+                            p1.program.mutate_wave3_progressive(&mut rng)?,
                             "mutate_wave3_progressive",
                         )
                     };
                     pool.push((cand, p1.topology_class.clone(), op_name.into()));
                 }
-                if let Ok(gp) = crate::surrogate::GaussianProcessSurrogate::fit(
+                if let Ok(gp) = crate::surrogate::GaussianProcessSurrogate::fit_sandbox_prior(
                     &all_evaluated_records,
                     0.85,
                     0.015,
@@ -2431,15 +2516,26 @@ pub fn run_single_seed_wave3_arm(
                     let mut scored: Vec<(usize, f64)> = pool
                         .iter()
                         .enumerate()
-                        .map(|(idx, (prog, _, _))| {
-                            let acq =
-                                gp.expected_constrained_improvement(prog, incumbent_best_cout);
-                            (idx, acq.constrained_expected_improvement)
+                        .filter_map(|(idx, (outcome, _, _))| {
+                            outcome.child.as_ref().and_then(|program| {
+                                gp.expected_constrained_improvement(program, incumbent_best_cout)
+                                    .ok()
+                                    .map(|acquisition| {
+                                        (idx, acquisition.constrained_expected_improvement)
+                                    })
+                            })
                         })
                         .collect();
                     scored.sort_by(|a, b| b.1.total_cmp(&a.1));
-                    for (idx, _) in scored.into_iter().take(pop_size) {
+                    let mut selected = std::collections::BTreeSet::new();
+                    for (idx, _) in scored {
+                        selected.insert(idx);
                         offspring_specs.push(pool[idx].clone());
+                    }
+                    for (idx, outcome) in pool.into_iter().enumerate() {
+                        if !selected.contains(&idx) {
+                            offspring_specs.push(outcome);
+                        }
                     }
                 } else {
                     offspring_specs.extend(pool.into_iter().take(pop_size));
@@ -2448,14 +2544,18 @@ pub fn run_single_seed_wave3_arm(
         }
 
         let mut offspring = Vec::with_capacity(pop_size);
-        for (i, (child_prog, parent_tc, op_name)) in offspring_specs.into_iter().enumerate() {
-            let (ind, _) = evaluate_individual(
+        for (i, (outcome, parent_tc, op_name)) in offspring_specs.into_iter().enumerate() {
+            let Some(ind) = evaluate_proposal(
+                Ok(outcome),
                 format!("s{seed}-g{gen:03}-i{i:03}"),
-                child_prog,
                 gen,
                 i % cfg.islands.max(1),
                 &seed_cfg,
-            )?;
+                &mut proposal_budget,
+            )?
+            else {
+                continue;
+            };
             total_evals += 1;
             if ind.topology_class != parent_tc {
                 cumulative_jumps += 1;
@@ -2573,6 +2673,7 @@ pub fn run_single_seed_wave3_arm(
     compact_best.cuda_sdf_audit = None;
 
     Ok(Wave3SeedOutcome {
+        proposal_budget,
         seed,
         arm,
         total_evaluations: total_evals,
@@ -2935,7 +3036,11 @@ pub fn run_wave3_evolution_proof(
         .unwrap_or_else(|| base_b0.clone());
     let top_wave3_kpi = compute_wave3_kpi_score(&top_wave3_elite, dp_ref);
     let top_duties = evaluate_held_out_duties(&top_wave3_elite.program, &cfg.baseline_hydraulics)?;
-    let pop_size = (cfg.islands * cfg.pop_per_island).max(8);
+    let pop_size = cfg
+        .islands
+        .checked_mul(cfg.pop_per_island)
+        .filter(|n| *n > 0)
+        .ok_or("positive finite population budget required")?;
     let evals_per_seed = b3_outs.first().map(|o| o.total_evaluations).unwrap_or(0);
     let total_evals_all = evals_per_seed * seeds.len() * arms.len();
 

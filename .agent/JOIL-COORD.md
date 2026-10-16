@@ -34,3 +34,12 @@ OpenFOAM: INT only, ≤16 cores. Cargo `-j 8` per lane, pytest `-n 4`. GPU: IR o
 
 ## Hard rules
 Never merge the PR (Jepson merges). No force-push, no --admin, no squash. Push as jepsontaylor over HTTPS. Never touch xbabe0. Don't edit another lane's owned files — send NEED instead.
+
+HB 2026-10-16T05:14:11Z EV EV-01 START - claim evidence kernel; EV-02/03/04 next; CPU <=8 cargo, no GPU
+LOCK 2026-10-16T05:14:11Z EV Cargo.toml register joil-evidence workspace member
+LOCK 2026-10-16T05:14:11Z EV Cargo.lock resolve joil-evidence workspace package
+
+LOCK 2026-10-16T05:21:06Z EV Cargo.lock add TOML requirement parser; release with next commit
+LOCK 2026-10-16T05:21:06Z EV tools/check.py add generated status/objective drift verification stage; no workflow edits needed (run via existing python-tests suite)
+
+LOCK 2026-10-16T05:23:57Z EV tests/test_check.py update expected required stage count for generated-status check; add real stale-status/objective-mismatch negatives in EV-owned crate tests

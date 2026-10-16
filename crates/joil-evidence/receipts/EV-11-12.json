@@ -1,0 +1,190 @@
+{
+  "items": [
+    "EV-11",
+    "EV-12-schema"
+  ],
+  "owner": "EV",
+  "input_head": "dc783860733982c06b3ffa1ec5ab64e52bb7ecb4",
+  "changed_paths": [
+    "analysis/evidence.py",
+    "crates/joil-evidence/schemas/observation-v1.schema.json",
+    "crates/joil-evidence/tests/python_contract.rs",
+    "crates/joil-evidence/tests/subject.rs",
+    "crates/joil-evidence/README.md"
+  ],
+  "checks": [
+    {
+      "command": "python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "dc6671b0cd6b7e382d7d17954bfcfc760c0186e169a9bd2551a76529f0720ec5",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.05189299595076591,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.22998215694678947,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.253861668985337,
+          "log_bytes": 159,
+          "log_sha256": "ff728ff0110ace18c7289cfecffe98a7db86302e8381f0ebfc35499b4bb7d433"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 32.632005086983554,
+          "log_bytes": 6299,
+          "log_sha256": "e1d0514c280244cc747b0359cd4c99755439e5bb28d7ff67022a1e601f395f4a"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.9104765289812349,
+          "log_bytes": 1019,
+          "log_sha256": "0ccb7b12806ba6b3f2762674e78da72d802ed7ad188446918fd4a449e2db6cdf"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 10.484905704972334,
+          "log_bytes": 4184,
+          "log_sha256": "d93ea721beba388922b0f79fcf25b4d94687551de128c48c81482e03f08ef931"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.06863070500548929,
+          "log_bytes": 75,
+          "log_sha256": "2bd3a54cd53d3f8aae7dd0e977015030e1d45be750dfb38ee77616950f90db54"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 8.879079768958036,
+          "log_bytes": 133,
+          "log_sha256": "8ed51d6f048ab970baca801b43e61095139b6f2b78adc4d6a25dbfe189c2c5b7"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 0.9239339510095306,
+          "log_bytes": 28,
+          "log_sha256": "e1ddc6446e3566c8a8d5f0a16019efbae468b20d439b0ba8a6fb5a3003a0e54c"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 2.849154779978562,
+          "log_bytes": 1904,
+          "log_sha256": "202644362645b6971b47f27ef47176f6e515037ea2793324e1d59d201c603c60"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "Rust -> Python -> Rust measured observation roundtrip",
+    "exact observation and objective hashes",
+    "OpenFOAM and FEA manifest identity roundtrip/exact-byte verification"
+  ],
+  "negative_checks": [
+    "11 observation mutants agree across languages",
+    "wrong case artifact bytes",
+    "missing solver case stage",
+    "unknown state cannot carry a value"
+  ],
+  "science_eligibility": "software_contract_only",
+  "allocation": {
+    "cargo_jobs_max": 8,
+    "gpu": false
+  },
+  "limitations": [
+    "EV-12 actual case writers and existing runs remain IR/INT-owned; schema does not backfill unproven identities.",
+    "Scientific review and inventory authority remain application trust boundaries."
+  ],
+  "next_dependency": "EV-08 surrogate missingness/abstention; IR-07 independent descriptors for EV-09"
+}
