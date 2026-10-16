@@ -37,6 +37,48 @@ pub fn research_requirements() -> Result<&'static joil_evidence::campaign::Requi
         .map_err(Clone::clone)
 }
 
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct CampaignAdmissionReceipt {
+    pub schema: String,
+    pub mode: joil_evidence::campaign::CampaignMode,
+    pub requirements: joil_evidence::identity::ContentRef,
+    pub objective_sha256: String,
+    pub executed_objectives: Vec<joil_evidence::campaign::ObjectiveSpec>,
+    pub unresolved_claim_gates: Vec<String>,
+}
+
+/// The legacy prior screen has no trusted physical P0 receipt resolver. Sandbox
+/// runs are explicit; claim-bearing mode must refuse before any computation.
+pub fn admit_search_campaign(
+    mode: joil_evidence::campaign::CampaignMode,
+) -> Result<CampaignAdmissionReceipt, String> {
+    let requirements = research_requirements()?;
+    let objective_sha256 = requirements.objective_hash()?;
+    joil_evidence::campaign::admit_campaign(
+        mode,
+        requirements,
+        &requirements.objectives,
+        &objective_sha256,
+        &[],
+        |_| joil_evidence::Verdict::Incomplete,
+    )?;
+    Ok(CampaignAdmissionReceipt {
+        schema: "joil.campaign.v1".into(),
+        mode,
+        requirements: joil_evidence::identity::ContentRef::from_bytes(
+            &requirements.id,
+            &requirements.revision,
+            include_bytes!("../../../requirements/joil-hydrocyclone-v1.toml"),
+        ),
+        objective_sha256,
+        executed_objectives: requirements.objectives.clone(),
+        unresolved_claim_gates: joil_evidence::campaign::REQUIRED_P0_GATES
+            .iter()
+            .map(|id| (*id).into())
+            .collect(),
+    })
+}
+
 /// Mutually exclusive proposal-budget categories. `evaluations` counts only
 /// unrepaired evaluated proposals; actual evaluations also include repaired ones.
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
