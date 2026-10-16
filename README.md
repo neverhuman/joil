@@ -33,11 +33,13 @@ Goal: more compliant treated water per liner at a fixed pressure budget and reje
 
 The research baseline is CT-35: the Colman–Thew patent example scaled to D2 = 35 mm, with explicit reconstruction assumptions. It is not an exact commercial liner or a validated experimental apparatus. Geometry dimensions are in mm; solver adapters must convert to SI explicitly.
 
-Quick start (verified from a fresh `git clone`; omit `rtk` / `rtk proxy` if `rtk` is not installed):
+Quick start — evolutionary flexibility, 10-seed ablation, and verification (verified from a fresh `git clone`; omit `rtk` / `rtk proxy` if `rtk` is not installed):
 
 ```bash
 rtk cargo test --workspace --locked
+rtk cargo test -p joil-core --test regression genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit -- --nocapture
 rtk cargo run -p joil-cli -- baseline
+rtk cargo run --release -p joil-cli -- export-3d-preview
 rtk cargo run --release -p joil-cli -- wave2-benchmark
 rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing
 rtk proxy python3 -m unittest discover -s tests -v
@@ -45,6 +47,8 @@ rtk proxy python3 tools/check_public.py
 rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'
 rtk proxy python3 tools/check.py
 ```
+
+Evolutionary 3D genome flexibility (`crates/joil-core/src/program.rs`): `DesignProgram::audit_11family_genome_expressiveness(20, 20261116)` draws `N = 220` stratified random 3D genomes (`20` per canonical family across `axisymmetric-stepped`, `twin-tangential-volute`, `spiral-rifled-vortex-head`, `quad-entry-involute-head`, `bifurcated-quad-manifold`, `trifurcated-6jet-vortex-head`, `hybrid-omni-exotic`, `cylindrical-gyroid-coalescer`, `schwarz-p-rectifier-head`, `octa-branch-helical-manifold`, and `counter-fluted-recovery-vortex`) and verifies `220 / 220` (`100.0%`) pass `canonicalize_and_preflight` with watertight 3D manifold meshes (`0` open/non-manifold edges, min LPBF clearance `>= 1.24 mm`, min Jacobian `1.000`) versus `0 / 30` (`0.0%`) on unprojected out-of-bounds negative controls (rendered in [Figure Plate 9](docs/figures/wave2-8-exotic-phenotypes-gallery.png)).
 
 Optional exact CAD, inside a project environment with **Python 3.12** (on macOS, `uv venv --python 3.12 .venv` can create it):
 

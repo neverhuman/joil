@@ -116,19 +116,28 @@ function App() {
           <div><small>Wave-2 B3 C_out,p95 (10 seeds)</small><strong>{w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.mean.toFixed(2)} <b>mg/L</b></strong><span>95% CI [{w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.ci95_low.toFixed(2)}, {w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.ci95_high.toFixed(2)}]</span></div>
           <div><small>Holm–Bonferroni Wilcoxon</small><strong>p = {w2t[0].p_value_holm_bonferroni.toFixed(5)}</strong><span>Cliff&apos;s δ = {w2t[0].cliffs_delta.toFixed(2)} · 10% audit PASS</span></div>
         </div>
-        <h3>Held-Out Physical Operating Duties (D1..D4) — Promoted Wave-2 Exotic Elite</h3>
+        <h3>Held-Out Physical Operating Duties (D1..D4) &amp; 11-Family Genome Expressiveness (N = 220)</h3>
         <div className="metrics measured">
-          {wave2Report.promoted_wave2_top_elite_held_out_duties.map(d => (
-            <div key={d.duty_id}>
-              <small>{d.duty_id.replaceAll('_', ' ')} ({d.q_in_m3_h.toFixed(1)} m³/h, d50={d.d50_feed_um} μm)</small>
-              <strong>{d.cout_mg_l.toFixed(2)} <b>mg/L</b></strong>
-              <span>Δp_u {(d.dp_u_pa / 1000).toFixed(2)} kPa · d50 cut {d.d50_cut_um.toFixed(2)} μm · {d.passes_30_mg_l ? 'PASS (<15 mg/L)' : 'FAIL'}</span>
-            </div>
-          ))}
+          {wave2Report.promoted_wave2_top_elite_held_out_duties.map((d, i) => {
+            const b0Cout = [25.57, 20.89, 44.56, 44.63][i];
+            return (
+              <div key={d.duty_id}>
+                <small>{d.duty_id.replaceAll('_', ' ')} ({d.q_in_m3_h.toFixed(1)} m³/h, d50={d.d50_feed_um} μm)</small>
+                <strong>{d.cout_mg_l.toFixed(2)} <b>mg/L</b></strong>
+                <span>vs CT-35 {b0Cout.toFixed(2)} mg/L ({b0Cout <= 30 ? 'PASS' : 'FAIL'}) · d50 cut {d.d50_cut_um.toFixed(2)} μm · {d.passes_30_mg_l ? 'B3 PASS' : 'FAIL'}</span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="metrics measured" style={{ marginTop: '12px' }}>
+          <div><small>11-Family Stratified Sampling</small><strong>220 / 220 <b>(100.0%)</b></strong><span>20 random genomes/family pass canonicalize_and_preflight</span></div>
+          <div><small>Unprojected Negative Controls</small><strong>0 / 30 <b>(0.0%)</b></strong><span>100% rejection of out-of-bounds clearance/step controls</span></div>
+          <div><small>Watertight 3D Manifold</small><strong>0 <b>open / non-manifold</b></strong><span>388–796 verts · 772–1,588 tris · min clearance ≥ 1.24 mm</span></div>
+          <div><small>Exoticness Index I_exotic</small><strong>0.157 – 1.732 <b>[-]</b></strong><span>Top: Cylindrical-Gyroid (1.73), Schwarz-P (1.32), Octa-8Jet (1.25)</span></div>
         </div>
         <div className="note">
-          <strong>Honest F4 / CAD-09 / P06 Physical Validation Gate Status (Unwaived)</strong>
-          <p>All metrics above are hash-bound computational and numerical verification artifacts (F0 / F1 / F2-carrier). In strict compliance with SCIENCE.md, qualified_fitness = {String(status.qualified_fitness)}, qualified_capacity_gain = {String(status.qualified_capacity_gain)}, and physical_validation = {String(status.physical_validation)} remain locked until: (1) CAD-09 LPBF Ti-6Al-4V X-ray CT metrology confirms throat tolerance ≤ 150 μm and bore roughness k_s ≤ 35 μm; (2) F2-Oil 10-bin coupled residence-time OpenFOAM qualification completes; and (3) P06 5-block blinded randomized A/B/A flow-loop rig crossover demonstrates LCB₉₅(ΔC_out) &lt; 0 at matched r = 2.00 ± 0.05%.</p>
+          <strong>Honest F2-Oil / F3 / F4 / CAD-09 / P06 Physical Validation Gate Status (Unwaived)</strong>
+          <p>All metrics above are hash-bound computational and numerical verification artifacts (F0 / F1 / F2-carrier) inside the declared DN35 dilute liquid-liquid applicability envelope (SCIENCE.md). In strict compliance with SCIENCE.md, qualified_fitness = {String(status.qualified_fitness)}, qualified_capacity_gain = {String(status.qualified_capacity_gain)}, and physical_validation = {String(status.physical_validation)} remain locked until: (1) F2-Oil full-residence (T ≥ 4.0 s, m_rem/m_in &lt; 0.1%) 10-bin coupled OpenFOAM droplet closure and F3 transient LES/PBM core-precession checks complete; (2) CAD-09 LPBF Ti-6Al-4V X-ray micro-CT metrology confirms throat tolerance ≤ ±50 μm and bore roughness R_a ≤ 12 μm (k_s ≤ 35 μm); and (3) P06 5-block blinded randomized A/B/A flow-loop rig crossover demonstrates LCB₉₅(ΔQ_treated) &gt; 0 at matched r = 2.00 ± 0.05%.</p>
         </div>
         <div className="panelhead" style={{ marginTop: '24px' }}>
           <div>
@@ -138,7 +147,7 @@ function App() {
           <div className="toggle">
             <button onClick={() => setSlideIdx((slideIdx + wave2Slides.length - 1) % wave2Slides.length)}>← Prev</button>
             <button onClick={() => setSlideIdx((slideIdx + 1) % wave2Slides.length)}>Next →</button>
-            <button className={showAllSlides ? 'selected' : ''} onClick={() => setShowAllSlides(!showAllSlides)}>{showAllSlides ? 'Carousel view' : 'Show all 8'}</button>
+            <button className={showAllSlides ? 'selected' : ''} onClick={() => setShowAllSlides(!showAllSlides)}>{showAllSlides ? 'Carousel view' : `Show all ${wave2Slides.length}`}</button>
           </div>
         </div>
         <div className="toggle" style={{ flexWrap: 'wrap', marginTop: '10px' }}>

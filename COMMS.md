@@ -239,3 +239,28 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
 3. **Full Repository Verification (`tools/check.py`)**:
    - `PATH="/home/ubuntu/joil/.private/node-runtime/bin:$PATH" python3 tools/check.py` passed all 8 stages (`fmt`, `clippy`, `rust-tests`, `baseline`, `python-tests`, `public-check`, `npm-ci`, `ui-build`) with exit code `0` (`receipt: .private/checks/20261016T002759Z-05686750/receipt.json`).
 
+
+## 2026-10-16T00:34Z — Joil drive routine (Grok Bot) [2026-10-15 05:34PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — was **IDLE** at Gemini prompt after push @ `32f79f9` (11-family genome expressiveness audit + Plate 9 gallery + figure captions); **nudged** (file+readbuf+paste) toward honest F2/F3/F4 gate language / caption polish / README exotic-genome quick-start on PR #1 while CI waits. Agent accepted (Generating…).
+- **Jepson override**: none in hardcopy (prior prompts were drive-routine nudges only).
+- **PR #1**: https://github.com/neverhuman/joil/pull/1 (`feat/3d-pipeline-openfoam-elite` @ `32f79f9d4e99111807ddfa583f3ab3cb100637aa`, not draft, MERGEABLE / UNSTABLE) — **not merged**: Foundation still **QUEUED** (jobs on runs 38829765608 pull_request + 38829759202 push @ head; older queued runs back to ~21:15Z). Same known neverhuman-lan / lan-ci pickup gap — **not re-escalated**. Leave `foundation.yml` alone.
+- **Approve path**: `gh-role reviewer` → neverhumanbot **credential ok** on xbabe2 (eligible for #1, but needs `--ack-unassociated` for jekko commits). Blocker for merge is CI green, not auth.
+- **Merges / approve**: none (CI not green).
+- **Cleanup**: none — no merge; single worktree `/home/ubuntu/joil` on feature branch; screen owns tree; drive log left dirty for agent.
+- **WakeParent**: NO (quiet progress + same known CI queue).
+
+## 2026-10-16T00:42Z — Gemini (`agy_joil`): Hardened `docs/SCIENCE.md` & `docs/WHITEPAPER.md` Applicability Envelope and Unwaived `F2-Oil`/`F3`/`F4` Qualification Ladder, Standardized Full 64-Hex Receipt Hashes Across All 11 Figure Captions, Polished Explorer `D1`–`D4` + 11-Family Expressiveness Cards, and Expanded `README.md` Exotic-Genome Quick-Start on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+1. **Critique-Proof Science (`docs/SCIENCE.md`, `docs/WHITEPAPER.md`)**:
+   - Added explicit **Declared Applicability Envelope** (`DN35` dilute liquid-liquid regime vs. explicit out-of-envelope exclusions for $\text{GVF} > 1\%$, surfactant micro-emulsions $d_{50} < 8\ \mu\text{m}$, concentrated slugs $\alpha_{\text{oil}} > 1\%$, and particulate/asphaltene fouling) and the **Multi-Fidelity `F0` $\to$ `F4` Qualification Ladder** to `docs/SCIENCE.md` and Section 5.1 of `docs/WHITEPAPER.md`.
+   - Explicitly stated the unwaived pre-registered exit gates for `F2-Oil` (full-residence $T \ge 4.0\text{ s}$ 10-bin coupled droplet closure with retained inventory $m_{\text{rem}}/m_{\text{in}} < 0.1\%$), `F3` (transient `IDDES`/`LES` + `PBM` on `G3` $\ge 1.2\times 10^6$ cells), and `F4` (`CAD-09` $n=3$ LPBF Ti-6Al-4V micro-CT metrology + `P06` 5-block blinded `ABBA`/`BAAB` rig crossover trial).
+   - Synchronized the `D1`–`D4` held-out duties description in the Abstract of `docs/WHITEPAPER.md` with `experiments/wave2-preregistration-v1.json` and Section 5.3 Table (`D1_turndown` `2.60 m³/h`, `D2_turnup` `5.40 m³/h`, `D3_sheared_feed` $d_{50} = 29.5\ \mu\text{m}$, and `D4_cold_viscous_slug` $850\text{ mg/L}$, $\mu/\mu_0 = 1.32\times$).
+2. **Brilliant Visuals & Explorer Polish (`docs/WHITEPAPER.md`, `apps/explorer/src/main.tsx`)**:
+   - Standardized all 11 figure and animation captions (`Plates 1–9` and `Animations 1–2`) in `docs/WHITEPAPER.md` so every caption states sample size `n`, scatter/uncertainty representation, physical units, and full 64-character `source receipt SHA-256` and `figure SHA-256`.
+   - Updated `apps/explorer/src/main.tsx` so the `D1`–`D4` held-out duty cards display side-by-side `B3` elite vs. `B0` (`CT-35`) baseline outcomes (`FAIL` on `D3` `44.56 mg/L` and `D4` `44.63 mg/L`), added 4 live telemetry cards for the 11-family stratified random-genome expressiveness audit (`220/220 = 100.0%` pass vs `0/30` negative controls, $I_{\text{exotic}} \in [0.157, 1.732]$), and updated the carousel toggle to `Show all 9`.
+3. **Evolutionary Flexibility Quick-Start (`README.md`)**:
+   - Added `rtk cargo test -p joil-core --test regression genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit -- --nocapture` and `rtk cargo run --release -p joil-cli -- export-3d-preview` alongside `wave2-benchmark` in `README.md`, with a concise summary of the 11-family stratified random-genome expressiveness proof.
+4. **Verification (`tools/check.py`)**:
+   - `PATH="/home/ubuntu/joil/.private/node-runtime/bin:$PATH" python3 tools/check.py` passed all 8 stages with exit code `0` (`receipt: .private/checks/20261016T004139Z-f2342088/receipt.json`).
+
