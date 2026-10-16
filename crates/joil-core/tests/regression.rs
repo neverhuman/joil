@@ -863,7 +863,7 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
             .unwrap();
         let mate = &archetypes[(i * 3 + 5) % archetypes.len()];
         let c1 = base_prog
-            .crossover_homologous_graph(mate, &mut rng)
+            .crossover_non_homologous_macro(mate, &mut rng)
             .unwrap()
             .into_child()
             .unwrap();
@@ -876,7 +876,7 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
             .unwrap()
             .into_child()
             .unwrap()
-            .crossover_homologous_graph(&m2, &mut rng)
+            .crossover_non_homologous_macro(&m2, &mut rng)
             .unwrap()
             .into_child()
             .unwrap()
@@ -982,10 +982,10 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
 }
 
 #[test]
-fn genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit() {
+fn closed_catalog_validity_11family_sampling() {
     use joil_core::program::{DesignProgram, TpmsBasis};
 
-    let audit = DesignProgram::audit_11family_genome_expressiveness(20, 20261115).unwrap();
+    let audit = DesignProgram::closed_catalog_validity(20, 20261115).unwrap();
     assert_eq!(audit.total_sampled, 220);
     assert_eq!(audit.total_preflight_passed, 220);
     assert_eq!(audit.overall_preflight_pass_fraction, 1.0);
@@ -1028,11 +1028,11 @@ fn genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit() {
 }
 
 #[test]
-fn operator_random_walk_20step_11family_watertight_stress_test() {
+fn operator_chain_validity_20step_11family() {
     use joil_core::program::DesignProgram;
 
-    assert!(DesignProgram::audit_11family_operator_random_walk(19, 20261116).is_err());
-    let walk = DesignProgram::audit_11family_operator_random_walk(20, 20261116).unwrap();
+    assert!(DesignProgram::operator_chain_validity(19, 20261116).is_err());
+    let walk = DesignProgram::operator_chain_validity(20, 20261116).unwrap();
     println!(
         "OPERATOR_RANDOM_WALK_SUMMARY: total_steps={} total_passed={} pass_fraction={} transitions={} global_families={} min_clearance_mm={:.4}",
         walk.total_steps,

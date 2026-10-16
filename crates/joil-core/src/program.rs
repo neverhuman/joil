@@ -209,6 +209,7 @@ impl TpmsInsert3D {
 pub struct DesignProgram {
     pub schema_version: u32,
     pub family: String,
+    #[serde(default, skip_serializing)]
     pub topology_class: String,
     pub baseline_file_sha256: String,
     pub inlet_ramp: InletRamp3D,
@@ -1331,7 +1332,7 @@ impl DesignProgram {
         })
     }
 
-    pub fn crossover_homologous_graph(
+    pub fn crossover_non_homologous_macro(
         &self,
         other: &Self,
         rng: &mut Rng,
@@ -1340,7 +1341,7 @@ impl DesignProgram {
             &[self, other],
             "non_homologous_macro_crossover",
             rng,
-            |rng, projection| self.raw_crossover_homologous_graph(other, rng, projection),
+            |rng, projection| self.raw_crossover_non_homologous_macro(other, rng, projection),
         )
     }
 
@@ -1624,8 +1625,9 @@ impl DesignProgram {
         c
     }
 
-    /// Wave-2 Operator 4: Homologous feature-aligned graph crossover (`SBX` + subtree exchange).
-    fn raw_crossover_homologous_graph(
+    /// Legacy non-homologous macro crossover: scalar blending and whole-feature exchange.
+    /// No innovation IDs or graph alignment exist in this representation.
+    fn raw_crossover_non_homologous_macro(
         &self,
         other: &Self,
         rng: &mut Rng,
@@ -1761,7 +1763,7 @@ impl DesignProgram {
         c
     }
 
-    /// Sample a pure uniform/LHS random 3D candidate across all 11 families (`Comparator B1`).
+    /// Sample an independent uniform random 3D candidate across all 11 families (`Comparator B1`).
     fn raw_sample_random_exotic(rng: &mut Rng, projection: bool) -> Self {
         let mut c = Self::baseline_ct35();
         c.inlet_ramp = InletRamp3D {
@@ -1824,7 +1826,7 @@ impl DesignProgram {
 
     /// Compositional layer-wise crossover followed by mutation.
     fn raw_crossover(&self, other: &Self, rng: &mut Rng, projection: bool) -> Self {
-        let child = self.raw_crossover_homologous_graph(other, rng, projection);
+        let child = self.raw_crossover_non_homologous_macro(other, rng, projection);
         child.raw_mutate(rng, projection)
     }
 
@@ -2086,11 +2088,11 @@ impl DesignProgram {
         ))
     }
 
-    /// Run a stratified 11-family random-genome sampling and `canonicalize_and_preflight` expressiveness audit.
-    pub fn audit_11family_genome_expressiveness(
+    /// Run a stratified 11-family sampling within the authored family catalog; this tests compiler validity, not open-ended expressiveness.
+    pub fn closed_catalog_validity(
         n_per_family: usize,
         seed: u64,
-    ) -> Result<GenomeExpressivenessAudit, String> {
+    ) -> Result<ClosedCatalogValidityAudit, String> {
         let mut rng = Rng::new(seed);
         let mut family_stats = Vec::with_capacity(11);
         let mut candidates_pool: Vec<ExoticPhenotypeShowcase> = Vec::new();
@@ -2174,7 +2176,7 @@ impl DesignProgram {
         }
         top_8.sort_by(|a, b| b.exoticness_index.total_cmp(&a.exoticness_index));
 
-        Ok(GenomeExpressivenessAudit {
+        Ok(ClosedCatalogValidityAudit {
             seed,
             n_per_family,
             total_sampled,
@@ -2190,10 +2192,10 @@ impl DesignProgram {
     /// Run a chained multi-step mutation + crossover random-walk stress audit starting from each of
     /// the 11 canonical families (`steps_per_family >= 20`, verifying `canonicalize_and_preflight`
     /// and `open_boundary_edges == 0` / `non_manifold_edges == 0` on every intermediate offspring).
-    pub fn audit_11family_operator_random_walk(
+    pub fn operator_chain_validity(
         steps_per_family: usize,
         seed: u64,
-    ) -> Result<OperatorRandomWalkAudit, String> {
+    ) -> Result<OperatorChainValidityAudit, String> {
         if steps_per_family < 20 {
             return Err("steps_per_family must be >= 20 for operator random-walk audit".into());
         }
@@ -2234,7 +2236,7 @@ impl DesignProgram {
                     0 => current.mutate_diffeomorphic_spline(&mut rng),
                     1 => current.mutate_branch_topology(&mut rng),
                     2 => current.mutate_tpms_grading(&mut rng),
-                    3 => current.crossover_homologous_graph(partner, &mut rng),
+                    3 => current.crossover_non_homologous_macro(partner, &mut rng),
                     _ => current.crossover(partner, &mut rng),
                 }?
                 .into_child()?;
@@ -2280,7 +2282,7 @@ impl DesignProgram {
             });
         }
 
-        Ok(OperatorRandomWalkAudit {
+        Ok(OperatorChainValidityAudit {
             seed,
             steps_per_family,
             total_steps,
@@ -2603,7 +2605,7 @@ pub struct FamilyRandomWalkStats {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(deny_unknown_fields)]
-pub struct OperatorRandomWalkAudit {
+pub struct OperatorChainValidityAudit {
     pub seed: u64,
     pub steps_per_family: usize,
     pub total_steps: usize,
@@ -2645,7 +2647,7 @@ pub struct ExoticPhenotypeShowcase {
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(deny_unknown_fields)]
-pub struct GenomeExpressivenessAudit {
+pub struct ClosedCatalogValidityAudit {
     pub seed: u64,
     pub n_per_family: usize,
     pub total_sampled: usize,

@@ -2416,9 +2416,9 @@ pub fn run_single_seed_wave3_arm(
                     let p2 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
                         p1.program
-                            .crossover_homologous_graph(&p2.program, &mut rng)?,
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)?,
                         p1.topology_class.clone(),
-                        "crossover_homologous_graph_only".into(),
+                        "crossover_non_homologous_macro_only".into(),
                     ));
                 }
             }
@@ -2431,7 +2431,7 @@ pub fn run_single_seed_wave3_arm(
                         let p2 = &pop[idx2];
                         let c = p1
                             .program
-                            .crossover_homologous_graph(&p2.program, &mut rng)?;
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)?;
                         (
                             c.then(|p| p.mutate_wave3_progressive(&mut rng))?,
                             "unselected_crossover_and_progressive_mutate",
@@ -2459,7 +2459,7 @@ pub fn run_single_seed_wave3_arm(
                         let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
                         let crossed = p1
                             .program
-                            .crossover_homologous_graph(&p2.program, &mut rng)?;
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)?;
                         (
                             crossed.then(|p| p.mutate_wave3_progressive(&mut rng))?,
                             "crossover_homologous_plus_progressive_mutate",
