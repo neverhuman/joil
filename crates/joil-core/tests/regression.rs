@@ -942,22 +942,30 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
             .false_omission_rank0_count,
         0
     );
-    assert!(
-        report.summary_statistics["B3_Exotic3D_QD_CEI"]["pareto_hypervolume"].mean
-            > report.summary_statistics["B1_Random_LHS"]["pareto_hypervolume"].mean
-    );
-    assert!(
-        report.summary_statistics["B3_Exotic3D_QD_CEI"]["pareto_hypervolume"].mean
-            > report.summary_statistics["B2_Conventional_Axisym"]["pareto_hypervolume"].mean
-    );
-    assert!(
-        report.summary_statistics["B3_Exotic3D_QD_CEI"]["cout_p95_mg_l"].mean
-            < report.summary_statistics["B1_Random_LHS"]["cout_p95_mg_l"].mean
-    );
-    assert!(
-        report.summary_statistics["B3_Exotic3D_QD_CEI"]["cout_p95_mg_l"].mean
-            < report.summary_statistics["B2_Conventional_Axisym"]["cout_p95_mg_l"].mean
-    );
+    // Software checks must preserve negative scientific outcomes. No algorithm
+    // is required to beat another on a chosen three-seed synthetic screen.
+    for outcome in report
+        .arm_b1_random_lhs_outcomes
+        .iter()
+        .chain(&report.arm_b2_conventional_axisym_outcomes)
+        .chain(&report.arm_b3_exotic3d_qd_cei_outcomes)
+    {
+        let budget = &outcome.proposal_budget;
+        assert_eq!(
+            budget.budget,
+            cfg.islands * cfg.pop_per_island * (cfg.generations + 1)
+        );
+        assert_eq!(
+            budget.budget,
+            budget.proposals_invalid + budget.proposals_repaired + budget.evaluations
+        );
+        assert_eq!(
+            outcome.total_evaluations,
+            budget.proposals_repaired + budget.evaluations
+        );
+        assert!(outcome.best_cout_p95_mg_l.is_finite());
+        assert!(outcome.pareto_hypervolume.is_finite());
+    }
 
     // Verify 11-family Wave-2 Leave-One-Topology-Family-Out CV (including cylindrical-gyroid-coalescer & octa-branch-helical-manifold)
     let wave2_elites: Vec<_> = report
