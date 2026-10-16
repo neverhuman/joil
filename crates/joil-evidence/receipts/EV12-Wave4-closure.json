@@ -1,0 +1,321 @@
+{
+  "item": "EV-12",
+  "recorded_utc": "2026-10-16T11:22:04Z",
+  "state": "DONE_WAVE4_IDENTITY_OR_EXPLICIT_DISPOSITION",
+  "scope_authority": "OWNER2026-10-16T11:07Z: every Wave-4 case either has full scientific identity in its manifest or is explicitly dispositioned. All12 rows have explicit non-claim dispositions;3 additionally verify the scoped five-hash artifact chain under INT09:46 contract. Broader full ScientificIdentity is not asserted. Historical/futureFEA remain section6.",
+  "source_head": "cb56602168e0a4dd124c4d67f1e184d808d17686",
+  "source_hashes": {
+    "crates/joil-evidence/receipts/ev12_disposition_audit.py": "b6292ab2586a4d0efb84a5192d4f363269458259c3acc48b01890ab72f55ad57",
+    "tests/test_evidence.py": "7748c68334469f9092ce560b121f59cbcf59309bb70cc41cbf9bf3d48be1c646"
+  },
+  "inventory": {
+    "preserved_original_cases": 11,
+    "separate_G1_diagnostic": 1,
+    "total_cases_accounted": 12,
+    "verified_scoped_artifact_chains": 3,
+    "explicit_exclusions": 9,
+    "exclusion_counts": {
+      "executed_mesh_missing": 8,
+      "G1_fatal_diagnostic": 1
+    },
+    "residual_unaccounted_cases": [],
+    "source_set_stable": true,
+    "invented_or_backfilled_mesh_hashes": 0,
+    "all_manifests_verified": false,
+    "physical_claims_qualified": false
+  },
+  "cases": [
+    {
+      "case": "wave4-b3-s20261103-g0-coarse",
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261105-g0-coarse",
+      "disposition": "SCOPED_IDENTITY_VERIFIED",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Exact retained artifact chain verified; broader claim-bearing ScientificIdentity and physics admission remain separate."
+    },
+    {
+      "case": "wave4-b3-s20261106-g0-coarse",
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261106-g1-medium",
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261106-g2-fine",
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261107-g0-coarse",
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261108-g0-coarse",
+      "disposition": "SCOPED_IDENTITY_VERIFIED",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Exact retained artifact chain verified; broader claim-bearing ScientificIdentity and physics admission remain separate."
+    },
+    {
+      "case": "wave4-b3-s20261108-g1-medium",
+      "disposition": "EXCLUDED_FAILED_G1_DIAGNOSTIC",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Missing inlet patch after meshing; solver fatally aborted. Retained as diagnostic only; no performance/identity qualification."
+    },
+    {
+      "case": "wave4-b3-s20261110-g0-coarse",
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-ct35-control-g0-coarse",
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-ct35-control-g1-medium",
+      "disposition": "SCOPED_IDENTITY_VERIFIED",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Exact retained artifact chain verified; broader claim-bearing ScientificIdentity and physics admission remain separate."
+    },
+    {
+      "case": "wave4-ct35-control-g2-fine",
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "accounted": true,
+      "claim_eligible": false,
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    }
+  ],
+  "receipts": {
+    "all_case_inventory": {
+      "path": "crates/joil-evidence/receipts/EV12-Wave4-disposition-audit.json",
+      "sha256": "df3e0f8e351ed40de2bc4a160760281f45600a9a145d3e1cc7940c62726d10c8"
+    },
+    "G1_disposition": {
+      "path": "crates/joil-evidence/receipts/EV12-G1-disposition.json",
+      "sha256": "70eb0d0c6087ad4c806305d712e6174a9513448320efcbc8925fe86d3b7c44f7"
+    },
+    "writer_independent_reverify": {
+      "path": "crates/joil-evidence/receipts/EV12-writer-reverify-ae339b1.json",
+      "sha256": "a393ba57628005974cd576b1db8a47fc73187a4c2ba470b460c5179d22fe4f60"
+    }
+  },
+  "audit_command": ".private/ci-python/bin/python crates/joil-evidence/receipts/ev12_disposition_audit.py --runs-root /home/ubuntu/joil/runs --inputs-root /home/ubuntu/joil/.private/wave4-inputs-all --diagnostic-root /home/ubuntu/joil/.private/s20261108-g1-pinchoff-diagnostic",
+  "audit_exit_code": 0,
+  "audit_semantics": "Identity OR explicit, evidence-bound exclusion. The independent strict manifest auditor still rejects missing meshes/stale sidecars; none of its checks were weakened. All cases, including3 with exact artifact chains, remain non-claim-bearing without broader ScientificIdentity and physics admission.",
+  "targeted_tests": {
+    "command": "JOIL_WAVE4_RUNS_ROOT=/home/ubuntu/joil/runs JOIL_WAVE4_INPUTS_ROOT=/home/ubuntu/joil/.private/wave4-inputs-all JOIL_WAVE4_DIAGNOSTIC_ROOT=/home/ubuntu/joil/.private/s20261108-g1-pinchoff-diagnostic .private/ci-python/bin/python -m unittest discover -s tests -p test_evidence.py -k disposition -v",
+    "exit_code": 0,
+    "tests": 4,
+    "skipped": 0,
+    "log_sha256": "8feb033767215f1c6ed7544c251d56efc1fb20bf4a8d5d38da569b93d6e299d1",
+    "positive": [
+      "All real12 cases accounted and input/quarantine inventory equality verified",
+      "Exact three active chains match their preserved snapshots",
+      "Read-only synthetic inventory unchanged after audit",
+      "Stale G1 sidecar preserved and explicitly excluded, missing mesh/case hashes remain null"
+    ],
+    "negative": [
+      "Pinned inventory missing/empty rejects",
+      "Unregistered extra case rejects even with a complete manifest",
+      "Changed quarantine bytes reject",
+      "Broken active manifest rejects instead of auto-exclusion",
+      "Successful solver receipt, absent fatal log, changed wrapper log, nonempty inlet or forged subject cannot justify G1 exclusion"
+    ]
+  },
+  "full_gate": {
+    "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only} TMPDIR=\"$PWD/.private/ev12-test-tmp\" JOIL_WAVE4_RUNS_ROOT=/home/ubuntu/joil/runs JOIL_WAVE4_INPUTS_ROOT=/home/ubuntu/joil/.private/wave4-inputs-all JOIL_WAVE4_DIAGNOSTIC_ROOT=/home/ubuntu/joil/.private/s20261108-g1-pinchoff-diagnostic; rtk proxy python3 tools/check.py",
+    "exit_code": 0,
+    "all_requested_pass": true,
+    "input_head": "cb56602168e0a4dd124c4d67f1e184d808d17686",
+    "receipt_sha256": "adf04cd75b7a5d9ffd00fd0a37c8326f848afbd20aa91b374bca007d4ba8a904",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.22700570698361844,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.5666663160081953,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 7.154383846966084,
+        "log_bytes": 228,
+        "log_sha256": "1386c542798deebb1fc2b6d7a3219a2f16d3879c346eef2e181be1000d49b1bb"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 120.92009605001658,
+        "log_bytes": 12958,
+        "log_sha256": "9dfdd8623f70e7cc4632cae96ee2ff17703411f2b647009b0573738489fbaead"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.6584220189834014,
+        "log_bytes": 1096,
+        "log_sha256": "847625bd32f71762cca0baecae53e7af2b95fbbb5efaaec253c6727537f2db84"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 68.94521082896972,
+        "log_bytes": 12700,
+        "log_sha256": "da88e5c1525f00ad9abe3a3925ff6f1900910b030df5fc7d3fe27a0f70b3ad4d"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.12341346498578787,
+        "log_bytes": 75,
+        "log_sha256": "a012cad943563229f93f47abd4124bcd413b70d974ae5a6bfce4e3d9ffb3074e"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 20.388968351006042,
+        "log_bytes": 224,
+        "log_sha256": "c16413580d9729676a5772ed6c28a1c7caf26a9570b8fa32d0a029c297146d98"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 1.4034385230042972,
+        "log_bytes": 25,
+        "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 1.6248831380507909,
+        "log_bytes": 1904,
+        "log_sha256": "3367327e5d8ddf8db06a130f5fa4ad0cae4fd6cf213e59fe7a3e143320cab7cc"
+      }
+    ],
+    "all_three_real_artifact_roots_enabled": true,
+    "six_identity_disposition_and_real_capture_tests_ran_without_skip": true,
+    "source_hashes": {
+      "crates/joil-evidence/receipts/ev12_disposition_audit.py": "b6292ab2586a4d0efb84a5192d4f363269458259c3acc48b01890ab72f55ad57",
+      "tests/test_evidence.py": "7748c68334469f9092ce560b121f59cbcf59309bb70cc41cbf9bf3d48be1c646"
+    }
+  },
+  "section6_remaining": [
+    "Historical original executed-mesh identity recovery where artifacts were deleted: retain incomplete status; a new mesh/rerun is a new run.",
+    "Full ScientificIdentity and claim admission require scenario/model/solver/requirement/observation closure beyond this scoped artifact chain.",
+    "Future FEA writer/case/material/load-transfer identity capture and verification remain deferred as previously delivered."
+  ],
+  "next_owners": "INT/DOC consume exclusions when reporting retained historical numbers; keep them diagnostic/incomplete and never promote to claim-bearing evidence. Integrator updates workplan checkbox from DONE line; EV does not edit workplan.",
+  "section6_handoff_reference": {
+    "path": "crates/joil-evidence/reports/section6-ev09-ev12-deferrals.json",
+    "sha256": "ee56d6d260e66e186ad1f1a5489c871fbcdd879a5c4368bdef5f50105482263f"
+  },
+  "verification_note": "Final closure receipt and own-lane coordination metadata updated after full gate. Executable/test source and both detailed data receipts remain byte-identical to the tested input; final public/diff checks repeated before push."
+}

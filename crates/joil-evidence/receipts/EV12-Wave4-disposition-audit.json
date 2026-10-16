@@ -1,0 +1,4577 @@
+{
+  "schema": "joil.ev12-identity-or-disposition.v1",
+  "kind": "scoped_case_accountability_not_physical_qualification",
+  "started_utc": "2026-10-16T11:14:19.544082+00:00",
+  "finished_utc": "2026-10-16T11:14:21.912579+00:00",
+  "state": "PASS_SCOPED_IDENTITY_OR_DISPOSITION",
+  "passed": true,
+  "expected_preserved_inputs": [
+    "wave4-b3-s20261103-g0-coarse",
+    "wave4-b3-s20261105-g0-coarse",
+    "wave4-b3-s20261106-g0-coarse",
+    "wave4-b3-s20261106-g1-medium",
+    "wave4-b3-s20261106-g2-fine",
+    "wave4-b3-s20261107-g0-coarse",
+    "wave4-b3-s20261108-g0-coarse",
+    "wave4-b3-s20261110-g0-coarse",
+    "wave4-ct35-control-g0-coarse",
+    "wave4-ct35-control-g1-medium",
+    "wave4-ct35-control-g2-fine"
+  ],
+  "case_count": 12,
+  "counts": {
+    "EXCLUDED_MISSING_EXECUTED_MESH": 8,
+    "SCOPED_IDENTITY_VERIFIED": 3,
+    "EXCLUDED_FAILED_G1_DIAGNOSTIC": 1
+  },
+  "cases": [
+    {
+      "case": "wave4-b3-s20261103-g0-coarse",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "run_locations": [
+        "quarantined"
+      ],
+      "preserved_inventory": {
+        "file_count": 20,
+        "total_bytes": 2380366,
+        "inventory_sha256": "a38521df5ed5a5ac744773465e8e6bab94589a18e387af360de5d5beae41b9c0",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "77e2f590b4c7edc0441889c48d6821069cd789560eb9ae94fdfe873ead8d871b",
+            "bytes": 1955445
+          },
+          "design-ir.json": {
+            "sha256": "c164ec7eedf32931243debde68eb9df11506c6c101b045fffdd81134b438e498",
+            "bytes": 17252
+          },
+          "design-program.json": {
+            "sha256": "5f6e6a66a5682e6e0b693e12e05e4f30886776697059256bd1bb4dff420d6cc6",
+            "bytes": 1203
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "2b0d26db4d2275d86c2df75c0de6ac21abe9b3b19529ee3c28bc77b6c5f9f06d",
+            "bytes": 113259
+          },
+          "input-manifest.json": {
+            "sha256": "b6677bd8c051d9973ed3e52ff4f61f1809befc7a855173231b858300d2ee61f1",
+            "bytes": 284269
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 20,
+        "total_bytes": 2380366,
+        "inventory_sha256": "a38521df5ed5a5ac744773465e8e6bab94589a18e387af360de5d5beae41b9c0",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "77e2f590b4c7edc0441889c48d6821069cd789560eb9ae94fdfe873ead8d871b",
+            "bytes": 1955445
+          },
+          "design-ir.json": {
+            "sha256": "c164ec7eedf32931243debde68eb9df11506c6c101b045fffdd81134b438e498",
+            "bytes": 17252
+          },
+          "design-program.json": {
+            "sha256": "5f6e6a66a5682e6e0b693e12e05e4f30886776697059256bd1bb4dff420d6cc6",
+            "bytes": 1203
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "2b0d26db4d2275d86c2df75c0de6ac21abe9b3b19529ee3c28bc77b6c5f9f06d",
+            "bytes": 113259
+          },
+          "input-manifest.json": {
+            "sha256": "b6677bd8c051d9973ed3e52ff4f61f1809befc7a855173231b858300d2ee61f1",
+            "bytes": 284269
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          }
+        }
+      },
+      "retained_source_hashes": {
+        "genome_hash": "5f6e6a66a5682e6e0b693e12e05e4f30886776697059256bd1bb4dff420d6cc6",
+        "ir_hash": "c164ec7eedf32931243debde68eb9df11506c6c101b045fffdd81134b438e498",
+        "geometry_hash": "77e2f590b4c7edc0441889c48d6821069cd789560eb9ae94fdfe873ead8d871b"
+      },
+      "mesh_hash": null,
+      "case_hash": null,
+      "recorded_solver_exit_code": null,
+      "execution_evidence": "no retained solver receipt",
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261105-g0-coarse",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "SCOPED_IDENTITY_VERIFIED",
+      "run_locations": [
+        "active"
+      ],
+      "preserved_inventory": {
+        "file_count": 112,
+        "total_bytes": 58838078,
+        "inventory_sha256": "85d401855db6f4710a2323b8d770da32495cfdefd6eb179e9da95a21eabc5dd9",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/polyMesh/boundary": {
+            "sha256": "8d03aacee6171110fc769e4f9261f2463bd2e5f00c36dcbb49207cd18d6da2b4",
+            "bytes": 1086
+          },
+          "constant/polyMesh/cellLevel": {
+            "sha256": "1459d8565daf7ed9285075301f1c06bee90aec4e79e2c754f507cb9022927426",
+            "bytes": 282670
+          },
+          "constant/polyMesh/cellProc": {
+            "sha256": "99a8164b3151cd6e170864ecb03d46b327e524c988a763b859142976b8376cf2",
+            "bytes": 282669
+          },
+          "constant/polyMesh/faces": {
+            "sha256": "cce8e5dab4167c0b74a597e740779520d1b1b98d579829101759c34a5dc3e614",
+            "bytes": 12343758
+          },
+          "constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "constant/polyMesh/neighbour": {
+            "sha256": "28a8c343aef8fddf78d233c99992bbf7c810fdb10f27558f0e3db533d6b832a2",
+            "bytes": 2518374
+          },
+          "constant/polyMesh/owner": {
+            "sha256": "058d2a5a40982df63aa8935ed7fd8e1df175123ea7aae34d31562c7b5c55bef7",
+            "bytes": 2713286
+          },
+          "constant/polyMesh/pointLevel": {
+            "sha256": "610f346b91b6a2b1846e6d676fd524fe284ce45aeccc1e1fef316573505f7e70",
+            "bytes": 316089
+          },
+          "constant/polyMesh/points": {
+            "sha256": "911a1ee6b86012f3047a6b31d90d429d5f5381868d52adc7b06891f316c8d2e2",
+            "bytes": 8120609
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "4759b36c618d7eee0dc01fbba9b04c546b6fc2269efd9a08431c646dec7b59ba",
+            "bytes": 1955439
+          },
+          "design-ir.json": {
+            "sha256": "a4918b1d6a81b1ea1cf4d97285b946ec1f72220122ef7e1a192d4f15def07c02",
+            "bytes": 17250
+          },
+          "design-program.json": {
+            "sha256": "6c222865d7840c2dbf61fc26732bad5363b5d230cc3ab5e916fb6b1d9c17c2cf",
+            "bytes": 1204
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "e598b39502ec14c4eb6bd6f40c8c21f784686dd8e0ba55ab997a77fcf844c94a",
+            "bytes": 113260
+          },
+          "input-manifest.json": {
+            "sha256": "dd7da16f48f203bf09be303794017ff91735d691c8bc10f63074dfd37059381a",
+            "bytes": 284270
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "9cf1753caf7ae74cf9328d3ad1a8adcf07279039b766a5aa9d3ccc69b3445dbc",
+            "bytes": 1863
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "bca080217e025ac6684f7e16532a263abad81cd1cc8c64aa289b117a0ee1f577",
+            "bytes": 2360
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "64d0f919b0bfca1d401f78b39cc56719ad731ba53e69a704d13d5197c598a867",
+            "bytes": 80675
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "b5e7885f6d4782074b843bd47b8d85804db5dfeb90287fd03bc94d0eb3fd7375",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "f69a499c93c6645125df76166139a21cf35323cc00faf9161ca10dfd05365d24",
+            "bytes": 3038
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "53f0980cd8060a72029c8a82c590c6f5d54ce69b0263e2c685d5db6e3023c0dd",
+            "bytes": 1012
+          },
+          "processor0/0/R": {
+            "sha256": "86ce73e28a1a3c6d5aef2b90ca5198bc241a6936b2cd21a31cf382e5716fe96e",
+            "bytes": 1748
+          },
+          "processor0/0/U": {
+            "sha256": "ada5dab0d11d2d663b012b30b9fae136dc28fbd0893adb59b7cb4e4ae58558be",
+            "bytes": 1348
+          },
+          "processor0/0/epsilon": {
+            "sha256": "ebee531107192bc844791dd24342d47c64353163b2cae2b4bb6a3c37b43f10fc",
+            "bytes": 1418
+          },
+          "processor0/0/k": {
+            "sha256": "8af5e9e3d22002b40b9f52ca873be374c8c8aa366e2f3cc4f74d1933155d6b7b",
+            "bytes": 1424
+          },
+          "processor0/0/nut": {
+            "sha256": "569f1dd93e11417ac3536124059d85db3ac38e6468a687d57198c642a781bfc3",
+            "bytes": 1243
+          },
+          "processor0/0/omega": {
+            "sha256": "e30b1bc079788a0415cce48c025578fd8ebe89ded1edeeb84ca98fa126c91aa5",
+            "bytes": 1414
+          },
+          "processor0/0/p": {
+            "sha256": "5dbf32697a633116482495988787c6c319d285035806e504fab44f8dedf98861",
+            "bytes": 1215
+          },
+          "processor0/constant/polyMesh/boundary": {
+            "sha256": "d5add534034e44edc6849970a9667af36e727594e6c96cfcf15cbd326f7e7fff",
+            "bytes": 1513
+          },
+          "processor0/constant/polyMesh/cellLevel": {
+            "sha256": "2b25ed059e3300a2dd623a719aab604b660bf11b0da663fecda8c0569daa9d4a",
+            "bytes": 71053
+          },
+          "processor0/constant/polyMesh/cellProcAddressing": {
+            "sha256": "72df7f95c29a99b077f37756f9ed62041efd42209eb64c8c34201d58d01a6369",
+            "bytes": 200864
+          },
+          "processor0/constant/polyMesh/faceProcAddressing": {
+            "sha256": "4f15d1e2e266988acad953131f6608b2d518870cf3686493134b737ea4deb9e2",
+            "bytes": 669605
+          },
+          "processor0/constant/polyMesh/faces": {
+            "sha256": "c4664fb26353fd8d9798cdc03483294de37879b0d10ca540488f87a546f663f1",
+            "bytes": 2867267
+          },
+          "processor0/constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "processor0/constant/polyMesh/neighbour": {
+            "sha256": "6e6fafa3cd26476590e0cc1930267159dc84a8ea5cfc7e44c70f3532d762fe74",
+            "bytes": 556996
+          },
+          "processor0/constant/polyMesh/owner": {
+            "sha256": "60b609ef777d1c0ee5a763ff099a27d72b122c1577116f369632236cfffac215",
+            "bytes": 628397
+          },
+          "processor0/constant/polyMesh/pointLevel": {
+            "sha256": "73866da0bd819e9cbfd05b1338870e5042ec84a1b6b52d6ebe2aa995718b2169",
+            "bytes": 83438
+          },
+          "processor0/constant/polyMesh/pointProcAddressing": {
+            "sha256": "422b1116e36616d9a5abf4a2584ab6ca49cdb9a8b8138d3ac2aaf6ea996311c5",
+            "bytes": 238757
+          },
+          "processor0/constant/polyMesh/points": {
+            "sha256": "fe9ed9afc18bb403fb21194f709f571f7bd32507993bdb147691a58f3e6ffbc3",
+            "bytes": 2144813
+          },
+          "processor1/0/R": {
+            "sha256": "a66d7466b3cd6b566fd1ab2afda447a5e9864ff640428cc1fd31475cb50a3fb6",
+            "bytes": 1620
+          },
+          "processor1/0/U": {
+            "sha256": "f6f18de13ae3738ca59e09145d0298e5df62b204f68410d4d1d5f7d6dee6536d",
+            "bytes": 1396
+          },
+          "processor1/0/epsilon": {
+            "sha256": "21ca704853af52f199f3c57e3c540e0787e4f5cca8fd5f524a668e5eaa7dfd56",
+            "bytes": 1442
+          },
+          "processor1/0/k": {
+            "sha256": "08c1d6320765768099a9158d94497cce59ff530a5e914d900014e34a1f41a2af",
+            "bytes": 1440
+          },
+          "processor1/0/nut": {
+            "sha256": "2c55a58d0b0ef8e577f9748b5838d7d2997a112d61c72e9b1d2a423eb2f91116",
+            "bytes": 1279
+          },
+          "processor1/0/omega": {
+            "sha256": "3319d59bc5d68f0693b95d7578a3ba54a8a734e3767f806bbd5816d13f75f7be",
+            "bytes": 1438
+          },
+          "processor1/0/p": {
+            "sha256": "ffd78f5dc6145eda8d854bd79fde22ee7c0ea75dbce64a145c2835965fdf1b06",
+            "bytes": 1238
+          },
+          "processor1/constant/polyMesh/boundary": {
+            "sha256": "49d23558faf8dca570b7b6275789f0927206b6c988b7589e0418cc28eab72500",
+            "bytes": 1511
+          },
+          "processor1/constant/polyMesh/cellLevel": {
+            "sha256": "c993670c208eb4e8d2002d85919c83ef581f309b0e2df6fc4f177d3d002743fb",
+            "bytes": 71001
+          },
+          "processor1/constant/polyMesh/cellProcAddressing": {
+            "sha256": "231a947bc99426686d56eeaaa9c2ea5f532aaa0234da33bca1de585cd0e552d7",
+            "bytes": 211462
+          },
+          "processor1/constant/polyMesh/faceProcAddressing": {
+            "sha256": "31e008bf1b0ccdeaff02408a83f2de4b3cfde0a7ed2c10b43630675e2465b216",
+            "bytes": 774261
+          },
+          "processor1/constant/polyMesh/faces": {
+            "sha256": "91e6a004d0af53a0465cf73da1acce6ae5dfee06f859fac37eac26ffa9eee3a5",
+            "bytes": 2862410
+          },
+          "processor1/constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "processor1/constant/polyMesh/neighbour": {
+            "sha256": "37ac5b5c59788e9ee5ded21ebcab37aece7a144aefc1d604e51eea00a8a6df52",
+            "bytes": 573716
+          },
+          "processor1/constant/polyMesh/owner": {
+            "sha256": "30f24b2f40c1b1153f7ba03ed8cfd76269d886e7d0a934a9142141727c6e58c9",
+            "bytes": 626273
+          },
+          "processor1/constant/polyMesh/pointLevel": {
+            "sha256": "a579219994731f2029e0f086d745c981bed157de6081b12b2a5a568de962609b",
+            "bytes": 82334
+          },
+          "processor1/constant/polyMesh/pointProcAddressing": {
+            "sha256": "4fbf069373d20d4f3caba826e9b358b3b754d3f56f7e16fc4a37b3d4f5fc5076",
+            "bytes": 245252
+          },
+          "processor1/constant/polyMesh/points": {
+            "sha256": "d3024ede615bccc63caaf7ff8fee278d019b256c86c9372124972a0f8c170915",
+            "bytes": 2089202
+          },
+          "processor2/0/R": {
+            "sha256": "aa05f761fdbfa3bc8b3ac88efaebf01af2d863afa245a6b727c26831b358f98a",
+            "bytes": 1620
+          },
+          "processor2/0/U": {
+            "sha256": "573230c295cc1500cfac0e810615b9a540d65e7e58af420e8aa2db04a4d9a7d9",
+            "bytes": 1396
+          },
+          "processor2/0/epsilon": {
+            "sha256": "61fe50529501095a3da70f2966adb74c84b25558bb3d75f06b1afecf1048076b",
+            "bytes": 1442
+          },
+          "processor2/0/k": {
+            "sha256": "bfdd98a1ff5b840c5cb103ec7dcab0d5ee496d98ff94c7d238c2cf7751f32592",
+            "bytes": 1440
+          },
+          "processor2/0/nut": {
+            "sha256": "5f611f6b6cd0d4da8af35714d3e356226c475d7759a1d3372a82189f0ccbabba",
+            "bytes": 1279
+          },
+          "processor2/0/omega": {
+            "sha256": "2fd41f1c40a3e1e5c476a43286c46d554b2f3c28cf40f61d3a86c83b6ddadf17",
+            "bytes": 1438
+          },
+          "processor2/0/p": {
+            "sha256": "5490aea80fa5b4ee35bd927ae61f57c925fab351ccad5cd33359020bc8f0f967",
+            "bytes": 1238
+          },
+          "processor2/constant/polyMesh/boundary": {
+            "sha256": "9826d28881efc549ad4a80a4638d6fb6a863258c9d337699a913e8e6605166ea",
+            "bytes": 1511
+          },
+          "processor2/constant/polyMesh/cellLevel": {
+            "sha256": "a4423797e8567f25cdba90cd3f84bedb1ab5564b5e4bd46f49dc6cbe1eadd550",
+            "bytes": 71877
+          },
+          "processor2/constant/polyMesh/cellProcAddressing": {
+            "sha256": "98e649c85595173e9b3f6dba270f2c8c1d30d28546951a3215811fdd8ec5b7da",
+            "bytes": 249024
+          },
+          "processor2/constant/polyMesh/faceProcAddressing": {
+            "sha256": "570db33b8517bced07f05929d49348a0b25de46562be60f2dc44ce44954fa606",
+            "bytes": 774990
+          },
+          "processor2/constant/polyMesh/faces": {
+            "sha256": "cf838e2844fd3f8f7deb63e4dd6a5b90028cc5a73891f675d62b2e9c66497526",
+            "bytes": 2875500
+          },
+          "processor2/constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "processor2/constant/polyMesh/neighbour": {
+            "sha256": "cb664629edd60f59e1c541f1f316ba21d8abb35de292506e18a9d7e07868b223",
+            "bytes": 597651
+          },
+          "processor2/constant/polyMesh/owner": {
+            "sha256": "3edd72480f9fcc6ee7ccbd6eba12cf709b15dde67963eb4a61dc4682abffaa13",
+            "bytes": 623097
+          },
+          "processor2/constant/polyMesh/pointLevel": {
+            "sha256": "47157591dbe88194912edc322d9250e0682a01a0c918d276a974038ddb4ccbf3",
+            "bytes": 80022
+          },
+          "processor2/constant/polyMesh/pointProcAddressing": {
+            "sha256": "f28b9ad79038144d33b40dd0b1c4df7460f2f700c9a3ffed8c2e79e49c3564f9",
+            "bytes": 276584
+          },
+          "processor2/constant/polyMesh/points": {
+            "sha256": "bbdb3ec93fddf010ad3a2d9d4c815079946d59f1808a2b6b1255d9e32f878d32",
+            "bytes": 2058294
+          },
+          "processor3/0/R": {
+            "sha256": "30d8af0d5f021e23db81848a7fb3876f11629ef1e2bee7a69bd472df2e9229ac",
+            "bytes": 1620
+          },
+          "processor3/0/U": {
+            "sha256": "88462a7fa9b317050ce9361929f48d3f5dee2747896335ec36db59424deba650",
+            "bytes": 1396
+          },
+          "processor3/0/epsilon": {
+            "sha256": "b3b899acc2cbceb07dd01ca0d2ae13ae4e360388e7729962e9616218fd18fd3c",
+            "bytes": 1442
+          },
+          "processor3/0/k": {
+            "sha256": "710a94c32571320666e33ef7966b6c76490956d13f15aee5f7bb7e0be78233c0",
+            "bytes": 1440
+          },
+          "processor3/0/nut": {
+            "sha256": "2079d567d5edebcee684941e5b5bbb018053d266c5646b0bcfcf8aec771e02df",
+            "bytes": 1279
+          },
+          "processor3/0/omega": {
+            "sha256": "4b05da92124238306836c31c97ec719c00314be0b88f9c385c2843b0d04f667b",
+            "bytes": 1438
+          },
+          "processor3/0/p": {
+            "sha256": "cf77d0f03d5d91c0710c2fdee58fb8b60b44b41743531b9335a1603a9d6affc1",
+            "bytes": 1238
+          },
+          "processor3/constant/polyMesh/boundary": {
+            "sha256": "bcbcfee00e4daec7eaee665b5c287fd27a93ce3c5cf5b1164a5daff0a6a9fae9",
+            "bytes": 1512
+          },
+          "processor3/constant/polyMesh/cellLevel": {
+            "sha256": "a0c8b85b3031b6199eca26a822e2d3c3898ebb407abf6031c14639eb410e58b1",
+            "bytes": 690
+          },
+          "processor3/constant/polyMesh/cellProcAddressing": {
+            "sha256": "0d65e8f5a9adc6c9f84a1feb864ace88c386c9d9bf789b57d836d30127478bf2",
+            "bytes": 217264
+          },
+          "processor3/constant/polyMesh/faceProcAddressing": {
+            "sha256": "5575ca76b5de79c8dcbae1da9b6668fef53757304c27094da000778e85fc997d",
+            "bytes": 748173
+          },
+          "processor3/constant/polyMesh/faces": {
+            "sha256": "5026d682caff02737cd95992f0af8bbdc4553fe8066d7d9b954e0dc03e9f06fe",
+            "bytes": 2756455
+          },
+          "processor3/constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "processor3/constant/polyMesh/neighbour": {
+            "sha256": "551031df4082dd05609caa5e429f6c1cbbd1560158cc498f901084b219870a0e",
+            "bytes": 581042
+          },
+          "processor3/constant/polyMesh/owner": {
+            "sha256": "a54c3a8f4d337b71a9d6850f3e53c08cd9b7e0515fa12367ef7ada15e08ca0f2",
+            "bytes": 601336
+          },
+          "processor3/constant/polyMesh/pointLevel": {
+            "sha256": "372811d35d3982787d8f4a09348fbdbee270849706acc3f5747cf3849bfcfb66",
+            "bytes": 75222
+          },
+          "processor3/constant/polyMesh/pointProcAddressing": {
+            "sha256": "7f1c9c6a96e255acadf5c15867bbce98ac285d01059f7dc1880357cf3fed6cbc",
+            "bytes": 243627
+          },
+          "processor3/constant/polyMesh/points": {
+            "sha256": "83c1ca641624537c6d2f56970617a59278a1bf50fa958b60e0dd40c122cd1311",
+            "bytes": 1903517
+          },
+          "system/blockMeshDict": {
+            "sha256": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "13cb1bfb28f388dd9b70cc8e82a606db7c675f57d09b1e1f53567a86507499c6",
+            "bytes": 2976
+          },
+          "water-1-mpirun.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "0427ba30990d91c994cef89406f6b52d495fb3c873d7280e151f872de7861b40",
+            "bytes": 972
+          },
+          "water-1-mpirun.orig.log": {
+            "sha256": "a79f5391792325e4b00ff4cf22634f98f82ace84dd6e154ffbb0e1cc9f6f8c47",
+            "bytes": 4396
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 113,
+        "total_bytes": 58843696,
+        "inventory_sha256": "ab50e30449fd6e76bb78b23a8480acfa13438ce256cae3dee95548b720ad7ee9",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "case-identity.json": {
+            "sha256": "511bb4543f546e48521a574233dd73840d9551345c6e5bf8bab903fc7a739f9e",
+            "bytes": 5618
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/polyMesh/boundary": {
+            "sha256": "8d03aacee6171110fc769e4f9261f2463bd2e5f00c36dcbb49207cd18d6da2b4",
+            "bytes": 1086
+          },
+          "constant/polyMesh/cellLevel": {
+            "sha256": "1459d8565daf7ed9285075301f1c06bee90aec4e79e2c754f507cb9022927426",
+            "bytes": 282670
+          },
+          "constant/polyMesh/cellProc": {
+            "sha256": "99a8164b3151cd6e170864ecb03d46b327e524c988a763b859142976b8376cf2",
+            "bytes": 282669
+          },
+          "constant/polyMesh/faces": {
+            "sha256": "cce8e5dab4167c0b74a597e740779520d1b1b98d579829101759c34a5dc3e614",
+            "bytes": 12343758
+          },
+          "constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "constant/polyMesh/neighbour": {
+            "sha256": "28a8c343aef8fddf78d233c99992bbf7c810fdb10f27558f0e3db533d6b832a2",
+            "bytes": 2518374
+          },
+          "constant/polyMesh/owner": {
+            "sha256": "058d2a5a40982df63aa8935ed7fd8e1df175123ea7aae34d31562c7b5c55bef7",
+            "bytes": 2713286
+          },
+          "constant/polyMesh/pointLevel": {
+            "sha256": "610f346b91b6a2b1846e6d676fd524fe284ce45aeccc1e1fef316573505f7e70",
+            "bytes": 316089
+          },
+          "constant/polyMesh/points": {
+            "sha256": "911a1ee6b86012f3047a6b31d90d429d5f5381868d52adc7b06891f316c8d2e2",
+            "bytes": 8120609
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "4759b36c618d7eee0dc01fbba9b04c546b6fc2269efd9a08431c646dec7b59ba",
+            "bytes": 1955439
+          },
+          "design-ir.json": {
+            "sha256": "a4918b1d6a81b1ea1cf4d97285b946ec1f72220122ef7e1a192d4f15def07c02",
+            "bytes": 17250
+          },
+          "design-program.json": {
+            "sha256": "6c222865d7840c2dbf61fc26732bad5363b5d230cc3ab5e916fb6b1d9c17c2cf",
+            "bytes": 1204
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "e598b39502ec14c4eb6bd6f40c8c21f784686dd8e0ba55ab997a77fcf844c94a",
+            "bytes": 113260
+          },
+          "input-manifest.json": {
+            "sha256": "dd7da16f48f203bf09be303794017ff91735d691c8bc10f63074dfd37059381a",
+            "bytes": 284270
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "9cf1753caf7ae74cf9328d3ad1a8adcf07279039b766a5aa9d3ccc69b3445dbc",
+            "bytes": 1863
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "bca080217e025ac6684f7e16532a263abad81cd1cc8c64aa289b117a0ee1f577",
+            "bytes": 2360
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "64d0f919b0bfca1d401f78b39cc56719ad731ba53e69a704d13d5197c598a867",
+            "bytes": 80675
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "b5e7885f6d4782074b843bd47b8d85804db5dfeb90287fd03bc94d0eb3fd7375",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "f69a499c93c6645125df76166139a21cf35323cc00faf9161ca10dfd05365d24",
+            "bytes": 3038
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "53f0980cd8060a72029c8a82c590c6f5d54ce69b0263e2c685d5db6e3023c0dd",
+            "bytes": 1012
+          },
+          "processor0/0/R": {
+            "sha256": "86ce73e28a1a3c6d5aef2b90ca5198bc241a6936b2cd21a31cf382e5716fe96e",
+            "bytes": 1748
+          },
+          "processor0/0/U": {
+            "sha256": "ada5dab0d11d2d663b012b30b9fae136dc28fbd0893adb59b7cb4e4ae58558be",
+            "bytes": 1348
+          },
+          "processor0/0/epsilon": {
+            "sha256": "ebee531107192bc844791dd24342d47c64353163b2cae2b4bb6a3c37b43f10fc",
+            "bytes": 1418
+          },
+          "processor0/0/k": {
+            "sha256": "8af5e9e3d22002b40b9f52ca873be374c8c8aa366e2f3cc4f74d1933155d6b7b",
+            "bytes": 1424
+          },
+          "processor0/0/nut": {
+            "sha256": "569f1dd93e11417ac3536124059d85db3ac38e6468a687d57198c642a781bfc3",
+            "bytes": 1243
+          },
+          "processor0/0/omega": {
+            "sha256": "e30b1bc079788a0415cce48c025578fd8ebe89ded1edeeb84ca98fa126c91aa5",
+            "bytes": 1414
+          },
+          "processor0/0/p": {
+            "sha256": "5dbf32697a633116482495988787c6c319d285035806e504fab44f8dedf98861",
+            "bytes": 1215
+          },
+          "processor0/constant/polyMesh/boundary": {
+            "sha256": "d5add534034e44edc6849970a9667af36e727594e6c96cfcf15cbd326f7e7fff",
+            "bytes": 1513
+          },
+          "processor0/constant/polyMesh/cellLevel": {
+            "sha256": "2b25ed059e3300a2dd623a719aab604b660bf11b0da663fecda8c0569daa9d4a",
+            "bytes": 71053
+          },
+          "processor0/constant/polyMesh/cellProcAddressing": {
+            "sha256": "72df7f95c29a99b077f37756f9ed62041efd42209eb64c8c34201d58d01a6369",
+            "bytes": 200864
+          },
+          "processor0/constant/polyMesh/faceProcAddressing": {
+            "sha256": "4f15d1e2e266988acad953131f6608b2d518870cf3686493134b737ea4deb9e2",
+            "bytes": 669605
+          },
+          "processor0/constant/polyMesh/faces": {
+            "sha256": "c4664fb26353fd8d9798cdc03483294de37879b0d10ca540488f87a546f663f1",
+            "bytes": 2867267
+          },
+          "processor0/constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "processor0/constant/polyMesh/neighbour": {
+            "sha256": "6e6fafa3cd26476590e0cc1930267159dc84a8ea5cfc7e44c70f3532d762fe74",
+            "bytes": 556996
+          },
+          "processor0/constant/polyMesh/owner": {
+            "sha256": "60b609ef777d1c0ee5a763ff099a27d72b122c1577116f369632236cfffac215",
+            "bytes": 628397
+          },
+          "processor0/constant/polyMesh/pointLevel": {
+            "sha256": "73866da0bd819e9cbfd05b1338870e5042ec84a1b6b52d6ebe2aa995718b2169",
+            "bytes": 83438
+          },
+          "processor0/constant/polyMesh/pointProcAddressing": {
+            "sha256": "422b1116e36616d9a5abf4a2584ab6ca49cdb9a8b8138d3ac2aaf6ea996311c5",
+            "bytes": 238757
+          },
+          "processor0/constant/polyMesh/points": {
+            "sha256": "fe9ed9afc18bb403fb21194f709f571f7bd32507993bdb147691a58f3e6ffbc3",
+            "bytes": 2144813
+          },
+          "processor1/0/R": {
+            "sha256": "a66d7466b3cd6b566fd1ab2afda447a5e9864ff640428cc1fd31475cb50a3fb6",
+            "bytes": 1620
+          },
+          "processor1/0/U": {
+            "sha256": "f6f18de13ae3738ca59e09145d0298e5df62b204f68410d4d1d5f7d6dee6536d",
+            "bytes": 1396
+          },
+          "processor1/0/epsilon": {
+            "sha256": "21ca704853af52f199f3c57e3c540e0787e4f5cca8fd5f524a668e5eaa7dfd56",
+            "bytes": 1442
+          },
+          "processor1/0/k": {
+            "sha256": "08c1d6320765768099a9158d94497cce59ff530a5e914d900014e34a1f41a2af",
+            "bytes": 1440
+          },
+          "processor1/0/nut": {
+            "sha256": "2c55a58d0b0ef8e577f9748b5838d7d2997a112d61c72e9b1d2a423eb2f91116",
+            "bytes": 1279
+          },
+          "processor1/0/omega": {
+            "sha256": "3319d59bc5d68f0693b95d7578a3ba54a8a734e3767f806bbd5816d13f75f7be",
+            "bytes": 1438
+          },
+          "processor1/0/p": {
+            "sha256": "ffd78f5dc6145eda8d854bd79fde22ee7c0ea75dbce64a145c2835965fdf1b06",
+            "bytes": 1238
+          },
+          "processor1/constant/polyMesh/boundary": {
+            "sha256": "49d23558faf8dca570b7b6275789f0927206b6c988b7589e0418cc28eab72500",
+            "bytes": 1511
+          },
+          "processor1/constant/polyMesh/cellLevel": {
+            "sha256": "c993670c208eb4e8d2002d85919c83ef581f309b0e2df6fc4f177d3d002743fb",
+            "bytes": 71001
+          },
+          "processor1/constant/polyMesh/cellProcAddressing": {
+            "sha256": "231a947bc99426686d56eeaaa9c2ea5f532aaa0234da33bca1de585cd0e552d7",
+            "bytes": 211462
+          },
+          "processor1/constant/polyMesh/faceProcAddressing": {
+            "sha256": "31e008bf1b0ccdeaff02408a83f2de4b3cfde0a7ed2c10b43630675e2465b216",
+            "bytes": 774261
+          },
+          "processor1/constant/polyMesh/faces": {
+            "sha256": "91e6a004d0af53a0465cf73da1acce6ae5dfee06f859fac37eac26ffa9eee3a5",
+            "bytes": 2862410
+          },
+          "processor1/constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "processor1/constant/polyMesh/neighbour": {
+            "sha256": "37ac5b5c59788e9ee5ded21ebcab37aece7a144aefc1d604e51eea00a8a6df52",
+            "bytes": 573716
+          },
+          "processor1/constant/polyMesh/owner": {
+            "sha256": "30f24b2f40c1b1153f7ba03ed8cfd76269d886e7d0a934a9142141727c6e58c9",
+            "bytes": 626273
+          },
+          "processor1/constant/polyMesh/pointLevel": {
+            "sha256": "a579219994731f2029e0f086d745c981bed157de6081b12b2a5a568de962609b",
+            "bytes": 82334
+          },
+          "processor1/constant/polyMesh/pointProcAddressing": {
+            "sha256": "4fbf069373d20d4f3caba826e9b358b3b754d3f56f7e16fc4a37b3d4f5fc5076",
+            "bytes": 245252
+          },
+          "processor1/constant/polyMesh/points": {
+            "sha256": "d3024ede615bccc63caaf7ff8fee278d019b256c86c9372124972a0f8c170915",
+            "bytes": 2089202
+          },
+          "processor2/0/R": {
+            "sha256": "aa05f761fdbfa3bc8b3ac88efaebf01af2d863afa245a6b727c26831b358f98a",
+            "bytes": 1620
+          },
+          "processor2/0/U": {
+            "sha256": "573230c295cc1500cfac0e810615b9a540d65e7e58af420e8aa2db04a4d9a7d9",
+            "bytes": 1396
+          },
+          "processor2/0/epsilon": {
+            "sha256": "61fe50529501095a3da70f2966adb74c84b25558bb3d75f06b1afecf1048076b",
+            "bytes": 1442
+          },
+          "processor2/0/k": {
+            "sha256": "bfdd98a1ff5b840c5cb103ec7dcab0d5ee496d98ff94c7d238c2cf7751f32592",
+            "bytes": 1440
+          },
+          "processor2/0/nut": {
+            "sha256": "5f611f6b6cd0d4da8af35714d3e356226c475d7759a1d3372a82189f0ccbabba",
+            "bytes": 1279
+          },
+          "processor2/0/omega": {
+            "sha256": "2fd41f1c40a3e1e5c476a43286c46d554b2f3c28cf40f61d3a86c83b6ddadf17",
+            "bytes": 1438
+          },
+          "processor2/0/p": {
+            "sha256": "5490aea80fa5b4ee35bd927ae61f57c925fab351ccad5cd33359020bc8f0f967",
+            "bytes": 1238
+          },
+          "processor2/constant/polyMesh/boundary": {
+            "sha256": "9826d28881efc549ad4a80a4638d6fb6a863258c9d337699a913e8e6605166ea",
+            "bytes": 1511
+          },
+          "processor2/constant/polyMesh/cellLevel": {
+            "sha256": "a4423797e8567f25cdba90cd3f84bedb1ab5564b5e4bd46f49dc6cbe1eadd550",
+            "bytes": 71877
+          },
+          "processor2/constant/polyMesh/cellProcAddressing": {
+            "sha256": "98e649c85595173e9b3f6dba270f2c8c1d30d28546951a3215811fdd8ec5b7da",
+            "bytes": 249024
+          },
+          "processor2/constant/polyMesh/faceProcAddressing": {
+            "sha256": "570db33b8517bced07f05929d49348a0b25de46562be60f2dc44ce44954fa606",
+            "bytes": 774990
+          },
+          "processor2/constant/polyMesh/faces": {
+            "sha256": "cf838e2844fd3f8f7deb63e4dd6a5b90028cc5a73891f675d62b2e9c66497526",
+            "bytes": 2875500
+          },
+          "processor2/constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "processor2/constant/polyMesh/neighbour": {
+            "sha256": "cb664629edd60f59e1c541f1f316ba21d8abb35de292506e18a9d7e07868b223",
+            "bytes": 597651
+          },
+          "processor2/constant/polyMesh/owner": {
+            "sha256": "3edd72480f9fcc6ee7ccbd6eba12cf709b15dde67963eb4a61dc4682abffaa13",
+            "bytes": 623097
+          },
+          "processor2/constant/polyMesh/pointLevel": {
+            "sha256": "47157591dbe88194912edc322d9250e0682a01a0c918d276a974038ddb4ccbf3",
+            "bytes": 80022
+          },
+          "processor2/constant/polyMesh/pointProcAddressing": {
+            "sha256": "f28b9ad79038144d33b40dd0b1c4df7460f2f700c9a3ffed8c2e79e49c3564f9",
+            "bytes": 276584
+          },
+          "processor2/constant/polyMesh/points": {
+            "sha256": "bbdb3ec93fddf010ad3a2d9d4c815079946d59f1808a2b6b1255d9e32f878d32",
+            "bytes": 2058294
+          },
+          "processor3/0/R": {
+            "sha256": "30d8af0d5f021e23db81848a7fb3876f11629ef1e2bee7a69bd472df2e9229ac",
+            "bytes": 1620
+          },
+          "processor3/0/U": {
+            "sha256": "88462a7fa9b317050ce9361929f48d3f5dee2747896335ec36db59424deba650",
+            "bytes": 1396
+          },
+          "processor3/0/epsilon": {
+            "sha256": "b3b899acc2cbceb07dd01ca0d2ae13ae4e360388e7729962e9616218fd18fd3c",
+            "bytes": 1442
+          },
+          "processor3/0/k": {
+            "sha256": "710a94c32571320666e33ef7966b6c76490956d13f15aee5f7bb7e0be78233c0",
+            "bytes": 1440
+          },
+          "processor3/0/nut": {
+            "sha256": "2079d567d5edebcee684941e5b5bbb018053d266c5646b0bcfcf8aec771e02df",
+            "bytes": 1279
+          },
+          "processor3/0/omega": {
+            "sha256": "4b05da92124238306836c31c97ec719c00314be0b88f9c385c2843b0d04f667b",
+            "bytes": 1438
+          },
+          "processor3/0/p": {
+            "sha256": "cf77d0f03d5d91c0710c2fdee58fb8b60b44b41743531b9335a1603a9d6affc1",
+            "bytes": 1238
+          },
+          "processor3/constant/polyMesh/boundary": {
+            "sha256": "bcbcfee00e4daec7eaee665b5c287fd27a93ce3c5cf5b1164a5daff0a6a9fae9",
+            "bytes": 1512
+          },
+          "processor3/constant/polyMesh/cellLevel": {
+            "sha256": "a0c8b85b3031b6199eca26a822e2d3c3898ebb407abf6031c14639eb410e58b1",
+            "bytes": 690
+          },
+          "processor3/constant/polyMesh/cellProcAddressing": {
+            "sha256": "0d65e8f5a9adc6c9f84a1feb864ace88c386c9d9bf789b57d836d30127478bf2",
+            "bytes": 217264
+          },
+          "processor3/constant/polyMesh/faceProcAddressing": {
+            "sha256": "5575ca76b5de79c8dcbae1da9b6668fef53757304c27094da000778e85fc997d",
+            "bytes": 748173
+          },
+          "processor3/constant/polyMesh/faces": {
+            "sha256": "5026d682caff02737cd95992f0af8bbdc4553fe8066d7d9b954e0dc03e9f06fe",
+            "bytes": 2756455
+          },
+          "processor3/constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "processor3/constant/polyMesh/neighbour": {
+            "sha256": "551031df4082dd05609caa5e429f6c1cbbd1560158cc498f901084b219870a0e",
+            "bytes": 581042
+          },
+          "processor3/constant/polyMesh/owner": {
+            "sha256": "a54c3a8f4d337b71a9d6850f3e53c08cd9b7e0515fa12367ef7ada15e08ca0f2",
+            "bytes": 601336
+          },
+          "processor3/constant/polyMesh/pointLevel": {
+            "sha256": "372811d35d3982787d8f4a09348fbdbee270849706acc3f5747cf3849bfcfb66",
+            "bytes": 75222
+          },
+          "processor3/constant/polyMesh/pointProcAddressing": {
+            "sha256": "7f1c9c6a96e255acadf5c15867bbce98ac285d01059f7dc1880357cf3fed6cbc",
+            "bytes": 243627
+          },
+          "processor3/constant/polyMesh/points": {
+            "sha256": "83c1ca641624537c6d2f56970617a59278a1bf50fa958b60e0dd40c122cd1311",
+            "bytes": 1903517
+          },
+          "system/blockMeshDict": {
+            "sha256": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "13cb1bfb28f388dd9b70cc8e82a606db7c675f57d09b1e1f53567a86507499c6",
+            "bytes": 2976
+          },
+          "water-1-mpirun.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "0427ba30990d91c994cef89406f6b52d495fb3c873d7280e151f872de7861b40",
+            "bytes": 972
+          },
+          "water-1-mpirun.orig.log": {
+            "sha256": "a79f5391792325e4b00ff4cf22634f98f82ace84dd6e154ffbb0e1cc9f6f8c47",
+            "bytes": 4396
+          }
+        }
+      },
+      "scientific_artifact_chain": {
+        "genome_hash": "6c222865d7840c2dbf61fc26732bad5363b5d230cc3ab5e916fb6b1d9c17c2cf",
+        "ir_hash": "a4918b1d6a81b1ea1cf4d97285b946ec1f72220122ef7e1a192d4f15def07c02",
+        "geometry_hash": "4759b36c618d7eee0dc01fbba9b04c546b6fc2269efd9a08431c646dec7b59ba",
+        "mesh_hash": "0d52474511dca5702e85edd89fee3e1460e808bc7315bad59a09f2c74ffe0be5",
+        "case_hash": "a86943bf9f691d43e4a9aa803f6972c52123ff9bb9ba2a20e6ee2e52cd0a55ab"
+      },
+      "manifest": {
+        "sha256": "511bb4543f546e48521a574233dd73840d9551345c6e5bf8bab903fc7a739f9e",
+        "bytes": 5618
+      },
+      "reason": "Exact retained artifact chain verified; broader claim-bearing ScientificIdentity and physics admission remain separate."
+    },
+    {
+      "case": "wave4-b3-s20261106-g0-coarse",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "run_locations": [
+        "quarantined"
+      ],
+      "preserved_inventory": {
+        "file_count": 43,
+        "total_bytes": 2712163,
+        "inventory_sha256": "40967cd4a75ad915368a57c5616aebf433600beeef3f3706bb7af81e32d8399a",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c",
+            "bytes": 1955403
+          },
+          "design-ir.json": {
+            "sha256": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+            "bytes": 17274
+          },
+          "design-program.json": {
+            "sha256": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+            "bytes": 1215
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "517ee1897ae21654f942e2ebdeb6a341ecd5e66fe05a159b22de51306f62457a",
+            "bytes": 113256
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "d4dfb3b98b7c5d11d6515524756df74790c9889407a40b969e60c499ddbad5aa",
+            "bytes": 1440
+          },
+          "input-manifest.json": {
+            "sha256": "f50be0074929ae018df0e55352c3faa6eab5e7e138e12b705bc6dbe21251ea43",
+            "bytes": 284263
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "6e07dc7c6fa9ec2fe633d22f6fd0e1edad529adf1607e228d67988130e7c7407",
+            "bytes": 1863
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "d0e0e0b578723ea4eb7c36965125988323cf1c038f37850a1192377afd7e9e86",
+            "bytes": 2360
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "e3072c7c207e850363b5a52f7db29d9e2fdc8095dfb5ede5e12315a703b2b8b8",
+            "bytes": 89565
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "9da62616156f67b9a322c692886385b52fe6a45e782c59e0cd5f21e8cc2c4cfc",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "ed127752007eac4eacd93f06fa2ff968224cf7630faee9c59b41289d18ba4209",
+            "bytes": 3249
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "282667807f0b5d3d57f367b97809960dee786c4e53a2579fb093ec6f48e041cb",
+            "bytes": 1010
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "954fb56f152c1566948bad7d9332ade400c9a3fef5d4c6aaf7be8f2fefdf2e0d",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "32703012321435284bcef9333126ff038e5f0446df1c2da6beb462f4d36caad3",
+            "bytes": 6189
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "dd833d7062206e9a31e20f017e1994a2219359761b716f70b7596015941290eb",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "92d62650b9bddc0a2c2c55f4ccf4a830f5b2ad2f2ac4fd18cb9ec35d9f0956f2",
+            "bytes": 6189
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "2428dd1128cdda9ce5b6952feec71c3668010a1a968512ca2907483791d24b91",
+            "bytes": 6179
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "dbfa6e480405cc27a3d6a7b27cfd83b1036ba5bf036e4c498b51497090800def",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "0ca6d7b6e1ffb2507c19e8207d35cee4de26b1be2b61e4d02a30c74f3fd92111",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "59fd34dcc9ced71495483d5d950db98cc64d97dcf211f8934ffdf19f42152f0c",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "924f8a80e3e9309f5c65ca692c3bcecf37df1f1a53c4fda63583890a4abd1fa1",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "98290031629a738f9383371fb98fb1bedb4ee9a3add264b0ef304974ff3d1dea",
+            "bytes": 2976
+          },
+          "water-1-mpirun.log": {
+            "sha256": "7ce8784368d50e74caacffd7c59e5bc703a23e96682388e60e4fe3b7b61f3874",
+            "bytes": 152343
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "01e20c0d6c9a5c5e78e4c72506ef68ec894b4e99f87e5e54e29b8d427bb11a51",
+            "bytes": 975
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "ad389681c74719d61d5e26efdc1ebd1d83461c3734962e552b2fcdda775aca7e",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "282737b81a345655b04e4321e2f3448302dc641ba60e46d352e1219b428fc781",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "d6b2485eab40c61e9c51091ccb50ad049739ee11f0e19d28981c8d615a989927",
+            "bytes": 773
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 43,
+        "total_bytes": 2712163,
+        "inventory_sha256": "40967cd4a75ad915368a57c5616aebf433600beeef3f3706bb7af81e32d8399a",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c",
+            "bytes": 1955403
+          },
+          "design-ir.json": {
+            "sha256": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+            "bytes": 17274
+          },
+          "design-program.json": {
+            "sha256": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+            "bytes": 1215
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "517ee1897ae21654f942e2ebdeb6a341ecd5e66fe05a159b22de51306f62457a",
+            "bytes": 113256
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "d4dfb3b98b7c5d11d6515524756df74790c9889407a40b969e60c499ddbad5aa",
+            "bytes": 1440
+          },
+          "input-manifest.json": {
+            "sha256": "f50be0074929ae018df0e55352c3faa6eab5e7e138e12b705bc6dbe21251ea43",
+            "bytes": 284263
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "6e07dc7c6fa9ec2fe633d22f6fd0e1edad529adf1607e228d67988130e7c7407",
+            "bytes": 1863
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "d0e0e0b578723ea4eb7c36965125988323cf1c038f37850a1192377afd7e9e86",
+            "bytes": 2360
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "e3072c7c207e850363b5a52f7db29d9e2fdc8095dfb5ede5e12315a703b2b8b8",
+            "bytes": 89565
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "9da62616156f67b9a322c692886385b52fe6a45e782c59e0cd5f21e8cc2c4cfc",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "ed127752007eac4eacd93f06fa2ff968224cf7630faee9c59b41289d18ba4209",
+            "bytes": 3249
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "282667807f0b5d3d57f367b97809960dee786c4e53a2579fb093ec6f48e041cb",
+            "bytes": 1010
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "954fb56f152c1566948bad7d9332ade400c9a3fef5d4c6aaf7be8f2fefdf2e0d",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "32703012321435284bcef9333126ff038e5f0446df1c2da6beb462f4d36caad3",
+            "bytes": 6189
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "dd833d7062206e9a31e20f017e1994a2219359761b716f70b7596015941290eb",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "92d62650b9bddc0a2c2c55f4ccf4a830f5b2ad2f2ac4fd18cb9ec35d9f0956f2",
+            "bytes": 6189
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "2428dd1128cdda9ce5b6952feec71c3668010a1a968512ca2907483791d24b91",
+            "bytes": 6179
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "dbfa6e480405cc27a3d6a7b27cfd83b1036ba5bf036e4c498b51497090800def",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "0ca6d7b6e1ffb2507c19e8207d35cee4de26b1be2b61e4d02a30c74f3fd92111",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "59fd34dcc9ced71495483d5d950db98cc64d97dcf211f8934ffdf19f42152f0c",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "924f8a80e3e9309f5c65ca692c3bcecf37df1f1a53c4fda63583890a4abd1fa1",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "98290031629a738f9383371fb98fb1bedb4ee9a3add264b0ef304974ff3d1dea",
+            "bytes": 2976
+          },
+          "water-1-mpirun.log": {
+            "sha256": "7ce8784368d50e74caacffd7c59e5bc703a23e96682388e60e4fe3b7b61f3874",
+            "bytes": 152343
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "01e20c0d6c9a5c5e78e4c72506ef68ec894b4e99f87e5e54e29b8d427bb11a51",
+            "bytes": 975
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "ad389681c74719d61d5e26efdc1ebd1d83461c3734962e552b2fcdda775aca7e",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "282737b81a345655b04e4321e2f3448302dc641ba60e46d352e1219b428fc781",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "d6b2485eab40c61e9c51091ccb50ad049739ee11f0e19d28981c8d615a989927",
+            "bytes": 773
+          }
+        }
+      },
+      "retained_source_hashes": {
+        "genome_hash": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+        "ir_hash": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+        "geometry_hash": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c"
+      },
+      "mesh_hash": null,
+      "case_hash": null,
+      "recorded_solver_exit_code": 0,
+      "execution_evidence": "retained solver receipt",
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261106-g1-medium",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "run_locations": [
+        "quarantined"
+      ],
+      "preserved_inventory": {
+        "file_count": 43,
+        "total_bytes": 2693892,
+        "inventory_sha256": "344352f6c7f497437caa5e3062a331674a3dca91529e69367d0ecedd172f6001",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c",
+            "bytes": 1955403
+          },
+          "design-ir.json": {
+            "sha256": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+            "bytes": 17274
+          },
+          "design-program.json": {
+            "sha256": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+            "bytes": 1215
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "517ee1897ae21654f942e2ebdeb6a341ecd5e66fe05a159b22de51306f62457a",
+            "bytes": 113256
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "15e9d7c8f170afd8a432faabb9fdee83ae3ad052cf873151e1a4bcbf172e95e5",
+            "bytes": 1439
+          },
+          "input-manifest.json": {
+            "sha256": "3e246d3138e8b1cccf6f1b7140f1cdb38c75638c3450a10acca2defd072c835a",
+            "bytes": 284263
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "360da90cf6d689c5bd6ac49791d5c5cc4c56ec2d349bec2b62f4c58db3fbbf9c",
+            "bytes": 1834
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "3cf827dcd25f1b243c7b3d99304759d07bdbf84e36520091b53d1ee6364788fb",
+            "bytes": 2374
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "15d642a188630db4ec9f6852f40e3086ebc860e8d2fff7de2ffae9256bf826fe",
+            "bytes": 70995
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "e738cda44f48435c43ba3be762cbeff7b7f24221db4ef743ab0e2af9572ade9d",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "522fcea9c31f439f56a3e9a5c8262783989600d3168346e9cdae370aab6d3464",
+            "bytes": 3334
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "8cda5568ba0f80d2d91b9d20324898e530cab0ecb5ea6fa320caef71a3812e66",
+            "bytes": 1010
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "7a3db1160de0a6dea3b513d372cd119a16c68d9f48f78fc92a664f52fad158df",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "713153fe29b54fb66206bd6448bcc928d5dda6af3298126747fafd802c7ce70b",
+            "bytes": 6191
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "4a4c719a5a970dbe3f3a242e392f0002f00a5206c55a95b7cc445eaede2486df",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "355900558ef107d33661fe9dc47dbaa320d5373be65bda670342bf9e6982fead",
+            "bytes": 6191
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "2cf7a22687a05dc5e68a55d3963465d5a636f8e667da57d7df0341e35fd82214",
+            "bytes": 6178
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "7d7f226ce230f64f3885f22fcec1d6e6a4f5eae1adb589602ffa2f67b31ed039",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "e98694a3c2ee623ece486d0d07937dbb4e3ed3d9f49cb6925521a7eee35602c2",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "836943845550780e7426328cdc8772832f004ad26b2da9d143fc06f8c0e07b6d",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "3e73c1a07b318fe9ac9f899b52460a2c9011dee406053ef6d084ffbe3a24ee10",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "86156d79654e0bdfcd95b3c0c5881ff827c4a3d840071b37675fb62949bf0a19",
+            "bytes": 2982
+          },
+          "water-1-mpirun.log": {
+            "sha256": "d592825fc642b4c1937406a14ac6340c4a4a8dec86b48909f592aaeb12f4463b",
+            "bytes": 152563
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "ba1befc655a0b4f71547651d77acb240b4440c80357c3eac06fa7bac7b764544",
+            "bytes": 976
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "56d196e54ce494890fcd2e08e0b4c108b7175b6629dac5d4e60cecbe7ddeaff6",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "52a73dd4bb2736e3911056e20dd3223a7f1f105f254014e8972bbe99363ae7f3",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "d682257605fdafe25a4525d867f38bcd0b146c678247bbf6c23c447e68bf10b0",
+            "bytes": 773
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 43,
+        "total_bytes": 2693892,
+        "inventory_sha256": "344352f6c7f497437caa5e3062a331674a3dca91529e69367d0ecedd172f6001",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c",
+            "bytes": 1955403
+          },
+          "design-ir.json": {
+            "sha256": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+            "bytes": 17274
+          },
+          "design-program.json": {
+            "sha256": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+            "bytes": 1215
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "517ee1897ae21654f942e2ebdeb6a341ecd5e66fe05a159b22de51306f62457a",
+            "bytes": 113256
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "15e9d7c8f170afd8a432faabb9fdee83ae3ad052cf873151e1a4bcbf172e95e5",
+            "bytes": 1439
+          },
+          "input-manifest.json": {
+            "sha256": "3e246d3138e8b1cccf6f1b7140f1cdb38c75638c3450a10acca2defd072c835a",
+            "bytes": 284263
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "360da90cf6d689c5bd6ac49791d5c5cc4c56ec2d349bec2b62f4c58db3fbbf9c",
+            "bytes": 1834
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "3cf827dcd25f1b243c7b3d99304759d07bdbf84e36520091b53d1ee6364788fb",
+            "bytes": 2374
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "15d642a188630db4ec9f6852f40e3086ebc860e8d2fff7de2ffae9256bf826fe",
+            "bytes": 70995
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "e738cda44f48435c43ba3be762cbeff7b7f24221db4ef743ab0e2af9572ade9d",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "522fcea9c31f439f56a3e9a5c8262783989600d3168346e9cdae370aab6d3464",
+            "bytes": 3334
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "8cda5568ba0f80d2d91b9d20324898e530cab0ecb5ea6fa320caef71a3812e66",
+            "bytes": 1010
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "7a3db1160de0a6dea3b513d372cd119a16c68d9f48f78fc92a664f52fad158df",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "713153fe29b54fb66206bd6448bcc928d5dda6af3298126747fafd802c7ce70b",
+            "bytes": 6191
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "4a4c719a5a970dbe3f3a242e392f0002f00a5206c55a95b7cc445eaede2486df",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "355900558ef107d33661fe9dc47dbaa320d5373be65bda670342bf9e6982fead",
+            "bytes": 6191
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "2cf7a22687a05dc5e68a55d3963465d5a636f8e667da57d7df0341e35fd82214",
+            "bytes": 6178
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "7d7f226ce230f64f3885f22fcec1d6e6a4f5eae1adb589602ffa2f67b31ed039",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "e98694a3c2ee623ece486d0d07937dbb4e3ed3d9f49cb6925521a7eee35602c2",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "836943845550780e7426328cdc8772832f004ad26b2da9d143fc06f8c0e07b6d",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "3e73c1a07b318fe9ac9f899b52460a2c9011dee406053ef6d084ffbe3a24ee10",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "86156d79654e0bdfcd95b3c0c5881ff827c4a3d840071b37675fb62949bf0a19",
+            "bytes": 2982
+          },
+          "water-1-mpirun.log": {
+            "sha256": "d592825fc642b4c1937406a14ac6340c4a4a8dec86b48909f592aaeb12f4463b",
+            "bytes": 152563
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "ba1befc655a0b4f71547651d77acb240b4440c80357c3eac06fa7bac7b764544",
+            "bytes": 976
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "56d196e54ce494890fcd2e08e0b4c108b7175b6629dac5d4e60cecbe7ddeaff6",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "52a73dd4bb2736e3911056e20dd3223a7f1f105f254014e8972bbe99363ae7f3",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "d682257605fdafe25a4525d867f38bcd0b146c678247bbf6c23c447e68bf10b0",
+            "bytes": 773
+          }
+        }
+      },
+      "retained_source_hashes": {
+        "genome_hash": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+        "ir_hash": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+        "geometry_hash": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c"
+      },
+      "mesh_hash": null,
+      "case_hash": null,
+      "recorded_solver_exit_code": 0,
+      "execution_evidence": "retained solver receipt",
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261106-g2-fine",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "run_locations": [
+        "quarantined"
+      ],
+      "preserved_inventory": {
+        "file_count": 43,
+        "total_bytes": 2723382,
+        "inventory_sha256": "427b31b3c266ef0ecbce5edb4e7a12a8e8ae9f85d82c4bc82ddc2eb3a0d033ae",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c",
+            "bytes": 1955403
+          },
+          "design-ir.json": {
+            "sha256": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+            "bytes": 17274
+          },
+          "design-program.json": {
+            "sha256": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+            "bytes": 1215
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "517ee1897ae21654f942e2ebdeb6a341ecd5e66fe05a159b22de51306f62457a",
+            "bytes": 113256
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "424f3143df4e1f4cbfa47314862eee0d6fb0b55b46e12df55b2fefdd979645c5",
+            "bytes": 1444
+          },
+          "input-manifest.json": {
+            "sha256": "9231c73980473639a8e1b47e358f48abd2ac66f994a8b0e0c3ce1e7187a9afe3",
+            "bytes": 284261
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "02d909175fee835492a80f721c4c3fd2fd5c380fd77ef70b83b54523781c948f",
+            "bytes": 1868
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "3787ea07e985e069a3bb969c23320b27f0e807a2aa831b23a24653e08df7c989",
+            "bytes": 2364
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "b4f0ed6d95731e2e7fbc6c763a6fee8ff4cb14d7990053b8430a2b834fb5bd5c",
+            "bytes": 100514
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "76cef2276de598fdb81c4ad2d6ae41002e5df2fe3817f6f4b7bd2b8e5fa690c1",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "89b85a3a746f8457f4e3b423d357b98658d5cd65c0c796d6745ebec7a6f96f37",
+            "bytes": 3238
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "fdb4d7509c299ea822716b54bf9a2233e5cbfa10b8bca9e1008bc808b50ac987",
+            "bytes": 1011
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "7fce145028ab1449a61dd5394650c1aaa017c101b8baa8173418c7104c8b76a8",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "520fa8c0ed09497c0980a355ab19d0632ad8e59c9e5b35d98d434277697b73d2",
+            "bytes": 6198
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "479791410e50232051b4d427752e1db63c01e69bcae5b03047494c7ae0d1dc69",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "0a3e91a91cc63ccd1b32bef76ffd035e4843917bb5cd6af9611ef168791e9639",
+            "bytes": 6198
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "21b5670f9daeb5061cc473b67a56edacc9eed6aa1bc632b6ae0cfd161de05398",
+            "bytes": 6180
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "c8652a105f826e5128b1f9150b37c8274d9ec8f05c533e6f674faed6754f53ce",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "913bf78635a479e054d4ab37ccf83a9128e5a5fedf1fcaa7e8658fb31f09bd01",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "961518379d6ab6a4d7df31ad608231106346bc95e0cd1952f03dbc48cddf9ee0",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "4a4ce35da1f11eece1b10f33201fbd33e3696c9c049e663f581bfa7b10eb81c5",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "d3c16642441f79def485fb8cd1e64248f3baf6a42f152943e0a93c3aa65c2c3c",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "cfad76c6e71b8c11e6899adb870ec01935412142628f99d3d57a4203cce8b7de",
+            "bytes": 2989
+          },
+          "water-1-mpirun.log": {
+            "sha256": "a7f9efe0fe8e40275fbf019877b22ed691df80ea16ef386f58ab2e38bb97bdb3",
+            "bytes": 152581
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "1a348eda352f7aa4878b6134ac23dad25db6291e9cd539d1d8228fbf2f410b22",
+            "bytes": 975
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "7b239d0d709c1170a9850f0a263ec8a03f376c62ed21d409f8d0655c2150bcff",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "75d82c0a5b23aaab1df5d4353948c62ac0c73168fe633a8c73d9b287d8864af9",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "3ef1af6d390ac76930b9128339919ae7df5efbd5edadbdada5a25ffd3451157a",
+            "bytes": 772
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 43,
+        "total_bytes": 2723382,
+        "inventory_sha256": "427b31b3c266ef0ecbce5edb4e7a12a8e8ae9f85d82c4bc82ddc2eb3a0d033ae",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c",
+            "bytes": 1955403
+          },
+          "design-ir.json": {
+            "sha256": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+            "bytes": 17274
+          },
+          "design-program.json": {
+            "sha256": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+            "bytes": 1215
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "517ee1897ae21654f942e2ebdeb6a341ecd5e66fe05a159b22de51306f62457a",
+            "bytes": 113256
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "424f3143df4e1f4cbfa47314862eee0d6fb0b55b46e12df55b2fefdd979645c5",
+            "bytes": 1444
+          },
+          "input-manifest.json": {
+            "sha256": "9231c73980473639a8e1b47e358f48abd2ac66f994a8b0e0c3ce1e7187a9afe3",
+            "bytes": 284261
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "02d909175fee835492a80f721c4c3fd2fd5c380fd77ef70b83b54523781c948f",
+            "bytes": 1868
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "3787ea07e985e069a3bb969c23320b27f0e807a2aa831b23a24653e08df7c989",
+            "bytes": 2364
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "b4f0ed6d95731e2e7fbc6c763a6fee8ff4cb14d7990053b8430a2b834fb5bd5c",
+            "bytes": 100514
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "76cef2276de598fdb81c4ad2d6ae41002e5df2fe3817f6f4b7bd2b8e5fa690c1",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "89b85a3a746f8457f4e3b423d357b98658d5cd65c0c796d6745ebec7a6f96f37",
+            "bytes": 3238
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "fdb4d7509c299ea822716b54bf9a2233e5cbfa10b8bca9e1008bc808b50ac987",
+            "bytes": 1011
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "7fce145028ab1449a61dd5394650c1aaa017c101b8baa8173418c7104c8b76a8",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "520fa8c0ed09497c0980a355ab19d0632ad8e59c9e5b35d98d434277697b73d2",
+            "bytes": 6198
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "479791410e50232051b4d427752e1db63c01e69bcae5b03047494c7ae0d1dc69",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "0a3e91a91cc63ccd1b32bef76ffd035e4843917bb5cd6af9611ef168791e9639",
+            "bytes": 6198
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "21b5670f9daeb5061cc473b67a56edacc9eed6aa1bc632b6ae0cfd161de05398",
+            "bytes": 6180
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "c8652a105f826e5128b1f9150b37c8274d9ec8f05c533e6f674faed6754f53ce",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "913bf78635a479e054d4ab37ccf83a9128e5a5fedf1fcaa7e8658fb31f09bd01",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "961518379d6ab6a4d7df31ad608231106346bc95e0cd1952f03dbc48cddf9ee0",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "4a4ce35da1f11eece1b10f33201fbd33e3696c9c049e663f581bfa7b10eb81c5",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "d3c16642441f79def485fb8cd1e64248f3baf6a42f152943e0a93c3aa65c2c3c",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "cfad76c6e71b8c11e6899adb870ec01935412142628f99d3d57a4203cce8b7de",
+            "bytes": 2989
+          },
+          "water-1-mpirun.log": {
+            "sha256": "a7f9efe0fe8e40275fbf019877b22ed691df80ea16ef386f58ab2e38bb97bdb3",
+            "bytes": 152581
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "1a348eda352f7aa4878b6134ac23dad25db6291e9cd539d1d8228fbf2f410b22",
+            "bytes": 975
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "7b239d0d709c1170a9850f0a263ec8a03f376c62ed21d409f8d0655c2150bcff",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "75d82c0a5b23aaab1df5d4353948c62ac0c73168fe633a8c73d9b287d8864af9",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "3ef1af6d390ac76930b9128339919ae7df5efbd5edadbdada5a25ffd3451157a",
+            "bytes": 772
+          }
+        }
+      },
+      "retained_source_hashes": {
+        "genome_hash": "ed0e540821a1020daae502a7e35a75363e63817ab17a8faba37472f989b798e5",
+        "ir_hash": "f007fc9cc173d2069c61b5b288fe88826439e027d869e9180e57f1f65f7e88f4",
+        "geometry_hash": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c"
+      },
+      "mesh_hash": null,
+      "case_hash": null,
+      "recorded_solver_exit_code": 0,
+      "execution_evidence": "retained solver receipt",
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261107-g0-coarse",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "run_locations": [
+        "quarantined"
+      ],
+      "preserved_inventory": {
+        "file_count": 20,
+        "total_bytes": 2380387,
+        "inventory_sha256": "a82ae8f0a5e85e267f3d883b6eb111a46b027fe7bc9d12b315501d2e7a8a002b",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "24685aa9c01c56e1f8000f350dcfccac2f9c8f1f3360c07b2d7833510684f9d3",
+            "bytes": 1955443
+          },
+          "design-ir.json": {
+            "sha256": "18445d2dfce66f26330c6af1af798b182ea95c1d586a12852605007984a211f6",
+            "bytes": 17266
+          },
+          "design-program.json": {
+            "sha256": "60ac918f0704c282283af361f6f6f5c39b12d0cb180fd3de47b3b799c711b14c",
+            "bytes": 1206
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "5cb94424592f7d70630b5103f3b4f25e82e6b4f579fe1ab66e2eedf71f0f7040",
+            "bytes": 113260
+          },
+          "input-manifest.json": {
+            "sha256": "4e000cb3405308343d48243923319e105a9d40c98a971b8e13d74ff3651f1e8b",
+            "bytes": 284274
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 20,
+        "total_bytes": 2380387,
+        "inventory_sha256": "a82ae8f0a5e85e267f3d883b6eb111a46b027fe7bc9d12b315501d2e7a8a002b",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "24685aa9c01c56e1f8000f350dcfccac2f9c8f1f3360c07b2d7833510684f9d3",
+            "bytes": 1955443
+          },
+          "design-ir.json": {
+            "sha256": "18445d2dfce66f26330c6af1af798b182ea95c1d586a12852605007984a211f6",
+            "bytes": 17266
+          },
+          "design-program.json": {
+            "sha256": "60ac918f0704c282283af361f6f6f5c39b12d0cb180fd3de47b3b799c711b14c",
+            "bytes": 1206
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "5cb94424592f7d70630b5103f3b4f25e82e6b4f579fe1ab66e2eedf71f0f7040",
+            "bytes": 113260
+          },
+          "input-manifest.json": {
+            "sha256": "4e000cb3405308343d48243923319e105a9d40c98a971b8e13d74ff3651f1e8b",
+            "bytes": 284274
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          }
+        }
+      },
+      "retained_source_hashes": {
+        "genome_hash": "60ac918f0704c282283af361f6f6f5c39b12d0cb180fd3de47b3b799c711b14c",
+        "ir_hash": "18445d2dfce66f26330c6af1af798b182ea95c1d586a12852605007984a211f6",
+        "geometry_hash": "24685aa9c01c56e1f8000f350dcfccac2f9c8f1f3360c07b2d7833510684f9d3"
+      },
+      "mesh_hash": null,
+      "case_hash": null,
+      "recorded_solver_exit_code": null,
+      "execution_evidence": "no retained solver receipt",
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-b3-s20261108-g0-coarse",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "SCOPED_IDENTITY_VERIFIED",
+      "run_locations": [
+        "active"
+      ],
+      "preserved_inventory": {
+        "file_count": 35,
+        "total_bytes": 33995367,
+        "inventory_sha256": "5e264de6b0be9df028b9e42112ecb8a39f9f232806a44fa278785a4edef5ac42",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/polyMesh/boundary": {
+            "sha256": "07aca7755289248f13ab430b93f349ea144d5b349c277634500738baf26a536c",
+            "bytes": 1316
+          },
+          "constant/polyMesh/cellLevel": {
+            "sha256": "508ae7157744adc7a4e6960f1acaa45b5aaa38183723ac6c1951210627e93c90",
+            "bytes": 325912
+          },
+          "constant/polyMesh/cellProc": {
+            "sha256": "5f8872c76f289d2db1605277c37ff2ce2940016fa3a4d77a58a2e83ef1092a0e",
+            "bytes": 325911
+          },
+          "constant/polyMesh/faces": {
+            "sha256": "ac47ebe1e44d6f58457db33404846d75bd1df9ecc367f7c9a84c474f4aa50599",
+            "bytes": 14629349
+          },
+          "constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "constant/polyMesh/neighbour": {
+            "sha256": "7b8c265e82ba19b45d475688e8180a9872719c6b791561912487f7a7c11c6c10",
+            "bytes": 2955445
+          },
+          "constant/polyMesh/owner": {
+            "sha256": "4e9bffbc51631e12481100910a35bcc08b41c2b8abccad421f9af0715d8fd260",
+            "bytes": 3217702
+          },
+          "constant/polyMesh/pointLevel": {
+            "sha256": "6a69b7d0df4c2ad2c1cf353c4c7667b566788067af21156c511e7c6b86c104e6",
+            "bytes": 376441
+          },
+          "constant/polyMesh/points": {
+            "sha256": "6fdcbdd1bf177531b567c28ac17191ee44e91ca8cf95c65455ee8d9e9077b70d",
+            "bytes": 9674460
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+            "bytes": 1955201
+          },
+          "design-ir.json": {
+            "sha256": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+            "bytes": 16604
+          },
+          "design-program.json": {
+            "sha256": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+            "bytes": 1084
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "6d6f85302bd051ef270c0a3b8392c0e4312adad66dbaacd8cb7bbc2ffe38779b",
+            "bytes": 112887
+          },
+          "input-manifest.json": {
+            "sha256": "5dccdcb8493c5dd1588f5bd86ecdccef766407b1628651405c994e60d4331d8b",
+            "bytes": 283442
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "c134eb82d8dc950c2cfe5c9e678c73e566419746e5f8d76547e4d6389bf06571",
+            "bytes": 1863
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "af0dc28c4a130b2da62e6301794068bb80911e5f22410fd3958b67c5daaec5a1",
+            "bytes": 2360
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "377a51c123dca02fde40c2a1aeed807ff1fecc3b61239ff15d6152c16478ebfa",
+            "bytes": 101275
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "447a4d9b9f24ee7a5bd9093d9832f0d7071a3c7671313b8e493af3924708f836",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "500157f6327e1a6479c763f046a1cd5a3c2726405a702512535f08d3c0d68872",
+            "bytes": 3267
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "system/blockMeshDict": {
+            "sha256": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "381fe33729fca5f31fb321f5844c8d3b7548f482252afb2a95d3ee76abdc7a7b",
+            "bytes": 1988
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 52,
+        "total_bytes": 34233465,
+        "inventory_sha256": "bdd18748d4bf0f5d564d8147c51284369c16bc352d9f610faa3f485d1ab14f21",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "case-identity.json": {
+            "sha256": "65eaaed18a8823c6a0eedd2887d76e620617e77769415f89c721b6dd6bf79be3",
+            "bytes": 5618
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/polyMesh/boundary": {
+            "sha256": "07aca7755289248f13ab430b93f349ea144d5b349c277634500738baf26a536c",
+            "bytes": 1316
+          },
+          "constant/polyMesh/cellLevel": {
+            "sha256": "508ae7157744adc7a4e6960f1acaa45b5aaa38183723ac6c1951210627e93c90",
+            "bytes": 325912
+          },
+          "constant/polyMesh/cellProc": {
+            "sha256": "5f8872c76f289d2db1605277c37ff2ce2940016fa3a4d77a58a2e83ef1092a0e",
+            "bytes": 325911
+          },
+          "constant/polyMesh/faces": {
+            "sha256": "ac47ebe1e44d6f58457db33404846d75bd1df9ecc367f7c9a84c474f4aa50599",
+            "bytes": 14629349
+          },
+          "constant/polyMesh/level0Edge": {
+            "sha256": "8f0a7b46a7efc2b47cedff55341810331c4526646c7243642fcd2c07cc8848f6",
+            "bytes": 773
+          },
+          "constant/polyMesh/neighbour": {
+            "sha256": "7b8c265e82ba19b45d475688e8180a9872719c6b791561912487f7a7c11c6c10",
+            "bytes": 2955445
+          },
+          "constant/polyMesh/owner": {
+            "sha256": "4e9bffbc51631e12481100910a35bcc08b41c2b8abccad421f9af0715d8fd260",
+            "bytes": 3217702
+          },
+          "constant/polyMesh/pointLevel": {
+            "sha256": "6a69b7d0df4c2ad2c1cf353c4c7667b566788067af21156c511e7c6b86c104e6",
+            "bytes": 376441
+          },
+          "constant/polyMesh/points": {
+            "sha256": "6fdcbdd1bf177531b567c28ac17191ee44e91ca8cf95c65455ee8d9e9077b70d",
+            "bytes": 9674460
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+            "bytes": 1955201
+          },
+          "design-ir.json": {
+            "sha256": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+            "bytes": 16604
+          },
+          "design-program.json": {
+            "sha256": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+            "bytes": 1084
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "6d6f85302bd051ef270c0a3b8392c0e4312adad66dbaacd8cb7bbc2ffe38779b",
+            "bytes": 112887
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "d1d1f1903e0c5e88595aa65fb1b5a32ca9b3fcb8c8df7230ea9205d2b6c6236d",
+            "bytes": 1440
+          },
+          "input-manifest.json": {
+            "sha256": "5dccdcb8493c5dd1588f5bd86ecdccef766407b1628651405c994e60d4331d8b",
+            "bytes": 283442
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "c134eb82d8dc950c2cfe5c9e678c73e566419746e5f8d76547e4d6389bf06571",
+            "bytes": 1863
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "af0dc28c4a130b2da62e6301794068bb80911e5f22410fd3958b67c5daaec5a1",
+            "bytes": 2360
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "377a51c123dca02fde40c2a1aeed807ff1fecc3b61239ff15d6152c16478ebfa",
+            "bytes": 101275
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "447a4d9b9f24ee7a5bd9093d9832f0d7071a3c7671313b8e493af3924708f836",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "500157f6327e1a6479c763f046a1cd5a3c2726405a702512535f08d3c0d68872",
+            "bytes": 3267
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "a0928e496c45189aac8fa4f4ab639f8eaf81b553360bb0db221e50af368c7f1b",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "177e9522d9da72e02da48e56ec926736ab6692a92887ee72a531306e69b80d59",
+            "bytes": 6197
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "8f29559123ddb31985500d9d8ec6e1a013365c28fa3425d4516a7d01d4ac5972",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "69a126de21810f785e1eb30b4e435a286ca4a26ffc88188ed60a3d2b0132cd4e",
+            "bytes": 6197
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "28c6c10b9c20d2ddca7a407626b20d2e6bf6017aa11aa9a12353f1b87585180d",
+            "bytes": 6177
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "dbfa6e480405cc27a3d6a7b27cfd83b1036ba5bf036e4c498b51497090800def",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "d0b5212599e7d0a2df0b94019368479b1313a3596b988206ec24ee47018107da",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "640f38cc50f696dea6897a5ab8781d437a69d3b4584622c2cb4d510bc6e7a61b",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "5dddfafc0c43f89ef2404c17de7faf54c05ca7ef8998129e80fa4be83cd243df",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "381fe33729fca5f31fb321f5844c8d3b7548f482252afb2a95d3ee76abdc7a7b",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "2b1c95ade8a0609d55783eb276406358fc0ec96120730b34adcb216993033b10",
+            "bytes": 2981
+          },
+          "water-1-mpirun.log": {
+            "sha256": "7091f4a1d3b5da8c454f185257be01d397469c946f89b88b6ce04cbaf66fee0b",
+            "bytes": 152255
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "2d45225aabc65e68e135b5a762cb945f3166def6ced125929434a79a56a32af0",
+            "bytes": 935
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "8b1d420ced0da281a37ebaba0d9244e9484a10037083b1b672e2bd1a4cd16cac",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "866e0a096ec9f7a9a42a29943e4f711e3b2d5d3f9116786dba60e5ad016d14b8",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "5e31ddfbf152e2e73f9476c1215723b7674ebcfa4cfae07f1dc9a724dd3b2eca",
+            "bytes": 732
+          }
+        }
+      },
+      "scientific_artifact_chain": {
+        "genome_hash": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+        "ir_hash": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+        "geometry_hash": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+        "mesh_hash": "509fb2f4077a255f8c13f846a3381fb7a4348a49bbae5eea4fd59a300a596520",
+        "case_hash": "d89640fdb65cbc7354b9b5fe9d62551239bc9e9741c36ac9e1ad60b0688da169"
+      },
+      "manifest": {
+        "sha256": "65eaaed18a8823c6a0eedd2887d76e620617e77769415f89c721b6dd6bf79be3",
+        "bytes": 5618
+      },
+      "reason": "Exact retained artifact chain verified; broader claim-bearing ScientificIdentity and physics admission remain separate."
+    },
+    {
+      "case": "wave4-b3-s20261108-g1-medium",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_FAILED_G1_DIAGNOSTIC",
+      "run_locations": [],
+      "diagnostic_inventory": {
+        "file_count": 41,
+        "total_bytes": 61712049,
+        "inventory_sha256": "04b7604309d0fdfe3aac83098a8ad68c1abbab2ae12e31e74993024577694af2",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "case-identity.json": {
+            "sha256": "2e40a1c241e0060d5fb3acedecaf1e3dc7762dc8821feb1c50f57f2d8d0a1619",
+            "bytes": 5619
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/polyMesh/boundary": {
+            "sha256": "6132ac1a5a29c3255695e098a0d520cd8bb5b81c4a208f4f18a7b1fbf05f8203",
+            "bytes": 1086
+          },
+          "constant/polyMesh/cellLevel": {
+            "sha256": "70d7eaeb5b46dd040945a1c93428fc4ac1941b73cfc4fed6f3efbab403eca688",
+            "bytes": 614532
+          },
+          "constant/polyMesh/cellProc": {
+            "sha256": "59eff8f70d164ad606f81bd9e216611e43820ccab96cfa05fe88e1cd7ba3b451",
+            "bytes": 217269
+          },
+          "constant/polyMesh/faces": {
+            "sha256": "46378e57e66eea3718dc09967601570571a9a9764d6587662a5bbf500a47ea79",
+            "bytes": 28297832
+          },
+          "constant/polyMesh/level0Edge": {
+            "sha256": "b9c585a7884700f61efc0d56bd7a775e7e46eca7d06630eb447dd68bdd820fb0",
+            "bytes": 765
+          },
+          "constant/polyMesh/neighbour": {
+            "sha256": "118d37faded587cf13fa70deb1c39c301844ef231ff933fb10c4d06a008ec0ab",
+            "bytes": 5924085
+          },
+          "constant/polyMesh/owner": {
+            "sha256": "57b2081c93712d8c83ed4e77fdeabfa4c3fd30d5f52d1d368ca8bab9fbcd4b3d",
+            "bytes": 6309025
+          },
+          "constant/polyMesh/pointLevel": {
+            "sha256": "9c71d1009b70007754ab445ef804f870233907ca69dff9f86f9baf63e74e564d",
+            "bytes": 682909
+          },
+          "constant/polyMesh/points": {
+            "sha256": "73a867050ea2537082fe4948a92bfc347d546957e6c588a2ab83c44998eecf61",
+            "bytes": 17190775
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+            "bytes": 1955201
+          },
+          "design-ir.json": {
+            "sha256": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+            "bytes": 16604
+          },
+          "design-program.json": {
+            "sha256": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+            "bytes": 1084
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "6d6f85302bd051ef270c0a3b8392c0e4312adad66dbaacd8cb7bbc2ffe38779b",
+            "bytes": 112887
+          },
+          "input-manifest.json": {
+            "sha256": "0896011c161e8592f654679287b0437e560aad373f9f943a14215825a64334b0",
+            "bytes": 283442
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "ee4099b91350557d22684406c4a22fe5d62d65dab30fc8ae90cc383ee3864421",
+            "bytes": 1834
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "a41651edecdbf6899e76472bc1da5f9302bee9eabae57927db3c3f3e8be85b98",
+            "bytes": 2373
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "3dc6fd363aa045646d6014b96d0a6adab32626d8a475c431a8fd200173ebcce3",
+            "bytes": 72277
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "8369765420b1f66eda09cdce6adfd528fa96c042732ecf74376bbe9603a92257",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "454d5b7b60e5477903dd15d44198f301c8c858b27662c10e9879d059330d5152",
+            "bytes": 3096
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "1bc83fc7d9a41cbf7eb4244f206df34245d49f1a1ef748431a824153fff7347e",
+            "bytes": 971
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "204961f3ae33364a2114d48fdc867bdc1be788e474a954312d77eef7f9011dd5",
+            "bytes": 2981
+          },
+          "water-1-mpirun.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "82196efdb8113d445d76b589f1f9d86af883864ba6b849b88f8c84a808b47878",
+            "bytes": 931
+          },
+          "water-1-mpirun.orig.log": {
+            "sha256": "b4195ebb36cfcb4344854cebfeb13f9533cfd5e6d45e44ee8cdb33b25ad865db",
+            "bytes": 4396
+          }
+        }
+      },
+      "reason": "Missing inlet patch after meshing; solver fatally aborted. Retained as diagnostic only; no performance/identity qualification.",
+      "solver_exit_code": 1,
+      "solver_time_steps_observed": 0,
+      "solver_image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+      "log_binding": "Driver receipt binds water-1-mpirun.log; fatal details remain in water-1-mpirun.orig.log because the shell aborted before copying them to wrapper stdout. Both files are separately fingerprinted.",
+      "boundary_patch_faces": {
+        "wall": 60725,
+        "overflow": 180,
+        "underflow": 432
+      },
+      "inlet_patches": {
+        "inlet1": {
+          "present": false,
+          "n_faces": null
+        },
+        "inlet2": {
+          "present": false,
+          "n_faces": null
+        }
+      },
+      "identity_sidecar_state": "STALE",
+      "recorded_chain": {
+        "genome_hash": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+        "ir_hash": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+        "geometry_hash": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+        "mesh_hash": "b28382b100cd443f2ee47a431faed1046ef04b2c8203c23ba47418c8161b88de",
+        "case_hash": "9e1e353c68db0d0e0529c18ade71dc2ca07de883be659c3e321bf02a7b57404b"
+      },
+      "observed_retained_chain": {
+        "genome_hash": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+        "ir_hash": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+        "geometry_hash": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+        "mesh_hash": "fe811a055ff8b41acf21895157f31d0ee755fe69b029da714a9eedc880b55950",
+        "case_hash": "e0eec5dafa206b567c6549fc8321a88dfdc802f681cf82e3ca5473f9b9dfd092"
+      },
+      "changed_sidecar_inventory_paths": {
+        "source_artifacts": [],
+        "mesh_files": [
+          "constant/polyMesh/cellProc"
+        ],
+        "solver_input_files": []
+      },
+      "valid_finalized_identity_for_retained_state": false,
+      "chronology": {
+        "owner_report": "INT10:50:52 reports solver fatal before identity finalization",
+        "independently_verified": "Solver fatal and no valid final identity for the retained state when sidecar is stale/absent.",
+        "caveat": "A stale sidecar exists in this retained diagnostic; earlier board09:46 reports pre-solve finalization. No claim that no sidecar was ever written, and no inferred finalization timestamp."
+      },
+      "evidence": {
+        "water-1-mpirun.log.receipt.json": {
+          "sha256": "82196efdb8113d445d76b589f1f9d86af883864ba6b849b88f8c84a808b47878",
+          "bytes": 931
+        },
+        "water-1-mpirun.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "water-1-mpirun.orig.log": {
+          "sha256": "b4195ebb36cfcb4344854cebfeb13f9533cfd5e6d45e44ee8cdb33b25ad865db",
+          "bytes": 4396
+        },
+        "mesh-2-checkMesh.log": {
+          "sha256": "454d5b7b60e5477903dd15d44198f301c8c858b27662c10e9879d059330d5152",
+          "bytes": 3096
+        },
+        "constant/polyMesh/boundary": {
+          "sha256": "6132ac1a5a29c3255695e098a0d520cd8bb5b81c4a208f4f18a7b1fbf05f8203",
+          "bytes": 1086
+        }
+      },
+      "physical_infeasibility_inferred": false
+    },
+    {
+      "case": "wave4-b3-s20261110-g0-coarse",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "run_locations": [
+        "quarantined"
+      ],
+      "preserved_inventory": {
+        "file_count": 20,
+        "total_bytes": 2380402,
+        "inventory_sha256": "41f72d786a66e7a797e8a76e39d483c00f4fc8ac758e217991fdadee810f1551",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "bd2d14e008434964f0ecedb8cd1b1e7cca482b216b3a9ce488391c0b8504c037",
+            "bytes": 1955461
+          },
+          "design-ir.json": {
+            "sha256": "fd521b14ba5efb1d99540d6c2aec7c572c2b38169dc8c73f084ef60e86488c6f",
+            "bytes": 17269
+          },
+          "design-program.json": {
+            "sha256": "710a080f8caf6f48a46e51a414390eabd88b9e5be889fb8aa9b89fb3ce274829",
+            "bytes": 1214
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "e2f8dc73989d37279653aed25a6fb883d30fa572b6a4602dce3ad91b72de2a34",
+            "bytes": 113258
+          },
+          "input-manifest.json": {
+            "sha256": "eecc1a314445bbb0c144fae24c01c3661dbbd8953a02d73b6f1ba820b3702820",
+            "bytes": 284262
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 20,
+        "total_bytes": 2380402,
+        "inventory_sha256": "41f72d786a66e7a797e8a76e39d483c00f4fc8ac758e217991fdadee810f1551",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "bd2d14e008434964f0ecedb8cd1b1e7cca482b216b3a9ce488391c0b8504c037",
+            "bytes": 1955461
+          },
+          "design-ir.json": {
+            "sha256": "fd521b14ba5efb1d99540d6c2aec7c572c2b38169dc8c73f084ef60e86488c6f",
+            "bytes": 17269
+          },
+          "design-program.json": {
+            "sha256": "710a080f8caf6f48a46e51a414390eabd88b9e5be889fb8aa9b89fb3ce274829",
+            "bytes": 1214
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "e2f8dc73989d37279653aed25a6fb883d30fa572b6a4602dce3ad91b72de2a34",
+            "bytes": 113258
+          },
+          "input-manifest.json": {
+            "sha256": "eecc1a314445bbb0c144fae24c01c3661dbbd8953a02d73b6f1ba820b3702820",
+            "bytes": 284262
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          }
+        }
+      },
+      "retained_source_hashes": {
+        "genome_hash": "710a080f8caf6f48a46e51a414390eabd88b9e5be889fb8aa9b89fb3ce274829",
+        "ir_hash": "fd521b14ba5efb1d99540d6c2aec7c572c2b38169dc8c73f084ef60e86488c6f",
+        "geometry_hash": "bd2d14e008434964f0ecedb8cd1b1e7cca482b216b3a9ce488391c0b8504c037"
+      },
+      "mesh_hash": null,
+      "case_hash": null,
+      "recorded_solver_exit_code": null,
+      "execution_evidence": "no retained solver receipt",
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-ct35-control-g0-coarse",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "run_locations": [
+        "quarantined"
+      ],
+      "preserved_inventory": {
+        "file_count": 43,
+        "total_bytes": 2351551,
+        "inventory_sha256": "d8b2579b4ce9d8c809a31dad638e092934abeaf142f865ef37da5c5785ff6536",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+            "bytes": 1688874
+          },
+          "design-ir.json": {
+            "sha256": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+            "bytes": 7336
+          },
+          "design-program.json": {
+            "sha256": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+            "bytes": 634
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "85ddf94cd552b89b0792b2d054056cb176cb93118a418b3601aace60a1eb51d3",
+            "bytes": 95249
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "d7f307b3acb2e5c57e827f7fb976689f311c57b7d55b508eed219fa51dd49a2d",
+            "bytes": 1440
+          },
+          "input-manifest.json": {
+            "sha256": "9eb1f446ff91eb98535eaca994a89bc53230d5ed16887b14a546da57ed79519b",
+            "bytes": 241191
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "42020d8c5ee91f13ede264c57557b896b0c71fd80e722832ef3cef3c7b74409a",
+            "bytes": 1863
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "673bc942730ce068b47b3ea0ae426c76301a26aca696ff28e47bb68070cb895d",
+            "bytes": 2360
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "c3808cf6665ce761753da966be1992a54e49478f65c1238281d05625d74967a8",
+            "bytes": 67061
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "a5d32c8c94c74c4738c88ccee5b1819a8bbb391eea946d186ee44201503c1a7f",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "aed4a7fae7030c4e1d3b00694bbc9a19bf4c0b07eacde494e3763bafc52cf144",
+            "bytes": 3191
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "e9580e24ddfaf305658e9af022f803a918c744549476e63ab2c80fc8d425acb0",
+            "bytes": 971
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "a0928e496c45189aac8fa4f4ab639f8eaf81b553360bb0db221e50af368c7f1b",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "331fa0cb68a09ca8d94303a83d3fd30a49edfca3206cb9b7d9b1f8fd149c002a",
+            "bytes": 6203
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "8f29559123ddb31985500d9d8ec6e1a013365c28fa3425d4516a7d01d4ac5972",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "dbba62df0422535e89cde22200ae092ca51b0ed7bac33e25cb71d05ef1e67e78",
+            "bytes": 6203
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "24ebb9b01a77b0be7b655e3ab08a322d76c49e68a37754f994b53f1d600eeb8e",
+            "bytes": 6177
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "dbfa6e480405cc27a3d6a7b27cfd83b1036ba5bf036e4c498b51497090800def",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "0b12229775c3f8da75f76e86bd488006325e41b8a63cd17074b30d584d3073c0",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "1abb2e9a39c3bfcfbfa63463417f0fd20843963ab0191ee09307bfc356a14fdf",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "924f8a80e3e9309f5c65ca692c3bcecf37df1f1a53c4fda63583890a4abd1fa1",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "f6c2d86381337acdfb81903b26ec6ae8367bad2cac233dbc8526c977a28f26f1",
+            "bytes": 2891
+          },
+          "water-1-mpirun.log": {
+            "sha256": "a33411b0ff126e1b5b063f8688dfc7bef3d841099af615823691b13d78690d7a",
+            "bytes": 152597
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "fa71d9342bbc586aa5531980b90b4074ec73c9139341bfc42ab0f41536ae9bc6",
+            "bytes": 936
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "a226e126bcaab5d98f3ef01355f1e69998a90ce217edd2b4a83282c2f8dd6277",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "81eba46577d362a4ee277d9170a2ea33b74c78f7bfc429990d558c730ed20364",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "0fdfe88d6e989ee256c77cfaae50d1384042026f66f57e1b19d59d934fc4694f",
+            "bytes": 733
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 43,
+        "total_bytes": 2351551,
+        "inventory_sha256": "d8b2579b4ce9d8c809a31dad638e092934abeaf142f865ef37da5c5785ff6536",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+            "bytes": 1688874
+          },
+          "design-ir.json": {
+            "sha256": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+            "bytes": 7336
+          },
+          "design-program.json": {
+            "sha256": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+            "bytes": 634
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "85ddf94cd552b89b0792b2d054056cb176cb93118a418b3601aace60a1eb51d3",
+            "bytes": 95249
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "d7f307b3acb2e5c57e827f7fb976689f311c57b7d55b508eed219fa51dd49a2d",
+            "bytes": 1440
+          },
+          "input-manifest.json": {
+            "sha256": "9eb1f446ff91eb98535eaca994a89bc53230d5ed16887b14a546da57ed79519b",
+            "bytes": 241191
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "42020d8c5ee91f13ede264c57557b896b0c71fd80e722832ef3cef3c7b74409a",
+            "bytes": 1863
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "673bc942730ce068b47b3ea0ae426c76301a26aca696ff28e47bb68070cb895d",
+            "bytes": 2360
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "c3808cf6665ce761753da966be1992a54e49478f65c1238281d05625d74967a8",
+            "bytes": 67061
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "a5d32c8c94c74c4738c88ccee5b1819a8bbb391eea946d186ee44201503c1a7f",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "aed4a7fae7030c4e1d3b00694bbc9a19bf4c0b07eacde494e3763bafc52cf144",
+            "bytes": 3191
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "e9580e24ddfaf305658e9af022f803a918c744549476e63ab2c80fc8d425acb0",
+            "bytes": 971
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "a0928e496c45189aac8fa4f4ab639f8eaf81b553360bb0db221e50af368c7f1b",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "331fa0cb68a09ca8d94303a83d3fd30a49edfca3206cb9b7d9b1f8fd149c002a",
+            "bytes": 6203
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "8f29559123ddb31985500d9d8ec6e1a013365c28fa3425d4516a7d01d4ac5972",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "dbba62df0422535e89cde22200ae092ca51b0ed7bac33e25cb71d05ef1e67e78",
+            "bytes": 6203
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "24ebb9b01a77b0be7b655e3ab08a322d76c49e68a37754f994b53f1d600eeb8e",
+            "bytes": 6177
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "dbfa6e480405cc27a3d6a7b27cfd83b1036ba5bf036e4c498b51497090800def",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "0b12229775c3f8da75f76e86bd488006325e41b8a63cd17074b30d584d3073c0",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "1abb2e9a39c3bfcfbfa63463417f0fd20843963ab0191ee09307bfc356a14fdf",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "924f8a80e3e9309f5c65ca692c3bcecf37df1f1a53c4fda63583890a4abd1fa1",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "f6c2d86381337acdfb81903b26ec6ae8367bad2cac233dbc8526c977a28f26f1",
+            "bytes": 2891
+          },
+          "water-1-mpirun.log": {
+            "sha256": "a33411b0ff126e1b5b063f8688dfc7bef3d841099af615823691b13d78690d7a",
+            "bytes": 152597
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "fa71d9342bbc586aa5531980b90b4074ec73c9139341bfc42ab0f41536ae9bc6",
+            "bytes": 936
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "a226e126bcaab5d98f3ef01355f1e69998a90ce217edd2b4a83282c2f8dd6277",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "81eba46577d362a4ee277d9170a2ea33b74c78f7bfc429990d558c730ed20364",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "0fdfe88d6e989ee256c77cfaae50d1384042026f66f57e1b19d59d934fc4694f",
+            "bytes": 733
+          }
+        }
+      },
+      "retained_source_hashes": {
+        "genome_hash": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+        "ir_hash": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+        "geometry_hash": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3"
+      },
+      "mesh_hash": null,
+      "case_hash": null,
+      "recorded_solver_exit_code": 0,
+      "execution_evidence": "retained solver receipt",
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    },
+    {
+      "case": "wave4-ct35-control-g1-medium",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "SCOPED_IDENTITY_VERIFIED",
+      "run_locations": [
+        "active"
+      ],
+      "preserved_inventory": {
+        "file_count": 59,
+        "total_bytes": 113950254,
+        "inventory_sha256": "87b83abed551966c9a96d383ee1fa1b32d4bc507cf5465f503e0afb805b47124",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "150/U": {
+            "sha256": "87b18828e3447c9ad77b179cb0dbad3004c2177d20d91a6d4d448552273bae27",
+            "bytes": 15068798
+          },
+          "150/k": {
+            "sha256": "6aab86851708e4813c111285eefc652a7f0b69e46904b3d940d9150f413fbd58",
+            "bytes": 5777594
+          },
+          "150/nut": {
+            "sha256": "cfa13195769f67228a42fd2981acf5827de261fcce3730fdcfc1e447d57ef8a2",
+            "bytes": 6456172
+          },
+          "150/omega": {
+            "sha256": "ffedb1097abd21ea086cee74dda35e1426b38cfae5bcebee8803fab49996445b",
+            "bytes": 5046362
+          },
+          "150/p": {
+            "sha256": "f7bfa1c602bbf26080005ebd0fdd1e0e7287e4046a9169303b8b817044601f64",
+            "bytes": 4244937
+          },
+          "150/phi": {
+            "sha256": "1ff56499852579e4b4d85d4a849860e3a7c97c70513aaa6872f52caa42d8a150",
+            "bytes": 16188975
+          },
+          "150/uniform/time": {
+            "sha256": "745466a7f85b5dc2fcd0d4be21286f5702e3b47766c1b05e83dfba00a3c59a21",
+            "bytes": 799
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/polyMesh/boundary": {
+            "sha256": "449bb0d11f59704e504c18ddd66a9abc0593551de5958bc77889ce643fcf0e28",
+            "bytes": 1316
+          },
+          "constant/polyMesh/cellLevel": {
+            "sha256": "abb2ca0aa238df2ed5f4506e7a7b420a6f29a10a55bf4b8daf4a31496f27ef07",
+            "bytes": 608504
+          },
+          "constant/polyMesh/cellProc": {
+            "sha256": "f77c06e9146f621d98a936f87907b58df29ffd11253ed5c47f2eae10614b5dd4",
+            "bytes": 608503
+          },
+          "constant/polyMesh/faces": {
+            "sha256": "d7600b3d2f4f978c35cd261677458e25fc52560242b710b2398c59794815f1fd",
+            "bytes": 27902772
+          },
+          "constant/polyMesh/level0Edge": {
+            "sha256": "b9c585a7884700f61efc0d56bd7a775e7e46eca7d06630eb447dd68bdd820fb0",
+            "bytes": 765
+          },
+          "constant/polyMesh/neighbour": {
+            "sha256": "00017dbbdc1a255dbcee1381ebe4f9521d760920e0bb66d9b73f2b5323b047ba",
+            "bytes": 5864933
+          },
+          "constant/polyMesh/owner": {
+            "sha256": "568e19ab65db77b85e14f861c13abc2a9d33364b7401fa7f2772d82d7cf0148a",
+            "bytes": 6235570
+          },
+          "constant/polyMesh/pointLevel": {
+            "sha256": "2b5b51904db33d8c6d237431dd13ec20e49837b189b90f4b725604887462f2e0",
+            "bytes": 673705
+          },
+          "constant/polyMesh/points": {
+            "sha256": "645dea9da972878bcfd5662f15a011f3876780cdbf72d1746cc5cbdb50fc609d",
+            "bytes": 16926723
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+            "bytes": 1688874
+          },
+          "design-ir.json": {
+            "sha256": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+            "bytes": 7336
+          },
+          "design-program.json": {
+            "sha256": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+            "bytes": 634
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "85ddf94cd552b89b0792b2d054056cb176cb93118a418b3601aace60a1eb51d3",
+            "bytes": 95249
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "535dd8424d4057f5647d87cafaa80e19327d26cc34fd6b674d3be87614a320cf",
+            "bytes": 1437
+          },
+          "input-manifest.json": {
+            "sha256": "41664f19a694d6e81ed05ff1cde48e94372cef6cb18179f75d724e41639030cc",
+            "bytes": 241191
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "373b103658a12420de6602fd8ed39693b658d701dc42bc67631159a0a96006f3",
+            "bytes": 1834
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "d99fe37788d5852d0385fd965037f30e2b48f62ed73c8f3b674fbecec7e5f8cc",
+            "bytes": 2374
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "331b672652299dde997f4fbddcf3b32b51974217cece18d9f4373722ae823009",
+            "bytes": 59031
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "fab28aad532473e811e2408bfb7de4946e0902f4c8d7228fa7152993cc64636d",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "07bb97c007b5e33ee674ecb017845f020a9956e8123a1f76c6cc23251001d0e4",
+            "bytes": 3213
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "a102173b9c392a817e6ff46f6397563cbacd8fb6a4d4f4412eac24ef71566c1c",
+            "bytes": 971
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "5f0f7f934c3758bbbaeb5358c6217d5de9771cf2b63a355ad1036c84c726c535",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "6ee6f7eceb0dbf11d6835f9c1c7f8efabe2e4eba845be771469b118819d254b6",
+            "bytes": 6203
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "d284885e043ddd1fce3da46d863b6819711b4ff974e7aa5861c9fcd3f9d874f1",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "68b7f2bbd8844857ebef3dd74870517f7f2c4a844676ba61aa1a2f7b21a9aebf",
+            "bytes": 6203
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "867c1acadad038a3cba8bd5ecabf56416156af9da9f364d1edb8a8adad0b1318",
+            "bytes": 6176
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "7d7f226ce230f64f3885f22fcec1d6e6a4f5eae1adb589602ffa2f67b31ed039",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "5b9354a0332d3958d2adfa4ebb855f3ae9e80ba4f8ac3653964c28d676c64c5e",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "f62f8cf29c03b6b40d14a39340d2a2848f70fc07befe0a08751fb22f0120c28f",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "3e73c1a07b318fe9ac9f899b52460a2c9011dee406053ef6d084ffbe3a24ee10",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "0f3460f2195e04d0ff727644d2a79c1272f790be230d26064ee8e46daa6f643f",
+            "bytes": 2983
+          },
+          "water-1-mpirun.log": {
+            "sha256": "8bf91485c1f28ac99273f3b6289985da206a5a8b14f096cfc4fc6781ba171788",
+            "bytes": 152810
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "17294910fc6f4f25d29d5901615e4c4d1b3f9d6159e6c3aa82377dde3cb47897",
+            "bytes": 934
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "e9fbddefe6b2d95c4bd858bc366f927afc8c4de3161bbc9ed4cfc5cafc7686c4",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "1fbb7cf52879bedadc92a4dc74f3e3647cb77d251ef6f8e2fbc3e5e243328d32",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "a7d4cf02769d52f833b04ff0633ee872f69e54f52116e852ec3c4515d0d58837",
+            "bytes": 732
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 60,
+        "total_bytes": 113955871,
+        "inventory_sha256": "95a27f3d1942e71a0999cc97a2561cfd13e0218a4e2a6fc9ec9cbb52252f0b2a",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "150/U": {
+            "sha256": "87b18828e3447c9ad77b179cb0dbad3004c2177d20d91a6d4d448552273bae27",
+            "bytes": 15068798
+          },
+          "150/k": {
+            "sha256": "6aab86851708e4813c111285eefc652a7f0b69e46904b3d940d9150f413fbd58",
+            "bytes": 5777594
+          },
+          "150/nut": {
+            "sha256": "cfa13195769f67228a42fd2981acf5827de261fcce3730fdcfc1e447d57ef8a2",
+            "bytes": 6456172
+          },
+          "150/omega": {
+            "sha256": "ffedb1097abd21ea086cee74dda35e1426b38cfae5bcebee8803fab49996445b",
+            "bytes": 5046362
+          },
+          "150/p": {
+            "sha256": "f7bfa1c602bbf26080005ebd0fdd1e0e7287e4046a9169303b8b817044601f64",
+            "bytes": 4244937
+          },
+          "150/phi": {
+            "sha256": "1ff56499852579e4b4d85d4a849860e3a7c97c70513aaa6872f52caa42d8a150",
+            "bytes": 16188975
+          },
+          "150/uniform/time": {
+            "sha256": "745466a7f85b5dc2fcd0d4be21286f5702e3b47766c1b05e83dfba00a3c59a21",
+            "bytes": 799
+          },
+          "case-identity.json": {
+            "sha256": "28721f9a7710028573f2f8d39903408ca1dc4a5377ff129f8e2b15fccfef8328",
+            "bytes": 5617
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/polyMesh/boundary": {
+            "sha256": "449bb0d11f59704e504c18ddd66a9abc0593551de5958bc77889ce643fcf0e28",
+            "bytes": 1316
+          },
+          "constant/polyMesh/cellLevel": {
+            "sha256": "abb2ca0aa238df2ed5f4506e7a7b420a6f29a10a55bf4b8daf4a31496f27ef07",
+            "bytes": 608504
+          },
+          "constant/polyMesh/cellProc": {
+            "sha256": "f77c06e9146f621d98a936f87907b58df29ffd11253ed5c47f2eae10614b5dd4",
+            "bytes": 608503
+          },
+          "constant/polyMesh/faces": {
+            "sha256": "d7600b3d2f4f978c35cd261677458e25fc52560242b710b2398c59794815f1fd",
+            "bytes": 27902772
+          },
+          "constant/polyMesh/level0Edge": {
+            "sha256": "b9c585a7884700f61efc0d56bd7a775e7e46eca7d06630eb447dd68bdd820fb0",
+            "bytes": 765
+          },
+          "constant/polyMesh/neighbour": {
+            "sha256": "00017dbbdc1a255dbcee1381ebe4f9521d760920e0bb66d9b73f2b5323b047ba",
+            "bytes": 5864933
+          },
+          "constant/polyMesh/owner": {
+            "sha256": "568e19ab65db77b85e14f861c13abc2a9d33364b7401fa7f2772d82d7cf0148a",
+            "bytes": 6235570
+          },
+          "constant/polyMesh/pointLevel": {
+            "sha256": "2b5b51904db33d8c6d237431dd13ec20e49837b189b90f4b725604887462f2e0",
+            "bytes": 673705
+          },
+          "constant/polyMesh/points": {
+            "sha256": "645dea9da972878bcfd5662f15a011f3876780cdbf72d1746cc5cbdb50fc609d",
+            "bytes": 16926723
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+            "bytes": 1688874
+          },
+          "design-ir.json": {
+            "sha256": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+            "bytes": 7336
+          },
+          "design-program.json": {
+            "sha256": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+            "bytes": 634
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "85ddf94cd552b89b0792b2d054056cb176cb93118a418b3601aace60a1eb51d3",
+            "bytes": 95249
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "535dd8424d4057f5647d87cafaa80e19327d26cc34fd6b674d3be87614a320cf",
+            "bytes": 1437
+          },
+          "input-manifest.json": {
+            "sha256": "41664f19a694d6e81ed05ff1cde48e94372cef6cb18179f75d724e41639030cc",
+            "bytes": 241191
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "373b103658a12420de6602fd8ed39693b658d701dc42bc67631159a0a96006f3",
+            "bytes": 1834
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "d99fe37788d5852d0385fd965037f30e2b48f62ed73c8f3b674fbecec7e5f8cc",
+            "bytes": 2374
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "331b672652299dde997f4fbddcf3b32b51974217cece18d9f4373722ae823009",
+            "bytes": 59031
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "fab28aad532473e811e2408bfb7de4946e0902f4c8d7228fa7152993cc64636d",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "07bb97c007b5e33ee674ecb017845f020a9956e8123a1f76c6cc23251001d0e4",
+            "bytes": 3213
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "a102173b9c392a817e6ff46f6397563cbacd8fb6a4d4f4412eac24ef71566c1c",
+            "bytes": 971
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "5f0f7f934c3758bbbaeb5358c6217d5de9771cf2b63a355ad1036c84c726c535",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "6ee6f7eceb0dbf11d6835f9c1c7f8efabe2e4eba845be771469b118819d254b6",
+            "bytes": 6203
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "d284885e043ddd1fce3da46d863b6819711b4ff974e7aa5861c9fcd3f9d874f1",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "68b7f2bbd8844857ebef3dd74870517f7f2c4a844676ba61aa1a2f7b21a9aebf",
+            "bytes": 6203
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "867c1acadad038a3cba8bd5ecabf56416156af9da9f364d1edb8a8adad0b1318",
+            "bytes": 6176
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "7d7f226ce230f64f3885f22fcec1d6e6a4f5eae1adb589602ffa2f67b31ed039",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "5b9354a0332d3958d2adfa4ebb855f3ae9e80ba4f8ac3653964c28d676c64c5e",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "f62f8cf29c03b6b40d14a39340d2a2848f70fc07befe0a08751fb22f0120c28f",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "3e73c1a07b318fe9ac9f899b52460a2c9011dee406053ef6d084ffbe3a24ee10",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "0f3460f2195e04d0ff727644d2a79c1272f790be230d26064ee8e46daa6f643f",
+            "bytes": 2983
+          },
+          "water-1-mpirun.log": {
+            "sha256": "8bf91485c1f28ac99273f3b6289985da206a5a8b14f096cfc4fc6781ba171788",
+            "bytes": 152810
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "17294910fc6f4f25d29d5901615e4c4d1b3f9d6159e6c3aa82377dde3cb47897",
+            "bytes": 934
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "e9fbddefe6b2d95c4bd858bc366f927afc8c4de3161bbc9ed4cfc5cafc7686c4",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "1fbb7cf52879bedadc92a4dc74f3e3647cb77d251ef6f8e2fbc3e5e243328d32",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "a7d4cf02769d52f833b04ff0633ee872f69e54f52116e852ec3c4515d0d58837",
+            "bytes": 732
+          }
+        }
+      },
+      "scientific_artifact_chain": {
+        "genome_hash": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+        "ir_hash": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+        "geometry_hash": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+        "mesh_hash": "3ff6e5d3982ba583b6376a2315d378899e25abe7ce369312bb39d6c7934bf6f1",
+        "case_hash": "0b62ab2ea24c1f9bee64fd0f463bb1cdbaf4e2465cf247063b8adcc2ca5d22eb"
+      },
+      "manifest": {
+        "sha256": "28721f9a7710028573f2f8d39903408ca1dc4a5377ff129f8e2b15fccfef8328",
+        "bytes": 5617
+      },
+      "reason": "Exact retained artifact chain verified; broader claim-bearing ScientificIdentity and physics admission remain separate."
+    },
+    {
+      "case": "wave4-ct35-control-g2-fine",
+      "accounted": true,
+      "claim_eligible": false,
+      "disposition": "EXCLUDED_MISSING_EXECUTED_MESH",
+      "run_locations": [
+        "quarantined"
+      ],
+      "preserved_inventory": {
+        "file_count": 43,
+        "total_bytes": 2379436,
+        "inventory_sha256": "8b659b5a9a7e41ad7d60d7cb2410ccf25d5403c036179f2ca4bdccd480e0af3c",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+            "bytes": 1688874
+          },
+          "design-ir.json": {
+            "sha256": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+            "bytes": 7336
+          },
+          "design-program.json": {
+            "sha256": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+            "bytes": 634
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "85ddf94cd552b89b0792b2d054056cb176cb93118a418b3601aace60a1eb51d3",
+            "bytes": 95249
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "4d728d4d475f7eb55b31f3eb62c24a4c09cb0935aa8b3c235e2c69342cfe5652",
+            "bytes": 1438
+          },
+          "input-manifest.json": {
+            "sha256": "b1a2519b523c8463846b4443cd4f36bc9c3378f9374f0b74e5decae5198857a0",
+            "bytes": 241189
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "a4baad3b97e3a2218bcda8b518f761bff3eb724f71ffc84a15270ede6e60c077",
+            "bytes": 1868
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "a10b16311478b3f7844818b1041a496c3500f4e0c268b0c5e0adac62ad95fe6c",
+            "bytes": 2364
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "ca68f5204bf07b1dd62e4834a4476c7951d5cb8c262d197fa217e5584b779826",
+            "bytes": 94662
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "6981d443479d3b97f6aa5c8376b4b1e2cfbb67a9ba0e85e76567d31d23d3da0e",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "45a110e54ce1d08aae66565a6a3bc55392de30c59399beca9d729c730a8e9838",
+            "bytes": 3182
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "9877a4a8bffd86fa548c90b0b4532396242c4d6f0b1e711c6add2982c93845eb",
+            "bytes": 971
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "a0cc93c917e4ff5b2d037cdd3fac368170f7835b6e87864cfa3d1abb32bddaa0",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "46338d0ca7a034250027b1d2473ea697056e8785575e65325e61404d57fae5da",
+            "bytes": 6203
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "9f7c6e720793dd24c2a1b72dc8c27c14b5b1410baf594be65a2df0dce109baf5",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "de7245c16105d0a5ed778f3806b937f83432a7fbad47236fa17f9dfd7327f616",
+            "bytes": 6203
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "3f7450bfbeb094ac3d6d2cf6bd3efa8d2e0e3edd71d7ba1136d66e939d4c6272",
+            "bytes": 6182
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "c8652a105f826e5128b1f9150b37c8274d9ec8f05c533e6f674faed6754f53ce",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "a095120e98bcff3063c5eacf1cf951ada79166a0d22094c3ca0800d87adafdd9",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "7a073d313b33a3b254edcf08359de886432e637fb548896daa0a830be5b1ebdb",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "4a4ce35da1f11eece1b10f33201fbd33e3696c9c049e663f581bfa7b10eb81c5",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "d3c16642441f79def485fb8cd1e64248f3baf6a42f152943e0a93c3aa65c2c3c",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "e09b3134b2b78c87b474a0e26d3ada2bff3f49b9228e635d68bda755948d40fe",
+            "bytes": 2904
+          },
+          "water-1-mpirun.log": {
+            "sha256": "6c5a2325940eb08155055df593b6fc42ee891b1acb611c6dd17a44992a754f57",
+            "bytes": 152868
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "dfacb1eadac57956aa2d8a28f28c2670f79dde4e7d11e529734cc386354adf2b",
+            "bytes": 936
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "e78ac3a70fe01d7aa040b0230a561dc54662c5e3d87d69ee29bdf92d375786de",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "3862b39d644f7dfb59f79c95a2ff6f15d2def25e69c229ad6dc407b46467d6e7",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "66d6cbafc1a0ef634427ff7b4a5da11888673dd00f165b6f9fbee3af9fd086cc",
+            "bytes": 732
+          }
+        }
+      },
+      "current_inventory": {
+        "file_count": 43,
+        "total_bytes": 2379436,
+        "inventory_sha256": "8b659b5a9a7e41ad7d60d7cb2410ccf25d5403c036179f2ca4bdccd480e0af3c",
+        "files": {
+          "0/R": {
+            "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+            "bytes": 609
+          },
+          "0/U": {
+            "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+            "bytes": 490
+          },
+          "0/epsilon": {
+            "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+            "bytes": 390
+          },
+          "0/k": {
+            "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+            "bytes": 385
+          },
+          "0/nut": {
+            "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+            "bytes": 247
+          },
+          "0/omega": {
+            "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+            "bytes": 386
+          },
+          "0/p": {
+            "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+            "bytes": 321
+          },
+          "constant/momentumTransport": {
+            "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+            "bytes": 145
+          },
+          "constant/physicalProperties": {
+            "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+            "bytes": 122
+          },
+          "constant/triSurface/ct35.stl": {
+            "sha256": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+            "bytes": 1688874
+          },
+          "design-ir.json": {
+            "sha256": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+            "bytes": 7336
+          },
+          "design-program.json": {
+            "sha256": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+            "bytes": 634
+          },
+          "feature-enactment-receipt.json": {
+            "sha256": "85ddf94cd552b89b0792b2d054056cb176cb93118a418b3601aace60a1eb51d3",
+            "bytes": 95249
+          },
+          "hydraulic-integrals.json": {
+            "sha256": "4d728d4d475f7eb55b31f3eb62c24a4c09cb0935aa8b3c235e2c69342cfe5652",
+            "bytes": 1438
+          },
+          "input-manifest.json": {
+            "sha256": "b1a2519b523c8463846b4443cd4f36bc9c3378f9374f0b74e5decae5198857a0",
+            "bytes": 241189
+          },
+          "mesh-0-blockMesh.log": {
+            "sha256": "a4baad3b97e3a2218bcda8b518f761bff3eb724f71ffc84a15270ede6e60c077",
+            "bytes": 1868
+          },
+          "mesh-1a-decomposePar.log": {
+            "sha256": "a10b16311478b3f7844818b1041a496c3500f4e0c268b0c5e0adac62ad95fe6c",
+            "bytes": 2364
+          },
+          "mesh-1b-snappyHexMesh.log": {
+            "sha256": "ca68f5204bf07b1dd62e4834a4476c7951d5cb8c262d197fa217e5584b779826",
+            "bytes": 94662
+          },
+          "mesh-1c-reconstructPar.log": {
+            "sha256": "6981d443479d3b97f6aa5c8376b4b1e2cfbb67a9ba0e85e76567d31d23d3da0e",
+            "bytes": 1137
+          },
+          "mesh-2-checkMesh.log": {
+            "sha256": "45a110e54ce1d08aae66565a6a3bc55392de30c59399beca9d729c730a8e9838",
+            "bytes": 3182
+          },
+          "mesh-pipeline.log": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "mesh-pipeline.log.receipt.json": {
+            "sha256": "9877a4a8bffd86fa548c90b0b4532396242c4d6f0b1e711c6add2982c93845eb",
+            "bytes": 971
+          },
+          "postProcessing/inlet1_flow/0/surfaceFieldValue.dat": {
+            "sha256": "a0cc93c917e4ff5b2d037cdd3fac368170f7835b6e87864cfa3d1abb32bddaa0",
+            "bytes": 6324
+          },
+          "postProcessing/inlet1_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "46338d0ca7a034250027b1d2473ea697056e8785575e65325e61404d57fae5da",
+            "bytes": 6203
+          },
+          "postProcessing/inlet2_flow/0/surfaceFieldValue.dat": {
+            "sha256": "9f7c6e720793dd24c2a1b72dc8c27c14b5b1410baf594be65a2df0dce109baf5",
+            "bytes": 6324
+          },
+          "postProcessing/inlet2_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "de7245c16105d0a5ed778f3806b937f83432a7fbad47236fa17f9dfd7327f616",
+            "bytes": 6203
+          },
+          "postProcessing/overflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "3f7450bfbeb094ac3d6d2cf6bd3efa8d2e0e3edd71d7ba1136d66e939d4c6272",
+            "bytes": 6182
+          },
+          "postProcessing/overflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "c8652a105f826e5128b1f9150b37c8274d9ec8f05c533e6f674faed6754f53ce",
+            "bytes": 6332
+          },
+          "postProcessing/residuals/0/residuals.dat": {
+            "sha256": "a095120e98bcff3063c5eacf1cf951ada79166a0d22094c3ca0800d87adafdd9",
+            "bytes": 20565
+          },
+          "postProcessing/underflow_flow/0/surfaceFieldValue.dat": {
+            "sha256": "7a073d313b33a3b254edcf08359de886432e637fb548896daa0a830be5b1ebdb",
+            "bytes": 6176
+          },
+          "postProcessing/underflow_pressure/0/surfaceFieldValue.dat": {
+            "sha256": "4a4ce35da1f11eece1b10f33201fbd33e3696c9c049e663f581bfa7b10eb81c5",
+            "bytes": 6182
+          },
+          "system/blockMeshDict": {
+            "sha256": "d3c16642441f79def485fb8cd1e64248f3baf6a42f152943e0a93c3aa65c2c3c",
+            "bytes": 459
+          },
+          "system/controlDict": {
+            "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+            "bytes": 2053
+          },
+          "system/decomposeParDict": {
+            "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+            "bytes": 107
+          },
+          "system/fvSchemes": {
+            "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+            "bytes": 570
+          },
+          "system/fvSolution": {
+            "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+            "bytes": 666
+          },
+          "system/snappyHexMeshDict": {
+            "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+            "bytes": 1988
+          },
+          "water-0-decomposePar.log": {
+            "sha256": "e09b3134b2b78c87b474a0e26d3ada2bff3f49b9228e635d68bda755948d40fe",
+            "bytes": 2904
+          },
+          "water-1-mpirun.log": {
+            "sha256": "6c5a2325940eb08155055df593b6fc42ee891b1acb611c6dd17a44992a754f57",
+            "bytes": 152868
+          },
+          "water-1-mpirun.log.receipt.json": {
+            "sha256": "dfacb1eadac57956aa2d8a28f28c2670f79dde4e7d11e529734cc386354adf2b",
+            "bytes": 936
+          },
+          "water-2-reconstructPar-150.log": {
+            "sha256": "e78ac3a70fe01d7aa040b0230a561dc54662c5e3d87d69ee29bdf92d375786de",
+            "bytes": 2384
+          },
+          "water-3-hydraulicMetrics-150.log": {
+            "sha256": "3862b39d644f7dfb59f79c95a2ff6f15d2def25e69c229ad6dc407b46467d6e7",
+            "bytes": 1279
+          },
+          "water-3-hydraulicMetrics-150.log.receipt.json": {
+            "sha256": "66d6cbafc1a0ef634427ff7b4a5da11888673dd00f165b6f9fbee3af9fd086cc",
+            "bytes": 732
+          }
+        }
+      },
+      "retained_source_hashes": {
+        "genome_hash": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+        "ir_hash": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+        "geometry_hash": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3"
+      },
+      "mesh_hash": null,
+      "case_hash": null,
+      "recorded_solver_exit_code": 0,
+      "execution_evidence": "retained solver receipt",
+      "reason": "Executed volume mesh and finalized identity unavailable; preserved bytes match quarantine. Excluded from claim-bearing use. Retained numbers, if any, are incomplete historical diagnostics; a rerun is a new run, not identity recovery."
+    }
+  ],
+  "errors": [],
+  "unresolved_cases": [],
+  "all_cases_have_verified_identity": false,
+  "claim_eligible_cases": 0,
+  "audit_source_sha256": "b6292ab2586a4d0efb84a5192d4f363269458259c3acc48b01890ab72f55ad57",
+  "policy": "OWNER11:07 permits full scoped Wave4 identity or explicit disposition. Missing/pruned meshes stay unknown; no finalized identity is synthesized. Historical/FEA remainder stays in section6."
+}
