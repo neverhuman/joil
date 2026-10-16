@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "figure_file": "docs/figures/wave2-8-exotic-phenotypes-gallery.png",
-  "figure_sha256": "b930335f0135c1135d08223a666ab1c2dd49026b2683099cf55ae1084ae4a7af",
-  "title": "Wave-2 Top 8 Exotic Valid 3D Phenotypes Gallery & 11-Family Random-Genome Sampling Audit",
-  "description": "2x4 true-scale 3D perspective wireframe & cutaway gallery of the 8 most exotic valid 3D phenotypes across non-axisymmetric families plus 11-family stratified random-genome preflight pass rate (n=220) and n=10 seed scatter + 95% CIs.",
+  "figure_sha256": "055a0e4ce88ab4d0669321eed8e1bed657b81d4fa957334eb42d1ef93a70a814",
+  "title": "Wave-2 Top 8 Exotic Valid 3D Phenotypes Gallery, Labeled B3 Elite Architecture & 11-Family Operator Walk Audit",
+  "description": "2x4 true-scale 3D gallery of the 8 most exotic valid 3D phenotypes, 11-family stratified random sampling + 20-step operator walk pass rate (220/220 = 100.0%), high-res labeled B3 elite TPMS/helix architecture callout, and n=10 seed scatter + 95% CIs.",
   "units_declared": true,
   "scale_policy": "true_aspect_si_and_mm_annotated",
   "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",

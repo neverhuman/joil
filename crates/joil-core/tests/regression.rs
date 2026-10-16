@@ -986,3 +986,41 @@ fn genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit() {
     bad3.inlet_ramp.axial_drop_mm = 18.0; // violates ramp pitch / overhang limit
     assert!(bad3.canonicalize_and_preflight().is_err());
 }
+
+#[test]
+fn operator_random_walk_20step_11family_watertight_stress_test() {
+    use joil_core::program::DesignProgram;
+
+    assert!(DesignProgram::audit_11family_operator_random_walk(19, 20261116).is_err());
+    let walk = DesignProgram::audit_11family_operator_random_walk(20, 20261116).unwrap();
+    println!(
+        "OPERATOR_RANDOM_WALK_SUMMARY: total_steps={} total_passed={} pass_fraction={} transitions={} global_families={} min_clearance_mm={:.4}",
+        walk.total_steps,
+        walk.total_passed,
+        walk.overall_pass_fraction,
+        walk.total_family_transitions,
+        walk.global_distinct_families_visited,
+        walk.family_walk_stats
+            .iter()
+            .map(|f| f.min_wall_clearance_mm)
+            .fold(f64::INFINITY, f64::min),
+    );
+    assert_eq!(walk.steps_per_family, 20);
+    assert_eq!(walk.total_steps, 220);
+    assert_eq!(walk.total_passed, 220);
+    assert_eq!(walk.overall_pass_fraction, 1.0);
+    assert_eq!(walk.family_walk_stats.len(), 11);
+    assert!(walk.total_family_transitions >= 50);
+    assert!(walk.global_distinct_families_visited >= 8);
+
+    for fam in &walk.family_walk_stats {
+        assert_eq!(fam.steps_executed, 20);
+        assert_eq!(fam.steps_passed, 20);
+        assert_eq!(fam.pass_fraction, 1.0);
+        assert_eq!(fam.max_open_edges, 0);
+        assert_eq!(fam.max_non_manifold_edges, 0);
+        assert!(fam.min_wall_clearance_mm >= 1.0);
+        assert!(fam.min_section_jacobian >= 0.90);
+        assert!(fam.family_transitions >= 1);
+    }
+}

@@ -369,9 +369,11 @@ def verify_seed_robustness_and_structured_claims(
         ("WHITEPAPER", wp, w2_b0_duties["D4_cold_viscous_slug"]["cout_mg_l"], 44.61, 1e-2, "44.61 mg/L"),
         ("WHITEPAPER", wp, w2_b3_duties["D4_cold_viscous_slug"]["cout_mg_l"], 13.96, 1e-2, "13.96 mg/L"),
         ("WHITEPAPER", wp, w2_b3_duties["D4_cold_viscous_slug"]["d50_cut_um"], 7.82, 1e-2, "7.82 μm"),
-        # 11-family expressiveness
+        # 11-family expressiveness & 20-step operator random walk
         ("WHITEPAPER", wp, float(kf["n_stratified_expressiveness_samples"]), 220.0, 1e-6, "220 / 220"),
         ("WHITEPAPER", wp, float(kf["unprojected_negative_control_pass_rate"]), 0.0, 1e-6, "0 / 30"),
+        ("WHITEPAPER", wp, float(kf["operator_random_walk_total_steps"]), 220.0, 1e-6, "audit_11family_operator_random_walk(20, 20261116)"),
+        ("WHITEPAPER", wp, float(kf["operator_random_walk_family_transitions"]), 85.0, 1e-6, "85"),
         # SCIENCE.md checks
         ("SCIENCE", sc, 500.0 * (1.0 - 0.94) / (1.0 - 0.02), 30.6122449, 1e-6, "30.6122449 mg/L"),
         ("SCIENCE", sc, 500.0 * (1.0 - 0.95) / (1.0 - 0.02), 25.5102041, 1e-6, "25.5102041 mg/L"),
@@ -388,6 +390,7 @@ def verify_seed_robustness_and_structured_claims(
         ("README", rm, rsm_cases["LRR"]["dp_u_pa"] / 1000.0, 18.12, 1e-2, "18.12 kPa"),
         ("README", rm, rsm_cases["SSG"]["dp_u_pa"] / 1000.0, 18.17, 1e-2, "18.17 kPa"),
         ("README", rm, float(kf["n_stratified_expressiveness_samples"]), 220.0, 1e-6, "220 / 220"),
+        ("README", rm, float(kf["operator_random_walk_family_transitions"]), 85.0, 1e-6, "85"),
     ]
 
     for doc_label, text, actual, expected, tol, substr in checks:

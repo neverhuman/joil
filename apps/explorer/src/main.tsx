@@ -95,7 +95,7 @@ function App() {
     { title: 'Plate 6 · 10-Seed B0–B3 Ablation & CIs', src: wave2AblationPlate, sha: 'ef83db92f9658d5a…', caption: 'Pre-registered 10-seed equal-budget ablation (5,400 evals): B3 beats B1 & B2 (Mann–Whitney U=100, p_Holm=0.000314, Cliff δ=1.00) + D1–D4 held-out duties & 10% audit.' },
     { title: 'Plate 7 · 10-Bin Grade Efficiency & DSD', src: wave2GradeDsdPlate, sha: 'cebfca5828bf295e…', caption: '10-bin reduced centrifugal efficiency E_red(d), stratified feed-to-treated DSD transfer, and Hinze d_max vs entry shear G_max.' },
     { title: 'Plate 8 · P08 Structural Lamé & Modal', src: wave2StructuralPlate, sha: '0b5456a046184f31…', caption: '64-station thick-wall Lamé hoop/radial/Von Mises stress under 2.5 MPa burst duty, Strouhal modal lock-in margin, and LPBF buildability across all 11 families.' },
-    { title: 'Plate 9 · Top-8 Exotic 3D Phenotypes Gallery', src: wave2Top8GalleryPlate, sha: 'b930335f0135c113…', caption: 'Top 8 most exotic valid 3D phenotypes (I_exotic up to 1.73) + 11-family stratified random-genome audit (220/220 = 100.0% canonicalize_and_preflight pass vs 0/30 negative controls).' },
+    { title: 'Plate 9 · Top-8 Exotic 3D Phenotypes Gallery', src: wave2Top8GalleryPlate, sha: '055a0e4ce88ab4d0…', caption: 'Top 8 most exotic valid 3D phenotypes (I_exotic up to 1.73), high-res labeled B3 elite architecture (2→6 helical manifold + Cylindrical-Gyroid TPMS r ≥ 0.70R), and 11-family sampling (220/220) + 20-step operator random walk (220/220, 85 family jumps).' },
     { title: 'Anim 1 · 3D Vortex & QD Illumination', src: wave2VortexQdGif, sha: '1f9ea28fedba6587…', caption: '36-frame 3D animation of oil-droplet core capture (40/20/10 μm) synchronized with 10-seed B3 vs B2 vs B1 hypervolume illumination.' },
     { title: 'Anim 2 · Phylogenetic 3D Topology Morph', src: wave2TopologyMorphGif, sha: 'dcfadcf06bdd7516…', caption: '36-frame continuous 3D B-rep wireframe morph across the 5-stage evolutionary lineage with live F0/P08/F1 telemetry.' },
     { title: 'Plate 3 · 3-Grid Roache GCI & Dual RSM', src: gciRsmPlate, sha: 'dbce90bb3878dd86…', caption: 'OpenFOAM 14 3-grid spatial refinement (G0 140k, G1 306k, G2 553k cells) + 7-equation LRR & SSG Reynolds-Stress closure verification.' },
@@ -116,7 +116,7 @@ function App() {
           <div><small>Wave-2 B3 C_out,p95 (10 seeds)</small><strong>{w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.mean.toFixed(2)} <b>mg/L</b></strong><span>95% CI [{w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.ci95_low.toFixed(2)}, {w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.ci95_high.toFixed(2)}]</span></div>
           <div><small>Holm–Bonferroni Wilcoxon</small><strong>p = {w2t[0].p_value_holm_bonferroni.toFixed(5)}</strong><span>Cliff&apos;s δ = {w2t[0].cliffs_delta.toFixed(2)} · 10% audit PASS</span></div>
         </div>
-        <h3>Held-Out Physical Operating Duties (D1..D4) &amp; 11-Family Genome Expressiveness (N = 220)</h3>
+        <h3>Held-Out Physical Operating Duties (D1..D4) &amp; 11-Family Genome Expressiveness + 20-Step Operator Walk</h3>
         <div className="metrics measured">
           {wave2Report.promoted_wave2_top_elite_held_out_duties.map((d, i) => {
             const b0Duty = wave2Report.baseline_b0_held_out_duties[i];
@@ -131,10 +131,10 @@ function App() {
           })}
         </div>
         <div className="metrics measured" style={{ marginTop: '12px' }}>
-          <div><small>11-Family Stratified Sampling</small><strong>220 / 220 <b>(100.0%)</b></strong><span>20 random genomes/family pass canonicalize_and_preflight</span></div>
-          <div><small>Unprojected Negative Controls</small><strong>0 / 30 <b>(0.0%)</b></strong><span>100% rejection of out-of-bounds clearance/step controls</span></div>
-          <div><small>Watertight 3D Manifold</small><strong>0 <b>open / non-manifold</b></strong><span>388–796 verts · 772–1,588 tris · min clearance ≥ 1.24 mm</span></div>
-          <div><small>Exoticness Index I_exotic</small><strong>0.157 – 1.732 <b>[-]</b></strong><span>Top: Cylindrical-Gyroid (1.73), Schwarz-P (1.32), Octa-8Jet (1.25)</span></div>
+          <div><small>11-Family Stratified Sampling</small><strong>220 / 220 <b>(100.0%)</b></strong><span>20 random genomes/family pass canonicalize_and_preflight (vs 0/30 neg. ctrl)</span></div>
+          <div><small>20-Step Operator Random Walk</small><strong>220 / 220 <b>(100.0%)</b></strong><span>20 steps × 11 families · 85 cross-family jumps · 0 open edges</span></div>
+          <div><small>Promoted B3 Elite Architecture</small><strong>I_exotic = 1.73 <b>[-]</b></strong><span>2→6 helical manifold + Cylindrical-Gyroid TPMS (r ≥ 0.70R) + 6-flute skimmer</span></div>
+          <div><small>Exoticness Index Formula</small><strong>0.157 – 1.732 <b>[-]</b></strong><span>I_branch + I_TPMS + I_ribbon + I_rifling + I_skim · min clearance ≥ 1.00 mm</span></div>
         </div>
         <div className="note">
           <strong>Honest F2-Oil / F3 / F4 / CAD-09 / P06 Physical Validation Gate Status (Unwaived)</strong>

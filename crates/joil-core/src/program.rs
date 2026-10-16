@@ -1699,6 +1699,135 @@ impl DesignProgram {
             top_8_exotic_valid_phenotypes: top_8,
         })
     }
+
+    /// Run a chained multi-step mutation + crossover random-walk stress audit starting from each of
+    /// the 11 canonical families (`steps_per_family >= 20`, verifying `canonicalize_and_preflight`
+    /// and `open_boundary_edges == 0` / `non_manifold_edges == 0` on every intermediate offspring).
+    pub fn audit_11family_operator_random_walk(
+        steps_per_family: usize,
+        seed: u64,
+    ) -> Result<OperatorRandomWalkAudit, String> {
+        if steps_per_family < 20 {
+            return Err("steps_per_family must be >= 20 for operator random-walk audit".into());
+        }
+        let mut rng = Rng::new(seed);
+        let initial_pool: Vec<Self> = (0..11)
+            .map(|f_idx| Self::sample_stratified_11family(&mut rng, f_idx))
+            .collect();
+
+        let mut family_walk_stats = Vec::with_capacity(11);
+        let mut total_steps = 0usize;
+        let mut total_passed = 0usize;
+        let mut total_family_transitions = 0usize;
+        let mut global_visited_families = std::collections::BTreeSet::new();
+
+        for (f_idx, &start_family) in Self::CANONICAL_11_FAMILIES.iter().enumerate() {
+            let mut current = initial_pool[f_idx].clone();
+            let mut prev_fam = current.classify_topology();
+            global_visited_families.insert(prev_fam.clone());
+            let mut local_visited = std::collections::BTreeSet::new();
+            local_visited.insert(prev_fam.clone());
+
+            let mut steps_passed = 0usize;
+            let mut transitions = 0usize;
+            let mut max_open_edges = 0usize;
+            let mut max_non_manifold_edges = 0usize;
+            let mut min_clearance = f64::INFINITY;
+            let mut min_jacobian = f64::INFINITY;
+            let mut exotic_sum = 0.0;
+
+            for step in 0..steps_per_family {
+                let partner_idx = ((rng.next_u64() as usize) + step + f_idx + 1) % 11;
+                let partner = &initial_pool[partner_idx];
+                current = match step % 5 {
+                    0 => current.mutate_diffeomorphic_spline(&mut rng),
+                    1 => current.mutate_branch_topology(&mut rng),
+                    2 => current.mutate_tpms_grading(&mut rng),
+                    3 => current.crossover_homologous_graph(partner, &mut rng),
+                    _ => current.crossover(partner, &mut rng),
+                };
+                total_steps += 1;
+                if let Ok((norm, pheno, mesh)) = current.canonicalize_and_preflight() {
+                    let census = mesh.edge_census();
+                    max_open_edges = max_open_edges.max(census.open_boundary_edges);
+                    max_non_manifold_edges = max_non_manifold_edges.max(census.non_manifold_edges);
+                    if census.open_boundary_edges == 0
+                        && census.non_manifold_edges == 0
+                        && mesh.signed_volume() > 0.0
+                    {
+                        steps_passed += 1;
+                        total_passed += 1;
+                        let cur_fam = norm.classify_topology();
+                        if cur_fam != prev_fam {
+                            transitions += 1;
+                            total_family_transitions += 1;
+                            prev_fam = cur_fam.clone();
+                        }
+                        local_visited.insert(cur_fam.clone());
+                        global_visited_families.insert(cur_fam);
+                        min_clearance = min_clearance.min(pheno.minimum_wall_clearance_mm);
+                        min_jacobian = min_jacobian.min(pheno.min_section_jacobian);
+                        exotic_sum += norm.exoticness_index()?;
+                    }
+                }
+            }
+
+            let denom = steps_passed.max(1) as f64;
+            family_walk_stats.push(FamilyRandomWalkStats {
+                start_topology_class: start_family.to_string(),
+                steps_executed: steps_per_family,
+                steps_passed,
+                pass_fraction: round6(steps_passed as f64 / steps_per_family as f64),
+                family_transitions: transitions,
+                distinct_families_visited: local_visited.len(),
+                max_open_edges,
+                max_non_manifold_edges,
+                min_wall_clearance_mm: round4(min_clearance),
+                min_section_jacobian: round6(min_jacobian),
+                mean_exoticness_index: round6(exotic_sum / denom),
+            });
+        }
+
+        Ok(OperatorRandomWalkAudit {
+            seed,
+            steps_per_family,
+            total_steps,
+            total_passed,
+            overall_pass_fraction: round6(total_passed as f64 / total_steps.max(1) as f64),
+            total_family_transitions,
+            global_distinct_families_visited: global_visited_families.len(),
+            family_walk_stats,
+        })
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct FamilyRandomWalkStats {
+    pub start_topology_class: String,
+    pub steps_executed: usize,
+    pub steps_passed: usize,
+    pub pass_fraction: f64,
+    pub family_transitions: usize,
+    pub distinct_families_visited: usize,
+    pub max_open_edges: usize,
+    pub max_non_manifold_edges: usize,
+    pub min_wall_clearance_mm: f64,
+    pub min_section_jacobian: f64,
+    pub mean_exoticness_index: f64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct OperatorRandomWalkAudit {
+    pub seed: u64,
+    pub steps_per_family: usize,
+    pub total_steps: usize,
+    pub total_passed: usize,
+    pub overall_pass_fraction: f64,
+    pub total_family_transitions: usize,
+    pub global_distinct_families_visited: usize,
+    pub family_walk_stats: Vec<FamilyRandomWalkStats>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
