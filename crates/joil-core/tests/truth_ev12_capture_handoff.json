@@ -1,0 +1,291 @@
+{
+  "schema": "joil.truth-lane.ev12-capture-support.v1",
+  "kind": "synthetic_software_durability_receipt_not_case_acceptance_or_physical_validation",
+  "recorded_utc": "2026-10-16T08:50:43.812036+00:00",
+  "item": "EV12-CAPTURE-SUPPORT",
+  "authority": "OWNER 2026-10-16T08:39:19Z; EV ACK 2026-10-16T08:46:27Z",
+  "integration_sync": {
+    "command": [
+      "git",
+      "merge",
+      "--no-edit",
+      "origin/feat/joil-v4-truth-evidence"
+    ],
+    "exit_code": 0,
+    "integration_head": "cab01e84d10debad41925e0dceb639facdab6c01",
+    "merge_commit": "c6662547c0e772d2a326efcbe5aaf728d797eba6",
+    "result": "Clean normal merge, no rebase/force/main/PR merge. Named root junk already absent; no deletion."
+  },
+  "tested_code_commit": "9e394153bea6e198743eddb25ba901537243e0cc",
+  "changed_paths_sha256": {
+    "crates/joil-core/tests/truth_ev12_capture.py": "3769d698e9db139b8ac0504d1659517ea3a05b36a41a5edace0a1c702c33433d",
+    "crates/joil-core/tests/truth_ev12_capture_test.py": "ceb8134435f31e631406c6e659a46c4768c7b0c210688d34a8141066fb0d38f5"
+  },
+  "tr_acceptance_audit": {
+    "TR-07": "Existing truth_gci_order covers exact manufactured p=1.5,2.0,3.2, sign-changing/divergent/roundoff/unstable-order negatives. Rust order uses ordinary division without clamp; INT-05 v2 reports already preserve unclamped order and no three-grid asymptotic certification.",
+    "TR-09": "Existing truth_candidate_structure_constrains_dominance_and_identity covers failed/absent screens, stale candidate loads and an overloaded split-inlet candidate. State is explicitly Screened/Failed/Unknown; load/genome identities participate in constrained dominance.",
+    "TR-12": "DONE-SCOPED rename and labelled non-homologous receipt per INT07:02 scope; aligned graph crossover remains section6.",
+    "TR-16": "BLOCKED-SCOPED physical admission: no source-backed pressure/energy/absolute-pressure/duty/material/process/validation inputs. Exact section6 deferral already handed DOC at2a3037d; runtime remains fail-closed.",
+    "verification": "Separate cargo test --locked -j4 -p joil-core --test truth_structure exit0 (3PASS), also rerun by the archived full workspace gate below."
+  },
+  "identity_api_dependency": {
+    "commit": "cfdbf7d79aced9cc533ece8907d7aafc348fdcef",
+    "state": "Not yet on published integration cab01e8 at verification; needs INT merge of corrected EV API before ordinary local invocation.",
+    "test_method": "Exact git show copies in ignored owner-local module overlay, no EV-owned file changes. Distinct struct-order canonical genome vs sorted IR-source genome hashes exercised.",
+    "snapshot_sha256": {
+      "analysis/__init__.py": "6ddd2e52a7b3fb6626885332f03399b9886eaa6332cf1ebf90d5443dd1e475f9",
+      "analysis/evidence.py": "647a599810b92fc2ba605d73764ded8653c8e9771a229c9feae6ca98c07f09fe",
+      "analysis/case_identity.py": "59580341c332fb49ed7830db302ae9c0eaf28adcfdea7634fe4bd919e2ac68ce"
+    },
+    "snapshot_commands": [
+      [
+        "git",
+        "show",
+        "cfdbf7d79aced9cc533ece8907d7aafc348fdcef:analysis/__init__.py"
+      ],
+      [
+        "git",
+        "show",
+        "cfdbf7d79aced9cc533ece8907d7aafc348fdcef:analysis/evidence.py"
+      ],
+      [
+        "git",
+        "show",
+        "cfdbf7d79aced9cc533ece8907d7aafc348fdcef:analysis/case_identity.py"
+      ]
+    ],
+    "snapshot_output_root": ".private/truth-ev12-support/identity-api"
+  },
+  "capture_tests": {
+    "command": [
+      "python3",
+      "crates/joil-core/tests/truth_ev12_capture_test.py"
+    ],
+    "environment": {
+      "PYTHONPATH": ".private/truth-ev12-support/identity-api:."
+    },
+    "identity_api_commit": "cfdbf7d79aced9cc533ece8907d7aafc348fdcef",
+    "exit_code": 0,
+    "wall_seconds": 0.3238490149960853,
+    "log_sha256": "b1ac79f490b78b35a863d9bbd74c9c1f6d2f2e6bbac3d44ff365c4de96bb098f",
+    "recorded_utc": "2026-10-16T08:46:25.884440+00:00",
+    "receipt_sha256": "96c6ab8efd12029118c660fa4b69b42e48a3f742f13d5b10b1719b66e39d8e57",
+    "result": "5PASS; exact indexed bytes, source pruning, archive tamper, stale0/U, symlink substitution, missing identity/mesh, nested/existing destination refusal, CLI success0/failure1."
+  },
+  "archive_restore_check": {
+    "command": [
+      "python3",
+      ".private/truth-ev12-support/archive_restore_probe.py"
+    ],
+    "environment": {
+      "PYTHONPATH": ".private/truth-ev12-support/identity-api:."
+    },
+    "exit_code": 0,
+    "wall_seconds": 0.3161828480078839,
+    "script_sha256": "19456154a0500a30c39106c1a7d79a55bf28774106792fdbeeade55d0658d885",
+    "stdout_sha256": "de0b7bfe0d11a5a6ab7ee21511a8d9937ba96f0beb5eb8e3f592693b38215bcd",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "recorded_utc": "2026-10-16T08:48:18.982949+00:00",
+    "receipt_sha256": "3c7daad041dbadf54e42a59757261384269966803f2552cb5c37a1edc03b3e94",
+    "result": {
+      "kind": "synthetic_archive_restore_durability_not_simulation_or_validation",
+      "capture_receipt_sha256": {
+        "sha256": "0e9924c34290d993dc3fa8e306f1be80794017faef7ce7d5b0bb465a776a5ab9",
+        "bytes": 3031
+      },
+      "archive": {
+        "sha256": "1afe32adf0c467ef50775eb4bddb708543b5a864ea966c49256fa6c7ceb2c2f7",
+        "bytes": 51200
+      },
+      "exact_restored_files": 15,
+      "exact_restored_bytes": 5248,
+      "chain": {
+        "genome_hash": "698ae7351f6886381e4ab12034d482ff84e23c731faef0c3b0514de15a1dd840",
+        "ir_hash": "a963c649cb91faaca9dcb90e1d0c7db89813d2ab9fb85b228be64c376dc824fc",
+        "geometry_hash": "c0efe850f56508c20152b0f576303253211fe3eea6d6774f74f3df14491f6143",
+        "mesh_hash": "e14efe93f01231672498007d85d1d13cde710e138520cbc0b5d5a0547bab8dc1",
+        "case_hash": "48256e27dc72ad31c602155c8d3d264c4c69264c7b638b1a1d8be5bac44b8cd2"
+      },
+      "negative": "original and capture missing polyMesh both refused before restore",
+      "positive": {
+        "case": "restored-inputs",
+        "case_hash": "48256e27dc72ad31c602155c8d3d264c4c69264c7b638b1a1d8be5bac44b8cd2",
+        "mesh_hash": "e14efe93f01231672498007d85d1d13cde710e138520cbc0b5d5a0547bab8dc1",
+        "state": "exact_artifact_bytes_verified"
+      },
+      "retained_evidence": "target/truth-ev12-capture-support/synthetic-archive-restore-v1"
+    },
+    "reproducer_script": "import hashlib\nimport json\nfrom pathlib import Path\nimport sys\nimport tarfile\n\nROOT = Path.cwd()\nsys.path.insert(0, str(ROOT / 'crates/joil-core/tests'))\nfrom truth_ev12_capture import capture_case, digest\nfrom truth_ev12_capture_test import synthetic_case\nfrom analysis.case_identity import finalize_case_identity, verify_case_identity\n\nwork = ROOT / 'target/truth-ev12-capture-support/synthetic-archive-restore-v1'\nwork.mkdir(parents=True, exist_ok=False)\ncase = synthetic_case(work)\nidentity = finalize_case_identity(case)\ncapture = work / 'captured-inputs'\nreceipt = capture_case(case, capture)\narchive = work / 'synthetic-inputs.tar'\nwith tarfile.open(archive, 'x') as stream:\n    stream.add(capture, arcname='restored-inputs')\narchive_digest = digest(archive)\nfor source, name in [(case, 'original-mesh-preserved'), (capture, 'capture-mesh-preserved')]:\n    (source / 'constant/polyMesh').rename(work / name)\n    try:\n        verify_case_identity(source)\n    except (OSError, ValueError):\n        pass\n    else:\n        raise AssertionError('pruned source was incorrectly verified')\nwith tarfile.open(archive, 'r') as stream:\n    stream.extractall(work, filter='data')\nrestored = work / 'restored-inputs'\nverified = verify_case_identity(restored)\nassert (restored / 'case-identity.json').read_bytes() == (case / 'case-identity.json').read_bytes()\nfor name, expected in receipt['files'].items():\n    assert digest(restored / name) == expected, name\nassert verified['case_hash'] == identity['case_hash']\nassert verified['mesh_hash'] == identity['mesh_hash']\noutput = {\n    'kind': 'synthetic_archive_restore_durability_not_simulation_or_validation',\n    'capture_receipt_sha256': digest(restored / 'tr-ev12-capture-receipt.json'),\n    'archive': archive_digest,\n    'exact_restored_files': receipt['file_count'],\n    'exact_restored_bytes': receipt['total_bytes'],\n    'chain': receipt['chain'],\n    'negative': 'original and capture missing polyMesh both refused before restore',\n    'positive': verified,\n    'retained_evidence': str(work.relative_to(ROOT)),\n}\nprint(json.dumps(output, indent=2))\n",
+    "reproducer_note": "Write this exact script at the command path above and run once with stated PYTHONPATH. Uses a fresh synthetic directory only; preserves displaced mesh bytes outside original inventories. Tar mtime/capture UTC vary on replay; the five synthetic chain hashes remain identical."
+  },
+  "handoff_to_INT": [
+    "Integrate EV corrected analysis.case_identity API cfdbf7d or its compatible hardening successor before invoking this helper; do not copy synthetic identities to real cases.",
+    "On the case owner checkout, after all actual mesh/0-field/dictionary edits, finalize_case_identity(case_dir) before solver execution and before any pruning. Stop on missing inputs or stale existing identity.",
+    "Run: python3 crates/joil-core/tests/truth_ev12_capture.py --case runs/<new-case> --capture .private/ev12-input-captures/<new-case>. Destination must be new and outside the source case. Helper writes only destination, never source or solver configuration.",
+    "Verify the captured directory with analysis.case_identity.verify_case_identity. Retain the capture receipt and bind original case-identity digest plus genome_hash/ir_hash/geometry_hash/mesh_hash/case_hash in the GCI row.",
+    "Retain hydraulic/solver/checkMesh/observer outputs and logs separately: this helper captures indexed inputs, not result evidence. No pruning or solver launch is performed or authorized by its receipt.",
+    "An already-pruned uncaptured mesh cannot be reconstructed as historical evidence. Retain blocker or conduct a separately identified owner-authorized rerun with pre-execution capture."
+  ],
+  "required_gate": {
+    "shell_command": "CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only} RUST_TEST_THREADS=4 npm_config_cache=\"$PWD/.private/npm-cache\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" python3 tools/check.py",
+    "exit_code": 0,
+    "receipt_path": ".private/checks/20261016T084704Z-974f7a6a/receipt.json",
+    "receipt_sha256": "2d17e2f4463a3de8768ba119c8314a319a7d1a7f9c26e43e40cbaa7bfe15398a",
+    "source_input_note": "Gate input is helper/test commit9e39415. Only this descriptive handoff receipt is added afterwards; helper/test bytes are checked against gate source inventory.",
+    "cfd_executed": false,
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.04780029196990654,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.29102069401415065,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 6.585785547969863,
+        "log_bytes": 294,
+        "log_sha256": "663cfbb519a4177feb783517e80529cd464dde00f8b90411b930e0bc1bf3065a"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 94.10001424100483,
+        "log_bytes": 12152,
+        "log_sha256": "ef92c6395affb7d327284ea4da506757202fd4bdc55d287dfc9d70f66a3cba2c"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.6548417489975691,
+        "log_bytes": 1093,
+        "log_sha256": "365b3c383d9f57f11b5f80da4b154cb3850e097ae989769de5c3b63c763b8f6c"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 54.49591894104378,
+        "log_bytes": 9265,
+        "log_sha256": "4b899e53594e974cdebd8a2fc970d6d3fd19ef2e2445906916774fdb10c33c99"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.08199157600756735,
+        "log_bytes": 75,
+        "log_sha256": "07668f57cf1bb92226e34dfc29a74ba67dffbb9253306d5a8b5dec2adcfdedf5"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 13.720404638967011,
+        "log_bytes": 224,
+        "log_sha256": "da53f3870146adcdd653e16776d1a74bdcac92f95637565a6b4f7a0972183fef"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 1.0196152600110509,
+        "log_bytes": 28,
+        "log_sha256": "c8249609534d15824edaf32c7abe55ffefc029eb0f5400be8d1b18dc015c23ea"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 2.4734200140228495,
+        "log_bytes": 1904,
+        "log_sha256": "f00a74df5749428b1ec8e5e9cfe9f2eee085f4957c41465b2f0ed712bff94b67"
+      }
+    ]
+  },
+  "limitations": [
+    "All new capture/restore tests use labelled synthetic fixtures; no real original run was finalized, modified or accepted by TR. No OpenFOAM launched.",
+    "EV-12 real Wave4 remains BLOCKED-SCOPED: EV reports11 original cases/0 finalized identities, five solved meshes pruned uncaptured. Synthetic durability is not every-case acceptance.",
+    "No structural physical admission, independent oil calibration, solver/grid convergence or physical qualification follows from byte retention.",
+    "Five capture tests are invoked explicitly from the TR-owned test script; the current root Python discovery does not discover that path."
+  ],
+  "next_dependency": "INT merges corrected EV API and uses capture on actual retained/new cases; EV independently verifies nonempty every-case audit. DOC/INT own workplan statuses. No PR merge by TR."
+}
