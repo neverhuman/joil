@@ -1052,9 +1052,13 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
         cite_re = r"((?:docs/results|docs/receipts|experiments|baselines/ct35)/[\w./-]+\.json)"
         section_cited = list(dict.fromkeys(re.findall(cite_re, text)))
         rows: dict[tuple[str, str, str, str], int] = {}
+        sub_cited: list[str] = []
         for _, unit in _sentences(text):
+            if unit.startswith("#"):
+                sub_cited = []
             unit_cited = list(dict.fromkeys(re.findall(cite_re, unit)))
-            search = list(dict.fromkeys(unit_cited + section_cited + all_files))
+            sub_cited = list(dict.fromkeys(sub_cited + unit_cited))
+            search = list(dict.fromkeys(unit_cited + sub_cited + section_cited + all_files))
             for token, after in _numeral_tokens_with_unit(unit):
                 if token.lstrip("+-").replace(",", "") in declared or token in declared:
                     key = (token, "declared", "-", "see table")

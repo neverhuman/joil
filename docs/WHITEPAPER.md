@@ -492,6 +492,21 @@ We ran the study as **Wave-3** (`joil-cli wave3-proof`, [`crates/joil-core/src/e
 ![Plate 11 — Wave-3 6-Arm Screen Comparison (n = 10 Seeds), Lineage, Label Diversity & 11-Family Held-Out Geometry Generalization](figures/wave3-evolution-ablation-and-lineage-proof.png)
 *Figure Plate 11 (`n = 10` independent master seeds `20261101..20261110` across `6` comparator/ablation arms `B0`, `B2`, `A2`, `A1`, `B1`, `B3` in Panels A–C, plus `n = 11` held-out 3D topological families in Panel D). Metrics plotted: final `KPI_score [-]` (`Mean ± 95% Bootstrap CI` + `n = 10` individual seed scatter points + Mann–Whitney $U$ / Holm–Bonferroni $p_{\text{Holm}}$ / Cliff's $\delta$, Panel A), step-by-step lineage milestones on the screen (`KPI_score [-]` vs. generation `g [-]` with topological operator callouts on top seed `20261110`, Panel B), active population Shannon phenotypic diversity $H\text{ [bits]}$ vs. generation `g [-]` (`Mean ± 95% CI`, Panel C), and held-out 3D geometry family `KPI_score [-]` (`± LOFO-CV Surrogate RMSE` and label reactivation rate `k/10 seeds`, Panel D). Source receipt `SHA-256`: `9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168` ([`docs/results/wave3-evolution-proof-v1.json`](results/wave3-evolution-proof-v1.json)); figure `SHA-256`: `a7c78148ff9c4e895a3fb058a204ee30f852a1b14e5f4a5b13364bcbac443eca`.*
 
+
+### 5.6 After the truth repairs: Wave-4 smoke run (INT-03, `F1` screen, software contract)
+
+After TR-01–TR-04, TR-11, TR-13 and EV-08 merged, the integrator ran a small smoke campaign to check that no silent fallback remains and to report how often proposals are invalid or repaired ([`docs/results/wave4-smoke-v1.json`](results/wave4-smoke-v1.json), `INT-03`). Configuration: `3` seeds, `2` islands × `9` individuals, `6` generations, `12` Monte Carlo samples per candidate.
+
+- **No silent fallbacks.** The audit finds `0` disallowed fallback sites, and the Rust no-fallback test passes.
+- **Budget partition.** All `381` proposals are accounted for:
+  - `0` invalid (`0.0%`);
+  - `237` repaired (`62.2%`), each with an explicit repair record;
+  - `144` evaluated without repair (`37.8%`).
+- **Most repairs come from the main operators.** `mutate` needed repair in `78.5%` of `121` attempts and the non-homologous macro crossover in `70.0%` of `203`.
+- **Repaired fields.** Repairs touched `inlet_ramp` `124` times, `cone_profile` `85`, `skimmer` `82`, `inlet_split` `58`, `tpms_insert` `5` and `ribbon_cascade` `2`.
+
+The operators previously described as "validity-preserving" therefore produced out-of-bound proposals in most draws. Before the repairs these were clamped silently inside the operators, or replaced by `CT-35`. This run is a software-contract check on the `F1` screen. It is not the Wave-4 study (workplan INT-04), which is blocked on how to run the GP-CEI arm now that the surrogate refuses screen-derived labels.
+
 ---
 
 ## Appendix A. Mathematical Formulation of Unstructured 3-Grid Roache `GCI`
