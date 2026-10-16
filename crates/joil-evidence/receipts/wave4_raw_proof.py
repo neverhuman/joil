@@ -179,6 +179,16 @@ def holdout_folds(raw, dp_ref, limit):
         raise ValueError('unknown holdout grouping basis')
     for f in raw['folds']:
         predictions = f['predictions']
+        if f.get('state') == 'insufficient':
+            if predictions:
+                raise ValueError('insufficient fold must not invent prediction rows')
+            pool = f['evaluated_candidates']
+            rows.append(dict(topology_class=f['topology_class'], sample_count=0,
+                             sandbox_authored_family_rmse_cout_mg_l=None,
+                             sandbox_authored_family_rmse_kpi_score=None,
+                             sandbox_authored_family_2sigma_coverage=None,
+                             held_out_best_kpi_score=max((kpi(i, dp_ref, limit) for i in pool), default=None)))
+            continue
         ids = [p['subject_id'] for p in predictions]
         if not ids or len(ids) != len(set(ids)) or set(ids) & set(f['train_subject_ids']):
             raise ValueError('empty, duplicate or leaking holdout predictions')
@@ -290,6 +300,9 @@ def recompute(documents):
         if holdouts is not None:
             result['held_out_geometry_generalization'] = holdout_folds(
                 holdouts, dp_ref, number(cfg['quality_limit_mg_l']))
+            for f in holdouts['folds']:
+                if f.get('state') == 'insufficient':
+                    gaps.append('Insufficient raw fold predictions: '+f['topology_class'])
     if holdouts is None:
         gaps.append('Raw out-of-fold targets/predictions absent; no held-out RMSE can be recomputed.')
     elif holdouts['split_basis'] != 'observed_geometry_holdout':
@@ -299,13 +312,28 @@ def recompute(documents):
 
 def diff_summary(actual, summary):
     """Compare only independently recomputed coverage, with exact JSON pointers."""
-    diffs, compared = [], 0
+    diffs, compared, coverage_gaps = [], 0, []
     def visit(a, b, pointer):
         nonlocal compared
         if isinstance(a, dict):
             for k, v in a.items():
                 visit(v, b.get(k) if isinstance(b, dict) else None, pointer+'/'+k)
         elif isinstance(a, list):
+            if pointer == '/held_out_geometry_generalization' and isinstance(b, list):
+                actual_families = {r['topology_class'] for r in a}
+                expected = {r['topology_class']: (i, r) for i, r in enumerate(b)}
+                if len(actual_families) != len(a) or len(expected) != len(b):
+                    raise ValueError('duplicated holdout family rows')
+                for family in expected.keys()-actual_families:
+                    coverage_gaps.append(pointer+'/'+str(expected[family][0])+' missing raw family '+family)
+                for row in a:
+                    family = row['topology_class']
+                    if family not in expected:
+                        diffs.append(dict(pointer=pointer, unexpected_raw_family=family))
+                    else:
+                        i, recorded = expected[family]
+                        visit(row, recorded, pointer+'/'+str(i))
+                return
             if not isinstance(b, list) or len(a) != len(b):
                 diffs.append(dict(pointer=pointer, recomputed_length=len(a), recorded_length=len(b) if isinstance(b, list) else None))
             else:
@@ -323,6 +351,8 @@ def diff_summary(actual, summary):
     # compared as null, so a summary's invented zero is detected.
     projection = {k: v for k, v in actual.items()
                   if k not in {'ct35_equal_budget', 'source_provenance', 'raw_configuration'} and v is not None}
+    for key in ['generation_band_curves', 'final_summary_statistics']:
+        projection[key] = {a: v for a, v in projection[key].items() if a != B0}
     projection['arm_outcomes'] = {}
     for arm, outs in actual['arm_outcomes'].items():
         if arm == B0: continue
@@ -334,7 +364,8 @@ def diff_summary(actual, summary):
     target['arm_outcomes'] = {a: sorted(v, key=lambda o: [x['seed'] for x in projection['arm_outcomes'][a]].index(o['seed']))
                               for a, v in summary['arm_outcomes'].items() if a in projection['arm_outcomes']}
     visit(projection, target, '')
-    return dict(compared_leaves=compared, numeric_or_structural_mismatches=diffs)
+    return dict(compared_leaves=compared, numeric_or_structural_mismatches=diffs,
+                coverage_gaps=sorted(coverage_gaps))
 
 
 def audit(raw_root, summary_path):
@@ -357,6 +388,7 @@ def audit(raw_root, summary_path):
         summary = json.loads(summary_bytes)
         if not isinstance(summary, dict): raise ValueError('summary must be a JSON object')
         report['comparison'] = diff_summary(actual, summary)
+        report['gaps'].extend(report['comparison']['coverage_gaps'])
         report['state'] = 'MISMATCH' if report['comparison']['numeric_or_structural_mismatches'] else ('BLOCKED' if gaps else 'PASS')
     except (ValueError, KeyError, TypeError, OSError) as exc:
         report['gaps'].append(str(exc))
