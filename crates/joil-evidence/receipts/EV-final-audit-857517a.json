@@ -1,0 +1,433 @@
+{
+  "schema_version": 1,
+  "input_head": "857517a9e150d0b38ba0815f5f5f5c26deb1a62d",
+  "kind": "independent_final_lead_and_hero_caption_trace_not_physical_validation",
+  "captions": {
+    "README hero": "*Figure 0 (Wave-4, `F1` screen, sandbox): per-generation screen `KPI_score` across `10` seeds on repaired operators, with `72` Monte Carlo samples per candidate. Panels A and B: uniform random search (`B1`) ends with the higher best score, and `B3` leads only on population median. Panel C is a gene-label schematic, not compiled geometry; its labels are read from the receipt (`CT-35` Hinze diameter `64.0 \u00b5m`). Panel D repeats archived Wave-1/2 carrier CFD of different subjects ([`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json`](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json)), not Wave-4 designs, and its percentages compare with the different-pipeline `CT-35` case; against the same-pipeline control there is no detectable difference (WHITEPAPER \u00a74.6). Source: [`docs/results/wave4-evolution-proof-v1.json`](docs/results/wave4-evolution-proof-v1.json); figure `SHA-256: fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0`. The pre-repair Wave-3 hero is listed with the figure plates in [`docs/RESULTS.md`](docs/RESULTS.md). Only `A1`, `A2` and `B3` start from the same generation 0; `B2` starts from conventionalized copies of those programs and `B1` from random samples. The dashed line in Panel B is an authored research-screen threshold, not a permit limit.*\n",
+    "WHITEPAPER lead": "*What the figure shows, in one sentence:* with `10` seeds per arm and the same budget of `450` charged proposals per seed, evolution (`B3`) does not beat uniform random search (`B1`) on best screen score ($p_{\\text{Holm}} = 1.0$), beats it only on population median ($p_{\\text{Holm}} = 0.0012568$), and ends well above `CT-35` on a screen that rewards the genes the search activates; no held-out geometry test or physical measurement stands behind any of it ([`docs/results/wave4-evolution-proof-v1.json`](results/wave4-evolution-proof-v1.json), \u00a75.7).\n*Lead figure (Wave-4, `F1` screen, sandbox; [`docs/results/wave4-evolution-proof-v1.json`](results/wave4-evolution-proof-v1.json), generator `tools/generate_page1_figure.py`).*\n*It plots the best screen `KPI_score` found so far against generation for evolution (`B3`) and uniform random\nsearch (`B1`). Each arm has `10` seeds and `450` charged proposals per seed. Bands are 95% bootstrap intervals of the\nseed mean, thin lines are single seeds, and dotted lines are population medians. `B1` ends higher on best score\n(`45.936820` against `45.131872`; for `B3` > `B1`, $p_{\\text{Holm}} = 1.0$ and Cliff's $\\delta = -0.68$), so on\nrepaired code evolution does not beat random search on the screen's best score. `B3` leads only on population\nmedian (`43.628366` against `37.983620`). `CT-35` is a single frozen reference evaluation at `23.931038`, not a\nsearch arm. These are values of a screen built from gene-derived descriptors, not physical performance\n(correction C4). The same-pipeline CFD control shows no pressure-drop advantage for the archived shells either (\u00a74.6).*\n"
+  },
+  "numeric_observations": [
+    {
+      "caption": "README hero",
+      "role": "seeds per arm",
+      "printed": "10",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/n_seeds",
+      "source_value": 10,
+      "formatted_value": "10",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "seeds per arm",
+      "printed": "10",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/n_seeds",
+      "source_value": 10,
+      "formatted_value": "10",
+      "status": "PASS"
+    },
+    {
+      "caption": "README hero",
+      "role": "Monte Carlo samples per candidate",
+      "printed": "72",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/promoted_wave3_top_elite/mc_robustness/samples",
+      "source_value": 72,
+      "formatted_value": "72",
+      "status": "PASS"
+    },
+    {
+      "caption": "README hero",
+      "role": "CT35 screen Hinze diameter, micrometres",
+      "printed": "64.0",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/baseline_b0_ct35/nominal_metrics/hinze_dmax_um",
+      "source_value": 64.0,
+      "formatted_value": "64.0",
+      "status": "PASS"
+    },
+    {
+      "caption": "README hero",
+      "role": "initial generation index",
+      "printed": "0",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/0/generation",
+      "source_value": 0,
+      "formatted_value": "0",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "charged proposals per seed and arm",
+      "printed": "450",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/evaluations_per_seed_per_arm",
+      "source_value": 450,
+      "formatted_value": "450",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "B1 final best KPI, seed mean",
+      "printed": "45.936820",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/final_summary_statistics/B1_Random_Search/best_kpi_score/mean",
+      "source_value": 45.93682,
+      "formatted_value": "45.936820",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "B3 final best KPI, seed mean",
+      "printed": "45.131872",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/final_summary_statistics/B3_Wave3_Exotic3D_QD_CEI/best_kpi_score/mean",
+      "source_value": 45.131872,
+      "formatted_value": "45.131872",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "best KPI B3>B1, Holm p",
+      "printed": "1.0",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/pairwise_tests/0/p_value_holm_bonferroni",
+      "source_value": 1.0,
+      "formatted_value": "1.0",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "best KPI B3>B1, Cliff delta",
+      "printed": "-0.68",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/pairwise_tests/0/cliffs_delta",
+      "source_value": -0.68,
+      "formatted_value": "-0.68",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "population median B3>B1, Holm p",
+      "printed": "0.0012568",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/pairwise_tests/1/p_value_holm_bonferroni",
+      "source_value": 0.0012568,
+      "formatted_value": "0.0012568",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "B3 final population median KPI, seed mean",
+      "printed": "43.628366",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/final_summary_statistics/B3_Wave3_Exotic3D_QD_CEI/median_kpi_score/mean",
+      "source_value": 43.628366,
+      "formatted_value": "43.628366",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "B1 final population median KPI, seed mean",
+      "printed": "37.983620",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/final_summary_statistics/B1_Random_Search/median_kpi_score/mean",
+      "source_value": 37.98362,
+      "formatted_value": "37.983620",
+      "status": "PASS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "role": "CT35 frozen reference KPI",
+      "printed": "23.931038",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/baseline_b0_ct35_kpi_score",
+      "source_value": 23.931038,
+      "formatted_value": "23.931038",
+      "status": "PASS"
+    }
+  ],
+  "confidence_and_spelled_count": [
+    {
+      "caption": "WHITEPAPER lead",
+      "printed": "95%",
+      "role": "bootstrap interval confidence",
+      "sources": [
+        "docs/results/wave4-evolution-proof-v1.json#/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/24/best_kpi_score/ci95_low",
+        "docs/results/wave4-evolution-proof-v1.json#/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/24/best_kpi_score/ci95_high",
+        "docs/results/wave4-evolution-proof-v1.json#/generation_band_curves/B1_Random_Search/24/best_kpi_score/ci95_low",
+        "docs/results/wave4-evolution-proof-v1.json#/generation_band_curves/B1_Random_Search/24/best_kpi_score/ci95_high"
+      ],
+      "interpretation": "ci95_low/ci95_high field-name semantics, not a separate scalar confidence leaf; intervals are for the seed mean",
+      "status": "PASS_DECLARED_FIELD_SEMANTICS"
+    },
+    {
+      "caption": "WHITEPAPER lead",
+      "printed": "single frozen reference evaluation",
+      "role": "reference evaluation count per seed",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/0/reference_evaluations",
+      "source_value": 1,
+      "status": "PASS"
+    }
+  ],
+  "figures": [
+    {
+      "document": "README.md",
+      "path": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+      "exists": true,
+      "png_sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "manifest_path": "docs/figures/wave4-readme-hero-kpi-and-elite.png.manifest.json",
+      "manifest_sha256": "ee6483a9f595baf87d4ab1ddbb0f2028acafb6c65cbbf98d243b55972a28e589",
+      "png_matches_manifest": true,
+      "digest_listed_in_document": true,
+      "source_receipts": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "match": true
+        },
+        {
+          "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+          "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+          "match": true
+        },
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+          "match": true
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+          "match": true
+        }
+      ]
+    },
+    {
+      "document": "docs/WHITEPAPER.md",
+      "path": "docs/figures/wave4-page1-why-it-matters.png",
+      "exists": true,
+      "png_sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "manifest_path": "docs/figures/wave4-page1-why-it-matters.png.manifest.json",
+      "manifest_sha256": "54911b795c6189b609abe1eb5dd8c9f66abaa998af27985070b94002a29b02dd",
+      "png_matches_manifest": true,
+      "digest_listed_in_document": true,
+      "source_receipts": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "match": true
+        }
+      ]
+    }
+  ],
+  "nonmeasurement_numerals": [
+    "Figure0=index",
+    "Wave1/2/3/4=campaign identifiers",
+    "F1=fidelity label",
+    "CT35=baseline designation",
+    "A1/A2/B1/B2/B3=arm identifiers",
+    "PanelA/B/C/D=panel indices",
+    "sections4.6/5.7=locations",
+    "correctionC4=review index",
+    "SHA256=hash algorithm; full opaque digests independently verified"
+  ],
+  "negative_checks": {
+    "wrong_best_arm_reject": true,
+    "wrong_pvalue_metric_reject": true,
+    "wrong_png_bytes_reject": true
+  },
+  "all_claims_or_physical_PASS": false,
+  "PASS": true,
+  "recorded_utc": "2026-10-16T14:14:31.632492+00:00",
+  "fresh_clone": {
+    "input_head": "857517a9e150d0b38ba0815f5f5f5c26deb1a62d",
+    "commands": [
+      {
+        "name": "install-venv",
+        "command": "python3 -m venv .private/quickstart-python",
+        "exit_code": 0,
+        "elapsed_seconds": 2.987564,
+        "log": "/home/ubuntu/joil-wt/evidence/.private/ev-final-audit/install-venv.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "install-activate",
+        "command": ". .private/quickstart-python/bin/activate",
+        "exit_code": 0,
+        "elapsed_seconds": 0.002715,
+        "log": "/home/ubuntu/joil-wt/evidence/.private/ev-final-audit/install-activate.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "install-python",
+        "command": "python3 -m pip install numpy matplotlib",
+        "exit_code": 0,
+        "elapsed_seconds": 11.279414,
+        "log": "/home/ubuntu/joil-wt/evidence/.private/ev-final-audit/install-python.log",
+        "log_sha256": "ea5a532f71aeb13ff9743f1398b79ca3d2bd4f2862408d36c5baaff857c54e5a"
+      },
+      {
+        "name": "quickstart-1",
+        "command": "rtk cargo test --workspace --locked",
+        "exit_code": 0,
+        "elapsed_seconds": 168.150144,
+        "log": "/home/ubuntu/joil-wt/evidence/.private/ev-final-audit/quickstart-1.log",
+        "log_sha256": "15b88c0a453680e0f24263d62083275394208d09d094e109b99fa3c2d66dc72d"
+      },
+      {
+        "name": "quickstart-2",
+        "command": "rtk proxy cargo test -p joil-core --test regression closed_catalog_validity_11family_sampling -- --nocapture --exact",
+        "exit_code": 0,
+        "elapsed_seconds": 35.078969,
+        "log": "/home/ubuntu/joil-wt/evidence/.private/ev-final-audit/quickstart-2.log",
+        "log_sha256": "a6eed9722c7600025379badae521b7595d22f21095cd5eb5a98863a7c8ba00d7"
+      },
+      {
+        "name": "quickstart-3",
+        "command": "rtk proxy cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact",
+        "exit_code": 0,
+        "elapsed_seconds": 36.579373,
+        "log": "/home/ubuntu/joil-wt/evidence/.private/ev-final-audit/quickstart-3.log",
+        "log_sha256": "7d01fd206036af7d547f84eed56483b6efaadc50806b504ffe6aa40ccaffae74"
+      }
+    ],
+    "environment": {
+      "CARGO_BUILD_JOBS": "4",
+      "RUST_TEST_THREADS": "4",
+      "RAYON_NUM_THREADS": "4",
+      "CARGO_HOME": "/tmp/joil-ev-fresh/.private/cargo",
+      "TMPDIR": "/tmp/joil-ev-fresh/.private/tmp",
+      "CARGO_INCREMENTAL": "0",
+      "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+    },
+    "versions": {
+      "python": "Python 3.12.3",
+      "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+      "rustc": "rustc 1.95.0 (59807616e 2026-04-14)"
+    },
+    "python_packages": [
+      "contourpy==1.4.0",
+      "cycler==0.12.1",
+      "fonttools==4.67.0",
+      "kiwisolver==1.5.1",
+      "matplotlib==3.11.2",
+      "numpy==2.5.4",
+      "packaging==26.3",
+      "pillow==12.3.0",
+      "pyparsing==3.3.3",
+      "python-dateutil==2.9.0.post0",
+      "six==1.17.0"
+    ],
+    "cleanup_checks": {
+      "git_status": "",
+      "git_stashes": "",
+      "local_only_commits": "",
+      "local_tags_all_on_remote": true,
+      "local_tag_count": 0
+    },
+    "retained_artifacts": {
+      "files": 168,
+      "uncompressed_bytes": 64452502,
+      "private_archive": ".private/ev-final-audit/fresh-retained-artifacts.tar.gz",
+      "archive_sha256": "de7866d32704c068b0feb2e2214e595d53e6efc7283acea8e5aba6c68bd705a5",
+      "inventory": ".private/ev-final-audit/fresh-retained-artifacts.json",
+      "inventory_sha256": "9836ba4415aa334c42cf602e82b6311546d1c66ba7fab9739c8726d2d4239757",
+      "all_archived_bytes_reverified": true
+    },
+    "fresh_clone_deleted": true,
+    "created_utc": "2026-10-16T14:12:46.927053+00:00",
+    "runtime_comparison": "At4Cargo jobs/4Rust test threads: workspace168.150144s is a few minutes; filtered checks35.078969s and36.579373s are under a minute. This limited spot-check does not cover the81s unittest observed independently byTR; general README timing revision remains DOC-owned."
+  },
+  "numtrace_recheck": {
+    "exit_code": 0,
+    "pin": "d3c190720d5d436c1b6e9f66f7bd256c61b21d10",
+    "source_hashes_verified": 69,
+    "direct_JSON_facts_verified": 736,
+    "derived_facts_verified_or_inherited_with_unchanged_exact_inputs": 89,
+    "claim_occurrences": 1769,
+    "literal_spans_verified": 4018,
+    "spelled_spans_verified": 141,
+    "sha256_occurrences_verified": 46,
+    "table_checks": 409,
+    "negative_controls": "wrong value,arm,sign,bytes,missing denominator and coincident wrong statistic reject",
+    "wall_seconds": 1.3064432020182721,
+    "receipt_sha256": "100316751bd0b8616e8d9fdca9915c98dcbd0fc0b28d65f855a42805f9e1e7d3",
+    "scope_binding": "All69 source hashes independently compared to857517a, so the historical receipt recheck applies to the identical source bytes; its embedded pin remains d3c1907."
+  },
+  "claims_audit": {
+    "passed": true,
+    "structured_claims_verified": 152,
+    "numeric_tokens_scanned": 1462,
+    "review_inputs_verified": 6,
+    "review_findings_traced": 135,
+    "wording_claims_checked": 23,
+    "error_count": 0,
+    "errors": []
+  },
+  "numtrace_log_sha256": "07d31450c15bb93e531e38bd6109335381b8eaf1a4ffb5b128d461f0c540c4e2",
+  "claims_log_sha256": "fb079cac600650d9eaa15a85f6d0139b16e8b9485889acd7956e5839af34315d",
+  "EV13_figure_input_hashes_at_857517a": {
+    "README.md": true,
+    "analysis/kpi_fitness.py": true,
+    "crates/joil-evidence/receipts/Plate10-field-arrays.json": true,
+    "crates/joil-evidence/receipts/Wave4-raw-capture-number-trace.json": true,
+    "docs/RESULTS.md": true,
+    "docs/WHITEPAPER.md": true,
+    "docs/figures/elite-gci-and-rsm-verification.png": true,
+    "docs/figures/elite-gci-and-rsm-verification.png.manifest.json": true,
+    "docs/figures/wave2-multiseed-ablation-and-ci.png": true,
+    "docs/figures/wave2-multiseed-ablation-and-ci.png.manifest.json": true,
+    "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png": true,
+    "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png.manifest.json": true,
+    "docs/figures/wave3-evolution-ablation-and-lineage-proof.png": true,
+    "docs/figures/wave3-evolution-ablation-and-lineage-proof.png.manifest.json": true,
+    "docs/figures/wave3-readme-hero-kpi-and-elite.png": true,
+    "docs/figures/wave3-readme-hero-kpi-and-elite.png.manifest.json": true,
+    "docs/figures/wave4-evolution-ablation-and-lineage-proof.png": true,
+    "docs/figures/wave4-evolution-ablation-and-lineage-proof.png.manifest.json": true,
+    "docs/figures/wave4-gci-same-pipeline-control.png": true,
+    "docs/figures/wave4-gci-same-pipeline-control.png.manifest.json": true,
+    "docs/figures/wave4-page1-why-it-matters.png": true,
+    "docs/figures/wave4-page1-why-it-matters.png.manifest.json": true,
+    "docs/figures/wave4-readme-hero-kpi-and-elite.png": true,
+    "docs/figures/wave4-readme-hero-kpi-and-elite.png.manifest.json": true,
+    "docs/receipts/EV13-integrator-regeneration-followup.json": true,
+    "docs/receipts/EV13-integrator-regeneration.json": true,
+    "docs/results/baseline-hydraulics-v1.json": true,
+    "docs/results/elite-3grid-gci-and-rsm-verification-v1.json": true,
+    "docs/results/elite-3grid-gci-and-rsm-verification-v2.json": true,
+    "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json": true,
+    "docs/results/interactive-3d-archetypes-v1.json": true,
+    "docs/results/rust-evolution-qualification-v1.json": true,
+    "docs/results/wave2-multiseed-ablation-and-holdout-v1.json": true,
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json": true,
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json": true,
+    "docs/results/wave3-evolution-proof-v1.json": true,
+    "docs/results/wave4-evolution-proof-v1.json": true,
+    "docs/results/wave4-gci-v1.json": true,
+    "docs/results/wave4-smoke-v1.json": true,
+    "experiments/wave2-preregistration-v1.json": true,
+    "requirements/RS-joil-research-v1.json": true,
+    "tools/generate_gci_rsm_report_and_figures.py": true,
+    "tools/generate_openfoam14_flowfield_plate.py": true,
+    "tools/generate_page1_figure.py": true,
+    "tools/generate_wave2_figures_and_animations.py": true,
+    "tools/generate_wave2_vs_wave1_cfd_plate.py": true,
+    "tools/generate_wave3_proof_figures.py": true,
+    "tools/generate_wave4_gci_figure.py": true
+  },
+  "plot_value_trace": {
+    "path": "crates/joil-evidence/receipts/EV13-followup-figure-value-trace.json",
+    "sha256": "9b40e381fd2bd32cfe9ae5eaf6beed341690980c6dcdc750b8c8a7045f25481c",
+    "input_equivalence": "All48 source inventory files are byte-identical to independently replayed503a299. No inherited clearance across changed bytes.",
+    "summary": {
+      "PASS": 833,
+      "FAIL": 0,
+      "UNTRACED": 0
+    },
+    "field_array_bindings_exact": 32,
+    "runtime_plot_calls_unchanged": 266
+  },
+  "caption_checker": {
+    "path": "crates/joil-evidence/receipts/ev_final_caption_audit.py",
+    "sha256": "fc06bd0b494f4ad7c1070ff40a4abecf06a09663c44ac2a8732379b3a186ae29",
+    "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/ev_final_caption_audit.py --revision 857517a --output .private/ev-final-audit/captions-857517a.json",
+    "exit_code": 0
+  },
+  "remaining_limits": {
+    "physical_claim_PASS": false,
+    "EV09": "BLOCKED-SCOPED section6: no independent labels or disjoint family/mechanism OOD holdout",
+    "EV12": "Scoped accountability:3exact chains+9nonclaim exclusions, not12identityPASS",
+    "F03": "No equal-budget3arm figure; CT35 historical reference is not a450eval search arm",
+    "F04": "Source-bound legacy arrays retain zero-owner/owned-face coordinate defects and313260-vs334768 retained/archived baseline identity mismatch",
+    "other": "Historical executed meshes/full identity,FEA/material/process/loadtransfer,independent oil/physical validation deferred; authoredfamilyLOFO is not independent heldoutgeometry; new rawcapture is reproduction, not original execution"
+  }
+}
