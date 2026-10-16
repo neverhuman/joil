@@ -217,10 +217,21 @@ def generate_readme_hero(
     ax_c.add_patch(FancyBboxPatch((4.5, 46.2), 9.0, 3.0, boxstyle='round,pad=0.2', facecolor='#EF4444', edgecolor='#FCA5A5'))
     ax_c.add_patch(FancyBboxPatch((26.5, 22.8), 9.0, 3.0, boxstyle='round,pad=0.2', facecolor='#EF4444', edgecolor='#FCA5A5'))
     ax_c.text(20, 54.5, 'B0: CT-35 Single-Eval Ref (2 Ports)', color='#F8FAFC', fontweight='bold', ha='center', fontsize=9.0)
+    top_el = w3['promoted_wave3_top_elite']
+    top_kpi = float(w3['promoted_wave3_top_elite_kpi_score'])
+    top_cout = _mc_cout(top_el['mc_robustness'])
+    base_cout_val = float(_get(w3, 'baseline_b0_ct35_cout_p95_mg_l', 'baseline_b0_ct35_cout_sample_screen_upper_mg_l'))
+    top_cout_red_pct = (top_cout - base_cout_val) / base_cout_val * 100.0
+    base_dmax = float(w3.get('baseline_b0_ct35', {}).get('nominal_metrics', {}).get('hinze_dmax_um', 64.0))
+    top_dmax = float(top_el.get('nominal_metrics', {}).get('hinze_dmax_um', 98.99))
+    split_cfg = top_el['program']['inlet_split']
+    n_jets = 2 * int(split_cfg['branches_per_port']) if bool(split_cfg.get('enabled', False)) else 2
+    r_in_frac = float(top_el['program']['tpms_insert'].get('radial_inner_fraction', 0.7417))
+
     ax_c.text(
         20,
         13.2,
-        f'd_max(Hinze) = 69.2 µm (High Entry Shear)\n'
+        f'Screen d_max(Hinze) = {base_dmax:.2f} µm\n'
         f'C_out,upper = {base_cout:.2f} mg/L | KPI = {base_kpi:.2f} [-]\n'
         f'Structured-Hex CFD Δp_u = 29.47 kPa',
         color='#CBD5E1',
@@ -231,37 +242,33 @@ def generate_readme_hero(
     # Right sub-diagram: Gene-Label Schematic of Top B3 Elite
     c_outer = Circle((68, 36.2), 13.8, facecolor='#0F172A', edgecolor='#38BDF8', linewidth=2.2)
     ax_c.add_patch(c_outer)
-    w_tpms = Wedge((68, 36.2), 13.6, 0, 360, width=4.1, facecolor='#0284C7', edgecolor='#7DD3FC', alpha=0.55, hatch='xx')
+    tpms_w = max(1.5, 13.6 * (1.0 - r_in_frac))
+    w_tpms = Wedge((68, 36.2), 13.6, 0, 360, width=tpms_w, facecolor='#0284C7', edgecolor='#7DD3FC', alpha=0.55, hatch='xx')
     ax_c.add_patch(w_tpms)
-    c_unob = Circle((68, 36.2), 9.5, facecolor='#0F172A', edgecolor='#22D3EE', linestyle='--', linewidth=1.3)
+    c_unob = Circle((68, 36.2), 13.6 * r_in_frac, facecolor='#0F172A', edgecolor='#22D3EE', linestyle='--', linewidth=1.3)
     ax_c.add_patch(c_unob)
     c_oil = Circle((68, 36.2), 3.5, facecolor='#10B981', edgecolor='#A7F3D0', linewidth=1.5)
     ax_c.add_patch(c_oil)
 
-    for k_jet in range(6):
-        ang = math.radians(k_jet * 60.0 + 25.0)
+    for k_jet in range(n_jets):
+        ang = math.radians(k_jet * (360.0 / n_jets) + 25.0)
         x0 = 68.0 + 15.6 * math.cos(ang)
         y0 = 36.2 + 15.6 * math.sin(ang)
         dx = -3.0 * math.sin(ang) - 1.4 * math.cos(ang)
         dy = 3.0 * math.cos(ang) - 1.4 * math.sin(ang)
         ax_c.arrow(x0, y0, dx, dy, width=0.42, head_width=1.3, head_length=1.1, fc='#38BDF8', ec='#BAE6FD')
 
-    top_el = w3['promoted_wave3_top_elite']
-    top_kpi = float(w3['promoted_wave3_top_elite_kpi_score'])
-    top_cout = _mc_cout(top_el['mc_robustness'])
-    base_cout_val = float(_get(w3, 'baseline_b0_ct35_cout_p95_mg_l', 'baseline_b0_ct35_cout_sample_screen_upper_mg_l'))
-    top_cout_red_pct = (top_cout - base_cout_val) / base_cout_val * 100.0
     ax_c.text(68, 54.5, f'B3 Elite Gene-Label Schematic ({top_el["topology_class"]})', color='#38BDF8', fontweight='bold', ha='center', fontsize=8.6)
     ax_c.text(
         68,
         10.5,
         f'GENE-LABEL SCHEMATIC ONLY (Not Compiled Geometry):\n'
-        f'Authored genes: {top_el["program"]["inlet_split"]["branches_per_port"]}x2 jets, TPMS={top_el["program"]["tpms_insert"]["basis"]}\n'
+        f'Authored genes: {n_jets} jets, TPMS={top_el["program"]["tpms_insert"]["basis"]} (r_in={r_in_frac:.4f}R, d_max={top_dmax:.2f} µm)\n'
         f'Compiled surface enacts wall-corrugation proxy only (C1, IR-R4)\n'
         f'Screen C_out,upper = {top_cout:.2f} mg/L ({top_cout_red_pct:.1f}%) | KPI = {top_kpi:.2f} [-]',
         color='#E2E8F0',
         ha='center',
-        fontsize=7.2,
+        fontsize=7.1,
     )
 
     # Panel D: Archived Wave-1/2 OpenFOAM 14 3-Grid (G0/G1/G2) + Dual LRR/SSG RSM Screen (Separate Subjects from Wave-4)
@@ -517,7 +524,7 @@ def generate_plate11_proof(
         where='post',
         color='#0F172A',
         linewidth=2.5,
-        label=f'Top Seed {best_seed_outcome["seed"]} Phylogenetic Lineage ({len(ms_top)} Milestones)',
+        label=f'Top Seed {best_seed_outcome["seed"]} Incumbent Milestone Trajectory ({len(ms_top)} Milestones)',
     )
     ax_b.scatter(gx_top, ky_top, color='#EF4444', s=52, zorder=6, edgecolor='#0F172A')
 
@@ -544,7 +551,7 @@ def generate_plate11_proof(
             arrowprops={'arrowstyle': '->', 'color': '#475569', 'lw': 0.9},
         )
 
-    ax_b.set_title('B. De-Novo Phylogenetic Lineage & Operator Stepping Stones (n = 10 Seeds)')
+    ax_b.set_title('B. Incumbent Improvement Milestones vs. Generation (n = 10 Seeds; Not Full Pedigree, W4-G7)')
     ax_b.set_xlabel('Evolutionary Generation g [-]')
     ax_b.set_ylabel('Incumbent Seed-Best KPI_score [-]')
     ax_b.grid(True, linestyle='--', alpha=0.35)
