@@ -1185,6 +1185,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `72` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/samples` | printed |
 | `64.0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/nominal_metrics/hinze_dmax_um` | printed |
+| `0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
 | `3` | 1 | declared | - | see table (`3@Python 3 with`) |
 | `3.12` | 1 | declared | - | see table (`3.12@use Python 3.12`) |
 | `3.12` | 2 | declared | - | see table (`3.12@project environment with **Python 3.12**`) |
