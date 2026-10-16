@@ -94,16 +94,31 @@ pub struct CandidateMetrics {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MonteCarloSummary {
     pub samples: usize,
+    pub pass_count: usize,
+    pub sampled_pass_fraction_ci95: [f64; 2],
+    pub sampling_interpretation: String,
+    pub tail_quantiles: BTreeMap<String, metrics::QuantileEstimate>,
+    #[serde(rename = "cout_sample_screen_lower_mg_l", alias = "cout_p05_mg_l")]
     pub cout_p05_mg_l: f64,
     pub cout_p50_mg_l: f64,
+    #[serde(rename = "cout_sample_screen_upper_mg_l", alias = "cout_p95_mg_l")]
     pub cout_p95_mg_l: f64,
+    #[serde(rename = "capture_sample_screen_lower", alias = "capture_p05")]
     pub capture_p05: f64,
     pub capture_p50: f64,
+    #[serde(rename = "capture_sample_screen_upper", alias = "capture_p95")]
     pub capture_p95: f64,
+    #[serde(rename = "d50_sample_screen_lower_um", alias = "d50_p05_um")]
     pub d50_p05_um: f64,
     pub d50_p50_um: f64,
+    #[serde(rename = "d50_sample_screen_upper_um", alias = "d50_p95_um")]
     pub d50_p95_um: f64,
+    #[serde(rename = "grade_20um_sample_screen_lower", alias = "grade_20um_p05")]
     pub grade_20um_p05: f64,
+    #[serde(
+        rename = "sampled_pass_fraction_research_limit",
+        alias = "probability_passes_30_mg_l"
+    )]
     pub probability_passes_30_mg_l: f64,
 }
 
@@ -157,13 +172,29 @@ pub struct Individual {
     pub nominal_metrics: CandidateMetrics,
     pub mc_robustness: MonteCarloSummary,
     pub cuda_sdf_audit: Option<CudaSdfSummary>,
-    pub objectives: [f64; 5],
+    pub objectives: ObjectiveOutcome,
     pub constraint_violation: f64,
     pub rank: usize,
     pub crowding_distance: f64,
     pub evidence_tier: EvidenceTier,
     pub qualified_multiobjective_vector: Option<serde_json::Value>,
     pub qualified_capacity_gain: Option<f64>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "status", rename_all = "snake_case")]
+pub enum ObjectiveOutcome {
+    SandboxEstimate { values: [f64; 5] },
+    Insufficient { missing_quantiles: Vec<String> },
+}
+
+impl ObjectiveOutcome {
+    pub fn values(&self) -> Option<&[f64; 5]> {
+        match self {
+            Self::SandboxEstimate { values } => Some(values),
+            Self::Insufficient { .. } => None,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
@@ -474,7 +505,10 @@ pub fn evaluate_individual(
     let mut mc_rng = Rng::new(
         cfg.seed ^ u64::from_str_radix(&genome_sha256[0..16], 16).unwrap_or(0x1234_5678_9abc_def0),
     );
-    let n_mc = cfg.mc_samples.max(4);
+    let n_mc = cfg.mc_samples;
+    if n_mc == 0 {
+        return Err("positive declared Monte Carlo sample count required".into());
+    }
     let mut couts = Vec::with_capacity(n_mc);
     let mut captures = Vec::with_capacity(n_mc);
     let mut d50s = Vec::with_capacity(n_mc);
@@ -509,18 +543,60 @@ pub fn evaluate_individual(
     d50s.sort_by(|a, b| a.total_cmp(b));
     eta20s.sort_by(|a, b| a.total_cmp(b));
 
+    let requirements = crate::experiment::research_requirements()?;
+    let policy = &requirements.quantile_policy;
+    let mut tail_quantiles = BTreeMap::new();
+    for (name, samples) in [
+        ("cout", &couts),
+        ("capture", &captures),
+        ("d50", &d50s),
+        ("grade_20um", &eta20s),
+    ] {
+        for (suffix, quantile, minimum_n) in [
+            ("p05", 0.05, policy.min_n_p05_p95),
+            ("p95", 0.95, policy.min_n_p05_p95),
+            ("p01", 0.01, policy.min_n_p01_p99),
+            ("p99", 0.99, policy.min_n_p01_p99),
+        ] {
+            tail_quantiles.insert(
+                format!("{name}_{suffix}"),
+                metrics::quantile_estimate(samples, quantile, policy.confidence.get(), minimum_n)?,
+            );
+        }
+    }
+    // Small cohorts supply only explicitly named sample-envelope screens. They
+    // never stand in for missing tail estimates in the objective vector.
+    let lower = |samples: &[f64]| {
+        if n_mc < policy.min_n_p05_p95 {
+            samples[0]
+        } else {
+            percentile_sorted(samples, 0.05)
+        }
+    };
+    let upper = |samples: &[f64]| {
+        if n_mc < policy.min_n_p05_p95 {
+            samples[n_mc - 1]
+        } else {
+            percentile_sorted(samples, 0.95)
+        }
+    };
     let mc_robustness = MonteCarloSummary {
         samples: n_mc,
-        cout_p05_mg_l: percentile_sorted(&couts, 0.05),
+        pass_count,
+        sampled_pass_fraction_ci95: metrics::sampled_fraction_ci95(pass_count, n_mc)?,
+        sampling_interpretation:
+            "conditional_on_declared_sandbox_draws_not_empirical_physical_risk".into(),
+        tail_quantiles,
+        cout_p05_mg_l: lower(&couts),
         cout_p50_mg_l: percentile_sorted(&couts, 0.50),
-        cout_p95_mg_l: percentile_sorted(&couts, 0.95),
-        capture_p05: percentile_sorted(&captures, 0.05),
+        cout_p95_mg_l: upper(&couts),
+        capture_p05: lower(&captures),
         capture_p50: percentile_sorted(&captures, 0.50),
-        capture_p95: percentile_sorted(&captures, 0.95),
-        d50_p05_um: percentile_sorted(&d50s, 0.05),
+        capture_p95: upper(&captures),
+        d50_p05_um: lower(&d50s),
         d50_p50_um: percentile_sorted(&d50s, 0.50),
-        d50_p95_um: percentile_sorted(&d50s, 0.95),
-        grade_20um_p05: percentile_sorted(&eta20s, 0.05),
+        d50_p95_um: upper(&d50s),
+        grade_20um_p05: lower(&eta20s),
         probability_passes_30_mg_l: pass_count as f64 / n_mc as f64,
     };
 
@@ -547,13 +623,24 @@ pub fn evaluate_individual(
             joil_evidence::observation::Finite::new(nominal_metrics.dp_u_pa)?,
         ),
     ]);
-    let objectives: [f64; 5] = requirements
-        .evaluate_objectives(&observations)?
+    let missing_quantiles: Vec<String> = ["cout_p95", "grade_20um_p05", "d50_p95"]
         .into_iter()
-        .map(|v| v.get())
-        .collect::<Vec<_>>()
-        .try_into()
-        .map_err(|_| "expected frozen five-objective contract")?;
+        .filter(|id| mc_robustness.tail_quantiles[*id].value().is_none())
+        .map(str::to_string)
+        .collect();
+    let objectives = if missing_quantiles.is_empty() {
+        ObjectiveOutcome::SandboxEstimate {
+            values: requirements
+                .evaluate_objectives(&observations)?
+                .into_iter()
+                .map(|v| v.get())
+                .collect::<Vec<_>>()
+                .try_into()
+                .map_err(|_| "expected frozen five-objective contract")?,
+        }
+    } else {
+        ObjectiveOutcome::Insufficient { missing_quantiles }
+    };
 
     let mut violation = 0.0_f64;
     if !red_team_passed {
@@ -628,6 +715,10 @@ pub fn evaluate_individual(
 /// Deb's constrained dominance comparator (`a` dominates `b`).
 pub fn constrained_dominates(a: &Individual, b: &Individual) -> bool {
     const EPS: f64 = 1e-9;
+    let (Some(a_objectives), Some(b_objectives)) = (a.objectives.values(), b.objectives.values())
+    else {
+        return false;
+    };
     let structurally_feasible = |ind: &Individual| {
         matches!(ind.structural_screen_state, StructuralScreenState::Screened)
             && ind.structural_qualification.as_ref().is_some_and(|screen| {
@@ -657,11 +748,11 @@ pub fn constrained_dominates(a: &Individual, b: &Individual) -> bool {
         return a.constraint_violation + EPS < b.constraint_violation;
     }
     let mut strictly_better = false;
-    for i in 0..a.objectives.len() {
-        if a.objectives[i] > b.objectives[i] + EPS {
+    for i in 0..a_objectives.len() {
+        if a_objectives[i] > b_objectives[i] + EPS {
             return false;
         }
-        if a.objectives[i] + EPS < b.objectives[i] {
+        if a_objectives[i] + EPS < b_objectives[i] {
             strictly_better = true;
         }
     }
@@ -679,6 +770,10 @@ pub fn assign_nsga2_ranks_and_crowding(pop: &mut [Individual]) {
     let mut fronts: Vec<Vec<usize>> = vec![Vec::new()];
 
     for p in 0..n {
+        if pop[p].objectives.values().is_none() {
+            pop[p].rank = usize::MAX;
+            continue;
+        }
         for q in 0..n {
             if p == q {
                 continue;
@@ -728,18 +823,28 @@ pub fn assign_nsga2_ranks_and_crowding(pop: &mut [Individual]) {
             continue;
         }
         for m in 0..5 {
-            let mut order = front.clone();
-            order.sort_by(|&a, &b| pop[a].objectives[m].total_cmp(&pop[b].objectives[m]));
-            let f_min = pop[*order.first().unwrap()].objectives[m];
-            let f_max = pop[*order.last().unwrap()].objectives[m];
+            let mut order: Vec<usize> = front
+                .iter()
+                .copied()
+                .filter(|idx| pop[*idx].objectives.values().is_some())
+                .collect();
+            if order.is_empty() {
+                continue;
+            }
+            order.sort_by(|&a, &b| {
+                pop[a].objectives.values().unwrap()[m]
+                    .total_cmp(&pop[b].objectives.values().unwrap()[m])
+            });
+            let f_min = pop[*order.first().unwrap()].objectives.values().unwrap()[m];
+            let f_max = pop[*order.last().unwrap()].objectives.values().unwrap()[m];
             pop[*order.first().unwrap()].crowding_distance = CROWDING_BOUNDARY_SENTINEL;
             pop[*order.last().unwrap()].crowding_distance = CROWDING_BOUNDARY_SENTINEL;
             let span = (f_max - f_min).max(1e-9);
             for k in 1..(order.len() - 1) {
                 let idx = order[k];
                 if pop[idx].crowding_distance < CROWDING_BOUNDARY_SENTINEL {
-                    let prev = pop[order[k - 1]].objectives[m];
-                    let next = pop[order[k + 1]].objectives[m];
+                    let prev = pop[order[k - 1]].objectives.values().unwrap()[m];
+                    let next = pop[order[k + 1]].objectives.values().unwrap()[m];
                     pop[idx].crowding_distance += (next - prev) / span;
                 }
             }
@@ -854,12 +959,24 @@ pub struct EngineeringGatesReport {
     pub all_rank0_feasible_zero_violation: bool,
     pub all_rank0_pass_redteam_f0: bool,
     pub all_rank0_pass_p08_structural: bool,
+    #[serde(
+        rename = "baseline_cout_sample_screen_upper_mg_l",
+        alias = "baseline_cout_p95_mg_l"
+    )]
     pub baseline_cout_p95_mg_l: f64,
     pub best_elite_id: String,
     pub best_elite_topology: String,
+    #[serde(
+        rename = "best_elite_cout_sample_screen_upper_mg_l",
+        alias = "best_elite_cout_p95_mg_l"
+    )]
     pub best_elite_cout_p95_mg_l: f64,
     pub best_elite_d50_um: f64,
     pub best_elite_dp_u_pa: f64,
+    #[serde(
+        rename = "best_elite_grade_20um_sample_screen_lower",
+        alias = "best_elite_grade_20um_p05"
+    )]
     pub best_elite_grade_20um_p05: f64,
     pub best_elite_max_entry_shear_s_inv: f64,
     pub best_elite_short_circuit_fraction: f64,
@@ -1317,14 +1434,17 @@ pub fn merge_cluster_shards(
             .or_insert(0usize) += 1;
     }
 
-    let all_rank0_feasible = pareto_front.iter().all(|x| x.constraint_violation <= 1e-9);
-    let all_rank0_redteam = pareto_front.iter().all(|x| x.red_team_passed);
-    let all_rank0_p08 = pareto_front.iter().all(|x| {
-        x.structural_qualification
-            .as_ref()
-            .map(|s| s.passed)
-            .unwrap_or(false)
-    });
+    let all_rank0_feasible =
+        !pareto_front.is_empty() && pareto_front.iter().all(|x| x.constraint_violation <= 1e-9);
+    let all_rank0_redteam =
+        !pareto_front.is_empty() && pareto_front.iter().all(|x| x.red_team_passed);
+    let all_rank0_p08 = !pareto_front.is_empty()
+        && pareto_front.iter().all(|x| {
+            x.structural_qualification
+                .as_ref()
+                .map(|s| s.passed)
+                .unwrap_or(false)
+        });
     let dom_baseline_count = pareto_front
         .iter()
         .filter(|x| constrained_dominates(x, &baseline_ref))
@@ -1409,7 +1529,8 @@ pub fn merge_cluster_shards(
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum SearchBaselineMode {
     Ct35Fixed,
-    RandomLhsExotic3d,
+    #[serde(alias = "RandomLhsExotic3d")]
+    UniformRandomExotic3d,
     ConventionalAxisymmetricNsga2,
     Exotic3dQdCei,
 }
@@ -1483,10 +1604,18 @@ pub struct SeedRunOutcome {
     pub mode: SearchBaselineMode,
     pub total_evaluations: usize,
     pub valid_f0_evaluations: usize,
+    #[serde(
+        rename = "best_cout_sample_screen_upper_mg_l",
+        alias = "best_cout_p95_mg_l"
+    )]
     pub best_cout_p95_mg_l: f64,
     pub best_dp_u_pa: f64,
     pub best_specific_energy_j_m3: f64,
     pub best_d50_um: f64,
+    #[serde(
+        rename = "best_grade_20um_sample_screen_lower",
+        alias = "best_grade_20um_p05"
+    )]
     pub best_grade_20um_p05: f64,
     pub pareto_hypervolume: f64,
     pub map_elites_cells: usize,
@@ -1533,6 +1662,10 @@ pub struct Wave2MultiseedReport {
     pub evaluations_per_seed: usize,
     pub baseline_b0_ct35: Individual,
     pub baseline_b0_held_out_duties: Vec<HeldOutDutyResult>,
+    #[serde(
+        rename = "arm_b1_uniform_random_outcomes",
+        alias = "arm_b1_random_lhs_outcomes"
+    )]
     pub arm_b1_random_lhs_outcomes: Vec<SeedRunOutcome>,
     pub arm_b2_conventional_axisym_outcomes: Vec<SeedRunOutcome>,
     pub arm_b3_exotic3d_qd_cei_outcomes: Vec<SeedRunOutcome>,
@@ -1570,6 +1703,7 @@ fn compute_normalized_hypervolume(front: &[Individual], _base_ref: &Individual) 
         .filter(|ind| {
             ind.red_team_passed
                 && ind.constraint_violation <= 1e-9
+                && ind.objectives.values().is_some()
                 && ind
                     .structural_qualification
                     .as_ref()
@@ -1577,6 +1711,8 @@ fn compute_normalized_hypervolume(front: &[Individual], _base_ref: &Individual) 
         })
         .map(|ind| {
             ind.objectives
+                .values()
+                .unwrap()
                 .iter()
                 .zip(&policy.normalization)
                 .map(|(v, n)| v / n.get())
@@ -1762,7 +1898,7 @@ pub fn run_single_seed_comparator(
                     "insert_baseline_control",
                     &mut rng,
                 ),
-                SearchBaselineMode::RandomLhsExotic3d => {
+                SearchBaselineMode::UniformRandomExotic3d => {
                     DesignProgram::sample_random_exotic(&mut rng)
                 }
                 SearchBaselineMode::ConventionalAxisymmetricNsga2 => {
@@ -1920,7 +2056,8 @@ pub fn run_wave2_multiseed_benchmark(
     let mut best_by_family: BTreeMap<String, Individual> = BTreeMap::new();
 
     for &seed in seeds {
-        let (o1, _) = run_single_seed_comparator(seed, SearchBaselineMode::RandomLhsExotic3d, cfg)?;
+        let (o1, _) =
+            run_single_seed_comparator(seed, SearchBaselineMode::UniformRandomExotic3d, cfg)?;
         let (o2, _) = run_single_seed_comparator(
             seed,
             SearchBaselineMode::ConventionalAxisymmetricNsga2,
@@ -1963,7 +2100,7 @@ pub fn run_wave2_multiseed_benchmark(
     // Compute bootstrap CIs across all arms
     let mut summary_stats = BTreeMap::new();
     for (arm_name, outcomes) in [
-        ("B1_Random_LHS", &b1_outcomes),
+        ("B1_Uniform_Random", &b1_outcomes),
         ("B2_Conventional_Axisym", &b2_outcomes),
         ("B3_Exotic3D_QD_CEI", &b3_outcomes),
     ] {
@@ -1973,7 +2110,7 @@ pub fn run_wave2_multiseed_benchmark(
         let hvs: Vec<f64> = outcomes.iter().map(|o| o.pareto_hypervolume).collect();
         let cells: Vec<f64> = outcomes.iter().map(|o| o.map_elites_cells as f64).collect();
         arm_map.insert(
-            "cout_p95_mg_l".into(),
+            "cout_sample_screen_upper_mg_l".into(),
             compute_bootstrap_ci(&couts, 20269001),
         );
         arm_map.insert("dp_u_pa".into(), compute_bootstrap_ci(&dps, 20269002));
@@ -1999,15 +2136,15 @@ pub fn run_wave2_multiseed_benchmark(
 
     let mut tests = vec![
         mann_whitney_and_cliffs_delta(
-            "cout_p95_mg_l",
+            "cout_sample_screen_upper_mg_l",
             "B3_Exotic3D_QD_CEI",
-            "B1_Random_LHS",
+            "B1_Uniform_Random",
             &b3_cout,
             &b1_cout,
             true,
         ),
         mann_whitney_and_cliffs_delta(
-            "cout_p95_mg_l",
+            "cout_sample_screen_upper_mg_l",
             "B3_Exotic3D_QD_CEI",
             "B2_Conventional_Axisym",
             &b3_cout,
@@ -2017,7 +2154,7 @@ pub fn run_wave2_multiseed_benchmark(
         mann_whitney_and_cliffs_delta(
             "pareto_hypervolume",
             "B3_Exotic3D_QD_CEI",
-            "B1_Random_LHS",
+            "B1_Uniform_Random",
             &b3_hv,
             &b1_hv,
             false,
@@ -2109,7 +2246,7 @@ pub fn run_wave2_multiseed_benchmark(
 }
 
 /// Canonical Composite Separation-Hydraulic KPI Score matching `analysis/kpi_fitness.py`:
-/// `KPI_score(g) = (30.0 - C_out,p95(g)) + 25.0 * E_reduced,20um,p05(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)`.
+/// `KPI_score(g) = (30.0 - C_out,sample_screen_upper(g)) + 25.0 * E_reduced,20um,sample_screen_lower(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)`.
 /// Higher is better; `CT-35` baseline evaluates to `22.972463`.
 pub fn compute_wave3_kpi_score(ind: &Individual, baseline_dp_u_pa: f64) -> f64 {
     let dp_ref = baseline_dp_u_pa.max(1.0);
@@ -2143,12 +2280,36 @@ pub struct Wave3GenerationStats {
     pub median_kpi_score: f64,
     pub q25_kpi_score: f64,
     pub q75_kpi_score: f64,
+    #[serde(
+        rename = "best_cout_sample_screen_upper_mg_l",
+        alias = "best_cout_p95_mg_l"
+    )]
     pub best_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "active_best_cout_sample_screen_upper_mg_l",
+        alias = "active_best_cout_p95_mg_l"
+    )]
     pub active_best_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "median_cout_sample_screen_upper_mg_l",
+        alias = "median_cout_p95_mg_l"
+    )]
     pub median_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "q25_cout_sample_screen_upper_mg_l",
+        alias = "q25_cout_p95_mg_l"
+    )]
     pub q25_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "q75_cout_sample_screen_upper_mg_l",
+        alias = "q75_cout_p95_mg_l"
+    )]
     pub q75_cout_p95_mg_l: f64,
     pub best_dp_u_pa: f64,
+    #[serde(
+        rename = "best_grade_20um_sample_screen_lower",
+        alias = "best_grade_20um_p05"
+    )]
     pub best_grade_20um_p05: f64,
     pub pareto_hypervolume: f64,
     pub map_elites_occupied_cells: usize,
@@ -2165,7 +2326,15 @@ pub struct Wave3GenerationBand {
     pub cumulative_evaluations: usize,
     pub best_kpi_score: BootstrapConfidenceInterval,
     pub median_kpi_score: BootstrapConfidenceInterval,
+    #[serde(
+        rename = "best_cout_sample_screen_upper_mg_l",
+        alias = "best_cout_p95_mg_l"
+    )]
     pub best_cout_p95_mg_l: BootstrapConfidenceInterval,
+    #[serde(
+        rename = "median_cout_sample_screen_upper_mg_l",
+        alias = "median_cout_p95_mg_l"
+    )]
     pub median_cout_p95_mg_l: BootstrapConfidenceInterval,
     pub pareto_hypervolume: BootstrapConfidenceInterval,
     pub map_elites_occupied_cells: BootstrapConfidenceInterval,
@@ -2184,8 +2353,10 @@ pub struct Wave3LineageMilestone {
     pub operator_applied: String,
     pub cross_family_jump: bool,
     pub kpi_score: f64,
+    #[serde(rename = "cout_sample_screen_upper_mg_l", alias = "cout_p95_mg_l")]
     pub cout_p95_mg_l: f64,
     pub dp_u_pa: f64,
+    #[serde(rename = "grade_20um_sample_screen_lower", alias = "grade_20um_p05")]
     pub grade_20um_p05: f64,
     pub exoticness_index: f64,
     pub total_entry_jets: u32,
@@ -2203,15 +2374,35 @@ pub struct Wave3SeedOutcome {
     pub valid_f0_evaluations: usize,
     pub gen0_best_kpi_score: f64,
     pub gen0_median_kpi_score: f64,
+    #[serde(
+        rename = "gen0_best_cout_sample_screen_upper_mg_l",
+        alias = "gen0_best_cout_p95_mg_l"
+    )]
     pub gen0_best_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "gen0_median_cout_sample_screen_upper_mg_l",
+        alias = "gen0_median_cout_p95_mg_l"
+    )]
     pub gen0_median_cout_p95_mg_l: f64,
     pub final_best_kpi_score: f64,
     pub final_median_kpi_score: f64,
+    #[serde(
+        rename = "final_best_cout_sample_screen_upper_mg_l",
+        alias = "final_best_cout_p95_mg_l"
+    )]
     pub final_best_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "final_median_cout_sample_screen_upper_mg_l",
+        alias = "final_median_cout_p95_mg_l"
+    )]
     pub final_median_cout_p95_mg_l: f64,
     pub final_best_dp_u_pa: f64,
     pub final_best_specific_energy_j_m3: f64,
     pub final_best_d50_um: f64,
+    #[serde(
+        rename = "final_best_grade_20um_sample_screen_lower",
+        alias = "final_best_grade_20um_p05"
+    )]
     pub final_best_grade_20um_p05: f64,
     pub final_pareto_hypervolume: f64,
     pub final_map_elites_cells: usize,
@@ -2236,8 +2427,16 @@ pub struct Wave3HeldOutGeometryRecord {
     pub de_novo_rediscovery_seeds: usize,
     pub de_novo_rediscovery_fraction: f64,
     pub held_out_best_kpi_score: f64,
+    #[serde(
+        rename = "held_out_best_cout_sample_screen_upper_mg_l",
+        alias = "held_out_best_cout_p95_mg_l"
+    )]
     pub held_out_best_cout_p95_mg_l: f64,
     pub held_out_best_dp_u_pa: f64,
+    #[serde(
+        rename = "held_out_best_grade_20um_sample_screen_lower",
+        alias = "held_out_best_grade_20um_p05"
+    )]
     pub held_out_best_grade_20um_p05: f64,
     pub kpi_gain_vs_ct35: f64,
     pub cout_reduction_pct_vs_ct35: f64,
@@ -2258,8 +2457,16 @@ pub struct Wave3EvolutionProofReport {
     pub evaluations_per_seed_per_arm: usize,
     pub total_3d_evaluations_across_arms: usize,
     pub baseline_b0_ct35_kpi_score: f64,
+    #[serde(
+        rename = "baseline_b0_ct35_cout_sample_screen_upper_mg_l",
+        alias = "baseline_b0_ct35_cout_p95_mg_l"
+    )]
     pub baseline_b0_ct35_cout_p95_mg_l: f64,
     pub baseline_b0_ct35_dp_u_pa: f64,
+    #[serde(
+        rename = "baseline_b0_ct35_grade_20um_sample_screen_lower",
+        alias = "baseline_b0_ct35_grade_20um_p05"
+    )]
     pub baseline_b0_ct35_grade_20um_p05: f64,
     pub baseline_b0_ct35: Individual,
     pub baseline_b0_held_out_duties: Vec<HeldOutDutyResult>,
@@ -2995,9 +3202,12 @@ pub fn run_wave3_evolution_proof(
         let mut stat_map = BTreeMap::new();
         stat_map.insert("best_kpi_score".into(), final_band.best_kpi_score);
         stat_map.insert("median_kpi_score".into(), final_band.median_kpi_score);
-        stat_map.insert("best_cout_p95_mg_l".into(), final_band.best_cout_p95_mg_l);
         stat_map.insert(
-            "median_cout_p95_mg_l".into(),
+            "best_cout_sample_screen_upper_mg_l".into(),
+            final_band.best_cout_p95_mg_l,
+        );
+        stat_map.insert(
+            "median_cout_sample_screen_upper_mg_l".into(),
             final_band.median_cout_p95_mg_l,
         );
         stat_map.insert("pareto_hypervolume".into(), final_band.pareto_hypervolume);
@@ -3050,7 +3260,7 @@ pub fn run_wave3_evolution_proof(
             false,
         ));
         tests.push(mann_whitney_and_cliffs_delta(
-            "final_best_cout_p95_mg_l",
+            "final_best_cout_sample_screen_upper_mg_l",
             "B3_Wave3_Exotic3D_QD_CEI",
             other_arm,
             &b3_best_cout,
@@ -3150,7 +3360,7 @@ pub fn run_wave3_evolution_proof(
     Ok(Wave3EvolutionProofReport {
         schema_version: 1,
         protocol_id: "joil-wave3-de-novo-evolution-proof-v1".into(),
-        kpi_formula: "KPI_score(g) = (30.0 - C_out,p95(g)) + 25.0 * E_reduced,20um,p05(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)".into(),
+        kpi_formula: "KPI_score(g) = (30.0 - C_out,sample_screen_upper(g)) + 25.0 * E_reduced,20um,sample_screen_lower(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)".into(),
         qualification_note: "Sandbox comparisons use a shared mild CT-35 initialization where specified. Scores and GP targets come from the prior-laden reduced screen. Archived carrier diagnostics are separate subjects and do not validate new winners. Independent oil, structural and physical evidence remains incomplete.".into(),
         n_seeds: seeds.len(),
         master_seeds: seeds.to_vec(),
