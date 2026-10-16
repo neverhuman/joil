@@ -94,7 +94,7 @@ reason.
 | IR-10 | IR | MERGED | `2f15710` (board `MERGED IR-10`) |
 | IR-11 | IR | MERGED | `2f15710` (board `MERGED IR-11`) |
 | IR-12 | IR | MERGED | `2f15710` (board `MERGED IR-12`) |
-| INT-01 | INT | DONE | `cb31ba3` (board `DONE INT-01`) |
+| INT-01 | INT | MERGED | `cb31ba3` (board `MERGED INT-01`) |
 | INT-02 | INT | WIP | board HB 2026-10-16T07:06:55Z |
 | INT-03 | INT | MERGED | `6aa68b4` (board `MERGED INT-03`) |
 | INT-04 | INT | MERGED | `cb31ba3` (board `MERGED INT-04`) |
