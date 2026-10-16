@@ -1,0 +1,1006 @@
+{
+  "schema_version": 1,
+  "kind": "independent_EV13_followup_numeric_raster_label_reverify_not_physical_validation",
+  "line_mapping": {
+    "algorithm": "unique AST function/receiver/positional signatures; explicit reviewed policy changes",
+    "path": "crates/joil-evidence/receipts/EV13-followup-plot-line-map.json",
+    "sha256": "92663cc0c0b4c8e8b34d32ee56f2c6c4eab305a742e83d587d4c2eaa08759de0",
+    "all_observed_calls_mapped": true,
+    "observed_runtime_calls": 266,
+    "manual_policy_changes": [
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "actual_line": 356,
+        "original_line": 350,
+        "original_expression": "ax_ci.axhline(30.0, color=\"#ff6b6b\", ls=\"--\", lw=1.4, label=\"30.0 mg/L Compliance Threshold\")",
+        "new_expression": "ax_ci.axhline(research_limit, color=\"#ff6b6b\", ls=\"--\", lw=1.4, label=threshold_label)",
+        "change": "literal30 -> committed research_limit; value checked independently"
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "actual_line": 402,
+        "original_line": 396,
+        "original_expression": "ax_duty.axhline(30.0, color=\"#ff6b6b\", ls=\"--\", lw=1.4, label=\"30.0 mg/L Threshold\")",
+        "new_expression": "ax_duty.axhline(research_limit, color=\"#ff6b6b\", ls=\"--\", lw=1.4, label=threshold_label)",
+        "change": "literal30 -> committed research_limit; value checked independently"
+      },
+      {
+        "source": "tools/generate_wave3_proof_figures.py",
+        "actual_line": 202,
+        "original_line": 174,
+        "original_expression": "ax_b.axhline(30.0, color='#EF4444', linestyle='--', linewidth=1.4, label='Discharge Ceiling (30.0 mg/L)')",
+        "new_expression": "ax_b.axhline(research_limit, color='#EF4444', linestyle='--', linewidth=1.4, label=f'Authored research-screen threshold ({research_limit:.1f} mg/L)')",
+        "change": "literal30 -> committed research_limit; value checked independently"
+      }
+    ],
+    "unmapped_unused_nodes": [
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 124,
+        "candidate_count": 5
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 130,
+        "candidate_count": 5
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 136,
+        "candidate_count": 5
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 141,
+        "candidate_count": 5
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 147,
+        "candidate_count": 5
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 873,
+        "candidate_count": 2
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 884,
+        "candidate_count": 2
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 995,
+        "candidate_count": 3
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1001,
+        "candidate_count": 3
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1007,
+        "candidate_count": 3
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1129,
+        "candidate_count": 3
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1135,
+        "candidate_count": 3
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1140,
+        "candidate_count": 3
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1245,
+        "candidate_count": 4
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1251,
+        "candidate_count": 4
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1264,
+        "candidate_count": 4
+      },
+      {
+        "source": "tools/generate_wave2_figures_and_animations.py",
+        "line": 1270,
+        "candidate_count": 4
+      }
+    ]
+  },
+  "no_raw_runs_directory": true,
+  "capture_errors": [],
+  "figures": {
+    "wave4-readme-hero-kpi-and-elite.png": {
+      "committed_sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "regenerated_sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "raster_equal": true,
+      "committed_size": [
+        2790,
+        1908
+      ],
+      "byte_equal": true
+    },
+    "wave4-evolution-ablation-and-lineage-proof.png": {
+      "committed_sha256": "6254af2dc3072e8579d5aef86b8db4b82c0a44d3271de9de96f65600e12df91b",
+      "regenerated_sha256": "6254af2dc3072e8579d5aef86b8db4b82c0a44d3271de9de96f65600e12df91b",
+      "raster_equal": true,
+      "committed_size": [
+        2790,
+        1944
+      ],
+      "byte_equal": true
+    },
+    "wave3-readme-hero-kpi-and-elite.png": {
+      "committed_sha256": "bed48af9a1fdc6c8158a500ddd356c15f82b04053af44802fd795a0162cddc15",
+      "regenerated_sha256": "bed48af9a1fdc6c8158a500ddd356c15f82b04053af44802fd795a0162cddc15",
+      "raster_equal": true,
+      "committed_size": [
+        2790,
+        1908
+      ],
+      "byte_equal": true
+    },
+    "wave3-evolution-ablation-and-lineage-proof.png": {
+      "committed_sha256": "d775f0d4776648176f4795787980a16fe2eb283e9e91f0b721042d4d70f6c260",
+      "regenerated_sha256": "d775f0d4776648176f4795787980a16fe2eb283e9e91f0b721042d4d70f6c260",
+      "raster_equal": true,
+      "committed_size": [
+        2790,
+        1944
+      ],
+      "byte_equal": true
+    },
+    "wave4-page1-why-it-matters.png": {
+      "committed_sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "regenerated_sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "raster_equal": true,
+      "committed_size": [
+        1760,
+        896
+      ],
+      "byte_equal": true
+    },
+    "wave4-gci-same-pipeline-control.png": {
+      "committed_sha256": "64390e249760693a7a10c68b4d8a83df7f02e77a265ec845022e9219d726c1c6",
+      "regenerated_sha256": "64390e249760693a7a10c68b4d8a83df7f02e77a265ec845022e9219d726c1c6",
+      "raster_equal": true,
+      "committed_size": [
+        1920,
+        832
+      ],
+      "byte_equal": true
+    },
+    "wave2-multiseed-ablation-and-ci.png": {
+      "committed_sha256": "d2c660bb5693975f5ab2df09176c817f03e12b934afe3a226beaef18ec373389",
+      "regenerated_sha256": "d2c660bb5693975f5ab2df09176c817f03e12b934afe3a226beaef18ec373389",
+      "raster_equal": true,
+      "committed_size": [
+        2970,
+        1835
+      ],
+      "byte_equal": true
+    },
+    "elite-gci-and-rsm-verification.png": {
+      "committed_sha256": "e79722d3ef6dfd4b8b74bc46114f6515a7fbc3500fdb8f034714172a68ee75ea",
+      "regenerated_sha256": "e79722d3ef6dfd4b8b74bc46114f6515a7fbc3500fdb8f034714172a68ee75ea",
+      "raster_equal": true,
+      "committed_size": [
+        3520,
+        2420
+      ],
+      "byte_equal": true
+    },
+    "wave2-vs-wave1-openfoam14-cfd-comparison.png": {
+      "committed_sha256": "6cdb3ae7d203a9be8abfc320caee8d05b630fec72917a64c8684ccc56bf1c2d6",
+      "regenerated_sha256": "6cdb3ae7d203a9be8abfc320caee8d05b630fec72917a64c8684ccc56bf1c2d6",
+      "raster_equal": true,
+      "committed_size": [
+        3150,
+        2430
+      ],
+      "byte_equal": true
+    }
+  },
+  "field_array_sha256": "0a428abbc580eca756340bbc61920f6ef165a31fae1028d8dab1714123f339d4",
+  "field_calls": 14,
+  "field_array_bindings": [
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/z_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:191",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/r_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:191",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/u_theta_p90_grid",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:191",
+      "positional_argument": 2,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/z_centers_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:199",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/r_wall_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:199",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/z_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:211",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/r_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:211",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/u_theta_p90_grid",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:211",
+      "positional_argument": 2,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/z_centers_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:219",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/r_wall_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:219",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/z_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:242",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/r_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:242",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/p_kpa_mean_grid",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:242",
+      "positional_argument": 2,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/z_centers_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:250",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/r_wall_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:250",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/z_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:261",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/r_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:261",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/p_kpa_mean_grid",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:261",
+      "positional_argument": 2,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/z_centers_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:269",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/r_wall_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:269",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:291",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/profiles/swirl_chamber_z20_90mm/u_theta_p75",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:291",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:292",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/profiles/swirl_chamber_z20_90mm/u_theta_p75",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:292",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:293",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/profiles/swirl_chamber_z20_90mm/u_theta_p75",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:293",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:297",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/profiles/swirl_chamber_z20_90mm/p_kpa_mean",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:297",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:298",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/profiles/swirl_chamber_z20_90mm/p_kpa_mean",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:298",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:299",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/profiles/swirl_chamber_z20_90mm/p_kpa_mean",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:299",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    }
+  ],
+  "exact_field_arrays": 32,
+  "unchanged_numeric_calls": [
+    {
+      "figure": "wave4-readme-hero-kpi-and-elite.png",
+      "previous_calls": 51,
+      "current_calls": 51,
+      "all_data_calls_exact": true
+    },
+    {
+      "figure": "wave4-evolution-ablation-and-lineage-proof.png",
+      "previous_calls": 41,
+      "current_calls": 41,
+      "all_data_calls_exact": true
+    },
+    {
+      "figure": "wave3-readme-hero-kpi-and-elite.png",
+      "previous_calls": 51,
+      "current_calls": 51,
+      "all_data_calls_exact": true
+    },
+    {
+      "figure": "wave3-evolution-ablation-and-lineage-proof.png",
+      "previous_calls": 41,
+      "current_calls": 41,
+      "all_data_calls_exact": true
+    },
+    {
+      "figure": "wave4-page1-why-it-matters.png",
+      "previous_calls": 27,
+      "current_calls": 27,
+      "all_data_calls_exact": true
+    },
+    {
+      "figure": "wave4-gci-same-pipeline-control.png",
+      "previous_calls": 7,
+      "current_calls": 7,
+      "all_data_calls_exact": true
+    },
+    {
+      "figure": "wave2-multiseed-ablation-and-ci.png",
+      "previous_calls": 16,
+      "current_calls": 16,
+      "all_data_calls_exact": true
+    },
+    {
+      "figure": "elite-gci-and-rsm-verification.png",
+      "previous_calls": 14,
+      "current_calls": 14,
+      "all_data_calls_exact": true
+    },
+    {
+      "figure": "wave2-vs-wave1-openfoam14-cfd-comparison.png",
+      "previous_calls": 18,
+      "current_calls": 18,
+      "all_data_calls_exact": true
+    }
+  ],
+  "label_checks": {
+    "wave3_450_evaluations_per_seed": true,
+    "wave3_22500_evaluations": true,
+    "wave3_no_charged_claim": true,
+    "wave4_450_charged_preserved": true,
+    "wave4_22500_charged_preserved": true,
+    "plate3_normal_stress_positivity": true,
+    "plate3_no_tensor_realizability_claim": true,
+    "plate10_legacy_spatial_caveat": true,
+    "plate10_archived_identity_caveat": true
+  },
+  "numeric_comparison": {
+    "PASS": 833,
+    "FAIL": 0,
+    "UNTRACED": 0
+  },
+  "numeric_trace_path": "crates/joil-evidence/receipts/EV13-followup-figure-value-trace.json",
+  "numeric_trace_sha256": "9b40e381fd2bd32cfe9ae5eaf6beed341690980c6dcdc750b8c8a7045f25481c",
+  "negative_checks": {
+    "wrong_seed_point": true,
+    "wrong_arm_ci": true,
+    "wrong_gci_units": true,
+    "dropped_plot_call": true,
+    "wrong_capture_png_identity": true,
+    "changed_field_value": true,
+    "swapped_field_subjects": true,
+    "field_null_to_zero": true,
+    "changed_raw_derived_value_reject": true,
+    "swapped_subject_arrays_reject": true,
+    "null_to_zero_reject": true,
+    "historical_charged_wording_reject": true,
+    "full_realizability_wording_reject": true,
+    "omitted_spatial_caveat_reject": true,
+    "wrong_manifest_field_bundle_sha256_reject": true
+  },
+  "requested_followup_PASS": true,
+  "all_claims_or_scientific_evidence_pass": false,
+  "created_utc": "2026-10-16T13:48:50.343454+00:00",
+  "input_head": "503a299a93169bd416a625ea47023a77810b9362",
+  "lane_source_merge_head": "7feee4421446b4220f12b09e7ecfc856d5f13da5",
+  "source_inventory": {
+    "README.md": {
+      "sha256": "fe021a516bba5e72ca772dba89a699acc17c385b4f5fc24a41583b28e64d8700",
+      "bytes": 8793
+    },
+    "analysis/kpi_fitness.py": {
+      "sha256": "701c72e3dbd2c38a97c95ff8695deb040cb5daf90ad8f731bbfbbdebe889456e",
+      "bytes": 35384
+    },
+    "crates/joil-evidence/receipts/Plate10-field-arrays.json": {
+      "sha256": "0a428abbc580eca756340bbc61920f6ef165a31fae1028d8dab1714123f339d4",
+      "bytes": 460038
+    },
+    "crates/joil-evidence/receipts/Wave4-raw-capture-number-trace.json": {
+      "sha256": "ef05231ccea7e276128b9058723b060ba3b3a673374986cb037abe1e77581d38",
+      "bytes": 840541
+    },
+    "docs/RESULTS.md": {
+      "sha256": "1dea1195e287975b4f7fbefca51dfb595dc03ea80d81fb1034c2438c8c289795",
+      "bytes": 15391
+    },
+    "docs/WHITEPAPER.md": {
+      "sha256": "899f32af1b573158ed964263d0ca3724929b6beeebd88972413d90ee42df15dd",
+      "bytes": 154756
+    },
+    "docs/figures/elite-gci-and-rsm-verification.png": {
+      "sha256": "e79722d3ef6dfd4b8b74bc46114f6515a7fbc3500fdb8f034714172a68ee75ea",
+      "bytes": 783415
+    },
+    "docs/figures/elite-gci-and-rsm-verification.png.manifest.json": {
+      "sha256": "8f9562aac422be40402f221ac580e6559cb2edcbbe2015f0b3785fb3a4d72eac",
+      "bytes": 608
+    },
+    "docs/figures/wave2-multiseed-ablation-and-ci.png": {
+      "sha256": "d2c660bb5693975f5ab2df09176c817f03e12b934afe3a226beaef18ec373389",
+      "bytes": 537481
+    },
+    "docs/figures/wave2-multiseed-ablation-and-ci.png.manifest.json": {
+      "sha256": "5863cf8b33ee7707b46cb7a711877c3e3ca4a24ad25e07251043ac902b6095d3",
+      "bytes": 1245
+    },
+    "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png": {
+      "sha256": "6cdb3ae7d203a9be8abfc320caee8d05b630fec72917a64c8684ccc56bf1c2d6",
+      "bytes": 666490
+    },
+    "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png.manifest.json": {
+      "sha256": "98cf1d5e5fc6253c9dee341f51abf12653f5663bbc289a162ee27330db1d8cb4",
+      "bytes": 3713
+    },
+    "docs/figures/wave3-evolution-ablation-and-lineage-proof.png": {
+      "sha256": "d775f0d4776648176f4795787980a16fe2eb283e9e91f0b721042d4d70f6c260",
+      "bytes": 832260
+    },
+    "docs/figures/wave3-evolution-ablation-and-lineage-proof.png.manifest.json": {
+      "sha256": "a40fc864b7b77789972aba5e5db7ab38e937280550e8d6adbf54393e106d83fd",
+      "bytes": 700
+    },
+    "docs/figures/wave3-readme-hero-kpi-and-elite.png": {
+      "sha256": "bed48af9a1fdc6c8158a500ddd356c15f82b04053af44802fd795a0162cddc15",
+      "bytes": 956094
+    },
+    "docs/figures/wave3-readme-hero-kpi-and-elite.png.manifest.json": {
+      "sha256": "52704fa5754df340baa171715e573de199c8ae6304948966b8bfb87c387a52eb",
+      "bytes": 1168
+    },
+    "docs/figures/wave4-evolution-ablation-and-lineage-proof.png": {
+      "sha256": "6254af2dc3072e8579d5aef86b8db4b82c0a44d3271de9de96f65600e12df91b",
+      "bytes": 846287
+    },
+    "docs/figures/wave4-evolution-ablation-and-lineage-proof.png.manifest.json": {
+      "sha256": "df872d9ebc910faa140289cfa40c1d8aed194cdb50d46c872693757f22033773",
+      "bytes": 697
+    },
+    "docs/figures/wave4-gci-same-pipeline-control.png": {
+      "sha256": "64390e249760693a7a10c68b4d8a83df7f02e77a265ec845022e9219d726c1c6",
+      "bytes": 211333
+    },
+    "docs/figures/wave4-gci-same-pipeline-control.png.manifest.json": {
+      "sha256": "2d8c59ea952c56833c43ec1f8e48888537cdd59888f5f55efc84e1e84454797f",
+      "bytes": 966
+    },
+    "docs/figures/wave4-page1-why-it-matters.png": {
+      "sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "bytes": 267578
+    },
+    "docs/figures/wave4-page1-why-it-matters.png.manifest.json": {
+      "sha256": "54911b795c6189b609abe1eb5dd8c9f66abaa998af27985070b94002a29b02dd",
+      "bytes": 620
+    },
+    "docs/figures/wave4-readme-hero-kpi-and-elite.png": {
+      "sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "bytes": 942598
+    },
+    "docs/figures/wave4-readme-hero-kpi-and-elite.png.manifest.json": {
+      "sha256": "ee6483a9f595baf87d4ab1ddbb0f2028acafb6c65cbbf98d243b55972a28e589",
+      "bytes": 1178
+    },
+    "docs/receipts/EV13-integrator-regeneration-followup.json": {
+      "sha256": "500d07c71800946c7f6e1ff729380e35bbcf115c533ad5f30983ac3c2267ab6a",
+      "bytes": 9531
+    },
+    "docs/receipts/EV13-integrator-regeneration.json": {
+      "sha256": "3796200d6aaf5b8e9502d4d65a3e93c8453e8c28b996a13267470481ab9d0a90",
+      "bytes": 10638
+    },
+    "docs/results/baseline-hydraulics-v1.json": {
+      "sha256": "2c53abe39be29a9ae9a160836773d35be761005a191ea3eaa093e58f5c5e4461",
+      "bytes": 12223
+    },
+    "docs/results/elite-3grid-gci-and-rsm-verification-v1.json": {
+      "sha256": "6bcac03b3724fa5fd60a83db33614756016c5188a7c028ddda86ab7a10de966c",
+      "bytes": 12273
+    },
+    "docs/results/elite-3grid-gci-and-rsm-verification-v2.json": {
+      "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+      "bytes": 14225
+    },
+    "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json": {
+      "sha256": "d20e9d72dfa004c1bc77a9389646b3ebb75f3004d85ad8c397f902afa181e496",
+      "bytes": 8003
+    },
+    "docs/results/interactive-3d-archetypes-v1.json": {
+      "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07",
+      "bytes": 496296
+    },
+    "docs/results/rust-evolution-qualification-v1.json": {
+      "sha256": "1bc32f98d38cd22525130843bf42034c0078146924b76148e06a4a02c9cff6b3",
+      "bytes": 5516
+    },
+    "docs/results/wave2-multiseed-ablation-and-holdout-v1.json": {
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799",
+      "bytes": 311714
+    },
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json": {
+      "sha256": "52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841",
+      "bytes": 31708
+    },
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json": {
+      "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+      "bytes": 34462
+    },
+    "docs/results/wave3-evolution-proof-v1.json": {
+      "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168",
+      "bytes": 1588166
+    },
+    "docs/results/wave4-evolution-proof-v1.json": {
+      "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+      "bytes": 1946433
+    },
+    "docs/results/wave4-gci-v1.json": {
+      "sha256": "92c5eea7189fc63b3a28802ecc051746e4eca3f32f1f162b27c9011367029287",
+      "bytes": 1140347
+    },
+    "docs/results/wave4-smoke-v1.json": {
+      "sha256": "385ae75ff20a8b07d81e574027ebc2504a97887c7c4a8d681d5c74c3c3d9da32",
+      "bytes": 3905
+    },
+    "experiments/wave2-preregistration-v1.json": {
+      "sha256": "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4",
+      "bytes": 5724
+    },
+    "requirements/RS-joil-research-v1.json": {
+      "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+      "bytes": 2266
+    },
+    "tools/generate_gci_rsm_report_and_figures.py": {
+      "sha256": "ee090ae4396ff2d0dc43aaa6cf2282a78a6aa7e6a76b84cb79b8abe08672e77d",
+      "bytes": 26789
+    },
+    "tools/generate_openfoam14_flowfield_plate.py": {
+      "sha256": "ad2a972f2faecc2a7593f38ffbb6b27e7069af6b0b79b442483a550999d5f085",
+      "bytes": 14132
+    },
+    "tools/generate_page1_figure.py": {
+      "sha256": "e60d7d751fc75029201d67110c3bac847c9fd3d85ef4dc58f2a2a9dc311be03f",
+      "bytes": 8190
+    },
+    "tools/generate_wave2_figures_and_animations.py": {
+      "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28",
+      "bytes": 63883
+    },
+    "tools/generate_wave2_vs_wave1_cfd_plate.py": {
+      "sha256": "fe0ddbd9e62effdf47f96bcbb99e54350438b4f56a8b5eb80a1f6d0f29f762f1",
+      "bytes": 19042
+    },
+    "tools/generate_wave3_proof_figures.py": {
+      "sha256": "4c6926897a185d9f803689ef33db77a276c2383055c91074d0450c553f5736ce",
+      "bytes": 36796
+    },
+    "tools/generate_wave4_gci_figure.py": {
+      "sha256": "47b20e7d1427abb85f54aa49db9057964c74885c107d6c31c672505eeece301d",
+      "bytes": 7940
+    }
+  },
+  "snapshot_immutable_after_replay": true,
+  "scientific_results_unchanged_from_11033dd": {
+    "docs/results/baseline-hydraulics-v1.json": true,
+    "docs/results/elite-3grid-gci-and-rsm-verification-v1.json": true,
+    "docs/results/elite-3grid-gci-and-rsm-verification-v2.json": true,
+    "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json": true,
+    "docs/results/interactive-3d-archetypes-v1.json": true,
+    "docs/results/rust-evolution-qualification-v1.json": true,
+    "docs/results/wave2-multiseed-ablation-and-holdout-v1.json": true,
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json": true,
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json": true,
+    "docs/results/wave3-evolution-proof-v1.json": true,
+    "docs/results/wave4-evolution-proof-v1.json": true,
+    "docs/results/wave4-gci-v1.json": true,
+    "docs/results/wave4-smoke-v1.json": true
+  },
+  "TR_candidate_map_crosscheck": {
+    "role": "preparation only; not used to construct the independent map",
+    "all_266_observed_call_mappings_agree": true
+  },
+  "TR_posted_digest_checks": [
+    {
+      "path": "docs/figures/wave3-readme-hero-kpi-and-elite.png",
+      "sha256": "bed48af9a1fdc6c8158a500ddd356c15f82b04053af44802fd795a0162cddc15",
+      "manifest_sha256": "52704fa5754df340baa171715e573de199c8ae6304948966b8bfb87c387a52eb",
+      "matches_TR_GIVE": true
+    },
+    {
+      "path": "docs/figures/wave3-evolution-ablation-and-lineage-proof.png",
+      "sha256": "d775f0d4776648176f4795787980a16fe2eb283e9e91f0b721042d4d70f6c260",
+      "manifest_sha256": "a40fc864b7b77789972aba5e5db7ab38e937280550e8d6adbf54393e106d83fd",
+      "matches_TR_GIVE": true
+    },
+    {
+      "path": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+      "sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "manifest_sha256": "ee6483a9f595baf87d4ab1ddbb0f2028acafb6c65cbbf98d243b55972a28e589",
+      "matches_TR_GIVE": true
+    },
+    {
+      "path": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
+      "sha256": "6254af2dc3072e8579d5aef86b8db4b82c0a44d3271de9de96f65600e12df91b",
+      "manifest_sha256": "df872d9ebc910faa140289cfa40c1d8aed194cdb50d46c872693757f22033773",
+      "matches_TR_GIVE": true
+    },
+    {
+      "path": "docs/figures/elite-gci-and-rsm-verification.png",
+      "sha256": "e79722d3ef6dfd4b8b74bc46114f6515a7fbc3500fdb8f034714172a68ee75ea",
+      "manifest_sha256": "8f9562aac422be40402f221ac580e6559cb2edcbbe2015f0b3785fb3a4d72eac",
+      "matches_TR_GIVE": true
+    },
+    {
+      "path": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
+      "sha256": "6cdb3ae7d203a9be8abfc320caee8d05b630fec72917a64c8684ccc56bf1c2d6",
+      "manifest_sha256": "98cf1d5e5fc6253c9dee341f51abf12653f5663bbc289a162ee27330db1d8cb4",
+      "matches_TR_GIVE": true
+    },
+    {
+      "path": "docs/figures/wave2-multiseed-ablation-and-ci.png",
+      "sha256": "d2c660bb5693975f5ab2df09176c817f03e12b934afe3a226beaef18ec373389",
+      "manifest_sha256": "5863cf8b33ee7707b46cb7a711877c3e3ca4a24ad25e07251043ac902b6095d3",
+      "matches_TR_GIVE": true
+    }
+  ],
+  "historical_pin_compatibility": {
+    "1c9c3b4": {
+      "PASS": 783,
+      "FAIL": 0,
+      "UNTRACED": 16
+    },
+    "11033dd": {
+      "PASS": 791,
+      "FAIL": 0,
+      "UNTRACED": 14
+    }
+  },
+  "capture_log_sha256": "959098eb89b56a0d036e0560f38509362e081fc614dff9939d97e4f2b5eb85c0",
+  "captured_calls_sha256": "714c3ddd9775f50d283bac385256f61951ee7e524c2cae841c000849fa689a00",
+  "reverify_log_sha256": "7e6893ad648870a8925665617313d0fd5a96bdc5f54ece90ee4ca31555cbd31d",
+  "scripts": {
+    "crates/joil-evidence/receipts/ev13_figure_trace.py": "5e617b75ec415a47077013acac51219473a825e17bd91bf0a7726f64a1ea9f5b",
+    "crates/joil-evidence/receipts/ev13_figure_values.py": "68569aa8dba595cffc43d179afd6e8fc125836d55159e846b85e0828a0ba6467",
+    "crates/joil-evidence/receipts/ev13_followup_reverify.py": "77e00325cbcb0203fd531200f2822dec9bceb464007ff16e2718abccc5f6dd3a",
+    "crates/joil-evidence/receipts/plate10_field_array_review.py": "7e97b59563f507dc460a6045ab4417e4c6a62df7abf10625ed91f156d443579d"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.4",
+    "matplotlib": "3.10.8",
+    "pillow": "12.3.0",
+    "backend": "Agg",
+    "OPENBLAS_NUM_THREADS": 1,
+    "OMP_NUM_THREADS": 1
+  },
+  "visual_review": {
+    "method": "view_image of committed snapshot PNGs, independently tied to captured text by exact byte-identical replay",
+    "figures": [
+      "wave3-readme-hero-kpi-and-elite.png",
+      "wave3-evolution-ablation-and-lineage-proof.png",
+      "elite-gci-and-rsm-verification.png",
+      "wave2-vs-wave1-openfoam14-cfd-comparison.png"
+    ],
+    "labels_visible_and_readable": true
+  },
+  "label_source_refs": {
+    "wave3_budget": [
+      "docs/results/wave3-evolution-proof-v1.json#/evaluations_per_seed_per_arm",
+      "docs/results/wave3-evolution-proof-v1.json#/total_3d_evaluations_across_arms"
+    ],
+    "wave4_budget": [
+      "docs/results/wave4-evolution-proof-v1.json#/evaluations_per_seed_per_arm",
+      "docs/results/wave4-evolution-proof-v1.json#/total_3d_evaluations_across_arms"
+    ],
+    "normal_stress_positivity": [
+      "docs/results/elite-3grid-gci-and-rsm-verification-v2.json#/rsm_turbulence_closure_crosscheck/0/reynolds_stress_tensor_diagnostics/positive_definite_normal_stress_fraction"
+    ],
+    "baseline_identity": [
+      "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/cell_count",
+      "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/archived_dossier_cell_count"
+    ]
+  },
+  "closed_followups": [
+    "F04 normal generator and manifest bind committed arrays and need no raw case paths",
+    "F06 historical Wave3 evaluation wording",
+    "Plate3 positive normal stresses are not labelled complete tensor realizability"
+  ],
+  "residuals": [
+    {
+      "id": "F03",
+      "state": "OPEN_UNMET_COVERAGE",
+      "source": "crates/joil-evidence/receipts/Wave4-raw-capture-number-trace.json#/recomputed/final_summary_statistics/B0_CT35_Equal_Budget",
+      "gap": "No three-arm equal-450-budget figure. CT35 remains a single frozen reference in historical figures; the new 450-evaluation CT35 reproduction arm is a separately identified campaign and cannot be silently substituted."
+    },
+    {
+      "id": "F04_spatial_identity",
+      "state": "OPEN_DISCLOSED_LEGACY_DEFECTS",
+      "sources": [
+        "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/coordinate_review",
+        "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/coordinate_review",
+        "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/coordinate_review",
+        "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/mesh_count_matches_archived_dossier"
+      ],
+      "gap": "Owned-face first-vertex averages exclude neighbour contributions and are not FV centroids; 12670/12533/12503 zero-owner cells remain at origin. Retained baseline313260 differs from archived334768 cells. Numeric/source/raster trace is not corrected sampling or same-archived-mesh identity."
+    },
+    {
+      "id": "EV09",
+      "state": "BLOCKED_SCOPED_SECTION6",
+      "source": "docs/WORKPLAN-2026-10-15.md",
+      "gap": "joil-independent-oil-observations-v1 and independent source-bound Cout/mechanism labels are absent. Preregister disjoint leave-family-out plus leave-mechanism-out OOD holdouts and calibration before reporting real OOD metrics. No invented labels or physical limits."
+    },
+    {
+      "id": "EV12",
+      "state": "DONE_SCOPED_WITH_EXCLUSIONS",
+      "source": "crates/joil-evidence/receipts/EV12-Wave4-closure.json",
+      "gap": "12 cases accounted:3 exact active artifact chains,8 missing/pruned-mesh exclusions,1 non-claim G1 setup-failure diagnostic. Nine exclusions are not manifest PASS. G1 failed on missing inlet1/MPI_ABORT before solver timesteps; retained sidecar was stale, not proof no sidecar ever existed. Numerical setup failure is not physical infeasibility."
+    },
+    {
+      "id": "historical_FEA_physical",
+      "state": "DEFERRED_SECTION6",
+      "source": "docs/WORKPLAN-2026-10-15.md",
+      "gap": "Missing historical executed meshes/scientific identity, FEA/material/process/load transfer and independent oil/physical validation remain deferred. Post-hoc raw inventories cannot recover missing historical execution identity."
+    },
+    {
+      "id": "raw_campaign",
+      "state": "REPRODUCTION_ONLY",
+      "source": "crates/joil-evidence/receipts/Wave4-raw-capture-number-trace.json",
+      "gap": "Historical original raw traces were not emitted. New14243-value zero-difference capture is a separately identified reproduction, including4500 extra CT35 proposals, not recovered original execution."
+    },
+    {
+      "id": "generalization_lineage_duty",
+      "state": "SCOPED_DIAGNOSTICS_ONLY",
+      "sources": [
+        "docs/results/wave4-evolution-proof-v1.json#/held_out_geometry_generalization",
+        "docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/promoted_wave2_top_elite_held_out_duties"
+      ],
+      "gap": "Authored-family/prior LOFO is not independent held-out geometry; incumbent milestones are not pedigree. Executed held-out-duty feed protocol deviations and gene-derived F1 screens remain explicit; matching plot values does not validate these claims."
+    },
+    {
+      "id": "GCI_carrier",
+      "state": "SCOPED_NUMERICAL_DIAGNOSTICS",
+      "sources": [
+        "docs/results/wave4-gci-v1.json",
+        "docs/results/elite-3grid-gci-and-rsm-verification-v2.json"
+      ],
+      "gap": "Archived/control convergence is oscillatory and standard GCI is null; solved8-jet case is non-asymptotic and5 winners remain unsolved. Missing G2 mesh capture limits historical comparison; no demonstrated pressure advantage over same-pipeline control, oil residence/physical validation or admission follows."
+    }
+  ],
+  "commands": [
+    {
+      "command": "MPLCONFIGDIR=\"$PWD/.private/matplotlib\" OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .private/ci-python/bin/python crates/joil-evidence/receipts/ev13_figure_trace.py --input-root .private/ev13-followup-inputs --output-root .private/ev13-followup-rendered",
+      "exit_code": 0
+    },
+    {
+      "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/ev13_followup_reverify.py --input-root .private/ev13-followup-inputs --original-root .private/ev13-figure-inputs --capture .private/ev13-followup-rendered/captured.json --previous-capture .private/ev13-regen-rendered/captured.json --previous-line-map crates/joil-evidence/receipts/EV13-regeneration-plot-line-map.json --line-map crates/joil-evidence/receipts/EV13-followup-plot-line-map.json --value-trace crates/joil-evidence/receipts/EV13-followup-figure-value-trace.json --output .private/ev13-followup-rendered/reverify.json",
+      "exit_code": 0
+    }
+  ],
+  "full_gate": {
+    "command": "python3 tools/check.py",
+    "exit_code": 0,
+    "receipt_path": ".private/checks/20261016T134931Z-9f9185d5/receipt.json",
+    "receipt_sha256": "cab4394d491afdd826194ef996772e3b207c8826a3c5811a85043c06dec63d86",
+    "input_head": "7feee4421446b4220f12b09e7ecfc856d5f13da5",
+    "steps": [
+      {
+        "name": "generated-status",
+        "exit_code": 0,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "exit_code": 0,
+        "log_sha256": "c45939ba64e074bdb4be107321a138ab88a5aaaacc1da020b0b453501ded0c3e"
+      },
+      {
+        "name": "rust-tests",
+        "exit_code": 0,
+        "log_sha256": "a4556f0d81701994c8cee28d3be13f9b92aab8bc47d873c41cb901922fd2ee4c"
+      },
+      {
+        "name": "baseline",
+        "exit_code": 0,
+        "log_sha256": "02325004404fe961768f51c58509540a38f387915507356951e8f607e087d85e"
+      },
+      {
+        "name": "python-tests",
+        "exit_code": 0,
+        "log_sha256": "0fc881ac9158b3aea11f2df08222438fe08b715bc62688aa059ab24d09954013"
+      },
+      {
+        "name": "public-check",
+        "exit_code": 0,
+        "log_sha256": "87695d25424f79a15150c788860158c025c14be97722b02219e143920a54f798"
+      },
+      {
+        "name": "claims-audit",
+        "exit_code": 0,
+        "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+      },
+      {
+        "name": "npm-ci",
+        "exit_code": 0,
+        "log_sha256": "fa0fa20b922de54ce4d60b7664c9375ea1b0db0bb802365264db6d0197f5c54d"
+      },
+      {
+        "name": "ui-build",
+        "exit_code": 0,
+        "log_sha256": "ad0ee9ac8d249733bb0b4145227c1215b13ed268fc357ec6f426c6c4c8dc44ba"
+      }
+    ],
+    "jobs": 4,
+    "log_sha256": "b4747d451b083ed35eda14dbf42b711c0ccfc914e72385d4a53ba7d2f8991189",
+    "environment": {
+      "PATH_prefix": "$PWD/.private/ci-python/bin",
+      "MPLCONFIGDIR": "$PWD/.private/matplotlib",
+      "CARGO_INCREMENTAL": "0",
+      "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+      "TMPDIR": "$PWD/.private/ev12-test-tmp",
+      "JOIL_WAVE4_RUNS_ROOT": "/home/ubuntu/joil/runs",
+      "JOIL_WAVE4_INPUTS_ROOT": "/home/ubuntu/joil/.private/wave4-inputs-all",
+      "JOIL_WAVE4_DIAGNOSTIC_ROOT": "/home/ubuntu/joil/.private/s20261108-g1-pinchoff-diagnostic"
+    },
+    "source_inventory_match_scope": {
+      "tested_executable_sources_and_numeric_artifacts_unchanged": true,
+      "source_inventory_entries": 346,
+      "unchanged_entries": 344,
+      "post_gate_finalization_files": [
+        "crates/joil-evidence/receipts/EV13-followup-reverify.json",
+        "crates/joil-evidence/reports/EV13-followup-reverify.md"
+      ],
+      "reason": "Only these two evidence metadata files were finalized with the completed gate result; the recorded gate hash predates its own receipt/report annotation. Finalized-commit gate is separately reported on the live board without rewriting its own inputs."
+    }
+  },
+  "owner_COMMS_preservation": {
+    "owner_bytes_sha256": "59f89c19a32fbadd7519e692e7f5c1740274a6cea31a303c6b555650139124f4",
+    "incoming_TR_bytes_identical": true,
+    "preserved_private_copy_during_merge": true,
+    "no_EV_authored_COMMS_edit": true
+  },
+  "next_dependency": "TR acting integrator merges pushed lane/evidence SHA; DOC incorporates final residual list. No all-claims/physical PASS, no PR/main merge or new PR.",
+  "public_check": {
+    "command": "python3 tools/check_public.py",
+    "exit_code": 0,
+    "files_checked": 371
+  },
+  "delivery": {
+    "branch": "lane/evidence",
+    "method": "HTTPS push as jepsontaylor; direct SHA GIVE to acting integrator TR",
+    "existing_lane_PR": {
+      "number": 5,
+      "state": "MERGED",
+      "old_head": "96d66c18e6f61dc3b19dac0b9debdf9e101821f4"
+    },
+    "owner_overrides_new_PR_flow": "Explicit no new PR; direct lane SHA integration requested",
+    "PR_or_main_merge_performed": false
+  }
+}

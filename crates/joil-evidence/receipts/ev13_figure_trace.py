@@ -136,8 +136,9 @@ def capture(root, output):
         main.body = main.body[begin:]
         exec(compile(ast.Module(body=[main], type_ignores=[]), str(root/'tools/generate_gci_rsm_report_and_figures.py'), 'exec'), gci.__dict__)
         gci.main()
-        # Plate10 uses private raw fields. Capture when available, but these
-        # arrays have no committed JSON pointer; that remains an explicit gap.
+        # Historical pins use raw fields. Current pins load FIELD_ARRAYS from
+        # the snapshot root; include the committed bundle in the export. Never
+        # substitute an older extractor callback for the current normal main.
         plt.rcdefaults()
         plate10 = load_module(root, 'generate_wave2_vs_wave1_cfd_plate.py')
         try: plate10.main()
