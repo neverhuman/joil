@@ -958,6 +958,7 @@ _LEAD_AFFINITY = (
     (r"\bU\s*=\s*$", ("mann_whitney_u",)),
     (r"\\delta\s*=\s*$", ("cliffs_delta",)),
     (r"p_\{\\text\{Holm\}\}\s*=\s*$", ("holm",)),
+    (r"\bR\s*=\s*$", ("convergence_ratio",)),
 )
 
 
@@ -1161,7 +1162,7 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
                 para_cited = list(dict.fromkeys(para_cites[line_no])) if in_caption else []
             unit_cited = list(dict.fromkeys(re.findall(cite_re, unit)))
             if in_caption:
-                bound = list(dict.fromkeys(unit_cited + para_cited + sub_cited[::-1]))
+                bound = list(dict.fromkeys(unit_cited + para_cited[::-1] + sub_cited[::-1]))
             else:
                 sub_cited = list(dict.fromkeys(sub_cited + unit_cited))
                 bound = list(dict.fromkeys(unit_cited + sub_cited[::-1]))  # nearest earlier citation first
