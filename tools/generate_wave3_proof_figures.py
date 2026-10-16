@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the Wave-3 README Hero Plot and White-Paper Evolutionary Proof Plate (Plate 11)
 directly from `docs/results/wave3-evolution-proof-v1.json` and
-`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`.
+`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json`.
 
 Outputs:
 1. `docs/figures/wave3-readme-hero-kpi-and-elite.png` (+ `.manifest.json`)
@@ -22,13 +22,14 @@ from matplotlib.patches import Circle, FancyBboxPatch, Polygon, Wedge
 
 ROOT = Path(__file__).resolve().parents[1]
 WAVE3_JSON = ROOT / 'docs/results/wave3-evolution-proof-v1.json'
-CFD_JSON = ROOT / 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json'
+CFD_JSON = ROOT / 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json'
 HERO_OUT = ROOT / 'docs/figures/wave3-readme-hero-kpi-and-elite.png'
 PLATE11_OUT = ROOT / 'docs/figures/wave3-evolution-ablation-and-lineage-proof.png'
 
 WAVE4_JSON = ROOT / 'docs/results/wave4-evolution-proof-v1.json'
 CFD_V2_JSON = ROOT / 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json'
 ELITE_V2_JSON = ROOT / 'docs/results/elite-3grid-gci-and-rsm-verification-v2.json'
+REQUIREMENTS_JSON = ROOT / 'requirements/RS-joil-research-v1.json'
 WAVE4_HERO_OUT = ROOT / 'docs/figures/wave4-readme-hero-kpi-and-elite.png'
 WAVE4_PLATE_OUT = ROOT / 'docs/figures/wave4-evolution-ablation-and-lineage-proof.png'
 
@@ -52,6 +53,26 @@ def _b1_key(mapping: dict) -> str:
     return 'B1_Uniform_Random' if 'B1_Uniform_Random' in mapping else 'B1_Random_Search'
 
 
+def comparison_labels(proof: dict) -> dict:
+    """Describe this receipt's outcomes, including the opposite Wave-3/4 ordering."""
+    b1 = _b1_key(proof['final_summary_statistics'])
+    b3 = 'B3_Wave3_Exotic3D_QD_CEI'
+    tests = {t['metric']: t for t in proof['pairwise_tests']
+             if t['comparator_a'] == b3 and t['comparator_b'] == b1}
+
+    def order(metric: str) -> str:
+        a = proof['final_summary_statistics'][b3][metric]['mean']
+        b = proof['final_summary_statistics'][b1][metric]['mean']
+        return 'B3 > B1' if a > b else 'B1 > B3' if b > a else 'B3 = B1'
+
+    best, median = tests['final_best_kpi_score'], tests['final_median_kpi_score']
+    return {'best_order': order('best_kpi_score'),
+            'median_order': order('median_kpi_score'),
+            'best_p': f"{best['p_value_holm_bonferroni']:.4g}",
+            'median_p': f"{median['p_value_holm_bonferroni']:.4g}",
+            'median_delta': f"{median['mean_diff']:+.2f}"}
+
+
 def write_manifest(png_path: Path, title: str, sources: list[Path]) -> dict[str, str]:
     png_sha = file_sha256(png_path)
     manifest = {
@@ -60,6 +81,7 @@ def write_manifest(png_path: Path, title: str, sources: list[Path]) -> dict[str,
         'figure_sha256': png_sha,
         'title': title,
         'generator_script': 'tools/generate_wave3_proof_figures.py',
+        'generator_sha256': file_sha256(Path(__file__).resolve()),
         'source_receipts': [
             {
                 'path': str(s.relative_to(ROOT)),
@@ -80,10 +102,15 @@ def generate_readme_hero(
     cfd_sha: str,
     out_path: Path = HERO_OUT,
     wave_label: str = 'Wave-3',
-    w1_gci_pct: float = 5.019376028759711,
+    w1_gci_pct: float | None = None,
     proof_filename: str = 'wave3-evolution-proof-v1.json',
-    cfd_filename: str = 'wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json',
+    cfd_filename: str = 'wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json',
 ) -> None:
+    labels = comparison_labels(w3)
+    plt.rcdefaults()
+    research_limit = json.loads(REQUIREMENTS_JSON.read_text())['quality']['research_limit_mg_l']
+    if w1_gci_pct is None:
+        w1_gci_pct = json.loads(ELITE_V2_JSON.read_text())['roache_gci_analysis']['dp_u_pa']['three_grid_half_span_pct_of_f2']
     plt.rcParams.update({
         'font.family': 'DejaVu Sans',
         'font.size': 9.2,
@@ -102,7 +129,7 @@ def generate_readme_hero(
     )
     fig.suptitle(
         f'Joil {wave_label} Prior-Screen Search Diagnostics: Per-Generation KPI Trajectory (n = 10 Seeds, 22,500 Evals, MC n={mc_n})\n'
-        'B1 > B3 on Best KPI (p_Holm=1.00) & B3 > B1 on Pop-Median KPI (p_Holm=0.0013) | Panel D: Archived W1/2 CFD (Separate Subjects)',
+        f"{labels['best_order']} on Best KPI (p_Holm={labels['best_p']}) & {labels['median_order']} on Pop-Median KPI (p_Holm={labels['median_p']}) | Panel D: Archived W1/2 CFD (Separate Subjects)",
         fontsize=11.8,
         fontweight='bold',
         color='#0F172A',
@@ -113,7 +140,7 @@ def generate_readme_hero(
         0.912,
         f'Source Receipts: {proof_filename} (SHA-256: {w3_sha[:16]}…) | '
         f'{cfd_filename} (SHA-256: {cfd_sha[:16]}…) | '
-        'Shared Unseeded Gen-0 Init across B2, A1, A2, B3 (B0 CT-35 = Single-Eval Reference)',
+        'A1/A2/B3 shared Gen0; B2 conventionalized control; B1 random search (B0: frozen reference)',
         ha='center',
         fontsize=7.8,
         color='#334155',
@@ -128,8 +155,8 @@ def generate_readme_hero(
     base_cout = float(_get(w3, 'baseline_b0_ct35_cout_p95_mg_l', 'baseline_b0_ct35_cout_sample_screen_upper_mg_l'))
 
     arm_styles = [
-        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label} Exotic3D-QD-CEI (B1>B3 Best; B3>B1 Median)', '#0284C7', '-', 2.6),
-        (b1_k, 'B1: Equal-Budget Uniform Random (Higher Best Extremum)', '#D97706', '--', 2.1),
+        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label} Exotic3D-QD-CEI', '#0284C7', '-', 2.6),
+        (b1_k, 'B1: Equal-Budget Random Search', '#D97706', '--', 2.1),
         ('A1_No_Mutation_Crossover_Only', 'A1: No-Mutation (Crossover-Only Ablation)', '#7C3AED', '-.', 2.0),
         ('A2_No_Selection_Random_Walk', 'A2: No-Selection (Random-Walk Ablation)', '#DC2626', ':', 2.0),
         ('B2_Conventional_Axisym_NSGA2', 'B2: Conventional Axisym NSGA-II (2-Port)', '#475569', '--', 1.9),
@@ -157,11 +184,11 @@ def generate_readme_hero(
     b3_med = np.array([b['median_kpi_score']['mean'] for b in bands_map['B3_Wave3_Exotic3D_QD_CEI']])
     b1_med = np.array([b['median_kpi_score']['mean'] for b in bands_map[b1_k]])
     a2_med = np.array([b['median_kpi_score']['mean'] for b in bands_map['A2_No_Selection_Random_Walk']])
-    ax_a.plot(gens, b3_med, color='#0369A1', linestyle=':', linewidth=1.8, label=f'B3 Active Pop Median [{b3_med[-1]:.2f}, p_Holm=0.0013 vs B1]')
+    ax_a.plot(gens, b3_med, color='#0369A1', linestyle=':', linewidth=1.8, label=f"B3 Active Pop Median [{b3_med[-1]:.2f}, p_Holm={labels['median_p']} vs B1]")
     ax_a.plot(gens, b1_med, color='#B45309', linestyle=':', linewidth=1.4, label=f'B1 Random Batch Median [{b1_med[-1]:.2f}]')
     ax_a.plot(gens, a2_med, color='#991B1B', linestyle=':', linewidth=1.3, label=f'A2 No-Selection Pop Median [{a2_med[-1]:.2f}]')
 
-    ax_a.set_title('A. Screen KPI vs. Gen (n=10 Seeds: B1 > B3 Best KPI; B3 > B1 Pop-Median)', pad=6)
+    ax_a.set_title(f"A. Screen KPI vs. Gen (n={w3['n_seeds']}: {labels['best_order']} Best; {labels['median_order']} Median)", pad=6)
     ax_a.set_xlabel('Evolutionary Generation g [-] (18 3D Evals/Gen, 450 Total Charged Proposals/Seed)')
     ax_a.set_ylabel('Composite KPI_score [-] (Higher = Better)')
     ax_a.set_xlim(0, gens[-1])
@@ -171,7 +198,7 @@ def generate_readme_hero(
     # Panel B: Per-Generation Treated-Water Oil Concentration C_out,p95 [mg/L]
     ax_b = fig.add_subplot(gs[0, 1])
     ax_b.set_facecolor('#FFFFFF')
-    ax_b.axhline(30.0, color='#EF4444', linestyle='--', linewidth=1.4, label='Discharge Ceiling (30.0 mg/L)')
+    ax_b.axhline(research_limit, color='#EF4444', linestyle='--', linewidth=1.4, label=f'Authored research-screen threshold ({research_limit:.1f} mg/L)')
     ax_b.axhline(base_cout, color='#1E293B', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Single-Eval Ref ({base_cout:.2f} mg/L)')
 
     for o in outcomes_map['B3_Wave3_Exotic3D_QD_CEI']:
@@ -193,7 +220,7 @@ def generate_readme_hero(
     ax_b.plot(gens, b1_med_c, color='#B45309', linestyle=':', linewidth=1.4, label=f'B1 Random Batch Median [{b1_med_c[-1]:.2f} mg/L]')
 
     ax_b.set_title(f'B. Screen Oil Concentration C_out,upper [mg/L] vs. Gen (n=10 Seeds, MC n={mc_n})', pad=6)
-    ax_b.set_xlabel('Evolutionary Generation g [-] (Shared Unseeded Gen-0 Init at g = 0)')
+    ax_b.set_xlabel('Generation g [-] (A1/A2/B3 shared Gen0; B2 conventionalized; B1 random search)', fontsize=8)
     ax_b.set_ylabel('Screen Oil C_out,upper [mg/L] (Lower = Better)')
     ax_b.set_xlim(0, gens[-1])
     ax_b.grid(True, linestyle='--', alpha=0.35)
@@ -354,10 +381,10 @@ def generate_readme_hero(
         yerr=gci_err_kpa,
         capsize=4,
         color='#0284C7',
-        label='OpenFOAM 14 G2 Fine (552k cells ± 3-Grid Half-Span; v2 Oscillatory, std GCI=null)',
+        label='OpenFOAM 14 G2 (shells ± 3-Grid Half-Span; v2 Oscillatory, std GCI=null)',
     )
-    ax_d.bar(x_rsm, lrr_dp_kpa, width=w_bar, color='#0D9488', label='7-Eq. LRR RSM (G1 305k cells; W1/W2 shells only)')
-    ax_d.bar(x_rsm + w_bar, ssg_dp_kpa, width=w_bar, color='#6366F1', label='7-Eq. SSG RSM (G1 305k cells; W1/W2 shells only)')
+    ax_d.bar(x_rsm, lrr_dp_kpa, width=w_bar, color='#0D9488', label='7-Eq. LRR RSM (G1; W1/W2 shells only)')
+    ax_d.bar(x_rsm + w_bar, ssg_dp_kpa, width=w_bar, color='#6366F1', label='7-Eq. SSG RSM (G1; W1/W2 shells only)')
 
     for i, val in enumerate(g2_dp_kpa):
         if i == 0:
@@ -386,6 +413,8 @@ def generate_plate11_proof(
     wave_label: str = 'Wave-3',
     proof_filename: str = 'docs/results/wave3-evolution-proof-v1.json',
 ) -> None:
+    labels = comparison_labels(w3)
+    plt.rcdefaults()
     plt.rcParams.update({
         'font.family': 'DejaVu Sans',
         'font.size': 9.0,
@@ -404,7 +433,7 @@ def generate_plate11_proof(
     )
     fig.suptitle(
         f'Plate 11 — {wave_label} Prior-Screen Search Diagnostics: 5-Arm + B0 Reference (n = 10 Seeds, MC n={mc_n})\n'
-        'B1 > B3 on Best KPI (p_Holm=1.00); B3 > B1 on Pop-Median KPI (+5.64, p_Holm=0.0013) & Authored 11-Family Screen Summary',
+        f"{labels['best_order']} on Best KPI (p_Holm={labels['best_p']}); {labels['median_order']} on Pop-Median KPI ({labels['median_delta']}, p_Holm={labels['median_p']}) & Authored 11-Family Screen Summary",
         fontsize=11.8,
         fontweight='bold',
         color='#0F172A',
@@ -435,8 +464,8 @@ def generate_plate11_proof(
         ('B2_Conventional_Axisym_NSGA2', 'B2: Axisym\nNSGA-II', '#475569'),
         ('A2_No_Selection_Random_Walk', 'A2: No-Selection\n(Random Walk)', '#DC2626'),
         ('A1_No_Mutation_Crossover_Only', 'A1: No-Mutation\n(Crossover Only)', '#7C3AED'),
-        (b1_k, 'B1: Equal-Budget\nRandom (Best)', '#D97706'),
-        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label}\nQD-CEI (Pop-Med)', '#0284C7'),
+        (b1_k, 'B1: Equal-Budget\nRandom Search', '#D97706'),
+        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label}\nQD-CEI', '#0284C7'),
     ]
 
     x_idx = np.arange(len(arm_order))
@@ -475,7 +504,7 @@ def generate_plate11_proof(
                 zorder=5,
                 edgecolor='#0F172A',
                 linewidth=0.6,
-                label='Individual Seeds (n=10; B1 > B3 on Best KPI, p_Holm=1.00)' if idx == 5 else None,
+                label=f"Individual Seeds (n={w3['n_seeds']}; {labels['best_order']} Best, p_Holm={labels['best_p']})" if idx == 5 else None,
             )
 
     ax_a.bar(
@@ -491,7 +520,7 @@ def generate_plate11_proof(
     for idx, m_val in enumerate(means):
         ax_a.text(idx, max_tops[idx] + 0.65, f'{m_val:.2f}', ha='center', fontsize=8.0, fontweight='bold')
 
-    ax_a.set_title('A. Final Best KPI Score (n=10 Seeds: B1 > B3 Best KPI; B3 > B1 Pop-Med)', pad=6)
+    ax_a.set_title(f"A. Final Best KPI (n={w3['n_seeds']}: {labels['best_order']} Best; {labels['median_order']} Median)", pad=6)
     ax_a.set_xticks(x_idx)
     ax_a.set_xticklabels([x[1] for x in arm_order], fontsize=7.8)
     ax_a.set_ylabel('Final Seed-Best KPI_score [-]')
@@ -512,7 +541,7 @@ def generate_plate11_proof(
     ax_a.text(
         0.02,
         0.96,
-        f"B3 vs B1 (Best KPI, B1>B3): Δ={t_b1['mean_diff']:+.2f}, U={t_b1['mann_whitney_u']:.0f}, p_Holm={t_b1['p_value_holm_bonferroni']:.4g}, δ={t_b1['cliffs_delta']:+.2f}\n"
+        f"B3 vs B1 (Best KPI, {labels['best_order']}): Δ={t_b1['mean_diff']:+.2f}, U={t_b1['mann_whitney_u']:.0f}, p_Holm={t_b1['p_value_holm_bonferroni']:.4g}, δ={t_b1['cliffs_delta']:+.2f}\n"
         f"B3 vs B1 (Pop-Median KPI): Δ={t_b1_med['mean_diff']:+.2f}, U={t_b1_med['mann_whitney_u']:.0f}, p_Holm={t_b1_med['p_value_holm_bonferroni']:.4g}, δ={t_b1_med['cliffs_delta']:+.2f}\n"
         f"B3 vs A1 (No-Mut Best): Δ={t_a1['mean_diff']:+.2f}, U={t_a1['mann_whitney_u']:.0f}, p_Holm={t_a1['p_value_holm_bonferroni']:.4g}, δ={t_a1['cliffs_delta']:+.2f}\n"
         f"B3 vs A2 (No-Sel Best): Δ={t_a2['mean_diff']:+.2f}, U={t_a2['mann_whitney_u']:.0f}, p_Holm={t_a2['p_value_holm_bonferroni']:.4g}, δ={t_a2['cliffs_delta']:+.2f}",
@@ -599,9 +628,9 @@ def generate_plate11_proof(
         ax_c.plot(gens, div_m, color=col, linestyle=ls, linewidth=2.1, label=f'{label} [{div_m[-1]:.2f} bits]')
         ax_c.fill_between(gens, div_lo, div_hi, color=col, alpha=0.14)
 
-    ax_c.set_title('C. Active Population Phenotypic Diversity (Shannon H [bits]) vs. Gen (n=10 Seeds)', pad=6)
+    ax_c.set_title('C. Active Population Authored-Label Diversity (Shannon H [bits]; n=10 Seeds)', pad=6)
     ax_c.set_xlabel('Evolutionary Generation g [-]')
-    ax_c.set_ylabel('Active Population Shannon Diversity H [bits]')
+    ax_c.set_ylabel('Active Population Authored-Label Shannon H [bits]')
     ax_c.set_xlim(0, gens[-1])
     ax_c.grid(True, linestyle='--', alpha=0.35)
     ax_c.legend(loc='upper right', fontsize=7.2, framealpha=0.94)
@@ -623,7 +652,7 @@ def generate_plate11_proof(
     y_pos = np.arange(len(fams))
     bar_cols = ['#64748B' if 'baseline' in r['topology_class'] else '#0284C7' for r in held_out]
     bar_label = (
-        'Held-Out Family Best KPI_score ± LOFO-CV Surrogate RMSE'
+        'Authored-Family Screen Best KPI_score ± Legacy Prior-Label LOFO RMSE'
         if has_kpi_rmse
         else '11-Family Screen Best KPI_score (KPI surrogate RMSE = null; Cout LOFO RMSE annotated)'
     )
@@ -650,7 +679,7 @@ def generate_plate11_proof(
         ax_d.text(kv + offset, idx, ann, va='center', fontsize=6.7, fontweight='bold')
 
     ax_d.set_title(
-        'D. Held-Out 3D Geometry Family Performance & LOFO-CV Generalization'
+        'D. Authored-Family Screen Diagnostics (Legacy Prior-Label LOFO; Not Geometry Holdout)'
         if has_kpi_rmse
         else 'D. Authored 11-Family Screen Summary (Not Held-Out; KPI RMSE = null)',
         pad=6,
@@ -659,7 +688,7 @@ def generate_plate11_proof(
     ax_d.set_yticklabels(fams, fontsize=7.5)
     ax_d.set_ylim(-1.6, len(fams) - 0.3)
     ax_d.set_xlabel(
-        'Held-Out Family Composite KPI_score [-] (± LOFO Surrogate RMSE)'
+        'Authored-Family Screen KPI_score [-] (± Legacy Prior-Label LOFO RMSE)'
         if has_kpi_rmse
         else 'Authored 11-Family Screen KPI_score [-] (sandbox_authored_family_rmse_kpi_score = null)'
     )
@@ -687,18 +716,18 @@ def main() -> None:
         w3_sha = file_sha256(WAVE3_JSON)
         cfd_sha = file_sha256(CFD_JSON)
 
-        generate_readme_hero(w3, cfd, w3_sha, cfd_sha, HERO_OUT, 'Wave-3', 5.019376028759711)
+        generate_readme_hero(w3, cfd, w3_sha, cfd_sha, HERO_OUT, 'Wave-3')
         hero_meta = write_manifest(
             HERO_OUT,
-            'Wave-3 README Hero Plot: Per-Generation KPI Trajectory (n=10 Seeds, 22,500 3D Evals) & 15-Run OpenFOAM 14 Elite Verification',
-            [WAVE3_JSON, CFD_JSON],
+            'Wave-3 Historical Prior-Screen KPI Trajectory (n=10 Seeds); Archived W1/W2 Carrier Diagnostics with Corrected v2 Half-Spans (Separate Subjects)',
+            [WAVE3_JSON, CFD_JSON, ELITE_V2_JSON, REQUIREMENTS_JSON],
         )
 
         generate_plate11_proof(w3, w3_sha, PLATE11_OUT, 'Wave-3', 'docs/results/wave3-evolution-proof-v1.json')
         plate11_meta = write_manifest(
             PLATE11_OUT,
-            'Plate 11: Wave-3 6-Arm Ablation (n=10 Seeds), De-Novo Phylogenetic Lineage, Phenotypic Diversity & 11-Family Held-Out Geometry Generalization',
-            [WAVE3_JSON, CFD_JSON],
+            'Plate 11: Wave-3 Five Search Arms plus Frozen CT35 Reference; Incumbent-Improvement Milestones; Authored-Label Diversity; Authored-Family Screen Diagnostics',
+            [WAVE3_JSON],
         )
         out_summary.update({
             'wave3_results_sha256': w3_sha,
@@ -734,8 +763,8 @@ def main() -> None:
         )
         w4_hero_meta = write_manifest(
             WAVE4_HERO_OUT,
-            'Wave-4 README Hero Plot: Per-Generation Screen KPI Trajectory on Repaired Operators (n=10 Seeds, MC n=72) & 15-Run OpenFOAM 14 v2 Unclamped GCI Verification',
-            [WAVE4_JSON, CFD_V2_JSON, ELITE_V2_JSON],
+            'Wave-4 Prior-Screen KPI Trajectory on Repaired Operators (n=10 Seeds, MC n=72); Archived W1/W2 Carrier Diagnostics with v2 Half-Spans (Separate Subjects)',
+            [WAVE4_JSON, CFD_V2_JSON, ELITE_V2_JSON, REQUIREMENTS_JSON],
         )
 
         generate_plate11_proof(
@@ -747,8 +776,8 @@ def main() -> None:
         )
         w4_plate_meta = write_manifest(
             WAVE4_PLATE_OUT,
-            'Wave-4 Plate: 6-Arm Ablation on Repaired Operators (n=10 Seeds, MC n=72), De-Novo Phylogenetic Lineage, Phenotypic Diversity & 11-Family Held-Out Geometry Generalization',
-            [WAVE4_JSON, CFD_V2_JSON, ELITE_V2_JSON],
+            'Wave-4 Plate: Five Search Arms plus Frozen CT35 Reference; Incumbent-Improvement Milestones; Authored-Label Diversity; Authored-Family Screen Diagnostics',
+            [WAVE4_JSON],
         )
         out_summary.update({
             'wave4_results_sha256': w4_sha,

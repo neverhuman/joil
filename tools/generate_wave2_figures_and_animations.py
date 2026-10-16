@@ -16,6 +16,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 WAVE2_JSON = ROOT / "docs" / "results" / "wave2-multiseed-ablation-and-holdout-v1.json"
+REQUIREMENTS_JSON = ROOT / "requirements/RS-joil-research-v1.json"
 PREVIEW_JSON = ROOT / "docs" / "results" / "interactive-3d-archetypes-v1.json"
 GCI_RSM_JSON = ROOT / "docs" / "results" / "elite-3grid-gci-and-rsm-verification-v1.json"
 FIG_DIR = ROOT / "docs" / "figures"
@@ -32,6 +33,8 @@ def write_manifest(fig_path: Path, title: str, sources: list[Path], description:
         "figure_sha256": sha256_file(fig_path),
         "title": title,
         "description": description,
+        "generator_script": "tools/generate_wave2_figures_and_animations.py",
+        "generator_sha256": sha256_file(Path(__file__).resolve()),
         "units_declared": True,
         "scale_policy": "true_aspect_si_and_mm_annotated",
         "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
@@ -253,11 +256,12 @@ def generate_atlas_plate(w2: dict, preview: dict) -> Path:
 
 
 def generate_ablation_plate(w2: dict) -> Path:
+    plt.rcdefaults()
     apply_dark_theme()
 
     fig = plt.figure(figsize=(16.5, 10.2), dpi=180)
     fig.suptitle(
-        "JOIL WAVE-2 CRITIQUE-PROOF STATISTICAL ABLATION · 10-SEED BOOTSTRAP CIs, WILCOXON TESTS & HELD-OUT DUTIES",
+        "JOIL WAVE-2 PRIOR-SCREEN ABLATION · 10-SEED BOOTSTRAP CIs & EXECUTED SCREEN DUTIES",
         fontsize=13.5,
         fontweight="bold",
         color="#f2f7fa",
@@ -266,7 +270,7 @@ def generate_ablation_plate(w2: dict) -> Path:
     fig.text(
         0.5,
         0.947,
-        f"Pre-Registered Protocol ({w2['protocol_id']}) · N={w2['n_seeds']} Master Seeds ({w2['evaluations_per_seed']} Evals/Seed/Arm) · Holm–Bonferroni Multiplicity Control & 10% Rejected-Cohort Audit",
+        f"Historical Protocol ({w2['protocol_id']}; duty deviation) · N={w2['n_seeds']} Master Seeds ({w2['evaluations_per_seed']} Evals/Search Arm) · Holm–Bonferroni & 10% Rejected-Cohort Audit",
         ha="center",
         fontsize=9.8,
         color="#8ecae6",
@@ -276,7 +280,7 @@ def generate_ablation_plate(w2: dict) -> Path:
 
     ax_hv = fig.add_subplot(gs[0, 0])
     ax_hv.set_title(
-        "A. 10-Seed Pareto Hypervolume Convergence (Mean ± 1.96·SE Band)",
+        "A. Legacy Hypervolume Telemetry (Mean ± 1.96·SE Band; n=10 Seeds)",
         fontsize=10.5,
         fontweight="bold",
         color="#5de0e6",
@@ -297,7 +301,7 @@ def generate_ablation_plate(w2: dict) -> Path:
         ax_hv.fill_between(gens, mean_hv - 1.96 * se_hv, mean_hv + 1.96 * se_hv, color=col, alpha=0.20)
 
     ax_hv.set_xlabel("Evolutionary Generation (Equal Budget: 20 F0/F1 Evals/Gen)")
-    ax_hv.set_ylabel("Normalized 3D Pareto Hypervolume (vs. Pre-Registered Nadir)")
+    ax_hv.set_ylabel("Legacy Largest-Box + Generation-Bonus Telemetry [-]")
     ax_hv.grid(True, alpha=0.35)
     ax_hv.legend(loc="lower right", fontsize=8.3, framealpha=0.88, facecolor="#0b1319")
 
@@ -347,7 +351,9 @@ def generate_ablation_plate(w2: dict) -> Path:
         jit = rng_jit.uniform(-0.12, 0.12, size=len(vals))
         ax_ci.scatter(np.full(len(vals), idx) + jit, vals, color="#ffffff", edgecolor="#0b1319", s=26, zorder=5)
 
-    ax_ci.axhline(30.0, color="#ff6b6b", ls="--", lw=1.4, label="30.0 mg/L Compliance Threshold")
+    research_limit = json.loads(REQUIREMENTS_JSON.read_text())["quality"]["research_limit_mg_l"]
+    threshold_label = f"Authored research-screen threshold ({research_limit:.1f} mg/L)"
+    ax_ci.axhline(research_limit, color="#ff6b6b", ls="--", lw=1.4, label=threshold_label)
     for i, m in enumerate(means):
         ax_ci.text(i, m + 1.15, f"{m:.2f} mg/L", ha="center", va="bottom", fontsize=8.5, fontweight="bold")
 
@@ -371,7 +377,7 @@ def generate_ablation_plate(w2: dict) -> Path:
 
     ax_duty = fig.add_subplot(gs[1, 0])
     ax_duty.set_title(
-        "C. Pre-Registered Held-Out Operating Duties (D1..D4 Unseen During Search)",
+        "C. Executed Screen Duties (D1..D4; Protocol Deviation)",
         fontsize=10.5,
         fontweight="bold",
         color="#d4b06a",
@@ -393,7 +399,7 @@ def generate_ablation_plate(w2: dict) -> Path:
     w_d = 0.35
     b_base = ax_duty.bar(xd - w_d / 2, b0_d_cout, w_d, color="#90a4ae", label="B0: CT-35 Baseline")
     b_el = ax_duty.bar(xd + w_d / 2, el_d_cout, w_d, color="#5de0e6", label="Promoted Wave-2 Exotic 3D Elite")
-    ax_duty.axhline(30.0, color="#ff6b6b", ls="--", lw=1.4, label="30.0 mg/L Threshold")
+    ax_duty.axhline(research_limit, color="#ff6b6b", ls="--", lw=1.4, label=threshold_label)
 
     for rect in b_base:
         h = rect.get_height()
@@ -436,8 +442,8 @@ def generate_ablation_plate(w2: dict) -> Path:
         f"Mandatory 10% Rejected-Cohort Audit (Surrogate Bias Guard):\n"
         f"• Low-Rank / Rejected Pool: {aud['total_rejected_or_low_rank_pool']} candidates\n"
         f"• Random Audit Sample (10%): {aud['audited_sample_count']} candidates\n"
-        f"• False Omission Count (Rank-0 Missed): {aud['false_omission_rank0_count']} (Rate: {aud['false_omission_rate']*100:.2f}% ≤ 2.0% Gate)\n"
-        f"• Worst Rank Reversal ΔC_out: {aud['worst_rank_reversal_cout_mg_l']:.2f} mg/L · Status: PASS",
+        f"• False Omission Count (Rank-0 Missed): {aud['false_omission_rank0_count']} (Observed Rate: {aud['false_omission_rate']*100:.2f}%)\n"
+        f"• Worst Rank Reversal ΔC_out: {aud['worst_rank_reversal_cout_mg_l']:.2f} mg/L · No admitted acceptance gate",
         transform=ax_aud.transAxes,
         fontsize=8.3,
         bbox=dict(boxstyle="round,pad=0.38", facecolor="#0b1319", edgecolor="#5de0e6", alpha=0.92),
@@ -455,9 +461,9 @@ def generate_ablation_plate(w2: dict) -> Path:
 
     write_manifest(
         out_path,
-        "Wave-2 10-Seed Equal-Budget Ablation, Bootstrap 95% CIs, Wilcoxon Tests & Held-Out Duties",
-        [WAVE2_JSON],
-        "10-seed statistical comparison of B0 (CT-35), B1 (Random/LHS Exotic 3D), B2 (Conventional Axisymmetric NSGA-II), and B3 (Exotic 3D MAP-Elites + GP-CEI) with held-out duties D1..D4 and 10% rejected-cohort audit.",
+        "Wave-2 Three Equal-Budget Searches plus Frozen CT35 Reference; Executed Screen Duties (Protocol Deviation)",
+        [WAVE2_JSON, REQUIREMENTS_JSON],
+        "10-seed prior-screen diagnostics: legacy largest-box-plus-bonus telemetry; executed D1..D4 duties deviate from preregistration; observed rejected-cohort audit has no admitted 2% gate. Research threshold is not a discharge permit.",
     )
     return out_path
 
