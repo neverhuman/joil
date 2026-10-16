@@ -52,7 +52,7 @@ For each candidate decision, allocate an error budget in the observable's units 
 
 Validation follows variable- and validation-point-specific comparisons with uncertainty, consistent with [ASME V&V 20](https://www.asme.org/codes-standards/find-codes-standards/standard-for-verification-and-validation-in-computational-fluid-dynamics-and-heat-transfer). The planned programme is not a declaration of compliance with the standard. [NASA spatial-convergence guidance](https://www.grc.nasa.gov/www/wind/valid/tutorial/spatconv.html) informs systematic refinement; non-asymptotic data do not get a decorative GCI certificate.
 
-Evidence progression: proposed -> geometry checked -> numerically verified -> experimentally validated within stated envelope -> independent finalist review. Each new topology/feature scale/regime can exceed the validated envelope. A result needs exact subject, requirement, physics/numerics, extraction and calibration identities; no caller-supplied boolean upgrades it.
+Evidence progression: proposed -> geometry checked -> numerically verified -> experimentally validated within stated envelope -> independent finalist review. Each new topology, feature scale or regime can fall outside the envelope established by physical validation. A result needs exact subject, requirement, physics/numerics, extraction and calibration identities; no caller-supplied boolean upgrades it.
 
 ## Physical superiority
 

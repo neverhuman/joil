@@ -692,6 +692,125 @@ def scan_markdown_numeric_tokens(
     return errors, scanned_count
 
 
+def _evidence_tiers(root: Path) -> list[str]:
+    """EvidenceTier values from analysis/evidence.py (EV-04), the single tier vocabulary."""
+    text = (root / "analysis/evidence.py").read_text(encoding="utf-8")
+    block = text.split("class EvidenceTier", 1)[1].split("\n\n", 1)[0]
+    return re.findall(r"=\s*'([a-z_]+)'", block)
+
+
+# Outcome words that assert evidence; process nouns ("verification", "validation") are not flagged.
+_STRONG_WORD_RE = re.compile(
+    r"\b(qualif(?:ied|ies|ying)|qualification|validated|verified|probabilit(?:y|ies)|proofs?|prove[sdn]?|proving)\b",
+    re.I,
+)
+_PROCESS_RE = re.compile(r"\b(contract|ladder|protocol|stage|gate|plan|limits?|criteria)\b", re.I)
+_LIMIT_RE = re.compile(
+    r"\b(not|no|never|without|unwaived|unvalidated|unverified|unqualified|withdrawn|formerly|previously|"
+    r"open|pending|planned|proposed|null|false|neither|nor|cannot|until|before|requires?|required|"
+    r"must|needs?|would|future|remains?|whether|if)\b",
+    re.I,
+)
+_DESCRIPTOR_CLAIM_RE = re.compile(
+    r"\b(improv|reduc|lower|suppress|stabili[sz]|prevent|enhanc|caus|explain|because|demonstrat|"
+    r"prov|confirm|achiev)\w*",
+    re.I,
+)
+_PRIOR_MARK_RE = re.compile(
+    r"\b(prior|priors|gene-derived|hypothes\w+|screen|F1|by construction|hand-chosen|authored)\b", re.I
+)
+
+
+def _prose(line: str) -> str:
+    """A markdown line without inline code spans, link targets and LaTeX."""
+    line = re.sub(r"`[^`]*`", " ", line)
+    line = re.sub(r"\]\([^)]*\)", "]", line)
+    line = re.sub(r"\"[^\"]*\"", " ", line)  # quoted labels are cited, not asserted
+    return re.sub(r"\$[^$]*\$", " ", line)
+
+
+def audit_claim_wording(docs: dict[str, str], tiers: list[str], descriptors: list[str]) -> tuple[list[str], int]:
+    """DOC-08: strong evidence words need a tier or a limitation; descriptor-backed claims need a prior label."""
+    tier_re = re.compile(
+        r"\b(F-?1|F[0-5](?:-(?:carrier|Carrier|Oil|oil|Water))?|E[0-6]|"
+        + "|".join(re.escape(t).replace("_", "[ _-]") for t in tiers)
+        + r")\b",
+        re.I,
+    )
+    descriptor_re = re.compile(
+        r"\b(" + "|".join(map(re.escape, descriptors)) + r"|mechanism descriptors?)\b", re.I
+    )
+    errors: list[str] = []
+    checked = 0
+    for doc_name, text in docs.items():
+        for line_no, unit in _sentences(text):
+            prose = _prose(unit)
+            for match in _STRONG_WORD_RE.finditer(prose):
+                checked += 1
+                if tier_re.search(unit) or _LIMIT_RE.search(prose):
+                    continue
+                if match.group(0).lower() == "qualification" and _PROCESS_RE.search(prose):
+                    continue
+                errors.append(
+                    f"{doc_name}:{line_no}: '{match.group(0)}' without an evidence tier or limitation: {unit.strip()[:110]}"
+                )
+            if descriptor_re.search(unit) and _DESCRIPTOR_CLAIM_RE.search(prose):
+                checked += 1
+                if not _PRIOR_MARK_RE.search(unit):
+                    errors.append(
+                        f"{doc_name}:{line_no}: claim backed by gene-derived descriptors without a prior/screen label: {unit.strip()[:110]}"
+                    )
+    return errors, checked
+
+
+def _sentences(text: str) -> list[tuple[int, str]]:
+    """(first line number, sentence) units: table rows and headings stand alone; wrapped prose is joined."""
+    units: list[tuple[int, str]] = []
+    para: list[str] = []
+    start = 0
+    in_fence = False
+
+    def flush() -> None:
+        if para:
+            joined = " ".join(x.strip() for x in para)
+            for sentence in re.split(r"(?<=[.!?])\s+(?=[A-Z*`(\[$])", joined):
+                units.append((start, sentence))
+            para.clear()
+
+    for line_no, raw in enumerate(text.splitlines(), start=1):
+        if raw.lstrip().startswith("```"):
+            flush()
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        stripped = raw.strip()
+        if not stripped:
+            flush()
+        elif stripped.startswith(("|", "#", "![")) or re.match(r"^\s*([-*]|\d+\.)\s", raw):
+            flush()
+            if stripped.startswith(("|", "#", "![")):
+                units.append((line_no, stripped))
+            else:
+                start = line_no
+                para.append(stripped)
+        else:
+            if not para:
+                start = line_no
+            para.append(stripped)
+    flush()
+    return units
+
+
+def _descriptor_names(root: Path) -> list[str]:
+    rust = "\n".join(p.read_text(encoding="utf-8") for p in sorted((root / "crates").rglob("*.rs")))
+    for name in ("PriorDescriptors", "MechanismDescriptors"):
+        m = re.search(r"pub struct " + name + r" \{(.*?)\n\}", rust, re.S)
+        if m:
+            return re.findall(r"^\s*pub (\w+):", m.group(1), re.M)
+    return []
+
+
 REVIEW_INPUT_DIR = "docs/review-inputs/2026-10-15"
 REVIEW_SYNTHESIS = "docs/reviews/2026-10-15-SYNTHESIS.md"
 REVIEW_WORKPLAN = "docs/WORKPLAN-2026-10-15.md"
@@ -968,14 +1087,20 @@ def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
     token_errors, token_count = scan_markdown_numeric_tokens(docs, allowed_numbers)
     input_errors, inputs_verified = verify_review_input_checksums(root / REVIEW_INPUT_DIR)
     trace_errors, findings_traced = audit_review_traceability(root)
+    wording_errors, wording_checked = audit_claim_wording(
+        docs, _evidence_tiers(root), _descriptor_names(root)
+    )
 
-    all_errors = path_hash_errors + structured_errors + token_errors + input_errors + trace_errors
+    all_errors = (
+        path_hash_errors + structured_errors + token_errors + input_errors + trace_errors + wording_errors
+    )
     return {
         "passed": len(all_errors) == 0,
         "structured_claims_verified": structured_count,
         "numeric_tokens_scanned": token_count,
         "review_inputs_verified": inputs_verified,
         "review_findings_traced": findings_traced,
+        "wording_claims_checked": wording_checked,
         "error_count": len(all_errors),
         "errors": all_errors,
     }
@@ -1022,7 +1147,8 @@ def main() -> int:
                 f"claims_audit: OK ({report['structured_claims_verified']} structured receipt claims + "
                 f"{report['numeric_tokens_scanned']} markdown numeric tokens verified across WHITEPAPER.md, SCIENCE.md, README.md; "
                 f"{report['review_inputs_verified']} review inputs checksummed; "
-                f"{report['review_findings_traced']} review findings traced)"
+                f"{report['review_findings_traced']} review findings traced; "
+                f"{report['wording_claims_checked']} strong-wording claims checked)"
             )
         else:
             print(f"claims_audit: FAILED with {report['error_count']} error(s):", file=sys.stderr)
