@@ -234,6 +234,182 @@ pub struct MigrationReceipt {
     pub information_loss: Vec<String>,
 }
 
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct GenomeEdit {
+    pub path: String,
+    pub before: serde_json::Value,
+    pub after: serde_json::Value,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct RepairRecord {
+    pub rule: String,
+    /// Hashes of the complete serialized proposals, including invalid proposals.
+    pub before_hash: String,
+    pub after_hash: String,
+    pub edits: Vec<GenomeEdit>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct RngSpan {
+    pub before: u64,
+    pub after: u64,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct LocalityMetrics {
+    pub changed_fields: usize,
+    /// Parameter edit counts only; no geometric distance has been measured.
+    pub geometric_distance: Option<f64>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct VariationOutcome {
+    pub child: Option<DesignProgram>,
+    pub proposal: Option<DesignProgram>,
+    pub edits: Vec<GenomeEdit>,
+    pub repairs: Vec<RepairRecord>,
+    pub failure: Option<String>,
+    pub rng_span: RngSpan,
+    pub locality: LocalityMetrics,
+    pub operator_id: String,
+    pub operator_version: String,
+    pub parent_hashes: Vec<String>,
+}
+
+/// Infrastructure errors are distinct from an ordinary rejected proposal.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct VariationError(pub String);
+
+impl From<VariationError> for String {
+    fn from(error: VariationError) -> Self {
+        error.0
+    }
+}
+
+impl VariationOutcome {
+    pub fn into_child(self) -> Result<DesignProgram, String> {
+        self.child.ok_or_else(|| {
+            self.failure
+                .unwrap_or_else(|| "variation has no child".into())
+        })
+    }
+}
+
+fn program_wire_hash(p: &DesignProgram) -> Result<String, VariationError> {
+    let wire = serde_json::to_vec(p).map_err(|e| VariationError(e.to_string()))?;
+    Ok(format!("{:x}", Sha256::digest(wire)))
+}
+
+fn genome_edits(
+    before: &DesignProgram,
+    after: &DesignProgram,
+) -> Result<Vec<GenomeEdit>, VariationError> {
+    let a = serde_json::to_value(before).map_err(|e| VariationError(e.to_string()))?;
+    let b = serde_json::to_value(after).map_err(|e| VariationError(e.to_string()))?;
+    let mut edits = Vec::new();
+    // Complete top-level module replacements form an exact replayable edit script.
+    let a = a
+        .as_object()
+        .ok_or_else(|| VariationError("program must be an object".into()))?;
+    let b = b
+        .as_object()
+        .ok_or_else(|| VariationError("program must be an object".into()))?;
+    for key in a
+        .keys()
+        .chain(b.keys())
+        .collect::<std::collections::BTreeSet<_>>()
+    {
+        let old = a.get(key).cloned().unwrap_or(serde_json::Value::Null);
+        let new = b.get(key).cloned().unwrap_or(serde_json::Value::Null);
+        if old != new {
+            edits.push(GenomeEdit {
+                path: format!("/{key}"),
+                before: old,
+                after: new,
+            });
+        }
+    }
+    Ok(edits)
+}
+
+fn project_bound(value: f64, lo: f64, hi: f64, projection: bool) -> f64 {
+    if projection {
+        value.clamp(lo, hi)
+    } else {
+        value
+    }
+}
+
+fn variation(
+    parents: &[&DesignProgram],
+    operator: &str,
+    rng: &mut Rng,
+    kernel: impl Fn(&mut Rng, bool) -> DesignProgram,
+) -> Result<VariationOutcome, VariationError> {
+    let mut out = VariationOutcome {
+        child: None,
+        proposal: None,
+        edits: Vec::new(),
+        repairs: Vec::new(),
+        failure: None,
+        rng_span: RngSpan {
+            before: rng.0,
+            after: rng.0,
+        },
+        locality: LocalityMetrics {
+            changed_fields: 0,
+            geometric_distance: None,
+        },
+        operator_id: operator.into(),
+        operator_version: "2".into(),
+        parent_hashes: Vec::new(),
+    };
+    for parent in parents {
+        match parent.canonical_sha256() {
+            Ok(hash) => out.parent_hashes.push(hash),
+            Err(reason) => {
+                out.failure = Some(format!("invalid parent: {reason}"));
+                return Ok(out);
+            }
+        }
+    }
+    if parents
+        .windows(2)
+        .any(|p| p[0].schema_version != p[1].schema_version || p[0].family != p[1].family)
+    {
+        out.failure = Some("crossover schema mismatch; explicit migration required".into());
+        return Ok(out);
+    }
+    // Retain the deterministic unprojected proposal and the explicitly projected
+    // proposal. Each replay begins at the same RNG state. The actual operator's
+    // consumed span is the projected replay; projection is a versioned operator.
+    let raw = kernel(&mut rng.clone(), false);
+    let projected = kernel(rng, true);
+    out.rng_span.after = rng.0;
+    if let Some(parent) = parents.first() {
+        out.edits = genome_edits(parent, &raw)?;
+    } else {
+        out.edits = genome_edits(&DesignProgram::baseline_ct35(), &raw)?;
+    }
+    out.locality.changed_fields = out.edits.len();
+    let repair_edits = genome_edits(&raw, &projected)?;
+    if !repair_edits.is_empty() {
+        out.repairs.push(RepairRecord {
+            rule: format!("{operator}/bounded-macro-projection-v1"),
+            before_hash: program_wire_hash(&raw)?,
+            after_hash: program_wire_hash(&projected)?,
+            edits: repair_edits,
+        });
+    }
+    out.proposal = Some(raw);
+    match projected.canonicalize() {
+        Ok(child) => out.child = Some(child),
+        Err(reason) => out.failure = Some(reason),
+    }
+    Ok(out)
+}
+
 /// Dimensionless physical mechanism descriptors for Quality-Diversity (MAP-Elites) and screening.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MechanismDescriptors {
@@ -322,6 +498,19 @@ impl DesignProgram {
 
     /// Validate all parameter bounds, enforce interface hash, and canonicalize inactive genes.
     pub fn normalize(&self) -> Result<Self, String> {
+        fn contains_null(value: &serde_json::Value) -> bool {
+            match value {
+                serde_json::Value::Null => true,
+                serde_json::Value::Array(values) => values.iter().any(contains_null),
+                serde_json::Value::Object(values) => values.values().any(contains_null),
+                _ => false,
+            }
+        }
+        // serde_json represents non-finite floats as null. This schema has no
+        // nullable fields, including inactive numeric genes.
+        if contains_null(&serde_json::to_value(self).map_err(|e| e.to_string())?) {
+            return Err("non-finite program parameter; repair prohibited".into());
+        }
         let expected_sha = baseline_file_sha256();
         if self.baseline_file_sha256 != expected_sha {
             return Err("baseline_file_sha256 mismatch with frozen CT-35 genome".into());
@@ -1084,15 +1273,137 @@ impl DesignProgram {
         seeds
     }
 
+    pub fn mutate_diffeomorphic_spline(
+        &self,
+        rng: &mut Rng,
+    ) -> Result<VariationOutcome, VariationError> {
+        variation(
+            &[self],
+            "mutate_diffeomorphic_spline",
+            rng,
+            |rng, projection| self.raw_mutate_diffeomorphic_spline(rng, projection),
+        )
+    }
+
+    pub fn mutate_branch_topology(
+        &self,
+        rng: &mut Rng,
+    ) -> Result<VariationOutcome, VariationError> {
+        variation(&[self], "mutate_branch_topology", rng, |rng, projection| {
+            self.raw_mutate_branch_topology(rng, projection)
+        })
+    }
+
+    pub fn mutate_tpms_grading(&self, rng: &mut Rng) -> Result<VariationOutcome, VariationError> {
+        variation(&[self], "mutate_tpms_grading", rng, |rng, projection| {
+            self.raw_mutate_tpms_grading(rng, projection)
+        })
+    }
+
+    pub fn crossover_homologous_graph(
+        &self,
+        other: &Self,
+        rng: &mut Rng,
+    ) -> Result<VariationOutcome, VariationError> {
+        variation(
+            &[self, other],
+            "non_homologous_macro_crossover",
+            rng,
+            |rng, projection| self.raw_crossover_homologous_graph(other, rng, projection),
+        )
+    }
+
+    pub fn mutate(&self, rng: &mut Rng) -> Result<VariationOutcome, VariationError> {
+        variation(&[self], "mutate", rng, |rng, projection| {
+            self.raw_mutate(rng, projection)
+        })
+    }
+
+    pub fn mutate_conventional_axisymmetric(
+        &self,
+        rng: &mut Rng,
+    ) -> Result<VariationOutcome, VariationError> {
+        variation(
+            &[self],
+            "mutate_conventional_axisymmetric",
+            rng,
+            |rng, projection| self.raw_mutate_conventional_axisymmetric(rng, projection),
+        )
+    }
+
+    pub fn sample_random_exotic(rng: &mut Rng) -> Result<VariationOutcome, VariationError> {
+        variation(&[], "sample_random_exotic", rng, |rng, projection| {
+            Self::raw_sample_random_exotic(rng, projection)
+        })
+    }
+
+    pub fn crossover(
+        &self,
+        other: &Self,
+        rng: &mut Rng,
+    ) -> Result<VariationOutcome, VariationError> {
+        variation(
+            &[self, other],
+            "non_homologous_macro_crossover",
+            rng,
+            |rng, projection| self.raw_crossover(other, rng, projection),
+        )
+    }
+
+    pub fn sample_stratified_11family(
+        rng: &mut Rng,
+        family_idx: usize,
+    ) -> Result<VariationOutcome, VariationError> {
+        variation(&[], "sample_stratified_11family", rng, |rng, projection| {
+            Self::raw_sample_stratified_11family(rng, projection, family_idx)
+        })
+    }
+
+    pub fn mutate_wave3_progressive(
+        &self,
+        rng: &mut Rng,
+    ) -> Result<VariationOutcome, VariationError> {
+        variation(
+            &[self],
+            "mutate_wave3_progressive",
+            rng,
+            |rng, projection| self.raw_mutate_wave3_progressive(rng, projection),
+        )
+    }
+
+    /// Submit an externally authored edit through the same transaction boundary.
+    pub fn propose_edit(
+        &self,
+        proposal: Self,
+        rng: &mut Rng,
+    ) -> Result<VariationOutcome, VariationError> {
+        variation(&[self], "authored_edit", rng, |_, _| proposal.clone())
+    }
+
     /// Wave-2 Operator 1: Diffeomorphic / Jacobian-guarded spline & harmonic wall mutation.
     /// Analytically bounds modal amplitudes so `det g(theta, z) > 0.25` and LPBF overhang `<= 42 deg`.
-    pub fn mutate_diffeomorphic_spline(&self, rng: &mut Rng) -> Self {
-        let mut c = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
-        let mut m1 = (c.cone_profile.mode1_mm + rng.gauss(0.0, 0.14)).clamp(-0.60, 1.15);
-        let mut m2 = (c.cone_profile.mode2_mm + rng.gauss(0.0, 0.10)).clamp(-0.40, 0.35);
-        let mut m3 = (c.cone_profile.mode3_mm + rng.gauss(0.0, 0.05)).clamp(-0.15, 0.15);
+    fn raw_mutate_diffeomorphic_spline(&self, rng: &mut Rng, projection: bool) -> Self {
+        let mut c = self.clone();
+        let mut m1 = project_bound(
+            c.cone_profile.mode1_mm + rng.gauss(0.0, 0.14),
+            -0.60,
+            1.15,
+            projection,
+        );
+        let mut m2 = project_bound(
+            c.cone_profile.mode2_mm + rng.gauss(0.0, 0.10),
+            -0.40,
+            0.35,
+            projection,
+        );
+        let mut m3 = project_bound(
+            c.cone_profile.mode3_mm + rng.gauss(0.0, 0.05),
+            -0.15,
+            0.15,
+            projection,
+        );
         let sum_m = m1.abs() + m2.abs() + m3.abs();
-        if sum_m > 1.48 {
+        if projection && sum_m > 1.48 {
             let s = 1.48 / sum_m;
             m1 *= s;
             m2 *= s;
@@ -1116,14 +1427,19 @@ impl DesignProgram {
             for m in &mut c.chamber_modes {
                 m.cos_mm = round4(m.cos_mm + rng.gauss(0.0, 0.09));
                 m.sin_mm = round4(m.sin_mm + rng.gauss(0.0, 0.09));
-                m.twist_rad = round4((m.twist_rad + rng.gauss(0.0, 0.30)).clamp(-5.8, -0.5));
+                m.twist_rad = round4(project_bound(
+                    m.twist_rad + rng.gauss(0.0, 0.30),
+                    -5.8,
+                    -0.5,
+                    projection,
+                ));
             }
             let total_amp: f64 = c
                 .chamber_modes
                 .iter()
                 .map(|m| m.cos_mm.hypot(m.sin_mm))
                 .sum();
-            if total_amp > 1.60 {
+            if projection && total_amp > 1.60 {
                 let s = 1.60 / total_amp;
                 for m in &mut c.chamber_modes {
                     m.cos_mm = round4(m.cos_mm * s);
@@ -1131,28 +1447,48 @@ impl DesignProgram {
                 }
             }
         }
-        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+        c
     }
 
     /// Wave-2 Operator 2: Area-conserving branch topology mutation (`K in {2, 4, 6, 8}` nozzles)
     /// and internal helical guide-ribbon cascade perturbation.
-    pub fn mutate_branch_topology(&self, rng: &mut Rng) -> Self {
-        let mut c = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
-        c.inlet_ramp.axial_drop_mm =
-            round4((c.inlet_ramp.axial_drop_mm + rng.gauss(0.0, 0.75)).clamp(0.0, 7.9));
-        c.inlet_ramp.radial_slot_factor =
-            round4((c.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.022)).clamp(0.80, 1.0));
-        c.inlet_ramp.superellipse_exponent =
-            round4((c.inlet_ramp.superellipse_exponent + rng.gauss(0.0, 0.22)).clamp(2.0, 3.8));
+    fn raw_mutate_branch_topology(&self, rng: &mut Rng, projection: bool) -> Self {
+        let mut c = self.clone();
+        c.inlet_ramp.axial_drop_mm = round4(project_bound(
+            c.inlet_ramp.axial_drop_mm + rng.gauss(0.0, 0.75),
+            0.0,
+            7.9,
+            projection,
+        ));
+        c.inlet_ramp.radial_slot_factor = round4(project_bound(
+            c.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.022),
+            0.80,
+            1.0,
+            projection,
+        ));
+        c.inlet_ramp.superellipse_exponent = round4(project_bound(
+            c.inlet_ramp.superellipse_exponent + rng.gauss(0.0, 0.22),
+            2.0,
+            3.8,
+            projection,
+        ));
 
         if rng.f64() < 0.25 {
             c.inlet_split.enabled = !c.inlet_split.enabled;
         }
         if c.inlet_split.enabled {
-            c.inlet_split.vane_thickness_mm =
-                round4((c.inlet_split.vane_thickness_mm + rng.gauss(0.0, 0.05)).clamp(1.08, 1.45));
-            c.inlet_split.vane_z_fraction =
-                round4((c.inlet_split.vane_z_fraction + rng.gauss(0.0, 0.025)).clamp(0.42, 0.58));
+            c.inlet_split.vane_thickness_mm = round4(project_bound(
+                c.inlet_split.vane_thickness_mm + rng.gauss(0.0, 0.05),
+                1.08,
+                1.45,
+                projection,
+            ));
+            c.inlet_split.vane_z_fraction = round4(project_bound(
+                c.inlet_split.vane_z_fraction + rng.gauss(0.0, 0.025),
+                0.42,
+                0.58,
+                projection,
+            ));
             if rng.f64() < 0.30 {
                 c.inlet_split.branches_per_port = match rng.next_u64() % 3 {
                     0 => 2,
@@ -1162,8 +1498,12 @@ impl DesignProgram {
             } else if c.inlet_split.branches_per_port < 2 {
                 c.inlet_split.branches_per_port = 2;
             }
-            c.inlet_split.azimuthal_phase_deg =
-                round4((c.inlet_split.azimuthal_phase_deg + rng.gauss(0.0, 3.5)).clamp(0.0, 40.0));
+            c.inlet_split.azimuthal_phase_deg = round4(project_bound(
+                c.inlet_split.azimuthal_phase_deg + rng.gauss(0.0, 3.5),
+                0.0,
+                40.0,
+                projection,
+            ));
         }
 
         if rng.f64() < 0.30 {
@@ -1178,21 +1518,27 @@ impl DesignProgram {
             } else if rng.f64() < 0.25 {
                 c.ribbon_cascade = HelicalRibbon3D::default();
             } else {
-                c.ribbon_cascade.axial_span_mm = round4(
-                    (c.ribbon_cascade.axial_span_mm + rng.gauss(0.0, 2.5)).clamp(14.0, 42.0),
-                );
-                c.ribbon_cascade.helical_twist_rad = round4(
-                    (c.ribbon_cascade.helical_twist_rad + rng.gauss(0.0, 0.25)).clamp(-4.0, -1.0),
-                );
+                c.ribbon_cascade.axial_span_mm = round4(project_bound(
+                    c.ribbon_cascade.axial_span_mm + rng.gauss(0.0, 2.5),
+                    14.0,
+                    42.0,
+                    projection,
+                ));
+                c.ribbon_cascade.helical_twist_rad = round4(project_bound(
+                    c.ribbon_cascade.helical_twist_rad + rng.gauss(0.0, 0.25),
+                    -4.0,
+                    -1.0,
+                    projection,
+                ));
             }
         }
-        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+        c
     }
 
     /// Wave-2 Operator 3: Bi-continuous percolation-window TPMS grading mutation (`0` trapped voids,
     /// central vortex core `r < radial_inner_fraction * R_wall` 100% unobstructed).
-    pub fn mutate_tpms_grading(&self, rng: &mut Rng) -> Self {
-        let mut c = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
+    fn raw_mutate_tpms_grading(&self, rng: &mut Rng, projection: bool) -> Self {
+        let mut c = self.clone();
         if c.tpms_insert.is_inactive() {
             let basis = match rng.next_u64() % 4 {
                 0 => TpmsBasis::CylindricalGyroid,
@@ -1201,7 +1547,12 @@ impl DesignProgram {
                 _ => TpmsBasis::Diamond,
             };
             let zs = round4(rng.range(20.0, 32.0));
-            let ze = round4((zs + rng.range(28.0, 42.0)).clamp(52.0, 82.0));
+            let ze = round4(project_bound(
+                zs + rng.range(28.0, 42.0),
+                52.0,
+                82.0,
+                projection,
+            ));
             c.tpms_insert = TpmsInsert3D {
                 basis,
                 radial_inner_fraction: round4(rng.range(0.66, 0.78)),
@@ -1214,23 +1565,44 @@ impl DesignProgram {
         } else if rng.f64() < 0.20 {
             c.tpms_insert = TpmsInsert3D::default();
         } else {
-            c.tpms_insert.radial_inner_fraction = round4(
-                (c.tpms_insert.radial_inner_fraction + rng.gauss(0.0, 0.02)).clamp(0.62, 0.82),
-            );
-            c.tpms_insert.radial_wavelength_mm =
-                round4((c.tpms_insert.radial_wavelength_mm + rng.gauss(0.0, 0.4)).clamp(7.0, 12.5));
-            c.tpms_insert.axial_wavelength_mm =
-                round4((c.tpms_insert.axial_wavelength_mm + rng.gauss(0.0, 0.4)).clamp(7.0, 12.5));
-            c.tpms_insert.sheet_thickness_mm =
-                round4((c.tpms_insert.sheet_thickness_mm + rng.gauss(0.0, 0.04)).clamp(1.22, 1.85));
+            c.tpms_insert.radial_inner_fraction = round4(project_bound(
+                c.tpms_insert.radial_inner_fraction + rng.gauss(0.0, 0.02),
+                0.62,
+                0.82,
+                projection,
+            ));
+            c.tpms_insert.radial_wavelength_mm = round4(project_bound(
+                c.tpms_insert.radial_wavelength_mm + rng.gauss(0.0, 0.4),
+                7.0,
+                12.5,
+                projection,
+            ));
+            c.tpms_insert.axial_wavelength_mm = round4(project_bound(
+                c.tpms_insert.axial_wavelength_mm + rng.gauss(0.0, 0.4),
+                7.0,
+                12.5,
+                projection,
+            ));
+            c.tpms_insert.sheet_thickness_mm = round4(project_bound(
+                c.tpms_insert.sheet_thickness_mm + rng.gauss(0.0, 0.04),
+                1.22,
+                1.85,
+                projection,
+            ));
         }
-        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+        c
     }
 
     /// Wave-2 Operator 4: Homologous feature-aligned graph crossover (`SBX` + subtree exchange).
-    pub fn crossover_homologous_graph(&self, other: &Self, rng: &mut Rng) -> Self {
-        let mut child = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
-        let b = other.normalize().unwrap_or_else(|_| Self::baseline_ct35());
+    fn raw_crossover_homologous_graph(
+        &self,
+        other: &Self,
+        rng: &mut Rng,
+        projection: bool,
+    ) -> Self {
+        let _ = projection;
+        let mut child = self.clone();
+        let b = other.clone();
         let alpha = rng.range(0.25, 0.75);
         child.inlet_ramp = InletRamp3D {
             axial_drop_mm: round4(
@@ -1271,20 +1643,29 @@ impl DesignProgram {
         if rng.f64() < 0.5 {
             child.chamber_modes = b.chamber_modes.clone();
         }
-        child.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+        child
     }
 
     /// Structure-aware Gaussian and topological 3D mutation operator respecting >= 1.0 mm clearance.
-    pub fn mutate(&self, rng: &mut Rng) -> Self {
-        let mut c = self.mutate_diffeomorphic_spline(rng);
-        c = c.mutate_branch_topology(rng);
+    fn raw_mutate(&self, rng: &mut Rng, projection: bool) -> Self {
+        let mut c = self.raw_mutate_diffeomorphic_spline(rng, projection);
+        c = c.raw_mutate_branch_topology(rng, projection);
         if rng.f64() < 0.22 {
-            c = c.mutate_tpms_grading(rng);
+            c = c.raw_mutate_tpms_grading(rng, projection);
         }
-        c.skimmer.length_mm = round4((c.skimmer.length_mm + rng.gauss(0.0, 0.85)).clamp(0.0, 9.8));
+        c.skimmer.length_mm = round4(project_bound(
+            c.skimmer.length_mm + rng.gauss(0.0, 0.85),
+            0.0,
+            9.8,
+            projection,
+        ));
         if c.skimmer.length_mm > 0.1 {
-            c.skimmer.outer_radius_mm =
-                round4((c.skimmer.outer_radius_mm + rng.gauss(0.0, 0.07)).clamp(2.1, 3.2));
+            c.skimmer.outer_radius_mm = round4(project_bound(
+                c.skimmer.outer_radius_mm + rng.gauss(0.0, 0.07),
+                2.1,
+                3.2,
+                projection,
+            ));
             if rng.f64() < 0.22 {
                 c.skimmer.capture_flutes = match (rng.next_u64() % 4) as u32 {
                     0 => 0,
@@ -1294,18 +1675,34 @@ impl DesignProgram {
                 };
             }
         }
-        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+        c
     }
 
     /// Mutate restricted strictly to conventional axisymmetric 2-port parameters (`Comparator B2`).
-    pub fn mutate_conventional_axisymmetric(&self, rng: &mut Rng) -> Self {
+    fn raw_mutate_conventional_axisymmetric(&self, rng: &mut Rng, projection: bool) -> Self {
         let mut c = Self::baseline_ct35();
-        c.inlet_ramp.radial_slot_factor =
-            round4((self.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.025)).clamp(0.82, 1.02));
-        let mut m1 = (self.cone_profile.mode1_mm + rng.gauss(0.0, 0.12)).clamp(-0.55, 0.95);
-        let mut m2 = (self.cone_profile.mode2_mm + rng.gauss(0.0, 0.08)).clamp(-0.35, 0.30);
+        c.schema_version = self.schema_version;
+        c.family = self.family.clone();
+        c.inlet_ramp.radial_slot_factor = round4(project_bound(
+            self.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.025),
+            0.82,
+            1.02,
+            projection,
+        ));
+        let mut m1 = project_bound(
+            self.cone_profile.mode1_mm + rng.gauss(0.0, 0.12),
+            -0.55,
+            0.95,
+            projection,
+        );
+        let mut m2 = project_bound(
+            self.cone_profile.mode2_mm + rng.gauss(0.0, 0.08),
+            -0.35,
+            0.30,
+            projection,
+        );
         let sum_m = m1.abs() + m2.abs();
-        if sum_m > 1.20 {
+        if projection && sum_m > 1.20 {
             let s = 1.20 / sum_m;
             m1 *= s;
             m2 *= s;
@@ -1315,18 +1712,26 @@ impl DesignProgram {
             mode2_mm: round4(m2),
             mode3_mm: 0.0,
         };
-        c.skimmer.length_mm =
-            round4((self.skimmer.length_mm + rng.gauss(0.0, 0.80)).clamp(0.0, 8.5));
+        c.skimmer.length_mm = round4(project_bound(
+            self.skimmer.length_mm + rng.gauss(0.0, 0.80),
+            0.0,
+            8.5,
+            projection,
+        ));
         if c.skimmer.length_mm > 0.1 {
-            c.skimmer.outer_radius_mm =
-                round4((self.skimmer.outer_radius_mm + rng.gauss(0.0, 0.06)).clamp(2.1, 3.0));
+            c.skimmer.outer_radius_mm = round4(project_bound(
+                self.skimmer.outer_radius_mm + rng.gauss(0.0, 0.06),
+                2.1,
+                3.0,
+                projection,
+            ));
             c.skimmer.capture_flutes = 0;
         }
-        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+        c
     }
 
     /// Sample a pure uniform/LHS random 3D candidate across all 11 families (`Comparator B1`).
-    pub fn sample_random_exotic(rng: &mut Rng) -> Self {
+    fn raw_sample_random_exotic(rng: &mut Rng, projection: bool) -> Self {
         let mut c = Self::baseline_ct35();
         c.inlet_ramp = InletRamp3D {
             axial_drop_mm: round4(rng.range(0.0, 7.8)),
@@ -1347,7 +1752,7 @@ impl DesignProgram {
             };
         }
         if rng.f64() < 0.30 {
-            c = c.mutate_tpms_grading(rng);
+            c = c.raw_mutate_tpms_grading(rng, projection);
         }
         if rng.f64() < 0.30 {
             c.ribbon_cascade = HelicalRibbon3D {
@@ -1383,13 +1788,13 @@ impl DesignProgram {
                 },
             };
         }
-        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+        c
     }
 
     /// Compositional layer-wise crossover followed by mutation.
-    pub fn crossover(&self, other: &Self, rng: &mut Rng) -> Self {
-        let child = self.crossover_homologous_graph(other, rng);
-        child.mutate(rng)
+    fn raw_crossover(&self, other: &Self, rng: &mut Rng, projection: bool) -> Self {
+        let child = self.raw_crossover_homologous_graph(other, rng, projection);
+        child.raw_mutate(rng, projection)
     }
 
     /// Canonical list of all 11 3D topological families (7 Wave-1 + 4 Wave-2).
@@ -1408,7 +1813,8 @@ impl DesignProgram {
     ];
 
     /// Sample a random 3D genome targeting one of the 11 canonical topological families (`family_idx in 0..11`).
-    pub fn sample_stratified_11family(rng: &mut Rng, family_idx: usize) -> Self {
+    fn raw_sample_stratified_11family(rng: &mut Rng, projection: bool, family_idx: usize) -> Self {
+        let _ = projection;
         let mut c = Self::baseline_ct35();
         match family_idx % 11 {
             0 => c,
@@ -1418,7 +1824,7 @@ impl DesignProgram {
                     radial_slot_factor: round4(rng.range(0.82, 0.96)),
                     superellipse_exponent: round4(rng.range(2.2, 3.6)),
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             2 => {
                 c.inlet_split = InletSplit3D {
@@ -1428,7 +1834,7 @@ impl DesignProgram {
                     branches_per_port: 2,
                     azimuthal_phase_deg: round4(rng.range(5.0, 36.0)),
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             3 => {
                 c.inlet_ramp.axial_drop_mm = round4(rng.range(3.5, 7.5));
@@ -1439,7 +1845,7 @@ impl DesignProgram {
                     branches_per_port: 3,
                     azimuthal_phase_deg: round4(rng.range(10.0, 38.0)),
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             4 => {
                 c.chamber_modes = vec![ChamberMode3D {
@@ -1448,7 +1854,7 @@ impl DesignProgram {
                     sin_mm: round4(rng.range(-0.45, 0.45)),
                     twist_rad: round4(rng.range(-5.2, -1.8)),
                 }];
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             5 => {
                 c.cone_profile = ConeProfile3D {
@@ -1461,7 +1867,7 @@ impl DesignProgram {
                     outer_radius_mm: round4(rng.range(2.15, 2.55)),
                     capture_flutes: if rng.f64() < 0.5 { 4 } else { 6 },
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             6 => {
                 c.inlet_ramp = InletRamp3D {
@@ -1492,7 +1898,7 @@ impl DesignProgram {
                     outer_radius_mm: round4(rng.range(2.15, 2.48)),
                     capture_flutes: 6,
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             7 => {
                 c.inlet_ramp = InletRamp3D {
@@ -1526,7 +1932,7 @@ impl DesignProgram {
                     outer_radius_mm: round4(rng.range(2.18, 2.42)),
                     capture_flutes: 6,
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             8 => {
                 c.inlet_ramp = InletRamp3D {
@@ -1560,7 +1966,7 @@ impl DesignProgram {
                     outer_radius_mm: round4(rng.range(2.18, 2.45)),
                     capture_flutes: 4,
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             9 => {
                 c.inlet_ramp = InletRamp3D {
@@ -1586,7 +1992,7 @@ impl DesignProgram {
                     outer_radius_mm: round4(rng.range(2.18, 2.40)),
                     capture_flutes: 8,
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
             _ => {
                 c.inlet_ramp = InletRamp3D {
@@ -1613,7 +2019,7 @@ impl DesignProgram {
                     outer_radius_mm: round4(rng.range(2.16, 2.42)),
                     capture_flutes: if rng.f64() < 0.5 { 6 } else { 8 },
                 };
-                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+                c
             }
         }
     }
@@ -1669,7 +2075,7 @@ impl DesignProgram {
             let mut min_jacobian = f64::INFINITY;
 
             for s_idx in 0..n_per_family {
-                let prog = Self::sample_stratified_11family(&mut rng, f_idx);
+                let prog = Self::sample_stratified_11family(&mut rng, f_idx)?.into_child()?;
                 sampled += 1;
                 total_sampled += 1;
                 if let Ok((norm, pheno, mesh)) = prog.canonicalize_and_preflight() {
@@ -1762,8 +2168,12 @@ impl DesignProgram {
         }
         let mut rng = Rng::new(seed);
         let initial_pool: Vec<Self> = (0..11)
-            .map(|f_idx| Self::sample_stratified_11family(&mut rng, f_idx))
-            .collect();
+            .map(|f_idx| {
+                Self::sample_stratified_11family(&mut rng, f_idx)
+                    .map_err(String::from)?
+                    .into_child()
+            })
+            .collect::<Result<_, String>>()?;
 
         let mut family_walk_stats = Vec::with_capacity(11);
         let mut total_steps = 0usize;
@@ -1795,7 +2205,8 @@ impl DesignProgram {
                     2 => current.mutate_tpms_grading(&mut rng),
                     3 => current.crossover_homologous_graph(partner, &mut rng),
                     _ => current.crossover(partner, &mut rng),
-                };
+                }?
+                .into_child()?;
                 total_steps += 1;
                 if let Ok((norm, pheno, mesh)) = current.canonicalize_and_preflight() {
                     let census = mesh.edge_census();
@@ -1853,7 +2264,7 @@ impl DesignProgram {
     /// Generate the shared unseeded Generation-0 initial population for Wave-3 de-novo evolution.
     /// Contains zero pre-baked 6-jet, 8-jet, ribbon, or TPMS elites: all individuals are mild
     /// perturbations around `CT-35` so every evolutionary improvement must be discovered de novo.
-    pub fn init_wave3_de_novo_gen0(pop_size: usize, rng: &mut Rng) -> Vec<Self> {
+    pub fn init_wave3_de_novo_gen0(pop_size: usize, rng: &mut Rng) -> Result<Vec<Self>, String> {
         let mut pop = Vec::with_capacity(pop_size.max(1));
         let base = Self::baseline_ct35();
         pop.push(base.clone());
@@ -1891,25 +2302,37 @@ impl DesignProgram {
                     twist_rad: round4(rng.range(-2.6, -1.2)),
                 }];
             }
-            pop.push(c.normalize().unwrap_or_else(|_| base.clone()));
+            pop.push(c.normalize()?);
         }
-        pop
+        Ok(pop)
     }
 
     /// Strictly zero-mean unbiased local & single-step topological transition operator for Wave-3
     /// de-novo evolution (used identically by `B3_Wave3_Exotic3D_QD_CEI` and `A2_No_Selection_Random_Walk`).
     /// Because all continuous perturbations have mean `0.0` and topological transitions are symmetric,
     /// directional improvement across generations can only occur via evolutionary selection.
-    pub fn mutate_wave3_progressive(&self, rng: &mut Rng) -> Self {
-        let mut c = self.normalize().unwrap_or_else(|_| Self::baseline_ct35());
+    fn raw_mutate_wave3_progressive(&self, rng: &mut Rng, projection: bool) -> Self {
+        let mut c = self.clone();
 
         // 1. Zero-mean continuous ramp step
-        c.inlet_ramp.axial_drop_mm =
-            round4((c.inlet_ramp.axial_drop_mm + rng.gauss(0.0, 0.65)).clamp(0.0, 7.8));
-        c.inlet_ramp.radial_slot_factor =
-            round4((c.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.020)).clamp(0.80, 1.01));
-        c.inlet_ramp.superellipse_exponent =
-            round4((c.inlet_ramp.superellipse_exponent + rng.gauss(0.0, 0.20)).clamp(2.0, 3.8));
+        c.inlet_ramp.axial_drop_mm = round4(project_bound(
+            c.inlet_ramp.axial_drop_mm + rng.gauss(0.0, 0.65),
+            0.0,
+            7.8,
+            projection,
+        ));
+        c.inlet_ramp.radial_slot_factor = round4(project_bound(
+            c.inlet_ramp.radial_slot_factor + rng.gauss(0.0, 0.020),
+            0.80,
+            1.01,
+            projection,
+        ));
+        c.inlet_ramp.superellipse_exponent = round4(project_bound(
+            c.inlet_ramp.superellipse_exponent + rng.gauss(0.0, 0.20),
+            2.0,
+            3.8,
+            projection,
+        ));
 
         // 2. Symmetric single-step branch topology transition: off <-> 2 <-> 3 <-> 4 branches/port
         if !c.inlet_split.enabled {
@@ -1923,12 +2346,24 @@ impl DesignProgram {
                 };
             }
         } else {
-            c.inlet_split.vane_thickness_mm =
-                round4((c.inlet_split.vane_thickness_mm + rng.gauss(0.0, 0.035)).clamp(1.08, 1.45));
-            c.inlet_split.vane_z_fraction =
-                round4((c.inlet_split.vane_z_fraction + rng.gauss(0.0, 0.02)).clamp(0.42, 0.58));
-            c.inlet_split.azimuthal_phase_deg =
-                round4((c.inlet_split.azimuthal_phase_deg + rng.gauss(0.0, 3.5)).clamp(0.0, 40.0));
+            c.inlet_split.vane_thickness_mm = round4(project_bound(
+                c.inlet_split.vane_thickness_mm + rng.gauss(0.0, 0.035),
+                1.08,
+                1.45,
+                projection,
+            ));
+            c.inlet_split.vane_z_fraction = round4(project_bound(
+                c.inlet_split.vane_z_fraction + rng.gauss(0.0, 0.02),
+                0.42,
+                0.58,
+                projection,
+            ));
+            c.inlet_split.azimuthal_phase_deg = round4(project_bound(
+                c.inlet_split.azimuthal_phase_deg + rng.gauss(0.0, 3.5),
+                0.0,
+                40.0,
+                projection,
+            ));
             let u = rng.f64();
             if u < 0.20 {
                 c.inlet_split.branches_per_port = (c.inlet_split.branches_per_port + 1).min(4);
@@ -1955,12 +2390,18 @@ impl DesignProgram {
                 c.ribbon_cascade = HelicalRibbon3D::default();
             } else {
                 c.ribbon_cascade.vane_count = if rng.f64() < 0.50 { 3 } else { 4 };
-                c.ribbon_cascade.axial_span_mm = round4(
-                    (c.ribbon_cascade.axial_span_mm + rng.gauss(0.0, 2.5)).clamp(14.0, 40.0),
-                );
-                c.ribbon_cascade.helical_twist_rad = round4(
-                    (c.ribbon_cascade.helical_twist_rad + rng.gauss(0.0, 0.25)).clamp(-3.9, -1.0),
-                );
+                c.ribbon_cascade.axial_span_mm = round4(project_bound(
+                    c.ribbon_cascade.axial_span_mm + rng.gauss(0.0, 2.5),
+                    14.0,
+                    40.0,
+                    projection,
+                ));
+                c.ribbon_cascade.helical_twist_rad = round4(project_bound(
+                    c.ribbon_cascade.helical_twist_rad + rng.gauss(0.0, 0.25),
+                    -3.9,
+                    -1.0,
+                    projection,
+                ));
             }
         }
 
@@ -1992,27 +2433,54 @@ impl DesignProgram {
                         _ => TpmsBasis::CylindricalGyroid,
                     };
                 }
-                c.tpms_insert.radial_inner_fraction = round4(
-                    (c.tpms_insert.radial_inner_fraction + rng.gauss(0.0, 0.020)).clamp(0.66, 0.80),
-                );
-                c.tpms_insert.radial_wavelength_mm = round4(
-                    (c.tpms_insert.radial_wavelength_mm + rng.gauss(0.0, 0.38)).clamp(7.5, 12.0),
-                );
-                c.tpms_insert.axial_wavelength_mm = round4(
-                    (c.tpms_insert.axial_wavelength_mm + rng.gauss(0.0, 0.38)).clamp(8.0, 12.2),
-                );
-                c.tpms_insert.sheet_thickness_mm = round4(
-                    (c.tpms_insert.sheet_thickness_mm + rng.gauss(0.0, 0.035)).clamp(1.24, 1.75),
-                );
+                c.tpms_insert.radial_inner_fraction = round4(project_bound(
+                    c.tpms_insert.radial_inner_fraction + rng.gauss(0.0, 0.020),
+                    0.66,
+                    0.80,
+                    projection,
+                ));
+                c.tpms_insert.radial_wavelength_mm = round4(project_bound(
+                    c.tpms_insert.radial_wavelength_mm + rng.gauss(0.0, 0.38),
+                    7.5,
+                    12.0,
+                    projection,
+                ));
+                c.tpms_insert.axial_wavelength_mm = round4(project_bound(
+                    c.tpms_insert.axial_wavelength_mm + rng.gauss(0.0, 0.38),
+                    8.0,
+                    12.2,
+                    projection,
+                ));
+                c.tpms_insert.sheet_thickness_mm = round4(project_bound(
+                    c.tpms_insert.sheet_thickness_mm + rng.gauss(0.0, 0.035),
+                    1.24,
+                    1.75,
+                    projection,
+                ));
             }
         }
 
         // 5. Zero-mean diffeomorphic cone & chamber harmonic step
-        let mut m1 = (c.cone_profile.mode1_mm + rng.gauss(0.0, 0.12)).clamp(-0.55, 1.12);
-        let mut m2 = (c.cone_profile.mode2_mm + rng.gauss(0.0, 0.08)).clamp(-0.38, 0.32);
-        let mut m3 = (c.cone_profile.mode3_mm + rng.gauss(0.0, 0.04)).clamp(-0.14, 0.14);
+        let mut m1 = project_bound(
+            c.cone_profile.mode1_mm + rng.gauss(0.0, 0.12),
+            -0.55,
+            1.12,
+            projection,
+        );
+        let mut m2 = project_bound(
+            c.cone_profile.mode2_mm + rng.gauss(0.0, 0.08),
+            -0.38,
+            0.32,
+            projection,
+        );
+        let mut m3 = project_bound(
+            c.cone_profile.mode3_mm + rng.gauss(0.0, 0.04),
+            -0.14,
+            0.14,
+            projection,
+        );
         let sum_m = m1.abs() + m2.abs() + m3.abs();
-        if sum_m > 1.45 {
+        if projection && sum_m > 1.45 {
             let s = 1.45 / sum_m;
             m1 *= s;
             m2 *= s;
@@ -2036,18 +2504,42 @@ impl DesignProgram {
                 c.chamber_modes.clear();
             } else {
                 for m in &mut c.chamber_modes {
-                    m.cos_mm = round4((m.cos_mm + rng.gauss(0.0, 0.08)).clamp(-0.75, 0.78));
-                    m.sin_mm = round4((m.sin_mm + rng.gauss(0.0, 0.08)).clamp(-0.75, 0.78));
-                    m.twist_rad = round4((m.twist_rad + rng.gauss(0.0, 0.25)).clamp(-5.6, -0.8));
+                    m.cos_mm = round4(project_bound(
+                        m.cos_mm + rng.gauss(0.0, 0.08),
+                        -0.75,
+                        0.78,
+                        projection,
+                    ));
+                    m.sin_mm = round4(project_bound(
+                        m.sin_mm + rng.gauss(0.0, 0.08),
+                        -0.75,
+                        0.78,
+                        projection,
+                    ));
+                    m.twist_rad = round4(project_bound(
+                        m.twist_rad + rng.gauss(0.0, 0.25),
+                        -5.6,
+                        -0.8,
+                        projection,
+                    ));
                 }
             }
         }
 
         // 6. Zero-mean skimmer sleeve step
-        c.skimmer.length_mm = round4((c.skimmer.length_mm + rng.gauss(0.0, 0.75)).clamp(0.0, 9.6));
+        c.skimmer.length_mm = round4(project_bound(
+            c.skimmer.length_mm + rng.gauss(0.0, 0.75),
+            0.0,
+            9.6,
+            projection,
+        ));
         if c.skimmer.length_mm > 0.1 {
-            c.skimmer.outer_radius_mm =
-                round4((c.skimmer.outer_radius_mm + rng.gauss(0.0, 0.05)).clamp(2.12, 3.10));
+            c.skimmer.outer_radius_mm = round4(project_bound(
+                c.skimmer.outer_radius_mm + rng.gauss(0.0, 0.05),
+                2.12,
+                3.10,
+                projection,
+            ));
             if rng.f64() < 0.25 {
                 c.skimmer.capture_flutes = match rng.next_u64() % 4 {
                     0 => 0,
@@ -2058,7 +2550,7 @@ impl DesignProgram {
             }
         }
 
-        c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+        c
     }
 }
 

@@ -732,7 +732,7 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
                 for slot in 0..cfg.pop_per_island {
                     let mut prog = arch_ref[(isl * 3 + slot) % arch_ref.len()].clone();
                     if slot >= arch_ref.len() {
-                        prog = prog.mutate(&mut isl_rng);
+                        prog = prog.mutate(&mut isl_rng)?.into_child()?;
                     }
                     let id = format!("gen000-isl{}-ind{:03}", isl, slot);
                     let (ind, _) = evaluate_individual(id, prog, 0, isl, cfg)?;
@@ -788,9 +788,11 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
                             } else {
                                 tournament_select(isl_pop, &mut isl_rng)
                             };
-                            p1.program.crossover(&p2.program, &mut isl_rng)
+                            p1.program
+                                .crossover(&p2.program, &mut isl_rng)?
+                                .into_child()?
                         } else {
-                            p1.program.mutate(&mut isl_rng)
+                            p1.program.mutate(&mut isl_rng)?.into_child()?
                         };
 
                         let id = format!("gen{:03}-isl{}-ind{:03}", gen, isl, slot);
@@ -1566,16 +1568,18 @@ pub fn run_single_seed_comparator(
     for i in 0..pop_size {
         let prog = match mode {
             SearchBaselineMode::Ct35Fixed => DesignProgram::baseline_ct35(),
-            SearchBaselineMode::RandomLhsExotic3d => DesignProgram::sample_random_exotic(&mut rng),
-            SearchBaselineMode::ConventionalAxisymmetricNsga2 => {
-                DesignProgram::baseline_ct35().mutate_conventional_axisymmetric(&mut rng)
+            SearchBaselineMode::RandomLhsExotic3d => {
+                DesignProgram::sample_random_exotic(&mut rng)?.into_child()?
             }
+            SearchBaselineMode::ConventionalAxisymmetricNsga2 => DesignProgram::baseline_ct35()
+                .mutate_conventional_axisymmetric(&mut rng)?
+                .into_child()?,
             SearchBaselineMode::Exotic3dQdCei => {
                 let idx = priority_order[i % priority_order.len()].min(archetypes.len() - 1);
                 if i < priority_order.len() {
                     archetypes[idx].clone()
                 } else {
-                    archetypes[idx].mutate(&mut rng)
+                    archetypes[idx].mutate(&mut rng)?.into_child()?
                 }
             }
         };
@@ -1616,9 +1620,9 @@ pub fn run_single_seed_comparator(
                     let p1 = tournament_select(&pop, &mut rng);
                     let cand = if rng.f64() < cfg.crossover_rate && !arch_vals.is_empty() {
                         let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
-                        p1.program.crossover(&p2.program, &mut rng)
+                        p1.program.crossover(&p2.program, &mut rng)?.into_child()?
                     } else {
-                        p1.program.mutate(&mut rng)
+                        p1.program.mutate(&mut rng)?.into_child()?
                     };
                     pool.push(cand);
                 }
@@ -1643,18 +1647,22 @@ pub fn run_single_seed_comparator(
                 }
             }
             _ => (0..pop_size)
-                .map(|_| match mode {
-                    SearchBaselineMode::Ct35Fixed => DesignProgram::baseline_ct35(),
-                    SearchBaselineMode::RandomLhsExotic3d => {
-                        DesignProgram::sample_random_exotic(&mut rng)
-                    }
-                    SearchBaselineMode::ConventionalAxisymmetricNsga2 => {
-                        let p1 = tournament_select(&pop, &mut rng);
-                        p1.program.mutate_conventional_axisymmetric(&mut rng)
-                    }
-                    SearchBaselineMode::Exotic3dQdCei => unreachable!(),
+                .map(|_| {
+                    Ok(match mode {
+                        SearchBaselineMode::Ct35Fixed => DesignProgram::baseline_ct35(),
+                        SearchBaselineMode::RandomLhsExotic3d => {
+                            DesignProgram::sample_random_exotic(&mut rng)?.into_child()?
+                        }
+                        SearchBaselineMode::ConventionalAxisymmetricNsga2 => {
+                            let p1 = tournament_select(&pop, &mut rng);
+                            p1.program
+                                .mutate_conventional_axisymmetric(&mut rng)?
+                                .into_child()?
+                        }
+                        SearchBaselineMode::Exotic3dQdCei => unreachable!(),
+                    })
                 })
-                .collect(),
+                .collect::<Result<_, String>>()?,
         };
 
         let mut offspring = Vec::with_capacity(pop_size);
@@ -2231,7 +2239,7 @@ pub fn run_single_seed_wave3_arm(
 
     let pop_size = (cfg.islands * cfg.pop_per_island).max(8);
     let mut gen0_rng = Rng::new(seed ^ 0x517C_C1B7_2722_0A95);
-    let shared_gen0_progs = DesignProgram::init_wave3_de_novo_gen0(pop_size, &mut gen0_rng);
+    let shared_gen0_progs = DesignProgram::init_wave3_de_novo_gen0(pop_size, &mut gen0_rng)?;
 
     let mut rng = Rng::new(seed);
     let mut archive: BTreeMap<String, Individual> = BTreeMap::new();
@@ -2254,7 +2262,7 @@ pub fn run_single_seed_wave3_arm(
                 if i == 0 {
                     shared_gen0_progs[0].clone()
                 } else {
-                    DesignProgram::sample_random_exotic(&mut rng)
+                    DesignProgram::sample_random_exotic(&mut rng)?.into_child()?
                 }
             }
             Wave3ComparatorArm::B2ConventionalAxisymNsga2 => {
@@ -2264,8 +2272,7 @@ pub fn run_single_seed_wave3_arm(
                 p.skimmer.capture_flutes = 0;
                 p.inlet_ramp.axial_drop_mm = 0.0;
                 p.inlet_ramp.superellipse_exponent = 2.0;
-                p.normalize()
-                    .unwrap_or_else(|_| DesignProgram::baseline_ct35())
+                p.normalize()?
             }
             Wave3ComparatorArm::A1NoMutationCrossoverOnly
             | Wave3ComparatorArm::A2NoSelectionRandomWalk
@@ -2349,7 +2356,7 @@ pub fn run_single_seed_wave3_arm(
             Wave3ComparatorArm::B1RandomSearchExotic3d => {
                 for _ in 0..pop_size {
                     offspring_specs.push((
-                        DesignProgram::sample_random_exotic(&mut rng),
+                        DesignProgram::sample_random_exotic(&mut rng)?.into_child()?,
                         "random_lhs".into(),
                         "sample_random_exotic".into(),
                     ));
@@ -2359,7 +2366,9 @@ pub fn run_single_seed_wave3_arm(
                 for _ in 0..pop_size {
                     let p1 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
-                        p1.program.mutate_conventional_axisymmetric(&mut rng),
+                        p1.program
+                            .mutate_conventional_axisymmetric(&mut rng)?
+                            .into_child()?,
                         p1.topology_class.clone(),
                         "mutate_conventional_axisymmetric".into(),
                     ));
@@ -2370,7 +2379,9 @@ pub fn run_single_seed_wave3_arm(
                     let p1 = tournament_select(&pop, &mut rng);
                     let p2 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
-                        p1.program.crossover_homologous_graph(&p2.program, &mut rng),
+                        p1.program
+                            .crossover_homologous_graph(&p2.program, &mut rng)?
+                            .into_child()?,
                         p1.topology_class.clone(),
                         "crossover_homologous_graph_only".into(),
                     ));
@@ -2383,14 +2394,19 @@ pub fn run_single_seed_wave3_arm(
                     let (child, op_name) = if rng.f64() < cfg.crossover_rate {
                         let idx2 = (rng.next_u64() as usize) % pop.len();
                         let p2 = &pop[idx2];
-                        let c = p1.program.crossover_homologous_graph(&p2.program, &mut rng);
+                        let c = p1
+                            .program
+                            .crossover_homologous_graph(&p2.program, &mut rng)?
+                            .into_child()?;
                         (
-                            c.mutate_wave3_progressive(&mut rng),
+                            c.mutate_wave3_progressive(&mut rng)?.into_child()?,
                             "unselected_crossover_and_progressive_mutate",
                         )
                     } else {
                         (
-                            p1.program.mutate_wave3_progressive(&mut rng),
+                            p1.program
+                                .mutate_wave3_progressive(&mut rng)?
+                                .into_child()?,
                             "unselected_progressive_mutate",
                         )
                     };
@@ -2409,14 +2425,19 @@ pub fn run_single_seed_wave3_arm(
                     let (cand, op_name) = if rng.f64() < cfg.crossover_rate && !arch_vals.is_empty()
                     {
                         let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
-                        let crossed = p1.program.crossover_homologous_graph(&p2.program, &mut rng);
+                        let crossed = p1
+                            .program
+                            .crossover_homologous_graph(&p2.program, &mut rng)?
+                            .into_child()?;
                         (
-                            crossed.mutate_wave3_progressive(&mut rng),
+                            crossed.mutate_wave3_progressive(&mut rng)?.into_child()?,
                             "crossover_homologous_plus_progressive_mutate",
                         )
                     } else {
                         (
-                            p1.program.mutate_wave3_progressive(&mut rng),
+                            p1.program
+                                .mutate_wave3_progressive(&mut rng)?
+                                .into_child()?,
                             "mutate_wave3_progressive",
                         )
                     };
