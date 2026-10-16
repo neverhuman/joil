@@ -120,6 +120,20 @@ class TraceabilityTests(unittest.TestCase):
         regressed = sync_ledger(synced, 'HB 2026-10-16T06:00:00Z TR TR-09 START - again')
         self.assertIn('| MERGED |', next(l for l in regressed.splitlines() if l.startswith('| TR-09 |')))
 
+    def test_merge_without_done_is_not_completion(self):
+        board = '\n'.join([
+            'HB 2026-10-16T05:00:00Z DOC DOC-04 WIP abc1234 section pending',
+            'MERGED DOC-04 0ef2b88',
+            'HB 2026-10-16T05:01:00Z TR TR-16 BLOCKED dcaf087 physical admission needs sources',
+            'MERGED TR-16 ceaa03d',
+        ])
+        ledger = ledger_from_board(board, {'DOC-04', 'TR-16'})
+        self.assertEqual(ledger['DOC-04'][0], 'WIP')
+        self.assertIn('without board `DONE DOC-04`', ledger['DOC-04'][1])
+        self.assertEqual(ledger['TR-16'][0], 'BLOCKED')
+        done = ledger_from_board(board + '\nDONE DOC-04 978b23a', {'DOC-04'})
+        self.assertEqual(done['DOC-04'][0], 'MERGED')
+
     def test_gap_rows_must_cite_a_gap_entry(self):
         row = next(line for line in SYNTHESIS.splitlines() if line.startswith('| S2-4.09 |'))
         errors, _ = check_review_traceability(SYNTHESIS.replace(row, row.replace('(§5 G-01)', '(no owner)')), WORKPLAN)
