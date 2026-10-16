@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "figure_file": "docs/figures/wave2-8-exotic-phenotypes-gallery.png",
+  "figure_sha256": "b930335f0135c1135d08223a666ab1c2dd49026b2683099cf55ae1084ae4a7af",
+  "title": "Wave-2 Top 8 Exotic Valid 3D Phenotypes Gallery & 11-Family Random-Genome Sampling Audit",
+  "description": "2x4 true-scale 3D perspective wireframe & cutaway gallery of the 8 most exotic valid 3D phenotypes across non-axisymmetric families plus 11-family stratified random-genome preflight pass rate (n=220) and n=10 seed scatter + 95% CIs.",
+  "units_declared": true,
+  "scale_policy": "true_aspect_si_and_mm_annotated",
+  "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
+  "source_artifacts": [
+    {
+      "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+    },
+    {
+      "path": "docs/results/interactive-3d-archetypes-v1.json",
+      "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07"
+    }
+  ]
+}

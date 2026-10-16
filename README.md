@@ -15,6 +15,7 @@ Goal: more compliant treated water per liner at a fixed pressure budget and reje
   - [Figure Plate 6: Wave-2 10-Seed Statistical Ablation, Bootstrap 95% CIs, Wilcoxon Tests & Held-Out Duties](docs/figures/wave2-multiseed-ablation-and-ci.png)
   - [Figure Plate 7: Wave-2 10-Bin Grade-Efficiency Curves $E_{\text{red}}(d)$ & Inlet-to-Outlet DSD Transfer](docs/figures/wave2-grade-efficiency-and-dsd-shift.png)
   - [Figure Plate 8: Wave-2 `P08` Structural Lamé Stress, Modal Lock-In & LPBF Overhang Qualification](docs/figures/wave2-structural-lame-and-modal-qualification.png)
+  - [Figure Plate 9: Top 8 Exotic Valid 3D Phenotypes Gallery & 11-Family Genome Expressiveness Audit (`220/220` Pass)](docs/figures/wave2-8-exotic-phenotypes-gallery.png)
   - [Animation 1: 3D Helical Vortex Oil-Droplet Separation & 10-Seed QD Illumination (`GIF`)](docs/figures/wave2-vortex-and-qd-illumination.gif)
   - [Animation 2: Phylogenetic 3D Topology Morph (`CT-35` → `4-Jet` → `6-Jet` → `Cylindrical-Gyroid TPMS`, `GIF`)](docs/figures/wave2-topology-morph-and-lineage.gif)
 - **[Wave-2 Execution Plan (Trans-Dimensional 3D Genome, Multi-Seed Baselines, GCI/RSM & Animations)](docs/WAVE2_PLAN.md)** · **[Pre-Registration Contract](experiments/wave2-preregistration-v1.json)** · **[10-Seed Ablation Dossier](docs/results/wave2-multiseed-ablation-and-holdout-v1.json)**

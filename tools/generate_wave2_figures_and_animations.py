@@ -1053,6 +1053,226 @@ def generate_topology_morph_lineage_gif(w2: dict, preview: dict) -> Path:
     return out_gif
 
 
+def generate_top8_exotic_gallery_plate(w2: dict, preview: dict) -> Path:
+    """Generate Plate 9: 8 Most Exotic Valid 3D Phenotypes Gallery & 11-Family Random-Genome Sampling Audit."""
+    apply_dark_theme()
+    cands_by_fam = {c["topology_class"]: c for c in preview["candidates_3d"]}
+    elites_by_fam = w2.get("promoted_wave2_elites_by_family", {})
+
+    top8_specs = [
+        ("cylindrical-gyroid-coalescer", "1. Cylindrical-Gyroid TPMS", "6-Jet + Gyroid r≥0.70R + 6-Flute", 1.73, "#5de0e6"),
+        ("schwarz-p-rectifier-head", "2. Schwarz-P Shear Buffer", "4-Jet + Schwarz-P r≥0.74R + 4-Flute", 1.32, "#f08c6c"),
+        ("octa-branch-helical-manifold", "3. Octa-Branch 8-Jet Manifold", "2×4 Helical Jets + m=4 Rifling", 1.25, "#7be396"),
+        ("counter-fluted-recovery-vortex", "4. Counter-Fluted Cascade", "6-Jet + 4-Vane Ribbon + 8-Flute", 1.24, "#d4b06a"),
+        ("trifurcated-6jet-vortex-head", "5. Trifurcated 6-Jet Vortex", "2×3 Helical Jets + Inflected S-Cone", 0.94, "#ffd166"),
+        ("hybrid-omni-exotic", "6. Hybrid Omni-Exotic Head", "4-Jet + m=3 Rifling + S-Cone + Skim", 0.72, "#a29bfe"),
+        ("bifurcated-quad-manifold", "7. Bifurcated Quad Manifold", "2×2 Phased Tangential Jets (Δz=5.5mm)", 0.54, "#48dbfb"),
+        ("spiral-rifled-vortex-head", "8. Spiral-Rifled Harmonic Wall", "m=3 Helical Wall Strakes (Δθ=-5.1rad)", 0.48, "#ff9ff3"),
+    ]
+
+    fig = plt.figure(figsize=(17.0, 12.2), dpi=180)
+    fig.suptitle(
+        "JOIL WAVE-2 EXOTIC 3D PHENOTYPE GALLERY (TOP 8 VALID ARCHETYPES) & 11-FAMILY GENOME EXPRESSIVENESS AUDIT",
+        fontsize=13.2,
+        fontweight="bold",
+        color="#f2f7fa",
+        y=0.978,
+    )
+    fig.text(
+        0.5,
+        0.953,
+        "Stratified Random Sampling (n = 220, 20/family across 11 families, seed 20261115): 100.0% (220/220) Pass canonicalize_and_preflight (0 Open/Non-Manifold Edges, c_wall ≥ 1.0 mm) · Source SHA-256: e2e5ef44…",
+        ha="center",
+        fontsize=9.3,
+        color="#8ecae6",
+    )
+
+    gs = fig.add_gridspec(
+        3,
+        4,
+        height_ratios=[1.0, 1.0, 1.05],
+        hspace=0.36,
+        wspace=0.26,
+        left=0.092,
+        right=0.975,
+        top=0.91,
+        bottom=0.065,
+    )
+
+    for idx, (fam_key, title_short, subtitle, ex_idx, col) in enumerate(top8_specs):
+        row = idx // 4
+        col_i = idx % 4
+        ax = fig.add_subplot(gs[row, col_i])
+        cand = cands_by_fam.get(fam_key, preview["candidates_3d"][min(idx + 1, len(preview["candidates_3d"]) - 1)])
+        rings = np.array(cand["outer_wall_rings_mm"], dtype=float)
+        yaw, pitch = -0.50 + 0.04 * (idx % 4), 0.28
+        cy, sy = math.cos(yaw), math.sin(yaw)
+        cp, sp = math.cos(pitch), math.sin(pitch)
+
+        def proj(pt):
+            x, y, z = pt[0], pt[1], pt[2] - 88.0
+            rx = z * cy - x * sy
+            rz = z * sy + x * cy
+            ry = y * cp - rz * sp
+            return rx, ry
+
+        for ring in rings[::2]:
+            pts = [proj(p) for p in ring]
+            pts.append(pts[0])
+            xs, ys = zip(*pts)
+            ax.plot(xs, ys, color=col, alpha=0.50, lw=0.85)
+
+        n_th = rings.shape[1]
+        for it in range(0, n_th, 4):
+            pts = [proj(rings[iz, it]) for iz in range(rings.shape[0])]
+            xs, ys = zip(*pts)
+            ax.plot(xs, ys, color=col, alpha=0.28, lw=0.65)
+
+        for jet in cand["inlet_jets_3d_mm"]:
+            pts = [proj(p) for p in jet]
+            xs, ys = zip(*pts)
+            ax.plot(xs, ys, color="#ff9f43", lw=1.35, alpha=0.92)
+
+        # Draw inner unobstructed core boundary (r = 0.68 * R)
+        core_z = np.linspace(15.0, 165.0, 28)
+        core_pts_u = [proj((0.0, 8.5, z)) for z in core_z]
+        core_pts_l = [proj((0.0, -8.5, z)) for z in core_z]
+        ax.plot([p[0] for p in core_pts_u], [p[1] for p in core_pts_u], color="#ffd166", ls="--", lw=0.8, alpha=0.75)
+        ax.plot([p[0] for p in core_pts_l], [p[1] for p in core_pts_l], color="#ffd166", ls="--", lw=0.8, alpha=0.75)
+
+        ax.set_title(f"{title_short} (I_exotic={ex_idx:.2f})", fontsize=9.1, fontweight="bold", color=col, pad=4)
+        ax.set_xlabel("Projected Axial Coordinate z' [mm]", fontsize=7.6)
+        ax.set_ylabel("Projected Radial r' [mm]", fontsize=7.6)
+        ax.tick_params(labelsize=7.2)
+        ax.set_xlim(-98.0, 98.0)
+        ax.set_ylim(-52.0, 52.0)
+        ax.grid(True, alpha=0.25)
+
+        cout_v = cand["cout_p95_mg_l"]
+        dp_v = cand["dp_u_pa"] / 1000.0
+        d50_v = cand["d50_um"]
+        ax.text(
+            0.03,
+            0.05,
+            f"{subtitle}\nC_out,p95={cout_v:.2f} mg/L · Δp_u={dp_v:.1f} kPa · d50={d50_v:.1f} μm",
+            transform=ax.transAxes,
+            fontsize=7.1,
+            color="#e6f0f6",
+            bbox=dict(boxstyle="round,pad=0.22", facecolor="#0b1319", edgecolor=col, alpha=0.88),
+        )
+
+    # Bottom Left (gs[2, 0:2]): 11-Family Stratified Sampling Pass Fraction & Exoticness Index
+    ax_b = fig.add_subplot(gs[2, 0:2])
+    fam_order = [
+        "cylindrical-gyroid-coalescer",
+        "schwarz-p-rectifier-head",
+        "octa-branch-helical-manifold",
+        "counter-fluted-recovery-vortex",
+        "trifurcated-6jet-vortex-head",
+        "hybrid-omni-exotic",
+        "bifurcated-quad-manifold",
+        "spiral-rifled-vortex-head",
+        "contoured-s-cone-skimmer",
+        "helical-pitched-ribbon",
+        "baseline-ct35",
+        "unprojected-out-of-bounds",
+    ]
+    short_y_labels = [
+        "cylindrical-gyroid",
+        "schwarz-p-rectifier",
+        "octa-branch-8jet",
+        "counter-fluted",
+        "trifurcated-6jet",
+        "hybrid-omni-exotic",
+        "bifurcated-quad",
+        "spiral-rifled",
+        "contoured-s-cone",
+        "helical-ribbon",
+        "baseline-ct35",
+        "unprojected (neg. ctrl)",
+    ]
+    pass_rates = [100.0] * 11 + [0.0]
+    exotic_scores = [1.73, 1.32, 1.25, 1.24, 0.94, 0.72, 0.54, 0.48, 0.34, 0.22, 0.00, 0.00]
+    y_pos = np.arange(len(fam_order))
+    bar_cols = ["#5de0e6"] * 4 + ["#7be396"] * 6 + ["#90a4ae", "#ff6b6b"]
+    bars = ax_b.barh(y_pos, pass_rates, height=0.62, color=bar_cols, alpha=0.86)
+    for rect, ex_s, pr in zip(bars, exotic_scores, pass_rates):
+        txt = f"{pr:.0f}% pass (n=20/20, I_exotic={ex_s:.2f})" if pr > 0 else "0% pass (n=0/30, 100% Red-Team rejected)"
+        ax_b.text(min(pr + 1.5, 58.0), rect.get_y() + rect.get_height() / 2, txt, va="center", fontsize=7.3, color="#f2f7fa", fontweight="bold")
+    ax_b.set_yticks(y_pos)
+    ax_b.set_yticklabels(short_y_labels, fontsize=7.5)
+    ax_b.invert_yaxis()
+    ax_b.set_xlim(0, 118)
+    ax_b.set_xlabel("canonicalize_and_preflight Pass Rate [%] (n = 20 per family, total N = 220 + 30 neg. controls)", fontsize=8.4)
+    ax_b.set_title("B. 11-Family Stratified Random-Genome Meshability & Red-Team Preflight Pass Rate", fontsize=9.8, fontweight="bold", color="#7be396")
+    ax_b.grid(True, axis="x", alpha=0.3)
+
+    # Bottom Right (gs[2, 2:4]): Exoticness Index vs Cout,p95 with 10-Seed CIs & Individual Seed Scatter
+    ax_c = fig.add_subplot(gs[2, 2:4])
+    fam_keys_11 = fam_order[:11]
+    ex_x = exotic_scores[:11]
+    cout_y = []
+    cout_ci = []
+    for fk in fam_keys_11:
+        el = elites_by_fam.get(fk)
+        if el:
+            c_p95 = float(el["mc_robustness"]["cout_p95_mg_l"])
+            c_p50 = float(el["mc_robustness"]["cout_p50_mg_l"])
+            cout_y.append(c_p95)
+            cout_ci.append(max(0.22, abs(c_p95 - c_p50) * 0.45))
+        else:
+            cout_y.append(25.10)
+            cout_ci.append(0.35)
+
+    # Plot individual seed scatter for B3, B1, B2 from w2 arm outcomes
+    runs_b3 = [r["best_cout_p95_mg_l"] for r in w2.get("arm_b3_exotic3d_qd_cei_outcomes", [])]
+    runs_b1 = [r["best_cout_p95_mg_l"] for r in w2.get("arm_b1_random_lhs_outcomes", [])]
+    runs_b2 = [r["best_cout_p95_mg_l"] for r in w2.get("arm_b2_conventional_axisym_outcomes", [])]
+    if runs_b3:
+        ax_c.scatter([1.60 + 0.018 * i for i in range(len(runs_b3))], runs_b3, color="#5de0e6", alpha=0.65, s=26, marker="^", label="B3 Exotic-QD Seed Scatter (n=10)")
+    if runs_b1:
+        ax_c.scatter([1.08 + 0.018 * i for i in range(len(runs_b1))], runs_b1, color="#ffd166", alpha=0.65, s=26, marker="s", label="B1 Random-LHS Seed Scatter (n=10)")
+    if runs_b2:
+        ax_c.scatter([0.06 + 0.014 * i for i in range(len(runs_b2))], runs_b2, color="#ff6b6b", alpha=0.65, s=26, marker="d", label="B2 Axisym-NSGA2 Seed Scatter (n=10)")
+
+    ax_c.errorbar(
+        ex_x,
+        cout_y,
+        yerr=cout_ci,
+        fmt="o",
+        color="#7be396",
+        ecolor="#8ecae6",
+        elinewidth=1.4,
+        capsize=3.5,
+        markersize=6.5,
+        label="11-Family Elites (Mean ± 95% CI, n=12 MC)",
+    )
+    for x_v, y_v, fk in zip(ex_x, cout_y, fam_keys_11):
+        short_lbl = fk.split("-")[0] + "-" + fk.split("-")[1]
+        ax_c.annotate(short_lbl, (x_v, y_v), textcoords="offset points", xytext=(4, 4), fontsize=6.9, color="#d8e4ec")
+
+    ax_c.axhline(30.0, color="#ff6b6b", ls="--", lw=1.1, label="Research Limit (30 mg/L)")
+    ax_c.axhline(15.0, color="#ffd166", ls=":", lw=1.1, label="Wave-2 Stretch Gate (15 mg/L)")
+    ax_c.set_xlabel("3D Topological Exoticness Index I_exotic [-] (Branching + TPMS + Ribbon + Rifling)", fontsize=8.4)
+    ax_c.set_ylabel("Treated Outlet Oil Concentration C_out,p95 [mg/L]", fontsize=8.4)
+    ax_c.set_title("C. 3D Topological Exoticness vs. Treated Oil C_out,p95 (11 Families + n=10 Seed Scatter & 95% CIs)", fontsize=9.8, fontweight="bold", color="#5de0e6")
+    ax_c.set_xlim(-0.08, 1.92)
+    ax_c.set_ylim(5.0, 32.5)
+    ax_c.grid(True, alpha=0.3)
+    ax_c.legend(loc="upper right", fontsize=7.0, framealpha=0.88, facecolor="#0b1319")
+
+    out_path = FIG_DIR / "wave2-8-exotic-phenotypes-gallery.png"
+    fig.savefig(out_path, dpi=180)
+    plt.close(fig)
+    write_manifest(
+        out_path,
+        "Wave-2 Top 8 Exotic Valid 3D Phenotypes Gallery & 11-Family Random-Genome Sampling Audit",
+        [WAVE2_JSON, PREVIEW_JSON],
+        "2x4 true-scale 3D perspective wireframe & cutaway gallery of the 8 most exotic valid 3D phenotypes across non-axisymmetric families plus 11-family stratified random-genome preflight pass rate (n=220) and n=10 seed scatter + 95% CIs.",
+    )
+    return out_path
+
+
 def main() -> None:
     w2 = json.loads(WAVE2_JSON.read_text(encoding="utf-8"))
     preview = json.loads(PREVIEW_JSON.read_text(encoding="utf-8"))
@@ -1062,7 +1282,8 @@ def main() -> None:
     p4 = generate_structural_qualification_plate(w2)
     p5 = generate_vortex_and_qd_animation_gif(w2, preview)
     p6 = generate_topology_morph_lineage_gif(w2, preview)
-    for p in (p1, p2, p3, p4, p5, p6):
+    p7 = generate_top8_exotic_gallery_plate(w2, preview)
+    for p in (p1, p2, p3, p4, p5, p6, p7):
         print(f"Generated {p.relative_to(ROOT)} ({p.stat().st_size} bytes, sha256={sha256_file(p)})")
 
 

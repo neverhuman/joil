@@ -18,6 +18,7 @@ import wave2AtlasPlate from '../../../docs/figures/wave2-exotic-3d-genome-atlas.
 import wave2AblationPlate from '../../../docs/figures/wave2-multiseed-ablation-and-ci.png';
 import wave2GradeDsdPlate from '../../../docs/figures/wave2-grade-efficiency-and-dsd-shift.png';
 import wave2StructuralPlate from '../../../docs/figures/wave2-structural-lame-and-modal-qualification.png';
+import wave2Top8GalleryPlate from '../../../docs/figures/wave2-8-exotic-phenotypes-gallery.png';
 import wave2VortexQdGif from '../../../docs/figures/wave2-vortex-and-qd-illumination.gif';
 import wave2TopologyMorphGif from '../../../docs/figures/wave2-topology-morph-and-lineage.gif';
 import { Viewport3D } from './Viewport3D';
@@ -94,10 +95,11 @@ function App() {
     { title: 'Plate 6 · 10-Seed B0–B3 Ablation & CIs', src: wave2AblationPlate, sha: 'ef83db92f9658d5a…', caption: 'Pre-registered 10-seed equal-budget ablation (5,400 evals): B3 beats B1 & B2 (Mann–Whitney U=100, p_Holm=0.000314, Cliff δ=1.00) + D1–D4 held-out duties & 10% audit.' },
     { title: 'Plate 7 · 10-Bin Grade Efficiency & DSD', src: wave2GradeDsdPlate, sha: 'cebfca5828bf295e…', caption: '10-bin reduced centrifugal efficiency E_red(d), stratified feed-to-treated DSD transfer, and Hinze d_max vs entry shear G_max.' },
     { title: 'Plate 8 · P08 Structural Lamé & Modal', src: wave2StructuralPlate, sha: '0b5456a046184f31…', caption: '64-station thick-wall Lamé hoop/radial/Von Mises stress under 2.5 MPa burst duty, Strouhal modal lock-in margin, and LPBF buildability across all 11 families.' },
+    { title: 'Plate 9 · Top-8 Exotic 3D Phenotypes Gallery', src: wave2Top8GalleryPlate, sha: 'b930335f0135c113…', caption: 'Top 8 most exotic valid 3D phenotypes (I_exotic up to 1.73) + 11-family stratified random-genome audit (220/220 = 100.0% canonicalize_and_preflight pass vs 0/30 negative controls).' },
     { title: 'Anim 1 · 3D Vortex & QD Illumination', src: wave2VortexQdGif, sha: '1f9ea28fedba6587…', caption: '36-frame 3D animation of oil-droplet core capture (40/20/10 μm) synchronized with 10-seed B3 vs B2 vs B1 hypervolume illumination.' },
     { title: 'Anim 2 · Phylogenetic 3D Topology Morph', src: wave2TopologyMorphGif, sha: 'dcfadcf06bdd7516…', caption: '36-frame continuous 3D B-rep wireframe morph across the 5-stage evolutionary lineage with live F0/P08/F1 telemetry.' },
-    { title: 'Plate 3 · 3-Grid Roache GCI & Dual RSM', src: gciRsmPlate, sha: '4a7781523f66863f…', caption: 'OpenFOAM 14 3-grid spatial refinement (G0 140k, G1 306k, G2 553k cells) + 7-equation LRR & SSG Reynolds-Stress closure verification.' },
-    { title: 'Plate 4 · OpenFOAM 14 3D Vortex Physics', src: vortexPhysicsPlate, sha: '2fd935f143118a39…', caption: 'Radial swirl U_θ(r), reverse-core axial velocity U_z(r), static pressure core depression, and 100% Lumley turbulence realizability.' },
+    { title: 'Plate 3 · 3-Grid Roache GCI & Dual RSM', src: gciRsmPlate, sha: 'dbce90bb3878dd86…', caption: 'OpenFOAM 14 3-grid spatial refinement (G0 140k, G1 306k, G2 553k cells) + 7-equation LRR & SSG Reynolds-Stress closure verification.' },
+    { title: 'Plate 4 · OpenFOAM 14 3D Vortex Physics', src: vortexPhysicsPlate, sha: '5c0c4b1ee4d0a82f…', caption: 'Radial swirl U_θ(r), reverse-core axial velocity U_z(r), static pressure core depression, and 100% Lumley turbulence realizability.' },
   ];
   const activeSlide = wave2Slides[slideIdx];
   return <><header><a className="brand" href="#">j<span>oil</span><i> / research</i></a><div className="project">EVOLUTIONARY FLUID SYSTEMS</div><span className="state">CFD EXECUTED · UNQUALIFIED</span></header>

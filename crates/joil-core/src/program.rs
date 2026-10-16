@@ -1341,4 +1341,403 @@ impl DesignProgram {
         let child = self.crossover_homologous_graph(other, rng);
         child.mutate(rng)
     }
+
+    /// Canonical list of all 11 3D topological families (7 Wave-1 + 4 Wave-2).
+    pub const CANONICAL_11_FAMILIES: [&'static str; 11] = [
+        "baseline-ct35",
+        "helical-pitched-ribbon",
+        "bifurcated-quad-manifold",
+        "trifurcated-6jet-vortex-head",
+        "spiral-rifled-vortex-head",
+        "contoured-s-cone-skimmer",
+        "hybrid-omni-exotic",
+        "cylindrical-gyroid-coalescer",
+        "schwarz-p-rectifier-head",
+        "octa-branch-helical-manifold",
+        "counter-fluted-recovery-vortex",
+    ];
+
+    /// Sample a random 3D genome targeting one of the 11 canonical topological families (`family_idx in 0..11`).
+    pub fn sample_stratified_11family(rng: &mut Rng, family_idx: usize) -> Self {
+        let mut c = Self::baseline_ct35();
+        match family_idx % 11 {
+            0 => c,
+            1 => {
+                c.inlet_ramp = InletRamp3D {
+                    axial_drop_mm: round4(rng.range(2.2, 7.6)),
+                    radial_slot_factor: round4(rng.range(0.82, 0.96)),
+                    superellipse_exponent: round4(rng.range(2.2, 3.6)),
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            2 => {
+                c.inlet_split = InletSplit3D {
+                    enabled: true,
+                    vane_thickness_mm: round4(rng.range(1.10, 1.40)),
+                    vane_z_fraction: round4(rng.range(0.43, 0.57)),
+                    branches_per_port: 2,
+                    azimuthal_phase_deg: round4(rng.range(5.0, 36.0)),
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            3 => {
+                c.inlet_ramp.axial_drop_mm = round4(rng.range(3.5, 7.5));
+                c.inlet_split = InletSplit3D {
+                    enabled: true,
+                    vane_thickness_mm: round4(rng.range(1.10, 1.38)),
+                    vane_z_fraction: round4(rng.range(0.44, 0.56)),
+                    branches_per_port: 3,
+                    azimuthal_phase_deg: round4(rng.range(10.0, 38.0)),
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            4 => {
+                c.chamber_modes = vec![ChamberMode3D {
+                    azimuthal_order: 2 + (rng.next_u64() % 3) as u32,
+                    cos_mm: round4(rng.range(0.35, 0.78)),
+                    sin_mm: round4(rng.range(-0.45, 0.45)),
+                    twist_rad: round4(rng.range(-5.2, -1.8)),
+                }];
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            5 => {
+                c.cone_profile = ConeProfile3D {
+                    mode1_mm: round4(rng.range(0.55, 1.10)),
+                    mode2_mm: round4(rng.range(-0.38, -0.12)),
+                    mode3_mm: round4(rng.range(-0.08, 0.10)),
+                };
+                c.skimmer = Skimmer3D {
+                    length_mm: round4(rng.range(4.0, 8.8)),
+                    outer_radius_mm: round4(rng.range(2.15, 2.55)),
+                    capture_flutes: if rng.f64() < 0.5 { 4 } else { 6 },
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            6 => {
+                c.inlet_ramp = InletRamp3D {
+                    axial_drop_mm: round4(rng.range(4.0, 7.6)),
+                    radial_slot_factor: round4(rng.range(0.83, 0.94)),
+                    superellipse_exponent: round4(rng.range(2.3, 3.5)),
+                };
+                c.inlet_split = InletSplit3D {
+                    enabled: true,
+                    vane_thickness_mm: round4(rng.range(1.12, 1.36)),
+                    vane_z_fraction: round4(rng.range(0.44, 0.56)),
+                    branches_per_port: 2,
+                    azimuthal_phase_deg: round4(rng.range(12.0, 34.0)),
+                };
+                c.chamber_modes = vec![ChamberMode3D {
+                    azimuthal_order: 3,
+                    cos_mm: round4(rng.range(0.35, 0.72)),
+                    sin_mm: round4(rng.range(-0.35, 0.35)),
+                    twist_rad: round4(rng.range(-4.8, -2.0)),
+                }];
+                c.cone_profile = ConeProfile3D {
+                    mode1_mm: round4(rng.range(0.55, 1.02)),
+                    mode2_mm: round4(rng.range(-0.32, -0.12)),
+                    mode3_mm: round4(rng.range(-0.06, 0.08)),
+                };
+                c.skimmer = Skimmer3D {
+                    length_mm: round4(rng.range(4.8, 8.8)),
+                    outer_radius_mm: round4(rng.range(2.15, 2.48)),
+                    capture_flutes: 6,
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            7 => {
+                c.inlet_ramp = InletRamp3D {
+                    axial_drop_mm: round4(rng.range(5.0, 7.5)),
+                    radial_slot_factor: round4(rng.range(0.84, 0.93)),
+                    superellipse_exponent: round4(rng.range(2.4, 3.4)),
+                };
+                c.inlet_split = InletSplit3D {
+                    enabled: true,
+                    vane_thickness_mm: round4(rng.range(1.12, 1.34)),
+                    vane_z_fraction: round4(rng.range(0.45, 0.55)),
+                    branches_per_port: 3,
+                    azimuthal_phase_deg: round4(rng.range(16.0, 34.0)),
+                };
+                let zs = round4(rng.range(20.0, 30.0));
+                c.tpms_insert = TpmsInsert3D {
+                    basis: if rng.f64() < 0.6 {
+                        TpmsBasis::CylindricalGyroid
+                    } else {
+                        TpmsBasis::Gyroid
+                    },
+                    radial_inner_fraction: round4(rng.range(0.68, 0.78)),
+                    axial_start_mm: zs,
+                    axial_end_mm: round4(zs + rng.range(30.0, 40.0)),
+                    radial_wavelength_mm: round4(rng.range(8.0, 11.2)),
+                    axial_wavelength_mm: round4(rng.range(8.5, 11.5)),
+                    sheet_thickness_mm: round4(rng.range(1.28, 1.55)),
+                };
+                c.skimmer = Skimmer3D {
+                    length_mm: round4(rng.range(5.5, 8.5)),
+                    outer_radius_mm: round4(rng.range(2.18, 2.42)),
+                    capture_flutes: 6,
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            8 => {
+                c.inlet_ramp = InletRamp3D {
+                    axial_drop_mm: round4(rng.range(4.8, 7.4)),
+                    radial_slot_factor: round4(rng.range(0.85, 0.94)),
+                    superellipse_exponent: round4(rng.range(2.3, 3.3)),
+                };
+                c.inlet_split = InletSplit3D {
+                    enabled: true,
+                    vane_thickness_mm: round4(rng.range(1.14, 1.36)),
+                    vane_z_fraction: round4(rng.range(0.45, 0.55)),
+                    branches_per_port: 2,
+                    azimuthal_phase_deg: round4(rng.range(14.0, 32.0)),
+                };
+                let zs = round4(rng.range(22.0, 30.0));
+                c.tpms_insert = TpmsInsert3D {
+                    basis: if rng.f64() < 0.6 {
+                        TpmsBasis::SchwarzP
+                    } else {
+                        TpmsBasis::Diamond
+                    },
+                    radial_inner_fraction: round4(rng.range(0.70, 0.80)),
+                    axial_start_mm: zs,
+                    axial_end_mm: round4(zs + rng.range(28.0, 38.0)),
+                    radial_wavelength_mm: round4(rng.range(8.2, 11.4)),
+                    axial_wavelength_mm: round4(rng.range(8.5, 11.8)),
+                    sheet_thickness_mm: round4(rng.range(1.30, 1.58)),
+                };
+                c.skimmer = Skimmer3D {
+                    length_mm: round4(rng.range(5.2, 8.2)),
+                    outer_radius_mm: round4(rng.range(2.18, 2.45)),
+                    capture_flutes: 4,
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            9 => {
+                c.inlet_ramp = InletRamp3D {
+                    axial_drop_mm: round4(rng.range(5.4, 7.6)),
+                    radial_slot_factor: round4(rng.range(0.84, 0.92)),
+                    superellipse_exponent: round4(rng.range(2.5, 3.5)),
+                };
+                c.inlet_split = InletSplit3D {
+                    enabled: true,
+                    vane_thickness_mm: round4(rng.range(1.10, 1.30)),
+                    vane_z_fraction: round4(rng.range(0.45, 0.55)),
+                    branches_per_port: 4,
+                    azimuthal_phase_deg: round4(rng.range(18.0, 38.0)),
+                };
+                c.chamber_modes = vec![ChamberMode3D {
+                    azimuthal_order: 4,
+                    cos_mm: round4(rng.range(0.35, 0.68)),
+                    sin_mm: round4(rng.range(-0.38, 0.38)),
+                    twist_rad: round4(rng.range(-4.8, -2.2)),
+                }];
+                c.skimmer = Skimmer3D {
+                    length_mm: round4(rng.range(6.0, 8.8)),
+                    outer_radius_mm: round4(rng.range(2.18, 2.40)),
+                    capture_flutes: 8,
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+            _ => {
+                c.inlet_ramp = InletRamp3D {
+                    axial_drop_mm: round4(rng.range(5.2, 7.5)),
+                    radial_slot_factor: round4(rng.range(0.84, 0.93)),
+                    superellipse_exponent: round4(rng.range(2.4, 3.4)),
+                };
+                c.inlet_split = InletSplit3D {
+                    enabled: true,
+                    vane_thickness_mm: round4(rng.range(1.12, 1.34)),
+                    vane_z_fraction: round4(rng.range(0.45, 0.55)),
+                    branches_per_port: 3,
+                    azimuthal_phase_deg: round4(rng.range(16.0, 34.0)),
+                };
+                c.ribbon_cascade = HelicalRibbon3D {
+                    vane_count: if rng.f64() < 0.5 { 3 } else { 4 },
+                    axial_span_mm: round4(rng.range(22.0, 36.0)),
+                    helical_twist_rad: round4(rng.range(-3.5, -1.8)),
+                    thickness_mm: round4(rng.range(1.18, 1.42)),
+                    radial_chord_mm: round4(rng.range(1.90, 2.90)),
+                };
+                c.skimmer = Skimmer3D {
+                    length_mm: round4(rng.range(5.8, 8.8)),
+                    outer_radius_mm: round4(rng.range(2.16, 2.42)),
+                    capture_flutes: if rng.f64() < 0.5 { 6 } else { 8 },
+                };
+                c.normalize().unwrap_or_else(|_| Self::baseline_ct35())
+            }
+        }
+    }
+
+    /// Compute a dimensionless 3D topological exoticness score measuring non-axisymmetric branching,
+    /// TPMS lattice grading, helical guide-ribbon twist, harmonic chamber rifling, and S-cone inflection.
+    pub fn exoticness_index(&self) -> Result<f64, String> {
+        let p = self.normalize()?;
+        let desc = p.descriptors()?;
+        let branch_score = if p.inlet_split.enabled {
+            (p.inlet_split.branches_per_port as f64 - 1.0) * 0.28
+        } else {
+            0.0
+        };
+        let tpms_score = match p.tpms_insert.basis {
+            TpmsBasis::None => 0.0,
+            TpmsBasis::CylindricalGyroid => 0.85,
+            TpmsBasis::Gyroid => 0.78,
+            TpmsBasis::SchwarzP => 0.74,
+            TpmsBasis::Diamond => 0.72,
+        };
+        let ribbon_score = if !p.ribbon_cascade.is_inactive() {
+            0.42 * (p.ribbon_cascade.vane_count as f64 / 4.0)
+                + 0.18 * (p.ribbon_cascade.helical_twist_rad.abs() / 3.5)
+        } else {
+            0.0
+        };
+        let mode_score = 0.25 * desc.wall_rifling_stabilization
+            + 0.20 * (1.0 - desc.shear_mitigation_factor).max(0.0);
+        let skim_score = 0.12 * (p.skimmer.capture_flutes as f64 / 8.0);
+        Ok(round6(
+            branch_score + tpms_score + ribbon_score + mode_score + skim_score,
+        ))
+    }
+
+    /// Run a stratified 11-family random-genome sampling and `canonicalize_and_preflight` expressiveness audit.
+    pub fn audit_11family_genome_expressiveness(
+        n_per_family: usize,
+        seed: u64,
+    ) -> Result<GenomeExpressivenessAudit, String> {
+        let mut rng = Rng::new(seed);
+        let mut family_stats = Vec::with_capacity(11);
+        let mut candidates_pool: Vec<ExoticPhenotypeShowcase> = Vec::new();
+        let mut total_sampled = 0usize;
+        let mut total_passed = 0usize;
+
+        for (f_idx, &fam_name) in Self::CANONICAL_11_FAMILIES.iter().enumerate() {
+            let mut sampled = 0usize;
+            let mut passed = 0usize;
+            let mut exotic_sum = 0.0;
+            let mut sym_sum = 0.0;
+            let mut min_clearance = f64::INFINITY;
+            let mut min_jacobian = f64::INFINITY;
+
+            for s_idx in 0..n_per_family {
+                let prog = Self::sample_stratified_11family(&mut rng, f_idx);
+                sampled += 1;
+                total_sampled += 1;
+                if let Ok((norm, pheno, mesh)) = prog.canonicalize_and_preflight() {
+                    let census = mesh.edge_census();
+                    if census.open_boundary_edges == 0
+                        && census.non_manifold_edges == 0
+                        && mesh.signed_volume() > 0.0
+                    {
+                        passed += 1;
+                        total_passed += 1;
+                        let ex = norm.exoticness_index()?;
+                        exotic_sum += ex;
+                        sym_sum += pheno.descriptors.azimuthal_symmetry_order;
+                        min_clearance = min_clearance.min(pheno.minimum_wall_clearance_mm);
+                        min_jacobian = min_jacobian.min(pheno.min_section_jacobian);
+                        if f_idx > 0 && s_idx < 4 {
+                            candidates_pool.push(ExoticPhenotypeShowcase {
+                                id: format!("exotic-{fam_name}-{s_idx:02}"),
+                                topology_class: norm.classify_topology(),
+                                genome_sha256: norm.canonical_sha256()?,
+                                exoticness_index: ex,
+                                total_entry_jets: if norm.inlet_split.enabled {
+                                    2 * norm.inlet_split.branches_per_port
+                                } else {
+                                    2
+                                },
+                                tpms_basis: format!("{:?}", norm.tpms_insert.basis),
+                                ribbon_vanes: norm.ribbon_cascade.vane_count,
+                                skimmer_flutes: norm.skimmer.capture_flutes,
+                                azimuthal_symmetry_order: pheno
+                                    .descriptors
+                                    .azimuthal_symmetry_order,
+                                minimum_wall_clearance_mm: round4(pheno.minimum_wall_clearance_mm),
+                                min_section_jacobian: round6(pheno.min_section_jacobian),
+                            });
+                        }
+                    }
+                }
+            }
+
+            let denom = passed.max(1) as f64;
+            family_stats.push(FamilySamplingStats {
+                topology_class: fam_name.to_string(),
+                sampled_count: sampled,
+                preflight_passed_count: passed,
+                preflight_pass_fraction: round6(passed as f64 / sampled.max(1) as f64),
+                mean_exoticness_index: round6(exotic_sum / denom),
+                mean_azimuthal_symmetry_order: round6(sym_sum / denom),
+                min_wall_clearance_mm: round4(min_clearance),
+                min_section_jacobian: round6(min_jacobian),
+            });
+        }
+
+        // Select top 8 most exotic valid phenotypes with at most 1 per family first to maximize topological diversity
+        candidates_pool.sort_by(|a, b| b.exoticness_index.total_cmp(&a.exoticness_index));
+        let mut top_8 = Vec::with_capacity(8);
+        let mut used_fams = std::collections::BTreeSet::new();
+        for c in &candidates_pool {
+            if used_fams.insert(c.topology_class.clone()) {
+                top_8.push(c.clone());
+                if top_8.len() == 8 {
+                    break;
+                }
+            }
+        }
+        top_8.sort_by(|a, b| b.exoticness_index.total_cmp(&a.exoticness_index));
+
+        Ok(GenomeExpressivenessAudit {
+            seed,
+            n_per_family,
+            total_sampled,
+            total_preflight_passed: total_passed,
+            overall_preflight_pass_fraction: round6(
+                total_passed as f64 / total_sampled.max(1) as f64,
+            ),
+            family_stats,
+            top_8_exotic_valid_phenotypes: top_8,
+        })
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct FamilySamplingStats {
+    pub topology_class: String,
+    pub sampled_count: usize,
+    pub preflight_passed_count: usize,
+    pub preflight_pass_fraction: f64,
+    pub mean_exoticness_index: f64,
+    pub mean_azimuthal_symmetry_order: f64,
+    pub min_wall_clearance_mm: f64,
+    pub min_section_jacobian: f64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ExoticPhenotypeShowcase {
+    pub id: String,
+    pub topology_class: String,
+    pub genome_sha256: String,
+    pub exoticness_index: f64,
+    pub total_entry_jets: u32,
+    pub tpms_basis: String,
+    pub ribbon_vanes: u32,
+    pub skimmer_flutes: u32,
+    pub azimuthal_symmetry_order: f64,
+    pub minimum_wall_clearance_mm: f64,
+    pub min_section_jacobian: f64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct GenomeExpressivenessAudit {
+    pub seed: u64,
+    pub n_per_family: usize,
+    pub total_sampled: usize,
+    pub total_preflight_passed: usize,
+    pub overall_preflight_pass_fraction: f64,
+    pub family_stats: Vec<FamilySamplingStats>,
+    pub top_8_exotic_valid_phenotypes: Vec<ExoticPhenotypeShowcase>,
 }
