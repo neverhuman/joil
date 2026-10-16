@@ -5,9 +5,9 @@
 //!   and explicit evaluator-hash / schema-version drift rejection.
 //! - `ENGINE-03`: Exhaustive evaluation budget ledger (`BudgetLedger`) accounting for every F0 attempt,
 //!   red-team rejection, P08 structural rejection, phenotype deduplication cache hit, and MC sample.
-//! - `ENGINE-04`: Physics-guided Matérn-5/2 Gaussian Process surrogate (`GaussianProcessSurrogate`) with
-//!   explicit failure quarantine (`INFRASTRUCTURE_FAILURE` / `NUMERICAL_FAILURE` never enter training)
-//!   and Leave-One-Topology-Family-Out Cross-Validation (`LOFO-CV`) uncertainty calibration.
+//! - `ENGINE-04`: Matérn-5/2 GP with explicit missingness, failure quarantine and abstention.
+//!   Legacy candidate targets train only the named sandbox prior-screen model. Its authored-family
+//!   folds are software diagnostics, not independently labelled OOD validation.
 
 use crate::evolve::Individual;
 use crate::phenotype::Phenotype3D;
@@ -92,7 +92,9 @@ impl CampaignCheckpoint {
 /// Status of an evaluation record submitted to the surrogate dataset (`ENGINE-04`).
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum SurrogateRecordStatus {
-    ValidPhysicalScreen,
+    SandboxPriorScreen,
+    IndependentObservation,
+    MissingFeatures,
     NumericalFailure,
     InfrastructureFailure,
 }
@@ -103,7 +105,8 @@ pub struct SurrogateRecord {
     pub candidate_id: String,
     pub topology_class: String,
     pub status: SurrogateRecordStatus,
-    pub features: [f64; 12],
+    pub features: Option<[f64; 12]>,
+    pub feature_failure: Option<SurrogateAbstention>,
     pub target_cout_mg_l: Option<f64>,
     pub target_dp_pa: Option<f64>,
     pub target_d50_um: Option<f64>,
@@ -112,46 +115,45 @@ pub struct SurrogateRecord {
 impl SurrogateRecord {
     /// Extract a standardized 12D physics-guided feature vector from an `Individual`.
     pub fn from_candidate(cand: &Individual) -> Self {
-        let p = &cand.program;
-        let d = &cand.descriptors;
-        let (fluid_vol, min_clear, min_pass) = if let Some(ph) = &cand.phenotype {
-            (
-                ph.fluid_volume_mm3,
-                ph.minimum_wall_clearance_mm,
-                ph.minimum_passage_diameter_mm,
-            )
-        } else {
-            (1_105_802.5, 2.0, 2.0)
+        let extracted = (|| {
+            let ph = cand
+                .phenotype
+                .as_ref()
+                .ok_or_else(|| SurrogateAbstention::missing("phenotype"))?;
+            let st = cand
+                .structural_qualification
+                .as_ref()
+                .ok_or_else(|| SurrogateAbstention::missing("structural_screen"))?;
+            let d = &cand.descriptors;
+            finite_features([
+                d.swirl_flux_index,
+                d.axial_pitch_sin,
+                d.shear_mitigation_factor,
+                d.cone_accel_persistence,
+                cand.program.inlet_ramp.axial_drop_mm / 8.0,
+                cand.program.inlet_ramp.radial_slot_factor,
+                (ph.fluid_volume_mm3 - 1_105_802.5) / 5_000.0,
+                ph.minimum_wall_clearance_mm / 3.0,
+                ph.minimum_passage_diameter_mm / 10.0,
+                st.max_wall_von_mises_mpa / 100.0,
+                st.vane_modal_freq_ratio / 50.0,
+                st.skimmer_tip_deflection_mm * 1e4,
+            ])
+        })();
+        let (features, feature_failure) = match extracted {
+            Ok(values) => (Some(values), None),
+            Err(reason) => (None, Some(reason)),
         };
-        let (vm_mpa, vane_freq_ratio, skim_defl) = if let Some(st) = &cand.structural_qualification
-        {
-            (
-                st.max_wall_von_mises_mpa,
-                st.vane_modal_freq_ratio,
-                st.skimmer_tip_deflection_mm,
-            )
-        } else {
-            (30.0, 40.0, 0.0)
-        };
-        let features = [
-            d.swirl_flux_index,
-            d.axial_pitch_sin,
-            d.shear_mitigation_factor,
-            d.cone_accel_persistence,
-            p.inlet_ramp.axial_drop_mm / 8.0,
-            p.inlet_ramp.radial_slot_factor,
-            (fluid_vol - 1_105_802.5) / 5_000.0,
-            min_clear / 3.0,
-            min_pass / 10.0,
-            vm_mpa / 100.0,
-            vane_freq_ratio / 50.0,
-            skim_defl * 1e4,
-        ];
         Self {
             candidate_id: cand.id.clone(),
             topology_class: cand.topology_class.clone(),
-            status: SurrogateRecordStatus::ValidPhysicalScreen,
+            status: if features.is_some() {
+                SurrogateRecordStatus::SandboxPriorScreen
+            } else {
+                SurrogateRecordStatus::MissingFeatures
+            },
             features,
+            feature_failure,
             target_cout_mg_l: Some(cand.mc_robustness.cout_p95_mg_l),
             target_dp_pa: Some(cand.nominal_metrics.dp_u_pa),
             target_d50_um: Some(cand.mc_robustness.d50_p95_um),
@@ -175,6 +177,8 @@ pub struct GaussianProcessSurrogate {
     pub signal_variance: f64,
     pub noise_variance: f64,
     pub quarantined_failures: usize,
+    pub failure_model: FailureModel,
+    pub support_radius: f64,
     train_x: Vec<[f64; 12]>,
     y_mean_cout: f64,
     y_std_cout: f64,
@@ -203,25 +207,65 @@ impl GaussianProcessSurrogate {
         length_scale: f64,
         noise_variance: f64,
     ) -> Result<Self, String> {
+        // Independently admitted labels are supplied by the EV-09 dataset boundary.
+        if records
+            .iter()
+            .any(|r| r.status == SurrogateRecordStatus::SandboxPriorScreen)
+        {
+            return Err(
+                "prior-derived labels are sandbox only; independent observation labels required"
+                    .into(),
+            );
+        }
+        Self::fit_records(records, length_scale, noise_variance, false)
+    }
+
+    /// Explicit software/search diagnostic model. Never independent physical evidence.
+    pub fn fit_sandbox_prior(
+        records: &[SurrogateRecord],
+        length_scale: f64,
+        noise_variance: f64,
+    ) -> Result<Self, String> {
+        Self::fit_records(records, length_scale, noise_variance, true)
+    }
+
+    fn fit_records(
+        records: &[SurrogateRecord],
+        length_scale: f64,
+        noise_variance: f64,
+        sandbox: bool,
+    ) -> Result<Self, String> {
+        if !length_scale.is_finite()
+            || length_scale <= 0.0
+            || !noise_variance.is_finite()
+            || noise_variance < 0.0
+        {
+            return Err("invalid GP hyperparameters".into());
+        }
         let mut valid = Vec::new();
         let mut quarantined = 0usize;
         for rec in records {
             match rec.status {
-                SurrogateRecordStatus::ValidPhysicalScreen => {
+                SurrogateRecordStatus::SandboxPriorScreen if sandbox => {
                     let cout = rec
                         .target_cout_mg_l
                         .ok_or_else(|| "valid record missing target_cout_mg_l".to_string())?;
-                    if !cout.is_finite() || rec.features.iter().any(|v| !v.is_finite()) {
+                    let features = rec
+                        .features
+                        .ok_or("missing features cannot enter performance regression")?;
+                    if !cout.is_finite() || features.iter().any(|v| !v.is_finite()) {
                         return Err(
                             "non-finite feature or target in ValidPhysicalScreen record".into()
                         );
                     }
-                    valid.push((rec.features, cout));
+                    valid.push((features, cout));
                 }
                 SurrogateRecordStatus::NumericalFailure
-                | SurrogateRecordStatus::InfrastructureFailure => {
+                | SurrogateRecordStatus::InfrastructureFailure
+                | SurrogateRecordStatus::MissingFeatures => {
                     quarantined += 1;
                 }
+                _ => return Err("independent label admission not established".into()),
             }
         }
         if valid.len() < 4 {
@@ -232,12 +276,17 @@ impl GaussianProcessSurrogate {
         let y_mean = valid.iter().map(|(_, y)| *y).sum::<f64>() / (n as f64);
         let y_var = valid.iter().map(|(_, y)| (y - y_mean).powi(2)).sum::<f64>() / (n as f64);
         let y_std = y_var.sqrt().max(1e-6);
+        if !y_mean.is_finite() || !y_std.is_finite() {
+            return Err("nonfinite training reduction".into());
+        }
 
         let mut gp = Self {
             length_scale: length_scale.max(0.05),
             signal_variance: 1.0,
             noise_variance: noise_variance.max(1e-6),
             quarantined_failures: quarantined,
+            failure_model: FailureModel::from_attempts(records),
+            support_radius: (length_scale * 12.0_f64.sqrt()).max(1e-6),
             train_x: valid.iter().map(|(x, _)| *x).collect(),
             y_mean_cout: y_mean,
             y_std_cout: y_std,
@@ -257,8 +306,8 @@ impl GaussianProcessSurrogate {
                     sum -= l[i][k] * l[j][k];
                 }
                 if i == j {
-                    if sum <= 1e-12 {
-                        sum = 1e-12;
+                    if !sum.is_finite() || sum <= 0.0 {
+                        return Err("GP factorization failed; no prediction available".into());
                     }
                     l[i][j] = sum.sqrt();
                 } else {
@@ -290,8 +339,42 @@ impl GaussianProcessSurrogate {
         Ok(gp)
     }
 
+    pub fn check_support(&self, x: &[f64; 12]) -> Result<(), SurrogateAbstention> {
+        finite_features(*x)?;
+        let distance = self
+            .train_x
+            .iter()
+            .map(|row| {
+                row.iter()
+                    .zip(x)
+                    .map(|(a, b)| (a - b).powi(2))
+                    .sum::<f64>()
+                    .sqrt()
+            })
+            .fold(f64::INFINITY, f64::min);
+        if !distance.is_finite() {
+            return Err(SurrogateAbstention::DistanceOverflow);
+        }
+        if distance > self.support_radius {
+            Err(SurrogateAbstention::OutOfDistribution {
+                distance,
+                support_radius: self.support_radius,
+            })
+        } else {
+            Ok(())
+        }
+    }
+
+    pub fn predict_in_domain(
+        &self,
+        x: &[f64; 12],
+    ) -> Result<PosteriorPrediction, SurrogateAbstention> {
+        self.check_support(x)?;
+        Ok(self.predict_cout(x))
+    }
+
     /// Predict posterior mean and epistemic standard deviation at `x` (`ENGINE-04`).
-    pub fn predict_cout(&self, x: &[f64; 12]) -> PosteriorPrediction {
+    fn predict_cout(&self, x: &[f64; 12]) -> PosteriorPrediction {
         let n = self.train_x.len();
         let mut k_star = vec![0.0; n];
         let mut norm_mean = 0.0;
@@ -328,8 +411,12 @@ impl GaussianProcessSurrogate {
         &self,
         prog: &DesignProgram,
         incumbent_best_cout_mg_l: f64,
-    ) -> SurrogateAcquisition {
-        let x = extract_program_features(prog);
+    ) -> Result<SurrogateAcquisition, SurrogateAbstention> {
+        if !incumbent_best_cout_mg_l.is_finite() {
+            return Err(SurrogateAbstention::InvalidIncumbent);
+        }
+        let x = extract_program_features(prog)?;
+        self.check_support(&x)?;
         let pred = self.predict_cout(&x);
         let sigma = pred.std_dev.max(1e-6);
         let z_imp = (incumbent_best_cout_mg_l - pred.mean) / sigma;
@@ -337,12 +424,19 @@ impl GaussianProcessSurrogate {
         let phi_cdf = normal_cdf(z_imp);
         let ei = ((incumbent_best_cout_mg_l - pred.mean) * phi_cdf + sigma * phi_pdf).max(0.0);
 
-        let z_feas = (30.0 - pred.mean) / sigma;
+        let requirement = joil_evidence::campaign::Requirements::from_toml(include_bytes!(
+            "../../../requirements/joil-hydrocyclone-v1.toml"
+        ))
+        .map_err(|reason| SurrogateAbstention::ExtractionFailure {
+            stage: "requirements".into(),
+            reason,
+        })?;
+        let z_feas = (requirement.thresholds.quality_limit_mg_l.get() - pred.mean) / sigma;
         let p_feas = normal_cdf(z_feas).clamp(1e-4, 1.0);
         // Combine feasibility-weighted EI with an epistemic exploration term
         let cei = p_feas * (ei + 0.15 * sigma);
 
-        SurrogateAcquisition {
+        Ok(SurrogateAcquisition {
             posterior_mean_cout_mg_l: pred.mean,
             posterior_std_cout_mg_l: pred.std_dev,
             lcb95_cout_mg_l: pred.mean - 1.95996 * pred.std_dev,
@@ -350,52 +444,96 @@ impl GaussianProcessSurrogate {
             expected_improvement_mg_l: ei,
             feasibility_probability_30_mg_l: p_feas,
             constrained_expected_improvement: cei,
-        }
+        })
     }
 }
 
 /// Extract the standardized 12D physics-guided feature vector directly from a `DesignProgram`.
-pub fn extract_program_features(prog: &DesignProgram) -> [f64; 12] {
+pub fn extract_program_features(prog: &DesignProgram) -> Result<[f64; 12], SurrogateAbstention> {
     let d = prog
         .descriptors()
-        .unwrap_or_else(|_| DesignProgram::baseline_ct35().descriptors().unwrap());
-    let (fluid_vol, min_clear, min_pass, vm_mpa, vane_freq_ratio, skim_defl) =
-        if let Ok((ph, _)) = Phenotype3D::from_program(prog) {
-            let (vm, vf, sd) =
-                if let Ok(st) = structure::qualify_structure(prog, &ph, 29468.22, 0.001111111) {
-                    (
-                        st.max_wall_von_mises_mpa,
-                        st.vane_modal_freq_ratio,
-                        st.skimmer_tip_deflection_mm,
-                    )
-                } else {
-                    (30.0, 40.0, 0.0)
-                };
-            (
-                ph.fluid_volume_mm3,
-                ph.minimum_wall_clearance_mm,
-                ph.minimum_passage_diameter_mm,
-                vm,
-                vf,
-                sd,
-            )
-        } else {
-            (1_105_802.5, 2.0, 2.0, 30.0, 40.0, 0.0)
-        };
-    [
+        .map_err(|reason| SurrogateAbstention::ExtractionFailure {
+            stage: "descriptors".into(),
+            reason,
+        })?;
+    let (ph, _) = Phenotype3D::from_program(prog).map_err(|reason| {
+        SurrogateAbstention::ExtractionFailure {
+            stage: "phenotype".into(),
+            reason,
+        }
+    })?;
+    let st = structure::qualify_structure(prog, &ph, 29468.22, 0.001111111).map_err(|reason| {
+        SurrogateAbstention::ExtractionFailure {
+            stage: "structural_screen".into(),
+            reason,
+        }
+    })?;
+    finite_features([
         d.swirl_flux_index,
         d.axial_pitch_sin,
         d.shear_mitigation_factor,
         d.cone_accel_persistence,
         prog.inlet_ramp.axial_drop_mm / 8.0,
         prog.inlet_ramp.radial_slot_factor,
-        (fluid_vol - 1_105_802.5) / 5_000.0,
-        min_clear / 3.0,
-        min_pass / 10.0,
-        vm_mpa / 100.0,
-        vane_freq_ratio / 50.0,
-        skim_defl * 1e4,
-    ]
+        (ph.fluid_volume_mm3 - 1_105_802.5) / 5_000.0,
+        ph.minimum_wall_clearance_mm / 3.0,
+        ph.minimum_passage_diameter_mm / 10.0,
+        st.max_wall_von_mises_mpa / 100.0,
+        st.vane_modal_freq_ratio / 50.0,
+        st.skimmer_tip_deflection_mm * 1e4,
+    ])
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "status", rename_all = "snake_case")]
+pub enum SurrogateAbstention {
+    InvalidIncumbent,
+    DistanceOverflow,
+    MissingFeatures { fields: Vec<String> },
+    ExtractionFailure { stage: String, reason: String },
+    NonfiniteFeatures,
+    OutOfDistribution { distance: f64, support_radius: f64 },
+}
+impl SurrogateAbstention {
+    fn missing(field: &str) -> Self {
+        Self::MissingFeatures {
+            fields: vec![field.into()],
+        }
+    }
+}
+fn finite_features(values: [f64; 12]) -> Result<[f64; 12], SurrogateAbstention> {
+    if values.iter().all(|x| x.is_finite()) {
+        Ok(values)
+    } else {
+        Err(SurrogateAbstention::NonfiniteFeatures)
+    }
+}
+
+/// Empirical attempt-outcome model, separate from the performance regressor.
+/// Counts are not probabilities of physical feasibility.
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct FailureModel {
+    pub attempts: usize,
+    pub complete_records: usize,
+    pub missing_features: usize,
+    pub numerical_failures: usize,
+    pub infrastructure_failures: usize,
+}
+impl FailureModel {
+    pub fn from_attempts(records: &[SurrogateRecord]) -> Self {
+        let mut model = Self::default();
+        for record in records {
+            model.attempts += 1;
+            match record.status {
+                SurrogateRecordStatus::NumericalFailure => model.numerical_failures += 1,
+                SurrogateRecordStatus::InfrastructureFailure => model.infrastructure_failures += 1,
+                SurrogateRecordStatus::MissingFeatures => model.missing_features += 1,
+                _ if record.features.is_none() => model.missing_features += 1,
+                _ => model.complete_records += 1,
+            }
+        }
+        model
+    }
 }
 
 fn normal_cdf(z: f64) -> f64 {
@@ -431,20 +569,35 @@ pub fn active_prescreen_offspring(
     incumbent_best_cout_mg_l: f64,
     keep_top_k: usize,
 ) -> Vec<(DesignProgram, SurrogateAcquisition)> {
-    let mut scored: Vec<(DesignProgram, SurrogateAcquisition)> = candidates
-        .iter()
-        .filter_map(|p| {
-            let norm = p.normalize().ok()?;
-            let acq = gp.expected_constrained_improvement(&norm, incumbent_best_cout_mg_l);
-            Some((norm, acq))
-        })
-        .collect();
-    scored.sort_by(|a, b| {
+    route_offspring(gp, candidates, incumbent_best_cout_mg_l, keep_top_k).ranked
+}
+
+#[derive(Clone, Debug, Default)]
+pub struct PrescreenRouting {
+    pub ranked: Vec<(DesignProgram, SurrogateAcquisition)>,
+    pub direct_evaluation: Vec<(DesignProgram, SurrogateAbstention)>,
+}
+
+/// Abstentions are preserved for direct evaluation and never assigned a fake score.
+pub fn route_offspring(
+    gp: &GaussianProcessSurrogate,
+    candidates: &[DesignProgram],
+    incumbent: f64,
+    keep_top_k: usize,
+) -> PrescreenRouting {
+    let mut routing = PrescreenRouting::default();
+    for candidate in candidates {
+        match gp.expected_constrained_improvement(candidate, incumbent) {
+            Ok(acquisition) => routing.ranked.push((candidate.clone(), acquisition)),
+            Err(reason) => routing.direct_evaluation.push((candidate.clone(), reason)),
+        }
+    }
+    routing.ranked.sort_by(|a, b| {
         b.1.constrained_expected_improvement
             .total_cmp(&a.1.constrained_expected_improvement)
     });
-    scored.truncate(keep_top_k);
-    scored
+    routing.ranked.truncate(keep_top_k);
+    routing
 }
 
 /// Per-topology-family Leave-One-Family-Out Cross-Validation metrics (`ENGINE-04`).
@@ -493,7 +646,8 @@ pub fn run_surrogate_and_engine_qualification(
         candidate_id: "quarantine-test-infra-fail-01".to_string(),
         topology_class: "helical-pitched-ribbon".to_string(),
         status: SurrogateRecordStatus::InfrastructureFailure,
-        features: [0.0; 12],
+        features: None,
+        feature_failure: Some(SurrogateAbstention::missing("failed attempt")),
         target_cout_mg_l: None,
         target_dp_pa: None,
         target_d50_um: None,
@@ -502,27 +656,28 @@ pub fn run_surrogate_and_engine_qualification(
         candidate_id: "quarantine-test-num-fail-02".to_string(),
         topology_class: "spiral-rifled-vortex-head".to_string(),
         status: SurrogateRecordStatus::NumericalFailure,
-        features: [f64::NAN; 12],
+        features: None,
+        feature_failure: Some(SurrogateAbstention::missing("failed attempt")),
         target_cout_mg_l: Some(f64::NAN),
         target_dp_pa: None,
         target_d50_um: None,
     });
 
     // Fit full GP on all valid records
-    let full_gp = GaussianProcessSurrogate::fit(&records, 0.85, 0.02)?;
+    let full_gp = GaussianProcessSurrogate::fit_sandbox_prior(&records, 0.85, 0.02)?;
     let failure_quarantine_verified = full_gp.quarantined_failures == 2;
 
     let valid_records: Vec<SurrogateRecord> = records
         .iter()
-        .filter(|r| r.status == SurrogateRecordStatus::ValidPhysicalScreen)
+        .filter(|r| r.status == SurrogateRecordStatus::SandboxPriorScreen)
         .cloned()
         .collect();
 
     let mut in_dist_sq_err = 0.0;
     let mut in_dist_std_sum = 0.0;
     for r in &valid_records {
-        let pred = full_gp.predict_cout(&r.features);
-        let y = r.target_cout_mg_l.unwrap_or(0.0);
+        let pred = full_gp.predict_cout(&r.features.ok_or("missing validation features")?);
+        let y = r.target_cout_mg_l.ok_or("missing validation label")?;
         in_dist_sq_err += (pred.mean - y).powi(2);
         in_dist_std_sum += pred.std_dev;
     }
@@ -553,14 +708,14 @@ pub fn run_surrogate_and_engine_qualification(
         if train_subset.len() < 4 || test_subset.is_empty() {
             continue;
         }
-        let gp = GaussianProcessSurrogate::fit(&train_subset, 0.85, 0.02)?;
+        let gp = GaussianProcessSurrogate::fit_sandbox_prior(&train_subset, 0.85, 0.02)?;
         let mut sq_err = 0.0;
         let mut abs_err = 0.0;
         let mut std_sum = 0.0;
         let mut covered = 0usize;
         for r in &test_subset {
-            let pred = gp.predict_cout(&r.features);
-            let y = r.target_cout_mg_l.unwrap_or(0.0);
+            let pred = gp.predict_cout(&r.features.ok_or("missing validation features")?);
+            let y = r.target_cout_mg_l.ok_or("missing validation label")?;
             let err = (pred.mean - y).abs();
             sq_err += err * err;
             abs_err += err;
@@ -624,7 +779,7 @@ pub fn run_surrogate_and_engine_qualification(
 
     Ok(SurrogateQualificationReport {
         schema_version: 1,
-        kind: "rust_p07_engine_and_gp_surrogate_lofo_cv_qualification".to_string(),
+        kind: "sandbox_prior_screen_cross_validation_not_independent_ood".to_string(),
         total_records_input: records.len(),
         quarantined_failure_records: full_gp.quarantined_failures,
         valid_training_records: valid_records.len(),
@@ -683,4 +838,90 @@ pub fn evaluate_batch_with_ledger(
     }
 
     Ok((ledger, family_counts))
+}
+
+#[cfg(test)]
+mod evidence_tests {
+    use super::*;
+    use crate::evolve::{evaluate_individual, EvolutionConfig};
+
+    fn prior_records() -> Vec<SurrogateRecord> {
+        let program = DesignProgram::baseline_ct35();
+        let config = EvolutionConfig {
+            mc_samples: 6,
+            ..EvolutionConfig::default()
+        };
+        let (candidate, _) =
+            evaluate_individual("synthetic-software-fixture".into(), program, 0, 0, &config)
+                .unwrap();
+        (0..6)
+            .map(|i| {
+                let mut record = SurrogateRecord::from_candidate(&candidate);
+                record.candidate_id = format!("synthetic-{i}");
+                record.target_cout_mg_l = Some(20.0 + i as f64);
+                record
+            })
+            .collect()
+    }
+
+    #[test]
+    fn truth_surrogate_extraction_abstains_without_baseline_features() {
+        let mut invalid = DesignProgram::baseline_ct35();
+        invalid.schema_version = 999;
+        assert!(matches!(
+            extract_program_features(&invalid),
+            Err(SurrogateAbstention::ExtractionFailure { .. })
+        ));
+        let config = EvolutionConfig {
+            mc_samples: 6,
+            ..EvolutionConfig::default()
+        };
+        let (mut candidate, _) = evaluate_individual(
+            "fixture".into(),
+            DesignProgram::baseline_ct35(),
+            0,
+            0,
+            &config,
+        )
+        .unwrap();
+        candidate.phenotype = None;
+        let record = SurrogateRecord::from_candidate(&candidate);
+        assert_eq!(record.status, SurrogateRecordStatus::MissingFeatures);
+        assert!(record.features.is_none());
+        assert!(record.feature_failure.is_some());
+    }
+
+    #[test]
+    fn truth_surrogate_ood_and_missingness_route_to_direct_evaluation() {
+        let records = prior_records();
+        assert!(GaussianProcessSurrogate::fit(&records, 0.85, 0.015).is_err());
+        let gp = GaussianProcessSurrogate::fit_sandbox_prior(&records, 0.85, 0.015).unwrap();
+        assert!(matches!(
+            gp.predict_in_domain(&[1e6; 12]),
+            Err(SurrogateAbstention::OutOfDistribution { .. })
+        ));
+        assert!(gp.predict_in_domain(&[f64::NAN; 12]).is_err());
+        let mut invalid = DesignProgram::baseline_ct35();
+        invalid.schema_version = 999;
+        let routed = route_offspring(&gp, &[DesignProgram::baseline_ct35(), invalid], 25.0, 1);
+        assert_eq!(routed.ranked.len(), 1);
+        assert_eq!(routed.direct_evaluation.len(), 1);
+    }
+
+    #[test]
+    fn truth_surrogate_failure_model_is_separate_from_performance() {
+        let mut records = prior_records();
+        let mut failed = records[0].clone();
+        failed.status = SurrogateRecordStatus::NumericalFailure;
+        failed.features = None;
+        failed.target_cout_mg_l = None;
+        records.push(failed);
+        let gp = GaussianProcessSurrogate::fit_sandbox_prior(&records, 0.85, 0.015).unwrap();
+        assert_eq!(gp.quarantined_failures, 1);
+        assert_eq!(gp.failure_model.numerical_failures, 1);
+        assert_eq!(gp.failure_model.complete_records, 6);
+        assert_eq!(gp.failure_model.attempts, 7);
+        records[0].features = None;
+        assert!(GaussianProcessSurrogate::fit_sandbox_prior(&records, 0.85, 0.015).is_err());
+    }
 }
