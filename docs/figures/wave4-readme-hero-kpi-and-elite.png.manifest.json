@@ -4,7 +4,7 @@
   "figure_sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
   "title": "Wave-4 Prior-Screen KPI Trajectory on Repaired Operators (n=10 Seeds, MC n=72); Archived W1/W2 Carrier Diagnostics with v2 Half-Spans (Separate Subjects)",
   "generator_script": "tools/generate_wave3_proof_figures.py",
-  "generator_sha256": "157be0df64fb96cf6c36e55bf1a445d99af35c60dd429667866d9c4757e61065",
+  "generator_sha256": "4c6926897a185d9f803689ef33db77a276c2383055c91074d0450c553f5736ce",
   "source_receipts": [
     {
       "path": "docs/results/wave4-evolution-proof-v1.json",

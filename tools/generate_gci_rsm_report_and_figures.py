@@ -526,7 +526,7 @@ def main() -> None:
         ax4.annotate(
             f"LRR Mean Lumley Anisotropy $\\|b_{{ij}}\\| = {rs['mean_lumley_anisotropy_norm']:.3f}$ (P95: {rs['p95_lumley_anisotropy_norm']:.3f})\n"
             f"Axial/Transverse Ratio $\\langle R_{{zz}} / R_{{\\perp}} \\rangle = {rs['mean_axial_to_transverse_normal_stress_ratio']:.3f}$\n"
-            f"Realizability ($R_{{ii}} > 0$): {rs['positive_definite_normal_stress_fraction']*100:.2f}% of 305,522 cells",
+            f"Normal-Stress Positivity ($R_{{ii}} > 0$): {rs['positive_definite_normal_stress_fraction']*100:.2f}% of 305,522 cells",
             xy=(0.04, 0.46), xycoords="axes fraction",
             color="#f8fafc", fontsize=8.5,
             bbox=dict(boxstyle="round,pad=0.45", facecolor="#1e293b", edgecolor="#475569", alpha=0.92)

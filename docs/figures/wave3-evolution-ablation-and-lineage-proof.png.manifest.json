@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "figure_path": "docs/figures/wave3-evolution-ablation-and-lineage-proof.png",
-  "figure_sha256": "0c73ff6a6c6bd7197cc603b90e6f05534821876180a40c0e2dfd150d2131e29e",
+  "figure_sha256": "d775f0d4776648176f4795787980a16fe2eb283e9e91f0b721042d4d70f6c260",
   "title": "Plate 11: Wave-3 Five Search Arms plus Frozen CT35 Reference; Incumbent-Improvement Milestones; Authored-Label Diversity; Authored-Family Screen Diagnostics",
   "generator_script": "tools/generate_wave3_proof_figures.py",
-  "generator_sha256": "157be0df64fb96cf6c36e55bf1a445d99af35c60dd429667866d9c4757e61065",
+  "generator_sha256": "4c6926897a185d9f803689ef33db77a276c2383055c91074d0450c553f5736ce",
   "source_receipts": [
     {
       "path": "docs/results/wave3-evolution-proof-v1.json",

@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "kind": "EV13_F04_raw_array_source_and_legacy_replay_review_not_physical_validation",
+  "array_file": "crates/joil-evidence/receipts/Plate10-field-arrays.json",
+  "array_sha256": "0a428abbc580eca756340bbc61920f6ef165a31fae1028d8dab1714123f339d4",
+  "extractor_sha256": "a2cafe575d0677e0a11ccba60eed6c092d1344db64b0a04bfda0e3eae8e9654f",
+  "reviewer_sha256": "7e97b59563f507dc460a6045ab4417e4c6a62df7abf10625ed91f156d443579d",
+  "pinned_direct_plot_capture_sha256": "221a3caf50400c91709fd262d75e5811a299f006a9b53ccc5a5a76e03b8cf14b",
+  "plot_calls_traced": 14,
+  "array_bindings": 32,
+  "all_bindings_match_exact": true,
+  "bindings": [
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/z_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:191",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/r_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:191",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/u_theta_p90_grid",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:191",
+      "positional_argument": 2,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/z_centers_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:199",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/r_wall_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:199",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/z_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:211",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/r_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:211",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/u_theta_p90_grid",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:211",
+      "positional_argument": 2,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/z_centers_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:219",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/r_wall_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:219",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/z_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:242",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/r_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:242",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/p_kpa_mean_grid",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:242",
+      "positional_argument": 2,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/z_centers_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:250",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/meridional/r_wall_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:250",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/z_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:261",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/r_edges_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:261",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/p_kpa_mean_grid",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:261",
+      "positional_argument": 2,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/z_centers_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:269",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/meridional/r_wall_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:269",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:291",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/profiles/swirl_chamber_z20_90mm/u_theta_p75",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:291",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:292",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/profiles/swirl_chamber_z20_90mm/u_theta_p75",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:292",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:293",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/profiles/swirl_chamber_z20_90mm/u_theta_p75",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:293",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:297",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/baseline/profiles/swirl_chamber_z20_90mm/p_kpa_mean",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:297",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:298",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave1/profiles/swirl_chamber_z20_90mm/p_kpa_mean",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:298",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/profiles/swirl_chamber_z20_90mm/r_mm",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:299",
+      "positional_argument": 0,
+      "match_exact_including_null_mask": true
+    },
+    {
+      "source_ref": "crates/joil-evidence/receipts/Plate10-field-arrays.json#/cases/wave2_tpms/profiles/swirl_chamber_z20_90mm/p_kpa_mean",
+      "pinned_plot_call": "tools/generate_wave2_vs_wave1_cfd_plate.py:299",
+      "positional_argument": 1,
+      "match_exact_including_null_mask": true
+    }
+  ],
+  "extractor_checks": {
+    "strict_positive_scalars": true,
+    "wrong_dimensions_reject": true,
+    "wrong_declared_count_reject": true,
+    "truncated_values_reject": true,
+    "nonfinite_values_reject": true,
+    "missing_raw_inputs_reject": true,
+    "missing_bins_preserved_as_null": true,
+    "infinite_derived_value_reject": true,
+    "mesh_cache_positive_with_explicit_zero_owner_defect": true,
+    "corrupt_coordinate_cache_reject": true
+  },
+  "negative_checks": {
+    "changed_raw_derived_value_reject": true,
+    "swapped_subject_arrays_reject": true,
+    "null_to_zero_reject": true
+  },
+  "source_capture_status": "DONE_SCOPED; legacy numeric arrays source-bound, not corrected spatial data or physical claim evidence",
+  "residuals": [
+    "Exact legacy plotting arrays, not corrected cell-centroid sampling. Zero-owner cells retain artificial [0,0,0] coordinates under the historical algorithm; see per-case counts.",
+    "Baseline retained mesh/field count313260 differs from archived dossier334768. No same-archived-mesh identity is certified.",
+    "Raw U/p/k and mesh bytes are fingerprinted; selected grids/profiles are public, full raw fields stay private. This is post-hoc retained-artifact traceability, not recovery of missing historical scientific identity.",
+    "All arrays are derived from raw solver files and retained mesh/cache; no pixel data is read. No oil, FEA, independent-label or physical validation follows."
+  ],
+  "JSON_only_replay": {
+    "data_inputs": "committed arrays JSON and two committed v2 dossiers; NO raw directories/fields/mesh or pixel-derived data",
+    "raster_equal_to_committed_legacy_PNG": true,
+    "reference_png_sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
+    "replayed_png_sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
+    "private_legacy_manifest": "Not a new authoritative manifest; bookkeeping integral hashes copied from committed manifest only."
+  },
+  "capture_input_head": "96d66c18e6f61dc3b19dac0b9debdf9e101821f4",
+  "original_figure_audit_input_head": "1c9c3b484543ea459f5283fbc2dd7da4a0303207",
+  "created_utc": "2026-10-16T12:54:00.099464+00:00",
+  "commands": [
+    {
+      "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/plate10_field_arrays.py --runs-root /home/ubuntu/joil/runs --output crates/joil-evidence/receipts/Plate10-field-arrays.json",
+      "exit_code": 0,
+      "log_sha256": "d986232ec27c49bee1daa7769f222b00da6d2b11d6beb4082b0639ed995126cf"
+    },
+    {
+      "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/plate10_field_array_review.py --bundle crates/joil-evidence/receipts/Plate10-field-arrays.json --capture .private/ev13-rendered/captured.json --output crates/joil-evidence/receipts/EV13-F04-field-array-review.json --replay-root .private/ev13-f04-json-replay",
+      "exit_code": 0,
+      "log_sha256": "996306f184d3d11b151947356ad4116d57d61354ed630e59328ed3a7867679ae"
+    }
+  ],
+  "full_gate": {
+    "command": "python3 tools/check.py",
+    "exit_code": 0,
+    "receipt_path": ".private/checks/20261016T125402Z-d54394e6/receipt.json",
+    "receipt_sha256": "4abfc044ddd67f83ea3b33cc3b578adc323cb0296d4e68561982cb859fc0af8a",
+    "steps": [
+      {
+        "name": "generated-status",
+        "exit_code": 0,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "exit_code": 0,
+        "log_sha256": "299f16a2c523be18fef769975d2df00e0505521db047540feea3a74b94666887"
+      },
+      {
+        "name": "rust-tests",
+        "exit_code": 0,
+        "log_sha256": "1dda84928daca46ed868323eb75a1c6028e571f6466834bd703e56b837e1a4cd"
+      },
+      {
+        "name": "baseline",
+        "exit_code": 0,
+        "log_sha256": "02325004404fe961768f51c58509540a38f387915507356951e8f607e087d85e"
+      },
+      {
+        "name": "python-tests",
+        "exit_code": 0,
+        "log_sha256": "b4a4daa107d3c422c86f230b2a7dde2fb99e5df5679ab4945baebc694b92a5cf"
+      },
+      {
+        "name": "public-check",
+        "exit_code": 0,
+        "log_sha256": "17073ca566a9f65694769d52c9b63f3290f2ca36b522712dc39971d496d4c571"
+      },
+      {
+        "name": "claims-audit",
+        "exit_code": 0,
+        "log_sha256": "3219828ce5f591e2c4094ae226a361f950f6e8f718a144b0cccec55f493c8c44"
+      },
+      {
+        "name": "npm-ci",
+        "exit_code": 0,
+        "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+      },
+      {
+        "name": "ui-build",
+        "exit_code": 0,
+        "log_sha256": "af816423fd743e0e234fe75fcc01a7551deacb8681393da2dac9b4a8719e74d8"
+      }
+    ],
+    "jobs": 4
+  },
+  "next_dependency": "TR consume committed JSON, bind its digest and retain spatial/baseline-identity qualifications; then EV independently reverify committed regeneration.",
+  "public_check": {
+    "command": "python3 tools/check_public.py",
+    "exit_code": 0,
+    "files_checked": 357
+  }
+}

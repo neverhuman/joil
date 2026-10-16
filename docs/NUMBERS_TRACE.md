@@ -509,7 +509,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `1.40` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/promoted_3d_elite/min_passage_diameter_mm` | printed |
 | `1,639.25` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/phenotype/terminal_underflow_z_mm` | printed |
 | `120` | 1 | `experiments/wave2-preregistration-v1.json` | `/immutable_interfaces/inlet_area_each_mm2` | printed |
-| `998` | 1 | `docs/receipts/native-elementary-20261015.json` | `/cases/2/result/water_density_kg_m3` | printed |
+| `998` | 1 | `crates/joil-evidence/receipts/Plate10-field-arrays.json` | `/postprocess_parameters/pressure_density_kg_m3` | printed |
 | `3` | 8 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/topology_family_counts/bifurcated-quad-manifold` | printed |
 | `0.85` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/3/best_candidate/program/inlet_ramp/radial_slot_factor` | printed |
 | `1.35` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/1/best_candidate/program/tpms_insert/sheet_thickness_mm` | printed |
@@ -717,7 +717,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `18.0` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/grids/0/background_hex_grid/0` | printed |
 | `20261116` | 1 | declared | - | see table |
 | `85` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/operator_random_walk_family_transitions` | printed |
-| `5` | 2 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/roache_gci_analysis/hydraulic_loss_j_per_treated_m3/relative_step_21_pct` | printed |
+| `5` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/roache_gci_analysis/hydraulic_loss_j_per_treated_m3/relative_step_21_pct` | printed |
 | `9` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/b1_random_lhs_cout_p95_mean_mg_l` | printed |
 | `1` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/schema_version` | printed |
 | `2` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/schema_version` | printed |
@@ -788,7 +788,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `17,960.57` | 2 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/rsm_turbulence_closure_crosscheck/1/dp_u_pa` | printed |
 | `2.016` | 2 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/mandatory_promotion_gate/checks/inter_rsm_dp_u_delta_pct` | printed |
 | `4.75` | 3 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/roache_gci_analysis/signal_to_uncertainty_margin/saving_to_3grid_span_ratio` | printed |
-| `15` | 3 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/roache_gci_analysis/hydraulic_loss_j_per_treated_m3/gci21_standard_fs125_pct` | printed |
+| `15` | 2 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/roache_gci_analysis/hydraulic_loss_j_per_treated_m3/gci21_standard_fs125_pct` | printed |
 | `3` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/1/max_skewness` | printed |
 | `9.26e-5` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/rsm_turbulence_closure_crosscheck/1/water_closure_fraction` | printed |
 | `10` | 3 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/1/pdr` | printed |
@@ -847,9 +847,12 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `10000` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/f2_oil_transient_droplet_closure_checkpoint_and_resumable_plan/resumable_8stage_continuation_plan/chunk_steps` | printed |
 | `305,522` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/grids/1/cells` | printed |
 | `305,311` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json` | `/wave2_tpms_gyroid_elite_5run_dossier/grids/1/cells` | printed |
-| `3` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/grids/1/max_skewness` | printed |
-| `1` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/grids/2/effective_cell_size_mm` | printed |
+| `15` | 1 | `crates/joil-evidence/receipts/Plate10-field-arrays.json` | `/cases/baseline/profiles/taper_cone_z150_350mm/accel_g_p75/3` | printed |
+| `3` | 1 | `crates/joil-evidence/receipts/Plate10-field-arrays.json` | `/cases/wave1/profiles/swirl_chamber_z20_90mm/u_theta_p75/12` | printed |
+| `5` | 1 | `crates/joil-evidence/receipts/Plate10-field-arrays.json` | `/cases/wave2_tpms/profiles/axial_profile/core_min_uz_m_s/0` | printed |
+| `1` | 1 | `crates/joil-evidence/receipts/Plate10-field-arrays.json` | `/schema_version` | printed |
 | `334,768` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/baseline_ct35_comparator/cells` | printed |
+| `313,260` | 1 | `crates/joil-evidence/receipts/Plate10-field-arrays.json` | `/cases/baseline/cell_count` | printed |
 | `0.0` | 1 | declared | - | see table (`0.0@[0.0, 4.0] m/s`) |
 | `4.0` | 1 | declared | - | see table (`4.0@[0.0, 4.0] m/s`) |
 | `20.0` | 1 | declared | - | see table (`20.0@[20.0, 23.0] kPa`) |
