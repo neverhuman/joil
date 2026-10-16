@@ -115,6 +115,7 @@ class NumbersTraceTests(unittest.TestCase):
         tokens = _numeral_tokens('`CAD-09`, S3 P0-09, G2, CT-35, 16 October 2026, grid `[18,12,212]`, 5.6\\times 10^{-5}')
         self.assertEqual(tokens, ['18', '12', '212', '5.6e-5'])
         self.assertEqual(_numeral_tokens('$d_{50,\\text{feed}} = 38.0$, $d_{32}$ (S2 §4.7)'), ['38.0'])
+        self.assertEqual(_numeral_tokens('### 4.6 Control in OpenFOAM 14 gives `18.63 kPa`'), ['18.63'])
 
 
 if __name__ == '__main__':

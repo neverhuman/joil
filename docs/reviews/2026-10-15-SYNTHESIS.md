@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T08:11Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T08:27Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -99,7 +99,7 @@ reason.
 | INT-03 | INT | MERGED | `6aa68b4` (board `MERGED INT-03`) |
 | INT-04 | INT | MERGED | `cb31ba3` (board `MERGED INT-04`) |
 | INT-05 | INT | MERGED | `92be04f` (board `MERGED INT-05`) |
-| INT-06 | INT | WIP | board HB 2026-10-16T07:57:20Z |
+| INT-06 | INT | MERGED | `cab01e8` (board `MERGED INT-06`) |
 | INT-07 | INT | MERGED | `cb31ba3` (board `MERGED INT-07`) |
 | INT-08 | INT | OPEN | - |
 | DOC-01 | DOC | MERGED | `dd82f45` (board `MERGED DOC-01`) |
@@ -111,7 +111,7 @@ reason.
 | DOC-07 | DOC | MERGED | `cf9df59` (board `MERGED DOC-07`) |
 | DOC-08 | DOC | MERGED | `6aa68b4` (board `MERGED DOC-08`) |
 | DOC-09 | DOC | WIP | merged at `0ef2b88` without board `DONE DOC-09` |
-| DOC-10 | DOC | WIP | merged at `175db93` without board `DONE DOC-10` |
+| DOC-10 | DOC | WIP | merged at `cab01e8` without board `DONE DOC-10` |
 
 ## 3. Consensus themes
 
@@ -306,7 +306,7 @@ fixes do. DOC-03 corrects the wording. Code-side owners are in §5.
 | DOC-F11 | DOC (relates S3 §15.8) | README and WHITEPAPER printed Wave-3 values that are not in the committed receipt. Generation-0 KPI `31.838823` (receipt: seed-20261101 value `32.047462`, 10-seed mean `31.645679`); B1/B2 generation-0 `44.782516`/`28.887811` (receipt means `44.786326`/`28.90497`); six label-held-out scores and RMSEs (e.g. `47.484214 ± 4.7779` vs receipt `47.483183 ± 4.683`); "147.8" mean label changes per seed (receipt mean `150.4`). The loose numeric scan passed them because it accepts any receipt number within 0.15 %. | V: `docs/results/wave3-evolution-proof-v1.json` `generation_band_curves/*/0`, `arm_outcomes/*`, `held_out_geometry_generalization` | DOC-03, DOC-04 | FULL | MERGED |
 | DOC-F12 | DOC | WHITEPAPER cited a "54 / 540" rejected-cohort audit in a receipt that records 64 / 640, and a regression test `loocv_11family_surrogate_generalization_and_false_omission_audit` that has never existed in the repository history. It also gave MAP-Elites coverage as percentages of 192 cells, while the key allows 11 × 6 × 6 × 5 cells. | V: `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` `rejected_cohort_10pct_audit`; `git log -S` over `crates/` finds no such test; `evolve.rs:589` key bins | DOC-03, DOC-04 | FULL | MERGED |
 | DOC-F13 | DOC-07 review IR-R1 (relates S1 §3.2, S5 P0.3, S6 App.A-6) | After IR-01..IR-12 merged, the OpenFOAM writer (`cfd_case.rs:159` → `MultiPatchSurface::from_program`) still writes two undivided inlet ducts for split programs. Enactment and voxel F0 are verified on a separately compiled `IrCompiledMesh`, and the case manifest names that mesh as its geometry kernel. | V: slice test, one closed loop per inlet duct for a 3-branch program; after IR `c21e405` (merged `f49f67e`) three per duct, and `prepare-cfd-case` writes the same STL (`docs/reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md`, Resolution) | DOC-07 | FULL | MERGED |
-| DOC-F14 | DOC-07 review IR-R2..IR-R5 | The IR-05 forensic STL tool counts horizontal facets rather than connected paths; the IR-10 counter rename is claimed but not in the code; ribbon/TPMS corrugation is labelled `ConservativeApproximation`; Betti parity compares against a constant. | V: `docs/reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md`, Resolution: path count, relabel and Betti-from-mesh verified after `f49f67e` | DOC-07 | PARTIAL (remainder §5 G-11) | MERGED |
+| DOC-F14 | DOC-07 review IR-R2..IR-R5 | The IR-05 forensic STL tool counts horizontal facets rather than connected paths; the IR-10 counter rename is claimed but not in the code; ribbon/TPMS corrugation is labelled `ConservativeApproximation`; Betti parity compares against a constant. | V: `docs/reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md`, Resolution: path count, relabel, counter key and B-rep-vs-mesh Betti checked after `cab01e8` | DOC-07 | FULL | MERGED |
 
 ## 5. Gaps and notes for the planner and integrator
 
@@ -325,7 +325,7 @@ by adding items, or moves them to workplan §6 with a reason. Requests are poste
 | G-08 | DOC-F03 | Explorer UI (`apps/explorer/src/`) carries family names and claim text; no lane owns it in this workplan | INT (ACK 2026-10-16T05:33Z; owns `apps/explorer`) |
 | G-09 | DOC-F06 | Same-pipeline CT-35 control: run CT-35 through Rust `MultiPatchSurface` at G0/G1/G2 with the same outlet extension as the elites, and re-run the elites with the 0.12 m extension, before any Δp-gain sentence is promoted | INT (ACK 2026-10-16T05:33Z) |
 | G-10 | DOC-F13 | Make the CFD writer emit the verified `IrCompiledMesh` triangles, or declare it `LegacyUnenactedCfdSurface` and hard-fail split/skimmer programs. Hold INT-06 until then. | Resolved: IR `c21e405`, merged `f49f67e`; DOC re-sliced the CLI-written STL (DOC-07 review, Resolution) |
-| G-11 | DOC-F14 | Remainder after `f49f67e`: the campaign summary still serializes `total_gpu_lagrangian_parcels_integrated`; Betti numbers are checked against an expected formula, not B-rep against mesh. (Path count, documentation of the rename and the corrugation relabel are done.) | IR |
+| G-11 | DOC-F14 | Remainder after `f49f67e`: the campaign summary still serializes `total_gpu_lagrangian_parcels_integrated`; Betti numbers are checked against an expected formula, not B-rep against mesh. | Resolved: IR `e58f3f3`, merged `cab01e8`; DOC checked (DOC-07 review). Residual: the exact-baseline branch asserts `[1, 0, 1]` |
 
 Notes on assigned items (no new item needed):
 
