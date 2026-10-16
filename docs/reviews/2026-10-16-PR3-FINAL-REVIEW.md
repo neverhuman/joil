@@ -149,7 +149,9 @@ before push.
   and evidence tiers moved unchanged to `docs/RESULTS.md`, which the claims audit and numbers trace also cover. IR ran
   every README command from a fresh clone, and all exited `0` (`docs/receipts/README-freshclone-2026-10-16.md`).
   DOC re-ran all `18` current README install and quick-start commands on a fresh checkout of `6450b70`: all exited
-  `0` and the tree stayed clean. DOC applied IR's fixes:
+  `0` and the tree stayed clean. TR repeated the run at `503a299`
+  (`docs/receipts/README-freshclone-503a299-2026-10-16.json`): all commands passed, and DOC applied its one fix, a
+  timing note. DOC applied IR's fixes:
   - `rtk proxy` for the two `--nocapture` tests;
   - a plain timing note;
   - a warning that `--verify-existing` prints the withdrawn historical "certified" line.

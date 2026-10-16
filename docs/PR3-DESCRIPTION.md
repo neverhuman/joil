@@ -50,8 +50,9 @@ performance. Nothing has been tested physically.
 - EV re-checked the regenerated figures independently (a reproduction check, not scientific validation): all
   reproduce byte-for-byte from committed sources
   ([`crates/joil-evidence/reports/EV13-followup-reverify.md`](../crates/joil-evidence/reports/EV13-followup-reverify.md)).
-- IR and DOC ran every README install and quick-start command from fresh checkouts; all passed
-  ([`docs/receipts/README-freshclone-2026-10-16.md`](receipts/README-freshclone-2026-10-16.md)).
+- IR, DOC and TR ran every README install and quick-start command from fresh checkouts; all passed
+  ([`docs/receipts/README-freshclone-2026-10-16.md`](receipts/README-freshclone-2026-10-16.md),
+  [`docs/receipts/README-freshclone-503a299-2026-10-16.json`](receipts/README-freshclone-503a299-2026-10-16.json)).
 - Final review and residual risks: [`docs/reviews/2026-10-16-PR3-FINAL-REVIEW.md`](reviews/2026-10-16-PR3-FINAL-REVIEW.md).
 
 ## Open residuals
