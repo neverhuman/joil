@@ -298,6 +298,7 @@ fixes do. DOC-03 corrects the wording. Code-side owners are in §5.
 | DOC-F03 | DOC | Family names in WHITEPAPER §2.1 (`baseline-colman-thew`, `quad-spiral-manifold`, `helical-ribbon-core`, `s-cone-fluted-finder`, `double-vortex-skimmer`, `scalloped-parabolic-chamber`), §5.3 table and README (`axisymmetric-stepped`, `twin-tangential-volute`, `quad-entry-involute-head`) do not exist in code | V: `program.rs:1346` `CANONICAL_11_FAMILIES` | DOC-03, DOC-05, DOC-06 | FULL | OPEN |
 | DOC-F04 | DOC | `tools/claims_audit.py` numeric scan accepts any token within 0.15% of a hand-maintained `derived_constants` list, so a new number can be "traced" by adding it to the list | V: `tools/claims_audit.py:574` | DOC-04, DOC-08 | FULL | OPEN |
 | DOC-F05 | DOC (relates S6 §3.1) | `docs/STATUS.json` asserts `structural_qualification: true` and `flexible_graph_cad_implemented: true` | V: `docs/STATUS.json` | EV-07, DOC-05 | FULL | OPEN |
+| DOC-F06 | DOC (relates S1 §3.2, S4 §2.2, S6 App.A-10) | The headline elite-vs-CT-35 CFD comparison (−36.5% Δp) mixes geometry pipelines and domains. CT-35 (`ct35-sst-extended-000`) was meshed from the CAD labelled-surface pipeline with a 0.12 m outlet extension. Every elite case was meshed from Rust `MultiPatchSurface` (6,416 triangles, 48-sector rings, two inlet patches) with `outlet_extension_m: 0.0`. No CT-35 case through the same Rust pipeline exists. The elite cases' `input-manifest.json` files are copies (all declare `case_dir` `runs/rust-cfd-elite-gen024-isl2-ind014` and turbulence `SSG`), so per-run identity is not bound. | V: ignored integrator-owned `runs/*/input-manifest.json` and `runs/ct35-sst-extended-000/mesh-input.json`, read-only at 2026-10-16T05:30Z; `phenotype.rs:611` | DOC-03, EV-12 | PARTIAL (wording and identity now; same-pipeline control is §5 G-09) | OPEN |
 
 ## 5. Gaps and notes for the planner and integrator
 
@@ -314,6 +315,7 @@ by adding items, or moves them to workplan §6 with a reason. Requests are poste
 | G-06 | S6-3.9 | Classify tests as software-contract, independent-geometry, numerical-verification, model-validation or scientific-benchmark; report verdicts separately | DOC (docs) + EV (`tools/gen_status.py`) |
 | G-07 | DOC-F01 | Regenerate figure plates whose baked-in titles say "qualification" or "billion trajectories" (Plates 2, 8, 9) | INT (`tools/generate_wave3_*`) / unowned `tools/generate_wave2_figures_and_animations.py` |
 | G-08 | DOC-F03 | Explorer UI (`apps/explorer/src/`) carries family names and claim text; no lane owns it in this workplan | unassigned |
+| G-09 | DOC-F06 | Same-pipeline CT-35 control: run CT-35 through Rust `MultiPatchSurface` at G0/G1/G2 with the same outlet extension as the elites, and re-run the elites with the 0.12 m extension, before any Δp-gain sentence is promoted | INT (compute; with INT-05/INT-06) |
 
 Notes on assigned items (no new item needed):
 
@@ -331,4 +333,4 @@ Notes on assigned items (no new item needed):
 
 ## 6. Change log
 
-- 2026-10-16T05:45Z: first version (DOC-02). Base `7353526`. All six reviews read in full. 126 findings mapped (121 review findings, 5 DOC-lane findings).
+- 2026-10-16T05:45Z: first version (DOC-02). Base `7353526`. All six reviews read in full. 127 findings mapped (121 review findings, 6 DOC-lane findings).
