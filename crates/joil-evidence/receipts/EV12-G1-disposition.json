@@ -1,0 +1,267 @@
+{
+  "item": "EV12-G1-DISPOSITION",
+  "kind": "failed_non_claim_bearing_diagnostic",
+  "scope": "Owner-designated retained G1 pinch-off diagnostic; no final scientific identity is invented",
+  "source_location": "/home/ubuntu/joil/.private/s20261108-g1-pinchoff-diagnostic",
+  "owner_handoff": "INT2026-10-16T10:50:52Z, confirmed OWNER2026-10-16T11:07Z",
+  "observed_utc": "2026-10-16T11:14:21.912579+00:00",
+  "disposition": {
+    "case": "wave4-b3-s20261108-g1-medium",
+    "accounted": true,
+    "claim_eligible": false,
+    "disposition": "EXCLUDED_FAILED_G1_DIAGNOSTIC",
+    "run_locations": [],
+    "diagnostic_inventory": {
+      "file_count": 41,
+      "total_bytes": 61712049,
+      "inventory_sha256": "04b7604309d0fdfe3aac83098a8ad68c1abbab2ae12e31e74993024577694af2",
+      "files": {
+        "0/R": {
+          "sha256": "16ff3d95cd6248258e9cd9b8ef4c1bdb6fcf27ac91d1c2456961021e290a5a4d",
+          "bytes": 609
+        },
+        "0/U": {
+          "sha256": "7c269207f6aed8bfc33c4862035c22f2adb6a1fd5de4c352ddbe086928d7e714",
+          "bytes": 490
+        },
+        "0/epsilon": {
+          "sha256": "7379e5de6dbe369e5c42d23947efb5987e55bda964119a142628ed4722eea49e",
+          "bytes": 390
+        },
+        "0/k": {
+          "sha256": "68cd161c66b4639bdd4ad2e91d8cef3ff77587afca81ef04aa6eec77475b61b6",
+          "bytes": 385
+        },
+        "0/nut": {
+          "sha256": "7525c6866bb8f3d2e9c13666614e6d6d50c04499333b0c44efdf174a5a20550b",
+          "bytes": 247
+        },
+        "0/omega": {
+          "sha256": "d8772f73913c26444393232d14116aa7036571efd6e9e202cef04e1a80d20651",
+          "bytes": 386
+        },
+        "0/p": {
+          "sha256": "8dce1d5d135d6bff17bb660adc3c02c3af1ecac7897c7332d7968ed60358a2b2",
+          "bytes": 321
+        },
+        "case-identity.json": {
+          "sha256": "2e40a1c241e0060d5fb3acedecaf1e3dc7762dc8821feb1c50f57f2d8d0a1619",
+          "bytes": 5619
+        },
+        "constant/momentumTransport": {
+          "sha256": "d21142f27f549839d5652a803e71d931478140909ba5f679bb494f05068dc140",
+          "bytes": 145
+        },
+        "constant/physicalProperties": {
+          "sha256": "0f24312931ee9d35f22857ed6906f7d92383f819f924e39db4517f5562d427ec",
+          "bytes": 122
+        },
+        "constant/polyMesh/boundary": {
+          "sha256": "6132ac1a5a29c3255695e098a0d520cd8bb5b81c4a208f4f18a7b1fbf05f8203",
+          "bytes": 1086
+        },
+        "constant/polyMesh/cellLevel": {
+          "sha256": "70d7eaeb5b46dd040945a1c93428fc4ac1941b73cfc4fed6f3efbab403eca688",
+          "bytes": 614532
+        },
+        "constant/polyMesh/cellProc": {
+          "sha256": "59eff8f70d164ad606f81bd9e216611e43820ccab96cfa05fe88e1cd7ba3b451",
+          "bytes": 217269
+        },
+        "constant/polyMesh/faces": {
+          "sha256": "46378e57e66eea3718dc09967601570571a9a9764d6587662a5bbf500a47ea79",
+          "bytes": 28297832
+        },
+        "constant/polyMesh/level0Edge": {
+          "sha256": "b9c585a7884700f61efc0d56bd7a775e7e46eca7d06630eb447dd68bdd820fb0",
+          "bytes": 765
+        },
+        "constant/polyMesh/neighbour": {
+          "sha256": "118d37faded587cf13fa70deb1c39c301844ef231ff933fb10c4d06a008ec0ab",
+          "bytes": 5924085
+        },
+        "constant/polyMesh/owner": {
+          "sha256": "57b2081c93712d8c83ed4e77fdeabfa4c3fd30d5f52d1d368ca8bab9fbcd4b3d",
+          "bytes": 6309025
+        },
+        "constant/polyMesh/pointLevel": {
+          "sha256": "9c71d1009b70007754ab445ef804f870233907ca69dff9f86f9baf63e74e564d",
+          "bytes": 682909
+        },
+        "constant/polyMesh/points": {
+          "sha256": "73a867050ea2537082fe4948a92bfc347d546957e6c588a2ab83c44998eecf61",
+          "bytes": 17190775
+        },
+        "constant/triSurface/ct35.stl": {
+          "sha256": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+          "bytes": 1955201
+        },
+        "design-ir.json": {
+          "sha256": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+          "bytes": 16604
+        },
+        "design-program.json": {
+          "sha256": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+          "bytes": 1084
+        },
+        "feature-enactment-receipt.json": {
+          "sha256": "6d6f85302bd051ef270c0a3b8392c0e4312adad66dbaacd8cb7bbc2ffe38779b",
+          "bytes": 112887
+        },
+        "input-manifest.json": {
+          "sha256": "0896011c161e8592f654679287b0437e560aad373f9f943a14215825a64334b0",
+          "bytes": 283442
+        },
+        "mesh-0-blockMesh.log": {
+          "sha256": "ee4099b91350557d22684406c4a22fe5d62d65dab30fc8ae90cc383ee3864421",
+          "bytes": 1834
+        },
+        "mesh-1a-decomposePar.log": {
+          "sha256": "a41651edecdbf6899e76472bc1da5f9302bee9eabae57927db3c3f3e8be85b98",
+          "bytes": 2373
+        },
+        "mesh-1b-snappyHexMesh.log": {
+          "sha256": "3dc6fd363aa045646d6014b96d0a6adab32626d8a475c431a8fd200173ebcce3",
+          "bytes": 72277
+        },
+        "mesh-1c-reconstructPar.log": {
+          "sha256": "8369765420b1f66eda09cdce6adfd528fa96c042732ecf74376bbe9603a92257",
+          "bytes": 1137
+        },
+        "mesh-2-checkMesh.log": {
+          "sha256": "454d5b7b60e5477903dd15d44198f301c8c858b27662c10e9879d059330d5152",
+          "bytes": 3096
+        },
+        "mesh-pipeline.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "mesh-pipeline.log.receipt.json": {
+          "sha256": "1bc83fc7d9a41cbf7eb4244f206df34245d49f1a1ef748431a824153fff7347e",
+          "bytes": 971
+        },
+        "system/blockMeshDict": {
+          "sha256": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+          "bytes": 459
+        },
+        "system/controlDict": {
+          "sha256": "27a67b6421ab8571034190b3e3a49fe11c7b3e9f9ab77926ab6d0c07cab1322d",
+          "bytes": 2053
+        },
+        "system/decomposeParDict": {
+          "sha256": "036b1e9ebfbd67d5a111d349317ac44cca70a36ffa8d1eb10a0150824858e31d",
+          "bytes": 107
+        },
+        "system/fvSchemes": {
+          "sha256": "8f5a95189170715a023f41a2ec2fe911eee25b3c3d4359b69e130dbcf276e57d",
+          "bytes": 570
+        },
+        "system/fvSolution": {
+          "sha256": "1f6e1c1d154b0813ba0338f6cd3ea7ff8bdde03cda9bc3aa06afab7921ae0a35",
+          "bytes": 666
+        },
+        "system/snappyHexMeshDict": {
+          "sha256": "45ab843020258244e9f304973057f74003296f4a833f5a84540b10e0922ab0c6",
+          "bytes": 1988
+        },
+        "water-0-decomposePar.log": {
+          "sha256": "204961f3ae33364a2114d48fdc867bdc1be788e474a954312d77eef7f9011dd5",
+          "bytes": 2981
+        },
+        "water-1-mpirun.log": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "water-1-mpirun.log.receipt.json": {
+          "sha256": "82196efdb8113d445d76b589f1f9d86af883864ba6b849b88f8c84a808b47878",
+          "bytes": 931
+        },
+        "water-1-mpirun.orig.log": {
+          "sha256": "b4195ebb36cfcb4344854cebfeb13f9533cfd5e6d45e44ee8cdb33b25ad865db",
+          "bytes": 4396
+        }
+      }
+    },
+    "reason": "Missing inlet patch after meshing; solver fatally aborted. Retained as diagnostic only; no performance/identity qualification.",
+    "solver_exit_code": 1,
+    "solver_time_steps_observed": 0,
+    "solver_image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+    "log_binding": "Driver receipt binds water-1-mpirun.log; fatal details remain in water-1-mpirun.orig.log because the shell aborted before copying them to wrapper stdout. Both files are separately fingerprinted.",
+    "boundary_patch_faces": {
+      "wall": 60725,
+      "overflow": 180,
+      "underflow": 432
+    },
+    "inlet_patches": {
+      "inlet1": {
+        "present": false,
+        "n_faces": null
+      },
+      "inlet2": {
+        "present": false,
+        "n_faces": null
+      }
+    },
+    "identity_sidecar_state": "STALE",
+    "recorded_chain": {
+      "genome_hash": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+      "ir_hash": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+      "geometry_hash": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+      "mesh_hash": "b28382b100cd443f2ee47a431faed1046ef04b2c8203c23ba47418c8161b88de",
+      "case_hash": "9e1e353c68db0d0e0529c18ade71dc2ca07de883be659c3e321bf02a7b57404b"
+    },
+    "observed_retained_chain": {
+      "genome_hash": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+      "ir_hash": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+      "geometry_hash": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+      "mesh_hash": "fe811a055ff8b41acf21895157f31d0ee755fe69b029da714a9eedc880b55950",
+      "case_hash": "e0eec5dafa206b567c6549fc8321a88dfdc802f681cf82e3ca5473f9b9dfd092"
+    },
+    "changed_sidecar_inventory_paths": {
+      "source_artifacts": [],
+      "mesh_files": [
+        "constant/polyMesh/cellProc"
+      ],
+      "solver_input_files": []
+    },
+    "valid_finalized_identity_for_retained_state": false,
+    "chronology": {
+      "owner_report": "INT10:50:52 reports solver fatal before identity finalization",
+      "independently_verified": "Solver fatal and no valid final identity for the retained state when sidecar is stale/absent.",
+      "caveat": "A stale sidecar exists in this retained diagnostic; earlier board09:46 reports pre-solve finalization. No claim that no sidecar was ever written, and no inferred finalization timestamp."
+    },
+    "evidence": {
+      "water-1-mpirun.log.receipt.json": {
+        "sha256": "82196efdb8113d445d76b589f1f9d86af883864ba6b849b88f8c84a808b47878",
+        "bytes": 931
+      },
+      "water-1-mpirun.log": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "water-1-mpirun.orig.log": {
+        "sha256": "b4195ebb36cfcb4344854cebfeb13f9533cfd5e6d45e44ee8cdb33b25ad865db",
+        "bytes": 4396
+      },
+      "mesh-2-checkMesh.log": {
+        "sha256": "454d5b7b60e5477903dd15d44198f301c8c858b27662c10e9879d059330d5152",
+        "bytes": 3096
+      },
+      "constant/polyMesh/boundary": {
+        "sha256": "6132ac1a5a29c3255695e098a0d520cd8bb5b81c4a208f4f18a7b1fbf05f8203",
+        "bytes": 1086
+      }
+    },
+    "physical_infeasibility_inferred": false
+  },
+  "exclusion_applies_to": [
+    "Performance/physics qualification",
+    "Claim-bearing surrogate labels",
+    "Mesh/GCI convergence and comparative-performance claims",
+    "Any claim requiring a finalized executed-case identity"
+  ],
+  "chronology_resolution": "The retained solver has fatal missing-inlet/MPI evidence and no valid finalized identity for retained bytes. Existing stale sidecar is preserved and fingerprinted; earlier09:46 pre-solve finalization report and later10:50 before-finalization wording are both disclosed rather than inventing a chronology.",
+  "recovery_rule": "Any repaired mesh/rerun receives a new run identity. Keep this failed diagnostic excluded; never overwrite its stale original sidecar or backfill executed hashes.",
+  "audit_script": "crates/joil-evidence/receipts/ev12_disposition_audit.py",
+  "audit_source_sha256": "b6292ab2586a4d0efb84a5192d4f363269458259c3acc48b01890ab72f55ad57"
+}
