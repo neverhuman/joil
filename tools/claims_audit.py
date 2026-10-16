@@ -118,6 +118,8 @@ def verify_paths_and_sha256_digests(
         "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json",
         "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
         "docs/results/wave3-evolution-proof-v1.json",
+        "docs/results/wave4-evolution-proof-v1.json",
+        "docs/results/wave4-smoke-v1.json",
         "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
         "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
         "docs/results/interactive-3d-archetypes-v1.json",
@@ -138,6 +140,8 @@ def verify_paths_and_sha256_digests(
         "docs/figures/wave2-8-exotic-phenotypes-gallery.png",
         "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
         "docs/figures/wave3-evolution-ablation-and-lineage-proof.png",
+        "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+        "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
         "docs/figures/wave2-vortex-and-qd-illumination.gif",
         "docs/figures/wave2-topology-morph-and-lineage.gif",
     ]
@@ -773,7 +777,7 @@ def _sentences(text: str) -> list[tuple[int, str]]:
     def flush() -> None:
         if para:
             joined = " ".join(x.strip() for x in para)
-            for sentence in re.split(r"(?<=[.!?])\s+(?=[A-Z*`(\[$])", joined):
+            for sentence in re.split(r"(?<=[.!?])(?<!\bvs\.)(?<!\be\.g\.)(?<!\bi\.e\.)\s+(?=[A-Z*`(\[$])", joined):
                 units.append((start, sentence))
             para.clear()
 
@@ -859,11 +863,15 @@ def _trace_values(root: Path) -> list[tuple[str, str, float]]:
 
 
 def _numeral_tokens(text: str) -> list[str]:
-    return [token for token, _ in _numeral_tokens_with_unit(text)]
+    return [token for token, _, _ in _numeral_tokens_with_context(text)]
 
 
 def _numeral_tokens_with_unit(text: str) -> list[tuple[str, str]]:
-    """(numeral, the few characters after it) so the trace can apply only unit-plausible scales."""
+    return [(token, after) for token, _, after in _numeral_tokens_with_context(text)]
+
+
+def _numeral_tokens_with_context(text: str) -> list[tuple[str, str, str]]:
+    """(numeral, text before, text after): the unit after it limits scales; the symbol before it names the quantity."""
     tokens = []
     for raw in text.splitlines():
         if raw.lstrip().startswith("```"):
@@ -874,13 +882,18 @@ def _numeral_tokens_with_unit(text: str) -> list[tuple[str, str]]:
             " ",
             line,
         )
+        line = re.sub(r"§\s*\d+(?:\.\d+)*", " ", line)  # section references, e.g. S2 §4.7
+        line = re.sub(r"_\{\d+", "_{", line)  # LaTeX subscripts such as d_{50} and d_{32}
         line = re.sub(r"\\times\s*10\^\{(-?\d+)\}", r"e\1", line)  # LaTeX scientific notation
         line = re.sub(r"(\d)\s+e(-?\d)", r"\1e\2", line)
         line = re.sub(r"\[(\d+(?:,\d+)+)\]", lambda m: " ".join(m.group(1).split(",")), line)
         line = re.sub(r"\.\.", " .. ", line)
         line = _TRACE_IDENT_RE.sub(" ", line)
         line = re.sub(r"\]\([^)]*\)", "]", line)  # link targets are paths, checked elsewhere
-        tokens.extend((m.group(1), line[m.end() : m.end() + 28]) for m in _TRACE_NUM_RE.finditer(line))
+        tokens.extend(
+            (m.group(1), line[max(0, m.start() - 28) : m.start()], line[m.end() : m.end() + 28])
+            for m in _TRACE_NUM_RE.finditer(line)
+        )
     return tokens
 
 
@@ -908,6 +921,19 @@ def _affinity(after: str) -> tuple[str, ...]:
         if tail.startswith(units):
             return keys
     return ()
+
+
+_LEAD_AFFINITY = (
+    (r"\bU\s*=\s*$", ("mann_whitney_u",)),
+    (r"\\delta\s*=\s*$", ("cliffs_delta",)),
+    (r"p_\{\\text\{Holm\}\}\s*=\s*$", ("holm",)),
+)
+
+
+def _lead_affinity(before: str) -> tuple[str, ...]:
+    """Receipt keys named by the symbol in front of a numeral, e.g. `$U = 16$` prefers a Mann-Whitney U pointer."""
+    lead = before.rstrip(" `*$")
+    return next((keys for pattern, keys in _LEAD_AFFINITY if re.search(pattern, lead + " ")), ())
 
 
 def _unit_scales(after: str, context: str = "") -> tuple[tuple[float, str], ...]:
@@ -1006,10 +1032,10 @@ def _check_declared(numeral: str, kind: str, source: str, check: str, root: Path
                 return f"derived {numeral}: missing {rel}#{ptr}"
             env[f"v{i}"] = lookup[(rel, ptr)]
             expr = expr.replace(f"{rel}#{ptr}", f"v{i}", 1)
-        if not re.fullmatch(r"[v\d\s+\-*/().]+", expr):
+        if not re.fullmatch(r"(?:v\d+|\d+(?:\.\d+)?(?:e[+-]?\d+)?|[\s+\-*/()])+", expr):
             return f"derived {numeral}: unsupported expression"
         value = eval(expr, {"__builtins__": {}}, env)  # arithmetic over receipt values only
-        if _matches_printed(numeral, value) is None:
+        if _matches_printed(numeral.split("@", 1)[0], value) is None:
             return f"derived {numeral}: expression evaluates to {value}"
         return None
     if kind in ("protocol constant", "historical"):
@@ -1032,15 +1058,18 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
         problem = _check_declared(numeral, kind, source, check, root, values)
         if problem:
             errors.append(problem)
+    scoped = {key: key.split("@", 1) for key in declared if "@" in key}
+    used_scoped: set[str] = set()
     lines = [
         "# Numbers trace (WHITEPAPER \"Read this first\", Abstract and §5; README)",
         "",
         "Generated by `python3 tools/claims_audit.py --write-numbers-trace` (workplan DOC-04). Each numeral in these",
         "sections either equals a committed receipt value at its printed precision, or is declared in the hand-reviewed",
         "table at the end. Unit scaling is applied only where the unit after the numeral implies it (×100 before `%`,",
-        "÷1000 before kPa/kJ, ×1000 before mm/Pa/J). Sources cited in the same sentence are searched first. The claims audit fails on any",
-        "untraced numeral or a stale table. Where several receipt values match, the first cited source wins; a short",
-        "integer such as a seed count can match by coincidence, so read the pointer, not just the tick.",
+        "÷1000 before kPa/kJ, ×1000 before mm/Pa/J). A numeral in a sentence or subsection that cites receipts must",
+        "match one of those receipts; only uncited prose falls back to every receipt. The claims audit fails on any",
+        "untraced numeral, an unused scoped declaration or a stale table. Where several receipt values match, the first",
+        "cited source wins; a short integer such as a seed count can still match by coincidence, so read the pointer.",
         "",
     ]
     for rel, title, start_marker, end_marker in TRACE_SECTIONS:
@@ -1060,13 +1089,18 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
                 sub_cited = []
             unit_cited = list(dict.fromkeys(re.findall(cite_re, unit)))
             sub_cited = list(dict.fromkeys(sub_cited + unit_cited))
-            search = list(dict.fromkeys(unit_cited + sub_cited + section_cited + all_files))
-            for token, after in _numeral_tokens_with_unit(unit):
-                if token.lstrip("+-").replace(",", "") in declared or token in declared:
+            bound = list(dict.fromkeys(unit_cited + sub_cited))
+            search = bound or list(dict.fromkeys(section_cited + all_files))
+            for token, before, after in _numeral_tokens_with_context(unit):
+                scope = next((k for k, (n, phrase) in scoped.items() if n == token and phrase in unit), None)
+                if scope:
+                    used_scoped.add(scope)
+                    key = (token, "declared", "-", f"see table (`{scope}`)")
+                elif token.lstrip("+-").replace(",", "") in declared or token in declared:
                     key = (token, "declared", "-", "see table")
                 else:
                     key = (token, "**UNTRACED**", "-", "-")
-                    keys = _affinity(after)
+                    keys = _affinity(after) + _lead_affinity(before)
                     hits = [
                         (rel, ptr, tag or "printed")
                         for scale, tag in _unit_scales(after, unit)
@@ -1078,19 +1112,23 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
                     if hit:
                         key = (token, f"`{hit[0]}`", f"`{hit[1]}`", hit[2])
                     if key[1] == "**UNTRACED**":
+                        where = f"its cited receipts ({', '.join(bound)})" if bound else "any receipt value"
                         errors.append(
-                            f"NUMBERS_TRACE: {title}: numeral '{token}' matches no receipt value and is not declared"
+                            f"NUMBERS_TRACE: {title}: numeral '{token}' matches no value in {where} and is not declared"
                         )
                 rows[key] = rows.get(key, 0) + 1
         lines += [f"## {title}", "", "| Numeral | Count | Source | JSON pointer | Match |", "|---|---|---|---|---|"]
         for (token, source, pointer, tag), count in rows.items():
             lines.append(f"| `{token}` | {count} | {source} | {pointer} | {tag} |")
         lines.append("")
+    for key in sorted(set(scoped) - used_scoped):
+        errors.append(f"NUMBERS_TRACE: declared {key}: scope phrase matches no traced sentence (stale declaration)")
     lines += [
         "## Declared numerals",
         "",
         "Hand-reviewed. Kinds: `literal` (this exact text must appear in the cited file), `derived` (arithmetic over receipt",
-        "pointers, re-evaluated by the audit), `protocol constant` and `historical` (reason required; not machine-checked).",
+        "pointers and numeric constants, re-evaluated by the audit), `protocol constant` and `historical` (reason required;",
+        "not machine-checked). A numeral written `N@phrase` applies only in sentences containing `phrase`; a plain `N` applies everywhere.",
         "",
         "| Numeral | Kind | Source | Check |",
         "|---|---|---|---|",
@@ -1308,16 +1346,22 @@ def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str],
 
 
 def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]:
-    """Item status from coordination-board lines: MERGED > DONE > BLOCKED > WIP (START/WIP)."""
+    """Item status from coordination-board lines: MERGED > DONE > BLOCKED > WIP (START/WIP).
+
+    MERGED counts only after a DONE for the same item: merging a lane mid-item is not completion.
+    """
     found: dict[str, dict[str, str]] = {}
     for line in board.splitlines():
         tokens = line.split()
-        if len(tokens) >= 3 and tokens[0] in ("DONE", "MERGED") and tokens[1] in items:
-            sha = tokens[2] if re.fullmatch(r"[0-9a-f]{7,40}", tokens[2]) else ""
+        if len(tokens) >= 2 and tokens[0] in ("DONE", "MERGED") and tokens[1] in items:
+            sha = tokens[2] if len(tokens) >= 3 and re.fullmatch(r"[0-9a-f]{7,40}", tokens[2]) else ""
+            entry = found.setdefault(tokens[1], {})
+            if not sha and tokens[0] == "MERGED":  # integrator's bare "MERGED X" refers to the item's DONE commit
+                sha = entry.get("DONE", "")
             if sha:
-                found.setdefault(tokens[1], {})[tokens[0]] = sha
+                entry[tokens[0]] = sha
         elif len(tokens) >= 5 and tokens[0] == "HB":
-            state = tokens[4]
+            state = "BLOCKED" if tokens[4].startswith("BLOCKED") else tokens[4]  # e.g. BLOCKED-SCOPED
             for item in tokens[3].split("/"):
                 if item not in items or state not in ("START", "WIP", "BLOCKED", "DONE"):
                     continue
@@ -1330,8 +1374,14 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
                     entry["WIP"] = tokens[1]
     ledger = {}
     for item, entry in found.items():
-        if "MERGED" in entry:
+        if "MERGED" in entry and "DONE" in entry:
             ledger[item] = ("MERGED", f"`{entry['MERGED'][:7]}` (board `MERGED {item}`)")
+        elif "MERGED" in entry:  # a lane merged mid-item: not completion
+            note = f"merged at `{entry['MERGED'][:7]}` without board `DONE {item}`"
+            if "BLOCKED" in entry:
+                ledger[item] = ("BLOCKED", f"{note}; {entry['BLOCKED'].replace('|', '/')}"[:160])
+            else:
+                ledger[item] = ("WIP", note)
         elif "DONE" in entry:
             ledger[item] = ("DONE", f"`{entry['DONE'][:7]}` (board `DONE {item}`)")
         elif "BLOCKED" in entry:
@@ -1342,7 +1392,7 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
 
 
 def sync_ledger(synthesis: str, board: str) -> str:
-    """Rewrite §2 ledger rows whose board-derived status differs (never downgrades MERGED/DONE)."""
+    """Rewrite §2 ledger rows whose board-derived status differs (never downgrades, except merges without DONE)."""
     rank = {"OPEN": 0, "WIP": 1, "BLOCKED": 1, "DONE": 2, "MERGED": 3, "MOVED-§6": 4}
     items = set(re.findall(r"^\| ([A-Z]{2,3}-\d{2}) \|", _section(synthesis, "## 2."), re.M))
     derived = ledger_from_board(board, items)
@@ -1354,7 +1404,10 @@ def sync_ledger(synthesis: str, board: str) -> str:
         cells = _table_cells(line) if in_ledger and line.startswith("|") else []
         if len(cells) == 4 and cells[0] in derived:
             status, evidence = derived[cells[0]]
-            if rank[status] >= rank.get(cells[2], 0) and (status, evidence) != (cells[2], cells[3]):
+            # Never downgrade, except when the board shows a merge without the owner's DONE: that merge was
+            # never completion, so the owner's WIP/BLOCKED state wins over an earlier MERGED row.
+            merged_without_done = "without board `DONE" in evidence
+            if (rank[status] >= rank.get(cells[2], 0) or merged_without_done) and (status, evidence) != (cells[2], cells[3]):
                 line = f"| {cells[0]} | {cells[1]} | {status} | {evidence} |\n"
         out.append(line)
     return "".join(out)

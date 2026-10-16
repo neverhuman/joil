@@ -1000,10 +1000,7 @@ pub struct EngineeringGatesReport {
     pub gpu_devices_used: Vec<String>,
     pub peak_gpu_vram_utilization_pct: f64,
     pub peak_gpu_vram_used_mib: f64,
-    #[serde(
-        rename = "total_gpu_lagrangian_parcels_integrated",
-        alias = "total_gpu_workspace_tensor_cells_evaluated"
-    )]
+    #[serde(default, alias = "total_gpu_lagrangian_parcels_integrated")]
     pub total_gpu_workspace_tensor_cells_evaluated: u64,
 }
 

@@ -86,8 +86,9 @@ is the shared strict interchange shape. Rust and Python round-trip it and reject
 `admit_sample` needs a reviewed closure for every label and observed feature, a byte-pinned feature definition and
 reviewed observer-derived geometry and mechanism groups. Prior/analytic and synthetic targets are rejected. No
 independent $C_{\text{out}}$ dataset exists, so `crates/joil-evidence/reports/surrogate-independent-ood-v1.json`
-reports insufficient evidence rather than out-of-distribution scores (EV-09). A consequence for the search code:
-`joil-cli wave3-proof` now stops at the surrogate fit (an INT-04 decision, see the README quick start).
+reports insufficient evidence rather than out-of-distribution scores (EV-09). The search code therefore fits its
+Gaussian process with `fit_sandbox_prior` on the run's own screen records, labelled sandbox data; that is how
+`joil-cli wave3-proof` produced the Wave-4 receipt (WHITEPAPER §5.7). No surrogate result is a qualified claim.
 
 ## 6. Review notes (DOC-07, 2026-10-16)
 
