@@ -55,7 +55,26 @@ def number(x):
 
 def rounded(x, digits=6):
     scale = 10**digits
-    return math.copysign(math.floor(abs(x)*scale+0.5)/scale, x)
+    fraction, integer = math.modf(abs(x)*scale)
+    return math.copysign((integer+(fraction >= .5))/scale, x)
+
+
+def ordered_sum(values):
+    """The declared Rust statistic accumulates f64 values left to right."""
+    total = 0.0
+    for value in values:
+        total += float(value)
+    return total
+
+
+def percentile_sorted(values, q):
+    if not len(values):
+        raise ValueError('empty percentile sample; no imputation')
+    position = q*(len(values)-1)
+    lo, hi = math.floor(position), math.ceil(position)
+    fraction = position-lo
+    # Preserve both multiplications: NumPy's lerp differs at rounding boundaries.
+    return float(values[lo])*(1.0-fraction)+float(values[hi])*fraction
 
 
 def kpi(ind, dp_ref, limit):
@@ -76,13 +95,19 @@ def bootstrap(values, seed):
         z = (z ^ (z >> 30))*np.uint64(0xBF58476D1CE4E5B9)
         z = (z ^ (z >> 27))*np.uint64(0x94D049BB133111EB)
         idx = ((z ^ (z >> 31)) % np.uint64(n)).astype(int).reshape(10000, n)
-    means = a[idx].sum(axis=1)/n
-    return dict(n_seeds=n, mean=rounded(float(a.mean())),
-                std_dev=rounded(float(a.std(ddof=1))) if n > 1 else 0.0,
-                median=rounded(float(np.median(a))),
-                iqr=rounded(float(np.quantile(a, .75)-np.quantile(a, .25))),
-                ci95_low=rounded(float(np.quantile(means, .025))),
-                ci95_high=rounded(float(np.quantile(means, .975))))
+    means = np.zeros(10000)
+    for column in range(n):
+        means += a[idx[:, column]]
+    means.sort()
+    means /= n
+    mean = ordered_sum(a)/n
+    sorted_a = sorted(a)
+    return dict(n_seeds=n, mean=rounded(mean),
+                std_dev=rounded(math.sqrt(ordered_sum((float(x)-mean)**2 for x in a)/(n-1))) if n > 1 else 0.0,
+                median=rounded(percentile_sorted(sorted_a, .5)),
+                iqr=rounded(percentile_sorted(sorted_a, .75)-percentile_sorted(sorted_a, .25)),
+                ci95_low=rounded(percentile_sorted(means, .025)),
+                ci95_high=rounded(percentile_sorted(means, .975)))
 
 
 def rank_test(a, b, smaller=False):
@@ -96,8 +121,8 @@ def rank_test(a, b, smaller=False):
     t = 1/(1+.3275911*abs(z/math.sqrt(2)))
     tail = (((((1.061405429*t-1.453152027)*t+1.421413741)*t-.284496736)*t
              + .254829592)*t*math.exp(-z*z/2))
-    return dict(mean_diff=rounded(statistics.mean(a)-statistics.mean(b)),
-                median_diff=rounded(statistics.median(a)-statistics.median(b)),
+    return dict(mean_diff=rounded(ordered_sum(a)/len(a)-ordered_sum(b)/len(b)),
+                median_diff=rounded(percentile_sorted(sorted(a), .5)-percentile_sorted(sorted(b), .5)),
                 mann_whitney_u=u, z_score=rounded(z, 4),
                 p_value_one_sided=rounded(.5*(tail if z >= 0 else 2-tail), 8),
                 cliffs_delta=rounded((2*wins+ties-len(differences))/len(differences), 4))

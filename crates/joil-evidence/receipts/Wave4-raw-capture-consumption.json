@@ -1,0 +1,1007 @@
+{
+  "item": "WAVE4-RAW-CAPTURE-CONSUME",
+  "recorded_utc": "2026-10-16T10:16:52Z",
+  "state": "NUMERICAL_MATCH_WITH_SCIENTIFIC_SCOPE_GAPS",
+  "consumer_arithmetic_commit": "5f27fc7",
+  "input_head": "0cdd50d080c78fd91bca20ab7543ba2ed36d9022",
+  "scope": "Independent recomputation from candidate, proposal, survival and prediction records of a NEW separately identified reproduction; original campaign raw records remain missing. No independent physical validation.",
+  "producer": {
+    "passed": true,
+    "manifest_sha256": "d16341e608eef0b23be7b458ed867b295710cbe84fedc263bd16c4d6e2f955d2",
+    "files": 154,
+    "seed_streams": 60,
+    "charged_proposal_events": 27000,
+    "raw_MC_rows_in_seed_streams": 1948320,
+    "folds": 11,
+    "fold_subjects": 37,
+    "identity": {
+      "argv": [
+        "target/release/joil-cli",
+        "wave3-proof",
+        "--seeds",
+        "20261101,20261102,20261103,20261104,20261105,20261106,20261107,20261108,20261109,20261110",
+        "--islands",
+        "2",
+        "--pop",
+        "9",
+        "--generations",
+        "24",
+        "--mc",
+        "72",
+        "--raw-dir",
+        ".private/truth-raw-capture/full-raw",
+        "--out",
+        ".private/truth-raw-capture/full-summary.json"
+      ],
+      "campaign_id": "wave4-repro-1792144678920712536-465092",
+      "compiled_sources_sha256": {
+        "Cargo.lock": "0e50aa619e8bb91debb74f5961a28989b40143d57ca9d7d799a353d20ed4e618",
+        "evolve.rs": "95c8e36ce0c0a9d4518b763017839c12973d1ec701f443d7b5c59f496361268f",
+        "geometry.rs": "775db16568c5deac69cc5bf966fcf1048169b21d93f3a1608ad667e3da2ceeb4",
+        "phenotype.rs": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957",
+        "program.rs": "8c36a81149cdd5a05d3e368b5b9ef9ca41a9f836cfd8dbf45d967e7a22a7cc57",
+        "redteam.rs": "c18dc65241674494193f5d7ebd7c8d997bfa5c22661b98f294f32b45c7796b00",
+        "structure.rs": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c",
+        "surrogate.rs": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905"
+      },
+      "compiler": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: x86_64-unknown-linux-gnu\nrelease: 1.95.0\nLLVM version: 22.1.2",
+      "contract_status": "NEW; original Wave-4 raw records were never emitted",
+      "cpu_set": "8,9,10,11,12,13,14,15",
+      "evidence_limitations": [
+        "prior-laden reduced screen",
+        "authored family folds are not independent geometry holdouts",
+        "CT35 repeated subjects are not independent physical replicates",
+        "archive hypervolume remains emitted telemetry"
+      ],
+      "evolution_config": {
+        "baseline_hydraulics": {
+          "dp_o_pa": 208358.5,
+          "dp_u_pa": 29468.22,
+          "mass_imbalance_rel": 4.6440003e-06,
+          "overflow_reverse_m3_s": 0.0,
+          "pdr": 7.108312,
+          "q_in_m3_s": 0.001111111,
+          "q_over_m3_s": 2.206626e-05,
+          "q_under_m3_s": 0.0010890499,
+          "specific_hydraulic_loss_j_m3": 33709.55,
+          "split_ratio": 0.019859632,
+          "underflow_reverse_m3_s": 0.0
+        },
+        "campaign_mode": "sandbox",
+        "crossover_rate": 0.58,
+        "cuda_bin_path": null,
+        "generations": 24,
+        "islands": 2,
+        "mc_samples": 72,
+        "migration_interval": 5,
+        "pop_per_island": 9,
+        "seed": 20261015
+      },
+      "evolution_config_sha256": "4c754b29333a9350d97560f16f7924af393939969574395a0be1c31b07c68cc2",
+      "executable_sha256": "c8ccc5b4985a6ca8f1d860c67ec4f8f1ecd2d5b7aec838201d0b5ad2aa96eade",
+      "models": {
+        "phenotype_compiler": {
+          "geometry_source_sha256": "775db16568c5deac69cc5bf966fcf1048169b21d93f3a1608ad667e3da2ceeb4",
+          "source_sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+        },
+        "reduced_screen": {
+          "calibration": "prior_laden_not_independently_validated",
+          "id": "joil.sandbox-reduced-prior",
+          "source_sha256": "95c8e36ce0c0a9d4518b763017839c12973d1ec701f443d7b5c59f496361268f"
+        },
+        "structural_screen": {
+          "kind": "analytic_screen_not_FEA",
+          "source_sha256": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c"
+        },
+        "surrogate": {
+          "acquisition_kernel_length_scale": 0.85,
+          "acquisition_noise": 0.015,
+          "fold_kernel_length_scale": 0.85,
+          "fold_noise": 0.02,
+          "source_sha256": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905"
+        }
+      },
+      "objective_sha256": "8fa5a06d18e128c8320e6ea566d90746a20b0cce1c356476b69439c65c0ecf28",
+      "rayon_num_threads": "8",
+      "requirements": {
+        "id": "joil-hydrocyclone-v1",
+        "revision": "2",
+        "sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca"
+      },
+      "rng": {
+        "algorithm": "SplitMix64",
+        "fold_kernel_length_scale": 0.85,
+        "fold_noise": 0.02,
+        "gen0_seed": "master_seed XOR 0x517CC1B727220A95",
+        "master_seeds": [
+          20261101,
+          20261102,
+          20261103,
+          20261104,
+          20261105,
+          20261106,
+          20261107,
+          20261108,
+          20261109,
+          20261110
+        ],
+        "mc_seed": "master_seed XOR first_16_hex_digits(genome_sha256)",
+        "variation_seed": "master_seed"
+      },
+      "run_kind": "new_sandbox_reproducibility_run_not_original_campaign",
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_source_dirty": false
+    },
+    "config": {
+      "generations": 24,
+      "master_seeds": [
+        20261101,
+        20261102,
+        20261103,
+        20261104,
+        20261105,
+        20261106,
+        20261107,
+        20261108,
+        20261109,
+        20261110
+      ],
+      "mc_samples": 72,
+      "population_per_generation": 18,
+      "proposal_budget": 450,
+      "quality_limit_mg_l": 30.0
+    }
+  },
+  "raw_integrity_method": {
+    "sha256_manifest_and_every_file": true,
+    "jsonl_to_projection_exact_equality": true,
+    "fold_targets_bound_to_original_candidate_aliases": true,
+    "reproducer_stdin_python": "import hashlib,json\nfrom pathlib import Path\n\ndef digest(path):\n h=hashlib.sha256();size=0\n with Path(path).open(\"rb\") as f:\n  for block in iter(lambda:f.read(1024*1024),b\"\"):\n   h.update(block);size+=len(block)\n return h.hexdigest(),size\n\ndef verify_capture(root):\n root=Path(root)\n manifest_path=root/\"manifest.json\"\n checksum,_=digest(manifest_path)\n assert (root/\"manifest.sha256\").read_text().split()[0]==checksum,\"manifest SHA mismatch\"\n manifest=json.loads(manifest_path.read_text())\n names=[]\n for entry in manifest[\"files\"]:\n  rel=Path(entry[\"path\"])\n  assert not rel.is_absolute() and \"..\" not in rel.parts,\"unsafe raw path\"\n  path=root/rel\n  assert not path.is_symlink() and path.resolve().is_relative_to(root.resolve()),\"raw source escapes root\"\n  assert digest(path)==(entry[\"sha256\"],entry[\"bytes\"]),\"raw artifact differs: \"+str(rel)\n  names.append(rel.as_posix())\n assert len(names)==len(set(names)),\"duplicate inventory paths\"\n actual={p.relative_to(root).as_posix() for p in root.rglob(\"*\") if p.is_file()}\n assert actual==set(names)|{\"manifest.json\",\"manifest.sha256\"},\"unmanifested/missing raw artifacts\"\n proposals=mc_rows=seed_files=0\n for path in sorted(root.glob(\"wave4-proof-raw-*.jsonl\")):\n  projection=json.loads(path.with_suffix(\".json\").read_text())\n  generations=[];pending=[];reference=None\n  with path.open() as stream:\n   for line in stream:\n    event=json.loads(line)\n    if event[\"event\"]==\"seed_reference\":\n     assert reference is None,\"duplicate seed reference\"\n     reference=event[\"individual\"]\n     assert projection[\"reference\"]==reference\n     assert projection[\"arm\"]==event[\"arm\"] and projection[\"seed\"]==event[\"seed\"]\n     assert projection[\"config\"]==event[\"config\"]==manifest[\"config\"]\n     for key in [\"campaign_id\",\"source_commit\",\"objective_sha256\"]:\n      assert projection[key]==event[\"identity\"][key]==manifest[\"identity\"][key]\n     assert len(event[\"mc_observations\"])==manifest[\"config\"][\"mc_samples\"]\n     mc_rows+=len(event[\"mc_observations\"])\n    elif event[\"event\"]==\"proposal\":\n     pending.append(event[\"proposal\"]);proposals+=1\n     samples=event[\"mc_observations\"]\n     expected=0 if event[\"proposal\"][\"individual\"] is None else manifest[\"config\"][\"mc_samples\"]\n     assert len(samples)==expected,\"MC row count differs from actual evaluation\"\n     mc_rows+=len(samples)\n    elif event[\"event\"]==\"survival\":\n     generations.append({k:event[k] for k in [\"generation\",\"active_ids\",\"pareto_hypervolume\"]}|{\"proposals\":pending})\n     pending=[]\n    else:\n     raise AssertionError(\"unknown seed event \"+event[\"event\"])\n  assert reference is not None and not pending\n  assert projection[\"generation_populations\"]==generations,\"JSON projection diverges from raw JSONL events\"\n  seed_files+=1\n holdout=json.loads((root/\"wave4-proof-raw-holdouts.json\").read_text())\n folds=[];subjects={}\n with (root/\"holdouts.jsonl\").open() as stream:\n  for line in stream:\n   event=json.loads(line)\n   if event[\"event\"]==\"fold\":folds.append(event[\"fold\"])\n   elif event[\"event\"]==\"fold_subject\":\n    assert event[\"subject_id\"] not in subjects,\"duplicate fold alias\"\n    subjects[event[\"subject_id\"]]=event[\"original_candidate\"]\n   else:raise AssertionError(\"unknown holdout event\")\n assert folds==holdout[\"folds\"],\"fold projection diverges from raw JSONL\"\n for fold in folds:\n  for name in fold[\"train_subject_ids\"]:assert name in subjects\n  for p in fold[\"predictions\"]:\n   assert p[\"subject_id\"] in subjects\n   assert p[\"target_cout\"]==subjects[p[\"subject_id\"]][\"mc_robustness\"][\"cout_sample_screen_upper_mg_l\"]\n ref_events=[json.loads(line) for line in (root/\"reference-baseline-ct35-b0.jsonl\").read_text().splitlines()]\n assert len(ref_events)==1\n assert ref_events[0][\"individual\"]==json.loads((root/\"wave4-proof-raw-reference.json\").read_text())[\"candidate\"]\n return {\"passed\":True,\"manifest_sha256\":checksum,\"files\":len(names),\"seed_streams\":seed_files,\"charged_proposal_events\":proposals,\"raw_MC_rows_in_seed_streams\":mc_rows,\"folds\":len(folds),\"fold_subjects\":len(subjects),\"identity\":manifest[\"identity\"],\"config\":manifest[\"config\"]}\n\nif __name__==\"__main__\":\n import sys\n print(json.dumps(verify_capture(sys.argv[1]),indent=2))\n",
+    "reproducer_sha256": "dd0e6465a14d7523a090b474f6d8ef96ed96e408107018eee044d1189f7d2122",
+    "command": "python3 <reproducer.py> RAW_ROOT",
+    "exit_code": 0,
+    "report_sha256": "51a829f02100ab571b6048ff48d6f01d7cbc173978d5fd6a45ac768cb37c8881"
+  },
+  "recomputed_number_trace": {
+    "path": "crates/joil-evidence/receipts/Wave4-raw-capture-number-trace.json",
+    "sha256": "ef05231ccea7e276128b9058723b060ba3b3a673374986cb037abe1e77581d38",
+    "includes": "Every seed/generation KPI, population median, proposal counts; bootstrap bands and final statistics; 16-test Holm family; extra equal-budget CT35 comparison; raw authored-family diagnostic residuals."
+  },
+  "vs_new_emitted_summary": {
+    "sha256": "4b561017946c73eba8165c6c92aa2409f4686f8e05d5b5818c51e48f1532a972",
+    "compared_leaves": 14243,
+    "numeric_or_structural_mismatches": [],
+    "coverage_gaps": []
+  },
+  "vs_original_published_summary": {
+    "path": "docs/results/wave4-evolution-proof-v1.json",
+    "kind": "new_reproducibility_campaign_vs_original_published_summary",
+    "original_sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+    "comparison": {
+      "compared_leaves": 14243,
+      "numeric_or_structural_mismatches": [],
+      "coverage_gaps": []
+    },
+    "scientific_scope_gaps": [
+      "Provided folds are authored-family screen diagnostics, not independent geometry holdouts."
+    ]
+  },
+  "comparison_reproducer_stdin_python": "import importlib.util, json\nfrom pathlib import Path\nspec = importlib.util.spec_from_file_location(\"raw_proof\", \"crates/joil-evidence/receipts/wave4_raw_proof.py\")\nm = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)\nraw_root = Path(RAW_ROOT)  # immutable TR campaign root from coordination handoff\nreport = m.audit(raw_root, raw_root / \"proof-summary.json\")\noriginal = json.loads(Path(\"docs/results/wave4-evolution-proof-v1.json\").read_text())\nprint(json.dumps({\"vs_emitted\": report[\"comparison\"], \"vs_original\": m.diff_summary(report[\"recomputed\"], original), \"scope_gaps\": report[\"gaps\"]}, indent=2))\n",
+  "initial_audit": {
+    "consumer_commit": "cf728a94232e31e338ed12230c8b7188696b6b14",
+    "report_sha256": "88f8c778a6c99a5b4c08f0c846d5a09ebf8b5425245436e12927d2228059eb58",
+    "state": "MISMATCH",
+    "comparison": {
+      "compared_leaves": 14243,
+      "numeric_or_structural_mismatches": [
+        {
+          "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/2/best_kpi_score/iqr",
+          "recomputed": 1.577395,
+          "recorded": 1.577394
+        },
+        {
+          "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/2/median_kpi_score/iqr",
+          "recomputed": 1.378432,
+          "recorded": 1.378431
+        },
+        {
+          "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/5/best_kpi_score/iqr",
+          "recomputed": 0.593701,
+          "recorded": 0.5937
+        },
+        {
+          "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/9/best_kpi_score/iqr",
+          "recomputed": 0.770514,
+          "recorded": 0.770515
+        },
+        {
+          "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/19/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 0.783677,
+          "recorded": 0.783676
+        },
+        {
+          "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/9/best_kpi_score/iqr",
+          "recomputed": 1.392918,
+          "recorded": 1.392919
+        },
+        {
+          "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/9/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 3.271742,
+          "recorded": 3.271743
+        },
+        {
+          "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/14/median_kpi_score/iqr",
+          "recomputed": 2.579874,
+          "recorded": 2.579873
+        },
+        {
+          "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/18/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 2.225747,
+          "recorded": 2.225748
+        },
+        {
+          "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/20/best_kpi_score/iqr",
+          "recomputed": 1.617748,
+          "recorded": 1.617749
+        },
+        {
+          "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/23/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 2.431541,
+          "recorded": 2.43154
+        },
+        {
+          "pointer": "/generation_band_curves/B1_Random_Search/1/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 1.36116,
+          "recorded": 1.361159
+        },
+        {
+          "pointer": "/generation_band_curves/B1_Random_Search/5/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 1.505979,
+          "recorded": 1.50598
+        },
+        {
+          "pointer": "/generation_band_curves/B1_Random_Search/13/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 1.671061,
+          "recorded": 1.67106
+        },
+        {
+          "pointer": "/generation_band_curves/B1_Random_Search/14/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 1.836943,
+          "recorded": 1.836942
+        },
+        {
+          "pointer": "/generation_band_curves/B1_Random_Search/15/median_kpi_score/mean",
+          "recomputed": 37.440307,
+          "recorded": 37.440306
+        },
+        {
+          "pointer": "/generation_band_curves/B1_Random_Search/19/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 1.626138,
+          "recorded": 1.626137
+        },
+        {
+          "pointer": "/generation_band_curves/B1_Random_Search/23/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 1.235955,
+          "recorded": 1.235956
+        },
+        {
+          "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/4/median_kpi_score/iqr",
+          "recomputed": 0.719187,
+          "recorded": 0.719188
+        },
+        {
+          "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/13/median_cout_sample_screen_upper_mg_l/mean",
+          "recomputed": 19.586476,
+          "recorded": 19.586477
+        },
+        {
+          "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/17/median_kpi_score/iqr",
+          "recomputed": 0.651931,
+          "recorded": 0.651932
+        },
+        {
+          "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/1/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 1.209613,
+          "recorded": 1.209612
+        },
+        {
+          "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/5/median_kpi_score/iqr",
+          "recomputed": 1.680006,
+          "recorded": 1.680007
+        },
+        {
+          "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/6/median_kpi_score/iqr",
+          "recomputed": 1.319296,
+          "recorded": 1.319297
+        },
+        {
+          "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/11/median_cout_sample_screen_upper_mg_l/iqr",
+          "recomputed": 1.19473,
+          "recorded": 1.194729
+        },
+        {
+          "pointer": "/pairwise_tests/0/mean_diff",
+          "recomputed": -0.804947,
+          "recorded": -0.804948
+        },
+        {
+          "pointer": "/pairwise_tests/9/mean_diff",
+          "recomputed": 9.98756,
+          "recorded": 9.987559
+        },
+        {
+          "pointer": "/pairwise_tests/13/mean_diff",
+          "recomputed": 5.771656,
+          "recorded": 5.771655
+        }
+      ],
+      "coverage_gaps": []
+    },
+    "cause": "23 IQR, 2 mean and 3 mean_diff leaves differ by 0.000001 at binary floating rounding boundaries. Rust uses weighted endpoint interpolation and left-to-right f64 accumulation. NumPy/statistics used other operation orders. Strict tolerances, producer records and both summaries unchanged.",
+    "fix": "Explicit ordered sums and weighted percentiles; Rust halfway-away-from-zero rounding; ten-value regression arrays with exact scalar expected values.",
+    "scalar_probe_sha256": "85b33149c0ec1e80274e46dd6a799f211db222d81debdb5597810374e9add74e"
+  },
+  "earlier_capture_checks": {
+    "tiny": {
+      "consumer_commit": "cf728a94232e31e338ed12230c8b7188696b6b14",
+      "integrity": {
+        "passed": true,
+        "manifest_sha256": "076c144c6c3a007b8ceed5ee554b852cac515cd0d93111cbb2b44a94cdd1aa24",
+        "files": 94,
+        "seed_streams": 30,
+        "charged_proposal_events": 120,
+        "raw_MC_rows_in_seed_streams": 600,
+        "folds": 11,
+        "fold_subjects": 32,
+        "identity": {
+          "argv": [
+            "/home/ubuntu/joil-wt/truth/target/debug/deps/truth_raw_capture-2a59ccfb5a51c943",
+            "--nocapture"
+          ],
+          "campaign_id": "wave4-repro-1792144072194023652-3836067",
+          "compiled_sources_sha256": {
+            "Cargo.lock": "0e50aa619e8bb91debb74f5961a28989b40143d57ca9d7d799a353d20ed4e618",
+            "evolve.rs": "95c8e36ce0c0a9d4518b763017839c12973d1ec701f443d7b5c59f496361268f",
+            "geometry.rs": "775db16568c5deac69cc5bf966fcf1048169b21d93f3a1608ad667e3da2ceeb4",
+            "phenotype.rs": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957",
+            "program.rs": "8c36a81149cdd5a05d3e368b5b9ef9ca41a9f836cfd8dbf45d967e7a22a7cc57",
+            "redteam.rs": "c18dc65241674494193f5d7ebd7c8d997bfa5c22661b98f294f32b45c7796b00",
+            "structure.rs": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c",
+            "surrogate.rs": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905"
+          },
+          "compiler": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: x86_64-unknown-linux-gnu\nrelease: 1.95.0\nLLVM version: 22.1.2",
+          "contract_status": "NEW; original Wave-4 raw records were never emitted",
+          "cpu_set": null,
+          "evidence_limitations": [
+            "prior-laden reduced screen",
+            "authored family folds are not independent geometry holdouts",
+            "CT35 repeated subjects are not independent physical replicates",
+            "archive hypervolume remains emitted telemetry"
+          ],
+          "evolution_config": {
+            "baseline_hydraulics": {
+              "dp_o_pa": 208358.5,
+              "dp_u_pa": 29468.22,
+              "mass_imbalance_rel": 4.6440003e-06,
+              "overflow_reverse_m3_s": 0.0,
+              "pdr": 7.108312,
+              "q_in_m3_s": 0.001111111,
+              "q_over_m3_s": 2.206626e-05,
+              "q_under_m3_s": 0.0010890499,
+              "specific_hydraulic_loss_j_m3": 33709.55,
+              "split_ratio": 0.019859632,
+              "underflow_reverse_m3_s": 0.0
+            },
+            "campaign_mode": "sandbox",
+            "crossover_rate": 0.58,
+            "cuda_bin_path": null,
+            "generations": 1,
+            "islands": 1,
+            "mc_samples": 4,
+            "migration_interval": 5,
+            "pop_per_island": 2,
+            "seed": 20261015
+          },
+          "evolution_config_sha256": "d45f54530d519fee8e540b6d19e5c82a858dd3b15b4159c7f6fa7e454af04308",
+          "executable_sha256": "0505b0e7022ac01bd17e4800261e51b5f4a973e7eb2f82406d17162d2a810fc6",
+          "models": {
+            "phenotype_compiler": {
+              "geometry_source_sha256": "775db16568c5deac69cc5bf966fcf1048169b21d93f3a1608ad667e3da2ceeb4",
+              "source_sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+            },
+            "reduced_screen": {
+              "calibration": "prior_laden_not_independently_validated",
+              "id": "joil.sandbox-reduced-prior",
+              "source_sha256": "95c8e36ce0c0a9d4518b763017839c12973d1ec701f443d7b5c59f496361268f"
+            },
+            "structural_screen": {
+              "kind": "analytic_screen_not_FEA",
+              "source_sha256": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c"
+            },
+            "surrogate": {
+              "acquisition_kernel_length_scale": 0.85,
+              "acquisition_noise": 0.015,
+              "fold_kernel_length_scale": 0.85,
+              "fold_noise": 0.02,
+              "source_sha256": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905"
+            }
+          },
+          "objective_sha256": "8fa5a06d18e128c8320e6ea566d90746a20b0cce1c356476b69439c65c0ecf28",
+          "rayon_num_threads": null,
+          "requirements": {
+            "id": "joil-hydrocyclone-v1",
+            "revision": "2",
+            "sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca"
+          },
+          "rng": {
+            "algorithm": "SplitMix64",
+            "fold_kernel_length_scale": 0.85,
+            "fold_noise": 0.02,
+            "gen0_seed": "master_seed XOR 0x517CC1B727220A95",
+            "master_seeds": [
+              4567,
+              4568,
+              4569,
+              4570,
+              4571
+            ],
+            "mc_seed": "master_seed XOR first_16_hex_digits(genome_sha256)",
+            "variation_seed": "master_seed"
+          },
+          "run_kind": "new_sandbox_reproducibility_run_not_original_campaign",
+          "source_commit": "d3dfce36b563e8940000efa7eb822dd9d20625bb",
+          "tracked_source_dirty": true
+        },
+        "config": {
+          "generations": 1,
+          "master_seeds": [
+            4567,
+            4568,
+            4569,
+            4570,
+            4571
+          ],
+          "mc_samples": 4,
+          "population_per_generation": 2,
+          "proposal_budget": 4,
+          "quality_limit_mg_l": 30.0
+        }
+      },
+      "comparison": {
+        "compared_leaves": 1363,
+        "numeric_or_structural_mismatches": [],
+        "coverage_gaps": []
+      },
+      "scientific_scope_gaps": [
+        "Provided folds are authored-family screen diagnostics, not independent geometry holdouts."
+      ],
+      "integrity_report_sha256": "7686384be12d74d334a0bc045846480ef67a65620541f9c2b7e82734ee0ee80c",
+      "numerical_report_sha256": "0e40f772ca467468483863c6bfe830511abffca2aff785d79b113db79a72de36"
+    },
+    "benchmark": {
+      "consumer_commit": "cf728a94232e31e338ed12230c8b7188696b6b14",
+      "integrity": {
+        "passed": true,
+        "manifest_sha256": "a7525a6cdebee6a32bb451573c32e0949584ff691d42fe10e02d374561812e84",
+        "files": 94,
+        "seed_streams": 30,
+        "charged_proposal_events": 13500,
+        "raw_MC_rows_in_seed_streams": 974160,
+        "folds": 11,
+        "fold_subjects": 32,
+        "identity": {
+          "argv": [
+            "target/release/joil-cli",
+            "wave3-proof",
+            "--seeds",
+            "20261101,20261102,20261103,20261104,20261105",
+            "--islands",
+            "2",
+            "--pop",
+            "9",
+            "--generations",
+            "24",
+            "--mc",
+            "72",
+            "--raw-dir",
+            ".private/truth-raw-capture/benchmark-raw",
+            "--out",
+            ".private/truth-raw-capture/benchmark-summary.json"
+          ],
+          "campaign_id": "wave4-repro-1792144387075865658-82831",
+          "compiled_sources_sha256": {
+            "Cargo.lock": "0e50aa619e8bb91debb74f5961a28989b40143d57ca9d7d799a353d20ed4e618",
+            "evolve.rs": "95c8e36ce0c0a9d4518b763017839c12973d1ec701f443d7b5c59f496361268f",
+            "geometry.rs": "775db16568c5deac69cc5bf966fcf1048169b21d93f3a1608ad667e3da2ceeb4",
+            "phenotype.rs": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957",
+            "program.rs": "8c36a81149cdd5a05d3e368b5b9ef9ca41a9f836cfd8dbf45d967e7a22a7cc57",
+            "redteam.rs": "c18dc65241674494193f5d7ebd7c8d997bfa5c22661b98f294f32b45c7796b00",
+            "structure.rs": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c",
+            "surrogate.rs": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905"
+          },
+          "compiler": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: x86_64-unknown-linux-gnu\nrelease: 1.95.0\nLLVM version: 22.1.2",
+          "contract_status": "NEW; original Wave-4 raw records were never emitted",
+          "cpu_set": "8,9,10,11,12,13,14,15",
+          "evidence_limitations": [
+            "prior-laden reduced screen",
+            "authored family folds are not independent geometry holdouts",
+            "CT35 repeated subjects are not independent physical replicates",
+            "archive hypervolume remains emitted telemetry"
+          ],
+          "evolution_config": {
+            "baseline_hydraulics": {
+              "dp_o_pa": 208358.5,
+              "dp_u_pa": 29468.22,
+              "mass_imbalance_rel": 4.6440003e-06,
+              "overflow_reverse_m3_s": 0.0,
+              "pdr": 7.108312,
+              "q_in_m3_s": 0.001111111,
+              "q_over_m3_s": 2.206626e-05,
+              "q_under_m3_s": 0.0010890499,
+              "specific_hydraulic_loss_j_m3": 33709.55,
+              "split_ratio": 0.019859632,
+              "underflow_reverse_m3_s": 0.0
+            },
+            "campaign_mode": "sandbox",
+            "crossover_rate": 0.58,
+            "cuda_bin_path": null,
+            "generations": 24,
+            "islands": 2,
+            "mc_samples": 72,
+            "migration_interval": 5,
+            "pop_per_island": 9,
+            "seed": 20261015
+          },
+          "evolution_config_sha256": "4c754b29333a9350d97560f16f7924af393939969574395a0be1c31b07c68cc2",
+          "executable_sha256": "c8ccc5b4985a6ca8f1d860c67ec4f8f1ecd2d5b7aec838201d0b5ad2aa96eade",
+          "models": {
+            "phenotype_compiler": {
+              "geometry_source_sha256": "775db16568c5deac69cc5bf966fcf1048169b21d93f3a1608ad667e3da2ceeb4",
+              "source_sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+            },
+            "reduced_screen": {
+              "calibration": "prior_laden_not_independently_validated",
+              "id": "joil.sandbox-reduced-prior",
+              "source_sha256": "95c8e36ce0c0a9d4518b763017839c12973d1ec701f443d7b5c59f496361268f"
+            },
+            "structural_screen": {
+              "kind": "analytic_screen_not_FEA",
+              "source_sha256": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c"
+            },
+            "surrogate": {
+              "acquisition_kernel_length_scale": 0.85,
+              "acquisition_noise": 0.015,
+              "fold_kernel_length_scale": 0.85,
+              "fold_noise": 0.02,
+              "source_sha256": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905"
+            }
+          },
+          "objective_sha256": "8fa5a06d18e128c8320e6ea566d90746a20b0cce1c356476b69439c65c0ecf28",
+          "rayon_num_threads": "8",
+          "requirements": {
+            "id": "joil-hydrocyclone-v1",
+            "revision": "2",
+            "sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca"
+          },
+          "rng": {
+            "algorithm": "SplitMix64",
+            "fold_kernel_length_scale": 0.85,
+            "fold_noise": 0.02,
+            "gen0_seed": "master_seed XOR 0x517CC1B727220A95",
+            "master_seeds": [
+              20261101,
+              20261102,
+              20261103,
+              20261104,
+              20261105
+            ],
+            "mc_seed": "master_seed XOR first_16_hex_digits(genome_sha256)",
+            "variation_seed": "master_seed"
+          },
+          "run_kind": "new_sandbox_reproducibility_run_not_original_campaign",
+          "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+          "tracked_source_dirty": false
+        },
+        "config": {
+          "generations": 24,
+          "master_seeds": [
+            20261101,
+            20261102,
+            20261103,
+            20261104,
+            20261105
+          ],
+          "mc_samples": 72,
+          "population_per_generation": 18,
+          "proposal_budget": 450,
+          "quality_limit_mg_l": 30.0
+        }
+      },
+      "comparison": {
+        "compared_leaves": 9643,
+        "numeric_or_structural_mismatches": [],
+        "coverage_gaps": []
+      },
+      "scientific_scope_gaps": [
+        "Provided folds are authored-family screen diagnostics, not independent geometry holdouts."
+      ],
+      "integrity_report_sha256": "c3787dbd7bc50dac811cb5043a10c77c94c86d859c3f31d178a16a24a5641b5e",
+      "numerical_report_sha256": "c0727a9d85fe1bc2a91722b0fbbfda2e9005ed32efe431e3ee0b0b0796a15aae"
+    }
+  },
+  "negative_controls": [
+    {
+      "negative": "changed_artifact_bytes",
+      "rejected": true,
+      "reason": "raw artifact differs: wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4567.json"
+    },
+    {
+      "negative": "projection_changed_with_rehashed_manifest",
+      "rejected": true,
+      "reason": "JSON projection diverges from raw JSONL events"
+    }
+  ],
+  "final_best_kpi_at_equal_450_charged_proposal_slots": {
+    "B3_Wave3_Exotic3D_QD_CEI": {
+      "n_seeds": 10,
+      "mean": 45.131872,
+      "std_dev": 0.581719,
+      "median": 45.178374,
+      "iqr": 0.573738,
+      "ci95_low": 44.778022,
+      "ci95_high": 45.452437
+    },
+    "B1_Random_Search": {
+      "n_seeds": 10,
+      "mean": 45.93682,
+      "std_dev": 0.545526,
+      "median": 45.906347,
+      "iqr": 0.876954,
+      "ci95_low": 45.615566,
+      "ci95_high": 46.265452
+    },
+    "B0_CT35_Equal_Budget": {
+      "n_seeds": 10,
+      "mean": 23.77549,
+      "std_dev": 0.408091,
+      "median": 23.639061,
+      "iqr": 0.602774,
+      "ci95_low": 23.547869,
+      "ci95_high": 24.02486
+    }
+  },
+  "joil_vs_random_search_best_kpi": {
+    "metric": "final_best_kpi_score",
+    "comparator_a": "B3_Wave3_Exotic3D_QD_CEI",
+    "comparator_b": "B1_Random_Search",
+    "mean_diff": -0.804948,
+    "median_diff": -0.727972,
+    "mann_whitney_u": 16.0,
+    "z_score": -2.5702,
+    "p_value_one_sided": 0.99491737,
+    "cliffs_delta": -0.68,
+    "p_value_holm_bonferroni": 1.0,
+    "statistically_significant_alpha_0025": false
+  },
+  "joil_vs_equal_budget_ct35_best_kpi_uncorrected_separate_test": {
+    "mean_diff": 21.356383,
+    "median_diff": 21.539313,
+    "mann_whitney_u": 100.0,
+    "z_score": 3.7796,
+    "p_value_one_sided": 7.855e-05,
+    "cliffs_delta": 1.0
+  },
+  "authored_family_diagnostics": [
+    {
+      "topology_class": "baseline-ct35",
+      "sample_count": 1,
+      "sandbox_authored_family_rmse_cout_mg_l": 5.65740308068672,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 23.931038
+    },
+    {
+      "topology_class": "bifurcated-quad-manifold",
+      "sample_count": 2,
+      "sandbox_authored_family_rmse_cout_mg_l": 5.334091538173242,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 0.0,
+      "held_out_best_kpi_score": 32.740092
+    },
+    {
+      "topology_class": "contoured-s-cone-skimmer",
+      "sample_count": 3,
+      "sandbox_authored_family_rmse_cout_mg_l": 2.1245808050831534,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 34.194461
+    },
+    {
+      "topology_class": "counter-fluted-recovery-vortex",
+      "sample_count": 2,
+      "sandbox_authored_family_rmse_cout_mg_l": 0.31771441980493115,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 45.26378
+    },
+    {
+      "topology_class": "cylindrical-gyroid-coalescer",
+      "sample_count": 4,
+      "sandbox_authored_family_rmse_cout_mg_l": 1.7304898553076666,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 45.787472
+    },
+    {
+      "topology_class": "helical-pitched-ribbon",
+      "sample_count": 3,
+      "sandbox_authored_family_rmse_cout_mg_l": 2.378800233823746,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 31.605194
+    },
+    {
+      "topology_class": "hybrid-omni-exotic",
+      "sample_count": 4,
+      "sandbox_authored_family_rmse_cout_mg_l": 3.231819900234961,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 41.842372
+    },
+    {
+      "topology_class": "octa-branch-helical-manifold",
+      "sample_count": 2,
+      "sandbox_authored_family_rmse_cout_mg_l": 1.9876138813762032,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 46.593857
+    },
+    {
+      "topology_class": "schwarz-p-rectifier-head",
+      "sample_count": 10,
+      "sandbox_authored_family_rmse_cout_mg_l": 2.3694175656656657,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 45.93634
+    },
+    {
+      "topology_class": "spiral-rifled-vortex-head",
+      "sample_count": 3,
+      "sandbox_authored_family_rmse_cout_mg_l": 1.0886877216136719,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 33.466058
+    },
+    {
+      "topology_class": "trifurcated-6jet-vortex-head",
+      "sample_count": 3,
+      "sandbox_authored_family_rmse_cout_mg_l": 1.4528003946897876,
+      "sandbox_authored_family_rmse_kpi_score": null,
+      "sandbox_authored_family_2sigma_coverage": 1.0,
+      "held_out_best_kpi_score": 44.717292
+    }
+  ],
+  "functional_tests": {
+    "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/wave4_raw_proof_tests.py -v",
+    "tests": 10,
+    "exit_code": 0,
+    "regressions": [
+      "IQR1.577394",
+      "mean37.440306",
+      "mean_diff-0.804948",
+      "rounding just below .5 and positive/negative .5"
+    ],
+    "negative_checks": [
+      "Missing raw, summary substitution, missing seeds and unequal budget reject",
+      "Modified mean and tiny p-value detected",
+      "Authored-family leakage rejects",
+      "Unavailable KPI RMSE remains null",
+      "Extra CT35 arm excluded from legacy16-test Holm family"
+    ],
+    "log_sha256": "511bba4dd4cba3722f52b1cb7ef3c314cbf258477db386ba5544f34b5e5590e3"
+  },
+  "full_gate": {
+    "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only} JOIL_WAVE4_INPUTS_ROOT=/home/ubuntu/joil/.private/wave4-inputs-all; rtk proxy python3 tools/check.py",
+    "exit_code": 0,
+    "all_requested_pass": true,
+    "receipt_sha256": "ec08dff1d15aee172f55dd5486864620d39b601b7daa21a92be656be993bbae3",
+    "input_head": "0cdd50d080c78fd91bca20ab7543ba2ed36d9022",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.07682773098349571,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.34168114903150126,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 6.241716990014538,
+        "log_bytes": 228,
+        "log_sha256": "bc3e41c13942adeeba7f3864f366dbfcb0d438306c7e110d5347e3ed68a93701"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 123.33197150903288,
+        "log_bytes": 12810,
+        "log_sha256": "18ebef30f00a2565f06bab8fd5a6e37067d9acf32697bf2ecd7ced1dd78fbc80"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.7102738780085929,
+        "log_bytes": 1096,
+        "log_sha256": "f301fec83913a730bb109aa895284c7bbc2a388e6fa2246e9eaa4e77d81616dc"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 58.30155774200102,
+        "log_bytes": 11787,
+        "log_sha256": "62adf482cdc3702586d8badf4fc82a62aa7911a1832372ce80a40b5dda3457cb"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.12490727001568303,
+        "log_bytes": 75,
+        "log_sha256": "f2ad335832dd2b8b176d5c89834172f2c9f83f933c2264aae5620ed15238027a"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 17.25429765600711,
+        "log_bytes": 224,
+        "log_sha256": "85f968339b71b75995aba3a41dffe7b44458ced2b94fcca8905682a9e79f4649"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 2.6975711000268348,
+        "log_bytes": 25,
+        "log_sha256": "42655418c228288a9dba4735657fb971df86f631b04c4ca47178142ac98df7fb"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 2.0200725799659267,
+        "log_bytes": 1904,
+        "log_sha256": "dba1ca8183f257379807898be925a9a1cde0283f2fcb9a31ebd5f0f179b9f1d2"
+      }
+    ],
+    "source_hashes": {
+      "crates/joil-evidence/receipts/wave4_raw_proof.py": "e029da2443231eeaee8e107f59bf49fff7714fd221e491c922d631b996bff210",
+      "crates/joil-evidence/receipts/wave4_raw_proof_tests.py": "21e09183b9bf201b3e53f1346a10a5fd232335b9daa8f40609a2c5da0e95bdc0",
+      "tests/test_evidence.py": "7d8080f56e073eb4a97d7e271ed77e6fa7de7f40443d8b5aa858c4642838a82f"
+    }
+  },
+  "limitations": [
+    "Provided folds are authored-family screen diagnostics, not independent geometry holdouts.",
+    "Authored family aliases identify run subjects; they are not independently measured disjoint geometry labels. Null KPI RMSE remains null. EV09 independent labels/OOD validation remains blocked.",
+    "Original five arms charge22500 proposal slots; the additional CT35 arm charges4500. Invalid/repaired states and actual survival IDs remain in the raw capture. CT35 repeats are not independent physical replicates.",
+    "KPI recomputation starts from candidate MC quantiles. Every raw MC row is retained/hashed and projection-bound; EV does not re-evaluate the physical model or independently regenerate the samples. Archive hypervolume is emitted telemetry, not independently integrated.",
+    "Three-arm final KPI statistics are comparisons within a prior-laden sandbox. Best JOIL KPI does not beat uniform random search; the one-sided test is consistent with that result.",
+    "EV12 writer five NEEDs remain unresolved. Current manifest refresh lists3 active PASS and8 quarantine FAIL; one previously quarantined G1 case is now absent with unknown disposition, not recovered. Previous12-case receipt is preserved. This raw proof comparison does not close EV12.",
+    "Final receipts and coordination metadata were written after the full gate; executable/test source hashes remain identical to the successful gate. Final public and diff checks run again before push. Preserved input regression enabled; default EV-local original-run test skips without local runs, while actual every-run audit is separately reported as failed."
+  ],
+  "next_dependency": "IR writer fixes + INT final-case handoff for manifest audit refresh; independent observations dataset and geometry/mechanism holdout for EV09.",
+  "post_consumer_source_binding": {
+    "consumer_projection_hashes_match_verified_manifest": 62,
+    "summary_matches_manifest": true,
+    "manifest_unchanged": true,
+    "producer_commit_sources_match_manifest": [
+      "Cargo.lock",
+      "crates/joil-core/src/evolve.rs",
+      "crates/joil-core/src/geometry.rs",
+      "crates/joil-core/src/phenotype.rs",
+      "crates/joil-core/src/program.rs",
+      "crates/joil-core/src/redteam.rs",
+      "crates/joil-core/src/structure.rs",
+      "crates/joil-core/src/surrogate.rs"
+    ],
+    "retained_producer_executable_matches_manifest": true,
+    "report_sha256": "4a28249db0ec854d9d75aa408c94e30aa81724cfd7a77eb68ada1fc48ddeb8f9"
+  },
+  "full_recomputation": {
+    "command": ".private/ci-python/bin/python - (import wave4_raw_proof.py; audit(RAW_ROOT, RAW_ROOT/proof-summary.json); diff_summary(recomputed, original_summary))",
+    "exit_code": 0,
+    "wall_seconds": 25.66179053101223,
+    "audit_semantic_state": "BLOCKED",
+    "expected_cli_exit_code": 2,
+    "reason": "Numerical comparisons match; authored-family diagnostic scope is not independent geometry validation."
+  },
+  "every_run_refresh": {
+    "path": "crates/joil-evidence/receipts/EV12-every-run-audit-refresh.json",
+    "sha256": "bb60b530d7caa3ca078e9ec98c8ddd3b7a94940b9dbdf6c6a33b663d4052ba8a",
+    "present_case_count": 11,
+    "active_pass": 3,
+    "quarantined_fail": 8,
+    "previously_listed_G1_now_absent": true,
+    "overall_ev12_closed": false,
+    "next": "INT retention/disposition and final3grid handoff; IR five writer fixes"
+  }
+}

@@ -60,7 +60,7 @@ class EvidenceTests(unittest.TestCase):
         suite = unittest.defaultTestLoader.loadTestsFromModule(module)
         result = unittest.TestResult()
         suite.run(result)
-        self.assertEqual(result.testsRun, 9)
+        self.assertEqual(result.testsRun, 10)
         self.assertTrue(result.wasSuccessful(), result.errors+result.failures)
 
     def _synthetic_wave4_case(self, runs, name):
