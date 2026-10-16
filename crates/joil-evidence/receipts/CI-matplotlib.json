@@ -1,0 +1,290 @@
+{
+  "item": "CI-MATPLOTLIB",
+  "kind": "software_dependency_repair_not_physical_validation",
+  "verified_at_utc": "2026-10-16T06:45:36Z",
+  "input_head": "0139ca0c0c81b16de13e8b9d74330c5398dd5c84",
+  "upstream_failure": {
+    "pr": 3,
+    "run_id": 38860402402,
+    "suite": "python-tests",
+    "error": "ModuleNotFoundError: No module named 'matplotlib'"
+  },
+  "changed_paths": [
+    ".github/workflows/foundation.yml",
+    ".agent/JOIL-COORD.md",
+    "crates/joil-evidence/receipts/CI-matplotlib.json"
+  ],
+  "workflow_sha256": "6efb6e91ddf446539271fc0eb90f9240d690c77ce3b1454e351dd5bbae02a424",
+  "implementation": "Only python-tests installs matplotlib==3.10.8 in a repository-local venv; GITHUB_PATH selects its interpreter for check.py. Pip and Matplotlib caches stay project-local. Plotting imports and deliverables are retained.",
+  "environment": {
+    "python": "3.12.3",
+    "matplotlib": "3.10.8",
+    "numpy": "2.5.4",
+    "pip_freeze_sha256": "96e48e993f90c75867812a7ed11e826329e37c9c7fa78da77b1ba04233b06568",
+    "isolated_from_system_site_packages": true
+  },
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "venv",
+        ".private/ci-python"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        ".private/ci-python/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_evidence.py",
+        "-k",
+        "test_tr07_int05_python_gci_order_and_wave2_v2_reports",
+        "-v"
+      ],
+      "phase": "before_dependency_install",
+      "exit_code": 1,
+      "expected_negative": "ModuleNotFoundError: No module named 'matplotlib'",
+      "log": {
+        "path": ".private/ci-matplotlib-before.log",
+        "sha256": "b932f02754453c7c2df364e891712ed87d2655709f9477e128e8ca130e3e455a"
+      }
+    },
+    {
+      "command": [
+        ".private/ci-python/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--disable-pip-version-check",
+        "--cache-dir",
+        ".private/pip-cache",
+        "matplotlib==3.10.8"
+      ],
+      "exit_code": 0,
+      "log": {
+        "path": ".private/ci-matplotlib-install.log",
+        "sha256": "55239034654dedb60b6dbada7e82b41935ad836882987de4021534338a246fc2"
+      }
+    },
+    {
+      "command": [
+        ".private/ci-python/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_evidence.py",
+        "-k",
+        "test_tr07_int05_python_gci_order_and_wave2_v2_reports",
+        "-v"
+      ],
+      "phase": "after_dependency_install",
+      "exit_code": 0,
+      "log": {
+        "path": ".private/ci-matplotlib-after.log",
+        "sha256": "8a441255aba7522aa39a10697c42b03324ae692da6c50a6d0f1eadd5ece82dcc"
+      }
+    },
+    {
+      "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only}; python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "d85ed4f9c48568cb717c2dd998adfacfec8ae7753bd060b7302b99b04db719f5",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.041535704978741705,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.2975768049946055,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 6.759561294980813,
+          "log_bytes": 390,
+          "log_sha256": "c6750b5ea892e129e679847d422ead1b5cd45f0e607fb25e4558e32bdcb96b45"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 73.0502174369758,
+          "log_bytes": 11636,
+          "log_sha256": "59c70e53c803b8551ddbb6eca1fb59e6acfa82c6081c2bf71083fd9a1c091e3f"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.6582274949760176,
+          "log_bytes": 1096,
+          "log_sha256": "847625bd32f71762cca0baecae53e7af2b95fbbb5efaaec253c6727537f2db84"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 7.856335614982527,
+          "log_bytes": 6947,
+          "log_sha256": "878b010b64ad0dcece22809596ddcbcc43d709d6aab7db17493e5a1a6fe98dfb"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.09327298001153395,
+          "log_bytes": 75,
+          "log_sha256": "923cc4be5d2fd275590c23899baa970f39401e8b38e39645af9c6ec85c94ebb1"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 8.396556505991612,
+          "log_bytes": 224,
+          "log_sha256": "2a39798a70819e5493fb1ce447c42269b0c9162aa8e4224240f13260ec1a630b"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 1.367716473992914,
+          "log_bytes": 25,
+          "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 2.355962644040119,
+          "log_bytes": 1904,
+          "log_sha256": "d3789c1c32adf814cfd6b516eb5daeff9bbc0bf4a2e4d9b8f1dc1b780978a11f"
+        }
+      ]
+    },
+    {
+      "command": [
+        "actionlint",
+        ".github/workflows/foundation.yml"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "positive_checks": [
+    {
+      "description": "Verified sys.prefix differs from sys.base_prefix, user site is disabled, Matplotlib loads from the venv, and its version equals 3.10.8.",
+      "exit_code": 0,
+      "log": {
+        "path": ".private/ci-matplotlib-isolation.log",
+        "sha256": "a2c1c527b150a5f623a9eb57689188152171d501bcac1a9443f087b51df15c31"
+      }
+    },
+    {
+      "description": "Agg backend PNG render through the venv interpreter.",
+      "exit_code": 0,
+      "log": {
+        "path": ".private/ci-matplotlib-render.log",
+        "sha256": "087f1c6db5731f6264e476e32fb109e38701e3e44349ad06ea91a2122dbab45a"
+      },
+      "artifact_sha256": "292455348bb7b3dcf3cd9fd32628a7cb2e84a911aaf0686abd917a1406dbfdd0",
+      "artifact_bytes": 17291
+    }
+  ],
+  "limitations": [
+    "Local checks only; PR CI must rerun after INT integrates this lane commit.",
+    "Matplotlib is pinned; its transitive dependencies are resolved by pip.",
+    "EV-06 physical admission stays blocked: no new source for unresolved physical limits or validation was supplied."
+  ],
+  "next_dependency": "INT (agy_joil) merges the pushed lane/evidence commit into feat/joil-v4-truth-evidence and verifies PR #3 CI; no PR merge by EV."
+}

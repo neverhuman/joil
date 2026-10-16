@@ -26,9 +26,30 @@ CFD_JSON = ROOT / 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json'
 HERO_OUT = ROOT / 'docs/figures/wave3-readme-hero-kpi-and-elite.png'
 PLATE11_OUT = ROOT / 'docs/figures/wave3-evolution-ablation-and-lineage-proof.png'
 
+WAVE4_JSON = ROOT / 'docs/results/wave4-evolution-proof-v1.json'
+CFD_V2_JSON = ROOT / 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json'
+ELITE_V2_JSON = ROOT / 'docs/results/elite-3grid-gci-and-rsm-verification-v2.json'
+WAVE4_HERO_OUT = ROOT / 'docs/figures/wave4-readme-hero-kpi-and-elite.png'
+WAVE4_PLATE_OUT = ROOT / 'docs/figures/wave4-evolution-ablation-and-lineage-proof.png'
+
 
 def file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _get(d: dict, *keys: str):
+    for k in keys:
+        if k in d and d[k] is not None:
+            return d[k]
+    raise KeyError(f'None of {keys} in {list(d.keys())}')
+
+
+def _mc_cout(mc: dict) -> float:
+    return float(_get(mc, 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l', 'cout_sample_screen_upper_mg_l'))
+
+
+def _b1_key(mapping: dict) -> str:
+    return 'B1_Uniform_Random' if 'B1_Uniform_Random' in mapping else 'B1_Random_Search'
 
 
 def write_manifest(png_path: Path, title: str, sources: list[Path]) -> dict[str, str]:
@@ -52,7 +73,17 @@ def write_manifest(png_path: Path, title: str, sources: list[Path]) -> dict[str,
     return {'png_sha256': png_sha, 'manifest_sha256': file_sha256(manifest_path)}
 
 
-def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None:
+def generate_readme_hero(
+    w3: dict,
+    cfd: dict,
+    w3_sha: str,
+    cfd_sha: str,
+    out_path: Path = HERO_OUT,
+    wave_label: str = 'Wave-3',
+    w1_gci_pct: float = 5.019376028759711,
+    proof_filename: str = 'wave3-evolution-proof-v1.json',
+    cfd_filename: str = 'wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json',
+) -> None:
     plt.rcParams.update({
         'font.family': 'DejaVu Sans',
         'font.size': 9.5,
@@ -65,10 +96,11 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
     fig = plt.figure(figsize=(15.5, 10.6), dpi=180, facecolor='#F8FAFC')
     gs = fig.add_gridspec(2, 2, hspace=0.33, wspace=0.24, left=0.06, right=0.97, top=0.89, bottom=0.08)
 
+    mc_n = int(w3.get('mc_samples_per_candidate', 28))
     fig.suptitle(
-        'Joil Wave-3 De-Novo Evolutionary Proof: Per-Generation KPI Trajectory (n = 10 Seeds, 22,500 3D Evals)\n'
+        f'Joil {wave_label} De-Novo Evolutionary Screen Proof: Per-Generation KPI Trajectory (n = 10 Seeds, 22,500 3D Evals, MC n={mc_n})\n'
         '& 15-Run 3D OpenFOAM 14 G0/G1/G2 + LRR/SSG RSM Verification vs. CT-35 Baseline',
-        fontsize=13.5,
+        fontsize=13.2,
         fontweight='bold',
         color='#0F172A',
         y=0.965,
@@ -76,8 +108,8 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
     fig.text(
         0.5,
         0.922,
-        f'Source Receipts: wave3-evolution-proof-v1.json (SHA-256: {w3_sha[:16]}…) | '
-        f'wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json (SHA-256: {cfd_sha[:16]}…) | '
+        f'Source Receipts: {proof_filename} (SHA-256: {w3_sha[:16]}…) | '
+        f'{cfd_filename} (SHA-256: {cfd_sha[:16]}…) | '
         'Shared Unseeded Gen-0 Init across B2, A1, A2, B3',
         ha='center',
         fontsize=8.1,
@@ -87,13 +119,14 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
 
     bands_map = w3['generation_band_curves']
     outcomes_map = w3['arm_outcomes']
+    b1_k = _b1_key(bands_map)
     gens = np.array([b['generation'] for b in bands_map['B3_Wave3_Exotic3D_QD_CEI']])
     base_kpi = float(w3['baseline_b0_ct35_kpi_score'])
-    base_cout = float(w3['baseline_b0_ct35_cout_p95_mg_l'])
+    base_cout = float(_get(w3, 'baseline_b0_ct35_cout_p95_mg_l', 'baseline_b0_ct35_cout_sample_screen_upper_mg_l'))
 
     arm_styles = [
-        ('B3_Wave3_Exotic3D_QD_CEI', 'B3: Wave-3 Exotic3D-QD-CEI (Full Evolution)', '#0284C7', '-', 2.6),
-        ('B1_Random_Search', 'B1: Equal-Budget Random Search (Exotic 3D)', '#D97706', '--', 2.1),
+        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label} Exotic3D-QD-CEI (Full Evolution)', '#0284C7', '-', 2.6),
+        (b1_k, 'B1: Equal-Budget Uniform Random (Exotic 3D)', '#D97706', '--', 2.1),
         ('A1_No_Mutation_Crossover_Only', 'A1: No-Mutation (Crossover-Only Ablation)', '#7C3AED', '-.', 2.0),
         ('A2_No_Selection_Random_Walk', 'A2: No-Selection (Random-Walk Ablation)', '#DC2626', ':', 2.0),
         ('B2_Conventional_Axisym_NSGA2', 'B2: Conventional Axisym NSGA-II (2-Port)', '#475569', '--', 1.9),
@@ -119,13 +152,13 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
 
     # Also plot B3 and B1 population medians to prove population-wide learning vs flat random median
     b3_med = np.array([b['median_kpi_score']['mean'] for b in bands_map['B3_Wave3_Exotic3D_QD_CEI']])
-    b1_med = np.array([b['median_kpi_score']['mean'] for b in bands_map['B1_Random_Search']])
+    b1_med = np.array([b['median_kpi_score']['mean'] for b in bands_map[b1_k]])
     a2_med = np.array([b['median_kpi_score']['mean'] for b in bands_map['A2_No_Selection_Random_Walk']])
     ax_a.plot(gens, b3_med, color='#0369A1', linestyle=':', linewidth=1.8, label=f'B3 Active Population Median [{b3_med[-1]:.2f}]')
     ax_a.plot(gens, b1_med, color='#B45309', linestyle=':', linewidth=1.4, label=f'B1 Random Batch Median [{b1_med[-1]:.2f}]')
     ax_a.plot(gens, a2_med, color='#991B1B', linestyle=':', linewidth=1.3, label=f'A2 No-Selection Pop Median [{a2_med[-1]:.2f}]')
 
-    ax_a.set_title('A. Composite KPI Score vs. Generation (n = 10 Seeds, Mean ± 95% Bootstrap CI)')
+    ax_a.set_title('A. Composite Screen KPI Score vs. Generation (n = 10 Seeds, Mean ± 95% Bootstrap CI)')
     ax_a.set_xlabel('Evolutionary Generation g [-] (18 3D Evals/Gen, 450 Total Evals/Seed)')
     ax_a.set_ylabel('Composite KPI_score [-] (analysis/kpi_fitness.py, Higher = Better)')
     ax_a.set_xlim(0, gens[-1])
@@ -139,26 +172,26 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
     ax_b.axhline(base_cout, color='#1E293B', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Baseline ({base_cout:.2f} mg/L)')
 
     for o in outcomes_map['B3_Wave3_Exotic3D_QD_CEI']:
-        y_seed = [s['best_cout_p95_mg_l'] for s in o['generation_trace']]
+        y_seed = [float(_get(s, 'best_cout_p95_mg_l', 'best_cout_sample_screen_upper_mg_l')) for s in o['generation_trace']]
         ax_b.plot(gens, y_seed, color='#38BDF8', alpha=0.22, linewidth=0.8)
 
     for key, label, col, ls, lw in arm_styles:
         b_list = bands_map[key]
-        mean_v = np.array([b['best_cout_p95_mg_l']['mean'] for b in b_list])
-        lo_v = np.array([b['best_cout_p95_mg_l']['ci95_low'] for b in b_list])
-        hi_v = np.array([b['best_cout_p95_mg_l']['ci95_high'] for b in b_list])
+        mean_v = np.array([float(_get(b, 'best_cout_p95_mg_l', 'best_cout_sample_screen_upper_mg_l')['mean']) for b in b_list])
+        lo_v = np.array([float(_get(b, 'best_cout_p95_mg_l', 'best_cout_sample_screen_upper_mg_l')['ci95_low']) for b in b_list])
+        hi_v = np.array([float(_get(b, 'best_cout_p95_mg_l', 'best_cout_sample_screen_upper_mg_l')['ci95_high']) for b in b_list])
         short_lbl = label.split('(')[0].strip()
         ax_b.plot(gens, mean_v, color=col, linestyle=ls, linewidth=lw, label=f'{short_lbl} [Best: {mean_v[-1]:.2f} mg/L]')
         ax_b.fill_between(gens, lo_v, hi_v, color=col, alpha=0.16)
 
-    b3_med_c = np.array([b['median_cout_p95_mg_l']['mean'] for b in bands_map['B3_Wave3_Exotic3D_QD_CEI']])
-    b1_med_c = np.array([b['median_cout_p95_mg_l']['mean'] for b in bands_map['B1_Random_Search']])
+    b3_med_c = np.array([float(_get(b, 'median_cout_p95_mg_l', 'median_cout_sample_screen_upper_mg_l')['mean']) for b in bands_map['B3_Wave3_Exotic3D_QD_CEI']])
+    b1_med_c = np.array([float(_get(b, 'median_cout_p95_mg_l', 'median_cout_sample_screen_upper_mg_l')['mean']) for b in bands_map[b1_k]])
     ax_b.plot(gens, b3_med_c, color='#0369A1', linestyle=':', linewidth=1.8, label=f'B3 Active Pop Median [{b3_med_c[-1]:.2f} mg/L]')
     ax_b.plot(gens, b1_med_c, color='#B45309', linestyle=':', linewidth=1.4, label=f'B1 Random Batch Median [{b1_med_c[-1]:.2f} mg/L]')
 
-    ax_b.set_title('B. De-Novo Evolution of Robust Oil Concentration C_out,p95 [mg/L] (n = 10 Seeds)')
+    ax_b.set_title('B. De-Novo Evolution of Screen Oil Concentration C_out,p95 [mg/L] (n = 10 Seeds)')
     ax_b.set_xlabel('Evolutionary Generation g [-] (Shared Unseeded Gen-0 Init at g = 0)')
-    ax_b.set_ylabel('Robust Treated-Water Oil C_out,p95 [mg/L] (Lower = Better)')
+    ax_b.set_ylabel('Screen Treated-Water Oil C_out,p95 [mg/L] (Lower = Better)')
     ax_b.set_xlim(0, gens[-1])
     ax_b.grid(True, linestyle='--', alpha=0.35)
     ax_b.legend(loc='upper right', fontsize=7.4, framealpha=0.94)
@@ -192,7 +225,7 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
         fontsize=7.6,
     )
 
-    # Right sub-diagram: Evolved Wave-3 B3 Elite (6/8-Jet Helical Manifold + Cylindrical-Gyroid TPMS Sleeve + Unobstructed Core)
+    # Right sub-diagram: Evolved B3 Elite
     c_outer = Circle((68, 36.2), 13.8, facecolor='#0F172A', edgecolor='#38BDF8', linewidth=2.2)
     ax_c.add_patch(c_outer)
     # Annular TPMS sleeve r in [0.70R, R]
@@ -215,8 +248,8 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
 
     top_el = w3['promoted_wave3_top_elite']
     top_kpi = float(w3['promoted_wave3_top_elite_kpi_score'])
-    top_cout = float(top_el['mc_robustness']['cout_p95_mg_l'])
-    base_cout_val = float(w3['baseline_b0_ct35_cout_p95_mg_l'])
+    top_cout = _mc_cout(top_el['mc_robustness'])
+    base_cout_val = float(_get(w3, 'baseline_b0_ct35_cout_p95_mg_l', 'baseline_b0_ct35_cout_sample_screen_upper_mg_l'))
     top_cout_red_pct = (top_cout - base_cout_val) / base_cout_val * 100.0
     ax_c.text(68, 54.5, f'Evolved B3 Elite ({top_el["topology_class"]})', color='#38BDF8', fontweight='bold', ha='center', fontsize=9.0)
     ax_c.text(
@@ -268,11 +301,23 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
         float(tpms_row['openfoam_ssg_dp_u_pa']) / 1000.0,
         float(octa_row['openfoam_ssg_dp_u_pa']) / 1000.0,
     ]
+    def _gci_kpa(g2_val_kpa: float, gci_dp: dict) -> float:
+        pct = gci_dp.get('gci21_standard_fs125_pct')
+        if pct is not None:
+            return g2_val_kpa * float(pct) / 100.0
+        hs_pct = gci_dp.get('three_grid_half_span_pct_of_f2')
+        if hs_pct is not None:
+            return g2_val_kpa * float(hs_pct) / 100.0
+        hr = gci_dp.get('half_range_uncertainty')
+        if hr is not None:
+            return float(hr) / 1000.0
+        return 0.0
+
     gci_err_kpa = [
         0.0,
-        g2_dp_kpa[1] * 5.019376028759711 / 100.0,
-        g2_dp_kpa[2] * float(tpms_dossier['roache_gci_analysis']['dp_u_pa']['gci21_standard_fs125_pct']) / 100.0,
-        g2_dp_kpa[3] * float(octa_dossier['roache_gci_analysis']['dp_u_pa']['gci21_standard_fs125_pct']) / 100.0,
+        g2_dp_kpa[1] * w1_gci_pct / 100.0,
+        _gci_kpa(g2_dp_kpa[2], tpms_dossier['roache_gci_analysis']['dp_u_pa']),
+        _gci_kpa(g2_dp_kpa[3], octa_dossier['roache_gci_analysis']['dp_u_pa']),
     ]
 
     x_pos = np.arange(len(labels_d))
@@ -296,12 +341,18 @@ def generate_readme_hero(w3: dict, cfd: dict, w3_sha: str, cfd_sha: str) -> None
     ax_d.grid(True, axis='y', linestyle='--', alpha=0.35)
     ax_d.legend(loc='upper right', fontsize=7.6, framealpha=0.94)
 
-    HERO_OUT.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(HERO_OUT, dpi=180)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path, dpi=180)
     plt.close(fig)
 
 
-def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
+def generate_plate11_proof(
+    w3: dict,
+    w3_sha: str,
+    out_path: Path = PLATE11_OUT,
+    wave_label: str = 'Wave-3',
+    proof_filename: str = 'docs/results/wave3-evolution-proof-v1.json',
+) -> None:
     plt.rcParams.update({
         'font.family': 'DejaVu Sans',
         'font.size': 9.2,
@@ -314,8 +365,9 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
     fig = plt.figure(figsize=(15.5, 10.8), dpi=180, facecolor='#F8FAFC')
     gs = fig.add_gridspec(2, 2, hspace=0.34, wspace=0.25, left=0.06, right=0.97, top=0.89, bottom=0.08)
 
+    mc_n = int(w3.get('mc_samples_per_candidate', 28))
     fig.suptitle(
-        'Plate 11 — Wave-3 Evolutionary Proof: 6-Arm Ablation (n = 10 Seeds), De-Novo Phylogenetic Lineage,\n'
+        f'Plate 11 — {wave_label} Evolutionary Screen Proof: 6-Arm Ablation (n = 10 Seeds), De-Novo Phylogenetic Lineage,\n'
         'Population Diversity Dynamics & 11-Family Held-Out Geometry Generalization',
         fontsize=13.2,
         fontweight='bold',
@@ -325,8 +377,8 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
     fig.text(
         0.5,
         0.922,
-        f'Source Receipt: docs/results/wave3-evolution-proof-v1.json (SHA-256: {w3_sha}) | '
-        'n = 10 Independent Seeds × 25 Generations × 18 Evals/Gen = 22,500 Real 3D Evaluations',
+        f'Source Receipt: {proof_filename} (SHA-256: {w3_sha}) | '
+        f'n = 10 Independent Seeds × 25 Generations × 18 Evals/Gen = 22,500 Real 3D Evaluations (MC n={mc_n})',
         ha='center',
         fontsize=8.4,
         color='#334155',
@@ -336,6 +388,7 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
     outcomes_map = w3['arm_outcomes']
     stats_map = w3['final_summary_statistics']
     bands_map = w3['generation_band_curves']
+    b1_k = _b1_key(bands_map)
     base_kpi = float(w3['baseline_b0_ct35_kpi_score'])
 
     # Panel A: Final KPI_score across all 6 Arms with per-seed scatter + 95% Bootstrap CI + Mann-Whitney p / Cliff's delta
@@ -346,8 +399,8 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
         ('B2_Conventional_Axisym_NSGA2', 'B2: Axisym\nNSGA-II', '#475569'),
         ('A2_No_Selection_Random_Walk', 'A2: No-Selection\n(Random Walk)', '#DC2626'),
         ('A1_No_Mutation_Crossover_Only', 'A1: No-Mutation\n(Crossover Only)', '#7C3AED'),
-        ('B1_Random_Search', 'B1: Equal-Budget\nRandom Search', '#D97706'),
-        ('B3_Wave3_Exotic3D_QD_CEI', 'B3: Wave-3\nExotic3D-QD-CEI', '#0284C7'),
+        (b1_k, 'B1: Equal-Budget\nUniform Random', '#D97706'),
+        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label}\nExotic3D-QD-CEI', '#0284C7'),
     ]
 
     x_idx = np.arange(len(arm_order))
@@ -397,7 +450,7 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
     for idx, m_val in enumerate(means):
         ax_a.text(idx, m_val + ci_highs[idx] + 0.55, f'{m_val:.2f}', ha='center', fontsize=8.3, fontweight='bold')
 
-    ax_a.set_title('A. Final Composite KPI Score Across 6 Comparator/Ablation Arms (n = 10 Seeds ± 95% CI)')
+    ax_a.set_title('A. Final Composite Screen KPI Score Across 6 Comparator/Ablation Arms (n = 10 Seeds ± 95% CI)')
     ax_a.set_xticks(x_idx)
     ax_a.set_xticklabels([x[1] for x in arm_order], fontsize=8.1)
     ax_a.set_ylabel('Final Composite KPI_score [-] (analysis/kpi_fitness.py)')
@@ -410,7 +463,7 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
         for t in w3['pairwise_tests']
         if t['comparator_a'] == 'B3_Wave3_Exotic3D_QD_CEI'
     }
-    t_b1 = tests[('final_best_kpi_score', 'B1_Random_Search')]
+    t_b1 = tests[('final_best_kpi_score', b1_k)]
     t_a1 = tests[('final_best_kpi_score', 'A1_No_Mutation_Crossover_Only')]
     t_a2 = tests[('final_best_kpi_score', 'A2_No_Selection_Random_Walk')]
     ax_a.text(
@@ -488,8 +541,8 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
     ax_c.set_facecolor('#FFFFFF')
     gens = np.array([b['generation'] for b in bands_map['B3_Wave3_Exotic3D_QD_CEI']])
     for key, label, col, ls in [
-        ('B3_Wave3_Exotic3D_QD_CEI', 'B3: Wave-3 Exotic3D-QD-CEI (Sustained QD Diversity)', '#0284C7', '-'),
-        ('B1_Random_Search', 'B1: Random Search (Unfocused Uniform Sampling)', '#D97706', '--'),
+        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label} Exotic3D-QD-CEI (Sustained QD Diversity)', '#0284C7', '-'),
+        (b1_k, 'B1: Uniform Random (Unfocused Sampling)', '#D97706', '--'),
         ('A2_No_Selection_Random_Walk', 'A2: No-Selection Random Walk', '#DC2626', ':'),
         ('A1_No_Mutation_Crossover_Only', 'A1: No-Mutation (Premature Diversity Collapse)', '#7C3AED', '-.'),
         ('B2_Conventional_Axisym_NSGA2', 'B2: Axisym NSGA-II (Single-Family Ceiling)', '#475569', '--'),
@@ -513,11 +566,11 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
     ax_d.set_facecolor('#FFFFFF')
     held_out = sorted(
         w3['held_out_geometry_generalization'],
-        key=lambda r: float(r['held_out_best_kpi_score']),
+        key=lambda r: float(r.get('held_out_best_kpi_score') or -1e9),
     )
     fams = [r['topology_class'].replace('-vortex-head', '').replace('-coalescer', '') for r in held_out]
-    kpis_ho = [float(r['held_out_best_kpi_score']) for r in held_out]
-    rmses_ho = [float(r['lofo_surrogate_rmse_kpi_score']) for r in held_out]
+    kpis_ho = [float(r.get('held_out_best_kpi_score') or 0.0) for r in held_out]
+    rmses_ho = [float(r.get('lofo_surrogate_rmse_kpi_score') or 0.0) for r in held_out]
     disc_ho = [int(r['de_novo_rediscovery_seeds']) for r in held_out]
 
     y_pos = np.arange(len(fams))
@@ -545,39 +598,98 @@ def generate_plate11_proof(w3: dict, w3_sha: str) -> None:
     ax_d.grid(True, axis='x', linestyle='--', alpha=0.35)
     ax_d.legend(loc='lower right', fontsize=7.5, framealpha=0.94)
 
-    PLATE11_OUT.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(PLATE11_OUT, dpi=180)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_path, dpi=180)
     plt.close(fig)
 
 
 def main() -> None:
-    w3 = json.loads(WAVE3_JSON.read_text(encoding='utf-8'))
-    cfd = json.loads(CFD_JSON.read_text(encoding='utf-8'))
-    w3_sha = file_sha256(WAVE3_JSON)
-    cfd_sha = file_sha256(CFD_JSON)
+    import argparse
 
-    generate_readme_hero(w3, cfd, w3_sha, cfd_sha)
-    hero_meta = write_manifest(
-        HERO_OUT,
-        'Wave-3 README Hero Plot: Per-Generation KPI Trajectory (n=10 Seeds, 22,500 3D Evals) & 15-Run OpenFOAM 14 Elite Verification',
-        [WAVE3_JSON, CFD_JSON],
-    )
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--wave4-only', action='store_true', help='Generate only Wave-4 figures without touching Wave-3 PNGs')
+    args = ap.parse_args()
 
-    generate_plate11_proof(w3, w3_sha)
-    plate11_meta = write_manifest(
-        PLATE11_OUT,
-        'Plate 11: Wave-3 6-Arm Ablation (n=10 Seeds), De-Novo Phylogenetic Lineage, Phenotypic Diversity & 11-Family Held-Out Geometry Generalization',
-        [WAVE3_JSON, CFD_JSON],
-    )
+    out_summary: dict = {'status': 'ok'}
 
-    print(json.dumps({
-        'status': 'ok',
-        'wave3_results_sha256': w3_sha,
-        'hero_png': str(HERO_OUT.relative_to(ROOT)),
-        'hero_meta': hero_meta,
-        'plate11_png': str(PLATE11_OUT.relative_to(ROOT)),
-        'plate11_meta': plate11_meta,
-    }, indent=2))
+    if not args.wave4_only and WAVE3_JSON.is_file() and CFD_JSON.is_file():
+        w3 = json.loads(WAVE3_JSON.read_text(encoding='utf-8'))
+        cfd = json.loads(CFD_JSON.read_text(encoding='utf-8'))
+        w3_sha = file_sha256(WAVE3_JSON)
+        cfd_sha = file_sha256(CFD_JSON)
+
+        generate_readme_hero(w3, cfd, w3_sha, cfd_sha, HERO_OUT, 'Wave-3', 5.019376028759711)
+        hero_meta = write_manifest(
+            HERO_OUT,
+            'Wave-3 README Hero Plot: Per-Generation KPI Trajectory (n=10 Seeds, 22,500 3D Evals) & 15-Run OpenFOAM 14 Elite Verification',
+            [WAVE3_JSON, CFD_JSON],
+        )
+
+        generate_plate11_proof(w3, w3_sha, PLATE11_OUT, 'Wave-3', 'docs/results/wave3-evolution-proof-v1.json')
+        plate11_meta = write_manifest(
+            PLATE11_OUT,
+            'Plate 11: Wave-3 6-Arm Ablation (n=10 Seeds), De-Novo Phylogenetic Lineage, Phenotypic Diversity & 11-Family Held-Out Geometry Generalization',
+            [WAVE3_JSON, CFD_JSON],
+        )
+        out_summary.update({
+            'wave3_results_sha256': w3_sha,
+            'hero_png': str(HERO_OUT.relative_to(ROOT)),
+            'hero_meta': hero_meta,
+            'plate11_png': str(PLATE11_OUT.relative_to(ROOT)),
+            'plate11_meta': plate11_meta,
+        })
+
+    if WAVE4_JSON.is_file() and CFD_V2_JSON.is_file() and ELITE_V2_JSON.is_file():
+        w4 = json.loads(WAVE4_JSON.read_text(encoding='utf-8'))
+        cfd_v2 = json.loads(CFD_V2_JSON.read_text(encoding='utf-8'))
+        elite_v2 = json.loads(ELITE_V2_JSON.read_text(encoding='utf-8'))
+        w4_sha = file_sha256(WAVE4_JSON)
+        cfd_v2_sha = file_sha256(CFD_V2_JSON)
+        w1_dp_gci = elite_v2['roache_gci_analysis']['dp_u_pa']
+        w1_gci_v2_pct = float(
+            w1_dp_gci.get('gci21_standard_fs125_pct')
+            or w1_dp_gci.get('three_grid_half_span_pct_of_f2')
+            or 0.0
+        )
+
+        generate_readme_hero(
+            w4,
+            cfd_v2,
+            w4_sha,
+            cfd_v2_sha,
+            WAVE4_HERO_OUT,
+            'Wave-4',
+            w1_gci_v2_pct,
+            'wave4-evolution-proof-v1.json',
+            'wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json',
+        )
+        w4_hero_meta = write_manifest(
+            WAVE4_HERO_OUT,
+            'Wave-4 README Hero Plot: Per-Generation Screen KPI Trajectory on Repaired Operators (n=10 Seeds, MC n=72) & 15-Run OpenFOAM 14 v2 Unclamped GCI Verification',
+            [WAVE4_JSON, CFD_V2_JSON, ELITE_V2_JSON],
+        )
+
+        generate_plate11_proof(
+            w4,
+            w4_sha,
+            WAVE4_PLATE_OUT,
+            'Wave-4',
+            'docs/results/wave4-evolution-proof-v1.json',
+        )
+        w4_plate_meta = write_manifest(
+            WAVE4_PLATE_OUT,
+            'Wave-4 Plate: 6-Arm Ablation on Repaired Operators (n=10 Seeds, MC n=72), De-Novo Phylogenetic Lineage, Phenotypic Diversity & 11-Family Held-Out Geometry Generalization',
+            [WAVE4_JSON, CFD_V2_JSON, ELITE_V2_JSON],
+        )
+        out_summary.update({
+            'wave4_results_sha256': w4_sha,
+            'wave4_hero_png': str(WAVE4_HERO_OUT.relative_to(ROOT)),
+            'wave4_hero_meta': w4_hero_meta,
+            'wave4_plate_png': str(WAVE4_PLATE_OUT.relative_to(ROOT)),
+            'wave4_plate_meta': w4_plate_meta,
+        })
+
+    print(json.dumps(out_summary, indent=2))
 
 
 if __name__ == '__main__':
