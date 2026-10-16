@@ -22,6 +22,58 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+/// Mutually exclusive proposal-budget categories. `evaluations` counts only
+/// unrepaired evaluated proposals; actual evaluations also include repaired ones.
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct ProposalBudget {
+    pub budget: usize,
+    /// Separately charged common comparator evaluations outside the proposal slots.
+    #[serde(default)]
+    pub reference_evaluations: usize,
+    pub proposals_invalid: usize,
+    pub proposals_repaired: usize,
+    pub evaluations: usize,
+    pub operator_statistics: std::collections::BTreeMap<String, OperatorStatistics>,
+    pub proposal_receipts: Vec<crate::program::VariationOutcome>,
+}
+
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct OperatorStatistics {
+    pub attempts: usize,
+    pub invalid: usize,
+    pub repaired: usize,
+    pub evaluated: usize,
+}
+
+impl ProposalBudget {
+    pub fn record(&mut self, outcome: crate::program::VariationOutcome) {
+        self.budget += 1;
+        let statistics = self
+            .operator_statistics
+            .entry(outcome.operator_id.clone())
+            .or_default();
+        statistics.attempts += 1;
+        if outcome.failure.is_some() || outcome.child.is_none() {
+            self.proposals_invalid += 1;
+            statistics.invalid += 1;
+        } else if !outcome.repairs.is_empty() {
+            self.proposals_repaired += 1;
+            statistics.repaired += 1;
+        } else {
+            self.evaluations += 1;
+            statistics.evaluated += 1;
+        }
+        self.proposal_receipts.push(outcome);
+    }
+
+    pub fn absorb(&mut self, other: Self) {
+        self.reference_evaluations += other.reference_evaluations;
+        for receipt in other.proposal_receipts {
+            self.record(receipt);
+        }
+    }
+}
+
 /// `EXPERIMENT-01` & `METRIC-07`: Calibration curve and LOQ/LOD zero-censoring result.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct InstrumentCalibrationAudit {
