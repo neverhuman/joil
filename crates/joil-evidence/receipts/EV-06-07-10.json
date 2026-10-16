@@ -1,0 +1,207 @@
+{
+  "items": [
+    "EV-06",
+    "EV-07",
+    "EV-10"
+  ],
+  "owner": "EV",
+  "input_head": "116a13bdb6712fe00331db4e4a711d0024b0fa92",
+  "changed_paths": [
+    "requirements/joil-hydrocyclone-v1.toml",
+    "crates/joil-evidence/src/campaign.rs",
+    "crates/joil-evidence/registry",
+    "crates/joil-evidence/tests",
+    "analysis/evidence.py",
+    "tools/gen_status.py",
+    "docs/STATUS.json",
+    "tools/check.py",
+    "tests/test_check.py",
+    "Cargo.lock"
+  ],
+  "checks": [
+    {
+      "command": "cargo test -p joil-evidence -j 8",
+      "exit_code": 0,
+      "log_sha256": "dd7c461a0ec4aa0c617ff290ee9a3e7dfd05fe2eb86388cfe29791fd69f6839d"
+    },
+    {
+      "command": "python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "5501620ea2921845d1eab1d91f002d3a7821a16e8cb4fae4a7bc499eace7dfc7",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.04688161500962451,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.2455732420203276,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 6.785418168990873,
+          "log_bytes": 593,
+          "log_sha256": "e77c270c307721cb204af988100b0322014c8a619e4b94752acbb0c8ce316767"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 39.89324474602472,
+          "log_bytes": 6331,
+          "log_sha256": "d5180312e22a8b709384d90ff386b098019caca169bcee56fbf9e688b1e1dc22"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.6916197870159522,
+          "log_bytes": 1096,
+          "log_sha256": "75b001aa87ff21837d0271a34fd2403c7ec0b1f1be2d0a3f2faeecb56d256dd5"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 10.285252473026048,
+          "log_bytes": 4184,
+          "log_sha256": "a84d1909b87f321b394976b269430551451f4e071497f291c3bfa0bbb160917e"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.13499226898420602,
+          "log_bytes": 75,
+          "log_sha256": "4a48d22f496a7e8560b2900ca8199711aa4bacdcde50a947e321a40f7dcde797"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 9.50077192299068,
+          "log_bytes": 133,
+          "log_sha256": "8ed51d6f048ab970baca801b43e61095139b6f2b78adc4d6a25dbfe189c2c5b7"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 1.1831785760005005,
+          "log_bytes": 25,
+          "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 2.3766574100009166,
+          "log_bytes": 1904,
+          "log_sha256": "1d1cc0508632264b4310af27264bc5264fe8b012941a918fe162008f5eafdc43"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "preregistered 5-objective runtime transform and order",
+    "Rust/Python exact objective hash agreement",
+    "sandbox admission",
+    "all mandatory P0 gates resolve in synthetic algorithm fixture",
+    "deterministic generated STATUS"
+  ],
+  "negative_checks": [
+    "claim-bearing campaign with draft/missing requirements",
+    "open/absent/failed/revoked P0 gate",
+    "reordered/changed objective spec",
+    "missing objective observable",
+    "wrong campaign objective hash",
+    "hand-edited status",
+    "stale receipt bytes"
+  ],
+  "allocation": {
+    "cargo_jobs_max": 8,
+    "gpu": false
+  },
+  "science_eligibility": "sandbox_only; no physical campaign admission",
+  "limitations": [
+    "EV-06 physical requirement admission BLOCKED: unresolved pressure/energy/absolute-pressure limits, duty, material/process and independent validation inputs.",
+    "EV-10 experiment/campaign hook belongs to TR and awaits integration.",
+    "Historical STATUS values are archived with an explicit non-authoritative label."
+  ],
+  "next_dependency": "TR-16 consumes contract and EV-10 hook; EV-08 surrogate safety"
+}

@@ -63,6 +63,7 @@ pub enum Unit {
     JoulePerTreatedCubicMetre,
     Metre,
     Millimetre,
+    Micrometre,
     CubicMillimetre,
     Megapascal,
     Second,

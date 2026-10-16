@@ -1,4 +1,5 @@
 use joil_evidence::{identity::*, subject::*};
+mod common;
 
 fn reference(id: &str) -> ContentRef {
     ContentRef::from_bytes(id, "1", id.as_bytes())
@@ -54,20 +55,46 @@ fn stages_are_distinct_even_for_identical_bytes() {
 }
 
 #[test]
-fn lineage_rejects_missing_compiler_and_invalid_span() {
+fn lineage_accepts_wrapped_rng_states_and_rejects_missing_identity() {
     let mut lineage = Lineage {
         parents: vec!["parent".into()],
         operator: reference("mutate"),
         operator_version: 1,
         seed: 7,
         rng_span: [0, 3],
+        rng_draws: 3,
         repairs: vec![],
         compiler: reference("compiler"),
     };
     lineage.check().unwrap();
     lineage.rng_span = [3, 0];
-    assert!(lineage.check().is_err());
+    lineage.check().unwrap();
     lineage.rng_span = [0, 3];
     lineage.compiler.sha256.clear();
     assert!(lineage.check().is_err());
+}
+
+#[test]
+fn case_manifest_requires_full_chain_and_exact_artifact_bytes() {
+    for kind in [CaseKind::Openfoam, CaseKind::Fea] {
+        let mut manifest = CaseManifest {
+            schema: 1,
+            kind,
+            identity: common::identity(),
+        };
+        manifest
+            .verify_artifacts(b"geometry", b"surface", b"volume", b"case")
+            .unwrap();
+        assert!(manifest
+            .verify_artifacts(b"geometry", b"surface", b"volume", b"other-case")
+            .is_err());
+        let encoded = serde_json::to_vec(&manifest).unwrap();
+        let decoded: CaseManifest = strict_decode(&encoded).unwrap();
+        assert_eq!(decoded, manifest);
+        let SubjectRef::Compiled { bundle } = &mut manifest.identity.subject else {
+            unreachable!()
+        };
+        bundle.solver_case = None;
+        assert!(manifest.check().is_err());
+    }
 }
