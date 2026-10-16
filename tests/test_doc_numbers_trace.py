@@ -20,7 +20,8 @@ from tools.claims_audit import (
 
 
 def _copy_tree(dst):
-    for rel in ('docs/results', 'docs/receipts', 'experiments', 'baselines/ct35'):
+    for rel in ('docs/results', 'docs/receipts', 'experiments', 'baselines/ct35',
+                'crates/joil-evidence/receipts', 'crates/joil-core/tests'):
         shutil.copytree(ROOT / rel, dst / rel)
     for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', 'README.md', NUMBERS_TRACE,
                 'crates/joil-core/tests/regression.rs', 'crates/joil-core/src/program.rs',
