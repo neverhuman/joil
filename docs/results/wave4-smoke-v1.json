@@ -35,13 +35,13 @@
     "budget": 381,
     "reference_evaluations": 0,
     "proposals_invalid": 0,
-    "proposals_repaired": 237,
-    "evaluations_unrepaired": 144,
+    "proposals_repaired": 228,
+    "evaluations_unrepaired": 153,
     "total_f0_f1_evaluated": 381,
     "exclusive_partition_verified": true,
     "invalid_proposal_rate": 0.0,
-    "repaired_proposal_rate": 0.622047,
-    "unrepaired_evaluation_rate": 0.377953
+    "repaired_proposal_rate": 0.598425,
+    "unrepaired_evaluation_rate": 0.401575
   },
   "operator_statistics": {
     "insert_baseline_control": {
@@ -63,79 +63,78 @@
       "evaluated_unrepaired_rate": 1.0
     },
     "mutate": {
-      "attempts": 121,
+      "attempts": 133,
       "invalid": 0,
-      "repaired": 95,
-      "evaluated_unrepaired": 26,
+      "repaired": 104,
+      "evaluated_unrepaired": 29,
       "invalid_rate": 0.0,
-      "repaired_rate": 0.785124,
-      "evaluated_unrepaired_rate": 0.214876
+      "repaired_rate": 0.781955,
+      "evaluated_unrepaired_rate": 0.218045
     },
     "non_homologous_macro_crossover": {
-      "attempts": 203,
+      "attempts": 191,
       "invalid": 0,
-      "repaired": 142,
-      "evaluated_unrepaired": 61,
+      "repaired": 124,
+      "evaluated_unrepaired": 67,
       "invalid_rate": 0.0,
-      "repaired_rate": 0.699507,
-      "evaluated_unrepaired_rate": 0.300493
+      "repaired_rate": 0.649215,
+      "evaluated_unrepaired_rate": 0.350785
     }
   },
   "six_arm_proof_smoke_budget": {},
   "failure_reasons_histogram": {},
   "repair_fields_histogram": {
-    "/cone_profile": 85,
-    "/inlet_ramp": 124,
-    "/inlet_split": 58,
-    "/ribbon_cascade": 2,
-    "/skimmer": 82,
-    "/tpms_insert": 5
+    "/cone_profile": 55,
+    "/inlet_ramp": 101,
+    "/inlet_split": 43,
+    "/skimmer": 127,
+    "/tpms_insert": 4
   },
   "per_seed_summaries": [
     {
       "seed": 20261201,
-      "campaign_summary_sha256": "7a58a70522052f275d11b3e5fe22545823367300494d8b777c1cb03366d060fd",
+      "campaign_summary_sha256": "7403c4d3868455c276ca6e6259b735e213d3ad73d6a0ff7d1973d4679675c52e",
       "budget": 127,
       "reference_evaluations": 0,
       "proposals_invalid": 0,
-      "proposals_repaired": 81,
-      "evaluations_unrepaired": 46,
+      "proposals_repaired": 78,
+      "evaluations_unrepaired": 49,
       "total_f0_f1_evaluated": 127,
       "invalid_proposal_rate": 0.0,
-      "repaired_proposal_rate": 0.637795,
-      "unrepaired_evaluation_rate": 0.362205,
-      "map_elites_occupied_cells": 70,
-      "pareto_front_size": 9
+      "repaired_proposal_rate": 0.614173,
+      "unrepaired_evaluation_rate": 0.385827,
+      "map_elites_occupied_cells": 51,
+      "pareto_front_size": 0
     },
     {
       "seed": 20261202,
-      "campaign_summary_sha256": "6ea575c0b6d5376ac7cdfac2eda61ef0249c16955c1ae8389cc6f7087c246ebb",
+      "campaign_summary_sha256": "3e3ae2f0f5eb538687b28794fa3a672a2c92ea8c6950358674c21bdd15e3f7fd",
       "budget": 127,
       "reference_evaluations": 0,
       "proposals_invalid": 0,
-      "proposals_repaired": 82,
-      "evaluations_unrepaired": 45,
+      "proposals_repaired": 75,
+      "evaluations_unrepaired": 52,
       "total_f0_f1_evaluated": 127,
       "invalid_proposal_rate": 0.0,
-      "repaired_proposal_rate": 0.645669,
-      "unrepaired_evaluation_rate": 0.354331,
-      "map_elites_occupied_cells": 61,
-      "pareto_front_size": 9
+      "repaired_proposal_rate": 0.590551,
+      "unrepaired_evaluation_rate": 0.409449,
+      "map_elites_occupied_cells": 46,
+      "pareto_front_size": 0
     },
     {
       "seed": 20261203,
-      "campaign_summary_sha256": "e833e2148be69bf7e83ba4f3f9936cf541831201fd8d6be4abafb72c6387c071",
+      "campaign_summary_sha256": "f4c2cfc32f0ae7457b4bd1467d0dc549c305a86da5e0fcac5e2d21974fdb9cb2",
       "budget": 127,
       "reference_evaluations": 0,
       "proposals_invalid": 0,
-      "proposals_repaired": 74,
-      "evaluations_unrepaired": 53,
+      "proposals_repaired": 75,
+      "evaluations_unrepaired": 52,
       "total_f0_f1_evaluated": 127,
       "invalid_proposal_rate": 0.0,
-      "repaired_proposal_rate": 0.582677,
-      "unrepaired_evaluation_rate": 0.417323,
-      "map_elites_occupied_cells": 55,
-      "pareto_front_size": 17
+      "repaired_proposal_rate": 0.590551,
+      "unrepaired_evaluation_rate": 0.409449,
+      "map_elites_occupied_cells": 54,
+      "pareto_front_size": 0
     }
   ]
 }

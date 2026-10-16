@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "figure_path": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+  "figure_sha256": "367c9c6ed22e0a277e855aa0af01d9a2a1ecd9b8e62265d84581aedff41e2353",
+  "title": "Wave-4 README Hero Plot: Per-Generation Screen KPI Trajectory on Repaired Operators (n=10 Seeds, MC n=72) & 15-Run OpenFOAM 14 v2 Unclamped GCI Verification",
+  "generator_script": "tools/generate_wave3_proof_figures.py",
+  "source_receipts": [
+    {
+      "path": "docs/results/wave4-evolution-proof-v1.json",
+      "sha256": "47f2b116260067b038701cd83b63dc9d8fd2c8284470b9c99e52d4da24044712"
+    },
+    {
+      "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+      "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9"
+    },
+    {
+      "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+      "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+    }
+  ]
+}

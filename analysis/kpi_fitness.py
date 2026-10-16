@@ -651,13 +651,16 @@ def verify_wave3_evolution_proof_kpis(
 
     doc = json.loads(wave3_results_path.read_text(encoding='utf-8'))
     dp_ref = float(doc['baseline_b0_ct35_dp_u_pa'])
-    def _mc_val(mc: dict[str, Any], key: str, alias: str) -> float:
-        return float(mc[key] if key in mc else mc[alias])
+    def _mc_val(mc: dict[str, Any], *keys: str) -> float:
+        for k in keys:
+            if k in mc and mc[k] is not None:
+                return float(mc[k])
+        raise KeyError(f'None of {keys} found in mc_robustness: {list(mc.keys())}')
 
     base_cand = doc['baseline_b0_ct35']
     expected_base_kpi = compute_wave3_composite_kpi(
-        _mc_val(base_cand['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l'),
-        _mc_val(base_cand['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05'),
+        _mc_val(base_cand['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l', 'cout_sample_screen_upper_mg_l'),
+        _mc_val(base_cand['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05', 'grade_20um_sample_screen_lower'),
         float(base_cand['nominal_metrics']['dp_u_pa']),
         dp_ref,
         float(base_cand['constraint_violation']),
@@ -669,8 +672,8 @@ def verify_wave3_evolution_proof_kpis(
 
     top_cand = doc['promoted_wave3_top_elite']
     expected_top_kpi = compute_wave3_composite_kpi(
-        _mc_val(top_cand['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l'),
-        _mc_val(top_cand['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05'),
+        _mc_val(top_cand['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l', 'cout_sample_screen_upper_mg_l'),
+        _mc_val(top_cand['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05', 'grade_20um_sample_screen_lower'),
         float(top_cand['nominal_metrics']['dp_u_pa']),
         dp_ref,
         float(top_cand['constraint_violation']),
@@ -692,8 +695,8 @@ def verify_wave3_evolution_proof_kpis(
         for o in outcomes:
             bc = o['best_candidate']
             recomp = compute_wave3_composite_kpi(
-                _mc_val(bc['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l'),
-                _mc_val(bc['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05'),
+                _mc_val(bc['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l', 'cout_sample_screen_upper_mg_l'),
+                _mc_val(bc['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05', 'grade_20um_sample_screen_lower'),
                 float(bc['nominal_metrics']['dp_u_pa']),
                 dp_ref,
                 float(bc['constraint_violation']),
