@@ -474,23 +474,35 @@ def main() -> None:
         ],
     }
 
-    out_json = ROOT / "docs/results/elite-3grid-gci-and-rsm-verification-v1.json"
-    out_json.write_text(json.dumps(dossier, indent=2) + "\n")
-    print(f"Wrote {out_json} (SHA-256: {sha256_file(out_json)})")
+    v2_json = ROOT / "docs/results/elite-3grid-gci-and-rsm-verification-v2.json"
+    if v2_json.exists():
+        out_json = v2_json
+        dossier = json.loads(out_json.read_text(encoding="utf-8"))
+        g0, g1, g2 = dossier["grids"]
+        gci_dp_u = dossier["roache_gci_analysis"]["dp_u_pa"]
+        rsm_models = dossier["rsm_turbulence_closure_crosscheck"]
+        base_dp_u = float(dossier["baseline_ct35_comparator"]["dp_u_pa"])
+        base_eloss = float(dossier["baseline_ct35_comparator"]["hydraulic_loss_j_per_treated_m3"])
+        base_split = float(dossier["baseline_ct35_comparator"]["reject_fraction"])
+        base_closure = float(dossier["baseline_ct35_comparator"]["water_closure_fraction"])
+    else:
+        out_json = ROOT / "docs/results/elite-3grid-gci-and-rsm-verification-v1.json"
+        out_json.write_text(json.dumps(dossier, indent=2) + "\n")
+        print(f"Wrote {out_json} (SHA-256: {sha256_file(out_json)})")
 
     # Generate publication-grade 4-panel figure plate
     fig = plt.figure(figsize=(16, 11), dpi=220, facecolor="#0b1021")
     gs = fig.add_gridspec(2, 2, hspace=0.32, wspace=0.26, left=0.07, right=0.96, top=0.90, bottom=0.08)
 
     fig.suptitle(
-        "P04/P05 Critique-Proof CFD Verification: 3-Grid Roache GCI (G0/G1/G2) & 7-Equation RSM Cross-Check\n"
-        "Promoted #1 Pareto Elite xbabe2-gen043-isl10-ind030 (trifurcated-6jet-vortex-head) vs. CT-35 Baseline in OpenFOAM 14",
-        fontsize=14, fontweight="bold", color="#f8fafc", y=0.965
+        "P04/P05 3-Grid Spatial Refinement (G0/G1/G2; Oscillatory R = -0.373 < 0, std GCI = null) & 7-Eq. RSM Cross-Check\n"
+        "Archived W1 2-Port Wall-Modulated Shell xbabe2-gen043-isl10-ind030 (\"6-Jet\" Label; C1/G-09) vs. CT-35 in OpenFOAM 14",
+        fontsize=13.2, fontweight="bold", color="#f8fafc", y=0.965
     )
 
     def style_ax(ax: plt.Axes, title: str, xlabel: str, ylabel: str) -> None:
         ax.set_facecolor("#111827")
-        ax.set_title(title, fontsize=11.5, fontweight="bold", color="#e2e8f0", pad=10)
+        ax.set_title(title, fontsize=11.0, fontweight="bold", color="#e2e8f0", pad=10)
         ax.set_xlabel(xlabel, fontsize=10, color="#cbd5e1")
         ax.set_ylabel(ylabel, fontsize=10, color="#cbd5e1")
         ax.tick_params(colors="#94a3b8", labelsize=9)
@@ -502,7 +514,7 @@ def main() -> None:
     ax1 = fig.add_subplot(gs[0, 0])
     style_ax(
         ax1,
-        "A. 3-Grid Spatial Refinement (G0: 140k, G1: 306k, G2: 553k Cells)",
+        "A. 3-Grid Spatial Refinement (G0: 140k, G1: 306k, G2: 553k; Oscillatory R = -0.373)",
         "Normalized Effective 3D Cell Spacing $h / h_{\\mathrm{G2}}$ [-]",
         "Static Pressure Drop $\\Delta p_u$ [kPa] & Energy Loss $e_{\\mathrm{loss}}$ [kJ/m$^3$]"
     )
@@ -517,18 +529,26 @@ def main() -> None:
         g1["hydraulic_loss_j_per_treated_m3"] / 1e3,
         g0["hydraulic_loss_j_per_treated_m3"] / 1e3,
     ]
-    ax1.axhline(base_dp_u / 1e3, color="#ef4444", linestyle="--", linewidth=2.0, label=f"CT-35 Baseline $\\Delta p_u$ ({base_dp_u/1e3:.2f} kPa)")
+    hs_pct = float(gci_dp_u.get("three_grid_half_span_pct_of_f2") or 5.92)
+    ax1.axhline(base_dp_u / 1e3, color="#ef4444", linestyle="--", linewidth=2.0, label=f"CT-35 Baseline $\\Delta p_u$ ({base_dp_u/1e3:.2f} kPa; Different Pipeline)")
     ax1.axhline(base_eloss / 1e3, color="#f97316", linestyle=":", linewidth=2.0, label=f"CT-35 Baseline $e_{{\\mathrm{{loss}}}}$ ({base_eloss/1e3:.2f} kJ/m$^3$)")
     ax1.plot(h_norm, dp_kpa, "-o", color="#38bdf8", linewidth=2.4, markersize=8, label="Elite $\\Delta p_u(h)$ [kOmegaSST]")
     ax1.plot(h_norm, el_kj, "-s", color="#34d399", linewidth=2.4, markersize=8, label="Elite $e_{\\mathrm{loss}}(h)$ [kOmegaSST]")
 
     # Shade 3-grid envelope around G2
-    ax1.fill_between([0.95, 1.65], min(dp_kpa), max(dp_kpa), color="#38bdf8", alpha=0.14, label=f"Elite 3-Grid $\\Delta p_u$ Span ({min(dp_kpa):.2f}–{max(dp_kpa):.2f} kPa)")
+    ax1.fill_between(
+        [0.95, 1.65],
+        min(dp_kpa),
+        max(dp_kpa),
+        color="#38bdf8",
+        alpha=0.14,
+        label=f"3-Grid $\\Delta p_u$ Span ({min(dp_kpa):.2f}–{max(dp_kpa):.2f} kPa; Half-Span ±{hs_pct:.2f}%, std GCI=null)",
+    )
     for hn, dpv, lbl in zip(h_norm, dp_kpa, ["G2 (553k)", "G1 (306k)", "G0 (140k)"]):
         ax1.annotate(f"{lbl}\n{dpv:.2f} kPa", (hn, dpv), textcoords="offset points", xytext=(0, -24), ha="center", color="#bae6fd", fontsize=8.5, fontweight="bold")
     ax1.set_xlim(0.92, 1.68)
     ax1.set_ylim(14.0, 36.5)
-    ax1.legend(loc="upper right", fontsize=8.2, facecolor="#0f172a", edgecolor="#334155", labelcolor="#e2e8f0")
+    ax1.legend(loc="upper right", fontsize=7.6, facecolor="#0f172a", edgecolor="#334155", labelcolor="#e2e8f0")
 
     # Panel B: Reject Split & Water Closure Stability Across Grids & Closures
     ax2 = fig.add_subplot(gs[0, 1])
@@ -641,14 +661,14 @@ def main() -> None:
     manifest_path.write_text(
         json.dumps(
             {
-                "schema_version": 1,
+                "schema_version": 2,
                 "kind": "publication_figure_manifest_not_physical_validation",
                 "figure_path": "docs/figures/elite-gci-and-rsm-verification.png",
                 "figure_sha256": fig_sha,
                 "figure_bytes": fig_path.stat().st_size,
                 "generator_script": "tools/generate_gci_rsm_report_and_figures.py",
                 "generator_sha256": sha256_file(Path(__file__).resolve()),
-                "source_dossier": "docs/results/elite-3grid-gci-and-rsm-verification-v1.json",
+                "source_dossier": str(out_json.relative_to(ROOT)),
                 "source_dossier_sha256": sha256_file(out_json),
             },
             indent=2,
