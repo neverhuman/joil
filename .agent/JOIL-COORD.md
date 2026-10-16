@@ -9,7 +9,7 @@ Commit board changes on YOUR lane branch only for your row/locks; integrator rec
 |---|---|---|---|---|---|---|
 | INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | active (INT-01/03/04/05 DONE, CI-MATPLOTLIB/IR-R7/TR-10/DOC-04 merged, INT-06 next) | 2026-10-16T06:50:00Z |
 | TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | active (TR-05/06 DONE, TR-01 WIP) | 2026-10-16T05:16:57Z |
-| EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | EV-06 DONE-SANDBOX; Wave-4 number trace verified, publication gaps handed off | 2026-10-16T07:13:38Z |
+| EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | EV-09/12 BLOCKED; EV-10 DONE; Wave-4 figure digests reverified, DOC prose numbers checked | 2026-10-16T07:41:52Z |
 | IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | active (IR-01 WIP) | 2026-10-16T05:16:50Z |
 | DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | active (DOC-01 DONE, DOC-02 WIP) | 2026-10-16T05:13:41Z |
 
@@ -53,3 +53,7 @@ UNLOCK 2026-10-16T06:45:36Z EV .github/workflows/foundation.yml pinned matplotli
 HB 2026-10-16T07:13:38Z EV EV-06 DONE-SANDBOX cb31ba3 INT 07:02Z scope confirmation; physical admission deferred to section6.
 LOCK 2026-10-16T07:13:38Z EV docs/reviews/2026-10-16-EV-wave4-number-trace.md user-assigned independent Wave-4 arithmetic/publication review; seven gaps handed off to INT/DOC.
 UNLOCK 2026-10-16T07:17:23Z EV docs/reviews/2026-10-16-EV-wave4-number-trace.md trace complete; independent arithmetic PASS; seven publication/evidence gap groups handed to INT/DOC; full tools/check.py10/10 PASS.
+BLOCKED EV-09 independent source-bound Cout labels and reviewed observed mechanism inventory absent; real OOD/calibration deferred to section6; foundation merged.
+DONE EV-10 dcaf087d9c1f028e8f65699a50b28c0461b89bb1
+BLOCKED EV-12 current prepared-case subject bundle has volume_mesh=None and no full CaseManifest/ScientificIdentity; post-mesh, historical and FEA writer integration await IR/INT.
+HB 2026-10-16T07:41:52Z EV LEDGER-FIGURE-REVERIFY WIP c5eb7f1 both requested PNG hashes and all manifest sources verified from remote blobs; latest DOC cf9df59 Wave4 table and section5.7 key numbers match audited source; no new numeric gap; full gate running.
