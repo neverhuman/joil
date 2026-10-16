@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "software": [
+    {
+      "id": "evidence_identity_observation_and_claim_kernel",
+      "receipt": {
+        "path": "crates/joil-evidence/receipts/EV-01-05.json",
+        "sha256": "629c7cc0ed5750888e53fa5fa92d25faab35d7a2daf98d8dffede153fb4c79a3"
+      }
+    }
+  ],
+  "scientific_claims": [
+    {
+      "id": "qualified_baseline",
+      "required_observations": [
+        "baseline-numerics",
+        "baseline-oil-grade",
+        "baseline-validation"
+      ]
+    },
+    {
+      "id": "structural_qualification",
+      "required_observations": [
+        "solid-fea",
+        "load-transfer",
+        "material-process-validation"
+      ]
+    },
+    {
+      "id": "physical_validation",
+      "required_observations": [
+        "as-built-metrology",
+        "paired-independent-physical-comparator"
+      ]
+    },
+    {
+      "id": "oil_grade_evaluated",
+      "required_observations": [
+        "full-residence-oil-inventory",
+        "size-resolved-grade"
+      ]
+    }
+  ],
+  "observations": [],
+  "historical_status": {
+    "path": "crates/joil-evidence/registry/legacy-status-before-v4.json",
+    "sha256": "876df89ab939bc09d8edb2879e13c89145c9fa986295d937e07891bae42993bf"
+  },
+  "requirements": "requirements/joil-hydrocyclone-v1.toml"
+}
