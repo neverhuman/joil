@@ -17,13 +17,20 @@ MANIFEST = 'case-identity.json'
 
 
 def _safe(case, relative):
-    path = case / relative
+    if not isinstance(relative, str) or not relative:
+        raise ValueError('case artifact path must be a nonempty string')
     if Path(relative).is_absolute() or '..' in Path(relative).parts:
         raise ValueError('case artifact path escapes case')
+    path = case / relative
     if not path.resolve().is_relative_to(case.resolve()):
         raise ValueError('case artifact path escapes case')
-    if any(p.is_symlink() for p in [path, *path.parents] if p != case.parent):
+    if case.is_symlink():
         raise ValueError('symlink is not an exact case artifact')
+    current = case
+    for part in Path(relative).parts:
+        current /= part
+        if current.is_symlink():
+            raise ValueError('symlink is not an exact case artifact')
     return path
 
 
@@ -61,11 +68,28 @@ def _hash_id(value):
     return value
 
 
+def _json_object(path):
+    value = strict_json(path.read_bytes())
+    if not isinstance(value, dict):
+        raise ValueError(f'{path.name} must contain a JSON object')
+    return value
+
+
+def _reference(bundle, key):
+    ref = bundle.get(key)
+    if (not isinstance(ref, dict)
+            or any(not isinstance(ref.get(k), str) or not ref[k].strip()
+                   for k in ['id', 'revision'])):
+        raise ValueError(f'missing or invalid prepared {key} reference')
+    _hash_id(ref.get('sha256'))
+    return ref
+
+
 def build_case_identity(case):
     """Read actual retained input bytes; missing stages cannot be finalized."""
     case = Path(case)
     prepared_path = _safe(case, 'input-manifest.json')
-    prepared = strict_json(prepared_path.read_bytes())
+    prepared = _json_object(prepared_path)
     bundle = prepared.get('subject_bundle')
     if not isinstance(bundle, dict):
         raise ValueError('prepared compiler subject bundle missing')
@@ -75,14 +99,23 @@ def build_case_identity(case):
     artifacts[surface] = _digest(_safe(case, surface))
     for key, name in [('genome', 'design-program.json'), ('ir', 'design-ir.json'),
                       ('surface_mesh', surface)]:
-        if bundle[key]['sha256'] != artifacts[name]['sha256']:
+        if _reference(bundle, key)['sha256'] != artifacts[name]['sha256']:
             raise ValueError(f'prepared {key} digest differs from actual artifact')
     if prepared['surface_stl_sha256'] != artifacts[surface]['sha256']:
         raise ValueError('prepared surface digest mismatch')
     canonical_genome = _hash_id(prepared['design_sha256'])
     canonical_ir = _hash_id(prepared['design_ir_sha256'])
-    ir = strict_json(_safe(case, 'design-ir.json').read_bytes())
-    if ir['ir_sha256'] != canonical_ir or ir['program_sha256'] != canonical_genome:
+    program = _json_object(_safe(case, 'design-program.json'))
+    ir = _json_object(_safe(case, 'design-ir.json'))
+    # The Rust struct and serde_json::Value use different field ordering.
+    # Preserve both identities instead of equating their byte encodings.
+    def program_hash(sorted_keys):
+        encoded = json.dumps(program, ensure_ascii=False, sort_keys=sorted_keys,
+                             separators=(',', ':')).encode()
+        return hashlib.sha256(encoded).hexdigest()
+    ir_source_genome = _hash_id(ir['program_sha256'])
+    if (ir['ir_sha256'] != canonical_ir or canonical_genome != program_hash(False)
+            or ir_source_genome != program_hash(True)):
         raise ValueError('IR and prepared manifest disagree on canonical subjects')
     mesh = _inventory(case, ['constant/polyMesh'])
     for name in ['points', 'faces', 'owner', 'neighbour', 'boundary']:
@@ -99,7 +132,8 @@ def build_case_identity(case):
         'geometry_hash': artifacts[surface]['sha256'],
         'mesh_hash': mesh_hash,
     }
-    compiler = {key: bundle[key] for key in ['compiler', 'geometry_kernel', 'compiler_config']}
+    compiler = {key: _reference(bundle, key)
+                for key in ['compiler', 'geometry_kernel', 'compiler_config']}
     chain['case_hash'] = scientific_hash({
         'contract': SCHEMA, 'stage': 'solver_case', 'upstream': chain,
         'compiler': compiler, 'files': inputs,
@@ -108,6 +142,7 @@ def build_case_identity(case):
         'schema': SCHEMA, 'kind': 'openfoam_artifact_identity_not_qualification',
         'hash_basis': 'genome/IR/geometry exact file bytes; mesh/case domain-separated inventories',
         'canonical_genome_hash': canonical_genome, 'canonical_ir_hash': canonical_ir,
+        'canonical_ir_source_genome_hash': ir_source_genome,
         **chain, 'prepared_manifest': _digest(prepared_path),
         'compiler': compiler, 'source_artifacts': artifacts,
         'mesh_files': mesh, 'solver_input_files': inputs,
@@ -118,9 +153,9 @@ def finalize_case_identity(case):
     """Immutable writer API for INT: call while mesh and solver inputs exist."""
     case = Path(case)
     record = build_case_identity(case)
-    path = case / MANIFEST
+    path = _safe(case, MANIFEST)
     if path.exists():
-        if strict_json(path.read_bytes()) != record:
+        if _json_object(path) != record:
             raise ValueError('existing case identity is stale; never overwrite it')
     else:
         save_new(path, record)
@@ -129,7 +164,7 @@ def finalize_case_identity(case):
 
 def verify_case_identity(case):
     case = Path(case)
-    recorded = strict_json(_safe(case, MANIFEST).read_bytes())
+    recorded = _json_object(_safe(case, MANIFEST))
     actual = build_case_identity(case)
     if recorded != actual:
         raise ValueError('case identity differs from retained artifacts')
@@ -138,8 +173,8 @@ def verify_case_identity(case):
 
 
 def audit_wave4_manifests(runs_root, require_cases=True):
-    """Read every G0/G1/G2 Wave-4 case, including RSM cases named with g1."""
-    cases = sorted(p for p in Path(runs_root).glob('wave4-*-g[012]-*') if p.is_dir())
+    """Read every Wave-4 case directory, including prepared-only and RSM cases."""
+    cases = sorted(p for p in Path(runs_root).glob('wave4-*') if p.is_dir())
     verified, errors = [], []
     for case in cases:
         try:
