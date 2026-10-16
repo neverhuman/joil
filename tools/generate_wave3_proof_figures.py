@@ -108,6 +108,7 @@ def generate_readme_hero(
 ) -> None:
     labels = comparison_labels(w3)
     plt.rcdefaults()
+    budget_label = 'Charged Proposals' if wave_label == 'Wave-4' else 'Evaluations'
     research_limit = json.loads(REQUIREMENTS_JSON.read_text())['quality']['research_limit_mg_l']
     if w1_gci_pct is None:
         w1_gci_pct = json.loads(ELITE_V2_JSON.read_text())['roache_gci_analysis']['dp_u_pa']['three_grid_half_span_pct_of_f2']
@@ -189,7 +190,7 @@ def generate_readme_hero(
     ax_a.plot(gens, a2_med, color='#991B1B', linestyle=':', linewidth=1.3, label=f'A2 No-Selection Pop Median [{a2_med[-1]:.2f}]')
 
     ax_a.set_title(f"A. Screen KPI vs. Gen (n={w3['n_seeds']}: {labels['best_order']} Best; {labels['median_order']} Median)", pad=6)
-    ax_a.set_xlabel('Evolutionary Generation g [-] (18 3D Evals/Gen, 450 Total Charged Proposals/Seed)')
+    ax_a.set_xlabel(f'Evolutionary Generation g [-] (18 3D Evals/Gen, 450 Total {budget_label}/Seed)')
     ax_a.set_ylabel('Composite KPI_score [-] (Higher = Better)')
     ax_a.set_xlim(0, gens[-1])
     ax_a.grid(True, linestyle='--', alpha=0.35)
@@ -415,6 +416,7 @@ def generate_plate11_proof(
 ) -> None:
     labels = comparison_labels(w3)
     plt.rcdefaults()
+    budget_label = 'Charged Proposals' if wave_label == 'Wave-4' else 'Evaluations'
     plt.rcParams.update({
         'font.family': 'DejaVu Sans',
         'font.size': 9.0,
@@ -443,7 +445,7 @@ def generate_plate11_proof(
         0.5,
         0.912,
         f'Source Receipt: {proof_filename} (SHA-256: {w3_sha}) | '
-        f'n = 10 Seeds × 25 Gens × 18 Proposals/Gen = 22,500 Charged Proposals Across 5 Search Arms (MC n={mc_n}; B0 = 1-Eval Ref)',
+        f'n = 10 Seeds × 25 Gens × 18 Evals/Gen = 22,500 {budget_label} Across 5 Search Arms (MC n={mc_n}; B0 = 1-Eval Ref)',
         ha='center',
         fontsize=7.8,
         color='#334155',

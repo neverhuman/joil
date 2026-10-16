@@ -26,6 +26,7 @@ from matplotlib.colors import Normalize
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
+FIELD_ARRAYS = 'crates/joil-evidence/receipts/Plate10-field-arrays.json'
 
 import sys
 sys.path.insert(0, str(ROOT / "tools"))
@@ -47,7 +48,7 @@ def extract_meridional_rz_grid(
     nz: int = 48,
     nr: int = 28,
 ) -> dict[str, Any]:
-    """Bin 3D OpenFOAM 14 cell-center fields onto a structured (z, r) meridional grid."""
+    """Bin legacy approximate-coordinate fields; these are not FV centroids."""
     centers = compute_cell_centers(case_dir)
     u = parse_internal_vectors(case_dir / time_str / "U")
     p_kin = parse_internal_scalars(case_dir / time_str / "p")
@@ -105,10 +106,29 @@ def extract_meridional_rz_grid(
     }
 
 
+def load_field_arrays(path: Path) -> tuple[dict, dict[str, dict]]:
+    """Read the reviewed legacy arrays; missing bins must remain missing."""
+    bundle = json.loads(path.read_text(encoding='utf-8'))
+    grids = {}
+    for name in ['wave1', 'wave2_tpms']:
+        case = bundle['cases'][name]
+        grid = {k: np.asarray(v, dtype=float) if isinstance(v, list) else v
+                for k, v in case['meridional'].items()}
+        mask = np.asarray(grid['valid_bin_mask'], dtype=bool)
+        shape = (len(grid['r_edges_mm']) - 1, len(grid['z_edges_mm']) - 1)
+        if mask.shape != shape or grid['cell_count'] != case['cell_count']:
+            raise ValueError(f'{name}: inconsistent grid/subject dimensions')
+        for key in ['u_theta_p90_grid', 'p_kpa_mean_grid', 'u_z_mean_grid']:
+            if grid[key].shape != shape or not np.array_equal(np.isfinite(grid[key]), mask):
+                raise ValueError(f'{name}: changed or inconsistent missing-bin mask for {key}')
+        grids[name] = grid
+    return bundle, grids
+
+
 def main() -> None:
-    w1_case = ROOT / "runs/rust-cfd-elite-gen024-isl2-ind014"
-    w2_case = ROOT / "runs/wave2-tpms-gyroid-g1-medium"
-    base_case = ROOT / "runs/ct35-sst-extended-000"
+    plt.rcdefaults()
+    field_path = ROOT / FIELD_ARRAYS
+    bundle, grids = load_field_arrays(field_path)
 
     w1_dossier_path = ROOT / "docs/results/elite-3grid-gci-and-rsm-verification-v2.json"
     w2_dossier_path = ROOT / "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json"
@@ -116,11 +136,10 @@ def main() -> None:
     w1_dossier = json.loads(w1_dossier_path.read_text(encoding="utf-8"))
     w2_dossier = json.loads(w2_dossier_path.read_text(encoding="utf-8"))
 
-    w1_grid = extract_meridional_rz_grid(w1_case, "150")
-    w2_grid = extract_meridional_rz_grid(w2_case, "150")
-    w1_prof = extract_case_profiles(w1_case, "150")
-    w2_prof = extract_case_profiles(w2_case, "150")
-    base_prof = extract_case_profiles(base_case, "600")
+    w1_grid, w2_grid = grids['wave1'], grids['wave2_tpms']
+    w1_prof = bundle['cases']['wave1']['profiles']
+    w2_prof = bundle['cases']['wave2_tpms']['profiles']
+    base_prof = bundle['cases']['baseline']['profiles']
 
     # Shared color scales across Wave-1 and Wave-2 meridional CFD maps
     ut_valid = np.concatenate([
@@ -148,7 +167,7 @@ def main() -> None:
         left=0.065,
         right=0.92,
         top=0.905,
-        bottom=0.065,
+        bottom=0.085,
     )
 
     tpms_d = w2_dossier["wave2_tpms_gyroid_elite_5run_dossier"]
@@ -165,6 +184,10 @@ def main() -> None:
         color="#f8fafc",
         y=0.968,
     )
+    fig.text(0.5, 0.019,
+             'Legacy coordinates: owned-face first-vertex averages, not FV centroids; zero-owner cells placed at origin.\n'
+             f"CT-35 field mesh: {bundle['cases']['baseline']['cell_count']:,} cells; archived integral mesh: {bundle['cases']['baseline']['archived_dossier_cell_count']:,} cells (identity mismatch). Numerical diagnostic only.",
+             ha='center', va='center', fontsize=8.5, color='#cbd5e1')
 
     def style_ax(ax: plt.Axes, title: str, xlabel: str, ylabel: str) -> None:
         ax.set_facecolor("#111827")
@@ -378,6 +401,7 @@ def main() -> None:
         "figure_path": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
         "figure_sha256": fig_sha,
         "generator_script": "tools/generate_wave2_vs_wave1_cfd_plate.py",
+        "generator_sha256": sha256_file(Path(__file__).resolve()),
         "matched_color_scales": {
             "u_theta_p90_m_s": [ut_vmin, ut_vmax],
             "static_pressure_kpa": [p_vmin, p_vmax],
@@ -389,10 +413,19 @@ def main() -> None:
             "wave1_gci_rsm_dossier_sha256": sha256_file(w1_dossier_path),
             "wave2_gci_rsm_f2_dossier": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
             "wave2_gci_rsm_f2_dossier_sha256": sha256_file(w2_dossier_path),
-            "wave1_g1_integrals_sha256": sha256_file(w1_case / "hydraulic-integrals.json"),
-            "wave2_tpms_g1_integrals_sha256": sha256_file(w2_case / "hydraulic-integrals.json"),
-            "baseline_ct35_integrals_sha256": sha256_file(base_case / "hydraulic-integrals-t600.json"),
+            "field_array_bundle": FIELD_ARRAYS,
+            "field_array_bundle_sha256": sha256_file(field_path),
         },
+        "field_series_json_pointers": {
+            "wave1_grid": "/cases/wave1/meridional",
+            "wave2_grid": "/cases/wave2_tpms/meridional",
+            "wave1_profiles": "/cases/wave1/profiles",
+            "wave2_profiles": "/cases/wave2_tpms/profiles",
+            "baseline_profiles": "/cases/baseline/profiles",
+        },
+        "coordinate_reviews": {k: v['coordinate_review'] for k, v in bundle['cases'].items()},
+        "baseline_field_mesh_matches_archived_dossier": bundle['cases']['baseline']['mesh_count_matches_archived_dossier'],
+        "limitations": bundle['limitations'],
     }
     manifest_path = ROOT / "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png.manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
