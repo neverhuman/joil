@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T08:27Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T08:51Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -78,10 +78,10 @@ reason.
 | EV-06 | EV | MERGED | `84d0c2e` (board `MERGED EV-06`) |
 | EV-07 | EV | MERGED | `cae5bac` (board `MERGED EV-07`) |
 | EV-08 | EV | MERGED | `e83c833` (board `MERGED EV-08`) |
-| EV-09 | EV | BLOCKED | merged at `e83c833` without board `DONE EV-09`; 2026-10-16T07:38:48Z c5eb7f1 zero admitted independent labels in surrogate-independent-ood-v1.json; foundation c |
+| EV-09 | EV | BLOCKED | merged at `e83c833` without board `DONE EV-09`; 2026-10-16T08:48:40Z aea27ae45d09994feb4e4288015e384e5b6a155e deferral is fully delivered; science remainder nee |
 | EV-10 | EV | MERGED | `ceaa03d` (board `MERGED EV-10`) |
 | EV-11 | EV | MERGED | `d3a5449` (board `MERGED EV-11`) |
-| EV-12 | EV | BLOCKED | merged at `2f15710` without board `DONE EV-12`; 2026-10-16T07:38:48Z c5eb7f1 schema/byte-verification tests complete and IR pre-mesh subject bundle delivered; c |
+| EV-12 | EV | BLOCKED | merged at `2f15710` without board `DONE EV-12`; 2026-10-16T08:48:40Z cfdbf7d79aced9cc533ece8907d7aafc348fdcef waiting INT/IR retained captures or separately ide |
 | IR-01 | IR | MERGED | `2f15710` (board `MERGED IR-01`) |
 | IR-02 | IR | MERGED | `2f15710` (board `MERGED IR-02`) |
 | IR-03 | IR | MERGED | `2f15710` (board `MERGED IR-03`) |
