@@ -140,6 +140,7 @@ pub fn admit_sample(
                     observed.tier,
                     EvidenceTier::SoftwareContract | EvidenceTier::AnalyticScreen
                 )
+                || (kind == GroupKind::Mechanism && observed.tier < EvidenceTier::CoupledScreen)
             {
                 return Err("group_not_bound_to_independent_observer".into());
             }
