@@ -3,6 +3,7 @@ import hashlib
 import json
 import math
 import struct
+import re
 import unicodedata
 from enum import Enum
 from pathlib import Path
@@ -27,6 +28,8 @@ def evidence_reference(identity, revision, data):
 
 def strict_json(data):
     """Same finite-number, duplicate/NFC-key and payload limits as the Rust wire."""
+    if isinstance(data, str):
+        data = data.encode('utf-8')
     if len(data) > 1_048_576:
         raise ValueError('payload too large')
 
@@ -67,6 +70,11 @@ def strict_json(data):
         nodes += 1
         if nodes > 100_000 or depth > 64:
             raise ValueError('payload bounds')
+        if isinstance(item, str):
+            item.encode('utf-8')
+        if isinstance(item, dict):
+            for key in item:
+                key.encode('utf-8')
         children = item.values() if isinstance(item, dict) else item if isinstance(item, list) else []
         for child in children:
             bounded(child, depth+1)
@@ -105,6 +113,141 @@ def canonical_wire(value):
 
 def scientific_hash(value):
     return hashlib.sha256(canonical_wire(value)).hexdigest()
+
+
+def _schema_validate(value, spec, schema):
+    """Validate the frozen schema's deliberately small, explicit JSON Schema subset."""
+    if '$ref' in spec:
+        return _schema_validate(value, schema['$defs'][spec['$ref'].removeprefix('#/$defs/')], schema)
+    if 'oneOf' in spec:
+        matches = 0
+        for candidate in spec['oneOf']:
+            try:
+                _schema_validate(value, candidate, schema)
+                matches += 1
+            except ValueError:
+                pass
+        if matches != 1:
+            raise ValueError('wire does not match exactly one schema variant')
+        return
+    kind = spec.get('type')
+    valid = {'object': isinstance(value, dict), 'array': isinstance(value, list),
+             'string': isinstance(value, str), 'null': value is None,
+             'number': isinstance(value, (int, float)) and not isinstance(value, bool)}
+    if kind and not valid[kind]:
+        raise ValueError(f'expected {kind}')
+    if ('const' in spec and value != spec['const']) or ('enum' in spec and value not in spec['enum']):
+        raise ValueError('unknown enum or constant')
+    if kind == 'object':
+        properties = spec['properties']
+        if not set(spec['required']) <= value.keys() or (spec.get('additionalProperties') is False and value.keys()-properties.keys()):
+            raise ValueError('missing or unknown field')
+        for key in value:
+            _schema_validate(value[key], properties[key], schema)
+    elif kind == 'array':
+        if len(value) < spec.get('minItems', 0):
+            raise ValueError('empty required inventory')
+        for item in value:
+            _schema_validate(item, spec['items'], schema)
+    elif kind == 'string':
+        if len(value) < spec.get('minLength', 0) or ('pattern' in spec and re.fullmatch(spec['pattern'], value) is None):
+            raise ValueError('invalid string')
+    elif kind == 'number':
+        if not math.isfinite(value) or ('minimum' in spec and value < spec['minimum']):
+            raise ValueError('invalid finite scalar')
+        if isinstance(value, int) and int(float(value)) != value:
+            raise ValueError('inexact integer scalar')
+
+
+def ingest_observation(data):
+    """Strict Rust-compatible wire and semantics; no missing state yields a scalar."""
+    value = strict_json(data)
+    schema_path = Path(__file__).resolve().parents[1]/'crates/joil-evidence/schemas/observation-v1.schema.json'
+    schema = json.loads(schema_path.read_text())
+    _schema_validate(value, schema, schema)
+
+    def identity_string(text):
+        if not text.strip() or len(text.encode()) > 512 or any(unicodedata.category(c) == 'Cc' for c in text):
+            raise ValueError('invalid identity')
+
+    if value['status'] != 'measured':
+        identity_string(value['reason'])
+        for missing in value.get('missing', []):
+            identity_string(missing)
+        for reference in value.get('diagnostics', []):
+            identity_string(reference['id'])
+            if not reference['revision'].strip():
+                raise ValueError('invalid revision')
+        return value
+    m = value['measurement']
+    for field in ['quantity', 'frame', 'region']:
+        identity_string(m[field])
+    refs = []
+
+    def content_refs(item):
+        if isinstance(item, dict):
+            if set(item) == {'id', 'revision', 'sha256'}:
+                refs.append(item)
+            else:
+                for child in item.values():
+                    content_refs(child)
+        elif isinstance(item, list):
+            for child in item:
+                content_refs(child)
+    content_refs(m)
+    seen, normalized = {}, {}
+    for reference in refs:
+        identity_string(reference['id'])
+        if not reference['revision'].strip():
+            raise ValueError('invalid revision')
+    # Rust checks conflicts inside ScientificIdentity, not across separate evidence roles.
+    refs = []
+    content_refs(m['identity'])
+    for reference in refs:
+        key = reference['id']
+        norm = unicodedata.normalize('NFC', key)
+        if norm in normalized and normalized[norm] != key:
+            raise ValueError('normalization_collision')
+        if key in seen and seen[key] != reference:
+            raise ValueError('conflicting content identity')
+        normalized[norm], seen[key] = key, reference
+    requirements = [unicodedata.normalize('NFC', r['id']) for r in m['identity']['requirements']]
+    if type(m['identity']['schema']) is not int:
+        raise ValueError('integer schema version required')
+    if len(set(requirements)) != len(requirements):
+        raise ValueError('duplicate requirement')
+    subject = m['identity']['subject']
+    if subject['kind'] == 'genome':
+        if any(not math.isfinite(struct.unpack('>d', bytes.fromhex(bits))[0]) for bits in subject['bits']):
+            raise ValueError('nonfinite genome')
+    if subject['kind'] == 'specimen':
+        identity_string(subject['id'])
+    material = m['identity']['material']
+    if material['status'] == 'unknown':
+        if not material['reason'].strip():
+            raise ValueError('unknown material needs reason')
+    state = m['state']
+    tier = EvidenceTier(m['tier'])
+    if state['execution'] != 'succeeded' or state['numerical'] == 'invalid' or state['validation'] == 'invalid':
+        raise ValueError('invalid measured state')
+    for u in m['uncertainty']:
+        if u['unit'] != m['unit']:
+            raise ValueError('uncertainty unit mismatch')
+        for field in ['component', 'method', 'dependence', 'coverage']:
+            identity_string(u[field])
+    if m['origin'] == 'synthetic' and tier != EvidenceTier.SOFTWARE_CONTRACT:
+        raise ValueError('synthetic cannot be physical evidence')
+    fidelity = {'geometry': 'F0', 'analytic_screen': 'F1', 'coupled_screen': 'F1',
+                'numerically_verified': 'F2', 'model_challenge': 'F3', 'physical_validation': 'F4'}
+    if tier != EvidenceTier.SOFTWARE_CONTRACT and m['fidelity'] != fidelity[tier.value]:
+        raise ValueError('tier fidelity mismatch')
+    if list(EvidenceTier).index(tier) >= list(EvidenceTier).index(EvidenceTier.NUMERICALLY_VERIFIED) and state['numerical'] != 'verified':
+        raise ValueError('numerical verification missing')
+    if state['validation'] == 'validated' or tier == EvidenceTier.PHYSICAL_VALIDATION:
+        if (m['origin'] != 'measurement' or m['fidelity'] != 'F4' or tier != EvidenceTier.PHYSICAL_VALIDATION
+                or state['validation'] != 'validated' or subject['kind'] != 'specimen' or material['status'] != 'identified'):
+            raise ValueError('physical validation requires identified specimen measurement')
+    return value
 
 
 def sha256(path):
