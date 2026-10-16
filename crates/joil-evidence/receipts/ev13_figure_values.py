@@ -26,6 +26,7 @@ W2 = 'docs/results/wave2-multiseed-ablation-and-holdout-v1.json'
 G1 = 'docs/results/elite-3grid-gci-and-rsm-verification-v2.json'
 G2 = 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json'
 G4 = 'docs/results/wave4-gci-v1.json'
+FIELD_ARRAYS = 'crates/joil-evidence/receipts/Plate10-field-arrays.json'
 TP = 'wave2_tpms_gyroid_elite_5run_dossier'
 OC = 'wave2_octa_branch_8jet_elite_5run_dossier'
 
@@ -199,7 +200,8 @@ class Audit:
         self.text(fig,2,f'{2*self.get(W4,p)} jets',[W4+'#'+p,W4+'#/promoted_wave3_top_elite/program/inlet_split/enabled'])
 
     def hero_cfd(self,fig,wave):
-        file=G2 if wave=='wave4' else G2.replace('-v2.json','-v1.json')
+        manifest=self.get('docs/figures/'+fig+'.manifest.json')
+        file=next(s['path'] for s in manifest['source_receipts'] if Path(s['path']).name.startswith('wave2-tpms-elite-gci-rsm-and-f2-oil-'))
         data=self.get(file);rows=data['wave1_vs_wave2_surrogate_to_cfd_ranking_audit']
         order=['trifurcated-6jet-vortex-head','cylindrical-gyroid-coalescer','octa-branch-helical-manifold']
         ids=[next(j for j,r in enumerate(rows) if r['topology_class']==name) for name in order]
@@ -209,7 +211,7 @@ class Audit:
             if suffix=='g2':ps=[base]+ps
             i=self.calls(fig,line)[0][0];self.vector(fig,i,1,file,ps,.001)
             if line==350:
-                if wave=='wave4':
+                if file.endswith('-v2.json'):
                     # Recompute the actual half range, rather than taking its summary label.
                     errors=[0.];refs=[]
                     for f,prefix in [(G1,''),(file,'/'+TP),(file,'/'+OC)]:
@@ -315,10 +317,12 @@ class Audit:
         for p,fmt in [('/roache_gci_analysis/dp_u_pa/convergence_ratio_R','.3f'),('/roache_gci_analysis/dp_u_pa/three_grid_half_span_pct_of_f2','.2f')]:
             self.text(fig,0,format(self.get(G1,p),fmt),[G1+'#'+p])
         self.text(fig,4,f"{self.get(G1,prefix+'cell_count'):,}",[G1+'#'+prefix+'cell_count'])
-        self.rows.append(dict(figure=fig,series='mass-closure numerical gate annotation',status='UNTRACED',sources=[],
-                              captured_label=self.capture['figures'][fig]['axes'][2]['ylabel'],
-                              code_reference='analysis/kpi_fitness.py:383',
-                              reason='1000 in units 1e-4 percent equals the implemented0.001 numerical tolerance, but no result/manifest JSON pointer binds that policy scalar; not a physical requirement'))
+        label=self.capture['figures'][fig]['axes'][2]['ylabel']
+        if 'Gate' in label:
+            self.rows.append(dict(figure=fig,series='mass-closure numerical gate annotation',status='UNTRACED',sources=[],
+                                  captured_label=label,code_reference='analysis/kpi_fitness.py:383',
+                                  reason='1000 in units 1e-4 percent equals the implemented0.001 numerical tolerance, but no result/manifest JSON pointer binds that policy scalar; not a physical requirement'))
+        else:self.add(fig,'unsupported mass-closure gate annotation removed','Gate' in label,False,[],'non-data annotation coverage')
 
     def wave2(self):
         fig='wave2-multiseed-ablation-and-ci.png';d=self.get(W2)
@@ -363,6 +367,26 @@ class Audit:
 
     def plate10(self):
         fig='wave2-vs-wave1-openfoam14-cfd-comparison.png'
+        manifest=self.get('docs/figures/'+fig+'.manifest.json')
+        bound_fields=manifest['source_receipts'].get('field_array_bundle') == FIELD_ARRAYS
+        # Explicit subject/observable bindings from the independently reviewed
+        # legacy calls. The current generator's extraction helper is not used.
+        field_calls={
+            191:('wave1','meridional',['z_edges_mm','r_edges_mm','u_theta_p90_grid']),
+            199:('wave1','meridional',['z_centers_mm','r_wall_mm']),
+            211:('wave2_tpms','meridional',['z_edges_mm','r_edges_mm','u_theta_p90_grid']),
+            219:('wave2_tpms','meridional',['z_centers_mm','r_wall_mm']),
+            242:('wave1','meridional',['z_edges_mm','r_edges_mm','p_kpa_mean_grid']),
+            250:('wave1','meridional',['z_centers_mm','r_wall_mm']),
+            261:('wave2_tpms','meridional',['z_edges_mm','r_edges_mm','p_kpa_mean_grid']),
+            269:('wave2_tpms','meridional',['z_centers_mm','r_wall_mm']),
+            291:('baseline','profiles/swirl_chamber_z20_90mm',['r_mm','u_theta_p75']),
+            292:('wave1','profiles/swirl_chamber_z20_90mm',['r_mm','u_theta_p75']),
+            293:('wave2_tpms','profiles/swirl_chamber_z20_90mm',['r_mm','u_theta_p75']),
+            297:('baseline','profiles/swirl_chamber_z20_90mm',['r_mm','p_kpa_mean']),
+            298:('wave1','profiles/swirl_chamber_z20_90mm',['r_mm','p_kpa_mean']),
+            299:('wave2_tpms','profiles/swirl_chamber_z20_90mm',['r_mm','p_kpa_mean']),
+        }
         for i,c in enumerate(self.capture['figures'][fig]['calls']):
             line=c['line']
             if line==340:
@@ -374,6 +398,12 @@ class Audit:
                 for metric,fmt in [('convergence_ratio_R','.3f' if line==341 else '.4f'),('three_grid_half_span_pct_of_f2','.2f')]:
                     p=prefix+'/roache_gci_analysis/dp_u_pa/'+metric
                     self.text(fig,8,format(self.get(file,p),fmt),[file+'#'+p])
+            elif bound_fields and line in field_calls:
+                case,section,keys=field_calls[line]
+                for part,key in enumerate(keys):
+                    pointer=f'/cases/{case}/{section}/{key}'
+                    self.check(fig,i,part,self.get(FIELD_ARRAYS,pointer),[FIELD_ARRAYS+'#'+pointer],
+                               'identity including JSON null mask; legacy coordinates, not corrected FV centroids')
             else:
                 self.covered.add((fig,i))
                 self.rows.append(dict(figure=fig,series=f'{c["method"]}@{c["source"]}:{c["source_line_at_capture"]}',sources=[],status='UNTRACED',reason='private U/p/k/mesh-derived field or profile array; no committed numeric JSON source',array_digest=hashlib.sha256(json.dumps(c['args'],sort_keys=True).encode()).hexdigest()))
@@ -403,7 +433,18 @@ class Audit:
                     self.add(fig,'manifest '+key,s[key+'_sha256'],digest(self.root/s[key]),[path+'#/source_receipts/'+key+'_sha256'],'SHA256 committed result file')
                 for k,f,p in [('wave1_g1_integrals_sha256',G1,'/grids/1/hydraulic_integrals_sha256'),('wave2_tpms_g1_integrals_sha256',G2,'/'+TP+'/grids/1/hydraulic_integrals_sha256'),('baseline_ct35_integrals_sha256','docs/results/exotic-vs-baseline-cfd-benchmark-v1.json','/baseline_ct35/hydraulic_integrals_sha256')]:
                     if k=='baseline_ct35_integrals_sha256':continue # no field arrays or source paths are bound by this hash
-                    self.add(fig,'manifest '+k,s[k],self.get(f,p),[path+'#/source_receipts/'+k,f+'#'+p],'same recorded integral digest; does not bind raw field arrays')
+                    if k in s:self.add(fig,'manifest '+k,s[k],self.get(f,p),[path+'#/source_receipts/'+k,f+'#'+p],'same recorded integral digest; does not bind raw field arrays')
+                if 'field_array_bundle' in s:
+                    self.add(fig,'manifest field bundle path',s['field_array_bundle'],FIELD_ARRAYS,[path+'#/source_receipts/field_array_bundle'],'reviewed committed field-array subject')
+                    self.add(fig,'manifest field bundle digest',s['field_array_bundle_sha256'],digest(self.root/s['field_array_bundle']),[path+'#/source_receipts/field_array_bundle_sha256'],'SHA256 entire committed bundle including null masks and raw/mesh inventory')
+                    for key,case,section in [('wave1_grid','wave1','meridional'),('wave2_grid','wave2_tpms','meridional'),('wave1_profiles','wave1','profiles'),('wave2_profiles','wave2_tpms','profiles'),('baseline_profiles','baseline','profiles')]:
+                        pointer=f'/cases/{case}/{section}'
+                        self.add(fig,'manifest field-series pointer '+key,m['field_series_json_pointers'][key],pointer,[path+'#/field_series_json_pointers/'+key,FIELD_ARRAYS+'#'+pointer])
+                    for case in ['wave1','wave2_tpms','baseline']:
+                        pointer=f'/cases/{case}/coordinate_review'
+                        self.add(fig,'manifest coordinate caveat '+case,m['coordinate_reviews'][case],self.get(FIELD_ARRAYS,pointer),[path+'#/coordinate_reviews/'+case,FIELD_ARRAYS+'#'+pointer])
+                    pointer='/cases/baseline/mesh_count_matches_archived_dossier'
+                    self.add(fig,'manifest archived baseline identity caveat',m['baseline_field_mesh_matches_archived_dossier'],self.get(FIELD_ARRAYS,pointer),[path+'#/baseline_field_mesh_matches_archived_dossier',FIELD_ARRAYS+'#'+pointer])
 
     def run(self):
         expected_counts={'wave4-readme-hero-kpi-and-elite.png':51,'wave4-evolution-ablation-and-lineage-proof.png':41,
@@ -460,6 +501,25 @@ def self_test(root, captured, line_map=None):
     changed=copy.deepcopy(captured)
     changed['figures']['wave4-page1-why-it-matters.png']['committed_sha256']='0'*64
     results['wrong_capture_png_identity']=audit(root,changed,line_map)['summary']['FAIL']>0
+    fig='wave2-vs-wave1-openfoam14-cfd-comparison.png'
+    manifest=json.loads((Path(root)/('docs/figures/'+fig+'.manifest.json')).read_text())
+    if manifest['source_receipts'].get('field_array_bundle') == FIELD_ARRAYS:
+        for name in ['changed_field_value','swapped_field_subjects','field_null_to_zero']:
+            changed=copy.deepcopy(captured)
+            calls=changed['figures'][fig]['calls']
+            call=next(c for c in calls if dispatch_line(c,line_map or {})==191)
+            if name=='swapped_field_subjects':
+                other=next(c for c in calls if dispatch_line(c,line_map or {})==211)
+                call['args'],other['args']=other['args'],call['args']
+            else:
+                missing=name=='field_null_to_zero'
+                for row in call['args'][2]:
+                    index=next((j for j,v in enumerate(row) if (v is None)==missing),None)
+                    if index is not None:
+                        row[index]=0. if missing else row[index]+1.
+                        break
+                else:raise AssertionError('negative check fixture lacks required field bin')
+            results[name]=audit(root,changed,line_map)['summary']['FAIL']>0
     assert all(results.values()),results
     return results
 

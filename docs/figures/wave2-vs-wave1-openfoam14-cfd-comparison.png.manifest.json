@@ -2,8 +2,9 @@
   "schema_version": 2,
   "kind": "publication_figure_manifest_not_physical_validation",
   "figure_path": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
-  "figure_sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
+  "figure_sha256": "6cdb3ae7d203a9be8abfc320caee8d05b630fec72917a64c8684ccc56bf1c2d6",
   "generator_script": "tools/generate_wave2_vs_wave1_cfd_plate.py",
+  "generator_sha256": "fe0ddbd9e62effdf47f96bcbb99e54350438b4f56a8b5eb80a1f6d0f29f762f1",
   "matched_color_scales": {
     "u_theta_p90_m_s": [
       0.0,
@@ -27,8 +28,56 @@
     "wave1_gci_rsm_dossier_sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
     "wave2_gci_rsm_f2_dossier": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
     "wave2_gci_rsm_f2_dossier_sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
-    "wave1_g1_integrals_sha256": "ac84a8f779011bbad8ba4528b4da0ff49cb48b33d7392c2ba2ce7618b57613fa",
-    "wave2_tpms_g1_integrals_sha256": "aa769a5f446542227de0ff4becdb1c04ec43539dd5cdbe73790c8c8aec0fd4ae",
-    "baseline_ct35_integrals_sha256": "363da3375ec4057417a2ae1c55e5cc1614a64c062dd9d851dcafc73a5efd45ab"
-  }
+    "field_array_bundle": "crates/joil-evidence/receipts/Plate10-field-arrays.json",
+    "field_array_bundle_sha256": "0a428abbc580eca756340bbc61920f6ef165a31fae1028d8dab1714123f339d4"
+  },
+  "field_series_json_pointers": {
+    "wave1_grid": "/cases/wave1/meridional",
+    "wave2_grid": "/cases/wave2_tpms/meridional",
+    "wave1_profiles": "/cases/wave1/profiles",
+    "wave2_profiles": "/cases/wave2_tpms/profiles",
+    "baseline_profiles": "/cases/baseline/profiles"
+  },
+  "coordinate_reviews": {
+    "wave1": {
+      "method": "arithmetic mean of the FIRST vertex of each face OWNED by the cell; excludes neighbour contributions; NOT finite-volume centroids",
+      "mesh_cache_reconstruction_exact": true,
+      "cells_without_owned_face_samples": 12670,
+      "zero_owner_cell_coordinate": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "claim_state": "legacy_coordinate_defect_disclosed_not_corrected_spatial_sampling"
+    },
+    "wave2_tpms": {
+      "method": "arithmetic mean of the FIRST vertex of each face OWNED by the cell; excludes neighbour contributions; NOT finite-volume centroids",
+      "mesh_cache_reconstruction_exact": true,
+      "cells_without_owned_face_samples": 12533,
+      "zero_owner_cell_coordinate": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "claim_state": "legacy_coordinate_defect_disclosed_not_corrected_spatial_sampling"
+    },
+    "baseline": {
+      "method": "arithmetic mean of the FIRST vertex of each face OWNED by the cell; excludes neighbour contributions; NOT finite-volume centroids",
+      "mesh_cache_reconstruction_exact": true,
+      "cells_without_owned_face_samples": 12503,
+      "zero_owner_cell_coordinate": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "claim_state": "legacy_coordinate_defect_disclosed_not_corrected_spatial_sampling"
+    }
+  },
+  "baseline_field_mesh_matches_archived_dossier": false,
+  "limitations": [
+    "Exact legacy plotting arrays, not corrected cell-centroid sampling. Zero-owner cells retain artificial [0,0,0] coordinates under the historical algorithm; see per-case counts.",
+    "Baseline retained mesh/field count313260 differs from archived dossier334768. No same-archived-mesh identity is certified.",
+    "Raw U/p/k and mesh bytes are fingerprinted; selected grids/profiles are public, full raw fields stay private. This is post-hoc retained-artifact traceability, not recovery of missing historical scientific identity.",
+    "All arrays are derived from raw solver files and retained mesh/cache; no pixel data is read. No oil, FEA, independent-label or physical validation follows."
+  ]
 }

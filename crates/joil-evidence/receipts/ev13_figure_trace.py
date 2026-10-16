@@ -103,9 +103,12 @@ def capture(root, output):
         v1 = json.loads((root/'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json').read_text())
         w1 = json.loads((root/'docs/results/elite-3grid-gci-and-rsm-verification-v2.json').read_text())
         hs = w1['roache_gci_analysis']['dp_u_pa']['three_grid_half_span_pct_of_f2']
-        for wave, data, cfd, cfd_name, spread in [
-            ('wave4', w4, v2, 'wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json', hs),
-            ('wave3', w3, v1, 'wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json', 5.019376028759711)]:
+        for wave, data in [('wave4', w4), ('wave3', w3)]:
+            manifest = json.loads((root/f'docs/figures/{wave}-readme-hero-kpi-and-elite.png.manifest.json').read_text())
+            cfd_name = Path(next(s['path'] for s in manifest['source_receipts']
+                                 if Path(s['path']).name.startswith('wave2-tpms-elite-gci-rsm-and-f2-oil-'))).name
+            cfd = v2 if cfd_name.endswith('-v2.json') else v1
+            spread = hs if cfd_name.endswith('-v2.json') else 5.019376028759711
             plt.rcdefaults()
             path = root/f'docs/results/{wave}-evolution-proof-v1.json'
             proof.generate_readme_hero(data, cfd, sha(path), sha(root/'docs/results'/cfd_name),
@@ -133,8 +136,9 @@ def capture(root, output):
         main.body = main.body[begin:]
         exec(compile(ast.Module(body=[main], type_ignores=[]), str(root/'tools/generate_gci_rsm_report_and_figures.py'), 'exec'), gci.__dict__)
         gci.main()
-        # Plate10 uses private raw fields. Capture when available, but these
-        # arrays have no committed JSON pointer; that remains an explicit gap.
+        # Historical pins use raw fields. Current pins load FIELD_ARRAYS from
+        # the snapshot root; include the committed bundle in the export. Never
+        # substitute an older extractor callback for the current normal main.
         plt.rcdefaults()
         plate10 = load_module(root, 'generate_wave2_vs_wave1_cfd_plate.py')
         try: plate10.main()

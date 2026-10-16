@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T11:54Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T14:55Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -95,13 +95,13 @@ reason.
 | IR-11 | IR | MERGED | `2f15710` (board `MERGED IR-11`) |
 | IR-12 | IR | MERGED | `2f15710` (board `MERGED IR-12`) |
 | INT-01 | INT | MERGED | `cb31ba3` (board `MERGED INT-01`) |
-| INT-02 | INT | WIP | board HB 2026-10-16T07:06:55Z |
+| INT-02 | INT | MERGED | `4819bdf` (board `MERGED INT-02`) |
 | INT-03 | INT | MERGED | `6aa68b4` (board `MERGED INT-03`) |
 | INT-04 | INT | MERGED | `cb31ba3` (board `MERGED INT-04`) |
 | INT-05 | INT | MERGED | `92be04f` (board `MERGED INT-05`) |
 | INT-06 | INT | MERGED | `cab01e8` (board `MERGED INT-06`) |
 | INT-07 | INT | MERGED | `cb31ba3` (board `MERGED INT-07`) |
-| INT-08 | INT | OPEN | - |
+| INT-08 | INT | MERGED | `31cb8b1` (board `MERGED INT-08`) |
 | DOC-01 | DOC | MERGED | `dd82f45` (board `MERGED DOC-01`) |
 | DOC-02 | DOC | MERGED | `dd82f45` (board `MERGED DOC-02`) |
 | DOC-03 | DOC | MERGED | `631e2e3` (board `MERGED DOC-03`) |
@@ -111,7 +111,7 @@ reason.
 | DOC-07 | DOC | MERGED | `cf9df59` (board `MERGED DOC-07`) |
 | DOC-08 | DOC | MERGED | `6aa68b4` (board `MERGED DOC-08`) |
 | DOC-09 | DOC | MERGED | `d5fa0c9` (board `MERGED DOC-09`) |
-| DOC-10 | DOC | WIP | merged at `d5fa0c9` without board `DONE DOC-10` |
+| DOC-10 | DOC | MERGED | `4ce7ef0` (board `MERGED DOC-10`) |
 
 ## 3. Consensus themes
 

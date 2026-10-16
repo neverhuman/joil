@@ -23,7 +23,7 @@ def _copy_tree(dst):
     for rel in ('docs/results', 'docs/receipts', 'experiments', 'baselines/ct35',
                 'crates/joil-evidence/receipts', 'crates/joil-core/tests'):
         shutil.copytree(ROOT / rel, dst / rel)
-    for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', 'README.md', 'docs/RESULTS.md', NUMBERS_TRACE,
+    for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', 'README.md', 'docs/RESULTS.md', 'docs/PR3-DESCRIPTION.md', NUMBERS_TRACE,
                 'crates/joil-core/tests/regression.rs', 'crates/joil-core/src/program.rs',
                 'tools/run_elite_3grid_gci_and_rsm.py', 'crates/joil-cli/src/main.rs',
                 'crates/joil-core/src/structure.rs', 'crates/joil-core/src/evolve.rs',

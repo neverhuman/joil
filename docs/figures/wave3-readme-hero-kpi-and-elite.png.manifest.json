@@ -1,17 +1,26 @@
 {
   "schema_version": 1,
   "figure_path": "docs/figures/wave3-readme-hero-kpi-and-elite.png",
-  "figure_sha256": "b2c8df1d3cd429c78d560b37a22ffb1ba1cf0d511662d3e295ce8265882c6b64",
-  "title": "Wave-3 README Hero Plot: Per-Generation KPI Trajectory (n=10 Seeds, 22,500 3D Evals) & 15-Run OpenFOAM 14 Elite Verification",
+  "figure_sha256": "bed48af9a1fdc6c8158a500ddd356c15f82b04053af44802fd795a0162cddc15",
+  "title": "Wave-3 Historical Prior-Screen KPI Trajectory (n=10 Seeds); Archived W1/W2 Carrier Diagnostics with Corrected v2 Half-Spans (Separate Subjects)",
   "generator_script": "tools/generate_wave3_proof_figures.py",
+  "generator_sha256": "4c6926897a185d9f803689ef33db77a276c2383055c91074d0450c553f5736ce",
   "source_receipts": [
     {
       "path": "docs/results/wave3-evolution-proof-v1.json",
       "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168"
     },
     {
-      "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json",
-      "sha256": "52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841"
+      "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+      "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9"
+    },
+    {
+      "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+      "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+    },
+    {
+      "path": "requirements/RS-joil-research-v1.json",
+      "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
     }
   ]
 }

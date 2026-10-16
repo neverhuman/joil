@@ -122,7 +122,7 @@ This sign-off does not merge the PR; merging is Jepson's decision. It covers `e6
 keep `tools/check.py` and CI green, and a new receipt (O-11) must be documented by DOC before its numbers are
 quoted.
 
-## 7. Updates after sign-off (through integration `b9a259a`)
+## 7. Updates after sign-off (through integration `857517a`)
 
 The sign-off above covers `e68d617`. DOC documented these later changes; each was gated (`tools/check.py` `10/10`)
 before push.
@@ -142,25 +142,49 @@ before push.
   - the preregistration sets no false-omission threshold;
   - the `F4` table is a proposal, not a lock.
   The audit also removed a probe classification that is in no receipt. It also showed that several percentages had
-  matched unrelated receipt fields by coincidence; those are now declared as derived.
+  matched unrelated receipt fields by coincidence; those are now declared as derived. After the figure regeneration
+  TR re-ran the audit (`crates/joil-core/tests/truth_numtrace_postregen_audit.json`, pinned `d3c1907`): all `1,769`
+  claim-style occurrences classified, `409` table checks with `0` mismatches, and no new fixes for DOC.
 - **README.** The README is now a short page: what/why, Figure 0, status, install, quick start and links. The tables
   and evidence tiers moved unchanged to `docs/RESULTS.md`, which the claims audit and numbers trace also cover. IR ran
-  every README command from a fresh clone, and all exited `0` (`docs/receipts/README-freshclone-2026-10-16.md`). DOC applied IR's fixes:
+  every README command from a fresh clone, and all exited `0` (`docs/receipts/README-freshclone-2026-10-16.md`).
+  DOC re-ran all `18` current README install and quick-start commands on a fresh checkout of `6450b70`: all exited
+  `0` and the tree stayed clean. TR repeated the run at `503a299`
+  (`docs/receipts/README-freshclone-503a299-2026-10-16.json`): all commands passed, and DOC applied its one fix, a
+  timing note. DOC applied IR's fixes:
   - `rtk proxy` for the two `--nocapture` tests;
   - a plain timing note;
   - a warning that `--verify-existing` prints the withdrawn historical "certified" line.
 - **Figures.** Plate 10 now reads $R$ from its receipts (INT `e62a8e9`). Plate 9 now prints the recorded `0.0%`
   negative-control rate without the unsupported `0/30` count (INT `b9a259a`).
-- **Independent figure audit (EV-13, in progress).** EV checked the plotted series and generators. Six current Wave-4
-  and CFD figures reproduce exactly. Findings DOC confirmed against the generators and receipts:
+- **Independent figure audit (EV-13, `0931174`).** EV checked nine figures and their generators against integration
+  `1c9c3b4`: `783` explicit checks with `0` numeric differences and `16` untraced rows. Six current Wave-4 and CFD
+  figures reproduce exactly. There is no overall all-values-traced pass while the items below remain. Findings DOC
+  confirmed against the generators and receipts:
   - the Wave-4 hero says all arms share generation 0 (only `A1`, `A2`, `B3` do), calls the authored `30 mg/L`
     screen threshold a discharge ceiling, and gives one cell count for every subject;
   - Plate 6 still says pre-registered duties and prints a false-omission gate that no receipt contains;
   - the historical Wave-3 plates are not reproduced by the current generator, and historical Plate 11 claims
     held-out geometry;
   - Plate 10's field panels have no committed arrays behind them.
-  The captions now flag each of these until INT regenerates the plates. The owner's requested equal-budget
-  `CT-35` comparison is **not** plotted: every figure shows the single frozen `CT-35` reference. The only
-  equal-budget `CT-35` arm is in TR's separate raw-capture campaign (§5.7), so that figure coverage is unmet.
-- **Ledger.** TR-16 and EV-09 are moved to §6 (INT `MOVED-§6`). INT-01, DOC-09 and EV-12 are merged. The workplan
-  stands at `56/59`; INT-02, INT-08 and DOC-10 are open.
+  - Plate 3's mass-closure "gate" is the code's numerical tolerance, recorded in no receipt. DOC disposition: it is
+    code-bound numerical policy, not a result or a physical requirement, and the caption says so (F09).
+  TR, acting as integrator, regenerated the hero, Plates 0, 3, 6 and 11 and the Wave-4 Plate 11 (`11033dd`), then
+  relabelled the historical plates to count evaluations, relabelled Plate 3 as normal-stress positivity, and rebuilt
+  Plate 10 from EV's committed field arrays (`503a299`). EV re-verified that state independently: all nine figures
+  reproduce byte-for-byte, with `833` checks passing and `0` failed or untraced
+  (`crates/joil-evidence/reports/EV13-followup-reverify.md`). DOC viewed each new image against its caption.
+  Residuals:
+  - Plate 10's arrays keep the legacy coordinate method (first vertex of owned faces, not finite-volume centroids;
+    cells that own no faces sit at the origin), and its `CT-35` field mesh differs from the archived integral mesh.
+    The caption and the plate both say so; no same-mesh identity is claimed.
+  - The owner's requested equal-budget `CT-35` comparison is **not** plotted: every figure shows the single frozen
+    `CT-35` reference. The only equal-budget `CT-35` arm is in TR's separate raw-capture campaign (§5.7), so that
+    figure coverage is unmet.
+- **Ledger.** TR-16 and EV-09 are moved to §6 (INT `MOVED-§6`). All other workplan items are merged, so the
+  workplan stands at `59/59`. INT (`agy_joil`) went offline at 12:40Z; TR acted as integrator, merged the lanes
+  (INT-02) and marked PR #3 ready for review at 14:49Z with CI green (INT-08). Jepson alone merges.
+- **Main branch (fact, for Jepson).** PR #5 (`lane/evidence` → `main`) was merged at 12:56:19Z under the shared
+  `jepsontaylor` account, so `main` (`a6c3b61`) already holds the integration branch through `3619bd7`. PR #4
+  (`lane/paper` → `main`) was opened at the same time and has been converted to draft. PR #3 remains the
+  integration PR.
