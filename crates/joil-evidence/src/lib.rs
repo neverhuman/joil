@@ -4,6 +4,7 @@ pub mod claims;
 pub mod identity;
 pub mod observation;
 pub mod subject;
+pub mod training;
 
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};

@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "item": "EV-09",
+  "state": "blocked_independent_label_inventory_incomplete",
+  "target_quantity": "cout",
+  "unit": "mg_per_litre_dispersed_oil",
+  "admitted_independent_labels": 0,
+  "source_assessment": {
+    "reviewed_public_carrier_runs": "hydraulic pressure diagnostics do not provide closed oil-inventory/Cout labels",
+    "existing_candidate_targets": "prior-derived reduced screens; prohibited as independent labels"
+  },
+  "leave_family_out": {
+    "status": "insufficient",
+    "reason": "no reviewed independent labels with observed geometry family membership",
+    "missing": [
+      "independent Cout observations",
+      "IR-07 observed features",
+      "reviewed geometry-cluster assignments"
+    ]
+  },
+  "leave_mechanism_out": {
+    "status": "insufficient",
+    "reason": "no reviewed independent labels with independently observed mechanism membership",
+    "missing": [
+      "independent Cout observations",
+      "reviewed field-derived mechanism assignments"
+    ]
+  },
+  "calibration_table": [
+    {
+      "interval": "one_sigma",
+      "status": "insufficient",
+      "reason": "no independent held-out observations"
+    },
+    {
+      "interval": "two_sigma",
+      "status": "insufficient",
+      "reason": "no independent held-out observations"
+    }
+  ],
+  "uncertainty_policy": "no OOD RMSE or coverage number is emitted from prior-derived labels",
+  "tests": "synthetic software fixtures validate admission/revocation/disjoint holdouts only; never a physical calibration result",
+  "next_dependency": "IR-07 source-bound observer receipts and independently measured oil-grade labels; then run geometry-disjoint family/mechanism folds"
+}
