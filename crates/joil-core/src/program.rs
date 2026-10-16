@@ -288,6 +288,37 @@ impl From<VariationError> for String {
 }
 
 impl VariationOutcome {
+    /// Explicit generation/control operator, never an error recovery path.
+    pub fn introduce(
+        program: DesignProgram,
+        operator: &str,
+        rng: &mut Rng,
+    ) -> Result<Self, VariationError> {
+        variation(&[], operator, rng, |_, _| program.clone())
+    }
+
+    /// Compose stages into one proposal while preserving all edit/repair receipts.
+    pub fn then(
+        self,
+        next: impl FnOnce(&DesignProgram) -> Result<Self, VariationError>,
+    ) -> Result<Self, VariationError> {
+        let Some(child) = self.child.as_ref() else {
+            return Ok(self);
+        };
+        let mut out = next(child)?;
+        out.parent_hashes = self.parent_hashes;
+        out.operator_id = format!("{}+{}", self.operator_id, out.operator_id);
+        out.rng_span.before = self.rng_span.before;
+        let mut edits = self.edits;
+        edits.extend(out.edits);
+        out.edits = edits;
+        let mut repairs = self.repairs;
+        repairs.extend(out.repairs);
+        out.repairs = repairs;
+        out.locality.changed_fields = out.edits.len();
+        Ok(out)
+    }
+
     pub fn into_child(self) -> Result<DesignProgram, String> {
         self.child.ok_or_else(|| {
             self.failure
