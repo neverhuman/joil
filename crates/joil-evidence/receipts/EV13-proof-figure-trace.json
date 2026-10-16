@@ -1,0 +1,649 @@
+{
+  "schema_version": 1,
+  "kind": "EV13_independent_proof_figure_trace_not_physical_validation",
+  "created_utc": "2026-10-16T11:56:39.787270+00:00",
+  "input_head": "1c9c3b484543ea459f5283fbc2dd7da4a0303207",
+  "initial_head": "12cd26808f215e105729de73b82a34a50ab1e7d5",
+  "scope": "Nine proof/GCI/duty figures and their manifests/generators. TR NUMTRACE prose audit is referenced, not repeated. No source figure, DOC prose, run metadata or raw simulation file edited.",
+  "acceptance": "AUDIT_COMPLETE_WITH_NINE_NEEDS_TO_DOC; NOT_ALL_VALUES_TRACED",
+  "numeric_comparison": {
+    "PASS": 783,
+    "FAIL": 0,
+    "UNTRACED": 16
+  },
+  "all_plotted_values_have_committed_json_sources": false,
+  "all_figures_reproduce_from_current_generator": false,
+  "figure_count": 9,
+  "direct_plot_call_count": 266,
+  "raster_reproductions": 6,
+  "numeric_trace_path": "crates/joil-evidence/receipts/EV13-figure-value-trace.json",
+  "numeric_trace_sha256": "e4495248f5f2a1df5d19f1bc68db115b2e9454ccbded41df39b92cb82cdf0457",
+  "figures": {
+    "wave4-readme-hero-kpi-and-elite.png": {
+      "committed_sha256": "f08b10b8d56abe1924fd3e3c94432335e6cb1273a3ae03befbe7abcbb211b5bd",
+      "regenerated_sha256": "f08b10b8d56abe1924fd3e3c94432335e6cb1273a3ae03befbe7abcbb211b5bd",
+      "raster_equal": true,
+      "committed_size": [
+        2790,
+        1908
+      ],
+      "regenerated_size": [
+        2790,
+        1908
+      ],
+      "direct_plot_calls": 51,
+      "committed_png_binding": "EXACT_RGBA",
+      "generator_figure_text": [
+        "Joil Wave-4 Prior-Screen Search Diagnostics: Per-Generation KPI Trajectory (n = 10 Seeds, 22,500 Evals, MC n=72)\nB1 > B3 on Best KPI (p_Holm=1.00) & B3 > B1 on Pop-Median KPI (p_Holm=0.0013) | Panel D: Archived W1/2 CFD (Separate Subjects)",
+        "Source Receipts: wave4-evolution-proof-v1.json (SHA-256: 2e7192e2aff6cece\u2026) | wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json (SHA-256: 4fa41f6b755453af\u2026) | Shared Unseeded Gen-0 Init across B2, A1, A2, B3 (B0 CT-35 = Single-Eval Reference)"
+      ]
+    },
+    "wave4-evolution-ablation-and-lineage-proof.png": {
+      "committed_sha256": "847dc84b16c5a81de9666a423484a8d539954859b71f0dab937ca56f28bd5365",
+      "regenerated_sha256": "847dc84b16c5a81de9666a423484a8d539954859b71f0dab937ca56f28bd5365",
+      "raster_equal": true,
+      "committed_size": [
+        2790,
+        1944
+      ],
+      "regenerated_size": [
+        2790,
+        1944
+      ],
+      "direct_plot_calls": 41,
+      "committed_png_binding": "EXACT_RGBA",
+      "generator_figure_text": [
+        "Plate 11 \u2014 Wave-4 Prior-Screen Search Diagnostics: 5-Arm + B0 Reference (n = 10 Seeds, MC n=72)\nB1 > B3 on Best KPI (p_Holm=1.00); B3 > B1 on Pop-Median KPI (+5.64, p_Holm=0.0013) & Authored 11-Family Screen Summary",
+        "Source Receipt: docs/results/wave4-evolution-proof-v1.json (SHA-256: 2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885) | n = 10 Seeds \u00d7 25 Gens \u00d7 18 Proposals/Gen = 22,500 Charged Proposals Across 5 Search Arms (MC n=72; B0 = 1-Eval Ref)"
+      ]
+    },
+    "wave3-readme-hero-kpi-and-elite.png": {
+      "committed_sha256": "b2c8df1d3cd429c78d560b37a22ffb1ba1cf0d511662d3e295ce8265882c6b64",
+      "regenerated_sha256": "12f8702704dcdbb0518700581f182b01f6e627cccfa8375935271e965d86ee7d",
+      "raster_equal": false,
+      "committed_size": [
+        2790,
+        1908
+      ],
+      "regenerated_size": [
+        2790,
+        1908
+      ],
+      "direct_plot_calls": 51,
+      "committed_png_binding": "UNRESOLVED_HISTORICAL_REGENERATION_DIFFERENCE",
+      "generator_figure_text": [
+        "Joil Wave-3 Prior-Screen Search Diagnostics: Per-Generation KPI Trajectory (n = 10 Seeds, 22,500 Evals, MC n=12)\nB1 > B3 on Best KPI (p_Holm=1.00) & B3 > B1 on Pop-Median KPI (p_Holm=0.0013) | Panel D: Archived W1/2 CFD (Separate Subjects)",
+        "Source Receipts: wave3-evolution-proof-v1.json (SHA-256: 9a21229bd1c6762e\u2026) | wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json (SHA-256: 52567eb972bb45b0\u2026) | Shared Unseeded Gen-0 Init across B2, A1, A2, B3 (B0 CT-35 = Single-Eval Reference)"
+      ]
+    },
+    "wave3-evolution-ablation-and-lineage-proof.png": {
+      "committed_sha256": "a7c78148ff9c4e895a3fb058a204ee30f852a1b14e5f4a5b13364bcbac443eca",
+      "regenerated_sha256": "59248ced0be41495b32f800ee810cf48d47bb198210653c424d99bee0b087d89",
+      "raster_equal": false,
+      "committed_size": [
+        2790,
+        1944
+      ],
+      "regenerated_size": [
+        2790,
+        1944
+      ],
+      "direct_plot_calls": 41,
+      "committed_png_binding": "UNRESOLVED_HISTORICAL_REGENERATION_DIFFERENCE",
+      "generator_figure_text": [
+        "Plate 11 \u2014 Wave-3 Prior-Screen Search Diagnostics: 5-Arm + B0 Reference (n = 10 Seeds, MC n=12)\nB1 > B3 on Best KPI (p_Holm=1.00); B3 > B1 on Pop-Median KPI (+5.64, p_Holm=0.0013) & Authored 11-Family Screen Summary",
+        "Source Receipt: docs/results/wave3-evolution-proof-v1.json (SHA-256: 9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168) | n = 10 Seeds \u00d7 25 Gens \u00d7 18 Proposals/Gen = 22,500 Charged Proposals Across 5 Search Arms (MC n=12; B0 = 1-Eval Ref)"
+      ]
+    },
+    "wave4-page1-why-it-matters.png": {
+      "committed_sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "regenerated_sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "raster_equal": true,
+      "committed_size": [
+        1760,
+        896
+      ],
+      "regenerated_size": [
+        1760,
+        896
+      ],
+      "direct_plot_calls": 27,
+      "committed_png_binding": "EXACT_RGBA",
+      "generator_figure_text": [
+        "F1 prior-laden screen, sandbox evidence tier: screen values, not physical performance. Bands: 95% bootstrap intervals of the seed mean; thin lines: single seeds."
+      ]
+    },
+    "wave4-gci-same-pipeline-control.png": {
+      "committed_sha256": "64390e249760693a7a10c68b4d8a83df7f02e77a265ec845022e9219d726c1c6",
+      "regenerated_sha256": "64390e249760693a7a10c68b4d8a83df7f02e77a265ec845022e9219d726c1c6",
+      "raster_equal": true,
+      "committed_size": [
+        1920,
+        832
+      ],
+      "regenerated_size": [
+        1920,
+        832
+      ],
+      "direct_plot_calls": 7,
+      "committed_png_binding": "EXACT_RGBA",
+      "generator_figure_text": [
+        "OpenFOAM 14 kOmegaSST carrier CFD (numerical only)\nThe archived shells match the same-pipeline CT-35 control; the 8-jet design is not grid-converged"
+      ]
+    },
+    "wave2-multiseed-ablation-and-ci.png": {
+      "committed_sha256": "ef83db92f9658d5aac0c2a3ecaa86774914b33f2d47e8f97184cc83fdde137c8",
+      "regenerated_sha256": "079cf19af252f27fe483017f7dfebc80f63974e098a4c4758df42fbea3a32cf3",
+      "raster_equal": false,
+      "committed_size": [
+        2970,
+        1836
+      ],
+      "regenerated_size": [
+        2970,
+        1835
+      ],
+      "direct_plot_calls": 16,
+      "committed_png_binding": "UNRESOLVED_HISTORICAL_REGENERATION_DIFFERENCE",
+      "generator_figure_text": [
+        "JOIL WAVE-2 CRITIQUE-PROOF STATISTICAL ABLATION \u00b7 10-SEED BOOTSTRAP CIs, WILCOXON TESTS & HELD-OUT DUTIES",
+        "Pre-Registered Protocol (joil-wave2-preregistration-v1) \u00b7 N=10 Master Seeds (180 Evals/Seed/Arm) \u00b7 Holm\u2013Bonferroni Multiplicity Control & 10% Rejected-Cohort Audit"
+      ]
+    },
+    "elite-gci-and-rsm-verification.png": {
+      "committed_sha256": "aa1b8dc170e988ac111a15dca41856bc98c40b18ee8eb0936e376bfc3f76749e",
+      "regenerated_sha256": "aa1b8dc170e988ac111a15dca41856bc98c40b18ee8eb0936e376bfc3f76749e",
+      "raster_equal": true,
+      "committed_size": [
+        3520,
+        2420
+      ],
+      "regenerated_size": [
+        3520,
+        2420
+      ],
+      "direct_plot_calls": 14,
+      "committed_png_binding": "EXACT_RGBA",
+      "generator_figure_text": [
+        "P04/P05 3-Grid Spatial Refinement (G0/G1/G2; Oscillatory R = -0.373 < 0, std GCI = null) & 7-Eq. RSM Cross-Check\nArchived W1 2-Port Wall-Modulated Shell xbabe2-gen043-isl10-ind030 (\"6-Jet\" Label; C1/G-09) vs. CT-35 in OpenFOAM 14"
+      ]
+    },
+    "wave2-vs-wave1-openfoam14-cfd-comparison.png": {
+      "committed_sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
+      "regenerated_sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
+      "raster_equal": true,
+      "committed_size": [
+        3150,
+        2430
+      ],
+      "regenerated_size": [
+        3150,
+        2430
+      ],
+      "direct_plot_calls": 18,
+      "committed_png_binding": "EXACT_RGBA",
+      "generator_figure_text": [
+        "Plate 10 \u2014 Side-by-Side Wave-1 vs. Wave-2 Archived 2-Port Wall-Modulated OpenFOAM 14 CFD Fields & 5-Run Screen\nW1 \"6-Jet\" Label (305,522 Cells) vs. W2 \"TPMS\" Label (305,311 Cells) & \"8-Jet\" Label (305,469 Cells) | v2 Oscillatory R < 0 (std GCI = null)"
+      ]
+    }
+  },
+  "source_inventory": {
+    "docs/figures/elite-gci-and-rsm-verification.png": {
+      "sha256": "aa1b8dc170e988ac111a15dca41856bc98c40b18ee8eb0936e376bfc3f76749e",
+      "bytes": 787195
+    },
+    "docs/figures/elite-gci-and-rsm-verification.png.manifest.json": {
+      "sha256": "e65c1bc2e2bf914cc6a17e5a7b3fee60017769c8cde4e360a4816430ef22f859",
+      "bytes": 608
+    },
+    "docs/figures/wave2-multiseed-ablation-and-ci.png": {
+      "sha256": "ef83db92f9658d5aac0c2a3ecaa86774914b33f2d47e8f97184cc83fdde137c8",
+      "bytes": 530617
+    },
+    "docs/figures/wave2-multiseed-ablation-and-ci.png.manifest.json": {
+      "sha256": "c285d0cb33ab8954dbf2ef613d752c8f9928efc09639564d2e83e7972e11b9cd",
+      "bytes": 896
+    },
+    "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png": {
+      "sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
+      "bytes": 632197
+    },
+    "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png.manifest.json": {
+      "sha256": "1edd7bc11d2fff78562a7dc7753b47166437a10ccd16eddf863e2ea339f5100c",
+      "bytes": 1326
+    },
+    "docs/figures/wave3-evolution-ablation-and-lineage-proof.png": {
+      "sha256": "a7c78148ff9c4e895a3fb058a204ee30f852a1b14e5f4a5b13364bcbac443eca",
+      "bytes": 848502
+    },
+    "docs/figures/wave3-evolution-ablation-and-lineage-proof.png.manifest.json": {
+      "sha256": "53c559eca68647e40d6309f4dd12e8a518122f2ba00b9a47f6fad8a02cd4dde7",
+      "bytes": 765
+    },
+    "docs/figures/wave3-readme-hero-kpi-and-elite.png": {
+      "sha256": "b2c8df1d3cd429c78d560b37a22ffb1ba1cf0d511662d3e295ce8265882c6b64",
+      "bytes": 981330
+    },
+    "docs/figures/wave3-readme-hero-kpi-and-elite.png.manifest.json": {
+      "sha256": "e1a291dcb2fb2529393c62561c6d5b6289be0d395970934c18708f149dde22b9",
+      "bytes": 737
+    },
+    "docs/figures/wave4-evolution-ablation-and-lineage-proof.png": {
+      "sha256": "847dc84b16c5a81de9666a423484a8d539954859b71f0dab937ca56f28bd5365",
+      "bytes": 856713
+    },
+    "docs/figures/wave4-evolution-ablation-and-lineage-proof.png.manifest.json": {
+      "sha256": "2f3d4fd578cb14f9ceaf161e69ccfa1c53108962a540c0640c5adc47cddb806e",
+      "bytes": 964
+    },
+    "docs/figures/wave4-gci-same-pipeline-control.png": {
+      "sha256": "64390e249760693a7a10c68b4d8a83df7f02e77a265ec845022e9219d726c1c6",
+      "bytes": 211333
+    },
+    "docs/figures/wave4-gci-same-pipeline-control.png.manifest.json": {
+      "sha256": "2d8c59ea952c56833c43ec1f8e48888537cdd59888f5f55efc84e1e84454797f",
+      "bytes": 966
+    },
+    "docs/figures/wave4-page1-why-it-matters.png": {
+      "sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "bytes": 267578
+    },
+    "docs/figures/wave4-page1-why-it-matters.png.manifest.json": {
+      "sha256": "54911b795c6189b609abe1eb5dd8c9f66abaa998af27985070b94002a29b02dd",
+      "bytes": 620
+    },
+    "docs/figures/wave4-readme-hero-kpi-and-elite.png": {
+      "sha256": "f08b10b8d56abe1924fd3e3c94432335e6cb1273a3ae03befbe7abcbb211b5bd",
+      "bytes": 941478
+    },
+    "docs/figures/wave4-readme-hero-kpi-and-elite.png.manifest.json": {
+      "sha256": "0089e69f55ef083b2dfe9c0218a9d773b1a1b9ee16c3f4a73d6d4a5fe35f4f8e",
+      "bytes": 940
+    },
+    "docs/results/baseline-hydraulics-v1.json": {
+      "sha256": "2c53abe39be29a9ae9a160836773d35be761005a191ea3eaa093e58f5c5e4461",
+      "bytes": 12223
+    },
+    "docs/results/elite-3grid-gci-and-rsm-verification-v1.json": {
+      "sha256": "6bcac03b3724fa5fd60a83db33614756016c5188a7c028ddda86ab7a10de966c",
+      "bytes": 12273
+    },
+    "docs/results/elite-3grid-gci-and-rsm-verification-v2.json": {
+      "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+      "bytes": 14225
+    },
+    "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json": {
+      "sha256": "d20e9d72dfa004c1bc77a9389646b3ebb75f3004d85ad8c397f902afa181e496",
+      "bytes": 8003
+    },
+    "docs/results/interactive-3d-archetypes-v1.json": {
+      "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07",
+      "bytes": 496296
+    },
+    "docs/results/rust-evolution-qualification-v1.json": {
+      "sha256": "1bc32f98d38cd22525130843bf42034c0078146924b76148e06a4a02c9cff6b3",
+      "bytes": 5516
+    },
+    "docs/results/wave2-multiseed-ablation-and-holdout-v1.json": {
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799",
+      "bytes": 311714
+    },
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json": {
+      "sha256": "52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841",
+      "bytes": 31708
+    },
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json": {
+      "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+      "bytes": 34462
+    },
+    "docs/results/wave3-evolution-proof-v1.json": {
+      "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168",
+      "bytes": 1588166
+    },
+    "docs/results/wave4-evolution-proof-v1.json": {
+      "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+      "bytes": 1946433
+    },
+    "docs/results/wave4-gci-v1.json": {
+      "sha256": "92c5eea7189fc63b3a28802ecc051746e4eca3f32f1f162b27c9011367029287",
+      "bytes": 1140347
+    },
+    "docs/results/wave4-smoke-v1.json": {
+      "sha256": "385ae75ff20a8b07d81e574027ebc2504a97887c7c4a8d681d5c74c3c3d9da32",
+      "bytes": 3905
+    },
+    "README.md": {
+      "sha256": "5945628c62683091486c27b70bbc1064c27033c9402ad3f654fdaae2d94b1693",
+      "bytes": 8556
+    },
+    "analysis/kpi_fitness.py": {
+      "sha256": "701c72e3dbd2c38a97c95ff8695deb040cb5daf90ad8f731bbfbbdebe889456e",
+      "bytes": 35384
+    },
+    "docs/WHITEPAPER.md": {
+      "sha256": "899f1f379a1c99ef613453a1e7c9e8127de23d9630ab954071785a1582f0e394",
+      "bytes": 152828
+    },
+    "experiments/wave2-preregistration-v1.json": {
+      "sha256": "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4",
+      "bytes": 5724
+    },
+    "tools/generate_gci_rsm_report_and_figures.py": {
+      "sha256": "7c00484126eddfd07a881c0152d98a9e9b3c5c266016f327d57abacedf36e45e",
+      "bytes": 33637
+    },
+    "tools/generate_openfoam14_flowfield_plate.py": {
+      "sha256": "ad2a972f2faecc2a7593f38ffbb6b27e7069af6b0b79b442483a550999d5f085",
+      "bytes": 14132
+    },
+    "tools/generate_page1_figure.py": {
+      "sha256": "e60d7d751fc75029201d67110c3bac847c9fd3d85ef4dc58f2a2a9dc311be03f",
+      "bytes": 8190
+    },
+    "tools/generate_wave2_figures_and_animations.py": {
+      "sha256": "aff936e617a833f55da8ca6cc7eebcc0eb061b67022f8e1582dbfaf2e5bad503",
+      "bytes": 63458
+    },
+    "tools/generate_wave2_vs_wave1_cfd_plate.py": {
+      "sha256": "f5b18dacba886e90bbba0351509ef531b66b7f6eb677b149f2928b6aedc71f04",
+      "bytes": 17116
+    },
+    "tools/generate_wave3_proof_figures.py": {
+      "sha256": "0abce318b92089be22acd0fbdfc87005b26dea3a97afeceff31c5e7532851a15",
+      "bytes": 34876
+    },
+    "tools/generate_wave4_gci_figure.py": {
+      "sha256": "47b20e7d1427abb85f54aa49db9057964c74885c107d6c31c672505eeece301d",
+      "bytes": 7940
+    },
+    "requirements/RS-joil-research-v1.json": {
+      "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+      "bytes": 2266
+    },
+    "crates/joil-evidence/receipts/Wave4-raw-capture-number-trace.json": {
+      "sha256": "ef05231ccea7e276128b9058723b060ba3b3a673374986cb037abe1e77581d38",
+      "bytes": 840541
+    },
+    "docs/RESULTS.md": {
+      "sha256": "1dea1195e287975b4f7fbefca51dfb595dc03ea80d81fb1034c2438c8c289795",
+      "bytes": 15391
+    }
+  },
+  "findings": [
+    {
+      "id": "EV13-F01",
+      "state": "MISLABELLED",
+      "figure": "wave4-readme-hero-kpi-and-elite.png",
+      "observed": "Shared Gen0 includes B2 incorrectly. B2 mean27.471889 vs A1/A2/B3 mean31.008835.",
+      "source_ref": "docs/results/wave4-evolution-proof-v1.json#/generation_band_curves/B2_Conventional_Axisym_NSGA2/0/best_kpi_score/mean",
+      "exact_fix": "Label A1/A2/B3 shared initialization; B2 conventional and B1 random initialize separately; regenerate hero/manifest and retie hashes.",
+      "board_handoff_utc": "2026-10-16T11:47:44Z"
+    },
+    {
+      "id": "EV13-F02",
+      "state": "STALE_MANIFEST",
+      "figure": "wave4-evolution-ablation-and-lineage-proof.png",
+      "observed": "Manifest title still calls six arms, phylogenetic lineage and held-out geometry; current PNG correctly qualifies these.",
+      "source_ref": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png.manifest.json#/title",
+      "exact_fix": "Update title and generator manifest string to five search arms + frozen CT35 reference; incumbent-improvement milestones; authored-label diversity; authored-family screen diagnostics.",
+      "board_handoff_utc": "2026-10-16T11:47:44Z"
+    },
+    {
+      "id": "EV13-F03",
+      "state": "MISSING_REQUESTED_COVERAGE",
+      "figure": "wave4-page1-why-it-matters.png",
+      "observed": "Hero/page1/Plate11 contain frozen CT35 reference, no equal450-eval CT35 search arm.",
+      "source_ref": "crates/joil-evidence/receipts/Wave4-raw-capture-number-trace.json#/recomputed/final_summary_statistics/B0_CT35_Equal_Budget/best_kpi_score",
+      "exact_fix": "Mark three-arm equal-budget figure unmet. If adding a comparison use all three arms of the separately identified new raw-capture campaign; keep frozen reference distinguished. Do not mix campaigns.",
+      "board_handoff_utc": "2026-10-16T11:47:44Z"
+    },
+    {
+      "id": "EV13-F04",
+      "state": "UNTRACED_ARRAYS",
+      "figure": "wave2-vs-wave1-openfoam14-cfd-comparison.png",
+      "observed": "Fourteen field/profile/wall plotting calls lack committed JSON numeric arrays, despite exact replay from currently retained private fields.",
+      "source_ref": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png.manifest.json#/source_receipts",
+      "exact_fix": "Commit reviewed extracted arrays/profiles + source U/p/k/polyMesh digest inventory and make generator consume them, or explicitly leave source coverage incomplete in DOC09.",
+      "board_handoff_utc": "2026-10-16T11:47:44Z"
+    },
+    {
+      "id": "EV13-F05",
+      "state": "MISLABELLED_MESH_COUNTS",
+      "figure": "wave4-readme-hero-kpi-and-elite.png",
+      "observed": "PanelD blanket552kG2/305kG1 legends conceal different per-case cell counts.",
+      "source_ref": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json#/grids/2/cells",
+      "exact_fix": "Remove blanket cell counts or print per-subject values (W1G2=552513, TPMS552067, octa552511, baseline334768). Correct pressure and half-span bars can remain.",
+      "board_handoff_utc": "2026-10-16T11:47:44Z"
+    },
+    {
+      "id": "EV13-F06",
+      "state": "HISTORICAL_GENERATOR_DRIFT",
+      "figure": "wave3-evolution-ablation-and-lineage-proof.png",
+      "observed": "Both historical Wave3 PNGs differ from current generator. Current hardcoded B1>B3/pHolm1/+5.64 narrative contradicts Wave3 source (best B3>B1, U84,pHolm0.01017); old PNG actual numbers are historically correct on visual inspection. Historical hero W1 uncertainty also comes from a hardcoded scalar.",
+      "source_ref": "docs/results/wave3-evolution-proof-v1.json#/pairwise_tests/0",
+      "exact_fix": "Parameterize captions from each wave receipt or pin historical generator version; do not overwrite historical PNGs with current false narrative. Qualify old phylogenetic/held-out claims and clamped-v1 GCI as historical unsupported diagnostics. Restore JSON-bound uncertainty if regenerating.",
+      "board_handoff_utc": "2026-10-16T11:47:44Z"
+    },
+    {
+      "id": "EV13-F07",
+      "state": "EMBEDDED_EXISTING_CORRECTIONS",
+      "figure": "wave2-multiseed-ablation-and-ci.png",
+      "observed": "PNG still claims preregistered duties, unsupported2.0% false-omission gate and true Pareto HV. Wave2 replay is not pixel-identical (layout/style differs; matching numeric projections do not certify every original pixel).",
+      "source_ref": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/promoted_wave2_top_elite_held_out_duties",
+      "exact_fix": "Extend TR NUMTRACE01/08 and existing C7 to PNG/generator: executed screen duties (protocol deviation); remove2.0% gate; label legacy HV telemetry, not true Pareto HV. Regenerate manifest/hashes. No duplicated prose-number audit.",
+      "board_handoff_utc": "2026-10-16T11:47:44Z"
+    },
+    {
+      "id": "EV13-F08",
+      "state": "UNADMITTED_LIMIT_WORDING",
+      "figure": "wave4-readme-hero-kpi-and-elite.png",
+      "observed": "Hero Discharge Ceiling / Wave2 Compliance Threshold suggests a physical limit;30mg/L is authored research policy, site_permit_equivalence=false.",
+      "source_ref": "requirements/RS-joil-research-v1.json#/quality",
+      "exact_fix": "Label Authored research-screen threshold (30.0mg/L). No physical permit/limit source is admitted; do not create one.",
+      "board_handoff_utc": "2026-10-16T11:54:46Z"
+    },
+    {
+      "id": "EV13-F09",
+      "state": "CODE_BOUND_POLICY_WITHOUT_JSON_POINTER",
+      "figure": "elite-gci-and-rsm-verification.png",
+      "observed": "Mass-closure Gate1000 in1e-4percent units correctly equals implemented0.001 numerical tolerance, but no result/manifest JSON threshold field binds it.",
+      "source_ref": "analysis/kpi_fitness.py:383",
+      "exact_fix": "Declare code-bound numerical policy in DOC09, or record existing tolerance+units in figure manifest to close every-number JSON trace; alternatively omit gate annotation. Do not invent or change physical limits.",
+      "board_handoff_utc": "2026-10-16T12:01:27Z"
+    }
+  ],
+  "residual_risks_for_DOC09": [
+    {
+      "id": "EV09",
+      "state": "DEFERRED_SECTION6",
+      "source": "crates/joil-evidence/receipts/EV09-independent-label-readiness-20261016.json",
+      "risk": "No independent Cout labels/reviewed mechanism observations. Dataset joil-independent-oil-observations-v1 and disjoint geometry-family plus observed-mechanism holdouts are still absent. Real calibration/OOD error metrics remain null; synthetic software tests are not validation."
+    },
+    {
+      "id": "EV12",
+      "state": "DONE_SCOPED_IDENTITY_OR_DISPOSITION",
+      "source": "crates/joil-evidence/receipts/EV12-Wave4-closure.json",
+      "risk": "Twelve cases accounted: three verified active artifact chains, eight missing-mesh exclusions, one failed G1 diagnostic exclusion. Nine exclusions are not manifest PASS. All are non-claim-bearing without wider science admission. Do not imply all twelve have scientific identities or physical validation."
+    },
+    {
+      "id": "G1",
+      "state": "FAILED_DIAGNOSTIC",
+      "source": "crates/joil-evidence/receipts/EV12-G1-disposition.json",
+      "risk": "Solver fatal missing inlet1/MPI_ABORT, no timesteps; retained sidecar stale. Numerical/setup failure is not physical infeasibility; no valid finalized identity for retained bytes. A sidecar did exist earlier; do not erase that chronology."
+    },
+    {
+      "id": "HISTORICAL_FEA",
+      "state": "DEFERRED_SECTION6",
+      "source": "crates/joil-evidence/reports/section6-ev09-ev12-deferrals.json",
+      "risk": "Historical executed meshes not recoverable by rehashing input-only copies. FEA/material/process/load-transfer manifests and broader source-bound requirements remain deferred; analytic structural screen is not qualified FEA."
+    },
+    {
+      "id": "RAW_CAMPAIGN",
+      "state": "REPRODUCTION_ONLY",
+      "source": "crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json",
+      "risk": "Original historical campaign emitted no raw candidate logs. New independently captured campaign numerically reproduces14243 fields with0diff; it is separately identified, not recovered historical raw evidence. Extra equal-budget CT35 arm belongs to that new capture."
+    },
+    {
+      "id": "GENERALIZATION",
+      "state": "NOT_INDEPENDENT_GEOMETRY_VALIDATION",
+      "source": "docs/results/wave4-evolution-proof-v1.json#/held_out_geometry_generalization",
+      "risk": "Eleven rows are authored-family screening diagnostics; KPI surrogate RMSE null. Milestones are incumbent improvements, not pedigree. Duty screens deviate from preregistered feed medians. F1 priors reward genes they activate; no independent geometry/duty physical validation follows."
+    },
+    {
+      "id": "GCI_CARRIER_ONLY",
+      "state": "NUMERICAL_NOT_PHYSICAL",
+      "source": "docs/results/wave4-gci-v1.json",
+      "risk": "Same-pipeline control removes apparent pressure advantage. Oscillatory archived/control sequences and non-asymptotic solved eight-jet sequence do not certify standard GCI. Five other winners unsolved; carrier pressure/flow is not oil transport, full residence oil inventory, material qualification or physical validation."
+    },
+    {
+      "id": "FIGURE_SOURCE_COVERAGE",
+      "state": "OPEN_DOC09_FINDINGS",
+      "source": "crates/joil-evidence/receipts/EV13-proof-figure-trace.json#/findings",
+      "risk": "Equal-budget three-arm figure absent; Plate10 fields/profiles lack committed arrays; historical regeneration drift and figure metadata/wording fixes need explicit DOC09 disposition. Mass-closure gate annotation is code-bound numerical policy without a result JSON pointer."
+    }
+  ],
+  "negative_tests": {
+    "wrong_seed_point": true,
+    "wrong_arm_ci": true,
+    "wrong_gci_units": true,
+    "dropped_plot_call": true,
+    "wrong_capture_png_identity": true
+  },
+  "scratch_cleanup": {
+    "paths": [
+      "/tmp/joil_ev12_wr_test_2573028",
+      "/tmp/joil_ev12_wr_test_2589185",
+      "/tmp/joil_ev12_wr_test_2666965",
+      "/tmp/joil_ev12_wr_test_2756476"
+    ],
+    "reference_search_scope": "Exact directory names in same-repo worktree source/docs and archived checks; cwd/root/open file references across live processes",
+    "text_references": [],
+    "active_process_references": [],
+    "deleted": [
+      "/tmp/joil_ev12_wr_test_2573028",
+      "/tmp/joil_ev12_wr_test_2589185",
+      "/tmp/joil_ev12_wr_test_2666965",
+      "/tmp/joil_ev12_wr_test_2756476"
+    ],
+    "remaining_matching_directories": [],
+    "synthetic_fixture_backup_sha256": "74348f81122e839d8b3d0146e98445d2ed344c3e3ae9d2ba85ddb776c802c915",
+    "git_bundle_sha256": "afebe7b917d8f52c1bbe62e15702a3a5b8237b1c34bd26851270df7129603a63",
+    "git_bundle_verified": true,
+    "scope": "Only the four explicitly authorized synthetic scratch directories; no worktree or target directory deleted"
+  },
+  "limitations": [
+    "Tolerance1e-12 covers floating representation only; literal rounding is verified in axis/comparison context. Axes ticks, aesthetic positions, scatter jitter, diagram coordinates and display limits are plotting parameters, not measured evidence.",
+    "Plate3 capture executes its committed-v2 plotting block via AST; it deliberately skips preliminary private-raw dossier generation. Plate10 raw replay remains separately marked as lacking committed numeric JSON coverage.",
+    "Six exact rasters bind current captured calls to committed PNG pixels; three historical non-identical rasters do not. Visual inspection confirms historical headline values only, not every original raster pixel.",
+    "Zero numeric FAIL rows is scoped to explicit current-generator/source checks. Nine context/provenance findings and16 UNTRACED rows remain; no overall scientific PASS."
+  ],
+  "commands": [
+    {
+      "command": "MPLCONFIGDIR=\"$PWD/.private/matplotlib\" .private/ci-python/bin/python crates/joil-evidence/receipts/ev13_figure_trace.py --input-root .private/ev13-figure-inputs --output-root .private/ev13-rendered",
+      "exit_code": 0,
+      "log_sha256": "fa969d272cf2463e913002b3ddba06a4091f4096e53d914d3f6936fca518caa3"
+    },
+    {
+      "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/ev13_figure_values.py --input-root .private/ev13-figure-inputs --capture .private/ev13-rendered/captured.json --output .private/ev13-rendered/value-trace.json --self-test",
+      "exit_code": 0
+    },
+    {
+      "command": ".private/ci-python/bin/python .private/ev13-figure-inputs/tools/generate_page1_figure.py --verify",
+      "exit_code": 0,
+      "output": "OK"
+    },
+    {
+      "command": ".private/ci-python/bin/python .private/ev13-figure-inputs/tools/generate_wave4_gci_figure.py --verify",
+      "exit_code": 0,
+      "output": "OK"
+    }
+  ],
+  "reproduction": "Export source_inventory paths with git show <input_head>:<path> to .private/ev13-figure-inputs, retaining subdirectories. Plate10 additionally needs read-only runs/ symlink to the designated retained same-repo cases. Run the two committed EV13 scripts in commands. Without raw fields, Plate10 field capture stays unavailable, never PASS. Public value trace retains all explicit expected/captured arrays and JSON pointers, omitting private raw field arrays.",
+  "full_gate": {
+    "command": "python3 tools/check.py",
+    "exit_code": 0,
+    "gate_input_head": "1c9c3b484543ea459f5283fbc2dd7da4a0303207",
+    "receipt_path": ".private/checks/20261016T115812Z-0a56e9f9/receipt.json",
+    "receipt_sha256": "093dd7c1ec71459598aa85ec7e2ac3e2dc3995db57e267fb0a004be5bb116e38",
+    "steps": [
+      {
+        "name": "generated-status",
+        "exit_code": 0,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "exit_code": 0,
+        "log_sha256": "0674b29b50c3dec56646820dd880f72135797e8fbae612e62ca8370ee4ddce1c"
+      },
+      {
+        "name": "rust-tests",
+        "exit_code": 0,
+        "log_sha256": "7d4e69b8ce6e6886a70205b86110d1f1b0da6a23e6f662f365902f71590636eb"
+      },
+      {
+        "name": "baseline",
+        "exit_code": 0,
+        "log_sha256": "02325004404fe961768f51c58509540a38f387915507356951e8f607e087d85e"
+      },
+      {
+        "name": "python-tests",
+        "exit_code": 0,
+        "log_sha256": "cb66cef8c17014b8fa3ac322d693031ced739b95ee81127d8de6c0be946279e5"
+      },
+      {
+        "name": "public-check",
+        "exit_code": 0,
+        "log_sha256": "8f17d8e2b88bfc9dbddf37e08f0b43ac77c754a314542404608a4f742b3b3982"
+      },
+      {
+        "name": "claims-audit",
+        "exit_code": 0,
+        "log_sha256": "a444c053f9b6f57eb326a9dbfe444639329612aaae2a299d7b8fe09434f5c472"
+      },
+      {
+        "name": "npm-ci",
+        "exit_code": 0,
+        "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+      },
+      {
+        "name": "ui-build",
+        "exit_code": 0,
+        "log_sha256": "15271f348dbcff18d003d4774d186016210e88cc7eed376aa1aaf5149c6ba5ab"
+      }
+    ],
+    "environment": {
+      "project_local_python": ".private/ci-python",
+      "CARGO_BUILD_JOBS": 4,
+      "CARGO_INCREMENTAL": "0",
+      "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+      "actual_wave4_roots_enabled": true
+    },
+    "note": "Product sources did not change during the gate. The audit added its F09 provenance-gap row during testing and its standalone positive/five negative tests were rerun after that change; receipt metadata finalized after gate."
+  },
+  "next_dependency": "DOC/INT disposition EV13-F01..09; DOC09 checklist must preserve residual risks.",
+  "doc_ack": {
+    "utc": "2026-10-16T11:56:34Z",
+    "confirmed_findings": [
+      "EV13-F01",
+      "EV13-F02",
+      "EV13-F03",
+      "EV13-F04",
+      "EV13-F05",
+      "EV13-F06",
+      "EV13-F07",
+      "EV13-F08"
+    ],
+    "status": "Caption flags applied on lane/paper; generator/data fixes not independently closed. EV13-F09 posted subsequently."
+  },
+  "public_check": {
+    "command": "python3 tools/check_public.py",
+    "exit_code": 0,
+    "candidate_files": 351
+  }
+}
