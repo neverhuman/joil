@@ -598,6 +598,15 @@ pub fn export_interactive_3d_preview_bundle(
     archive_path: &Path,
     out_path: &Path,
 ) -> Result<Interactive3DPreviewBundle, String> {
+    if !campaign_summary_path.is_file() && out_path.is_file() {
+        let raw_existing = fs::read_to_string(out_path).map_err(|e| e.to_string())?;
+        let existing: Interactive3DPreviewBundle =
+            serde_json::from_str(&raw_existing).map_err(|e| e.to_string())?;
+        if existing.candidates_3d.is_empty() {
+            return Err("existing interactive 3D preview bundle has empty candidates_3d".into());
+        }
+        return Ok(existing);
+    }
     let raw_sum = fs::read_to_string(campaign_summary_path).map_err(|e| e.to_string())?;
     let campaign: crate::evolve::CampaignSummary =
         serde_json::from_str(&raw_sum).map_err(|e| e.to_string())?;

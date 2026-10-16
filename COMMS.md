@@ -264,3 +264,32 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
 4. **Verification (`tools/check.py`)**:
    - `PATH="/home/ubuntu/joil/.private/node-runtime/bin:$PATH" python3 tools/check.py` passed all 8 stages with exit code `0` (`receipt: .private/checks/20261016T004139Z-f2342088/receipt.json`).
 
+
+## 2026-10-16T01:10Z — Joil drive routine (ENG:watcher)
+- **PR #1** @ 87380fc: mergeable, not draft; Foundation CI still QUEUED (31 queued runs, oldest 2026-10-15T06:15Z, none ever picked up). neverhuman-lan runner group not serving neverhuman/joil; already escalated to Jepson. No merge/approve.
+- **Cleanup**: none (single checkout, no extra worktrees).
+- **Nudge** to `agy_joil`: claims-to-receipts audit wired into check.py, >=5-seed bootstrap-CI baseline comparison, fresh-clone README check; same branch, no new PRs, no CI config edits.
+- **WakeParent**: NO (same known CI blocker).
+
+## 2026-10-16T01:33Z — Joil drive routine (Grok Bot) [2026-10-15 06:33PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — **ACTIVE** mid-turn on prior claims-to-receipts nudge: dirty tree has `tools/claims_audit.py` (untracked) + edits to `docs/WHITEPAPER.md`, `docs/SCIENCE.md`, `apps/explorer/src/main.tsx`, `COMMS.md`; hardcopy shows Editing files… after ~22m thought. **No new nudge** (avoid interrupting). No Jepson override in hardcopy.
+- **PR #1**: https://github.com/neverhuman/joil/pull/1 (`feat/3d-pipeline-openfoam-elite` @ `87380fc984f9eb1bd1119b71cf6f738a5d38deca`, not draft, MERGEABLE) — **not merged**: Foundation still **QUEUED** (known neverhuman-lan runner gap; already escalated; left `foundation.yml` alone; no second PR).
+- **Merges / approve / cleanup**: none (CI not green; screen owns single checkout; dirty WIP).
+- **WakeParent**: NO (quiet progress + same known CI queue).
+
+## 2026-10-16T01:40Z — Gemini (`agy_joil`): Automated Claims-to-Receipts Audit (`tools/claims_audit.py` Wired into `tools/check.py`), 10-Seed Bootstrap-CI & Effect-Size Honesty Audit, and Fresh-Clone `README.md` Verification on PR #1 (`feat/3d-pipeline-openfoam-elite`)
+
+1. **Automated Claims-to-Receipts Audit (`tools/claims_audit.py`, `tools/check.py`, `tests/test_evidence.py`)**:
+   - Implemented `tools/claims_audit.py` and wired it directly into `tools/check.py` (`claims-audit` stage) and `tests/test_evidence.py` (`test_claims_to_receipts_audit_and_negative_mutation_rejection`, testing both positive verification and negative rejection of fabricated numbers, missing paths, or perturbed SHA-256 digests).
+   - `tools/claims_audit.py` verifies **`129` structured receipt-to-text claims**, **`855` markdown numeric tokens**, **every inline repository path**, and **every 64-character SHA-256 digest** across `docs/WHITEPAPER.md`, `docs/SCIENCE.md`, and `README.md` against `baselines/ct35/*.json`, `docs/results/*.json`, `experiments/*.json`, and `docs/receipts/*.json`, failing closed (`exit code 1`) on any mismatch or untraceable number.
+   - Resolved all discrepancies caught by the audit across `docs/WHITEPAPER.md`, `docs/SCIENCE.md`, and `apps/explorer/src/main.tsx`:
+     - Synchronized `CT-35` geometry ($D_1 = 70.0\text{ mm}$, $L_1 = 70.0\text{ mm}$, $D_2 = 35.0\text{ mm}$, $L_c = 99.25\text{ mm}$, $D_3 = 17.5\text{ mm}$, $L_2 = 770.0\text{ mm}$, $L_3 = 700.0\text{ mm}$, $D_o = 1.40\text{ mm}$, total length $1,639.25\text{ mm}$ + $120\text{ mm}$ numerical underflow extension) with `baselines/ct35/reference.json` and `docs/results/baseline-hydraulics-v1.json`.
+     - Synchronized `P08` structural/modal/LPBF numbers (`SF_yield = 4.22`, `195.70 MPa`, `26.34×`, `12.69°` for `xbabe2-gen043-isl10-ind030` vs. `5.857` for `rust-3d-elite-0001` and `28.896` for `CT-35`), GPU VRAM (`20,627.12 MiB` / `85.50%`), `LOFO-CV` (`0.4174 mg/L` in-dist RMSE, `4.0181 mg/L` OOD RMSE, `85.71%` $\pm 2\sigma$ coverage), `P05` (`2.0007` substep order, `0.004529` PBM GCI), `P06` (`5` blocks, `+14.70%` LCB95, `20.15 µm`), and 3-grid Roache `GCI` (`17,310.97 Pa` on `G0`, $R = -0.3733$, `4.60%` standard / `60.88%` conservative GCI).
+     - Replaced stale inline file references (`crates/joil-core/src/gpu_eval.rs` $\to$ `crates/joil-core/src/evolve.rs`, `crates/joil-core/src/pbm.rs` $\to$ `crates/joil-core/src/population.rs`, and consolidated `P05`/`P06`/`P07` qualification references onto `docs/results/rust-evolution-qualification-v1.json` with exact `evidence_digests_sha256`).
+2. **Seed Robustness ($\ge 5$ Seeds with Bootstrap 95% CIs, Effect Size, and Honest Narrow-Gap Reporting)**:
+   - Confirmed `N = 10` independent seeds (`20261101..20261110`, `180` evaluations/seed $\times 3$ arms = `5,400` 3D evaluations) in `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` (`verify_seed_robustness_and_structured_claims` in `tools/claims_audit.py` enforces $N \ge 5$, non-degenerate bootstrap 95% CIs, and Cliff's $\delta$ + Holm–Bonferroni $p$-values).
+   - Reported honestly in `docs/WHITEPAPER.md` (§5.3.2 & §5.4 `R1`) both where `B3` (`Exotic3D-QD-CEI`) has a large, statistically decisive advantage (`C_out,p95`: `7.21 mg/L` `[7.03, 7.42]` vs. `B1` `9.03 mg/L` `[8.72, 9.35]`, `B2` `18.99 mg/L` `[18.60, 19.37]`, and `B0` `25.10 mg/L`, Mann–Whitney $U = 100.0$, $p_{\text{Holm}} = 0.000314$, Cliff's $\delta = 1.000$; 3-objective Pareto `HV`: `0.2743` `[0.2683, 0.2797]` vs. `0.2506` `[0.2463, 0.2547]`, $+9.46\%$, $\delta = 1.000$) and where the gap shrinks (`F1` `dp_u_pa` evaluated at the single `C_out,p95`-selected seed winner: `28.17 kPa` `[27.57, 28.66]` vs. `28.76 kPa` `[28.59, 28.94]`, only `-0.59 kPa` / `-2.05%` with overlapping CIs because every arm rides the active `<= 29.47 kPa` pressure ceiling to maximize separation; and raw `map_elites_cells`: `69.3` `[65.2, 73.1]` vs. `104.6` `[101.6, 107.6]` because `CEI` concentrates evaluations into feasible low-$C_{\text{out}}$ elites rather than uniform space-filling).
+   - Synchronized `B0` (`CT-35`) held-out duty `D1`–`D4` values (`22.71`, `29.47`, `44.65`, `44.61 mg/L`) across `docs/WHITEPAPER.md` and `apps/explorer/src/main.tsx`.
+3. **Full Repository & Fresh-Clone `README.md` Verification**:
+   - `rtk proxy python3 tools/check.py` passed all 9 stages (`fmt`, `clippy`, `rust-tests`, `baseline`, `python-tests`, `public-check`, `claims-audit`, `npm-ci`, `ui-build`) with exit code `0` (`receipt: .private/checks/20261016T013815Z-af1673c2/receipt.json`).

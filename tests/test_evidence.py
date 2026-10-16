@@ -98,6 +98,37 @@ class EvidenceTests(unittest.TestCase):
                 m=json.loads(manifest_path.read_text())
                 self.assertEqual(m['figure_sha256'],actual_sha)
 
+    def test_claims_to_receipts_audit_and_negative_mutation_rejection(self):
+        from tools.claims_audit import (
+            build_allowed_numeric_registry,
+            build_receipt_bundle,
+            run_claims_audit,
+            scan_markdown_numeric_tokens,
+            verify_paths_and_sha256_digests,
+        )
+        root=Path(__file__).resolve().parents[1]
+        report=run_claims_audit(root)
+        self.assertTrue(report['passed'],report['errors'])
+        self.assertEqual(report['error_count'],0)
+        self.assertGreaterEqual(report['structured_claims_verified'],120)
+        self.assertGreaterEqual(report['numeric_tokens_scanned'],800)
+
+        bundle=build_receipt_bundle(root)
+        allowed=build_allowed_numeric_registry(bundle)
+        bad_num_errs,_=scan_markdown_numeric_tokens(
+            {'docs/WHITEPAPER.md':'Synthetic untraceable claim: 987654.321 mg/L carry-under.'},
+            allowed,
+        )
+        self.assertEqual(len(bad_num_errs),1)
+        self.assertIn('987654.321',bad_num_errs[0])
+
+        bad_path_errs=verify_paths_and_sha256_digests(
+            {'docs/WHITEPAPER.md':'Reference `docs/results/fabricated-receipt.json` (`SHA-256: ' + ('f'*64) + '`).'},
+            bundle,
+            root,
+        )
+        self.assertGreaterEqual(len(bad_path_errs),2)
+
 
 if __name__=='__main__':unittest.main()
 

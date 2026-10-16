@@ -119,12 +119,13 @@ function App() {
         <h3>Held-Out Physical Operating Duties (D1..D4) &amp; 11-Family Genome Expressiveness (N = 220)</h3>
         <div className="metrics measured">
           {wave2Report.promoted_wave2_top_elite_held_out_duties.map((d, i) => {
-            const b0Cout = [25.57, 20.89, 44.56, 44.63][i];
+            const b0Duty = wave2Report.baseline_b0_held_out_duties[i];
+            const b0Cout = b0Duty.cout_mg_l;
             return (
               <div key={d.duty_id}>
                 <small>{d.duty_id.replaceAll('_', ' ')} ({d.q_in_m3_h.toFixed(1)} m³/h, d50={d.d50_feed_um} μm)</small>
                 <strong>{d.cout_mg_l.toFixed(2)} <b>mg/L</b></strong>
-                <span>vs CT-35 {b0Cout.toFixed(2)} mg/L ({b0Cout <= 30 ? 'PASS' : 'FAIL'}) · d50 cut {d.d50_cut_um.toFixed(2)} μm · {d.passes_30_mg_l ? 'B3 PASS' : 'FAIL'}</span>
+                <span>vs CT-35 {b0Cout.toFixed(2)} mg/L ({b0Duty.passes_30_mg_l ? 'PASS' : 'FAIL'}) · d50 cut {d.d50_cut_um.toFixed(2)} μm · {d.passes_30_mg_l ? 'B3 PASS' : 'FAIL'}</span>
               </div>
             );
           })}

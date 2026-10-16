@@ -44,7 +44,8 @@ rtk cargo run --release -p joil-cli -- wave2-benchmark
 rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing
 rtk proxy python3 -m unittest discover -s tests -v
 rtk proxy python3 tools/check_public.py
-rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'
+rtk proxy python3 tools/claims_audit.py
+rtk proxy sh -c 'export PATH="/home/ubuntu/joil/.private/node-runtime/bin:$PATH" && cd apps/explorer && npm ci && npm run build'
 rtk proxy python3 tools/check.py
 ```
 

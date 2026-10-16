@@ -22,14 +22,15 @@ def main():
     out=ROOT/'.private/checks'/runid;out.mkdir(parents=True)
     (ROOT/'.private').chmod(0o700)
     env=os.environ.copy()
-    env['PATH']=str(ROOT/'.private/node-runtime/node_modules/.bin')+os.pathsep+str(Path.home()/'.cargo/bin')+os.pathsep+env['PATH']
+    env['PATH']=os.pathsep.join([str(ROOT/'.private/node-runtime/bin'),str(ROOT/'.private/node-runtime/node_modules/.bin'),str(Path.home()/'joil/.private/node-runtime/bin'),str(Path.home()/'.cargo/bin'),env['PATH']])
     env.update(CARGO_BUILD_JOBS='4',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',RAYON_NUM_THREADS='4')
     steps=[('fmt',['cargo','fmt','--all','--','--check'],ROOT),
            ('clippy',['cargo','clippy','--workspace','--locked','--all-targets','--','-D','warnings'],ROOT),
            ('rust-tests',['cargo','test','--workspace','--locked'],ROOT),
            ('baseline',['cargo','run','--locked','-p','joil-cli','--','baseline'],ROOT),
            ('python-tests',['python3','-m','unittest','discover','-s','tests','-v'],ROOT),
-           ('public-check',['python3','tools/check_public.py'],ROOT)]
+           ('public-check',['python3','tools/check_public.py'],ROOT),
+           ('claims-audit',['python3','tools/claims_audit.py'],ROOT)]
     if not args.skip_ui:
         steps += [('npm-ci',['npm','ci','--no-audit','--no-fund'],ROOT/'apps/explorer'),
                   ('ui-build',['npm','run','build'],ROOT/'apps/explorer')]
