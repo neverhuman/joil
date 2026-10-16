@@ -668,6 +668,192 @@ def scan_markdown_numeric_tokens(
     return errors, scanned_count
 
 
+REVIEW_INPUT_DIR = "docs/review-inputs/2026-10-15"
+REVIEW_SYNTHESIS = "docs/reviews/2026-10-15-SYNTHESIS.md"
+REVIEW_WORKPLAN = "docs/WORKPLAN-2026-10-15.md"
+
+# Every P0 / stop-the-line / critical / no-regret finding of the six 2026-10-15 reviews (DOC-02).
+REQUIRED_REVIEW_FINDINGS: tuple[str, ...] = (
+    *(f"S1-3.{i}" for i in range(1, 10)),
+    *(f"S1-15.{i:02d}" for i in range(1, 21)),
+    *(f"S2-4.{i:02d}" for i in range(1, 12)),
+    *(f"S3-P0-{i:02d}" for i in range(1, 13)),
+    *(f"S4-2.{i:02d}" for i in range(1, 11)),
+    *(f"S4-19.{i:02d}" for i in range(1, 13)),
+    *(f"S5-P0.{i}" for i in range(1, 9)),
+    *(f"S5-M0.{i}" for i in range(1, 6)),
+    *(f"S6-3.{i}" for i in range(1, 10)),
+    *(f"S6-A.{i:02d}" for i in range(1, 21)),
+)
+LEDGER_STATUSES = ("BLOCKED", "OPEN", "WIP", "DONE", "MERGED", "MOVED-§6")
+_PROGRESS_ORDER = ("BLOCKED", "OPEN", "WIP", "DONE", "MERGED")
+_FINDING_ID_RE = re.compile(r"^(?:S[1-6]-[A-Z0-9][A-Za-z0-9.\-]*|DOC-F\d{2})$")
+
+
+def verify_review_input_checksums(input_dir: Path) -> tuple[list[str], int]:
+    """Verbatim review inputs must match SHA256SUMS and INDEX.md, with no unlisted files."""
+    errors: list[str] = []
+    sums = input_dir / "SHA256SUMS"
+    if not sums.is_file():
+        return [f"{input_dir}: missing SHA256SUMS"], 0
+    listed: dict[str, str] = {}
+    for line in sums.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        digest, _, name = line.partition("  ")
+        listed[name.strip()] = digest.strip()
+    index = (input_dir / "INDEX.md").read_text(encoding="utf-8") if (input_dir / "INDEX.md").is_file() else ""
+    for name, digest in listed.items():
+        path = input_dir / name
+        if not path.is_file():
+            errors.append(f"{input_dir.name}/{name}: listed in SHA256SUMS but missing")
+            continue
+        actual = sha256_file(path)
+        if actual != digest:
+            errors.append(f"{input_dir.name}/{name}: sha256 {actual} != SHA256SUMS {digest}")
+        if f"| {name} |" not in index or digest not in index:
+            errors.append(f"{input_dir.name}/INDEX.md: row for {name} missing or digest differs")
+    for path in sorted(input_dir.iterdir()):
+        if path.name not in listed and path.name not in {"SHA256SUMS", "INDEX.md"}:
+            errors.append(f"{input_dir.name}/{path.name}: file not listed in SHA256SUMS")
+    return errors, len(listed)
+
+
+def _table_cells(line: str) -> list[str]:
+    """Split one markdown table row on unescaped pipes."""
+    return [cell.strip() for cell in re.split(r"(?<!\\)\|", line.strip())[1:-1]]
+
+
+def _section(text: str, heading_prefix: str) -> str:
+    start = text.find(heading_prefix)
+    if start < 0:
+        return ""
+    nxt = text.find("\n## ", start + len(heading_prefix))
+    return text[start : nxt if nxt >= 0 else len(text)]
+
+
+def derive_finding_status(items: list[str], ledger: dict[str, str]) -> str:
+    """Least-advanced ledger status of the mapped items (BLOCKED dominates, MOVED-§6 defers)."""
+    statuses = [ledger[item] for item in items]
+    if "BLOCKED" in statuses:
+        return "BLOCKED"
+    if "MOVED-§6" in statuses:
+        return "DEFERRED"
+    return min(statuses, key=_PROGRESS_ORDER.index)
+
+
+def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str], int]:
+    """Check the DOC-02 synthesis against the workplan and its own item ledger."""
+    errors: list[str] = []
+    workplan_items = set(re.findall(r"\*\*([A-Z]{2,3}-\d{2}) — ", workplan))
+    if not workplan_items:
+        return ["workplan: no item IDs found"], 0
+
+    ledger: dict[str, str] = {}
+    for line in _section(synthesis, "## 2.").splitlines():
+        cells = _table_cells(line) if line.startswith("|") else []
+        if len(cells) != 4 or not re.fullmatch(r"[A-Z]{2,3}-\d{2}", cells[0]):
+            continue
+        item, _, status, evidence = cells
+        if item not in workplan_items:
+            errors.append(f"ledger: {item} is not a workplan item")
+            continue
+        if item in ledger:
+            errors.append(f"ledger: {item} listed twice")
+        if status not in LEDGER_STATUSES:
+            errors.append(f"ledger: {item} has unknown status '{status}'")
+        if status in ("DONE", "MERGED") and not re.search(r"\b[0-9a-f]{7,40}\b", evidence):
+            errors.append(f"ledger: {item} is {status} without a commit sha")
+        if status == "BLOCKED" and evidence in ("", "-"):
+            errors.append(f"ledger: {item} is BLOCKED without a reason")
+        ledger[item] = status
+    for item in sorted(workplan_items - set(ledger)):
+        errors.append(f"ledger: workplan item {item} missing")
+
+    gap_ids = set(re.findall(r"^\| (G-\d{2}) \|", _section(synthesis, "## 5."), re.M))
+    seen: set[str] = set()
+    rows = 0
+    for line in _section(synthesis, "## 4.").splitlines():
+        cells = _table_cells(line) if line.startswith("|") else []
+        if len(cells) != 7 or not _FINDING_ID_RE.match(cells[0]):
+            continue
+        rows += 1
+        fid, _, _, verified, items_cell, coverage, status = cells
+        if fid in seen:
+            errors.append(f"finding {fid}: listed twice")
+        seen.add(fid)
+        if not verified.startswith(("V:", "R:", "N/A")):
+            errors.append(f"finding {fid}: verification cell must start with V:, R: or N/A")
+        items = [] if items_cell == "-" else [x.strip() for x in items_cell.split(",")]
+        unknown = [x for x in items if x not in workplan_items]
+        if unknown:
+            errors.append(f"finding {fid}: unknown workplan item(s) {unknown}")
+            continue
+        kind = coverage.split(" ", 1)[0]
+        if kind in ("FULL", "PARTIAL"):
+            if not items:
+                errors.append(f"finding {fid}: {kind} coverage needs at least one item")
+                continue
+            if kind == "PARTIAL" and "§" not in coverage:
+                errors.append(f"finding {fid}: PARTIAL coverage must name the remainder (§5/§6)")
+            if any(x not in ledger for x in items):
+                continue
+            expected = derive_finding_status(items, ledger)
+        elif kind == "FOLLOW-ON":
+            expected = "DEFERRED"
+        elif kind == "GAP":
+            expected = "UNASSIGNED"
+            refs = set(re.findall(r"G-\d{2}", coverage))
+            if not refs or not refs <= gap_ids:
+                errors.append(f"finding {fid}: GAP coverage must cite a §5 gap row")
+        else:
+            errors.append(f"finding {fid}: unknown coverage '{coverage}'")
+            continue
+        if status != expected:
+            errors.append(f"finding {fid}: status '{status}' but ledger derives '{expected}'")
+    for fid in REQUIRED_REVIEW_FINDINGS:
+        if fid not in seen:
+            errors.append(f"finding {fid}: required review finding not traced")
+    return errors, rows
+
+
+def refresh_review_statuses(synthesis: str, now_utc: str) -> str:
+    """Rewrite every finding's Status cell from the §2 ledger and stamp the as-of time."""
+    ledger = {}
+    for line in _section(synthesis, "## 2.").splitlines():
+        cells = _table_cells(line) if line.startswith("|") else []
+        if len(cells) == 4 and re.fullmatch(r"[A-Z]{2,3}-\d{2}", cells[0]):
+            ledger[cells[0]] = cells[2]
+    out = []
+    in_findings = False
+    for line in synthesis.splitlines(keepends=True):
+        if line.startswith("## "):
+            in_findings = line.startswith("## 4.")
+        cells = _table_cells(line) if in_findings and line.startswith("|") else []
+        if len(cells) == 7 and _FINDING_ID_RE.match(cells[0]):
+            items = [] if cells[4] == "-" else [x.strip() for x in cells[4].split(",")]
+            kind = cells[5].split(" ", 1)[0]
+            if kind in ("FULL", "PARTIAL") and items and all(x in ledger for x in items):
+                status = derive_finding_status(items, ledger)
+            else:
+                status = {"FOLLOW-ON": "DEFERRED", "GAP": "UNASSIGNED"}.get(kind, cells[6])
+            head = line.rstrip("\n").rstrip()
+            head = head[: head.rstrip("|").rstrip().rfind("|") + 1]
+            line = f"{head} {status} |\n"
+        out.append(line)
+    return re.sub(r"\*\*Status as of [^*]+\.\*\*", f"**Status as of {now_utc}.**", "".join(out), count=1)
+
+
+def audit_review_traceability(root: Path = ROOT) -> tuple[list[str], int]:
+    synthesis = root / REVIEW_SYNTHESIS
+    workplan = root / REVIEW_WORKPLAN
+    if not synthesis.is_file() or not workplan.is_file():
+        return [f"missing {REVIEW_SYNTHESIS} or {REVIEW_WORKPLAN}"], 0
+    return check_review_traceability(
+        synthesis.read_text(encoding="utf-8"), workplan.read_text(encoding="utf-8")
+    )
+
+
 def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
     docs = {
         "docs/WHITEPAPER.md": (root / "docs/WHITEPAPER.md").read_text(encoding="utf-8"),
@@ -682,12 +868,16 @@ def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
     )
     allowed_numbers = build_allowed_numeric_registry(bundle)
     token_errors, token_count = scan_markdown_numeric_tokens(docs, allowed_numbers)
+    input_errors, inputs_verified = verify_review_input_checksums(root / REVIEW_INPUT_DIR)
+    trace_errors, findings_traced = audit_review_traceability(root)
 
-    all_errors = path_hash_errors + structured_errors + token_errors
+    all_errors = path_hash_errors + structured_errors + token_errors + input_errors + trace_errors
     return {
         "passed": len(all_errors) == 0,
         "structured_claims_verified": structured_count,
         "numeric_tokens_scanned": token_count,
+        "review_inputs_verified": inputs_verified,
+        "review_findings_traced": findings_traced,
         "error_count": len(all_errors),
         "errors": all_errors,
     }
@@ -697,7 +887,18 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Verify all claims in WHITEPAPER.md, SCIENCE.md, and README.md against JSON receipts.")
     parser.add_argument("--root", type=Path, default=ROOT, help="Repository root path")
     parser.add_argument("--json", action="store_true", help="Print JSON report")
+    parser.add_argument(
+        "--refresh-review-status",
+        action="store_true",
+        help=f"Recompute finding statuses in {REVIEW_SYNTHESIS} from its item ledger, then audit",
+    )
     args = parser.parse_args()
+    if args.refresh_review_status:
+        from datetime import datetime, timezone
+
+        path = args.root.resolve() / REVIEW_SYNTHESIS
+        stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+        path.write_text(refresh_review_statuses(path.read_text(encoding="utf-8"), stamp), encoding="utf-8")
 
     report = run_claims_audit(args.root.resolve())
     if args.json:
@@ -706,7 +907,9 @@ def main() -> int:
         if report["passed"]:
             print(
                 f"claims_audit: OK ({report['structured_claims_verified']} structured receipt claims + "
-                f"{report['numeric_tokens_scanned']} markdown numeric tokens verified across WHITEPAPER.md, SCIENCE.md, README.md)"
+                f"{report['numeric_tokens_scanned']} markdown numeric tokens verified across WHITEPAPER.md, SCIENCE.md, README.md; "
+                f"{report['review_inputs_verified']} review inputs checksummed; "
+                f"{report['review_findings_traced']} review findings traced)"
             )
         else:
             print(f"claims_audit: FAILED with {report['error_count']} error(s):", file=sys.stderr)

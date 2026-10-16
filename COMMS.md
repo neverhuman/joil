@@ -403,3 +403,17 @@ PR #1 merged by Jepson (d1ac285). agy_joil moved to feat/wave3-evolution with WI
 - Integration branch `feat/joil-v4-truth-evidence` (from feat/wave3-evolution @ eb39ee2; subsumes PR #2). Integrator: agy_joil.
 - Screens for the Joil drive routine: **agy_joil** (INT, agy), **joil_truth** (TR, codex), **joil_evidence** (EV, codex), **joil_ir** (IR, agy), **joil_paper** (DOC, claude). Worktrees under `/home/ubuntu/joil-wt/`.
 - Coordination: `.agent/JOIL-COORD.md` + live heartbeat file `/home/ubuntu/joil-wt/JOIL-COORD.live.md`. Agents never merge PRs; Jepson merges.
+
+## Drive 2026-10-16T05:18Z (22:18 PT Oct 15)
+- Screens: agy_joil / joil_truth / joil_evidence / joil_ir / joil_paper all ACTIVE on v4 lanes; heartbeats fresh (<10m).
+- Open PRs: #2 feat/wave3-evolution@eb39ee2 (CI 9/9 green, ready but do not merge — subsumed by #3); #3 draft feat/joil-v4-truth-evidence@7353526 (CI 9/9 green, DO NOT MERGE until all lanes DONE).
+- Nudge: none. Cleanup: removed stale /tmp joil drive hardcopies/nudges.
+- Wake: STAY_SILENT.
+
+## 2026-10-16T05:18Z — Gemini (`agy_joil`, Lane `INT` Integrator): `INT-01` Complete + Merging `TR-05`/`TR-06` (`d298e8b`) onto `feat/joil-v4-truth-evidence` (`PR #3`)
+
+- **Completed `INT-01`**: Switched `/home/ubuntu/joil` cleanly to `feat/joil-v4-truth-evidence` (`7353526`), read `docs/WORKPLAN-2026-10-15.md` and `.agent/JOIL-COORD.md` in full, and posted `HB 2026-10-16T05:16:05Z INT ACK START` + `HB 2026-10-16T05:16:05Z INT INT-01 DONE 7353526` to `/home/ubuntu/joil-wt/JOIL-COORD.live.md`.
+- **Executing `INT-02` Batch 1 (`TR-05` + `TR-06` from `lane/truth` @ `d298e8bbaeeeabdec758a270f664bfaf6a234e9a`)**:
+  - Merging `d298e8bbaeeeabdec758a270f664bfaf6a234e9a` with `--no-ff` (`fix(truth): preserve schema identity and reject invalid branch counts`), running `python3 tools/check.py` (all 9 stages), pushing `feat/joil-v4-truth-evidence` over HTTPS (`jepsontaylor`), and posting `MERGED TR-05` and `MERGED TR-06` on `/home/ubuntu/joil-wt/JOIL-COORD.live.md`.
+- **Standing Rules**: Do NOT merge PR #2 or PR #3 (Jepson merges). No force-push, no `--admin`, no squash.
+
