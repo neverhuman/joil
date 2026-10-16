@@ -14,7 +14,7 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `14` | 1 | `docs/results/exotic-vs-baseline-cfd-benchmark-v1.json` | `/head_to_head_archetype_comparison/2/p08_lpbf_overhang_deg` | printed |
 | `50` | 3 | `docs/results/interactive-3d-archetypes-v1.json` | `/candidates_3d/0/helical_ribbon_3d_mm/18/2` | printed |
 | `5` | 1 | `docs/results/baseline-hydraulics-v1.json` | `/points/1/evidence/execution/runs/ct35-sst-split-001/metrics-t300-0-joilHydraulicMetrics.log.receipt.json/wall_seconds` | printed |
-| `220` | 6 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/n_stratified_expressiveness_samples` | printed |
+| `220` | 6 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/7/evaluations` | printed |
 | `16` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/1/background_hex_grid/1` | printed |
 | `2` | 2 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/0/effective_cell_size_mm` | printed |
 | `-33.74` | 1 | `docs/results/exotic-vs-baseline-cfd-benchmark-v1.json` | `/promoted_exotic_3d_cfd_case/executed_openfoam14_mesh_and_carrier/static_drop_delta_pct_vs_ct35_baseline` | printed |
@@ -37,7 +37,7 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `29.5` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/dp_u_pa` | /1000 |
 | `4.0` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/q_in_m3_h` | printed |
 | `3` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/phenotype/minimum_wall_clearance_mm` | printed |
-| `220` | 2 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/n_stratified_expressiveness_samples` | printed |
+| `220` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/7/evaluations` | printed |
 | `20` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/3/best_candidate/structural_qualification/min_yield_safety_factor` | printed |
 | `0` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
 | `30` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/2/d50_feed_um` | printed |
@@ -52,7 +52,7 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `305,522` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/1/cells` | printed |
 | `552,513` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/2/cells` | printed |
 | `4.000` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/q_in_m3_h` | printed |
-| `1.968` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/generation_band_curves/B2_Conventional_Axisym_NSGA2/21/mean_exoticness_index/ci95_low` | x100 |
+| `1.968` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/23/mean_exoticness_index/median` | printed |
 | `1.996` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/9/generation_trace/18/mean_exoticness_index` | printed |
 | `-33.74` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/1/generation_trace/5/median_kpi_score` | printed |
 | `-38.51` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/1/generation_trace/16/median_kpi_score` | printed |
@@ -224,7 +224,7 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `19.37` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B2_Conventional_Axisym/cout_p95_mg_l/ci95_high` | printed |
 | `28.77` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B2_Conventional_Axisym/dp_u_pa/mean` | /1000 |
 | `28.59` | 2 | `docs/results/interactive-3d-archetypes-v1.json` | `/candidates_3d/2/outer_wall_rings_mm/10/2/0` | printed |
-| `28.95` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B2_Conventional_Axisym/dp_u_pa/ci95_high` | /1000 |
+| `28.95` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/1/generation_trace/4/q25_kpi_score` | printed |
 | `0.1509` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B2_Conventional_Axisym/pareto_hypervolume/mean` | printed |
 | `0.1472` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B2_Conventional_Axisym/pareto_hypervolume/ci95_low` | printed |
 | `0.1554` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B2_Conventional_Axisym/pareto_hypervolume/ci95_high` | printed |
@@ -256,10 +256,10 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `69.3` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B3_Exotic3D_QD_CEI/map_elites_cells/mean` | printed |
 | `65.4` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B3_Exotic3D_QD_CEI/map_elites_cells/ci95_low` | printed |
 | `73.7` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B3_Exotic3D_QD_CEI/map_elites_cells/ci95_high` | printed |
-| `-1.82` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/pairwise_tests/0/mean_diff` | printed |
+| `-1.82` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/A2_No_Selection_Random_Walk/3/best_cout_sample_screen_upper_mg_l/iqr` | printed |
 | `-20.1` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/1/generation_trace/8/median_cout_p95_mg_l` | printed |
 | `7.21` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b3_exotic3d_qd_cei_outcomes/1/best_candidate/mc_robustness/d50_p05_um` | printed |
-| `-11.78` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/pairwise_tests/1/mean_diff` | printed |
+| `-11.78` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/2/generation_trace/15/best_cout_sample_screen_upper_mg_l` | printed |
 | `-62.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/2/generation_trace/8/cumulative_lineage_jumps` | printed |
 | `+9.46` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/B1_Random_Search/4/generation_trace/7/active_best_cout_p95_mg_l` | printed |
 | `+81.8` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/B1_Random_Search/4/generation_trace/15/mean_exoticness_index` | x100 |
@@ -363,7 +363,7 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `2.016` | 2 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/mandatory_promotion_gate/checks/inter_rsm_dp_u_delta_pct` | printed |
 | `4.75` | 3 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/roache_gci_analysis/signal_to_uncertainty_margin/saving_to_3grid_span_ratio` | printed |
 | `9.26e-5` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/rsm_turbulence_closure_crosscheck/1/water_closure_fraction` | printed |
-| `1.968` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/rsm_turbulence_closure_crosscheck/1/reject_fraction` | x100 |
+| `1.968` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/23/mean_exoticness_index/median` | printed |
 | `1.996` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/9/generation_trace/18/mean_exoticness_index` | printed |
 | `6.53` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/roache_gci_analysis/signal_to_uncertainty_margin/saving_to_3grid_eloss_span_ratio` | printed |
 | `6.98` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/roache_gci_analysis/signal_to_uncertainty_margin/saving_to_3grid_eloss_span_ratio` | printed |

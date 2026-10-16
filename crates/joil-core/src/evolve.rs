@@ -3388,6 +3388,15 @@ pub fn run_wave3_evolution_proof(
     let evals_per_seed = b3_outs.first().map(|o| o.total_evaluations).unwrap_or(0);
     let total_evals_all = evals_per_seed * seeds.len() * arms.len();
 
+    for outcomes in arm_outcomes.values_mut() {
+        for o in outcomes.iter_mut() {
+            o.proposal_budget.proposal_receipts.clear();
+        }
+    }
+    let mut base_b0_compact = base_b0;
+    base_b0_compact.phenotype = None;
+    base_b0_compact.cuda_sdf_audit = None;
+
     Ok(Wave3EvolutionProofReport {
         campaign_admission,
         schema_version: 1,
@@ -3401,10 +3410,10 @@ pub fn run_wave3_evolution_proof(
         evaluations_per_seed_per_arm: evals_per_seed,
         total_3d_evaluations_across_arms: total_evals_all,
         baseline_b0_ct35_kpi_score: base_kpi,
-        baseline_b0_ct35_cout_p95_mg_l: base_b0.mc_robustness.cout_p95_mg_l,
-        baseline_b0_ct35_dp_u_pa: base_b0.nominal_metrics.dp_u_pa,
-        baseline_b0_ct35_grade_20um_p05: base_b0.mc_robustness.grade_20um_p05,
-        baseline_b0_ct35: base_b0,
+        baseline_b0_ct35_cout_p95_mg_l: base_b0_compact.mc_robustness.cout_p95_mg_l,
+        baseline_b0_ct35_dp_u_pa: base_b0_compact.nominal_metrics.dp_u_pa,
+        baseline_b0_ct35_grade_20um_p05: base_b0_compact.mc_robustness.grade_20um_p05,
+        baseline_b0_ct35: base_b0_compact,
         baseline_b0_held_out_duties: base_duties,
         arm_outcomes,
         generation_band_curves,

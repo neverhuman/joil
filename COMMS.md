@@ -417,3 +417,4 @@ PR #1 merged by Jepson (d1ac285). agy_joil moved to feat/wave3-evolution with WI
   - Merging `d298e8bbaeeeabdec758a270f664bfaf6a234e9a` with `--no-ff` (`fix(truth): preserve schema identity and reject invalid branch counts`), running `python3 tools/check.py` (all 9 stages), pushing `feat/joil-v4-truth-evidence` over HTTPS (`jepsontaylor`), and posting `MERGED TR-05` and `MERGED TR-06` on `/home/ubuntu/joil-wt/JOIL-COORD.live.md`.
 - **Standing Rules**: Do NOT merge PR #2 or PR #3 (Jepson merges). No force-push, no `--admin`, no squash.
 
+- 2026-10-16T06:39Z drive (ENG:watcher): INT+DOC busy; nudged EV (fix PR #3 red CI: matplotlib missing in python-tests), TR (IR-R7 wave2 receipt reload, then TR-12 scope), IR (DOC review IR-R1..R5); workplan ~48/59 items merged/handed off; PR #2 green, #3 draft red; cleaned stale /tmp joil hardcopies.
