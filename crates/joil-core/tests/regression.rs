@@ -725,7 +725,7 @@ fn p07_surrogate_constrained_expected_improvement_and_prescreen() {
         let (ind, _) = evaluate_individual(format!("s{i}"), p.clone(), 0, 0, &ev_cfg).unwrap();
         records.push(SurrogateRecord::from_candidate(&ind));
     }
-    let gp = GaussianProcessSurrogate::fit(&records, 0.85, 0.015).unwrap();
+    let gp = GaussianProcessSurrogate::fit_sandbox_prior(&records, 0.85, 0.015).unwrap();
     let mut pool = Vec::new();
     for p in &archetypes {
         pool.push(p.mutate(&mut rng).unwrap().into_child().unwrap());

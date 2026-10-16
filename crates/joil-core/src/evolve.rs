@@ -2472,7 +2472,7 @@ pub fn run_single_seed_wave3_arm(
                     };
                     pool.push((cand, p1.topology_class.clone(), op_name.into()));
                 }
-                if let Ok(gp) = crate::surrogate::GaussianProcessSurrogate::fit(
+                if let Ok(gp) = crate::surrogate::GaussianProcessSurrogate::fit_sandbox_prior(
                     &all_evaluated_records,
                     0.85,
                     0.015,
@@ -2481,13 +2481,14 @@ pub fn run_single_seed_wave3_arm(
                     let mut scored: Vec<(usize, f64)> = pool
                         .iter()
                         .enumerate()
-                        .filter(|(_, (outcome, _, _))| outcome.child.is_some())
-                        .map(|(idx, (prog, _, _))| {
-                            let acq = gp.expected_constrained_improvement(
-                                prog.child.as_ref().expect("filtered child"),
-                                incumbent_best_cout,
-                            );
-                            (idx, acq.constrained_expected_improvement)
+                        .filter_map(|(idx, (outcome, _, _))| {
+                            outcome.child.as_ref().and_then(|program| {
+                                gp.expected_constrained_improvement(program, incumbent_best_cout)
+                                    .ok()
+                                    .map(|acquisition| {
+                                        (idx, acquisition.constrained_expected_improvement)
+                                    })
+                            })
                         })
                         .collect();
                     scored.sort_by(|a, b| b.1.total_cmp(&a.1));
