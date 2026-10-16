@@ -2,10 +2,10 @@
   "schema_version": 2,
   "kind": "publication_figure_manifest_not_physical_validation",
   "figure_path": "docs/figures/elite-gci-and-rsm-verification.png",
-  "figure_sha256": "aa1b8dc170e988ac111a15dca41856bc98c40b18ee8eb0936e376bfc3f76749e",
-  "figure_bytes": 787195,
+  "figure_sha256": "e58deb6ae1a8e99b1998f9d63a216794e30c3d0faac5a88f32ee2a89663b28c2",
+  "figure_bytes": 782163,
   "generator_script": "tools/generate_gci_rsm_report_and_figures.py",
-  "generator_sha256": "7c00484126eddfd07a881c0152d98a9e9b3c5c266016f327d57abacedf36e45e",
+  "generator_sha256": "0bb402806020c556df763ddf5cc302e5fffcdd5f0f5cad009d2fa206f4ebb4cf",
   "source_dossier": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
   "source_dossier_sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
 }
