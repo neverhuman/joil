@@ -7,7 +7,7 @@ use crate::openfoam::STANDARD_BINS_UM;
 use crate::phenotype::{Phenotype3D, SolidMesh};
 use crate::program::{DesignProgram, MechanismDescriptors, Rng, VariationError, VariationOutcome};
 use crate::redteam;
-use crate::structure::{self, StructuralQualification};
+use crate::structure::{self, AnalyticStructuralScreen};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::fs;
@@ -143,7 +143,13 @@ pub struct Individual {
     pub red_team_rejects: Vec<String>,
     pub descriptors: MechanismDescriptors,
     pub phenotype: Option<Phenotype3D>,
-    pub structural_qualification: Option<StructuralQualification>,
+    #[serde(
+        rename = "analytic_structural_screen",
+        alias = "structural_qualification"
+    )]
+    pub structural_qualification: Option<AnalyticStructuralScreen>,
+    #[serde(default)]
+    pub structural_screen_state: StructuralScreenState,
     pub nominal_metrics: CandidateMetrics,
     pub mc_robustness: MonteCarloSummary,
     pub cuda_sdf_audit: Option<CudaSdfSummary>,
@@ -154,6 +160,17 @@ pub struct Individual {
     pub evidence_tier: String,
     pub qualified_multiobjective_vector: Option<serde_json::Value>,
     pub qualified_capacity_gain: Option<f64>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[serde(tag = "status", rename_all = "snake_case")]
+pub enum StructuralScreenState {
+    Screened,
+    Failed {
+        reason: String,
+    },
+    #[default]
+    Unknown,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -461,13 +478,24 @@ pub fn evaluate_individual(
         violation += (4.5 - nominal_metrics.pdr) * 10.0;
     }
 
-    let structural_qualification = structure::qualify_structure(
-        &prog,
-        &pheno,
-        nominal_metrics.dp_u_pa,
-        cfg.baseline_hydraulics.q_in_m3_s,
-    )
-    .ok();
+    let (structural_qualification, structural_screen_state) =
+        match structure::analytic_structural_screen(
+            &prog,
+            &pheno,
+            nominal_metrics.dp_u_pa,
+            cfg.baseline_hydraulics.q_in_m3_s,
+        ) {
+            Ok(screen) => {
+                if !screen.passed {
+                    violation += 1.0 + screen.failure_reasons.len() as f64;
+                }
+                (Some(screen), StructuralScreenState::Screened)
+            }
+            Err(reason) => {
+                violation += 1.0;
+                (None, StructuralScreenState::Failed { reason })
+            }
+        };
 
     let ind = Individual {
         id,
@@ -481,6 +509,7 @@ pub fn evaluate_individual(
         descriptors,
         phenotype: Some(pheno),
         structural_qualification,
+        structural_screen_state,
         nominal_metrics,
         mc_robustness,
         cuda_sdf_audit: None,
@@ -499,6 +528,25 @@ pub fn evaluate_individual(
 /// Deb's constrained dominance comparator (`a` dominates `b`).
 pub fn constrained_dominates(a: &Individual, b: &Individual) -> bool {
     const EPS: f64 = 1e-9;
+    let structurally_feasible = |ind: &Individual| {
+        matches!(ind.structural_screen_state, StructuralScreenState::Screened)
+            && ind.structural_qualification.as_ref().is_some_and(|screen| {
+                screen.passed
+                    && screen.genome_sha256 == ind.genome_sha256
+                    && structure::structural_load_case_hash(
+                        &ind.genome_sha256,
+                        ind.nominal_metrics.dp_u_pa,
+                        ind.nominal_metrics.q_in_m3_h / 3600.0,
+                    )
+                    .is_ok_and(|hash| hash == screen.load_case_sha256)
+            })
+    };
+    if structurally_feasible(a) != structurally_feasible(b) {
+        return structurally_feasible(a);
+    }
+    if !structurally_feasible(a) {
+        return false;
+    }
     if a.constraint_violation <= EPS && b.constraint_violation > EPS {
         return true;
     }

@@ -399,7 +399,7 @@ fn structural_lame_oracle_and_modal_lpbf_qualification() {
     use joil_core::{
         phenotype::Phenotype3D,
         program::{DesignProgram, Rng},
-        structure::{lame_thick_cylinder_oracle, qualify_structure},
+        structure::{analytic_structural_screen, lame_thick_cylinder_oracle},
     };
 
     // STRUCTURE-01: Lamé thick-wall cylinder boundary condition identity check
@@ -420,16 +420,17 @@ fn structural_lame_oracle_and_modal_lpbf_qualification() {
     let mut rng = Rng::new(20261015);
     for prog in DesignProgram::seed_archetypes(&mut rng) {
         let (pheno, _) = Phenotype3D::from_program(&prog).unwrap();
-        let sq = qualify_structure(&prog, &pheno, 29468.22, 0.001111111).unwrap();
+        let sq = analytic_structural_screen(&prog, &pheno, 29468.22, 0.001111111).unwrap();
         assert!(
             sq.passed,
             "archetype failed structure: {:?}",
             sq.failure_reasons
         );
-        assert!(!sq.sour_service_qualified);
+        assert!(sq.sour_service_status.starts_with("unknown_"));
         assert!(sq.min_yield_safety_factor >= 2.5);
-        assert!(sq.stress_gci_fine_rel <= 0.01);
-        assert!(sq.load_transfer_rel_error <= 1e-12);
+        assert!(sq.stress_gci_fine_rel.is_none_or(|gci| gci <= 0.01));
+        assert!(sq.load_transfer_audit.is_none());
+        assert!(sq.load_transfer_status.starts_with("unknown_"));
         assert!(sq.vane_modal_freq_ratio >= 3.0);
         assert!(sq.skimmer_tip_deflection_mm <= 0.010);
         assert!(sq.max_lpbf_overhang_from_vertical_deg <= 45.0);
@@ -745,7 +746,7 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
         phenotype::MultiPatchSurface,
         program::{DesignProgram, Rng, TpmsBasis, TpmsInsertField3D},
         redteam,
-        structure::qualify_structure,
+        structure::analytic_structural_screen,
     };
     use std::collections::BTreeSet;
 
@@ -770,7 +771,7 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
         assert!(pheno.minimum_passage_diameter_mm >= 1.4);
         assert!(redteam::check(&norm, &pheno, &mesh).is_ok());
 
-        let sq = qualify_structure(&norm, &pheno, 29468.22, 0.001111111).unwrap();
+        let sq = analytic_structural_screen(&norm, &pheno, 29468.22, 0.001111111).unwrap();
         assert!(
             sq.passed,
             "Wave-2 archetype {fam} failed structure: {:?}",
