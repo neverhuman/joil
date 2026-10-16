@@ -52,7 +52,7 @@ in §4 close or are moved to workplan §6 with a reason (INT-08).
 
 | # | Item | Owner | Blocking? |
 |---|---|---|---|
-| O-1 | CI red on PR head (matplotlib import in a test) | INT/TR | yes |
+| O-1 | CI red on PR head (matplotlib import in a test). EV pushed a fix: matplotlib 3.10.8 is pinned and installed in the CI Python step only (`lane/evidence` `84d0c2e`; the full gate passes locally). Still pending until INT merges it and PR CI is green. | INT (merge + CI rerun) | yes, until CI is green |
 | O-2 | DOC-07 IR-R1: the OpenFOAM writer still emits unsplit inlet ducts while carrying `IrCompiledMesh`'s enactment and identity | IR (+ INT hold on INT-06) | yes, for any new CFD claim |
 | O-3 | DOC-07 IR-R2..IR-R5: STL path tool, CUDA rename claim, corrugation labelled `ConservativeApproximation`, Betti parity vs constant | IR | no (documentation accuracy) |
 | O-4 | INT-04 Wave-4 study: `wave3-proof` stops at the surrogate fit (no independent labels) | INT decision | yes for DOC-04's Wave-4 section |
