@@ -8,6 +8,7 @@ use crate::phenotype::{Phenotype3D, SolidMesh};
 use crate::program::{DesignProgram, MechanismDescriptors, Rng, VariationError, VariationOutcome};
 use crate::redteam;
 use crate::structure::{self, AnalyticStructuralScreen};
+use joil_evidence::{identity::ContentRef, observation::EvidenceTier, subject::Lineage};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::fs;
@@ -139,6 +140,9 @@ pub struct Individual {
     pub topology_class: String,
     pub generation_born: usize,
     pub island_origin: usize,
+    /// Legacy archives without a receipt remain explicitly unidentified.
+    #[serde(default)]
+    pub lineage: Option<Lineage>,
     pub red_team_passed: bool,
     pub red_team_rejects: Vec<String>,
     pub descriptors: MechanismDescriptors,
@@ -157,7 +161,7 @@ pub struct Individual {
     pub constraint_violation: f64,
     pub rank: usize,
     pub crowding_distance: f64,
-    pub evidence_tier: String,
+    pub evidence_tier: EvidenceTier,
     pub qualified_multiobjective_vector: Option<serde_json::Value>,
     pub qualified_capacity_gain: Option<f64>,
 }
@@ -201,10 +205,14 @@ fn evaluate_proposal(
     budget: &mut ProposalBudget,
 ) -> Result<Option<Individual>, String> {
     let mut outcome = outcome?;
+    outcome.candidate_id = Some(id.clone());
     let result = match outcome.child.clone() {
         Some(child) if outcome.failure.is_none() => {
             match evaluate_individual(id, child, generation, island, cfg) {
-                Ok((individual, _)) => Some(individual),
+                Ok((mut individual, _)) => {
+                    individual.lineage = Some(proposal_lineage(&outcome, cfg.seed)?);
+                    Some(individual)
+                }
                 Err(reason) => {
                     outcome.child = None;
                     outcome.failure = Some(format!("compilation/evaluation failed: {reason}"));
@@ -216,6 +224,67 @@ fn evaluate_proposal(
     };
     budget.record(outcome);
     Ok(result)
+}
+
+fn proposal_lineage(outcome: &VariationOutcome, seed: u64) -> Result<Lineage, String> {
+    // These identify the exact implementation source/configuration that produced
+    // the legacy screening mesh, not an independently validated compiler binary.
+    let compiler_source = [
+        include_bytes!("phenotype.rs").as_slice(),
+        include_bytes!("geometry.rs").as_slice(),
+        include_bytes!("program.rs").as_slice(),
+        include_bytes!("../../../Cargo.lock").as_slice(),
+    ]
+    .concat();
+    let operator_source = [
+        outcome.operator_id.as_bytes(),
+        outcome.operator_version.as_bytes(),
+        include_bytes!("program.rs").as_slice(),
+    ]
+    .concat();
+    let lineage = Lineage {
+        parents: if outcome.parent_ids.is_empty() {
+            outcome
+                .parent_hashes
+                .iter()
+                .map(|hash| format!("genome:{hash}"))
+                .collect::<Vec<_>>()
+        } else {
+            outcome.parent_ids.clone()
+        }
+        .into_iter()
+        .collect::<std::collections::BTreeSet<_>>()
+        .into_iter()
+        .collect(),
+        operator: ContentRef::from_bytes(
+            &outcome.operator_id,
+            &outcome.operator_version,
+            &operator_source,
+        ),
+        operator_version: outcome
+            .operator_version
+            .parse::<u32>()
+            .map_err(|e| e.to_string())?,
+        seed,
+        rng_span: [outcome.rng_span.before, outcome.rng_span.after],
+        rng_draws: Rng::draws_between(outcome.rng_span.before, outcome.rng_span.after),
+        repairs: outcome
+            .repairs
+            .iter()
+            .map(|r| joil_evidence::subject::RepairRecord {
+                rule: r.rule.clone(),
+                before_hash: r.before_hash.clone(),
+                after_hash: r.after_hash.clone(),
+            })
+            .collect(),
+        compiler: ContentRef::from_bytes(
+            "joil-core/legacy-mesh-compiler-source",
+            env!("CARGO_PKG_VERSION"),
+            &compiler_source,
+        ),
+    };
+    lineage.check()?;
+    Ok(lineage)
 }
 
 fn lognormal_bin_weights(d50_feed_um: f64, sigma_ln: f64) -> [f64; 10] {
@@ -521,6 +590,14 @@ pub fn evaluate_individual(
         };
 
     let ind = Individual {
+        lineage: Some(proposal_lineage(
+            &VariationOutcome::introduce(
+                prog.clone(),
+                "evaluate_external_program",
+                &mut Rng::new(cfg.seed),
+            )?,
+            cfg.seed,
+        )?),
         id,
         topology_class: prog.topology_class.clone(),
         program: prog,
@@ -540,7 +617,7 @@ pub fn evaluate_individual(
         constraint_violation: violation,
         rank: usize::MAX,
         crowding_distance: 0.0,
-        evidence_tier: "f0_f1_reduced_order_3d_screen_not_f2_cfd_validated".to_string(),
+        evidence_tier: EvidenceTier::SoftwareContract,
         qualified_multiobjective_vector: None,
         qualified_capacity_gain: None,
     };
@@ -885,9 +962,13 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
                     } else {
                         tournament_select(pop, &mut isl_rng)
                     };
-                    p1.program.crossover(&p2.program, &mut isl_rng)
+                    p1.program
+                        .crossover(&p2.program, &mut isl_rng)
+                        .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()]))
                 } else {
-                    p1.program.mutate(&mut isl_rng)
+                    p1.program
+                        .mutate(&mut isl_rng)
+                        .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))
                 };
                 if let Some(ind) = evaluate_proposal(
                     outcome,
@@ -1690,7 +1771,10 @@ pub fn run_single_seed_comparator(
                     } else {
                         tournament_select(&pop, &mut rng)
                     };
-                    parent.program.mutate_conventional_axisymmetric(&mut rng)
+                    parent
+                        .program
+                        .mutate_conventional_axisymmetric(&mut rng)
+                        .map(|outcome| outcome.with_parent_ids(vec![parent.id.clone()]))
                 }
                 SearchBaselineMode::Exotic3dQdCei => {
                     if gen == 0 {
@@ -1709,9 +1793,13 @@ pub fn run_single_seed_comparator(
                         let p1 = tournament_select(&pop, &mut rng);
                         if rng.f64() < cfg.crossover_rate && !arch_vals.is_empty() {
                             let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
-                            p1.program.crossover(&p2.program, &mut rng)
+                            p1.program.crossover(&p2.program, &mut rng).map(|outcome| {
+                                outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()])
+                            })
                         } else {
-                            p1.program.mutate(&mut rng)
+                            p1.program
+                                .mutate(&mut rng)
+                                .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))
                         }
                     }
                 }
@@ -2161,6 +2249,7 @@ pub struct Wave3EvolutionProofReport {
     pub schema_version: u32,
     pub protocol_id: String,
     pub kpi_formula: String,
+    #[serde(rename = "screen_comparison_note", alias = "qualification_note")]
     pub qualification_note: String,
     pub n_seeds: usize,
     pub master_seeds: Vec<u64>,
@@ -2439,7 +2528,9 @@ pub fn run_single_seed_wave3_arm(
                 for _ in 0..pop_size {
                     let p1 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
-                        p1.program.mutate_conventional_axisymmetric(&mut rng)?,
+                        p1.program
+                            .mutate_conventional_axisymmetric(&mut rng)
+                            .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))?,
                         p1.topology_class.clone(),
                         "mutate_conventional_axisymmetric".into(),
                     ));
@@ -2451,7 +2542,10 @@ pub fn run_single_seed_wave3_arm(
                     let p2 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
                         p1.program
-                            .crossover_non_homologous_macro(&p2.program, &mut rng)?,
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)
+                            .map(|outcome| {
+                                outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()])
+                            })?,
                         p1.topology_class.clone(),
                         "crossover_non_homologous_macro_only".into(),
                     ));
@@ -2466,14 +2560,19 @@ pub fn run_single_seed_wave3_arm(
                         let p2 = &pop[idx2];
                         let c = p1
                             .program
-                            .crossover_non_homologous_macro(&p2.program, &mut rng)?;
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)
+                            .map(|outcome| {
+                                outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()])
+                            })?;
                         (
                             c.then(|p| p.mutate_wave3_progressive(&mut rng))?,
                             "unselected_crossover_and_progressive_mutate",
                         )
                     } else {
                         (
-                            p1.program.mutate_wave3_progressive(&mut rng)?,
+                            p1.program
+                                .mutate_wave3_progressive(&mut rng)
+                                .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))?,
                             "unselected_progressive_mutate",
                         )
                     };
@@ -2494,14 +2593,19 @@ pub fn run_single_seed_wave3_arm(
                         let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
                         let crossed = p1
                             .program
-                            .crossover_non_homologous_macro(&p2.program, &mut rng)?;
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)
+                            .map(|outcome| {
+                                outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()])
+                            })?;
                         (
                             crossed.then(|p| p.mutate_wave3_progressive(&mut rng))?,
                             "crossover_homologous_plus_progressive_mutate",
                         )
                     } else {
                         (
-                            p1.program.mutate_wave3_progressive(&mut rng)?,
+                            p1.program
+                                .mutate_wave3_progressive(&mut rng)
+                                .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))?,
                             "mutate_wave3_progressive",
                         )
                     };
@@ -2669,7 +2773,6 @@ pub fn run_single_seed_wave3_arm(
     let gf = generation_trace.last().unwrap().clone();
     let mut compact_best = best_so_far;
     compact_best.phenotype = None;
-    compact_best.structural_qualification = None;
     compact_best.cuda_sdf_audit = None;
 
     Ok(Wave3SeedOutcome {
@@ -3048,7 +3151,7 @@ pub fn run_wave3_evolution_proof(
         schema_version: 1,
         protocol_id: "joil-wave3-de-novo-evolution-proof-v1".into(),
         kpi_formula: "KPI_score(g) = (30.0 - C_out,p95(g)) + 25.0 * E_reduced,20um,p05(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)".into(),
-        qualification_note: "All arms (B2, A1, A2, B3) start at Generation 0 from the identical unseeded mild-perturbation population around CT-35 (0 pre-baked 6/8-jet or TPMS archetypes). Evaluated with validated F0/F1/P08 3D evaluator + GP-CEI surrogate; top promoted elites verified in 15 3D OpenFOAM 14 G0/G1/G2 + LRR/SSG RSM runs. F4 physical flow-loop validation remains open.".into(),
+        qualification_note: "Sandbox comparisons use a shared mild CT-35 initialization where specified. Scores and GP targets come from the prior-laden reduced screen. Archived carrier diagnostics are separate subjects and do not validate new winners. Independent oil, structural and physical evidence remains incomplete.".into(),
         n_seeds: seeds.len(),
         master_seeds: seeds.to_vec(),
         generations: cfg.generations,
