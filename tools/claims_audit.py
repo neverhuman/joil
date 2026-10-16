@@ -1353,12 +1353,15 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
     found: dict[str, dict[str, str]] = {}
     for line in board.splitlines():
         tokens = line.split()
-        if len(tokens) >= 3 and tokens[0] in ("DONE", "MERGED") and tokens[1] in items:
-            sha = tokens[2] if re.fullmatch(r"[0-9a-f]{7,40}", tokens[2]) else ""
+        if len(tokens) >= 2 and tokens[0] in ("DONE", "MERGED") and tokens[1] in items:
+            sha = tokens[2] if len(tokens) >= 3 and re.fullmatch(r"[0-9a-f]{7,40}", tokens[2]) else ""
+            entry = found.setdefault(tokens[1], {})
+            if not sha and tokens[0] == "MERGED":  # integrator's bare "MERGED X" refers to the item's DONE commit
+                sha = entry.get("DONE", "")
             if sha:
-                found.setdefault(tokens[1], {})[tokens[0]] = sha
+                entry[tokens[0]] = sha
         elif len(tokens) >= 5 and tokens[0] == "HB":
-            state = tokens[4]
+            state = "BLOCKED" if tokens[4].startswith("BLOCKED") else tokens[4]  # e.g. BLOCKED-SCOPED
             for item in tokens[3].split("/"):
                 if item not in items or state not in ("START", "WIP", "BLOCKED", "DONE"):
                     continue
@@ -1389,7 +1392,7 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
 
 
 def sync_ledger(synthesis: str, board: str) -> str:
-    """Rewrite §2 ledger rows whose board-derived status differs (never downgrades MERGED/DONE)."""
+    """Rewrite §2 ledger rows whose board-derived status differs (never downgrades, except merges without DONE)."""
     rank = {"OPEN": 0, "WIP": 1, "BLOCKED": 1, "DONE": 2, "MERGED": 3, "MOVED-§6": 4}
     items = set(re.findall(r"^\| ([A-Z]{2,3}-\d{2}) \|", _section(synthesis, "## 2."), re.M))
     derived = ledger_from_board(board, items)
@@ -1401,7 +1404,10 @@ def sync_ledger(synthesis: str, board: str) -> str:
         cells = _table_cells(line) if in_ledger and line.startswith("|") else []
         if len(cells) == 4 and cells[0] in derived:
             status, evidence = derived[cells[0]]
-            if rank[status] >= rank.get(cells[2], 0) and (status, evidence) != (cells[2], cells[3]):
+            # Never downgrade, except when the board shows a merge without the owner's DONE: that merge was
+            # never completion, so the owner's WIP/BLOCKED state wins over an earlier MERGED row.
+            merged_without_done = "without board `DONE" in evidence
+            if (rank[status] >= rank.get(cells[2], 0) or merged_without_done) and (status, evidence) != (cells[2], cells[3]):
                 line = f"| {cells[0]} | {cells[1]} | {status} | {evidence} |\n"
         out.append(line)
     return "".join(out)
