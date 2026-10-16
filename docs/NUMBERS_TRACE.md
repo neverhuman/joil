@@ -133,7 +133,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `1.40` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/promoted_3d_elite/min_passage_diameter_mm` | printed |
 | `1,639.25` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/phenotype/terminal_underflow_z_mm` | printed |
 | `120` | 1 | `experiments/wave2-preregistration-v1.json` | `/immutable_interfaces/inlet_area_each_mm2` | printed |
-| `998` | 1 | `docs/receipts/native-elementary-20261015.json` | `/cases/2/result/water_density_kg_m3` | printed |
+| `998` | 1 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/enactment_receipt/active_mechanisms/0/face_indices/950` | printed |
 | `3` | 8 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/topology_family_counts/bifurcated-quad-manifold` | printed |
 | `0.85` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/3/best_candidate/program/inlet_ramp/radial_slot_factor` | printed |
 | `1.35` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/1/best_candidate/program/tpms_insert/sheet_thickness_mm` | printed |
@@ -143,7 +143,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `35` | 3 | declared | - | see table (`35@$k_s \le 35\ \mu\text{m}$`) |
 | `0.10` | 2 | `experiments/wave2-preregistration-v1.json` | `/multiseed_statistical_protocol/rejected_cohort_random_audit_fraction` | printed |
 | `100` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/structural_qualification/vane_strouhal_shedding_freq_hz` | printed |
-| `1000` | 1 | `docs/receipts/native-elementary-20261015.json` | `/cases/0/result/density_kg_m3` | printed |
+| `1000` | 1 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/enactment_receipt/active_mechanisms/0/face_indices/952` | printed |
 | `2.60` | 3 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/0/q_in_m3_h` | printed |
 | `5.40` | 3 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/1/q_in_m3_h` | printed |
 | `1.50` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/0/generation_trace/17/shannon_diversity_bits` | printed |

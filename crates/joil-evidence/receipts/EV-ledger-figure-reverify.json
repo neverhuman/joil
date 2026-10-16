@@ -1,0 +1,315 @@
+{
+  "item": "EV-LEDGER-FIGURE-REVERIFY",
+  "verified_at_utc": "2026-10-16T07:42:31Z",
+  "reviewed_integration_head": "0f2d8f5e61d20559391761acfce07b3e869095c4",
+  "changed_paths": [
+    ".agent/JOIL-COORD.md",
+    "crates/joil-evidence/receipts/EV-ledger-figure-reverify.json"
+  ],
+  "ledger": {
+    "EV-09": {
+      "state": "BLOCKED",
+      "reason": "Independent source-bound Cout labels and reviewed observed mechanism inventory absent. Admission/disjoint-fold foundation merged; real calibration deferred to section6 by INT05:50Z ACK.",
+      "evidence": "crates/joil-evidence/reports/surrogate-independent-ood-v1.json",
+      "evidence_sha256": "f8e9e7981a6924685111cc89a4531cc7b822af5effe187743de5eafeab50ecbf"
+    },
+    "EV-10": {
+      "state": "DONE",
+      "implementation_commit": "dcaf087d9c1f028e8f65699a50b28c0461b89bb1",
+      "merged_at": "ceaa03d5f77f984aade1ada6a4b69f4a6deb56b5",
+      "reason": "Runtime experiment::admit_search_campaign consumes P0 inventory/objective identity; ClaimBearing refuses before artifacts. Foundation complete, no physical admission.",
+      "positive_and_negative_test": "crates/joil-core/tests/truth_requirements.rs"
+    },
+    "EV-12": {
+      "state": "BLOCKED",
+      "reason": "Typed OpenFOAM/FEA manifest schema and byte verification are tested; current prepared-case writer emits only a partial subject_bundle (volume_mesh=None), no full CaseManifest/ScientificIdentity. Post-mesh/full historical/FEA writer integration awaits IR/INT.",
+      "writer_source": "crates/joil-core/src/cfd_case.rs",
+      "writer_sha256": "efb390f3e596dfe4c82d0dfa21e8b79028f6ced626e455b9e31cc8178e3ccc6b",
+      "schema_source": "crates/joil-evidence/src/subject.rs",
+      "schema_sha256": "23e73fa6c6a5996a26717a56317fb7bd471c07539482513e48ee9086c1e9fb57",
+      "schema_positive_and_negative_test": "crates/joil-evidence/tests/subject.rs::case_manifest_requires_full_chain_and_exact_artifact_bytes"
+    }
+  },
+  "figure_checks": [
+    {
+      "path": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+      "actual_sha256": "c5f0f2ab96205c51ef33b5099f5484d7f8c589cfe4afa19d2421195190ea7469",
+      "expected_sha256": "c5f0f2ab96205c51ef33b5099f5484d7f8c589cfe4afa19d2421195190ea7469",
+      "manifest_figure_sha256": "c5f0f2ab96205c51ef33b5099f5484d7f8c589cfe4afa19d2421195190ea7469",
+      "manifest_sha256": "83dfbd6a94b9da97aad79d99cb0462ba6a2c9a63ac4574f7f7815b0483303267",
+      "match": true
+    },
+    {
+      "path": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
+      "actual_sha256": "4e4a1c082d6e9593f9f14e16053bbca9dfb3b4802fd3be98458b6ffbb9f65fcf",
+      "expected_sha256": "4e4a1c082d6e9593f9f14e16053bbca9dfb3b4802fd3be98458b6ffbb9f65fcf",
+      "manifest_figure_sha256": "4e4a1c082d6e9593f9f14e16053bbca9dfb3b4802fd3be98458b6ffbb9f65fcf",
+      "manifest_sha256": "9698393de632cc0375057bd7d0ade563b23f733557b3906cba6df11141e0cef9",
+      "match": true
+    }
+  ],
+  "figure_verification": "Read PNG and manifest bytes using git show origin/feat/joil-v4-truth-evidence:<path>; compare actual SHA256 with requested and manifest digests, and hash every source_receipts path from the same ref. All match.",
+  "figure_artifact_sha256": "e371cd644a612e6ed373828335a10731d9f689629cfc976bd04d604400eca234",
+  "figure_commands": [
+    {
+      "command": "git show origin/feat/joil-v4-truth-evidence:docs/figures/wave4-readme-hero-kpi-and-elite.png | sha256sum",
+      "exit_code": 0,
+      "output_sha256": "c5f0f2ab96205c51ef33b5099f5484d7f8c589cfe4afa19d2421195190ea7469"
+    },
+    {
+      "command": "git show origin/feat/joil-v4-truth-evidence:docs/figures/wave4-evolution-ablation-and-lineage-proof.png | sha256sum",
+      "exit_code": 0,
+      "output_sha256": "4e4a1c082d6e9593f9f14e16053bbca9dfb3b4802fd3be98458b6ffbb9f65fcf"
+    }
+  ],
+  "prose_check": {
+    "reviewed_doc_head": "cf9df59c5eb593b13adffea276d75cd149f6277d",
+    "reviewed_doc_ref": "origin/lane/paper",
+    "integration_head": "0f2d8f5e61d20559391761acfce07b3e869095c4",
+    "data_sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+    "readme_sha256": "0c35ecdfdd6c676f633e7371a8fec58e388d4d021d54fb8843d37ffd9195cb60",
+    "whitepaper_sha256": "31144af9dd08e526f682f8009f7ad419efeb2933f0dd0bb2e54b4a3f829c1bfd",
+    "readme_table_checks": [
+      {
+        "scope": "README Wave4 table",
+        "arm": "B1_Random_Search",
+        "gen0_final_median": [
+          44.490288,
+          45.93682,
+          37.98362
+        ],
+        "ci95": [
+          45.615566,
+          46.265452
+        ],
+        "match": true
+      },
+      {
+        "scope": "README Wave4 table",
+        "arm": "B3_Wave3_Exotic3D_QD_CEI",
+        "gen0_final_median": [
+          31.008835,
+          45.131872,
+          43.628366
+        ],
+        "ci95": [
+          44.778022,
+          45.452437
+        ],
+        "match": true
+      },
+      {
+        "scope": "README Wave4 table",
+        "arm": "A2_No_Selection_Random_Walk",
+        "gen0_final_median": [
+          31.008835,
+          42.715589,
+          37.85671
+        ],
+        "ci95": [
+          42.064348,
+          43.349521
+        ],
+        "match": true
+      },
+      {
+        "scope": "README Wave4 table",
+        "arm": "B2_Conventional_Axisym_NSGA2",
+        "gen0_final_median": [
+          27.471889,
+          36.23641,
+          35.464588
+        ],
+        "ci95": [
+          36.047525,
+          36.416028
+        ],
+        "match": true
+      },
+      {
+        "scope": "README Wave4 table",
+        "arm": "A1_No_Mutation_Crossover_Only",
+        "gen0_final_median": [
+          31.008835,
+          33.956765,
+          33.640806
+        ],
+        "ci95": [
+          33.713883,
+          34.184385
+        ],
+        "match": true
+      }
+    ],
+    "whitepaper_checks": [
+      "five arm means and B0 point",
+      "B1/B3 confidence intervals",
+      "five mean differences; U16/100/98; delta-0.68/0.96; Holm1/0.0012568",
+      "B3 repair count2263/4500=50.3%",
+      "promoted elite score/id/C upper/MC72 and insufficient p01 min368",
+      "four random-search seeds beat promoted B3 elite",
+      "gen0 arm start scores and highlighted seed20261108; both figure digests"
+    ],
+    "numeric_gaps": [],
+    "scope_note": "DOC cf9df59 is not yet merged in origin integration c5eb7f1; integration prose still pre-DOC04. Read-only audit of latest pushed DOC text; pending DOC merge is not a new numerical defect."
+  },
+  "prose_artifact_sha256": "1ed11433fbd102080e7dcf540cdc6266daf7903af39d0eb1c8c115d6d4503985",
+  "limitations": [
+    "Reverification checks committed bytes and existing software contracts; no CFD or physical evaluation.",
+    "DOC prose checked read-only at cf9df59; integration c5eb7f1 predates the DOC merge.",
+    "EV09/EV12 remain blocked for the explicit reasons above; no workplan checkbox changes."
+  ],
+  "next_dependency": "INT/DOC reconcile ledger and merge this evidence receipt; IR/INT emit full real-artifact case identities; independent source-bound labels/observer inventory for EV09. No PR merge by EV.",
+  "required_gate": {
+    "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only}; python3 tools/check.py",
+    "exit_code": 0,
+    "receipt_sha256": "280c214a64975703c85ccfc9755f40cc1023f3c13fa5222be6105c631c97504f",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.05146568897180259,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.31270352605497465,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 8.768077228975017,
+        "log_bytes": 303,
+        "log_sha256": "d1ced5a98714b7b28156df2429923b52aac06ffcc067ffef6be04843329bda48"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 85.01679176295875,
+        "log_bytes": 12061,
+        "log_sha256": "48109a1e751b10f1930202cf5dedb5fac01700af002f5e5d5eb7784f11e0cef1"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.7094947170116939,
+        "log_bytes": 1096,
+        "log_sha256": "afe5d60a1309a5efa0e45613b462032d4ec3faa87244c8a1f7c6e739f6538b4b"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 42.13049804995535,
+        "log_bytes": 7818,
+        "log_sha256": "f1e4f0f50d245f6d24fcca3a066bebfb16657658db2094625c130654f55a9ac2"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.07467940595233813,
+        "log_bytes": 75,
+        "log_sha256": "5b6261f94a96be67ae5530b518b6b195c0fcf31a05fe3fd60ad8a74f06c1c22d"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 12.390733829000965,
+        "log_bytes": 224,
+        "log_sha256": "40e5f46f36e9f0dbe4f0cf0967e9642e77fec3efce8c741c06253e40af35b77a"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 1.022876929026097,
+        "log_bytes": 28,
+        "log_sha256": "fcb5dd0724976a2cf75fe603b6eaa9c44480dd2aca4d5e282f2f7254ced8852d"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 2.50704387598671,
+        "log_bytes": 1904,
+        "log_sha256": "fc1a38c1a26b34b00032d5ec1d2a010c24fde4ae6b80d7f76c0b0aeff5ee3fe4"
+      }
+    ]
+  }
+}

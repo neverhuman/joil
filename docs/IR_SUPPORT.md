@@ -45,11 +45,11 @@ For Wave-2 `ribbon_cascade` and `tpms_insert`, the radial wall-field backends en
 | `cone_profile` | `Exact` | `Exact` | `Exact` | `Exact` | `ConservativeApproximation` | `ConservativeApproximation` | `ScreenOnly` |
 | `skimmer` | `Exact` | `Exact` | `Exact` | `Exact` | `ScreenOnly` | **`Unsupported`** | `ScreenOnly` |
 
-### Python B-Rep vs Rust Mesh Parity (`IR-03`, `IR-R5`)
+### Python B-Rep vs Rust Mesh Parity (`IR-03`, `IR-R5`, `G-11`)
 For all supported mechanisms (including Wave-2 wall corrugations and $B \in \{1,2,3,4\}$-branch `inlet_split`), [`tools/f0_voxel.py::verify_brep_rust_mesh_parity`](../tools/f0_voxel.py) verifies:
 - Enclosed fluid volume agreement within $\pm 2.0\%$
 - Total wetted surface area agreement within $\pm 3.0\%$
-- Exact Betti number agreement $(\beta_0, \beta_1, \beta_2) = (1, 2(B - 1), 1)$ computed from the 2-manifold Euler characteristic $\chi = V - E + F = 2 - 2\beta_1$ (where each solid splitter vane spanning an inlet duct adds one topological handle of genus $1$, rather than comparing against a hardcoded `(1, 0, 1)` constant, `IR-R5`)
+- Direct B-rep-vs-mesh Betti number parity (`brep_betti == rust_betti`), where the B-rep Betti numbers $(\beta_0, \beta_1, \beta_2)$ are computed directly from the OpenCascade B-rep cellular complex ($\chi_{\text{B-rep}} = V_{\text{B-rep}} - E_{\text{B-rep}} + \sum_{f \in \text{Faces}} (2 - |\text{Wires}(f)|)$, $\beta_1 = ((\beta_0 + \beta_2) - \chi_{\text{B-rep}})/2$) and the Rust mesh Betti numbers are computed directly from the referenced 2-manifold simplicial complex ($\chi_{\text{mesh}} = V_{\text{ref}} - E + F$, $\beta_1 = ((\beta_0 + \beta_2) - \chi_{\text{mesh}})/2 = 2(B - 1)$), with no hardcoded constants or formula shortcuts (`IR-R5`, `G-11`).
 
 ---
 
@@ -90,8 +90,8 @@ For all supported mechanisms (including Wave-2 wall corrugations and $B \in \{1,
   6. `minimum_tool_access_diameter_mm` (overflow bore finishing access, gate $\ge 1.4\text{ mm}$)
   7. `minimum_powder_exit_diameter_mm` (LPBF powder evacuation bottleneck diameter, gate $\ge 1.4\text{ mm}$)
   8. `minimum_support_removal_access_mm` (post-build support removal access, gate $\ge 1.4\text{ mm}$)
-- **CUDA Subject Bundle Reference & Workspace Counter (`IR-10`, `IR-R3`)**:
-  [`CudaSubjectBundleRef`](../crates/joil-ir/src/lib.rs) binds `design_ir_sha256`, `geometry_artifact_sha256`, `geometry_artifact_bytes_len`, and `axial_radial_lut_sha256` to the exact compiled STL artifact bytes. In [`crates/joil-core/src/evolve.rs`](../crates/joil-core/src/evolve.rs), `CudaSdfAuditReport` renames the un-reduced workspace counter field to `gpu_workspace_tensor_cells_evaluated` (with `#[serde(alias = "gpu_lagrangian_parcels_integrated")]` for backward compatibility with [`physics/cuda/joil_cuda_eval.cu`](../physics/cuda/joil_cuda_eval.cu), which retains the legacy JSON key `"gpu_lagrangian_parcels_integrated"` in its stdout diagnostic line to preserve its hash-frozen source digest in `WHITEPAPER.md` and `tools/claims_audit.py`).
+- **CUDA Subject Bundle Reference & Workspace Counter (`IR-10`, `IR-R3`, `G-11`)**:
+  [`CudaSubjectBundleRef`](../crates/joil-ir/src/lib.rs) binds `design_ir_sha256`, `geometry_artifact_sha256`, `geometry_artifact_bytes_len`, and `axial_radial_lut_sha256` to the exact compiled STL artifact bytes. In [`crates/joil-core/src/evolve.rs`](../crates/joil-core/src/evolve.rs), `CudaSdfAuditReport` and `DistributedClusterMetrics` serialize the un-reduced workspace counter fields as `gpu_workspace_tensor_cells_evaluated` and `total_gpu_workspace_tensor_cells_evaluated` (retaining `#[serde(alias = "gpu_lagrangian_parcels_integrated")]` and `#[serde(alias = "total_gpu_lagrangian_parcels_integrated")]` for backward compatibility with [`physics/cuda/joil_cuda_eval.cu`](../physics/cuda/joil_cuda_eval.cu) and historical receipts, since `joil_cuda_eval.cu` retains the legacy JSON key `"gpu_lagrangian_parcels_integrated"` in its stdout diagnostic line to preserve its hash-frozen source digest in `WHITEPAPER.md` and `tools/claims_audit.py`).
 - **Negative Geometry Corpus & Metamorphic Suite (`IR-12`)**:
   22 malformed geometry fixtures in `tests/fixtures/negative/neg_01_*.json`..`neg_22_*.json` cover every `F0RejectionReason` variant and are verified by both Rust (`cargo test -p joil-ir`) and Python (`python3 tools/f0_voxel.py --audit-negative-corpus`), alongside metamorphic invariance tests for rigid 3D rotation, isotropic scaling ($V \propto s^3, A \propto s^2$), inactive-gene canonicalization, and chamber-mode permutation invariance.
 

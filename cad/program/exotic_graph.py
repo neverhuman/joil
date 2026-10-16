@@ -730,33 +730,13 @@ def compile_exotic_program(program: dict[str, Any], backend_mode: str = 'brep'):
     n_shells = len(fluid.Shells())
     betti_0 = n_solids
     betti_2 = n_shells
-    # Compute 2-manifold boundary Euler characteristic chi = V - E + F on welded B-rep tessellation (`IR-R5`)
-    raw_verts, raw_tris = fluid.tessellate(0.5)
-    v_map: dict[tuple[int, int, int], int] = {}
-    for rv in raw_verts:
-        key = (int(round(rv.x * 1000.0)), int(round(rv.y * 1000.0)), int(round(rv.z * 1000.0)))
-        if key not in v_map:
-            v_map[key] = len(v_map)
-    idx_remap = [
-        v_map[(int(round(rv.x * 1000.0)), int(round(rv.y * 1000.0)), int(round(rv.z * 1000.0)))]
-        for rv in raw_verts
-    ]
-    welded_edges: set[tuple[int, int]] = set()
-    welded_tris = 0
-    for i0, i1, i2 in raw_tris:
-        u0, u1, u2 = idx_remap[i0], idx_remap[i1], idx_remap[i2]
-        if u0 != u1 and u1 != u2 and u2 != u0:
-            welded_tris += 1
-            for a, b in ((u0, u1), (u1, u2), (u2, u0)):
-                welded_edges.add((a, b) if a < b else (b, a))
-    chi_welded = len(v_map) - len(welded_edges) + welded_tris
-    through_handles = (
-        2 * (int(p_norm['inlet_split']['branches_per_port']) - 1)
-        if bool(p_norm['inlet_split']['enabled'])
-        else 0
-    )
-    betti_1_from_chi = max(0, ((betti_0 + betti_2) - chi_welded) // 2)
-    betti_1 = betti_1_from_chi if betti_1_from_chi == through_handles else through_handles
+    # Compute 2-manifold boundary Euler characteristic chi = V - E + sum_{f}(2 - |Wires(f)|)
+    # directly from the OpenCascade B-rep cellular complex (`IR-R5`, `G-11`).
+    v_brep = len(fluid.Vertices())
+    e_brep = len(fluid.Edges())
+    f_euler_sum = sum(2 - len(f.Wires()) for f in fluid.Faces())
+    chi_brep = v_brep - e_brep + f_euler_sum
+    betti_1 = max(0, ((betti_0 + betti_2) - chi_brep) // 2)
 
     report = {
         'zero_mutation_exact_baseline_branch': False,

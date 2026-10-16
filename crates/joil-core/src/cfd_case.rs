@@ -594,4 +594,144 @@ mod tests {
 
         let _ = fs::remove_dir_all(&tmp_dir);
     }
+
+    #[test]
+    fn int06_wave4_top_winners_cfd_stl_equals_ir_compiled_mesh_and_slice_loops() {
+        let manifest_dir = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        let wave4_path = manifest_dir.join("../../docs/results/wave4-evolution-proof-v1.json");
+        let wave4_val: serde_json::Value =
+            serde_json::from_str(&fs::read_to_string(&wave4_path).expect("read wave4 json"))
+                .expect("parse wave4 json");
+
+        let cases = [
+            (
+                "wave4_top_elite_s20261108_g016_i000_8jet",
+                &wave4_val["promoted_wave3_top_elite"]["program"],
+                4usize,
+            ),
+            (
+                "wave4_trifurcated_6jet_vortex_head",
+                &wave4_val["promoted_wave3_elites_by_family"]["trifurcated-6jet-vortex-head"]
+                    ["program"],
+                3usize,
+            ),
+            (
+                "wave4_counter_fluted_recovery_vortex_6jet",
+                &wave4_val["promoted_wave3_elites_by_family"]["counter-fluted-recovery-vortex"]
+                    ["program"],
+                3usize,
+            ),
+            (
+                "wave4_baseline_ct35_control_2jet",
+                &wave4_val["baseline_b0_ct35"]["program"],
+                1usize,
+            ),
+        ];
+
+        let mut case_records = Vec::new();
+        for (label, prog_val, expected_loops_per_duct) in cases {
+            let prog: DesignProgram =
+                serde_json::from_value(prog_val.clone()).expect("deserialize DesignProgram");
+            let p_norm = prog.normalize().expect("normalize DesignProgram");
+
+            let ir = crate::geometry::compile_design_ir(&p_norm).expect("compile DesignIrV1");
+            let ir_mesh = joil_ir::IrCompiledMesh::compile_with_extension(
+                &ir,
+                joil_ir::BackendId::RustMultiPatchCfdSurface,
+                0.0,
+            )
+            .expect("compile IrCompiledMesh");
+
+            let tmp_dir =
+                std::env::temp_dir().join(format!("joil_int06_{label}_{}", std::process::id()));
+            let _ = fs::remove_dir_all(&tmp_dir);
+
+            let cfg = CfdCaseConfig::default();
+            let manifest = build_openfoam_candidate_case(&p_norm, &tmp_dir, &cfg)
+                .expect("build_openfoam_candidate_case must succeed");
+
+            // 1. Verify MultiPatchSurface::from_program writes the exact same STL mesh as IrCompiledMesh::compile_with_extension
+            let direct_surface = MultiPatchSurface::from_program(&p_norm, 0.0).unwrap();
+            assert_eq!(
+                direct_surface.vertices_m, ir_mesh.vertices_m,
+                "{label}: MultiPatchSurface vertices must equal IrCompiledMesh::compile_with_extension"
+            );
+            assert_eq!(
+                direct_surface.triangles, ir_mesh.triangles,
+                "{label}: MultiPatchSurface triangles must equal IrCompiledMesh::compile_with_extension"
+            );
+
+            // 2. Verify slice loops at x = +-0.045 m and x = +-0.050 m on both IrCompiledMesh and emitted OpenFOAM STL
+            let loops_neg_045 = ir_mesh.count_cross_section_loops_at_x(-0.045);
+            let loops_pos_045 = ir_mesh.count_cross_section_loops_at_x(0.045);
+            let loops_neg_050 = ir_mesh.count_cross_section_loops_at_x(-0.050);
+            let loops_pos_050 = ir_mesh.count_cross_section_loops_at_x(0.050);
+            assert_eq!(
+                loops_neg_045, expected_loops_per_duct,
+                "{label}: x = -0.045 m must have {expected_loops_per_duct} closed loops"
+            );
+            assert_eq!(
+                loops_pos_045, expected_loops_per_duct,
+                "{label}: x = +0.045 m must have {expected_loops_per_duct} closed loops"
+            );
+            assert_eq!(
+                loops_neg_050, expected_loops_per_duct,
+                "{label}: x = -0.050 m must have {expected_loops_per_duct} closed loops"
+            );
+            assert_eq!(
+                loops_pos_050, expected_loops_per_duct,
+                "{label}: x = +0.050 m must have {expected_loops_per_duct} closed loops"
+            );
+
+            let stl_path = tmp_dir.join(&manifest.surface_stl_relpath);
+            let stl_text = fs::read_to_string(&stl_path).expect("read ct35.stl");
+            let (total_loops, loops_in1, loops_in2) =
+                joil_ir::IrCompiledMesh::audit_ascii_stl_inlet_enactment(&stl_text);
+            assert_eq!(loops_in1, expected_loops_per_duct);
+            assert_eq!(loops_in2, expected_loops_per_duct);
+            assert_eq!(total_loops, 2 * expected_loops_per_duct);
+
+            let taxon = manifest.derived_taxon.as_ref().unwrap();
+            case_records.push(serde_json::json!({
+                "label": label,
+                "topology_class": manifest.topology_class,
+                "design_sha256": manifest.design_sha256,
+                "design_ir_sha256": manifest.design_ir_sha256,
+                "surface_stl_sha256": manifest.surface_stl_sha256,
+                "surface_stl_bytes": manifest.surface_stl_bytes,
+                "vertex_count": ir_mesh.vertices_m.len(),
+                "triangle_count": ir_mesh.triangles.len(),
+                "equals_ir_compiled_mesh_vertices": true,
+                "equals_ir_compiled_mesh_triangles": true,
+                "watertight_and_manifold": manifest.multi_patch_audit.watertight_and_manifold,
+                "slice_loops_x_neg_0_045_m": loops_neg_045,
+                "slice_loops_x_pos_0_045_m": loops_pos_045,
+                "slice_loops_x_neg_0_050_m": loops_neg_050,
+                "slice_loops_x_pos_0_050_m": loops_pos_050,
+                "stl_audit_inlet1_loops": loops_in1,
+                "stl_audit_inlet2_loops": loops_in2,
+                "stl_audit_total_inlet_loops": total_loops,
+                "expected_loops_per_duct": expected_loops_per_duct,
+                "betti": [taxon.betti_0, taxon.betti_1, taxon.betti_2],
+                "taxon_signature": taxon.taxon_signature,
+                "derived_cluster": taxon.derived_cluster,
+            }));
+
+            let _ = fs::remove_dir_all(&tmp_dir);
+        }
+
+        let checks_dir = manifest_dir.join("../../.private/checks");
+        let _ = fs::create_dir_all(&checks_dir);
+        let receipt_path = checks_dir.join("int06-wave4-winner-cfd-stl-ir-parity-20261016.json");
+        let receipt_doc = serde_json::json!({
+            "schema": "joil.ir.int06_wave4_cfd_stl_parity_receipt.v1",
+            "source_wave4_receipt": "docs/results/wave4-evolution-proof-v1.json",
+            "generator_test": "joil_core::cfd_case::tests::int06_wave4_top_winners_cfd_stl_equals_ir_compiled_mesh_and_slice_loops",
+            "cases": case_records,
+        });
+        let _ = fs::write(
+            &receipt_path,
+            format!("{}\n", serde_json::to_string_pretty(&receipt_doc).unwrap()),
+        );
+    }
 }
