@@ -122,7 +122,7 @@ This sign-off does not merge the PR; merging is Jepson's decision. It covers `e6
 keep `tools/check.py` and CI green, and a new receipt (O-11) must be documented by DOC before its numbers are
 quoted.
 
-## 7. Updates after sign-off (through integration `b9a259a`)
+## 7. Updates after sign-off (through integration `11033dd`)
 
 The sign-off above covers `e68d617`. DOC documented these later changes; each was gated (`tools/check.py` `10/10`)
 before push.
@@ -145,7 +145,9 @@ before push.
   matched unrelated receipt fields by coincidence; those are now declared as derived.
 - **README.** The README is now a short page: what/why, Figure 0, status, install, quick start and links. The tables
   and evidence tiers moved unchanged to `docs/RESULTS.md`, which the claims audit and numbers trace also cover. IR ran
-  every README command from a fresh clone, and all exited `0` (`docs/receipts/README-freshclone-2026-10-16.md`). DOC applied IR's fixes:
+  every README command from a fresh clone, and all exited `0` (`docs/receipts/README-freshclone-2026-10-16.md`).
+  DOC re-ran all `18` current README install and quick-start commands on a fresh checkout of `6450b70`: all exited
+  `0` and the tree stayed clean. DOC applied IR's fixes:
   - `rtk proxy` for the two `--nocapture` tests;
   - a plain timing note;
   - a warning that `--verify-existing` prints the withdrawn historical "certified" line.
@@ -163,7 +165,11 @@ before push.
   - Plate 10's field panels have no committed arrays behind them.
   - Plate 3's mass-closure "gate" is the code's numerical tolerance, recorded in no receipt. DOC disposition: it is
     code-bound numerical policy, not a result or a physical requirement, and the caption says so (F09).
-  The captions now flag each of these until INT regenerates the plates. The owner's requested equal-budget
+  TR, acting as integrator, regenerated the hero, Plates 0, 3, 6 and 11 and the Wave-4 Plate 11 (`11033dd`), and
+  DOC checked each new image against its caption. Residuals: Plate 10's field panels still lack committed arrays
+  (EV is extracting them); the historical Plates 0 and 11 call their evaluations "charged proposals" although the
+  pre-repair run did not charge failed variations; Plate 3 calls positive normal stresses "realizability". The
+  captions say so. The owner's requested equal-budget
   `CT-35` comparison is **not** plotted: every figure shows the single frozen `CT-35` reference. The only
   equal-budget `CT-35` arm is in TR's separate raw-capture campaign (§5.7), so that figure coverage is unmet.
 - **Ledger.** TR-16 and EV-09 are moved to §6 (INT `MOVED-§6`). INT-01, DOC-09 and EV-12 are merged. The workplan

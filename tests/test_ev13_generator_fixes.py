@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -12,6 +13,7 @@ sys.path.insert(0, str(ROOT))
 from tools import generate_wave3_proof_figures as proof
 from tools import generate_wave2_figures_and_animations as wave2
 from tools import generate_gci_rsm_report_and_figures as gci
+from tools import generate_wave2_vs_wave1_cfd_plate as plate10
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
@@ -64,6 +66,8 @@ class EV13GeneratorTests(unittest.TestCase):
                 proof.generate_readme_hero(data, self.cfd, 'source', 'cfd', wave_label=wave)
                 text = figure_text(plt.gcf())
                 self.assertIn(f'{order} on Best KPI (p_Holm={p})', text)
+                if wave == 'Wave-3':
+                    self.assertNotIn('Charged Proposals', text)
                 self.assertIn('A1/A2/B3 shared Gen0; B2 conventionalized control; B1 random search', text)
                 self.assertIn('Authored research-screen threshold (30.0 mg/L)', text)
                 for wrong in ['Discharge Ceiling', '552k cells', '305k cells', 'Shared Unseeded Gen-0 Init']:
@@ -72,6 +76,8 @@ class EV13GeneratorTests(unittest.TestCase):
                 text = figure_text(plt.gcf())
                 self.assertIn(f'{order} on Best KPI (p_Holm={p})', text)
                 self.assertIn(f'({delta}, p_Holm=', text)
+                if wave == 'Wave-3':
+                    self.assertNotIn('Charged Proposals', text)
                 self.assertIn('Authored', text)
                 self.assertIn('Not Geometry Holdout' if wave == 'Wave-3' else 'Not Held-Out', text)
                 self.assertNotIn('Held-Out 3D Geometry', text)
@@ -109,12 +115,51 @@ class EV13GeneratorTests(unittest.TestCase):
                 patch.object(gci, 'load_grid_case', side_effect=AssertionError('raw case access')):
             gci.main()
             self.assertNotIn('Gate', figure_text(plt.gcf()))
+            self.assertNotIn('Realizability', figure_text(plt.gcf()))
+            self.assertIn('Normal-Stress Positivity', figure_text(plt.gcf()))
             closure = load('elite-3grid-gci-and-rsm-verification-v2.json')
             expected = [r['water_closure_fraction'] * 1e6 for r in closure['grids']]
             expected += [r['water_closure_fraction'] * 1e6 for r in closure['rsm_turbulence_closure_crosscheck']]
             expected += [closure['baseline_ct35_comparator']['water_closure_fraction'] * 1e6]
             closure_axis = next(ax for ax in plt.gcf().axes if 'Mass Closure Residual' in ax.get_ylabel())
             self.assertEqual(list(closure_axis.lines[0].get_ydata()), expected)
+
+    def test_plate10_preserves_nulls_and_rejects_zero_filling(self):
+        bundle_path = ROOT / plate10.FIELD_ARRAYS
+        bundle, grids = plate10.load_field_arrays(bundle_path)
+        import numpy as np
+        self.assertTrue(np.isnan(grids['wave1']['u_theta_p90_grid']).any())
+        grid = bundle['cases']['wave1']['meridional']['u_theta_p90_grid']
+        row = next(row for row in grid if None in row)
+        row[row.index(None)] = 0.0
+        with tempfile.TemporaryDirectory(dir=ROOT / '.private') as temp:
+            path = Path(temp) / 'changed.json'
+            path.write_text(json.dumps(bundle))
+            with self.assertRaisesRegex(ValueError, 'missing-bin mask'):
+                plate10.load_field_arrays(path)
+
+    def test_plate10_renders_from_json_without_raw_cases_and_binds_caveats(self):
+        files = [plate10.FIELD_ARRAYS, 'docs/results/elite-3grid-gci-and-rsm-verification-v2.json',
+                 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json']
+        with tempfile.TemporaryDirectory(dir=ROOT / '.private') as temp:
+            root = Path(temp)
+            for rel in files:
+                dest = root / rel
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                dest.write_bytes((ROOT / rel).read_bytes())
+            (root / 'docs/figures').mkdir()
+            self.assertFalse((root / 'runs').exists())
+            with patch.object(plate10, 'ROOT', root), \
+                    patch.object(plate10, 'extract_meridional_rz_grid', side_effect=AssertionError('raw read')), \
+                    patch.object(plate10, 'extract_case_profiles', side_effect=AssertionError('raw read')):
+                plate10.main()
+            path = root / 'docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png'
+            manifest = json.loads(Path(str(path) + '.manifest.json').read_text())
+            self.assertEqual(manifest['source_receipts']['field_array_bundle_sha256'],
+                             hashlib.sha256((root / plate10.FIELD_ARRAYS).read_bytes()).hexdigest())
+            self.assertFalse(manifest['baseline_field_mesh_matches_archived_dossier'])
+            self.assertIn('NOT finite-volume centroids', manifest['coordinate_reviews']['wave1']['method'])
+            self.assertFalse((root / 'runs').exists())
 
     def test_live_manifests_bind_current_png_generator_and_all_sources(self):
         names = ['wave3-readme-hero-kpi-and-elite', 'wave3-evolution-ablation-and-lineage-proof',

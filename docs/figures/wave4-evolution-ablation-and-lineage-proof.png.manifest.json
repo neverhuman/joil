@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "figure_path": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
-  "figure_sha256": "0e1f356ade238e98afbb4f7da045d0270b543e5b8ea4cc9029a57acc844e0da6",
+  "figure_sha256": "6254af2dc3072e8579d5aef86b8db4b82c0a44d3271de9de96f65600e12df91b",
   "title": "Wave-4 Plate: Five Search Arms plus Frozen CT35 Reference; Incumbent-Improvement Milestones; Authored-Label Diversity; Authored-Family Screen Diagnostics",
   "generator_script": "tools/generate_wave3_proof_figures.py",
-  "generator_sha256": "157be0df64fb96cf6c36e55bf1a445d99af35c60dd429667866d9c4757e61065",
+  "generator_sha256": "4c6926897a185d9f803689ef33db77a276c2383055c91074d0450c553f5736ce",
   "source_receipts": [
     {
       "path": "docs/results/wave4-evolution-proof-v1.json",

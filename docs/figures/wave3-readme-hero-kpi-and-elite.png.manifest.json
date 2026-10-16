@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "figure_path": "docs/figures/wave3-readme-hero-kpi-and-elite.png",
-  "figure_sha256": "faec6e06f1699017b446bf643074366299c37f72983bb543766b06035877142e",
+  "figure_sha256": "bed48af9a1fdc6c8158a500ddd356c15f82b04053af44802fd795a0162cddc15",
   "title": "Wave-3 Historical Prior-Screen KPI Trajectory (n=10 Seeds); Archived W1/W2 Carrier Diagnostics with Corrected v2 Half-Spans (Separate Subjects)",
   "generator_script": "tools/generate_wave3_proof_figures.py",
-  "generator_sha256": "157be0df64fb96cf6c36e55bf1a445d99af35c60dd429667866d9c4757e61065",
+  "generator_sha256": "4c6926897a185d9f803689ef33db77a276c2383055c91074d0450c553f5736ce",
   "source_receipts": [
     {
       "path": "docs/results/wave3-evolution-proof-v1.json",
