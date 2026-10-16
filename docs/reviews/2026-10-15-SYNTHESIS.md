@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T11:46Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T11:54Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.

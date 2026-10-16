@@ -662,7 +662,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `64` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/hinze_dmax_um` | printed |
 | `640` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/rejected_cohort_10pct_audit/total_rejected_or_low_rank_pool` | printed |
 | `10.0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/rejected_cohort_10pct_audit/audit_fraction` | x100 |
-| `0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
+| `0` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
 | `0.0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_split/azimuthal_phase_deg` | printed |
 | `0.00` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/rejected_cohort_10pct_audit/worst_rank_reversal_cout_mg_l` | printed |
 | `38` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/0/d50_feed_um` | printed |
