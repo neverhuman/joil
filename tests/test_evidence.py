@@ -14,6 +14,18 @@ from analysis.units import pressure_scale
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_wave4_raw_independent_recompute_contract(self):
+        import importlib.util
+        path = Path(__file__).resolve().parents[1]/'crates/joil-evidence/receipts/wave4_raw_proof_tests.py'
+        spec = importlib.util.spec_from_file_location('ev_raw_proof_tests', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        suite = unittest.defaultTestLoader.loadTestsFromModule(module)
+        result = unittest.TestResult()
+        suite.run(result)
+        self.assertEqual(result.testsRun, 7)
+        self.assertTrue(result.wasSuccessful(), result.errors+result.failures)
+
     def _synthetic_wave4_case(self, runs, name):
         import hashlib
         from analysis.evidence import evidence_reference
