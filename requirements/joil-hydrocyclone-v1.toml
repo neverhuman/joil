@@ -2,7 +2,7 @@
 # Original research requirement remains draft; absent mandatory limits stay absent.
 schema = 1
 id = "joil-hydrocyclone-v1"
-revision = "1"
+revision = "2"
 admission = "sandbox_only"
 scope = "legacy_reduced_screen_software_research_only"
 concentration_basis = "dispersed_oil_mg_per_litre"
@@ -81,3 +81,15 @@ stretch_limit_mg_l = 20.0
 # TR-16 consumes these only in sandbox mode and records this contract's identity.
 sandbox_pressure_ratio_max = 1.15
 sandbox_pdr_min = 4.5
+
+[hypervolume]
+scope = "sandbox_only_new_policy_not_legacy_preregistered"
+objective_ids = ["cout_p95_mg_l", "specific_energy_j_m3", "one_minus_grade_20um_p05", "d50_p95_um", "dp_u_pa"]
+reference_point = [90.0, 100000.0, 1.0, 100.0, 100000.0]
+normalization = [90.0, 100000.0, 1.0, 100.0, 100000.0]
+
+[quantile_policy]
+interpretation = "empirical_distribution_free_two_sided_order_statistic_ci"
+confidence = 0.95
+min_n_p05_p95 = 72
+min_n_p01_p99 = 368

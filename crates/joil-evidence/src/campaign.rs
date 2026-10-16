@@ -89,7 +89,27 @@ pub struct Requirements {
     pub scenarios: Vec<ContentRef>,
     pub objectives: Vec<ObjectiveSpec>,
     pub thresholds: Thresholds,
+    pub hypervolume: HypervolumePolicy,
+    pub quantile_policy: QuantilePolicy,
     pub blockers: Vec<String>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct HypervolumePolicy {
+    pub scope: String,
+    pub objective_ids: Vec<String>,
+    pub reference_point: Vec<Finite>,
+    pub normalization: Vec<Finite>,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct QuantilePolicy {
+    pub interpretation: String,
+    pub confidence: Finite,
+    pub min_n_p05_p95: usize,
+    pub min_n_p01_p99: usize,
 }
 
 impl Requirements {
@@ -125,6 +145,28 @@ impl Requirements {
         for objective in &self.objectives {
             check_id(&objective.id)?;
             check_id(&objective.source_id)?;
+        }
+        let h = &self.hypervolume;
+        if h.scope != "sandbox_only_new_policy_not_legacy_preregistered"
+            || h.objective_ids
+                != self
+                    .objectives
+                    .iter()
+                    .map(|o| o.id.clone())
+                    .collect::<Vec<_>>()
+            || h.reference_point.len() != self.objectives.len()
+            || h.normalization.len() != self.objectives.len()
+            || h.normalization.iter().any(|n| n.get() <= 0.0)
+        {
+            return Err("invalid_frozen_hypervolume_policy".into());
+        }
+        let q = &self.quantile_policy;
+        if q.interpretation != "empirical_distribution_free_two_sided_order_statistic_ci"
+            || q.confidence.get() != 0.95
+            || q.min_n_p05_p95 != 72
+            || q.min_n_p01_p99 != 368
+        {
+            return Err("unsupported_or_weakened_quantile_policy".into());
         }
         let t = &self.thresholds;
         if t.quality_limit_mg_l.get() < 0.0

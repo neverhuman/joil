@@ -82,7 +82,9 @@ pub struct Lineage {
     pub operator: ContentRef,
     pub operator_version: u32,
     pub seed: u64,
+    /// PRNG state endpoints may wrap; they are not an ordered numerical interval.
     pub rng_span: [u64; 2],
+    pub rng_draws: u64,
     pub repairs: Vec<RepairRecord>,
     pub compiler: ContentRef,
 }
@@ -91,8 +93,8 @@ impl Lineage {
     pub fn check(&self) -> Result<(), String> {
         self.operator.check()?;
         self.compiler.check()?;
-        if self.operator_version == 0 || self.rng_span[0] > self.rng_span[1] {
-            return Err("invalid_operator_or_rng_span".into());
+        if self.operator_version == 0 {
+            return Err("invalid_operator_version".into());
         }
         crate::identity::unique_ids(self.parents.iter().map(String::as_str))?;
         for repair in &self.repairs {
