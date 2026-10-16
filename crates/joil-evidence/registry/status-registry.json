@@ -7,6 +7,27 @@
         "path": "crates/joil-evidence/receipts/EV-01-05.json",
         "sha256": "629c7cc0ed5750888e53fa5fa92d25faab35d7a2daf98d8dffede153fb4c79a3"
       }
+    },
+    {
+      "id": "sandbox_campaign_contract_and_generated_status",
+      "receipt": {
+        "path": "crates/joil-evidence/receipts/EV-06-07-10.json",
+        "sha256": "f552d5c5c4002be9ed7e9499309335c8a0d1215b3dad4d13ae925668a33d8c7d"
+      }
+    },
+    {
+      "id": "rust_python_observation_schema_parity",
+      "receipt": {
+        "path": "crates/joil-evidence/receipts/EV-11-12.json",
+        "sha256": "bdd8811afa8e94ee63fe69e50d35709381236fd09eef1e4c76ae25b23b091dd6"
+      }
+    },
+    {
+      "id": "surrogate_abstention_and_independent_admission_software",
+      "receipt": {
+        "path": "crates/joil-evidence/receipts/EV-08-09.json",
+        "sha256": "38379bf2d9ae044b79ae71342468b9e747f5edb6dadc45faa6680fac7c20a180"
+      }
     }
   ],
   "scientific_claims": [
