@@ -2,7 +2,7 @@
   "schema_version": 2,
   "kind": "publication_figure_manifest_not_physical_validation",
   "figure_path": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
-  "figure_sha256": "10c22660ff7d1613622f073455a1bac04676cbf439ae934673ec079e6690bccd",
+  "figure_sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
   "generator_script": "tools/generate_wave2_vs_wave1_cfd_plate.py",
   "matched_color_scales": {
     "u_theta_p90_m_s": [
