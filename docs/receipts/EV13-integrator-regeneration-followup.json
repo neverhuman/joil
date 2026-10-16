@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "kind": "committed_source_EV13_generator_followup_not_physical_validation",
+  "recorded_utc": "2026-10-16T13:11:35Z",
+  "source_and_generator_commit": "6ca19d70d1cf47c98ff1d388bc8492517d77b11a",
+  "paper_handoff": "67022a3",
+  "EV_F04_handoff": "02ed2fd7875bf0ef046e216863b4620969ea8c23",
+  "supersedes_for_live_figure_digests": "docs/receipts/EV13-integrator-regeneration.json (historical initial regeneration pin retained)",
+  "changes": [
+    "Historical Wave3 labels count evaluations, not repaired Wave4 charged proposals. Historical numerical data unchanged.",
+    "Plate3 normal-stress positivity is labelled without claiming full tensor realizability.",
+    "Plate10 consumes only committed reviewed field/profile JSON and two v2 integral dossiers; normal render has no private raw-case access. Null bins stay missing; shape/mask mismatch rejects.",
+    "Plate10 figure/manifest/caption disclose own-face-first-vertex coordinate defect, zero-owner origins and retained313260-vs-archived334768 baseline mesh mismatch. JSON source availability is not spatial validation or restored scientific identity."
+  ],
+  "input_files_sha256": {
+    "docs/results/wave3-evolution-proof-v1.json": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168",
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+    "docs/results/elite-3grid-gci-and-rsm-verification-v2.json": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+    "requirements/RS-joil-research-v1.json": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+    "docs/results/wave4-evolution-proof-v1.json": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+    "crates/joil-evidence/receipts/Plate10-field-arrays.json": "0a428abbc580eca756340bbc61920f6ef165a31fae1028d8dab1714123f339d4"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "matplotlib": "3.10.8",
+    "numpy": "1.26.4",
+    "pillow": "10.2.0",
+    "isolated_environment": ".private/ev13-python",
+    "cpus": "8-11"
+  },
+  "commands": [
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8-11",
+        "python3",
+        "tools/generate_wave3_proof_figures.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.7671932639786974,
+      "log_sha256": "66fe1fe584db73074767c126e019e2f6ecb3dd568c73791fa3438a73bf4d40fb"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8-11",
+        "python3",
+        "tools/generate_gci_rsm_report_and_figures.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.2407645789789967,
+      "log_sha256": "db18a16d8ef5207508085de4a88e10b294742ef132500516e656035dc5c46dcc"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8-11",
+        "python3",
+        "tools/generate_wave2_vs_wave1_cfd_plate.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.2855174040305428,
+      "log_sha256": "9c615d76e4adf5084e406f1ff7b43ccb3e254bd88f1cd9c81d90444afada1561"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8-11",
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_ev13_generator_fixes",
+        "-v"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.1001689420081675,
+      "log_sha256": "dc1e641e5427277d5d6afe03444c94e70bf90d3b146123a8c171e1288f9726f7"
+    }
+  ],
+  "figures": [
+    {
+      "path": "docs/figures/wave3-readme-hero-kpi-and-elite.png",
+      "before_sha256": "faec6e06f1699017b446bf643074366299c37f72983bb543766b06035877142e",
+      "sha256": "bed48af9a1fdc6c8158a500ddd356c15f82b04053af44802fd795a0162cddc15",
+      "manifest": "docs/figures/wave3-readme-hero-kpi-and-elite.png.manifest.json",
+      "manifest_sha256": "52704fa5754df340baa171715e573de199c8ae6304948966b8bfb87c387a52eb",
+      "sources": [
+        {
+          "path": "docs/results/wave3-evolution-proof-v1.json",
+          "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168"
+        },
+        {
+          "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+          "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9"
+        },
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/wave3-evolution-ablation-and-lineage-proof.png",
+      "before_sha256": "0c73ff6a6c6bd7197cc603b90e6f05534821876180a40c0e2dfd150d2131e29e",
+      "sha256": "d775f0d4776648176f4795787980a16fe2eb283e9e91f0b721042d4d70f6c260",
+      "manifest": "docs/figures/wave3-evolution-ablation-and-lineage-proof.png.manifest.json",
+      "manifest_sha256": "a40fc864b7b77789972aba5e5db7ab38e937280550e8d6adbf54393e106d83fd",
+      "sources": [
+        {
+          "path": "docs/results/wave3-evolution-proof-v1.json",
+          "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+      "before_sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "manifest": "docs/figures/wave4-readme-hero-kpi-and-elite.png.manifest.json",
+      "manifest_sha256": "ee6483a9f595baf87d4ab1ddbb0f2028acafb6c65cbbf98d243b55972a28e589",
+      "sources": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885"
+        },
+        {
+          "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+          "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9"
+        },
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
+      "before_sha256": "0e1f356ade238e98afbb4f7da045d0270b543e5b8ea4cc9029a57acc844e0da6",
+      "sha256": "6254af2dc3072e8579d5aef86b8db4b82c0a44d3271de9de96f65600e12df91b",
+      "manifest": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png.manifest.json",
+      "manifest_sha256": "df872d9ebc910faa140289cfa40c1d8aed194cdb50d46c872693757f22033773",
+      "sources": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/elite-gci-and-rsm-verification.png",
+      "before_sha256": "e58deb6ae1a8e99b1998f9d63a216794e30c3d0faac5a88f32ee2a89663b28c2",
+      "sha256": "e79722d3ef6dfd4b8b74bc46114f6515a7fbc3500fdb8f034714172a68ee75ea",
+      "manifest": "docs/figures/elite-gci-and-rsm-verification.png.manifest.json",
+      "manifest_sha256": "8f9562aac422be40402f221ac580e6559cb2edcbbe2015f0b3785fb3a4d72eac",
+      "sources": [
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
+      "before_sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
+      "sha256": "6cdb3ae7d203a9be8abfc320caee8d05b630fec72917a64c8684ccc56bf1c2d6",
+      "manifest": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png.manifest.json",
+      "manifest_sha256": "98cf1d5e5fc6253c9dee341f51abf12653f5663bbc289a162ee27330db1d8cb4",
+      "sources": [
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+        },
+        {
+          "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+          "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9"
+        },
+        {
+          "path": "crates/joil-evidence/receipts/Plate10-field-arrays.json",
+          "sha256": "0a428abbc580eca756340bbc61920f6ef165a31fae1028d8dab1714123f339d4"
+        }
+      ]
+    }
+  ],
+  "field_array_sha256": "0a428abbc580eca756340bbc61920f6ef165a31fae1028d8dab1714123f339d4",
+  "F04_state": "SOURCE_BINDING_DELIVERED_SPATIAL_AND_IDENTITY_LIMITATIONS_RETAINED",
+  "remaining": [
+    "F03 equal-budget three-arm figure coverage unmet; do not mix historical and NEW raw campaigns.",
+    "Independent oil/observed-mechanism labels and disjoint OOD holdouts absent (EV09).",
+    "Historical mesh/FEA/scientific identity and physical/structural validation remain deferred; TR16 blocked-scoped insection6.",
+    "EV independent reverify must pin this followup after initial11033dd reverify; no all-values/scientific PASS asserted by generator receipt."
+  ],
+  "gate": "Full tools/check.py10/10 +public required before push; exact final head/gate hashes on live board."
+}
