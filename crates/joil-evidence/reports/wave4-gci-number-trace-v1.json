@@ -1,0 +1,2986 @@
+{
+  "kind": "complete_wave4_gci_numeric_trace_with_explicit_source_and_status_gaps",
+  "reviewed_integration_head": "cab01e84d10debad41925e0dceb639facdab6c01",
+  "input_path": "docs/results/wave4-gci-v1.json",
+  "input_sha256": "92c5eea7189fc63b3a28802ecc051746e4eca3f32f1f162b27c9011367029287",
+  "coverage": {
+    "numeric_leaves": 54618,
+    "traced_leaves": 54618,
+    "matched": 54615,
+    "method_counts": {
+      "schema constant": 1,
+      "source-bound copy": 54295,
+      "same observer replay, not independent algorithm validation": 63,
+      "reference metadata": 1,
+      "source-bound screen outputs": 21,
+      "raw log/integral parse or independent arithmetic": 108,
+      "independent GCI arithmetic; positive order from bisection": 89,
+      "recomputed": 12,
+      "independent comparator arithmetic": 25,
+      "unsupported source": 3
+    },
+    "metadata_errors": []
+  },
+  "comparison_policy": {
+    "relative_tolerance": 1e-10,
+    "absolute_tolerance": 1e-12,
+    "meaning": "floating arithmetic/source consistency, not physical measurement precision"
+  },
+  "full_machine_trace": {
+    "ignored_local_path": ".private/wave4-gci-number-trace.jsonl",
+    "sha256": "2f91c603586f81d6b7e4d39c8048ee67431aeab5cfba602ac34ee64ffbee71b4",
+    "bytes": 16094773,
+    "rows": 54618,
+    "columns": [
+      "pointer",
+      "reported",
+      "recomputed",
+      "source",
+      "method",
+      "match"
+    ],
+    "reproduce": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .private/ci-python/bin/python crates/joil-evidence/receipts/wave4_gci_trace.py --runs-root /home/ubuntu/joil/runs > .private/wave4-gci-trace-summary.json"
+  },
+  "geometry_copy_groups": [
+    {
+      "target_pointer_pattern": "/same_pipeline_ct35_control/derived_taxon/**",
+      "numeric_leaves": 12,
+      "matched": 12,
+      "source_manifest": "INT-runs/wave4-ct35-control-g2-fine/input-manifest.json:/derived_taxon",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/same_pipeline_ct35_control/enactment_receipt/**",
+      "numeric_leaves": 6808,
+      "matched": 6808,
+      "source_manifest": "INT-runs/wave4-ct35-control-g2-fine/input-manifest.json:/enactment_receipt",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/0/derived_taxon/**",
+      "numeric_leaves": 12,
+      "matched": 12,
+      "source_manifest": "INT-runs/wave4-b3-s20261108-g0-coarse/input-manifest.json:/derived_taxon",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/0/enactment_receipt/**",
+      "numeric_leaves": 7898,
+      "matched": 7898,
+      "source_manifest": "INT-runs/wave4-b3-s20261108-g0-coarse/input-manifest.json:/enactment_receipt",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/1/derived_taxon/**",
+      "numeric_leaves": 12,
+      "matched": 12,
+      "source_manifest": "INT-runs/wave4-b3-s20261106-g2-fine/input-manifest.json:/derived_taxon",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/1/enactment_receipt/**",
+      "numeric_leaves": 7901,
+      "matched": 7901,
+      "source_manifest": "INT-runs/wave4-b3-s20261106-g2-fine/input-manifest.json:/enactment_receipt",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/2/derived_taxon/**",
+      "numeric_leaves": 12,
+      "matched": 12,
+      "source_manifest": "INT-runs/wave4-b3-s20261105-g0-coarse/input-manifest.json:/derived_taxon",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/2/enactment_receipt/**",
+      "numeric_leaves": 7901,
+      "matched": 7901,
+      "source_manifest": "INT-runs/wave4-b3-s20261105-g0-coarse/input-manifest.json:/enactment_receipt",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/3/derived_taxon/**",
+      "numeric_leaves": 12,
+      "matched": 12,
+      "source_manifest": "INT-runs/wave4-b3-s20261107-g0-coarse/input-manifest.json:/derived_taxon",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/3/enactment_receipt/**",
+      "numeric_leaves": 7901,
+      "matched": 7901,
+      "source_manifest": "INT-runs/wave4-b3-s20261107-g0-coarse/input-manifest.json:/enactment_receipt",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/4/derived_taxon/**",
+      "numeric_leaves": 12,
+      "matched": 12,
+      "source_manifest": "INT-runs/wave4-b3-s20261103-g0-coarse/input-manifest.json:/derived_taxon",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/4/enactment_receipt/**",
+      "numeric_leaves": 7901,
+      "matched": 7901,
+      "source_manifest": "INT-runs/wave4-b3-s20261103-g0-coarse/input-manifest.json:/enactment_receipt",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/5/derived_taxon/**",
+      "numeric_leaves": 12,
+      "matched": 12,
+      "source_manifest": "INT-runs/wave4-b3-s20261110-g0-coarse/input-manifest.json:/derived_taxon",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    },
+    {
+      "target_pointer_pattern": "/wave4_b3_top_winners/5/enactment_receipt/**",
+      "numeric_leaves": 7901,
+      "matched": 7901,
+      "source_manifest": "INT-runs/wave4-b3-s20261110-g0-coarse/input-manifest.json:/enactment_receipt",
+      "method": "all numeric leaf values compared against exact prepared-manifest fields; not independent geometry validation"
+    }
+  ],
+  "critical_numeric_rows": [
+    {
+      "pointer": "/same_pipeline_ct35_control/f1_sandbox_screen_metrics/cout_sample_screen_upper_mg_l",
+      "reported": 27.62743440541113,
+      "recomputed": 27.62743440541113,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/baseline_b0_ct35/mc_robustness/cout_sample_screen_upper_mg_l",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/f1_sandbox_screen_metrics/dp_u_pa",
+      "reported": 29468.22,
+      "recomputed": 29468.22,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/baseline_b0_ct35/nominal_metrics/dp_u_pa",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/f1_sandbox_screen_metrics/kpi_score",
+      "reported": 23.931038,
+      "recomputed": 23.931038,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/baseline_b0_ct35_kpi_score",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/apparent_pipeline_offset_pa",
+      "reported": -10834.328401024544,
+      "recomputed": -10834.328401024544,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control grids/apparent_pipeline_offset_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/apparent_pipeline_offset_pct",
+      "reported": -36.76614577020389,
+      "recomputed": -36.7661457702039,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control grids/apparent_pipeline_offset_pct",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/archived_wave1_2port_wall_modulated_g2_dp_u_pa",
+      "reported": 18656.605420389715,
+      "recomputed": null,
+      "source": "unreferenced hardcoded archived value in producer",
+      "method": "unsupported source",
+      "match": false
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/historical_extended_ct35_reference_dp_u_pa",
+      "reported": 29468.219129471345,
+      "recomputed": 29468.219129471345,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control grids/historical_extended_ct35_reference_dp_u_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/same_pipeline_unextended_ct35_3grid_span_pa",
+      "reported": 2378.858250000303,
+      "recomputed": 2378.858250000303,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control grids/same_pipeline_unextended_ct35_3grid_span_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/same_pipeline_unextended_ct35_g0_dp_u_pa",
+      "reported": 17067.161794914347,
+      "recomputed": 17067.161794914347,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control grids/same_pipeline_unextended_ct35_g0_dp_u_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/same_pipeline_unextended_ct35_g1_dp_u_pa",
+      "reported": 19446.02004491465,
+      "recomputed": 19446.02004491465,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control grids/same_pipeline_unextended_ct35_g1_dp_u_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/same_pipeline_unextended_ct35_g2_dp_u_pa",
+      "reported": 18633.8907284468,
+      "recomputed": 18633.8907284468,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control grids/same_pipeline_unextended_ct35_g2_dp_u_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/true_delta_archived_wave1_vs_same_pipeline_ct35_pa",
+      "reported": 22.714691942914214,
+      "recomputed": null,
+      "source": "unreferenced hardcoded archived value in producer",
+      "method": "unsupported source",
+      "match": false
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/true_delta_archived_wave1_vs_same_pipeline_ct35_pct",
+      "reported": 0.12189988807993597,
+      "recomputed": null,
+      "source": "unreferenced hardcoded archived value in producer",
+      "method": "unsupported source",
+      "match": false
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/avg_non_orthogonality_deg",
+      "reported": 6.69947513729,
+      "recomputed": 6.69947513729,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/mesh-2-checkMesh.log:avg_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/background_hex_grid/0",
+      "reported": 18,
+      "recomputed": 18,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/system/blockMeshDict:background_hex_grid/0",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/background_hex_grid/1",
+      "reported": 12,
+      "recomputed": 12,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/system/blockMeshDict:background_hex_grid/1",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/background_hex_grid/2",
+      "reported": 212,
+      "recomputed": 212,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/system/blockMeshDict:background_hex_grid/2",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/cells",
+      "reported": 139736,
+      "recomputed": 139736.0,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/mesh-2-checkMesh.log:cells",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/dp_o_pa",
+      "reported": 197067.16179502834,
+      "recomputed": 197067.16179502834,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:dp_o_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/dp_u_pa",
+      "reported": 17067.161794914347,
+      "recomputed": 17067.161794914347,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:dp_u_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/effective_cell_size_mm",
+      "reported": 1.990739363913308,
+      "recomputed": 1.990739363913308,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/mesh-2-checkMesh.log:effective_cell_size_mm",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/feed_m3_h",
+      "reported": 4.00000000000342,
+      "recomputed": 4.00000000000342,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:feed_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/hydraulic_loss_j_per_treated_m3",
+      "reported": 21154.4568756114,
+      "recomputed": 21154.4568756114,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:hydraulic_loss_j_per_treated_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/hydraulic_loss_w",
+      "reported": 23.0368249533404,
+      "recomputed": 23.0368249533404,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:hydraulic_loss_w",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/max_non_orthogonality_deg",
+      "reported": 62.4812235318,
+      "recomputed": 62.4812235318,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/mesh-2-checkMesh.log:max_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/max_skewness",
+      "reported": 3.17493609616,
+      "recomputed": 3.17493609616,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/mesh-2-checkMesh.log:max_skewness",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/pdr",
+      "reported": 11.546569029054977,
+      "recomputed": 11.546569029054977,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:pdr",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/reject_fraction",
+      "reported": 0.019888410536671,
+      "recomputed": 0.019888410536671,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:reject_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/total_volume_m3",
+      "reported": 0.00110243126013,
+      "recomputed": 0.00110243126013,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/mesh-2-checkMesh.log:total_volume_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/treated_m3_h",
+      "reported": 3.92033557371244,
+      "recomputed": 3.92033557371244,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:treated_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/0/water_closure_fraction",
+      "reported": 2.76960360551706e-05,
+      "recomputed": 2.76960360551706e-05,
+      "source": "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json:water_closure_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/avg_non_orthogonality_deg",
+      "reported": 6.29087734473,
+      "recomputed": 6.29087734473,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/mesh-2-checkMesh.log:avg_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/background_hex_grid/0",
+      "reported": 24,
+      "recomputed": 24,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/system/blockMeshDict:background_hex_grid/0",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/background_hex_grid/1",
+      "reported": 16,
+      "recomputed": 16,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/system/blockMeshDict:background_hex_grid/1",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/background_hex_grid/2",
+      "reported": 282,
+      "recomputed": 282,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/system/blockMeshDict:background_hex_grid/2",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/cells",
+      "reported": 303905,
+      "recomputed": 303905.0,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/mesh-2-checkMesh.log:cells",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/dp_o_pa",
+      "reported": 199446.02004502865,
+      "recomputed": 199446.02004502865,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:dp_o_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/dp_u_pa",
+      "reported": 19446.02004491465,
+      "recomputed": 19446.02004491465,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:dp_u_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/effective_cell_size_mm",
+      "reported": 1.537526485639659,
+      "recomputed": 1.537526485639659,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/mesh-2-checkMesh.log:effective_cell_size_mm",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/feed_m3_h",
+      "reported": 4.00000000000313,
+      "recomputed": 4.00000000000313,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:feed_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/hydraulic_loss_j_per_treated_m3",
+      "reported": 23048.573654374,
+      "recomputed": 23048.573654374,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:hydraulic_loss_j_per_treated_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/hydraulic_loss_w",
+      "reported": 25.1051483648782,
+      "recomputed": 25.1051483648782,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:hydraulic_loss_w",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/max_non_orthogonality_deg",
+      "reported": 52.1011783698,
+      "recomputed": 52.1011783698,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/mesh-2-checkMesh.log:max_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/max_skewness",
+      "reported": 1.8523501996,
+      "recomputed": 1.8523501996,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/mesh-2-checkMesh.log:max_skewness",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/pdr",
+      "reported": 10.256392803481965,
+      "recomputed": 10.256392803481965,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:pdr",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/reject_fraction",
+      "reported": 0.0197123089247167,
+      "recomputed": 0.0197123089247167,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:reject_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/total_volume_m3",
+      "reported": 0.00110460158626,
+      "recomputed": 0.00110460158626,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/mesh-2-checkMesh.log:total_volume_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/treated_m3_h",
+      "reported": 3.92122026589745,
+      "recomputed": 3.92122026589745,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:treated_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/1/water_closure_fraction",
+      "reported": 1.73753983125161e-05,
+      "recomputed": 1.73753983125161e-05,
+      "source": "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json:water_closure_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/avg_non_orthogonality_deg",
+      "reported": 6.21564898036,
+      "recomputed": 6.21564898036,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/mesh-2-checkMesh.log:avg_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/background_hex_grid/0",
+      "reported": 30,
+      "recomputed": 30,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/system/blockMeshDict:background_hex_grid/0",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/background_hex_grid/1",
+      "reported": 20,
+      "recomputed": 20,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/system/blockMeshDict:background_hex_grid/1",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/background_hex_grid/2",
+      "reported": 352,
+      "recomputed": 352,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/system/blockMeshDict:background_hex_grid/2",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/cells",
+      "reported": 549828,
+      "recomputed": 549828.0,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/mesh-2-checkMesh.log:cells",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/dp_o_pa",
+      "reported": 198633.8907285608,
+      "recomputed": 198633.8907285608,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:dp_o_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/dp_u_pa",
+      "reported": 18633.8907284468,
+      "recomputed": 18633.8907284468,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:dp_u_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/effective_cell_size_mm",
+      "reported": 1.2621774664347665,
+      "recomputed": 1.2621774664347665,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/mesh-2-checkMesh.log:effective_cell_size_mm",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/feed_m3_h",
+      "reported": 4.00000000000286,
+      "recomputed": 4.00000000000286,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:feed_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/hydraulic_loss_j_per_treated_m3",
+      "reported": 21983.590523367,
+      "recomputed": 21983.590523367,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:hydraulic_loss_j_per_treated_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/hydraulic_loss_w",
+      "reported": 23.9393401582638,
+      "recomputed": 23.9393401582638,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:hydraulic_loss_w",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/max_non_orthogonality_deg",
+      "reported": 48.8980405695,
+      "recomputed": 48.8980405695,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/mesh-2-checkMesh.log:max_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/max_skewness",
+      "reported": 3.30740654073,
+      "recomputed": 3.30740654073,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/mesh-2-checkMesh.log:max_skewness",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/pdr",
+      "reported": 10.659818371979775,
+      "recomputed": 10.659818371979775,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:pdr",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/reject_fraction",
+      "reported": 0.0199232880195759,
+      "recomputed": 0.0199232880195759,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:reject_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/total_volume_m3",
+      "reported": 0.00110557477185,
+      "recomputed": 0.00110557477185,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/mesh-2-checkMesh.log:total_volume_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/treated_m3_h",
+      "reported": 3.92027064360322,
+      "recomputed": 3.92027064360322,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:treated_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/grids/2/water_closure_fraction",
+      "reported": 9.05108032057742e-06,
+      "recomputed": 9.05108032057742e-06,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json:water_closure_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/expected_disjoint_inlet_paths",
+      "reported": 2,
+      "recomputed": 2,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/expected_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/horizontal_splitter_facet_diagnostic",
+      "reported": 0,
+      "recomputed": 0,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/horizontal_splitter_facet_diagnostic",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/internal_splitter_vane_triangles",
+      "reported": 0,
+      "recomputed": 0,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/internal_splitter_vane_triangles",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/measured_disjoint_inlet_paths",
+      "reported": 2,
+      "recomputed": 2,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/measured_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/0",
+      "reported": 1,
+      "recomputed": 1,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/1",
+      "reported": 1,
+      "recomputed": 1,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/0",
+      "reported": 1,
+      "recomputed": 1,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/1",
+      "reported": 1,
+      "recomputed": 1,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/independent_f0_enactment_audit/triangle_count",
+      "reported": 6800,
+      "recomputed": 6800,
+      "source": "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl:observer replay/triangle_count",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/rank_in_arm",
+      "reported": 0,
+      "recomputed": 0,
+      "source": "frozen baseline reference",
+      "method": "reference metadata",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/convergence_ratio_R",
+      "reported": -0.3413945813996048,
+      "recomputed": -0.3413945813996048,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/convergence_ratio_R",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/e10_medium_minus_coarse",
+      "reported": 2378.858250000303,
+      "recomputed": 2378.858250000303,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/e10_medium_minus_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/e21_fine_minus_medium",
+      "reported": -812.12931646785,
+      "recomputed": -812.12931646785,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/e21_fine_minus_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/f_g0_coarse",
+      "reported": 17067.161794914347,
+      "recomputed": 17067.161794914347,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g0_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/f_g1_medium",
+      "reported": 19446.02004491465,
+      "recomputed": 19446.02004491465,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g1_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/f_g2_fine",
+      "reported": 18633.8907284468,
+      "recomputed": 18633.8907284468,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g2_fine",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/formal_upwind_order_p",
+      "reported": 1.0,
+      "recomputed": 1.0,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/formal_upwind_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/gci21_conservative_fs300_p1_pct",
+      "reported": 59.9349002674611,
+      "recomputed": 59.93490026746109,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/gci21_conservative_fs300_p1_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/r10_linear",
+      "reported": 1.294767525962389,
+      "recomputed": 1.294767525962389,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/r10_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/r21_linear",
+      "reported": 1.2181539652919509,
+      "recomputed": 1.2181539652919509,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/r21_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/relative_step_10_pct",
+      "reported": 12.233136880995866,
+      "recomputed": 12.233136880995866,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/relative_step_10_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/relative_step_21_pct",
+      "reported": 4.358345384241415,
+      "recomputed": 4.358345384241415,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/relative_step_21_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/three_grid_extremum_span",
+      "reported": 2378.858250000303,
+      "recomputed": 2378.858250000303,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/three_grid_extremum_span",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/dp_u_pa/three_grid_half_span_pct_of_f2",
+      "reported": 6.383149618798342,
+      "recomputed": 6.383149618798342,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/three_grid_half_span_pct_of_f2",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/convergence_ratio_R",
+      "reported": -0.5622584325042191,
+      "recomputed": -0.5622584325042191,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/convergence_ratio_R",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/e10_medium_minus_coarse",
+      "reported": 1894.1167787626,
+      "recomputed": 1894.1167787626,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/e10_medium_minus_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/e21_fine_minus_medium",
+      "reported": -1064.9831310070003,
+      "recomputed": -1064.9831310070003,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/e21_fine_minus_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/f_g0_coarse",
+      "reported": 21154.4568756114,
+      "recomputed": 21154.4568756114,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g0_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/f_g1_medium",
+      "reported": 23048.573654374,
+      "recomputed": 23048.573654374,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g1_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/f_g2_fine",
+      "reported": 21983.590523367,
+      "recomputed": 21983.590523367,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g2_fine",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/formal_upwind_order_p",
+      "reported": 1.0,
+      "recomputed": 1.0,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/formal_upwind_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/gci21_conservative_fs300_p1_pct",
+      "reported": 66.61963455184484,
+      "recomputed": 66.61963455184484,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/gci21_conservative_fs300_p1_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/r10_linear",
+      "reported": 1.294767525962389,
+      "recomputed": 1.294767525962389,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/r10_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/r21_linear",
+      "reported": 1.2181539652919509,
+      "recomputed": 1.2181539652919509,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/r21_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/relative_step_10_pct",
+      "reported": 8.217934902028732,
+      "recomputed": 8.217934902028732,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/relative_step_10_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/relative_step_21_pct",
+      "reported": 4.844445814595204,
+      "recomputed": 4.844445814595203,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/relative_step_21_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/three_grid_extremum_span",
+      "reported": 1894.1167787626,
+      "recomputed": 1894.1167787626,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/three_grid_extremum_span",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/three_grid_half_span_pct_of_f2",
+      "reported": 4.308024152718111,
+      "recomputed": 4.308024152718111,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/three_grid_half_span_pct_of_f2",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/convergence_ratio_R",
+      "reported": -1.1980531723579568,
+      "recomputed": -1.1980531723579568,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/convergence_ratio_R",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/e10_medium_minus_coarse",
+      "reported": -0.00017610161195430116,
+      "recomputed": -0.00017610161195430116,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/e10_medium_minus_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/e21_fine_minus_medium",
+      "reported": 0.00021097909485920038,
+      "recomputed": 0.00021097909485920038,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/e21_fine_minus_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/f_g0_coarse",
+      "reported": 0.019888410536671,
+      "recomputed": 0.019888410536671,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g0_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/f_g1_medium",
+      "reported": 0.0197123089247167,
+      "recomputed": 0.0197123089247167,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g1_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/f_g2_fine",
+      "reported": 0.0199232880195759,
+      "recomputed": 0.0199232880195759,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/f_g2_fine",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/formal_upwind_order_p",
+      "reported": 1.0,
+      "recomputed": 1.0,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/formal_upwind_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/gci21_conservative_fs300_p1_pct",
+      "reported": 14.562520669040355,
+      "recomputed": 14.562520669040357,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/gci21_conservative_fs300_p1_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/r10_linear",
+      "reported": 1.294767525962389,
+      "recomputed": 1.294767525962389,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/r10_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/r21_linear",
+      "reported": 1.2181539652919509,
+      "recomputed": 1.2181539652919509,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/r21_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/relative_step_10_pct",
+      "reported": 0.8933586249426742,
+      "recomputed": 0.8933586249426742,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/relative_step_10_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/relative_step_21_pct",
+      "reported": 1.0589572095323823,
+      "recomputed": 1.0589572095323823,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/relative_step_21_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/three_grid_extremum_span",
+      "reported": 0.00021097909485920038,
+      "recomputed": 0.00021097909485920038,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/three_grid_extremum_span",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/roache_gci_v2_analysis/reject_fraction/three_grid_half_span_pct_of_f2",
+      "reported": 0.5294786047661911,
+      "recomputed": 0.5294786047661911,
+      "source": "docs/results/wave4-gci-v1.json:/same_pipeline_ct35_control/grids/* (raw-source trace above)/three_grid_half_span_pct_of_f2",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/schema_version",
+      "reported": 2,
+      "recomputed": 2,
+      "source": "declared report schema v2",
+      "method": "schema constant",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/f1_sandbox_screen_metrics/cout_sample_screen_upper_mg_l",
+      "reported": 8.833141263430445,
+      "recomputed": 8.833141263430445,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/best_candidate/mc_robustness/cout_sample_screen_upper_mg_l",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/f1_sandbox_screen_metrics/dp_u_pa",
+      "reported": 28439.98539954,
+      "recomputed": 28439.98539954,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/best_candidate/nominal_metrics/dp_u_pa",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/f1_sandbox_screen_metrics/kpi_score",
+      "reported": 45.93634,
+      "recomputed": 45.93634,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/final_best_kpi_score",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/expected_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/expected_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/horizontal_splitter_facet_diagnostic",
+      "reported": 132,
+      "recomputed": 132,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/horizontal_splitter_facet_diagnostic",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/internal_splitter_vane_triangles",
+      "reported": 132,
+      "recomputed": 132,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/internal_splitter_vane_triangles",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/measured_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/measured_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/independent_f0_enactment_audit/triangle_count",
+      "reported": 7872,
+      "recomputed": 7872,
+      "source": "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl:observer replay/triangle_count",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/rank_in_arm",
+      "reported": 1,
+      "recomputed": 1,
+      "source": "descending final_best_kpi_score rank in Wave4 proof",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/0/seed",
+      "reported": 20261108,
+      "recomputed": 20261108,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/seed",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_historical_extended_ct35_reference/fine_grid_dp_u_saving_pa",
+      "reported": -17005.441278188602,
+      "recomputed": -17005.441278188602,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/fine_grid_dp_u_saving_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_historical_extended_ct35_reference/fine_grid_dp_u_saving_pct",
+      "reported": 57.7077332141234,
+      "recomputed": 57.7077332141234,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/fine_grid_dp_u_saving_pct",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_historical_extended_ct35_reference/fine_grid_eloss_saving_j_m3",
+      "reported": -16678.286242211703,
+      "recomputed": -16678.286242211703,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/fine_grid_eloss_saving_j_m3",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_historical_extended_ct35_reference/fine_grid_eloss_saving_pct",
+      "reported": 49.476447563830355,
+      "recomputed": 49.476447563830355,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/fine_grid_eloss_saving_pct",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_historical_extended_ct35_reference/historical_ct35_dp_u_pa",
+      "reported": 29468.219129471345,
+      "recomputed": 29468.219129471345,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/historical_ct35_dp_u_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_historical_extended_ct35_reference/historical_ct35_eloss_j_m3",
+      "reported": 33709.5467913188,
+      "recomputed": 33709.5467913188,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/historical_ct35_eloss_j_m3",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_historical_extended_ct35_reference/saving_to_3grid_span_ratio_dp_u",
+      "reported": -0.030094998601632332,
+      "recomputed": -0.030094998601632332,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/saving_to_3grid_span_ratio_dp_u",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_historical_extended_ct35_reference/saving_to_3grid_span_ratio_eloss",
+      "reported": -0.02892071727933667,
+      "recomputed": -0.02892071727933667,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/saving_to_3grid_span_ratio_eloss",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/ct35_control_g2_dp_u_pa",
+      "reported": 18633.8907284468,
+      "recomputed": 18633.8907284468,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/ct35_control_g2_dp_u_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/ct35_control_g2_eloss_j_m3",
+      "reported": 21983.590523367,
+      "recomputed": 21983.590523367,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/ct35_control_g2_eloss_j_m3",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/fine_grid_dp_u_saving_pa",
+      "reported": -27839.769679213146,
+      "recomputed": -27839.769679213146,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/fine_grid_dp_u_saving_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/fine_grid_dp_u_saving_pct",
+      "reported": 149.40395478821017,
+      "recomputed": 149.4039547882102,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/fine_grid_dp_u_saving_pct",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/fine_grid_eloss_saving_j_m3",
+      "reported": -28404.2425101635,
+      "recomputed": -28404.2425101635,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/fine_grid_eloss_saving_j_m3",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/fine_grid_eloss_saving_pct",
+      "reported": 129.20656650683065,
+      "recomputed": 129.20656650683065,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/fine_grid_eloss_saving_pct",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/saving_to_3grid_span_ratio_dp_u",
+      "reported": -0.049268808486628776,
+      "recomputed": -0.049268808486628776,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/saving_to_3grid_span_ratio_dp_u",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/saving_to_3grid_span_ratio_eloss",
+      "reported": -0.0492539254477515,
+      "recomputed": -0.0492539254477515,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/saving_to_3grid_span_ratio_eloss",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/three_grid_dp_u_span_pa",
+      "reported": 565058.7163431946,
+      "recomputed": 565058.7163431946,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/three_grid_dp_u_span_pa",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/comparative_margins/vs_same_pipeline_ct35_control_g2/three_grid_eloss_span_j_m3",
+      "reported": 576689.9237360215,
+      "recomputed": 576689.9237360215,
+      "source": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json:/baseline_ct35_openfoam14_reference + recomputed control/winner raw grids/three_grid_eloss_span_j_m3",
+      "method": "independent comparator arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/f1_sandbox_screen_metrics/cout_sample_screen_upper_mg_l",
+      "reported": 8.837054522416699,
+      "recomputed": 8.837054522416699,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/best_candidate/mc_robustness/cout_sample_screen_upper_mg_l",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/f1_sandbox_screen_metrics/dp_u_pa",
+      "reported": 28968.26217948,
+      "recomputed": 28968.26217948,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/best_candidate/nominal_metrics/dp_u_pa",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/f1_sandbox_screen_metrics/kpi_score",
+      "reported": 45.787472,
+      "recomputed": 45.787472,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/final_best_kpi_score",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/avg_non_orthogonality_deg",
+      "reported": 7.10693848882,
+      "recomputed": 7.10693848882,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/mesh-2-checkMesh.log:avg_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/background_hex_grid/0",
+      "reported": 18,
+      "recomputed": 18,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/system/blockMeshDict:background_hex_grid/0",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/background_hex_grid/1",
+      "reported": 12,
+      "recomputed": 12,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/system/blockMeshDict:background_hex_grid/1",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/background_hex_grid/2",
+      "reported": 212,
+      "recomputed": 212,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/system/blockMeshDict:background_hex_grid/2",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/cells",
+      "reported": 142756,
+      "recomputed": 142756.0,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/mesh-2-checkMesh.log:cells",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/dp_o_pa",
+      "reported": 791532.3767509685,
+      "recomputed": 791532.3767509685,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:dp_o_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/dp_u_pa",
+      "reported": 611532.3767508545,
+      "recomputed": 611532.3767508545,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:dp_u_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/effective_cell_size_mm",
+      "reported": 1.9766502740740282,
+      "recomputed": 1.9766502740740282,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/mesh-2-checkMesh.log:effective_cell_size_mm",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/feed_m3_h",
+      "reported": 4.00000000000295,
+      "recomputed": 4.00000000000295,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:feed_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/hydraulic_loss_j_per_treated_m3",
+      "reported": 627077.756769552,
+      "recomputed": 627077.756769552,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:hydraulic_loss_j_per_treated_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/hydraulic_loss_w",
+      "reported": 683.41884703929,
+      "recomputed": 683.41884703929,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:hydraulic_loss_w",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/max_non_orthogonality_deg",
+      "reported": 63.9823757927,
+      "recomputed": 63.9823757927,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/mesh-2-checkMesh.log:max_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/max_skewness",
+      "reported": 3.50025056679,
+      "recomputed": 3.50025056679,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/mesh-2-checkMesh.log:max_skewness",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/pdr",
+      "reported": 1.2943425513404143,
+      "recomputed": 1.2943425513404143,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:pdr",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/reject_fraction",
+      "reported": 0.0191453994255787,
+      "recomputed": 0.0191453994255787,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:reject_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/total_volume_m3",
+      "reported": 0.00110251341269,
+      "recomputed": 0.00110251341269,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/mesh-2-checkMesh.log:total_volume_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/treated_m3_h",
+      "reported": 3.92344940126077,
+      "recomputed": 3.92344940126077,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:treated_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/0/water_closure_fraction",
+      "reported": 7.74974004773226e-06,
+      "recomputed": 7.74974004773226e-06,
+      "source": "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json:water_closure_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/avg_non_orthogonality_deg",
+      "reported": 6.58632666176,
+      "recomputed": 6.58632666176,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/mesh-2-checkMesh.log:avg_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/background_hex_grid/0",
+      "reported": 24,
+      "recomputed": 24,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/system/blockMeshDict:background_hex_grid/0",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/background_hex_grid/1",
+      "reported": 16,
+      "recomputed": 16,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/system/blockMeshDict:background_hex_grid/1",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/background_hex_grid/2",
+      "reported": 282,
+      "recomputed": 282,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/system/blockMeshDict:background_hex_grid/2",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/cells",
+      "reported": 308255,
+      "recomputed": 308255.0,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/mesh-2-checkMesh.log:cells",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/dp_o_pa",
+      "reported": 379068.471136488,
+      "recomputed": 379068.471136488,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:dp_o_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/dp_u_pa",
+      "reported": 199068.471136374,
+      "recomputed": 199068.471136374,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:dp_u_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/effective_cell_size_mm",
+      "reported": 1.5310841727183633,
+      "recomputed": 1.5310841727183633,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/mesh-2-checkMesh.log:effective_cell_size_mm",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/feed_m3_h",
+      "reported": 4.00000000000327,
+      "recomputed": 4.00000000000327,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:feed_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/hydraulic_loss_j_per_treated_m3",
+      "reported": 206146.014369088,
+      "recomputed": 206146.014369088,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:hydraulic_loss_j_per_treated_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/hydraulic_loss_w",
+      "reported": 224.637759315593,
+      "recomputed": 224.637759315593,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:hydraulic_loss_w",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/max_non_orthogonality_deg",
+      "reported": 64.1994884087,
+      "recomputed": 64.1994884087,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/mesh-2-checkMesh.log:max_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/max_skewness",
+      "reported": 4.44161066117,
+      "recomputed": 4.44161066117,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/mesh-2-checkMesh.log:max_skewness",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/pdr",
+      "reported": 1.9042114955351372,
+      "recomputed": 1.9042114955351372,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:pdr",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/reject_fraction",
+      "reported": 0.0193180280487619,
+      "recomputed": 0.0193180280487619,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:reject_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/total_volume_m3",
+      "reported": 0.00110638767964,
+      "recomputed": 0.00110638767964,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/mesh-2-checkMesh.log:total_volume_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/treated_m3_h",
+      "reported": 3.92292781410864,
+      "recomputed": 3.92292781410864,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:treated_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/1/water_closure_fraction",
+      "reported": 4.99815751200714e-05,
+      "recomputed": 4.99815751200714e-05,
+      "source": "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json:water_closure_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/avg_non_orthogonality_deg",
+      "reported": 6.39723299631,
+      "recomputed": 6.39723299631,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/mesh-2-checkMesh.log:avg_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/background_hex_grid/0",
+      "reported": 30,
+      "recomputed": 30,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/system/blockMeshDict:background_hex_grid/0",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/background_hex_grid/1",
+      "reported": 20,
+      "recomputed": 20,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/system/blockMeshDict:background_hex_grid/1",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/background_hex_grid/2",
+      "reported": 352,
+      "recomputed": 352,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/system/blockMeshDict:background_hex_grid/2",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/cells",
+      "reported": 545324,
+      "recomputed": 545324.0,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/mesh-2-checkMesh.log:cells",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/dp_o_pa",
+      "reported": 226473.66040777395,
+      "recomputed": 226473.66040777395,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:dp_o_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/dp_u_pa",
+      "reported": 46473.66040765995,
+      "recomputed": 46473.66040765995,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:dp_u_pa",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/effective_cell_size_mm",
+      "reported": 1.2667516188415158,
+      "recomputed": 1.2667516188415158,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/mesh-2-checkMesh.log:effective_cell_size_mm",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/feed_m3_h",
+      "reported": 4.00000000000294,
+      "recomputed": 4.00000000000294,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:feed_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/hydraulic_loss_j_per_treated_m3",
+      "reported": 50387.8330335305,
+      "recomputed": 50387.8330335305,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:hydraulic_loss_j_per_treated_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/hydraulic_loss_w",
+      "reported": 54.8870147838076,
+      "recomputed": 54.8870147838076,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:hydraulic_loss_w",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/max_non_orthogonality_deg",
+      "reported": 56.7186647314,
+      "recomputed": 56.7186647314,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/mesh-2-checkMesh.log:max_non_orthogonality_deg",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/max_skewness",
+      "reported": 3.34763484496,
+      "recomputed": 3.34763484496,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/mesh-2-checkMesh.log:max_skewness",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/pdr",
+      "reported": 4.873161666655502,
+      "recomputed": 4.873161666655502,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:pdr",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/reject_fraction",
+      "reported": 0.0196568944578356,
+      "recomputed": 0.0196568944578356,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:reject_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/total_volume_m3",
+      "reported": 0.00110848294513,
+      "recomputed": 0.00110848294513,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/mesh-2-checkMesh.log:total_volume_m3",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/treated_m3_h",
+      "reported": 3.92144772509306,
+      "recomputed": 3.92144772509306,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:treated_m3_h",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/grids/2/water_closure_fraction",
+      "reported": 1.88257303794593e-05,
+      "recomputed": 1.88257303794593e-05,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json:water_closure_fraction",
+      "method": "raw log/integral parse or independent arithmetic",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/expected_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/expected_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/horizontal_splitter_facet_diagnostic",
+      "reported": 144,
+      "recomputed": 144,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/horizontal_splitter_facet_diagnostic",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/internal_splitter_vane_triangles",
+      "reported": 144,
+      "recomputed": 144,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/internal_splitter_vane_triangles",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/measured_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/measured_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/independent_f0_enactment_audit/triangle_count",
+      "reported": 7872,
+      "recomputed": 7872,
+      "source": "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl:observer replay/triangle_count",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/rank_in_arm",
+      "reported": 2,
+      "recomputed": 2,
+      "source": "descending final_best_kpi_score rank in Wave4 proof",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/convergence_ratio_R",
+      "reported": 0.3699591858865355,
+      "recomputed": 0.3699591858865355,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/convergence_ratio_R",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/e10_medium_minus_coarse",
+      "reported": -412463.90561448055,
+      "recomputed": -412463.90561448055,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/e10_medium_minus_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/e21_fine_minus_medium",
+      "reported": -152594.81072871404,
+      "recomputed": -152594.81072871404,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/e21_fine_minus_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/f_g0_coarse",
+      "reported": 611532.3767508545,
+      "recomputed": 611532.3767508545,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g0_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/f_g1_medium",
+      "reported": 199068.471136374,
+      "recomputed": 199068.471136374,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g1_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/f_g2_fine",
+      "reported": 46473.66040765995,
+      "recomputed": 46473.66040765995,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g2_fine",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/formal_upwind_order_p",
+      "reported": 1.0,
+      "recomputed": 1.0,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/formal_upwind_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/gci21_conservative_fs300_p1_pct",
+      "reported": 4720.575580026664,
+      "recomputed": 4720.575580026664,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/gci21_conservative_fs300_p1_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/observed_order_p",
+      "reported": 3.076521759775982,
+      "recomputed": 3.0765217597759307,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/observed_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/r10_linear",
+      "reported": 1.2910134591520104,
+      "recomputed": 1.2910134591520104,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/r10_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/r21_linear",
+      "reported": 1.2086696002161719,
+      "recomputed": 1.2086696002161719,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/r21_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/relative_step_10_pct",
+      "reported": 207.1970027498316,
+      "recomputed": 207.1970027498316,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/relative_step_10_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/relative_step_21_pct",
+      "reported": 328.3468730247959,
+      "recomputed": 328.34687302479585,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/relative_step_21_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/three_grid_extremum_span",
+      "reported": 565058.7163431946,
+      "recomputed": 565058.7163431946,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/three_grid_extremum_span",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/three_grid_half_span_pct_of_f2",
+      "reported": 607.9343776523999,
+      "recomputed": 607.9343776524,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/three_grid_half_span_pct_of_f2",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/unverified_3grid_roache_fs125_diagnostic_pct",
+      "reported": 518.5399597340835,
+      "recomputed": 518.539959734095,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/unverified_3grid_roache_fs125_diagnostic_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/convergence_ratio_R",
+      "reported": 0.3700319212024951,
+      "recomputed": 0.3700319212024951,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/convergence_ratio_R",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/e10_medium_minus_coarse",
+      "reported": -420931.742400464,
+      "recomputed": -420931.742400464,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/e10_medium_minus_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/e21_fine_minus_medium",
+      "reported": -155758.18133555748,
+      "recomputed": -155758.18133555748,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/e21_fine_minus_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/f_g0_coarse",
+      "reported": 627077.756769552,
+      "recomputed": 627077.756769552,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g0_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/f_g1_medium",
+      "reported": 206146.014369088,
+      "recomputed": 206146.014369088,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g1_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/f_g2_fine",
+      "reported": 50387.8330335305,
+      "recomputed": 50387.8330335305,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g2_fine",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/formal_upwind_order_p",
+      "reported": 1.0,
+      "recomputed": 1.0,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/formal_upwind_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/gci21_conservative_fs300_p1_pct",
+      "reported": 4444.135139917614,
+      "recomputed": 4444.135139917613,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/gci21_conservative_fs300_p1_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/observed_order_p",
+      "reported": 3.0756665744161893,
+      "recomputed": 3.0756665744161387,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/observed_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/r10_linear",
+      "reported": 1.2910134591520104,
+      "recomputed": 1.2910134591520104,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/r10_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/r21_linear",
+      "reported": 1.2086696002161719,
+      "recomputed": 1.2086696002161719,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/r21_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/relative_step_10_pct",
+      "reported": 204.19106509952667,
+      "recomputed": 204.19106509952667,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/relative_step_10_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/relative_step_21_pct",
+      "reported": 309.1186343177498,
+      "recomputed": 309.1186343177498,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/relative_step_21_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/three_grid_extremum_span",
+      "reported": 576689.9237360215,
+      "recomputed": 576689.9237360215,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/three_grid_extremum_span",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/three_grid_half_span_pct_of_f2",
+      "reported": 572.2511656259004,
+      "recomputed": 572.2511656259004,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/three_grid_half_span_pct_of_f2",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/hydraulic_loss_j_per_treated_m3/unverified_3grid_roache_fs125_diagnostic_pct",
+      "reported": 488.3530042313419,
+      "recomputed": 488.3530042313525,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/unverified_3grid_roache_fs125_diagnostic_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/convergence_ratio_R",
+      "reported": 1.9629792720648076,
+      "recomputed": 1.9629792720648076,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/convergence_ratio_R",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/e10_medium_minus_coarse",
+      "reported": 0.00017262862318319708,
+      "recomputed": 0.00017262862318319708,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/e10_medium_minus_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/e21_fine_minus_medium",
+      "reported": 0.00033886640907370216,
+      "recomputed": 0.00033886640907370216,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/e21_fine_minus_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/f_g0_coarse",
+      "reported": 0.0191453994255787,
+      "recomputed": 0.0191453994255787,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g0_coarse",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/f_g1_medium",
+      "reported": 0.0193180280487619,
+      "recomputed": 0.0193180280487619,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g1_medium",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/f_g2_fine",
+      "reported": 0.0196568944578356,
+      "recomputed": 0.0196568944578356,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/f_g2_fine",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/formal_upwind_order_p",
+      "reported": 1.0,
+      "recomputed": 1.0,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/formal_upwind_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/gci21_conservative_fs300_p1_pct",
+      "reported": 24.784244532971435,
+      "recomputed": 24.78424453297143,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/gci21_conservative_fs300_p1_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/observed_order_p",
+      "reported": -3.0242719635917337,
+      "recomputed": -3.02427196359173,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/observed_order_p",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/r10_linear",
+      "reported": 1.2910134591520104,
+      "recomputed": 1.2910134591520104,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/r10_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/r21_linear",
+      "reported": 1.2086696002161719,
+      "recomputed": 1.2086696002161719,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/r21_linear",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/relative_step_10_pct",
+      "reported": 0.8936141036106473,
+      "recomputed": 0.8936141036106474,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/relative_step_10_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/relative_step_21_pct",
+      "reported": 1.7239061327849974,
+      "recomputed": 1.7239061327849974,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/relative_step_21_pct",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/three_grid_extremum_span",
+      "reported": 0.0005114950322568992,
+      "recomputed": 0.0005114950322568992,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/three_grid_extremum_span",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/roache_gci_v2_analysis/reject_fraction/three_grid_half_span_pct_of_f2",
+      "reported": 1.3010575840300345,
+      "recomputed": 1.3010575840300345,
+      "source": "docs/results/wave4-gci-v1.json:/wave4_b3_top_winners/1/grids/* (raw-source trace above)/three_grid_half_span_pct_of_f2",
+      "method": "independent GCI arithmetic; positive order from bisection",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/1/seed",
+      "reported": 20261106,
+      "recomputed": 20261106,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/seed",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/f1_sandbox_screen_metrics/cout_sample_screen_upper_mg_l",
+      "reported": 9.126584281317168,
+      "recomputed": 9.126584281317168,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/4/best_candidate/mc_robustness/cout_sample_screen_upper_mg_l",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/f1_sandbox_screen_metrics/dp_u_pa",
+      "reported": 29086.164527700003,
+      "recomputed": 29086.164527700003,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/4/best_candidate/nominal_metrics/dp_u_pa",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/f1_sandbox_screen_metrics/kpi_score",
+      "reported": 45.479894,
+      "recomputed": 45.479894,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/4/final_best_kpi_score",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/expected_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/expected_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/horizontal_splitter_facet_diagnostic",
+      "reported": 144,
+      "recomputed": 144,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/horizontal_splitter_facet_diagnostic",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/internal_splitter_vane_triangles",
+      "reported": 144,
+      "recomputed": 144,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/internal_splitter_vane_triangles",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/measured_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/measured_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/independent_f0_enactment_audit/triangle_count",
+      "reported": 7872,
+      "recomputed": 7872,
+      "source": "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl:observer replay/triangle_count",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/rank_in_arm",
+      "reported": 3,
+      "recomputed": 3,
+      "source": "descending final_best_kpi_score rank in Wave4 proof",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/2/seed",
+      "reported": 20261105,
+      "recomputed": 20261105,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/4/seed",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/f1_sandbox_screen_metrics/cout_sample_screen_upper_mg_l",
+      "reported": 9.328868261851637,
+      "recomputed": 9.328868261851637,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/6/best_candidate/mc_robustness/cout_sample_screen_upper_mg_l",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/f1_sandbox_screen_metrics/dp_u_pa",
+      "reported": 28516.45543044,
+      "recomputed": 28516.45543044,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/6/best_candidate/nominal_metrics/dp_u_pa",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/f1_sandbox_screen_metrics/kpi_score",
+      "reported": 45.377137,
+      "recomputed": 45.377137,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/6/final_best_kpi_score",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/expected_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/expected_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/horizontal_splitter_facet_diagnostic",
+      "reported": 144,
+      "recomputed": 144,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/horizontal_splitter_facet_diagnostic",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/internal_splitter_vane_triangles",
+      "reported": 144,
+      "recomputed": 144,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/internal_splitter_vane_triangles",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/measured_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/measured_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/independent_f0_enactment_audit/triangle_count",
+      "reported": 7872,
+      "recomputed": 7872,
+      "source": "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl:observer replay/triangle_count",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/rank_in_arm",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "descending final_best_kpi_score rank in Wave4 proof",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/3/seed",
+      "reported": 20261107,
+      "recomputed": 20261107,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/6/seed",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/f1_sandbox_screen_metrics/cout_sample_screen_upper_mg_l",
+      "reported": 9.530043484306965,
+      "recomputed": 9.530043484306965,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/2/best_candidate/mc_robustness/cout_sample_screen_upper_mg_l",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/f1_sandbox_screen_metrics/dp_u_pa",
+      "reported": 28200.2024934,
+      "recomputed": 28200.2024934,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/2/best_candidate/nominal_metrics/dp_u_pa",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/f1_sandbox_screen_metrics/kpi_score",
+      "reported": 45.30646,
+      "recomputed": 45.30646,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/2/final_best_kpi_score",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/expected_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/expected_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/horizontal_splitter_facet_diagnostic",
+      "reported": 132,
+      "recomputed": 132,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/horizontal_splitter_facet_diagnostic",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/internal_splitter_vane_triangles",
+      "reported": 132,
+      "recomputed": 132,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/internal_splitter_vane_triangles",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/measured_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/measured_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/independent_f0_enactment_audit/triangle_count",
+      "reported": 7872,
+      "recomputed": 7872,
+      "source": "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl:observer replay/triangle_count",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/rank_in_arm",
+      "reported": 5,
+      "recomputed": 5,
+      "source": "descending final_best_kpi_score rank in Wave4 proof",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/4/seed",
+      "reported": 20261103,
+      "recomputed": 20261103,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/2/seed",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/f1_sandbox_screen_metrics/cout_sample_screen_upper_mg_l",
+      "reported": 9.463576914506685,
+      "recomputed": 9.463576914506685,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/best_candidate/mc_robustness/cout_sample_screen_upper_mg_l",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/f1_sandbox_screen_metrics/dp_u_pa",
+      "reported": 29165.99393568,
+      "recomputed": 29165.99393568,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/best_candidate/nominal_metrics/dp_u_pa",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/f1_sandbox_screen_metrics/kpi_score",
+      "reported": 45.050288,
+      "recomputed": 45.050288,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/final_best_kpi_score",
+      "method": "source-bound screen outputs",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/expected_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/expected_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/horizontal_splitter_facet_diagnostic",
+      "reported": 144,
+      "recomputed": 144,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/horizontal_splitter_facet_diagnostic",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/internal_splitter_vane_triangles",
+      "reported": 144,
+      "recomputed": 144,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/internal_splitter_vane_triangles",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/measured_disjoint_inlet_paths",
+      "reported": 8,
+      "recomputed": 8,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/measured_disjoint_inlet_paths",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/slice_loops_at_x_pm45mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm45mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/0",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/0",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/slice_loops_at_x_pm50mm/1",
+      "reported": 4,
+      "recomputed": 4,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/slice_loops_at_x_pm50mm/1",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/independent_f0_enactment_audit/triangle_count",
+      "reported": 7872,
+      "recomputed": 7872,
+      "source": "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl:observer replay/triangle_count",
+      "method": "same observer replay, not independent algorithm validation",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/rank_in_arm",
+      "reported": 6,
+      "recomputed": 6,
+      "source": "descending final_best_kpi_score rank in Wave4 proof",
+      "method": "recomputed",
+      "match": true
+    },
+    {
+      "pointer": "/wave4_b3_top_winners/5/seed",
+      "reported": 20261110,
+      "recomputed": 20261110,
+      "source": "docs/results/wave4-evolution-proof-v1.json:/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/seed",
+      "method": "recomputed",
+      "match": true
+    }
+  ],
+  "unsupported_numeric_sources": [
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/archived_wave1_2port_wall_modulated_g2_dp_u_pa",
+      "reported": 18656.605420389715,
+      "recomputed": null,
+      "source": "unreferenced hardcoded archived value in producer",
+      "method": "unsupported source",
+      "match": false
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/true_delta_archived_wave1_vs_same_pipeline_ct35_pa",
+      "reported": 22.714691942914214,
+      "recomputed": null,
+      "source": "unreferenced hardcoded archived value in producer",
+      "method": "unsupported source",
+      "match": false
+    },
+    {
+      "pointer": "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/true_delta_archived_wave1_vs_same_pipeline_ct35_pct",
+      "reported": 0.12189988807993597,
+      "recomputed": null,
+      "source": "unreferenced hardcoded archived value in producer",
+      "method": "unsupported source",
+      "match": false
+    }
+  ],
+  "semantic_geometry_gaps": [
+    {
+      "subject": "baseline-ct35-same-pipeline-control",
+      "pointer": "/same_pipeline_ct35_control/derived_taxon",
+      "recorded_euler_characteristic": 32,
+      "betti_alternating_sum": 2,
+      "match": false,
+      "recorded_measured_skimmer_protrusion_mm": 1639.247432,
+      "status": "exact source-copy match does not resolve inconsistent observer quantity/parity (DOC NEED08:27)"
+    },
+    {
+      "subject": "s20261108-g016-i000",
+      "pointer": "/wave4_b3_top_winners/0/derived_taxon",
+      "recorded_euler_characteristic": 50,
+      "betti_alternating_sum": -4,
+      "match": false,
+      "recorded_measured_skimmer_protrusion_mm": 1639.247432,
+      "status": "exact source-copy match does not resolve inconsistent observer quantity/parity (DOC NEED08:27)"
+    },
+    {
+      "subject": "s20261106-g023-i001",
+      "pointer": "/wave4_b3_top_winners/1/derived_taxon",
+      "recorded_euler_characteristic": 50,
+      "betti_alternating_sum": -4,
+      "match": false,
+      "recorded_measured_skimmer_protrusion_mm": 1639.247432,
+      "status": "exact source-copy match does not resolve inconsistent observer quantity/parity (DOC NEED08:27)"
+    },
+    {
+      "subject": "s20261105-g021-i000",
+      "pointer": "/wave4_b3_top_winners/2/derived_taxon",
+      "recorded_euler_characteristic": 50,
+      "betti_alternating_sum": -4,
+      "match": false,
+      "recorded_measured_skimmer_protrusion_mm": 1639.247432,
+      "status": "exact source-copy match does not resolve inconsistent observer quantity/parity (DOC NEED08:27)"
+    },
+    {
+      "subject": "s20261107-g023-i001",
+      "pointer": "/wave4_b3_top_winners/3/derived_taxon",
+      "recorded_euler_characteristic": 50,
+      "betti_alternating_sum": -4,
+      "match": false,
+      "recorded_measured_skimmer_protrusion_mm": 1639.247432,
+      "status": "exact source-copy match does not resolve inconsistent observer quantity/parity (DOC NEED08:27)"
+    },
+    {
+      "subject": "s20261103-g021-i000",
+      "pointer": "/wave4_b3_top_winners/4/derived_taxon",
+      "recorded_euler_characteristic": 50,
+      "betti_alternating_sum": -4,
+      "match": false,
+      "recorded_measured_skimmer_protrusion_mm": 1639.247432,
+      "status": "exact source-copy match does not resolve inconsistent observer quantity/parity (DOC NEED08:27)"
+    },
+    {
+      "subject": "s20261110-g023-i000",
+      "pointer": "/wave4_b3_top_winners/5/derived_taxon",
+      "recorded_euler_characteristic": 50,
+      "betti_alternating_sum": -4,
+      "match": false,
+      "recorded_measured_skimmer_protrusion_mm": 1639.247432,
+      "status": "exact source-copy match does not resolve inconsistent observer quantity/parity (DOC NEED08:27)"
+    }
+  ],
+  "case_status_source_gaps": [
+    {
+      "subject": "s20261108-g016-i000",
+      "reported_solver_status": "FailedCoarseGridInletThroatPinchOff_DeferredToSection6",
+      "source_case": "wave4-b3-s20261108-g0-coarse",
+      "available_log_sha256": {
+        "mesh-0-blockMesh.log": "c134eb82d8dc950c2cfe5c9e678c73e566419746e5f8d76547e4d6389bf06571",
+        "mesh-2-checkMesh.log": "500157f6327e1a6479c763f046a1cd5a3c2726405a702512535f08d3c0d68872",
+        "mesh-pipeline.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mesh-1a-decomposePar.log": "af0dc28c4a130b2da62e6301794068bb80911e5f22410fd3958b67c5daaec5a1",
+        "mesh-1c-reconstructPar.log": "447a4d9b9f24ee7a5bd9093d9832f0d7071a3c7671313b8e493af3924708f836",
+        "mesh-1b-snappyHexMesh.log": "377a51c123dca02fde40c2a1aeed807ff1fecc3b61239ff15d6152c16478ebfa"
+      },
+      "inlet_faces_in_retained_checkmesh": {
+        "inlet1": 128,
+        "inlet2": 128
+      },
+      "status_gap": "must bind actual diagnostic; uniform failure text is not established by absent G1/G2 outputs"
+    },
+    {
+      "subject": "s20261105-g021-i000",
+      "reported_solver_status": "FailedCoarseGridInletThroatPinchOff_DeferredToSection6",
+      "source_case": "wave4-b3-s20261105-g0-coarse",
+      "available_log_sha256": {
+        "mesh-0-blockMesh.log": "9cf1753caf7ae74cf9328d3ad1a8adcf07279039b766a5aa9d3ccc69b3445dbc",
+        "mesh-2-checkMesh.log": "f69a499c93c6645125df76166139a21cf35323cc00faf9161ca10dfd05365d24",
+        "water-1-mpirun.orig.log": "a79f5391792325e4b00ff4cf22634f98f82ace84dd6e154ffbb0e1cc9f6f8c47",
+        "mesh-pipeline.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "water-0-decomposePar.log": "13cb1bfb28f388dd9b70cc8e82a606db7c675f57d09b1e1f53567a86507499c6",
+        "mesh-1a-decomposePar.log": "bca080217e025ac6684f7e16532a263abad81cd1cc8c64aa289b117a0ee1f577",
+        "mesh-1c-reconstructPar.log": "b5e7885f6d4782074b843bd47b8d85804db5dfeb90287fd03bc94d0eb3fd7375",
+        "water-1-mpirun.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mesh-1b-snappyHexMesh.log": "64d0f919b0bfca1d401f78b39cc56719ad731ba53e69a704d13d5197c598a867"
+      },
+      "inlet_faces_in_retained_checkmesh": {},
+      "status_gap": "must bind actual diagnostic; uniform failure text is not established by absent G1/G2 outputs"
+    },
+    {
+      "subject": "s20261107-g023-i001",
+      "reported_solver_status": "FailedCoarseGridInletThroatPinchOff_DeferredToSection6",
+      "source_case": "wave4-b3-s20261107-g0-coarse",
+      "available_log_sha256": {},
+      "inlet_faces_in_retained_checkmesh": {},
+      "status_gap": "no mesh/solver logs retained; missing output cannot establish named failure"
+    },
+    {
+      "subject": "s20261103-g021-i000",
+      "reported_solver_status": "FailedCoarseGridInletThroatPinchOff_DeferredToSection6",
+      "source_case": "wave4-b3-s20261103-g0-coarse",
+      "available_log_sha256": {},
+      "inlet_faces_in_retained_checkmesh": {},
+      "status_gap": "no mesh/solver logs retained; missing output cannot establish named failure"
+    },
+    {
+      "subject": "s20261110-g023-i000",
+      "reported_solver_status": "FailedCoarseGridInletThroatPinchOff_DeferredToSection6",
+      "source_case": "wave4-b3-s20261110-g0-coarse",
+      "available_log_sha256": {},
+      "inlet_faces_in_retained_checkmesh": {},
+      "status_gap": "no mesh/solver logs retained; missing output cannot establish named failure"
+    }
+  ],
+  "numeric_text_claims": [
+    {
+      "pointers": [
+        "/section6_deferral_note",
+        "/wave4_b3_top_winners/*/failure_observation/reason"
+      ],
+      "numbers": "6/5 subjects; G0 dimensions18x12x212; approx8mm/2.86mm;4 branches/8 jets; x24.0mm,x_wall24.825mm,jt6;0 faces;30-winner follow-on",
+      "trace": "subject counts and gene branch/jet counts trace to ranked Wave4 proof/prepared manifests. Three prepared-only cases have no solver logs, and s20261108 retained inlet faces128/128, so shared dimensions/zero-face failure narrative is not case-specific evidence.30 is a proposed future sweep size, not completed experiments. Dimensions require source-bound per-case measurement/derivation."
+    },
+    {
+      "pointers": [
+        "/same_pipeline_ct35_control/g09_pipeline_confounding_audit/finding"
+      ],
+      "numbers": "18633.89Pa,2378.86Pa,29468.22Pa;18656.61/18686.56/18505.45Pa,+22.71Pa,+0.12%,-36.6..-37.2%",
+      "trace": "first three are raw-log/historical-source derivations in critical rows; archived18.6kPa constants are not bound to committed archived receipts. Matching arithmetic alone does not establish the hardcoded archived comparison. DOC08:19 NEED gives correct committed archived sources."
+    },
+    {
+      "pointers": [
+        "/wave4_b3_top_winners/1/promotion_verdict/reason"
+      ],
+      "numbers": "46473.66Pa,+149.40%,18633.89Pa;611532.38,199068.47,46473.66Pa;8 jets/4 branches",
+      "trace": "recomputed raw hydraulics/control comparison and source branch counts agree. Severe grid sensitivity and missing mesh identities preclude treating this as physical infeasibility or qualified oil performance."
+    },
+    {
+      "pointers": [
+        "/gci_policy_note"
+      ],
+      "numbers": "v2;Fs1.25;old clamp0.5..4.0;three grids",
+      "trace": "declared diagnostic policy. Both subjects have asymptotic_range_certified=false and standard GCI=null. Positive observed orders independently solved by bisection; divergent-state negative order is the published initial log-ratio estimate, not a converged positive power-law fit."
+    }
+  ],
+  "source_artifacts_sha256": {
+    "INT-runs/wave4-ct35-control-g2-fine/input-manifest.json": "b1a2519b523c8463846b4443cd4f36bc9c3378f9374f0b74e5decae5198857a0",
+    "INT-runs/wave4-ct35-control-g2-fine/constant/triSurface/ct35.stl": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+    "docs/results/wave4-evolution-proof-v1.json": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+    "INT-runs/wave4-ct35-control-g0-coarse/hydraulic-integrals.json": "d7f307b3acb2e5c57e827f7fb976689f311c57b7d55b508eed219fa51dd49a2d",
+    "INT-runs/wave4-ct35-control-g0-coarse/mesh-2-checkMesh.log": "aed4a7fae7030c4e1d3b00694bbc9a19bf4c0b07eacde494e3763bafc52cf144",
+    "INT-runs/wave4-ct35-control-g0-coarse/system/blockMeshDict": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+    "INT-runs/wave4-ct35-control-g1-medium/hydraulic-integrals.json": "535dd8424d4057f5647d87cafaa80e19327d26cc34fd6b674d3be87614a320cf",
+    "INT-runs/wave4-ct35-control-g1-medium/mesh-2-checkMesh.log": "07bb97c007b5e33ee674ecb017845f020a9956e8123a1f76c6cc23251001d0e4",
+    "INT-runs/wave4-ct35-control-g1-medium/system/blockMeshDict": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+    "INT-runs/wave4-ct35-control-g2-fine/hydraulic-integrals.json": "4d728d4d475f7eb55b31f3eb62c24a4c09cb0935aa8b3c235e2c69342cfe5652",
+    "INT-runs/wave4-ct35-control-g2-fine/mesh-2-checkMesh.log": "45a110e54ce1d08aae66565a6a3bc55392de30c59399beca9d729c730a8e9838",
+    "INT-runs/wave4-ct35-control-g2-fine/system/blockMeshDict": "d3c16642441f79def485fb8cd1e64248f3baf6a42f152943e0a93c3aa65c2c3c",
+    "INT-runs/wave4-b3-s20261108-g0-coarse/input-manifest.json": "5dccdcb8493c5dd1588f5bd86ecdccef766407b1628651405c994e60d4331d8b",
+    "INT-runs/wave4-b3-s20261108-g0-coarse/constant/triSurface/ct35.stl": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+    "INT-runs/wave4-b3-s20261106-g2-fine/input-manifest.json": "9231c73980473639a8e1b47e358f48abd2ac66f994a8b0e0c3ce1e7187a9afe3",
+    "INT-runs/wave4-b3-s20261106-g2-fine/constant/triSurface/ct35.stl": "b17aa758fe655368169f51424377f6a4bbb16c30d8bfe6572cb134d83415776c",
+    "INT-runs/wave4-b3-s20261106-g0-coarse/hydraulic-integrals.json": "d4dfb3b98b7c5d11d6515524756df74790c9889407a40b969e60c499ddbad5aa",
+    "INT-runs/wave4-b3-s20261106-g0-coarse/mesh-2-checkMesh.log": "ed127752007eac4eacd93f06fa2ff968224cf7630faee9c59b41289d18ba4209",
+    "INT-runs/wave4-b3-s20261106-g0-coarse/system/blockMeshDict": "db9a0f917cd222ff83424eb31dd8ec7af354ea97dfca238c3edf639e9c1e7e5e",
+    "INT-runs/wave4-b3-s20261106-g1-medium/hydraulic-integrals.json": "15e9d7c8f170afd8a432faabb9fdee83ae3ad052cf873151e1a4bcbf172e95e5",
+    "INT-runs/wave4-b3-s20261106-g1-medium/mesh-2-checkMesh.log": "522fcea9c31f439f56a3e9a5c8262783989600d3168346e9cdae370aab6d3464",
+    "INT-runs/wave4-b3-s20261106-g1-medium/system/blockMeshDict": "795741c91e3e27b68a5fc7396f69f0698907711829e38ff88adbb7d196c86c79",
+    "INT-runs/wave4-b3-s20261106-g2-fine/hydraulic-integrals.json": "424f3143df4e1f4cbfa47314862eee0d6fb0b55b46e12df55b2fefdd979645c5",
+    "INT-runs/wave4-b3-s20261106-g2-fine/mesh-2-checkMesh.log": "89b85a3a746f8457f4e3b423d357b98658d5cd65c0c796d6745ebec7a6f96f37",
+    "INT-runs/wave4-b3-s20261106-g2-fine/system/blockMeshDict": "d3c16642441f79def485fb8cd1e64248f3baf6a42f152943e0a93c3aa65c2c3c",
+    "INT-runs/wave4-b3-s20261105-g0-coarse/input-manifest.json": "dd7da16f48f203bf09be303794017ff91735d691c8bc10f63074dfd37059381a",
+    "INT-runs/wave4-b3-s20261105-g0-coarse/constant/triSurface/ct35.stl": "4759b36c618d7eee0dc01fbba9b04c546b6fc2269efd9a08431c646dec7b59ba",
+    "INT-runs/wave4-b3-s20261107-g0-coarse/input-manifest.json": "4e000cb3405308343d48243923319e105a9d40c98a971b8e13d74ff3651f1e8b",
+    "INT-runs/wave4-b3-s20261107-g0-coarse/constant/triSurface/ct35.stl": "24685aa9c01c56e1f8000f350dcfccac2f9c8f1f3360c07b2d7833510684f9d3",
+    "INT-runs/wave4-b3-s20261103-g0-coarse/input-manifest.json": "b6677bd8c051d9973ed3e52ff4f61f1809befc7a855173231b858300d2ee61f1",
+    "INT-runs/wave4-b3-s20261103-g0-coarse/constant/triSurface/ct35.stl": "77e2f590b4c7edc0441889c48d6821069cd789560eb9ae94fdfe873ead8d871b",
+    "INT-runs/wave4-b3-s20261110-g0-coarse/input-manifest.json": "eecc1a314445bbb0c144fae24c01c3661dbbd8953a02d73b6f1ba820b3702820",
+    "INT-runs/wave4-b3-s20261110-g0-coarse/constant/triSurface/ct35.stl": "bd2d14e008434964f0ecedb8cd1b1e7cca482b216b3a9ce488391c0b8504c037",
+    "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json": "d20e9d72dfa004c1bc77a9389646b3ebb75f3004d85ad8c397f902afa181e496"
+  },
+  "positive_checks": [
+    "all54618 typed numeric JSON leaves assigned exact source/formula or explicit unsupported-source gap",
+    "54615 match within floating tolerance; no untraced typed numeric leaves",
+    "raw hydraulic/checkMesh inputs hash-match GCI report for all6 solved grids",
+    "unequal-grid positive-order roots match exact synthetic power laws p1.5/2/3.2/5.5",
+    "corrected case-identity helper constructs full five-hash artifact chain read-only on retained actual CT35G1 inputs"
+  ],
+  "negative_checks": {
+    "planted_plus1_pa": {
+      "power_law_roots": "PASS",
+      "planted_pressure_mismatch": "/same_pipeline_ct35_control/grids/0/dp_u_pa",
+      "mismatch_count": 4,
+      "trace_sha256": "2a28bdbd2623e2234f70cb426f83c76ffbabb73baa04ea43b47f4483ce36412c"
+    },
+    "actual_case_manifest_audit": {
+      "command": ".private/ci-python/bin/python -m analysis.case_identity --runs-root /home/ubuntu/joil/runs",
+      "exit_code": 1,
+      "artifact_sha256": "dffc9927e1f76e4e5e526c69ea63528b668a6a96194a608036fe6e0ae48cdbf5",
+      "manifest_count": 11,
+      "verified": 0,
+      "reason": "no finalized case-identity manifests; five solved volume meshes pruned without captures"
+    }
+  },
+  "actual_retained_case_candidate_sha256": "28721f9a7710028573f2f8d39903408ca1dc4a5377ff129f8e2b15fccfef8328",
+  "open_handoffs": [
+    "INT replace three unreferenced archived-source numeric leaves and dependent narrative with committed receipt sources (DOC08:19, EV trace)",
+    "INT bind Failed to actual per-case diagnostic artifacts; not_run/incomplete remain distinct from named numerical failure (EV08:22)",
+    "IR resolve source observer Euler/Betti and skimmer-quantity semantics (DOC08:27)",
+    "INT/IR capture full actual executed-case identities before pruning or produce new separately identified reruns; EV12 DONE-SCOPED is not established by current11-case audit"
+  ],
+  "limitations": [
+    "Trace is arithmetic/source provenance, not independent validation of the copied geometry observer or physical performance.",
+    "All raw runs read only; no original case metadata or solver job modified by EV.",
+    "Full16.1MB trace stays ignored; public compact coverage and digest plus executable reproducer provide per-leaf review without publishing raw run artifacts.",
+    "Identifiers/hash strings are not treated as empirical numeric data. Measurement numerals in substantive prose fields are covered separately above."
+  ]
+}
