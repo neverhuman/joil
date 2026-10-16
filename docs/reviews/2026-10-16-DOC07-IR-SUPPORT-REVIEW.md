@@ -25,9 +25,35 @@ Evidence: ignored `.private/checks/doc07-ir-review-20261016T062959Z/` (DOC lane 
 | IR-R6 | Note | IR-08 works as described for the phenotype: `trapped_cavities` now comes from the voxel observer's report rather than a constant. | `crates/joil-core/src/phenotype.rs:560` | none |
 | IR-R7 | Note (TR/INT) | `joil-cli prepare-cfd-case --wave2-family …` can no longer read the committed Wave-2 receipt (`missing field genome_sha256`), so historical elites cannot be re-cased without a migration reader. | `artifacts/cfd-enactment-check.log` (same check directory) | TR/INT: add a versioned legacy reader, or document that historical receipts are not re-loadable. |
 
+## Resolution (re-verified by DOC on `lane/paper`, which merges integration `f49f67e`)
+
+IR answered on lane `ir` at `c21e405` (board, 07:14Z), and INT merged it at `f49f67e`. TR fixed IR-R7 at
+`d13355b`. DOC re-ran the checks above on the merged code, without using IR's or TR's own outputs. Evidence is in
+the ignored `.private/checks/doc07-ir-verify-20261016T072137Z/`.
+
+| Item | SHA-256 |
+|---|---|
+| CFD STL from `MultiPatchSurface::from_program` (scratch writer) and from `joil-cli prepare-cfd-case` (`constant/triSurface/ct35.stl`): byte-identical | `138db8de643209cc014428e894178bb732b0b660909c9149ebab29505e470348` |
+| Slices of the scratch-writer STL | `dcfcfa3da7e39fa8e05a5077e6c48ea3684592f7b348de255c96326b29112928` |
+| Slices of the `prepare-cfd-case` STL | `181c23711bdf3f23e13cfdb44e90c77805e86ca9f0b763681e3e59854e0d758b` |
+| `tools/f0_enactment.py` on the new STL | `e25133a81d811363f8bd91cdf7a892ac7b001d5c6acd45b69052fd3f63d86aaa` |
+| `tools/f0_enactment.py` on the old (pre-fix) STL | `54fa961ce230e9e40e345f206e2f4595b3bb3ea3db13706c91b91de6b9ba8cd0` |
+| `cargo test -p joil-ir -p joil-core ir_r` log | `e663d669e3df70328b5b6012cd2a67f54fab683c29f658daea733360564bb20d` |
+| `prepare-cfd-case --wave2-family trifurcated-6jet-vortex-head` stdout | `50e8b5c592e90e9767ce088ea4ba8c385bf2b908cdedf4b491c69af5f90b66ad` |
+
+| # | State | What DOC checked |
+|---|---|---|
+| IR-R1 | **Resolved** | `MultiPatchSurface::from_program` now writes `IrCompiledMesh::compile_with_extension` triangles. The CFD subject is therefore the mesh its enactment receipt describes. Slicing at x = ±0.045 m and ±0.050 m now gives **three** closed loops per duct for the 3-branch program (one before the fix). IR's tests `cfd_case::tests::ir_r1_openfoam_cfd_stl_is_ir_compiled_mesh_and_slices_to_3_inlet_loops_per_duct` and `ir_r1_r2_r4_r5_watertight_split_loops_corrugation_proxy_and_betti_parity` pass. Every executed CFD run predates the fix, so correction C1 still applies to them. |
+| IR-R2 | **Resolved** | The tool now counts connected paths. It reports `measured_disjoint_inlet_paths = 6` on the new STL and `2` on the old STL (it reported `12` before), and `claimed_multi_jet_enacted_in_stl = False` for the old one. |
+| IR-R3 | **Resolved, with a residual** | `docs/IR_SUPPORT.md` §5 now matches the code. The per-run field is `gpu_workspace_tensor_cells_evaluated`, with the old name kept as a serde alias. `joil_cuda_eval.cu:553` keeps the legacy key so that its source digest stays valid. Residual: the campaign summary still serializes `total_gpu_lagrangian_parcels_integrated` (`evolve.rs:1004`). WHITEPAPER correction C3 explains what the counter means. |
+| IR-R4 | **Resolved** | `ribbon_cascade` and `tpms_insert` are `WallCorrugationProxy` on the CFD, B-rep and voxel backends. The matrix note says the proxy bounds neither volume, wetted area nor topology. |
+| IR-R5 | **Resolved in substance** | β₀ comes from voxel components, β₂ from cavities, and β₁ from the mesh Euler characteristic (taking the larger of genus and branch cycles). They are checked against the expected `(1, 2(B−1), 1)`, no longer a constant. A direct B-rep-against-mesh Betti comparison is still not made. |
+| IR-R6 | Note | unchanged |
+| IR-R7 | **Resolved** (TR `d13355b`) | `prepare-cfd-case --wave2-family trifurcated-6jet-vortex-head` exits 0 on the committed Wave-2 receipt. It imports the program only and recomputes `design_sha256 = 34c41d4d…`. Its STL is the split mesh above. |
+
 ## Effect on the documentation
 
-- WHITEPAPER correction C1 stays in force for every executed CFD run, and for any new run produced through
-  `cfd_case.rs` until IR-R1 is fixed.
-- `docs/GENOME.md` §2's "CFD surface" column describes the writer's actual output (`MultiPatchSurface`) and stays
-  correct. Its pending tags for IR-02/IR-05 remain until IR-R1 lands.
+- WHITEPAPER correction C1 stays in force for every executed CFD run. Cases built since `f49f67e` contain the split
+  ducts, ramp and skimmer; none had been run when this review closed (INT-06).
+- `docs/GENOME.md` §1–§2 and §8 now describe the merged writer. The IR-R1 pending tags are removed; the ribbon/TPMS
+  and `radial_inner_fraction` tags remain, because those genes still have no resolved geometry.

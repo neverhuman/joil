@@ -833,6 +833,9 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `220` | 1 | declared | - | see table (`220@Closed-Catalog Validity Audit`) |
 | `35` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/final_best_kpi_score` | printed |
 | `3` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_held_out_duties/0/q_in_m3_h` | printed |
+| `3.12` | 1 | declared | - | see table (`3.12@use Python 3.12`) |
+| `72` | 2 | declared | - | see table (`72@need `72` Monte Carlo samples`) |
+| `12` | 1 | declared | - | see table (`12@at the default of `12`) |
 | `20` | 4 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/tail_quantiles/cout_p05/ci_high` | printed |
 | `20261116` | 2 | declared | - | see table |
 | `100.0` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/2/generation_trace/14/cumulative_lineage_jumps` | printed |
@@ -869,6 +872,7 @@ not machine-checked). A numeral written `N@phrase` applies only in sentences con
 | `1.90@1.90\%, 2.10\%]` | literal | `tools/run_elite_3grid_gci_and_rsm.py` | `matched reject split r in [1.90%, 2.10%]` |
 | `11@giving **11 gene-activation labels**` | literal | `crates/joil-core/src/program.rs` | `across all 11 families` |
 | `12@$R_a \le 12\ \mu\text{m}$` | literal | `docs/SCIENCE.md` | `$R_a \le 12\ \mu\text{m}$` |
+| `12@at the default of `12` | literal | `crates/joil-cli/src/main.rs` (`--mc` default) | `.unwrap_or(12)` |
 | `150.4` | derived | mean cross-family label changes per `B3` seed | `(docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/0/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/1/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/2/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/3/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/4/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/6/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/8/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/total_cross_family_lineage_jumps) / 10` |
 | `2,263` | derived | Wave-4 `B3` repaired proposals, summed over seeds | `docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/0/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/1/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/2/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/3/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/4/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/6/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/8/proposals_repaired + docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/proposals_repaired` |
 | `2.10@1.90\%, 2.10\%]` | literal | `tools/run_elite_3grid_gci_and_rsm.py` | `matched reject split r in [1.90%, 2.10%]` |
@@ -879,6 +883,7 @@ not machine-checked). A numeral written `N@phrase` applies only in sentences con
 | `255.8` | derived | reverse-flow ratio of the two declared literal flows | `5.60293e-5 / 2.19045e-5` |
 | `25@$C_i = 500 \pm 25` | protocol constant | WHITEPAPER §5.2 `F4` protocol table | authored rig feed tolerance; no receipt records it (gap G-04) |
 | `25@($25\ \mu\text{m}$ resolution)` | literal | `docs/SCIENCE.md` | `$25\ \mu\text{m}$ X-ray micro-CT` |
+| `3.12@use Python 3.12` | protocol constant | `requirements-cad.txt` CAD lock (TR fresh-clone check) | interpreter version the CAD lock was tested with |
 | `30@$C_u \le 30\text{ mg/L}$` | literal | `experiments/rig/protocol_v1.md` | `C_u(B_k) \le 30\text{ mg/L}` |
 | `35@$k_s \le 35\ \mu\text{m}$` | literal | `docs/SCIENCE.md` | `$k_s \le 35\ \mu\text{m}$` |
 | `3@pop_size * 3` | historical | Wave-3 `B3` acquisition pool, commit `eb39ee2` `crates/joil-core/src/evolve.rs` | `let pool_n = pop_size * 3`; set to `pop_size` by `393ac4e` (TR-04) |
@@ -892,6 +897,7 @@ not machine-checked). A numeral written `N@phrase` applies only in sentences con
 | `540` | historical | withdrawn "54 / 540" audit citation, quoted only to explain its withdrawal (synthesis DOC-F12) | no receipt contains it; kept to make the correction readable |
 | `54@`54 / 540` audit` | historical | withdrawn "54 / 540" audit citation (synthesis DOC-F12) | quoted only to explain its withdrawal |
 | `6@labelled 4, 6 and 8 jets` | protocol constant | `crates/joil-core/src/program.rs` `inlet_split` | two inlet ports × `branches_per_port` ∈ {2, 3, 4} |
+| `72@need `72` Monte Carlo samples` | derived | sample count the tail estimator requires for p05/p95 | `docs/results/wave4-evolution-proof-v1.json#/promoted_wave3_top_elite/mc_robustness/tail_quantiles/capture_p05/minimum_n` |
 | `820` | literal | `docs/SCIENCE.md` (declared applicability envelope) | `\rho_d \in [820, 890]` |
 | `890` | literal | `docs/SCIENCE.md` (declared applicability envelope) | `\rho_d \in [820, 890]` |
 | `8@labelled 4, 6 and 8 jets` | protocol constant | `crates/joil-core/src/program.rs` `inlet_split` | two inlet ports × `branches_per_port` ∈ {2, 3, 4} |

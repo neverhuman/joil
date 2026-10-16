@@ -24,7 +24,7 @@ def _copy_tree(dst):
         shutil.copytree(ROOT / rel, dst / rel)
     for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', 'README.md', NUMBERS_TRACE,
                 'crates/joil-core/tests/regression.rs', 'crates/joil-core/src/program.rs',
-                'tools/run_elite_3grid_gci_and_rsm.py'):
+                'tools/run_elite_3grid_gci_and_rsm.py', 'crates/joil-cli/src/main.rs'):
         (dst / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / rel, dst / rel)
 

@@ -45,14 +45,14 @@ Phase: `software_truth_repair_scientific_claim_inventory_incomplete`.
 **Results by evidence tier:**
 
 - **`F2` carrier CFD on compiled shells (numerical only).** Three-grid OpenFOAM 14 refinement (`G0` `~140k`, `G1` `~305k`, `G2` `~552k` cells) with `LRR`/`SSG` Reynolds-stress cross-checks. At 4 m³/h the recorded `CT-35` case has `29.47 kPa` static pressure drop. The compiled candidate shells reach `18.70 kPa` on `G2` (label `trifurcated-6jet-vortex-head`; `18.12 kPa` `LRR` / `18.17 kPa` `SSG`), `18.72 kPa` (label `cylindrical-gyroid-coalescer`) and `18.63 kPa` (label `octa-branch-helical-manifold`). These are not yet like-for-like design comparisons:
-  - every candidate surface has `CT-35`'s two inlet ducts;
-  - branch, ramp and skimmer genes are absent from the CFD geometry;
+  - every candidate surface in these runs has `CT-35`'s two inlet ducts (cases built since workplan fix IR-R1 contain the split ducts; none has been run yet);
+  - branch, ramp and skimmer genes are absent from that CFD geometry;
   - the `CT-35` case was built with a different geometry pipeline and outlet extension.
 - **`F1` reduced screen.** `119,235` screen evaluations in a three-node campaign, plus the 10-seed Wave-2, Wave-3 and Wave-4 search comparisons below. They measure how well each search arm optimizes the screen, not physical performance. On repaired code (Wave-4), uniform random search reaches a higher best screen score than the evolutionary arm `B3`.
 - **Software contract.** `220 / 220` closed-catalog validity samples and an operator random walk with `85` label changes. Both are upper bounds, because failed operators silently returned `CT-35` before workplan item TR-01.
 
 ![Wave-4 screen search diagnostics on repaired operators: per-generation KPI trajectory (n=10 seeds, 22,500 charged proposals, MC n=72), gene-label schematic and archived carrier CFD](docs/figures/wave4-readme-hero-kpi-and-elite.png)
-*Figure 0 (Wave-4, `F1` screen, sandbox): per-generation screen `KPI_score` across `10` seeds on repaired operators, with `72` Monte Carlo samples per candidate. Panels A and B: uniform random search (`B1`) ends with the higher best score, and `B3` leads only on population median. Panel C is a gene-label schematic, not compiled geometry; its `CT-35` Hinze diameter is a hard-coded label, while the receipt records `64.0 µm`. Panel D repeats archived Wave-1/2 carrier CFD of different subjects, not Wave-4 designs. Source: [`docs/results/wave4-evolution-proof-v1.json`](docs/results/wave4-evolution-proof-v1.json); figure `SHA-256: 0185cea2b0786ae5b09e3fd7f4a26fcfcd003573022b3221a94ee31a8ea1f2e5`. The pre-repair Wave-3 hero is listed with the figure plates below.*
+*Figure 0 (Wave-4, `F1` screen, sandbox): per-generation screen `KPI_score` across `10` seeds on repaired operators, with `72` Monte Carlo samples per candidate. Panels A and B: uniform random search (`B1`) ends with the higher best score, and `B3` leads only on population median. Panel C is a gene-label schematic, not compiled geometry; its labels are read from the receipt (`CT-35` Hinze diameter `64.0 µm`). Panel D repeats archived Wave-1/2 carrier CFD of different subjects, not Wave-4 designs. Source: [`docs/results/wave4-evolution-proof-v1.json`](docs/results/wave4-evolution-proof-v1.json); figure `SHA-256: c5f0f2ab96205c51ef33b5099f5484d7f8c589cfe4afa19d2421195190ea7469`. The pre-repair Wave-3 hero is listed with the figure plates below.*
 
 ### Wave-4: the same study on repaired operators (`F1` screen, sandbox, workplan INT-04)
 
@@ -71,7 +71,7 @@ Selection beats the no-selection and crossover-only ablations and the axisymmetr
 
 ### Wave-3 Search-Efficiency Study on the `F1` Screen (`n = 10` Seeds, `450` Evals/Seed/Arm, Equal-Budget Baselines & Operator Ablations)
 
-These are screen outputs. They show that selection and mutation optimize the screen better than the ablations and random search do. They do not show physical separation: the screen's descriptors reward the genes the search activates. Failed variations were silently replaced by `CT-35` and not charged to the budget. The Wave-4 re-run above, on repaired operators, supersedes this table. The `HV` column is the largest single dominated box plus an archive bonus, not Pareto hypervolume.
+These are screen outputs from the pre-repair run. In it, selection and mutation scored higher than the ablations and than random search; the Wave-4 re-run above did not reproduce the advantage over random search. They do not show physical separation: the screen's descriptors reward the genes the search activates. Failed variations were silently replaced by `CT-35` and not charged to the budget. The Wave-4 re-run above, on repaired operators, supersedes this table. The `HV` column is the largest single dominated box plus an archive bonus, not Pareto hypervolume.
 
 Every numerical entry below is a screen output computed by `joil-cli wave3-proof`. `python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json` recomputes the KPI arithmetic and statistics (a consistency check, not an independent evaluation), and `python3 tools/claims_audit.py` checks them against the receipts:
 
@@ -122,6 +122,14 @@ The research baseline is CT-35: the Colman–Thew patent example scaled to D2 = 
 
 Requirements: Rust (stable, `cargo`), Python 3 with `numpy` and `matplotlib`, and Node.js `>=22.12.0` for the explorer (`apps/explorer/package.json`). Omit `rtk` / `rtk proxy` if `rtk` is not installed.
 
+From the repository root, install the Python requirements in an isolated environment (use Python 3.12 if you also want exact CAD):
+
+```bash
+python3 -m venv .private/quickstart-python
+. .private/quickstart-python/bin/activate
+python3 -m pip install numpy matplotlib
+```
+
 **1. Check the repository.** Every command below is fast and writes only to ignored paths. Workplan item DOC-05 runs this list from a clean checkout; the log is kept in ignored `.private/checks/`.
 
 ```bash
@@ -138,10 +146,10 @@ rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'
 rtk proxy python3 tools/check.py
 ```
 
-**2. Re-run a screen study (optional, slow).** Always pass `--out` into the ignored `artifacts/` directory. The CLI defaults overwrite the committed, hash-bound receipts in `docs/results/`, and on repaired code the regenerated numbers differ from those historical receipts.
+**2. Re-run a screen study (optional, slow).** Always pass `--out` into the ignored `artifacts/` directory. The CLI defaults overwrite the committed, hash-bound receipts in `docs/results/`, and on repaired code the regenerated numbers differ from those historical receipts. Pass `--mc 72`: the p05/p95 objectives need `72` Monte Carlo samples for a distribution-free bound, and at the default of `12` they are reported insufficient, so no candidate is ranked and every hypervolume is zero (TR lane fresh-clone check, 16 October 2026).
 
 ```bash
-RAYON_NUM_THREADS=4 rtk cargo run --release --locked -p joil-cli -- wave2-benchmark --seeds 20261101,20261102,20261103,20261104,20261105 --out artifacts/wave2-rerun.json
+RAYON_NUM_THREADS=4 rtk cargo run --release --locked -p joil-cli -- wave2-benchmark --seeds 20261101,20261102,20261103,20261104,20261105 --mc 72 --out artifacts/wave2-rerun.json
 ```
 
 Known limitations of re-runs on the current code:
