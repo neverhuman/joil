@@ -1,0 +1,141 @@
+{
+  "schema_version": "0.4.0",
+  "workplan_item": "INT-03",
+  "protocol_id": "JOIL-WAVE4-SMOKE-NO-FALLBACK-V1",
+  "claim_state": "f0_f1_prior_laden_reduced_order_screen_smoke_audit_not_f2_or_f4_qualified",
+  "evidence_tier": "software_contract",
+  "dependencies_verified": [
+    "TR-01",
+    "TR-02",
+    "TR-03",
+    "TR-04",
+    "TR-11",
+    "TR-13",
+    "EV-08"
+  ],
+  "config": {
+    "seeds": [
+      20261201,
+      20261202,
+      20261203
+    ],
+    "n_seeds": 3,
+    "islands": 2,
+    "pop_per_island": 9,
+    "generations": 6,
+    "mc_samples": 12
+  },
+  "zero_silent_baseline_fallbacks_audit": {
+    "passed": true,
+    "disallowed_fallback_matches": 0,
+    "disallowed_lines": [],
+    "rust_truth_no_baseline_fallback_test_passed": true
+  },
+  "aggregate_proposal_budget": {
+    "budget": 381,
+    "reference_evaluations": 0,
+    "proposals_invalid": 0,
+    "proposals_repaired": 237,
+    "evaluations_unrepaired": 144,
+    "total_f0_f1_evaluated": 381,
+    "exclusive_partition_verified": true,
+    "invalid_proposal_rate": 0.0,
+    "repaired_proposal_rate": 0.622047,
+    "unrepaired_evaluation_rate": 0.377953
+  },
+  "operator_statistics": {
+    "insert_baseline_control": {
+      "attempts": 3,
+      "invalid": 0,
+      "repaired": 0,
+      "evaluated_unrepaired": 3,
+      "invalid_rate": 0.0,
+      "repaired_rate": 0.0,
+      "evaluated_unrepaired_rate": 1.0
+    },
+    "insert_catalog_seed": {
+      "attempts": 54,
+      "invalid": 0,
+      "repaired": 0,
+      "evaluated_unrepaired": 54,
+      "invalid_rate": 0.0,
+      "repaired_rate": 0.0,
+      "evaluated_unrepaired_rate": 1.0
+    },
+    "mutate": {
+      "attempts": 121,
+      "invalid": 0,
+      "repaired": 95,
+      "evaluated_unrepaired": 26,
+      "invalid_rate": 0.0,
+      "repaired_rate": 0.785124,
+      "evaluated_unrepaired_rate": 0.214876
+    },
+    "non_homologous_macro_crossover": {
+      "attempts": 203,
+      "invalid": 0,
+      "repaired": 142,
+      "evaluated_unrepaired": 61,
+      "invalid_rate": 0.0,
+      "repaired_rate": 0.699507,
+      "evaluated_unrepaired_rate": 0.300493
+    }
+  },
+  "six_arm_proof_smoke_budget": {},
+  "failure_reasons_histogram": {},
+  "repair_fields_histogram": {
+    "/cone_profile": 85,
+    "/inlet_ramp": 124,
+    "/inlet_split": 58,
+    "/ribbon_cascade": 2,
+    "/skimmer": 82,
+    "/tpms_insert": 5
+  },
+  "per_seed_summaries": [
+    {
+      "seed": 20261201,
+      "campaign_summary_sha256": "7a58a70522052f275d11b3e5fe22545823367300494d8b777c1cb03366d060fd",
+      "budget": 127,
+      "reference_evaluations": 0,
+      "proposals_invalid": 0,
+      "proposals_repaired": 81,
+      "evaluations_unrepaired": 46,
+      "total_f0_f1_evaluated": 127,
+      "invalid_proposal_rate": 0.0,
+      "repaired_proposal_rate": 0.637795,
+      "unrepaired_evaluation_rate": 0.362205,
+      "map_elites_occupied_cells": 70,
+      "pareto_front_size": 9
+    },
+    {
+      "seed": 20261202,
+      "campaign_summary_sha256": "6ea575c0b6d5376ac7cdfac2eda61ef0249c16955c1ae8389cc6f7087c246ebb",
+      "budget": 127,
+      "reference_evaluations": 0,
+      "proposals_invalid": 0,
+      "proposals_repaired": 82,
+      "evaluations_unrepaired": 45,
+      "total_f0_f1_evaluated": 127,
+      "invalid_proposal_rate": 0.0,
+      "repaired_proposal_rate": 0.645669,
+      "unrepaired_evaluation_rate": 0.354331,
+      "map_elites_occupied_cells": 61,
+      "pareto_front_size": 9
+    },
+    {
+      "seed": 20261203,
+      "campaign_summary_sha256": "e833e2148be69bf7e83ba4f3f9936cf541831201fd8d6be4abafb72c6387c071",
+      "budget": 127,
+      "reference_evaluations": 0,
+      "proposals_invalid": 0,
+      "proposals_repaired": 74,
+      "evaluations_unrepaired": 53,
+      "total_f0_f1_evaluated": 127,
+      "invalid_proposal_rate": 0.0,
+      "repaired_proposal_rate": 0.582677,
+      "unrepaired_evaluation_rate": 0.417323,
+      "map_elites_occupied_cells": 55,
+      "pareto_front_size": 17
+    }
+  ]
+}
