@@ -4,28 +4,55 @@ Evidence-driven evolutionary design of deoiling hydrocyclone cartridges.
 
 Goal: more compliant treated water per liner at a fixed pressure budget and reject fraction, with performance established through numerical verification and paired physical tests. Explore unconventional internal geometry without rewarding simulation errors.
 
-**Current status: Wave-3 de-novo evolutionary proof (`22,500` real 3D evaluations across `n = 10` seeds $\times 25$ generations $\times 5$ active arms starting from an identical unseeded Generation-0 population around `CT-35`), full-liner baseline + three promoted exotic 3D elites (`Wave-1` 6-jet `xbabe2-gen043-isl10-ind030`, `Wave-2/3` TPMS gyroid `s20261103-g008-i012` / `s20261110-g024-i005`, and `Wave-2/3` 8-jet `wave2-arch-octa-branch-helical-manifold`) verified across 3-grid OpenFOAM 14 spatial refinement sequences (`G0`: `~140k` cells, `G1`: `~305k` cells, `G2`: `~552k` cells) with Roache `GCI` and dual 7-equation `LRR` (linear pressure-strain) and `SSG` (quadratic pressure-strain) Reynolds-Stress Model (`RSM`) cross-checks (`15` OpenFOAM 14 3D runs), alongside the 3-node (`xbabe1`/`xbabe2`/`xbabe3`) Rust/CUDA multi-island evolutionary campaign (`119,235` 3D evaluations, `15.97B` droplet trajectories) and the pre-registered 11-family Wave-2 10-seed `B0`–`B3` ablation (`5,400` 3D evals, Mann–Whitney $U = 100$, $p_{\text{Holm}} = 0.000314$, Cliff's $\delta = 1.000$, `D1`–`D4` held-out duties `PASS`); `F2-Oil` full-residence ($T \ge 4.0\text{ s}$) oil fitness and `F4` physical rig validation remain open.** The extended-outlet `CT-35` SST initializer reaches 4 m³/h and 1.986% reject with 29.47 kPa static pressure drop and 33.71 kJ/m³ device mechanical loss, while the promoted Wave-1 3D `trifurcated-6jet-vortex-head` (`xbabe2-gen043-isl10-ind030`) reaches 4.000 m³/h and 1.968%–1.996% reject at **18.70 kPa static pressure drop (`-36.54%`) and 22.05 kJ/m³ hydraulic loss (`-34.60%`) on the fine 553k-cell `G2` grid** (`18.12 kPa` / `-38.51%` under `LRR` RSM, `18.17 kPa` / `-38.35%` under `SSG` RSM, `0.26%` inter-RSM parity). The promoted Wave-2 `cylindrical-gyroid-coalescer` (`s20261103-g008-i012`) achieves **18.72 kPa (`-36.46%`) and 22.07 kJ/m³ (`-34.53%`) on `G2`** (`18.25 kPa` `LRR` / `18.15 kPa` `SSG`, `0.50%` inter-RSM parity, $\text{SNR}_{\text{span}} = 4.98\times$), and the Wave-2 `octa-branch-helical-manifold` achieves **18.63 kPa (`-36.78%`) and 21.97 kJ/m³ (`-34.82%`) on `G2`** (`18.33 kPa` `LRR` / `17.96 kPa` `SSG`, `2.02%` inter-RSM parity, $\text{SNR}_{\text{span}} = 4.75\times$). While `F1` vs. `CT-35` dominance survives across all 15 CFD runs, the fine-scale hydraulic ordering among the three elites reverses within `94.97 Pa` (`0.51%`), well inside the `4.57%`–`5.01%` Roache `GCI` band; furthermore, unextended ($L_{\text{ext}} = 0\text{ m}$) elite carriers fail the strict `F2-Oil` `< 1%` overflow reverse-flow gate (`255.8%`), and our Stage-0 10-bin Lagrangian checkpoint (`35.58 s` wall-clock for `0.01 s`, `0` parcel discrepancy) bounds the resumable 8-stage ($8 \times 0.50\text{ s} = 4.0\text{ s}$) full-residence run at `3.95 wall-hours` on 4 CPUs. Full-residence oil closure and independent physical validation gates remain open; these are not qualified industrial performance claims.
+## Status (revised 16 October 2026 after external review)
 
-![Wave-3 De-Novo Evolutionary Proof: Per-Generation KPI Trajectory (n=10 Seeds, 22,500 3D Evals) & 15-Run OpenFOAM 14 Verification](docs/figures/wave3-readme-hero-kpi-and-elite.png)
-*Figure 0 (Hero Plot): De-novo Wave-3 evolutionary proof across `n = 10` independent master seeds (`20261101..20261110`, `25` generation checkpoints `g = 0..24`, `18` 3D evaluations/generation = `450` evaluations/seed/arm = `22,500` total 3D evaluations) optimizing the Composite Separation-Hydraulic KPI (`KPI_score` in [`analysis/kpi_fitness.py`](analysis/kpi_fitness.py)). All evolutionary arms (`B2`, `A1`, `A2`, `B3`) start at `g = 0` from the identical unseeded Generation-0 population (`0` pre-baked 6/8-jet or TPMS archetypes). Source receipts: [`docs/results/wave3-evolution-proof-v1.json`](docs/results/wave3-evolution-proof-v1.json) (`SHA-256: 9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168`) and [`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json) (`SHA-256: 52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841`).*
+Six external reviews ([verbatim inputs](docs/review-inputs/2026-10-15/INDEX.md), [finding-by-finding synthesis](docs/reviews/2026-10-15-SYNTHESIS.md)) found that the earlier README overstated what the evidence shows. The corrections are listed in the WHITEPAPER section "Read this first" ([`docs/WHITEPAPER.md`](docs/WHITEPAPER.md)). Repairs are tracked in [`docs/WORKPLAN-2026-10-15.md`](docs/WORKPLAN-2026-10-15.md).
 
-### Wave-3 De-Novo Evolutionary Proof (`n = 10` Seeds, `450` Evals/Seed/Arm, Equal-Budget Baselines & Operator Ablations)
+**What this is.** A research pipeline with these parts:
 
-Every numerical entry below is computed directly by `joil-cli wave3-proof` and independently audited by `python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json` and `python3 tools/claims_audit.py`:
+- a bounded macro genome (`DesignProgram`: seven optional layers, eleven labels assigned from gene activation; see [`docs/GENOME.md`](docs/GENOME.md));
+- a reduced-order screen;
+- a multi-island constrained NSGA-II + MAP-Elites search;
+- OpenFOAM 14 carrier CFD on compiled surfaces;
+- receipt and claims-audit tooling.
+
+**What this is not, yet.**
+
+- Not an open-ended invention engine: the genome cannot express structures outside its seven layers ([`docs/design/GENOME_V4.md`](docs/design/GENOME_V4.md) is a proposal).
+- Not evidence that any design separates oil better than `CT-35`. Every separation number ($C_{\text{out}}$, grade efficiency, `KPI_score`) comes from a screen driven by gene-derived mechanism descriptors.
+- Not physically validated: `F2-Oil` full residence, `F3` and `F4` have not been run.
+
+**Results by evidence tier:**
+
+- **`F2` carrier CFD on compiled shells (numerical only).** Three-grid OpenFOAM 14 refinement (`G0` `~140k`, `G1` `~305k`, `G2` `~552k` cells) with `LRR`/`SSG` Reynolds-stress cross-checks. At 4 m³/h the recorded `CT-35` case has `29.47 kPa` static pressure drop. The compiled candidate shells reach `18.70 kPa` on `G2` (label `trifurcated-6jet-vortex-head`; `18.12 kPa` `LRR` / `18.17 kPa` `SSG`), `18.72 kPa` (label `cylindrical-gyroid-coalescer`) and `18.63 kPa` (label `octa-branch-helical-manifold`). These are not yet like-for-like design comparisons:
+  - every candidate surface has `CT-35`'s two inlet ducts;
+  - branch, ramp and skimmer genes are absent from the CFD geometry;
+  - the `CT-35` case was built with a different geometry pipeline and outlet extension.
+- **`F1` reduced screen.** `119,235` screen evaluations in a three-node campaign, plus the 10-seed Wave-2 and Wave-3 search comparisons below. They measure how well each search arm optimizes the screen, not physical performance.
+- **Software contract.** `220 / 220` closed-catalog validity samples and an operator random walk with `85` label changes. Both are upper bounds, because failed operators silently returned `CT-35` before workplan item TR-01.
+
+![Wave-3 Search-Efficiency Study on the F1 Screen: Per-Generation KPI Trajectory (n=10 Seeds, 22,500 Screen Evals) & 15-Run OpenFOAM 14 Carrier CFD](docs/figures/wave3-readme-hero-kpi-and-elite.png)
+*Figure 0 (Hero Plot): Wave-3 search-efficiency study on the `F1` reduced screen (formerly titled a "de-novo evolutionary proof"; the screen credits the activated genes by construction) across `n = 10` independent master seeds (`20261101..20261110`, `25` generation checkpoints `g = 0..24`, `18` 3D evaluations/generation = `450` evaluations/seed/arm = `22,500` total 3D evaluations) optimizing the Composite Separation-Hydraulic KPI (`KPI_score` in [`analysis/kpi_fitness.py`](analysis/kpi_fitness.py)). All evolutionary arms (`B2`, `A1`, `A2`, `B3`) start at `g = 0` from the identical unseeded Generation-0 population (`0` pre-baked 6/8-jet or TPMS archetypes). Source receipts: [`docs/results/wave3-evolution-proof-v1.json`](docs/results/wave3-evolution-proof-v1.json) (`SHA-256: 9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168`) and [`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json) (`SHA-256: 52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841`).*
+
+### Wave-3 Search-Efficiency Study on the `F1` Screen (`n = 10` Seeds, `450` Evals/Seed/Arm, Equal-Budget Baselines & Operator Ablations)
+
+These are screen outputs. They show that selection and mutation optimize the screen better than the ablations and random search do. They do not show physical separation: the screen's descriptors reward the genes the search activates. Failed variations were silently replaced by `CT-35` and not charged to the budget; workplan item INT-04 re-runs the study on repaired operators. The `HV` column is the largest single dominated box plus an archive bonus, not Pareto hypervolume.
+
+Every numerical entry below is a screen output computed by `joil-cli wave3-proof`. `python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json` recomputes the KPI arithmetic and statistics (a consistency check, not an independent evaluation), and `python3 tools/claims_audit.py` checks them against the receipts:
 
 $$\text{KPI}_{\text{score}}(\mathbf{g}) = \left(30.0 - C_{\text{out,p95}}(\mathbf{g})\right) + 25.0\,E_{\text{reduced},20\mu\text{m},\text{p05}}(\mathbf{g}) + 10.0\,\frac{\Delta p_{u,\text{CT35}} - \Delta p_u(\mathbf{g})}{\Delta p_{u,\text{CT35}}} - 500.0\,V(\mathbf{g})$$
 
-| Comparator / Ablation Arm | Evals / Seed | Gen-0 Shared Best `KPI_score` `[-]` | Final Best `KPI_score` Mean $\pm$ SD (`95% CI`) `[-]` | Final Pop-Median `KPI_score` Mean (`95% CI`) `[-]` | Final Best $C_{\text{out,p95}}$ Mean (`95% CI`) `[mg/L]` | Final Pareto $HV$ Mean `[-]` | Pairwise Mann–Whitney $U$ vs. `B3` (`Best KPI` / `Pop-Median KPI`) |
+| Comparator / Ablation Arm | Evals / Seed | Gen-0 Shared Best `KPI_score` `[-]` | Final Best `KPI_score` Mean $\pm$ SD (`95% CI`) `[-]` | Final Pop-Median `KPI_score` Mean (`95% CI`) `[-]` | Final Best $C_{\text{out,p95}}$ Mean (`95% CI`) `[mg/L]` | Final reported `HV` Mean (not Pareto HV) `[-]` | Pairwise Mann–Whitney $U$ vs. `B3` (`Best KPI` / `Pop-Median KPI`) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **`B0`: `Baseline-CT35`** (Reference) | `1` | `26.486473` | `26.486473` | `26.486473` | `25.101952` | `0.000000` | Baseline (`+20.517319` mean KPI gain in `B3`) |
 | **`A1`: `No-Mutation` (`Crossover-Only`)** | `450` | `31.838823` | `35.369726 ± 0.538398` (`[35.039542, 35.670494]`) | `34.918421` (`[34.557810, 35.307194]`) | `17.396069` (`[17.108863, 17.698581]`) | `0.121383` | $U = 100.0$, $p_{\text{Holm}} = 0.0012568$, $\delta = +1.000$ (**PASS**) |
 | **`B2`: `Conventional-Axisym-NSGA2`** (2-Port) | `450` | `28.887811` | `37.572998 ± 0.576043` (`[37.250758, 37.927368]`) | `36.146265` (`[35.883722, 36.419626]`) | `15.802162` (`[15.459877, 16.110008]`) | `0.182217` | $U = 100.0$, $p_{\text{Holm}} = 0.0012568$, $\delta = +1.000$ (**PASS**) |
 | **`A2`: `No-Selection` (`Random-Walk`)** | `450` | `31.838823` | `43.243541 ± 0.985805` (`[42.669254, 43.812082]`) | `38.341649` (`[36.775733, 39.803955]`) | `10.780283` (`[10.343154, 11.196935]`) | `0.186724` | $U = 100.0$, $p_{\text{Holm}} = 0.0012568$, $\delta = +1.000$ (**PASS**) |
 | **`B1`: `Equal-Budget Random Search`** | `450` | `44.782516` | `46.289980 ± 0.515204` (`[46.002233, 46.601384]`) | `38.201035` (`[37.334773, 39.079959]`) | `8.473741` (`[8.210036, 8.727178]`) | `0.255694` | $U = 84.0$ ($p_{\text{Holm}} = 0.010165$, $\delta = +0.680$) / Pop-Med $U = 100.0$ ($\delta = +1.000$) (**PASS**) |
-| **`B3`: `Wave3-Exotic3D-QD-CEI` (Full Evolution)** | **`450`** | **`31.838823`** | **`47.003792 ± 0.503020` (`[46.702993, 47.278324]`)** | **`45.956543` (`[45.349348, 46.433642]`)** | **`7.879303` (`[7.667346, 8.124948]`)** | **`0.265579`** | **Top De-Novo Elite `s20261110-g024-i005`: `KPI = 47.745321`, $C_{\text{out,p95}} = 7.438085\text{ mg/L}$ (`-70.37%`)** |
+| **`B3`: `Wave3-Exotic3D-QD-CEI` (Full Evolution)** | **`450`** | **`31.838823`** | **`47.003792 ± 0.503020` (`[46.702993, 47.278324]`)** | **`45.956543` (`[45.349348, 46.433642]`)** | **`7.879303` (`[7.667346, 8.124948]`)** | **`0.265579`** | **Top screen elite `s20261110-g024-i005`: `KPI = 47.745321`, $C_{\text{out,p95}} = 7.438085\text{ mg/L}$ (`-70.37%`)** |
 
 - **[Scientific White Paper (Process, Methods, 3D Topologies, GCI, LRR/SSG RSM, Hostile-Referee Audit & Figures)](docs/WHITEPAPER.md)**
-  - [Figure Plate 0 (Hero): Wave-3 De-Novo Per-Generation KPI Trajectory (`n = 10` Seeds) & 15-Run OpenFOAM 14 Verification](docs/figures/wave3-readme-hero-kpi-and-elite.png)
+  - [Figure Plate 0 (Hero): Wave-3 Per-Generation Screen KPI Trajectory (`n = 10` Seeds) & 15-Run OpenFOAM 14 Verification](docs/figures/wave3-readme-hero-kpi-and-elite.png)
   - [Figure Plate 1: 7-Topology Compositional 3D Hydrocyclone Atlas](docs/figures/rust-3d-topology-atlas.png)
   - [Figure Plate 2: Multi-Objective Pareto Front & 4D MAP-Elites Convergence](docs/figures/pareto-map-elites-convergence.png)
   - [Figure Plate 3: 3-Grid Roache `GCI` & Dual 7-Eq. `LRR`/`SSG` RSM Verification](docs/figures/elite-gci-and-rsm-verification.png)
@@ -33,13 +60,13 @@ $$\text{KPI}_{\text{score}}(\mathbf{g}) = \left(30.0 - C_{\text{out,p95}}(\mathb
   - [Figure Plate 5: Wave-2 Exotic 3D Genome Atlas (11 Families: TPMS Gyroid, Schwarz-P, Octa-Branch & Counter-Fluted)](docs/figures/wave2-exotic-3d-genome-atlas.png)
   - [Figure Plate 6: Wave-2 10-Seed Statistical Ablation, Bootstrap 95% CIs, Wilcoxon Tests & Held-Out Duties](docs/figures/wave2-multiseed-ablation-and-ci.png)
   - [Figure Plate 7: Wave-2 10-Bin Grade-Efficiency Curves $E_{\text{red}}(d)$ & Inlet-to-Outlet DSD Transfer](docs/figures/wave2-grade-efficiency-and-dsd-shift.png)
-  - [Figure Plate 8: Wave-2 `P08` Structural Lamé Stress, Modal Lock-In & LPBF Overhang Qualification](docs/figures/wave2-structural-lame-and-modal-qualification.png)
-  - [Figure Plate 9: Top 8 Exotic Valid 3D Phenotypes Gallery & 11-Family Genome Expressiveness Audit (`220/220` Pass)](docs/figures/wave2-8-exotic-phenotypes-gallery.png)
+  - [Figure Plate 8: Wave-2 `P08` Analytic Structural Screen: Lamé Stress, Modal Ratio & LPBF Overhang Estimate (not FEA)](docs/figures/wave2-structural-lame-and-modal-qualification.png)
+  - [Figure Plate 9: Gallery of 8 Rendered Genomes & Closed-Catalog Validity Audit (`220/220`; illustrative renderings)](docs/figures/wave2-8-exotic-phenotypes-gallery.png)
   - [Figure Plate 10: Side-by-Side Wave-1 vs. Wave-2 Elite OpenFOAM 14 CFD Fields & 5-Run GCI/RSM Audit](docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png)
-  - [Figure Plate 11: Wave-3 6-Arm Ablation (`n = 10` Seeds), De-Novo Phylogenetic Lineage, Phenotypic Diversity & 11-Family Held-Out Geometry Generalization](docs/figures/wave3-evolution-ablation-and-lineage-proof.png)
-  - [Animation 1: 3D Helical Vortex Oil-Droplet Separation & 10-Seed QD Illumination (`GIF`)](docs/figures/wave2-vortex-and-qd-illumination.gif)
-  - [Animation 2: Phylogenetic 3D Topology Morph (`CT-35` → `4-Jet` → `6-Jet` → `Cylindrical-Gyroid TPMS`, `GIF`)](docs/figures/wave2-topology-morph-and-lineage.gif)
-- **[Wave-3 De-Novo Evolution Proof Dossier](docs/results/wave3-evolution-proof-v1.json)** · **[Wave-2 Execution Plan](docs/WAVE2_PLAN.md)** · **[Pre-Registration Contract](experiments/wave2-preregistration-v1.json)** · **[10-Seed Ablation Dossier](docs/results/wave2-multiseed-ablation-and-holdout-v1.json)** · **[Wave-2 5-Run GCI/RSM + F2-Oil Dossier](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json)**
+  - [Figure Plate 11: Wave-3 6-Arm Screen Comparison (`n = 10` Seeds), Lineage, Label Diversity & Label-Held-Out Check](docs/figures/wave3-evolution-ablation-and-lineage-proof.png)
+  - [Animation 1: Illustrative Vortex Rendering & 10-Seed QD Illumination (not simulated trajectories; `GIF`)](docs/figures/wave2-vortex-and-qd-illumination.gif)
+  - [Animation 2: Illustrative Label Lineage Morph (`CT-35` → `4-Jet` → `6-Jet` → `Cylindrical-Gyroid TPMS` labels; renderings, `GIF`)](docs/figures/wave2-topology-morph-and-lineage.gif)
+- **[Wave-3 Search-Efficiency Dossier (`F1` screen)](docs/results/wave3-evolution-proof-v1.json)** · **[Wave-2 Execution Plan](docs/WAVE2_PLAN.md)** · **[Pre-Registration Contract](experiments/wave2-preregistration-v1.json)** · **[10-Seed Ablation Dossier](docs/results/wave2-multiseed-ablation-and-holdout-v1.json)** · **[Wave-2 5-Run GCI/RSM + F2-Oil Dossier](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json)**
 - [Master implementation plan](docs/MASTER_PLAN.md)
 - [Physics, scoring and validation contract](docs/SCIENCE.md)
 - [Representation and CAD contract](docs/GENOME.md)
@@ -54,12 +81,12 @@ $$\text{KPI}_{\text{score}}(\mathbf{g}) = \left(30.0 - C_{\text{out,p95}}(\mathb
 
 The research baseline is CT-35: the Colman–Thew patent example scaled to D2 = 35 mm, with explicit reconstruction assumptions. It is not an exact commercial liner or a validated experimental apparatus. Geometry dimensions are in mm; solver adapters must convert to SI explicitly.
 
-Quick start — Wave-3 de-novo evolutionary proof, 10-seed ablation, figure generation, and verification (verified from a fresh `git clone`; omit `rtk` / `rtk proxy` if `rtk` is not installed):
+Quick start — tests, the Wave-3 screen study, figure generation and verification. Omit `rtk` / `rtk proxy` if `rtk` is not installed. A fresh-clone re-run of this list is pending in workplan item DOC-05; until it is recorded, treat the list as unverified.
 
 ```bash
 rtk cargo test --workspace --locked
-rtk cargo test -p joil-core --test regression genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit -- --nocapture
-rtk cargo test -p joil-core --test regression operator_random_walk_20step_11family_watertight_stress_test -- --nocapture
+rtk cargo test -p joil-core --test regression closed_catalog_validity_11family_sampling -- --nocapture --exact
+rtk cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact
 rtk cargo run -p joil-cli -- baseline
 rtk cargo run --release -p joil-cli -- export-3d-preview
 rtk cargo run --release -p joil-cli -- wave2-benchmark
@@ -74,7 +101,7 @@ rtk proxy sh -c 'export PATH="/home/ubuntu/joil/.private/node-runtime/bin:$PATH"
 rtk proxy python3 tools/check.py
 ```
 
-Evolutionary 3D genome flexibility (`crates/joil-core/src/program.rs`): `DesignProgram::audit_11family_genome_expressiveness(20, 20261116)` draws `N = 220` stratified random 3D genomes (`20` per canonical family across `axisymmetric-stepped`, `twin-tangential-volute`, `spiral-rifled-vortex-head`, `quad-entry-involute-head`, `bifurcated-quad-manifold`, `trifurcated-6jet-vortex-head`, `hybrid-omni-exotic`, `cylindrical-gyroid-coalescer`, `schwarz-p-rectifier-head`, `octa-branch-helical-manifold`, and `counter-fluted-recovery-vortex`) and verifies `220 / 220` (`100.0%`) pass `canonicalize_and_preflight` with watertight 3D manifold meshes (`0` open/non-manifold edges, min LPBF clearance `>= 1.24 mm`, min Jacobian `1.000`) versus `0 / 30` (`0.0%`) on unprojected out-of-bounds negative controls (rendered in [Figure Plate 9](docs/figures/wave2-8-exotic-phenotypes-gallery.png)). Beyond static sampling, `DesignProgram::audit_11family_operator_random_walk(20, 20261116)` chains `20` consecutive genetic operator mutations and single-point crossovers from each of the `11` canonical families (`220` chained offspring steps, `85` cross-family topological jumps across all `11` families) and verifies `220 / 220` (`100.0%`) intermediate and terminal offspring remain watertight 3D manifolds (`0` open/non-manifold edges, min clearance `>= 1.00 mm`).
+Closed-catalog validity audits (`crates/joil-core/src/program.rs`; software contract, not open-ended expressiveness). `DesignProgram::audit_11family_genome_expressiveness(20, 20261116)` (since renamed `closed_catalog_validity`) draws `N = 220` samples (`20` per label across the eleven labels listed in [`docs/GENOME.md`](docs/GENOME.md) §4) and finds `220 / 220` (`100.0%`) pass `canonicalize_and_preflight`, with closed ring surfaces (`0` open/non-manifold edges, arithmetic min clearance `>= 1.24 mm`, min Jacobian `1.000`). `0 / 30` (`0.0%`) out-of-bounds controls pass; they fail parameter bounds. `DesignProgram::audit_11family_operator_random_walk(20, 20261116)` (since renamed `operator_chain_validity`) chains `20` operator steps from each of the `11` labels (`220` steps, `85` label changes) and finds `220 / 220` (`100.0%`) passing steps. Because the ring surface is closed by construction and failed operators silently returned `CT-35` before TR-01, these counts are upper bounds on validity and say nothing about new topology (renderings in [Figure Plate 9](docs/figures/wave2-8-exotic-phenotypes-gallery.png)).
 
 Optional exact CAD, inside a project environment with **Python 3.12** (on macOS, `uv venv --python 3.12 .venv` can create it):
 
@@ -86,6 +113,6 @@ rtk proxy python3 tools/check.py --cad
 
 CAD outputs include canonical mm STEP, mm and metre STL previews, metre glTF, terminal patch definitions and an audit report. Each check run uses a fresh output directory. Labelled conformal CFD tessellation is a later acceptance gate. See the report before using geometry downstream; scaling STEP coordinates without changing declared units is not a unit conversion.
 
-Stack: Rust (`joil-core`, `joil-cli`) compositional 3D geometry/mesh/B-rep compiler, constrained multi-island NSGA-II + 4D MAP-Elites search engine, GP surrogate with Constrained Expected Improvement (`P07`), structural/modal/LPBF qualification (`P08`), PBM & blinded A/B/A power verifiers (`P05`/`P06`); CUDA C++20 3D volumetric SDF & Lagrangian droplet tensor evaluator (`sm_86`/`sm_89`); Python/OpenCASCADE CAD and scientific tools; pinned OpenFOAM Foundation 14 CPU/MPI solver; Vite/TypeScript/React interactive 3D hydrocyclone & droplet-vortex explorer (`apps/explorer`).
+Stack: Rust (`joil-core`, `joil-cli`) macro-genome ring-surface compiler, constrained multi-island NSGA-II + 4D MAP-Elites search engine, GP surrogate with Constrained Expected Improvement (`P07`), analytic structural screen (`P08`, not FEA), PBM & blinded A/B/A power-calculation software (`P05`/`P06`, synthetic oracles only); CUDA C++20 closed-form throughput evaluator (`sm_86`/`sm_89`); Python/OpenCASCADE CAD (schema v2 only) and scientific tools; pinned OpenFOAM Foundation 14 CPU/MPI solver; Vite/TypeScript/React research explorer (`apps/explorer`; renders gene values and screen outputs).
 
 No jarambit code or shared environment is modified or required at runtime. Raw supplied material and installation details stay in ignored private storage. No project software license has been selected yet; dependency licenses remain their own.

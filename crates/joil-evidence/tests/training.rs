@@ -128,6 +128,20 @@ fn independent_admission_requires_measured_features_review_and_live_dependencies
     };
     let geometry_groups = artifact(&mut registry, "geometry-group", &group, &mut sequence);
     group.kind = GroupKind::Mechanism;
+    let geometry_only_mechanism = artifact(
+        &mut registry,
+        "geometry-only-mechanism-group",
+        &group,
+        &mut sequence,
+    );
+    let mut mechanism_observation = m.clone();
+    mechanism_observation.quantity = "observed-mechanism-flux".into();
+    group.observations = vec![observed(
+        &mut registry,
+        "mechanism-flux",
+        mechanism_observation,
+        &mut sequence,
+    )];
     let mechanism_groups = artifact(&mut registry, "mechanism-group", &group, &mut sequence);
     let input = TrainingInput {
         id: "software-fixture".into(),
@@ -139,6 +153,15 @@ fn independent_admission_requires_measured_features_review_and_live_dependencies
     let sample = admit_sample(&registry, &m.identity.requirements, &contract, &input).unwrap();
     assert_eq!(sample.target().get(), 25.0);
     assert_eq!(sample.features(), &[25.0; 12]);
+    let mut geometry_is_not_physics = input.clone();
+    geometry_is_not_physics.mechanism_groups = geometry_only_mechanism;
+    assert!(admit_sample(
+        &registry,
+        &m.identity.requirements,
+        &contract,
+        &geometry_is_not_physics
+    )
+    .is_err());
     let mut missing = input.clone();
     missing.features[0] = common::reference("absent");
     assert!(admit_sample(&registry, &m.identity.requirements, &contract, &missing).is_err());

@@ -1,7 +1,7 @@
 # Design language and geometry contract (as implemented)
 
 This file describes the genome that the code **implements**. It reflects the integration branch
-`feat/joil-v4-truth-evidence` at merge `bf9155b` (TR-05/TR-06 merged). The open-ended successor (typed
+`feat/joil-v4-truth-evidence` at merge `6873a7f` (TR-01–TR-09, TR-11, TR-14 and EV-01–EV-09 merged). The open-ended successor (typed
 developmental field graph, DesignIR, dual backends) is a separate design marked **PROPOSED** in
 [`docs/design/GENOME_V4.md`](design/GENOME_V4.md). Nothing in that file is implemented unless this file says so.
 
@@ -57,7 +57,7 @@ Continuous values are rounded to 4 decimals in field units (§3).
 |---|---|---|---|---|---|---|---|
 | `schema_version` | 2, 3 or 4, paired with `family` | - | - | - | v2 only | - | - |
 | `family` | `ct35-exotic-head-v2` / `-v3` / `ct35-legacy-macro-v4` | - | - | - | v2 only | - | - |
-| `topology_class` | any string; overwritten by `classify_topology()` | - | - | - | accepted | - | IR-06 (derive taxon, drop from serialized subject) |
+| `topology_class` | any string, accepted for legacy files; overwritten by `classify_topology()`; **not serialized, not hashed** (`skip_serializing`) | - | - | - | accepted | - | IR-06 (measured `PhenotypeTaxon`) |
 | `baseline_file_sha256` | must equal SHA-256 of `baselines/ct35/genome.json` | - | - | - | checked | - | - |
 | `inlet_ramp.axial_drop_mm` | [0, 8] mm | 0 | scales inlet-boss bump (×(1−0.04·drop/8)) | no | yes | yes | - |
 | `inlet_ramp.radial_slot_factor` | [0.72, 1.05] | 1.0 | scales inlet-boss bump | no | yes | yes | - |
@@ -106,7 +106,7 @@ Consequences for current claims:
 - `canonical_sha256()` is the SHA-256 of `serde_json::to_vec(normalize(p))`.
   - Field order is the struct order.
   - Inactive ribbon and TPMS layers are omitted (`skip_serializing_if`).
-  - The derived `topology_class` label and the schema/family pair are part of the hash.
+  - The schema/family pair is part of the hash. The derived `topology_class` label is not serialized and therefore not hashed (since TR merges at `47156714`).
 - Continuous genes are rounded by `round4` to 1e-4 field units (mm, rad, deg or dimensionless) during
   `normalize()`. Descriptors are rounded to 1e-6. This is a **declared quantization**, not exact binary64
   identity. The code has no machine-readable numeric contract yet (synthesis G-04).
@@ -174,34 +174,37 @@ IR-07 moves them to an inventor-only module as `PriorDescriptors`.
 
 ## 6. Variation operators
 
-At `bf9155b`, every operator ends with `normalize().unwrap_or_else(|_| baseline_ct35())`. A failed edit
-silently returns the CT-35 baseline: 24 sites in `program.rs`, plus `surrogate.rs` and `evolve.rs`.
+Since TR-01–TR-04 (merged at `4715671`/`92be04f`/`17a620b`), every operator returns
+`Result<VariationOutcome, VariationError>`. A `VariationOutcome` records:
 
-- TR-01 (lane commit `9118908`, not yet merged) changes the operators to return
-  `Result<VariationOutcome, VariationError>` with edit scripts and repair records.
-- TR-02 removes the remaining fallbacks.
+- `child` (absent on failure) and the raw `proposal`;
+- the edit script (`edits`) and explicit `repairs` (rule plus before/after hashes);
+- `failure`, the RNG span, locality metrics, operator ID and version, and parent hashes.
 
-This table updates when those merge.
+No operator falls back to `baseline_ct35()`; `rg` finds zero fallback sites in `crates/`. Campaigns count invalid,
+repaired and evaluated proposals separately (TR-03). Results published before these merges were produced with
+the silent fallback (WHITEPAPER correction C10).
 
 | Operator | What it does | Pending |
 |---|---|---|
 | `seed_archetypes` | hand-authored Wave-1 archetype programs | - |
 | `seed_wave2_archetypes` | hand-authored Wave-2 archetype programs (ribbon/TPMS/8-jet) | - |
-| `mutate_diffeomorphic_spline` | clamped Gaussian steps on cone modes (rescaled to Σ ≤ 1.48 mm) and chamber modes; adds one mode with p = 0.55 if none. Clamping, not a diffeomorphism check | TR-01 |
-| `mutate_branch_topology` | steps ramp genes; toggles split (p = 0.25); redraws `branches_per_port` ∈ {2, 3, 4} (p = 0.3); adds, removes or steps the ribbon layer | TR-01 |
-| `mutate_tpms_grading` | activates a random basis if inactive, deactivates with p = 0.2, otherwise steps fraction, wavelengths and sheet thickness | TR-01 |
-| `crossover_homologous_graph` | per-layer copy from either parent plus scalar blending of fixed fields; **not** graph crossover (S2 §4.7) | TR-01, TR-12 |
-| `crossover` | `crossover_homologous_graph` followed by `mutate` | TR-01 |
-| `mutate` | chains `mutate_diffeomorphic_spline`, `mutate_branch_topology`, `mutate_tpms_grading` (p = 0.22) and a skimmer step | TR-01 |
-| `mutate_conventional_axisymmetric` | mutation restricted to axisymmetric genes (arm B2) | TR-01 |
-| `sample_random_exotic` | independent uniform draws per field with per-layer activation probabilities (arm `RandomLhsExotic3d`; not a Latin hypercube, synthesis G-03) | TR-01 |
-| `sample_stratified_11family` | uniform draw targeting one of the eleven labels | TR-01 |
-| `init_wave3_de_novo_gen0` | Wave-3 generation 0: the baseline plus mild ramp/cone/skimmer perturbations; every 5th member has a 2-branch split (4 jets), every 7th a chamber mode | TR-01 |
-| `mutate_wave3_progressive` | clamped zero-mean steps on continuous genes, plus single-step split transitions off ↔ 2 ↔ 3 ↔ 4 branches; ribbon and TPMS layers can toggle only while the split is enabled | TR-01 |
+| `mutate_diffeomorphic_spline` | clamped Gaussian steps on cone modes (rescaled to Σ ≤ 1.48 mm) and chamber modes; adds one mode with p = 0.55 if none. Clamping, not a diffeomorphism check | - |
+| `mutate_branch_topology` | steps ramp genes; toggles split (p = 0.25); redraws `branches_per_port` ∈ {2, 3, 4} (p = 0.3); adds, removes or steps the ribbon layer | - |
+| `mutate_tpms_grading` | activates a random basis if inactive, deactivates with p = 0.2, otherwise steps fraction, wavelengths and sheet thickness | - |
+| `crossover_non_homologous_macro` | per-layer copy from either parent plus scalar blending of fixed fields. Formerly named `crossover_homologous_graph`; renamed because it is not graph crossover (S2 §4.7) | TR-12 (homologous crossover needs the v4 graph; workplan §5 decision 8) |
+| `crossover` | `crossover_non_homologous_macro` followed by `mutate` | - |
+| `mutate` | chains `mutate_diffeomorphic_spline`, `mutate_branch_topology`, `mutate_tpms_grading` (p = 0.22) and a skimmer step | - |
+| `mutate_conventional_axisymmetric` | mutation restricted to axisymmetric genes (arm B2) | - |
+| `sample_random_exotic` | independent uniform draws per field with per-layer activation probabilities (arm `RandomLhsExotic3d`; not a Latin hypercube, synthesis G-03) | TR-15 (arm naming) |
+| `sample_stratified_11family` | uniform draw targeting one of the eleven labels | - |
+| `init_wave3_de_novo_gen0` | Wave-3 generation 0: the baseline plus mild ramp/cone/skimmer perturbations; every 5th member has a 2-branch split (4 jets), every 7th a chamber mode | - |
+| `mutate_wave3_progressive` | clamped zero-mean steps on continuous genes, plus single-step split transitions off ↔ 2 ↔ 3 ↔ 4 branches; ribbon and TPMS layers can toggle only while the split is enabled | - |
 
-The "expressiveness" audits `audit_11family_genome_expressiveness` and `audit_11family_operator_random_walk`
-(220/220) are closed-catalog validity tests. They show that samples of the authored families pass the authored
-gates; they do not show open-ended expressiveness (S5 P0.8). TR-14 renames them.
+The 220-sample audits are closed-catalog validity tests, renamed by TR-14:
+`DesignProgram::closed_catalog_validity` (formerly `audit_11family_genome_expressiveness`) and
+`DesignProgram::operator_chain_validity` (formerly `audit_11family_operator_random_walk`). They show that samples
+of the authored families pass the authored gates; they do not show open-ended expressiveness (S5 P0.8).
 
 ## 7. Fixed contract for the first research lane
 

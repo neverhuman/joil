@@ -1,0 +1,165 @@
+{
+  "item": "EV-09-foundation",
+  "checks": [
+    {
+      "command": "python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "3f30b4cc8232f9dd1f668eccbbf2e41c83fd48a448b61ea01c72444b6611ac95",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.04660880099982023,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.22732262598583475,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 6.153223986038938,
+          "log_bytes": 419,
+          "log_sha256": "29183c6d3fdec4b6cd6e80587e78cd2c2a750f3ca4d8eace3c4ebfa7ab5c93b8"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 38.71959264704492,
+          "log_bytes": 8430,
+          "log_sha256": "165bd20026088459e4712290bbf8ab9550abb517585bfcefb76b911cc0bf226e"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.7107877890230156,
+          "log_bytes": 1096,
+          "log_sha256": "f301fec83913a730bb109aa895284c7bbc2a388e6fa2246e9eaa4e77d81616dc"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 8.588643777999096,
+          "log_bytes": 6603,
+          "log_sha256": "64d062303ea8d435b75b670c532421328db20d3f57795b6c2293b90b40b0bd3e"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.06744190101744607,
+          "log_bytes": 75,
+          "log_sha256": "c3cd8ab6af5eb729963375d7f097188facbe2efc3ea6d5419f3dbc015a663b12"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 7.705291012011003,
+          "log_bytes": 190,
+          "log_sha256": "eef1deb384c933a534a890a8b20d0fc838f3026565e67dac8d600390e882cc99"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 0.9904769739951007,
+          "log_bytes": 28,
+          "log_sha256": "43ffbe67db079b516fef6cb00ea13580e4c68852674fb0f69080dc65559c9a7a"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 0.9377367440029047,
+          "log_bytes": 1904,
+          "log_sha256": "2b635d5c13424e0d60febb92c9cbdd63081d6cf3a16cb9f97a274885ec404491"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "reviewed field/coupled observation can support measured mechanism membership"
+  ],
+  "negative_checks": [
+    "geometry-only observation cannot confer physics/mechanism holdout membership"
+  ],
+  "science_eligibility": "synthetic software admission tests only; independent calibration still blocked",
+  "next_dependency": "independent field/grade labels and reviewed observed grouping"
+}
