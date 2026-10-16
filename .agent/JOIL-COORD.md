@@ -7,7 +7,7 @@ Commit board changes on YOUR lane branch only for your row/locks; integrator rec
 ## Lanes
 | Lane | Screen | CLI | Worktree | Branch | Status | Last heartbeat |
 |---|---|---|---|---|---|---|
-| INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | active (INT-01 DONE, merging TR-05/06) | 2026-10-16T05:18:00Z |
+| INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | active (INT-01/03/04/05 DONE, CI-MATPLOTLIB/IR-R7/TR-10/DOC-04 merged, INT-06 next) | 2026-10-16T06:50:00Z |
 | TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | active (TR-05/06 DONE, TR-01 WIP) | 2026-10-16T05:16:57Z |
 | EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | CI-MATPLOTLIB verified; EV-06 physical admission BLOCKED; prior lane handoff retained | 2026-10-16T06:45:36Z |
 | IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | active (IR-01 WIP) | 2026-10-16T05:16:50Z |

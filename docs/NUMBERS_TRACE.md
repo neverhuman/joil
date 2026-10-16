@@ -146,7 +146,7 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `5.40` | 3 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/1/q_in_m3_h` | printed |
 | `1.50` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/0/generation_trace/17/shannon_diversity_bits` | printed |
 | `3.00` | 1 | `experiments/wave2-preregistration-v1.json` | `/hard_feasibility_gates/p08_min_modal_lockin_freq_ratio` | printed |
-| `5` | 4 | `docs/results/rust-evolution-qualification-v1.json` | `/p06_experiment_and_metrology_qualification/required_blocks_for_90pct_power` | printed |
+| `5` | 5 | `docs/results/rust-evolution-qualification-v1.json` | `/p06_experiment_and_metrology_qualification/required_blocks_for_90pct_power` | printed |
 | `50` | 13 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/5/generation_trace/7/cumulative_lineage_jumps` | printed |
 | `25` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/mc_robustness/cout_p95_mg_l` | printed |
 | `12` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/d50_um` | printed |
@@ -318,7 +318,7 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `18.0` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b2_conventional_axisym_outcomes/3/map_elites_cells` | printed |
 | `20` | 2 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/stratified_samples_per_family` | printed |
 | `11` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/canonical_3d_families_verified` | printed |
-| `85` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/promoted_wave2_elites_by_family/hybrid-omni-exotic/nominal_metrics/hinze_dmax_um` | printed |
+| `85` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/promoted_wave2_elites_by_family/hybrid-omni-exotic/nominal_metrics/hinze_dmax_um` | printed |
 | `5` | 3 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/1/q_in_m3_h` | printed |
 | `9` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/1/best_cout_p95_mg_l` | printed |
 | `2.20` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/promoted_wave2_elites_by_family/counter-fluted-recovery-vortex/program/skimmer/outer_radius_mm` | printed |
@@ -618,18 +618,16 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `0` | 2 | `docs/results/wave4-smoke-v1.json` | `/zero_silent_baseline_fallbacks_audit/disallowed_fallback_matches` | printed |
 | `381` | 1 | `docs/results/wave4-smoke-v1.json` | `/aggregate_proposal_budget/budget` | printed |
 | `0.0` | 1 | `docs/results/wave4-smoke-v1.json` | `/aggregate_proposal_budget/invalid_proposal_rate` | printed |
-| `237` | 1 | `docs/results/wave4-smoke-v1.json` | `/aggregate_proposal_budget/proposals_repaired` | printed |
-| `62.2` | 1 | `docs/results/wave4-smoke-v1.json` | `/aggregate_proposal_budget/repaired_proposal_rate` | x100 |
-| `144` | 1 | `docs/results/wave4-smoke-v1.json` | `/aggregate_proposal_budget/evaluations_unrepaired` | printed |
+| `237` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/5/evaluations` | printed |
+| `62.2` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/generation_band_curves/B1_Random_Search/14/best_kpi_score/std_dev` | x100 |
+| `144` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/7/cumulative_evaluations` | printed |
 | `37.8` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/rsm_turbulence_closure_crosscheck/0/delta_dp_u_vs_ct35_baseline_pct` | printed |
-| `78.5` | 1 | `docs/results/wave4-smoke-v1.json` | `/operator_statistics/mutate/repaired_rate` | x100 |
-| `121` | 1 | `docs/results/wave4-smoke-v1.json` | `/operator_statistics/mutate/attempts` | printed |
-| `203` | 1 | `docs/results/wave4-smoke-v1.json` | `/operator_statistics/non_homologous_macro_crossover/attempts` | printed |
-| `124` | 1 | `docs/results/wave4-smoke-v1.json` | `/repair_fields_histogram//inlet_ramp` | printed |
-| `85` | 1 | `docs/results/wave4-smoke-v1.json` | `/repair_fields_histogram//cone_profile` | printed |
-| `82` | 1 | `docs/results/wave4-smoke-v1.json` | `/repair_fields_histogram//skimmer` | printed |
-| `58` | 1 | `docs/results/wave4-smoke-v1.json` | `/repair_fields_histogram//inlet_split` | printed |
-| `5` | 1 | `docs/results/wave4-smoke-v1.json` | `/repair_fields_histogram//tpms_insert` | printed |
+| `78.5` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/23/map_elites_occupied_cells/median` | printed |
+| `121` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/3/generation_trace/18/cumulative_lineage_jumps` | printed |
+| `203` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/B2_Conventional_Axisym_NSGA2/4/operator_statistics/mutate_conventional_axisymmetric/evaluated` | printed |
+| `124` | 1 | `docs/results/wave4-smoke-v1.json` | `/operator_statistics/non_homologous_macro_crossover/repaired` | printed |
+| `82` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/1/generation_trace/16/cumulative_lineage_jumps` | printed |
+| `58` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b3_exotic3d_qd_cei_outcomes/2/map_elites_cells` | printed |
 
 ## README
 
@@ -644,7 +642,7 @@ integer such as a seed count can match by coincidence, so read the pointer, not 
 | `18.72` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/grids/2/dp_u_pa` | /1000 |
 | `18.63` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/grids/2/dp_u_pa` | /1000 |
 | `119,235` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/total_evaluations` | printed |
-| `220` | 9 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/n_stratified_expressiveness_samples` | printed |
+| `220` | 9 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/7/evaluations` | printed |
 | `85` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/3/best_candidate/nominal_metrics/hinze_dmax_um` | printed |
 | `10` | 5 | `docs/results/wave3-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `22,500` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/total_3d_evaluations_across_arms` | printed |
