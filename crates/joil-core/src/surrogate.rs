@@ -685,6 +685,25 @@ pub struct FamilyHoldoutMetrics {
     pub coverage_within_2sigma: f64,
 }
 
+/// Exact prediction row from the existing authored-family sandbox fold fit.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct FamilyHoldoutPredictionRow {
+    pub subject_id: String,
+    pub target_cout: f64,
+    pub predicted_cout: f64,
+    pub sigma_cout: f64,
+    pub lcb_2sigma: f64,
+    pub ucb_2sigma: f64,
+}
+
+/// Raw fold membership and predictions; not independent oil/geometry labels.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct FamilyHoldoutRows {
+    pub topology_class: String,
+    pub train_subject_ids: Vec<String>,
+    pub predictions: Vec<FamilyHoldoutPredictionRow>,
+}
+
 /// Complete `ENGINE-02..05` Search & Surrogate Qualification Report.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SurrogateQualificationReport {
@@ -713,6 +732,14 @@ pub struct SurrogateQualificationReport {
 pub fn run_surrogate_and_engine_qualification(
     candidates: &[Individual],
 ) -> Result<SurrogateQualificationReport, String> {
+    run_surrogate_and_engine_qualification_with_fold_rows(candidates).map(|(report, _)| report)
+}
+
+/// Companion for raw capture: returns rows from the same fits/predictions as the
+/// legacy report, preserving its quarantine, missingness and insufficient rules.
+pub fn run_surrogate_and_engine_qualification_with_fold_rows(
+    candidates: &[Individual],
+) -> Result<(SurrogateQualificationReport, Vec<FamilyHoldoutRows>), String> {
     let mut records: Vec<SurrogateRecord> = candidates
         .iter()
         .map(SurrogateRecord::from_candidate)
@@ -769,6 +796,7 @@ pub fn run_surrogate_and_engine_qualification(
         .map(|r| r.topology_class.clone())
         .collect();
     let mut holdouts = Vec::new();
+    let mut fold_rows = Vec::new();
     let mut ood_rmse_sum = 0.0;
     let mut ood_cov_sum = 0.0;
     let mut ood_std_sum = 0.0;
@@ -792,6 +820,7 @@ pub fn run_surrogate_and_engine_qualification(
         let mut abs_err = 0.0;
         let mut std_sum = 0.0;
         let mut covered = 0usize;
+        let mut predictions = Vec::with_capacity(test_subset.len());
         for r in &test_subset {
             let pred = gp.predict_cout(&r.features.ok_or("missing validation features")?);
             let y = r.target_cout_mg_l.ok_or("missing validation label")?;
@@ -802,6 +831,14 @@ pub fn run_surrogate_and_engine_qualification(
             if y >= pred.lcb_2sigma && y <= pred.ucb_2sigma {
                 covered += 1;
             }
+            predictions.push(FamilyHoldoutPredictionRow {
+                subject_id: r.candidate_id.clone(),
+                target_cout: y,
+                predicted_cout: pred.mean,
+                sigma_cout: pred.std_dev,
+                lcb_2sigma: pred.lcb_2sigma,
+                ucb_2sigma: pred.ucb_2sigma,
+            });
         }
         let n_t = test_subset.len() as f64;
         let rmse = (sq_err / n_t).sqrt();
@@ -819,6 +856,14 @@ pub fn run_surrogate_and_engine_qualification(
             mae_cout_mg_l: mae,
             mean_posterior_std_mg_l: mean_std,
             coverage_within_2sigma: cov,
+        });
+        fold_rows.push(FamilyHoldoutRows {
+            topology_class: fam.clone(),
+            train_subject_ids: train_subset
+                .iter()
+                .map(|r| r.candidate_id.clone())
+                .collect(),
+            predictions,
         });
     }
 
@@ -859,7 +904,7 @@ pub fn run_surrogate_and_engine_qualification(
         .verify_resume_compatibility(1, "eval-v2-mutated-sha256", "cuda-v1-sha256")
         .is_err();
 
-    Ok(SurrogateQualificationReport {
+    Ok((SurrogateQualificationReport {
         schema_version: 2,
         kind: "sandbox_prior_screen_cross_validation_not_independent_ood".to_string(),
         independent_label_validation: joil_evidence::observation::Observation::Insufficient {
@@ -878,7 +923,7 @@ pub fn run_surrogate_and_engine_qualification(
         evaluator_drift_rejection_verified: drift_rejected,
         budget_conservation_verified,
         family_holdouts: holdouts,
-    })
+    }, fold_rows))
 }
 
 /// Evaluate a stream of raw candidate programs while maintaining an exact `BudgetLedger`
@@ -1039,5 +1084,67 @@ mod evidence_tests {
         .unwrap();
         let error = run_surrogate_and_engine_qualification(&vec![candidate; 6]).unwrap_err();
         assert!(error.contains("insufficient authored-family folds"));
+    }
+
+    #[test]
+    fn truth_surrogate_fold_rows_reproduce_legacy_metrics_and_preserve_abstention() {
+        let config = EvolutionConfig {
+            mc_samples: 72,
+            ..EvolutionConfig::default()
+        };
+        let (base, _) = evaluate_individual(
+            "synthetic-fold-fixture".into(),
+            DesignProgram::baseline_ct35(),
+            0,
+            0,
+            &config,
+        )
+        .unwrap();
+        // Authored synthetic groups exercise capture only, never independent labels.
+        let mut candidates: Vec<_> = (0..12)
+            .map(|i| {
+                let mut c = base.clone();
+                c.id = format!("synthetic-{i}");
+                c.topology_class = format!("synthetic-family-{}", i / 4);
+                c.mc_robustness.cout_p95_mg_l += i as f64 * 0.1;
+                c
+            })
+            .collect();
+        let legacy = run_surrogate_and_engine_qualification(&candidates).unwrap();
+        let (report, rows) =
+            run_surrogate_and_engine_qualification_with_fold_rows(&candidates).unwrap();
+        assert_eq!(
+            serde_json::to_value(legacy).unwrap(),
+            serde_json::to_value(&report).unwrap()
+        );
+        assert_eq!(rows.len(), 3);
+        for fold in rows {
+            let metrics = report
+                .family_holdouts
+                .iter()
+                .find(|f| f.held_out_family == fold.topology_class)
+                .unwrap();
+            assert_eq!(fold.train_subject_ids.len(), metrics.train_count);
+            assert_eq!(fold.predictions.len(), metrics.test_count);
+            let mut sq_err = 0.0;
+            let mut covered = 0;
+            for row in &fold.predictions {
+                assert!(!fold.train_subject_ids.contains(&row.subject_id));
+                assert!(!row.subject_id.starts_with("quarantine-test"));
+                sq_err += (row.predicted_cout - row.target_cout).powi(2);
+                covered += usize::from(
+                    row.target_cout >= row.lcb_2sigma && row.target_cout <= row.ucb_2sigma,
+                );
+                assert_eq!(row.lcb_2sigma, row.predicted_cout - 2.0 * row.sigma_cout);
+                assert_eq!(row.ucb_2sigma, row.predicted_cout + 2.0 * row.sigma_cout);
+            }
+            let n = fold.predictions.len() as f64;
+            assert!(((sq_err / n).sqrt() - metrics.rmse_cout_mg_l).abs() < 1e-12);
+            assert_eq!(covered as f64 / n, metrics.coverage_within_2sigma);
+        }
+        for candidate in &mut candidates {
+            candidate.phenotype = None;
+        }
+        assert!(run_surrogate_and_engine_qualification_with_fold_rows(&candidates).is_err());
     }
 }

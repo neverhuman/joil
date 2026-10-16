@@ -151,6 +151,48 @@ class RawProofTests(unittest.TestCase):
             self.assertEqual(out['state'], 'BLOCKED')
             self.assertIn('summary JSON', out['gaps'][0])
 
+    def test_extra_ct35_arm_stays_out_of_legacy_summary_diff(self):
+        docs = synthetic_runs()
+        original, _ = m.recompute(docs)
+        extra = [copy.deepcopy(r) for r in docs if r['arm'] == m.B3]
+        for r in extra:
+            r['arm'] = m.B0
+        actual, _ = m.recompute(docs+extra)
+        summary = json.loads(json.dumps(original))
+        for outs in summary['arm_outcomes'].values():
+            for o in outs:
+                for f in m.FIELDS:
+                    o['final_'+f] = o['generation_trace'][-1][f]
+        self.assertIn(m.B0, actual['generation_band_curves'])
+        self.assertEqual(actual['ct35_equal_budget']['mann_whitney_u'], 12.5)
+        self.assertFalse(m.diff_summary(actual, summary)['numeric_or_structural_mismatches'])
+
+    def test_unfitted_family_is_explicit_and_holdouts_match_by_family(self):
+        row = dict(topology_class='synthetic-b', train_subject_ids=['train'],
+                   evaluated_candidates=[candidate('candidate-b', 0, 5)], predictions=[
+                       dict(subject_id='test-b', target_cout=10, predicted_cout=11, sigma_cout=1,
+                            target_kpi=None, predicted_kpi=None)])
+        absent = dict(topology_class='synthetic-a', state='insufficient', train_subject_ids=[],
+                      predictions=[], evaluated_candidates=[candidate('candidate-a', 0, 6)])
+        folds = m.holdout_folds(dict(split_basis='authored_family_screen', folds=[row, absent]), 100, 30)
+        self.assertEqual(folds[1]['sample_count'], 0)
+        self.assertIsNone(folds[1]['sandbox_authored_family_rmse_cout_mg_l'])
+        actual, _ = m.recompute(synthetic_runs())
+        actual['held_out_geometry_generalization'] = folds
+        summary = json.loads(json.dumps(actual))
+        for outs in summary['arm_outcomes'].values():
+            for o in outs:
+                for f in m.FIELDS:
+                    o['final_'+f] = o['generation_trace'][-1][f]
+        summary['held_out_geometry_generalization'].reverse()
+        result = m.diff_summary(actual, summary)
+        self.assertFalse(result['numeric_or_structural_mismatches'])
+        self.assertFalse(result['coverage_gaps'])
+        summary['held_out_geometry_generalization'].append(dict(topology_class='synthetic-missing'))
+        result = m.diff_summary(actual, summary)
+        self.assertFalse(result['numeric_or_structural_mismatches'])
+        self.assertEqual(len(result['coverage_gaps']), 1)
+
 
 if __name__ == '__main__':
     unittest.main()

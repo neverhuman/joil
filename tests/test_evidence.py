@@ -14,6 +14,43 @@ from analysis.units import pressure_scale
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_ev12_every_run_audit_includes_missing_bad_and_quarantined_cases(self):
+        import importlib.util
+        from analysis.case_identity import finalize_case_identity
+        root = Path(__file__).resolve().parents[1]
+        path = root/'crates/joil-evidence/receipts/ev12_every_run_audit.py'
+        spec = importlib.util.spec_from_file_location('ev12_every_run', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        (root/'.private').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root/'.private') as directory:
+            runs = Path(directory)
+            self.assertFalse(module.audit(runs)['all_listed_passed'])
+            good = self._synthetic_wave4_case(runs, 'wave4-good-g0-coarse')
+            bad = self._synthetic_wave4_case(runs, 'wave4-bad-g1-medium')
+            preparing = self._synthetic_wave4_case(runs, 'wave4-preparing-g2-fine')
+            quarantined = self._synthetic_wave4_case(runs/'unfinalized-pruned-wave4', 'wave4-old-g0-coarse')
+            for case in [good, bad, quarantined]:
+                finalize_case_identity(case)
+                shutil.copyfile(case/'case-identity.json', case/'case.json')
+            damaged = json.loads((bad/'case.json').read_text())
+            damaged['mesh_hash'] = 'f'*64
+            (bad/'case.json').write_text(json.dumps(damaged))
+            (preparing/'constant/polyMesh/points').unlink()
+            (quarantined/'constant/polyMesh/points').unlink()
+            report = module.audit(runs)
+            self.assertEqual(report['case_count'], 4)
+            rows = {r['case']: r for r in report['cases']}
+            self.assertEqual(rows[good.name]['status'], 'PASS')
+            self.assertEqual(rows[bad.name]['status'], 'FAIL')
+            self.assertEqual(rows[bad.name]['manifest_files']['case-identity.json']['status'], 'PASS')
+            self.assertEqual(rows[preparing.name]['status'], 'FAIL')
+            self.assertEqual(rows[quarantined.name]['scope'], 'quarantined')
+            self.assertEqual(rows[quarantined.name]['status'], 'FAIL')
+            (good/'case.json').unlink()
+            self.assertEqual(module.audit_case('active', good, 'case.json')['status'], 'FAIL')
+            self.assertEqual(module.audit_case('active', good, 'case-identity.json')['status'], 'PASS')
+
     def test_wave4_raw_independent_recompute_contract(self):
         import importlib.util
         path = Path(__file__).resolve().parents[1]/'crates/joil-evidence/receipts/wave4_raw_proof_tests.py'
@@ -23,7 +60,7 @@ class EvidenceTests(unittest.TestCase):
         suite = unittest.defaultTestLoader.loadTestsFromModule(module)
         result = unittest.TestResult()
         suite.run(result)
-        self.assertEqual(result.testsRun, 7)
+        self.assertEqual(result.testsRun, 9)
         self.assertTrue(result.wasSuccessful(), result.errors+result.failures)
 
     def _synthetic_wave4_case(self, runs, name):

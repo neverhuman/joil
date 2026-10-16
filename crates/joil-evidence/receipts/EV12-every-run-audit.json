@@ -1,0 +1,375 @@
+{
+  "schema": "joil.ev12-every-run-audit.v1",
+  "kind": "exact_scoped_artifact_identity_snapshot_not_qualification",
+  "started_utc": "2026-10-16T09:47:54.378476+00:00",
+  "finished_utc": "2026-10-16T09:47:54.931068+00:00",
+  "primary_manifest": "case-identity.json",
+  "contract": "joil.wave4-case-identity.v1 exact record; broader ScientificIdentity remains separate",
+  "audit_source_sha256": "3df9ae532840086b156d730abc91c74d0ee66fbbeae7a62bf1e62a176ca30756",
+  "case_count": 12,
+  "counts": {
+    "active": {
+      "PASS": 3
+    },
+    "quarantined": {
+      "FAIL": 9
+    }
+  },
+  "cases": [
+    {
+      "case": "wave4-b3-s20261105-g0-coarse",
+      "scope": "active",
+      "status": "PASS",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "PASS",
+          "present": true,
+          "sha256": "511bb4543f546e48521a574233dd73840d9551345c6e5bf8bab903fc7a739f9e",
+          "bytes": 5618
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": {
+        "genome_hash": "6c222865d7840c2dbf61fc26732bad5363b5d230cc3ab5e916fb6b1d9c17c2cf",
+        "ir_hash": "a4918b1d6a81b1ea1cf4d97285b946ec1f72220122ef7e1a192d4f15def07c02",
+        "geometry_hash": "4759b36c618d7eee0dc01fbba9b04c546b6fc2269efd9a08431c646dec7b59ba",
+        "mesh_hash": "0d52474511dca5702e85edd89fee3e1460e808bc7315bad59a09f2c74ffe0be5",
+        "case_hash": "a86943bf9f691d43e4a9aa803f6972c52123ff9bb9ba2a20e6ee2e52cd0a55ab"
+      },
+      "retained_artifacts": "PASS",
+      "stable_snapshot": true,
+      "reasons": []
+    },
+    {
+      "case": "wave4-b3-s20261108-g0-coarse",
+      "scope": "active",
+      "status": "PASS",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "PASS",
+          "present": true,
+          "sha256": "65eaaed18a8823c6a0eedd2887d76e620617e77769415f89c721b6dd6bf79be3",
+          "bytes": 5618
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": {
+        "genome_hash": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+        "ir_hash": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+        "geometry_hash": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+        "mesh_hash": "509fb2f4077a255f8c13f846a3381fb7a4348a49bbae5eea4fd59a300a596520",
+        "case_hash": "d89640fdb65cbc7354b9b5fe9d62551239bc9e9741c36ac9e1ad60b0688da169"
+      },
+      "retained_artifacts": "PASS",
+      "stable_snapshot": true,
+      "reasons": []
+    },
+    {
+      "case": "wave4-ct35-control-g1-medium",
+      "scope": "active",
+      "status": "PASS",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "PASS",
+          "present": true,
+          "sha256": "28721f9a7710028573f2f8d39903408ca1dc4a5377ff129f8e2b15fccfef8328",
+          "bytes": 5617
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": {
+        "genome_hash": "cf74264f77634167637d3bf99517311f25b2ff2bd19fab97d1cb1c48b9d12283",
+        "ir_hash": "ef32379bd4879346861cd220bdecb2acd527622e2acd6ecb7304e536b05594de",
+        "geometry_hash": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+        "mesh_hash": "3ff6e5d3982ba583b6376a2315d378899e25abe7ce369312bb39d6c7934bf6f1",
+        "case_hash": "0b62ab2ea24c1f9bee64fd0f463bb1cdbaf4e2465cf247063b8adcc2ca5d22eb"
+      },
+      "retained_artifacts": "PASS",
+      "stable_snapshot": true,
+      "reasons": []
+    },
+    {
+      "case": "wave4-b3-s20261103-g0-coarse",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case-identity.json'"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": null,
+      "retained_artifacts": "FAIL",
+      "stable_snapshot": false,
+      "reasons": [
+        "missing artifact directory: constant/polyMesh",
+        "required case-identity.json has not verified"
+      ]
+    },
+    {
+      "case": "wave4-b3-s20261106-g0-coarse",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case-identity.json'"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": null,
+      "retained_artifacts": "FAIL",
+      "stable_snapshot": false,
+      "reasons": [
+        "missing artifact directory: constant/polyMesh",
+        "required case-identity.json has not verified"
+      ]
+    },
+    {
+      "case": "wave4-b3-s20261106-g1-medium",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case-identity.json'"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": null,
+      "retained_artifacts": "FAIL",
+      "stable_snapshot": false,
+      "reasons": [
+        "missing artifact directory: constant/polyMesh",
+        "required case-identity.json has not verified"
+      ]
+    },
+    {
+      "case": "wave4-b3-s20261106-g2-fine",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case-identity.json'"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": null,
+      "retained_artifacts": "FAIL",
+      "stable_snapshot": false,
+      "reasons": [
+        "missing artifact directory: constant/polyMesh",
+        "required case-identity.json has not verified"
+      ]
+    },
+    {
+      "case": "wave4-b3-s20261107-g0-coarse",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case-identity.json'"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": null,
+      "retained_artifacts": "FAIL",
+      "stable_snapshot": false,
+      "reasons": [
+        "missing artifact directory: constant/polyMesh",
+        "required case-identity.json has not verified"
+      ]
+    },
+    {
+      "case": "wave4-b3-s20261108-g1-medium",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": true,
+          "sha256": "2e40a1c241e0060d5fb3acedecaf1e3dc7762dc8821feb1c50f57f2d8d0a1619",
+          "bytes": 5619,
+          "reason": "manifest differs from exact retained bytes or changed during audit"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": {
+        "genome_hash": "e8e4109a06867f5dc8a90b770cbd3bb10d1f71e160ce7cd9e6f6f641fda3962f",
+        "ir_hash": "a1070df3967cb2ec51099a00869cb95b1e705178b0b319370b2af4be8549b3d9",
+        "geometry_hash": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+        "mesh_hash": "937eb9cc39a4bd8932b7a1967aa4475b4048bac690020b79db1afe03e84982aa",
+        "case_hash": "eaf474fd2c56900de697a70fa758f48f03d6550f0c6d5d7489f05d9d6573cd89"
+      },
+      "retained_artifacts": "PASS",
+      "stable_snapshot": true,
+      "reasons": [
+        "required case-identity.json has not verified"
+      ]
+    },
+    {
+      "case": "wave4-b3-s20261110-g0-coarse",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case-identity.json'"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": null,
+      "retained_artifacts": "FAIL",
+      "stable_snapshot": false,
+      "reasons": [
+        "missing artifact directory: constant/polyMesh",
+        "required case-identity.json has not verified"
+      ]
+    },
+    {
+      "case": "wave4-ct35-control-g0-coarse",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case-identity.json'"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": null,
+      "retained_artifacts": "FAIL",
+      "stable_snapshot": false,
+      "reasons": [
+        "missing artifact directory: constant/polyMesh",
+        "required case-identity.json has not verified"
+      ]
+    },
+    {
+      "case": "wave4-ct35-control-g2-fine",
+      "scope": "quarantined",
+      "status": "FAIL",
+      "primary_manifest": "case-identity.json",
+      "manifest_files": {
+        "case-identity.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case-identity.json'"
+        },
+        "case.json": {
+          "status": "FAIL",
+          "present": false,
+          "reason": "[Errno 2] No such file or directory: '$CASE/case.json'"
+        }
+      },
+      "actual_chain": null,
+      "retained_artifacts": "FAIL",
+      "stable_snapshot": false,
+      "reasons": [
+        "missing artifact directory: constant/polyMesh",
+        "required case-identity.json has not verified"
+      ]
+    }
+  ],
+  "errors": [],
+  "active_passed": true,
+  "all_listed_passed": false,
+  "limitation": "Quarantined cases are listed explicitly; moving them is not identity completion. Re-run after INT DONE for new grids; a live snapshot cannot certify future inputs.",
+  "filename_contract_decision": {
+    "owner": "INT",
+    "at_utc": "2026-10-16T09:46:45Z",
+    "head": "7b3de46",
+    "canonical": "case-identity.json + input-manifest.json",
+    "schema": "joil.wave4-case-identity.v1"
+  },
+  "initial_literal_case_json_snapshot": {
+    "sha256": "6f86c836942a66a3daf1b94c7ad90ee6fcc4337acd762c5c5b99e09158e2fff7",
+    "case_count": 12,
+    "result": "All12 FAIL on missing requested case.json before filename contract clarification; canonical sidecar status separately listed."
+  },
+  "new_s20261108_g1_mismatch": {
+    "case": "wave4-b3-s20261108-g1-medium",
+    "recorded_case_hash": "9e1e353c68db0d0e0529c18ade71dc2ca07de883be659c3e321bf02a7b57404b",
+    "current_case_hash": "eaf474fd2c56900de697a70fa758f48f03d6550f0c6d5d7489f05d9d6573cd89",
+    "changed": [
+      {
+        "kind": "mesh_files",
+        "path": "constant/polyMesh/cellProc",
+        "recorded": {
+          "sha256": "c764e25b556597148361a9f1c05d33f1388d65898701dde2d5ab0fde37c802d7",
+          "bytes": 614531
+        },
+        "current": {
+          "sha256": "f6bd1eddd9b912dff19e0bc3aa0e58ba422a1d4e2e3d3ff9df985a6f3de9ce20",
+          "bytes": 614531
+        }
+      }
+    ]
+  },
+  "int_status_handoff": "INT09:46 reports G0 solved, G1 Failed and quarantined; G2 not present at this snapshot. Re-run after INT final DONE; no absent case manufactured as PASS."
+}
