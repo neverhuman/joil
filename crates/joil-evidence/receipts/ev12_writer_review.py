@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT))
 from analysis.case_identity import build_case_identity, finalize_case_identity
 
 
-def review(probe, runs_root):
+def review(probe, runs_root, reviewed_ir_commit=None):
     probe = Path(probe).resolve()
     checks, commands, findings = [], [], []
 
@@ -162,8 +162,8 @@ def review(probe, runs_root):
         code, out = call('verify', case)
         actual.append(dict(case=case.name, passed=code == 0, result=out))
     return dict(kind='independent_writer_review_synthetic_mutations_real_runs_readonly',
-                reviewed_ir_commit='921df1cd0ead7c68f9cf2d15b8142e044015e0c1',
-                passed=not findings and all(x['passed'] for x in actual),
+                reviewed_ir_commit=reviewed_ir_commit,
+                passed=not findings and all(x['passed'] for x in checks+actual),
                 checks=checks, findings=findings, actual_retained_cases=actual,
                 probe_sha256=hashlib.sha256(probe.read_bytes()).hexdigest(), commands=commands)
 
@@ -172,7 +172,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--probe', type=Path, default=ROOT/'target/ev12-writer-probe')
     parser.add_argument('--runs-root', type=Path, required=True)
+    parser.add_argument('--reviewed-ir-commit', help='Commit of the source compiled into --probe; caller must verify binding')
     args = parser.parse_args()
-    report = review(args.probe, args.runs_root)
+    report = review(args.probe, args.runs_root, args.reviewed_ir_commit)
     print(json.dumps(report, indent=2))
     raise SystemExit(not report['passed'])
