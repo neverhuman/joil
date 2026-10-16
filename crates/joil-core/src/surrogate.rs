@@ -822,7 +822,10 @@ pub fn run_surrogate_and_engine_qualification(
         });
     }
 
-    let n_f = holdouts.len().max(1) as f64;
+    if holdouts.is_empty() {
+        return Err("insufficient authored-family folds; no validation metric is available".into());
+    }
+    let n_f = holdouts.len() as f64;
     let ood_mean_rmse = ood_rmse_sum / n_f;
     let ood_mean_cov = ood_cov_sum / n_f;
     let ood_mean_std = ood_std_sum / n_f;
@@ -1018,5 +1021,23 @@ mod evidence_tests {
         let submitted: Vec<SurrogateRecord> = serde_json::from_slice(&bytes).unwrap();
         assert!(GaussianProcessSurrogate::fit(&submitted, 0.85, 0.015).is_err());
         assert!(GaussianProcessSurrogate::fit_sandbox_prior(&submitted, 0.85, 0.015).is_err());
+    }
+
+    #[test]
+    fn truth_surrogate_absent_holdouts_do_not_become_zero_error() {
+        let config = EvolutionConfig {
+            mc_samples: 6,
+            ..EvolutionConfig::default()
+        };
+        let (candidate, _) = evaluate_individual(
+            "software-fixture".into(),
+            DesignProgram::baseline_ct35(),
+            0,
+            0,
+            &config,
+        )
+        .unwrap();
+        let error = run_surrogate_and_engine_qualification(&vec![candidate; 6]).unwrap_err();
+        assert!(error.contains("insufficient authored-family folds"));
     }
 }
