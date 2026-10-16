@@ -811,7 +811,298 @@ def _descriptor_names(root: Path) -> list[str]:
     return []
 
 
-README_STATUS_BEGIN = "<!-- BEGIN GENERATED STATUS: python3 tools/claims_audit.py --write-readme-status (source docs/STATUS.json) -->"
+NUMBERS_TRACE = "docs/NUMBERS_TRACE.md"
+TRACE_SECTIONS = (
+    ("Read this first", "## Read this first", "\n## Abstract"),
+    ("Abstract", "## Abstract", "\n## 1."),
+    ("§5", "## 5. ", "\n## Appendix A"),
+)
+TRACE_SOURCES = ("docs/results", "docs/receipts", "experiments", "baselines/ct35")
+_TRACE_IDENT_RE = re.compile(
+    r"\b(?:P0-\d{2}|CAD-\d{2}|[GFBDRPAEUNCS]\d{1,2}|H\d{1,2}|DN\d+|CT-\d+|E20|d50|d32|p95|p05|P90|P95|P99|LCB95|ci95|sm_\d+|"
+    r"RTX\s*\d+|Inconel\s*\d+|Ti-6Al-4V|xbabe\d|isl\d+|gen\d+|ind\d+|s\d{8}-g\d+-i\d+|v\d+|"
+    r"Plate\s+\d+|Animation\s+\d+|Figure\s+\d+|C\d{1,2}|R\d|G-\d{2}|N-\d|DOC-F\d{2}|[A-Z]{2,3}-\d{2}|"
+    r"wave\d|Wave-\d|oil\d{2}\w*|P0\d|\d+D|\d+-(?:jet|Jet|grid|bin|seed|arm|step|patch|node|eq|run|case|"
+    r"block|family|sample|label|objective|Obj|cohort|stage|Run|Grid|Node|Seed|Arm|Step|Sample|Equation)s?)\b"
+)
+_TRACE_NUM_RE = re.compile(
+    r"(?<![A-Za-z0-9_./-])([+-]?\d{1,3}(?:,\d{3})+(?:\.\d+)?|[+-]?\d+(?:\.\d+)?(?:e[+-]?\d+)?)(?![A-Za-z0-9_.-])"
+)
+
+
+def _trace_values(root: Path) -> list[tuple[str, str, float]]:
+    """Every finite number in the committed receipts as (file, JSON pointer, value)."""
+    out: list[tuple[str, str, float]] = []
+
+    def walk(obj: Any, rel: str, ptr: str) -> None:
+        if isinstance(obj, bool) or obj is None:
+            return
+        if isinstance(obj, (int, float)):
+            if math.isfinite(float(obj)):
+                out.append((rel, ptr or "/", float(obj)))
+        elif isinstance(obj, dict):
+            for k, v in obj.items():
+                walk(v, rel, f"{ptr}/{k}")
+        elif isinstance(obj, list):
+            for i, v in enumerate(obj):
+                walk(v, rel, f"{ptr}/{i}")
+
+    for base in TRACE_SOURCES:
+        for path in sorted((root / base).rglob("*.json")):
+            walk(json.loads(path.read_text(encoding="utf-8")), path.relative_to(root).as_posix(), "")
+    walk(json.loads((root / "docs/STATUS.json").read_text(encoding="utf-8")), "docs/STATUS.json", "")
+    return out
+
+
+def _numeral_tokens(text: str) -> list[str]:
+    return [token for token, _ in _numeral_tokens_with_unit(text)]
+
+
+def _numeral_tokens_with_unit(text: str) -> list[tuple[str, str]]:
+    """(numeral, the few characters after it) so the trace can apply only unit-plausible scales."""
+    tokens = []
+    for raw in text.splitlines():
+        if raw.lstrip().startswith("```"):
+            continue
+        line = re.sub(r"\b[0-9a-f]{16,64}\b", " ", raw)
+        line = re.sub(  # calendar dates are not claims
+            r"\b\d{1,2} (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4}\b|\b\d{4}-\d{2}-\d{2}(?:T[\d:]+Z)?",
+            " ",
+            line,
+        )
+        line = re.sub(r"\\times\s*10\^\{(-?\d+)\}", r"e\1", line)  # LaTeX scientific notation
+        line = re.sub(r"(\d)\s+e(-?\d)", r"\1e\2", line)
+        line = re.sub(r"\[(\d+(?:,\d+)+)\]", lambda m: " ".join(m.group(1).split(",")), line)
+        line = re.sub(r"\.\.", " .. ", line)
+        line = _TRACE_IDENT_RE.sub(" ", line)
+        line = re.sub(r"\]\([^)]*\)", "]", line)  # link targets are paths, checked elsewhere
+        tokens.extend((m.group(1), line[m.end() : m.end() + 28]) for m in _TRACE_NUM_RE.finditer(line))
+    return tokens
+
+
+_UNIT_AFFINITY = (
+    (("kpa", "pa", "\\text{ pa", "\\text{ kpa"), ("_pa", "dp", "pressure")),
+    (("mg/l", "\\text{ mg"), ("mg_l", "cout")),
+    (("kj", "j/m", "\\text{ j", "\\text{ kj"), ("_j_", "loss", "energy", "j_per", "j_m3")),
+    (("µm", "um", "\\ \\mu"), ("_um", "d50", "diameter")),
+    (("m³/h", "m3/h", "\\text{ m}^3/\\text{h"), ("m3_h", "feed", "flow")),
+    (("%",), ("pct", "fraction", "ratio", "rate", "split", "coverage")),
+    (("cells",), ("cells",)),
+)
+
+
+def _unit_tail(after: str) -> str:
+    """Text where the unit starts: right after the numeral, or after the far end of a range like 18.12–19.53."""
+    m = re.match(r"(?:[\s`*$]*[–-]\s*`?\$?[+-]?\d[\d.,]*)?", after)
+    tail = after[m.end() if m else 0 :].lstrip(" `*$\\").lower()
+    return re.sub(r"^(?:\\?text\{\s*|\\?mathrm\{\s*|~|\\[,;! ])+", "", tail)
+
+
+def _affinity(after: str) -> tuple[str, ...]:
+    tail = _unit_tail(after)
+    for units, keys in _UNIT_AFFINITY:
+        if tail.startswith(units):
+            return keys
+    return ()
+
+
+def _unit_scales(after: str, context: str = "") -> tuple[tuple[float, str], ...]:
+    """Scales implied by the unit right after the numeral, or by a unit named in its table row/sentence."""
+    tail = _unit_tail(after)
+    ctx = context.lower()
+    scales = [(1.0, "")]
+    if tail.startswith(("%", "\\%")) or "percentage point" in tail or re.search(r"\[%\]|\(%\)", ctx):
+        scales.append((100.0, "x100"))
+    if tail.startswith(("kpa", "kj", "\\text{ kpa", "\\text{ kj")) or re.search(r"\bk(pa|j)\b", ctx):
+        scales.append((1e-3, "/1000"))
+    if tail.startswith(("mm", "pa", "j/m", "µm", "\\text{ mm", "\\text{ pa", "\\ \\mu", "\\text{ j")):
+        scales.append((1e3, "x1000"))
+    return tuple(scales)
+
+
+class _ValueIndex:
+    """Receipt values indexed by printed form, built lazily per (file, scale, decimals)."""
+
+    def __init__(self, values: list[tuple[str, str, float]]):
+        self.by_file: dict[str, list[tuple[str, float]]] = {}
+        for rel, ptr, value in values:
+            self.by_file.setdefault(rel, []).append((ptr, value))
+        self.cache: dict[tuple[str, float, int, bool], dict[str, str]] = {}
+
+    def lookup(self, rel: str, token: str, scale: float) -> list[str]:
+        text = token.replace(",", "").lstrip("+-")
+        sci = "e" in text.lower()
+        decimals = 0 if "." not in text else len(text.split("e")[0].split(".")[1])
+        key = (rel, scale, decimals, sci)
+        if key not in self.cache:
+            index: dict[str, list[str]] = {}
+            for ptr, value in self.by_file.get(rel, []):
+                x = abs(value * scale)
+                printed = f"{x:.{decimals}e}" if sci else f"{x:.{decimals}f}"
+                index.setdefault(printed, []).append(ptr)
+            self.cache[key] = index
+        if sci:
+            mantissa, exp = text.lower().split("e")
+            wanted = f"{float(mantissa):.{decimals}f}e{int(exp):+03d}"
+        else:
+            wanted = text
+        return self.cache[key].get(wanted, [])
+
+
+def _matches_printed(token: str, value: float) -> str | None:
+    """Scale tag if `value` (optionally ×100, /1000, ×1000) equals the token at its printed precision."""
+    from decimal import Decimal, ROUND_HALF_UP, InvalidOperation
+
+    text = token.replace(",", "").lstrip("+")
+    target = Decimal(text.lstrip("-"))
+    exponent = target.as_tuple().exponent
+    integer = exponent >= 0 and "e" not in text.lower()
+    for scale, tag in ((1.0, ""), (100.0, "x100"), (1e-3, "/1000"), (1e3, "x1000")):
+        x = abs(value * scale)
+        if integer:
+            if abs(x - float(target)) <= 1e-9 * max(1.0, x):
+                return tag or "exact"
+            continue
+        try:
+            quantum = Decimal(1).scaleb(exponent)
+            if Decimal(x).quantize(quantum, rounding=ROUND_HALF_UP) == target:  # exact binary, as printf rounds
+                return tag or "rounded"
+        except InvalidOperation:
+            continue
+    return None
+
+
+def _declared_numbers(trace_md: str) -> dict[str, tuple[str, str, str]]:
+    """Declared numerals from the hand-reviewed table: numeral -> (kind, source, check)."""
+    declared = {}
+    section = trace_md.split("## Declared numerals", 1)[1] if "## Declared numerals" in trace_md else ""
+    section = section.split("\n## ", 1)[0]
+    for line in section.splitlines():
+        cells = _table_cells(line) if line.startswith("| `") else []
+        if len(cells) == 4:
+            declared[cells[0].strip("`")] = (cells[1], cells[2], cells[3])
+    return declared
+
+
+def _check_declared(numeral: str, kind: str, source: str, check: str, root: Path, values) -> str | None:
+    if kind == "literal":
+        cited = re.search(r"`([^`]+)`", source)
+        path = root / (cited.group(1) if cited else source.strip())
+        literal = check.strip("`")
+        if not path.is_file() or literal not in path.read_text(encoding="utf-8"):
+            return f"declared literal for {numeral} not found: {source} `{literal}`"
+        return None
+    if kind == "derived":
+        lookup = {(rel, ptr): v for rel, ptr, v in values}
+        expr = check.strip("`")
+        terms = re.findall(r"([\w./-]+\.json)#(/[^\s)]+)", expr)
+        env = {}
+        for i, (rel, ptr) in enumerate(terms):
+            if (rel, ptr) not in lookup:
+                return f"derived {numeral}: missing {rel}#{ptr}"
+            env[f"v{i}"] = lookup[(rel, ptr)]
+            expr = expr.replace(f"{rel}#{ptr}", f"v{i}", 1)
+        if not re.fullmatch(r"[v\d\s+\-*/().]+", expr):
+            return f"derived {numeral}: unsupported expression"
+        value = eval(expr, {"__builtins__": {}}, env)  # arithmetic over receipt values only
+        if _matches_printed(numeral, value) is None:
+            return f"derived {numeral}: expression evaluates to {value}"
+        return None
+    if kind in ("protocol constant", "historical"):
+        return None if source.strip() and check.strip() else f"declared {numeral}: needs source and reason"
+    return f"declared {numeral}: unknown kind '{kind}'"
+
+
+def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, list[str]]:
+    """Render docs/NUMBERS_TRACE.md and list errors (unresolved or invalid declared numerals)."""
+    wp = (root / "docs/WHITEPAPER.md").read_text(encoding="utf-8")
+    existing = existing if existing is not None else (
+        (root / NUMBERS_TRACE).read_text(encoding="utf-8") if (root / NUMBERS_TRACE).is_file() else ""
+    )
+    declared = _declared_numbers(existing)
+    values = _trace_values(root)
+    index = _ValueIndex(values)
+    all_files = list(dict.fromkeys(rel for rel, _, _ in values))
+    errors: list[str] = []
+    for numeral, (kind, source, check) in sorted(declared.items()):
+        problem = _check_declared(numeral, kind, source, check, root, values)
+        if problem:
+            errors.append(problem)
+    lines = [
+        "# Numbers trace (WHITEPAPER \"Read this first\", Abstract and §5)",
+        "",
+        "Generated by `python3 tools/claims_audit.py --write-numbers-trace` (workplan DOC-04). Each numeral in these",
+        "sections either equals a committed receipt value at its printed precision, or is declared in the hand-reviewed",
+        "table at the end. Unit scaling is applied only where the unit after the numeral implies it (×100 before `%`,",
+        "÷1000 before kPa/kJ, ×1000 before mm/Pa/J). Sources cited in the same sentence are searched first. The claims audit fails on any",
+        "untraced numeral or a stale table. Where several receipt values match, the first cited source wins; a short",
+        "integer such as a seed count can match by coincidence, so read the pointer, not just the tick.",
+        "",
+    ]
+    for title, start_marker, end_marker in TRACE_SECTIONS:
+        start = wp.find(start_marker)
+        if start < 0:
+            errors.append(f"WHITEPAPER: section '{title}' not found")
+            continue
+        end = wp.find(end_marker, start + len(start_marker))
+        text = wp[start : end if end > 0 else len(wp)]
+        cite_re = r"((?:docs/results|docs/receipts|experiments|baselines/ct35)/[\w./-]+\.json)"
+        section_cited = list(dict.fromkeys(re.findall(cite_re, text)))
+        rows: dict[tuple[str, str, str, str], int] = {}
+        for _, unit in _sentences(text):
+            unit_cited = list(dict.fromkeys(re.findall(cite_re, unit)))
+            search = list(dict.fromkeys(unit_cited + section_cited + all_files))
+            for token, after in _numeral_tokens_with_unit(unit):
+                if token.lstrip("+-").replace(",", "") in declared or token in declared:
+                    key = (token, "declared", "-", "see table")
+                else:
+                    key = (token, "**UNTRACED**", "-", "-")
+                    keys = _affinity(after)
+                    hits = [
+                        (rel, ptr, tag or "printed")
+                        for scale, tag in _unit_scales(after, unit)
+                        for rel in search
+                        for ptr in index.lookup(rel, token, scale)
+                    ]
+                    preferred = [h for h in hits if any(k in h[1].lower() for k in keys)]
+                    hit = (preferred or hits or [None])[0]
+                    if hit:
+                        key = (token, f"`{hit[0]}`", f"`{hit[1]}`", hit[2])
+                    if key[1] == "**UNTRACED**":
+                        errors.append(
+                            f"NUMBERS_TRACE: {title}: numeral '{token}' matches no receipt value and is not declared"
+                        )
+                rows[key] = rows.get(key, 0) + 1
+        lines += [f"## {title}", "", "| Numeral | Count | Source | JSON pointer | Match |", "|---|---|---|---|---|"]
+        for (token, source, pointer, tag), count in rows.items():
+            lines.append(f"| `{token}` | {count} | {source} | {pointer} | {tag} |")
+        lines.append("")
+    lines += [
+        "## Declared numerals",
+        "",
+        "Hand-reviewed. Kinds: `literal` (this exact text must appear in the cited file), `derived` (arithmetic over receipt",
+        "pointers, re-evaluated by the audit), `protocol constant` and `historical` (reason required; not machine-checked).",
+        "",
+        "| Numeral | Kind | Source | Check |",
+        "|---|---|---|---|",
+    ]
+    for numeral, (kind, source, check) in sorted(declared.items()):
+        lines.append(f"| `{numeral}` | {kind} | {source} | {check} |")
+    return "\n".join(lines) + "\n", errors
+
+
+def check_numbers_trace(root: Path) -> list[str]:
+    path = root / NUMBERS_TRACE
+    if not path.is_file():
+        return [f"{NUMBERS_TRACE} missing; run python3 tools/claims_audit.py --write-numbers-trace"]
+    committed = path.read_text(encoding="utf-8")
+    rendered, errors = build_numbers_trace(root, committed)
+    if rendered != committed:
+        errors.append(f"{NUMBERS_TRACE} is stale; run python3 tools/claims_audit.py --write-numbers-trace")
+    return errors
+
+
+README_STATUS_BEGIN ="<!-- BEGIN GENERATED STATUS: python3 tools/claims_audit.py --write-readme-status (source docs/STATUS.json) -->"
 README_STATUS_END = "<!-- END GENERATED STATUS -->"
 
 
@@ -1134,6 +1425,7 @@ def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
         docs, _evidence_tiers(root), _descriptor_names(root)
     )
     status_errors = check_readme_status(docs["README.md"], bundle["status"])
+    trace_numbers_errors = check_numbers_trace(root)
 
     all_errors = (
         path_hash_errors
@@ -1143,6 +1435,7 @@ def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
         + trace_errors
         + wording_errors
         + status_errors
+        + trace_numbers_errors
     )
     return {
         "passed": len(all_errors) == 0,
@@ -1175,7 +1468,18 @@ def main() -> int:
         action="store_true",
         help="Regenerate the README status block from docs/STATUS.json, then audit",
     )
+    parser.add_argument(
+        "--write-numbers-trace",
+        action="store_true",
+        help=f"Regenerate {NUMBERS_TRACE} (keeps its declared-numerals table), then audit",
+    )
     args = parser.parse_args()
+    if args.write_numbers_trace:
+        root = args.root.resolve()
+        rendered, problems = build_numbers_trace(root)
+        (root / NUMBERS_TRACE).write_text(rendered, encoding="utf-8")
+        for problem in problems:
+            print(f"  - {problem}", file=sys.stderr)
     if args.write_readme_status:
         root = args.root.resolve()
         readme = (root / "README.md").read_text(encoding="utf-8")
