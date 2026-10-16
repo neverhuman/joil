@@ -1,0 +1,333 @@
+{
+  "kind": "independent_writer_review_synthetic_mutations_real_runs_readonly",
+  "reviewed_ir_commit": "921df1cd0ead7c68f9cf2d15b8142e044015e0c1",
+  "passed": false,
+  "checks": [
+    {
+      "check": "valid_absolute_finalize_and_python_parity",
+      "passed": true
+    },
+    {
+      "check": "missing_archive_refuses_prune",
+      "passed": true
+    },
+    {
+      "check": "absolute_archive_verifies_copy",
+      "passed": true
+    },
+    {
+      "check": "tampered_archive_refuses_prune",
+      "passed": true
+    },
+    {
+      "check": "verified_disjoint_archive_allows_synthetic_prune",
+      "passed": true
+    },
+    {
+      "check": "prune_receipt_matches_exact_archive_inventory",
+      "passed": false,
+      "archive_file_count": 25,
+      "prune_file_count": 26,
+      "archive_total_bytes": 1952103,
+      "prune_total_bytes": 3635982
+    },
+    {
+      "check": "relative_case_finalize_targets_callers_case",
+      "passed": false,
+      "api_exit_code": 0,
+      "callers_case_sidecar": false,
+      "repository_relative_other_case_sidecar": true
+    },
+    {
+      "check": "rust_builder_rejects_forged_canonical_genome",
+      "passed": false,
+      "rust_exit_code": 0,
+      "python_rejected": true
+    },
+    {
+      "check": "public_finalizer_rejects_forged_canonical_genome",
+      "passed": true
+    },
+    {
+      "check": "emitted_workflow_imports_api_from_case_cwd",
+      "passed": false,
+      "stderr": "Traceback (most recent call last):\n  File \"<stdin>\", line 2, in <module>\nModuleNotFoundError: No module named 'analysis'\n"
+    },
+    {
+      "check": "pre_solver_capture_does_not_implicitly_prune_mesh",
+      "passed": false,
+      "exit_code": 1,
+      "mesh_retained": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "EV12-WR-01",
+      "priority": "P2",
+      "path": "crates/joil-core/src/cfd_case.rs",
+      "function": "prune_polymesh_after_verified_archive",
+      "issue": "Prune receipt double-counts shared STL inventory entries and excludes sidecar bytes; disagrees with exact archive receipt.",
+      "fix": "Use the same deduplicated indexed-file inventory, including input manifest and sidecar, as archive_and_verify_wave4_case_inputs."
+    },
+    {
+      "id": "EV12-WR-02",
+      "priority": "P1",
+      "path": "crates/joil-core/src/cfd_case.rs",
+      "function": "run_ev_python_case_identity",
+      "issue": "Changing Python cwd to repo_root while passing an unresolved relative case path can finalize another same-bytes case and return success while the requested source has no sidecar.",
+      "fix": "Resolve and validate the requested case to an absolute path before changing subprocess cwd; add a two-copy, foreign-cwd regression."
+    },
+    {
+      "id": "EV12-WR-03",
+      "priority": "P1",
+      "path": "crates/joil-core/src/cfd_case.rs",
+      "function": "build_wave4_case_identity",
+      "issue": "if-let-Ok DesignProgram parsing skips canonical_genome verification for a non-deserializable program; public Rust builder accepts forged canonical hash rejected by EV Python.",
+      "fix": "Fail closed on unsupported DesignProgram decoding, or perform a complete order-preserving canonical check; never skip validation."
+    },
+    {
+      "id": "EV12-WR-04",
+      "priority": "P2",
+      "path": "crates/joil-core/src/cfd_case.rs",
+      "function": "build_openfoam_candidate_case emitted ev12-capture-workflow.sh",
+      "issue": "Default CASE_DIR=$(pwd) invocation inside case fails to import analysis.case_identity without externally supplied PYTHONPATH.",
+      "fix": "Provide a reliable module/repository location or explicit repo argument; test emitted script from case cwd in a clean Python environment."
+    },
+    {
+      "id": "EV12-WR-05",
+      "priority": "P1",
+      "path": "crates/joil-core/src/cfd_case.rs",
+      "function": "emitted ev12-capture-workflow.sh archive Python block",
+      "issue": "Rust escaped-newline string strips Python block indentation; archive invocation fails with IndentationError before copying anything.",
+      "fix": "Use a raw string/preserve indentation and execute the generated script in tests. Separate before-solver capture from the current unconditional rm -rf cleanup."
+    }
+  ],
+  "actual_retained_cases": [
+    {
+      "case": "wave4-b3-s20261105-g0-coarse",
+      "passed": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "case": "wave4-b3-s20261105-g0-coarse",
+          "case_hash": "a86943bf9f691d43e4a9aa803f6972c52123ff9bb9ba2a20e6ee2e52cd0a55ab",
+          "mesh_hash": "0d52474511dca5702e85edd89fee3e1460e808bc7315bad59a09f2c74ffe0be5",
+          "state": "exact_artifact_bytes_verified"
+        }
+      }
+    },
+    {
+      "case": "wave4-b3-s20261108-g0-coarse",
+      "passed": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "case": "wave4-b3-s20261108-g0-coarse",
+          "case_hash": "d89640fdb65cbc7354b9b5fe9d62551239bc9e9741c36ac9e1ad60b0688da169",
+          "mesh_hash": "509fb2f4077a255f8c13f846a3381fb7a4348a49bbae5eea4fd59a300a596520",
+          "state": "exact_artifact_bytes_verified"
+        }
+      }
+    },
+    {
+      "case": "wave4-ct35-control-g1-medium",
+      "passed": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "case": "wave4-ct35-control-g1-medium",
+          "case_hash": "0b62ab2ea24c1f9bee64fd0f463bb1cdbaf4e2465cf247063b8adcc2ca5d22eb",
+          "mesh_hash": "3ff6e5d3982ba583b6376a2315d378899e25abe7ce369312bb39d6c7934bf6f1",
+          "state": "exact_artifact_bytes_verified"
+        }
+      }
+    }
+  ],
+  "probe_sha256": "86093e06caedad236113fb52f4d3ed2eff1f5f7baab1ceacd1d2d1eac6525916",
+  "created_utc": "2026-10-16T09:49:11Z",
+  "review_state": "CHANGES_REQUESTED",
+  "integrated_in": "88020ed",
+  "full_private_report_sha256": "dd8f89a5d8a305ebf4bdbfdd7ee74ecc12a38e07dc5dee0f6713e9bd1b7427f0",
+  "reviewed_source_sha256": "0da2b0b7e3a9320372c59121f58c2300b55b285f99048625e9433bbeb2d203f4",
+  "tested_probe_source_sha256": "81eda3f3df5addac050ec17d5c6cb4052669a24fbdeedf0565ee92e3ac004055",
+  "review_script_sha256": "5dee63ed5143ca29514f733c5333b5e81b298979fc9e0ff4c9ddcf26d5b7777c",
+  "scope": "All finalize/archive/prune mutations use temporary EV-local synthetic fixtures; actual run verification is read-only. Input identity only, no numerical/physical qualification.",
+  "build_commands": [
+    {
+      "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only cargo build -p joil-core --locked -j 4",
+      "exit_code": 0,
+      "log_sha256": "66789c57ae702b8b07de5dcdb10c84c09d0d9324f9ed2cdb297f3175e818bf6c"
+    },
+    {
+      "command": "rustc --edition=2021 -L dependency=target/debug/deps --extern joil_core=<lane rlib> --extern serde_json=<lane rlib> crates/joil-evidence/receipts/ev12_writer_probe.rs -o target/ev12-writer-probe",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/ev12_writer_review.py --runs-root /home/ubuntu/joil/runs",
+      "exit_code": 1,
+      "meaning": "review completed with five concrete writer defects, not accepted as PASS"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "prepare",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/synthetic-case"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 0,
+      "stdout_sha256": "b73db6b441f906628278a6aa6dd6f74baec2b00467d06c69a9b0843b5999b9ad",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "finalize",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/synthetic-case"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 0,
+      "stdout_sha256": "34a159718c0dcc6243ed4ede3fb51ed168483338ce3db5c8a7e9d2a392476773",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "prune",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/synthetic-case",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/absent"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 1,
+      "stdout_sha256": "d5e49eac6a68cd8ce2be244035bd2b258e675bad14035907d07ecd8e7b06546a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "archive",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/synthetic-case",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/archive"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 0,
+      "stdout_sha256": "51b6a41759cca1620b46dc3062de3b2c868582ec06bbba192dbc455af0c86332",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "prune",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/synthetic-case",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/archive"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 1,
+      "stdout_sha256": "eec8e33592036db81625fde3478eb9aa9d1fc9eff87b3cb1330130a45078c4cf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "prune",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/synthetic-case",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/archive"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 0,
+      "stdout_sha256": "d5e11851575e5e1ea5b6a647e6b77533c7d1117e56a1a1a281bb8108d42ec5b7",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "finalize",
+        ".private/ev12-review-9wgmlo_c/archive"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/foreign",
+      "exit_code": 0,
+      "stdout_sha256": "34a159718c0dcc6243ed4ede3fb51ed168483338ce3db5c8a7e9d2a392476773",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "build",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/wave4-synthetic-bad-canonical"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 0,
+      "stdout_sha256": "aff7b20a9aabbe56d446573fe54db1bc66cbbf8f5c409acd765ac7fb507c696f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "finalize",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/wave4-synthetic-bad-canonical"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 1,
+      "stdout_sha256": "d39aa180d1639dc0cbde05b7d9b72b16a5a11b92aa95a35f296854ef31a2620f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bash",
+        "ev12-capture-workflow.sh"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/foreign/.private/ev12-review-9wgmlo_c/archive",
+      "exit_code": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "314dbe8c3cd8f712193157993a219249f5ad16703e2345a6338a70be8217db0a"
+    },
+    {
+      "argv": [
+        "bash",
+        "ev12-capture-workflow.sh",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/foreign/.private/ev12-review-9wgmlo_c/archive",
+        "/home/ubuntu/joil-wt/evidence/.private/ev12-review-9wgmlo_c/shell-archive"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 1,
+      "stdout_sha256": "6af1bea318ee274d8b8687ee08bbbbd95b503bb0e4e01c9615ece855ee9b57fc",
+      "stderr_sha256": "9d150ae28831151e2879ccd5c71551a97e92dd961851b52b47bf6c744d547d4e"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "verify",
+        "/home/ubuntu/joil/runs/wave4-b3-s20261105-g0-coarse"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 0,
+      "stdout_sha256": "7e3cdf20d5b3ec279fe2f47cad05abe471d2baea32a41b0d6f31f319daf78532",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "verify",
+        "/home/ubuntu/joil/runs/wave4-b3-s20261108-g0-coarse"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 0,
+      "stdout_sha256": "ce367d25a414b1a0a33ba52aa29060274182e9f70b988ba328aa0d0a752f95ff",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/home/ubuntu/joil-wt/evidence/target/ev12-writer-probe",
+        "verify",
+        "/home/ubuntu/joil/runs/wave4-ct35-control-g1-medium"
+      ],
+      "cwd": "/home/ubuntu/joil-wt/evidence",
+      "exit_code": 0,
+      "stdout_sha256": "ff5dd427b8b2e11046d4eea7a5f787c592337c1c489b9311b985668b47044318",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "next_dependency": "IR fixes EV12-WR-01..05 in IR-owned cfd_case.rs; EV reruns exact probes on the handoff. No file ownership crossover."
+}

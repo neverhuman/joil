@@ -1,0 +1,211 @@
+{
+  "items": [
+    "EV12-WRITER-REVIEW",
+    "EV12-EVERY-RUN-AUDIT",
+    "WAVE4-RAW-CAPTURE-FOLD-API"
+  ],
+  "verified_utc": "2026-10-16T09:54:10Z",
+  "tested_input_head": "c4b5eea04eb607437865af2fd5f558567f7defdf",
+  "source_hashes": {
+    "crates/joil-core/src/surrogate.rs": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905",
+    "crates/joil-evidence/receipts/ev12_every_run_audit.py": "3df9ae532840086b156d730abc91c74d0ee66fbbeae7a62bf1e62a176ca30756",
+    "crates/joil-evidence/receipts/ev12_writer_probe.rs": "81eda3f3df5addac050ec17d5c6cb4052669a24fbdeedf0565ee92e3ac004055",
+    "crates/joil-evidence/receipts/ev12_writer_review.py": "5dee63ed5143ca29514f733c5333b5e81b298979fc9e0ff4c9ddcf26d5b7777c",
+    "crates/joil-evidence/receipts/wave4_raw_proof.py": "ca8fba186efc546cf223c3c374fa08be1ce60075f5387e6af3c716ea97571686",
+    "crates/joil-evidence/receipts/wave4_raw_proof_tests.py": "7a14a62301233cb51eb8e964bd256fef703743ba68b9b9a1b9cdd7d54fd9cdbc",
+    "tests/test_evidence.py": "1c682b935e3ce510824160fe10b727ea01b353d9605351f3d3167cffcac8f191"
+  },
+  "writer_review": {
+    "state": "CHANGES_REQUESTED",
+    "findings": 5,
+    "receipt": "crates/joil-evidence/receipts/EV12-writer-review.json",
+    "sha256": "d1facb2dd78c990fe1b879140d2e8c05b99cff5c172fc884548e00b604f95b53"
+  },
+  "every_run_audit": {
+    "state": "SNAPSHOT_COMPLETE_WITH_FAILURES",
+    "receipt": "crates/joil-evidence/receipts/EV12-every-run-audit.json",
+    "sha256": "d1def0863f215d3f899fa5884b082ea3f1433bf76253ea53a6818c1bb0123a71",
+    "cases": 12,
+    "active_pass": 3,
+    "quarantined_fail": 9,
+    "new_G1_failure": "cellProc differs from finalized sidecar; retained inputs otherwise complete",
+    "filename_contract": "INT09:46:45 confirms case-identity.json + input-manifest.json",
+    "needs_refresh": "Re-run on INT final DONE; incomplete/excluded cases remain listed. This snapshot does not close overall EV12."
+  },
+  "fold_API": {
+    "commit": "1426d8d596fe6194f1125b22c7f3517402f2a212",
+    "signature": "run_surrogate_and_engine_qualification_with_fold_rows(&[Individual]) -> Result<(SurrogateQualificationReport, Vec<FamilyHoldoutRows>), String>",
+    "preserved": "Existing wrapper JSON, same fit0.85/noise0.02 and exact prediction loop, quarantine/insufficient/missing-feature rules",
+    "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only cargo test -p joil-core --locked -j 4 truth_surrogate_fold_rows -- --nocapture",
+    "exit_code": 0,
+    "log_sha256": "d8b3ea37321721db62a57c8dec5bb9bc995b0bf738a2dced149a1fcb72526aa5"
+  },
+  "consumer_compatibility": {
+    "commit": "cf728a94232e31e338ed12230c8b7188696b6b14",
+    "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/wave4_raw_proof_tests.py -v",
+    "exit_code": 0,
+    "tests": 9,
+    "log_sha256": "823ea855e531b20d93bc70ba731d33407fa1346f208a4681b2e6b6a91803f109",
+    "behavior": "CT35 additional arm computed separately and omitted from legacy bands/final-stat diff; holdout families joined by topology_class; explicit insufficient folds retain null errors and coverage gaps."
+  },
+  "full_gate": {
+    "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only} JOIL_WAVE4_INPUTS_ROOT=/home/ubuntu/joil/.private/wave4-inputs-all; python3 tools/check.py",
+    "exit_code": 0,
+    "receipt_sha256": "cd505c9411d400c62858e6dbcf2675651eeaac992418c58b5a054901160beefe",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.042292969999834895,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.302793025970459,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 5.709285131015349,
+        "log_bytes": 228,
+        "log_sha256": "3390301d117e2edda5e3e2d8bafc36503d44ffd4c224b198bebb72a6b90713b8"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 80.0685509989853,
+        "log_bytes": 12246,
+        "log_sha256": "67be30c9c53c76bb50b09cef7b2cf5756c5a1cf340d3db12ad8700526cd424c6"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.6021867010276765,
+        "log_bytes": 1096,
+        "log_sha256": "75db4ea3cab074a7b9590463dbd13f0d068bd01eff99c6ab3af06471de76ca04"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 56.971445907023735,
+        "log_bytes": 11197,
+        "log_sha256": "07a8bdffcae83b032eee7d1bda18630aa4d19807b111607dd300e098137922ed"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.08089977799681947,
+        "log_bytes": 75,
+        "log_sha256": "a98d0d9f1b18db70b6f25b0c453d82041dbbfb621d136ddfbfb4359cc5bfb626"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 17.3606961669866,
+        "log_bytes": 224,
+        "log_sha256": "48dad3e80e3bb13a7b9435ba2cab89d417406f5412f3fd2c02cf01ee8a20928e"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 0.9694819980068132,
+        "log_bytes": 28,
+        "log_sha256": "ae6ba15e5c433ae50fe4b5151e542de99e5e92efe383d13e541cf235613ee240"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 1.5149257860030048,
+        "log_bytes": 1904,
+        "log_sha256": "7f52443fc294e10be7c06fe2a4b35c655ba36ee088939cb5beee957ab32387ff"
+      }
+    ]
+  },
+  "limitations": [
+    "Writer review findings are not cleared by the foundation gate; IR owns fixes.",
+    "Foundation tests use preserved11-case input snapshot (3 complete input copies,8 missing-mesh negatives); EV-local every-original-sidecar test has no local runs and skips. Separate real every-run receipt lists all12 cases and FAIL rows.",
+    "No OpenFOAM or search simulation was launched by EV; all review mutations stay in EV-private synthetic fixtures; actual runs are read-only.",
+    "Final verification receipt and lane board metadata were written after the gate; all executable/test source hashes match.",
+    "TR tiny capture GIVE is a new software fixture, not recovered original data; full raw-capture handoff remains pending."
+  ],
+  "next_dependency": "IR repair handoff, INT final case/DONE plus exact G1 input recovery, TR pinned raw capture GIVE for independent consumption."
+}
