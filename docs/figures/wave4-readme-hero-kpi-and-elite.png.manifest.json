@@ -1,9 +1,10 @@
 {
   "schema_version": 1,
   "figure_path": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
-  "figure_sha256": "f08b10b8d56abe1924fd3e3c94432335e6cb1273a3ae03befbe7abcbb211b5bd",
-  "title": "Wave-4 README Hero Plot: Per-Generation Screen KPI Trajectory on Repaired Operators (n=10 Seeds, MC n=72) & 15-Run OpenFOAM 14 v2 Unclamped GCI Verification",
+  "figure_sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+  "title": "Wave-4 Prior-Screen KPI Trajectory on Repaired Operators (n=10 Seeds, MC n=72); Archived W1/W2 Carrier Diagnostics with v2 Half-Spans (Separate Subjects)",
   "generator_script": "tools/generate_wave3_proof_figures.py",
+  "generator_sha256": "157be0df64fb96cf6c36e55bf1a445d99af35c60dd429667866d9c4757e61065",
   "source_receipts": [
     {
       "path": "docs/results/wave4-evolution-proof-v1.json",
@@ -16,6 +17,10 @@
     {
       "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
       "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+    },
+    {
+      "path": "requirements/RS-joil-research-v1.json",
+      "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
     }
   ]
 }
