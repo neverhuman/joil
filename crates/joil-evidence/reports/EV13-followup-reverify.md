@@ -85,7 +85,11 @@ Evidence files under `crates/joil-evidence/receipts/`:
 Full required `python3 tools/check.py`: **10/10 PASS**, exit 0. Gate receipt
 `.private/checks/20261016T134931Z-9f9185d5/receipt.json`, SHA-256
 `cab4394d491afdd826194ef996772e3b207c8826a3c5811a85043c06dec63d86`. Publication scan: 371 candidates PASS;
-`git diff --check` passes. All gate source hashes match the tested files.
+`git diff --check` passes. All executable sources and numeric artifacts retain their tested hashes. Two
+evidence metadata files (this report and the reverify receipt) were finalized
+after that run; its source inventory records their pre-annotation bytes. A
+second gate verifies the finalized commit; its receipt hash is handed off on the
+live board without rewriting the audited inputs.
 
 TR merges the pushed EV SHA; DOC owns final-review prose. No PR or main merge,
 new PR, rebase or force-push was performed.

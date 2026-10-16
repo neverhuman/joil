@@ -958,7 +958,6 @@
       }
     ],
     "jobs": 4,
-    "source_inventory_matches": true,
     "log_sha256": "b4747d451b083ed35eda14dbf42b711c0ccfc914e72385d4a53ba7d2f8991189",
     "environment": {
       "PATH_prefix": "$PWD/.private/ci-python/bin",
@@ -969,6 +968,16 @@
       "JOIL_WAVE4_RUNS_ROOT": "/home/ubuntu/joil/runs",
       "JOIL_WAVE4_INPUTS_ROOT": "/home/ubuntu/joil/.private/wave4-inputs-all",
       "JOIL_WAVE4_DIAGNOSTIC_ROOT": "/home/ubuntu/joil/.private/s20261108-g1-pinchoff-diagnostic"
+    },
+    "source_inventory_match_scope": {
+      "tested_executable_sources_and_numeric_artifacts_unchanged": true,
+      "source_inventory_entries": 346,
+      "unchanged_entries": 344,
+      "post_gate_finalization_files": [
+        "crates/joil-evidence/receipts/EV13-followup-reverify.json",
+        "crates/joil-evidence/reports/EV13-followup-reverify.md"
+      ],
+      "reason": "Only these two evidence metadata files were finalized with the completed gate result; the recorded gate hash predates its own receipt/report annotation. Finalized-commit gate is separately reported on the live board without rewriting its own inputs."
     }
   },
   "owner_COMMS_preservation": {
