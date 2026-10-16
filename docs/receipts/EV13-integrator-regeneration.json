@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "kind": "committed_source_figure_regeneration_not_scientific_validation",
+  "recorded_utc": "2026-10-16T12:49:47Z",
+  "owner": "TR acting integrator per OWNER12:40",
+  "generator_and_figures_commit": "54888b5617add8fe27b40d7b87c059abb546f2f0",
+  "paper_input_commit": "6450b7089cefaba465f137067ded39850eaec246",
+  "input_files_sha256": {
+    "docs/results/wave3-evolution-proof-v1.json": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168",
+    "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+    "docs/results/elite-3grid-gci-and-rsm-verification-v2.json": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+    "requirements/RS-joil-research-v1.json": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+    "docs/results/wave4-evolution-proof-v1.json": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+    "docs/results/wave2-multiseed-ablation-and-holdout-v1.json": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+  },
+  "input_policy": "Scientific series and the authored threshold are read from committed result JSON or research requirements. Schematic/layout coordinates are illustrative. No solver or private raw-case read; results not rewritten. Historical prior-label diagnostics retain their declared limitations.",
+  "environment": {
+    "python": "3.12.3",
+    "matplotlib": "3.10.8",
+    "numpy": "1.26.4",
+    "pillow": "10.2.0"
+  },
+  "environment_setup": "python3 -m venv .private/ev13-python; .private/ev13-python/bin/python -m pip install --cache-dir .private/pip-cache matplotlib==3.10.8 numpy==1.26.4 pillow==10.2.0",
+  "environment_path_prepend": ".private/ev13-python/bin",
+  "figures": [
+    {
+      "path": "docs/figures/wave3-readme-hero-kpi-and-elite.png",
+      "before_sha256": "b2c8df1d3cd429c78d560b37a22ffb1ba1cf0d511662d3e295ce8265882c6b64",
+      "sha256": "faec6e06f1699017b446bf643074366299c37f72983bb543766b06035877142e",
+      "manifest": "docs/figures/wave3-readme-hero-kpi-and-elite.png.manifest.json",
+      "manifest_sha256": "b39fd5527a029b2a91db5de97300c761bc4cf9359dfcd26d0a31f7dabfcad102",
+      "sources": [
+        {
+          "path": "docs/results/wave3-evolution-proof-v1.json",
+          "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168"
+        },
+        {
+          "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+          "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9"
+        },
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/wave3-evolution-ablation-and-lineage-proof.png",
+      "before_sha256": "a7c78148ff9c4e895a3fb058a204ee30f852a1b14e5f4a5b13364bcbac443eca",
+      "sha256": "0c73ff6a6c6bd7197cc603b90e6f05534821876180a40c0e2dfd150d2131e29e",
+      "manifest": "docs/figures/wave3-evolution-ablation-and-lineage-proof.png.manifest.json",
+      "manifest_sha256": "e53b44baf29582eeccf30381a3765aa3ea6a1e77cb7c3806248488809f0249c4",
+      "sources": [
+        {
+          "path": "docs/results/wave3-evolution-proof-v1.json",
+          "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+      "before_sha256": "f08b10b8d56abe1924fd3e3c94432335e6cb1273a3ae03befbe7abcbb211b5bd",
+      "sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "manifest": "docs/figures/wave4-readme-hero-kpi-and-elite.png.manifest.json",
+      "manifest_sha256": "3c24df8a1dc51f2c063f2d53047719d9b8f11a520091f87c7f70118ecc5b678e",
+      "sources": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885"
+        },
+        {
+          "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+          "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9"
+        },
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
+      "before_sha256": "847dc84b16c5a81de9666a423484a8d539954859b71f0dab937ca56f28bd5365",
+      "sha256": "0e1f356ade238e98afbb4f7da045d0270b543e5b8ea4cc9029a57acc844e0da6",
+      "manifest": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png.manifest.json",
+      "manifest_sha256": "96798a85ec1c36242231355028afc0e952d23f5acffe415573792883e8557ee8",
+      "sources": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/wave2-multiseed-ablation-and-ci.png",
+      "before_sha256": "ef83db92f9658d5aac0c2a3ecaa86774914b33f2d47e8f97184cc83fdde137c8",
+      "sha256": "d2c660bb5693975f5ab2df09176c817f03e12b934afe3a226beaef18ec373389",
+      "manifest": "docs/figures/wave2-multiseed-ablation-and-ci.png.manifest.json",
+      "manifest_sha256": "5863cf8b33ee7707b46cb7a711877c3e3ca4a24ad25e07251043ac902b6095d3",
+      "sources": [
+        {
+          "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+          "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
+        }
+      ]
+    },
+    {
+      "path": "docs/figures/elite-gci-and-rsm-verification.png",
+      "before_sha256": "aa1b8dc170e988ac111a15dca41856bc98c40b18ee8eb0936e376bfc3f76749e",
+      "sha256": "e58deb6ae1a8e99b1998f9d63a216794e30c3d0faac5a88f32ee2a89663b28c2",
+      "manifest": "docs/figures/elite-gci-and-rsm-verification.png.manifest.json",
+      "manifest_sha256": "69d9c543058cf9146226606310431bfc6051ad0578673fa29b3ea522290b72b3",
+      "sources": [
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+        }
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8-11",
+        "python3",
+        "tools/generate_wave3_proof_figures.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.947281,
+      "log_sha256": "c81884dac92bbc67428801d9c32415a4540435e4448bfac672956e2cf98a96c9"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8-11",
+        "python3",
+        "-c",
+        "import json; from tools.generate_wave2_figures_and_animations import WAVE2_JSON, generate_ablation_plate; print(generate_ablation_plate(json.loads(WAVE2_JSON.read_text())))"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.066596,
+      "log_sha256": "378996176dbd793917b6427d93b52898d8231d7b8a54687a432cba910b925aaf"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8-11",
+        "python3",
+        "tools/generate_gci_rsm_report_and_figures.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.402904,
+      "log_sha256": "7d8c48aa05de793b07ec61e1d18437902f6666fc838bee5cf6ba34ea8c74c9b4"
+    },
+    {
+      "command": [
+        "taskset",
+        "-c",
+        "8-11",
+        "python3",
+        "-m",
+        "unittest",
+        "tests.test_ev13_generator_fixes",
+        "-v"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.060565,
+      "log_sha256": "cd75334b35ff19ee1747eef12a057b0e0c0bcf6de36fc0c23df3359749e04cae"
+    }
+  ],
+  "findings": {
+    "F01": {
+      "state": "CORRECTED",
+      "change": "A1/A2/B3 shared Gen0; B2 conventionalized control; B1 random search."
+    },
+    "F02": {
+      "state": "CORRECTED",
+      "change": "Five search arms plus frozen CT35; incumbent milestones; authored-label diversity; authored-family diagnostics."
+    },
+    "F05": {
+      "state": "CORRECTED",
+      "change": "Remove blanket G2/G1 cell counts without changing pressure series."
+    },
+    "F06": {
+      "state": "CORRECTED",
+      "change": "Derive Wave3/4 best ordering, Holm p and median delta from matching receipt. Historical Wave3 screen values retained, archived CFD redrawn from corrected v2 dossiers; legacy error-bar scalar removed."
+    },
+    "F07": {
+      "state": "CORRECTED",
+      "change": "Executed screen duties marked protocol deviation; legacy HV labelled; unsupported2% gate removed."
+    },
+    "F08": {
+      "state": "CORRECTED",
+      "change": "30mg/L read from requirements as authored research-screen threshold, never a discharge permit."
+    },
+    "F09": {
+      "state": "CORRECTED",
+      "change": "Remove untraced closure-gate annotation; closure series unchanged. Plate3 reads corrected committed v2 dossier directly."
+    }
+  },
+  "residuals": {
+    "F03": "UNMET: current historical figures retain frozen CT35 reference. Equal-budget three-arm figure must use all arms from the separately identified NEW raw campaign; do not mix campaigns.",
+    "F04": "PENDING EV-owned committed field/profile arrays; Plate10 unchanged in this receipt.",
+    "TR16": "BLOCKED-SCOPED/MOVED-section6; no new physical limit or admission.",
+    "science": "Independent oil labels/OOD, historical artifact chains and physical/structural validation remain incomplete."
+  },
+  "historical_receipts_preserved": [
+    "COMMS.md historical entries",
+    "crates/joil-core/tests/truth_numtrace_audit.json pins82bc814 until subsequent audit",
+    "crates/joil-evidence/receipts/EV13-proof-figure-trace.json pins1c9c3b4",
+    "crates/joil-evidence/receipts/EV13-figure-value-trace.json pins1c9c3b4",
+    "docs/reviews/2026-10-16-TR-deliverable-numbers-audit.json pins8eb439e"
+  ],
+  "prepush_gate": "tools/check.py10/10 and tools/check_public.py required on final committed head; exact gate SHA reported on live board after execution."
+}
