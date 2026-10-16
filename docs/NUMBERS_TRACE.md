@@ -466,6 +466,9 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `0.0197` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/grids/1/reject_fraction` | printed |
 | `4,720.58` | 1 | `docs/results/wave4-gci-v1.json` | `/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/gci21_conservative_fs300_p1_pct` | printed |
 | `2.49` | 1 | declared | - | see table |
+| `12` | 1 | `crates/joil-evidence/receipts/EV12-Wave4-closure.json` | `/inventory/total_cases_accounted` | printed |
+| `3` | 1 | `crates/joil-evidence/receipts/EV12-Wave4-closure.json` | `/inventory/verified_scoped_artifact_chains` | printed |
+| `8` | 1 | `crates/joil-evidence/receipts/EV12-Wave4-closure.json` | `/inventory/exclusion_counts/executed_mesh_missing` | printed |
 
 ## Appendix A
 

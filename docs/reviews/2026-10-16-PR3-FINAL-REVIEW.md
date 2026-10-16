@@ -121,3 +121,35 @@ evidence tier, and the residual risks above are disclosed in them.
 This sign-off does not merge the PR; merging is Jepson's decision. It covers `e68d617` only. Any later commit must
 keep `tools/check.py` and CI green, and a new receipt (O-11) must be documented by DOC before its numbers are
 quoted.
+
+## 7. Updates after sign-off (through integration `689eabc`)
+
+The sign-off above covers `e68d617`. DOC documented these later changes; each was gated (`tools/check.py` `10/10`)
+before push.
+
+- **Residual risk 7 (Wave-4 case identity) is now resolved in scope and sharpened.** EV-12 closed (`eeee9f9`, merged
+  `689eabc`; `crates/joil-evidence/receipts/EV12-Wave4-closure.json`). All `12` Wave-4 case directories are accounted.
+  Only `3` keep an exact artifact chain: the control's `G1`, plus two `G0` cases that never solved. The meshes behind the
+  control's `G0`/`G2` and all three grids of the solved design `s20261106-g023-i001` were not kept. The `G2` comparison
+  behind correction C2 is therefore an incomplete historical diagnostic, and WHITEPAPER §4.6 now says so. No case is
+  claim-bearing.
+- **Independent number audit (TR NUM-TRACE, lane `truth` `6233ccd`).** TR checked `1,755` numeral occurrences at
+  `82bc814` and grouped the exceptions into `14` findings. DOC re-checked each against receipts and code, then applied
+  all of them. Examples:
+  - executed held-out duties used other feed medians than the preregistration;
+  - Monte Carlo ensembles are uniform, not LHS;
+  - no 30-sample negative-control count exists;
+  - the preregistration sets no false-omission threshold;
+  - the `F4` table is a proposal, not a lock.
+  The audit also removed a probe classification that is in no receipt. It also showed that several percentages had
+  matched unrelated receipt fields by coincidence; those are now declared as derived.
+- **README.** The README is now a short page: what/why, Figure 0, status, install, quick start and links. The tables
+  and evidence tiers moved unchanged to `docs/RESULTS.md`, which the claims audit and numbers trace also cover. IR ran
+  every README command from a fresh clone, and all exited `0` (receipt on lane `ir`, `be1365a`). DOC applied IR's fixes:
+  - `rtk proxy` for the two `--nocapture` tests;
+  - a plain timing note;
+  - a warning that `--verify-existing` prints the withdrawn historical "certified" line.
+- **Figures.** Plate 10 now reads $R$ from its receipts (INT `e62a8e9`). Plate 9 still prints a `0/30` negative-control
+  label that no receipt supports; its caption flags this (NEED to INT).
+- **Ledger.** TR-16 and EV-09 are moved to §6 (INT `MOVED-§6`). INT-01, DOC-09 and EV-12 are merged. The workplan
+  stands at `56/59`; INT-02, INT-08 and DOC-10 are open.

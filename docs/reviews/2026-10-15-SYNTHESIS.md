@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T11:39Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T11:46Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -81,7 +81,7 @@ reason.
 | EV-09 | EV | MOVED-§6 | board `MOVED-§6 EV-09`: independent Cout labels and reviewed observed-mechanism dataset joil-independent-oil-observations-v1 |
 | EV-10 | EV | MERGED | `ceaa03d` (board `MERGED EV-10`) |
 | EV-11 | EV | MERGED | `d3a5449` (board `MERGED EV-11`) |
-| EV-12 | EV | MERGED | `eeee9f9` (board `MERGED EV-12`) |
+| EV-12 | EV | MERGED | `689eabc` (board `MERGED EV-12`) |
 | IR-01 | IR | MERGED | `2f15710` (board `MERGED IR-01`) |
 | IR-02 | IR | MERGED | `2f15710` (board `MERGED IR-02`) |
 | IR-03 | IR | MERGED | `2f15710` (board `MERGED IR-03`) |
@@ -110,8 +110,8 @@ reason.
 | DOC-06 | DOC | MERGED | `940d0b4` (board `MERGED DOC-06`) |
 | DOC-07 | DOC | MERGED | `cf9df59` (board `MERGED DOC-07`) |
 | DOC-08 | DOC | MERGED | `6aa68b4` (board `MERGED DOC-08`) |
-| DOC-09 | DOC | MERGED | `5f95ad2` (board `MERGED DOC-09`) |
-| DOC-10 | DOC | WIP | merged at `5947b75` without board `DONE DOC-10` |
+| DOC-09 | DOC | MERGED | `d5fa0c9` (board `MERGED DOC-09`) |
+| DOC-10 | DOC | WIP | merged at `d5fa0c9` without board `DONE DOC-10` |
 
 ## 3. Consensus themes
 
