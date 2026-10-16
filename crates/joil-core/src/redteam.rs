@@ -91,7 +91,7 @@ pub fn check(
         rejects.push(RedTeamReject::TrappedPowderOrFluidCavity);
     }
 
-    match crate::structure::qualify_structure(prog, pheno, 29468.22, 0.001111111) {
+    match crate::structure::analytic_structural_screen(prog, pheno, 29468.22, 0.001111111) {
         Ok(sq) => {
             if !sq.passed {
                 for r in sq.failure_reasons {
