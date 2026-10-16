@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T08:51Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T10:38Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -68,7 +68,7 @@ reason.
 | TR-13 | TR | MERGED | `1ed5865` (board `MERGED TR-13`) |
 | TR-14 | TR | MERGED | `92be04f` (board `MERGED TR-14`) |
 | TR-15 | TR | MERGED | `1ed5865` (board `MERGED TR-15`) |
-| TR-16 | TR | BLOCKED | merged at `ceaa03d` without board `DONE TR-16`; 2026-10-16T07:45:55Z - BLOCKED-SCOPED section6: no admitted pressure/energy/absolute-pressure/duty/validation so |
+| TR-16 | TR | BLOCKED | merged at `ceaa03d` without board `DONE TR-16`; 2026-10-16T08:51:59Z e49c3c268cdef65a6020cfea2817e901c716aab9 BLOCKED-SCOPED physical remainder still requires s |
 | TR-17 | TR | MERGED | `1ed5865` (board `MERGED TR-17`) |
 | EV-01 | EV | MERGED | `1433a71` (board `MERGED EV-01`) |
 | EV-02 | EV | MERGED | `1433a71` (board `MERGED EV-02`) |
@@ -78,10 +78,10 @@ reason.
 | EV-06 | EV | MERGED | `84d0c2e` (board `MERGED EV-06`) |
 | EV-07 | EV | MERGED | `cae5bac` (board `MERGED EV-07`) |
 | EV-08 | EV | MERGED | `e83c833` (board `MERGED EV-08`) |
-| EV-09 | EV | BLOCKED | merged at `e83c833` without board `DONE EV-09`; 2026-10-16T08:48:40Z aea27ae45d09994feb4e4288015e384e5b6a155e deferral is fully delivered; science remainder nee |
+| EV-09 | EV | BLOCKED | merged at `e83c833` without board `DONE EV-09`; 2026-10-16T08:52:00Z c2db553877b1026b6463cb545c4312e4e2d868a7 section6 deferral delivered aea27ae and ACKed inse |
 | EV-10 | EV | MERGED | `ceaa03d` (board `MERGED EV-10`) |
 | EV-11 | EV | MERGED | `d3a5449` (board `MERGED EV-11`) |
-| EV-12 | EV | BLOCKED | merged at `2f15710` without board `DONE EV-12`; 2026-10-16T08:48:40Z cfdbf7d79aced9cc533ece8907d7aafc348fdcef waiting INT/IR retained captures or separately ide |
+| EV-12 | EV | BLOCKED | merged at `2f15710` without board `DONE EV-12`; 2026-10-16T08:52:00Z c2db553877b1026b6463cb545c4312e4e2d868a7 accepted owner08:39 missing-capture blocker persis |
 | IR-01 | IR | MERGED | `2f15710` (board `MERGED IR-01`) |
 | IR-02 | IR | MERGED | `2f15710` (board `MERGED IR-02`) |
 | IR-03 | IR | MERGED | `2f15710` (board `MERGED IR-03`) |
@@ -110,8 +110,8 @@ reason.
 | DOC-06 | DOC | MERGED | `940d0b4` (board `MERGED DOC-06`) |
 | DOC-07 | DOC | MERGED | `cf9df59` (board `MERGED DOC-07`) |
 | DOC-08 | DOC | MERGED | `6aa68b4` (board `MERGED DOC-08`) |
-| DOC-09 | DOC | WIP | merged at `0ef2b88` without board `DONE DOC-09` |
-| DOC-10 | DOC | WIP | merged at `cab01e8` without board `DONE DOC-10` |
+| DOC-09 | DOC | DONE | `57a9f21` (board `DONE DOC-09`; not yet in integration) |
+| DOC-10 | DOC | WIP | merged at `78a181c` without board `DONE DOC-10` |
 
 ## 3. Consensus themes
 

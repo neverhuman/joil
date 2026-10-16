@@ -845,6 +845,8 @@ TRACE_SECTIONS = (
     ("README.md", "README", "# joil", ""),
 )
 TRACE_SOURCES = ("docs/results", "docs/receipts", "experiments", "baselines/ct35")
+# Lane receipts: searched only when a sentence cites them, never in the uncited fallback.
+TRACE_CITE_ONLY = ("crates/joil-evidence/receipts", "crates/joil-core/tests")
 _TRACE_IDENT_RE = re.compile(
     r"\b(?:P0-\d{2}|CAD-\d{2}|[GFBDRPAEUNCS]\d{1,2}|H\d{1,2}|DN\d+|CT-\d+|E20|d50|d32|p95|p05|P90|P95|P99|LCB95|ci95|sm_\d+|"
     r"RTX\s*\d+|Inconel\s*\d+|Ti-6Al-4V|xbabe\d|isl\d+|gen\d+|ind\d+|s\d{8}-g\d+-i\d+|v\d+|"
@@ -876,7 +878,7 @@ def _trace_values(root: Path) -> list[tuple[str, str, float]]:
             for i, v in enumerate(obj):
                 walk(v, rel, f"{ptr}/{i}")
 
-    for base in TRACE_SOURCES:
+    for base in TRACE_SOURCES + TRACE_CITE_ONLY:
         for path in sorted((root / base).rglob("*.json")):
             walk(json.loads(path.read_text(encoding="utf-8")), path.relative_to(root).as_posix(), "")
     walk(json.loads((root / "docs/STATUS.json").read_text(encoding="utf-8")), "docs/STATUS.json", "")
@@ -1101,7 +1103,7 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
     declared = _declared_numbers(existing)
     values = _trace_values(root)
     index = _ValueIndex(values)
-    all_files = list(dict.fromkeys(rel for rel, _, _ in values))
+    all_files = list(dict.fromkeys(rel for rel, _, _ in values if not rel.startswith(TRACE_CITE_ONLY)))
     errors: list[str] = []
     for numeral, (kind, source, check) in sorted(declared.items()):
         problem = _check_declared(numeral, kind, source, check, root, values)
@@ -1129,7 +1131,7 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
             continue
         end = doc.find(end_marker, start + len(start_marker)) if end_marker else -1
         text = doc[start : end if end > 0 else len(doc)]
-        cite_re = r"((?:docs/results|docs/receipts|experiments|baselines/ct35)/[\w./-]+\.json)"
+        cite_re = r"((?:docs/results|docs/receipts|experiments|baselines/ct35|crates/joil-evidence/receipts|crates/joil-core/tests)/[\w./-]+\.json)"
         section_cited = list(dict.fromkeys(  # caption citations stay with their caption
             c for _, unit in _sentences(text)
             if not (unit.startswith("![") or (unit.startswith("*") and not unit.startswith("**")))
@@ -1423,7 +1425,7 @@ def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str],
     return errors, rows
 
 
-def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]:
+def ledger_from_board(board: str, items: set[str], merged_check=None) -> dict[str, tuple[str, str]]:
     """Item status from coordination-board lines: MERGED > DONE > BLOCKED > WIP (START/WIP).
 
     MERGED counts only after a DONE for the same item: merging a lane mid-item is not completion.
@@ -1458,7 +1460,11 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
         if "MOVED" in entry:  # integrator moved the (remaining) scope to workplan §6
             ledger[item] = ("MOVED-§6", f"board `MOVED-§6 {item}`: {entry['MOVED'].replace('|', '/')}")
         elif "MERGED" in entry and "DONE" in entry:
-            ledger[item] = ("MERGED", f"`{entry['MERGED'][:7]}` (board `MERGED {item}`)")
+            if merged_check is not None and not merged_check(entry["DONE"]):
+                # an earlier MERGED line merged a draft; the DONE commit itself is not in integration yet
+                ledger[item] = ("DONE", f"`{entry['DONE'][:7]}` (board `DONE {item}`; not yet in integration)")
+            else:
+                ledger[item] = ("MERGED", f"`{entry['MERGED'][:7]}` (board `MERGED {item}`)")
         elif "MERGED" in entry:  # a lane merged mid-item: not completion
             note = f"merged at `{entry['MERGED'][:7]}` without board `DONE {item}`"
             if "BLOCKED" in entry:
@@ -1474,11 +1480,11 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
     return ledger
 
 
-def sync_ledger(synthesis: str, board: str) -> str:
+def sync_ledger(synthesis: str, board: str, merged_check=None) -> str:
     """Rewrite §2 ledger rows whose board-derived status differs (never downgrades, except merges without DONE)."""
     rank = {"OPEN": 0, "WIP": 1, "BLOCKED": 1, "DONE": 2, "MERGED": 3, "MOVED-§6": 4}
     items = set(re.findall(r"^\| ([A-Z]{2,3}-\d{2}) \|", _section(synthesis, "## 2."), re.M))
-    derived = ledger_from_board(board, items)
+    derived = ledger_from_board(board, items, merged_check)
     out = []
     in_ledger = False
     for line in synthesis.splitlines(keepends=True):
@@ -1489,7 +1495,7 @@ def sync_ledger(synthesis: str, board: str) -> str:
             status, evidence = derived[cells[0]]
             # Never downgrade, except when the board shows a merge without the owner's DONE: that merge was
             # never completion, so the owner's WIP/BLOCKED state wins over an earlier MERGED row.
-            merged_without_done = "without board `DONE" in evidence
+            merged_without_done = "without board `DONE" in evidence or "not yet in integration" in evidence
             if (rank[status] >= rank.get(cells[2], 0) or merged_without_done) and (status, evidence) != (cells[2], cells[3]):
                 line = f"| {cells[0]} | {cells[1]} | {status} | {evidence} |\n"
         out.append(line)
@@ -1639,7 +1645,14 @@ def main() -> int:
     if args.sync_ledger_from:
         path = args.root.resolve() / REVIEW_SYNTHESIS
         board = args.sync_ledger_from.read_text(encoding="utf-8")
-        path.write_text(sync_ledger(path.read_text(encoding="utf-8"), board), encoding="utf-8")
+        import subprocess
+
+        def in_integration(sha: str) -> bool:
+            ref = "origin/feat/joil-v4-truth-evidence"
+            run = subprocess.run(["git", "merge-base", "--is-ancestor", sha, ref], cwd=args.root, capture_output=True)
+            return run.returncode == 0
+
+        path.write_text(sync_ledger(path.read_text(encoding="utf-8"), board, in_integration), encoding="utf-8")
         args.refresh_review_status = True
     if args.refresh_review_status:
         from datetime import datetime, timezone
