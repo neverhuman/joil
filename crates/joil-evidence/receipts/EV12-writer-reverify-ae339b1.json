@@ -1,0 +1,478 @@
+{
+  "item": "EV12-WR-01..05-INDEPENDENT-REVERIFY",
+  "recorded_utc": "2026-10-16T10:40:14Z",
+  "reviewed_ir_commit": "ae339b1609fce93c133e3106ff69c72d2520dc25",
+  "reviewed_source_path": "crates/joil-core/src/cfd_case.rs",
+  "reviewed_source_sha256": "f0e7dfe812334c49c0c7b37bca1b266ff3272ab66e7f1cfdd1f5a635d9ead1dd",
+  "state": "PASS_ALL_FIVE_FINDINGS_RESOLVED",
+  "checks": [
+    {
+      "check": "valid_absolute_finalize_and_python_parity",
+      "passed": true
+    },
+    {
+      "check": "missing_archive_refuses_prune",
+      "passed": true
+    },
+    {
+      "check": "absolute_archive_verifies_copy",
+      "passed": true
+    },
+    {
+      "check": "tampered_archive_refuses_prune",
+      "passed": true
+    },
+    {
+      "check": "verified_disjoint_archive_allows_synthetic_prune",
+      "passed": true
+    },
+    {
+      "check": "prune_receipt_matches_exact_archive_inventory",
+      "passed": true,
+      "archive_file_count": 25,
+      "prune_file_count": 25,
+      "archive_total_bytes": 1952103,
+      "prune_total_bytes": 1952103
+    },
+    {
+      "check": "relative_case_finalize_targets_callers_case",
+      "passed": true,
+      "api_exit_code": 0,
+      "callers_case_sidecar": true,
+      "repository_relative_other_case_sidecar": false
+    },
+    {
+      "check": "rust_builder_rejects_forged_canonical_genome",
+      "passed": true,
+      "rust_exit_code": 1,
+      "python_rejected": true
+    },
+    {
+      "check": "public_finalizer_rejects_forged_canonical_genome",
+      "passed": true
+    },
+    {
+      "check": "emitted_workflow_imports_api_from_case_cwd",
+      "passed": true,
+      "stderr": ""
+    },
+    {
+      "check": "pre_solver_capture_does_not_implicitly_prune_mesh",
+      "passed": true,
+      "exit_code": 0,
+      "mesh_retained": true
+    }
+  ],
+  "findings": [],
+  "actual_retained_cases": [
+    {
+      "case": "wave4-b3-s20261105-g0-coarse",
+      "passed": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "case": "wave4-b3-s20261105-g0-coarse",
+          "case_hash": "a86943bf9f691d43e4a9aa803f6972c52123ff9bb9ba2a20e6ee2e52cd0a55ab",
+          "mesh_hash": "0d52474511dca5702e85edd89fee3e1460e808bc7315bad59a09f2c74ffe0be5",
+          "state": "exact_artifact_bytes_verified"
+        }
+      }
+    },
+    {
+      "case": "wave4-b3-s20261108-g0-coarse",
+      "passed": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "case": "wave4-b3-s20261108-g0-coarse",
+          "case_hash": "d89640fdb65cbc7354b9b5fe9d62551239bc9e9741c36ac9e1ad60b0688da169",
+          "mesh_hash": "509fb2f4077a255f8c13f846a3381fb7a4348a49bbae5eea4fd59a300a596520",
+          "state": "exact_artifact_bytes_verified"
+        }
+      }
+    },
+    {
+      "case": "wave4-ct35-control-g1-medium",
+      "passed": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "case": "wave4-ct35-control-g1-medium",
+          "case_hash": "0b62ab2ea24c1f9bee64fd0f463bb1cdbaf4e2465cf247063b8adcc2ca5d22eb",
+          "mesh_hash": "3ff6e5d3982ba583b6376a2315d378899e25abe7ce369312bb39d6c7934bf6f1",
+          "state": "exact_artifact_bytes_verified"
+        }
+      }
+    }
+  ],
+  "review_report_sha256": "a8e72c73c84b66b4e983143d7706eaf42447843d6810b83fb752d8f09a4398b2",
+  "probe_sha256": "af896f6ed343f945444966d9e3770de831e3df1ef93b02cdb2df0249613aa326",
+  "review_driver_sha256": "ab572b1423c908ffbb46ca8dee6945b3d7daf83a5dbd5da457de5ecbf79d14d0",
+  "probe_source_sha256": "81eda3f3df5addac050ec17d5c6cb4052669a24fbdeedf0565ee92e3ac004055",
+  "build_method": "Exact git blob compiled as review-only library in EV target; unchanged core/IR/evidence modules re-exported from existing lane build. No tracked IR source edit, branch checkout or branch merge.",
+  "source_comparison_command": [
+    "git",
+    "diff",
+    "--name-only",
+    "HEAD",
+    "ae339b1609fce93c133e3106ff69c72d2520dc25",
+    "--",
+    "Cargo.toml",
+    "Cargo.lock",
+    "crates/joil-core/src",
+    "crates/joil-ir/src",
+    "crates/joil-evidence/src"
+  ],
+  "source_comparison_output": [
+    "crates/joil-core/src/cfd_case.rs"
+  ],
+  "build": {
+    "environment": {
+      "CARGO_MANIFEST_DIR": "/home/ubuntu/joil-wt/evidence/crates/joil-core",
+      "CARGO_PKG_VERSION": "0.1.0"
+    },
+    "commands": [
+      [
+        "rustc",
+        "--edition=2021",
+        "--crate-type=rlib",
+        "--crate-name=ev_ir_writer",
+        "-L",
+        "dependency=target/debug/deps",
+        "--extern",
+        "joil_core=target/debug/deps/libjoil_core-b84735e3a6e7ac2f.rlib",
+        "--extern",
+        "joil_evidence=target/debug/deps/libjoil_evidence-d9fae1e9386b0466.rlib",
+        "--extern",
+        "joil_ir=target/debug/deps/libjoil_ir-1875e815806d37ad.rlib",
+        "--extern",
+        "serde=target/debug/deps/libserde-bc98ab84be4b7634.rlib",
+        "--extern",
+        "serde_json=target/debug/deps/libserde_json-9be270cb5b74f17c.rlib",
+        "--extern",
+        "sha2=target/debug/deps/libsha2-4b7294e56ad13679.rlib",
+        ".private/ev12-ir-ae339b1/review_lib.rs",
+        "-o",
+        "target/libev_ir_writer.rlib"
+      ],
+      [
+        "rustc",
+        "--edition=2021",
+        "-L",
+        "dependency=target/debug/deps",
+        "-L",
+        "dependency=target",
+        "--extern",
+        "joil_core=target/libev_ir_writer.rlib",
+        "--extern",
+        "serde_json=target/debug/deps/libserde_json-9be270cb5b74f17c.rlib",
+        "crates/joil-evidence/receipts/ev12_writer_probe.rs",
+        "-o",
+        "target/ev12-ir-ae339b1-probe"
+      ]
+    ],
+    "exit_codes": [
+      0,
+      0
+    ]
+  },
+  "build_reproducer_stdin_python": "# Run from the EV repository; build outputs stay in its existing target/.\nimport json, os, subprocess, tomllib\nfrom pathlib import Path\nrevision = \"ae339b1609fce93c133e3106ff69c72d2520dc25\"\nwork = Path(\".private/ev12-ir-ae339b1\"); work.mkdir(exist_ok=True)\nsource = subprocess.check_output([\"git\", \"show\", revision+\":crates/joil-core/src/cfd_case.rs\"])\n(work/\"cfd_case.rs\").write_bytes(source)\n(work/\"review_lib.rs\").write_text(\"pub use joil_core::{geometry, phenotype, program, redteam, structure};\\n#[path = \"+json.dumps(str((work/\"cfd_case.rs\").resolve()))+\"]\\npub mod cfd_case;\\n\")\nenv = os.environ.copy()\nenv.update(CARGO_INCREMENTAL=\"0\", CARGO_PROFILE_DEV_DEBUG=\"line-tables-only\", CARGO_MANIFEST_DIR=str(Path(\"crates/joil-core\").resolve()), CARGO_PKG_VERSION=tomllib.loads(Path(\"Cargo.toml\").read_text())[\"workspace\"][\"package\"][\"version\"])\nsubprocess.run([\"cargo\", \"build\", \"-p\", \"joil-core\", \"--locked\", \"-j\", \"4\"], env=env, check=True)\ndef rlib(name):\n    return max(Path(\"target/debug/deps\").glob(\"lib\"+name+\"-*.rlib\"), key=lambda p: p.stat().st_mtime)\ncmd = [\"rustc\", \"--edition=2021\", \"--crate-type=rlib\", \"--crate-name=ev_ir_writer\", \"-L\", \"dependency=target/debug/deps\"]\nfor name in [\"joil_core\", \"joil_evidence\", \"joil_ir\", \"serde\", \"serde_json\", \"sha2\"]:\n    cmd += [\"--extern\", name+\"=\"+str(rlib(name))]\nsubprocess.run(cmd+[str(work/\"review_lib.rs\"), \"-o\", \"target/libev_ir_writer.rlib\"], env=env, check=True)\nsubprocess.run([\"rustc\", \"--edition=2021\", \"-L\", \"dependency=target/debug/deps\", \"-L\", \"dependency=target\", \"--extern\", \"joil_core=target/libev_ir_writer.rlib\", \"--extern\", \"serde_json=\"+str(rlib(\"serde_json\")), \"crates/joil-evidence/receipts/ev12_writer_probe.rs\", \"-o\", \"target/ev12-ir-ae339b1-probe\"], env=env, check=True)\n",
+  "review_command": ".private/ci-python/bin/python crates/joil-evidence/receipts/ev12_writer_review.py --probe target/ev12-ir-ae339b1-probe --runs-root /home/ubuntu/joil/runs --reviewed-ir-commit ae339b1609fce93c133e3106ff69c72d2520dc25",
+  "review_exit_code": 0,
+  "review_driver_changes": "Caller-supplied reviewed commit replaces hardcoded original revision; every check must pass even when numbered findings are empty.",
+  "negative_controls": {
+    "original_writer": {
+      "reviewed_commit": "921df1cd0ead7c68f9cf2d15b8142e044015e0c1",
+      "passed": false,
+      "findings": [
+        "EV12-WR-01",
+        "EV12-WR-02",
+        "EV12-WR-03",
+        "EV12-WR-04",
+        "EV12-WR-05"
+      ],
+      "expected_exit_code": 1,
+      "report_sha256": "5af2da1becb6c83f3fe8a18f104a5baf80bc6870f34538ecdaf5ba1cb8f65d94"
+    },
+    "review_driver_false_positive": {
+      "negative": "incorrect Python/Rust parity with zero numbered findings",
+      "expected": "review fails closed",
+      "passed": true,
+      "failed_checks": [
+        "valid_absolute_finalize_and_python_parity"
+      ],
+      "numbered_findings": 0,
+      "other_checks_pass": true,
+      "actual_cases_pass": true
+    }
+  },
+  "command_outputs": [
+    {
+      "action": "prepare",
+      "exit_code": 0,
+      "stdout_sha256": "84ef44f97dc4ad9e3163002ae4502749725cf0f2b2b93d5b82c8c17705ea9881",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "finalize",
+      "exit_code": 0,
+      "stdout_sha256": "a5d7e8ec4c030ccbf091cbeeb17d9d97c2475d153406d429b98c19076deda8b4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "prune",
+      "exit_code": 1,
+      "stdout_sha256": "d5e49eac6a68cd8ce2be244035bd2b258e675bad14035907d07ecd8e7b06546a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "archive",
+      "exit_code": 0,
+      "stdout_sha256": "14c42688c000416e3d79d191c712f13083b0e033f50760804e775eea77db704a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "prune",
+      "exit_code": 1,
+      "stdout_sha256": "eec8e33592036db81625fde3478eb9aa9d1fc9eff87b3cb1330130a45078c4cf",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "prune",
+      "exit_code": 0,
+      "stdout_sha256": "14c42688c000416e3d79d191c712f13083b0e033f50760804e775eea77db704a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "finalize",
+      "exit_code": 0,
+      "stdout_sha256": "a5d7e8ec4c030ccbf091cbeeb17d9d97c2475d153406d429b98c19076deda8b4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "build",
+      "exit_code": 1,
+      "stdout_sha256": "a85624c877a80ef2840bc16ecde17d17a8c0d514e6b3e91f92d1854553ff099f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "finalize",
+      "exit_code": 1,
+      "stdout_sha256": "a85624c877a80ef2840bc16ecde17d17a8c0d514e6b3e91f92d1854553ff099f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "ev12-capture-workflow.sh",
+      "exit_code": 0,
+      "stdout_sha256": "6af1bea318ee274d8b8687ee08bbbbd95b503bb0e4e01c9615ece855ee9b57fc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "ev12-capture-workflow.sh",
+      "exit_code": 0,
+      "stdout_sha256": "b8e19147f91b26732104f0ae62948a46c6a500fe8ca57db0da955a98313a9844",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "verify",
+      "exit_code": 0,
+      "stdout_sha256": "7e3cdf20d5b3ec279fe2f47cad05abe471d2baea32a41b0d6f31f319daf78532",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "verify",
+      "exit_code": 0,
+      "stdout_sha256": "ce367d25a414b1a0a33ba52aa29060274182e9f70b988ba328aa0d0a752f95ff",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "action": "verify",
+      "exit_code": 0,
+      "stdout_sha256": "ff5dd427b8b2e11046d4eea7a5f787c592337c1c489b9311b985668b47044318",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "build_logs": {
+    "core-build.log": "0674b29b50c3dec56646820dd880f72135797e8fbae612e62ca8370ee4ddce1c",
+    "writer-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "initial_attempts": [
+    "First direct rustc attempt required CARGO_PKG_VERSION; no writer test was run at that step. Correct Cargo workspace package version supplied on retry.",
+    "An early review invocation before asynchronous probe compilation completed failed FileNotFoundError; it is not used as evidence. Final successful run began only after both compile exit codes0."
+  ],
+  "limitations": [
+    "Synthetic mesh fixtures establish writer software behavior, not CFD verification or physical validity.",
+    "Actual retained runs were verified read-only; no prepare/finalize/archive/prune was called on them.",
+    "This clears five writer findings only. Historical/pruned case evidence, prior G1 disposition and final three-grid manifest completion remain unresolved.",
+    "Full foundation gate covers EV lane source; target IR writer source is tested through this independently compiled component probe, not a merged branch.",
+    "Final receipts and lane coordination metadata updated after gate; executable/test source hashes remain identical to the tested input. Final public and diff checks are repeated before push."
+  ],
+  "full_gate": {
+    "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only} JOIL_WAVE4_INPUTS_ROOT=/home/ubuntu/joil/.private/wave4-inputs-all; rtk proxy python3 tools/check.py",
+    "exit_code": 0,
+    "all_requested_pass": true,
+    "input_head": "db4633596243cec2e6430e3772b5948ae18210fa",
+    "receipt_sha256": "84ba0c554b842b495b21991fc154bf3a5048379f284856b62d208fa8b8706813",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.05408174096373841,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.3266317939851433,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.18725466000614688,
+        "log_bytes": 72,
+        "log_sha256": "a41051563a4cb5fc1b1bcdd9aa0ba28ca80f7736d629d90cc138218756e8e3a9"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 112.54245435504708,
+        "log_bytes": 12654,
+        "log_sha256": "210b24b5ef7c93414f562522ec3d80e27bc34854f3f94aab21cdf2fe22784719"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.07282757305074483,
+        "log_bytes": 1019,
+        "log_sha256": "b8375339809081a69f2d9d6a095134e57f0933a4776283ead84aeffb65aaeb03"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 62.11488338501658,
+        "log_bytes": 11787,
+        "log_sha256": "3e07d82ee6d4557b1785ac0b77c12bdc9c5dfd10bd36542e511cfeb87a0f9113"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.15641754801617935,
+        "log_bytes": 75,
+        "log_sha256": "89b5acf095abc3bb0fad97c01719c536588144ad03b412ba91314b1f507f5bed"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 22.188052289013285,
+        "log_bytes": 224,
+        "log_sha256": "85f968339b71b75995aba3a41dffe7b44458ced2b94fcca8905682a9e79f4649"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 3.0806571050197817,
+        "log_bytes": 25,
+        "log_sha256": "42655418c228288a9dba4735657fb971df86f631b04c4ca47178142ac98df7fb"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 7.645465849025641,
+        "log_bytes": 2295,
+        "log_sha256": "6795631660d0dcbf840779d159d69ff3f0c65116d89c5a6a3b91cdb3bdaf4eca"
+      }
+    ],
+    "source_hashes": {
+      "crates/joil-evidence/receipts/ev12_writer_review.py": "ab572b1423c908ffbb46ca8dee6945b3d7daf83a5dbd5da457de5ecbf79d14d0",
+      "crates/joil-evidence/receipts/ev12_writer_probe.rs": "81eda3f3df5addac050ec17d5c6cb4052669a24fbdeedf0565ee92e3ac004055",
+      "crates/joil-evidence/src/training.rs": "a97c6f08d711d256c2d9c54c1ef5dd7f2b1b65da422c64262d172c1bb2f3739a",
+      "crates/joil-evidence/tests/training.rs": "083324e52eeb93560280b166950215a5d41a88b79bdc1b824a5b10695e8a34d0",
+      "crates/joil-core/src/surrogate.rs": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905"
+    },
+    "scope": "Full EV lane foundation gate; exact IR writer component tested separately via independent review fixture."
+  },
+  "published_build_reproducer_check": {
+    "exit_code": 0,
+    "probe_rebuilt_byte_identical": true,
+    "log_sha256": "a13905646e2aed93ec6ea9ed6ac91490a4e01f91af0215c3965279a910612149"
+  }
+}

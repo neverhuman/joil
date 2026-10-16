@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "figure_path": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
-  "figure_sha256": "c5f0f2ab96205c51ef33b5099f5484d7f8c589cfe4afa19d2421195190ea7469",
+  "figure_sha256": "f08b10b8d56abe1924fd3e3c94432335e6cb1273a3ae03befbe7abcbb211b5bd",
   "title": "Wave-4 README Hero Plot: Per-Generation Screen KPI Trajectory on Repaired Operators (n=10 Seeds, MC n=72) & 15-Run OpenFOAM 14 v2 Unclamped GCI Verification",
   "generator_script": "tools/generate_wave3_proof_figures.py",
   "source_receipts": [

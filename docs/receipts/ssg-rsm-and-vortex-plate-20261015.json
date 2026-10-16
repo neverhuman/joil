@@ -30,7 +30,7 @@
   },
   "artifacts_sha256": {
     "elite_3grid_gci_and_rsm_verification_json": "6bcac03b3724fa5fd60a83db33614756016c5188a7c028ddda86ab7a10de966c",
-    "elite_gci_and_rsm_verification_png": "dbce90bb3878dd863427e8d50f67b8ff469f6dfe4e782a9719f32db00710bbb9",
+    "elite_gci_and_rsm_verification_png": "aa1b8dc170e988ac111a15dca41856bc98c40b18ee8eb0936e376bfc3f76749e",
     "openfoam14_3d_vortex_physics_comparison_png": "5c0c4b1ee4d0a82f09d8c086334fe222201473e8801cda806319dd76ef7cac44",
     "whitepaper_md": "013c770f32300c4bf2c37e248fa4fde2753d9d8a042f8056b47fb03f364faf04"
   },

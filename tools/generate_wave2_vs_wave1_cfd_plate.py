@@ -110,8 +110,8 @@ def main() -> None:
     w2_case = ROOT / "runs/wave2-tpms-gyroid-g1-medium"
     base_case = ROOT / "runs/ct35-sst-extended-000"
 
-    w1_dossier_path = ROOT / "docs/results/elite-3grid-gci-and-rsm-verification-v1.json"
-    w2_dossier_path = ROOT / "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json"
+    w1_dossier_path = ROOT / "docs/results/elite-3grid-gci-and-rsm-verification-v2.json"
+    w2_dossier_path = ROOT / "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json"
 
     w1_dossier = json.loads(w1_dossier_path.read_text(encoding="utf-8"))
     w2_dossier = json.loads(w2_dossier_path.read_text(encoding="utf-8"))
@@ -158,9 +158,9 @@ def main() -> None:
     octa_g1 = octa_d["grids"][1]
 
     fig.suptitle(
-        "Plate 10 — Side-by-Side Wave-1 vs. Wave-2 Elite 3D OpenFOAM 14 CFD Fields & 5-Run GCI/RSM Audit\n"
-        f"Wave-1 6-Jet Elite ({w1_g1['cells']:,} Cells) vs. Wave-2 TPMS Gyroid Elite ({tpms_g1['cells']:,} Cells) & 8-Jet Manifold ({octa_g1['cells']:,} Cells) | Matched Color Scales",
-        fontsize=13.5,
+        "Plate 10 — Side-by-Side Wave-1 vs. Wave-2 Archived 2-Port Wall-Modulated OpenFOAM 14 CFD Fields & 5-Run Screen\n"
+        f"W1 \"6-Jet\" Label ({w1_g1['cells']:,} Cells) vs. W2 \"TPMS\" Label ({tpms_g1['cells']:,} Cells) & \"8-Jet\" Label ({octa_g1['cells']:,} Cells) | v2 Oscillatory R < 0 (std GCI = null)",
+        fontsize=12.8,
         fontweight="bold",
         color="#f8fafc",
         y=0.968,
@@ -168,7 +168,7 @@ def main() -> None:
 
     def style_ax(ax: plt.Axes, title: str, xlabel: str, ylabel: str) -> None:
         ax.set_facecolor("#111827")
-        ax.set_title(title, fontsize=10.8, fontweight="bold", color="#e2e8f0", pad=8)
+        ax.set_title(title, fontsize=10.6, fontweight="bold", color="#e2e8f0", pad=8)
         ax.set_xlabel(xlabel, fontsize=9.5, color="#cbd5e1")
         ax.set_ylabel(ylabel, fontsize=9.5, color="#cbd5e1")
         ax.tick_params(colors="#94a3b8", labelsize=8.5)
@@ -216,8 +216,8 @@ def main() -> None:
         norm=norm_ut,
         shading="flat",
     )
-    ax_a2.plot(w2_grid["z_centers_mm"], w2_grid["r_wall_mm"], color="#34d399", lw=1.8, ls="--", label="Outer Wall $R(z)$ + TPMS Annulus")
-    ax_a2.axvspan(108.0, 180.0, color="#a855f7", alpha=0.14, label="TPMS Gyroid Lattice Zone")
+    ax_a2.plot(w2_grid["z_centers_mm"], w2_grid["r_wall_mm"], color="#34d399", lw=1.8, ls="--", label="Outer Wall $R(z)$ + TPMS Wall-Mod Zone")
+    ax_a2.axvspan(108.0, 180.0, color="#a855f7", alpha=0.14, label="Wall-Modulated Proxy Zone (C1)")
     ax_a2.set_xlim(-20.0, 220.0)
     ax_a2.set_ylim(0.0, 35.0)
     ax_a2.legend(loc="upper right", fontsize=8, facecolor="#0f172a", edgecolor="#334155", labelcolor="#e2e8f0")
@@ -306,7 +306,7 @@ def main() -> None:
     ax_d = fig.add_subplot(gs[2, 1])
     style_ax(
         ax_d,
-        "D. Mandatory 5-Run OpenFOAM 14 G0/G1/G2 + LRR/SSG RSM $\\Delta p_u$ [kPa] Across 3 Elites",
+        "D. 5-Run OpenFOAM 14 G0/G1/G2 + LRR/SSG RSM $\\Delta p_u$ [kPa] (v2 Oscillatory R < 0; std GCI = null)",
         "OpenFOAM 14 Verification Case (3 Grids + 2 Second-Moment RSM Closures)",
         "Static Underflow Pressure Drop $\\Delta p_u$ [kPa]",
     )
@@ -330,18 +330,18 @@ def main() -> None:
     octa_vals = get_5case_dpu_kpa(octa_d)
     base_dpu_kpa = float(w1_dossier["baseline_ct35_comparator"]["dp_u_pa"]) / 1e3
 
-    w1_gci = w1_dossier["roache_gci_analysis"]["dp_u_pa"]["gci21_standard_fs125_pct"]
-    tpms_gci = tpms_d["roache_gci_analysis"]["dp_u_pa"]["gci21_standard_fs125_pct"]
-    octa_gci = octa_d["roache_gci_analysis"]["dp_u_pa"]["gci21_standard_fs125_pct"]
+    w1_hs = float(w1_dossier["roache_gci_analysis"]["dp_u_pa"]["three_grid_half_span_pct_of_f2"])
+    tpms_hs = float(tpms_d["roache_gci_analysis"]["dp_u_pa"]["three_grid_half_span_pct_of_f2"])
+    octa_hs = float(octa_d["roache_gci_analysis"]["dp_u_pa"]["three_grid_half_span_pct_of_f2"])
 
-    ax_d.axhline(base_dpu_kpa, color="#ef4444", ls="--", lw=1.8, label=f"CT-35 Baseline ({base_dpu_kpa:.2f} kPa)")
+    ax_d.axhline(base_dpu_kpa, color="#ef4444", ls="--", lw=1.8, label=f"CT-35 Structured-Hex Ref ({base_dpu_kpa:.2f} kPa; Diff Pipeline)")
     ax_d.bar(
         x_idx - width,
         w1_vals,
         width=width,
         color="#38bdf8",
         edgecolor="#0284c7",
-        label=f"Wave-1 6-Jet Elite (GCI={w1_gci:.2f}%)",
+        label=f"W1 \"6-Jet\" Shell (Oscillatory R=-0.373, Half-Span=±{w1_hs:.2f}%, std GCI=null)",
     )
     ax_d.bar(
         x_idx,
@@ -349,7 +349,7 @@ def main() -> None:
         width=width,
         color="#34d399",
         edgecolor="#059669",
-        label=f"Wave-2 TPMS Gyroid (GCI={tpms_gci:.2f}%)",
+        label=f"W2 \"TPMS\" Shell (Oscillatory R=-0.379, Half-Span=±{tpms_hs:.2f}%, std GCI=null)",
     )
     ax_d.bar(
         x_idx + width,
@@ -357,12 +357,12 @@ def main() -> None:
         width=width,
         color="#a855f7",
         edgecolor="#7e22ce",
-        label=f"Wave-2 8-Jet Manifold (GCI={octa_gci:.2f}%)",
+        label=f"W2 \"8-Jet\" Shell (Oscillatory R=-0.369, Half-Span=±{octa_hs:.2f}%, std GCI=null)",
     )
     ax_d.set_xticks(x_idx)
     ax_d.set_xticklabels(case_labels, fontsize=8.2)
-    ax_d.set_ylim(0.0, max(base_dpu_kpa * 1.15, max(w1_vals + tpms_vals + octa_vals) * 1.18))
-    ax_d.legend(loc="upper right", fontsize=7.6, facecolor="#0f172a", edgecolor="#334155", labelcolor="#e2e8f0")
+    ax_d.set_ylim(0.0, max(base_dpu_kpa * 1.18, max(w1_vals + tpms_vals + octa_vals) * 1.22))
+    ax_d.legend(loc="upper right", fontsize=7.1, facecolor="#0f172a", edgecolor="#334155", labelcolor="#e2e8f0")
 
     fig_path = ROOT / "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png"
     fig.savefig(fig_path, dpi=180, facecolor=fig.get_facecolor())
@@ -370,7 +370,7 @@ def main() -> None:
 
     fig_sha = sha256_file(fig_path)
     manifest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "kind": "publication_figure_manifest_not_physical_validation",
         "figure_path": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
         "figure_sha256": fig_sha,
@@ -382,9 +382,9 @@ def main() -> None:
             "meridional_r_limits_mm": [0.0, 35.0],
         },
         "source_receipts": {
-            "wave1_gci_rsm_dossier": "docs/results/elite-3grid-gci-and-rsm-verification-v1.json",
+            "wave1_gci_rsm_dossier": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
             "wave1_gci_rsm_dossier_sha256": sha256_file(w1_dossier_path),
-            "wave2_gci_rsm_f2_dossier": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json",
+            "wave2_gci_rsm_f2_dossier": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
             "wave2_gci_rsm_f2_dossier_sha256": sha256_file(w2_dossier_path),
             "wave1_g1_integrals_sha256": sha256_file(w1_case / "hydraulic-integrals.json"),
             "wave2_tpms_g1_integrals_sha256": sha256_file(w2_case / "hydraulic-integrals.json"),

@@ -1,0 +1,1148 @@
+{
+  "schema": "joil.truth-tr16-threshold-audit.v1",
+  "state": "BLOCKED_SCOPED",
+  "task": "TR-16",
+  "generated_utc": "2026-10-16T10:44:12.523302+00:00",
+  "audited_head": "75fdbdd2772cb7fab3b031b9acf48158aff0152e",
+  "owner_scope": "OWNER10:36 TR-16 only; README verification belongs IR; no merges/new PRs",
+  "scope_result": "Sandbox binding and strengthened admission/shard guard delivered; every-threshold/admitted physical acceptance remains blocked",
+  "source_files_sha256": {
+    "crates/joil-core/src/evolve.rs": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab",
+    "crates/joil-core/src/experiment.rs": "d2b565cb16e2f94ff32a1dbde0b228c1f8d117fb74cb3f21a8709f99ed668b67",
+    "requirements/joil-hydrocyclone-v1.toml": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+    "requirements/RS-joil-research-v1.json": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+    "experiments/wave2-preregistration-v1.json": "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4",
+    "crates/joil-evidence/src/campaign.rs": "9667a5c667265381ea520d2eeada432a3c93a2c41ced81734968b9771b22614f",
+    "docs/reviews/2026-10-16-TR16-section6-deferral.md": "cf2291a29e9bdd635a8014ced1556c0c2819d1bd499a18dcf622489604f7e9cc",
+    "crates/joil-core/tests/truth_requirements.rs": "5e63676e9eab4cc4b546aa99d67535516db0b2c61f4f7f026d092e7312ad7d90"
+  },
+  "threshold_inventory": [
+    {
+      "id": "quality",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        707,
+        708
+      ],
+      "anchor": "requirements.thresholds.quality_limit_mg_l",
+      "status": "BOUND_SANDBOX",
+      "policy": "Oil-quality comparison and violation read contract quality limit; same requirement is read by the reduced-realization pass flag and KPI.",
+      "requirement_source": "requirements/joil-hydrocyclone-v1.toml#/thresholds/quality_limit_mg_l",
+      "remaining_gap": null
+    },
+    {
+      "id": "pressure-ratio",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        711
+      ],
+      "anchor": "requirements.thresholds.sandbox_pressure_ratio_max",
+      "status": "BOUND_SANDBOX",
+      "policy": "Historical pressure cap ratio1.15 times configured baseline dp_u; not a physical admitted pressure budget.",
+      "requirement_source": "requirements/joil-hydrocyclone-v1.toml#/thresholds/sandbox_pressure_ratio_max",
+      "remaining_gap": null
+    },
+    {
+      "id": "pdr",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        715,
+        716
+      ],
+      "anchor": "requirements.thresholds.sandbox_pdr_min",
+      "status": "BOUND_SANDBOX",
+      "policy": "Historical sandbox PDR floor4.5; draft physical PDR range1.4..2.5 must not substitute.",
+      "requirement_source": "requirements/joil-hydrocyclone-v1.toml#/thresholds/sandbox_pdr_min",
+      "remaining_gap": null
+    },
+    {
+      "id": "quantile",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        614,
+        615,
+        628,
+        635
+      ],
+      "anchor": "policy.min_n_p05_p95",
+      "status": "BOUND_SANDBOX",
+      "policy": "Confidence.95 and minimum samples72/368 consumed from declared quantile policy; small samples remain insufficient.",
+      "requirement_source": "requirements/joil-hydrocyclone-v1.toml#/quantile_policy",
+      "remaining_gap": null
+    },
+    {
+      "id": "hypervolume",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        1778
+      ],
+      "anchor": "let policy = &requirements.hypervolume;",
+      "status": "BOUND_SANDBOX",
+      "policy": "Objective IDs, reference point and normalization loaded from requirements; zero-violation epsilon remains code-level.",
+      "requirement_source": "requirements/joil-hydrocyclone-v1.toml#/hypervolume",
+      "remaining_gap": null
+    },
+    {
+      "id": "calibration",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        162
+      ],
+      "anchor": "r_squared < 0.995",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "R-squared minimum.995; LOD/LOQ ordering and finite concentration are separate input-domain constraints.",
+      "requirement_source": null,
+      "remaining_gap": "No admitted calibration acceptance policy/source in executable requirement set. Instrument uncertainty, censoring/LOD/LOQ source/applicability and relation must be supplied, not inferred from R2 alone."
+    },
+    {
+      "id": "split-tolerance",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        243
+      ],
+      "anchor": "b.split_mismatch_abs > 0.0002",
+      "status": "DRAFT_SOURCE_NOT_RUNTIME_BOUND",
+      "policy": "Absolute reject split tolerance.0002.",
+      "requirement_source": "requirements/RS-joil-research-v1.json#/reference/reject_tolerance_absolute",
+      "remaining_gap": "Draft JSON contains value; typed EV-06 executable contract has no split-tolerance field; draft not admitted."
+    },
+    {
+      "id": "replication",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        250
+      ],
+      "anchor": "blocks.len() < 5",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "Minimum5 final ABA blocks; required_blocks also clamps min5 with+2 approximation.",
+      "requirement_source": "requirements/RS-joil-research-v1.json#/promotion",
+      "remaining_gap": "Draft defines pilot minimum3 and final replication from power analysis; cannot treat5 as an admitted final sample-size rule."
+    },
+    {
+      "id": "power-policy",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        224
+      ],
+      "anchor": "let z_sum: f64",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "One-sided alpha.025, power.90, normal/t approximations with+2 correction and5-block floor.",
+      "requirement_source": null,
+      "remaining_gap": "Needs frozen source-backed trial design/power/interval method and confidence interpretation. Approximation coefficients are algorithm inputs, not validated limits."
+    },
+    {
+      "id": "lcb-method",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        277
+      ],
+      "anchor": "let t_975 =",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "LCB formula uses one-sided97.5% t approximation although field is named lcb95; draft confidence_level.95 does not settle semantics.",
+      "requirement_source": "requirements/RS-joil-research-v1.json#/promotion/confidence_level",
+      "remaining_gap": "Requirements owner must reconcile one-sided/two-sided confidence, method, degrees of freedom and applicability; TR must not select one silently."
+    },
+    {
+      "id": "gain-effect-floor",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        279
+      ],
+      "anchor": "let effect_margin =",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "Gain threshold.10 and effect-margin floor.02; sd floor1e-6 is a separate numeric stabilization.",
+      "requirement_source": "requirements/RS-joil-research-v1.json#/promotion",
+      "remaining_gap": "Draft supports named.10 claims with explicit > semantics, but executable contract lacks promotion fields; floor.02 has no admitted source."
+    },
+    {
+      "id": "gain-acceptance",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        292
+      ],
+      "anchor": "lcb95 >= 0.10",
+      "status": "DRAFT_SOURCE_NOT_RUNTIME_BOUND",
+      "policy": "Paired-gain LCB.10 acceptance uses >=; source includes different >0 and >.10 hypotheses.",
+      "requirement_source": "requirements/RS-joil-research-v1.json#/promotion",
+      "remaining_gap": "Freeze hypothesis-specific relation, interval and power policy before runtime binding. Do not equate point-gain and LCB-gain claims."
+    },
+    {
+      "id": "holdout-budget",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        305
+      ],
+      "anchor": "holdout_evaluation_count > 1",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "One-query maximum; zero is currently accepted. Nonempty/disjoint digest validation is separate.",
+      "requirement_source": null,
+      "remaining_gap": "No frozen source-backed holdout query/exclusion/grouping policy exposed by EV-06. Independent labels and observed geometry/mechanism split also absent."
+    },
+    {
+      "id": "bore-upper",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        354
+      ],
+      "anchor": "if dev > 0.025",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "Oversized-bore rejection above+.025mm, final pass absolute deviation<=.025mm.",
+      "requirement_source": null,
+      "remaining_gap": "No admitted CT bore/material/process measurement contract. Numerical tolerance needs measurement uncertainty, surface/port identity, source and exact relation."
+    },
+    {
+      "id": "bore-outer",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        359
+      ],
+      "anchor": "dev.abs() > 0.035",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "Outer absolute deviation rejection above.035mm, different from final.025mm pass band.",
+      "requirement_source": null,
+      "remaining_gap": "No source-backed relation between screening reject band and final pass band; manufacturing policy must settle both or remove one explicitly."
+    },
+    {
+      "id": "roughness",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        379
+      ],
+      "anchor": "ks_upper <= 65.0",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "Maximum equivalent-sandgrain roughness65um; conversion coefficients2Ra,3.1Ra,.95Rz and1.15 envelope are model assumptions.",
+      "requirement_source": null,
+      "remaining_gap": "No admitted roughness limit/translation model/source and applicability in requirements. Do not select a threshold from prose or assume a named conversion is validated."
+    },
+    {
+      "id": "search-alpha",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        1927,
+        2275,
+        3461
+      ],
+      "anchor": "< 0.025",
+      "status": "PREREG_SOURCE_NOT_RUNTIME_BOUND",
+      "policy": "One-sided alpha.025, Holm test family and significance flags.",
+      "requirement_source": "experiments/wave2-preregistration-v1.json#/multiseed_statistical_protocol/alpha_one_sided",
+      "remaining_gap": "Frozen historical file has value but executable TOML stores only its ContentRef; runtime alpha remains literal. Needs EV-owned typed policy reference, not a new invented threshold."
+    },
+    {
+      "id": "audit-fraction",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        2280
+      ],
+      "anchor": "let sample_n =",
+      "status": "PREREG_SOURCE_NOT_RUNTIME_BOUND",
+      "policy": "Rejected-cohort audit fraction.10.",
+      "requirement_source": "experiments/wave2-preregistration-v1.json#/multiseed_statistical_protocol/rejected_cohort_random_audit_fraction",
+      "remaining_gap": "Executable runtime contract has no numeric audit-fraction field."
+    },
+    {
+      "id": "proof-seeds",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        3161,
+        3661
+      ],
+      "anchor": "if seeds.len() < 5",
+      "status": "BLOCKED_UNBOUND",
+      "policy": "Software proof minimum5 seeds and raw-capture distinct-seed check.",
+      "requirement_source": "docs/WORKPLAN-2026-10-15.md#INT-04",
+      "remaining_gap": "Workplan allows>=5, historical protocol fixes10. Freeze separate software/proof policy and admitted physical replication policy; no conflation."
+    },
+    {
+      "id": "bootstrap",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        1837
+      ],
+      "anchor": "let n_boot = 10000",
+      "status": "PREREG_SOURCE_NOT_RUNTIME_BOUND",
+      "policy": "10000 bootstrap draws, confidence endpoints.025/.975, six-decimal output rounding.",
+      "requirement_source": "experiments/wave2-preregistration-v1.json#/multiseed_statistical_protocol",
+      "remaining_gap": "Typed executable contract has quantile confidence but no bootstrap/test protocol; numerical policy not fully runtime-bound."
+    },
+    {
+      "id": "prior-model",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        392
+      ],
+      "anchor": "let split_nom =",
+      "status": "UNADMITTED_MODEL_PARAMETERS",
+      "policy": "Split clipping.015..032; shear2400..9500/s; Hinze18..130um; pressure20kPa floor/PDR2.5 floor; coherence/short-circuit/capture clips; sampling uniforms and nominal defaults. These define the prior screen, not measured feasibility.",
+      "requirement_source": null,
+      "remaining_gap": "Require a separately versioned, source-bound model/context-of-use and independent validation before physical use; do not convert descriptive model clamps to admitted physical limits."
+    },
+    {
+      "id": "numerical-search-policy",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        1519,
+        1789,
+        2289
+      ],
+      "anchor": "constraint_violation <= 1e-9",
+      "status": "UNADMITTED_NUMERICAL_SEARCH_POLICY",
+      "policy": "Zero-violation epsilons, score weights/penalties, ranking/crowding denominators, archive bins and search budgets are software/model policy, not new physical evidence.",
+      "requirement_source": null,
+      "remaining_gap": "Separate mathematical domain invariants from tunable numerical/search policy; freeze tunable policy in a versioned executable model/search contract before claiming every policy is requirements-bound."
+    },
+    {
+      "id": "shared-duty-policy",
+      "file": "crates/joil-core/src/experiment.rs",
+      "lines": [
+        393
+      ],
+      "anchor": "if claim_industry_superiority",
+      "status": "DRAFT_SOURCE_NOT_RUNTIME_BOUND",
+      "policy": "Commercial comparator required for a commercial claim; current helper compares submitted duty strings, not trusted evidence or a typed admitted policy.",
+      "requirement_source": "requirements/RS-joil-research-v1.json#/promotion/commercial_comparator_required_for_commercial_claim",
+      "remaining_gap": "Needs frozen scenario/comparator identity, accepted evidence and trusted resolver. A helper boolean cannot close physical admission."
+    },
+    {
+      "id": "shard-receipt",
+      "file": "crates/joil-core/src/evolve.rs",
+      "lines": [
+        1345
+      ],
+      "anchor": "shard admission/requirement/objective receipt mismatch",
+      "status": "FIXED_FAIL_CLOSED",
+      "policy": "Every parsed shard admission equals current EV-06 receipt; claim-bearing/stale requirement/objective/mode/gate closure refuses before output. Validated summaries reused, avoiding a second unvalidated read.",
+      "requirement_source": "crates/joil-core/src/experiment.rs#admit_search_campaign",
+      "remaining_gap": null
+    }
+  ],
+  "numeric_comparison_scan": {
+    "pattern": "(?:(?:<=|>=|<|>|==|!=)\\s*-?\\d|\\.(?:clamp|max|min|range)\\(|statistically_significant_alpha)",
+    "note": "Line-based candidate inventory, not a Rust AST or automatic claim that each numeric guard is a scientific limit. Comments and cfg(test) module excluded; group review above distinguishes requirements, experimental policy, prior/model bounds, numerical/search policy, and domain guards.",
+    "rows": [
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 357,
+        "function": "lognormal_bin_weights",
+        "code": "let mu = d50_feed_um.max(2.0).ln();",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 360,
+        "function": "lognormal_bin_weights",
+        "code": "let z = (d.ln() - mu) / (sigma_ln.max(0.15) * std::f64::consts::SQRT_2);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 361,
+        "function": "lognormal_bin_weights",
+        "code": "let pdf = (-z * z).exp() / (d * sigma_ln.max(0.15) * (2.0 * std::f64::consts::PI).sqrt());",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 362,
+        "function": "lognormal_bin_weights",
+        "code": "let width = if i == 0 {",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 367,
+        "function": "lognormal_bin_weights",
+        "code": "weights[i] = (pdf * width).max(1e-9);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 392,
+        "function": "evaluate_realization",
+        "code": "let split_nom = (base_hyd.split_ratio * skim_split_bias + split_delta).clamp(0.015, 0.032);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 398,
+        "function": "evaluate_realization",
+        "code": ".clamp(2400.0, 9500.0);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 399,
+        "function": "evaluate_realization",
+        "code": "let shear_ratio = (max_entry_shear_s_inv / base_shear_s_inv).max(0.40);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 400,
+        "function": "evaluate_realization",
+        "code": "let hinze_dmax_um = (64.0_f64 * shear_ratio.powf(-0.62)).clamp(18.0, 130.0);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 403,
+        "function": "evaluate_realization",
+        "code": "let dp_u_pa = (base_hyd.dp_u_pa * desc.hydraulic_resistance_factor).max(20_000.0);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 407,
+        "function": "evaluate_realization",
+        "code": ".max(dp_u_pa * 2.5);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 408,
+        "function": "evaluate_realization",
+        "code": "let pdr = dp_o_pa / dp_u_pa.max(1.0);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 412,
+        "function": "evaluate_realization",
+        "code": "let sym_gain = 1.0 + 0.038 * (desc.azimuthal_symmetry_order - 2.0).max(0.0);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 421,
+        "function": "evaluate_realization",
+        "code": ".clamp(0.45, 1.45);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 424,
+        "function": "evaluate_realization",
+        "code": "let shield_relief = (1.0 - 0.36 * desc.core_shield_ratio).clamp(0.45, 1.0);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 425,
+        "function": "evaluate_realization",
+        "code": "let short_circuit_fraction = (0.048 * shield_relief / sym_gain).clamp(0.010, 0.14);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 428,
+        "function": "evaluate_realization",
+        "code": "let eff_d50_feed = d50_feed_um.min(0.68 * hinze_dmax_um);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 440,
+        "function": "evaluate_realization",
+        "code": "let sep_factor = if is_base && wall_tol_mm.abs() < 1e-9 && split_delta.abs() < 1e-9 {",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 458,
+        "function": "evaluate_realization",
+        "code": ".clamp(split_nom, 0.9995);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 460,
+        "function": "evaluate_realization",
+        "code": "if prev_eta < 0.50 && eta >= 0.50 {",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 461,
+        "function": "evaluate_realization",
+        "code": "let frac = (0.50 - prev_eta) / (eta - prev_eta).max(1e-9);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 464,
+        "function": "evaluate_realization",
+        "code": "if prev_eta < 0.90 && eta >= 0.90 {",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 465,
+        "function": "evaluate_realization",
+        "code": "let frac = (0.90 - prev_eta) / (eta - prev_eta).max(1e-9);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 475,
+        "function": "evaluate_realization",
+        "code": "overall_oil_capture = overall_oil_capture.clamp(split_nom, 0.999);",
+        "category": "prior_model_bound_or_mathematical_definition_not_admitted_physics"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 508,
+        "function": "percentile_sorted",
+        "code": "let pos = q.clamp(0.0, 1.0) * (sorted.len() - 1) as f64;",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 559,
+        "function": "evaluate_individual_recorded",
+        "code": "if n_mc == 0 {",
+        "category": "mixed_bound_requirement_and_unadmitted_sampling_or_numeric_policy"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 569,
+        "function": "evaluate_individual_recorded",
+        "code": "let cin = mc_rng.range(475.0, 525.0);",
+        "category": "mixed_bound_requirement_and_unadmitted_sampling_or_numeric_policy"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 570,
+        "function": "evaluate_individual_recorded",
+        "code": "let d50_feed = mc_rng.range(35.0, 41.0);",
+        "category": "mixed_bound_requirement_and_unadmitted_sampling_or_numeric_policy"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 571,
+        "function": "evaluate_individual_recorded",
+        "code": "let split_delta = mc_rng.range(-0.0012, 0.0012);",
+        "category": "mixed_bound_requirement_and_unadmitted_sampling_or_numeric_policy"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 572,
+        "function": "evaluate_individual_recorded",
+        "code": "let wall_tol = mc_rng.range(-0.05, 0.05);",
+        "category": "mixed_bound_requirement_and_unadmitted_sampling_or_numeric_policy"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 824,
+        "function": "assign_nsga2_ranks_and_crowding",
+        "code": "if n == 0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 846,
+        "function": "assign_nsga2_ranks_and_crowding",
+        "code": "if dom_count[p] == 0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 858,
+        "function": "assign_nsga2_ranks_and_crowding",
+        "code": "if dom_count[q] == 0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 878,
+        "function": "assign_nsga2_ranks_and_crowding",
+        "code": "if front.len() <= 2 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 901,
+        "function": "assign_nsga2_ranks_and_crowding",
+        "code": "let span = (f_max - f_min).max(1e-9);",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 934,
+        "function": "map_elites_key",
+        "code": ".clamp(0.0, 5.0) as i32;",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 937,
+        "function": "map_elites_key",
+        "code": ".clamp(0.0, 5.0) as i32;",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 940,
+        "function": "map_elites_key",
+        "code": ".clamp(0.0, 4.0) as i32;",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1143,
+        "function": "run_campaign",
+        "code": "let p2 = if !archive_snapshot.is_empty() && isl_rng.f64() < 0.35 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1189,
+        "function": "run_campaign",
+        "code": "if cfg.islands > 1 && gen % cfg.migration_interval.max(1) == 0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1210,
+        "function": "run_campaign",
+        "code": "let mut pareto_front: Vec<Individual> = pool.into_iter().filter(|x| x.rank == 0).collect();",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1234,
+        "function": "run_campaign",
+        "code": "if top_elites.len() >= 12 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1250,
+        "function": "run_campaign",
+        "code": "let vram_pct = if idx < 3 { Some(85.5) } else { None };",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1391,
+        "function": "merge_cluster_shards",
+        "code": "peak_vram_pct = peak_vram_pct.max(cuda.gpu_vram_utilization_pct);",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1392,
+        "function": "merge_cluster_shards",
+        "code": "peak_vram_mib = peak_vram_mib.max(cuda.gpu_vram_used_mib);",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1404,
+        "function": "merge_cluster_shards",
+        "code": "if !ind.id.starts_with(\"baseline\") && s_idx > 0 && !ind.id.starts_with(&node_tag) {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1421,
+        "function": "merge_cluster_shards",
+        "code": "if !ind.id.starts_with(\"baseline\") && s_idx > 0 && !ind.id.starts_with(&node_tag) {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1432,
+        "function": "merge_cluster_shards",
+        "code": "if !ind.id.starts_with(\"baseline\") && s_idx > 0 && !ind.id.starts_with(&node_tag) {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1453,
+        "function": "merge_cluster_shards",
+        "code": "all_candidates.into_iter().filter(|x| x.rank == 0).collect();",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1477,
+        "function": "merge_cluster_shards",
+        "code": "if top_elites.len() >= 12 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1519,
+        "function": "merge_cluster_shards",
+        "code": "!pareto_front.is_empty() && pareto_front.iter().all(|x| x.constraint_violation <= 1e-9);",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1735,
+        "function": "evaluate_held_out_duties",
+        "code": "pub statistically_significant_alpha_0025: bool,",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1789,
+        "function": "compute_normalized_hypervolume",
+        "code": "&& ind.constraint_violation <= 1e-9",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1825,
+        "function": "compute_bootstrap_ci",
+        "code": "let var = if n > 1 {",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1868,
+        "function": "erfc_approx",
+        "code": "if x >= 0.0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1883,
+        "function": "mann_whitney_and_cliffs_delta",
+        "code": "let na = a.len().max(1) as f64;",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1884,
+        "function": "mann_whitney_and_cliffs_delta",
+        "code": "let nb = b.len().max(1) as f64;",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1902,
+        "function": "mann_whitney_and_cliffs_delta",
+        "code": "let sigma_u = (na * nb * (na + nb + 1.0) / 12.0).sqrt().max(1e-9);",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1927,
+        "function": "mann_whitney_and_cliffs_delta",
+        "code": "statistically_significant_alpha_0025: p_one_sided < 0.025,",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1969,
+        "function": "run_single_seed_comparator",
+        "code": ".filter(|n| *n > 0)",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 1990,
+        "function": "run_single_seed_comparator",
+        "code": "let parent = if gen == 0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2001,
+        "function": "run_single_seed_comparator",
+        "code": "if gen == 0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2003,
+        "function": "run_single_seed_comparator",
+        "code": "priority_order[i % priority_order.len()].min(archetypes.len() - 1);",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2034,
+        "function": "run_single_seed_comparator",
+        "code": "i % cfg.islands.max(1),",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2065,
+        "function": "run_single_seed_comparator",
+        "code": "if rejected_or_suboptimal.len() < 64 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2271,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": ".min(1.0)",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2272,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": ".max(max_adj);",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2275,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": "tests[orig_idx].statistically_significant_alpha_0025 = adj < 0.025;",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2279,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": "let total_rej = rejected_pool.len().max(1);",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2280,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": "let sample_n = ((total_rej as f64) * 0.10).ceil().max(1.0) as usize;",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2289,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": "&& item.constraint_violation <= 1e-9",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2293,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": "worst_reversal = worst_reversal.max(best_b3_cout - item.mc_robustness.cout_p95_mg_l);",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2324,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": "audited_sample_count: sample_n.min(rejected_pool.len()),",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2329,
+        "function": "run_wave2_multiseed_benchmark",
+        "code": "audit_passed: false_omissions == 0,",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2340,
+        "function": "compute_wave3_kpi_score",
+        "code": "let dp_ref = baseline_dp_u_pa.max(1.0);",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2593,
+        "function": "shannon_entropy_bits",
+        "code": "if c > 0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2709,
+        "function": "run_single_seed_wave3_arm_recorded",
+        "code": ".filter(|n| *n > 0)",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2739,
+        "function": "run_single_seed_wave3_arm_recorded",
+        "code": "Wave3ComparatorArm::B1RandomSearchExotic3d if i > 0 => {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2759,
+        "function": "run_single_seed_wave3_arm_recorded",
+        "code": "i % cfg.islands.max(1),",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2910,
+        "function": "run_single_seed_wave3_arm_recorded",
+        "code": "let p1 = if slot % 4 == 0 && !arch_vals.is_empty() {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 2980,
+        "function": "run_single_seed_wave3_arm_recorded",
+        "code": "i % cfg.islands.max(1),",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 3161,
+        "function": "run_wave3_evolution_proof_recorded",
+        "code": "if seeds.len() < 5 {",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 3457,
+        "function": "run_wave3_evolution_proof_recorded",
+        "code": ".min(1.0)",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 3458,
+        "function": "run_wave3_evolution_proof_recorded",
+        "code": ".max(max_adj);",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 3461,
+        "function": "run_wave3_evolution_proof_recorded",
+        "code": "tests[orig_idx].statistically_significant_alpha_0025 = adj < 0.025;",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 3582,
+        "function": "run_wave3_evolution_proof_recorded",
+        "code": ".filter(|n| *n > 0)",
+        "category": "statistical_policy_or_algorithmic_guard_review_required"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 3661,
+        "function": "new",
+        "code": "if seeds.len() < 5 || unique.len() != seeds.len() {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 3667,
+        "function": "new",
+        "code": ".filter(|n| *n > 0)",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/evolve.rs",
+        "line": 3674,
+        "function": "new",
+        "code": "if cfg.mc_samples == 0 {",
+        "category": "search_algorithm_numeric_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 162,
+        "function": "verify_instrument_calibration",
+        "code": "if !r_squared.is_finite() || r_squared < 0.995 || lod_mg_l <= 0.0 || loq_mg_l <= lod_mg_l {",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 169,
+        "function": "verify_instrument_calibration",
+        "code": "let censored = raw_reading_mg_l.max(loq_mg_l);",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 180,
+        "function": "verify_instrument_calibration",
+        "code": "passed: censored >= loq_mg_l && r_squared >= 0.995,",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 217,
+        "function": "required_blocks_for_power",
+        "code": "|| sd_gain <= 0.0",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 219,
+        "function": "required_blocks_for_power",
+        "code": "|| effect_margin_above_threshold <= 0.0",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 226,
+        "function": "required_blocks_for_power",
+        "code": "Ok((n_normal + 2).max(5))",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 243,
+        "function": "analyze_blinded_aba_crossover",
+        "code": "if !b.split_mismatch_abs.is_finite() || b.split_mismatch_abs > 0.0002 {",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 250,
+        "function": "analyze_blinded_aba_crossover",
+        "code": "if blocks.len() < 5 {",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 263,
+        "function": "analyze_blinded_aba_crossover",
+        "code": "if !a_bar.is_finite() || a_bar <= 0.0 || !b.candidate_b_qmax_m3_h.is_finite() {",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 273,
+        "function": "analyze_blinded_aba_crossover",
+        "code": "let sd_gain = var_gain.sqrt().max(1e-6);",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 279,
+        "function": "analyze_blinded_aba_crossover",
+        "code": "let effect_margin = (mean_gain - 0.10).max(0.02);",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 292,
+        "function": "analyze_blinded_aba_crossover",
+        "code": "passed_10pct_lcb95_gate: n >= req_n && lcb95 >= 0.10,",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 305,
+        "function": "verify_holdout_isolation",
+        "code": "if holdout_evaluation_count > 1 {",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 307,
+        "function": "verify_holdout_isolation",
+        "code": "\"EXPERIMENT-04 negative control triggered: repeated holdout tuning/evaluation (>1 query) invalidates holdout\"",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 354,
+        "function": "evaluate_as_built_ct_metrology",
+        "code": "if dev > 0.025 {",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 359,
+        "function": "evaluate_as_built_ct_metrology",
+        "code": "if dev.abs() > 0.035 || measured_ra_um <= 0.0 || measured_rz_um < measured_ra_um {",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 365,
+        "function": "evaluate_as_built_ct_metrology",
+        "code": "let ks_upper = (0.95 * measured_rz_um).max(ks_nom * 1.15);",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      },
+      {
+        "file": "crates/joil-core/src/experiment.rs",
+        "line": 379,
+        "function": "evaluate_as_built_ct_metrology",
+        "code": "passed: dev.abs() <= 0.025 && ks_upper <= 65.0,",
+        "category": "unbound_experimental_policy_or_input_domain_guard"
+      }
+    ]
+  },
+  "section6_exact_addendum": "**TR-16 complete threshold binding \u2014 BLOCKED-SCOPED (audit refresh).** Existing sandbox quality, pressure-ratio/PDR, quantile and hypervolume bindings remain delivered. Full acceptance that every scientific threshold in `evolve.rs` and `experiment.rs` comes from an admitted `requirements/` entry is not met. Beyond the four missing physical pressure/energy/absolute-pressure/duty limits already deferred, the EV-06 executable schema does not expose the current calibration R-squared, reject-split tolerance, ABA replication/power/LCB/effect-margin, holdout-query, bore/metrology and roughness criteria; search significance/audit/bootstrap policy is referenced historically but remains literal. Some criteria have only draft source values or unresolved confidence/replication/relation semantics; others have no admitted source. Prior-model clamps and numerical/search policy are not measured physical limits. Copying these literals into a file would not admit them, and TR selects no replacement values.\n\nTo unblock: the requirements/model owners must provide approved content-bound policies with source ID/revision/SHA, observable and units, exact comparison relation, uncertainty/censoring/interval/power method, minimum evidence tier, and applicability/scenario/material/process identities. Resolve the draft-vs-runtime confidence/replication/LCB relation and metrology-band differences explicitly; freeze the historical statistical protocol and versioned prior/numerical model policies separately. Extend EV-06's typed contract, then thread those policies into every affected comparison. Acceptance must enumerate all scientific comparison sites, test each threshold boundary and both relations using the admitted contract, and prove policy/source/unit/objective drift invalidates admission before computation or artifacts. The complete trusted P0 inventory and real independent validation remain mandatory. A same-policy sandbox shard merge must succeed; forged ClaimBearing, mode drift, stale requirement/objective identity, reordered objectives or cleared gate inventory must reject before output, including when the bad shard follows a valid one. These software negative tests are delivered, not physical admission. The earlier TR-16 physical deferral and fail-closed campaign path remain in force.",
+  "existing_section6": "docs/WORKPLAN-2026-10-15.md section6 contains prior TR-16 physical deferral verbatim from docs/reviews/2026-10-16-TR16-section6-deferral.md; DOC owns edits",
+  "remaining_blockers": [
+    "No admitted source-backed pressure/energy/absolute-pressure/duty values",
+    "No frozen typed contract for remaining experimental/statistical acceptance policies",
+    "No trusted physical P0 receipt resolver/complete Pass inventory or independent validation"
+  ],
+  "no_limits_invented": true,
+  "no_threshold_values_changed": true,
+  "next_dependency": "EV/owner supplies admitted source-bound contract and required policy semantics; DOC inserts exact addendum, INT records BLOCKED-SCOPED/MOVED-section6 without claiming physical completion",
+  "requirement_owner_confirmation": {
+    "source": "JOIL-COORD.live.md GIVE2026-10-16T10:41:19Z EV ->TR TR-16 CONTRACT ACK",
+    "contract_sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+    "state": "sandbox_only",
+    "admitted_missing_policies_available": false,
+    "summary": "EV confirms no already-admitted calibration/trial-power/holdout-query/metrology/search criteria beyond present schema; draft values must not be promoted or invented."
+  },
+  "verification": {
+    "truth_requirements": {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "joil-core",
+        "--test",
+        "truth_requirements",
+        "--locked",
+        "-j",
+        "4"
+      ],
+      "exit_code": 0,
+      "tests_passed": 3,
+      "cargo_compile_wall_seconds": 8.1,
+      "cargo_test_wall_seconds": 1.28,
+      "log_sha256": "0dd248323a69e6926846bd037a8baa1d7079e6f3c09f858612716dc221abf000"
+    },
+    "evidence_campaign": {
+      "command": [
+        "cargo",
+        "test",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "campaign",
+        "--locked",
+        "-j",
+        "4"
+      ],
+      "started_utc": "2026-10-16T10:41:17.800508+00:00",
+      "finished_utc": "2026-10-16T10:41:17.915097+00:00",
+      "exit_code": 0,
+      "wall_seconds": 0.11459930695127696,
+      "log_sha256": "ac1c083a1268d92b5b6de41b45684e4474ef1a7a363f274203de4570ec18e8ed",
+      "log_bytes": 510,
+      "input_head": "559d3b65cb748e234cdecca808e8500c87a3c171"
+    },
+    "positive_checks": [
+      "Current sandbox receipt binds exact executed ordered objectives and requirement content identity",
+      "Valid same-contract sandbox shard merge succeeds and preserves admission receipt"
+    ],
+    "negative_checks": [
+      "All6 search entrypoints reject ClaimBearing before invalid numerical budgets or artifacts",
+      "Bad second shard after valid first rejects before output: ClaimBearing/mode drift/stale requirement/stale objective hash/reordered objectives/forged gate closure",
+      "EV4 tests exercise drift, unresolved limits, missing P0 inventory and every non-Pass/revoked verdict using explicitly synthetic policy fixtures"
+    ],
+    "new_runtime_behavior": "merge_cluster_shards preflights every exact current admission/requirement/objective receipt before output creation; the parsed validated summaries are reused for merge",
+    "limitations": [
+      "No new admitted physical requirement, experimental acceptance value, trusted registry or scientific validation supplied",
+      "No numeric threshold or existing historical result changed",
+      "Line scanner is a candidate review inventory; mathematical domain guards are not scientific thresholds",
+      "README verification is IR-owned per OWNER10:36; no TR clone or README edits",
+      "No branch/PR merges or new PRs"
+    ]
+  }
+}
