@@ -1191,13 +1191,15 @@ def generate_top8_exotic_gallery_plate(w2: dict, preview: dict) -> Path:
         "baseline-ct35",
         "unprojected (neg.)",
     ]
-    pass_rates = [100.0] * 11 + [0.0]
+    receipt_data = json.loads((ROOT / "docs/receipts/wave2-genome-and-10seed-ablation-20261015.json").read_text(encoding="utf-8"))
+    neg_pass_pct = float(receipt_data["key_findings"]["unprojected_negative_control_pass_rate"]) * 100.0
+    pass_rates = [100.0] * 11 + [neg_pass_pct]
     exotic_scores = [1.73, 1.32, 1.25, 1.24, 0.94, 0.72, 0.54, 0.48, 0.34, 0.22, 0.00, 0.00]
     y_pos = np.arange(len(fam_order))
     bar_cols = ["#5de0e6"] * 4 + ["#7be396"] * 6 + ["#90a4ae", "#ff6b6b"]
     bars = ax_b.barh(y_pos, pass_rates, height=0.64, color=bar_cols, alpha=0.86)
     for rect, ex_s, pr in zip(bars, exotic_scores, pass_rates):
-        txt = f"100% (20/20 + 20-walk, I={ex_s:.2f})" if pr > 0 else "0% (0/30 neg. ctrl)"
+        txt = f"100% (20/20 + 20-walk, I={ex_s:.2f})" if pr > 0 else f"{neg_pass_pct:.1f}% (neg. ctrl)"
         ax_b.text(min(pr + 1.5, 6.0), rect.get_y() + rect.get_height() / 2, txt, va="center", fontsize=6.2, color="#061017" if pr > 0 else "#ff8787", fontweight="bold")
     ax_b.set_yticks(y_pos)
     ax_b.set_yticklabels(short_y_labels, fontsize=6.9)

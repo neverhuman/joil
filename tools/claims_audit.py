@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Claims-to-receipts audit for docs/WHITEPAPER.md, docs/SCIENCE.md, and README.md.
+"""Claims-to-receipts audit for docs/WHITEPAPER.md, docs/SCIENCE.md, README.md and docs/RESULTS.md.
 
 Extracts every quantitative claim, table entry, file reference, and SHA-256 digest
-across docs/WHITEPAPER.md, docs/SCIENCE.md, and README.md and verifies each against
+across docs/WHITEPAPER.md, docs/SCIENCE.md, README.md and docs/RESULTS.md and verifies each against
 its authoritative source JSON receipt (baselines/ct35/*.json, docs/results/*.json,
 experiments/*.json, docs/receipts/*.json) and exact mathematical identities in
 docs/SCIENCE.md. Fails (exit code 1) on any numeric mismatch, missing receipt path,
@@ -200,7 +200,7 @@ def verify_seed_robustness_and_structured_claims(
     errors: list[str] = []
     wp = docs["docs/WHITEPAPER.md"]
     sc = docs["docs/SCIENCE.md"]
-    rm = docs["README.md"]
+    rs = docs["docs/RESULTS.md"]
 
     ct35_ref = bundle["ct35_ref"]
     ct35_drv = ct35_ref["derived_mm"]
@@ -425,7 +425,7 @@ def verify_seed_robustness_and_structured_claims(
         # 11-family expressiveness & 20-step operator random walk
         ("WHITEPAPER", wp, float(kf["n_stratified_expressiveness_samples"]), 220.0, 1e-6, "220 / 220"),
         ("WHITEPAPER", wp, float(kf["unprojected_negative_control_pass_rate"]), 0.0, 1e-6, "0 / 30"),
-        ("WHITEPAPER", wp, float(kf["operator_random_walk_total_steps"]), 220.0, 1e-6, "audit_11family_operator_random_walk(20, 20261116)"),
+        ("WHITEPAPER", wp, float(kf["operator_random_walk_total_steps"]), 220.0, 1e-6, "operator_chain_validity(20, 20261116)"),
         ("WHITEPAPER", wp, float(kf["operator_random_walk_family_transitions"]), 85.0, 1e-6, "85"),
         # Wave-2 5-Run OpenFOAM 14 GCI+RSM & F2-Oil Stage-0 Checkpoint checks
         (
@@ -499,32 +499,32 @@ def verify_seed_robustness_and_structured_claims(
         ("SCIENCE", sc, ct35_drv["L2"], 770.0, 1e-6, "770.0\\text{ mm}"),
         ("SCIENCE", sc, ct35_drv["L3"], 700.0, 1e-6, "700.0\\text{ mm}"),
         ("SCIENCE", sc, ext_case["numerical_outlet_extension_m"] * 1000.0, 120.0, 1e-6, "120\\text{ mm}"),
-        # README.md checks
-        ("README", rm, float(gci_cases["G0_coarse"]["cells"]), 139981.0, 1e-6, "140k"),
-        ("README", rm, float(gci_cases["G1_medium"]["cells"]), 305522.0, 1e-6, "305k"),
-        ("README", rm, float(gci_cases["G2_fine"]["cells"]), 552513.0, 1e-6, "552k"),
-        ("README", rm, float(cm["total_evaluations"]), 119235.0, 1e-6, "119,235"),
-        ("README", rm, gci_cases["G2_fine"]["dp_u_pa"] / 1000.0, 18.70, 1e-2, "18.70 kPa"),
-        ("README", rm, rsm_cases["LRR"]["dp_u_pa"] / 1000.0, 18.12, 1e-2, "18.12 kPa"),
-        ("README", rm, rsm_cases["SSG"]["dp_u_pa"] / 1000.0, 18.17, 1e-2, "18.17 kPa"),
+        # docs/RESULTS.md checks (detail moved out of README.md)
+        ("RESULTS", rs, float(gci_cases["G0_coarse"]["cells"]), 139981.0, 1e-6, "140k"),
+        ("RESULTS", rs, float(gci_cases["G1_medium"]["cells"]), 305522.0, 1e-6, "305k"),
+        ("RESULTS", rs, float(gci_cases["G2_fine"]["cells"]), 552513.0, 1e-6, "552k"),
+        ("RESULTS", rs, float(cm["total_evaluations"]), 119235.0, 1e-6, "119,235"),
+        ("RESULTS", rs, gci_cases["G2_fine"]["dp_u_pa"] / 1000.0, 18.70, 1e-2, "18.70 kPa"),
+        ("RESULTS", rs, rsm_cases["LRR"]["dp_u_pa"] / 1000.0, 18.12, 1e-2, "18.12 kPa"),
+        ("RESULTS", rs, rsm_cases["SSG"]["dp_u_pa"] / 1000.0, 18.17, 1e-2, "18.17 kPa"),
         (
-            "README",
-            rm,
+            "RESULTS",
+            rs,
             bundle["wave2_5run"]["wave2_tpms_gyroid_elite_5run_dossier"]["grids"][2]["dp_u_pa"] / 1000.0,
             18.72,
             1e-2,
             "18.72 kPa",
         ),
         (
-            "README",
-            rm,
+            "RESULTS",
+            rs,
             bundle["wave2_5run"]["wave2_octa_branch_8jet_elite_5run_dossier"]["grids"][2]["dp_u_pa"] / 1000.0,
             18.63,
             1e-2,
             "18.63 kPa",
         ),
-        ("README", rm, float(kf["n_stratified_expressiveness_samples"]), 220.0, 1e-6, "220 / 220"),
-        ("README", rm, float(kf["operator_random_walk_family_transitions"]), 85.0, 1e-6, "85"),
+        ("RESULTS", rs, float(kf["n_stratified_expressiveness_samples"]), 220.0, 1e-6, "220 / 220"),
+        ("RESULTS", rs, float(kf["operator_random_walk_family_transitions"]), 85.0, 1e-6, "85"),
         (
             "WHITEPAPER",
             wp,
@@ -574,8 +574,8 @@ def verify_seed_robustness_and_structured_claims(
             "47.745321",
         ),
         (
-            "README",
-            rm,
+            "RESULTS",
+            rs,
             float(
                 bundle["wave3_proof"]["final_summary_statistics"]["B3_Wave3_Exotic3D_QD_CEI"][
                     "best_kpi_score"
@@ -586,8 +586,8 @@ def verify_seed_robustness_and_structured_claims(
             "47.003792",
         ),
         (
-            "README",
-            rm,
+            "RESULTS",
+            rs,
             float(bundle["wave3_proof"]["promoted_wave3_top_elite_kpi_score"]),
             47.745321,
             1e-5,
@@ -843,6 +843,7 @@ TRACE_SECTIONS = (
     ("docs/WHITEPAPER.md", "§6", "## 6. ", ""),
     ("docs/WHITEPAPER.md", "§5", "## 5. ", "\n## Appendix A"),
     ("README.md", "README", "# joil", ""),
+    ("docs/RESULTS.md", "RESULTS", "# joil results", ""),
 )
 TRACE_SOURCES = ("docs/results", "docs/receipts", "experiments", "baselines/ct35")
 # Lane receipts: searched only when a sentence cites them, never in the uncited fallback.
@@ -932,7 +933,7 @@ _UNIT_AFFINITY = (
     (("kpa", "pa", "\\text{ pa", "\\text{ kpa"), ("_pa", "dp", "pressure")),
     (("mg/l", "\\text{ mg"), ("mg_l", "cout")),
     (("kj", "j/m", "\\text{ j", "\\text{ kj"), ("_j_", "loss", "energy", "j_per", "j_m3")),
-    (("µm", "um", "\\ \\mu"), ("_um", "d50", "diameter")),
+    (("µm", "um", "mu\\text{m}", "\\mu"), ("_um", "d50", "diameter")),  # LaTeX after _unit_tail strips "\ \"
     (("m³/h", "m3/h", "\\text{ m}^3/\\text{h"), ("m3_h", "feed", "flow")),
     (("%",), ("pct", "fraction", "ratio", "rate", "split", "coverage")),
     (("cells",), ("cells",)),
@@ -958,6 +959,7 @@ _LEAD_AFFINITY = (
     (r"\bU\s*=\s*$", ("mann_whitney_u",)),
     (r"\\delta\s*=\s*$", ("cliffs_delta",)),
     (r"p_\{\\text\{Holm\}\}\s*=\s*$", ("holm",)),
+    (r"\bR\s*=\s*$", ("convergence_ratio",)),
 )
 
 
@@ -1112,7 +1114,7 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
     scoped = {key: key.split("@", 1) for key in declared if "@" in key}
     used_scoped: set[str] = set()
     lines = [
-        "# Numbers trace (all of WHITEPAPER and README)",
+        "# Numbers trace (all of WHITEPAPER, README and RESULTS)",
         "",
         "Generated by `python3 tools/claims_audit.py --write-numbers-trace` (workplan DOC-04). Each numeral in these",
         "sections either equals a committed receipt value at its printed precision, or is declared in the hand-reviewed",
@@ -1161,7 +1163,7 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
                 para_cited = list(dict.fromkeys(para_cites[line_no])) if in_caption else []
             unit_cited = list(dict.fromkeys(re.findall(cite_re, unit)))
             if in_caption:
-                bound = list(dict.fromkeys(unit_cited + para_cited + sub_cited[::-1]))
+                bound = list(dict.fromkeys(unit_cited + para_cited[::-1] + sub_cited[::-1]))
             else:
                 sub_cited = list(dict.fromkeys(sub_cited + unit_cited))
                 bound = list(dict.fromkeys(unit_cited + sub_cited[::-1]))  # nearest earlier citation first
@@ -1180,14 +1182,18 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
                     key = (token, "declared", "-", "see table")
                 else:
                     key = (token, "**UNTRACED**", "-", "-")
-                    keys = _affinity(after) + _lead_affinity(before) + column_keys
+                    own_keys = _affinity(after) + _lead_affinity(before)  # the numeral's own unit or symbol
                     hits = [
                         (rel, ptr, tag or "printed")
                         for scale, tag in _unit_scales(after, unit)
                         for rel in search
                         for ptr in index.lookup(rel, token, scale)
                     ]
-                    preferred = [h for h in hits if any(k in h[1].lower() for k in keys)]
+                    preferred = next(
+                        (ranked for keys in (own_keys, column_keys)
+                         if (ranked := [h for h in hits if any(k in h[1].lower() for k in keys)])),
+                        [],
+                    )
                     hit = (preferred or hits or [None])[0]
                     if hit:
                         key = (token, f"`{hit[0]}`", f"`{hit[1]}`", hit[2])
@@ -1561,6 +1567,7 @@ def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
         "docs/WHITEPAPER.md": (root / "docs/WHITEPAPER.md").read_text(encoding="utf-8"),
         "docs/SCIENCE.md": (root / "docs/SCIENCE.md").read_text(encoding="utf-8"),
         "README.md": (root / "README.md").read_text(encoding="utf-8"),
+        "docs/RESULTS.md": (root / "docs/RESULTS.md").read_text(encoding="utf-8"),
     }
     bundle = build_receipt_bundle(root)
 
@@ -1601,7 +1608,7 @@ def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Verify all claims in WHITEPAPER.md, SCIENCE.md, and README.md against JSON receipts.")
+    parser = argparse.ArgumentParser(description="Verify all claims in WHITEPAPER.md, SCIENCE.md, README.md and RESULTS.md against JSON receipts.")
     parser.add_argument("--root", type=Path, default=ROOT, help="Repository root path")
     parser.add_argument("--json", action="store_true", help="Print JSON report")
     parser.add_argument(
@@ -1673,7 +1680,7 @@ def main() -> int:
         if report["passed"]:
             print(
                 f"claims_audit: OK ({report['structured_claims_verified']} structured receipt claims + "
-                f"{report['numeric_tokens_scanned']} markdown numeric tokens verified across WHITEPAPER.md, SCIENCE.md, README.md; "
+                f"{report['numeric_tokens_scanned']} markdown numeric tokens verified across WHITEPAPER.md, SCIENCE.md, README.md, RESULTS.md; "
                 f"{report['review_inputs_verified']} review inputs checksummed; "
                 f"{report['review_findings_traced']} review findings traced; "
                 f"{report['wording_claims_checked']} strong-wording claims checked)"

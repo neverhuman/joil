@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "figure_file": "docs/figures/wave2-8-exotic-phenotypes-gallery.png",
-  "figure_sha256": "055a0e4ce88ab4d0669321eed8e1bed657b81d4fa957334eb42d1ef93a70a814",
+  "figure_sha256": "d4c6ac58361838dd13c49f238dc8659b3d0fdd8df485716052ffa757eabd42ff",
   "title": "Wave-2 Top 8 Exotic Valid 3D Phenotypes Gallery, Labeled B3 Elite Architecture & 11-Family Operator Walk Audit",
   "description": "2x4 true-scale 3D gallery of the 8 most exotic valid 3D phenotypes, 11-family stratified random sampling + 20-step operator walk pass rate (220/220 = 100.0%), high-res labeled B3 elite TPMS/helix architecture callout, and n=10 seed scatter + 95% CIs.",
   "units_declared": true,

@@ -333,6 +333,9 @@ def main() -> None:
     w1_hs = float(w1_dossier["roache_gci_analysis"]["dp_u_pa"]["three_grid_half_span_pct_of_f2"])
     tpms_hs = float(tpms_d["roache_gci_analysis"]["dp_u_pa"]["three_grid_half_span_pct_of_f2"])
     octa_hs = float(octa_d["roache_gci_analysis"]["dp_u_pa"]["three_grid_half_span_pct_of_f2"])
+    w1_r = float(w1_dossier["roache_gci_analysis"]["dp_u_pa"]["convergence_ratio_R"])
+    tpms_r = float(tpms_d["roache_gci_analysis"]["dp_u_pa"]["convergence_ratio_R"])
+    octa_r = float(octa_d["roache_gci_analysis"]["dp_u_pa"]["convergence_ratio_R"])
 
     ax_d.axhline(base_dpu_kpa, color="#ef4444", ls="--", lw=1.8, label=f"CT-35 Structured-Hex Ref ({base_dpu_kpa:.2f} kPa; Diff Pipeline)")
     ax_d.bar(
@@ -341,7 +344,7 @@ def main() -> None:
         width=width,
         color="#38bdf8",
         edgecolor="#0284c7",
-        label=f"W1 \"6-Jet\" Shell (Oscillatory R=-0.373, Half-Span=±{w1_hs:.2f}%, std GCI=null)",
+        label=f"W1 \"6-Jet\" Shell (Oscillatory R={w1_r:.3f}, Half-Span=±{w1_hs:.2f}%, std GCI=null)",
     )
     ax_d.bar(
         x_idx,
@@ -349,7 +352,7 @@ def main() -> None:
         width=width,
         color="#34d399",
         edgecolor="#059669",
-        label=f"W2 \"TPMS\" Shell (Oscillatory R=-0.379, Half-Span=±{tpms_hs:.2f}%, std GCI=null)",
+        label=f"W2 \"TPMS\" Shell (Oscillatory R={tpms_r:.4f}, Half-Span=±{tpms_hs:.2f}%, std GCI=null)",
     )
     ax_d.bar(
         x_idx + width,
@@ -357,7 +360,7 @@ def main() -> None:
         width=width,
         color="#a855f7",
         edgecolor="#7e22ce",
-        label=f"W2 \"8-Jet\" Shell (Oscillatory R=-0.369, Half-Span=±{octa_hs:.2f}%, std GCI=null)",
+        label=f"W2 \"8-Jet\" Shell (Oscillatory R={octa_r:.4f}, Half-Span=±{octa_hs:.2f}%, std GCI=null)",
     )
     ax_d.set_xticks(x_idx)
     ax_d.set_xticklabels(case_labels, fontsize=8.2)

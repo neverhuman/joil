@@ -14,6 +14,122 @@ from analysis.units import pressure_scale
 
 
 class EvidenceTests(unittest.TestCase):
+    def _disposition_module(self):
+        import importlib.util
+        path = Path(__file__).resolve().parents[1]/'crates/joil-evidence/receipts/ev12_disposition_audit.py'
+        spec = importlib.util.spec_from_file_location('ev12_disposition', path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    def _disposition_fixture(self, root, module):
+        import hashlib
+        from analysis.case_identity import finalize_case_identity
+        inputs, runs, diagnostic = root/'inputs', root/'runs', root/'g1-diagnostic'
+        complete = self._synthetic_wave4_case(inputs, module.SUBJECT_CASE)
+        incomplete = self._synthetic_wave4_case(inputs, 'wave4-b3-s20261103-g0-coarse')
+        shutil.rmtree(incomplete/'constant/polyMesh')
+        active = runs/complete.name
+        shutil.copytree(complete, active)
+        finalize_case_identity(active)
+        quarantine = runs/'unfinalized-pruned-wave4'/incomplete.name
+        shutil.copytree(incomplete, quarantine)
+        shutil.copytree(complete, diagnostic)
+        (diagnostic/'constant/polyMesh/boundary').write_text('wall\n{\n nFaces 10;\n}\n')
+        (diagnostic/'water-1-mpirun.log').write_bytes(b'')
+        (diagnostic/'water-1-mpirun.log.receipt.json').write_text(json.dumps({
+            'exit_code': 1, 'log_sha256': hashlib.sha256(b'').hexdigest(), 'log_bytes': 0}))
+        (diagnostic/'water-1-mpirun.orig.log').write_text('FOAM FATAL ERROR\nUnknown patch name: inlet1\nMPI_ABORT\n')
+        (diagnostic/'mesh-2-checkMesh.log').write_text('synthetic diagnostic checkMesh log')
+        finalize_case_identity(diagnostic)
+        (diagnostic/'constant/polyMesh/cellProc').write_text('synthetic changed decomposition')
+        return inputs, runs, diagnostic, active, quarantine
+
+    def test_ev12_disposition_accounts_complete_pruned_and_failed_cases_without_promotion(self):
+        from analysis.case_identity import _inventory, audit_wave4_manifests
+        module = self._disposition_module()
+        private = Path(__file__).resolve().parents[1]/'.private'
+        private.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=private) as directory:
+            inputs, runs, diagnostic, active, quarantine = self._disposition_fixture(Path(directory), module)
+            expected = {active.name, quarantine.name}
+            before = _inventory(Path(directory), ['.'])
+            report = module.audit(runs, inputs, diagnostic, expected)
+            self.assertTrue(report['passed'], report)
+            self.assertEqual(report['case_count'], 3)
+            self.assertEqual(report['counts'], {'SCOPED_IDENTITY_VERIFIED': 1,
+                                              'EXCLUDED_MISSING_EXECUTED_MESH': 1,
+                                              'EXCLUDED_FAILED_G1_DIAGNOSTIC': 1})
+            rows = {r['case']: r for r in report['cases']}
+            self.assertIsNone(rows[quarantine.name]['mesh_hash'])
+            self.assertIsNone(rows[quarantine.name]['case_hash'])
+            self.assertEqual(rows[module.G1_CASE]['identity_sidecar_state'], 'STALE')
+            self.assertFalse(rows[module.G1_CASE]['valid_finalized_identity_for_retained_state'])
+            self.assertIsNone(rows[module.G1_CASE]['inlet_patches']['inlet1']['n_faces'])
+            self.assertFalse(report['all_cases_have_verified_identity'])
+            self.assertEqual(report['claim_eligible_cases'], 0)
+            self.assertFalse(audit_wave4_manifests(runs/'unfinalized-pruned-wave4')['passed'])
+            self.assertEqual(_inventory(Path(directory), ['.']), before, 'audit must be read-only')
+
+    def test_ev12_disposition_rejects_inventory_loss_drift_and_broken_active_identity(self):
+        from analysis.case_identity import finalize_case_identity
+        module = self._disposition_module()
+        private = Path(__file__).resolve().parents[1]/'.private'
+        private.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=private) as directory:
+            inputs, runs, diagnostic, active, quarantine = self._disposition_fixture(Path(directory), module)
+            expected = {active.name, quarantine.name}
+            self.assertFalse(module.audit(runs, inputs, diagnostic, expected | {'wave4-missing'})['passed'])
+            self.assertFalse(module.audit(runs, inputs, diagnostic, set())['passed'])
+            for case in [active, quarantine]:
+                path = case/'0/U'
+                original = path.read_bytes()
+                path.write_bytes(original+b' changed')
+                report = module.audit(runs, inputs, diagnostic, expected)
+                self.assertFalse(report['passed'])
+                self.assertIn(case.name, report['unresolved_cases'])
+                path.write_bytes(original)
+            extra = self._synthetic_wave4_case(runs, 'wave4-extra-unregistered')
+            finalize_case_identity(extra)
+            report = module.audit(runs, inputs, diagnostic, expected)
+            self.assertFalse(report['passed'])
+            self.assertIn(extra.name, report['unresolved_cases'])
+
+    def test_ev12_g1_disposition_requires_bound_fatal_evidence_and_missing_inlet(self):
+        module = self._disposition_module()
+        private = Path(__file__).resolve().parents[1]/'.private'
+        private.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=private) as directory:
+            inputs, runs, diagnostic, active, quarantine = self._disposition_fixture(Path(directory), module)
+            expected = {active.name, quarantine.name}
+            for rel, replacement in [
+                ('water-1-mpirun.log.receipt.json', b'{"exit_code":0}'),
+                ('water-1-mpirun.orig.log', b'End\n'),
+                ('water-1-mpirun.log', b'changed wrapper log'),
+                ('constant/polyMesh/boundary', b'inlet1\n{\n nFaces 5;\n}\n'),
+                ('design-program.json', b'{"forged":true}'),
+            ]:
+                path = diagnostic/rel
+                original = path.read_bytes()
+                path.write_bytes(replacement)
+                with self.subTest(missing_or_forged=rel):
+                    report = module.audit(runs, inputs, diagnostic, expected)
+                    self.assertFalse(report['passed'])
+                    self.assertIn(module.G1_CASE, report['unresolved_cases'])
+                path.write_bytes(original)
+
+    def test_ev12_real_disposition_inventory_when_explicitly_supplied(self):
+        names = ['JOIL_WAVE4_RUNS_ROOT', 'JOIL_WAVE4_INPUTS_ROOT', 'JOIL_WAVE4_DIAGNOSTIC_ROOT']
+        if not all(os.environ.get(name) for name in names):
+            self.skipTest('set all three Wave4 roots for read-only real disposition audit')
+        module = self._disposition_module()
+        report = module.audit(*(os.environ[name] for name in names))
+        self.assertTrue(report['passed'], (report['errors'], report['unresolved_cases']))
+        self.assertEqual(report['case_count'], 12)
+        self.assertEqual(report['counts'], {'SCOPED_IDENTITY_VERIFIED': 3,
+                                          'EXCLUDED_MISSING_EXECUTED_MESH': 8,
+                                          'EXCLUDED_FAILED_G1_DIAGNOSTIC': 1})
+
     def test_ev12_every_run_audit_includes_missing_bad_and_quarantined_cases(self):
         import importlib.util
         from analysis.case_identity import finalize_case_identity
