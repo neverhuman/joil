@@ -143,6 +143,18 @@ class EvidenceTests(unittest.TestCase):
         )
         self.assertGreaterEqual(len(bad_path_errs),2)
 
+    def test_wave3_evolution_proof_kpi_and_ablation_audit(self):
+        from analysis.kpi_fitness import verify_wave3_evolution_proof_kpis
+        root=Path(__file__).resolve().parents[1]
+        rep=verify_wave3_evolution_proof_kpis(root/'docs/results/wave3-evolution-proof-v1.json')
+        self.assertTrue(rep['passed'])
+        self.assertEqual(rep['n_seeds'],10)
+        self.assertEqual(rep['verified_seed_runs'],50)
+        self.assertAlmostEqual(rep['baseline_b0_ct35_kpi_score'],26.486473,places=5)
+        self.assertGreater(rep['promoted_wave3_top_elite_kpi_score'],47.0)
+        self.assertIsNone(rep['qualified_multiobjective_vector'])
+        self.assertIsNone(rep['qualified_capacity_gain'])
+
 
 if __name__=='__main__':unittest.main()
 

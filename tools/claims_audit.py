@@ -69,6 +69,7 @@ def build_receipt_bundle(root: Path = ROOT) -> dict[str, Any]:
         "wave2_5run": load_json("docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json", root),
         "wave2_prereg": load_json("experiments/wave2-preregistration-v1.json", root),
         "wave2_ablation": load_json("docs/results/wave2-multiseed-ablation-and-holdout-v1.json", root),
+        "wave3_proof": load_json("docs/results/wave3-evolution-proof-v1.json", root),
         "wave2_receipt": load_json("docs/receipts/wave2-genome-and-10seed-ablation-20261015.json", root),
         "archetypes_3d": load_json("docs/results/interactive-3d-archetypes-v1.json", root),
         "status": load_json("docs/STATUS.json", root),
@@ -114,12 +115,14 @@ def verify_paths_and_sha256_digests(
         "docs/results/elite-3grid-gci-and-rsm-verification-v1.json",
         "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json",
         "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+        "docs/results/wave3-evolution-proof-v1.json",
         "docs/results/interactive-3d-archetypes-v1.json",
         "docs/results/baseline-hydraulics-v1.json",
         "experiments/wave2-preregistration-v1.json",
         "baselines/ct35/genome.json",
         "baselines/ct35/reference.json",
         "physics/cuda/joil_cuda_eval.cu",
+        "docs/figures/wave3-readme-hero-kpi-and-elite.png",
         "docs/figures/rust-3d-topology-atlas.png",
         "docs/figures/pareto-map-elites-convergence.png",
         "docs/figures/elite-gci-and-rsm-verification.png",
@@ -130,6 +133,7 @@ def verify_paths_and_sha256_digests(
         "docs/figures/wave2-structural-lame-and-modal-qualification.png",
         "docs/figures/wave2-8-exotic-phenotypes-gallery.png",
         "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
+        "docs/figures/wave3-evolution-ablation-and-lineage-proof.png",
         "docs/figures/wave2-vortex-and-qd-illumination.gif",
         "docs/figures/wave2-topology-morph-and-lineage.gif",
     ]
@@ -478,6 +482,74 @@ def verify_seed_robustness_and_structured_claims(
         ),
         ("README", rm, float(kf["n_stratified_expressiveness_samples"]), 220.0, 1e-6, "220 / 220"),
         ("README", rm, float(kf["operator_random_walk_family_transitions"]), 85.0, 1e-6, "85"),
+        (
+            "WHITEPAPER",
+            wp,
+            float(bundle["wave3_proof"]["total_3d_evaluations_across_arms"]),
+            22500.0,
+            1e-6,
+            "22,500",
+        ),
+        (
+            "WHITEPAPER",
+            wp,
+            float(bundle["wave3_proof"]["baseline_b0_ct35_kpi_score"]),
+            26.486473,
+            1e-5,
+            "26.486473",
+        ),
+        (
+            "WHITEPAPER",
+            wp,
+            float(
+                bundle["wave3_proof"]["final_summary_statistics"]["B3_Wave3_Exotic3D_QD_CEI"][
+                    "best_kpi_score"
+                ]["mean"]
+            ),
+            47.003792,
+            1e-5,
+            "47.003792",
+        ),
+        (
+            "WHITEPAPER",
+            wp,
+            float(
+                bundle["wave3_proof"]["final_summary_statistics"]["B3_Wave3_Exotic3D_QD_CEI"][
+                    "median_kpi_score"
+                ]["mean"]
+            ),
+            45.956543,
+            1e-5,
+            "45.956543",
+        ),
+        (
+            "WHITEPAPER",
+            wp,
+            float(bundle["wave3_proof"]["promoted_wave3_top_elite_kpi_score"]),
+            47.745321,
+            1e-5,
+            "47.745321",
+        ),
+        (
+            "README",
+            rm,
+            float(
+                bundle["wave3_proof"]["final_summary_statistics"]["B3_Wave3_Exotic3D_QD_CEI"][
+                    "best_kpi_score"
+                ]["mean"]
+            ),
+            47.003792,
+            1e-5,
+            "47.003792",
+        ),
+        (
+            "README",
+            rm,
+            float(bundle["wave3_proof"]["promoted_wave3_top_elite_kpi_score"]),
+            47.745321,
+            1e-5,
+            "47.745321",
+        ),
     ]
 
     for doc_label, text, actual, expected, tol, substr in checks:

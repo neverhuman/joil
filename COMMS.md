@@ -356,3 +356,43 @@ PR #1 merged by Jepson (d1ac285). agy_joil moved to feat/wave3-evolution with WI
 3. **Next Step (Immediate)**:
    - Committing and pushing this completed Wave-2 OpenFOAM 14 verification batch on `feat/wave3-evolution` and opening a focused PR (`jepsontaylor` HTTPS), then immediately executing Jepson's Wave-3 evolutionary proof order (`analysis/kpi_fitness.py` per-generation best/median KPI trajectories across `>= 5` (`10`) seeds with CI bands vs. random search, conventional NSGA-II, no-mutation, and no-selection ablations + `CT-35` baseline + held-out geometries + README hero plot + Whitepaper proof figures).
 
+
+## 2026-10-16T04:09Z — Joil drive routine (Grok Bot) [2026-10-15 09:09PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — was at Gemini prompt after Wave-3 WIP (`evolve.rs` / `kpi_fitness.py`); **nudged** (file+readbuf+`paste .`) toward continuing Jepson PROOF ADDENDUM (multi-seed KPI curves, WHITEPAPER+README, do NOT merge). Agent accepted (`Generating…`); also observed mid-turn `wave3-proof` CLI run. First stuff of literal `paste .` briefly contaminated composer prefix — corrected with real `screen -X paste .`.
+- **Jepson override**: ADDENDUM 8:36pm PT — proof evolution works; **Focused PRs, green CI, do NOT merge (Jepson merges)**. Overrides routine auto-merge path.
+- **PR #2**: https://github.com/neverhuman/joil/pull/2 (`feat/wave3-evolution` @ `43d278c`, not draft, MERGEABLE/CLEAN) — **ALL Foundation checks GREEN** (fmt/clippy/rust-tests/baseline/python-tests/public-check/claims-audit/ui/foundation). **Not approved/merged this run** (Jepson override). Ready for Jepson to merge when he wants.
+- **Merges / approve / cleanup**: none (no merge; single worktree `/home/ubuntu/joil` on `feat/wave3-evolution` with dirty WIP owned by `agy_joil`; screen using tree).
+- **WakeParent**: YES — PR #2 CI green + ready for Jepson merge (blocker is his "do not merge" order, not CI).
+
+## 2026-10-16T04:38Z — Joil drive routine (ENG:watcher) [2026-10-15 9:38PM PDT]
+
+- **Screen**: `agy_joil` ACTIVE (editing README.md / WHITEPAPER.md with Wave-3 proof figures after 10-seed `wave3-proof` run; new untracked `docs/results/wave3-evolution-proof-v1.json` + two wave3 figures). No nudge — not idle.
+- **PR #2** (`feat/wave3-evolution` @ `43d278c`): unchanged, all checks green, CLEAN. Not merged — Jepson merges (his 8:36pm PT order). Already reported at 9:09pm PT.
+- **Merges / cleanup**: none (single worktree, dirty WIP owned by `agy_joil`).
+
+## 2026-10-16T04:42Z — Gemini (`agy_joil`): Completed Jepson's Wave-3 De-Novo Evolutionary Proof (`22,500` Real 3D Evals across `n = 10` Seeds × `25` Gens × `6` Arms), README Hero Plot, Whitepaper Plate 11, and ETA Breakdown on `feat/wave3-evolution` (`PR #2`)
+
+1. **Real Multi-Seed De-Novo Evolutionary Proof (`docs/results/wave3-evolution-proof-v1.json`, `SHA-256: 9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168`, `analysis/kpi_fitness.py`, `crates/joil-core/src/{program,evolve}.rs`, `crates/joil-cli/src/main.rs`)**:
+   - Executed `rtk cargo run --release -p joil-cli -- wave3-proof` (`n = 10` independent master seeds `20261101..20261110`, `25` generation checkpoints `g = 0..24`, `18` 3D evaluations/generation = `450` evaluations/seed/arm = **`22,500` real 3D evaluations**) optimizing `KPI_score` in `analysis/kpi_fitness.py`.
+   - **Shared Unseeded Generation-0 Start (`0` pre-baked 6/8-jet or TPMS archetypes)**: `A1`, `A2`, and `B3` start at `g = 0` from the exact same mild-perturbation population around `CT-35` (`gen0_best_kpi_score = 31.838823` on seed `20261101`; verified identical per-seed across all 10 seeds by `verify_wave3_evolution_proof_kpis` in `analysis/kpi_fitness.py`).
+   - **6-Arm 10-Seed Final KPI Results & 16/16 Holm–Bonferroni Hypothesis Tests (`PASS`)**:
+     - **`B0` (`Baseline-CT35`)**: `KPI_score = 26.486473`, $C_{\text{out,p95}} = 25.101952\text{ mg/L}$.
+     - **`A1` (`No-Mutation Crossover-Only`)**: Best `KPI_score = 35.369726 ± 0.538398` (`95% CI [35.039542, 35.670494]`), Pop-Median `34.918421`, Shannon diversity collapses to `0.00 bits` (`B3` vs `A1`: $U = 100.0$, $p_{\text{Holm}} = 0.0012568$, Cliff's $\delta = +1.000$).
+     - **`B2` (`Conventional-Axisym-NSGA2`)**: Best `KPI_score = 37.572998 ± 0.576043` (`95% CI [37.250758, 37.927368]`), Pop-Median `36.146265`, $C_{\text{out,p95}} = 15.802162\text{ mg/L}$ (`B3` vs `B2`: $U = 100.0$, $p_{\text{Holm}} = 0.0012568$, $\delta = +1.000$).
+     - **`A2` (`No-Selection Random-Walk`, identical zero-mean mutation + crossover as `B3`)**: Best `KPI_score = 43.243541 ± 0.985805` (`95% CI [42.669254, 43.812082]`), Pop-Median `38.341649` (`B3` vs `A2`: Best $U = 100.0$, Pop-Med $U = 100.0$, $p_{\text{Holm}} = 0.0012568$, $\delta = +1.000$).
+     - **`B1` (`Equal-Budget Random Search`)**: Best `KPI_score = 46.289980 ± 0.515204` (`95% CI [46.002233, 46.601384]`), Pop-Median `38.201035`, $C_{\text{out,p95}} = 8.473741\text{ mg/L}$ (`B3` vs `B1`: Best `KPI` $U = 84.0$, $p_{\text{Holm}} = 0.010165$, $\delta = +0.680$; Pop-Median `KPI` $\Delta = +7.755509$, $U = 100.0$, $p_{\text{Holm}} = 0.0012568$, $\delta = +1.000$; Pareto $HV$ $U = 92.0$, $p_{\text{Holm}} = 0.002249$, $\delta = +0.840$).
+     - **`B3` (`Wave3-Exotic3D-QD-CEI`, Full Evolution)**: Best `KPI_score = 47.003792 ± 0.503020` (`95% CI [46.702993, 47.278324]`, $+15.164969$ from Gen-0, $+20.517319$ vs `CT-35`), Active Pop-Median `45.956543` (`95% CI [45.349348, 46.433642]`), Best $C_{\text{out,p95}} = 7.879303\text{ mg/L}$ (`95% CI [7.667346, 8.124948]`). Top de-novo elite `s20261110-g024-i005` (`cylindrical-gyroid-coalescer`) reaches **`KPI_score = 47.745321`** and **$C_{\text{out,p95}} = 7.438085\text{ mg/L}$ (`-70.37%` vs `CT-35`)**.
+2. **Script-Generated Proof Figures (`tools/generate_wave3_proof_figures.py`), `README.md`, `docs/WHITEPAPER.md`, & `tools/claims_audit.py`**:
+   - Generated `docs/figures/wave3-readme-hero-kpi-and-elite.png` (`SHA-256: b2c8df1d3cd429c78d560b37a22ffb1ba1cf0d511662d3e295ce8265882c6b64`) and `docs/figures/wave3-evolution-ablation-and-lineage-proof.png` (`Plate 11`, `SHA-256: a7c78148ff9c4e895a3fb058a204ee30f852a1b14e5f4a5b13364bcbac443eca`) + `.manifest.json` sidecars.
+   - Updated `README.md` (Hero Plot + 6-arm 10-seed KPI table + reproduce commands) and `docs/WHITEPAPER.md` (Abstract item 5 + Section 5.5 + Plate 0 & Plate 11 + Section 6 index).
+   - Verified `rtk proxy python3 tools/check.py` (all 9 stages exit `0`; `claims-audit` verified `149` structured receipt claims + `1,416` markdown numeric tokens; `receipt: .private/checks/20261016T043957Z-d47d1392/receipt.json`).
+3. **ETA Breakdown (Landed Tonight vs. Longer Multi-Hour / Physical Runs)**:
+   - **Landed Tonight (100% Complete & Committed on `PR #2`)**:
+     - `15` 3D OpenFOAM 14 `G0`/`G1`/`G2` + `LRR`/`SSG` RSM verification runs across all 3 promoted elites (`Wave-1` 6-jet, `Wave-2/3` TPMS gyroid, `Wave-2/3` 8-jet) + Plate 10 (`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`).
+     - `22,500`-evaluation Wave-3 10-seed 6-arm de-novo evolutionary proof (`B0`, `B1`, `B2`, `A1`, `A2`, `B3`), held-out 11-family geometry generalization, phylogenetic lineage, and Shannon diversity (`docs/results/wave3-evolution-proof-v1.json`).
+     - Script-generated `README.md` Hero Plot (`wave3-readme-hero-kpi-and-elite.png`) and Whitepaper Plate 11 (`wave3-evolution-ablation-and-lineage-proof.png`), plus updated `README.md`, `docs/WHITEPAPER.md`, and `tools/claims_audit.py`.
+   - **Needs Longer Runs (Explicitly Scoped & Resumable)**:
+     - **Full $T = 4.0\text{ s}$ `F2-Oil` 10-Bin Lagrangian Droplet Residence Closure on Extended ($L_{\text{ext}} = 0.12\text{ m}$) Elite Carrier**: **ETA `~3.95 wall-hours` per elite on 4 CPU cores** (`8` resumable `0.50 s` / `10,000`-step stages at `29.65 min/stage`, extrapolated from the executed Stage-0 `35.58 s` checkpoint in `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`).
+     - **5-Case OpenFOAM 14 (`G0`/`G1`/`G2` + `LRR`/`SSG` RSM) Sweep Across All 30 Per-Seed Arm Winners**: **ETA `~7.5 wall-hours` on 4 CPU cores** (`150` OpenFOAM runs at `~3 min/run`).
+     - **`F4` Physical LPBF Ti-6Al-4V Fabrication, X-Ray CT (`CAD-09`), & 5-Block Blinded A/B/A Flow-Loop Rig Validation (`P06`)**: External hardware fabrication & lab campaign (`qualified_multiobjective_vector: null` remains strictly enforced until complete).

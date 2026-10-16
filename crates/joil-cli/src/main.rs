@@ -760,9 +760,67 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }))?
             );
         }
+        "wave3-proof" => {
+            let out_path = PathBuf::from(
+                parse_arg(&args, "--out")
+                    .unwrap_or_else(|| "docs/results/wave3-evolution-proof-v1.json".into()),
+            );
+            let seeds: Vec<u64> = if let Some(s) = parse_arg(&args, "--seeds") {
+                s.split(',')
+                    .filter_map(|tok| tok.trim().parse::<u64>().ok())
+                    .collect()
+            } else {
+                vec![
+                    20261101, 20261102, 20261103, 20261104, 20261105, 20261106, 20261107,
+                    20261108, 20261109, 20261110,
+                ]
+            };
+            let cfg = evolve::EvolutionConfig {
+                islands: parse_arg(&args, "--islands")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(2),
+                pop_per_island: parse_arg(&args, "--pop")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(9),
+                generations: parse_arg(&args, "--generations")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(24),
+                mc_samples: parse_arg(&args, "--mc")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(12),
+                ..evolve::EvolutionConfig::default()
+            };
+            let report = evolve::run_wave3_evolution_proof(&seeds, &cfg)?;
+            if let Some(parent) = out_path.parent() {
+                std::fs::create_dir_all(parent)?;
+            }
+            let pretty = serde_json::to_string_pretty(&report)?;
+            let out_json = pretty.lines().map(str::trim_start).collect::<Vec<_>>().join("\n") + "\n";
+            std::fs::write(&out_path, &out_json)?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&serde_json::json!({
+                    "status": "completed",
+                    "protocol_id": report.protocol_id,
+                    "n_seeds": report.n_seeds,
+                    "generations": report.generations,
+                    "evaluations_per_seed_per_arm": report.evaluations_per_seed_per_arm,
+                    "total_3d_evaluations_across_arms": report.total_3d_evaluations_across_arms,
+                    "baseline_b0_ct35_kpi_score": report.baseline_b0_ct35_kpi_score,
+                    "baseline_b0_ct35_cout_p95_mg_l": report.baseline_b0_ct35_cout_p95_mg_l,
+                    "promoted_wave3_top_elite_id": report.promoted_wave3_top_elite.id,
+                    "promoted_wave3_top_elite_topology": report.promoted_wave3_top_elite.topology_class,
+                    "promoted_wave3_top_elite_kpi_score": report.promoted_wave3_top_elite_kpi_score,
+                    "promoted_wave3_top_elite_cout_p95_mg_l": report.promoted_wave3_top_elite.mc_robustness.cout_p95_mg_l,
+                    "final_summary_statistics": report.final_summary_statistics,
+                    "pairwise_tests": report.pairwise_tests,
+                    "out_path": out_path,
+                }))?
+            );
+        }
         _ => {
             return Err(
-                "supported commands: baseline, kpi, verify-rotation, qualify-structure, audit-probe, promote-elite, prepare-cfd-case, qualify-surrogate, qualify-population, qualify-experiment, export-glb-scene, export-3d-preview, compile-3d, evolve, merge-cluster, wave2-benchmark".into(),
+                "supported commands: baseline, kpi, verify-rotation, qualify-structure, audit-probe, promote-elite, prepare-cfd-case, qualify-surrogate, qualify-population, qualify-experiment, export-glb-scene, export-3d-preview, compile-3d, evolve, merge-cluster, wave2-benchmark, wave3-proof".into(),
             )
         }
     }
