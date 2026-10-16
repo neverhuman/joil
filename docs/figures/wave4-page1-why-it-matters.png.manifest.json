@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "figure_path": "docs/figures/wave4-page1-why-it-matters.png",
+  "figure_sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+  "title": "Wave-4 lead figure: evolution (B3) vs equal-budget uniform random search (B1) on the F1 screen",
+  "generator_script": "tools/generate_page1_figure.py",
+  "plotted_series_sha256": "37a42676e9f3cc5006e5741fd0553d8aa8584fe919f44fcf2ff9fd47c94eeeba",
+  "source_receipts": [
+    {
+      "path": "docs/results/wave4-evolution-proof-v1.json",
+      "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885"
+    }
+  ]
+}

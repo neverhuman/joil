@@ -156,6 +156,7 @@ def verify_paths_and_sha256_digests(
         "docs/figures/wave3-evolution-ablation-and-lineage-proof.png",
         "docs/figures/wave4-readme-hero-kpi-and-elite.png",
         "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
+        "docs/figures/wave4-page1-why-it-matters.png",
         "docs/figures/wave2-vortex-and-qd-illumination.gif",
         "docs/figures/wave2-topology-morph-and-lineage.gif",
     ]
@@ -866,7 +867,7 @@ def _trace_values(root: Path) -> list[tuple[str, str, float]]:
         elif isinstance(obj, dict):
             for k, v in obj.items():
                 walk(v, rel, f"{ptr}/{k}")
-        elif isinstance(obj, list):
+        elif isinstance(obj, list) and len(obj) <= 32:  # long arrays are geometry, never quoted
             for i, v in enumerate(obj):
                 walk(v, rel, f"{ptr}/{i}")
 
@@ -1101,12 +1102,24 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
         section_cited = list(dict.fromkeys(re.findall(cite_re, text)))
         rows: dict[tuple[str, str, str, str], int] = {}
         sub_cited: list[str] = []
-        for _, unit in _sentences(text):
+        units = _sentences(text)
+        para_cites: dict[int, list[str]] = {}
+        for line_no, unit in units:
+            para_cites.setdefault(line_no, []).extend(re.findall(cite_re, unit))
+        para_start, para_cited, in_caption = None, [], False
+        for line_no, unit in units:
             if unit.startswith("#"):
                 sub_cited = []
+            if line_no != para_start:  # a figure caption's citations bind only, and all of, that caption paragraph
+                para_start = line_no
+                in_caption = unit.startswith("![") or (unit.startswith("*") and not unit.startswith("**"))
+                para_cited = list(dict.fromkeys(para_cites[line_no])) if in_caption else []
             unit_cited = list(dict.fromkeys(re.findall(cite_re, unit)))
-            sub_cited = list(dict.fromkeys(sub_cited + unit_cited))
-            bound = list(dict.fromkeys(unit_cited + sub_cited))
+            if in_caption:
+                bound = list(dict.fromkeys(unit_cited + para_cited + sub_cited[::-1]))
+            else:
+                sub_cited = list(dict.fromkeys(sub_cited + unit_cited))
+                bound = list(dict.fromkeys(unit_cited + sub_cited[::-1]))  # nearest earlier citation first
             search = bound or list(dict.fromkeys(section_cited + all_files))
             for token, before, after in _numeral_tokens_with_context(unit):
                 scope = next((k for k, (n, phrase) in scoped.items() if n == token and phrase in unit), None)

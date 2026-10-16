@@ -9,6 +9,17 @@
 
 ## Read this first: review response and corrected claims (16 October 2026)
 
+![Wave-4 lead figure: best screen KPI_score against generation for evolution (B3) and equal-budget uniform random search (B1), with the CT-35 reference](figures/wave4-page1-why-it-matters.png)
+*Lead figure (Wave-4, `F1` screen, sandbox; [`docs/results/wave4-evolution-proof-v1.json`](results/wave4-evolution-proof-v1.json), generator `tools/generate_page1_figure.py`).*
+*It plots the best screen `KPI_score` found so far against generation for evolution (`B3`) and uniform random
+search (`B1`). Each arm has `10` seeds and `450` charged proposals per seed. Bands are 95% bootstrap intervals of the
+seed mean, thin lines are single seeds, and dotted lines are population medians. `B1` ends higher on best score
+(`45.936820` against `45.131872`; for `B3` > `B1`, $p_{\text{Holm}} = 1.0$ and Cliff's $\delta = -0.68$), so on
+repaired code evolution does not beat random search on the screen's best score. `B3` leads only on population
+median (`43.628366` against `37.983620`). `CT-35` is a single frozen reference evaluation at `23.931038`, not a
+search arm. These are values of a screen built from gene-derived descriptors, not physical performance
+(correction C4). The same-pipeline CFD control shows no pressure-drop advantage for the archived shells either (§4.6).*
+
 Six external reviews (S1–S6, 15 October 2026) audited this repository. They are stored verbatim with checksums in
 [`docs/review-inputs/2026-10-15/`](review-inputs/2026-10-15/INDEX.md). Each finding was checked against the code
 and traced to a workplan item in [`docs/reviews/2026-10-15-SYNTHESIS.md`](reviews/2026-10-15-SYNTHESIS.md).
