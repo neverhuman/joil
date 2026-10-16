@@ -67,6 +67,8 @@ def build_receipt_bundle(root: Path = ROOT) -> dict[str, Any]:
         "cfd_bench": load_json("docs/results/exotic-vs-baseline-cfd-benchmark-v1.json", root),
         "gci_rsm": load_json("docs/results/elite-3grid-gci-and-rsm-verification-v1.json", root),
         "wave2_5run": load_json("docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json", root),
+        "gci_rsm_v2": load_json("docs/results/elite-3grid-gci-and-rsm-verification-v2.json", root),
+        "wave2_5run_v2": load_json("docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json", root),
         "wave2_prereg": load_json("experiments/wave2-preregistration-v1.json", root),
         "wave2_ablation": load_json("docs/results/wave2-multiseed-ablation-and-holdout-v1.json", root),
         "wave3_proof": load_json("docs/results/wave3-evolution-proof-v1.json", root),
@@ -116,6 +118,8 @@ def verify_paths_and_sha256_digests(
         "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json",
         "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
         "docs/results/wave3-evolution-proof-v1.json",
+        "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+        "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
         "docs/results/interactive-3d-archetypes-v1.json",
         "docs/results/baseline-hydraulics-v1.json",
         "experiments/wave2-preregistration-v1.json",
@@ -256,6 +260,23 @@ def verify_seed_robustness_and_structured_claims(
 
     t_b3_b1 = w2_tests[("cout_p95_mg_l", "B3_Exotic3D_QD_CEI", "B1_Random_LHS")]
 
+    # v2 GCI dossiers (TR-07/INT-05): every executed sequence is Oscillatory, so no observed
+    # order or standard GCI may be reported; WHITEPAPER must say so and cite the conservative bounds.
+    v2_gci = bundle["gci_rsm_v2"]["roache_gci_analysis"]
+    v2_elites = [
+        bundle["wave2_5run_v2"][k]["roache_gci_analysis"]
+        for k in ("wave2_tpms_gyroid_elite_5run_dossier", "wave2_octa_branch_8jet_elite_5run_dossier")
+    ]
+    for analysis in [v2_gci, *v2_elites]:
+        for quantity in ("dp_u_pa", "hydraulic_loss_j_per_treated_m3", "reject_fraction"):
+            entry = analysis[quantity]
+            if entry.get("gci_validity_state") != "Oscillatory":
+                errors.append(f"v2 GCI {quantity}: state {entry.get('gci_validity_state')} but WHITEPAPER reports Oscillatory")
+            if entry.get("observed_order_p") is not None or entry.get("gci21_standard_fs125_pct") is not None:
+                errors.append(f"v2 GCI {quantity}: observed order/standard GCI present but WHITEPAPER says withheld")
+    if "`Oscillatory` / **`4.98×`**" not in wp or "withdrawn" not in wp:
+        errors.append("WHITEPAPER: v2 GCI validity states or v1 withdrawal statement missing")
+
     # Declarative list of (doc_label, doc_text, actual_value, expected_value, tolerance, required_substring)
     checks: list[tuple[str, str, float, float, float, str]] = [
         # CT-35 geometry & baseline hydraulics
@@ -334,6 +355,9 @@ def verify_seed_robustness_and_structured_claims(
         ("WHITEPAPER", wp, gci_eloss["gci21_standard_fs125_pct"], 12.61, 1e-2, "12.61\\%"),
         ("WHITEPAPER", wp, gci_split["gci21_standard_fs125_pct"], 3.27, 1e-2, "3.27\\%"),
         ("WHITEPAPER", wp, gci_snr["saving_to_3grid_span_ratio"], 4.86, 1e-2, "4.86×"),
+        ("WHITEPAPER", wp, v2_gci["dp_u_pa"]["gci21_conservative_fs300_p1_pct"], 60.88, 1e-2, "`60.88%` ($\\Delta p_u$)"),
+        ("WHITEPAPER", wp, v2_gci["hydraulic_loss_j_per_treated_m3"]["gci21_conservative_fs300_p1_pct"], 67.24, 1e-2, "`67.24%` ($e_{\\text{loss}}$)"),
+        ("WHITEPAPER", wp, v2_gci["reject_fraction"]["gci21_conservative_fs300_p1_pct"], 16.88, 1e-2, "`16.88%` ($r$)"),
         ("WHITEPAPER", wp, gci_snr["saving_to_3grid_eloss_span_ratio"], 6.76, 1e-2, "6.76×"),
         ("WHITEPAPER", wp, dp_u_ssg_vs_lrr_rel_pct, 0.2567, 1e-2, "0.26%"),
         # Section 4.5 P05 & Section 5.2 P06
@@ -668,6 +692,125 @@ def scan_markdown_numeric_tokens(
     return errors, scanned_count
 
 
+def _evidence_tiers(root: Path) -> list[str]:
+    """EvidenceTier values from analysis/evidence.py (EV-04), the single tier vocabulary."""
+    text = (root / "analysis/evidence.py").read_text(encoding="utf-8")
+    block = text.split("class EvidenceTier", 1)[1].split("\n\n", 1)[0]
+    return re.findall(r"=\s*'([a-z_]+)'", block)
+
+
+# Outcome words that assert evidence; process nouns ("verification", "validation") are not flagged.
+_STRONG_WORD_RE = re.compile(
+    r"\b(qualif(?:ied|ies|ying)|qualification|validated|verified|probabilit(?:y|ies)|proofs?|prove[sdn]?|proving)\b",
+    re.I,
+)
+_PROCESS_RE = re.compile(r"\b(contract|ladder|protocol|stage|gate|plan|limits?|criteria)\b", re.I)
+_LIMIT_RE = re.compile(
+    r"\b(not|no|never|without|unwaived|unvalidated|unverified|unqualified|withdrawn|formerly|previously|"
+    r"open|pending|planned|proposed|null|false|neither|nor|cannot|until|before|requires?|required|"
+    r"must|needs?|would|future|remains?|whether|if)\b",
+    re.I,
+)
+_DESCRIPTOR_CLAIM_RE = re.compile(
+    r"\b(improv|reduc|lower|suppress|stabili[sz]|prevent|enhanc|caus|explain|because|demonstrat|"
+    r"prov|confirm|achiev)\w*",
+    re.I,
+)
+_PRIOR_MARK_RE = re.compile(
+    r"\b(prior|priors|gene-derived|hypothes\w+|screen|F1|by construction|hand-chosen|authored)\b", re.I
+)
+
+
+def _prose(line: str) -> str:
+    """A markdown line without inline code spans, link targets and LaTeX."""
+    line = re.sub(r"`[^`]*`", " ", line)
+    line = re.sub(r"\]\([^)]*\)", "]", line)
+    line = re.sub(r"\"[^\"]*\"", " ", line)  # quoted labels are cited, not asserted
+    return re.sub(r"\$[^$]*\$", " ", line)
+
+
+def audit_claim_wording(docs: dict[str, str], tiers: list[str], descriptors: list[str]) -> tuple[list[str], int]:
+    """DOC-08: strong evidence words need a tier or a limitation; descriptor-backed claims need a prior label."""
+    tier_re = re.compile(
+        r"\b(F-?1|F[0-5](?:-(?:carrier|Carrier|Oil|oil|Water))?|E[0-6]|"
+        + "|".join(re.escape(t).replace("_", "[ _-]") for t in tiers)
+        + r")\b",
+        re.I,
+    )
+    descriptor_re = re.compile(
+        r"\b(" + "|".join(map(re.escape, descriptors)) + r"|mechanism descriptors?)\b", re.I
+    )
+    errors: list[str] = []
+    checked = 0
+    for doc_name, text in docs.items():
+        for line_no, unit in _sentences(text):
+            prose = _prose(unit)
+            for match in _STRONG_WORD_RE.finditer(prose):
+                checked += 1
+                if tier_re.search(unit) or _LIMIT_RE.search(prose):
+                    continue
+                if match.group(0).lower() == "qualification" and _PROCESS_RE.search(prose):
+                    continue
+                errors.append(
+                    f"{doc_name}:{line_no}: '{match.group(0)}' without an evidence tier or limitation: {unit.strip()[:110]}"
+                )
+            if descriptor_re.search(unit) and _DESCRIPTOR_CLAIM_RE.search(prose):
+                checked += 1
+                if not _PRIOR_MARK_RE.search(unit):
+                    errors.append(
+                        f"{doc_name}:{line_no}: claim backed by gene-derived descriptors without a prior/screen label: {unit.strip()[:110]}"
+                    )
+    return errors, checked
+
+
+def _sentences(text: str) -> list[tuple[int, str]]:
+    """(first line number, sentence) units: table rows and headings stand alone; wrapped prose is joined."""
+    units: list[tuple[int, str]] = []
+    para: list[str] = []
+    start = 0
+    in_fence = False
+
+    def flush() -> None:
+        if para:
+            joined = " ".join(x.strip() for x in para)
+            for sentence in re.split(r"(?<=[.!?])\s+(?=[A-Z*`(\[$])", joined):
+                units.append((start, sentence))
+            para.clear()
+
+    for line_no, raw in enumerate(text.splitlines(), start=1):
+        if raw.lstrip().startswith("```"):
+            flush()
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+        stripped = raw.strip()
+        if not stripped:
+            flush()
+        elif stripped.startswith(("|", "#", "![")) or re.match(r"^\s*([-*]|\d+\.)\s", raw):
+            flush()
+            if stripped.startswith(("|", "#", "![")):
+                units.append((line_no, stripped))
+            else:
+                start = line_no
+                para.append(stripped)
+        else:
+            if not para:
+                start = line_no
+            para.append(stripped)
+    flush()
+    return units
+
+
+def _descriptor_names(root: Path) -> list[str]:
+    rust = "\n".join(p.read_text(encoding="utf-8") for p in sorted((root / "crates").rglob("*.rs")))
+    for name in ("PriorDescriptors", "MechanismDescriptors"):
+        m = re.search(r"pub struct " + name + r" \{(.*?)\n\}", rust, re.S)
+        if m:
+            return re.findall(r"^\s*pub (\w+):", m.group(1), re.M)
+    return []
+
+
 REVIEW_INPUT_DIR = "docs/review-inputs/2026-10-15"
 REVIEW_SYNTHESIS = "docs/reviews/2026-10-15-SYNTHESIS.md"
 REVIEW_WORKPLAN = "docs/WORKPLAN-2026-10-15.md"
@@ -769,6 +912,10 @@ def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str],
         ledger[item] = status
     for item in sorted(workplan_items - set(ledger)):
         errors.append(f"ledger: workplan item {item} missing")
+    for box, item in re.findall(r"^- \[( |x)\] \*\*([A-Z]{2,3}-\d{2}) — ", workplan, re.M):
+        closed = ledger.get(item) in ("MERGED", "MOVED-§6")
+        if (box == "x") != closed:
+            errors.append(f"workplan: {item} checkbox '[{box}]' disagrees with ledger status '{ledger.get(item)}'")
 
     gap_ids = set(re.findall(r"^\| (G-\d{2}) \|", _section(synthesis, "## 5."), re.M))
     seen: set[str] = set()
@@ -815,6 +962,76 @@ def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str],
         if fid not in seen:
             errors.append(f"finding {fid}: required review finding not traced")
     return errors, rows
+
+
+def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]:
+    """Item status from coordination-board lines: MERGED > DONE > BLOCKED > WIP (START/WIP)."""
+    found: dict[str, dict[str, str]] = {}
+    for line in board.splitlines():
+        tokens = line.split()
+        if len(tokens) >= 3 and tokens[0] in ("DONE", "MERGED") and tokens[1] in items:
+            sha = tokens[2] if re.fullmatch(r"[0-9a-f]{7,40}", tokens[2]) else ""
+            if sha:
+                found.setdefault(tokens[1], {})[tokens[0]] = sha
+        elif len(tokens) >= 5 and tokens[0] == "HB":
+            state = tokens[4]
+            for item in tokens[3].split("/"):
+                if item not in items or state not in ("START", "WIP", "BLOCKED", "DONE"):
+                    continue
+                entry = found.setdefault(item, {})
+                if state == "DONE" and len(tokens) > 5 and re.fullmatch(r"[0-9a-f]{7,40}", tokens[5]):
+                    entry.setdefault("DONE", tokens[5])
+                elif state == "BLOCKED":
+                    entry["BLOCKED"] = " ".join(tokens[1:2] + tokens[5:])[:120]
+                elif state in ("START", "WIP"):
+                    entry["WIP"] = tokens[1]
+    ledger = {}
+    for item, entry in found.items():
+        if "MERGED" in entry:
+            ledger[item] = ("MERGED", f"`{entry['MERGED'][:7]}` (board `MERGED {item}`)")
+        elif "DONE" in entry:
+            ledger[item] = ("DONE", f"`{entry['DONE'][:7]}` (board `DONE {item}`)")
+        elif "BLOCKED" in entry:
+            ledger[item] = ("BLOCKED", entry["BLOCKED"].replace("|", "/"))
+        elif "WIP" in entry:
+            ledger[item] = ("WIP", f"board HB {entry['WIP']}")
+    return ledger
+
+
+def sync_ledger(synthesis: str, board: str) -> str:
+    """Rewrite §2 ledger rows whose board-derived status differs (never downgrades MERGED/DONE)."""
+    rank = {"OPEN": 0, "WIP": 1, "BLOCKED": 1, "DONE": 2, "MERGED": 3, "MOVED-§6": 4}
+    items = set(re.findall(r"^\| ([A-Z]{2,3}-\d{2}) \|", _section(synthesis, "## 2."), re.M))
+    derived = ledger_from_board(board, items)
+    out = []
+    in_ledger = False
+    for line in synthesis.splitlines(keepends=True):
+        if line.startswith("## "):
+            in_ledger = line.startswith("## 2.")
+        cells = _table_cells(line) if in_ledger and line.startswith("|") else []
+        if len(cells) == 4 and cells[0] in derived:
+            status, evidence = derived[cells[0]]
+            if rank[status] >= rank.get(cells[2], 0) and (status, evidence) != (cells[2], cells[3]):
+                line = f"| {cells[0]} | {cells[1]} | {status} | {evidence} |\n"
+        out.append(line)
+    return "".join(out)
+
+
+def sync_workplan_checkboxes(workplan: str, synthesis: str) -> str:
+    """Tick exactly the workplan items the synthesis ledger records as MERGED or MOVED-§6."""
+    closed = {
+        cells[0]
+        for line in _section(synthesis, "## 2.").splitlines()
+        if line.startswith("|")
+        for cells in [_table_cells(line)]
+        if len(cells) == 4 and cells[2] in ("MERGED", "MOVED-§6")
+    }
+    return re.sub(
+        r"^- \[[ x]\] \*\*([A-Z]{2,3}-\d{2}) — ",
+        lambda m: f"- [{'x' if m.group(1) in closed else ' '}] **{m.group(1)} — ",
+        workplan,
+        flags=re.M,
+    )
 
 
 def refresh_review_statuses(synthesis: str, now_utc: str) -> str:
@@ -870,14 +1087,20 @@ def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
     token_errors, token_count = scan_markdown_numeric_tokens(docs, allowed_numbers)
     input_errors, inputs_verified = verify_review_input_checksums(root / REVIEW_INPUT_DIR)
     trace_errors, findings_traced = audit_review_traceability(root)
+    wording_errors, wording_checked = audit_claim_wording(
+        docs, _evidence_tiers(root), _descriptor_names(root)
+    )
 
-    all_errors = path_hash_errors + structured_errors + token_errors + input_errors + trace_errors
+    all_errors = (
+        path_hash_errors + structured_errors + token_errors + input_errors + trace_errors + wording_errors
+    )
     return {
         "passed": len(all_errors) == 0,
         "structured_claims_verified": structured_count,
         "numeric_tokens_scanned": token_count,
         "review_inputs_verified": inputs_verified,
         "review_findings_traced": findings_traced,
+        "wording_claims_checked": wording_checked,
         "error_count": len(all_errors),
         "errors": all_errors,
     }
@@ -892,13 +1115,28 @@ def main() -> int:
         action="store_true",
         help=f"Recompute finding statuses in {REVIEW_SYNTHESIS} from its item ledger, then audit",
     )
+    parser.add_argument(
+        "--sync-ledger-from",
+        type=Path,
+        help="Coordination board file; update the synthesis ledger from its DONE/MERGED/HB lines (implies refresh)",
+    )
     args = parser.parse_args()
+    if args.sync_ledger_from:
+        path = args.root.resolve() / REVIEW_SYNTHESIS
+        board = args.sync_ledger_from.read_text(encoding="utf-8")
+        path.write_text(sync_ledger(path.read_text(encoding="utf-8"), board), encoding="utf-8")
+        args.refresh_review_status = True
     if args.refresh_review_status:
         from datetime import datetime, timezone
 
         path = args.root.resolve() / REVIEW_SYNTHESIS
         stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
         path.write_text(refresh_review_statuses(path.read_text(encoding="utf-8"), stamp), encoding="utf-8")
+        plan = args.root.resolve() / REVIEW_WORKPLAN
+        plan.write_text(
+            sync_workplan_checkboxes(plan.read_text(encoding="utf-8"), path.read_text(encoding="utf-8")),
+            encoding="utf-8",
+        )
 
     report = run_claims_audit(args.root.resolve())
     if args.json:
@@ -909,7 +1147,8 @@ def main() -> int:
                 f"claims_audit: OK ({report['structured_claims_verified']} structured receipt claims + "
                 f"{report['numeric_tokens_scanned']} markdown numeric tokens verified across WHITEPAPER.md, SCIENCE.md, README.md; "
                 f"{report['review_inputs_verified']} review inputs checksummed; "
-                f"{report['review_findings_traced']} review findings traced)"
+                f"{report['review_findings_traced']} review findings traced; "
+                f"{report['wording_claims_checked']} strong-wording claims checked)"
             )
         else:
             print(f"claims_audit: FAILED with {report['error_count']} error(s):", file=sys.stderr)
