@@ -697,14 +697,15 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `45.93634` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/final_best_kpi_score` | printed |
 | `8.833141` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/final_best_cout_sample_screen_upper_mg_l` | printed |
 | `368` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/tail_quantiles/capture_p01/minimum_n` | printed |
+| `20261108` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/master_seeds/7` | printed |
 
 ## README
 
 | Numeral | Count | Source | JSON pointer | Match |
 |---|---|---|---|---|
-| `14` | 7 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/14/generation` | printed |
-| `4` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/nominal_metrics/q_in_m3_h` | printed |
-| `29.47` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35_dp_u_pa` | /1000 |
+| `14` | 3 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/14/generation` | printed |
+| `4` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/nominal_metrics/q_in_m3_h` | printed |
+| `29.47` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35_dp_u_pa` | /1000 |
 | `18.70` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave1_vs_wave2_surrogate_to_cfd_ranking_audit/1/openfoam_g2_dp_u_pa` | /1000 |
 | `18.12` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave1_vs_wave2_surrogate_to_cfd_ranking_audit/1/openfoam_lrr_dp_u_pa` | /1000 |
 | `18.17` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave1_vs_wave2_surrogate_to_cfd_ranking_audit/1/openfoam_ssg_dp_u_pa` | /1000 |
@@ -712,21 +713,12 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `18.63` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/grids/2/dp_u_pa` | /1000 |
 | `119,235` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/total_evaluations` | printed |
 | `220` | 8 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/7/evaluations` | printed |
-| `85` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/3/best_candidate/nominal_metrics/hinze_dmax_um` | printed |
-| `10` | 5 | `docs/results/wave3-evolution-proof-v1.json` | `/n_seeds` | printed |
-| `22,500` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/total_3d_evaluations_across_arms` | printed |
-| `20261101` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/master_seeds/0` | printed |
-| `20261110` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/master_seeds/9` | printed |
-| `25` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35_cout_p95_mg_l` | printed |
-| `0` | 5 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
-| `24` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/generations` | printed |
-| `18` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/population_per_generation` | printed |
-| `450` | 7 | `docs/results/wave3-evolution-proof-v1.json` | `/evaluations_per_seed_per_arm` | printed |
-| `6` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/6/generation` | printed |
-| `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
-| `450` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/evaluations_per_seed_per_arm` | printed |
-| `22,500` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/total_3d_evaluations_across_arms` | printed |
-| `72` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/samples` | printed |
+| `85` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/9/generation_trace/20/cumulative_lineage_jumps` | printed |
+| `10` | 4 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
+| `22,500` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/total_3d_evaluations_across_arms` | printed |
+| `72` | 3 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/samples` | printed |
+| `64.0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/nominal_metrics/hinze_dmax_um` | printed |
+| `450` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/evaluations_per_seed_per_arm` | printed |
 | `95` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/1/generation_trace/19/cumulative_lineage_jumps` | printed |
 | `44.490288` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B1_Random_Search/0/best_kpi_score/mean` | printed |
 | `45.936820` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B1_Random_Search/24/best_kpi_score/mean` | printed |
@@ -757,7 +749,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `23.931038` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35_kpi_score` | printed |
 | `30.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/4/generation_trace/3/q25_kpi_score` | printed |
 | `25.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/4/gen0_median_cout_p95_mg_l` | printed |
-| `20` | 5 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/gen0_best_cout_p95_mg_l` | printed |
+| `20` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/gen0_best_cout_p95_mg_l` | printed |
 | `10.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `500.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/structural_qualification/vane_modal_freq_ratio` | printed |
 | `95` | 4 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/1/generation_trace/19/cumulative_lineage_jumps` | printed |
@@ -766,6 +758,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `25.101952` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35_cout_p95_mg_l` | printed |
 | `0.000000` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
 | `+20.517319` | 1 | declared | - | see table |
+| `450` | 5 | `docs/results/wave3-evolution-proof-v1.json` | `/evaluations_per_seed_per_arm` | printed |
 | `31.645679` | 3 | `docs/results/wave3-evolution-proof-v1.json` | `/generation_band_curves/A1_No_Mutation_Crossover_Only/0/best_kpi_score/mean` | printed |
 | `35.369726` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/generation_band_curves/A1_No_Mutation_Crossover_Only/24/best_kpi_score/mean` | printed |
 | `0.538398` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/generation_band_curves/A1_No_Mutation_Crossover_Only/24/best_kpi_score/std_dev` | printed |
@@ -833,19 +826,24 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `47.745321` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/final_best_kpi_score` | printed |
 | `7.438085` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/final_best_cout_p95_mg_l` | printed |
 | `-70.37` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/held_out_geometry_generalization/4/cout_reduction_pct_vs_ct35` | printed |
-| `11` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/d50_p05_um` | printed |
+| `10` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/n_seeds` | printed |
+| `14` | 3 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/14/generation` | printed |
+| `11` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/d50_p05_um` | printed |
 | `8` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/8/generation` | printed |
 | `220` | 1 | declared | - | see table (`220@Closed-Catalog Validity Audit`) |
 | `35` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/final_best_kpi_score` | printed |
-| `3` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/phenotype/minimum_wall_clearance_mm` | printed |
+| `3` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_held_out_duties/0/q_in_m3_h` | printed |
+| `20` | 4 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/tail_quantiles/cout_p05/ci_high` | printed |
 | `20261116` | 2 | declared | - | see table |
-| `100.0` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/2/generation_trace/14/cumulative_lineage_jumps` | printed |
-| `1.24` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/best_candidate/program/inlet_split/vane_thickness_mm` | printed |
-| `1.000` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/schema_version` | printed |
-| `30` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_held_out_duties/2/d50_feed_um` | printed |
-| `0.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_split/azimuthal_phase_deg` | printed |
-| `3.12` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/generation_band_curves/A2_No_Selection_Random_Walk/24/median_cout_p95_mg_l/iqr` | printed |
-| `+20` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/gen0_best_cout_p95_mg_l` | printed |
+| `100.0` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/2/generation_trace/14/cumulative_lineage_jumps` | printed |
+| `0` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
+| `1.24` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/best_candidate/program/inlet_split/vane_thickness_mm` | printed |
+| `1.000` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/schema_version` | printed |
+| `30` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_held_out_duties/2/d50_feed_um` | printed |
+| `0.0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_split/azimuthal_phase_deg` | printed |
+| `11` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/tail_quantiles/d50_p05/value` | printed |
+| `3.12` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/best_candidate/program/inlet_ramp/superellipse_exponent` | printed |
+| `+20` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/tail_quantiles/cout_p05/ci_high` | printed |
 
 ## Declared numerals
 

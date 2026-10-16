@@ -1346,7 +1346,10 @@ def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str],
 
 
 def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]:
-    """Item status from coordination-board lines: MERGED > DONE > BLOCKED > WIP (START/WIP)."""
+    """Item status from coordination-board lines: MERGED > DONE > BLOCKED > WIP (START/WIP).
+
+    MERGED counts only after a DONE for the same item: merging a lane mid-item is not completion.
+    """
     found: dict[str, dict[str, str]] = {}
     for line in board.splitlines():
         tokens = line.split()
@@ -1368,8 +1371,14 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
                     entry["WIP"] = tokens[1]
     ledger = {}
     for item, entry in found.items():
-        if "MERGED" in entry:
+        if "MERGED" in entry and "DONE" in entry:
             ledger[item] = ("MERGED", f"`{entry['MERGED'][:7]}` (board `MERGED {item}`)")
+        elif "MERGED" in entry:  # a lane merged mid-item: not completion
+            note = f"merged at `{entry['MERGED'][:7]}` without board `DONE {item}`"
+            if "BLOCKED" in entry:
+                ledger[item] = ("BLOCKED", f"{note}; {entry['BLOCKED'].replace('|', '/')}"[:160])
+            else:
+                ledger[item] = ("WIP", note)
         elif "DONE" in entry:
             ledger[item] = ("DONE", f"`{entry['DONE'][:7]}` (board `DONE {item}`)")
         elif "BLOCKED" in entry:
