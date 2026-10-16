@@ -817,13 +817,26 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     .unwrap_or(12),
                 ..evolve::EvolutionConfig::default()
             };
-            let report = evolve::run_wave3_evolution_proof(&seeds, &cfg)?;
+            let report = if let Some(raw_dir) = parse_arg(&args, "--raw-dir") {
+                if out_path.exists() {
+                    return Err("raw capture requires a new --out summary path".into());
+                }
+                evolve::run_wave3_evolution_proof_with_raw_capture(&seeds, &cfg, std::path::Path::new(&raw_dir))?
+            } else {
+                evolve::run_wave3_evolution_proof(&seeds, &cfg)?
+            };
             if let Some(parent) = out_path.parent() {
                 std::fs::create_dir_all(parent)?;
             }
             let pretty = serde_json::to_string_pretty(&report)?;
             let out_json = pretty.lines().map(str::trim_start).collect::<Vec<_>>().join("\n") + "\n";
-            std::fs::write(&out_path, &out_json)?;
+            if parse_arg(&args, "--raw-dir").is_some() {
+                use std::io::Write;
+                std::fs::OpenOptions::new().write(true).create_new(true)
+                    .open(&out_path)?.write_all(out_json.as_bytes())?;
+            } else {
+                std::fs::write(&out_path, &out_json)?;
+            }
             println!(
                 "{}",
                 serde_json::to_string_pretty(&serde_json::json!({
