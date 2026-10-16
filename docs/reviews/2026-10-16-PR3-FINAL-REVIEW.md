@@ -181,9 +181,9 @@ before push.
   - The owner's requested equal-budget `CT-35` comparison is **not** plotted: every figure shows the single frozen
     `CT-35` reference. The only equal-budget `CT-35` arm is in TR's separate raw-capture campaign (§5.7), so that
     figure coverage is unmet.
-- **Ledger.** TR-16 and EV-09 are moved to §6 (INT `MOVED-§6`). INT-01, DOC-09 and EV-12 are merged. The workplan
-  stands at `56/59`; INT-02, INT-08 and DOC-10 are open. INT (`agy_joil`) went offline at 12:40Z; TR acts as
-  integrator.
+- **Ledger.** TR-16 and EV-09 are moved to §6 (INT `MOVED-§6`). All other workplan items are merged, so the
+  workplan stands at `59/59`. INT (`agy_joil`) went offline at 12:40Z; TR acted as integrator, merged the lanes
+  (INT-02) and marked PR #3 ready for review at 14:49Z with CI green (INT-08). Jepson alone merges.
 - **Main branch (fact, for Jepson).** PR #5 (`lane/evidence` → `main`) was merged at 12:56:19Z under the shared
   `jepsontaylor` account, so `main` (`a6c3b61`) already holds the integration branch through `3619bd7`. PR #4
   (`lane/paper` → `main`) was opened at the same time and has been converted to draft. PR #3 remains the
