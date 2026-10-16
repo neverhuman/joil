@@ -1,9 +1,8 @@
-# PR #3 final review (DOC-09): DRAFT, not yet signed off
+# PR #3 final review (DOC-09)
 
-Reviewer: DOC lane (`joil_paper`, Claude Opus). This revision was written 2026-10-16 against integration head
-`cab01e8`, merged into `lane/paper`. The first draft was written against `0139ca0`. This review never merges the
-PR; Jepson merges. It is finalised when the open items in §4 close or are moved to workplan §6 with a reason
-(INT-08).
+Reviewer: DOC lane (`joil_paper`, Claude Opus). Final revision, 2026-10-16, against integration head `e68d617`
+(PR #3 head; merged into `lane/paper`). Earlier drafts reviewed `0139ca0` and `cab01e8`. This review never merges
+the PR; Jepson merges.
 
 ## 1. Scope and method
 
@@ -22,19 +21,24 @@ PR; Jepson merges. It is finalised when the open items in §4 close or are moved
   - the CAD and enactment tools, and the CFD/GCI scripts.
 - **Re-run by DOC:** the IR-R1/IR-R2 slice and path checks, and `prepare-cfd-case` on a historical elite (DOC-07
   review, Resolution).
+- **Independent number audits:**
+  - EV recomputed the Wave-4 and Wave-4 GCI receipts and found no arithmetic mismatch at the serialized precision
+    (`docs/reviews/2026-10-16-EV-wave4-number-trace.md`).
+  - TR audited every number in README and WHITEPAPER against receipts and code; DOC resolved all `30` findings
+    (`docs/reviews/2026-10-16-TR-deliverable-numbers-audit.md`).
+  - IR checked the figures and captions (`docs/reviews/2026-10-16-IR-deliverable-check.md`).
 - **Not reviewed line by line:** the whole diff. Large result JSONs and generated files were checked only through
-  the receipts and hashes the documents cite. EV recomputed the Wave-4 receipt independently
-  (`docs/reviews/2026-10-16-EV-wave4-number-trace.md`) and found no arithmetic mismatch at the serialized precision.
+  the receipts and hashes the documents cite.
 
 ## 2. Workplan §4 gates
 
 | Gate | State | Evidence |
 |---|---|---|
-| `python3 tools/check.py` all stages exit 0 | pass on `lane/paper` (see the DOC-04 handoff receipt on the board) | ignored `.private/checks/` receipt |
+| `python3 tools/check.py` all stages exit 0 | pass, `10/10` stages, on `lane/paper` `745e74d` and on integration (INT receipt for `e68d617`) | ignored `.private/checks/` receipts |
 | `cargo test --workspace`; `cargo clippy -D warnings` | pass (inside `check.py`) | same receipt |
 | No `baseline_ct35()` fallback | **pass in substance**: the fallback pattern `unwrap_or_else(\|_\| … baseline_ct35` has 0 matches. The literal §4 grep still lists calls; each one is a reference evaluation, the explicit `insert_baseline_control` operator, seed construction, an edit-script base or `#[cfg(test)]` code. | INT-03 smoke audit: 0 disallowed fallbacks |
-| claims_audit: 0 untraced numerals in README/WHITEPAPER abstract | **pass**. The trace covers README and WHITEPAPER "Read this first", Abstract and §5, with 0 untraced. Since this revision a numeral in a sentence or subsection that cites receipts must match one of those receipts. | `docs/NUMBERS_TRACE.md` |
-| GitHub Actions green on PR head | `cb31ba3`: 9/9 green (INT). `db23f28`: `python-tests` and six other checks green, `rust-tests` still running when this was written. Must be re-checked on the final head. | PR #3 checks |
+| claims_audit: 0 untraced numerals in README/WHITEPAPER abstract | **pass, exceeded**. The strict trace covers all of README and WHITEPAPER with 0 untraced. A numeral must match the receipt its sentence, caption or table column cites, or a checked declaration (literal, derived, count). | `docs/NUMBERS_TRACE.md` |
+| GitHub Actions green on PR head | **pass**: `9/9` green on `e68d617` (`fmt`, `clippy`, `rust-tests`, `baseline`, `python-tests`, `public-check`, `claims-audit`, `ui`, `foundation`). | PR #3 checks |
 
 ## 3. What this PR achieves (supported by merged code and tests)
 
@@ -57,24 +61,28 @@ PR; Jepson merges. It is finalised when the open items in §4 close or are moved
 - **Wave-4 study (INT-04).** The Wave-3 design was re-run on repaired operators with every proposal charged. On
   best screen score, uniform random search is not beaten (WHITEPAPER §5.7). The documents report this reversal
   as the main search result.
+- **Same-pipeline CFD control (INT-06, G-09).** The archived shells match a `CT-35` case built by the same
+  pipeline, so the published pressure-drop reductions were a pipeline offset. The documents say so (correction C2,
+  §4.6 and its figure).
 - **Documentation.**
-  - Claims are re-stated at their evidence tier.
-  - Stale or unsupported numbers are corrected or withdrawn.
-  - Every numeral in the traced sections is bound to its cited receipt or to a checked declaration.
+  - Claims are re-stated at their evidence tier, with a lead figure showing the Wave-4 result.
+  - Stale or unsupported numbers are corrected or withdrawn, including all `30` items of TR's audit.
+  - Every numeral in README and WHITEPAPER is bound to its cited receipt or to a checked declaration.
 
-## 4. Open before sign-off
+## 4. Open items at sign-off
 
 | # | Item | Owner | Blocking? |
 |---|---|---|---|
-| O-1 | CI on the final PR head. The matplotlib fix (`84d0c2e`) is merged and `python-tests` passes. | INT | yes, until green on the final head |
+| O-1 | ~~CI on the PR head~~. `9/9` green on `e68d617`. | - | closed |
 | O-2 | ~~DOC-07 IR-R1 (CFD writer)~~. Resolved at `f49f67e`; DOC verified it by re-slicing the CLI-written STL. | - | closed |
 | O-3 | ~~DOC-07 IR-R2..R5 and G-11~~. Resolved at `cab01e8`. Residuals: the exact-baseline branch asserts its Betti numbers, and two derived-taxon fields of the Wave-4 winner are inconsistent (reported to IR; not quoted). | IR | no |
 | O-4 | ~~INT-04 Wave-4 study~~. Done (`cb31ba3`) and documented in WHITEPAPER §5.7 and the README. | - | closed |
 | O-5 | ~~INT-06 / G-09~~. Done in scope (`docs/results/wave4-gci-v1.json`); documented in WHITEPAPER §4.6, correction C2, Abstract item 3 and README. One Wave-4 winner was solved, but it is not grid-converged. Of the other five, one mesh pinched off, one meshed but was never solved, and three were never meshed (logs read by EV and DOC). The rest of the sweep is §6. | - | closed |
 | O-6 | TR-12 and EV-06 were closed on the workplan §5 decision 8–9 defaults (INT confirmation 07:02Z). Homologous crossover and physical admission go to §6. | Jepson may override | no |
 | O-7 | Evidence-kernel notes R-1..R-3 (point-value pass/fail, upper-bound-only criteria, F2 sub-levels) | EV | no |
-| O-8 | Figure plates with baked-in stale text (G-07). The Wave-4 figures were regenerated and checked by DOC; Plates 2, 8 and 9 were not. | INT | no |
+| O-8 | INT-generated figures. Plates 2, 8 and 9 keep baked-in stale text (G-07). Plates 3 and 10 still draw withdrawn v1 standard GCI values; their captions say so. The Wave-4 hero and Plate 11 have layout overlaps (IR). DOC forwarded all of these to INT. | INT | no |
 | O-10 | `wave4-gci-v1.json` labels all five unsolved winners as G0 pinch-offs, and its G-09 text quotes an archived value hard-coded in `tools/run_wave4_gci_sweep.py` that no receipt holds. The documents use the run logs and the receipt values instead (NEED to INT). | INT | no |
+| O-11 | Work still running at sign-off. INT is solving the promoted Wave-4 design `s20261108-g016-i000` (one `G0` solve with a different inlet refinement; `G1` failed again). TR finished a full 10-seed Wave-4 reproduction with raw capture. EV reports that it matches the committed Wave-4 receipt with `0` mismatches over `14,243` values (board, 10:11Z); the public receipts for this were not yet merged at `e68d617`. The INT solve is not in a committed receipt. Any new receipt needs a DOC update before its numbers are cited. | INT, TR, EV | no |
 | O-9 | Ledger hygiene. INT recorded `MERGED` for EV-09, EV-10, EV-12 and TR-16 with no `DONE` from the owner, and EV stated that `MERGED EV-09` is not completion. The audit now counts `MERGED` only after `DONE`; existing rows were not downgraded. | owners | no |
 
 ## 5. Residual risks after this PR (for Jepson)
@@ -92,9 +100,10 @@ PR; Jepson merges. It is finalised when the open items in §4 close or are moved
    and campaigns are sandbox-only.
 6. **No independent surrogate labels.** OOD metrics are "insufficient evidence" by design, and the per-label
    KPI error is `null`.
-7. **The Wave-4 CFD runs have no complete case identity.** EV's read-only audit of the 11 Wave-4 case directories
-   found no complete scientific identity record (EV-12 BLOCKED). Five solved meshes were pruned before capture, so
-   the solved runs cannot be re-bound to their exact meshes.
+7. **The Wave-4 CFD runs have incomplete case identity.** EV's every-run audit lists `12` case directories: `3`
+   active cases pass, and `9` quarantined cases fail. Five solved meshes were pruned before capture, and one
+   retained case no longer matches its recorded hash. Several solved runs therefore cannot be re-bound to their
+   exact meshes (EV-12 blocked for those runs).
 8. **Audit limits.**
    - The public Wave-4 receipt drops per-proposal repair records, so individual repairs and pedigrees cannot be
      audited from it.
@@ -104,5 +113,10 @@ PR; Jepson merges. It is finalised when the open items in §4 close or are moved
 
 ## 6. Sign-off
 
-Not signed off. The remaining blocker is O-1 (CI green on the final head). Once it closes, this review becomes the
-PR #3 comment for Jepson.
+**Signed off for documentation at integration head `e68d617`** (CI `9/9` green; `tools/check.py` `10/10`; claims audit
+and numbers trace clean). The documents state what the merged code and committed receipts support, at its
+evidence tier, and the residual risks above are disclosed in them.
+
+This sign-off does not merge the PR; merging is Jepson's decision. It covers `e68d617` only. Any later commit must
+keep `tools/check.py` and CI green, and a new receipt (O-11) must be documented by DOC before its numbers are
+quoted.
