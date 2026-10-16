@@ -218,12 +218,85 @@ def rust_mesh_reference_metrics(program: dict[str, Any]) -> dict[str, Any]:
         tip_r = max(d['ro'] + 1.0, skim_r - 0.4)
         extra_area_mm2 += frustum_lateral_area(skim_len, skim_r, tip_r) + 2.0 * math.pi * d['ro'] * skim_len
 
-    # Compute 2-manifold Euler characteristic chi = V - E + F and Betti numbers (beta_0, beta_1, beta_2) (`IR-R5`):
-    # Each solid splitter vane spanning a tangential inlet duct connects top and bottom duct walls,
-    # adding 1 topological handle (reducing chi by 2) on the closed 2-manifold fluid boundary.
+    # Build the 2-manifold simplicial mesh graph matching `IrCompiledMesh::compile_with_extension`
+    # and compute Euler characteristic chi = V - E + F and Betti numbers (beta_0, beta_1, beta_2)
+    # directly from the mesh vertices, edges, and triangles (`IR-R5`, `G-11`).
     branches = int(p['inlet_split']['branches_per_port']) if bool(p['inlet_split']['enabled']) else 1
-    n_vanes_total = 2 * max(0, branches - 1)
-    euler_chi = 2 - 2 * n_vanes_total
+    n_inlet_z = max(1, 2 * branches - 1)
+    n_theta = 16
+    n_port_t = 2
+    n_rings = n_inlet_z + 3
+    tris: list[tuple[int, int, int]] = []
+    ring_base = 2
+    n_verts = ring_base + n_rings * n_theta
+    for it in range(n_theta):
+        nxt = (it + 1) % n_theta
+        tris.append((0, ring_base + nxt, ring_base + it))
+    for ir_i in range(n_rings - 1):
+        r0 = ring_base + ir_i * n_theta
+        r1 = ring_base + (ir_i + 1) * n_theta
+        in_z = 1 <= ir_i < 1 + n_inlet_z
+        for it in range(n_theta):
+            if in_z and (0 <= it < n_port_t or 8 <= it < 8 + n_port_t):
+                continue
+            nxt = (it + 1) % n_theta
+            tris.append((r0 + it, r0 + nxt, r1 + nxt))
+            tris.append((r0 + it, r1 + nxt, r1 + it))
+    last_ring = ring_base + (n_rings - 1) * n_theta
+    for it in range(n_theta):
+        nxt = (it + 1) % n_theta
+        tris.append((1, last_ring + it, last_ring + nxt))
+
+    def _add_tube(ia, ib, zlo: int, zhi: int) -> None:
+        for jt in range(n_port_t):
+            tris.append((ia(zlo, jt), ia(zlo, jt + 1), ib(zlo, jt + 1)))
+            tris.append((ia(zlo, jt), ib(zlo, jt + 1), ib(zlo, jt)))
+            tris.append((ia(zhi, jt + 1), ia(zhi, jt), ib(zhi, jt)))
+            tris.append((ia(zhi, jt + 1), ib(zhi, jt), ib(zhi, jt + 1)))
+        for iz in range(zlo, zhi):
+            tris.append((ia(iz, n_port_t), ia(iz + 1, n_port_t), ib(iz + 1, n_port_t)))
+            tris.append((ia(iz, n_port_t), ib(iz + 1, n_port_t), ib(iz, n_port_t)))
+            tris.append((ia(iz + 1, 0), ia(iz, 0), ib(iz, 0)))
+            tris.append((ia(iz + 1, 0), ib(iz, 0), ib(iz + 1, 0)))
+
+    for it_start in (0, 8):
+        n_grid = (n_inlet_z + 1) * (n_port_t + 1)
+        in_base = n_verts
+        out_base = in_base + n_grid
+        port_base = out_base + n_grid
+        n_verts = port_base + n_grid
+        w_idx = lambda iz, jt, s=it_start: ring_base + (1 + iz) * n_theta + ((s + jt) % n_theta)
+        i_idx = lambda iz, jt, b=in_base: b + iz * (n_port_t + 1) + jt
+        o_idx = lambda iz, jt, b=out_base: b + iz * (n_port_t + 1) + jt
+        p_idx = lambda iz, jt, b=port_base: b + iz * (n_port_t + 1) + jt
+        _add_tube(w_idx, i_idx, 0, n_inlet_z)
+        if branches <= 1:
+            _add_tube(i_idx, o_idx, 0, n_inlet_z)
+        else:
+            for b_i in range(branches):
+                _add_tube(i_idx, o_idx, 2 * b_i, 2 * b_i + 1)
+            for v_i in range(branches - 1):
+                iz_o = 2 * v_i + 1
+                for jt in range(n_port_t):
+                    tris.append((i_idx(iz_o, jt), i_idx(iz_o, jt + 1), i_idx(iz_o + 1, jt + 1)))
+                    tris.append((i_idx(iz_o, jt), i_idx(iz_o + 1, jt + 1), i_idx(iz_o + 1, jt)))
+                    tris.append((o_idx(iz_o, jt), o_idx(iz_o + 1, jt + 1), o_idx(iz_o, jt + 1)))
+                    tris.append((o_idx(iz_o, jt), o_idx(iz_o + 1, jt), o_idx(iz_o + 1, jt + 1)))
+        _add_tube(o_idx, p_idx, 0, n_inlet_z)
+        for iz in range(n_inlet_z):
+            for jt in range(n_port_t):
+                tris.append((p_idx(iz, jt), p_idx(iz, jt + 1), p_idx(iz + 1, jt + 1)))
+                tris.append((p_idx(iz, jt), p_idx(iz + 1, jt + 1), p_idx(iz + 1, jt)))
+
+    edges: set[tuple[int, int]] = set()
+    ref_verts: set[int] = set()
+    for a, b, c in tris:
+        ref_verts.add(a)
+        ref_verts.add(b)
+        ref_verts.add(c)
+        for u, v in ((a, b), (b, c), (c, a)):
+            edges.add((u, v) if u < v else (v, u))
+    euler_chi = len(ref_verts) - len(edges) + len(tris)
     betti_0 = 1
     betti_2 = 1
     betti_1 = max(0, ((betti_0 + betti_2) - euler_chi) // 2)
