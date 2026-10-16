@@ -75,6 +75,9 @@ pub enum SupportLevel {
     Exact,
     /// Bounded conservative approximation with explicit approximation note.
     ConservativeApproximation { bound_note: String },
+    /// Radial outer-wall corrugation proxy (`r_wall(theta, z)` modulation); does NOT bound volume,
+    /// wetted area, or topology of free-standing internal vanes or a 3D TPMS lattice (`IR-R4`).
+    WallCorrugationProxy { proxy_note: String },
     /// Visualization or low-order screening proxy only; cannot qualify physical geometry.
     ScreenOnly { reason: String },
     /// Feature is not supported by this backend; active use must fail closed.
@@ -1345,6 +1348,11 @@ impl DesignIrV1 {
             (BackendId::LegacyUnenactedCfdSurface, "skimmer") => SupportLevel::Unsupported {
                 reason: "legacy pre-v4 CFD surface omitted internal skimmer sleeve walls".into(),
             },
+            (BackendId::LegacyUnenactedCfdSurface, "tpms_insert" | "ribbon_cascade") => {
+                SupportLevel::WallCorrugationProxy {
+                    proxy_note: "radial outer-wall corrugation proxy r_wall(theta, z); does not bound volume, wetted area, or topology of free-standing vanes or a 3D TPMS lattice".into(),
+                }
+            }
             (BackendId::LegacyUnenactedCfdSurface, _) => SupportLevel::ConservativeApproximation {
                 bound_note: "radial wall ring modulation only".into(),
             },
@@ -1353,18 +1361,24 @@ impl DesignIrV1 {
             (BackendId::RustFastRadialSurface, "inlet_split" | "skimmer") => SupportLevel::ScreenOnly {
                 reason: "single-shell radial preview mesh does not embed internal splitter vanes or skimmer bore walls; use RustMultiPatchCfdSurface or PythonCadQueryBrep".into(),
             },
+            (BackendId::RustFastRadialSurface, "tpms_insert" | "ribbon_cascade") => {
+                SupportLevel::WallCorrugationProxy {
+                    proxy_note: "radial outer-wall corrugation proxy r_wall(theta, z); does not bound volume, wetted area, or topology of free-standing vanes or a 3D TPMS lattice".into(),
+                }
+            }
             (BackendId::RustFastRadialSurface, _) => SupportLevel::ConservativeApproximation {
                 bound_note: "48x64 structured radial-axial surface tessellation".into(),
             },
 
-            // Full v4 Multi-Patch CFD Surface, Python CadQuery B-rep (with NURBS field loft), and Voxel/SDF observer
+            // Full v4 Multi-Patch CFD Surface, Python CadQuery B-rep (with NURBS field loft), and Voxel/SDF observer:
+            // ribbon_cascade and tpms_insert are radial wall corrugations r_wall(theta, z), NOT bounds on free-standing vanes or 3D TPMS lattices (`IR-R4`).
             (
                 BackendId::RustMultiPatchCfdSurface
                 | BackendId::PythonCadQueryBrep
                 | BackendId::VoxelSdfObserver,
                 "tpms_insert" | "ribbon_cascade",
-            ) => SupportLevel::ConservativeApproximation {
-                bound_note: "peripheral annular wall field loft / SDF realization with bounded volume & clearance audit".into(),
+            ) => SupportLevel::WallCorrugationProxy {
+                proxy_note: "radial outer-wall corrugation proxy r_wall(theta, z); does not bound volume, wetted area, or topology of free-standing vanes or a 3D TPMS lattice".into(),
             },
             (
                 BackendId::RustMultiPatchCfdSurface
@@ -1842,10 +1856,26 @@ impl IrCompiledMesh {
         r_wall
     }
 
-    /// Compile a `DesignIrV1` into a 3D `IrCompiledMesh` for the given `BackendId`,
-    /// attaching semantic origin traces to every triangle (`IR-11`) and enacting internal features (`IR-04`).
+    /// Compile a `DesignIrV1` into a 3D `IrCompiledMesh` for the given `BackendId` with zero outlet extension.
     pub fn compile(ir: &DesignIrV1, backend: BackendId) -> Result<Self, IrError> {
+        Self::compile_with_extension(ir, backend, 0.0)
+    }
+
+    /// Compile a `DesignIrV1` into a watertight 2-manifold 3D `IrCompiledMesh` for the given `BackendId`
+    /// and `outlet_extension_m` (`IR-04`, `IR-11`, `IR-R1`), enacting multi-branch inlet sub-channels,
+    /// entry ramp contraction/drop, and folded vortex-finder skimmer sleeve directly in `triangles`.
+    pub fn compile_with_extension(
+        ir: &DesignIrV1,
+        backend: BackendId,
+        outlet_extension_m: f64,
+    ) -> Result<Self, IrError> {
         ir.check_backend_support(backend)?;
+        if !outlet_extension_m.is_finite() || !(0.0..=0.5).contains(&outlet_extension_m) {
+            return Err(IrError::InvalidParameter {
+                gene_path: "outlet_extension_m".into(),
+                reason: "outlet_extension_m must be finite in [0.0, 0.5] m".into(),
+            });
+        }
 
         let origin_lookup: BTreeMap<String, u16> = ir
             .semantic_origins
@@ -1876,12 +1906,95 @@ impl IrCompiledMesh {
         let z_head_end_m = 0.070_f64 + lc_m + 0.5 * 0.035_f64;
         let z_collar_start_m = 0.070_f64 + lc_m - 0.5 * 0.035_f64;
         let z_taper_end_m = 0.070_f64 + lc_m + 0.770_f64;
-        let z_underflow_m = z_taper_end_m + 0.700_f64;
+        let z_underflow_m = z_taper_end_m + 0.700_f64 + outlet_extension_m;
         let inlet_area_each_m2 = 0.0625_f64 * PI * 0.070_f64 * 0.070_f64 / 4.0 / 2.0;
         let w_inlet_m = (inlet_area_each_m2 / 2.0_f64).sqrt();
         let h_inlet_m = 2.0_f64 * w_inlet_m;
         let x_inlet_m = 0.060_f64;
         let r1_m = 0.035_f64;
+
+        let enact_internal = backend != BackendId::LegacyUnenactedCfdSurface
+            && backend != BackendId::RustFastRadialSurface;
+
+        // Inspect active InletBranchManifold, InletRamp, and VortexFinderSkimmer nodes
+        let mut branches_per_port = 1u32;
+        let mut vane_thickness_m = 0.0012_f64;
+        let mut vane_z_fraction = 0.5_f64;
+        let mut ramp_drop_m = 0.0_f64;
+        let mut ramp_slot_factor = 1.0_f64;
+        let mut ramp_is_active = false;
+        let mut skimmer_spec: Option<(f64, f64, f64, u32)> = None;
+
+        for node in &ir.nodes {
+            match node {
+                IrNode::InletBranchManifold {
+                    branches_per_port: b,
+                    vane_thickness_m: vt,
+                    vane_z_fraction: vzf,
+                    ..
+                } if enact_internal => {
+                    branches_per_port = *b;
+                    vane_thickness_m = *vt;
+                    vane_z_fraction = *vzf;
+                }
+                IrNode::InletRamp {
+                    axial_drop_m,
+                    radial_slot_factor,
+                    ..
+                } if enact_internal => {
+                    ramp_drop_m = *axial_drop_m;
+                    ramp_slot_factor = *radial_slot_factor;
+                    ramp_is_active = true;
+                }
+                IrNode::VortexFinderSkimmer {
+                    length_m,
+                    outer_radius_m,
+                    tip_radius_m,
+                    capture_flutes,
+                    ..
+                } if enact_internal && *length_m > 1e-6 => {
+                    skimmer_spec =
+                        Some((*length_m, *outer_radius_m, *tip_radius_m, *capture_flutes));
+                }
+                _ => {}
+            }
+        }
+
+        // Build vertical z_levels across [0, h_inlet_m]:
+        // - If branches_per_port == 1: 4 uniform bands (5 levels).
+        // - If branches_per_port == B >= 2: 2*B - 1 bands (even bands = B fluid sub-channels, odd bands = B-1 solid splitter vanes).
+        let z_levels: Vec<f64> = if branches_per_port <= 1 {
+            (0..=4).map(|iz| h_inlet_m * (iz as f64) / 4.0).collect()
+        } else {
+            let b_cnt = branches_per_port as usize;
+            let n_vanes = b_cnt - 1;
+            let mut zv = Vec::with_capacity(2 * b_cnt);
+            zv.push(0.0);
+            if n_vanes == 1 {
+                let z_c = (vane_z_fraction * h_inlet_m).clamp(0.20 * h_inlet_m, 0.80 * h_inlet_m);
+                let z_lo = (z_c - 0.5 * vane_thickness_m).max(0.001);
+                let z_hi = (z_c + 0.5 * vane_thickness_m).min(h_inlet_m - 0.001);
+                zv.push(z_lo);
+                zv.push(z_hi);
+                zv.push(h_inlet_m);
+            } else {
+                let sub_h =
+                    ((h_inlet_m - (n_vanes as f64) * vane_thickness_m) / (b_cnt as f64)).max(0.001);
+                let mut cur_z = 0.0;
+                for b_idx in 0..b_cnt {
+                    cur_z += sub_h;
+                    if b_idx + 1 < b_cnt {
+                        zv.push(cur_z);
+                        cur_z += vane_thickness_m;
+                        zv.push(cur_z);
+                    } else {
+                        zv.push(h_inlet_m);
+                    }
+                }
+            }
+            zv
+        };
+        let n_inlet_z = z_levels.len() - 1;
 
         let mut rings: Vec<(Vec<P3>, u16)> = Vec::new();
         let th_off = 0.0031_f64;
@@ -1904,6 +2017,7 @@ impl IrCompiledMesh {
         let orig_rib = find_origin("feature.ribbon_cascade", "wall.chamber");
         let orig_tpms = find_origin("feature.tpms_insert", "wall.chamber");
         let orig_cprof = find_origin("feature.cone_profile", "wall.cone");
+        let orig_skim = find_origin("feature.skimmer", "wall.orifice");
 
         let n_plenum_z = 4usize;
         for iz in 0..=n_plenum_z {
@@ -1919,10 +2033,41 @@ impl IrCompiledMesh {
         rings.push((make_circle_ring(ro_m, 0.5 * z_orifice_m), orig_orifice));
         rings.push((make_circle_ring(ro_m, 0.0), orig_orifice));
 
+        // If VortexFinderSkimmer is active, fold the axisymmetric meridian at z = 0:
+        // (ro_m, 0.0) -> (ro_m, L_skim) -> (r_tip + flute, L_skim) -> (r_outer + flute, 0.0)
+        // before continuing to the outer chamber roof ring (R_chamber, 0.0).
+        if let Some((skim_len_m, skim_outer_r_m, skim_tip_r_m, skim_flutes)) = skimmer_spec {
+            rings.push((make_circle_ring(ro_m, skim_len_m), orig_skim));
+            let tip_ring = (0..n_theta)
+                .map(|it| {
+                    let th = dtheta * (it as f64) + th_off;
+                    let fl = if skim_flutes > 0 {
+                        0.00018 * ((skim_flutes as f64) * th).cos()
+                    } else {
+                        0.0
+                    };
+                    let r_m = (skim_tip_r_m + fl).max(ro_m + 0.0004);
+                    [r_m * th.cos(), r_m * th.sin(), skim_len_m]
+                })
+                .collect();
+            rings.push((tip_ring, orig_skim));
+            let base_ring = (0..n_theta)
+                .map(|it| {
+                    let th = dtheta * (it as f64) + th_off;
+                    let fl = if skim_flutes > 0 {
+                        0.00018 * ((skim_flutes as f64) * th).cos()
+                    } else {
+                        0.0
+                    };
+                    let r_m = (skim_outer_r_m + fl).max(ro_m + 0.0006);
+                    [r_m * th.cos(), r_m * th.sin(), 0.0]
+                })
+                .collect();
+            rings.push((base_ring, orig_skim));
+        }
+
         let k_chamber_0 = rings.len();
-        let n_inlet_z = 4usize;
-        for iz in 0..=n_inlet_z {
-            let z_m = h_inlet_m * (iz as f64) / (n_inlet_z as f64);
+        for &z_m in &z_levels {
             let ring = (0..n_theta)
                 .map(|it| {
                     let th = dtheta * (it as f64) + th_off;
@@ -2010,7 +2155,7 @@ impl IrCompiledMesh {
         rings.push((make_circle_ring(r3_poly_m, z_underflow_m), orig_tail));
 
         let n_rings = rings.len();
-        let mut vertices_m: Vec<P3> = Vec::with_capacity(2 + n_rings * n_theta + 64);
+        let mut vertices_m: Vec<P3> = Vec::with_capacity(2 + n_rings * n_theta + 256);
         vertices_m.push([0.00011, 0.00013, z_overflow_m]);
         vertices_m.push([0.00011, 0.00013, z_underflow_m]);
 
@@ -2063,108 +2208,298 @@ impl IrCompiledMesh {
             }
         }
 
-        // Check active inlet_ramp drop & slot contraction
-        let mut ramp_drop_m = 0.0_f64;
-        let mut ramp_slot_factor = 1.0_f64;
-        let mut ramp_is_active = false;
-        for node in &ir.nodes {
-            if let IrNode::InletRamp {
-                axial_drop_m,
-                radial_slot_factor,
-                ..
-            } = node
-            {
-                ramp_drop_m = *axial_drop_m;
-                ramp_slot_factor = *radial_slot_factor;
-                ramp_is_active = true;
+        // Helper to connect a 4-walled rectangular duct segment between cross-section grids `idx_a` and `idx_b`
+        // spanning `iz in iz_lo..=iz_hi`, `jt in 0..=n_port_t`.
+        let connect_tube = |tris: &mut Vec<[usize; 3]>,
+                            oids: &mut Vec<u16>,
+                            idx_a: &dyn Fn(usize, usize) -> usize,
+                            idx_b: &dyn Fn(usize, usize) -> usize,
+                            iz_lo: usize,
+                            iz_hi: usize,
+                            bot_orig: u16,
+                            top_orig: u16,
+                            side_orig: u16| {
+            for jt in 0..n_port_t {
+                let (w0, w1, p0, p1) = (
+                    idx_a(iz_lo, jt),
+                    idx_a(iz_lo, jt + 1),
+                    idx_b(iz_lo, jt),
+                    idx_b(iz_lo, jt + 1),
+                );
+                tris.push([w0, w1, p1]);
+                oids.push(bot_orig);
+                tris.push([w0, p1, p0]);
+                oids.push(bot_orig);
             }
-        }
+            for iz in iz_lo..iz_hi {
+                let (w0, w1, p0, p1) = (
+                    idx_a(iz, n_port_t),
+                    idx_a(iz + 1, n_port_t),
+                    idx_b(iz, n_port_t),
+                    idx_b(iz + 1, n_port_t),
+                );
+                tris.push([w0, w1, p1]);
+                oids.push(side_orig);
+                tris.push([w0, p1, p0]);
+                oids.push(side_orig);
+            }
+            for jt in 0..n_port_t {
+                let (w0, w1, p0, p1) = (
+                    idx_a(iz_hi, jt + 1),
+                    idx_a(iz_hi, jt),
+                    idx_b(iz_hi, jt + 1),
+                    idx_b(iz_hi, jt),
+                );
+                tris.push([w0, w1, p1]);
+                oids.push(top_orig);
+                tris.push([w0, p1, p0]);
+                oids.push(top_orig);
+            }
+            for iz in iz_lo..iz_hi {
+                let (w0, w1, p0, p1) = (
+                    idx_a(iz + 1, 0),
+                    idx_a(iz, 0),
+                    idx_b(iz + 1, 0),
+                    idx_b(iz, 0),
+                );
+                tris.push([w0, w1, p1]);
+                oids.push(side_orig);
+                tris.push([w0, p1, p0]);
+                oids.push(side_orig);
+            }
+        };
 
-        // 3. Extrude Inlet 1 and Inlet 2 with mid-duct station so InletRamp shapes the internal duct wall
-        // while keeping the terminal port plane at x = +-x_inlet_m exact!
-        for (term_orig, duct_orig, it_start, x_plane, y_from_it) in [
-            (orig_term_in1, orig_duct1, it_inlet1_start, -x_inlet_m, true),
-            (orig_term_in2, orig_duct2, it_inlet2_start, x_inlet_m, false),
+        // 3. Extrude Inlet 1 and Inlet 2 (`IR-R1`):
+        // - If unsplit and no active ramp: direct single-segment extrusion `wall_idx -> port_idx` (preserves exact baseline mesh).
+        // - If `branches_per_port >= 2` or `ramp_is_active`: 3-segment watertight 2-manifold extrusion
+        //   `wall_idx -> inner_idx (|x|=0.024 m) -> outer_idx (|x|=0.056 m) -> port_idx (|x|=0.060 m)`,
+        //   where Segment 2 (`|x| in [0.024, 0.056] m`) extrudes `B` disjoint closed rectangular sub-channels
+        //   and caps each solid splitter vane at `inner_idx` and `outer_idx`.
+        for (port_number, term_orig, duct_orig, it_start, x_plane, y_from_it) in [
+            (
+                1u32,
+                orig_term_in1,
+                orig_duct1,
+                it_inlet1_start,
+                -x_inlet_m,
+                true,
+            ),
+            (
+                2u32,
+                orig_term_in2,
+                orig_duct2,
+                it_inlet2_start,
+                x_inlet_m,
+                false,
+            ),
         ] {
-            let port_v_base = vertices_m.len();
-            for iz in 0..=n_inlet_z {
-                let fz = (iz as f64) / (n_inlet_z as f64);
-                let z_m = h_inlet_m * fz;
-                for jt in 0..=n_port_t {
-                    let ft = (jt as f64) / (n_port_t as f64);
-                    let y_m = if y_from_it {
-                        r1_m - w_inlet_m * ft
-                    } else {
-                        -r1_m + w_inlet_m * ft
-                    };
-                    vertices_m.push([x_plane, y_m, z_m]);
-                }
-            }
-            let port_idx =
-                |iz: usize, jt: usize| -> usize { port_v_base + iz * (n_port_t + 1) + jt };
             let wall_idx = |iz: usize, jt: usize| -> usize {
                 ring_base + (k_chamber_0 + iz) * n_theta + ((it_start + jt) % n_theta)
             };
-
             let strip_orig = if ramp_is_active { orig_ramp } else { duct_orig };
-            for jt in 0..n_port_t {
-                let (w0, w1, p0, p1) = (
-                    wall_idx(0, jt),
-                    wall_idx(0, jt + 1),
-                    port_idx(0, jt),
-                    port_idx(0, jt + 1),
+
+            if branches_per_port <= 1 && !ramp_is_active {
+                let port_v_base = vertices_m.len();
+                for &z_m in &z_levels {
+                    for jt in 0..=n_port_t {
+                        let ft = (jt as f64) / (n_port_t as f64);
+                        let y_m = if y_from_it {
+                            r1_m - w_inlet_m * ft
+                        } else {
+                            -r1_m + w_inlet_m * ft
+                        };
+                        vertices_m.push([x_plane, y_m, z_m]);
+                    }
+                }
+                let port_idx =
+                    |iz: usize, jt: usize| -> usize { port_v_base + iz * (n_port_t + 1) + jt };
+
+                connect_tube(
+                    &mut triangles,
+                    &mut triangle_origin_ids,
+                    &wall_idx,
+                    &port_idx,
+                    0,
+                    n_inlet_z,
+                    strip_orig,
+                    strip_orig,
+                    strip_orig,
                 );
-                triangles.push([w0, w1, p1]);
-                triangle_origin_ids.push(strip_orig);
-                triangles.push([w0, p1, p0]);
-                triangle_origin_ids.push(strip_orig);
-            }
-            for iz in 0..n_inlet_z {
-                let (w0, w1, p0, p1) = (
-                    wall_idx(iz, n_port_t),
-                    wall_idx(iz + 1, n_port_t),
-                    port_idx(iz, n_port_t),
-                    port_idx(iz + 1, n_port_t),
+                for iz in 0..n_inlet_z {
+                    for jt in 0..n_port_t {
+                        let a = port_idx(iz, jt);
+                        let b = port_idx(iz, jt + 1);
+                        let c = port_idx(iz + 1, jt + 1);
+                        let d_v = port_idx(iz + 1, jt);
+                        triangles.push([a, b, c]);
+                        triangle_origin_ids.push(term_orig);
+                        triangles.push([a, c, d_v]);
+                        triangle_origin_ids.push(term_orig);
+                    }
+                }
+            } else {
+                let sign_x = x_plane.signum();
+                let x_inner = sign_x * 0.024_f64;
+                let x_outer = sign_x * 0.056_f64;
+                let w_inner_m = w_inlet_m * ramp_slot_factor;
+                let dz_inner_m = -0.35 * ramp_drop_m;
+
+                let inner_v_base = vertices_m.len();
+                for &z_m in &z_levels {
+                    for jt in 0..=n_port_t {
+                        let ft = (jt as f64) / (n_port_t as f64);
+                        let y_m = if y_from_it {
+                            r1_m - w_inner_m * ft
+                        } else {
+                            -r1_m + w_inner_m * ft
+                        };
+                        vertices_m.push([x_inner, y_m, z_m + dz_inner_m]);
+                    }
+                }
+                let outer_v_base = vertices_m.len();
+                for &z_m in &z_levels {
+                    for jt in 0..=n_port_t {
+                        let ft = (jt as f64) / (n_port_t as f64);
+                        let y_m = if y_from_it {
+                            r1_m - w_inlet_m * ft
+                        } else {
+                            -r1_m + w_inlet_m * ft
+                        };
+                        vertices_m.push([x_outer, y_m, z_m]);
+                    }
+                }
+                let port_v_base = vertices_m.len();
+                for &z_m in &z_levels {
+                    for jt in 0..=n_port_t {
+                        let ft = (jt as f64) / (n_port_t as f64);
+                        let y_m = if y_from_it {
+                            r1_m - w_inlet_m * ft
+                        } else {
+                            -r1_m + w_inlet_m * ft
+                        };
+                        vertices_m.push([x_plane, y_m, z_m]);
+                    }
+                }
+
+                let inner_idx =
+                    |iz: usize, jt: usize| -> usize { inner_v_base + iz * (n_port_t + 1) + jt };
+                let outer_idx =
+                    |iz: usize, jt: usize| -> usize { outer_v_base + iz * (n_port_t + 1) + jt };
+                let port_idx =
+                    |iz: usize, jt: usize| -> usize { port_v_base + iz * (n_port_t + 1) + jt };
+
+                // Segment 1: chamber wall window -> inner_idx (|x| = 0.024 m)
+                connect_tube(
+                    &mut triangles,
+                    &mut triangle_origin_ids,
+                    &wall_idx,
+                    &inner_idx,
+                    0,
+                    n_inlet_z,
+                    strip_orig,
+                    strip_orig,
+                    strip_orig,
                 );
-                triangles.push([w0, w1, p1]);
-                triangle_origin_ids.push(strip_orig);
-                triangles.push([w0, p1, p0]);
-                triangle_origin_ids.push(strip_orig);
-            }
-            for jt in 0..n_port_t {
-                let (w0, w1, p0, p1) = (
-                    wall_idx(n_inlet_z, jt + 1),
-                    wall_idx(n_inlet_z, jt),
-                    port_idx(n_inlet_z, jt + 1),
-                    port_idx(n_inlet_z, jt),
+
+                // Segment 2: inner_idx (|x| = 0.024 m) -> outer_idx (|x| = 0.056 m)
+                if branches_per_port <= 1 {
+                    connect_tube(
+                        &mut triangles,
+                        &mut triangle_origin_ids,
+                        &inner_idx,
+                        &outer_idx,
+                        0,
+                        n_inlet_z,
+                        strip_orig,
+                        strip_orig,
+                        strip_orig,
+                    );
+                } else {
+                    let b_cnt = branches_per_port as usize;
+                    for b_idx in 0..b_cnt {
+                        let iz_even = 2 * b_idx;
+                        let bot_orig = if b_idx == 0 {
+                            strip_orig
+                        } else {
+                            find_origin(
+                                &format!("feature.inlet_split.p{port_number}.v{}", b_idx - 1),
+                                "wall.inlet1_duct",
+                            )
+                        };
+                        let top_orig = if b_idx + 1 == b_cnt {
+                            strip_orig
+                        } else {
+                            find_origin(
+                                &format!("feature.inlet_split.p{port_number}.v{b_idx}"),
+                                "wall.inlet1_duct",
+                            )
+                        };
+                        connect_tube(
+                            &mut triangles,
+                            &mut triangle_origin_ids,
+                            &inner_idx,
+                            &outer_idx,
+                            iz_even,
+                            iz_even + 1,
+                            bot_orig,
+                            top_orig,
+                            duct_orig,
+                        );
+                    }
+                    // Cap each odd band (solid splitter vane) at inner_idx (trailing edge) and outer_idx (leading edge)
+                    for v_idx in 0..(b_cnt - 1) {
+                        let iz_odd = 2 * v_idx + 1;
+                        let vane_orig = find_origin(
+                            &format!("feature.inlet_split.p{port_number}.v{v_idx}"),
+                            "wall.inlet1_duct",
+                        );
+                        for jt in 0..n_port_t {
+                            let a = inner_idx(iz_odd, jt);
+                            let b = inner_idx(iz_odd, jt + 1);
+                            let c = inner_idx(iz_odd + 1, jt + 1);
+                            let d_v = inner_idx(iz_odd + 1, jt);
+                            triangles.push([a, b, c]);
+                            triangle_origin_ids.push(vane_orig);
+                            triangles.push([a, c, d_v]);
+                            triangle_origin_ids.push(vane_orig);
+
+                            let ao = outer_idx(iz_odd, jt);
+                            let bo = outer_idx(iz_odd, jt + 1);
+                            let co = outer_idx(iz_odd + 1, jt + 1);
+                            let do_v = outer_idx(iz_odd + 1, jt);
+                            triangles.push([ao, co, bo]);
+                            triangle_origin_ids.push(vane_orig);
+                            triangles.push([ao, do_v, co]);
+                            triangle_origin_ids.push(vane_orig);
+                        }
+                    }
+                }
+
+                // Segment 3: outer_idx (|x| = 0.056 m) -> port_idx (|x| = 0.060 m)
+                connect_tube(
+                    &mut triangles,
+                    &mut triangle_origin_ids,
+                    &outer_idx,
+                    &port_idx,
+                    0,
+                    n_inlet_z,
+                    duct_orig,
+                    duct_orig,
+                    duct_orig,
                 );
-                triangles.push([w0, w1, p1]);
-                triangle_origin_ids.push(strip_orig);
-                triangles.push([w0, p1, p0]);
-                triangle_origin_ids.push(strip_orig);
-            }
-            for iz in 0..n_inlet_z {
-                let (w0, w1, p0, p1) = (
-                    wall_idx(iz + 1, 0),
-                    wall_idx(iz, 0),
-                    port_idx(iz + 1, 0),
-                    port_idx(iz, 0),
-                );
-                triangles.push([w0, w1, p1]);
-                triangle_origin_ids.push(strip_orig);
-                triangles.push([w0, p1, p0]);
-                triangle_origin_ids.push(strip_orig);
-            }
-            for iz in 0..n_inlet_z {
-                for jt in 0..n_port_t {
-                    let a = port_idx(iz, jt);
-                    let b = port_idx(iz, jt + 1);
-                    let c = port_idx(iz + 1, jt + 1);
-                    let d_v = port_idx(iz + 1, jt);
-                    triangles.push([a, b, c]);
-                    triangle_origin_ids.push(term_orig);
-                    triangles.push([a, c, d_v]);
-                    triangle_origin_ids.push(term_orig);
+
+                // Terminal port patch at |x| = 0.060 m
+                for iz in 0..n_inlet_z {
+                    for jt in 0..n_port_t {
+                        let a = port_idx(iz, jt);
+                        let b = port_idx(iz, jt + 1);
+                        let c = port_idx(iz + 1, jt + 1);
+                        let d_v = port_idx(iz + 1, jt);
+                        triangles.push([a, b, c]);
+                        triangle_origin_ids.push(term_orig);
+                        triangles.push([a, c, d_v]);
+                        triangle_origin_ids.push(term_orig);
+                    }
                 }
             }
         }
@@ -2177,98 +2512,6 @@ impl IrCompiledMesh {
             triangle_origin_ids.push(orig_term_un);
         }
 
-        // 5. Internal feature triangles for splitter vanes, inlet ramp guide surfaces, and skimmer sleeve (`IR-04`)
-        let mut internal_feature_triangles: Vec<([P3; 3], u16)> = Vec::new();
-        if backend != BackendId::LegacyUnenactedCfdSurface
-            && backend != BackendId::RustFastRadialSurface
-        {
-            if ramp_is_active {
-                let dz = ramp_drop_m * 0.45;
-                let dw = w_inlet_m * (1.0 - ramp_slot_factor);
-                for sign in [-1.0_f64, 1.0_f64] {
-                    let x0 = sign * 0.038;
-                    let x1 = sign * 0.014;
-                    let y0 = -sign * (r1_m - w_inlet_m);
-                    let y1 = -sign * r1_m;
-                    let a = [x0, y0, h_inlet_m];
-                    let b = [x1, y0 + sign * dw, h_inlet_m - dz];
-                    let c = [x1, y1, h_inlet_m - dz];
-                    let d_pt = [x0, y1, h_inlet_m];
-                    internal_feature_triangles.push(([a, b, c], orig_ramp));
-                    internal_feature_triangles.push(([a, c, d_pt], orig_ramp));
-                }
-            }
-
-            for node in &ir.nodes {
-                match node {
-                    IrNode::SplitterVaneSolid {
-                        port_index,
-                        vane_index,
-                        x_start_m,
-                        x_end_m,
-                        z_center_m,
-                        thickness_m,
-                        ..
-                    } => {
-                        let vane_orig = find_origin(
-                            &format!("feature.inlet_split.p{port_index}.v{vane_index}"),
-                            "wall.inlet1_duct",
-                        );
-                        let (y0, y1) = if *port_index == 1 {
-                            (r1_m - w_inlet_m, r1_m)
-                        } else {
-                            (-r1_m, -r1_m + w_inlet_m)
-                        };
-                        let z_bot = z_center_m - 0.5 * thickness_m;
-                        let z_top = z_center_m + 0.5 * thickness_m;
-                        for &z_p in &[z_bot, z_top] {
-                            let p00 = [*x_start_m, y0, z_p];
-                            let p10 = [*x_end_m, y0, z_p];
-                            let p11 = [*x_end_m, y1, z_p];
-                            let p01 = [*x_start_m, y1, z_p];
-                            internal_feature_triangles.push(([p00, p10, p11], vane_orig));
-                            internal_feature_triangles.push(([p00, p11, p01], vane_orig));
-                        }
-                    }
-                    IrNode::VortexFinderSkimmer {
-                        length_m,
-                        outer_radius_m,
-                        tip_radius_m,
-                        capture_flutes,
-                        ..
-                    } => {
-                        let skim_orig = find_origin("feature.skimmer", "wall.orifice");
-                        let n_skim = 16usize;
-                        for k in 0..n_skim {
-                            let th0 = 2.0 * PI * (k as f64) / (n_skim as f64);
-                            let th1 = 2.0 * PI * ((k + 1) as f64) / (n_skim as f64);
-                            let f0 = if *capture_flutes > 0 {
-                                0.00018 * ((*capture_flutes as f64) * th0).cos()
-                            } else {
-                                0.0
-                            };
-                            let f1 = if *capture_flutes > 0 {
-                                0.00018 * ((*capture_flutes as f64) * th1).cos()
-                            } else {
-                                0.0
-                            };
-                            let r_b0 = outer_radius_m + f0;
-                            let r_b1 = outer_radius_m + f1;
-                            let r_t0 = tip_radius_m + f0;
-                            let r_t1 = tip_radius_m + f1;
-                            let a = [r_b0 * th0.cos(), r_b0 * th0.sin(), 0.0];
-                            let b = [r_b1 * th1.cos(), r_b1 * th1.sin(), 0.0];
-                            let c = [r_t1 * th1.cos(), r_t1 * th1.sin(), *length_m];
-                            let d_pt = [r_t0 * th0.cos(), r_t0 * th0.sin(), *length_m];
-                            internal_feature_triangles.push(([a, b, c], skim_orig));
-                            internal_feature_triangles.push(([a, c, d_pt], skim_orig));
-                        }
-                    }
-                    _ => {}
-                }
-            }
-        }
-
         let mesh = Self {
             ir_sha256: ir.ir_sha256.clone(),
             backend,
@@ -2277,7 +2520,7 @@ impl IrCompiledMesh {
             triangles,
             triangle_origin_ids,
             origin_table: ir.semantic_origins.clone(),
-            internal_feature_triangles,
+            internal_feature_triangles: Vec::new(),
         };
         mesh.verify_all_boundary_faces_have_origin_trace()?;
         Ok(mesh)
@@ -2311,7 +2554,7 @@ impl IrCompiledMesh {
         Ok(())
     }
 
-    /// Signed enclosed volume in `m^3` via 3D divergence theorem, minus internal solid feature volume (`splitter vanes` + `skimmer sleeve`).
+    /// Signed enclosed volume in `m^3` via 3D divergence theorem.
     pub fn signed_volume_m3(&self) -> f64 {
         let mut vol6 = 0.0;
         for &[i0, i1, i2] in &self.triangles {
@@ -2356,51 +2599,113 @@ impl IrCompiledMesh {
         area
     }
 
-    /// Measure the number of disjoint inlet channels at `|x| = 0.030 m` directly from the compiled mesh (`IR-04`, `IR-05`).
+    /// Intersect the mesh with the plane `x = x_slice_m` and count the number of disjoint closed
+    /// polygon loops in the `(y, z)` cross-section plane via segment-graph connectivity (`IR-R1`, `IR-R2`).
+    pub fn count_cross_section_loops_at_x(&self, x_slice_m: f64) -> usize {
+        Self::count_slice_loops_from_tri_iter(
+            self.triangles
+                .iter()
+                .map(|&[a, b, c]| [self.vertices_m[a], self.vertices_m[b], self.vertices_m[c]]),
+            x_slice_m,
+        )
+    }
+
+    fn count_slice_loops_from_tri_iter<I>(tris: I, x_slice_m: f64) -> usize
+    where
+        I: IntoIterator<Item = [P3; 3]>,
+    {
+        let xp = x_slice_m + 1.37e-9;
+        let quant =
+            |y: f64, z: f64| -> (i64, i64) { ((y * 1e7).round() as i64, (z * 1e7).round() as i64) };
+        let mut adj: BTreeMap<(i64, i64), BTreeSet<(i64, i64)>> = BTreeMap::new();
+        for tri in tris {
+            let z_mean = (tri[0][2] + tri[1][2] + tri[2][2]) / 3.0;
+            if !(-0.010..=0.025).contains(&z_mean) {
+                continue;
+            }
+            let mut pts = Vec::with_capacity(2);
+            for (u, w) in [(tri[0], tri[1]), (tri[1], tri[2]), (tri[2], tri[0])] {
+                let du = u[0] - xp;
+                let dw = w[0] - xp;
+                if (du < 0.0 && dw > 0.0) || (du > 0.0 && dw < 0.0) {
+                    let t = (xp - u[0]) / (w[0] - u[0]);
+                    let y = u[1] + t * (w[1] - u[1]);
+                    let z = u[2] + t * (w[2] - u[2]);
+                    pts.push(quant(y, z));
+                }
+            }
+            if pts.len() == 2 && pts[0] != pts[1] {
+                adj.entry(pts[0]).or_default().insert(pts[1]);
+                adj.entry(pts[1]).or_default().insert(pts[0]);
+            }
+        }
+
+        let mut visited: BTreeSet<(i64, i64)> = BTreeSet::new();
+        let mut closed_loops = 0usize;
+        for &start in adj.keys() {
+            if visited.contains(&start) {
+                continue;
+            }
+            let mut q = VecDeque::new();
+            let mut comp_nodes = 0usize;
+            let mut all_deg_ge_2 = true;
+            q.push_back(start);
+            visited.insert(start);
+            while let Some(u) = q.pop_front() {
+                comp_nodes += 1;
+                if let Some(nbrs) = adj.get(&u) {
+                    if nbrs.len() < 2 {
+                        all_deg_ge_2 = false;
+                    }
+                    for &v in nbrs {
+                        if !visited.contains(&v) {
+                            visited.insert(v);
+                            q.push_back(v);
+                        }
+                    }
+                } else {
+                    all_deg_ge_2 = false;
+                }
+            }
+            if comp_nodes >= 3 && all_deg_ge_2 {
+                closed_loops += 1;
+            }
+        }
+        closed_loops
+    }
+
+    /// Audit an ASCII STL string by slicing at `x = -0.045 m` and `x = +0.045 m` and counting
+    /// closed cross-section loops via segment-graph connectivity (`IR-R2`).
+    /// Returns `(total_disjoint_inlet_loops, loops_port1_neg_x, loops_port2_pos_x)`.
+    pub fn audit_ascii_stl_inlet_enactment(stl_text: &str) -> (usize, usize, usize) {
+        let mut tris: Vec<[P3; 3]> = Vec::new();
+        let mut cur_verts: Vec<P3> = Vec::with_capacity(3);
+        for line in stl_text.lines() {
+            let trimmed = line.trim();
+            if let Some(rest) = trimmed.strip_prefix("vertex ") {
+                let mut parts = rest.split_whitespace();
+                if let (Some(xs), Some(ys), Some(zs)) = (parts.next(), parts.next(), parts.next()) {
+                    if let (Ok(x), Ok(y), Ok(z)) =
+                        (xs.parse::<f64>(), ys.parse::<f64>(), zs.parse::<f64>())
+                    {
+                        cur_verts.push([x, y, z]);
+                        if cur_verts.len() == 3 {
+                            tris.push([cur_verts[0], cur_verts[1], cur_verts[2]]);
+                            cur_verts.clear();
+                        }
+                    }
+                }
+            }
+        }
+        let loops_neg = Self::count_slice_loops_from_tri_iter(tris.iter().copied(), -0.045);
+        let loops_pos = Self::count_slice_loops_from_tri_iter(tris.iter().copied(), 0.045);
+        (loops_neg + loops_pos, loops_neg, loops_pos)
+    }
+
+    /// Measure the number of disjoint inlet channels at `x = +-0.045 m` directly from the compiled mesh
+    /// via plane-slice closed-loop connectivity (`IR-04`, `IR-05`, `IR-R1`, `IR-R2`).
     pub fn measure_disjoint_inlet_paths(&self) -> usize {
-        // Count outer inlet ducts at x = -0.030 and x = +0.030 plus horizontal splitter vane partitions
-        let mut port1_has_duct = false;
-        let mut port2_has_duct = false;
-        for &[i0, i1, i2] in &self.triangles {
-            for v in [
-                self.vertices_m[i0],
-                self.vertices_m[i1],
-                self.vertices_m[i2],
-            ] {
-                if v[0] < -0.045 {
-                    port1_has_duct = true;
-                }
-                if v[0] > 0.045 {
-                    port2_has_duct = true;
-                }
-            }
-        }
-        let mut port1_vane_z = BTreeSet::new();
-        let mut port2_vane_z = BTreeSet::new();
-        for &(pts, _) in &self.internal_feature_triangles {
-            let xm = (pts[0][0] + pts[1][0] + pts[2][0]) / 3.0;
-            let zm_um = (((pts[0][2] + pts[1][2] + pts[2][2]) / 3.0) * 1e6).round() as i64;
-            // Horizontal splitter vane planes lie in |x| in [0.020, 0.042] m
-            let dz = (pts[0][2] - pts[1][2]).abs() + (pts[1][2] - pts[2][2]).abs();
-            if dz < 1e-6 {
-                if (-0.042..-0.020).contains(&xm) {
-                    port1_vane_z.insert(zm_um / 500); // group top/bottom of each vane
-                } else if (0.020..0.042).contains(&xm) {
-                    port2_vane_z.insert(zm_um / 500);
-                }
-            }
-        }
-        let p1_paths = if port1_has_duct {
-            1 + (port1_vane_z.len() / 2).max(usize::from(!port1_vane_z.is_empty()))
-        } else {
-            0
-        };
-        let p2_paths = if port2_has_duct {
-            1 + (port2_vane_z.len() / 2).max(usize::from(!port2_vane_z.is_empty()))
-        } else {
-            0
-        };
-        p1_paths + p2_paths
+        self.count_cross_section_loops_at_x(-0.045) + self.count_cross_section_loops_at_x(0.045)
     }
 
     /// Verify feature enactment (`IR-04`) and produce a `FeatureEnactmentReceipt`.
@@ -2555,11 +2860,31 @@ impl IrCompiledMesh {
             "inlet_split" if self.measure_disjoint_inlet_paths() > 2 => 1.2,
             "inlet_split" => 0.0,
             "skimmer" => {
+                let skim_oids: BTreeSet<u16> = self
+                    .origin_table
+                    .iter()
+                    .filter(|o| {
+                        o.gene_path.starts_with("skimmer") || o.semantic_id.contains("skimmer")
+                    })
+                    .map(|o| o.origin_id)
+                    .collect();
                 let mut max_z = 0.0_f64;
-                for &(pts, _) in &self.internal_feature_triangles {
-                    for p in pts {
-                        if p[0].hypot(p[1]) < 0.006 && p[2] > 0.0 {
-                            max_z = max_z.max(p[2] * 1e3);
+                for (idx, &[i0, i1, i2]) in self.triangles.iter().enumerate() {
+                    if skim_oids.contains(&self.triangle_origin_ids[idx]) {
+                        for &vi in &[i0, i1, i2] {
+                            let p = self.vertices_m[vi];
+                            if p[0].hypot(p[1]) < 0.006 && p[2] > 0.0 {
+                                max_z = max_z.max(p[2] * 1e3);
+                            }
+                        }
+                    }
+                }
+                for &(pts, oid) in &self.internal_feature_triangles {
+                    if skim_oids.contains(&oid) {
+                        for p in pts {
+                            if p[0].hypot(p[1]) < 0.006 && p[2] > 0.0 {
+                                max_z = max_z.max(p[2] * 1e3);
+                            }
                         }
                     }
                 }
@@ -2590,7 +2915,7 @@ impl IrCompiledMesh {
         }
     }
 
-    /// Deliberately strip a feature's enacted triangles from the mesh (for negative-control testing of `IR-04`).
+    /// Deliberately strip a feature's enacted triangles from the mesh (for negative-control testing of `IR-04` and `IR-05`).
     pub fn strip_feature_for_negative_test(&mut self, gene_prefix: &str) {
         let drop_oids: BTreeSet<u16> = self
             .origin_table
@@ -2600,9 +2925,67 @@ impl IrCompiledMesh {
             .collect();
         self.internal_feature_triangles
             .retain(|&(_, oid)| !drop_oids.contains(&oid));
-        for oid in &mut self.triangle_origin_ids {
-            if drop_oids.contains(oid) {
-                *oid = 2; // reassign to generic chamber wall so feature origin has 0 faces
+
+        if gene_prefix == "inlet_split" {
+            // Remove splitter vane walls/caps and close the odd-band side-wall gaps so the duct reverts
+            // to an unsplit 2-port manifold (1 closed loop per duct at x = +-0.045 m).
+            let mut kept_tris = Vec::with_capacity(self.triangles.len());
+            let mut kept_oids = Vec::with_capacity(self.triangle_origin_ids.len());
+            for (tri, oid) in self
+                .triangles
+                .drain(..)
+                .zip(self.triangle_origin_ids.drain(..))
+            {
+                if !drop_oids.contains(&oid) {
+                    kept_tris.push(tri);
+                    kept_oids.push(oid);
+                }
+            }
+            self.triangles = kept_tris;
+            self.triangle_origin_ids = kept_oids;
+
+            // Find open vertical edges at |x| == 0.024 m and bridge them to |x| == 0.056 m
+            let mut directed: BTreeMap<(usize, usize), usize> = BTreeMap::new();
+            for &[a, b, c] in &self.triangles {
+                for (u, v) in [(a, b), (b, c), (c, a)] {
+                    *directed.entry((u, v)).or_insert(0) += 1;
+                }
+            }
+            let open_directed: Vec<(usize, usize)> = directed
+                .iter()
+                .filter(|&(&(u, v), &cnt)| {
+                    cnt == 1 && directed.get(&(v, u)).copied().unwrap_or(0) == 0
+                })
+                .map(|(&k, _)| k)
+                .collect();
+
+            for &(u0, u1) in &open_directed {
+                let p0 = self.vertices_m[u0];
+                let p1 = self.vertices_m[u1];
+                if (p0[0].abs() - 0.024).abs() < 1e-5
+                    && (p1[0].abs() - 0.024).abs() < 1e-5
+                    && (p0[2] - p1[2]).abs() > 1e-5
+                {
+                    let n_grid_port = self
+                        .vertices_m
+                        .iter()
+                        .filter(|v| (v[0] - p0[0]).abs() < 1e-5)
+                        .count();
+                    let v0 = u0 + n_grid_port;
+                    let v1 = u1 + n_grid_port;
+                    if v0 < self.vertices_m.len() && v1 < self.vertices_m.len() {
+                        self.triangles.push([u1, u0, v0]);
+                        self.triangle_origin_ids.push(2);
+                        self.triangles.push([u1, v0, v1]);
+                        self.triangle_origin_ids.push(2);
+                    }
+                }
+            }
+        } else {
+            for oid in &mut self.triangle_origin_ids {
+                if drop_oids.contains(oid) {
+                    *oid = 2; // reassign to generic chamber wall so feature origin has 0 faces
+                }
             }
         }
     }
@@ -2833,11 +3216,11 @@ impl VoxelSdfObserver {
             }
         }
 
-        // Measure orifice neck diameter at z = 0 from the compiled mesh
+        // Measure orifice neck diameter at z = 0 from the compiled mesh (inner bore r < 0.0012 m)
         let mut orifice_r_sum = 0.0_f64;
         let mut orifice_cnt = 0usize;
         for v in &mesh.vertices_m {
-            if v[2].abs() < 1e-6 && v[0].hypot(v[1]) < 0.005 {
+            if v[2].abs() < 1e-6 && v[0].hypot(v[1]) < 0.0012 {
                 orifice_r_sum += v[0].hypot(v[1]);
                 orifice_cnt += 1;
             }
@@ -2868,42 +3251,47 @@ impl VoxelSdfObserver {
             }
         }
 
-        // Subtract internal feature solid volumes (splitter vanes + skimmer sleeve) from outer boundary signed volume
-        let inlet_area_each_m2_obs = 0.0625_f64 * PI * 0.070_f64 * 0.070_f64 / 4.0 / 2.0;
-        let w_inlet_m_obs = (inlet_area_each_m2_obs / 2.0_f64).sqrt();
-        let mut internal_solid_vol_m3 = 0.0_f64;
-        for node in &ir.nodes {
-            match node {
-                IrNode::SplitterVaneSolid {
-                    x_start_m,
-                    x_end_m,
-                    thickness_m,
-                    ..
-                } => {
-                    internal_solid_vol_m3 +=
-                        (x_end_m - x_start_m).abs() * w_inlet_m_obs * thickness_m;
+        // When splitter vanes and skimmer sleeve are enacted directly in the watertight 2-manifold
+        // `mesh.triangles` (`internal_feature_triangles.is_empty()`), `mesh.signed_volume_m3()` already
+        // excludes their solid volume via the 3D divergence theorem.
+        let fluid_vol_m3 = if mesh.internal_feature_triangles.is_empty() {
+            mesh.signed_volume_m3().max(0.0)
+        } else {
+            let inlet_area_each_m2_obs = 0.0625_f64 * PI * 0.070_f64 * 0.070_f64 / 4.0 / 2.0;
+            let w_inlet_m_obs = (inlet_area_each_m2_obs / 2.0_f64).sqrt();
+            let mut internal_solid_vol_m3 = 0.0_f64;
+            for node in &ir.nodes {
+                match node {
+                    IrNode::SplitterVaneSolid {
+                        x_start_m,
+                        x_end_m,
+                        thickness_m,
+                        ..
+                    } => {
+                        internal_solid_vol_m3 +=
+                            (x_end_m - x_start_m).abs() * w_inlet_m_obs * thickness_m;
+                    }
+                    IrNode::VortexFinderSkimmer {
+                        length_m,
+                        inner_radius_m,
+                        outer_radius_m,
+                        tip_radius_m,
+                        ..
+                    } => {
+                        let frustum = PI
+                            * length_m
+                            * (outer_radius_m.powi(2)
+                                + outer_radius_m * tip_radius_m
+                                + tip_radius_m.powi(2))
+                            / 3.0;
+                        let bore = PI * inner_radius_m.powi(2) * length_m;
+                        internal_solid_vol_m3 += (frustum - bore).max(0.0);
+                    }
+                    _ => {}
                 }
-                IrNode::VortexFinderSkimmer {
-                    length_m,
-                    inner_radius_m,
-                    outer_radius_m,
-                    tip_radius_m,
-                    ..
-                } => {
-                    let frustum = PI
-                        * length_m
-                        * (outer_radius_m.powi(2)
-                            + outer_radius_m * tip_radius_m
-                            + tip_radius_m.powi(2))
-                        / 3.0;
-                    let bore = PI * inner_radius_m.powi(2) * length_m;
-                    internal_solid_vol_m3 += (frustum - bore).max(0.0);
-                }
-                _ => {}
             }
-        }
-
-        let fluid_vol_m3 = (mesh.signed_volume_m3() - internal_solid_vol_m3).max(0.0);
+            (mesh.signed_volume_m3() - internal_solid_vol_m3).max(0.0)
+        };
         let wetted_area_m2 = mesh.wetted_area_m2();
         let split_metrics = SplitGeometryMetrics::from_ir(ir);
 
@@ -3034,7 +3422,7 @@ impl VoxelSdfObserver {
         )
     }
 
-    /// Derive `PhenotypeTaxon` purely from the compiled 3D mesh (`IR-06`).
+    /// Derive `PhenotypeTaxon` purely from the compiled 3D mesh (`IR-06`, `IR-R5`).
     pub fn derive_taxon_from_mesh(
         mesh: &IrCompiledMesh,
         fluid_components: usize,
@@ -3049,9 +3437,10 @@ impl VoxelSdfObserver {
         let measured_outlets = 2usize;
         let internal_branch_cycles = measured_inlets.saturating_sub(2);
         let betti_0 = fluid_components.max(1);
-        let surface_genus = ((2 * betti_0 as i64 - euler) / 2).max(0) as usize;
-        let betti_1 = surface_genus + internal_branch_cycles;
         let betti_2 = 1 + trapped_cavities;
+        // Exact 2-manifold surface genus g = (2*S - chi)/2 where S = betti_0 + trapped_cavities = betti_2 (`IR-R5`)
+        let surface_genus = (((betti_0 + betti_2) as i64 - euler) / 2).max(0) as usize;
+        let betti_1 = surface_genus.max(internal_branch_cycles);
 
         // Recover azimuthal harmonic spectrum on z in [0.025, 0.055] m directly from mesh vertices
         let mut chamber_pts = Vec::new();
@@ -3088,7 +3477,7 @@ impl VoxelSdfObserver {
         // Measure axial high-frequency corrugation (TPMS / ribbon signature) on z in [0.020, 0.064] m
         let mut z_radii: BTreeMap<i64, Vec<f64>> = BTreeMap::new();
         for v in &mesh.vertices_m {
-            if (0.015..=0.166).contains(&v[2]) && v[0].abs() <= 0.038 {
+            if (0.015..=0.166).contains(&v[2]) && v[0].abs() <= 0.038 && v[0].hypot(v[1]) >= 0.008 {
                 let z_key = (v[2] * 1e5).round() as i64;
                 z_radii
                     .entry(z_key)
@@ -3144,8 +3533,13 @@ impl VoxelSdfObserver {
             axial_corrugation_mm = axial_corrugation_mm.max(d2r);
         }
 
-        // Measure skimmer protrusion from internal feature triangles
+        // Measure skimmer protrusion directly from compiled 2-manifold mesh vertices (and any internal feature triangles)
         let mut skim_len_mm = 0.0_f64;
+        for v in &mesh.vertices_m {
+            if v[0].hypot(v[1]) < 0.006 && v[2] > 0.0 {
+                skim_len_mm = skim_len_mm.max(v[2] * 1e3);
+            }
+        }
         for &(pts, _) in &mesh.internal_feature_triangles {
             for p in pts {
                 if p[0].hypot(p[1]) < 0.006 && p[2] > 0.0 {

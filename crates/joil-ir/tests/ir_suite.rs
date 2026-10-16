@@ -856,3 +856,104 @@ fn ir_12_negative_geometry_corpus_22_rejected_and_metamorphic_invariants() {
         "Permuting chamber_modes order must canonicalize to identical ir_sha256"
     );
 }
+
+#[test]
+fn ir_r1_r2_r4_r5_watertight_split_loops_corrugation_proxy_and_betti_parity() {
+    // 1. IR-R1 & IR-R2: 3-branch (6-jet) compiled mesh is a single watertight 2-manifold (0 floating internal cards)
+    //    and slices to 3 closed cross-section loops per inlet duct at x = +-0.045 m and x = +-0.050 m.
+    let prog_6jet = exotic_program_json(
+        3,
+        "ct35-exotic-head-v3",
+        2.0,
+        0.88,
+        2.5,
+        3,
+        0,
+        "None",
+        &[(3, 0.40, -0.20, 0.5)],
+        (0.25, -0.15, 0.08),
+        6.0,
+        4,
+    );
+    let ir_6jet = DesignIrV1::from_program_json(&prog_6jet, BASE_SHA).unwrap();
+    let mesh_6jet = IrCompiledMesh::compile(&ir_6jet, BackendId::RustMultiPatchCfdSurface).unwrap();
+    assert!(
+        mesh_6jet.internal_feature_triangles.is_empty(),
+        "IR-R1: splitter vanes and skimmer must be woven into the watertight 2-manifold boundary, not floating internal cards"
+    );
+    assert_eq!(mesh_6jet.count_cross_section_loops_at_x(-0.045), 3);
+    assert_eq!(mesh_6jet.count_cross_section_loops_at_x(0.045), 3);
+    assert_eq!(mesh_6jet.count_cross_section_loops_at_x(-0.050), 3);
+    assert_eq!(mesh_6jet.count_cross_section_loops_at_x(0.050), 3);
+    assert_eq!(mesh_6jet.measure_disjoint_inlet_paths(), 6);
+
+    // 2. IR-R4: Active ribbon_cascade and tpms_insert report WallCorrugationProxy (not ConservativeApproximation)
+    //    and return is_supported_for_geometry_qualification() == false.
+    let prog_corrug = exotic_program_json(
+        3,
+        "ct35-exotic-head-v3",
+        0.0,
+        1.0,
+        2.0,
+        1,
+        4,
+        "Gyroid",
+        &[],
+        (0.0, 0.0, 0.0),
+        0.0,
+        0,
+    );
+    let ir_corrug = DesignIrV1::from_program_json(&prog_corrug, BASE_SHA).unwrap();
+    let support = ir_corrug
+        .check_backend_support(BackendId::RustMultiPatchCfdSurface)
+        .unwrap();
+    let rib_cov = support
+        .feature_coverages
+        .iter()
+        .find(|fc| fc.gene_name == "ribbon_cascade")
+        .unwrap();
+    let tpms_cov = support
+        .feature_coverages
+        .iter()
+        .find(|fc| fc.gene_name == "tpms_insert")
+        .unwrap();
+    assert!(matches!(
+        rib_cov.support,
+        SupportLevel::WallCorrugationProxy { .. }
+    ));
+    assert!(matches!(
+        tpms_cov.support,
+        SupportLevel::WallCorrugationProxy { .. }
+    ));
+    assert!(!rib_cov.support.is_supported_for_geometry_qualification());
+    assert!(!tpms_cov.support.is_supported_for_geometry_qualification());
+    assert!(!support.qualified_for_geometry);
+
+    // 3. IR-R5: Actual Betti numbers (beta_0, beta_1, beta_2) computed from 2-manifold Euler characteristic:
+    //    for B branches per port, each splitter vane creates a topological handle -> beta_1 = 2*(B - 1).
+    for (branches, expected_beta1) in [(1u32, 0usize), (2, 2), (3, 4), (4, 6)] {
+        let p = exotic_program_json(
+            3,
+            "ct35-exotic-head-v3",
+            0.0,
+            1.0,
+            2.0,
+            branches,
+            0,
+            "None",
+            &[],
+            (0.0, 0.0, 0.0),
+            0.0,
+            0,
+        );
+        let ir = DesignIrV1::from_program_json(&p, BASE_SHA).unwrap();
+        let mesh = IrCompiledMesh::compile(&ir, BackendId::RustMultiPatchCfdSurface).unwrap();
+        let obs = VoxelSdfObserver::observe(&ir, &mesh);
+        assert_eq!(obs.derived_taxon.betti_0, 1);
+        assert_eq!(obs.derived_taxon.betti_2, 1);
+        assert_eq!(
+            obs.derived_taxon.betti_1, expected_beta1,
+            "B={branches} branches per port must have beta_1 = {expected_beta1}"
+        );
+    }
+}

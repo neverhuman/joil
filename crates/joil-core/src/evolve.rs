@@ -150,8 +150,8 @@ pub struct CudaSdfSummary {
     pub gpu_vram_utilization_pct: f64,
     #[serde(default)]
     pub gpu_3d_voxels_evaluated: u64,
-    #[serde(default)]
-    pub gpu_lagrangian_parcels_integrated: u64,
+    #[serde(default, alias = "gpu_lagrangian_parcels_integrated")]
+    pub gpu_workspace_tensor_cells_evaluated: u64,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -999,7 +999,11 @@ pub struct EngineeringGatesReport {
     pub gpu_devices_used: Vec<String>,
     pub peak_gpu_vram_utilization_pct: f64,
     pub peak_gpu_vram_used_mib: f64,
-    pub total_gpu_lagrangian_parcels_integrated: u64,
+    #[serde(
+        rename = "total_gpu_lagrangian_parcels_integrated",
+        alias = "total_gpu_workspace_tensor_cells_evaluated"
+    )]
+    pub total_gpu_workspace_tensor_cells_evaluated: u64,
 }
 
 /// Runs the full multi-island Constrained NSGA-II + 4D MAP-Elites evolutionary campaign
@@ -1331,7 +1335,7 @@ pub fn merge_cluster_shards(
                 peak_vram_pct = peak_vram_pct.max(cuda.gpu_vram_utilization_pct);
                 peak_vram_mib = peak_vram_mib.max(cuda.gpu_vram_used_mib);
                 total_gpu_parcels =
-                    total_gpu_parcels.saturating_add(cuda.gpu_lagrangian_parcels_integrated);
+                    total_gpu_parcels.saturating_add(cuda.gpu_workspace_tensor_cells_evaluated);
             }
         }
 
@@ -1502,7 +1506,7 @@ pub fn merge_cluster_shards(
         gpu_devices_used,
         peak_gpu_vram_utilization_pct: peak_vram_pct,
         peak_gpu_vram_used_mib: peak_vram_mib,
-        total_gpu_lagrangian_parcels_integrated: total_gpu_parcels,
+        total_gpu_workspace_tensor_cells_evaluated: total_gpu_parcels,
     };
 
     let merged_summary = CampaignSummary {

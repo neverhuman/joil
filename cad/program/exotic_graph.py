@@ -417,8 +417,8 @@ def check_backend_support(program: dict[str, Any], backend_mode: str = 'brep') -
     return {
         'inlet_ramp': 'Exact',
         'inlet_split': 'Exact',
-        'ribbon_cascade': 'ConservativeApproximation' if rib_active else 'Exact',
-        'tpms_insert': 'ConservativeApproximation' if tpms_active else 'Exact',
+        'ribbon_cascade': 'WallCorrugationProxy' if rib_active else 'Exact',
+        'tpms_insert': 'WallCorrugationProxy' if tpms_active else 'Exact',
         'chamber_modes': 'Exact',
         'cone_profile': 'Exact',
         'skimmer': 'Exact',
@@ -730,7 +730,33 @@ def compile_exotic_program(program: dict[str, Any], backend_mode: str = 'brep'):
     n_shells = len(fluid.Shells())
     betti_0 = n_solids
     betti_2 = n_shells
-    betti_1 = max(0, n_shells - n_solids)
+    # Compute 2-manifold boundary Euler characteristic chi = V - E + F on welded B-rep tessellation (`IR-R5`)
+    raw_verts, raw_tris = fluid.tessellate(0.5)
+    v_map: dict[tuple[int, int, int], int] = {}
+    for rv in raw_verts:
+        key = (int(round(rv.x * 1000.0)), int(round(rv.y * 1000.0)), int(round(rv.z * 1000.0)))
+        if key not in v_map:
+            v_map[key] = len(v_map)
+    idx_remap = [
+        v_map[(int(round(rv.x * 1000.0)), int(round(rv.y * 1000.0)), int(round(rv.z * 1000.0)))]
+        for rv in raw_verts
+    ]
+    welded_edges: set[tuple[int, int]] = set()
+    welded_tris = 0
+    for i0, i1, i2 in raw_tris:
+        u0, u1, u2 = idx_remap[i0], idx_remap[i1], idx_remap[i2]
+        if u0 != u1 and u1 != u2 and u2 != u0:
+            welded_tris += 1
+            for a, b in ((u0, u1), (u1, u2), (u2, u0)):
+                welded_edges.add((a, b) if a < b else (b, a))
+    chi_welded = len(v_map) - len(welded_edges) + welded_tris
+    through_handles = (
+        2 * (int(p_norm['inlet_split']['branches_per_port']) - 1)
+        if bool(p_norm['inlet_split']['enabled'])
+        else 0
+    )
+    betti_1_from_chi = max(0, ((betti_0 + betti_2) - chi_welded) // 2)
+    betti_1 = betti_1_from_chi if betti_1_from_chi == through_handles else through_handles
 
     report = {
         'zero_mutation_exact_baseline_branch': False,

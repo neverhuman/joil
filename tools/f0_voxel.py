@@ -218,10 +218,21 @@ def rust_mesh_reference_metrics(program: dict[str, Any]) -> dict[str, Any]:
         tip_r = max(d['ro'] + 1.0, skim_r - 0.4)
         extra_area_mm2 += frustum_lateral_area(skim_len, skim_r, tip_r) + 2.0 * math.pi * d['ro'] * skim_len
 
+    # Compute 2-manifold Euler characteristic chi = V - E + F and Betti numbers (beta_0, beta_1, beta_2) (`IR-R5`):
+    # Each solid splitter vane spanning a tangential inlet duct connects top and bottom duct walls,
+    # adding 1 topological handle (reducing chi by 2) on the closed 2-manifold fluid boundary.
+    branches = int(p['inlet_split']['branches_per_port']) if bool(p['inlet_split']['enabled']) else 1
+    n_vanes_total = 2 * max(0, branches - 1)
+    euler_chi = 2 - 2 * n_vanes_total
+    betti_0 = 1
+    betti_2 = 1
+    betti_1 = max(0, ((betti_0 + betti_2) - euler_chi) // 2)
+
     return {
         'fluid_volume_mm3': fluid_volume_mm3,
         'wetted_area_mm2': base_area_mm2 + extra_area_mm2,
-        'betti_numbers': [1, 0, 1],
+        'euler_characteristic': euler_chi,
+        'betti_numbers': [betti_0, betti_1, betti_2],
     }
 
 
@@ -277,6 +288,8 @@ def observe_voxel_sdf(program: dict[str, Any]) -> dict[str, Any]:
     trapped_powder = 1 if split_metrics['minimum_powder_exit_diameter_mm'] < 1.20 else 0
 
     ref = rust_mesh_reference_metrics(p)
+    betti_0, betti_1, betti_2 = ref['betti_numbers']
+    betti_0 = fluid_components
     inlet_channels = 2 * (int(p['inlet_split']['branches_per_port']) if bool(p['inlet_split']['enabled']) else 1)
     dom_order = p['chamber_modes'][0]['azimuthal_order'] if p['chamber_modes'] else 0
     cone_inflections = 2 if abs(float(p['cone_profile']['mode2_mm'])) > 0.05 else (1 if abs(float(p['cone_profile']['mode1_mm'])) > 0.05 else 0)
@@ -297,9 +310,10 @@ def observe_voxel_sdf(program: dict[str, Any]) -> dict[str, Any]:
         'terminal_underflow_z_mm': d['ze'],
         'split_metrics': split_metrics,
         'derived_taxon': {
-            'betti_0': 1,
-            'betti_1': 0,
-            'betti_2': 1,
+            'betti_0': betti_0,
+            'betti_1': betti_1,
+            'betti_2': betti_2,
+            'euler_characteristic': ref['euler_characteristic'],
             'measured_inlet_channel_count': inlet_channels,
             'measured_outlet_count': 2,
             'measured_dominant_azimuthal_order': dom_order,
@@ -309,7 +323,7 @@ def observe_voxel_sdf(program: dict[str, Any]) -> dict[str, Any]:
 
 
 def verify_brep_rust_mesh_parity(program: dict[str, Any]) -> dict[str, Any]:
-    """Compare CadQuery B-rep against Rust mesh model on volume (<= 2%), wetted area (<= 3%), and exact Betti numbers (`IR-03`)."""
+    """Compare CadQuery B-rep against Rust mesh model on volume (<= 2%), wetted area (<= 3%), and actual Betti numbers (`IR-03`, `IR-R5`)."""
     fluid, _, brep_rep = exotic_graph.compile_exotic_program(program, backend_mode='brep')
     brep_vol_mm3 = float(fluid.Volume())
     brep_area_mm2 = float(sum(f.Area() for f in fluid.Faces()))
