@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T05:23Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T05:47Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -104,10 +104,10 @@ reason.
 | INT-08 | INT | OPEN | - |
 | DOC-01 | DOC | DONE | `7353526` (planner pre-seed; `sha256sum -c` 6/6 OK at 2026-10-16T05:11Z) |
 | DOC-02 | DOC | DONE | `ae22586` (`DONE DOC-02 ae22586`) |
-| DOC-03 | DOC | OPEN | - |
+| DOC-03 | DOC | WIP | started 2026-10-16T05:32Z |
 | DOC-04 | DOC | OPEN | - |
 | DOC-05 | DOC | OPEN | - |
-| DOC-06 | DOC | OPEN | - |
+| DOC-06 | DOC | DONE | `dfe62c2` (`DONE DOC-06 dfe62c2`) |
 | DOC-07 | DOC | OPEN | - |
 | DOC-08 | DOC | OPEN | - |
 | DOC-09 | DOC | OPEN | - |
@@ -137,7 +137,7 @@ The reviews agree on eleven themes. The workplan §0 numbers them the same way.
 
 | ID | Source | Finding | Verified@7353526 | Items | Coverage | Status |
 |---|---|---|---|---|---|---|
-| S1-3.1 | S1 §3.1 | Genome is a fixed catalog of seven layers plus 11 hand-classified labels, not an open language | V: `program.rs:209` struct, `program.rs:1346` `CANONICAL_11_FAMILIES` | DOC-06, IR-01 | PARTIAL (genome v4 is §6) | OPEN |
+| S1-3.1 | S1 §3.1 | Genome is a fixed catalog of seven layers plus 11 hand-classified labels, not an open language | V: `program.rs:209` struct, `program.rs:1346` `CANONICAL_11_FAMILIES` | DOC-06, IR-01 | PARTIAL (genome v4 is §6) | WIP |
 | S1-3.2 | S1 §3.2 | Branch, ribbon and TPMS genes do not become the geometry sent to the judge; CFD surface is five patches with two inlets | V: `cfd_case.rs:3`, `cfd_case.rs:334`; ribbons/TPMS are wall-radius perturbations `phenotype.rs:229`, `phenotype.rs:243` | IR-02, IR-03, IR-04, IR-05 | PARTIAL (real internal surfaces are §6) | OPEN |
 | S1-3.3 | S1 §3.3 | Topology is named by the generator (`classify_topology`), not measured | V: `program.rs:551` | IR-06 | FULL | OPEN |
 | S1-3.4 | S1 §3.4 | Reduced evaluator rewards genome assumptions (gene-derived descriptors feed the score) | V: `program.rs:618` `descriptors()`; e.g. TPMS shear ×0.86 at `program.rs:684` | IR-07, DOC-03, DOC-08 | PARTIAL (judge separation is §6) | OPEN |
@@ -171,7 +171,7 @@ The reviews agree on eleven themes. The workplan §0 numbers them the same way.
 
 | ID | Source | Finding | Verified@7353526 | Items | Coverage | Status |
 |---|---|---|---|---|---|---|
-| S2-4.01 | S2 §4.1 | Implemented genome is a feature catalogue, not a general design program | V: see S1-3.1 | DOC-06 | PARTIAL (genome v4 is §6) | OPEN |
+| S2-4.01 | S2 §4.1 | Implemented genome is a feature catalogue, not a general design program | V: see S1-3.1 | DOC-06 | PARTIAL (genome v4 is §6) | DONE |
 | S2-4.02 | S2 §4.2 | Primary Rust phenotype is star-shaped `R(θ,z)` rings; cannot hold internal bodies or branch networks | V: `phenotype.rs:185` `inner_radius_mm(prog, d, theta, z)` | IR-02, DOC-06 | PARTIAL (multi-region compiler is §6) | OPEN |
 | S2-4.03 | S2 §4.3 | F0 facts (frozen-tail diff, trapped cavities, TPMS pore size, mass) asserted, not measured | V: `phenotype.rs:520`; arithmetic TPMS/ribbon volumes `phenotype.rs:457` | IR-08, IR-09 | FULL | OPEN |
 | S2-4.04 | S2 §4.4 | Screening physics is self-referential | V: see S1-3.4 | IR-07, DOC-03, DOC-08 | PARTIAL (evaluator isolation is §6) | OPEN |
@@ -182,7 +182,7 @@ The reviews agree on eleven themes. The workplan §0 numbers them the same way.
 | S2-4.09 | S2 §4.9 | F1 DSD bin weights from pointwise lognormal PDF without declared basis or bin-edge integration | R: not re-checked in `evolve.rs` this pass | - | GAP (§5 G-01) | UNASSIGNED |
 | S2-4.10 | S2 §4.10 | Surrogate silently imputes missing physical state | V: `surrogate.rs:361` | EV-08 | FULL | OPEN |
 | S2-4.11 | S2 §4.11 | 100% valid operator walk is not proof of open-endedness | V: `program.rs:1603`, `program.rs:1706` audits sample the 11 authored families | TR-14, DOC-03 | PARTIAL (open-world challenge is §6) | OPEN |
-| S2-A.1 | S2 §20 Milestone A-1 | Freeze current representation as a legacy lane | N/A | DOC-06, IR-01 | FULL | OPEN |
+| S2-A.1 | S2 §20 Milestone A-1 | Freeze current representation as a legacy lane | N/A | DOC-06, IR-01 | FULL | WIP |
 | S2-A.4 | S2 §20 Milestone A-4 | Mark current reduced-order physics screening-only | N/A | DOC-03, IR-07 | FULL | OPEN |
 | S2-A.5 | S2 §20 Milestone A-5 | Replace hard-coded unknown geometry facts with typed unknowns | V: see S2-4.03 | IR-08, EV-03 | FULL | OPEN |
 | S2-A.7 | S2 §20 Milestone A-7 | Operator identity and rejection accounting | N/A | TR-03, TR-13 | FULL | OPEN |
@@ -202,7 +202,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 | S3-P0-07 | S3 P0-07 | Candidate-specific structural loads not tied to the hard constraint | V: see S1-15.09 | TR-09 | FULL | OPEN |
 | S3-P0-08 | S3 P0-08 | One "minimum wall clearance" conflates ligament, throat, gap, vane and wall distance | V: `phenotype.rs:460`, `phenotype.rs:468` fold vane/sheet thickness into `min_clearance` | IR-09 | FULL | OPEN |
 | S3-P0-09 | S3 P0-09 | Reduced-order evaluator is circular | V: see S1-3.4 | IR-07, DOC-03, DOC-08 | PARTIAL (judge separation is §6) | OPEN |
-| S3-P0-10 | S3 P0-10 | "Exoticness" is a hand-weighted gene-activation score | V: `program.rs:1573` `exoticness_index` weights branch count and TPMS basis | DOC-03 | PARTIAL (wording now; novelty vector is §6; code rename is §5 G-05) | OPEN |
+| S3-P0-10 | S3 P0-10 | "Exoticness" is a hand-weighted gene-activation score | V: `program.rs:1573` `exoticness_index` weights branch count and TPMS basis | DOC-03 | PARTIAL (wording now; novelty vector is §6; code rename is §5 G-05) | WIP |
 | S3-P0-11 | S3 P0-11 | p95 tail quantiles over-read at 12–24 MC samples | V: `evolve.rs:401` `percentile_sorted(&couts, 0.95)` over `mc_samples` | TR-15 | FULL | OPEN |
 | S3-P0-12 | S3 P0-12 | Topology names are programmer-authored labels | V: see S1-3.3 | IR-06 | FULL | OPEN |
 
@@ -210,7 +210,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 
 | ID | Source | Finding | Verified@7353526 | Items | Coverage | Status |
 |---|---|---|---|---|---|---|
-| S4-1.Q | S4 §1, §4.2 | Four-decimal rounding inside normalisation is undeclared quantization, not exact identity | V: `program.rs:60` `round4` applied throughout `normalize()` | DOC-06 | PARTIAL (documented now; `NumericContract` is §5 G-04) | OPEN |
+| S4-1.Q | S4 §1, §4.2 | Four-decimal rounding inside normalisation is undeclared quantization, not exact identity | V: `program.rs:60` `round4` applied throughout `normalize()` | DOC-06 | PARTIAL (documented now; `NumericContract` is §5 G-04) | DONE |
 | S4-2.01 | S4 §2.1 | Genome is a feature menu; remove `topology_class` from genotype | V: `program.rs:212` field in `DesignProgram` | IR-06, DOC-06 | PARTIAL (genome v4 is §6) | OPEN |
 | S4-2.02 | S4 §2.2 | CFD phenotype lacks the claimed internal topology; CFD results hold only for the compiled shell | V: see S1-3.2 | IR-02, IR-04, IR-05, DOC-03 | PARTIAL (multi-region compiler is §6) | OPEN |
 | S4-2.03 | S4 §2.3 | Fast evaluator is self-fulfilling; needs evaluator blindness (crate-dependency CI test) | V: see S1-3.4 | IR-07 | PARTIAL (crate split + CI dependency test is §6) | OPEN |
@@ -256,7 +256,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 
 | ID | Source | Finding | Verified@7353526 | Items | Coverage | Status |
 |---|---|---|---|---|---|---|
-| S6-3.1 | S6 §3.1 | Documented graph genome is not the implemented genome; drop "flexible graph CAD implemented" from status | V: `docs/STATUS.json` `flexible_graph_cad_implemented: true`; `docs/GENOME.md` labels the graph API as proposed | EV-07, DOC-06 | FULL | OPEN |
+| S6-3.1 | S6 §3.1 | Documented graph genome is not the implemented genome; drop "flexible graph CAD implemented" from status | V: `docs/STATUS.json` `flexible_graph_cad_implemented: true`; `docs/GENOME.md` labels the graph API as proposed | EV-07, DOC-06 | FULL | WIP |
 | S6-3.2 | S6 §3.2 | Topology labels are not topology | V: see S1-3.3 | IR-06 | FULL | OPEN |
 | S6-3.3 | S6 §3.3 | Screening mesh does not instantiate claimed mechanisms | V: see S1-3.2, S2-4.03 | IR-02, IR-04, IR-08 | PARTIAL (resolved internals are §6) | OPEN |
 | S6-3.4 | S6 §3.4 | Exact CAD paths disagree (`wall_field.py` smooth wall only, `exotic_graph.py` v2, Rust v3) | V: `cad/program/wall_field.py:15` accepts only `modes`; see S3-P0-01 | IR-03 | FULL | OPEN |
@@ -264,7 +264,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 | S6-3.6 | S6 §3.6 | Reduced-order evaluator contains the design theory it tests | V: see S1-3.4 | IR-07, DOC-03 | PARTIAL (science-court separation is §6) | OPEN |
 | S6-3.7 | S6 §3.7 | Structural "qualification" is an F1 analytic screen; zero-by-construction load transfer; `div_euclid` | V: see S1-3.7 | TR-07, TR-08, TR-10 | PARTIAL (3D FEA is §6) | OPEN |
 | S6-3.8 | S6 §3.8 | CUDA and surrogate subjects incomplete (partial genome JSON + descriptors; 12-D handcrafted features) | V: CUDA reads gene-derived descriptors (`physics/cuda/joil_cuda_eval.cu:265`); see S1-3.9 | IR-10, EV-08, EV-09 | FULL | OPEN |
-| S6-3.9 | S6 §3.9 | Tests prove internal consistency, not external truth; classify tests and never combine verdicts | V: `crates/joil-core/tests/regression.rs` family-validity audits | DOC-03 | PARTIAL (wording now; test taxonomy is §5 G-06) | OPEN |
+| S6-3.9 | S6 §3.9 | Tests prove internal consistency, not external truth; classify tests and never combine verdicts | V: `crates/joil-core/tests/regression.rs` family-validity audits | DOC-03 | PARTIAL (wording now; test taxonomy is §5 G-06) | WIP |
 | S6-A.01 | S6 App.A-1 | All `mutate_*`/crossover return `Result<VariationOutcome, VariationError>` | V: see S1-3.5 | TR-01 | FULL | DONE |
 | S6-A.02 | S6 App.A-2 | Delete every `unwrap_or_else(\|_\| baseline_ct35())` in variation | V: see S1-3.5 | TR-02 | FULL | WIP |
 | S6-A.03 | S6 App.A-3 | Remove `topology_class` from serialised genome | V: see S4-2.01 | IR-06 | FULL | OPEN |
@@ -294,11 +294,15 @@ fixes do. DOC-03 corrects the wording. Code-side owners are in §5.
 | ID | Source | Finding | Verified@7353526 | Items | Coverage | Status |
 |---|---|---|---|---|---|---|
 | DOC-F01 | DOC (relates S1 §3.8) | WHITEPAPER §3.1 says the CUDA kernel "integrates … droplet trajectories in FP64 using a 4th-order Runge–Kutta (`RK4`) kernel with `0.0` CPU/GPU parity error". The candidate kernel is a single FP32 closed-form drift per tensor cell. FP64 RK4 parity applies only to the 10-droplet `--verify-oil03` oracle. | V: `physics/cuda/joil_cuda_eval.cu:253` (FP32, one algebraic step), `:82`/`:335` (RK4 oracle) | DOC-03, IR-10 | FULL | OPEN |
-| DOC-F02 | DOC (relates S4 §2.7) | WHITEPAPER and README report "10,000-resample bootstrap" CIs; code runs 2,000 resamples (percentile method) | V: `evolve.rs:1435` | DOC-03 | PARTIAL (wording now; code parity is §5 G-02) | OPEN |
+| DOC-F02 | DOC (relates S4 §2.7) | WHITEPAPER and README report "10,000-resample bootstrap" CIs; code runs 2,000 resamples (percentile method) | V: `evolve.rs:1435` | DOC-03 | PARTIAL (wording now; code parity is §5 G-02) | WIP |
 | DOC-F03 | DOC | Family names in WHITEPAPER §2.1 (`baseline-colman-thew`, `quad-spiral-manifold`, `helical-ribbon-core`, `s-cone-fluted-finder`, `double-vortex-skimmer`, `scalloped-parabolic-chamber`), §5.3 table and README (`axisymmetric-stepped`, `twin-tangential-volute`, `quad-entry-involute-head`) do not exist in code | V: `program.rs:1346` `CANONICAL_11_FAMILIES` | DOC-03, DOC-05, DOC-06 | FULL | OPEN |
 | DOC-F04 | DOC | `tools/claims_audit.py` numeric scan accepts any token within 0.15% of a hand-maintained `derived_constants` list, so a new number can be "traced" by adding it to the list | V: `tools/claims_audit.py:574` | DOC-04, DOC-08 | FULL | OPEN |
 | DOC-F05 | DOC (relates S6 §3.1) | `docs/STATUS.json` asserts `structural_qualification: true` and `flexible_graph_cad_implemented: true` | V: `docs/STATUS.json` | EV-07, DOC-05 | FULL | OPEN |
 | DOC-F06 | DOC (relates S1 §3.2, S4 §2.2, S6 App.A-10) | The headline elite-vs-CT-35 CFD comparison (−36.5% Δp) mixes geometry pipelines and domains. CT-35 (`ct35-sst-extended-000`) was meshed from the CAD labelled-surface pipeline with a 0.12 m outlet extension. Every elite case was meshed from Rust `MultiPatchSurface` (6,416 triangles, 48-sector rings, two inlet patches) with `outlet_extension_m: 0.0`. No CT-35 case through the same Rust pipeline exists. The elite cases' `input-manifest.json` files are copies (all declare `case_dir` `runs/rust-cfd-elite-gen024-isl2-ind014` and turbulence `SSG`), so per-run identity is not bound. | V: ignored integrator-owned `runs/*/input-manifest.json` and `runs/ct35-sst-extended-000/mesh-input.json`, read-only at 2026-10-16T05:30Z; `phenotype.rs:611` | DOC-03, EV-12 | PARTIAL (wording and identity now; same-pipeline control is §5 G-09) | OPEN |
+| DOC-F07 | DOC (relates S5 P0.1, P0.8) | The 220/220 operator random-walk audit checks each operator output with `canonicalize_and_preflight`. At the audited commit a failed operator silently returned CT-35, which passes, so 220/220 and the "85 cross-family transitions" are upper bounds. The ring mesh is closed by construction for any finite positive `R(θ,z)`, so "0 open edges" tests parameter bounds, not geometry. | V: `program.rs:1756` audit loop; `phenotype.rs` `build_fluid_mesh` ring construction | TR-01, TR-02, TR-14, DOC-03 | FULL | OPEN |
+| DOC-F08 | DOC (relates S3 §15.8) | WHITEPAPER §5.3 per-family table (F01–F11) uses three family names that exist in no code or receipt. Its per-family numbers (vertex/triangle counts, exoticness, pitch, porosity) appear in no receipt; they pass the audit only through the `derived_constants` whitelist. | V: `grep` over `docs/results/*.json` and `docs/receipts/*.json` finds no `axisymmetric-stepped`, `twin-tangential-volute` or `quad-entry-involute-head` | DOC-03, DOC-04 | FULL | OPEN |
+| DOC-F09 | DOC (relates S3 P0-03) | The CFD GCI script clamps the observed order to [0.5, 4.0], so the reported Δp observed order p = 4.00 is the clamp bound, not a computed order. With R < 0 a standard GCI is not valid per `docs/SCIENCE.md`, so only the three-grid span may be used. | V: `tools/generate_gci_rsm_report_and_figures.py:104` `p_obs = max(0.5, min(p, 4.0))` | TR-07, INT-05, DOC-03 | FULL | OPEN |
+| DOC-F10 | DOC (relates S3 P0-11) | WHITEPAPER described the screen's Monte Carlo as "24-sample Latin hypercube" over LPBF bias ±80 µm, roughness Ra 3–18 µm, feed-flow drift ±8 % and split ±0.35 %. At every commit since `5b3b847` the code draws four independent uniform values instead: feed concentration [475, 525] mg/L, feed d50 [35, 41] µm, split ±0.0012 and wall tolerance ±0.05 mm. | V: `evolve.rs:370`–`evolve.rs:373` (same at `5b3b847`, `d1ac285`, `eb39ee2`) | DOC-03 | FULL | WIP |
 
 ## 5. Gaps and notes for the planner and integrator
 
@@ -328,10 +332,13 @@ Notes on assigned items (no new item needed):
 - **N-3 (TR-09).** `evolve.rs:435` computes `qualify_structure(...).ok()`. An `Err` becomes `None`, so a
   failing structure looks like "not evaluated" rather than "failed". EV-03's typed observation should be used.
 - **N-4 (DOC-03 timing).** Corrections to existing WHITEPAPER and README text (DOC-F01..F03, Wave-3
+- **N-5 (TR, evolve.rs).** The Wave-3 result writer embeds the string "Evaluated with validated F0/F1/P08 3D evaluator" (`evolve.rs:2946`) into the result JSON. Already-written receipts stay as historical records, but new runs (INT-04) should not emit "validated" for a screen.
+- **N-6 (scope of P05 oracles).** The `P05` droplet/PBM oracles verify `population.rs`, which the `F1` search screen does not call (`evolve.rs` has no `population::` use). Documentation now says so (DOC-03).
   re-framing, "qualification" → "screen") do not need the code fixes and land first. Name changes in code
   (TR-10, TR-14, IR-05, IR-10) are then mirrored in the docs as each merges.
 
 ## 6. Change log
 
+- 2026-10-16T05:32Z: added DOC-F07 (random-walk audit upper bound), DOC-F08 (untraceable per-family table), DOC-F09 (GCI order clamp); DOC-06 done `dfe62c2`.
 - 2026-10-16T05:23Z: ledger synced from board (TR-05/06 merged; TR-01/04, EV-01..05, DOC-01/02 done). Fixed the as-of stamp, which had been written ahead of real time.
-- 2026-10-16T05:19Z: first version (DOC-02, `2d14371`; `ae22586` added DOC-F06 and G-09). Base `7353526`. All six reviews read in full. 127 findings mapped (121 review findings, 6 DOC-lane findings).
+- 2026-10-16T05:19Z: first version (DOC-02, `2d14371`; `ae22586` added DOC-F06 and G-09). Base `7353526`. All six reviews read in full. 127 findings mapped (121 review findings, 6 DOC-lane findings). Later additions are recorded in the entries above.
