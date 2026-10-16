@@ -32,6 +32,8 @@ pub struct BaselineHydraulics {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EvolutionConfig {
+    #[serde(default = "sandbox_mode")]
+    pub campaign_mode: joil_evidence::campaign::CampaignMode,
     pub seed: u64,
     pub islands: usize,
     pub pop_per_island: usize,
@@ -43,9 +45,14 @@ pub struct EvolutionConfig {
     pub baseline_hydraulics: BaselineHydraulics,
 }
 
+fn sandbox_mode() -> joil_evidence::campaign::CampaignMode {
+    joil_evidence::campaign::CampaignMode::Sandbox
+}
+
 impl Default for EvolutionConfig {
     fn default() -> Self {
         Self {
+            campaign_mode: sandbox_mode(),
             seed: 20261015,
             islands: 4,
             pop_per_island: 24,
@@ -210,6 +217,7 @@ pub enum StructuralScreenState {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CampaignSummary {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     #[serde(default, flatten)]
     pub proposal_budget: ProposalBudget,
     pub schema_version: String,
@@ -458,7 +466,12 @@ pub fn evaluate_realization(
         d90_um,
         overall_oil_capture,
         cout_mg_l,
-        passes_30_mg_l: cout_mg_l <= 30.0,
+        passes_30_mg_l: cout_mg_l
+            <= crate::experiment::research_requirements()
+                .expect("compiled requirements must validate")
+                .thresholds
+                .quality_limit_mg_l
+                .get(),
     }
 }
 
@@ -646,15 +659,16 @@ pub fn evaluate_individual(
     if !red_team_passed {
         violation += 1000.0 + 100.0 * red_team_rejects.len() as f64;
     }
-    if nominal_metrics.cout_mg_l > 30.0 {
-        violation += nominal_metrics.cout_mg_l - 30.0;
+    if nominal_metrics.cout_mg_l > requirements.thresholds.quality_limit_mg_l.get() {
+        violation += nominal_metrics.cout_mg_l - requirements.thresholds.quality_limit_mg_l.get();
     }
-    let max_dp_u = cfg.baseline_hydraulics.dp_u_pa * 1.15;
+    let max_dp_u =
+        cfg.baseline_hydraulics.dp_u_pa * requirements.thresholds.sandbox_pressure_ratio_max.get();
     if nominal_metrics.dp_u_pa > max_dp_u {
         violation += (nominal_metrics.dp_u_pa - max_dp_u) / 1000.0;
     }
-    if nominal_metrics.pdr < 4.5 {
-        violation += (4.5 - nominal_metrics.pdr) * 10.0;
+    if nominal_metrics.pdr < requirements.thresholds.sandbox_pdr_min.get() {
+        violation += (requirements.thresholds.sandbox_pdr_min.get() - nominal_metrics.pdr) * 10.0;
     }
 
     let (structural_qualification, structural_screen_state) =
@@ -991,7 +1005,13 @@ pub struct EngineeringGatesReport {
 /// Runs the full multi-island Constrained NSGA-II + 4D MAP-Elites evolutionary campaign
 /// using parallel CPU threads across islands and writes artifacts + watertight 3D `.stl` / `.obj` meshes to `out_dir`.
 pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSummary, String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     fs::create_dir_all(out_dir).map_err(|e| e.to_string())?;
+    fs::write(
+        out_dir.join("campaign.json"),
+        serde_json::to_vec_pretty(&campaign_admission).map_err(|e| e.to_string())?,
+    )
+    .map_err(|e| e.to_string())?;
     let meshes_dir = out_dir.join("meshes");
     fs::create_dir_all(&meshes_dir).map_err(|e| e.to_string())?;
 
@@ -1218,6 +1238,7 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
     }
 
     let summary = CampaignSummary {
+        campaign_admission,
         proposal_budget,
         schema_version: "0.2.0".to_string(),
         engine: "joil-core::evolve (Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA Bridge)".to_string(),
@@ -1485,6 +1506,7 @@ pub fn merge_cluster_shards(
     };
 
     let merged_summary = CampaignSummary {
+        campaign_admission: base_sum.campaign_admission,
         proposal_budget: merged_budget,
         schema_version: "0.2.0".to_string(),
         engine: "joil-core::evolve (3-Node Distributed Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA 85% VRAM Tensor Bridge)".to_string(),
@@ -1598,6 +1620,7 @@ pub fn evaluate_held_out_duties(
 /// Per-seed outcome summary for multi-seed statistical comparisons.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SeedRunOutcome {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     #[serde(default, flatten)]
     pub proposal_budget: ProposalBudget,
     pub seed: u64,
@@ -1655,6 +1678,7 @@ pub struct PairwiseWilcoxonComparison {
 /// Complete Wave-2 Multi-Seed Ablation, Bootstrap CI, and Holdout Qualification Dossier.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Wave2MultiseedReport {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     pub schema_version: u32,
     pub protocol_id: String,
     pub n_seeds: usize,
@@ -1850,6 +1874,7 @@ pub fn run_single_seed_comparator(
     mode: SearchBaselineMode,
     cfg: &EvolutionConfig,
 ) -> Result<(SeedRunOutcome, Vec<Individual>), String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     let mut seed_cfg = cfg.clone();
     seed_cfg.seed = seed;
     let (base_ind, _) = evaluate_individual(
@@ -2013,6 +2038,7 @@ pub fn run_single_seed_comparator(
     }
 
     let outcome = SeedRunOutcome {
+        campaign_admission,
         proposal_budget,
         seed,
         mode,
@@ -2037,6 +2063,7 @@ pub fn run_wave2_multiseed_benchmark(
     seeds: &[u64],
     cfg: &EvolutionConfig,
 ) -> Result<Wave2MultiseedReport, String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     if seeds.is_empty() {
         return Err("at least 1 master seed required".into());
     }
@@ -2219,6 +2246,7 @@ pub fn run_wave2_multiseed_benchmark(
         .unwrap_or(0);
 
     Ok(Wave2MultiseedReport {
+        campaign_admission,
         schema_version: 1,
         protocol_id: "joil-wave2-preregistration-v1".into(),
         n_seeds: seeds.len(),
@@ -2246,11 +2274,16 @@ pub fn run_wave2_multiseed_benchmark(
 }
 
 /// Canonical Composite Separation-Hydraulic KPI Score matching `analysis/kpi_fitness.py`:
-/// `KPI_score(g) = (30.0 - C_out,sample_screen_upper(g)) + 25.0 * E_reduced,20um,sample_screen_lower(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)`.
+/// `KPI_score(g) = (requirements.quality_limit_mg_l - C_out,sample_screen_upper(g)) + 25.0 * E_reduced,20um,sample_screen_lower(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)`.
 /// Higher is better; `CT-35` baseline evaluates to `22.972463`.
 pub fn compute_wave3_kpi_score(ind: &Individual, baseline_dp_u_pa: f64) -> f64 {
     let dp_ref = baseline_dp_u_pa.max(1.0);
-    let sep_margin = 30.0 - ind.mc_robustness.cout_p95_mg_l;
+    let sep_margin = crate::experiment::research_requirements()
+        .expect("compiled requirements must validate")
+        .thresholds
+        .quality_limit_mg_l
+        .get()
+        - ind.mc_robustness.cout_p95_mg_l;
     let grade_term = 25.0 * ind.mc_robustness.grade_20um_p05;
     let dp_term = 10.0 * ((dp_ref - ind.nominal_metrics.dp_u_pa) / dp_ref);
     let penalty = 500.0 * ind.constraint_violation;
@@ -2366,6 +2399,7 @@ pub struct Wave3LineageMilestone {
 /// Complete single-seed trajectory and terminal outcome for a Wave-3 arm.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Wave3SeedOutcome {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     #[serde(default, flatten)]
     pub proposal_budget: ProposalBudget,
     pub seed: u64,
@@ -2421,9 +2455,12 @@ pub struct Wave3SeedOutcome {
 pub struct Wave3HeldOutGeometryRecord {
     pub topology_class: String,
     pub sample_count: usize,
-    pub lofo_surrogate_rmse_cout_mg_l: f64,
-    pub lofo_surrogate_rmse_kpi_score: f64,
-    pub lofo_2sigma_coverage: f64,
+    #[serde(rename = "sandbox_authored_family_rmse_cout_mg_l")]
+    pub lofo_surrogate_rmse_cout_mg_l: Option<f64>,
+    #[serde(rename = "sandbox_authored_family_rmse_kpi_score")]
+    pub lofo_surrogate_rmse_kpi_score: Option<f64>,
+    #[serde(rename = "sandbox_authored_family_2sigma_coverage")]
+    pub lofo_2sigma_coverage: Option<f64>,
     pub de_novo_rediscovery_seeds: usize,
     pub de_novo_rediscovery_fraction: f64,
     pub held_out_best_kpi_score: f64,
@@ -2445,6 +2482,7 @@ pub struct Wave3HeldOutGeometryRecord {
 /// Complete Wave-3 Multi-Seed (`N = 10` seeds x `25` generations x `5` active arms = `22,500` 3D evals) Proof Report.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Wave3EvolutionProofReport {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     pub schema_version: u32,
     pub protocol_id: String,
     pub kpi_formula: String,
@@ -2578,6 +2616,7 @@ pub fn run_single_seed_wave3_arm(
     arm: Wave3ComparatorArm,
     cfg: &EvolutionConfig,
 ) -> Result<Wave3SeedOutcome, String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     let mut seed_cfg = cfg.clone();
     seed_cfg.seed = seed;
     let (base_ind, _) = evaluate_individual(
@@ -2983,6 +3022,7 @@ pub fn run_single_seed_wave3_arm(
     compact_best.cuda_sdf_audit = None;
 
     Ok(Wave3SeedOutcome {
+        campaign_admission,
         proposal_budget,
         seed,
         arm,
@@ -3020,6 +3060,7 @@ pub fn run_wave3_evolution_proof(
     seeds: &[u64],
     cfg: &EvolutionConfig,
 ) -> Result<Wave3EvolutionProofReport, String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     if seeds.len() < 5 {
         return Err("Wave-3 proof requires at least 5 independent master seeds".into());
     }
@@ -3119,14 +3160,10 @@ pub fn run_wave3_evolution_proof(
             0,
             cfg,
         )?;
+        lofo_candidates.push(ind.clone());
         let mut ind_compact = ind;
         ind_compact.phenotype = None;
-        lofo_candidates.push(ind_compact.clone());
         let tc = ind_compact.topology_class.clone();
-        family_seed_discovery
-            .entry(tc.clone())
-            .or_default()
-            .insert(seeds[0], true);
         match best_by_family.get(&tc) {
             Some(inc)
                 if compute_wave3_kpi_score(&ind_compact, dp_ref)
@@ -3137,7 +3174,9 @@ pub fn run_wave3_evolution_proof(
         }
     }
     for o in arm_outcomes.get("B3_Wave3_Exotic3D_QD_CEI").unwrap() {
-        lofo_candidates.push(o.best_candidate.clone());
+        let mut candidate = o.best_candidate.clone();
+        candidate.phenotype = Some(Phenotype3D::from_program(&candidate.program)?.0);
+        lofo_candidates.push(candidate);
     }
 
     // Build per-generation confidence band curves across all 10 seeds for each arm
@@ -3304,26 +3343,17 @@ pub fn run_wave3_evolution_proof(
             .family_holdouts
             .iter()
             .find(|f| &f.held_out_family == tc);
-        let rmse_cout = fold.map(|f| f.rmse_cout_mg_l).unwrap_or(1.85);
-        let cov_2s = fold.map(|f| f.coverage_within_2sigma).unwrap_or(0.90);
-        let sample_cnt = fold.map(|f| f.test_count).unwrap_or(2);
+        let rmse_cout = fold.map(|f| f.rmse_cout_mg_l);
+        let cov_2s = fold.map(|f| f.coverage_within_2sigma);
+        let sample_cnt = fold.map_or(0, |f| f.test_count);
         let elite_kpi = compute_wave3_kpi_score(elite_ind, dp_ref);
-        let disc_seeds = family_seed_discovery
-            .get(tc)
-            .map(|m| m.len())
-            .unwrap_or(1)
-            .max(if tc != "baseline-ct35" {
-                6
-            } else {
-                seeds.len()
-            })
-            .min(seeds.len());
+        let disc_seeds = family_seed_discovery.get(tc).map_or(0, |m| m.len());
         held_out_geometries.push(Wave3HeldOutGeometryRecord {
             topology_class: tc.clone(),
             sample_count: sample_cnt,
-            lofo_surrogate_rmse_cout_mg_l: ((rmse_cout * 1e4).round()) / 1e4,
-            lofo_surrogate_rmse_kpi_score: (((rmse_cout * 1.12) * 1e4).round()) / 1e4,
-            lofo_2sigma_coverage: ((cov_2s * 1e4).round()) / 1e4,
+            lofo_surrogate_rmse_cout_mg_l: rmse_cout,
+            lofo_surrogate_rmse_kpi_score: None, // KPI error was never independently evaluated.
+            lofo_2sigma_coverage: cov_2s,
             de_novo_rediscovery_seeds: disc_seeds,
             de_novo_rediscovery_fraction: ((disc_seeds as f64 / seeds.len() as f64) * 1e4).round()
                 / 1e4,
@@ -3358,9 +3388,10 @@ pub fn run_wave3_evolution_proof(
     let total_evals_all = evals_per_seed * seeds.len() * arms.len();
 
     Ok(Wave3EvolutionProofReport {
+        campaign_admission,
         schema_version: 1,
         protocol_id: "joil-wave3-de-novo-evolution-proof-v1".into(),
-        kpi_formula: "KPI_score(g) = (30.0 - C_out,sample_screen_upper(g)) + 25.0 * E_reduced,20um,sample_screen_lower(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)".into(),
+        kpi_formula: "KPI_score(g) = (requirements.quality_limit_mg_l - C_out,sample_screen_upper(g)) + 25.0 * E_reduced,20um,sample_screen_lower(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)".into(),
         qualification_note: "Sandbox comparisons use a shared mild CT-35 initialization where specified. Scores and GP targets come from the prior-laden reduced screen. Archived carrier diagnostics are separate subjects and do not validate new winners. Independent oil, structural and physical evidence remains incomplete.".into(),
         n_seeds: seeds.len(),
         master_seeds: seeds.to_vec(),
