@@ -163,3 +163,40 @@ pub fn baseline() -> Genome {
     serde_json::from_str(include_str!("../../../baselines/ct35/genome.json"))
         .expect("committed baseline JSON must decode")
 }
+
+pub use joil_ir::{
+    BackendCoverageReport, BackendId, DesignIrV1, FeatureBackendCoverage, GeneIrMapping, IrError,
+    IrNode, SemanticOriginTrace, SplitGeometryMetrics, SupportLevel, TpmsBasisIr,
+};
+
+/// Lower a `DesignProgram` into a canonical `DesignIrV1` (`IR-01`, `IR-02`), verifying that every
+/// gene maps to `>= 1` `IrNode` or is explicitly `Inactive`.
+pub fn compile_design_ir(prog: &crate::program::DesignProgram) -> Result<DesignIrV1, IrError> {
+    let norm = prog
+        .normalize()
+        .map_err(|reason| IrError::InvalidParameter {
+            gene_path: "<program>".into(),
+            reason,
+        })?;
+    let val = serde_json::to_value(&norm).map_err(|e| IrError::InvalidParameter {
+        gene_path: "<program>".into(),
+        reason: e.to_string(),
+    })?;
+    DesignIrV1::from_program_json(&val, &crate::program::baseline_file_sha256())
+}
+
+/// Evaluate the 8 physically distinct geometry and manufacturability metrics in `mm` (`IR-09`):
+/// 1. `minimum_shell_thickness_mm`: outer pressure-retaining cartridge shell radial/normal thickness (`>= 1.0 mm`)
+/// 2. `minimum_solid_ligament_mm`: internal splitter vane, helical ribbon, skimmer wall, or TPMS sheet thickness (`>= 1.0 mm`)
+/// 3. `minimum_fluid_hydraulic_diameter_mm`: minimum channel hydraulic diameter `D_h = 4*A/P` (`>= 1.4 mm`)
+/// 4. `minimum_local_flow_gap_mm`: minimum point-to-point open flow gap (`>= 1.2 mm`)
+/// 5. `minimum_clearance_to_frozen_interface_mm`: minimum distance from modified features to immutable terminals/collar (`>= 2.0 mm`)
+/// 6. `minimum_tool_access_diameter_mm`: straight-line orifice finishing access diameter (`>= 1.4 mm`)
+/// 7. `minimum_powder_exit_diameter_mm`: minimum bottleneck diameter along flood-fill powder evacuation path (`>= 1.4 mm`)
+/// 8. `minimum_support_removal_access_mm`: minimum support removal access clearance (`>= 1.4 mm`)
+pub fn compute_split_geometry_metrics(
+    prog: &crate::program::DesignProgram,
+) -> Result<SplitGeometryMetrics, String> {
+    let ir = compile_design_ir(prog).map_err(|e| e.to_string())?;
+    Ok(SplitGeometryMetrics::from_ir(&ir))
+}

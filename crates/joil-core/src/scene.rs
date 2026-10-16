@@ -95,6 +95,10 @@ pub struct GlbSceneManifest {
     pub schema_version: u32,
     pub kind: String,
     pub design_sha256: String,
+    #[serde(default)]
+    pub design_ir_sha256: String,
+    /// Legacy in-memory field retained for internal callers; omitted from serialized subject (`IR-06`).
+    #[serde(skip_serializing, default)]
     pub topology_class: String,
     pub glb_path: String,
     pub glb_sha256: String,
@@ -108,6 +112,8 @@ pub struct GlbSceneManifest {
     pub bounds_max_m: [f32; 3],
     pub camera_preset: CameraPreset,
     pub governing_surface_stl_sha256: String,
+    #[serde(default)]
+    pub derived_taxon: Option<joil_ir::PhenotypeTaxon>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -268,6 +274,7 @@ pub fn export_glb_scene_bundle(
         schema_version: 1,
         kind: "rust_native_gltf2_scientific_scene_bundle".to_string(),
         design_sha256: surface.audit.design_sha256.clone(),
+        design_ir_sha256: surface.audit.design_ir_sha256.clone(),
         topology_class: surface.audit.topology_class.clone(),
         glb_path: glb_path.display().to_string(),
         glb_sha256: glb_sha,
@@ -286,6 +293,7 @@ pub fn export_glb_scene_bundle(
             fov_deg: 35.0,
         },
         governing_surface_stl_sha256: governing_stl_sha256.to_string(),
+        derived_taxon: surface.audit.derived_taxon.clone(),
     };
 
     let manifest_path = glb_path.with_extension("scene-manifest.json");
@@ -293,6 +301,18 @@ pub fn export_glb_scene_bundle(
     fs::write(manifest_path, format!("{manifest_str}\n")).map_err(|e| e.to_string())?;
 
     Ok(manifest)
+}
+
+/// Construct a `CudaSubjectBundleRef` bound to the compiled `DesignIrV1` and exact STL artifact bytes (`IR-10`).
+pub fn build_cuda_subject_bundle_ref(
+    prog: &crate::program::DesignProgram,
+    surface_stl_bytes: &[u8],
+) -> Result<joil_ir::CudaSubjectBundleRef, String> {
+    let ir = crate::geometry::compile_design_ir(prog).map_err(|e| e.to_string())?;
+    Ok(joil_ir::CudaSubjectBundleRef::from_ir_and_artifact_bytes(
+        &ir,
+        surface_stl_bytes,
+    ))
 }
 
 /// 3D trajectory for interactive scientific visualization in `apps/explorer` (`P09`).
