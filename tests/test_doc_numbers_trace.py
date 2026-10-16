@@ -1,4 +1,4 @@
-"""DOC-04: every numeral in WHITEPAPER "Read this first", Abstract and §5 traces to a receipt or a checked declaration."""
+"""DOC-04: every numeral in README and WHITEPAPER "Read this first", Abstract and §5 traces to a receipt or a checked declaration."""
 from pathlib import Path
 import shutil
 import sys
@@ -20,7 +20,7 @@ from tools.claims_audit import (
 def _copy_tree(dst):
     for rel in ('docs/results', 'docs/receipts', 'experiments', 'baselines/ct35'):
         shutil.copytree(ROOT / rel, dst / rel)
-    for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', NUMBERS_TRACE,
+    for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', 'README.md', NUMBERS_TRACE,
                 'crates/joil-core/tests/regression.rs'):
         (dst / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / rel, dst / rel)
