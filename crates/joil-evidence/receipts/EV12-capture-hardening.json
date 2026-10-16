@@ -1,0 +1,279 @@
+{
+  "item": "EV12-CAPTURE-HARDENING",
+  "verified_at_utc": "2026-10-16T08:50:58Z",
+  "input_head": "cfdbf7d79aced9cc533ece8907d7aafc348fdcef",
+  "synced_integration_head": "cab01e84d10debad41925e0dceb639facdab6c01",
+  "integration_sync": "normal merge requested; already up to date",
+  "kind": "software_contract_and_readonly_retained_input_regression_not_original_run_finalization",
+  "changed_paths": [
+    ".agent/JOIL-COORD.md",
+    "analysis/case_identity.py",
+    "tests/test_evidence.py",
+    "crates/joil-evidence/reports/EV12-capture-checklist.md",
+    "crates/joil-evidence/receipts/EV12-capture-hardening.json"
+  ],
+  "tested_files_sha256": {
+    "analysis/case_identity.py": "090e73bd05ae9ba2fb6db45e06031476f8004a5615beedd75a9db8d21bd3a3c5",
+    "tests/test_evidence.py": "3497867c9fb87d73d67e816078befc8b3a33acf1035a4597623d70c965b2995f",
+    "crates/joil-evidence/reports/EV12-capture-checklist.md": "f10e284f86b3dd66ff6eda552654e316a249ba047b1fdd6cfc527ecdfc755c71"
+  },
+  "hardening": [
+    "Reject malformed JSON roots, prepared references and nonstring artifact paths per case; continue checking all remaining directories.",
+    "Reject symlink sidecars and indexed inputs in both immutable finalizer and verifier.",
+    "Audit every wave4-* directory, including prepared-only and RSM continuations without G0/G1/G2 suffixes.",
+    "Preserve rejection of absent mesh bytes even when a previously valid sidecar remains."
+  ],
+  "real_input_regression": {
+    "runs_root": "/home/ubuntu/joil/runs",
+    "read_only_source": true,
+    "every_case_read": 11,
+    "retained_inputs": [
+      {
+        "case": "wave4-b3-s20261105-g0-coarse",
+        "input_capture_readiness": "complete_retained_input_bytes",
+        "mesh_hash": "0d52474511dca5702e85edd89fee3e1460e808bc7315bad59a09f2c74ffe0be5",
+        "case_hash": "a86943bf9f691d43e4a9aa803f6972c52123ff9bb9ba2a20e6ee2e52cd0a55ab",
+        "sidecar_exists": false
+      },
+      {
+        "case": "wave4-b3-s20261108-g0-coarse",
+        "input_capture_readiness": "complete_retained_input_bytes",
+        "mesh_hash": "509fb2f4077a255f8c13f846a3381fb7a4348a49bbae5eea4fd59a300a596520",
+        "case_hash": "d89640fdb65cbc7354b9b5fe9d62551239bc9e9741c36ac9e1ad60b0688da169",
+        "sidecar_exists": false
+      },
+      {
+        "case": "wave4-ct35-control-g1-medium",
+        "input_capture_readiness": "complete_retained_input_bytes",
+        "mesh_hash": "3ff6e5d3982ba583b6376a2315d378899e25abe7ce369312bb39d6c7934bf6f1",
+        "case_hash": "0b62ab2ea24c1f9bee64fd0f463bb1cdbaf4e2465cf247063b8adcc2ca5d22eb",
+        "sidecar_exists": false
+      }
+    ],
+    "missing_mesh_rejected": [
+      "wave4-b3-s20261103-g0-coarse",
+      "wave4-b3-s20261106-g0-coarse",
+      "wave4-b3-s20261106-g1-medium",
+      "wave4-b3-s20261106-g2-fine",
+      "wave4-b3-s20261107-g0-coarse",
+      "wave4-b3-s20261110-g0-coarse",
+      "wave4-ct35-control-g0-coarse",
+      "wave4-ct35-control-g2-fine"
+    ],
+    "copy_finalization_and_audit": "3 exact input snapshots finalized and verified only in temporary EV-local .private copies; originals unchanged",
+    "inventory_sha256": "e94d59216c4cb86ec68015e952ab665ad5f30f44d55535103a18e61eb7c62e9e",
+    "limitation": "Input byte completeness does not establish solver success, mesh quality, prior execution identity or physical qualification."
+  },
+  "checks": [
+    {
+      "command": "JOIL_WAVE4_INPUTS_ROOT=/home/ubuntu/joil/runs .private/ci-python/bin/python -m unittest discover -s tests -p test_evidence.py -k wave4 -v",
+      "exit_code": 0,
+      "result": "7 tests:6 pass,1 no-EV-local-original-case skip; real-input regression enabled",
+      "log_sha256": "147a19fb9092c2d409e3ecdff436aba2ec51b02e35e85a8d8d60da5ff2ace1cb"
+    },
+    {
+      "command": ".private/ci-python/bin/python -m analysis.case_identity --runs-root /home/ubuntu/joil/runs",
+      "exit_code": 1,
+      "expected_negative": true,
+      "cases": 11,
+      "verified": 0,
+      "errors": 11,
+      "log_sha256": "dffc9927e1f76e4e5e526c69ea63528b668a6a96194a608036fe6e0ae48cdbf5"
+    },
+    {
+      "command": "JOIL_WAVE4_RUNS_ROOT=/home/ubuntu/joil/runs .private/ci-python/bin/python -m unittest discover -s tests -p test_evidence.py -k every_local_wave4 -v",
+      "exit_code": 1,
+      "expected_negative": true,
+      "meaning": "actual every-original-run test fails closed on missing case-identity sidecars",
+      "log_sha256": "1d3b471991effddf4de53f120179785f8fb988d4ea3cafb3813d518bd430ed9b"
+    },
+    {
+      "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only} JOIL_WAVE4_INPUTS_ROOT=/home/ubuntu/joil/runs; python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "60e7ab7dfa385cb84e310206523c96243561888555f0471c67696b0f28c69f2a",
+      "source_hashes_match_functional_files": true,
+      "environment": {
+        "CARGO_BUILD_JOBS": "4",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "RAYON_NUM_THREADS": "4",
+        "JOIL_WAVE4_INPUTS_ROOT": "/home/ubuntu/joil/runs"
+      },
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.043036165996454656,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.2975265959976241,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.1657082510064356,
+          "log_bytes": 72,
+          "log_sha256": "4cf86278c1e6d659943a46a3d7e3da429ac15be90f0f17742e24ef85228e7d3e"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 80.54420964303426,
+          "log_bytes": 11930,
+          "log_sha256": "505e0bbfa1ff7c495362585e400e8d852a407fcbac031db1634d51cf88e022f0"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.10624948400072753,
+          "log_bytes": 1019,
+          "log_sha256": "72f39fae7688348c3fe49d5e4afd2199ebdc4c808cf42b2b15f844af32656249"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 55.676926625019405,
+          "log_bytes": 10273,
+          "log_sha256": "b97f6a588a517026e5bc1cb93b5e11b4047dce540b789c2d2e113d88cc4f7872"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.07765405700774863,
+          "log_bytes": 75,
+          "log_sha256": "43691d4988c5c0887f156a6c8e39e264e3acd3298f3d814abc8bcfc4a456b77b"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 13.680043951026164,
+          "log_bytes": 224,
+          "log_sha256": "da53f3870146adcdd653e16776d1a74bdcac92f95637565a6b4f7a0972183fef"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 1.0018964679911733,
+          "log_bytes": 28,
+          "log_sha256": "cac3908cf46efb730931e4c8942c452e3400f8e4796bfaef443fc821cac2ba56"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 3.681380130001344,
+          "log_bytes": 1904,
+          "log_sha256": "c510290cc4b57522a84880f03a38340f6ab81186457747a09d6be63c8ded893a"
+        }
+      ]
+    }
+  ],
+  "lane_state": {
+    "DONE": [
+      "EV-01",
+      "EV-02",
+      "EV-03",
+      "EV-04",
+      "EV-05",
+      "EV-07",
+      "EV-08",
+      "EV-10",
+      "EV-11"
+    ],
+    "DONE-SANDBOX": {
+      "EV-06": "INT07:02 scope confirmation; no physical admission without supplied source-backed limits"
+    },
+    "BLOCKED-SCOPED": {
+      "EV-09": "No independent Cout labels or reviewed field-observed mechanism inventory. Required dataset joil-independent-oil-observations-v1 and geometry-family/observed-mechanism holdouts named in section6 deferral.",
+      "EV-12": "Original Wave4 identities absent;5 solved meshes pruned uncaptured. INT/IR capture retained original inputs or supply separately identified reruns. Historical/FEA remainder deferred."
+    },
+    "section6_delivery": "aea27ae45d09994feb4e4288015e384e5b6a155e; DOC08:14:23Z ACK inserted unchanged at lane/paper30ac2ce",
+    "EV10_runtime_hook_commit": "dcaf087d9c1f028e8f65699a50b28c0461b89bb1"
+  },
+  "limitations": [
+    "No original run sidecars were written by EV; three private-copy successes cannot close original case acceptance.",
+    "Default CI has no private runs and skips the original-run test; actual every-original-case acceptance was run separately and intentionally fails.",
+    "Final receipt and lane-board status were written after the gate; all executable/test/checklist source hashes match the gate. Final public and diff checks run before push."
+  ],
+  "next_dependency": "INT/IR apply checklist before prune and hand off retained/restored exact-byte cases; TR supplies disjoint archive/restore helper and durability receipt. EV independently audits the nonempty actual run set before scoped closure."
+}

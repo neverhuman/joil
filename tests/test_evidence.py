@@ -1,6 +1,8 @@
 import json
 import math
+import os
 from pathlib import Path
+import shutil
 import sys
 import tempfile
 import unittest
@@ -109,12 +111,120 @@ class EvidenceTests(unittest.TestCase):
 
     def test_every_local_wave4_run_manifest_has_complete_exact_identity(self):
         from analysis.case_identity import audit_wave4_manifests
-        runs = Path(__file__).resolve().parents[1]/'runs'
-        if not any(runs.glob('wave4-*-g[012]-*')):
+        runs = Path(os.environ.get('JOIL_WAVE4_RUNS_ROOT', Path(__file__).resolve().parents[1]/'runs'))
+        if not any(p.is_dir() for p in runs.glob('wave4-*')):
             self.skipTest('no local Wave-4 run artifacts; actual acceptance requires nonempty audit')
         report = audit_wave4_manifests(runs)
         self.assertTrue(report['passed'], report['errors'])
         self.assertGreater(report['manifest_count'], 0)
+
+    def test_wave4_audit_continues_after_malformed_manifest_and_checks_all_cases(self):
+        from analysis.case_identity import audit_wave4_manifests, finalize_case_identity
+        root = Path(__file__).resolve().parents[1]
+        (root/'.private').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root/'.private') as directory:
+            runs = Path(directory)
+            for name in ['wave4-a-g0-test', 'wave4-z-rsm-continuation']:
+                finalize_case_identity(self._synthetic_wave4_case(runs, name))
+            bad = self._synthetic_wave4_case(runs, 'wave4-m-g1-test')
+            original = json.loads((bad/'input-manifest.json').read_text())
+            malformed = [None, [], {'subject_bundle': None}]
+            for key, value in [('surface_stl_relpath', None), ('surface_stl_relpath', []),
+                               ('subject_bundle', []), ('subject_bundle', {'genome': None})]:
+                malformed.append({**original, key: value})
+            for key in ['genome', 'ir', 'surface_mesh', 'compiler', 'geometry_kernel', 'compiler_config']:
+                for value in [None, {'id': '', 'revision': 'v1', 'sha256': 'a'*64},
+                              {'id': key, 'revision': None, 'sha256': 'a'*64},
+                              {'id': key, 'revision': 'v1', 'sha256': 'not a hash'}]:
+                    malformed.append({**original, 'subject_bundle': {**original['subject_bundle'], key: value}})
+            # A valid sidecar forces the audit to inspect the malformed prepared manifest.
+            finalize_case_identity(bad)
+            for value in malformed:
+                with self.subTest(prepared=value):
+                    (bad/'input-manifest.json').write_text(json.dumps(value))
+                    report = audit_wave4_manifests(runs)
+                    self.assertFalse(report['passed'])
+                    self.assertEqual(report['manifest_count'], 3)
+                    self.assertEqual([r['case'] for r in report['verified']],
+                                     ['wave4-a-g0-test', 'wave4-z-rsm-continuation'])
+                    self.assertEqual([r['case'] for r in report['errors']], [bad.name])
+            (bad/'input-manifest.json').write_text(json.dumps(original))
+            for value in ['null', '[]', '{broken json']:
+                with self.subTest(sidecar=value):
+                    (bad/'case-identity.json').write_text(value)
+                    report = audit_wave4_manifests(runs)
+                    self.assertFalse(report['passed'])
+                    self.assertEqual(len(report['verified']), 2)
+                    self.assertEqual([r['case'] for r in report['errors']], [bad.name])
+
+    def test_wave4_identity_rejects_symlinks_and_pruned_mesh_even_with_sidecar(self):
+        from analysis.case_identity import audit_wave4_manifests, finalize_case_identity, verify_case_identity
+        root = Path(__file__).resolve().parents[1]
+        (root/'.private').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root/'.private') as directory:
+            runs = Path(directory)
+            case = self._synthetic_wave4_case(runs, 'wave4-synthetic-g2-fine')
+            finalize_case_identity(case)
+            for rel in ['case-identity.json', 'constant/polyMesh/points', 'system/fvSchemes']:
+                path = case/rel
+                original = path.read_bytes()
+                outside = runs/'outside-artifact'
+                outside.write_bytes(original)
+                path.unlink()
+                path.symlink_to(outside)
+                with self.subTest(symlink=rel):
+                    with self.assertRaises(ValueError): verify_case_identity(case)
+                    with self.assertRaises(ValueError): finalize_case_identity(case)
+                path.unlink()
+                path.write_bytes(original)
+            shutil.rmtree(case/'constant/polyMesh')
+            with self.assertRaisesRegex(ValueError, 'missing artifact directory'):
+                finalize_case_identity(case)
+            report = audit_wave4_manifests(runs)
+            self.assertFalse(report['passed'])
+            self.assertEqual(len(report['verified']), 0)
+            self.assertEqual([r['case'] for r in report['errors']], [case.name])
+
+    def test_wave4_input_capture_replays_retained_runs_and_rejects_pruned_cases(self):
+        """Opt-in real-input regression: source runs remain read-only, including sidecars."""
+        from analysis.case_identity import audit_wave4_manifests, build_case_identity, finalize_case_identity
+        source = os.environ.get('JOIL_WAVE4_INPUTS_ROOT')
+        if source is None:
+            self.skipTest('set JOIL_WAVE4_INPUTS_ROOT for retained/pruned real-input regression')
+        runs = Path(source)
+        cases = sorted(p for p in runs.glob('wave4-*') if p.is_dir())
+        required = {'wave4-ct35-control-g1-medium', 'wave4-b3-s20261105-g0-coarse',
+                    'wave4-b3-s20261108-g0-coarse'}
+        self.assertTrue(required <= {p.name for p in cases}, 'required retained regression cases missing')
+        root = Path(__file__).resolve().parents[1]
+        (root/'.private').mkdir(exist_ok=True)
+        captured, missing_mesh = [], []
+        with tempfile.TemporaryDirectory(dir=root/'.private') as directory:
+            snapshots = Path(directory)
+            for case in cases:
+                with self.subTest(case=case.name):
+                    if not (case/'constant/polyMesh').is_dir():
+                        with self.assertRaisesRegex(ValueError, 'missing artifact directory: constant/polyMesh'):
+                            build_case_identity(case)
+                        missing_mesh.append(case.name)
+                        continue
+                    identity = build_case_identity(case)
+                    snapshot = snapshots/case.name
+                    files = {'input-manifest.json', *identity['source_artifacts'],
+                             *identity['mesh_files'], *identity['solver_input_files']}
+                    for rel in sorted(files):
+                        target = snapshot/rel
+                        target.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.copyfile(case/rel, target)
+                    # Finalization writes only the private copy, never the original run.
+                    self.assertEqual(finalize_case_identity(snapshot), identity)
+                    captured.append(case.name)
+            self.assertTrue(required <= set(captured))
+            self.assertTrue(missing_mesh, 'no missing-mesh negative cases were exercised')
+            self.assertEqual(len(captured)+len(missing_mesh), len(cases))
+            report = audit_wave4_manifests(snapshots)
+            self.assertTrue(report['passed'], report['errors'])
+            self.assertEqual(report['manifest_count'], len(captured))
 
     def test_changed_evidence_is_rejected(self):
         with tempfile.TemporaryDirectory() as d:
