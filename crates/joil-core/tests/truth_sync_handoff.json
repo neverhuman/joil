@@ -1,0 +1,282 @@
+{
+  "schema": "joil.truth-lane.owner-sync.v1",
+  "kind": "software_verification_not_physical_validation",
+  "recorded_utc": "2026-10-16T07:44:34Z",
+  "synced_from": "origin/feat/joil-v4-truth-evidence",
+  "tested_source_commit": "c5eb7f120e253a135b3efc99533344a3e3dae458",
+  "scope_status": {
+    "TR-12": {
+      "state": "DONE-SCOPED",
+      "authority": "INT 2026-10-16T07:02:45Z",
+      "delivered": "Non-homologous macro crossover name and receipt; GraphGenomeV1/InnovationId specification deferred to workplan section6."
+    },
+    "TR-16": {
+      "state": "BLOCKED-SCOPED",
+      "delivered_commit": "dcaf087d9c1f028e8f65699a50b28c0461b89bb1",
+      "delivered": "Sandbox runtime requirement/objective binding and claim-bearing refusal before computation.",
+      "reason": "Physical admission deferred to section6: source-backed pressure/energy/absolute-pressure limits, continuous duty band, material/process and independent validation inputs remain unresolved. No limits invented.",
+      "board_receipt": "HB TR TR-16 BLOCKED carries BLOCKED-SCOPED reason for ledger-parser compatibility."
+    }
+  },
+  "junk_file_audit": {
+    "requested_paths": [
+      "DONE",
+      "Tick",
+      "checkboxes",
+      "directly",
+      "in",
+      "lines",
+      "main",
+      "only",
+      "the",
+      "via",
+      "workplan",
+      "your"
+    ],
+    "present_paths": [],
+    "deleted_paths": [],
+    "outcome": "All named paths already absent; no repository files deleted. Shared stash and other lane commits left untouched.",
+    "private_audit_sha256": "c9526c0b3b28eeb5a9ac31accbbc9dd93ab168196e57638b49f5520e89226128"
+  },
+  "int06_case_preparation": {
+    "source_receipt": "docs/results/wave4-evolution-proof-v1.json",
+    "source_receipt_sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+    "records": [
+      {
+        "subject": "baseline",
+        "source_candidate_id": "baseline-ct35-b0",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-j",
+          "4",
+          "-p",
+          "joil-cli",
+          "--",
+          "prepare-cfd-case",
+          "--baseline-ct35",
+          "--case",
+          "/home/ubuntu/joil-wt/truth/target/truth-int06-support/20261016T074007Z-baseline"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 8.924,
+        "stdout_sha256": "cff1cc6c9bf34e4605bac326c47172f68268532faa9ffe70a4eb87a64c60ef3c",
+        "log_sha256": "7d029eb0c51c66956de33cc2739534e705595c46d9d5813519f1b7924543a40a",
+        "stdout_path": ".private/truth-int06-support/20261016T074007Z-baseline.json",
+        "log_path": ".private/truth-int06-support/20261016T074007Z-baseline.log",
+        "design_sha256": "a82f15f7f7f55b50b70e3a7e1607fc318d9a6351b480a1854b7ed54d8baf9b9d",
+        "surface_stl_sha256": "2d65f5f94cdba4d6c26bf1c858896d734e2ef4be1c845cb1fcd4cd80e02fb2b3",
+        "qualified_for_oil_grade": false,
+        "subject_bundle_present": true,
+        "case_dir": "target/truth-int06-support/20261016T074007Z-baseline"
+      },
+      {
+        "subject": "wave4-winner",
+        "source_candidate_id": "s20261108-g016-i000",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-j",
+          "4",
+          "-p",
+          "joil-cli",
+          "--",
+          "prepare-cfd-case",
+          "--program-json",
+          "target/truth-int06-support/wave4-winner-program.json",
+          "--case",
+          "/home/ubuntu/joil-wt/truth/target/truth-int06-support/20261016T074007Z-wave4-winner"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.477,
+        "stdout_sha256": "a636fd10f669435addc60e10f67fbf1528e572f00e8feae1bef9804b057440f5",
+        "log_sha256": "89b4de3e1493e5e968207b2e4c511ddc09b5e5adef97b0244e092a0064c91c11",
+        "stdout_path": ".private/truth-int06-support/20261016T074007Z-wave4-winner.json",
+        "log_path": ".private/truth-int06-support/20261016T074007Z-wave4-winner.log",
+        "design_sha256": "44e920eb15dd8142efabcd54fa81efd0a3bd22bc6d79ea78142aae17b8723dd8",
+        "surface_stl_sha256": "7ccd8b21d71f4f4d7234b2ff938a619a9826aa896ab554c50b91841ab9f39a1f",
+        "qualified_for_oil_grade": false,
+        "subject_bundle_present": true,
+        "case_dir": "target/truth-int06-support/20261016T074007Z-wave4-winner"
+      }
+    ],
+    "same_case_configuration": {
+      "feed_m3_h": 4.0,
+      "reject_pressure_pa": -200.0,
+      "turbulence_model": "SSG",
+      "steps": 600,
+      "refinement_level": 0,
+      "outlet_extension_m": 0.0,
+      "transient": false,
+      "dt_s": 1e-05,
+      "end_time_s": 0.25,
+      "n_subdomains": 4
+    },
+    "checks": [
+      "Control and winner canonical design hashes equal the corresponding committed Wave4 subjects.",
+      "Actual STL bytes match each generated manifest digest.",
+      "Both prepared subjects carry subject bundles and qualified_for_oil_grade=false."
+    ],
+    "private_verification_sha256": "df036d2c0a47e66324cb91eba8068e30074d0ef11591b5a9e3e9a2b58b665214",
+    "limitation": "Case preparation and identity checks only; OpenFOAM meshing/solver execution, grid convergence and oil-grade/physical validation were not performed."
+  },
+  "required_gate": {
+    "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only npm_config_cache=\"$PWD/.private/npm-cache\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" python3 tools/check.py",
+    "exit_code": 0,
+    "receipt_path": ".private/checks/20261016T074108Z-c5529f97/receipt.json",
+    "receipt_sha256": "f933ab9764c11ad46d8ae5a1c1956746de79404611c162dbb52a0dec41c04eec",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.05439173401100561,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.3165470579988323,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 9.08926599600818,
+        "log_sha256": "1d1df9de5fb321907fec28133a67f7d9ae33df56da9de4da163caaf6cad26dfb"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 81.50802298099734,
+        "log_sha256": "b2d3292eeacb27479c30330c78b127ce8677d6753baaf3d2a14cc7197fc97ab5"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.05015665997052565,
+        "log_sha256": "02325004404fe961768f51c58509540a38f387915507356951e8f607e087d85e"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 45.05654072895413,
+        "log_sha256": "965893e972d93932f852136d99e3c4b1c97f147c36d9cbe8eb106b8e530eaffe"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.08623574703233317,
+        "log_sha256": "5b6261f94a96be67ae5530b518b6b195c0fcf31a05fe3fd60ad8a74f06c1c22d"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 12.909409373998642,
+        "log_sha256": "40e5f46f36e9f0dbe4f0cf0967e9642e77fec3efce8c741c06253e40af35b77a"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 1.82364137400873,
+        "log_sha256": "22b13c0fbf7a8651742a36f072a7bd3a1897f40b07dede533c04112f719cbf25"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 2.5698073590174317,
+        "log_sha256": "d6d6d5244bfe3510fb4b532e868e10776ba189685d2d37b79993ef6d39fdae18"
+      }
+    ]
+  },
+  "negative_checks_passed": [
+    "truth_campaign_admission_refuses_unadmitted_claims_before_computation",
+    "truth_insufficient_tail_cannot_supply_objective_vector"
+  ],
+  "changed_paths": [
+    "crates/joil-core/tests/truth_sync_handoff.json"
+  ],
+  "source_files_sha256": {
+    "crates/joil-cli/src/main.rs": "26ea911fb5ace69a6dd7ba43eca152a2e85b8c0c9b1fae08e66482b8381d7fc5",
+    "crates/joil-core/src/cfd_case.rs": "efb390f3e596dfe4c82d0dfa21e8b79028f6ced626e455b9e31cc8178e3ccc6b",
+    "crates/joil-ir/src/lib.rs": "19f7a356fc5e57f2ddef25bb43cb8a0befefa0eda09bc9f5c1cbe64e163c294b",
+    "requirements/RS-joil-research-v1.json": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
+  },
+  "next_dependency": "INT owns INT-06 solver execution; DOC/INT reconcile the TR-16 scoped blocker from board receipts. No README/workplan/status/physical-limit edits or PR merges."
+}
