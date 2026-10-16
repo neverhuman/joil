@@ -273,6 +273,7 @@ fn proposal_lineage(outcome: &VariationOutcome, seed: u64) -> Result<Lineage, St
         include_bytes!("geometry.rs").as_slice(),
         include_bytes!("program.rs").as_slice(),
         include_bytes!("../../../Cargo.lock").as_slice(),
+        include_bytes!("../../joil-ir/src/lib.rs").as_slice(),
     ]
     .concat();
     let operator_source = [

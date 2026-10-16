@@ -151,7 +151,7 @@ pub fn build_openfoam_candidate_case(
         structure::analytic_structural_screen(&p, &pheno, 29468.22, config.feed_m3_h / 3600.0)?;
     if !structure.passed {
         return Err(format!(
-            "candidate failed P08 structural/LPBF qualification gate: {:?}",
+            "candidate failed the P08 analytic structural/LPBF screen: {:?}",
             structure.failure_reasons
         ));
     }
