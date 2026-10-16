@@ -108,3 +108,16 @@ fn every_mandatory_p0_gate_must_resolve() {
     )
     .is_err());
 }
+
+#[test]
+fn sandbox_statistics_and_hypervolume_policy_are_explicit_and_frozen() {
+    let mut r = requirements();
+    assert_eq!(r.hypervolume.reference_point.len(), 5);
+    assert_eq!(r.quantile_policy.min_n_p05_p95, 72);
+    assert_eq!(r.quantile_policy.min_n_p01_p99, 368);
+    r.hypervolume.normalization[0] = Finite::new(0.0).unwrap();
+    assert!(r.check().is_err());
+    r = requirements();
+    r.quantile_policy.min_n_p05_p95 = 3;
+    assert!(r.check().is_err());
+}

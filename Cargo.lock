@@ -96,6 +96,7 @@ dependencies = [
 name = "joil-core"
 version = "0.1.0"
 dependencies = [
+ "joil-evidence",
  "serde",
  "serde_json",
  "sha2",

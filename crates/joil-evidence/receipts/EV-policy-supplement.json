@@ -1,0 +1,175 @@
+{
+  "items": [
+    "EV-06-sandbox-supplement",
+    "EV-02-lineage-fix"
+  ],
+  "checks": [
+    {
+      "command": "python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "fca24cf2a64e17660f5e0e3980e6aaf72897856fa92a47fd755d0cd660ddf027",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.046064989001024514,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.2138430030317977,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 4.709153135016095,
+          "log_bytes": 315,
+          "log_sha256": "d30eb860db3041e7cbc1d084f5b48dd2c2ab438bdab1f5add4876f96edab659b"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 33.84750800504116,
+          "log_bytes": 7240,
+          "log_sha256": "37f242fceeaa28ac2fb1a76f6319c9622563d42df79d22934df442ce0c513ada"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.5365690279868431,
+          "log_bytes": 1096,
+          "log_sha256": "561e02f1b8c66760b3794b72e9ed5b798fa60fa0f84f646e88831c98c68b2a90"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 7.699251042038668,
+          "log_bytes": 5519,
+          "log_sha256": "11c2001af690a67568ca6a0d955ca2c60e3d3302f76eff252531952ceedb7393"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.0718608780298382,
+          "log_bytes": 75,
+          "log_sha256": "46bc12da3c6c3639f861c02f6644f4039d4a3def75de58db9eb4f0e532ef5ee1"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 7.820442414027639,
+          "log_bytes": 190,
+          "log_sha256": "eef1deb384c933a534a890a8b20d0fc838f3026565e67dac8d600390e882cc99"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 0.8649724450078793,
+          "log_bytes": 28,
+          "log_sha256": "e058bbcad6fa1bd53fb9454f9d5965ee200c5c3de84938f0ffd0b06d4af86cd4"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 2.4076616810052656,
+          "log_bytes": 1904,
+          "log_sha256": "662aedef6708284f7cf25a9ac3f396ca0bd0672ba523ee6464fb449b8e862352"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "frozen explicit sandbox HV reference/normalization",
+    "95% distribution-free tail minimum sample policy",
+    "RNG state endpoints may wrap; draw count retained"
+  ],
+  "negative_checks": [
+    "zero HV normalization",
+    "weakened tail policy",
+    "missing compiler identity"
+  ],
+  "limitations": [
+    "New sandbox policy is not claimed to be the legacy preregistration.",
+    "Physical requirements remain unresolved; no admission upgrade."
+  ],
+  "next_dependency": "TR-11/TR-13/TR-15 consumption"
+}

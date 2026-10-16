@@ -55,19 +55,20 @@ fn stages_are_distinct_even_for_identical_bytes() {
 }
 
 #[test]
-fn lineage_rejects_missing_compiler_and_invalid_span() {
+fn lineage_accepts_wrapped_rng_states_and_rejects_missing_identity() {
     let mut lineage = Lineage {
         parents: vec!["parent".into()],
         operator: reference("mutate"),
         operator_version: 1,
         seed: 7,
         rng_span: [0, 3],
+        rng_draws: 3,
         repairs: vec![],
         compiler: reference("compiler"),
     };
     lineage.check().unwrap();
     lineage.rng_span = [3, 0];
-    assert!(lineage.check().is_err());
+    lineage.check().unwrap();
     lineage.rng_span = [0, 3];
     lineage.compiler.sha256.clear();
     assert!(lineage.check().is_err());
