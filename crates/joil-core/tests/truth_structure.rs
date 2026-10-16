@@ -92,15 +92,16 @@ fn truth_candidate_structure_constrains_dominance_and_identity() {
     .unwrap();
     // Isolate structural constrained-dominance behavior from hydraulic feasibility.
     feasible.constraint_violation = 0.0;
-    feasible.objectives = [100.0; 5];
+    feasible.objectives =
+        joil_core::evolve::ObjectiveOutcome::SandboxEstimate { values: [100.0; 5] };
     let mut failed = feasible.clone();
-    failed.objectives = [0.0; 5];
+    failed.objectives = joil_core::evolve::ObjectiveOutcome::SandboxEstimate { values: [0.0; 5] };
     failed.structural_qualification.as_mut().unwrap().passed = false;
     assert!(!constrained_dominates(&failed, &feasible));
     assert!(constrained_dominates(&feasible, &failed));
     let mut stale = feasible.clone();
     stale.nominal_metrics.dp_u_pa *= 2.0;
-    stale.objectives = [0.0; 5];
+    stale.objectives = joil_core::evolve::ObjectiveOutcome::SandboxEstimate { values: [0.0; 5] };
     assert!(!constrained_dominates(&stale, &feasible));
     let mut unknown = feasible.clone();
     unknown.structural_qualification = None;

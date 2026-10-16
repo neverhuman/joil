@@ -407,6 +407,86 @@ pub fn checked_near_integer_flux(flux_integral: f64, tol: f64) -> Result<(i64, f
 }
 
 /// Evaluate source-bound hydraulic KPIs and eligibility from an executed OpenFOAM case.
+fn failed_case_executions(case_dir: &Path) -> Result<Vec<std::path::PathBuf>, String> {
+    let mut failures = Vec::new();
+    for marker in ["FAILED", "failed.json", "numerical-failure.json"] {
+        let path = case_dir.join(marker);
+        if path.exists() {
+            failures.push(path);
+        }
+    }
+    for entry in fs::read_dir(case_dir).map_err(|e| e.to_string())? {
+        let path = entry.map_err(|e| e.to_string())?.path();
+        if path
+            .file_name()
+            .and_then(|s| s.to_str())
+            .is_some_and(|name| name.ends_with(".receipt.json"))
+        {
+            let bytes = fs::read(&path).map_err(|e| e.to_string())?;
+            let receipt: serde_json::Value =
+                serde_json::from_slice(&bytes).map_err(|e| e.to_string())?;
+            if receipt
+                .get("exit_code")
+                .and_then(|v| v.as_i64())
+                .is_some_and(|code| code != 0)
+                || receipt.get("stop_reason").is_some_and(|v| !v.is_null())
+            {
+                failures.push(path);
+            }
+        }
+    }
+    Ok(failures)
+}
+
+/// A failed execution has no numerical projection. Successful results from this
+/// legacy importer remain carrier diagnostics, not qualified performance labels.
+pub fn read_cfd_kpi_observation(
+    root_dir: &Path,
+    integrals_path: &Path,
+    expected_time_step: u64,
+) -> Result<serde_json::Value, joil_evidence::observation::Observation> {
+    use joil_evidence::{
+        identity::ContentRef,
+        observation::{FailureClass, Observation},
+    };
+    let case_dir = integrals_path
+        .parent()
+        .ok_or_else(|| Observation::Unknown {
+            reason: "missing_case_directory".into(),
+        })?;
+    let failures = failed_case_executions(case_dir).map_err(|_| Observation::Insufficient {
+        reason: "case_execution_evidence_unreadable".into(),
+        missing: vec!["readable_execution_receipts".into()],
+    })?;
+    if !failures.is_empty() {
+        let diagnostics = failures
+            .iter()
+            .filter_map(|path| {
+                fs::read(path).ok().map(|bytes| {
+                    ContentRef::from_bytes(
+                        path.file_name()
+                            .and_then(|s| s.to_str())
+                            .unwrap_or("failure-artifact"),
+                        "1",
+                        &bytes,
+                    )
+                })
+            })
+            .collect();
+        return Err(Observation::Failed {
+            class: FailureClass::Numerical,
+            reason: "case_contains_failed_or_stopped_execution".into(),
+            diagnostics,
+        });
+    }
+    evaluate_measured_cfd_kpis(root_dir, integrals_path, expected_time_step).map_err(|_| {
+        Observation::Insufficient {
+            reason: "carrier_diagnostic_not_admitted".into(),
+            missing: vec!["verified_successful_execution_and_source_bound_finite_integrals".into()],
+        }
+    })
+}
+
 pub fn evaluate_measured_cfd_kpis(
     root_dir: &Path,
     integrals_path: &Path,
@@ -415,6 +495,11 @@ pub fn evaluate_measured_cfd_kpis(
     let case_dir = integrals_path
         .parent()
         .ok_or_else(|| "invalid integrals_path parent".to_string())?;
+    if !failed_case_executions(case_dir)?.is_empty() {
+        return Err(
+            "refusing failed or stopped case; no performance observations available".into(),
+        );
+    }
     let case_name = case_dir
         .file_name()
         .and_then(|s| s.to_str())
@@ -447,6 +532,9 @@ pub fn evaluate_measured_cfd_kpis(
             "refusing case {case_name}: input-manifest verification failed: {:?}",
             prov.mismatched_inputs
         ));
+    }
+    if !prov.metrics_binary_verified || !prov.metrics_receipt_verified {
+        return Err("refusing unverified or unsuccessful metrics execution; no performance observations available".into());
     }
 
     let patches = integrals
