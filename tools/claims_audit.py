@@ -817,6 +817,33 @@ def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str],
     return errors, rows
 
 
+def refresh_review_statuses(synthesis: str, now_utc: str) -> str:
+    """Rewrite every finding's Status cell from the §2 ledger and stamp the as-of time."""
+    ledger = {}
+    for line in _section(synthesis, "## 2.").splitlines():
+        cells = _table_cells(line) if line.startswith("|") else []
+        if len(cells) == 4 and re.fullmatch(r"[A-Z]{2,3}-\d{2}", cells[0]):
+            ledger[cells[0]] = cells[2]
+    out = []
+    in_findings = False
+    for line in synthesis.splitlines(keepends=True):
+        if line.startswith("## "):
+            in_findings = line.startswith("## 4.")
+        cells = _table_cells(line) if in_findings and line.startswith("|") else []
+        if len(cells) == 7 and _FINDING_ID_RE.match(cells[0]):
+            items = [] if cells[4] == "-" else [x.strip() for x in cells[4].split(",")]
+            kind = cells[5].split(" ", 1)[0]
+            if kind in ("FULL", "PARTIAL") and items and all(x in ledger for x in items):
+                status = derive_finding_status(items, ledger)
+            else:
+                status = {"FOLLOW-ON": "DEFERRED", "GAP": "UNASSIGNED"}.get(kind, cells[6])
+            head = line.rstrip("\n").rstrip()
+            head = head[: head.rstrip("|").rstrip().rfind("|") + 1]
+            line = f"{head} {status} |\n"
+        out.append(line)
+    return re.sub(r"\*\*Status as of [^*]+\.\*\*", f"**Status as of {now_utc}.**", "".join(out), count=1)
+
+
 def audit_review_traceability(root: Path = ROOT) -> tuple[list[str], int]:
     synthesis = root / REVIEW_SYNTHESIS
     workplan = root / REVIEW_WORKPLAN
@@ -860,7 +887,18 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Verify all claims in WHITEPAPER.md, SCIENCE.md, and README.md against JSON receipts.")
     parser.add_argument("--root", type=Path, default=ROOT, help="Repository root path")
     parser.add_argument("--json", action="store_true", help="Print JSON report")
+    parser.add_argument(
+        "--refresh-review-status",
+        action="store_true",
+        help=f"Recompute finding statuses in {REVIEW_SYNTHESIS} from its item ledger, then audit",
+    )
     args = parser.parse_args()
+    if args.refresh_review_status:
+        from datetime import datetime, timezone
+
+        path = args.root.resolve() / REVIEW_SYNTHESIS
+        stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
+        path.write_text(refresh_review_statuses(path.read_text(encoding="utf-8"), stamp), encoding="utf-8")
 
     report = run_claims_audit(args.root.resolve())
     if args.json:

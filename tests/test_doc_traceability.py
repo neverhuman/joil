@@ -13,6 +13,7 @@ from tools.claims_audit import (
     REVIEW_SYNTHESIS,
     REVIEW_WORKPLAN,
     check_review_traceability,
+    refresh_review_statuses,
     verify_review_input_checksums,
 )
 
@@ -74,6 +75,19 @@ class TraceabilityTests(unittest.TestCase):
         errors, _ = check_review_traceability(SYNTHESIS.replace(open_row, '| TR-09 | TR | BLOCKED | - |'), WORKPLAN)
         self.assertIn('ledger: TR-09 is BLOCKED without a reason', errors)
         self.assertIn("finding S3-P0-07: status 'OPEN' but ledger derives 'BLOCKED'", errors)
+
+    def test_refresh_derives_statuses_from_ledger(self):
+        stamp = '2026-10-16T05:23Z'
+        self.assertEqual(refresh_review_statuses(SYNTHESIS, stamp).replace(stamp, ''),
+                         SYNTHESIS.replace(SYNTHESIS.split('**Status as of ')[1].split('.**')[0], ''))
+        ledger_row = next(line for line in SYNTHESIS.splitlines() if line.startswith('| TR-09 |'))
+        changed = SYNTHESIS.replace(ledger_row, '| TR-09 | TR | MERGED | `abc1234` |')
+        errors, _ = check_review_traceability(changed, WORKPLAN)
+        self.assertTrue(any(e.startswith('finding S3-P0-07: status') for e in errors), errors)
+        refreshed = refresh_review_statuses(changed, stamp)
+        self.assertEqual(check_review_traceability(refreshed, WORKPLAN)[0], [])
+        row = next(line for line in refreshed.splitlines() if line.startswith('| S3-P0-07 |'))
+        self.assertTrue(row.endswith('| MERGED |'), row)
 
     def test_gap_rows_must_cite_a_gap_entry(self):
         row = next(line for line in SYNTHESIS.splitlines() if line.startswith('| S2-4.09 |'))
