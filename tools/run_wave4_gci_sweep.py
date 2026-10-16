@@ -445,7 +445,9 @@ def main() -> int:
         "run_rsm": True,
         "f1_metrics": {
             "kpi_score": float(w4["baseline_b0_ct35_kpi_score"]),
-            "cout_sample_screen_upper_mg_l": float(w4["baseline_b0_ct35_cout_p95_mg_l"]),
+            "cout_sample_screen_upper_mg_l": float(
+                w4["baseline_b0_ct35"]["mc_robustness"]["cout_sample_screen_upper_mg_l"]
+            ),
             "dp_u_pa": float(w4["baseline_b0_ct35"]["nominal_metrics"]["dp_u_pa"]),
         },
     }
