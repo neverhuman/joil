@@ -1353,6 +1353,9 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
     found: dict[str, dict[str, str]] = {}
     for line in board.splitlines():
         tokens = line.split()
+        if len(tokens) >= 2 and tokens[0] in ("MOVED-§6", "MOVED-S6") and tokens[1] in items:
+            found.setdefault(tokens[1], {})["MOVED"] = " ".join(tokens[2:])[:100] or "board"
+            continue
         if len(tokens) >= 2 and tokens[0] in ("DONE", "MERGED") and tokens[1] in items:
             sha = tokens[2] if len(tokens) >= 3 and re.fullmatch(r"[0-9a-f]{7,40}", tokens[2]) else ""
             entry = found.setdefault(tokens[1], {})
@@ -1374,7 +1377,9 @@ def ledger_from_board(board: str, items: set[str]) -> dict[str, tuple[str, str]]
                     entry["WIP"] = tokens[1]
     ledger = {}
     for item, entry in found.items():
-        if "MERGED" in entry and "DONE" in entry:
+        if "MOVED" in entry:  # integrator moved the (remaining) scope to workplan §6
+            ledger[item] = ("MOVED-§6", f"board `MOVED-§6 {item}`: {entry['MOVED'].replace('|', '/')}")
+        elif "MERGED" in entry and "DONE" in entry:
             ledger[item] = ("MERGED", f"`{entry['MERGED'][:7]}` (board `MERGED {item}`)")
         elif "MERGED" in entry:  # a lane merged mid-item: not completion
             note = f"merged at `{entry['MERGED'][:7]}` without board `DONE {item}`"

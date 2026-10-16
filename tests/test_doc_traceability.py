@@ -135,6 +135,8 @@ class TraceabilityTests(unittest.TestCase):
         self.assertEqual(done['DOC-04'][0], 'MERGED')
         bare = ledger_from_board(board + '\nDONE DOC-04 cf9df59\nMERGED DOC-04', {'DOC-04'})
         self.assertEqual(bare['DOC-04'], ('MERGED', '`cf9df59` (board `MERGED DOC-04`)'))
+        moved = ledger_from_board('MERGED TR-16 ceaa03d\nMOVED-§6 TR-16 physical remainder, decision 9', {'TR-16'})
+        self.assertEqual(moved['TR-16'][0], 'MOVED-§6')
         scoped = ledger_from_board('MERGED TR-16 ceaa03d\nHB 2026-10-16T07:37:35Z TR TR-16 BLOCKED-SCOPED - section6', {'TR-16'})
         self.assertEqual(scoped['TR-16'][0], 'BLOCKED')
 

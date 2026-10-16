@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T07:40Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T08:11Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -68,7 +68,7 @@ reason.
 | TR-13 | TR | MERGED | `1ed5865` (board `MERGED TR-13`) |
 | TR-14 | TR | MERGED | `92be04f` (board `MERGED TR-14`) |
 | TR-15 | TR | MERGED | `1ed5865` (board `MERGED TR-15`) |
-| TR-16 | TR | BLOCKED | merged at `ceaa03d` without board `DONE TR-16`; 2026-10-16T07:39:25Z c5eb7f120e253a135b3efc99533344a3e3dae458 BLOCKED-SCOPED: physical admission deferred to sec |
+| TR-16 | TR | BLOCKED | merged at `ceaa03d` without board `DONE TR-16`; 2026-10-16T07:45:55Z - BLOCKED-SCOPED section6: no admitted pressure/energy/absolute-pressure/duty/validation so |
 | TR-17 | TR | MERGED | `1ed5865` (board `MERGED TR-17`) |
 | EV-01 | EV | MERGED | `1433a71` (board `MERGED EV-01`) |
 | EV-02 | EV | MERGED | `1433a71` (board `MERGED EV-02`) |
@@ -99,7 +99,7 @@ reason.
 | INT-03 | INT | MERGED | `6aa68b4` (board `MERGED INT-03`) |
 | INT-04 | INT | MERGED | `cb31ba3` (board `MERGED INT-04`) |
 | INT-05 | INT | MERGED | `92be04f` (board `MERGED INT-05`) |
-| INT-06 | INT | WIP | board HB 2026-10-16T07:38:30Z |
+| INT-06 | INT | WIP | board HB 2026-10-16T07:57:20Z |
 | INT-07 | INT | MERGED | `cb31ba3` (board `MERGED INT-07`) |
 | INT-08 | INT | OPEN | - |
 | DOC-01 | DOC | MERGED | `dd82f45` (board `MERGED DOC-01`) |
