@@ -7,6 +7,7 @@ import json
 import math
 from pathlib import Path
 import re
+import sys
 from typing import Any
 
 import matplotlib
@@ -74,15 +75,192 @@ def load_grid_case(case_dir: Path, label: str, bg_cells: list[int]) -> dict[str,
     }
 
 
-def compute_roache_3grid_gci(
+def _solve_unclamped_celik_order(
+    coarse_diff: float, fine_diff: float, r10: float, r21: float
+) -> float:
+    """Solve Celik et al. (2008) / ASME V&V 20 observed order p for same-sign differences
+    without any artificial [0.5, 4.0] clamp or integer division.
+    """
+    if abs(r21 - r10) <= 1e-12:
+        return (math.log(abs(coarse_diff)) - math.log(abs(fine_diff))) / math.log(r21)
+    p = (math.log(abs(coarse_diff)) - math.log(abs(fine_diff))) / math.log(
+        0.5 * (r10 + r21)
+    )
+    for _ in range(80):
+        if p <= 1e-9 or p > 64.0:
+            break
+        num = r21**p - 1.0
+        den = r10**p - 1.0
+        if num <= 0.0 or den <= 0.0:
+            break
+        q = math.log(num / den)
+        p_new = (math.log(abs(coarse_diff / fine_diff)) + q) / math.log(r21)
+        if abs(p_new - p) < 1e-12:
+            p = p_new
+            break
+        p = p_new
+    return p
+
+
+def compute_roache_3grid_gci_v2(
     f0: float, f1: float, f2: float, h0: float, h1: float, h2: float
 ) -> dict[str, Any]:
-    """Compute Roache / ASME V&V 20 3-grid convergence metrics for coarse(0), medium(1), fine(2)."""
+    """TR-07 / INT-05 3-grid spatial convergence diagnostic for coarse(0), medium(1), fine(2).
+
+    - Uses ordinary floating-point division and removes the legacy [0.5, 4.0] order clamp.
+    - Classifies state into 'Monotone' | 'Oscillatory' | 'Divergent' | 'Indeterminate'
+      ('Asymptotic' requires >= 4 grids with overlapping-triple order agreement).
+    - Never certifies standard Fs=1.25 Roache GCI from 3 points alone or when oscillatory/divergent.
+    """
+    if not (
+        all(math.isfinite(x) for x in (f0, f1, f2, h0, h1, h2))
+        and h0 > h1 > h2 > 0.0
+    ):
+        raise ValueError("finite grid values and strictly decreasing h0 > h1 > h2 > 0 required")
+
     r21 = h1 / h2
     r10 = h0 / h1
     e21 = f2 - f1
     e10 = f1 - f0
-    ratio_R = e21 / e10 if abs(e10) > 1e-15 else 0.0
+    coarse_diff = f0 - f1
+    fine_diff = f1 - f2
+    floor = 64.0 * sys.float_info.epsilon * max(abs(f0), abs(f1), abs(f2), sys.float_info.min)
+    ratio_R = e21 / e10 if abs(e10) > floor else 0.0
+
+    rel_e21 = abs(e21) / max(abs(f2), 1e-15)
+    rel_e10 = abs(e10) / max(abs(f1), 1e-15)
+    p_formal = 1.0
+    gci21_conservative = 3.0 * rel_e21 / (r21**p_formal - 1.0)
+    unverified_diag_gci21_pct: float | None = None
+
+    if abs(coarse_diff) <= floor or abs(fine_diff) <= floor:
+        state = "Indeterminate"
+        regime = "indeterminate_below_roundoff"
+        p_obs: float | None = None
+        reason = "grid differences are not resolved above roundoff"
+    elif (coarse_diff > 0.0) != (fine_diff > 0.0):
+        state = "Oscillatory"
+        regime = (
+            "oscillatory_convergent_unstructured_snapping"
+            if abs(ratio_R) < 1.0
+            else "oscillatory_non_decreasing"
+        )
+        p_obs = None
+        reason = (
+            "grid differences change sign; three-grid sequence is oscillatory and cannot "
+            "certify power-law order p or standard Fs=1.25 GCI"
+        )
+    else:
+        p_val = _solve_unclamped_celik_order(coarse_diff, fine_diff, r10, r21)
+        if not math.isfinite(p_val) or p_val <= 0.0:
+            state = "Divergent"
+            regime = "divergent_non_decreasing_differences"
+            p_obs = p_val
+            reason = "grid differences do not decrease"
+        else:
+            state = "Monotone"
+            regime = "monotone_three_grid_unverified_asymptotic"
+            p_obs = p_val
+            unverified_diag_gci21_pct = (
+                1.25 * rel_e21 / (r21**p_val - 1.0) * 100.0
+            )
+            reason = "asymptotic range needs an independent fourth grid"
+
+    return {
+        "f_g0_coarse": f0,
+        "f_g1_medium": f1,
+        "f_g2_fine": f2,
+        "r21_linear": r21,
+        "r10_linear": r10,
+        "e21_fine_minus_medium": e21,
+        "e10_medium_minus_coarse": e10,
+        "relative_step_21_pct": rel_e21 * 100.0,
+        "relative_step_10_pct": rel_e10 * 100.0,
+        "convergence_ratio_R": ratio_R,
+        "gci_validity_state": state,
+        "asymptotic_range_certified": False,
+        "state_reason": reason,
+        "convergence_regime": regime,
+        "observed_order_p": p_obs,
+        "formal_upwind_order_p": p_formal,
+        "gci_fine_rel": None,
+        "gci21_standard_fs125_pct": None,
+        "unverified_3grid_roache_fs125_diagnostic_pct": unverified_diag_gci21_pct,
+        "gci21_conservative_fs300_p1_pct": gci21_conservative * 100.0,
+        "richardson_extrapolated_f": None,
+        "three_grid_extremum_span": max(f0, f1, f2) - min(f0, f1, f2),
+        "three_grid_half_span_pct_of_f2": 0.5
+        * (max(f0, f1, f2) - min(f0, f1, f2))
+        / max(abs(f2), 1e-15)
+        * 100.0,
+    }
+
+
+def compute_roache_4grid_gci_v2(
+    values: list[float],
+    h_values: list[float],
+    relative_order_tolerance: float = 0.10,
+) -> dict[str, Any]:
+    """TR-07 4-grid overlapping-triple order stability check before certifying GCI."""
+    if len(values) != 4 or len(h_values) != 4:
+        raise ValueError("expected exactly 4 grid values and 4 cell sizes (coarse -> fine)")
+    if not math.isfinite(relative_order_tolerance) or relative_order_tolerance <= 0.0:
+        raise ValueError("positive finite relative_order_tolerance required")
+
+    prev = compute_roache_3grid_gci_v2(
+        values[0], values[1], values[2], h_values[0], h_values[1], h_values[2]
+    )
+    fine = compute_roache_3grid_gci_v2(
+        values[1], values[2], values[3], h_values[1], h_values[2], h_values[3]
+    )
+    fine["coarse_triple_state"] = prev["gci_validity_state"]
+    fine["coarse_triple_observed_order_p"] = prev["observed_order_p"]
+    if (
+        prev["gci_validity_state"] == "Monotone"
+        and fine["gci_validity_state"] == "Monotone"
+        and prev["observed_order_p"] is not None
+        and fine["observed_order_p"] is not None
+    ):
+        p_old = float(prev["observed_order_p"])
+        p_new = float(fine["observed_order_p"])
+        r32 = h_values[2] / h_values[3]
+        if (
+            abs(p_old - p_new) <= relative_order_tolerance * abs(p_new)
+            and values[3] != 0.0
+        ):
+            gci_rel = (
+                1.25
+                * abs(values[3] - values[2])
+                / (abs(values[3]) * (r32**p_new - 1.0))
+            )
+            if math.isfinite(gci_rel):
+                fine["gci_validity_state"] = "Asymptotic"
+                fine["asymptotic_range_certified"] = True
+                fine["gci_fine_rel"] = gci_rel
+                fine["gci21_standard_fs125_pct"] = gci_rel * 100.0
+                fine["richardson_extrapolated_f"] = (
+                    r32**p_new * values[3] - values[2]
+                ) / (r32**p_new - 1.0)
+                fine["state_reason"] = (
+                    "order agrees on overlapping triples within declared tolerance; spatial diagnostic only"
+                )
+        else:
+            fine["state_reason"] = (
+                "observed order is not stable on overlapping triples or fine value is zero"
+            )
+    return fine
+
+
+def compute_roache_3grid_gci(
+    f0: float, f1: float, f2: float, h0: float, h1: float, h2: float
+) -> dict[str, Any]:
+    """Compute Roache / ASME V&V 20 3-grid convergence metrics for coarse(0), medium(1), fine(2)."""
+    v2 = compute_roache_3grid_gci_v2(f0, f1, f2, h0, h1, h2)
+    r21 = v2["r21_linear"]
+    r10 = v2["r10_linear"]
+    e21 = v2["e21_fine_minus_medium"]
+    e10 = v2["e10_medium_minus_coarse"]
+    ratio_R = v2["convergence_ratio_R"]
     if 0.0 < ratio_R < 1.0:
         regime = "monotonic_convergent"
     elif -1.0 < ratio_R < 0.0:
@@ -90,7 +268,6 @@ def compute_roache_3grid_gci(
     else:
         regime = "non_asymptotic"
 
-    # Fixed-point iteration for Celik et al. (2008) / ASME V&V 20 non-uniform refinement ratio p
     s = 1.0 if (e10 / e21) >= 0.0 else -1.0
     p = 1.0
     if abs(e21) > 1e-15 and abs(e10) > 1e-15:
@@ -102,17 +279,16 @@ def compute_roache_3grid_gci(
                 break
             p = p_new
     p_obs = max(0.5, min(p, 4.0))
-    p_formal = 1.0  # Formal first-order bound for bounded Gauss upwind advection
+    p_formal = 1.0
 
     rel_e21 = abs(e21) / max(abs(f2), 1e-15)
     rel_e10 = abs(e10) / max(abs(f1), 1e-15)
 
-    # Standard 3-grid GCI (Fs=1.25, p_obs) and conservative oscillatory/non-monotonic GCI (Fs=3.0, p_formal=1.0)
     gci21_standard = 1.25 * rel_e21 / (r21**p_obs - 1.0)
     gci10_standard = 1.25 * rel_e10 / (r10**p_obs - 1.0)
     gci21_conservative = 3.0 * rel_e21 / (r21**p_formal - 1.0)
     f_extrap_standard = (r21**p_obs * f2 - f1) / (r21**p_obs - 1.0)
-    asymptotic_ratio = gci10_standard / ( (r21**p_obs) * gci21_standard ) if gci21_standard > 0 else 0.0
+    asymptotic_ratio = gci10_standard / ((r21**p_obs) * gci21_standard) if gci21_standard > 0 else 0.0
 
     return {
         "f_g0_coarse": f0,
@@ -126,6 +302,10 @@ def compute_roache_3grid_gci(
         "relative_step_10_pct": rel_e10 * 100.0,
         "convergence_ratio_R": ratio_R,
         "convergence_regime": regime,
+        "gci_validity_state": v2["gci_validity_state"],
+        "asymptotic_range_certified": v2["asymptotic_range_certified"],
+        "state_reason": v2["state_reason"],
+        "unclamped_observed_order_p": v2["observed_order_p"],
         "observed_order_p": p_obs,
         "formal_upwind_order_p": p_formal,
         "gci21_standard_fs125_pct": gci21_standard * 100.0,
@@ -135,6 +315,7 @@ def compute_roache_3grid_gci(
         "three_grid_half_span_pct_of_f2": 0.5 * (max(f0, f1, f2) - min(f0, f1, f2)) / max(abs(f2), 1e-15) * 100.0,
         "asymptotic_ratio_magnitude": abs(asymptotic_ratio),
     }
+
 
 
 def extract_reynolds_stress_stats(r_field_path: Path) -> dict[str, Any]:
