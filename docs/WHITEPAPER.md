@@ -312,7 +312,7 @@ Source: [`docs/results/wave4-gci-v1.json`](results/wave4-gci-v1.json) (`SHA-256:
     - None is imputed (TR-17). Conformal throat meshing and the full sweep are §6 follow-ons.
   - The sixth, `s20261106-g023-i001`, solved on all three grids. Its screen values were `KPI_score = 45.787472` and $\Delta p_u$ `28,968.26 Pa`. Its CFD $\Delta p_u$ is `611,532.38`, `199,068.47` and `46,473.66 Pa` on `G0`/`G1`/`G2`, at reject fractions `0.0191`–`0.0197`.
   - The receipt classifies that sequence `Monotone` but not in the asymptotic range (it "needs an independent fourth grid"), with a conservative GCI of `4,720.58%`.
-  - The `G2` value is `2.49×` the control's. The result changes thirteen-fold between `G0` and `G2`, and the sub-channels are only about two `G2` cells high, so neither the size nor the sign of the converged difference is established. The run shows only that the enacted split ducts change the hydraulics strongly, and that the screen's $\Delta p_u$ does not describe this geometry. The design is not promoted.
+  - The `G2` value is `2.49×` the control's. The result changes thirteen-fold between `G0` and `G2`, so neither the size nor the sign of the converged difference is established. The run shows only that the enacted split ducts change the hydraulics strongly, and that the screen's $\Delta p_u$ does not describe this geometry. The design is not promoted.
 
 ---
 
