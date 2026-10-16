@@ -466,6 +466,9 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `0.0197` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/grids/1/reject_fraction` | printed |
 | `4,720.58` | 1 | `docs/results/wave4-gci-v1.json` | `/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/gci21_conservative_fs300_p1_pct` | printed |
 | `2.49` | 1 | declared | - | see table |
+| `12` | 1 | `crates/joil-evidence/receipts/EV12-Wave4-closure.json` | `/inventory/total_cases_accounted` | printed |
+| `3` | 1 | `crates/joil-evidence/receipts/EV12-Wave4-closure.json` | `/inventory/verified_scoped_artifact_chains` | printed |
+| `8` | 1 | `crates/joil-evidence/receipts/EV12-Wave4-closure.json` | `/inventory/exclusion_counts/executed_mesh_missing` | printed |
 
 ## Appendix A
 
@@ -659,7 +662,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `64` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/hinze_dmax_um` | printed |
 | `640` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/rejected_cohort_10pct_audit/total_rejected_or_low_rank_pool` | printed |
 | `10.0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/rejected_cohort_10pct_audit/audit_fraction` | x100 |
-| `0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
+| `0` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
 | `0.0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_split/azimuthal_phase_deg` | printed |
 | `0.00` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/rejected_cohort_10pct_audit/worst_rank_reversal_cout_mg_l` | printed |
 | `38` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/0/d50_feed_um` | printed |
@@ -720,7 +723,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `2` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/schema_version` | printed |
 | `30` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/2/d50_feed_um` | printed |
 | `8` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/0/best_cout_p95_mg_l` | printed |
-| `3` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/phenotype/minimum_wall_clearance_mm` | printed |
+| `3` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/phenotype/minimum_wall_clearance_mm` | printed |
 | `4` | 5 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/q_in_m3_h` | printed |
 | `2,000` | 1 | declared | - | see table |
 | `20` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/3/best_candidate/structural_qualification/min_yield_safety_factor` | printed |
@@ -1063,6 +1066,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `0` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/baseline_ct35_comparator/reject_fraction` | printed |
 | `3` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/grids/1/max_skewness` | printed |
 | `1` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/schema_version` | printed |
+| `3` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/phenotype/minimum_wall_clearance_mm` | printed |
 | `3` | 1 | `docs/results/wave4-smoke-v1.json` | `/config/n_seeds` | printed |
 | `2` | 1 | `docs/results/wave4-smoke-v1.json` | `/config/islands` | printed |
 | `9` | 1 | `docs/results/wave4-smoke-v1.json` | `/config/pop_per_island` | printed |
@@ -1184,6 +1188,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `72` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/samples` | printed |
 | `64.0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/nominal_metrics/hinze_dmax_um` | printed |
+| `0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
 | `3` | 1 | declared | - | see table (`3@Python 3 with`) |
 | `3.12` | 1 | declared | - | see table (`3.12@use Python 3.12`) |
 | `3.12` | 2 | declared | - | see table (`3.12@project environment with **Python 3.12**`) |

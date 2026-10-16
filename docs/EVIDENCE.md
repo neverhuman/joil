@@ -25,9 +25,11 @@ authority, and missing independent evidence stays `Incomplete`.
   every individual. Wiring it into `population.rs` is TR-13, which is still in progress.
 - **`CaseManifest`**: binds an OpenFOAM/FEA case to compiler, IR, geometry, both meshes, solver, model, scenario,
   requirements, objectives, material/process and extraction context. `verify_artifacts` checks exact bytes; a
-  missing mesh or case identity fails closed. The case *writer* (`cfd_case.rs`, IR-owned) and the historical run
-  manifests (INT-owned) have not yet been migrated (EV-12 is BLOCKED on that; synthesis DOC-F06 shows the
-  current manifests are copies).
+  missing mesh or case identity fails closed. EV-12 closed in scope for the Wave-4 OpenFOAM cases
+  (`crates/joil-evidence/receipts/EV12-Wave4-closure.json`): every case has either an exact artifact chain or an
+  explicit, evidence-bound exclusion, and none is claim-bearing. The historical run manifests (INT-owned) are
+  still copies (synthesis DOC-F06); historical mesh recovery, full scientific identity and FEA case identity are
+  workplan §6 items.
 - **`sample_identity(campaign, seed, index)`**: Monte Carlo sample identity that does not depend on worker or
   thread count.
 
