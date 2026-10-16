@@ -1,0 +1,611 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "joil.observation.v1",
+  "description": "Structural wire shared by Rust serde and Python ingestion; semantic evidence eligibility is checked separately.",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "measured"
+        },
+        "measurement": {
+          "$ref": "#/$defs/measurement"
+        }
+      },
+      "required": [
+        "status",
+        "measurement"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "failed"
+        },
+        "class": {
+          "type": "string",
+          "enum": [
+            "geometry",
+            "numerical",
+            "infrastructure",
+            "out_of_domain"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "diagnostics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/content_ref"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "status",
+        "class",
+        "reason",
+        "diagnostics"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "unknown"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "status",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "not_applicable"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "status",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "insufficient"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "status",
+        "reason",
+        "missing"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$defs": {
+    "content_ref": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "bundle": {
+      "type": "object",
+      "properties": {
+        "genome": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "ir": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "compiler": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "geometry_kernel": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "compiler_config": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "geometry": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "surface_mesh": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "volume_mesh": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/content_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "solver_case": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/content_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "genome",
+        "ir",
+        "compiler",
+        "geometry_kernel",
+        "compiler_config",
+        "geometry",
+        "surface_mesh"
+      ],
+      "additionalProperties": false
+    },
+    "subject": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "compiled"
+            },
+            "bundle": {
+              "$ref": "#/$defs/bundle"
+            }
+          },
+          "required": [
+            "kind",
+            "bundle"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "genome"
+            },
+            "representation": {
+              "$ref": "#/$defs/content_ref"
+            },
+            "bits": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{16}$"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "representation",
+            "bits"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "native_cad"
+            },
+            "artifact": {
+              "$ref": "#/$defs/content_ref"
+            },
+            "geometry_state": {
+              "$ref": "#/$defs/content_ref"
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "step",
+                "stl"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "enum": [
+                "millimetre",
+                "metre"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "artifact",
+            "geometry_state",
+            "format",
+            "unit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "specimen"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "passport": {
+              "$ref": "#/$defs/content_ref"
+            }
+          },
+          "required": [
+            "kind",
+            "id",
+            "passport"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "material": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "identified"
+            },
+            "passport": {
+              "$ref": "#/$defs/content_ref"
+            }
+          },
+          "required": [
+            "status",
+            "passport"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "unknown"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "status",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": 2
+        },
+        "subject": {
+          "$ref": "#/$defs/subject"
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/content_ref"
+          },
+          "minItems": 1
+        },
+        "source": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "build": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "cargo_lock": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "config": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "evaluator": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "scenario": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "objective": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "descriptor": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "solver_build": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "model": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "numerics": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "process": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "material": {
+          "$ref": "#/$defs/material"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/content_ref"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "schema",
+        "subject",
+        "requirements",
+        "source",
+        "build",
+        "cargo_lock",
+        "config",
+        "evaluator",
+        "scenario",
+        "objective",
+        "descriptor",
+        "solver_build",
+        "model",
+        "numerics",
+        "process",
+        "material",
+        "dependencies"
+      ],
+      "additionalProperties": false
+    },
+    "unit": {
+      "type": "string",
+      "enum": [
+        "dimensionless",
+        "pascal",
+        "mg_per_litre_dispersed_oil",
+        "cubic_metre_per_hour",
+        "joule_per_treated_cubic_metre",
+        "metre",
+        "millimetre",
+        "micrometre",
+        "cubic_millimetre",
+        "megapascal",
+        "second",
+        "hertz"
+      ]
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "software_contract",
+        "geometry",
+        "analytic_screen",
+        "coupled_screen",
+        "numerically_verified",
+        "model_challenge",
+        "physical_validation"
+      ]
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "execution": {
+          "type": "string",
+          "enum": [
+            "succeeded",
+            "failed",
+            "not_run"
+          ]
+        },
+        "numerical": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "unverified",
+            "invalid"
+          ]
+        },
+        "validation": {
+          "type": "string",
+          "enum": [
+            "validated",
+            "not_performed",
+            "invalid"
+          ]
+        }
+      },
+      "required": [
+        "execution",
+        "numerical",
+        "validation"
+      ],
+      "additionalProperties": false
+    },
+    "uncertainty": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "type": "string",
+          "minLength": 1
+        },
+        "absolute": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "$ref": "#/$defs/unit"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dependence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coverage": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "component",
+        "absolute",
+        "unit",
+        "method",
+        "dependence",
+        "coverage"
+      ],
+      "additionalProperties": false
+    },
+    "measurement": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "$ref": "#/$defs/unit"
+        },
+        "quantity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frame": {
+          "type": "string",
+          "minLength": 1
+        },
+        "region": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recovery": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "fidelity": {
+          "type": "string",
+          "enum": [
+            "Identity",
+            "F0",
+            "F1",
+            "F2",
+            "F3",
+            "F4"
+          ]
+        },
+        "tier": {
+          "$ref": "#/$defs/tier"
+        },
+        "origin": {
+          "type": "string",
+          "enum": [
+            "synthetic",
+            "simulation",
+            "measurement"
+          ]
+        },
+        "identity": {
+          "$ref": "#/$defs/identity"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/content_ref"
+          },
+          "minItems": 1
+        },
+        "applicability": {
+          "$ref": "#/$defs/content_ref"
+        },
+        "state": {
+          "$ref": "#/$defs/state"
+        },
+        "uncertainty": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/uncertainty"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "quantity",
+        "frame",
+        "region",
+        "recovery",
+        "fidelity",
+        "tier",
+        "origin",
+        "identity",
+        "evidence",
+        "applicability",
+        "state",
+        "uncertainty"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
