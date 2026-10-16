@@ -48,15 +48,30 @@ Phase: `software_truth_repair_scientific_claim_inventory_incomplete`.
   - every candidate surface has `CT-35`'s two inlet ducts;
   - branch, ramp and skimmer genes are absent from the CFD geometry;
   - the `CT-35` case was built with a different geometry pipeline and outlet extension.
-- **`F1` reduced screen.** `119,235` screen evaluations in a three-node campaign, plus the 10-seed Wave-2 and Wave-3 search comparisons below. They measure how well each search arm optimizes the screen, not physical performance.
+- **`F1` reduced screen.** `119,235` screen evaluations in a three-node campaign, plus the 10-seed Wave-2, Wave-3 and Wave-4 search comparisons below. They measure how well each search arm optimizes the screen, not physical performance. On repaired code (Wave-4), uniform random search reaches a higher best screen score than the evolutionary arm `B3`.
 - **Software contract.** `220 / 220` closed-catalog validity samples and an operator random walk with `85` label changes. Both are upper bounds, because failed operators silently returned `CT-35` before workplan item TR-01.
 
 ![Wave-3 Search-Efficiency Study on the F1 Screen: Per-Generation KPI Trajectory (n=10 Seeds, 22,500 Screen Evals) & 15-Run OpenFOAM 14 Carrier CFD](docs/figures/wave3-readme-hero-kpi-and-elite.png)
-*Figure 0 (Hero Plot): Wave-3 search-efficiency study on the `F1` reduced screen (formerly titled a "de-novo evolutionary proof"; the screen credits the activated genes by construction) across `n = 10` independent master seeds (`20261101..20261110`, `25` generation checkpoints `g = 0..24`, `18` 3D evaluations/generation = `450` evaluations/seed/arm = `22,500` total 3D evaluations) optimizing the Composite Separation-Hydraulic KPI (`KPI_score` in [`analysis/kpi_fitness.py`](analysis/kpi_fitness.py)). All evolutionary arms (`B2`, `A1`, `A2`, `B3`) start at `g = 0` from the identical unseeded Generation-0 population (`0` pre-baked 6/8-jet or TPMS archetypes). Source receipts: [`docs/results/wave3-evolution-proof-v1.json`](docs/results/wave3-evolution-proof-v1.json) (`SHA-256: 9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168`) and [`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json) (`SHA-256: 52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841`).*
+*Figure 0 (Hero Plot; historical, pre-repair run superseded by Wave-4 below): Wave-3 search-efficiency study on the `F1` reduced screen (formerly titled a "de-novo evolutionary proof"; the screen credits the activated genes by construction) across `n = 10` independent master seeds (`20261101..20261110`, `25` generation checkpoints `g = 0..24`, `18` 3D evaluations/generation = `450` evaluations/seed/arm = `22,500` total 3D evaluations) optimizing the Composite Separation-Hydraulic KPI (`KPI_score` in [`analysis/kpi_fitness.py`](analysis/kpi_fitness.py)). All evolutionary arms (`B2`, `A1`, `A2`, `B3`) start at `g = 0` from the identical unseeded Generation-0 population (`0` pre-baked 6/8-jet or TPMS archetypes). Source receipts: [`docs/results/wave3-evolution-proof-v1.json`](docs/results/wave3-evolution-proof-v1.json) (`SHA-256: 9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168`) and [`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json) (`SHA-256: 52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841`).*
+
+### Wave-4: the same study on repaired operators (`F1` screen, sandbox, workplan INT-04)
+
+Source: [`docs/results/wave4-evolution-proof-v1.json`](docs/results/wave4-evolution-proof-v1.json) (`SHA-256: 2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885`). The design matches Wave-3: `10` seeds, `450` charged proposals per seed and arm, `22,500` screen evaluations and `72` Monte Carlo samples per candidate. It ran after the truth repairs. Every proposal is now charged to the budget, a failed variation no longer becomes `CT-35`, and `B3`'s acquisition no longer picks from extra uncharged proposals. The result reverses the Wave-3 comparison with random search:
+
+| Arm | Gen-0 best `KPI_score` (10-seed mean) | Final best `KPI_score` mean (`95% CI`) | Final population median `KPI_score` (mean) | Best score vs `B3` |
+| :--- | :---: | :---: | :---: | :--- |
+| `B1` uniform random | `44.490288` | `45.936820` (`[45.615566, 46.265452]`) | `37.983620` | higher: `B3` > `B1` has $p_{\text{Holm}} = 1.0$, Cliff's $\delta = -0.68$ |
+| `B3` QD + GP-CEI | `31.008835` | `45.131872` (`[44.778022, 45.452437]`) | `43.628366` | - |
+| `A2` no selection | `31.008835` | `42.715589` (`[42.064348, 43.349521]`) | `37.856710` | lower ($p_{\text{Holm}} = 0.0012568$) |
+| `B2` axisymmetric NSGA-II | `27.471889` | `36.236410` (`[36.047525, 36.416028]`) | `35.464588` | lower ($p_{\text{Holm}} = 0.0012568$) |
+| `A1` crossover only | `31.008835` | `33.956765` (`[33.713883, 34.184385]`) | `33.640806` | lower ($p_{\text{Holm}} = 0.0012568$) |
+| `CT-35` reference (one evaluation per seed) | - | `23.931038` | - | - |
+
+Selection beats the no-selection and crossover-only ablations and the axisymmetric baseline. Uniform random search over the same authored space still finds the higher best score; `B3` leads it only on population median. These are prior-laden screen outputs without independent labels, and no Wave-4 design has been through CFD. Details and caveats: [WHITEPAPER §5.7](docs/WHITEPAPER.md).
 
 ### Wave-3 Search-Efficiency Study on the `F1` Screen (`n = 10` Seeds, `450` Evals/Seed/Arm, Equal-Budget Baselines & Operator Ablations)
 
-These are screen outputs. They show that selection and mutation optimize the screen better than the ablations and random search do. They do not show physical separation: the screen's descriptors reward the genes the search activates. Failed variations were silently replaced by `CT-35` and not charged to the budget; workplan item INT-04 re-runs the study on repaired operators. The `HV` column is the largest single dominated box plus an archive bonus, not Pareto hypervolume.
+These are screen outputs. They show that selection and mutation optimize the screen better than the ablations and random search do. They do not show physical separation: the screen's descriptors reward the genes the search activates. Failed variations were silently replaced by `CT-35` and not charged to the budget. The Wave-4 re-run above, on repaired operators, supersedes this table. The `HV` column is the largest single dominated box plus an archive bonus, not Pareto hypervolume.
 
 Every numerical entry below is a screen output computed by `joil-cli wave3-proof`. `python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json` recomputes the KPI arithmetic and statistics (a consistency check, not an independent evaluation), and `python3 tools/claims_audit.py` checks them against the receipts:
 
@@ -129,7 +144,7 @@ RAYON_NUM_THREADS=4 rtk cargo run --release --locked -p joil-cli -- wave2-benchm
 
 Known limitations of re-runs on the current code:
 
-- `wave3-proof` stops with "at least 4 valid physical records required to fit GP surrogate". The surrogate now refuses screen-derived labels (EV-09), and how to re-run Wave-3 is an open decision in workplan item INT-04.
+- `wave3-proof` runs on the current code and wrote the Wave-4 receipt. Its default `--out` is the historical Wave-3 receipt, so always pass `--out` into `artifacts/`.
 - `export-3d-preview` reads ignored campaign files under `runs/`, so it cannot run from a fresh checkout.
 - `tools/generate_wave3_proof_figures.py` rewrites the committed, hash-bound figures, so run it only when regenerating figures together with a new receipt.
 

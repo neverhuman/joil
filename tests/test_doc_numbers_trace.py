@@ -10,6 +10,8 @@ sys.path.insert(0, str(ROOT))
 from tools.claims_audit import (
     NUMBERS_TRACE,
     _affinity,
+    _check_declared,
+    _lead_affinity,
     _numeral_tokens,
     _unit_scales,
     build_numbers_trace,
@@ -21,7 +23,8 @@ def _copy_tree(dst):
     for rel in ('docs/results', 'docs/receipts', 'experiments', 'baselines/ct35'):
         shutil.copytree(ROOT / rel, dst / rel)
     for rel in ('docs/STATUS.json', 'docs/WHITEPAPER.md', 'docs/SCIENCE.md', 'README.md', NUMBERS_TRACE,
-                'crates/joil-core/tests/regression.rs'):
+                'crates/joil-core/tests/regression.rs', 'crates/joil-core/src/program.rs',
+                'tools/run_elite_3grid_gci_and_rsm.py'):
         (dst / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / rel, dst / rel)
 
@@ -68,6 +71,38 @@ class NumbersTraceTests(unittest.TestCase):
         self._with('docs/WHITEPAPER.md', '## Abstract\n', '## Abstract\n\nScreen evaluations: `119,235`.\n')
         self.assertTrue(any('stale' in e for e in check_numbers_trace(self.base)))
 
+    def test_committed_trace_has_no_declaration_errors(self):
+        _, errors = build_numbers_trace(self.base)
+        self.assertEqual(errors, [])
+
+    def test_cited_receipt_binds_numerals(self):
+        # 237 was the pre-refresh smoke count; it still occurs in the Wave-4 study receipt, so an
+        # any-receipt search would accept it. §5.6 cites only the smoke receipt at this point.
+        self._with('docs/WHITEPAPER.md', '`228` repaired', '`237` repaired')
+        _, errors = build_numbers_trace(self.base)
+        self.assertTrue(any("'237'" in e and 'wave4-smoke-v1.json' in e for e in errors), errors)
+
+    def test_scoped_declaration_stays_in_its_sentence(self):
+        self._with('docs/WHITEPAPER.md', '- **No silent fallbacks.**', '- **No silent fallbacks.** Gate `0.025`.')
+        _, errors = build_numbers_trace(self.base)
+        self.assertTrue(any("'0.025'" in e for e in errors), errors)
+
+    def test_unused_scoped_declaration_fails(self):
+        self._with('docs/WHITEPAPER.md', 'one-sided $\\alpha = 0.025$', 'one-sided $\\alpha=0.025$')
+        _, errors = build_numbers_trace(self.base)
+        self.assertTrue(any('0.025@one-sided' in e and 'stale declaration' in e for e in errors), errors)
+
+    def test_derived_constants_are_checked(self):
+        self.assertIsNone(_check_declared('255.8', 'derived', 'ratio', '`5.60293e-5 / 2.19045e-5`', ROOT, []))
+        self.assertIn('evaluates to', _check_declared('255.9', 'derived', 'ratio', '`5.60293e-5 / 2.19045e-5`', ROOT, []))
+        self.assertIn('unsupported', _check_declared('1', 'derived', 'x', '`__import__`', ROOT, []))
+
+    def test_statistic_symbols_prefer_their_fields(self):
+        self.assertEqual(_lead_affinity('Whitney $U = '), ('mann_whitney_u',))
+        self.assertEqual(_lead_affinity("Cliff's $\\delta = "), ('cliffs_delta',))
+        self.assertEqual(_lead_affinity('$p_{\\text{Holm}} = '), ('holm',))
+        self.assertEqual(_lead_affinity('budget of '), ())
+
     def test_units_select_scale_and_quantity(self):
         self.assertIn((1e-3, '/1000'), _unit_scales(' kPa` vs'))
         self.assertNotIn((1e-3, '/1000'), _unit_scales(' mg/L` ('))
@@ -79,6 +114,7 @@ class NumbersTraceTests(unittest.TestCase):
     def test_identifiers_dates_and_lists_are_not_numerals(self):
         tokens = _numeral_tokens('`CAD-09`, S3 P0-09, G2, CT-35, 16 October 2026, grid `[18,12,212]`, 5.6\\times 10^{-5}')
         self.assertEqual(tokens, ['18', '12', '212', '5.6e-5'])
+        self.assertEqual(_numeral_tokens('$d_{50,\\text{feed}} = 38.0$, $d_{32}$ (S2 §4.7)'), ['38.0'])
 
 
 if __name__ == '__main__':
