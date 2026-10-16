@@ -22,6 +22,21 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+/// Immutable, compiled campaign contract. Physical admission remains separate.
+pub fn research_requirements() -> Result<&'static joil_evidence::campaign::Requirements, String> {
+    static REQUIREMENTS: std::sync::OnceLock<
+        Result<joil_evidence::campaign::Requirements, String>,
+    > = std::sync::OnceLock::new();
+    REQUIREMENTS
+        .get_or_init(|| {
+            joil_evidence::campaign::Requirements::from_toml(include_bytes!(
+                "../../../requirements/joil-hydrocyclone-v1.toml"
+            ))
+        })
+        .as_ref()
+        .map_err(Clone::clone)
+}
+
 /// Mutually exclusive proposal-budget categories. `evaluations` counts only
 /// unrepaired evaluated proposals; actual evaluations also include repaired ones.
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]

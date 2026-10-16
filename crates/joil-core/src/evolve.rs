@@ -455,13 +455,36 @@ pub fn evaluate_individual(
         probability_passes_30_mg_l: pass_count as f64 / n_mc as f64,
     };
 
-    let objectives = [
-        mc_robustness.cout_p95_mg_l,
-        nominal_metrics.dp_u_pa,
-        -mc_robustness.grade_20um_p05,
-        nominal_metrics.max_entry_shear_s_inv / 1000.0,
-        nominal_metrics.short_circuit_fraction,
-    ];
+    let requirements = crate::experiment::research_requirements()?;
+    let observations = BTreeMap::from([
+        (
+            "cout_p95_mg_l".into(),
+            joil_evidence::observation::Finite::new(mc_robustness.cout_p95_mg_l)?,
+        ),
+        (
+            "specific_energy_j_m3".into(),
+            joil_evidence::observation::Finite::new(nominal_metrics.specific_energy_j_m3)?,
+        ),
+        (
+            "grade_20um_p05".into(),
+            joil_evidence::observation::Finite::new(mc_robustness.grade_20um_p05)?,
+        ),
+        (
+            "d50_p95_um".into(),
+            joil_evidence::observation::Finite::new(mc_robustness.d50_p95_um)?,
+        ),
+        (
+            "dp_u_pa".into(),
+            joil_evidence::observation::Finite::new(nominal_metrics.dp_u_pa)?,
+        ),
+    ]);
+    let objectives: [f64; 5] = requirements
+        .evaluate_objectives(&observations)?
+        .into_iter()
+        .map(|v| v.get())
+        .collect::<Vec<_>>()
+        .try_into()
+        .map_err(|_| "expected frozen five-objective contract")?;
 
     let mut violation = 0.0_f64;
     if !red_team_passed {
@@ -1452,23 +1475,35 @@ pub struct RejectedCohortAuditSummary {
 }
 
 fn compute_normalized_hypervolume(front: &[Individual], _base_ref: &Individual) -> f64 {
-    // Pre-registered nadir from experiments/wave2-preregistration-v1.json
-    let ref_cout = 45.0_f64;
-    let ref_dp = 38000.0_f64;
-    let ref_e20 = 0.35_f64;
-    let mut best_hv = 0.0_f64;
-    for ind in front {
-        if !ind.red_team_passed || ind.constraint_violation > 1e-9 {
-            continue;
-        }
-        let g1 = ((ref_cout - ind.mc_robustness.cout_p95_mg_l) / ref_cout).clamp(0.0, 1.0);
-        let g2 = ((ref_dp - ind.nominal_metrics.dp_u_pa) / ref_dp).clamp(0.0, 1.0);
-        let g3 = ((ref_e20 - (1.0 - ind.mc_robustness.grade_20um_p05)) / ref_e20).clamp(0.0, 1.0);
-        let box_vol = g1 * g2 * g3;
-        best_hv = best_hv.max(box_vol);
-    }
-    let diversity_bonus = (front.len().min(24) as f64) * 0.0025;
-    ((best_hv + diversity_bonus) * 1e6).round() / 1e6
+    let requirements = crate::experiment::research_requirements()
+        .expect("compiled requirement contract must validate");
+    let policy = &requirements.hypervolume;
+    let reference: Vec<f64> = policy
+        .reference_point
+        .iter()
+        .zip(&policy.normalization)
+        .map(|(r, n)| r.get() / n.get())
+        .collect();
+    let points: Vec<Vec<f64>> = front
+        .iter()
+        .filter(|ind| {
+            ind.red_team_passed
+                && ind.constraint_violation <= 1e-9
+                && ind
+                    .structural_qualification
+                    .as_ref()
+                    .is_some_and(|s| s.passed)
+        })
+        .map(|ind| {
+            ind.objectives
+                .iter()
+                .zip(&policy.normalization)
+                .map(|(v, n)| v / n.get())
+                .collect()
+        })
+        .collect();
+    metrics::pareto_hypervolume(&points, &reference)
+        .expect("finite contract-bound objective vectors")
 }
 
 /// Compute 10,000-resample bootstrap 95% confidence interval over `values`.
@@ -1498,7 +1533,7 @@ pub fn compute_bootstrap_ci(values: &[f64], seed: u64) -> BootstrapConfidenceInt
     let iqr = percentile_sorted(&sorted, 0.75) - percentile_sorted(&sorted, 0.25);
 
     let mut rng = Rng::new(seed);
-    let n_boot = 2000usize;
+    let n_boot = 10000usize;
     let mut boot_means = Vec::with_capacity(n_boot);
     for _ in 0..n_boot {
         let mut s = 0.0;
