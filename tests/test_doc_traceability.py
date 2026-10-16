@@ -140,6 +140,14 @@ class TraceabilityTests(unittest.TestCase):
         scoped = ledger_from_board('MERGED TR-16 ceaa03d\nHB 2026-10-16T07:37:35Z TR TR-16 BLOCKED-SCOPED - section6', {'TR-16'})
         self.assertEqual(scoped['TR-16'][0], 'BLOCKED')
 
+    def test_done_counts_as_merged_only_once_integration_contains_it(self):
+        board = 'MERGED TR-09 0ef2b88\nDONE TR-09 57a9f21'  # a draft was merged before the final DONE
+        self.assertEqual(ledger_from_board(board, {'TR-09'}, lambda sha: False)['TR-09'][0], 'DONE')
+        self.assertEqual(ledger_from_board(board, {'TR-09'}, lambda sha: True)['TR-09'][0], 'MERGED')
+        merged_row = sync_ledger(SYNTHESIS, 'DONE TR-09 1eeff10\nMERGED TR-09 0441561')
+        corrected = sync_ledger(merged_row, board, lambda sha: False)
+        self.assertIn('| DONE |', next(l for l in corrected.splitlines() if l.startswith('| TR-09 |')))
+
     def test_owner_blocked_overrides_merged_row_without_done(self):
         merged_row = sync_ledger(SYNTHESIS, 'DONE TR-09 1eeff10\nMERGED TR-09 0441561')
         self.assertIn('| MERGED |', next(l for l in merged_row.splitlines() if l.startswith('| TR-09 |')))

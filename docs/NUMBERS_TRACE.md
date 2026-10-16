@@ -1062,7 +1062,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `4` | 1 | `docs/results/wave4-smoke-v1.json` | `/repair_fields_histogram//tpms_insert` | printed |
 | `12` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/nominal_metrics/d50_um` | printed |
 | `72` | 3 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/samples` | printed |
-| `10` | 4 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
+| `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `20261101` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/master_seeds/0` | printed |
 | `20261110` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/master_seeds/9` | printed |
 | `0` | 3 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
@@ -1083,7 +1083,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `42.715589` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/A2_No_Selection_Random_Walk/24/best_kpi_score/mean` | printed |
 | `36.236410` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B2_Conventional_Axisym_NSGA2/23/best_kpi_score/mean` | printed |
 | `33.956765` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/A1_No_Mutation_Crossover_Only/24/best_kpi_score/mean` | printed |
-| `23.931038` | 3 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35_kpi_score` | printed |
+| `23.931038` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35_kpi_score` | printed |
 | `-0.804948` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/pairwise_tests/0/mean_diff` | printed |
 | `16` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/pairwise_tests/0/mann_whitney_u` | printed |
 | `1.0` | 3 | `docs/results/wave4-evolution-proof-v1.json` | `/pairwise_tests/0/p_value_holm_bonferroni` | printed |
@@ -1103,6 +1103,15 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `45.93634` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/final_best_kpi_score` | printed |
 | `8.833141` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/final_best_cout_sample_screen_upper_mg_l` | printed |
 | `368` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/tail_quantiles/capture_p01/minimum_n` | printed |
+| `10` | 1 | `crates/joil-core/tests/truth_raw_capture_handoff.json` | `/rounding_diagnosis/rows/26/recomputed` | printed |
+| `14,243` | 1 | declared | - | see table (`14,243@compared `14,243` fields with this section's receipt`) |
+| `0` | 1 | declared | - | see table (`0@`0` differ`) |
+| `23.775490` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/final_best_kpi_at_equal_450_charged_proposal_slots/B0_CT35_Equal_Budget/mean` | printed |
+| `23.547869` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/final_best_kpi_at_equal_450_charged_proposal_slots/B0_CT35_Equal_Budget/ci95_low` | printed |
+| `24.024860` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/final_best_kpi_at_equal_450_charged_proposal_slots/B0_CT35_Equal_Budget/ci95_high` | printed |
+| `100` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/joil_vs_equal_budget_ct35_best_kpi_uncorrected_separate_test/mann_whitney_u` | printed |
+| `7.855e-5` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/joil_vs_equal_budget_ct35_best_kpi_uncorrected_separate_test/p_value_one_sided` | printed |
+| `1.0` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/joil_vs_equal_budget_ct35_best_kpi_uncorrected_separate_test/cliffs_delta` | printed |
 | `14` | 1 | declared | - | see table (`14@`14` incumbent-improvement milestones`) |
 | `20261108` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/master_seeds/7` | printed |
 | `30.683537` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/7/gen0_best_kpi_score` | printed |
@@ -1115,31 +1124,34 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `1.336376` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/A2_No_Selection_Random_Walk/24/shannon_diversity_bits/mean` | printed |
 | `1.332945` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/24/shannon_diversity_bits/mean` | printed |
 | `0.0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
-| `46.593857` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/7/held_out_best_kpi_score` | printed |
+| `10` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/initial_audit/comparison/numeric_or_structural_mismatches/26/recomputed` | printed |
+| `46.593857` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/7/held_out_best_kpi_score` | printed |
 | `8` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/7/de_novo_rediscovery_seeds` | printed |
-| `1.99` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/7/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `45.936340` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/final_best_kpi_score` | printed |
-| `2.37` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/8/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `45.787472` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/final_best_kpi_score` | printed |
+| `1.99` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/7/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `45.936340` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/8/held_out_best_kpi_score` | printed |
+| `10` | 2 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/final_best_kpi_at_equal_450_charged_proposal_slots/B3_Wave3_Exotic3D_QD_CEI/n_seeds` | printed |
+| `2.37` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/8/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `45.787472` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/4/held_out_best_kpi_score` | printed |
 | `4` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/4/de_novo_rediscovery_seeds` | printed |
-| `1.73` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/4/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `45.263780` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/3/held_out_best_kpi_score` | printed |
+| `1.73` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/4/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `45.263780` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/3/held_out_best_kpi_score` | printed |
 | `2` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/3/de_novo_rediscovery_seeds` | printed |
-| `0.32` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/3/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `44.717292` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/10/held_out_best_kpi_score` | printed |
-| `1.45` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/10/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `41.842372` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/6/held_out_best_kpi_score` | printed |
-| `3.23` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/6/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `34.194461` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/2/held_out_best_kpi_score` | printed |
+| `0.32` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/3/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `44.717292` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/10/held_out_best_kpi_score` | printed |
+| `1.45` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/10/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `41.842372` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/6/held_out_best_kpi_score` | printed |
+| `3.23` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/6/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `34.194461` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/2/held_out_best_kpi_score` | printed |
 | `0` | 5 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/0/de_novo_rediscovery_seeds` | printed |
-| `2.12` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/2/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `33.466058` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/9/held_out_best_kpi_score` | printed |
-| `1.09` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/9/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `32.740092` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/1/held_out_best_kpi_score` | printed |
-| `5.33` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/1/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `31.605194` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/5/held_out_best_kpi_score` | printed |
-| `2.38` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/5/sandbox_authored_family_rmse_cout_mg_l` | printed |
-| `5.66` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/held_out_geometry_generalization/0/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `2.12` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/2/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `33.466058` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/9/held_out_best_kpi_score` | printed |
+| `1.09` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/9/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `32.740092` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/1/held_out_best_kpi_score` | printed |
+| `5.33` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/1/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `31.605194` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/5/held_out_best_kpi_score` | printed |
+| `2.38` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/5/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `23.931038` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/0/held_out_best_kpi_score` | printed |
+| `5.66` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/0/sandbox_authored_family_rmse_cout_mg_l` | printed |
 
 ## README
 
@@ -1335,6 +1347,7 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `0.725@d_{\max} = 0.725` | protocol constant | Hinze (1955) coefficient | convention; not a receipt value |
 | `0.9412` | derived | mass balance at `C_i = 500`, `r = 0.02`, `C_u = 30` mg/L (§1.1) | `1 - 30 * 0.98 / 500` |
 | `0.9608` | derived | mass balance at `C_i = 500`, `r = 0.02`, `C_u = 20` mg/L (§1.1) | `1 - 20 * 0.98 / 500` |
+| `0@`0` differ` | count | fields that differ between the raw-log reproduction and the published Wave-4 receipt | `len(crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json#/vs_original_published_summary/comparison/numeric_or_structural_mismatches)` |
 | `1,800` | derived | Wave-2 evaluations per arm: seeds × evaluations per seed | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/n_seeds * docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/evaluations_per_seed` |
 | `1.15@sandbox pressure cap of `1.15` | literal | `requirements/joil-hydrocyclone-v1.toml` | `sandbox_pressure_ratio_max = 1.15` |
 | `1.4@`MIN_PASSAGE_DIAMETER_MM` | literal | `crates/joil-core/src/redteam.rs` | `MIN_PASSAGE_DIAMETER_MM: f64 = 1.4` |
@@ -1351,6 +1364,7 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `128@`1024` stations` | literal | `crates/joil-core/src/structure.rs` | `[int_128, int_256, int_512, int_1024]` |
 | `12@$R_a \le 12\ \mu\text{m}$` | literal | `docs/SCIENCE.md` | `$R_a \le 12\ \mu\text{m}$` |
 | `12@at the default of `12` | literal | `crates/joil-cli/src/main.rs` (`--mc` default) | `.unwrap_or(12)` |
+| `14,243@compared `14,243` fields with this section's receipt` | derived | fields compared between the raw-log reproduction and the published receipt | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json#/vs_original_published_summary/comparison/compared_leaves` |
 | `14@`14` incumbent-improvement milestones` | count | incumbent-improvement milestones of seed `20261108` | `len(docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/lineage_milestones)` |
 | `150.4` | derived | mean cross-family label changes per `B3` seed | `(docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/0/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/1/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/2/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/3/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/4/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/6/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/8/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/total_cross_family_lineage_jumps) / 10` |
 | `16@crossing above `B1` at generation` | derived | first generation where the `B3` mean best exceeds `B1` (Wave-3) | `docs/results/wave3-evolution-proof-v1.json#/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/16/generation` |
