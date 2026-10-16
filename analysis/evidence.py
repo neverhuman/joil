@@ -2,7 +2,25 @@
 import hashlib
 import json
 import math
+from enum import Enum
 from pathlib import Path
+
+
+class EvidenceTier(str, Enum):
+    SOFTWARE_CONTRACT = 'software_contract'
+    GEOMETRY = 'geometry'
+    ANALYTIC_SCREEN = 'analytic_screen'
+    COUPLED_SCREEN = 'coupled_screen'
+    NUMERICALLY_VERIFIED = 'numerically_verified'
+    MODEL_CHALLENGE = 'model_challenge'
+    PHYSICAL_VALIDATION = 'physical_validation'
+
+
+def evidence_reference(identity, revision, data):
+    if not identity or not revision or not isinstance(data, bytes):
+        raise ValueError('exact bytes, identity and revision required')
+    return {'id': identity, 'revision': revision,
+            'sha256': hashlib.sha256(data).hexdigest()}
 
 
 def sha256(path):

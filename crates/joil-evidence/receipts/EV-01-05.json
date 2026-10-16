@@ -1,0 +1,193 @@
+{
+  "items": [
+    "EV-01",
+    "EV-02",
+    "EV-03",
+    "EV-04",
+    "EV-05"
+  ],
+  "owner": "EV",
+  "input_head": "7353526a1610dd21e28310827bfead23b2045688",
+  "changed_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "crates/joil-evidence",
+    "analysis/evidence.py",
+    ".agent/JOIL-COORD.md"
+  ],
+  "checks": [
+    {
+      "command": "cargo test -p joil-evidence -j 8",
+      "exit_code": 0,
+      "log_sha256": "3138c13c1ae0059842504c1695e05a3b5db1488e8c4f6ad4ad05e69ab613cd9d"
+    },
+    {
+      "command": "python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "6ca899e9807dfddfc867da8f8a38f96a7bff0b7fb49a2880ee70eee59a166fbb",
+      "steps": [
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.21633559197653085,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 1.3612056410056539,
+          "log_bytes": 315,
+          "log_sha256": "0c5d66c9f5ac86e9aca41da400eeebb9bd35c94e488354d9df50f435a1505dec"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 33.814995001011994,
+          "log_bytes": 4689,
+          "log_sha256": "f9aae26bdf19ed4d87ee7ff7fb5fa306f4285b00151cd26fdfcda029618bb244"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.04065846197772771,
+          "log_bytes": 1019,
+          "log_sha256": "b8375339809081a69f2d9d6a095134e57f0933a4776283ead84aeffb65aaeb03"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 8.477116308000404,
+          "log_bytes": 4183,
+          "log_sha256": "b95db463e4a4d95500ce254b77d41c18adf73acf48368aa66adb67f04d33d87c"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.07850435300497338,
+          "log_bytes": 75,
+          "log_sha256": "d573b3af67db017bd974c2a4d950cf0bf33dde780d12191570d42530dffe1671"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 7.99765886698151,
+          "log_bytes": 133,
+          "log_sha256": "8ed51d6f048ab970baca801b43e61095139b6f2b78adc4d6a25dbfe189c2c5b7"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 1.0242763059795834,
+          "log_bytes": 28,
+          "log_sha256": "9bb811e1f4c21f8d3f2b2a9a81564b13692b3a60ea181f1dd0fc4a867494996b"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 2.24153350898996,
+          "log_bytes": 1904,
+          "log_sha256": "d983190670958d3c2c33441c48e5bbf836a435464f06da0adeb2578e1be1a762"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "exact-byte identity",
+    "compiler/config/mesh subject separation",
+    "measured scalar with declared unit and uncertainty",
+    "reviewed claim DAG",
+    "schedule-invariant samples"
+  ],
+  "negative_checks": [
+    "duplicate JSON keys",
+    "nonfinite/underflow scalars",
+    "missing observations",
+    "unit mismatch",
+    "synthetic evidence upgrade",
+    "failed measurement upgrade",
+    "artifact tampering",
+    "untrusted review",
+    "revoked dependency revokes downstream claims"
+  ],
+  "science_eligibility": "software_contract_tests_only_not_physical_validation",
+  "allocation": {
+    "cargo_jobs_max": 8,
+    "gpu": false
+  },
+  "limitations": [
+    "Applications authenticate trusted review and inventory admission; no signature provider is bundled.",
+    "Consumers in TR/IR still need to integrate the new types.",
+    "Python full observation schema parity follows EV-11."
+  ],
+  "next_dependency": "EV-06 requirements, EV-07 generated status, EV-08 surrogate integration"
+}

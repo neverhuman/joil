@@ -34,3 +34,7 @@ OpenFOAM: INT only, ≤16 cores. Cargo `-j 8` per lane, pytest `-n 4`. GPU: IR o
 
 ## Hard rules
 Never merge the PR (Jepson merges). No force-push, no --admin, no squash. Push as jepsontaylor over HTTPS. Never touch xbabe0. Don't edit another lane's owned files — send NEED instead.
+
+HB 2026-10-16T05:14:11Z EV EV-01 START - claim evidence kernel; EV-02/03/04 next; CPU <=8 cargo, no GPU
+LOCK 2026-10-16T05:14:11Z EV Cargo.toml register joil-evidence workspace member
+LOCK 2026-10-16T05:14:11Z EV Cargo.lock resolve joil-evidence workspace package
