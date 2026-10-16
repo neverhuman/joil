@@ -649,8 +649,3 @@ pub fn analytic_structural_screen(
         failure_reasons,
     })
 }
-
-// Transitional source aliases for other lanes. Their callers must migrate before
-// removal; serialized results always identify the analytic screen.
-pub type StructuralQualification = AnalyticStructuralScreen;
-pub use analytic_structural_screen as qualify_structure;

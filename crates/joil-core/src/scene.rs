@@ -402,7 +402,7 @@ fn build_3d_candidate_preview(
     let prog = &ind.program;
     let d = crate::geometry::baseline().derive()?;
     let (pheno, _) = Phenotype3D::from_program(prog)?;
-    let sq = crate::structure::qualify_structure(
+    let sq = crate::structure::analytic_structural_screen(
         prog,
         &pheno,
         ind.nominal_metrics.dp_u_pa,

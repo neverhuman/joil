@@ -67,6 +67,10 @@ pub struct CfdCaseManifest {
     pub surface_stl_bytes: usize,
     pub multi_patch_audit: MultiPatchAuditReport,
     pub redteam_passed: bool,
+    #[serde(
+        rename = "analytic_structural_screen_passed",
+        alias = "structural_qualified"
+    )]
     pub structural_qualified: bool,
     pub dictionary_files_sha256: BTreeMap<String, String>,
     pub qualified_for_oil_grade: bool,
@@ -143,10 +147,11 @@ pub fn build_openfoam_candidate_case(
     let (pheno, mesh) = Phenotype3D::from_program(&p)?;
     redteam::check(&p, &pheno, &mesh)
         .map_err(|rej| format!("candidate failed F0 red-team gate: {rej:?}"))?;
-    let structure = structure::qualify_structure(&p, &pheno, 29468.22, config.feed_m3_h / 3600.0)?;
+    let structure =
+        structure::analytic_structural_screen(&p, &pheno, 29468.22, config.feed_m3_h / 3600.0)?;
     if !structure.passed {
         return Err(format!(
-            "candidate failed P08 structural/LPBF qualification gate: {:?}",
+            "candidate failed the P08 analytic structural/LPBF screen: {:?}",
             structure.failure_reasons
         ));
     }
