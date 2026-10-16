@@ -1,0 +1,1610 @@
+{
+  "rounding_diagnosis": {
+    "state": "28_of_28_explained_by_arithmetic_order_no_data_or_tolerance_changes",
+    "rows": [
+      {
+        "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/2/best_kpi_score/iqr",
+        "recomputed": 1.577395,
+        "recorded": 1.577394,
+        "scalar_rust_order_value": "1.577394499999997",
+        "scalar_rust_order_hex": "0x1.93d0203e63e80p+0",
+        "scalar_rust_order_rounded": 1.577394,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          33.119062,
+          31.385112,
+          30.862944,
+          31.376746,
+          32.073769,
+          32.808659,
+          33.084817,
+          32.561909,
+          31.222205,
+          33.005423
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/2/median_kpi_score/iqr",
+        "recomputed": 1.378432,
+        "recorded": 1.378431,
+        "scalar_rust_order_value": "1.3784314999999978",
+        "scalar_rust_order_hex": "0x1.60e0e30446b60p+0",
+        "scalar_rust_order_rounded": 1.378431,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          30.445272,
+          28.657611,
+          27.744687,
+          28.237271,
+          29.467364,
+          29.805262,
+          29.440689,
+          28.732067,
+          30.199414,
+          26.401406
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/5/best_kpi_score/iqr",
+        "recomputed": 0.593701,
+        "recorded": 0.5937,
+        "scalar_rust_order_value": "0.5937004999999971",
+        "scalar_rust_order_hex": "0x1.2ff9830e3cd80p-1",
+        "scalar_rust_order_rounded": 0.5937,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          33.152465,
+          33.350569,
+          32.184921,
+          32.675638,
+          33.435707,
+          33.115275,
+          34.031225,
+          32.921713,
+          32.431721,
+          33.271722
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/9/best_kpi_score/iqr",
+        "recomputed": 0.770514,
+        "recorded": 0.770515,
+        "scalar_rust_order_value": "0.7705145000000044",
+        "scalar_rust_order_hex": "0x1.8a80e06530080p-1",
+        "scalar_rust_order_rounded": 0.770515,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          33.842721,
+          34.17195,
+          32.7379,
+          32.977,
+          33.44656,
+          34.208927,
+          34.07788,
+          33.652198,
+          33.182581,
+          33.774263
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/19/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 0.783677,
+        "recorded": 0.783676,
+        "scalar_rust_order_value": "0.7836764999999986",
+        "scalar_rust_order_hex": "0x1.913e0bd449980p-1",
+        "scalar_rust_order_rounded": 0.783676,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          18.896458,
+          19.105862,
+          19.855575,
+          19.586111,
+          19.489455,
+          18.581681,
+          18.815398,
+          19.422374,
+          19.781277,
+          20.348606
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/9/best_kpi_score/iqr",
+        "recomputed": 1.392918,
+        "recorded": 1.392919,
+        "scalar_rust_order_value": "1.3929185000000075",
+        "scalar_rust_order_hex": "0x1.64964e8b7e500p+0",
+        "scalar_rust_order_rounded": 1.392919,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          42.960179,
+          36.726364,
+          40.450005,
+          41.655104,
+          40.062103,
+          39.427894,
+          40.411284,
+          41.960182,
+          41.126863,
+          41.203955
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/9/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 3.271742,
+        "recorded": 3.271743,
+        "scalar_rust_order_value": "3.271742500000002",
+        "scalar_rust_order_hex": "0x1.a2c8754f37760p+1",
+        "scalar_rust_order_rounded": 3.271743,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          16.20145,
+          19.58898,
+          19.795349,
+          20.220814,
+          18.437989,
+          19.691273,
+          16.382842,
+          18.208536,
+          16.427303,
+          16.298041
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/14/median_kpi_score/iqr",
+        "recomputed": 2.579874,
+        "recorded": 2.579873,
+        "scalar_rust_order_value": "2.579873499999998",
+        "scalar_rust_order_hex": "0x1.4a394b7b28950p+1",
+        "scalar_rust_order_rounded": 2.579873,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          37.271428,
+          37.044816,
+          34.656611,
+          35.294793,
+          34.254267,
+          37.437564,
+          39.905559,
+          37.177773,
+          33.880158,
+          40.40658
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/18/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 2.225747,
+        "recorded": 2.225748,
+        "scalar_rust_order_value": "2.225747500000004",
+        "scalar_rust_order_hex": "0x1.1ce54b48d3af0p+1",
+        "scalar_rust_order_rounded": 2.225748,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          15.381627,
+          12.83211,
+          19.585752,
+          15.481316,
+          17.730804,
+          14.546983,
+          14.098409,
+          16.754628,
+          15.425848,
+          12.586772
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/20/best_kpi_score/iqr",
+        "recomputed": 1.617748,
+        "recorded": 1.617749,
+        "scalar_rust_order_value": "1.6177485000000047",
+        "scalar_rust_order_hex": "0x1.9e24c404a7300p+0",
+        "scalar_rust_order_rounded": 1.617749,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          43.440635,
+          42.543766,
+          39.174403,
+          42.805168,
+          41.628242,
+          42.165381,
+          43.520559,
+          41.126395,
+          43.199196,
+          44.382285
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/23/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 2.431541,
+        "recorded": 2.43154,
+        "scalar_rust_order_value": "2.4315404999999988",
+        "scalar_rust_order_hex": "0x1.373cb81733224p+1",
+        "scalar_rust_order_rounded": 2.43154,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          13.58244,
+          13.628609,
+          16.833795,
+          15.022678,
+          16.351542,
+          14.666451,
+          13.861658,
+          16.098046,
+          17.440724,
+          16.542015
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B1_Random_Search/1/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 1.36116,
+        "recorded": 1.361159,
+        "scalar_rust_order_value": "1.3611594999999976",
+        "scalar_rust_order_hex": "0x1.5c74f2f123c38p+0",
+        "scalar_rust_order_rounded": 1.361159,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          13.722346,
+          14.786708,
+          15.345991,
+          17.350244,
+          15.40706,
+          16.180777,
+          16.633028,
+          16.282412,
+          14.790932,
+          16.293671
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B1_Random_Search/5/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 1.505979,
+        "recorded": 1.50598,
+        "scalar_rust_order_value": "1.5059795000000022",
+        "scalar_rust_order_hex": "0x1.8187df5cf24a0p+0",
+        "scalar_rust_order_rounded": 1.50598,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          14.616278,
+          14.369924,
+          15.997245,
+          14.195071,
+          15.022191,
+          16.226806,
+          17.979058,
+          14.792467,
+          15.582605,
+          16.222658
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B1_Random_Search/13/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 1.671061,
+        "recorded": 1.67106,
+        "scalar_rust_order_value": "1.6710604999999994",
+        "scalar_rust_order_hex": "0x1.abca9ef5232d0p+0",
+        "scalar_rust_order_rounded": 1.67106,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          13.742599,
+          16.551729,
+          14.354934,
+          17.302637,
+          15.846955,
+          14.80542,
+          14.887238,
+          16.750355,
+          15.345943,
+          16.332553
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B1_Random_Search/14/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 1.836943,
+        "recorded": 1.836942,
+        "scalar_rust_order_value": "1.8369424999999993",
+        "scalar_rust_order_hex": "0x1.d641dd1a21ea0p+0",
+        "scalar_rust_order_rounded": 1.836942,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          14.050218,
+          16.618072,
+          17.316043,
+          16.814292,
+          17.835116,
+          16.56471,
+          14.228478,
+          18.283234,
+          14.952592,
+          16.556875
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B1_Random_Search/15/median_kpi_score/mean",
+        "recomputed": 37.440307,
+        "recorded": 37.440306,
+        "scalar_rust_order_value": "37.44030649999999",
+        "scalar_rust_order_hex": "0x1.2b85bf6a0dbacp+5",
+        "scalar_rust_order_rounded": 37.440306,
+        "matches_recorded": true,
+        "method": "explicit left-to-right sum / n",
+        "values": [
+          38.83973,
+          37.826554,
+          35.256988,
+          37.542205,
+          35.743599,
+          37.252037,
+          40.299436,
+          38.068048,
+          38.225689,
+          35.348779
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B1_Random_Search/19/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 1.626138,
+        "recorded": 1.626137,
+        "scalar_rust_order_value": "1.6261374999999987",
+        "scalar_rust_order_hex": "0x1.a04a8c154c980p+0",
+        "scalar_rust_order_rounded": 1.626137,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          14.337472,
+          14.90194,
+          15.630161,
+          13.518178,
+          14.650374,
+          15.711436,
+          15.45851,
+          13.835657,
+          13.723481,
+          16.20023
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B1_Random_Search/23/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 1.235955,
+        "recorded": 1.235956,
+        "scalar_rust_order_value": "1.235955500000001",
+        "scalar_rust_order_hex": "0x1.3c679463cfb38p+0",
+        "scalar_rust_order_rounded": 1.235956,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          14.569292,
+          14.523577,
+          15.579169,
+          13.946599,
+          15.971639,
+          16.343439,
+          15.577743,
+          16.419883,
+          15.062523,
+          15.799304
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/4/median_kpi_score/iqr",
+        "recomputed": 0.719187,
+        "recorded": 0.719188,
+        "scalar_rust_order_value": "0.7191875000000003",
+        "scalar_rust_order_hex": "0x1.70395810624e0p-1",
+        "scalar_rust_order_rounded": 0.719188,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          31.136704,
+          28.889543,
+          29.71179,
+          29.785236,
+          29.520171,
+          29.673573,
+          29.64352,
+          30.464521,
+          30.431849,
+          27.929387
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/13/median_cout_sample_screen_upper_mg_l/mean",
+        "recomputed": 19.586476,
+        "recorded": 19.586477,
+        "scalar_rust_order_value": "19.5864765",
+        "scalar_rust_order_hex": "0x1.3962352eb5f5fp+4",
+        "scalar_rust_order_rounded": 19.586477,
+        "matches_recorded": true,
+        "method": "explicit left-to-right sum / n",
+        "values": [
+          19.03783,
+          19.241177,
+          19.6419,
+          20.051967,
+          19.994726,
+          20.032127,
+          19.804451,
+          19.133271,
+          18.863056,
+          20.06426
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/17/median_kpi_score/iqr",
+        "recomputed": 0.651931,
+        "recorded": 0.651932,
+        "scalar_rust_order_value": "0.6519315000000034",
+        "scalar_rust_order_hex": "0x1.4dc9f72f76e80p-1",
+        "scalar_rust_order_rounded": 0.651932,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          34.917264,
+          34.968709,
+          33.548763,
+          34.791977,
+          34.561709,
+          34.146137,
+          34.327575,
+          35.6673,
+          35.081362,
+          34.29603
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/1/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 1.209613,
+        "recorded": 1.209612,
+        "scalar_rust_order_value": "1.2096124999999986",
+        "scalar_rust_order_hex": "0x1.35a92a3055320p+0",
+        "scalar_rust_order_rounded": 1.209612,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          21.946964,
+          23.011893,
+          24.854483,
+          24.103694,
+          22.827381,
+          22.753507,
+          22.765169,
+          24.159418,
+          21.759951,
+          23.553058
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/5/median_kpi_score/iqr",
+        "recomputed": 1.680006,
+        "recorded": 1.680007,
+        "scalar_rust_order_value": "1.6800065000000046",
+        "scalar_rust_order_hex": "0x1.ae14e7ee91440p+0",
+        "scalar_rust_order_rounded": 1.680007,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          37.708234,
+          38.33392,
+          37.000887,
+          37.361348,
+          37.878466,
+          39.256875,
+          39.393181,
+          35.324524,
+          39.099866,
+          37.184048
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/6/median_kpi_score/iqr",
+        "recomputed": 1.319296,
+        "recorded": 1.319297,
+        "scalar_rust_order_value": "1.3192965",
+        "scalar_rust_order_hex": "0x1.51bd6a593a2e0p+0",
+        "scalar_rust_order_rounded": 1.319297,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          39.668226,
+          39.411681,
+          38.55786,
+          38.294058,
+          37.878466,
+          39.711879,
+          40.095726,
+          38.001538,
+          39.489159,
+          38.334477
+        ]
+      },
+      {
+        "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/11/median_cout_sample_screen_upper_mg_l/iqr",
+        "recomputed": 1.19473,
+        "recorded": 1.194729,
+        "scalar_rust_order_value": "1.1947294999999976",
+        "scalar_rust_order_hex": "0x1.31d9cae211010p+0",
+        "scalar_rust_order_rounded": 1.194729,
+        "matches_recorded": true,
+        "method": "weighted-sum interpolation a[lo]*(1-frac)+a[hi]*frac at q.75 minus q.25",
+        "values": [
+          12.121737,
+          15.418208,
+          12.549113,
+          13.25397,
+          11.967501,
+          13.041248,
+          11.896518,
+          11.401322,
+          13.26347,
+          12.212943
+        ]
+      },
+      {
+        "pointer": "/pairwise_tests/0/mean_diff",
+        "recomputed": -0.804947,
+        "recorded": -0.804948,
+        "scalar_rust_order_value": "-0.8049475000000044",
+        "scalar_rust_order_hex": "-0x1.9c221426fe740p-1",
+        "scalar_rust_order_rounded": -0.804948,
+        "matches_recorded": true,
+        "method": "explicit left-to-right sum(a)/na minus sum(b)/nb",
+        "values": {
+          "a": [
+            44.973459,
+            44.84947,
+            45.30646,
+            43.970155,
+            45.479894,
+            45.787472,
+            45.377137,
+            45.93634,
+            44.588046,
+            45.050288
+          ],
+          "b": [
+            45.885544,
+            45.285807,
+            45.927149,
+            45.788986,
+            46.873867,
+            45.974593,
+            46.454856,
+            46.52071,
+            45.347453,
+            45.309231
+          ]
+        }
+      },
+      {
+        "pointer": "/pairwise_tests/9/mean_diff",
+        "recomputed": 9.98756,
+        "recorded": 9.987559,
+        "scalar_rust_order_value": "9.987559499999989",
+        "scalar_rust_order_hex": "0x1.3f9a16616b548p+3",
+        "scalar_rust_order_rounded": 9.987559,
+        "matches_recorded": true,
+        "method": "explicit left-to-right sum(a)/na minus sum(b)/nb",
+        "values": {
+          "a": [
+            44.580548,
+            42.66432,
+            43.431623,
+            43.63325,
+            43.136475,
+            44.749991,
+            43.916183,
+            42.719869,
+            43.599883,
+            43.851513
+          ],
+          "b": [
+            34.209787,
+            33.849481,
+            32.927741,
+            33.328046,
+            33.435707,
+            34.208927,
+            34.113529,
+            33.46463,
+            32.962983,
+            33.907229
+          ]
+        }
+      },
+      {
+        "pointer": "/pairwise_tests/13/mean_diff",
+        "recomputed": 5.771656,
+        "recorded": 5.771655,
+        "scalar_rust_order_value": "5.771655499999994",
+        "scalar_rust_order_hex": "0x1.7162cdc011d30p+2",
+        "scalar_rust_order_rounded": 5.771655,
+        "matches_recorded": true,
+        "method": "explicit left-to-right sum(a)/na minus sum(b)/nb",
+        "values": {
+          "a": [
+            44.580548,
+            42.66432,
+            43.431623,
+            43.63325,
+            43.136475,
+            44.749991,
+            43.916183,
+            42.719869,
+            43.599883,
+            43.851513
+          ],
+          "b": [
+            39.24189,
+            37.406811,
+            38.558367,
+            40.396562,
+            36.821189,
+            40.606028,
+            41.425374,
+            33.184942,
+            36.15696,
+            34.768977
+          ]
+        }
+      }
+    ]
+  },
+  "schema": "joil.truth-wave4-raw-capture-handoff.v1",
+  "generated_utc": "2026-10-16T10:06:34.216223+00:00",
+  "task": "WAVE4-RAW-CAPTURE",
+  "state": "capture_run_complete",
+  "implementation_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+  "upstream_fold_api_commit": "1426d8d596fe6194f1125b22c7f3517402f2a212",
+  "local_fold_api_commit": "d3dfce36b563e8940000efa7eb822dd9d20625bb",
+  "independent_consumer_commit": "cf728a94232e31e338ed12230c8b7188696b6b14",
+  "consumer_source": "crates/joil-evidence/receipts/wave4_raw_proof.py",
+  "consumer_source_sha256": "ca8fba186efc546cf223c3c374fa08be1ce60075f5387e6af3c716ea97571686",
+  "contract_status": "NEW; not a claim that original Wave-4 raw records existed",
+  "scope": "new pinned-source sandbox reproducibility run; original raw campaign unrecoverable from summary",
+  "cli_usage": "wave3-proof --seeds SEED1,... --islands 2 --pop 9 --generations 24 --mc 72 --raw-dir NEW_DIRECTORY --out NEW_SUMMARY",
+  "capture_contents": [
+    "Every charged evaluated/repaired/invalid proposal with original Individual and variation outcome, including failed red-team/structural states",
+    "Every actual MC draw and realization, without re-evaluation",
+    "Actual per-generation survivor IDs and archive hypervolume telemetry",
+    "All original arms including equal-budget random search; separately charged new equal-budget CT35 arm",
+    "Exact global/per-seed/family reference evaluations",
+    "Config, requirements/objective, compiled compiler/model sources, executable/toolchain and SplitMix64 identities",
+    "Every existing authored-family fit prediction, target, sigma, interval and train/test membership; scoped aliases bind repeated original family IDs to full candidates",
+    "Deterministic operating-duty screens labelled as reduced screens",
+    "JSONL plus matching NEW consumer-schema JSON projections, sha256 manifest and manifest.sha256; incomplete runs lack a complete manifest"
+  ],
+  "budgets": {
+    "original_arms": 5,
+    "original_seeds": 10,
+    "per_seed_proposals": 450,
+    "original_total_proposal_slots": 22500,
+    "additional_ct35_proposal_slots": 4500,
+    "notes": "References separately charged. Repeat CT35 geometries/MC draws within a seed are not independent physical replicates."
+  },
+  "resource_lease": {
+    "cpu_set": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_cores_max": 8,
+    "ram_gib_max": 16,
+    "output_gib_max": 10,
+    "gpu": false,
+    "int_cpu_set": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "allocation_source": "INT live board 2026-10-16T09:36:15Z CPU/RAM and 09:57:40Z disk; OWNER09:35 conditional full run",
+    "constraints": "All build/test/benchmark/full-run/audit children pinned to8-15; no OpenFOAM launched/changed"
+  },
+  "commands": {
+    "tiny-consumer": {
+      "label": "tiny-consumer",
+      "command": [
+        "python3",
+        ".private/truth-raw-capture/wave4_raw_proof-cf728a9.py",
+        "--raw-root",
+        "target/truth-raw-capture-tests/parity-3836067-1792144072186471874",
+        "--summary",
+        "target/truth-raw-capture-tests/parity-3836067-1792144072186471874/proof-summary.json"
+      ],
+      "started_utc": "2026-10-16T09:50:44.231251+00:00",
+      "finished_utc": "2026-10-16T09:50:44.646052+00:00",
+      "exit_code": 2,
+      "wall_seconds": 0.4148019190179184,
+      "child_max_rss_kib": 84992,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "0e40f772ca467468483863c6bfe830511abffca2aff785d79b113db79a72de36",
+      "log_bytes": 71170
+    },
+    "benchmark-verify": {
+      "label": "benchmark-verify",
+      "command": [
+        "python3",
+        ".private/truth-raw-capture/verify_capture.py",
+        ".private/truth-raw-capture/benchmark-raw"
+      ],
+      "started_utc": "2026-10-16T09:56:08.221665+00:00",
+      "finished_utc": "2026-10-16T09:56:42.900294+00:00",
+      "exit_code": 0,
+      "wall_seconds": 34.67863037402276,
+      "child_max_rss_kib": 371864,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "b36c9a968fcd4427dcf1385fcffbcd0d2c1becf1a3b1135f0fa1da3bf44ff7ab",
+      "log_bytes": 509
+    },
+    "benchmark-consumer": {
+      "label": "benchmark-consumer",
+      "command": [
+        "python3",
+        ".private/truth-raw-capture/wave4_raw_proof-cf728a9.py",
+        "--raw-root",
+        ".private/truth-raw-capture/benchmark-raw",
+        "--summary",
+        ".private/truth-raw-capture/benchmark-raw/proof-summary.json"
+      ],
+      "started_utc": "2026-10-16T09:56:40.510657+00:00",
+      "finished_utc": "2026-10-16T09:56:55.057255+00:00",
+      "exit_code": 2,
+      "wall_seconds": 14.54660399002023,
+      "child_max_rss_kib": 4378612,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "c0727a9d85fe1bc2a91722b0fbbfda2e9005ed32efe431e3ee0b0b0796a15aae",
+      "log_bytes": 539468
+    },
+    "full-consumer": {
+      "label": "full-consumer",
+      "command": [
+        "python3",
+        ".private/truth-raw-capture/wave4_raw_proof-cf728a9.py",
+        "--raw-root",
+        ".private/truth-raw-capture/full-raw",
+        "--summary",
+        ".private/truth-raw-capture/full-raw/proof-summary.json"
+      ],
+      "started_utc": "2026-10-16T10:02:46.899902+00:00",
+      "finished_utc": "2026-10-16T10:03:18.436042+00:00",
+      "exit_code": 1,
+      "wall_seconds": 31.53614783199737,
+      "child_max_rss_kib": 8665288,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "88f8c778a6c99a5b4c08f0c846d5a09ebf8b5425245436e12927d2228059eb58",
+      "log_bytes": 845495
+    },
+    "estimate": {
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "benchmark_seeds": 5,
+      "full_seeds": 10,
+      "original_cli": "wave3-proof --seeds 20261101,20261102,20261103,20261104,20261105,20261106,20261107,20261108,20261109,20261110 --islands 2 --pop 9 --generations 24 --mc 72",
+      "benchmark_wall_seconds": 149.12532110599568,
+      "benchmark_bytes": 2175251964,
+      "central_wall_seconds": 298.25064221199136,
+      "conservative_wall_seconds": 507.37596331798704,
+      "method": "Five seeds at full original population/generations/MC, including all capture and CT35 reference work; double for ten seeds, conservative3x+60s accommodates chunk scheduling/I/O/extra LOFO rows.",
+      "estimated_full_bytes": 4785554320,
+      "retained_benchmark_plus_full_bytes": 6960806284,
+      "under_two_hours": true,
+      "cpu_set": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "max_memory_kib": 1213452,
+      "benchmark_manifest_sha256": "a7525a6cdebee6a32bb451573c32e0949584ff691d42fe10e02d374561812e84"
+    },
+    "full-run": {
+      "label": "full-run",
+      "command": [
+        "target/release/joil-cli",
+        "wave3-proof",
+        "--seeds",
+        "20261101,20261102,20261103,20261104,20261105,20261106,20261107,20261108,20261109,20261110",
+        "--islands",
+        "2",
+        "--pop",
+        "9",
+        "--generations",
+        "24",
+        "--mc",
+        "72",
+        "--raw-dir",
+        ".private/truth-raw-capture/full-raw",
+        "--out",
+        ".private/truth-raw-capture/full-summary.json"
+      ],
+      "started_utc": "2026-10-16T09:57:58.913200+00:00",
+      "finished_utc": "2026-10-16T10:02:02.350422+00:00",
+      "exit_code": 0,
+      "wall_seconds": 243.43722874100786,
+      "child_max_rss_kib": 1425536,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "46d3ca4a5120c13c295ec319415fd8af6f5cdf3518e5abf6fcc54663e4784824",
+      "log_bytes": 16000
+    },
+    "full-verify": {
+      "label": "full-verify",
+      "command": [
+        "python3",
+        ".private/truth-raw-capture/verify_capture.py",
+        ".private/truth-raw-capture/full-raw"
+      ],
+      "started_utc": "2026-10-16T10:02:36.330883+00:00",
+      "finished_utc": "2026-10-16T10:03:49.953104+00:00",
+      "exit_code": 0,
+      "wall_seconds": 73.62222305801697,
+      "child_max_rss_kib": 384660,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "a4549c8dade53127542cc68e1d19b0d1f30862aedd827a39ad8923692f286de4",
+      "log_bytes": 512
+    },
+    "benchmark": {
+      "label": "benchmark",
+      "command": [
+        "target/release/joil-cli",
+        "wave3-proof",
+        "--seeds",
+        "20261101,20261102,20261103,20261104,20261105",
+        "--islands",
+        "2",
+        "--pop",
+        "9",
+        "--generations",
+        "24",
+        "--mc",
+        "72",
+        "--raw-dir",
+        ".private/truth-raw-capture/benchmark-raw",
+        "--out",
+        ".private/truth-raw-capture/benchmark-summary.json"
+      ],
+      "started_utc": "2026-10-16T09:53:07.067705+00:00",
+      "finished_utc": "2026-10-16T09:55:36.193011+00:00",
+      "exit_code": 0,
+      "wall_seconds": 149.12532110599568,
+      "child_max_rss_kib": 1213452,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "35ea7c31d96b9d0fe98f23193ac413b8b68e35874d4f5c2da03a1bdc30f7e0c0",
+      "log_bytes": 15987
+    },
+    "cli-existing-summary-refused": {
+      "label": "cli-existing-summary-refused",
+      "command": [
+        "target/release/joil-cli",
+        "wave3-proof",
+        "--raw-dir",
+        ".private/truth-raw-capture/refused-raw",
+        "--out",
+        ".private/truth-raw-capture/release-build.json"
+      ],
+      "started_utc": "2026-10-16T09:54:00.696661+00:00",
+      "finished_utc": "2026-10-16T09:54:00.700290+00:00",
+      "exit_code": 1,
+      "wall_seconds": 0.0036149900406599045,
+      "child_max_rss_kib": 15360,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "49d5e2aee2b5ba2a74722b9344ebe7ddcbda1ac52047023481b4559daa9b6d74",
+      "log_bytes": 55
+    },
+    "release-build": {
+      "label": "release-build",
+      "command": [
+        "cargo",
+        "build",
+        "--locked",
+        "--release",
+        "-j",
+        "8",
+        "-p",
+        "joil-cli"
+      ],
+      "started_utc": "2026-10-16T09:51:56.248260+00:00",
+      "finished_utc": "2026-10-16T09:52:25.049404+00:00",
+      "exit_code": 0,
+      "wall_seconds": 28.801150408980902,
+      "child_max_rss_kib": 730192,
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_status": "",
+      "cpu_affinity": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "log_sha256": "77053085058436d088a8d1d1aae07741e8ff9aa881e85db4714d3f2b60cfcb0f",
+      "log_bytes": 1327
+    }
+  },
+  "captures": {
+    "benchmark-raw": {
+      "retained_root": "/home/ubuntu/joil-wt/truth/.private/truth-raw-capture/benchmark-raw",
+      "manifest_sha256": "a7525a6cdebee6a32bb451573c32e0949584ff691d42fe10e02d374561812e84",
+      "manifest_files": 94,
+      "manifested_bytes": 2175251964,
+      "campaign_id": "wave4-repro-1792144387075865658-82831",
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_source_dirty": false,
+      "executable_sha256": "c8ccc5b4985a6ca8f1d860c67ec4f8f1ecd2d5b7aec838201d0b5ad2aa96eade",
+      "configuration": {
+        "generations": 24,
+        "master_seeds": [
+          20261101,
+          20261102,
+          20261103,
+          20261104,
+          20261105
+        ],
+        "mc_samples": 72,
+        "population_per_generation": 18,
+        "proposal_budget": 450,
+        "quality_limit_mg_l": 30.0
+      }
+    },
+    "full-raw": {
+      "retained_root": "/home/ubuntu/joil-wt/truth/.private/truth-raw-capture/full-raw",
+      "manifest_sha256": "d16341e608eef0b23be7b458ed867b295710cbe84fedc263bd16c4d6e2f955d2",
+      "manifest_files": 154,
+      "manifested_bytes": 4348380981,
+      "campaign_id": "wave4-repro-1792144678920712536-465092",
+      "source_commit": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+      "tracked_source_dirty": false,
+      "executable_sha256": "c8ccc5b4985a6ca8f1d860c67ec4f8f1ecd2d5b7aec838201d0b5ad2aa96eade",
+      "configuration": {
+        "generations": 24,
+        "master_seeds": [
+          20261101,
+          20261102,
+          20261103,
+          20261104,
+          20261105,
+          20261106,
+          20261107,
+          20261108,
+          20261109,
+          20261110
+        ],
+        "mc_samples": 72,
+        "population_per_generation": 18,
+        "proposal_budget": 450,
+        "quality_limit_mg_l": 30.0
+      }
+    }
+  },
+  "raw_consistency_checks": {
+    "benchmark-verify": {
+      "state": "software_consistency_pass_not_physical_validation",
+      "counts": {
+        "seed_documents": 30,
+        "proposals": 13500,
+        "invalid_proposals": 0,
+        "evaluated_proposals": 10216,
+        "repaired_proposals": 3284,
+        "reference_evaluations": 58,
+        "mc_observations": 976176,
+        "survival_rows": 750,
+        "fold_rows": 11,
+        "prediction_rows": 32,
+        "quantile_fields": 94906
+      },
+      "bytes": 2175251964,
+      "manifest_sha256": "a7525a6cdebee6a32bb451573c32e0949584ff691d42fe10e02d374561812e84"
+    },
+    "full-verify": {
+      "state": "software_consistency_pass_not_physical_validation",
+      "counts": {
+        "seed_documents": 60,
+        "proposals": 27000,
+        "invalid_proposals": 0,
+        "evaluated_proposals": 20285,
+        "repaired_proposals": 6715,
+        "reference_evaluations": 88,
+        "mc_observations": 1950336,
+        "survival_rows": 1500,
+        "fold_rows": 11,
+        "prediction_rows": 37,
+        "quantile_fields": 189616
+      },
+      "bytes": 4348380981,
+      "manifest_sha256": "d16341e608eef0b23be7b458ed867b295710cbe84fedc263bd16c4d6e2f955d2"
+    }
+  },
+  "consumer_audits": {
+    "tiny-consumer": {
+      "state": "BLOCKED",
+      "gaps": [
+        "Provided folds are authored-family screen diagnostics, not independent geometry holdouts."
+      ],
+      "comparison": {
+        "compared_leaves": 1363,
+        "numeric_or_structural_mismatches": [],
+        "coverage_gaps": []
+      }
+    },
+    "benchmark-consumer": {
+      "state": "BLOCKED",
+      "gaps": [
+        "Provided folds are authored-family screen diagnostics, not independent geometry holdouts."
+      ],
+      "comparison": {
+        "compared_leaves": 9643,
+        "numeric_or_structural_mismatches": [],
+        "coverage_gaps": []
+      }
+    },
+    "full-consumer": {
+      "state": "MISMATCH",
+      "gaps": [
+        "Provided folds are authored-family screen diagnostics, not independent geometry holdouts."
+      ],
+      "comparison": {
+        "compared_leaves": 14243,
+        "numeric_or_structural_mismatches": [
+          {
+            "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/2/best_kpi_score/iqr",
+            "recomputed": 1.577395,
+            "recorded": 1.577394
+          },
+          {
+            "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/2/median_kpi_score/iqr",
+            "recomputed": 1.378432,
+            "recorded": 1.378431
+          },
+          {
+            "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/5/best_kpi_score/iqr",
+            "recomputed": 0.593701,
+            "recorded": 0.5937
+          },
+          {
+            "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/9/best_kpi_score/iqr",
+            "recomputed": 0.770514,
+            "recorded": 0.770515
+          },
+          {
+            "pointer": "/generation_band_curves/A1_No_Mutation_Crossover_Only/19/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 0.783677,
+            "recorded": 0.783676
+          },
+          {
+            "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/9/best_kpi_score/iqr",
+            "recomputed": 1.392918,
+            "recorded": 1.392919
+          },
+          {
+            "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/9/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 3.271742,
+            "recorded": 3.271743
+          },
+          {
+            "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/14/median_kpi_score/iqr",
+            "recomputed": 2.579874,
+            "recorded": 2.579873
+          },
+          {
+            "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/18/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 2.225747,
+            "recorded": 2.225748
+          },
+          {
+            "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/20/best_kpi_score/iqr",
+            "recomputed": 1.617748,
+            "recorded": 1.617749
+          },
+          {
+            "pointer": "/generation_band_curves/A2_No_Selection_Random_Walk/23/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 2.431541,
+            "recorded": 2.43154
+          },
+          {
+            "pointer": "/generation_band_curves/B1_Random_Search/1/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 1.36116,
+            "recorded": 1.361159
+          },
+          {
+            "pointer": "/generation_band_curves/B1_Random_Search/5/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 1.505979,
+            "recorded": 1.50598
+          },
+          {
+            "pointer": "/generation_band_curves/B1_Random_Search/13/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 1.671061,
+            "recorded": 1.67106
+          },
+          {
+            "pointer": "/generation_band_curves/B1_Random_Search/14/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 1.836943,
+            "recorded": 1.836942
+          },
+          {
+            "pointer": "/generation_band_curves/B1_Random_Search/15/median_kpi_score/mean",
+            "recomputed": 37.440307,
+            "recorded": 37.440306
+          },
+          {
+            "pointer": "/generation_band_curves/B1_Random_Search/19/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 1.626138,
+            "recorded": 1.626137
+          },
+          {
+            "pointer": "/generation_band_curves/B1_Random_Search/23/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 1.235955,
+            "recorded": 1.235956
+          },
+          {
+            "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/4/median_kpi_score/iqr",
+            "recomputed": 0.719187,
+            "recorded": 0.719188
+          },
+          {
+            "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/13/median_cout_sample_screen_upper_mg_l/mean",
+            "recomputed": 19.586476,
+            "recorded": 19.586477
+          },
+          {
+            "pointer": "/generation_band_curves/B2_Conventional_Axisym_NSGA2/17/median_kpi_score/iqr",
+            "recomputed": 0.651931,
+            "recorded": 0.651932
+          },
+          {
+            "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/1/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 1.209613,
+            "recorded": 1.209612
+          },
+          {
+            "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/5/median_kpi_score/iqr",
+            "recomputed": 1.680006,
+            "recorded": 1.680007
+          },
+          {
+            "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/6/median_kpi_score/iqr",
+            "recomputed": 1.319296,
+            "recorded": 1.319297
+          },
+          {
+            "pointer": "/generation_band_curves/B3_Wave3_Exotic3D_QD_CEI/11/median_cout_sample_screen_upper_mg_l/iqr",
+            "recomputed": 1.19473,
+            "recorded": 1.194729
+          },
+          {
+            "pointer": "/pairwise_tests/0/mean_diff",
+            "recomputed": -0.804947,
+            "recorded": -0.804948
+          },
+          {
+            "pointer": "/pairwise_tests/9/mean_diff",
+            "recomputed": 9.98756,
+            "recorded": 9.987559
+          },
+          {
+            "pointer": "/pairwise_tests/13/mean_diff",
+            "recomputed": 5.771656,
+            "recorded": 5.771655
+          }
+        ],
+        "coverage_gaps": []
+      }
+    }
+  },
+  "gate": {
+    "path": ".private/checks/20261016T094933Z-003335c5/receipt.json",
+    "sha256": "9bb5d533fcc258f037746482e76b7f45e21e440061546609f47e519386fc892d",
+    "input_head": "77e61c2e911967f437e7ef23129ab4aaeccfdb77",
+    "all_requested_pass": true,
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.05449740105541423,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.32475869701011106,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.10347778501454741,
+        "log_bytes": 72,
+        "log_sha256": "ee1d3fffa2022e962e63e0dbe4d35c9c198450a20c29fc09030f635dbb38bfcd"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 124.86356955900555,
+        "log_bytes": 12804,
+        "log_sha256": "50cc30e68a5285f3d9480c77ed494533cfb00f48e34666374cddee2ad15649de"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.6630659860093147,
+        "log_bytes": 1093,
+        "log_sha256": "026436eb7465d41ce762a4ed35fc90995d93f86d2bbfc40afd2d988e0978991a"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 57.24384393799119,
+        "log_bytes": 11473,
+        "log_sha256": "cceff5e512e7d8a8b953e1a1587df94e8a9e960c7de31670ddb2dff2a32aea53"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.08469546097330749,
+        "log_bytes": 75,
+        "log_sha256": "e2871147cec2bcb0c16babf752272f5e523144e2a81fae8e539c204c6b29ed65"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 16.80043470597593,
+        "log_bytes": 224,
+        "log_sha256": "ead9bc47cf7c0d07547fc2932cab875dd51ee2dad63e2ee375479ee40d0b13fb"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 0.9610599530278705,
+        "log_bytes": 28,
+        "log_sha256": "84659200a687b3e98e1de38651255a95c4bba108167a24fc054b3d041731b40f"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 9.346105056989472,
+        "log_bytes": 1904,
+        "log_sha256": "54e4e6b8d167bb15d1cc548dcaf4d0cc1959faa4a8b01cbaac17a49054d81aac"
+      }
+    ]
+  },
+  "negative_tests": [
+    "Refuses claim-bearing admission, duplicate/too-few seeds, zero MC/population and overflow before creating output",
+    "Existing raw destination and existing CLI summary refuse overwrite",
+    "Synthetic invalid/evaluation-failure proposals retain null Individual/failure reason; partial captures lack completion manifest"
+  ],
+  "limitations": [
+    "Initial EVcf728a9 full consumer compared14243 leaves and reported28 differences of1e-6 (23IQR/2mean/3mean_diff). Every value is exactly explained by scalar Rust operation order in the diagnostic; original MISMATCH audit remains retained. EV consumer fix/replay is a separate dependency; no tolerance or emitted result was changed.",
+    "Original historical raw observations were not retained; this does not recover them.",
+    "No independently measured oil labels or observed-geometry holdout was created. Authored-family coverage keeps EV consumer BLOCKED/exit2 even when every recomputed value matches.",
+    "No predicted KPI was computed in the existing folds; target_kpi/predicted_kpi remain null.",
+    "Consumer starts from emitted MC quantiles; separate consistency verifier checks those against retained raw MC rows.",
+    "Archive hypervolume remains emitted telemetry, not independently integrated by EV consumer.",
+    "Physical claim-bearing admission remains fail-closed; no OpenFOAM/FEA/bench validation occurred.",
+    "Bulk raw evidence remains ignored/private and is handed to EV by exact retained path and manifest hash; no historical result file overwritten."
+  ],
+  "artifacts": [
+    {
+      "path": ".private/truth-raw-capture/benchmark-consumer.json",
+      "bytes": 755,
+      "sha256": "9f877c7d26e1848aee1151e9fe71bd9cf5fe3854a8f7e67d38e472463fd2fc74"
+    },
+    {
+      "path": ".private/truth-raw-capture/benchmark-consumer.log",
+      "bytes": 539468,
+      "sha256": "c0727a9d85fe1bc2a91722b0fbbfda2e9005ed32efe431e3ee0b0b0796a15aae"
+    },
+    {
+      "path": ".private/truth-raw-capture/benchmark-summary.json",
+      "bytes": 1284793,
+      "sha256": "5ce2420368f739069c19637a2875adbee8c0e7ab316870f19cfb88d37e8b872b"
+    },
+    {
+      "path": ".private/truth-raw-capture/benchmark-verify.json",
+      "bytes": 638,
+      "sha256": "c661b6660f5ace0453c05d75a936986a2e94f1e839171978940b298caa257ab7"
+    },
+    {
+      "path": ".private/truth-raw-capture/benchmark-verify.log",
+      "bytes": 509,
+      "sha256": "b36c9a968fcd4427dcf1385fcffbcd0d2c1becf1a3b1135f0fa1da3bf44ff7ab"
+    },
+    {
+      "path": ".private/truth-raw-capture/benchmark.json",
+      "bytes": 873,
+      "sha256": "2a4d4d8a6f4a62893a888d2463c72154603c25f1892cda69995a2b5570172555"
+    },
+    {
+      "path": ".private/truth-raw-capture/benchmark.log",
+      "bytes": 15987,
+      "sha256": "35ea7c31d96b9d0fe98f23193ac413b8b68e35874d4f5c2da03a1bdc30f7e0c0"
+    },
+    {
+      "path": ".private/truth-raw-capture/build_handoff.py",
+      "bytes": 6631,
+      "sha256": "8e4b2eb074fbec413644e2ff1bbd5e53c570ca9ce9607fa13e557281048df850"
+    },
+    {
+      "path": ".private/truth-raw-capture/cli-existing-summary-refused.json",
+      "bytes": 716,
+      "sha256": "4b794b2699cef44ebba5bcc3566dbdc64a57f3b3398c70f91a191c9f03ffcd2b"
+    },
+    {
+      "path": ".private/truth-raw-capture/cli-existing-summary-refused.log",
+      "bytes": 55,
+      "sha256": "49d5e2aee2b5ba2a74722b9344ebe7ddcbda1ac52047023481b4559daa9b6d74"
+    },
+    {
+      "path": ".private/truth-raw-capture/estimate.json",
+      "bytes": 999,
+      "sha256": "78f6d405bacaa5f47027779aba1a110c62434829004b860407318780f88c45ce"
+    },
+    {
+      "path": ".private/truth-raw-capture/full-consumer.json",
+      "bytes": 740,
+      "sha256": "89f2d609f982c35cef4a1c81e835b43906c1265b73131a519e4fb2a03c7b1c54"
+    },
+    {
+      "path": ".private/truth-raw-capture/full-consumer.log",
+      "bytes": 845495,
+      "sha256": "88f8c778a6c99a5b4c08f0c846d5a09ebf8b5425245436e12927d2228059eb58"
+    },
+    {
+      "path": ".private/truth-raw-capture/full-run.json",
+      "bytes": 907,
+      "sha256": "21c1944f9b633df5cf78adcef470d49c1dcffe25b678729bb407e0aa40147850"
+    },
+    {
+      "path": ".private/truth-raw-capture/full-run.log",
+      "bytes": 16000,
+      "sha256": "46d3ca4a5120c13c295ec319415fd8af6f5cdf3518e5abf6fcc54663e4784824"
+    },
+    {
+      "path": ".private/truth-raw-capture/full-summary.json",
+      "bytes": 2238681,
+      "sha256": "9cd556a378d3dfd8a68b12b08ae66cf6556c3d530a0cadb3b2ec31fa7842729e"
+    },
+    {
+      "path": ".private/truth-raw-capture/full-verify.json",
+      "bytes": 628,
+      "sha256": "e9458c19901abc7449de3d2c01b28cdb13554d3d00fc69e22815c6853a7aff50"
+    },
+    {
+      "path": ".private/truth-raw-capture/full-verify.log",
+      "bytes": 512,
+      "sha256": "a4549c8dade53127542cc68e1d19b0d1f30862aedd827a39ad8923692f286de4"
+    },
+    {
+      "path": ".private/truth-raw-capture/probe_rounding.py",
+      "bytes": 2162,
+      "sha256": "fe18417bb93879f32ad0ce54b250550f26ea0fe14db2439d830ac3c245b159ea"
+    },
+    {
+      "path": ".private/truth-raw-capture/release-build.json",
+      "bytes": 626,
+      "sha256": "3556ba1ccd0f6311c1e22a1548d8f7db67feae9abb48653546c7a6ea51cd2cfa"
+    },
+    {
+      "path": ".private/truth-raw-capture/release-build.log",
+      "bytes": 1327,
+      "sha256": "77053085058436d088a8d1d1aae07741e8ff9aa881e85db4714d3f2b60cfcb0f"
+    },
+    {
+      "path": ".private/truth-raw-capture/rounding-probe.json",
+      "bytes": 19220,
+      "sha256": "85b33149c0ec1e80274e46dd6a799f211db222d81debdb5597810374e9add74e"
+    },
+    {
+      "path": ".private/truth-raw-capture/run_command.py",
+      "bytes": 1405,
+      "sha256": "490a5a93b28891dd9e979cd88afad58c5fe1af7609198250c0d1e976e9531ab1"
+    },
+    {
+      "path": ".private/truth-raw-capture/tiny-consumer.json",
+      "bytes": 798,
+      "sha256": "d75124ba6fb603ff4e3505ddae9238fae9c83ce4aab022ed2fdbb838d4f340e7"
+    },
+    {
+      "path": ".private/truth-raw-capture/tiny-consumer.log",
+      "bytes": 71170,
+      "sha256": "0e40f772ca467468483863c6bfe830511abffca2aff785d79b113db79a72de36"
+    },
+    {
+      "path": ".private/truth-raw-capture/verify_capture.py",
+      "bytes": 5330,
+      "sha256": "412a7e2bf4e33ef2ff2d435f1c6815cb556bd84e39233c8d2f2ea37502397469"
+    },
+    {
+      "path": ".private/truth-raw-capture/wave4_raw_proof-cf728a9.py",
+      "bytes": 22646,
+      "sha256": "ca8fba186efc546cf223c3c374fa08be1ce60075f5387e6af3c716ea97571686"
+    }
+  ],
+  "next_dependency": "EV aligns interpolation/sequential accumulation to declared Rust arithmetic, retains strict tolerances and10-seed regressions; independently verifies manifest/JSONL projections and consumes new full-run inputs; DOC/INT may select labelled new receipt without rewriting original campaign identity"
+}
