@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T11:22Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T11:39Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -81,7 +81,7 @@ reason.
 | EV-09 | EV | MOVED-§6 | board `MOVED-§6 EV-09`: independent Cout labels and reviewed observed-mechanism dataset joil-independent-oil-observations-v1 |
 | EV-10 | EV | MERGED | `ceaa03d` (board `MERGED EV-10`) |
 | EV-11 | EV | MERGED | `d3a5449` (board `MERGED EV-11`) |
-| EV-12 | EV | BLOCKED | merged at `2f15710` without board `DONE EV-12`; 2026-10-16T08:52:00Z c2db553877b1026b6463cb545c4312e4e2d868a7 accepted owner08:39 missing-capture blocker persis |
+| EV-12 | EV | MERGED | `eeee9f9` (board `MERGED EV-12`) |
 | IR-01 | IR | MERGED | `2f15710` (board `MERGED IR-01`) |
 | IR-02 | IR | MERGED | `2f15710` (board `MERGED IR-02`) |
 | IR-03 | IR | MERGED | `2f15710` (board `MERGED IR-03`) |
@@ -274,7 +274,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 | S6-A.07 | S6 App.A-7 | Replace partial CUDA JSON with subject-bundle reference plus exact artifact bytes | V: see S6-3.8 | IR-10 | FULL | MERGED |
 | S6-A.08 | S6 App.A-8 | Fix observed-order arithmetic; add GCI validity states | V: see S1-15.10 | TR-07 | FULL | MERGED |
 | S6-A.09 | S6 App.A-9 | Rename structure verdict `AnalyticStructuralScreen` | V: `evolve.rs:145` field `structural_qualification` | TR-10 | FULL | MERGED |
-| S6-A.10 | S6 App.A-10 | OpenFOAM/FEA case manifests embed full scientific identity | N/A | EV-12 | FULL | BLOCKED |
+| S6-A.10 | S6 App.A-10 | OpenFOAM/FEA case manifests embed full scientific identity | N/A | EV-12 | FULL | MERGED |
 | S6-A.11 | S6 App.A-11 | Move `MechanismDescriptors` to an inventor-only module | V: `program.rs:227` | IR-07 | FULL | MERGED |
 | S6-A.12 | S6 App.A-12 | Replace `Option<f64>` science fields with typed observations | R: not enumerated here | EV-03 | FULL | MERGED |
 | S6-A.13 | S6 App.A-13 | Generate `STATUS.json` from the evidence registry | V: `docs/STATUS.json` is hand-written | EV-07 | FULL | MERGED |
@@ -298,7 +298,7 @@ fixes do. DOC-03 corrects the wording. Code-side owners are in §5.
 | DOC-F03 | DOC | Family names in WHITEPAPER §2.1 (`baseline-colman-thew`, `quad-spiral-manifold`, `helical-ribbon-core`, `s-cone-fluted-finder`, `double-vortex-skimmer`, `scalloped-parabolic-chamber`), §5.3 table and README (`axisymmetric-stepped`, `twin-tangential-volute`, `quad-entry-involute-head`) do not exist in code | V: `program.rs:1346` `CANONICAL_11_FAMILIES` | DOC-03, DOC-05, DOC-06 | FULL | MERGED |
 | DOC-F04 | DOC | `tools/claims_audit.py` numeric scan accepts any token within 0.15% of a hand-maintained `derived_constants` list, so a new number can be "traced" by adding it to the list | V: `tools/claims_audit.py:574` | DOC-04, DOC-08 | FULL | MERGED |
 | DOC-F05 | DOC (relates S6 §3.1) | `docs/STATUS.json` asserts `structural_qualification: true` and `flexible_graph_cad_implemented: true` | V: `docs/STATUS.json` | EV-07, DOC-05 | FULL | MERGED |
-| DOC-F06 | DOC (relates S1 §3.2, S4 §2.2, S6 App.A-10) | The headline elite-vs-CT-35 CFD comparison (−36.5% Δp) mixes geometry pipelines and domains. CT-35 (`ct35-sst-extended-000`) was meshed from the CAD labelled-surface pipeline with a 0.12 m outlet extension. Every elite case was meshed from Rust `MultiPatchSurface` (6,416 triangles, 48-sector rings, two inlet patches) with `outlet_extension_m: 0.0`. No CT-35 case through the same Rust pipeline exists. The elite cases' `input-manifest.json` files are copies (all declare `case_dir` `runs/rust-cfd-elite-gen024-isl2-ind014` and turbulence `SSG`), so per-run identity is not bound. | V: ignored integrator-owned `runs/*/input-manifest.json` and `runs/ct35-sst-extended-000/mesh-input.json`, read-only at 2026-10-16T05:30Z; `phenotype.rs:611` | DOC-03, EV-12 | PARTIAL (wording and identity now; same-pipeline control is §5 G-09) | BLOCKED |
+| DOC-F06 | DOC (relates S1 §3.2, S4 §2.2, S6 App.A-10) | The headline elite-vs-CT-35 CFD comparison (−36.5% Δp) mixes geometry pipelines and domains. CT-35 (`ct35-sst-extended-000`) was meshed from the CAD labelled-surface pipeline with a 0.12 m outlet extension. Every elite case was meshed from Rust `MultiPatchSurface` (6,416 triangles, 48-sector rings, two inlet patches) with `outlet_extension_m: 0.0`. No CT-35 case through the same Rust pipeline exists. The elite cases' `input-manifest.json` files are copies (all declare `case_dir` `runs/rust-cfd-elite-gen024-isl2-ind014` and turbulence `SSG`), so per-run identity is not bound. | V: ignored integrator-owned `runs/*/input-manifest.json` and `runs/ct35-sst-extended-000/mesh-input.json`, read-only at 2026-10-16T05:30Z; `phenotype.rs:611` | DOC-03, EV-12 | PARTIAL (wording and identity now; same-pipeline control is §5 G-09) | MERGED |
 | DOC-F07 | DOC (relates S5 P0.1, P0.8) | The 220/220 operator random-walk audit checks each operator output with `canonicalize_and_preflight`. At the audited commit a failed operator silently returned CT-35, which passes, so 220/220 and the "85 cross-family transitions" are upper bounds. The ring mesh is closed by construction for any finite positive `R(θ,z)`, so "0 open edges" tests parameter bounds, not geometry. | V: `program.rs:1756` audit loop; `phenotype.rs` `build_fluid_mesh` ring construction | TR-01, TR-02, TR-14, DOC-03 | FULL | MERGED |
 | DOC-F08 | DOC (relates S3 §15.8) | WHITEPAPER §5.3 per-family table (F01–F11) uses three family names that exist in no code or receipt. Its per-family numbers (vertex/triangle counts, exoticness, pitch, porosity) appear in no receipt; they pass the audit only through the `derived_constants` whitelist. | V: `grep` over `docs/results/*.json` and `docs/receipts/*.json` finds no `axisymmetric-stepped`, `twin-tangential-volute` or `quad-entry-involute-head` | DOC-03, DOC-04 | FULL | MERGED |
 | DOC-F09 | DOC (relates S3 P0-03) | The CFD GCI script clamps the observed order to [0.5, 4.0], so the reported Δp observed order p = 4.00 is the clamp bound, not a computed order. With R < 0 a standard GCI is not valid per `docs/SCIENCE.md`, so only the three-grid span may be used. | V: `tools/generate_gci_rsm_report_and_figures.py:104` `p_obs = max(0.5, min(p, 4.0))` | TR-07, INT-05, DOC-03 | FULL | MERGED |
