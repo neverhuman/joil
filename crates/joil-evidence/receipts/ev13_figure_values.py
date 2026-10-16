@@ -199,7 +199,8 @@ class Audit:
         self.text(fig,2,f'{2*self.get(W4,p)} jets',[W4+'#'+p,W4+'#/promoted_wave3_top_elite/program/inlet_split/enabled'])
 
     def hero_cfd(self,fig,wave):
-        file=G2 if wave=='wave4' else G2.replace('-v2.json','-v1.json')
+        manifest=self.get('docs/figures/'+fig+'.manifest.json')
+        file=next(s['path'] for s in manifest['source_receipts'] if Path(s['path']).name.startswith('wave2-tpms-elite-gci-rsm-and-f2-oil-'))
         data=self.get(file);rows=data['wave1_vs_wave2_surrogate_to_cfd_ranking_audit']
         order=['trifurcated-6jet-vortex-head','cylindrical-gyroid-coalescer','octa-branch-helical-manifold']
         ids=[next(j for j,r in enumerate(rows) if r['topology_class']==name) for name in order]
@@ -209,7 +210,7 @@ class Audit:
             if suffix=='g2':ps=[base]+ps
             i=self.calls(fig,line)[0][0];self.vector(fig,i,1,file,ps,.001)
             if line==350:
-                if wave=='wave4':
+                if file.endswith('-v2.json'):
                     # Recompute the actual half range, rather than taking its summary label.
                     errors=[0.];refs=[]
                     for f,prefix in [(G1,''),(file,'/'+TP),(file,'/'+OC)]:
@@ -315,10 +316,12 @@ class Audit:
         for p,fmt in [('/roache_gci_analysis/dp_u_pa/convergence_ratio_R','.3f'),('/roache_gci_analysis/dp_u_pa/three_grid_half_span_pct_of_f2','.2f')]:
             self.text(fig,0,format(self.get(G1,p),fmt),[G1+'#'+p])
         self.text(fig,4,f"{self.get(G1,prefix+'cell_count'):,}",[G1+'#'+prefix+'cell_count'])
-        self.rows.append(dict(figure=fig,series='mass-closure numerical gate annotation',status='UNTRACED',sources=[],
-                              captured_label=self.capture['figures'][fig]['axes'][2]['ylabel'],
-                              code_reference='analysis/kpi_fitness.py:383',
-                              reason='1000 in units 1e-4 percent equals the implemented0.001 numerical tolerance, but no result/manifest JSON pointer binds that policy scalar; not a physical requirement'))
+        label=self.capture['figures'][fig]['axes'][2]['ylabel']
+        if 'Gate' in label:
+            self.rows.append(dict(figure=fig,series='mass-closure numerical gate annotation',status='UNTRACED',sources=[],
+                                  captured_label=label,code_reference='analysis/kpi_fitness.py:383',
+                                  reason='1000 in units 1e-4 percent equals the implemented0.001 numerical tolerance, but no result/manifest JSON pointer binds that policy scalar; not a physical requirement'))
+        else:self.add(fig,'unsupported mass-closure gate annotation removed','Gate' in label,False,[],'non-data annotation coverage')
 
     def wave2(self):
         fig='wave2-multiseed-ablation-and-ci.png';d=self.get(W2)
