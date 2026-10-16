@@ -53,12 +53,12 @@ CAD outputs include canonical mm STEP, mm and metre STL previews, metre glTF, te
 
 ## Quick start
 
-**1. Check the repository.** Every command below is fast and writes only to ignored paths. Workplan item DOC-05 runs this list from a clean checkout; the log is kept in ignored `.private/checks/`.
+**1. Check the repository.** Every command below writes only to ignored paths. On a fresh clone, single checks take seconds to under a minute; `cargo test --workspace` and `tools/check.py` take a few minutes each. Workplan item DOC-05 runs this list from a clean checkout; the log is kept in ignored `.private/checks/`.
 
 ```bash
 rtk cargo test --workspace --locked
-rtk cargo test -p joil-core --test regression closed_catalog_validity_11family_sampling -- --nocapture --exact
-rtk cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact
+rtk proxy cargo test -p joil-core --test regression closed_catalog_validity_11family_sampling -- --nocapture --exact
+rtk proxy cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact
 rtk cargo run --locked -p joil-cli -- baseline
 rtk proxy python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json
 rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing
@@ -68,6 +68,8 @@ rtk proxy python3 tools/claims_audit.py
 rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'
 rtk proxy python3 tools/check.py
 ```
+
+`tools/run_elite_3grid_gci_and_rsm.py --verify-existing` re-checks the recorded gates in the committed GCI receipts. The `PASS ... certified` line it prints comes from the historical single-point analysis against the different-pipeline `CT-35` case. It is not a current claim: see WHITEPAPER correction C2 and §4.6.
 
 **2. Re-run a screen study (optional, slow).** Always pass `--out` into the ignored `artifacts/` directory. The CLI defaults overwrite the committed, hash-bound receipts in `docs/results/`, and on repaired code the regenerated numbers differ from those historical receipts. Pass `--mc 72`: the p05/p95 objectives need `72` Monte Carlo samples for a distribution-free bound, and at the default of `12` they are reported insufficient, so no candidate is ranked and every hypervolume is zero ([TR fresh-clone check](docs/reviews/2026-10-16-TR-readme-freshclone.md)).
 
