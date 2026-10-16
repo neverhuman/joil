@@ -71,8 +71,58 @@ pub fn verify_carrier_case_provenance(
     if manifest_path.is_file() {
         input_manifest_sha256 = Some(file_sha256(&manifest_path)?);
         let raw = fs::read_to_string(&manifest_path).map_err(|e| e.to_string())?;
-        let map: BTreeMap<String, String> =
+        let val: serde_json::Value =
             serde_json::from_str(&raw).map_err(|e| format!("invalid input-manifest.json: {e}"))?;
+        let map: BTreeMap<String, String> = if let Some(dict_obj) = val
+            .get("dictionary_files_sha256")
+            .and_then(|v| v.as_object())
+        {
+            // Structured CfdCaseManifest: also verify case_dir basename and turbulence_model (`EV-12`)
+            if let Some(manifest_case_dir) = val.get("case_dir").and_then(|v| v.as_str()) {
+                let expected_base = Path::new(manifest_case_dir)
+                    .file_name()
+                    .and_then(|s| s.to_str())
+                    .unwrap_or("");
+                let actual_base = case_canon
+                    .file_name()
+                    .and_then(|s| s.to_str())
+                    .unwrap_or("");
+                if !expected_base.is_empty()
+                    && !actual_base.is_empty()
+                    && expected_base != actual_base
+                {
+                    mismatched_inputs.push(format!(
+                        "copied_manifest_case_dir_mismatch:{expected_base}!={actual_base}"
+                    ));
+                }
+            }
+            if let Some(turb_model) = val
+                .get("config")
+                .and_then(|c| c.get("turbulence_model"))
+                .and_then(|v| v.as_str())
+            {
+                let mt_path = case_canon.join("constant/momentumTransport");
+                if let Ok(mt_raw) = fs::read_to_string(&mt_path) {
+                    if !mt_raw.contains(&format!("model {turb_model};")) {
+                        mismatched_inputs.push(format!("turbulence_model_mismatch:{turb_model}"));
+                    }
+                }
+            }
+            let mut m = BTreeMap::new();
+            for (k, v) in dict_obj {
+                if let Some(s) = v.as_str() {
+                    m.insert(k.clone(), s.to_string());
+                } else {
+                    return Err(format!(
+                        "non-string hash for '{k}' in dictionary_files_sha256"
+                    ));
+                }
+            }
+            m
+        } else {
+            serde_json::from_value(val)
+                .map_err(|e| format!("invalid input-manifest.json map: {e}"))?
+        };
         if map.is_empty() {
             mismatched_inputs.push("<empty_input_manifest>".into());
         } else {
@@ -643,6 +693,49 @@ pub fn evaluate_measured_cfd_kpis(
             "underflow_reverse_to_net_ratio": un_rev_ratio
         }
     }))
+}
+
+/// Extract source-bound `PhysicsObservedDescriptors` (`IR-07`) from an executed and provenance-verified
+/// OpenFOAM case's integrals file. Rejects unverified or failed cases.
+pub fn extract_physics_observed_descriptors(
+    root_dir: &Path,
+    integrals_path: &Path,
+    expected_time_step: u64,
+) -> Result<joil_ir::PhysicsObservedDescriptors, String> {
+    let kpis = evaluate_measured_cfd_kpis(root_dir, integrals_path, expected_time_step)?;
+    let mh = kpis
+        .get("measured_hydraulics")
+        .ok_or_else(|| "missing measured_hydraulics in KPI output".to_string())?;
+    let integrals_sha = kpis
+        .get("integrals_sha256")
+        .and_then(|v| v.as_str())
+        .unwrap_or("")
+        .to_string();
+    Ok(joil_ir::PhysicsObservedDescriptors {
+        source_case_sha256: integrals_sha,
+        measured_dp_u_pa: mh
+            .get("dp_inlet_to_underflow_pa")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing dp_inlet_to_underflow_pa")?,
+        measured_pdr: mh
+            .get("pdr")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing pdr")?,
+        measured_reject_split: mh
+            .get("reject_fraction")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing reject_fraction")?,
+        measured_water_closure: mh
+            .get("water_closure_fraction")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing water_closure_fraction")?,
+        measured_hydraulic_loss_j_m3: mh
+            .get("hydraulic_loss_j_per_treated_m3")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing hydraulic_loss_j_per_treated_m3")?,
+        measured_swirl_number_entry: None,
+        measured_reverse_core_fraction: None,
+    })
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]

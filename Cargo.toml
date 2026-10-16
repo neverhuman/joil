@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/joil-core", "crates/joil-cli", "crates/joil-evidence"]
+members = ["crates/joil-core", "crates/joil-cli", "crates/joil-evidence", "crates/joil-ir"]
 
 [workspace.package]
 version = "0.1.0"

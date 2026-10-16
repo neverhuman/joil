@@ -159,10 +159,27 @@ impl SolidMesh {
     }
 }
 
+fn default_mechanism_descriptors() -> MechanismDescriptors {
+    MechanismDescriptors {
+        swirl_flux_index: 1.0,
+        axial_pitch_sin: 0.0,
+        azimuthal_symmetry_order: 2.0,
+        shear_mitigation_factor: 1.0,
+        cone_accel_persistence: 1.0,
+        core_shield_ratio: 0.0,
+        wall_rifling_stabilization: 0.0,
+        hydraulic_resistance_factor: 1.0,
+    }
+}
+
 /// Complete 3D geometric phenotype and F0 audit metrics for a `DesignProgram`.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Phenotype3D {
     pub design_sha256: String,
+    #[serde(default)]
+    pub design_ir_sha256: String,
+    /// Legacy in-memory field retained for internal callers; omitted from serialized subject (`IR-06`).
+    #[serde(skip_serializing, default)]
     pub topology_class: String,
     pub zero_mutation_exact_baseline: bool,
     pub fluid_volume_mm3: f64,
@@ -176,8 +193,18 @@ pub struct Phenotype3D {
     pub terminal_overflow_diameter_mm: f64,
     pub terminal_underflow_z_mm: f64,
     pub trapped_cavities: usize,
+    /// Legacy heuristic descriptors; omitted from serialized subject (`IR-07`).
+    #[serde(skip_serializing, default = "default_mechanism_descriptors")]
     pub descriptors: MechanismDescriptors,
     pub mesh_census: EdgeCensus,
+    #[serde(default)]
+    pub derived_taxon: Option<joil_ir::PhenotypeTaxon>,
+    #[serde(default)]
+    pub observed_geometry: Option<joil_ir::GeometryObservedDescriptors>,
+    #[serde(default)]
+    pub split_metrics: Option<joil_ir::SplitGeometryMetrics>,
+    #[serde(default)]
+    pub enactment_receipt: Option<joil_ir::FeatureEnactmentReceipt>,
 }
 
 impl Phenotype3D {
@@ -503,8 +530,20 @@ impl Phenotype3D {
         };
         let head_mass_ti64_g = (head_solid_vol_mm3 * 1e-3) * 4.43;
 
+        // Lower to canonical DesignIrV1, compile IrCompiledMesh, verify feature enactment (`IR-04`),
+        // and run independent VoxelSdfObserver (`IR-06`, `IR-07`, `IR-08`, `IR-09`).
+        let ir = crate::geometry::compile_design_ir(&p).map_err(|e| e.to_string())?;
+        let ir_mesh =
+            joil_ir::IrCompiledMesh::compile(&ir, joil_ir::BackendId::RustMultiPatchCfdSurface)
+                .map_err(|e| e.to_string())?;
+        let enactment = ir_mesh
+            .verify_feature_enactment(&ir)
+            .map_err(|e| e.to_string())?;
+        let f0_report = joil_ir::VoxelSdfObserver::observe(&ir, &ir_mesh);
+
         let pheno = Self {
             design_sha256: p.canonical_sha256()?,
+            design_ir_sha256: ir.ir_sha256.clone(),
             topology_class: p.topology_class.clone(),
             zero_mutation_exact_baseline: is_base,
             fluid_volume_mm3: fluid_vol,
@@ -513,13 +552,18 @@ impl Phenotype3D {
             minimum_wall_clearance_mm: min_clearance,
             minimum_passage_diameter_mm: min_passage_d,
             min_section_jacobian: min_jacobian,
-            frozen_collar_and_tail_diff_mm3: 0.0,
-            terminal_inlet_area_each_mm2: d.inlet_area_each_mm2,
-            terminal_overflow_diameter_mm: d.overflow_diameter_mm,
-            terminal_underflow_z_mm: d.z_underflow_mm,
-            trapped_cavities: 0,
+            frozen_collar_and_tail_diff_mm3: f0_report.frozen_collar_and_tail_diff_mm3,
+            terminal_inlet_area_each_mm2: 0.5
+                * (f0_report.terminal_inlet1_area_mm2 + f0_report.terminal_inlet2_area_mm2),
+            terminal_overflow_diameter_mm: f0_report.terminal_overflow_diameter_mm,
+            terminal_underflow_z_mm: f0_report.terminal_underflow_z_mm,
+            trapped_cavities: f0_report.trapped_cavities_total,
             descriptors,
             mesh_census: census,
+            derived_taxon: Some(f0_report.derived_taxon),
+            observed_geometry: Some(f0_report.observed_geometry),
+            split_metrics: Some(f0_report.split_metrics),
+            enactment_receipt: Some(enactment),
         };
         Ok((pheno, mesh))
     }
@@ -585,6 +629,10 @@ pub struct PatchMetrics {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct MultiPatchAuditReport {
     pub design_sha256: String,
+    #[serde(default)]
+    pub design_ir_sha256: String,
+    /// Legacy in-memory field retained for internal callers; omitted from serialized subject (`IR-06`).
+    #[serde(skip_serializing, default)]
     pub topology_class: String,
     pub units: String,
     pub outlet_extension_m: f64,
@@ -595,6 +643,10 @@ pub struct MultiPatchAuditReport {
     pub watertight_and_manifold: bool,
     pub all_terminal_patches_valid: bool,
     pub patches: BTreeMap<String, PatchMetrics>,
+    #[serde(default)]
+    pub derived_taxon: Option<joil_ir::PhenotypeTaxon>,
+    #[serde(default)]
+    pub enactment_receipt: Option<joil_ir::FeatureEnactmentReceipt>,
 }
 
 /// Multi-patch watertight 3D fluid domain surface in SI metres (`m`) ready for OpenFOAM `snappyHexMesh`.
@@ -603,6 +655,12 @@ pub struct MultiPatchSurface {
     pub vertices_m: Vec<P3>,
     pub triangles: Vec<[usize; 3]>,
     pub triangle_patches: Vec<CfdPatch>,
+    #[serde(default)]
+    pub triangle_origin_ids: Vec<u16>,
+    #[serde(default)]
+    pub origin_table: Vec<joil_ir::SemanticOriginTrace>,
+    #[serde(default)]
+    pub internal_feature_triangles: Vec<([P3; 3], u16)>,
     pub audit: MultiPatchAuditReport,
 }
 
@@ -993,8 +1051,18 @@ impl MultiPatchSurface {
             );
         }
 
+        let ir = crate::geometry::compile_design_ir(&p).map_err(|e| e.to_string())?;
+        let ir_mesh =
+            joil_ir::IrCompiledMesh::compile(&ir, joil_ir::BackendId::RustMultiPatchCfdSurface)
+                .map_err(|e| e.to_string())?;
+        let enactment = ir_mesh
+            .verify_feature_enactment(&ir)
+            .map_err(|e| e.to_string())?;
+        let f0_report = joil_ir::VoxelSdfObserver::observe(&ir, &ir_mesh);
+
         let audit = MultiPatchAuditReport {
             design_sha256: p.canonical_sha256()?,
+            design_ir_sha256: ir.ir_sha256.clone(),
             topology_class: p.topology_class,
             units: "m".to_string(),
             outlet_extension_m,
@@ -1005,12 +1073,17 @@ impl MultiPatchSurface {
             watertight_and_manifold,
             all_terminal_patches_valid,
             patches: patches_map,
+            derived_taxon: Some(f0_report.derived_taxon),
+            enactment_receipt: Some(enactment),
         };
 
         Ok(Self {
             vertices_m,
             triangles,
             triangle_patches,
+            triangle_origin_ids: ir_mesh.triangle_origin_ids,
+            origin_table: ir_mesh.origin_table,
+            internal_feature_triangles: ir_mesh.internal_feature_triangles,
             audit,
         })
     }
@@ -1024,6 +1097,34 @@ impl MultiPatchSurface {
         let file = File::create(path).map_err(|e| e.to_string())?;
         let mut w = BufWriter::new(file);
 
+        let write_facet = |w: &mut BufWriter<File>, a: P3, b: P3, c: P3| -> Result<(), String> {
+            let ux = b[0] - a[0];
+            let uy = b[1] - a[1];
+            let uz = b[2] - a[2];
+            let vx = c[0] - a[0];
+            let vy = c[1] - a[1];
+            let vz = c[2] - a[2];
+            let nx = uy * vz - uz * vy;
+            let ny = uz * vx - ux * vz;
+            let nz = ux * vy - uy * vx;
+            let norm = (nx * nx + ny * ny + nz * nz).sqrt().max(1e-24);
+            writeln!(
+                w,
+                " facet normal {:.8e} {:.8e} {:.8e}",
+                nx / norm,
+                ny / norm,
+                nz / norm
+            )
+            .map_err(|e| e.to_string())?;
+            writeln!(w, "  outer loop").map_err(|e| e.to_string())?;
+            for v in [a, b, c] {
+                writeln!(w, "   vertex {:.8e} {:.8e} {:.8e}", v[0], v[1], v[2])
+                    .map_err(|e| e.to_string())?;
+            }
+            writeln!(w, "  endloop\n endfacet").map_err(|e| e.to_string())?;
+            Ok(())
+        };
+
         for patch in CfdPatch::all() {
             let name = patch.as_str();
             writeln!(w, "solid {name}").map_err(|e| e.to_string())?;
@@ -1031,33 +1132,17 @@ impl MultiPatchSurface {
                 if self.triangle_patches[idx] != patch {
                     continue;
                 }
-                let a = self.vertices_m[i0];
-                let b = self.vertices_m[i1];
-                let c = self.vertices_m[i2];
-                let ux = b[0] - a[0];
-                let uy = b[1] - a[1];
-                let uz = b[2] - a[2];
-                let vx = c[0] - a[0];
-                let vy = c[1] - a[1];
-                let vz = c[2] - a[2];
-                let nx = uy * vz - uz * vy;
-                let ny = uz * vx - ux * vz;
-                let nz = ux * vy - uy * vx;
-                let norm = (nx * nx + ny * ny + nz * nz).sqrt().max(1e-24);
-                writeln!(
-                    w,
-                    " facet normal {:.8e} {:.8e} {:.8e}",
-                    nx / norm,
-                    ny / norm,
-                    nz / norm
-                )
-                .map_err(|e| e.to_string())?;
-                writeln!(w, "  outer loop").map_err(|e| e.to_string())?;
-                for v in [a, b, c] {
-                    writeln!(w, "   vertex {:.8e} {:.8e} {:.8e}", v[0], v[1], v[2])
-                        .map_err(|e| e.to_string())?;
+                write_facet(
+                    &mut w,
+                    self.vertices_m[i0],
+                    self.vertices_m[i1],
+                    self.vertices_m[i2],
+                )?;
+            }
+            if patch == CfdPatch::Wall {
+                for &(pts, _) in &self.internal_feature_triangles {
+                    write_facet(&mut w, pts[0], pts[1], pts[2])?;
                 }
-                writeln!(w, "  endloop\n endfacet").map_err(|e| e.to_string())?;
             }
             writeln!(w, "endsolid {name}").map_err(|e| e.to_string())?;
         }

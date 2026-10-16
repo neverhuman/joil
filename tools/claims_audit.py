@@ -804,11 +804,14 @@ def _sentences(text: str) -> list[tuple[int, str]]:
 
 def _descriptor_names(root: Path) -> list[str]:
     rust = "\n".join(p.read_text(encoding="utf-8") for p in sorted((root / "crates").rglob("*.rs")))
+    names: list[str] = []
     for name in ("PriorDescriptors", "MechanismDescriptors"):
         m = re.search(r"pub struct " + name + r" \{(.*?)\n\}", rust, re.S)
         if m:
-            return re.findall(r"^\s*pub (\w+):", m.group(1), re.M)
-    return []
+            for field in re.findall(r"^\s*pub (\w+):", m.group(1), re.M):
+                if field not in names:
+                    names.append(field)
+    return names
 
 
 REVIEW_INPUT_DIR = "docs/review-inputs/2026-10-15"
