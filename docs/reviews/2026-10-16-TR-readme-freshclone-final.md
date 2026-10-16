@@ -203,7 +203,7 @@ dist/assets/wave2-8-exotic-phenotypes-gallery-D5nhQnLJ.png              1,783.49
 dist/assets/index-BlXOHXw1.css                                              5.61 kB │ gzip:   1.81 kB
 dist/assets/index-DuEP-TTX.js                                           1,010.79 kB │ gzip: 231.93 kB
 
-[plugin builtin:vite-reporter] 
+[plugin builtin:vite-reporter]
 (!) Some chunks are larger than 500 kB after minification. Consider:
 - Using dynamic import() to code-split the application
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
