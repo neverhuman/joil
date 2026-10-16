@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T06:32Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T07:26Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -62,9 +62,9 @@ reason.
 | TR-07 | TR | MERGED | `92be04f` (board `MERGED TR-07`) |
 | TR-08 | TR | MERGED | `0441561` (board `MERGED TR-08`) |
 | TR-09 | TR | MERGED | `0441561` (board `MERGED TR-09`) |
-| TR-10 | TR | DONE | `1bdf067` (board `DONE TR-10`) |
+| TR-10 | TR | MERGED | `a5f16c0` (board `MERGED TR-10`) |
 | TR-11 | TR | MERGED | `6873a7f` (board `MERGED TR-11`) |
-| TR-12 | TR | BLOCKED | 2026-10-16T05:36:03Z 9409804693142774755d547019d72e0c081467a8 legacy macro crossover renamed crossover_non_homologous_ma |
+| TR-12 | TR | MERGED | `d13355b` (board `MERGED TR-12`) |
 | TR-13 | TR | MERGED | `1ed5865` (board `MERGED TR-13`) |
 | TR-14 | TR | MERGED | `92be04f` (board `MERGED TR-14`) |
 | TR-15 | TR | MERGED | `1ed5865` (board `MERGED TR-15`) |
@@ -75,7 +75,7 @@ reason.
 | EV-03 | EV | MERGED | `1433a71` (board `MERGED EV-03`) |
 | EV-04 | EV | MERGED | `1433a71` (board `MERGED EV-04`) |
 | EV-05 | EV | MERGED | `1433a71` (board `MERGED EV-05`) |
-| EV-06 | EV | BLOCKED | 2026-10-16T05:54:29Z d33c72de3437e2534c99effeb9711322819f280b physical admitted requirements unavailable; sandbox-only T |
+| EV-06 | EV | MERGED | `84d0c2e` (board `MERGED EV-06`) |
 | EV-07 | EV | MERGED | `cae5bac` (board `MERGED EV-07`) |
 | EV-08 | EV | MERGED | `e83c833` (board `MERGED EV-08`) |
 | EV-09 | EV | MERGED | `e83c833` (board `MERGED EV-09`) |
@@ -94,23 +94,23 @@ reason.
 | IR-10 | IR | MERGED | `2f15710` (board `MERGED IR-10`) |
 | IR-11 | IR | MERGED | `2f15710` (board `MERGED IR-11`) |
 | IR-12 | IR | MERGED | `2f15710` (board `MERGED IR-12`) |
-| INT-01 | INT | DONE | `7353526` (board `DONE INT-01`) |
-| INT-02 | INT | WIP | board HB 2026-10-16T06:17:42Z |
+| INT-01 | INT | DONE | `cb31ba3` (board `DONE INT-01`) |
+| INT-02 | INT | WIP | board HB 2026-10-16T07:06:55Z |
 | INT-03 | INT | MERGED | `6aa68b4` (board `MERGED INT-03`) |
-| INT-04 | INT | OPEN | - |
+| INT-04 | INT | DONE | `cb31ba3` (board `DONE INT-04`) |
 | INT-05 | INT | MERGED | `92be04f` (board `MERGED INT-05`) |
 | INT-06 | INT | OPEN | - |
-| INT-07 | INT | OPEN | - |
+| INT-07 | INT | DONE | `cb31ba3` (board `DONE INT-07`) |
 | INT-08 | INT | OPEN | - |
 | DOC-01 | DOC | MERGED | `dd82f45` (board `MERGED DOC-01`) |
 | DOC-02 | DOC | MERGED | `dd82f45` (board `MERGED DOC-02`) |
 | DOC-03 | DOC | MERGED | `631e2e3` (board `MERGED DOC-03`) |
-| DOC-04 | DOC | WIP | board HB 2026-10-16T06:26:49Z |
+| DOC-04 | DOC | WIP | merged at `0ef2b88` without board `DONE DOC-04` |
 | DOC-05 | DOC | MERGED | `0139ca0` (board `MERGED DOC-05`) |
 | DOC-06 | DOC | MERGED | `940d0b4` (board `MERGED DOC-06`) |
-| DOC-07 | DOC | WIP | board HB 2026-10-16T06:26:49Z |
+| DOC-07 | DOC | WIP | board HB 2026-10-16T06:47:58Z |
 | DOC-08 | DOC | MERGED | `6aa68b4` (board `MERGED DOC-08`) |
-| DOC-09 | DOC | OPEN | - |
+| DOC-09 | DOC | WIP | merged at `0ef2b88` without board `DONE DOC-09` |
 | DOC-10 | DOC | MERGED | `6aa68b4` (board `MERGED DOC-10`) |
 
 ## 3. Consensus themes
@@ -142,8 +142,8 @@ The reviews agree on eleven themes. The workplan §0 numbers them the same way.
 | S1-3.3 | S1 §3.3 | Topology is named by the generator (`classify_topology`), not measured | V: `program.rs:551` | IR-06 | FULL | MERGED |
 | S1-3.4 | S1 §3.4 | Reduced evaluator rewards genome assumptions (gene-derived descriptors feed the score) | V: `program.rs:618` `descriptors()`; e.g. TPMS shear ×0.86 at `program.rs:684` | IR-07, DOC-03, DOC-08 | PARTIAL (judge separation is §6) | MERGED |
 | S1-3.5 | S1 §3.5 | Invalid designs silently become the baseline | V: 26 sites: 24 in `program.rs` (first `program.rs:1040`), `surrogate.rs:361`, `evolve.rs:2268` | TR-01, TR-02, TR-03, EV-08 | FULL | MERGED |
-| S1-3.6 | S1 §3.6 | Requirement set not admitted while runtime invents thresholds | V: `requirements/RS-joil-research-v1.json` status `draft_no_campaign_admission`; `evolve.rs:427` (1.15× baseline Δp), `evolve.rs:431` (PDR 4.5) | EV-06, EV-10, TR-16 | FULL | BLOCKED |
-| S1-3.7 | S1 §3.7 | Structural "qualification" has non-independent checks; structural failure ignored by dominance | V: `structure.rs:232` `div_euclid` then clamp to [1,4]; `structure.rs:243`, `structure.rs:250` reaction := load; `evolve.rs:435` result stored, not in violation | TR-07, TR-08, TR-09, TR-10 | PARTIAL (solid FEA is §6) | DONE |
+| S1-3.6 | S1 §3.6 | Requirement set not admitted while runtime invents thresholds | V: `requirements/RS-joil-research-v1.json` status `draft_no_campaign_admission`; `evolve.rs:427` (1.15× baseline Δp), `evolve.rs:431` (PDR 4.5) | EV-06, EV-10, TR-16 | FULL | MERGED |
+| S1-3.7 | S1 §3.7 | Structural "qualification" has non-independent checks; structural failure ignored by dominance | V: `structure.rs:232` `div_euclid` then clamp to [1,4]; `structure.rs:243`, `structure.rs:250` reaction := load; `evolve.rs:435` result stored, not in violation | TR-07, TR-08, TR-09, TR-10 | PARTIAL (solid FEA is §6) | MERGED |
 | S1-3.8 | S1 §3.8 | CUDA tensor size is reported as Lagrangian parcel count; candidate Cout/d50 are closed-form | V: `physics/cuda/joil_cuda_eval.cu:452` `parcels_integrated = num_cells`; d50/Cout closed-form at `:507`, `:535`; no reduction over cells | IR-10, DOC-03 | FULL | MERGED |
 | S1-3.9 | S1 §3.9 | Surrogate LOFO uses authored labels and gene-derived features; not out-of-ontology | V: `surrogate.rs:535` folds keyed on `topology_class` | EV-08, EV-09 | FULL | MERGED |
 | S1-15.01 | S1 §15-1 | Remove every silent fallback to `baseline_ct35()` or default performance features | V: see S1-3.5 | TR-01, TR-02, EV-08 | FULL | MERGED |
@@ -161,7 +161,7 @@ The reviews agree on eleven themes. The workplan §0 numbers them the same way.
 | S1-15.13 | S1 §15-13 | Evidence-tier enums and evidence references instead of mutable strings | R: string tiers in `analysis/evidence.py` not enumerated here | EV-04 | FULL | MERGED |
 | S1-15.14 | S1 §15-14 | Parent IDs, operator ID/version, seed, repair receipt, compiler identity on every individual | V: `Individual` struct `evolve.rs:134` has no parent/operator fields | TR-13, TR-04 | FULL | MERGED |
 | S1-15.15 | S1 §15-15 | Stop calling tensor-cell count an integrated parcel count | V: see S1-3.8 | IR-10, DOC-03 | FULL | MERGED |
-| S1-15.16 | S1 §15-16 | Use admitted requirement values; no unexplained search thresholds | V: see S1-3.6 | EV-06, TR-16 | FULL | BLOCKED |
+| S1-15.16 | S1 §15-16 | Use admitted requirement values; no unexplained search thresholds | V: see S1-3.6 | EV-06, TR-16 | FULL | MERGED |
 | S1-15.17 | S1 §15-17 | Rename Monte Carlo "probability" outputs unless distributions are justified | R: wording audit pending in DOC-08 | TR-15, DOC-08 | FULL | MERGED |
 | S1-15.18 | S1 §15-18 | Train surrogates only on independent labels; real OOD holdouts | V: see S1-3.9 | EV-09 | FULL | MERGED |
 | S1-15.19 | S1 §15-19 | Judge blind to topology labels and generator origin | V: MAP-Elites key includes `topology_class` (`evolve.rs:589`) | IR-07, IR-06 | PARTIAL (process-level blind judge is §6) | MERGED |
@@ -177,8 +177,8 @@ The reviews agree on eleven themes. The workplan §0 numbers them the same way.
 | S2-4.04 | S2 §4.4 | Screening physics is self-referential | V: see S1-3.4 | IR-07, DOC-03, DOC-08 | PARTIAL (evaluator isolation is §6) | MERGED |
 | S2-4.05 | S2 §4.5 | Invalid offspring silently become the baseline | V: see S1-3.5 | TR-01, TR-02, TR-03 | FULL | MERGED |
 | S2-4.06 | S2 §4.6 | Schema identity erased by normaliser | V: see S1-15.03 | TR-05 | FULL | MERGED |
-| S2-4.07 | S2 §4.7 | "Homologous graph crossover" is fixed-field blending, not graph crossover | V: `program.rs:1181` `crossover_homologous_graph` blends fixed fields | TR-12 | FULL | BLOCKED |
-| S2-4.08 | S2 §4.8 | Structure model not shape-general; observed order uses Euclidean division | V: `structure.rs:232` | TR-07, TR-10 | PARTIAL (general solid FEA is §6) | DONE |
+| S2-4.07 | S2 §4.7 | "Homologous graph crossover" is fixed-field blending, not graph crossover | V: `program.rs:1181` `crossover_homologous_graph` blends fixed fields | TR-12 | FULL | MERGED |
+| S2-4.08 | S2 §4.8 | Structure model not shape-general; observed order uses Euclidean division | V: `structure.rs:232` | TR-07, TR-10 | PARTIAL (general solid FEA is §6) | MERGED |
 | S2-4.09 | S2 §4.9 | F1 DSD bin weights from pointwise lognormal PDF without declared basis or bin-edge integration | R: not re-checked in `evolve.rs` this pass | - | GAP (§5 G-01) | UNASSIGNED |
 | S2-4.10 | S2 §4.10 | Surrogate silently imputes missing physical state | V: `surrogate.rs:361` | EV-08 | FULL | MERGED |
 | S2-4.11 | S2 §4.11 | 100% valid operator walk is not proof of open-endedness | V: `program.rs:1603`, `program.rs:1706` audits sample the 11 authored families | TR-14, DOC-03 | PARTIAL (open-world challenge is §6) | MERGED |
@@ -216,20 +216,20 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 | S4-2.03 | S4 §2.3 | Fast evaluator is self-fulfilling; needs evaluator blindness (crate-dependency CI test) | V: see S1-3.4 | IR-07 | PARTIAL (crate split + CI dependency test is §6) | MERGED |
 | S4-2.04 | S4 §2.4 | Invalid offspring silently become the baseline | V: see S1-3.5 | TR-01, TR-02 | FULL | MERGED |
 | S4-2.05 | S4 §2.5 | Schema v3 normalised into v2 | V: see S1-15.03 | TR-05 | FULL | MERGED |
-| S4-2.06 | S4 §2.6 | Preregistered objectives ≠ executed objective vector | V: prereg `experiments/wave2-preregistration-v1.json` `objectives_minimize_5d` = [Cout p95, specific energy, 1−E20 p05, d50 p95, Δp]; code `evolve.rs:412` = [Cout p95, Δp, −E20 p05, entry shear, short-circuit] | EV-06 | FULL | BLOCKED |
+| S4-2.06 | S4 §2.6 | Preregistered objectives ≠ executed objective vector | V: prereg `experiments/wave2-preregistration-v1.json` `objectives_minimize_5d` = [Cout p95, specific energy, 1−E20 p05, d50 p95, Δp]; code `evolve.rs:412` = [Cout p95, Δp, −E20 p05, entry shear, short-circuit] | EV-06 | FULL | MERGED |
 | S4-2.07 | S4 §2.7 | "Hypervolume" is not Pareto HV; bootstrap count/method differ from protocol; `RandomLhsExotic3d` is not LHS | V: `evolve.rs:1388` max single box + diversity bonus; `evolve.rs:1435` `n_boot = 2000` vs prereg `bootstrap_resamples: 10000`; `evolve.rs:1569` LHS arm calls `sample_random_exotic` | TR-11, DOC-03 | PARTIAL (HV fixed by TR-11; bootstrap and LHS are §5 G-02, G-03) | MERGED |
 | S4-2.08 | S4 §2.8 | Requirement set not admitted; non-admitted sets must not produce Promoted/Qualified/Validated states | V: see S1-3.6 | EV-10, DOC-08 | FULL | MERGED |
 | S4-2.09 | S4 §2.9 | Fixed family labels make QD archive anti-alien | V: `evolve.rs:589` key `(topology_class, swirl_bin, shear_bin, shield_bin)` | IR-06 | PARTIAL (measured-descriptor archives are §6) | MERGED |
-| S4-2.10 | S4 §2.10 | Structural evaluator is a screen, not arbitrary-topology FEA | V: `structure.rs` Lamé/beam formulas | TR-10 | PARTIAL (general FEA is §6) | DONE |
+| S4-2.10 | S4 §2.10 | Structural evaluator is a screen, not arbitrary-topology FEA | V: `structure.rs` Lamé/beam formulas | TR-10 | PARTIAL (general FEA is §6) | MERGED |
 | S4-19.01 | S4 §19-1 | Stop baseline fallback | V: see S1-3.5 | TR-02 | FULL | MERGED |
 | S4-19.02 | S4 §19-2 | Stop normalising v3 into v2 | V: see S1-15.03 | TR-05 | FULL | MERGED |
-| S4-19.03 | S4 §19-3 | Freeze and repair the preregistration/objective mismatch | V: see S4-2.06 | EV-06 | FULL | BLOCKED |
+| S4-19.03 | S4 §19-3 | Freeze and repair the preregistration/objective mismatch | V: see S4-2.06 | EV-06 | FULL | MERGED |
 | S4-19.04 | S4 §19-4 | Replace the hypervolume function | V: see S4-2.07 | TR-11 | FULL | MERGED |
 | S4-19.05 | S4 §19-5 | Make splitter, ribbon and TPMS geometry appear in the analysis domain | V: see S1-3.2 | IR-02 | PARTIAL (this PR: refuse; real geometry is §6) | MERGED |
 | S4-19.06 | S4 §19-6 | Remove direct gene-name effects from the physics evaluator | V: see S1-3.4 | IR-07 | PARTIAL (judge separation is §6) | MERGED |
 | S4-19.07 | S4 §19-7 | Evaluators depend only on phenotype artifacts | N/A | IR-07 | PARTIAL (crate split is §6) | MERGED |
 | S4-19.08 | S4 §19-8 | Import Jarambit scientific identity and lineage | N/A | EV-01, EV-02, TR-13 | FULL | MERGED |
-| S4-19.09 | S4 §19-9 | Requirement files are the sole source of thresholds | V: see S1-3.6 | EV-06, TR-16 | FULL | BLOCKED |
+| S4-19.09 | S4 §19-9 | Requirement files are the sole source of thresholds | V: see S1-3.6 | EV-06, TR-16 | FULL | MERGED |
 | S4-19.10 | S4 §19-10 | Demote the eleven families from ontology to seed recipes | N/A | IR-06, DOC-06 | FULL | MERGED |
 | S4-19.11 | S4 §19-11 | Typed graph plus implicit-field IR | N/A | IR-01 | PARTIAL (field DAG and genome v4 are §6) | MERGED |
 | S4-19.12 | S4 §19-12 | Morphology and mechanism archives from measured outputs | N/A | - | FOLLOW-ON | DEFERRED |
@@ -262,7 +262,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 | S6-3.4 | S6 §3.4 | Exact CAD paths disagree (`wall_field.py` smooth wall only, `exotic_graph.py` v2, Rust v3) | V: `cad/program/wall_field.py:15` accepts only `modes`; see S3-P0-01 | IR-03 | FULL | MERGED |
 | S6-3.5 | S6 §3.5 | Invalid variation can silently become the baseline | V: see S1-3.5 | TR-01, TR-02 | FULL | MERGED |
 | S6-3.6 | S6 §3.6 | Reduced-order evaluator contains the design theory it tests | V: see S1-3.4 | IR-07, DOC-03 | PARTIAL (science-court separation is §6) | MERGED |
-| S6-3.7 | S6 §3.7 | Structural "qualification" is an F1 analytic screen; zero-by-construction load transfer; `div_euclid` | V: see S1-3.7 | TR-07, TR-08, TR-10 | PARTIAL (3D FEA is §6) | DONE |
+| S6-3.7 | S6 §3.7 | Structural "qualification" is an F1 analytic screen; zero-by-construction load transfer; `div_euclid` | V: see S1-3.7 | TR-07, TR-08, TR-10 | PARTIAL (3D FEA is §6) | MERGED |
 | S6-3.8 | S6 §3.8 | CUDA and surrogate subjects incomplete (partial genome JSON + descriptors; 12-D handcrafted features) | V: CUDA reads gene-derived descriptors (`physics/cuda/joil_cuda_eval.cu:265`); see S1-3.9 | IR-10, EV-08, EV-09 | FULL | MERGED |
 | S6-3.9 | S6 §3.9 | Tests prove internal consistency, not external truth; classify tests and never combine verdicts | V: `crates/joil-core/tests/regression.rs` family-validity audits | DOC-03 | PARTIAL (wording now; test taxonomy is §5 G-06) | MERGED |
 | S6-A.01 | S6 App.A-1 | All `mutate_*`/crossover return `Result<VariationOutcome, VariationError>` | V: see S1-3.5 | TR-01 | FULL | MERGED |
@@ -273,7 +273,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 | S6-A.06 | S6 App.A-6 | Reject a candidate when a claimed gene is not represented in the canonical subject | V: see S1-3.2 | IR-02 | FULL | MERGED |
 | S6-A.07 | S6 App.A-7 | Replace partial CUDA JSON with subject-bundle reference plus exact artifact bytes | V: see S6-3.8 | IR-10 | FULL | MERGED |
 | S6-A.08 | S6 App.A-8 | Fix observed-order arithmetic; add GCI validity states | V: see S1-15.10 | TR-07 | FULL | MERGED |
-| S6-A.09 | S6 App.A-9 | Rename structure verdict `AnalyticStructuralScreen` | V: `evolve.rs:145` field `structural_qualification` | TR-10 | FULL | DONE |
+| S6-A.09 | S6 App.A-9 | Rename structure verdict `AnalyticStructuralScreen` | V: `evolve.rs:145` field `structural_qualification` | TR-10 | FULL | MERGED |
 | S6-A.10 | S6 App.A-10 | OpenFOAM/FEA case manifests embed full scientific identity | N/A | EV-12 | FULL | MERGED |
 | S6-A.11 | S6 App.A-11 | Move `MechanismDescriptors` to an inventor-only module | V: `program.rs:227` | IR-07 | FULL | MERGED |
 | S6-A.12 | S6 App.A-12 | Replace `Option<f64>` science fields with typed observations | R: not enumerated here | EV-03 | FULL | MERGED |
@@ -305,8 +305,8 @@ fixes do. DOC-03 corrects the wording. Code-side owners are in §5.
 | DOC-F10 | DOC (relates S3 P0-11) | WHITEPAPER described the screen's Monte Carlo as "24-sample Latin hypercube" over LPBF bias ±80 µm, roughness Ra 3–18 µm, feed-flow drift ±8 % and split ±0.35 %. At every commit since `5b3b847` the code draws four independent uniform values instead: feed concentration [475, 525] mg/L, feed d50 [35, 41] µm, split ±0.0012 and wall tolerance ±0.05 mm. | V: `evolve.rs:370`–`evolve.rs:373` (same at `5b3b847`, `d1ac285`, `eb39ee2`) | DOC-03 | FULL | MERGED |
 | DOC-F11 | DOC (relates S3 §15.8) | README and WHITEPAPER printed Wave-3 values that are not in the committed receipt. Generation-0 KPI `31.838823` (receipt: seed-20261101 value `32.047462`, 10-seed mean `31.645679`); B1/B2 generation-0 `44.782516`/`28.887811` (receipt means `44.786326`/`28.90497`); six label-held-out scores and RMSEs (e.g. `47.484214 ± 4.7779` vs receipt `47.483183 ± 4.683`); "147.8" mean label changes per seed (receipt mean `150.4`). The loose numeric scan passed them because it accepts any receipt number within 0.15 %. | V: `docs/results/wave3-evolution-proof-v1.json` `generation_band_curves/*/0`, `arm_outcomes/*`, `held_out_geometry_generalization` | DOC-03, DOC-04 | FULL | WIP |
 | DOC-F12 | DOC | WHITEPAPER cited a "54 / 540" rejected-cohort audit in a receipt that records 64 / 640, and a regression test `loocv_11family_surrogate_generalization_and_false_omission_audit` that has never existed in the repository history. It also gave MAP-Elites coverage as percentages of 192 cells, while the key allows 11 × 6 × 6 × 5 cells. | V: `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` `rejected_cohort_10pct_audit`; `git log -S` over `crates/` finds no such test; `evolve.rs:589` key bins | DOC-03, DOC-04 | FULL | WIP |
-| DOC-F13 | DOC-07 review IR-R1 (relates S1 §3.2, S5 P0.3, S6 App.A-6) | After IR-01..IR-12 merged, the OpenFOAM writer (`cfd_case.rs:159` → `MultiPatchSurface::from_program`) still writes two undivided inlet ducts for split programs. Enactment and voxel F0 are verified on a separately compiled `IrCompiledMesh`, and the case manifest names that mesh as its geometry kernel. | V: slice test, one closed loop per inlet duct for a 3-branch program (`docs/reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md`) | - | GAP (§5 G-10) | UNASSIGNED |
-| DOC-F14 | DOC-07 review IR-R2..IR-R5 | The IR-05 forensic STL tool counts horizontal facets rather than connected paths; the IR-10 counter rename is claimed but not in the code; ribbon/TPMS corrugation is labelled `ConservativeApproximation`; Betti parity compares against a constant. | V: `docs/reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md` | - | GAP (§5 G-11) | UNASSIGNED |
+| DOC-F13 | DOC-07 review IR-R1 (relates S1 §3.2, S5 P0.3, S6 App.A-6) | After IR-01..IR-12 merged, the OpenFOAM writer (`cfd_case.rs:159` → `MultiPatchSurface::from_program`) still writes two undivided inlet ducts for split programs. Enactment and voxel F0 are verified on a separately compiled `IrCompiledMesh`, and the case manifest names that mesh as its geometry kernel. | V: slice test, one closed loop per inlet duct for a 3-branch program; after IR `c21e405` (merged `f49f67e`) three per duct, and `prepare-cfd-case` writes the same STL (`docs/reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md`, Resolution) | DOC-07 | FULL | WIP |
+| DOC-F14 | DOC-07 review IR-R2..IR-R5 | The IR-05 forensic STL tool counts horizontal facets rather than connected paths; the IR-10 counter rename is claimed but not in the code; ribbon/TPMS corrugation is labelled `ConservativeApproximation`; Betti parity compares against a constant. | V: `docs/reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md`, Resolution: path count, relabel and Betti-from-mesh verified after `f49f67e` | DOC-07 | PARTIAL (remainder §5 G-11) | WIP |
 
 ## 5. Gaps and notes for the planner and integrator
 
@@ -324,8 +324,8 @@ by adding items, or moves them to workplan §6 with a reason. Requests are poste
 | G-07 | DOC-F01 | Regenerate figure plates whose baked-in titles say "qualification" or "billion trajectories" (Plates 2, 8, 9) | INT (ACK 2026-10-16T05:33Z) |
 | G-08 | DOC-F03 | Explorer UI (`apps/explorer/src/`) carries family names and claim text; no lane owns it in this workplan | INT (ACK 2026-10-16T05:33Z; owns `apps/explorer`) |
 | G-09 | DOC-F06 | Same-pipeline CT-35 control: run CT-35 through Rust `MultiPatchSurface` at G0/G1/G2 with the same outlet extension as the elites, and re-run the elites with the 0.12 m extension, before any Δp-gain sentence is promoted | INT (ACK 2026-10-16T05:33Z) |
-| G-10 | DOC-F13 | Make the CFD writer emit the verified `IrCompiledMesh` triangles, or declare it `LegacyUnenactedCfdSurface` and hard-fail split/skimmer programs. Hold INT-06 until then. | IR (writer) + INT (INT-06 hold); NEED posted 2026-10-16T06:30:29Z |
-| G-11 | DOC-F14 | Connectivity-based STL path count; finish or un-claim the IR-10 rename; relabel corrugation; Betti parity between backends rather than against a constant. | IR |
+| G-10 | DOC-F13 | Make the CFD writer emit the verified `IrCompiledMesh` triangles, or declare it `LegacyUnenactedCfdSurface` and hard-fail split/skimmer programs. Hold INT-06 until then. | Resolved: IR `c21e405`, merged `f49f67e`; DOC re-sliced the CLI-written STL (DOC-07 review, Resolution) |
+| G-11 | DOC-F14 | Remainder after `f49f67e`: the campaign summary still serializes `total_gpu_lagrangian_parcels_integrated`; Betti numbers are checked against an expected formula, not B-rep against mesh. (Path count, documentation of the rename and the corrugation relabel are done.) | IR |
 
 Notes on assigned items (no new item needed):
 

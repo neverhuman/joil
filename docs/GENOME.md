@@ -38,9 +38,13 @@ here exists in the code, and the reverse. A **Pending** cell naming a workplan i
     error otherwise.
   - Ribbon and TPMS genes are the same wall-radius lobes and corrugation as in Rust, not vanes or a lattice.
   - A `strict_csg` mode refuses ribbon and TPMS with `UnsupportedFeatureError`.
-- **The OpenFOAM writer** (`cfd_case.rs` → `MultiPatchSurface::from_program`) still writes CT-35's two
-  undivided inlet ducts for split programs. The enactment receipt it carries comes from a separately compiled
-  `IrCompiledMesh` (DOC-07 review IR-R1).
+- **The OpenFOAM writer** (`cfd_case.rs` → `MultiPatchSurface::from_program`) writes the `IrCompiledMesh`
+  triangles since IR-R1 (integration `f49f67e`). The mesh it writes is the mesh its enactment receipt describes.
+  - Each inlet duct is divided by `branches_per_port − 1` horizontal splitter vanes into stacked sub-channels.
+    DOC re-sliced a 3-branch program's STL and found three closed channels per duct (DOC-07 review).
+  - An active ramp narrows and lowers the inner duct segment, and an active skimmer is a folded sleeve on the
+    vortex finder.
+  - Every CFD run executed so far predates this and used the old two-duct surface (WHITEPAPER correction C1).
 
 ## 2. Field reference
 
@@ -64,13 +68,13 @@ Continuous values are rounded to 4 decimals in field units (§3).
 | `family` | `ct35-exotic-head-v2` / `-v3` / `ct35-legacy-macro-v4` | - | - | - | v2–v4 | - | - |
 | `topology_class` | any string, accepted for legacy files; overwritten by `classify_topology()`; **not serialized, not hashed** (`skip_serializing`) | - | - | - | accepted | - | IR-06 (measured `PhenotypeTaxon`) |
 | `baseline_file_sha256` | must equal SHA-256 of `baselines/ct35/genome.json` | - | - | - | checked | - | - |
-| `inlet_ramp.axial_drop_mm` | [0, 8] mm | 0 | scales inlet-boss bump (×(1−0.04·drop/8)) | no | yes | yes | - |
-| `inlet_ramp.radial_slot_factor` | [0.72, 1.05] | 1.0 | scales inlet-boss bump | no | yes | yes | - |
+| `inlet_ramp.axial_drop_mm` | [0, 8] mm | 0 | scales inlet-boss bump (×(1−0.04·drop/8)) | inner duct segment lowered by 0.35·drop (since IR-R1) | yes | yes | - |
+| `inlet_ramp.radial_slot_factor` | [0.72, 1.05] | 1.0 | scales inlet-boss bump | inner duct width × factor (since IR-R1) | yes | yes | - |
 | `inlet_ramp.superellipse_exponent` | [2, 4] | 2.0 (also forced when ramp inactive) | no | no | accepted, not used | yes | - |
-| `inlet_split.enabled` | bool | false | no | no | yes | yes | - |
-| `inlet_split.vane_thickness_mm` | [1.0, 1.8] mm when enabled | 1.2 | no (arithmetic clearance/volume only) | no | yes | no | - |
-| `inlet_split.vane_z_fraction` | [0.35, 0.65] when enabled | 0.5 | no | no | used only when 2 branches | no | - |
-| `inlet_split.branches_per_port` | 1–4; enabled requires 2–4 (4, 6, 8 jets) | 1 | no (arithmetic hydraulic diameter only) | **no: always two inlet ducts** | splitter vanes for 2, 3 or 4 | yes | IR-02, IR-05 (DOC-07 IR-R1: writer still unsplit) |
+| `inlet_split.enabled` | bool | false | no | yes (since IR-R1) | yes | yes | - |
+| `inlet_split.vane_thickness_mm` | [1.0, 1.8] mm when enabled | 1.2 | no (arithmetic clearance/volume only) | splitter-vane thickness (since IR-R1) | yes | no | - |
+| `inlet_split.vane_z_fraction` | [0.35, 0.65] when enabled | 0.5 | no | used only when 2 branches (since IR-R1) | used only when 2 branches | no | - |
+| `inlet_split.branches_per_port` | 1–4; enabled requires 2–4 (4, 6, 8 jets) | 1 | no (arithmetic hydraulic diameter only) | stacked sub-channels per duct (since IR-R1; executed runs predate it) | splitter vanes for 2, 3 or 4 | yes | - |
 | `inlet_split.azimuthal_phase_deg` | [0, 45] deg when enabled | 0 | no | no | accepted, not used | yes | - |
 | `chamber_modes[].azimuthal_order` | 2–8; ≤ 8 modes | list empty | yes (z ∈ [20, 65] mm) | yes | yes | yes | - |
 | `chamber_modes[].cos_mm` | finite; Σ amplitude ≤ 1.8 mm | - | yes | yes | yes | yes | - |
@@ -79,9 +83,9 @@ Continuous values are rounded to 4 decimals in field units (§3).
 | `cone_profile.mode1_mm` | Σ\|mode\| ≤ 1.6 mm | 0 | yes (z ∈ [72, 166] mm) | yes | yes | yes | - |
 | `cone_profile.mode2_mm` | Σ\|mode\| ≤ 1.6 mm | 0 | yes | yes | yes | yes | - |
 | `cone_profile.mode3_mm` | Σ\|mode\| ≤ 1.6 mm | 0 | yes | yes | yes | yes | - |
-| `skimmer.length_mm` | [0, 10] mm; 0 = off | 0 | no (arithmetic volume/clearance only) | no | yes | yes | IR-02 |
-| `skimmer.outer_radius_mm` | [1.8, 4.0] mm when on | 2.4 | no | no | yes | no | - |
-| `skimmer.capture_flutes` | 0, 4, 6 or 8 | 0 | no | no | accepted, not used | yes | - |
+| `skimmer.length_mm` | [0, 10] mm; 0 = off | 0 | no (arithmetic volume/clearance only) | folded sleeve on the vortex finder (since IR-R1) | yes | yes | - |
+| `skimmer.outer_radius_mm` | [1.8, 4.0] mm when on | 2.4 | no | sleeve radius (since IR-R1) | yes | no | - |
+| `skimmer.capture_flutes` | 0, 4, 6 or 8 | 0 | no | ±0.18 mm ripple on the sleeve tip (since IR-R1) | accepted, not used | yes | - |
 | `ribbon_cascade.vane_count` | 2, 3, 4 or 6; 0 = off (omitted from JSON) | 0 | wall-radius lobes (cos⁴), not vane surfaces | wall-radius lobes | wall-radius lobes (IR-03); rejected in `strict_csg` | yes | IR-02, IR-03 |
 | `ribbon_cascade.axial_span_mm` | [8, 48] mm | 0 | lobe extent z ∈ [12, 12+span] | same | same | yes | - |
 | `ribbon_cascade.helical_twist_rad` | [−4.5, 4.5] rad | 0 | lobe phase | same | same | no | - |
@@ -97,8 +101,9 @@ Continuous values are rounded to 4 decimals in field units (§3).
 
 Consequences for current claims:
 
-- The CFD surface reflects only the chamber modes, the cone profile, and the ribbon/TPMS wall perturbations,
-  on CT-35's two inlet ducts.
+- Every executed CFD run used the pre-IR-R1 surface. That surface reflects only the chamber modes, the cone
+  profile and the ribbon/TPMS wall perturbations, on CT-35's two inlet ducts. Cases built since IR-R1 also
+  contain the split ducts, ramp and skimmer; none had been run when this was written (INT-06).
 - A `trifurcated-6jet-vortex-head` or `octa-branch-helical-manifold` result is therefore a CFD result for a
   two-inlet geometry. IR-05 owns the relabel.
 - The "peripheral TPMS shell" is a corrugation of the outer wall. `radial_inner_fraction` has no geometric
@@ -150,7 +155,7 @@ Known artefacts:
   and `quad-entry-involute-head`.
 
 Since IR-06 merged, serialized subject artifacts drop the authored label, and `VoxelSdfObserver::derive_taxon_from_mesh`
-derives a `PhenotypeTaxon` from the compiled `IrCompiledMesh`. That mesh is not the OpenFOAM surface (DOC-07 IR-R1).
+derives a `PhenotypeTaxon` from the compiled `IrCompiledMesh`. Since IR-R1 the same mesh is also the OpenFOAM surface.
 The eleven labels remain seed recipes and regression fixtures (S4 §2.1); `classify_topology()` still exists for them.
 
 ## 5. Gene-derived mechanism descriptors (priors, not observations)
@@ -232,7 +237,7 @@ geometry. Mapped loads require the shared hardware wetted faces and the exact ex
 
 ## 8. F0 checks: required versus implemented
 
-| Required check (measured on `IrCompiledMesh`, which is not the OpenFOAM STL; DOC-07 IR-R1) | Status at `0139ca0` | Owner |
+| Required check (measured on `IrCompiledMesh`, which since IR-R1 is also the OpenFOAM STL) | Status at `f49f67e` | Owner |
 |---|---|---|
 | Closure, orientation, positive volume | implemented on the ring mesh (edge census, signed volume) | - |
 | Exact terminal area, normal, position | measured from triangles by the voxel/SDF observer (IR-08 merged) | - |
@@ -242,7 +247,7 @@ geometry. Mapped loads require the shared hardware wetted faces and the exact ex
 | Section Jacobian | sampled over chamber modes only | IR-09 |
 | Self-intersection | not checked independently (ring mesh cannot fold radially) | IR-08 |
 | Overhang, span, powder removal | scalar overhang estimate in `structure.rs`; removal paths not checked | §6 follow-on |
-| Independent B-rep/voxel agreement | volume ±2 %, area ±3 %, Betti numbers vs constant `(1, 0, 1)` (IR-03; DOC-07 IR-R5) | IR |
+| Independent B-rep/voxel agreement | volume ±2 %, area ±3 %; Betti numbers from the mesh Euler characteristic, checked against the expected `(1, 2(B−1), 1)` for `B` branches rather than B-rep against mesh (IR-03, IR-R5) | - |
 
 Gate errors must report geometry invalid, manufacturing infeasible, kernel failure or unknown separately.
 Never repair a changed interface without declaring a new subject.
