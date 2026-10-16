@@ -8,6 +8,32 @@ fn parse_arg(args: &[String], flag: &str) -> Option<String> {
     args.windows(2).find(|w| w[0] == flag).map(|w| w[1].clone())
 }
 
+/// Import a historical Wave-2 genome without upgrading its archived evidence.
+///
+/// Report/Individual evaluation schemas have changed since the committed v1
+/// receipt. CFD preparation needs only the selected program: validate and
+/// canonicalize that program, then let the case builder compute its current
+/// design_sha256. Archived genome hashes (which included authored topology
+/// labels), metrics, lineage and qualification flags are not imported.
+fn load_wave2_elite_program(
+    raw: &str,
+    family: &str,
+) -> Result<program::DesignProgram, Box<dyn std::error::Error>> {
+    let report: serde_json::Value = serde_json::from_str(raw)?;
+    let elites = report
+        .get("promoted_wave2_elites_by_family")
+        .and_then(serde_json::Value::as_object)
+        .ok_or("Wave-2 receipt has no promoted_wave2_elites_by_family object")?;
+    let elite = elites
+        .get(family)
+        .ok_or_else(|| format!("Wave-2 family '{family}' not found"))?;
+    let genome = elite
+        .get("program")
+        .ok_or_else(|| format!("Wave-2 family '{family}' has no program"))?;
+    let program: program::DesignProgram = serde_json::from_value(genome.clone())?;
+    Ok(program.canonicalize()?)
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = std::env::args().collect();
     let command = args.get(1).cloned().unwrap_or_else(|| "baseline".into());
@@ -232,17 +258,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     || "docs/results/wave2-multiseed-ablation-and-holdout-v1.json".into(),
                 ));
                 let raw = std::fs::read_to_string(&w2_path)?;
-                let report: evolve::Wave2MultiseedReport = serde_json::from_str(&raw)?;
-                let ind = report
-                    .promoted_wave2_elites_by_family
-                    .get(&w2_family)
-                    .ok_or_else(|| {
-                        format!(
-                            "Wave-2 family '{w2_family}' not found in {}",
-                            w2_path.display()
-                        )
-                    })?;
-                ind.program.clone()
+                load_wave2_elite_program(&raw, &w2_family)
+                    .map_err(|e| format!("{}: {e}", w2_path.display()))?
             } else {
                 let summary_path = PathBuf::from(
                     parse_arg(&args, "--summary").unwrap_or_else(|| {
@@ -826,4 +843,83 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const COMMITTED_WAVE2: &str =
+        include_str!("../../../docs/results/wave2-multiseed-ablation-and-holdout-v1.json");
+
+    #[test]
+    fn historical_wave2_receipt_loads_all_promoted_genomes() {
+        let report: serde_json::Value = serde_json::from_str(COMMITTED_WAVE2).unwrap();
+        let elites = report["promoted_wave2_elites_by_family"]
+            .as_object()
+            .unwrap();
+        assert_eq!(elites.len(), 11);
+        for (family, elite) in elites {
+            let loaded = load_wave2_elite_program(COMMITTED_WAVE2, family).unwrap();
+            let archived: program::DesignProgram =
+                serde_json::from_value(elite["program"].clone()).unwrap();
+            assert_eq!(loaded, archived.canonicalize().unwrap(), "{family}");
+            assert_eq!(loaded.schema_version, 2);
+            assert_eq!(loaded.family, "ct35-exotic-head-v2");
+            let current_hash = loaded.canonical_sha256().unwrap();
+            assert_eq!(current_hash.len(), 64);
+            // Authored topology labels no longer belong to the serialized
+            // subject. The archived hash cannot identify the prepared case.
+            assert_ne!(Some(current_hash.as_str()), elite["genome_sha256"].as_str());
+        }
+    }
+
+    #[test]
+    fn historical_wave2_import_does_not_require_or_trust_evaluations() {
+        let mut report: serde_json::Value = serde_json::from_str(COMMITTED_WAVE2).unwrap();
+        let family = "trifurcated-6jet-vortex-head";
+        let elite = &mut report["promoted_wave2_elites_by_family"][family];
+        let genome = elite["program"].clone();
+        // A genome-only archive is sufficient. No current Individual, screen,
+        // admission or objective evidence is synthesized for missing fields.
+        *elite = serde_json::json!({"program": genome});
+        let raw = serde_json::to_string(&report).unwrap();
+        assert_eq!(
+            load_wave2_elite_program(&raw, family).unwrap(),
+            load_wave2_elite_program(COMMITTED_WAVE2, family).unwrap()
+        );
+    }
+
+    #[test]
+    fn historical_wave2_import_rejects_missing_or_invalid_genomes() {
+        assert!(load_wave2_elite_program(COMMITTED_WAVE2, "missing-family").is_err());
+        for raw in [
+            "not json",
+            "{}",
+            r#"{"promoted_wave2_elites_by_family":[]}"#,
+        ] {
+            assert!(load_wave2_elite_program(raw, "baseline-ct35").is_err());
+        }
+        let mut report: serde_json::Value = serde_json::from_str(COMMITTED_WAVE2).unwrap();
+        for genome in [
+            serde_json::Value::Null,
+            serde_json::json!({"schema_version": 2}),
+            {
+                let mut genome =
+                    report["promoted_wave2_elites_by_family"]["baseline-ct35"]["program"].clone();
+                genome["inlet_split"]["branches_per_port"] = serde_json::json!(0);
+                genome
+            },
+        ] {
+            report["promoted_wave2_elites_by_family"]["baseline-ct35"]["program"] = genome;
+            let raw = serde_json::to_string(&report).unwrap();
+            assert!(load_wave2_elite_program(&raw, "baseline-ct35").is_err());
+        }
+        report["promoted_wave2_elites_by_family"]["baseline-ct35"] = serde_json::json!({});
+        assert!(load_wave2_elite_program(
+            &serde_json::to_string(&report).unwrap(),
+            "baseline-ct35"
+        )
+        .is_err());
+    }
 }
