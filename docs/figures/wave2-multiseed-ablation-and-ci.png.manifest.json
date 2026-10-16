@@ -1,9 +1,11 @@
 {
   "schema_version": 1,
   "figure_file": "docs/figures/wave2-multiseed-ablation-and-ci.png",
-  "figure_sha256": "ef83db92f9658d5aac0c2a3ecaa86774914b33f2d47e8f97184cc83fdde137c8",
-  "title": "Wave-2 10-Seed Equal-Budget Ablation, Bootstrap 95% CIs, Wilcoxon Tests & Held-Out Duties",
-  "description": "10-seed statistical comparison of B0 (CT-35), B1 (Random/LHS Exotic 3D), B2 (Conventional Axisymmetric NSGA-II), and B3 (Exotic 3D MAP-Elites + GP-CEI) with held-out duties D1..D4 and 10% rejected-cohort audit.",
+  "figure_sha256": "d2c660bb5693975f5ab2df09176c817f03e12b934afe3a226beaef18ec373389",
+  "title": "Wave-2 Three Equal-Budget Searches plus Frozen CT35 Reference; Executed Screen Duties (Protocol Deviation)",
+  "description": "10-seed prior-screen diagnostics: legacy largest-box-plus-bonus telemetry; executed D1..D4 duties deviate from preregistration; observed rejected-cohort audit has no admitted 2% gate. Research threshold is not a discharge permit.",
+  "generator_script": "tools/generate_wave2_figures_and_animations.py",
+  "generator_sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28",
   "units_declared": true,
   "scale_policy": "true_aspect_si_and_mm_annotated",
   "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
@@ -11,6 +13,10 @@
     {
       "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
       "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+    },
+    {
+      "path": "requirements/RS-joil-research-v1.json",
+      "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b"
     }
   ]
 }

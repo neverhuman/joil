@@ -359,136 +359,18 @@ def extract_reynolds_stress_stats(r_field_path: Path) -> dict[str, Any]:
 
 
 def main() -> None:
-    g0 = load_grid_case(ROOT / "runs/rust-cfd-elite-g0-coarse", "G0_coarse", [18, 12, 212])
-    g1 = load_grid_case(ROOT / "runs/rust-cfd-elite-gen024-isl2-ind014", "G1_medium", [24, 16, 282])
-    g2 = load_grid_case(ROOT / "runs/rust-cfd-elite-g2-fine", "G2_fine", [30, 20, 352])
-
-    bench_path = ROOT / "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json"
-    bench = json.loads(bench_path.read_text())["baseline_ct35_openfoam14_reference"]
-    base_dp_u = float(bench["static_tap_drop_pa"])
-    base_eloss = float(bench["device_hydraulic_loss_j_m3"])
-    base_split = float(bench["reject_fraction"])
-    base_closure = 1.63e-5
-
-    gci_dp_u = compute_roache_3grid_gci(
-        g0["dp_u_pa"], g1["dp_u_pa"], g2["dp_u_pa"],
-        g0["effective_cell_size_mm"], g1["effective_cell_size_mm"], g2["effective_cell_size_mm"]
-    )
-    gci_eloss = compute_roache_3grid_gci(
-        g0["hydraulic_loss_j_per_treated_m3"],
-        g1["hydraulic_loss_j_per_treated_m3"],
-        g2["hydraulic_loss_j_per_treated_m3"],
-        g0["effective_cell_size_mm"], g1["effective_cell_size_mm"], g2["effective_cell_size_mm"]
-    )
-    gci_split = compute_roache_3grid_gci(
-        g0["reject_fraction"], g1["reject_fraction"], g2["reject_fraction"],
-        g0["effective_cell_size_mm"], g1["effective_cell_size_mm"], g2["effective_cell_size_mm"]
-    )
-
-    # Load RSM cross-check cases on G1
-    rsm_models: list[dict[str, Any]] = []
-    for model_name, dir_name, step_str in [
-        ("LRR", "rust-cfd-elite-g1-rsm-lrr", "60"),
-        ("SSG", "rust-cfd-elite-g1-rsm-ssg", "60"),
-    ]:
-        cdir = ROOT / "runs" / dir_name
-        hyd_p = cdir / "hydraulic-integrals.json"
-        if not hyd_p.exists():
-            continue
-        hyd = json.loads(hyd_p.read_text())
-        p_in1 = float(hyd["patches"]["inlet1"]["area_average_static_pressure_pa"])
-        p_in2 = float(hyd["patches"]["inlet2"]["area_average_static_pressure_pa"])
-        dp_u = 0.5 * (p_in1 + p_in2) - float(hyd["patches"]["underflow"]["area_average_static_pressure_pa"])
-        eloss = float(hyd["hydraulic_loss_j_per_treated_m3"])
-        r_file = cdir / step_str / "R"
-        r_summary_file = cdir / "reynolds-stress-summary.json"
-        if r_file.exists():
-            r_stats = extract_reynolds_stress_stats(r_file)
-            r_summary_file.write_text(json.dumps(r_stats, indent=2) + "\n")
-        elif r_summary_file.exists():
-            r_stats = json.loads(r_summary_file.read_text())
-        else:
-            r_stats = {}
-        rsm_models.append({
-            "turbulence_model": model_name,
-            "turbulence_family": "7-equation Reynolds-Stress Transport Model (RSM)",
-            "case_dir": f"runs/{dir_name}",
-            "continuation_steps_from_g1_sst": int(step_str),
-            "feed_m3_h": float(hyd["feed_m3_h"]),
-            "treated_m3_h": float(hyd["treated_m3_h"]),
-            "reject_fraction": float(hyd["reject_fraction"]),
-            "water_closure_fraction": float(hyd["water_closure_fraction"]),
-            "dp_u_pa": dp_u,
-            "hydraulic_loss_w": float(hyd["hydraulic_loss_w"]),
-            "hydraulic_loss_j_per_treated_m3": eloss,
-            "delta_dp_u_vs_kOmegaSST_pct": (dp_u - g1["dp_u_pa"]) / g1["dp_u_pa"] * 100.0,
-            "delta_eloss_vs_kOmegaSST_pct": (eloss - g1["hydraulic_loss_j_per_treated_m3"]) / g1["hydraulic_loss_j_per_treated_m3"] * 100.0,
-            "delta_dp_u_vs_ct35_baseline_pct": (dp_u - base_dp_u) / base_dp_u * 100.0,
-            "delta_eloss_vs_ct35_baseline_pct": (eloss - base_eloss) / base_eloss * 100.0,
-            "reynolds_stress_tensor_diagnostics": r_stats,
-            "hydraulic_integrals_sha256": sha256_file(hyd_p),
-        })
-
-    # Build complete JSON verification dossier
-    dossier = {
-        "schema_version": 1,
-        "kind": "openfoam14_3grid_roache_gci_and_rsm_turbulence_verification_not_physical_validation",
-        "subject_candidate_id": "xbabe2-gen043-isl10-ind030",
-        "subject_topology_class": "trifurcated-6jet-vortex-head",
-        "subject_design_sha256": json.loads((ROOT / "runs/rust-cfd-elite-gen024-isl2-ind014/input-manifest.json").read_text())["design_sha256"],
-        "openfoam_image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
-        "baseline_ct35_comparator": {
-            "case_dir": "runs/ct35-sst-extended-000",
-            "cells": 334768,
-            "dp_u_pa": base_dp_u,
-            "hydraulic_loss_j_per_treated_m3": base_eloss,
-            "reject_fraction": base_split,
-            "water_closure_fraction": base_closure,
-            "benchmark_dossier_sha256": sha256_file(bench_path),
-        },
-        "grids": [g0, g1, g2],
-        "roache_gci_analysis": {
-            "dp_u_pa": gci_dp_u,
-            "hydraulic_loss_j_per_treated_m3": gci_eloss,
-            "reject_fraction": gci_split,
-            "signal_to_uncertainty_margin": {
-                "fine_grid_dp_u_saving_pa": base_dp_u - g2["dp_u_pa"],
-                "fine_grid_dp_u_saving_pct": (g2["dp_u_pa"] - base_dp_u) / base_dp_u * 100.0,
-                "three_grid_dp_u_span_pa": gci_dp_u["three_grid_extremum_span"],
-                "saving_to_3grid_span_ratio": (base_dp_u - g2["dp_u_pa"]) / max(gci_dp_u["three_grid_extremum_span"], 1.0),
-                "fine_grid_eloss_saving_j_m3": base_eloss - g2["hydraulic_loss_j_per_treated_m3"],
-                "fine_grid_eloss_saving_pct": (g2["hydraulic_loss_j_per_treated_m3"] - base_eloss) / base_eloss * 100.0,
-                "saving_to_3grid_eloss_span_ratio": (base_eloss - g2["hydraulic_loss_j_per_treated_m3"]) / max(gci_eloss["three_grid_extremum_span"], 1.0),
-            },
-            "epistemic_note": (
-                "Per docs/SCIENCE.md, because unstructured snappyHexMesh octree snapping exhibits damped oscillatory "
-                "convergence (R = e21/e10 = -0.373 in (-1, 0)), we report both the standard Roache GCI (Fs=1.25) and "
-                "the conservative oscillatory bound (Fs=3.0, p=1.0) plus the full 3-grid extremum span rather than "
-                "claiming asymptotic monotonic Richardson extrapolation."
-            ),
-        },
-        "rsm_turbulence_closure_crosscheck": rsm_models,
-        "limitations": [
-            "Single-phase 3D incompressible Navier-Stokes carrier verification across 3 grids (140k, 306k, 553k cells) and Eddy-Viscosity (kOmegaSST) vs 7-equation Reynolds-Stress Transport (RSM) closures.",
-            "Does not constitute physical F4 experimental validation; physical qualification remains null until LPBF printing, CT scan metrology, and 5-block blinded flow-loop trials complete."
-        ],
-    }
-
+    plt.rcdefaults()
+    # Rendering consumes only the committed corrected dossier, never private runs.
     v2_json = ROOT / "docs/results/elite-3grid-gci-and-rsm-verification-v2.json"
-    if v2_json.exists():
-        out_json = v2_json
-        dossier = json.loads(out_json.read_text(encoding="utf-8"))
-        g0, g1, g2 = dossier["grids"]
-        gci_dp_u = dossier["roache_gci_analysis"]["dp_u_pa"]
-        rsm_models = dossier["rsm_turbulence_closure_crosscheck"]
-        base_dp_u = float(dossier["baseline_ct35_comparator"]["dp_u_pa"])
-        base_eloss = float(dossier["baseline_ct35_comparator"]["hydraulic_loss_j_per_treated_m3"])
-        base_split = float(dossier["baseline_ct35_comparator"]["reject_fraction"])
-        base_closure = float(dossier["baseline_ct35_comparator"]["water_closure_fraction"])
-    else:
-        out_json = ROOT / "docs/results/elite-3grid-gci-and-rsm-verification-v1.json"
-        out_json.write_text(json.dumps(dossier, indent=2) + "\n")
-        print(f"Wrote {out_json} (SHA-256: {sha256_file(out_json)})")
+    out_json = v2_json
+    dossier = json.loads(out_json.read_text(encoding="utf-8"))
+    g0, g1, g2 = dossier["grids"]
+    gci_dp_u = dossier["roache_gci_analysis"]["dp_u_pa"]
+    rsm_models = dossier["rsm_turbulence_closure_crosscheck"]
+    base_dp_u = float(dossier["baseline_ct35_comparator"]["dp_u_pa"])
+    base_eloss = float(dossier["baseline_ct35_comparator"]["hydraulic_loss_j_per_treated_m3"])
+    base_split = float(dossier["baseline_ct35_comparator"]["reject_fraction"])
+    base_closure = float(dossier["baseline_ct35_comparator"]["water_closure_fraction"])
 
     # Generate publication-grade 4-panel figure plate
     fig = plt.figure(figsize=(16, 11), dpi=220, facecolor="#0b1021")
@@ -583,7 +465,7 @@ def main() -> None:
 
     ax2_r = ax2.twinx()
     ax2_r.plot(x_b + 0.16, [c * 1e4 for c in closures_b], "D-", color="#fbbf24", linewidth=1.8, markersize=6, label="Water Closure Residual [$\\times 10^{-4}\\%$]")
-    ax2_r.set_ylabel("Mass Closure Residual [$\\times 10^{-4}\\%$] (Gate $\\leq 1000$)", fontsize=9.5, color="#fbbf24")
+    ax2_r.set_ylabel("Mass Closure Residual [$\\times 10^{-4}\\%$]", fontsize=9.5, color="#fbbf24")
     ax2_r.tick_params(colors="#fbbf24", labelsize=8.5)
     ax2_r.set_ylim(0, max(35.0, max(c * 1e4 for c in closures_b) * 1.35))
     ax2.legend(loc="upper left", fontsize=8.2, facecolor="#0f172a", edgecolor="#334155", labelcolor="#e2e8f0")
