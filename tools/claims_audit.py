@@ -157,6 +157,7 @@ def verify_paths_and_sha256_digests(
         "docs/figures/wave4-readme-hero-kpi-and-elite.png",
         "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
         "docs/figures/wave4-page1-why-it-matters.png",
+        "docs/figures/wave4-gci-same-pipeline-control.png",
         "docs/figures/wave2-vortex-and-qd-illumination.gif",
         "docs/figures/wave2-topology-morph-and-lineage.gif",
     ]
@@ -904,6 +905,11 @@ def _numeral_tokens_with_context(text: str) -> list[tuple[str, str, str]]:
         )
         line = re.sub(r"§\s*\d+(?:\.\d+)*", " ", line)  # section references, e.g. S2 §4.7
         line = re.sub(r"\((?:19|20)\d{2}\)", " ", line)  # citation years, e.g. Launder et al. (1975)
+        line = re.sub(  # confidence levels, e.g. "95% CI", "95% bootstrap intervals", are not claims
+            r"\b(?:90|95|99)\s*\\?%\s*(?=[`*]*\s*(?:\w+[- ]){0,2}(?:CI|confidence|bootstrap|interval|lower|upper|LCB|UCB))",
+            " ",
+            line,
+        )
         line = re.sub(r"^\s*#{1,6}\s+\d+(?:\.\d+)*", " ", line)  # heading numbers, e.g. "### 4.6"
         line = re.sub(r"\bOpenFOAM(?: Foundation)?\s+\d+", " ", line)  # solver version, not a measurement
         line = re.sub(r"_\{\d+", "_{", line)  # LaTeX subscripts such as d_{50} and d_{32}
@@ -951,6 +957,16 @@ _LEAD_AFFINITY = (
     (r"\\delta\s*=\s*$", ("cliffs_delta",)),
     (r"p_\{\\text\{Holm\}\}\s*=\s*$", ("holm",)),
 )
+
+
+_HEADER_STOPWORDS = {"with", "from", "mean", "final", "screen", "label", "authored", "seed", "value", "values",
+                     "case", "metric", "reaching", "leave", "surrogate"}
+
+
+def _header_keys(cell: str) -> tuple[str, ...]:
+    """Receipt-key fragments named by a table column header, e.g. 'RMSE' or 'seeds'."""
+    words = re.findall(r"[a-z]{4,}", re.sub(r"\\text\{|[`*$]", " ", cell.lower()))
+    return tuple(w for w in words if w not in _HEADER_STOPWORDS)
 
 
 def _lead_affinity(before: str) -> tuple[str, ...]:
@@ -1061,6 +1077,16 @@ def _check_declared(numeral: str, kind: str, source: str, check: str, root: Path
         if _matches_printed(numeral.split("@", 1)[0], value) is None:
             return f"derived {numeral}: expression evaluates to {value}"
         return None
+    if kind == "count":
+        m = re.fullmatch(r"`?len\(([\w./-]+\.json)#(/[^\s)]*)\)`?", check.strip())
+        if not m or not (root / m.group(1)).is_file():
+            return f"declared {numeral}: count check must be len(<receipt>#<pointer>)"
+        node: Any = json.loads((root / m.group(1)).read_text(encoding="utf-8"))
+        for part in m.group(2).strip("/").split("/"):
+            node = node[int(part)] if isinstance(node, list) else node.get(part) if isinstance(node, dict) else None
+        if not isinstance(node, (list, dict)) or str(len(node)) != numeral.split("@", 1)[0].replace(",", ""):
+            return f"declared {numeral}: count of {m.group(1)}#{m.group(2)} is not {numeral.split('@', 1)[0]}"
+        return None
     if kind in ("protocol constant", "historical"):
         return None if source.strip() and check.strip() else f"declared {numeral}: needs source and reason"
     return f"declared {numeral}: unknown kind '{kind}'"
@@ -1104,7 +1130,11 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
         end = doc.find(end_marker, start + len(start_marker)) if end_marker else -1
         text = doc[start : end if end > 0 else len(doc)]
         cite_re = r"((?:docs/results|docs/receipts|experiments|baselines/ct35)/[\w./-]+\.json)"
-        section_cited = list(dict.fromkeys(re.findall(cite_re, text)))
+        section_cited = list(dict.fromkeys(  # caption citations stay with their caption
+            c for _, unit in _sentences(text)
+            if not (unit.startswith("![") or (unit.startswith("*") and not unit.startswith("**")))
+            for c in re.findall(cite_re, unit)
+        ))
         rows: dict[tuple[str, str, str, str], int] = {}
         sub_cited: list[str] = []
         units = _sentences(text)
@@ -1112,9 +1142,17 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
         for line_no, unit in units:
             para_cites.setdefault(line_no, []).extend(re.findall(cite_re, unit))
         para_start, para_cited, in_caption = None, [], False
+        header: list[str] = []
+        previous_row: list[str] = []
         for line_no, unit in units:
             if unit.startswith("#"):
                 sub_cited = []
+            row = _table_cells(unit) if unit.startswith("|") else []
+            if row and all(re.fullmatch(r":?-{2,}:?", c) for c in row):
+                header = previous_row  # the row above a |---| separator is the column header
+            elif not row:
+                header = []
+            previous_row = row
             if line_no != para_start:  # a figure caption's citations bind only, and all of, that caption paragraph
                 para_start = line_no
                 in_caption = unit.startswith("![") or (unit.startswith("*") and not unit.startswith("**"))
@@ -1126,7 +1164,12 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
                 sub_cited = list(dict.fromkeys(sub_cited + unit_cited))
                 bound = list(dict.fromkeys(unit_cited + sub_cited[::-1]))  # nearest earlier citation first
             search = bound or list(dict.fromkeys(section_cited + all_files))
-            for token, before, after in _numeral_tokens_with_context(unit):
+            if row and header and len(row) == len(header):  # table cell: its column header names the quantity
+                cells = [(tok, b, a, _header_keys(header[ci])) for ci, cell in enumerate(row)
+                         for tok, b, a in _numeral_tokens_with_context(cell)]
+            else:
+                cells = [(tok, b, a, ()) for tok, b, a in _numeral_tokens_with_context(unit)]
+            for token, before, after, column_keys in cells:
                 scope = next((k for k, (n, phrase) in scoped.items() if n == token and phrase in unit), None)
                 if scope:
                     used_scoped.add(scope)
@@ -1135,7 +1178,7 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
                     key = (token, "declared", "-", "see table")
                 else:
                     key = (token, "**UNTRACED**", "-", "-")
-                    keys = _affinity(after) + _lead_affinity(before)
+                    keys = _affinity(after) + _lead_affinity(before) + column_keys
                     hits = [
                         (rel, ptr, tag or "printed")
                         for scale, tag in _unit_scales(after, unit)
@@ -1163,7 +1206,7 @@ def build_numbers_trace(root: Path, existing: str | None = None) -> tuple[str, l
         "",
         "Hand-reviewed. Kinds: `literal` (this exact text must appear in the cited file), `derived` (arithmetic over receipt",
         "pointers and numeric constants, re-evaluated by the audit), `protocol constant` and `historical` (reason required;",
-        "not machine-checked). A numeral written `N@phrase` applies only in sentences containing `phrase`; a plain `N` applies everywhere.",
+        "not machine-checked); `count` checks the length of a receipt list. A numeral written `N@phrase` applies only in sentences containing `phrase`; a plain `N` applies everywhere.",
         "",
         "| Numeral | Kind | Source | Check |",
         "|---|---|---|---|",
