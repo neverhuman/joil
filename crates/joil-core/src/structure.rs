@@ -1,11 +1,11 @@
-//! 3D Structural Mechanics, Modal/VIV Resonance, and LPBF Manufacturability Qualification (`structure.rs`).
+//! Conditional analytic stress, modal and manufacturing screens, plus numerical oracles.
 //!
 //! Implements deterministic verification and screening for Packet `P08` (`STRUCTURE-01`..`STRUCTURE-05`,
 //! `CAD-08`, `CAD-09`):
 //! - `STRUCTURE-01`: Analytical Lamé thick-wall cylinder elasticity oracle + 3D harmonic-lobe & S-cone
 //!   stress concentration ($K_t$) von Mises stress under external vessel pressure ($\Delta p = 2.5\,\text{MPa}$).
-//! - `STRUCTURE-02`: Hydrodynamic pressure & swirl-torque reaction load transfer conservation on collar faces.
-//! - `STRUCTURE-03`: 3-level systematic axial discretization convergence ($N_z = 256, 512, 1024$) and GCI check.
+//! - `STRUCTURE-02`: Independent integration of supplied traction and solved reaction fields.
+//! - `STRUCTURE-03`: Four-level axial integration order-stability diagnostic.
 //! - `STRUCTURE-04`: Internal splitter-vane hydrodynamic bending + Strouhal vortex-shedding (VIV) frequency
 //!   lock-in margin ($f_1 / f_{\text{shed}} \ge 3.0$), and vortex-finder skimmer cantilever tip deflection
 //!   ($\delta_{\text{tip}} \le 0.010\,\text{mm}$) + precessing-vortex-core (PVC) modal margin.
@@ -16,6 +16,7 @@ use crate::geometry::baseline;
 use crate::phenotype::Phenotype3D;
 use crate::program::DesignProgram;
 use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
 use std::f64::consts::PI;
 
 /// Provisional LPBF Ti-6Al-4V (Grade 5, stress-relieved / HIPed) reference properties.
@@ -33,6 +34,241 @@ pub const MIN_MODAL_FREQUENCY_RATIO: f64 = 3.0;
 pub const MAX_SKIMMER_TIP_DEFLECTION_MM: f64 = 0.010;
 pub const MAX_LPBF_OVERHANG_FROM_VERTICAL_DEG: f64 = 45.0;
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub enum GciState {
+    Monotone,
+    Oscillatory,
+    Divergent,
+    Asymptotic,
+    Indeterminate,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct GciReport {
+    pub state: GciState,
+    pub observed_order: Option<f64>,
+    pub gci_fine_rel: Option<f64>,
+    pub reason: String,
+}
+
+/// Equal-ratio three-grid diagnostic, ordered coarse to fine. Three values alone
+/// cannot independently establish an asymptotic range, so no GCI is certified.
+pub fn three_grid_order(values: [f64; 3], refinement_ratio: f64) -> Result<GciReport, String> {
+    if values.iter().any(|x| !x.is_finite())
+        || !refinement_ratio.is_finite()
+        || refinement_ratio <= 1.0
+    {
+        return Err("finite grid values and refinement ratio > 1 required".into());
+    }
+    let coarse_difference = values[0] - values[1];
+    let fine_difference = values[1] - values[2];
+    let floor = 64.0
+        * f64::EPSILON
+        * values
+            .iter()
+            .copied()
+            .map(f64::abs)
+            .fold(f64::MIN_POSITIVE, f64::max);
+    let (state, order, reason) =
+        if coarse_difference.abs() <= floor || fine_difference.abs() <= floor {
+            (
+                GciState::Indeterminate,
+                None,
+                "grid differences are not resolved above roundoff",
+            )
+        } else if coarse_difference.is_sign_positive() != fine_difference.is_sign_positive() {
+            (GciState::Oscillatory, None, "grid differences change sign")
+        } else {
+            let order =
+                (coarse_difference.abs().ln() - fine_difference.abs().ln()) / refinement_ratio.ln();
+            if !order.is_finite() || order <= 0.0 {
+                (
+                    GciState::Divergent,
+                    Some(order),
+                    "grid differences do not decrease",
+                )
+            } else {
+                (
+                    GciState::Monotone,
+                    Some(order),
+                    "asymptotic range needs an independent fourth grid",
+                )
+            }
+        };
+    Ok(GciReport {
+        state,
+        observed_order: order,
+        gci_fine_rel: None,
+        reason: reason.into(),
+    })
+}
+
+/// Test order stability on overlapping triples before issuing a conditional GCI.
+/// Sampling, temporal and model errors remain outside this spatial diagnostic.
+pub fn four_grid_gci(
+    values: [f64; 4],
+    refinement_ratio: f64,
+    relative_order_tolerance: f64,
+) -> Result<GciReport, String> {
+    if !relative_order_tolerance.is_finite() || relative_order_tolerance <= 0.0 {
+        return Err("positive finite order-stability tolerance required".into());
+    }
+    let previous = three_grid_order([values[0], values[1], values[2]], refinement_ratio)?;
+    let mut fine = three_grid_order([values[1], values[2], values[3]], refinement_ratio)?;
+    if previous.state == GciState::Monotone && fine.state == GciState::Monotone {
+        let old_order = previous.observed_order.unwrap();
+        let order = fine.observed_order.unwrap();
+        if (old_order - order).abs() <= relative_order_tolerance * order.abs() && values[3] != 0.0 {
+            let gci = 1.25 * (values[3] - values[2]).abs()
+                / (values[3].abs() * (refinement_ratio.powf(order) - 1.0));
+            if gci.is_finite() {
+                fine.state = GciState::Asymptotic;
+                fine.gci_fine_rel = Some(gci);
+                fine.reason = "order agrees on overlapping triples within declared tolerance; spatial diagnostic only".into();
+            }
+        } else {
+            fine.reason =
+                "observed order is not stable on overlapping triples or fine value is zero".into();
+        }
+    }
+    Ok(fine)
+}
+
+/// Source quadrature points in a common Cartesian frame, SI units. The normal
+/// defines traction `-pressure * normal + viscous_traction` applied to the solid.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SurfaceTraction {
+    pub position_m: [f64; 3],
+    pub normal: [f64; 3],
+    pub area_m2: f64,
+    pub pressure_pa: f64,
+    pub viscous_traction_pa: [f64; 3],
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NodalReaction {
+    pub position_m: [f64; 3],
+    pub force_n: [f64; 3],
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct LoadTransferAudit {
+    pub source_force_n: [f64; 3],
+    pub source_moment_n_m: [f64; 3],
+    pub reaction_force_n: [f64; 3],
+    pub reaction_moment_n_m: [f64; 3],
+    pub force_residual_n: f64,
+    pub moment_residual_n_m: f64,
+    pub passed: bool,
+}
+
+fn resultant(
+    samples: impl Iterator<Item = ([f64; 3], [f64; 3])>,
+    origin_m: [f64; 3],
+) -> ([f64; 3], [f64; 3]) {
+    let mut force = [0.0; 3];
+    let mut moment = [0.0; 3];
+    for (position, applied) in samples {
+        let r: [f64; 3] = std::array::from_fn(|i| position[i] - origin_m[i]);
+        for i in 0..3 {
+            force[i] += applied[i];
+            moment[i] +=
+                r[(i + 1) % 3] * applied[(i + 2) % 3] - r[(i + 2) % 3] * applied[(i + 1) % 3];
+        }
+    }
+    (force, moment)
+}
+
+/// Independently integrate supplied source tractions and solved nodal reactions.
+/// No reaction values are synthesized here. Positive tolerances are caller policy.
+pub fn audit_load_transfer(
+    source: &[SurfaceTraction],
+    reactions: &[NodalReaction],
+    origin_m: [f64; 3],
+    relative_tolerance: f64,
+    force_absolute_tolerance_n: f64,
+    moment_absolute_tolerance_n_m: f64,
+) -> Result<LoadTransferAudit, String> {
+    if source.is_empty()
+        || reactions.is_empty()
+        || origin_m.iter().any(|x| !x.is_finite())
+        || [
+            relative_tolerance,
+            force_absolute_tolerance_n,
+            moment_absolute_tolerance_n_m,
+        ]
+        .iter()
+        .any(|x| !x.is_finite() || *x < 0.0)
+        || source.iter().any(|s| {
+            !s.area_m2.is_finite()
+                || s.area_m2 <= 0.0
+                || !s.pressure_pa.is_finite()
+                || s.position_m
+                    .iter()
+                    .chain(&s.normal)
+                    .chain(&s.viscous_traction_pa)
+                    .any(|x| !x.is_finite())
+                || (s.normal.iter().map(|x| x * x).sum::<f64>() - 1.0).abs() > 1e-9
+        })
+        || reactions.iter().any(|r| {
+            r.position_m
+                .iter()
+                .chain(&r.force_n)
+                .any(|x| !x.is_finite())
+        })
+    {
+        return Err(
+            "finite SI traction/reaction fields, unit normals and nonnegative tolerances required"
+                .into(),
+        );
+    }
+    let (source_force_n, source_moment_n_m) = resultant(
+        source.iter().map(|s| {
+            (
+                s.position_m,
+                std::array::from_fn(|i| {
+                    (-s.pressure_pa * s.normal[i] + s.viscous_traction_pa[i]) * s.area_m2
+                }),
+            )
+        }),
+        origin_m,
+    );
+    let (reaction_force_n, reaction_moment_n_m) = resultant(
+        reactions.iter().map(|r| (r.position_m, r.force_n)),
+        origin_m,
+    );
+    let norm = |v: [f64; 3]| v[0].hypot(v[1]).hypot(v[2]);
+    let force_residual_n = norm(std::array::from_fn(|i| {
+        source_force_n[i] + reaction_force_n[i]
+    }));
+    let moment_residual_n_m = norm(std::array::from_fn(|i| {
+        source_moment_n_m[i] + reaction_moment_n_m[i]
+    }));
+    if [
+        force_residual_n,
+        moment_residual_n_m,
+        norm(source_force_n),
+        norm(source_moment_n_m),
+    ]
+    .iter()
+    .any(|x| !x.is_finite())
+    {
+        return Err("load integration overflow".into());
+    }
+    Ok(LoadTransferAudit {
+        source_force_n,
+        source_moment_n_m,
+        reaction_force_n,
+        reaction_moment_n_m,
+        force_residual_n,
+        moment_residual_n_m,
+        passed: force_residual_n
+            <= force_absolute_tolerance_n + relative_tolerance * norm(source_force_n)
+            && moment_residual_n_m
+                <= moment_absolute_tolerance_n_m + relative_tolerance * norm(source_moment_n_m),
+    })
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct LameCylinderState {
     pub r_eval_m: f64,
@@ -44,18 +280,22 @@ pub struct LameCylinderState {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct StructuralQualification {
+pub struct AnalyticStructuralScreen {
+    pub genome_sha256: String,
+    pub load_case_sha256: String,
     pub passed: bool,
     pub material_designation: String,
-    pub sour_service_qualified: bool,
-    pub qualification_status: String,
+    pub sour_service_status: String,
+    pub screen_status: String,
     pub design_vessel_delta_p_pa: f64,
     pub max_wall_von_mises_mpa: f64,
     pub min_yield_safety_factor: f64,
-    pub stress_gci_fine_rel: f64,
-    pub axial_reaction_force_n: f64,
-    pub swirl_reaction_torque_n_m: f64,
-    pub load_transfer_rel_error: f64,
+    pub stress_gci_fine_rel: Option<f64>,
+    pub stress_convergence: GciReport,
+    pub estimated_axial_pressure_thrust_n: f64,
+    pub estimated_swirl_torque_n_m: f64,
+    pub load_transfer_audit: Option<LoadTransferAudit>,
+    pub load_transfer_status: String,
     pub vane_bending_stress_mpa: f64,
     pub vane_natural_freq_hz: f64,
     pub vane_strouhal_shedding_freq_hz: f64,
@@ -68,6 +308,25 @@ pub struct StructuralQualification {
     pub max_lpbf_overhang_from_vertical_deg: f64,
     pub min_powder_evacuation_dh_mm: f64,
     pub failure_reasons: Vec<String>,
+}
+
+pub fn structural_load_case_hash(
+    genome_sha256: &str,
+    dp_u_pa: f64,
+    q_in_m3_s: f64,
+) -> Result<String, String> {
+    if !dp_u_pa.is_finite() || dp_u_pa <= 0.0 || !q_in_m3_s.is_finite() || q_in_m3_s <= 0.0 {
+        return Err("finite positive candidate hydraulic loads required".into());
+    }
+    let wire = serde_json::to_vec(&(
+        "analytic-structural-load-v1",
+        genome_sha256,
+        dp_u_pa,
+        q_in_m3_s,
+        DESIGN_VESSEL_DELTA_P_PA,
+    ))
+    .map_err(|e| e.to_string())?;
+    Ok(format!("{:x}", Sha256::digest(wire)))
 }
 
 /// Exact analytical Lamé thick-walled cylinder solution (`STRUCTURE-01` oracle).
@@ -197,13 +456,19 @@ fn evaluate_axial_wall_stress_profile_mpa(
     Ok((max_vm_pa * 1e-6, integrated_vm_pa_m * 1e-6))
 }
 
-/// Evaluates full P08 structural, modal/VIV, load-transfer, and LPBF manufacturability qualification.
-pub fn qualify_structure(
+/// Evaluate conditional analytic stress/modal/LPBF bounds. This is not a solid
+/// solve; absent reaction and converged-mesh evidence remain explicitly unknown.
+pub fn analytic_structural_screen(
     prog: &DesignProgram,
     pheno: &Phenotype3D,
     dp_u_pa: f64,
     q_in_m3_s: f64,
-) -> Result<StructuralQualification, String> {
+) -> Result<AnalyticStructuralScreen, String> {
+    let genome_sha256 = prog.canonical_sha256()?;
+    if pheno.design_sha256 != genome_sha256 {
+        return Err("structural phenotype/genome identity mismatch".into());
+    }
+    let load_case_sha256 = structural_load_case_hash(&genome_sha256, dp_u_pa, q_in_m3_s)?;
     if !dp_u_pa.is_finite()
         || !q_in_m3_s.is_finite()
         || dp_u_pa <= 0.0
@@ -224,15 +489,9 @@ pub fn qualify_structure(
     let (vm_1024, int_1024) =
         evaluate_axial_wall_stress_profile_mpa(prog, DESIGN_VESSEL_DELTA_P_PA, 1024)?;
 
-    let e21 = (int_1024 - int_512).abs();
-    let e32 = (int_512 - int_256).abs().max(1e-12);
-    let r_grid = 2.0_f64;
-    let p_obs = (e32 / e21.max(1e-15))
-        .ln()
-        .div_euclid(r_grid.ln())
-        .clamp(1.0, 4.0);
-    let stress_gci_fine_rel =
-        (1.25 * e21 / (int_1024.abs().max(1e-9) * (r_grid.powf(p_obs) - 1.0))).min(1.0);
+    let (_, int_128) = evaluate_axial_wall_stress_profile_mpa(prog, DESIGN_VESSEL_DELTA_P_PA, 128)?;
+    let stress_convergence = four_grid_gci([int_128, int_256, int_512, int_1024], 2.0, 0.01)?;
+    let stress_gci_fine_rel = stress_convergence.gci_fine_rel;
     let max_wall_von_mises_mpa = vm_1024.max(vm_512).max(vm_256);
     let min_yield_safety_factor = TI64_YIELD_STRENGTH_MPA / max_wall_von_mises_mpa.max(1e-6);
 
@@ -240,20 +499,15 @@ pub fn qualify_structure(
     let a_head_m2 = PI * (0.5_f64 * dims.d1_mm * 1e-3).powi(2);
     let a_tail_m2 = PI * (0.5_f64 * dims.d3_mm * 1e-3).powi(2);
     let fluid_axial_load_n = dp_u_pa * (a_head_m2 - a_tail_m2);
-    let collar_reaction_force_n = fluid_axial_load_n; // exact mapped patch balance
 
     let a_inlet_total_m2 =
         2.0 * dims.inlet_area_each_mm2 * 1e-6 * prog.inlet_ramp.radial_slot_factor;
     let u_inlet_m_s = q_in_m3_s / a_inlet_total_m2.max(1e-7);
     let r_arm_m = (0.5 * dims.d1_mm - 0.5 * dims.inlet_width_mm) * 1e-3;
     let swirl_reaction_torque_n_m = WATER_DENSITY_KG_M3 * q_in_m3_s * u_inlet_m_s * r_arm_m;
-    let mapped_collar_torque_n_m = swirl_reaction_torque_n_m;
-    let load_transfer_rel_error = ((collar_reaction_force_n - fluid_axial_load_n).abs()
-        / fluid_axial_load_n.abs().max(1.0))
-    .max(
-        (mapped_collar_torque_n_m - swirl_reaction_torque_n_m).abs()
-            / swirl_reaction_torque_n_m.abs().max(1e-6),
-    );
+    // CFD traction fields and independent solid reactions are absent in this
+    // analytical screen. Estimated thrust/torque cannot verify load mapping.
+    let load_transfer_audit = None;
 
     // 3. STRUCTURE-04a: Inlet splitter-vane hydrodynamic jet bending & Strouhal VIV resonance
     let q_dyn_inlet_pa = 0.5 * WATER_DENSITY_KG_M3 * u_inlet_m_s * u_inlet_m_s;
@@ -322,15 +576,10 @@ pub fn qualify_structure(
             "yield_safety_factor_below_min({min_yield_safety_factor:.3} < {MIN_YIELD_SAFETY_FACTOR:.2})"
         ));
     }
-    if stress_gci_fine_rel > 0.01 {
-        failure_reasons.push(format!(
-            "stress_convergence_gci_exceeded({stress_gci_fine_rel:.5} > 0.01)"
-        ));
-    }
-    if load_transfer_rel_error > 1e-9 {
-        failure_reasons.push(format!(
-            "load_transfer_imbalance({load_transfer_rel_error:.3e})"
-        ));
+    if let Some(gci) = stress_gci_fine_rel {
+        if gci > 0.01 {
+            failure_reasons.push(format!("stress_convergence_gci_exceeded({gci:.5} > 0.01)"));
+        }
     }
     if vane_bending_stress_mpa > TI64_HCF_ENDURANCE_SEAWATER_MPA {
         failure_reasons.push(format!(
@@ -368,20 +617,24 @@ pub fn qualify_structure(
         ));
     }
 
-    Ok(StructuralQualification {
+    Ok(AnalyticStructuralScreen {
+        genome_sha256,
+        load_case_sha256,
         passed: failure_reasons.is_empty(),
         material_designation: "LPBF_Ti-6Al-4V_Grade5_Provisional_StressRelieved".to_string(),
-        sour_service_qualified: false,
-        qualification_status:
+        sour_service_status: "unknown_material_process_and_service_eligibility".into(),
+        screen_status:
             "analytical_and_axial_slice_structural_modal_screen_not_3d_solid_fea_or_nace_mr0175"
                 .to_string(),
         design_vessel_delta_p_pa: DESIGN_VESSEL_DELTA_P_PA,
         max_wall_von_mises_mpa,
         min_yield_safety_factor,
         stress_gci_fine_rel,
-        axial_reaction_force_n: collar_reaction_force_n,
-        swirl_reaction_torque_n_m,
-        load_transfer_rel_error,
+        stress_convergence,
+        estimated_axial_pressure_thrust_n: fluid_axial_load_n,
+        estimated_swirl_torque_n_m: swirl_reaction_torque_n_m,
+        load_transfer_audit,
+        load_transfer_status: "unknown_no_cfd_tractions_or_solid_reactions".into(),
         vane_bending_stress_mpa,
         vane_natural_freq_hz,
         vane_strouhal_shedding_freq_hz,

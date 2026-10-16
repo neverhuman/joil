@@ -4,6 +4,7 @@ pub mod cfd_case;
 pub mod evolve;
 pub mod experiment;
 pub mod geometry;
+pub mod inventor;
 pub mod metrics;
 pub mod openfoam;
 pub mod phenotype;
@@ -13,3 +14,5 @@ pub mod redteam;
 pub mod scene;
 pub mod structure;
 pub mod surrogate;
+
+pub use joil_ir;

@@ -71,8 +71,58 @@ pub fn verify_carrier_case_provenance(
     if manifest_path.is_file() {
         input_manifest_sha256 = Some(file_sha256(&manifest_path)?);
         let raw = fs::read_to_string(&manifest_path).map_err(|e| e.to_string())?;
-        let map: BTreeMap<String, String> =
+        let val: serde_json::Value =
             serde_json::from_str(&raw).map_err(|e| format!("invalid input-manifest.json: {e}"))?;
+        let map: BTreeMap<String, String> = if let Some(dict_obj) = val
+            .get("dictionary_files_sha256")
+            .and_then(|v| v.as_object())
+        {
+            // Structured CfdCaseManifest: also verify case_dir basename and turbulence_model (`EV-12`)
+            if let Some(manifest_case_dir) = val.get("case_dir").and_then(|v| v.as_str()) {
+                let expected_base = Path::new(manifest_case_dir)
+                    .file_name()
+                    .and_then(|s| s.to_str())
+                    .unwrap_or("");
+                let actual_base = case_canon
+                    .file_name()
+                    .and_then(|s| s.to_str())
+                    .unwrap_or("");
+                if !expected_base.is_empty()
+                    && !actual_base.is_empty()
+                    && expected_base != actual_base
+                {
+                    mismatched_inputs.push(format!(
+                        "copied_manifest_case_dir_mismatch:{expected_base}!={actual_base}"
+                    ));
+                }
+            }
+            if let Some(turb_model) = val
+                .get("config")
+                .and_then(|c| c.get("turbulence_model"))
+                .and_then(|v| v.as_str())
+            {
+                let mt_path = case_canon.join("constant/momentumTransport");
+                if let Ok(mt_raw) = fs::read_to_string(&mt_path) {
+                    if !mt_raw.contains(&format!("model {turb_model};")) {
+                        mismatched_inputs.push(format!("turbulence_model_mismatch:{turb_model}"));
+                    }
+                }
+            }
+            let mut m = BTreeMap::new();
+            for (k, v) in dict_obj {
+                if let Some(s) = v.as_str() {
+                    m.insert(k.clone(), s.to_string());
+                } else {
+                    return Err(format!(
+                        "non-string hash for '{k}' in dictionary_files_sha256"
+                    ));
+                }
+            }
+            m
+        } else {
+            serde_json::from_value(val)
+                .map_err(|e| format!("invalid input-manifest.json map: {e}"))?
+        };
         if map.is_empty() {
             mismatched_inputs.push("<empty_input_manifest>".into());
         } else {
@@ -407,6 +457,86 @@ pub fn checked_near_integer_flux(flux_integral: f64, tol: f64) -> Result<(i64, f
 }
 
 /// Evaluate source-bound hydraulic KPIs and eligibility from an executed OpenFOAM case.
+fn failed_case_executions(case_dir: &Path) -> Result<Vec<std::path::PathBuf>, String> {
+    let mut failures = Vec::new();
+    for marker in ["FAILED", "failed.json", "numerical-failure.json"] {
+        let path = case_dir.join(marker);
+        if path.exists() {
+            failures.push(path);
+        }
+    }
+    for entry in fs::read_dir(case_dir).map_err(|e| e.to_string())? {
+        let path = entry.map_err(|e| e.to_string())?.path();
+        if path
+            .file_name()
+            .and_then(|s| s.to_str())
+            .is_some_and(|name| name.ends_with(".receipt.json"))
+        {
+            let bytes = fs::read(&path).map_err(|e| e.to_string())?;
+            let receipt: serde_json::Value =
+                serde_json::from_slice(&bytes).map_err(|e| e.to_string())?;
+            if receipt
+                .get("exit_code")
+                .and_then(|v| v.as_i64())
+                .is_some_and(|code| code != 0)
+                || receipt.get("stop_reason").is_some_and(|v| !v.is_null())
+            {
+                failures.push(path);
+            }
+        }
+    }
+    Ok(failures)
+}
+
+/// A failed execution has no numerical projection. Successful results from this
+/// legacy importer remain carrier diagnostics, not qualified performance labels.
+pub fn read_cfd_kpi_observation(
+    root_dir: &Path,
+    integrals_path: &Path,
+    expected_time_step: u64,
+) -> Result<serde_json::Value, joil_evidence::observation::Observation> {
+    use joil_evidence::{
+        identity::ContentRef,
+        observation::{FailureClass, Observation},
+    };
+    let case_dir = integrals_path
+        .parent()
+        .ok_or_else(|| Observation::Unknown {
+            reason: "missing_case_directory".into(),
+        })?;
+    let failures = failed_case_executions(case_dir).map_err(|_| Observation::Insufficient {
+        reason: "case_execution_evidence_unreadable".into(),
+        missing: vec!["readable_execution_receipts".into()],
+    })?;
+    if !failures.is_empty() {
+        let diagnostics = failures
+            .iter()
+            .filter_map(|path| {
+                fs::read(path).ok().map(|bytes| {
+                    ContentRef::from_bytes(
+                        path.file_name()
+                            .and_then(|s| s.to_str())
+                            .unwrap_or("failure-artifact"),
+                        "1",
+                        &bytes,
+                    )
+                })
+            })
+            .collect();
+        return Err(Observation::Failed {
+            class: FailureClass::Numerical,
+            reason: "case_contains_failed_or_stopped_execution".into(),
+            diagnostics,
+        });
+    }
+    evaluate_measured_cfd_kpis(root_dir, integrals_path, expected_time_step).map_err(|_| {
+        Observation::Insufficient {
+            reason: "carrier_diagnostic_not_admitted".into(),
+            missing: vec!["verified_successful_execution_and_source_bound_finite_integrals".into()],
+        }
+    })
+}
+
 pub fn evaluate_measured_cfd_kpis(
     root_dir: &Path,
     integrals_path: &Path,
@@ -415,6 +545,11 @@ pub fn evaluate_measured_cfd_kpis(
     let case_dir = integrals_path
         .parent()
         .ok_or_else(|| "invalid integrals_path parent".to_string())?;
+    if !failed_case_executions(case_dir)?.is_empty() {
+        return Err(
+            "refusing failed or stopped case; no performance observations available".into(),
+        );
+    }
     let case_name = case_dir
         .file_name()
         .and_then(|s| s.to_str())
@@ -447,6 +582,9 @@ pub fn evaluate_measured_cfd_kpis(
             "refusing case {case_name}: input-manifest verification failed: {:?}",
             prov.mismatched_inputs
         ));
+    }
+    if !prov.metrics_binary_verified || !prov.metrics_receipt_verified {
+        return Err("refusing unverified or unsuccessful metrics execution; no performance observations available".into());
     }
 
     let patches = integrals
@@ -555,6 +693,49 @@ pub fn evaluate_measured_cfd_kpis(
             "underflow_reverse_to_net_ratio": un_rev_ratio
         }
     }))
+}
+
+/// Extract source-bound `PhysicsObservedDescriptors` (`IR-07`) from an executed and provenance-verified
+/// OpenFOAM case's integrals file. Rejects unverified or failed cases.
+pub fn extract_physics_observed_descriptors(
+    root_dir: &Path,
+    integrals_path: &Path,
+    expected_time_step: u64,
+) -> Result<joil_ir::PhysicsObservedDescriptors, String> {
+    let kpis = evaluate_measured_cfd_kpis(root_dir, integrals_path, expected_time_step)?;
+    let mh = kpis
+        .get("measured_hydraulics")
+        .ok_or_else(|| "missing measured_hydraulics in KPI output".to_string())?;
+    let integrals_sha = kpis
+        .get("integrals_sha256")
+        .and_then(|v| v.as_str())
+        .unwrap_or("")
+        .to_string();
+    Ok(joil_ir::PhysicsObservedDescriptors {
+        source_case_sha256: integrals_sha,
+        measured_dp_u_pa: mh
+            .get("dp_inlet_to_underflow_pa")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing dp_inlet_to_underflow_pa")?,
+        measured_pdr: mh
+            .get("pdr")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing pdr")?,
+        measured_reject_split: mh
+            .get("reject_fraction")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing reject_fraction")?,
+        measured_water_closure: mh
+            .get("water_closure_fraction")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing water_closure_fraction")?,
+        measured_hydraulic_loss_j_m3: mh
+            .get("hydraulic_loss_j_per_treated_m3")
+            .and_then(|v| v.as_f64())
+            .ok_or("missing hydraulic_loss_j_per_treated_m3")?,
+        measured_swirl_number_entry: None,
+        measured_reverse_core_fraction: None,
+    })
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]

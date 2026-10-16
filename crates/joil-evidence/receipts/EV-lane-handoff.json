@@ -1,0 +1,230 @@
+{
+  "lane": "EV",
+  "branch": "lane/evidence",
+  "tested_input_head": "b5f25b36caa296fbf6c1a83a920f4657016e9146",
+  "completed": [
+    "EV-01",
+    "EV-02",
+    "EV-03",
+    "EV-04",
+    "EV-05",
+    "EV-07",
+    "EV-08",
+    "EV-11"
+  ],
+  "blocked": {
+    "EV-06": "Physical admission requires unresolved pressure/energy/absolute-pressure limits, continuous duty band, material/process inputs and independent validation; sandbox contract is implemented.",
+    "EV-09": "No admitted independent Cout labels/observed mechanism inventory. Admission, disjoint holdout planning and explicit Insufficient report implemented; real calibration is deferred by integrator acknowledgment.",
+    "EV-10": "Campaign gate library and open-P0 negative tests implemented; TR-owned experiment/campaign hook pending.",
+    "EV-12": "Full OpenFOAM/FEA schema and exact-artifact tests implemented; IR-owned writers and INT-owned historical run manifests pending."
+  },
+  "checks": {
+    "command": "python3 tools/check.py",
+    "exit_code": 0,
+    "receipt_sha256": "fab60bba37f46240cb9080926659a0c529c7a6a5c5554e0a171fe1ec152ac262",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.046864153002388775,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.2350051010143943,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 4.693198219989426,
+        "log_bytes": 228,
+        "log_sha256": "4d9c100502fa587484616162e9ec6666f8e4038f3fd055493dc6dbc62b389791"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 35.41023285797564,
+        "log_bytes": 8697,
+        "log_sha256": "1bc7a7ec559f8a809e324d29a2c7104c54ba1e1709b01ea2bebb34935cc70247"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.6299844819586724,
+        "log_bytes": 1096,
+        "log_sha256": "6f81813ec73ffabd73aabb9005145c02a82504748f53d570646d1e986908d140"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 7.871467960008886,
+        "log_bytes": 6603,
+        "log_sha256": "990cfa0cd61dbbb6a12e1a71e083448e67c31ad6bbc4d4e76448c956bbd5ec54"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.06921912200050429,
+        "log_bytes": 75,
+        "log_sha256": "53724dd5260d52068ed5d81ec6b300fc4455b1e758e25b62823c062ecf138b44"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 6.767221081012394,
+        "log_bytes": 190,
+        "log_sha256": "d2434ca9a49629473f8e304984525e3a996c7d2657e93685277dd1fe8cb4949b"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 0.9731883179629222,
+        "log_bytes": 28,
+        "log_sha256": "3032bd40ed10c2127e804cedab73282cb8ed9cae0f1a8dd34399074960842542"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 1.8403867130400613,
+        "log_bytes": 1904,
+        "log_sha256": "dd607f34ba20ec15e10e6fa306c61fdc02b4611f7103828bf90b85bd5a1117a4"
+      }
+    ]
+  },
+  "tested_source_files_sha256": {
+    "analysis/evidence.py": "647a599810b92fc2ba605d73764ded8653c8e9771a229c9feae6ca98c07f09fe",
+    "analysis/inventory.py": "28428e168e8c0d825145d7ff93693d9247a3835ec2aad1f3fa2a5cc6986d3553",
+    "tools/gen_status.py": "253dd453e989ddef0e8948a122c5d1b3a5e655ed422ed4809f249b0da0e7a148",
+    "docs/STATUS.json": "23c0e59479eb00859df118dcaa44eebd4ed15dfbdde50d55bebda13bfbffe4a9",
+    "requirements/joil-hydrocyclone-v1.toml": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+    "crates/joil-core/src/surrogate.rs": "8286df758b80ba6ddf277a62e7f39427f83e87b1b82053c4a477d79927616e33",
+    "crates/joil-evidence/src/campaign.rs": "9667a5c667265381ea520d2eeada432a3c93a2c41ced81734968b9771b22614f",
+    "crates/joil-evidence/src/claims.rs": "49a9082b97c5bbfe9a6759c435f8e4cf58be1619c05fa2d99c568e531b29c107",
+    "crates/joil-evidence/src/identity.rs": "6653d31ead6b30aaf42d1223119d141a70dedd32f50efdb3c6eef1d5941f4b89",
+    "crates/joil-evidence/src/lib.rs": "240a393344600392594cb540e960dfb4bda359174e59d75abac83d95d3a861d4",
+    "crates/joil-evidence/src/observation.rs": "67f7ce0c94b1060a461eaf3026b94f19b8d78078cef270ba16950a16506045ea",
+    "crates/joil-evidence/src/subject.rs": "23e73fa6c6a5996a26717a56317fb7bd471c07539482513e48ee9086c1e9fb57",
+    "crates/joil-evidence/src/training.rs": "a97c6f08d711d256c2d9c54c1ef5dd7f2b1b65da422c64262d172c1bb2f3739a",
+    "crates/joil-evidence/schemas/observation-v1.schema.json": "9ec1ca5ac7b8f88732c05e4492b7cef76eaac29d3866f2672ada3d3ec417ff0d"
+  },
+  "positive_checks": [
+    "compiler-bound stage identities",
+    "strict finite typed observations and Rust/Python roundtrip",
+    "trusted exact-byte evidence closure",
+    "transitive revocation",
+    "frozen objective/hash parity and sandbox admission",
+    "deterministic status generation",
+    "explicit surrogate missingness/failure model/abstention/direct-routing",
+    "reviewed independent training labels and geometry-disjoint folds"
+  ],
+  "negative_checks": [
+    "tampered artifacts and identity/unit/state mutants",
+    "unknown/failed/insufficient observations cannot pass",
+    "self-admitted unresolved requirements",
+    "weakened quantile policy",
+    "changed/reordered objective contract or campaign hash",
+    "hand-edited/stale status",
+    "missing/default surrogate features",
+    "prior/synthetic labels rejected as independent",
+    "revoked labels block fresh fitting",
+    "geometry-only mechanism assignments",
+    "empty sandbox holdouts do not become zero error"
+  ],
+  "allocation": {
+    "cargo_jobs_max": 8,
+    "gate_cargo_jobs": 4,
+    "gpu": false,
+    "large_simulations_started": false
+  },
+  "science_eligibility": "software_contract_only; no physical validation or qualified performance gain",
+  "limitations": [
+    "Review/inventory authority must be authenticated by application; no cryptographic review provider bundled.",
+    "Surrogate distance guard is uncalibrated; independent OOD metrics remain Insufficient.",
+    "Historical status is archived as explicitly non-authoritative."
+  ],
+  "next_command": "python3 tools/check.py",
+  "next_dependencies": [
+    "TR EV-10 hook / typed Individual evidence-tier consumer",
+    "IR/INT EV-12 writer and truthful historical case identities",
+    "independent Cout and observed mechanism evidence for EV-09"
+  ]
+}

@@ -35,6 +35,8 @@ def check_steps(root, *, suite=None, skip_ui=False, cad=False, runid='local'):
     if suite:
         names={'npm-ci','ui-build'} if suite=='ui' else {suite}
         steps=[step for step in steps if step[0] in names]
+    if suite in (None, 'python-tests'):
+        steps.insert(0, ('generated-status', ['python3', 'tools/gen_status.py', '--check'], root))
     return steps
 
 

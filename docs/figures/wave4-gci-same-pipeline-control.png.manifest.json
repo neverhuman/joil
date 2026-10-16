@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "figure_path": "docs/figures/wave4-gci-same-pipeline-control.png",
+  "figure_sha256": "64390e249760693a7a10c68b4d8a83df7f02e77a265ec845022e9219d726c1c6",
+  "title": "Wave-4 section 4.6: same-pipeline CT-35 control, archived two-duct shells and the enacted 8-jet design",
+  "generator_script": "tools/generate_wave4_gci_figure.py",
+  "plotted_series_sha256": "b6ef403ce8f5070031312362b934dce08945461cbc3478e76cf42a75d6009986",
+  "source_receipts": [
+    {
+      "path": "docs/results/wave4-gci-v1.json",
+      "sha256": "92c5eea7189fc63b3a28802ecc051746e4eca3f32f1f162b27c9011367029287"
+    },
+    {
+      "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+      "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615"
+    },
+    {
+      "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+      "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9"
+    }
+  ]
+}

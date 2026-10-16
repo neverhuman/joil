@@ -159,10 +159,27 @@ impl SolidMesh {
     }
 }
 
+fn default_mechanism_descriptors() -> MechanismDescriptors {
+    MechanismDescriptors {
+        swirl_flux_index: 1.0,
+        axial_pitch_sin: 0.0,
+        azimuthal_symmetry_order: 2.0,
+        shear_mitigation_factor: 1.0,
+        cone_accel_persistence: 1.0,
+        core_shield_ratio: 0.0,
+        wall_rifling_stabilization: 0.0,
+        hydraulic_resistance_factor: 1.0,
+    }
+}
+
 /// Complete 3D geometric phenotype and F0 audit metrics for a `DesignProgram`.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Phenotype3D {
     pub design_sha256: String,
+    #[serde(default)]
+    pub design_ir_sha256: String,
+    /// Legacy in-memory field retained for internal callers; omitted from serialized subject (`IR-06`).
+    #[serde(skip_serializing, default)]
     pub topology_class: String,
     pub zero_mutation_exact_baseline: bool,
     pub fluid_volume_mm3: f64,
@@ -176,8 +193,18 @@ pub struct Phenotype3D {
     pub terminal_overflow_diameter_mm: f64,
     pub terminal_underflow_z_mm: f64,
     pub trapped_cavities: usize,
+    /// Legacy heuristic descriptors; omitted from serialized subject (`IR-07`).
+    #[serde(skip_serializing, default = "default_mechanism_descriptors")]
     pub descriptors: MechanismDescriptors,
     pub mesh_census: EdgeCensus,
+    #[serde(default)]
+    pub derived_taxon: Option<joil_ir::PhenotypeTaxon>,
+    #[serde(default)]
+    pub observed_geometry: Option<joil_ir::GeometryObservedDescriptors>,
+    #[serde(default)]
+    pub split_metrics: Option<joil_ir::SplitGeometryMetrics>,
+    #[serde(default)]
+    pub enactment_receipt: Option<joil_ir::FeatureEnactmentReceipt>,
 }
 
 impl Phenotype3D {
@@ -503,8 +530,20 @@ impl Phenotype3D {
         };
         let head_mass_ti64_g = (head_solid_vol_mm3 * 1e-3) * 4.43;
 
+        // Lower to canonical DesignIrV1, compile IrCompiledMesh, verify feature enactment (`IR-04`),
+        // and run independent VoxelSdfObserver (`IR-06`, `IR-07`, `IR-08`, `IR-09`).
+        let ir = crate::geometry::compile_design_ir(&p).map_err(|e| e.to_string())?;
+        let ir_mesh =
+            joil_ir::IrCompiledMesh::compile(&ir, joil_ir::BackendId::RustMultiPatchCfdSurface)
+                .map_err(|e| e.to_string())?;
+        let enactment = ir_mesh
+            .verify_feature_enactment(&ir)
+            .map_err(|e| e.to_string())?;
+        let f0_report = joil_ir::VoxelSdfObserver::observe(&ir, &ir_mesh);
+
         let pheno = Self {
             design_sha256: p.canonical_sha256()?,
+            design_ir_sha256: ir.ir_sha256.clone(),
             topology_class: p.topology_class.clone(),
             zero_mutation_exact_baseline: is_base,
             fluid_volume_mm3: fluid_vol,
@@ -513,13 +552,18 @@ impl Phenotype3D {
             minimum_wall_clearance_mm: min_clearance,
             minimum_passage_diameter_mm: min_passage_d,
             min_section_jacobian: min_jacobian,
-            frozen_collar_and_tail_diff_mm3: 0.0,
-            terminal_inlet_area_each_mm2: d.inlet_area_each_mm2,
-            terminal_overflow_diameter_mm: d.overflow_diameter_mm,
-            terminal_underflow_z_mm: d.z_underflow_mm,
-            trapped_cavities: 0,
+            frozen_collar_and_tail_diff_mm3: f0_report.frozen_collar_and_tail_diff_mm3,
+            terminal_inlet_area_each_mm2: 0.5
+                * (f0_report.terminal_inlet1_area_mm2 + f0_report.terminal_inlet2_area_mm2),
+            terminal_overflow_diameter_mm: f0_report.terminal_overflow_diameter_mm,
+            terminal_underflow_z_mm: f0_report.terminal_underflow_z_mm,
+            trapped_cavities: f0_report.trapped_cavities_total,
             descriptors,
             mesh_census: census,
+            derived_taxon: Some(f0_report.derived_taxon),
+            observed_geometry: Some(f0_report.observed_geometry),
+            split_metrics: Some(f0_report.split_metrics),
+            enactment_receipt: Some(enactment),
         };
         Ok((pheno, mesh))
     }
@@ -585,6 +629,10 @@ pub struct PatchMetrics {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct MultiPatchAuditReport {
     pub design_sha256: String,
+    #[serde(default)]
+    pub design_ir_sha256: String,
+    /// Legacy in-memory field retained for internal callers; omitted from serialized subject (`IR-06`).
+    #[serde(skip_serializing, default)]
     pub topology_class: String,
     pub units: String,
     pub outlet_extension_m: f64,
@@ -595,6 +643,10 @@ pub struct MultiPatchAuditReport {
     pub watertight_and_manifold: bool,
     pub all_terminal_patches_valid: bool,
     pub patches: BTreeMap<String, PatchMetrics>,
+    #[serde(default)]
+    pub derived_taxon: Option<joil_ir::PhenotypeTaxon>,
+    #[serde(default)]
+    pub enactment_receipt: Option<joil_ir::FeatureEnactmentReceipt>,
 }
 
 /// Multi-patch watertight 3D fluid domain surface in SI metres (`m`) ready for OpenFOAM `snappyHexMesh`.
@@ -603,11 +655,18 @@ pub struct MultiPatchSurface {
     pub vertices_m: Vec<P3>,
     pub triangles: Vec<[usize; 3]>,
     pub triangle_patches: Vec<CfdPatch>,
+    #[serde(default)]
+    pub triangle_origin_ids: Vec<u16>,
+    #[serde(default)]
+    pub origin_table: Vec<joil_ir::SemanticOriginTrace>,
+    #[serde(default)]
+    pub internal_feature_triangles: Vec<([P3; 3], u16)>,
     pub audit: MultiPatchAuditReport,
 }
 
 impl MultiPatchSurface {
-    /// Compile any `DesignProgram` into a conformal, watertight 5-patch SI surface (`wall`, `inlet1`, `inlet2`, `overflow`, `underflow`).
+    /// Compile any `DesignProgram` into a conformal, watertight 5-patch SI surface (`wall`, `inlet1`, `inlet2`, `overflow`, `underflow`)
+    /// directly from the canonical `joil-ir::IrCompiledMesh` (`IR-R1`).
     pub fn from_program(prog: &DesignProgram, outlet_extension_m: f64) -> Result<Self, String> {
         if !outlet_extension_m.is_finite() || !(0.0..=0.5).contains(&outlet_extension_m) {
             return Err("outlet_extension_m must be finite in [0.0, 0.5] m".into());
@@ -617,253 +676,51 @@ impl MultiPatchSurface {
         let d = g.derive()?;
         let par = &g.parameters;
 
-        let n_theta = 48usize; // multiple of 4 so pi/2 and 3*pi/2 align cleanly
-        let dtheta = 2.0 * PI / (n_theta as f64);
-        // Polygon area correction factor so regular n_theta-gon has exact area pi * R^2
-        let area_corr = (dtheta / dtheta.sin()).sqrt();
-
         let r_plenum_m = par.plenum_radius_mm * 1e-3;
-        let r_plenum_poly_m = r_plenum_m * area_corr;
-        let ro_m = (d.overflow_diameter_mm / 2.0) * 1e-3;
         let r3_m = (d.d3_mm / 2.0) * 1e-3;
-        let r3_poly_m = r3_m * area_corr;
-
         let z_orifice_m =
             -(2.0 * (d.overflow_diameter_mm / 2.0) * par.orifice_length_over_do) * 1e-3;
         let z_overflow_m = z_orifice_m - par.plenum_length_mm * 1e-3;
         let z_underflow_m = d.z_underflow_mm * 1e-3 + outlet_extension_m;
-        let h_inlet_m = d.inlet_height_mm * 1e-3;
-        let w_inlet_m = d.inlet_width_mm * 1e-3;
         let x_inlet_m = par.inlet_length_cfd_mm * 1e-3;
-        let r1_m = (d.d1_mm / 2.0) * 1e-3;
 
-        // Build axial rings of n_theta vertices each from z_overflow_m to z_underflow_m
-        // Each ring entry is a list of n_theta [x, y, z] points in metres.
-        let mut rings: Vec<Vec<P3>> = Vec::new();
-        let th_off = 0.0031_f64;
-        let make_circle_ring = |r_m: f64, z_m: f64| -> Vec<P3> {
-            (0..n_theta)
-                .map(|it| {
-                    let th = dtheta * (it as f64) + th_off;
-                    [r_m * th.cos(), r_m * th.sin(), z_m]
-                })
-                .collect()
-        };
+        // Compile DesignIrV1 and build the canonical watertight 2-manifold IrCompiledMesh (`IR-02`, `IR-04`, `IR-R1`)
+        let ir = crate::geometry::compile_design_ir(&p).map_err(|e| e.to_string())?;
+        let ir_mesh = joil_ir::IrCompiledMesh::compile_with_extension(
+            &ir,
+            joil_ir::BackendId::RustMultiPatchCfdSurface,
+            outlet_extension_m,
+        )
+        .map_err(|e| e.to_string())?;
+        let enactment = ir_mesh
+            .verify_feature_enactment(&ir)
+            .map_err(|e| e.to_string())?;
+        let f0_report = joil_ir::VoxelSdfObserver::observe(&ir, &ir_mesh);
 
-        // Plenum rings from z = z_overflow_m to z = z_orifice_m (4 axial segments)
-        let n_plenum_z = 4usize;
-        for iz in 0..=n_plenum_z {
-            let f = (iz as f64) / (n_plenum_z as f64);
-            let z_m = z_overflow_m + (z_orifice_m - z_overflow_m) * f;
-            rings.push(make_circle_ring(r_plenum_poly_m, z_m));
-        }
-        // Intermediate radial step at z = z_orifice_m
-        rings.push(make_circle_ring(
-            0.5 * (r_plenum_poly_m + ro_m),
-            z_orifice_m,
-        ));
-        // Orifice bore from z = z_orifice_m to z = 0.0 (2 axial segments)
-        rings.push(make_circle_ring(ro_m, z_orifice_m));
-        rings.push(make_circle_ring(ro_m, 0.5 * z_orifice_m));
-        rings.push(make_circle_ring(ro_m, 0.0));
+        let oid_to_patch: BTreeMap<u16, CfdPatch> = ir_mesh
+            .origin_table
+            .iter()
+            .map(|o| {
+                let patch = match o.cfd_patch.as_str() {
+                    "inlet1" => CfdPatch::Inlet1,
+                    "inlet2" => CfdPatch::Inlet2,
+                    "overflow" => CfdPatch::Overflow,
+                    "underflow" => CfdPatch::Underflow,
+                    _ => CfdPatch::Wall,
+                };
+                (o.origin_id, patch)
+            })
+            .collect();
 
-        // Now ring at z = 0 on outer chamber wall: index `k_chamber_0`
-        let k_chamber_0 = rings.len();
-        let n_inlet_z = 4usize; // 4 axial bands across z in [0, h_inlet_m]
-        for iz in 0..=n_inlet_z {
-            let z_mm = d.inlet_height_mm * (iz as f64) / (n_inlet_z as f64);
-            let z_m = z_mm * 1e-3;
-            let ring = (0..n_theta)
-                .map(|it| {
-                    let th = dtheta * (it as f64) + th_off;
-                    let r_mm = Phenotype3D::inner_radius_mm(&p, &d, th, z_mm);
-                    [r_mm * 1e-3 * th.cos(), r_mm * 1e-3 * th.sin(), z_m]
-                })
-                .collect();
-            rings.push(ring);
-        }
+        let vertices_m = ir_mesh.vertices_m;
+        let triangles = ir_mesh.triangles;
+        let triangle_patches: Vec<CfdPatch> = ir_mesh
+            .triangle_origin_ids
+            .iter()
+            .map(|oid| oid_to_patch.get(oid).copied().unwrap_or(CfdPatch::Wall))
+            .collect();
 
-        // Remaining head rings from z = h_inlet_mm to z_head_end_mm (36 stations)
-        let n_head_rem = 36usize;
-        for iz in 1..=n_head_rem {
-            let f = (iz as f64) / (n_head_rem as f64);
-            let z_mm = d.inlet_height_mm + (d.z_head_end_mm - d.inlet_height_mm) * f;
-            let z_m = z_mm * 1e-3;
-            let ring = (0..n_theta)
-                .map(|it| {
-                    let th = dtheta * (it as f64) + th_off;
-                    let r_mm = Phenotype3D::inner_radius_mm(&p, &d, th, z_mm);
-                    [r_mm * 1e-3 * th.cos(), r_mm * 1e-3 * th.sin(), z_m]
-                })
-                .collect();
-            rings.push(ring);
-        }
-
-        // Downstream fine taper and tail rings up to just before z_underflow_m (15 stations)
-        let n_tail = 16usize;
-        for iz in 1..n_tail {
-            let f = (iz as f64) / (n_tail as f64);
-            let z_mm = d.z_head_end_mm + (d.z_underflow_mm - d.z_head_end_mm) * f;
-            let z_m = z_mm * 1e-3;
-            let ring = (0..n_theta)
-                .map(|it| {
-                    let th = dtheta * (it as f64) + th_off;
-                    let r_mm = Phenotype3D::inner_radius_mm(&p, &d, th, z_mm);
-                    [r_mm * 1e-3 * th.cos(), r_mm * 1e-3 * th.sin(), z_m]
-                })
-                .collect();
-            rings.push(ring);
-        }
-        // Final ring at z = z_underflow_m with area-exact radius r3_poly_m
-        rings.push(make_circle_ring(r3_poly_m, z_underflow_m));
-
-        let n_rings = rings.len();
-        let mut vertices_m: Vec<P3> = Vec::with_capacity(2 + n_rings * n_theta + 50);
-        // Vertex 0: overflow center; Vertex 1: underflow center (offset from x=0,y=0 octree line)
-        vertices_m.push([0.00011, 0.00013, z_overflow_m]);
-        vertices_m.push([0.00011, 0.00013, z_underflow_m]);
-
-        let ring_base = 2usize;
-        for ring in &rings {
-            vertices_m.extend_from_slice(ring);
-        }
-
-        let mut triangles: Vec<[usize; 3]> = Vec::new();
-        let mut triangle_patches: Vec<CfdPatch> = Vec::new();
-
-        // 1. Overflow cap (Ring 0 around center vertex 0, normal [0, 0, -1])
-        for it in 0..n_theta {
-            let next = (it + 1) % n_theta;
-            triangles.push([0, ring_base + next, ring_base + it]);
-            triangle_patches.push(CfdPatch::Overflow);
-        }
-
-        // Define azimuthal windows for inlet1 (theta = pi/2 .. 3*pi/4, it = 12..18 on -x side)
-        // and inlet2 (theta = 3*pi/2 .. 7*pi/4, it = 36..42 on +x side) on rings k_chamber_0 .. k_chamber_0 + n_inlet_z
-        let n_port_t = 6usize;
-        let it_inlet1_start = n_theta / 4; // 12 (theta = 90 deg -> 135 deg, y decreases monotonically)
-        let it_inlet2_start = (3 * n_theta) / 4; // 36 (theta = 270 deg -> 315 deg, y increases monotonically)
-
-        // 2. Side wall quads between consecutive rings, skipping quads inside the two inlet port windows
-        for ir in 0..(n_rings - 1) {
-            let r0 = ring_base + ir * n_theta;
-            let r1 = ring_base + (ir + 1) * n_theta;
-            let in_inlet_z = ir >= k_chamber_0 && ir < k_chamber_0 + n_inlet_z;
-            for it in 0..n_theta {
-                let in_inlet1 =
-                    in_inlet_z && it >= it_inlet1_start && it < it_inlet1_start + n_port_t;
-                let in_inlet2 =
-                    in_inlet_z && it >= it_inlet2_start && it < it_inlet2_start + n_port_t;
-                if in_inlet1 || in_inlet2 {
-                    continue;
-                }
-                let next = (it + 1) % n_theta;
-                triangles.push([r0 + it, r0 + next, r1 + next]);
-                triangle_patches.push(CfdPatch::Wall);
-                triangles.push([r0 + it, r1 + next, r1 + it]);
-                triangle_patches.push(CfdPatch::Wall);
-            }
-        }
-
-        // 3. Extrude Inlet 1 (terminal plane x = -x_inlet_m, outward normal [-1, 0, 0])
-        // and Inlet 2 (terminal plane x = +x_inlet_m, outward normal [+1, 0, 0])
-        // preserving exact area w_inlet_m * h_inlet_m and conformal boundary loop welding.
-        for (patch, it_start, x_plane, y_from_it) in [
-            (CfdPatch::Inlet1, it_inlet1_start, -x_inlet_m, true),
-            (CfdPatch::Inlet2, it_inlet2_start, x_inlet_m, false),
-        ] {
-            let port_v_base = vertices_m.len();
-            for iz in 0..=n_inlet_z {
-                let fz = (iz as f64) / (n_inlet_z as f64);
-                let z_m = h_inlet_m * fz;
-                for jt in 0..=n_port_t {
-                    let ft = (jt as f64) / (n_port_t as f64);
-                    let y_m = if y_from_it {
-                        // Inlet 1 near +R1: decrease y as jt increases so (d/djt) x (d/dfz) points in [-1, 0, 0]
-                        r1_m - w_inlet_m * ft
-                    } else {
-                        // Inlet 2 near -R1: increase y as jt increases so (d/djt) x (d/dfz) points in [+1, 0, 0]
-                        -r1_m + w_inlet_m * ft
-                    };
-                    vertices_m.push([x_plane, y_m, z_m]);
-                }
-            }
-            let port_idx =
-                |iz: usize, jt: usize| -> usize { port_v_base + iz * (n_port_t + 1) + jt };
-            let wall_idx = |iz: usize, jt: usize| -> usize {
-                ring_base + (k_chamber_0 + iz) * n_theta + ((it_start + jt) % n_theta)
-            };
-
-            // Connect the 4 sides of the duct (CfdPatch::Wall) between wall_idx boundary and port_idx boundary:
-            // Bottom strip (iz = 0, jt = 0..n_port_t): wall edge wall(0, jt) -> wall(0, jt+1)
-            for jt in 0..n_port_t {
-                let w0 = wall_idx(0, jt);
-                let w1 = wall_idx(0, jt + 1);
-                let p0 = port_idx(0, jt);
-                let p1 = port_idx(0, jt + 1);
-                triangles.push([w0, w1, p1]);
-                triangle_patches.push(CfdPatch::Wall);
-                triangles.push([w0, p1, p0]);
-                triangle_patches.push(CfdPatch::Wall);
-            }
-            // Right strip (jt = n_port_t, iz = 0..n_inlet_z): wall edge wall(iz, n_port_t) -> wall(iz+1, n_port_t)
-            for iz in 0..n_inlet_z {
-                let w0 = wall_idx(iz, n_port_t);
-                let w1 = wall_idx(iz + 1, n_port_t);
-                let p0 = port_idx(iz, n_port_t);
-                let p1 = port_idx(iz + 1, n_port_t);
-                triangles.push([w0, w1, p1]);
-                triangle_patches.push(CfdPatch::Wall);
-                triangles.push([w0, p1, p0]);
-                triangle_patches.push(CfdPatch::Wall);
-            }
-            // Top strip (iz = n_inlet_z, jt = n_port_t..0): wall edge wall(n_inlet_z, jt+1) -> wall(n_inlet_z, jt)
-            for jt in 0..n_port_t {
-                let w0 = wall_idx(n_inlet_z, jt + 1);
-                let w1 = wall_idx(n_inlet_z, jt);
-                let p0 = port_idx(n_inlet_z, jt + 1);
-                let p1 = port_idx(n_inlet_z, jt);
-                triangles.push([w0, w1, p1]);
-                triangle_patches.push(CfdPatch::Wall);
-                triangles.push([w0, p1, p0]);
-                triangle_patches.push(CfdPatch::Wall);
-            }
-            // Left strip (jt = 0, iz = n_inlet_z..0): wall edge wall(iz+1, 0) -> wall(iz, 0)
-            for iz in 0..n_inlet_z {
-                let w0 = wall_idx(iz + 1, 0);
-                let w1 = wall_idx(iz, 0);
-                let p0 = port_idx(iz + 1, 0);
-                let p1 = port_idx(iz, 0);
-                triangles.push([w0, w1, p1]);
-                triangle_patches.push(CfdPatch::Wall);
-                triangles.push([w0, p1, p0]);
-                triangle_patches.push(CfdPatch::Wall);
-            }
-
-            // Terminal port patch triangles (CfdPatch::Inlet1 or CfdPatch::Inlet2)
-            for iz in 0..n_inlet_z {
-                for jt in 0..n_port_t {
-                    let a = port_idx(iz, jt);
-                    let b = port_idx(iz, jt + 1);
-                    let c = port_idx(iz + 1, jt + 1);
-                    let d_v = port_idx(iz + 1, jt);
-                    triangles.push([a, b, c]);
-                    triangle_patches.push(patch);
-                    triangles.push([a, c, d_v]);
-                    triangle_patches.push(patch);
-                }
-            }
-        }
-
-        // 4. Underflow cap (last ring around center vertex 1, normal [0, 0, +1])
-        let last_ring = ring_base + (n_rings - 1) * n_theta;
-        for it in 0..n_theta {
-            let next = (it + 1) % n_theta;
-            triangles.push([1, last_ring + it, last_ring + next]);
-            triangle_patches.push(CfdPatch::Underflow);
-        }
-
-        // Topological watertightness & volume check on the combined mesh
+        // Topological watertightness & volume check on the compiled IR mesh
         let combined = SolidMesh {
             vertices: vertices_m.clone(),
             triangles: triangles.clone(),
@@ -995,6 +852,7 @@ impl MultiPatchSurface {
 
         let audit = MultiPatchAuditReport {
             design_sha256: p.canonical_sha256()?,
+            design_ir_sha256: ir.ir_sha256.clone(),
             topology_class: p.topology_class,
             units: "m".to_string(),
             outlet_extension_m,
@@ -1005,12 +863,17 @@ impl MultiPatchSurface {
             watertight_and_manifold,
             all_terminal_patches_valid,
             patches: patches_map,
+            derived_taxon: Some(f0_report.derived_taxon),
+            enactment_receipt: Some(enactment),
         };
 
         Ok(Self {
             vertices_m,
             triangles,
             triangle_patches,
+            triangle_origin_ids: ir_mesh.triangle_origin_ids,
+            origin_table: ir_mesh.origin_table,
+            internal_feature_triangles: ir_mesh.internal_feature_triangles,
             audit,
         })
     }
@@ -1024,6 +887,34 @@ impl MultiPatchSurface {
         let file = File::create(path).map_err(|e| e.to_string())?;
         let mut w = BufWriter::new(file);
 
+        let write_facet = |w: &mut BufWriter<File>, a: P3, b: P3, c: P3| -> Result<(), String> {
+            let ux = b[0] - a[0];
+            let uy = b[1] - a[1];
+            let uz = b[2] - a[2];
+            let vx = c[0] - a[0];
+            let vy = c[1] - a[1];
+            let vz = c[2] - a[2];
+            let nx = uy * vz - uz * vy;
+            let ny = uz * vx - ux * vz;
+            let nz = ux * vy - uy * vx;
+            let norm = (nx * nx + ny * ny + nz * nz).sqrt().max(1e-24);
+            writeln!(
+                w,
+                " facet normal {:.8e} {:.8e} {:.8e}",
+                nx / norm,
+                ny / norm,
+                nz / norm
+            )
+            .map_err(|e| e.to_string())?;
+            writeln!(w, "  outer loop").map_err(|e| e.to_string())?;
+            for v in [a, b, c] {
+                writeln!(w, "   vertex {:.8e} {:.8e} {:.8e}", v[0], v[1], v[2])
+                    .map_err(|e| e.to_string())?;
+            }
+            writeln!(w, "  endloop\n endfacet").map_err(|e| e.to_string())?;
+            Ok(())
+        };
+
         for patch in CfdPatch::all() {
             let name = patch.as_str();
             writeln!(w, "solid {name}").map_err(|e| e.to_string())?;
@@ -1031,33 +922,17 @@ impl MultiPatchSurface {
                 if self.triangle_patches[idx] != patch {
                     continue;
                 }
-                let a = self.vertices_m[i0];
-                let b = self.vertices_m[i1];
-                let c = self.vertices_m[i2];
-                let ux = b[0] - a[0];
-                let uy = b[1] - a[1];
-                let uz = b[2] - a[2];
-                let vx = c[0] - a[0];
-                let vy = c[1] - a[1];
-                let vz = c[2] - a[2];
-                let nx = uy * vz - uz * vy;
-                let ny = uz * vx - ux * vz;
-                let nz = ux * vy - uy * vx;
-                let norm = (nx * nx + ny * ny + nz * nz).sqrt().max(1e-24);
-                writeln!(
-                    w,
-                    " facet normal {:.8e} {:.8e} {:.8e}",
-                    nx / norm,
-                    ny / norm,
-                    nz / norm
-                )
-                .map_err(|e| e.to_string())?;
-                writeln!(w, "  outer loop").map_err(|e| e.to_string())?;
-                for v in [a, b, c] {
-                    writeln!(w, "   vertex {:.8e} {:.8e} {:.8e}", v[0], v[1], v[2])
-                        .map_err(|e| e.to_string())?;
+                write_facet(
+                    &mut w,
+                    self.vertices_m[i0],
+                    self.vertices_m[i1],
+                    self.vertices_m[i2],
+                )?;
+            }
+            if patch == CfdPatch::Wall {
+                for &(pts, _) in &self.internal_feature_triangles {
+                    write_facet(&mut w, pts[0], pts[1], pts[2])?;
                 }
-                writeln!(w, "  endloop\n endfacet").map_err(|e| e.to_string())?;
             }
             writeln!(w, "endsolid {name}").map_err(|e| e.to_string())?;
         }

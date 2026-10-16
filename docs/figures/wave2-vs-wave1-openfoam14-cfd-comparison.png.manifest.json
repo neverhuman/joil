@@ -1,0 +1,34 @@
+{
+  "schema_version": 2,
+  "kind": "publication_figure_manifest_not_physical_validation",
+  "figure_path": "docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png",
+  "figure_sha256": "19da9b1927f1220ccee6870f9e4ba8cd26684dfd87f948d66615abf1e72f7853",
+  "generator_script": "tools/generate_wave2_vs_wave1_cfd_plate.py",
+  "matched_color_scales": {
+    "u_theta_p90_m_s": [
+      0.0,
+      4.0
+    ],
+    "static_pressure_kpa": [
+      20.0,
+      23.0
+    ],
+    "meridional_z_limits_mm": [
+      -20.0,
+      220.0
+    ],
+    "meridional_r_limits_mm": [
+      0.0,
+      35.0
+    ]
+  },
+  "source_receipts": {
+    "wave1_gci_rsm_dossier": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+    "wave1_gci_rsm_dossier_sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+    "wave2_gci_rsm_f2_dossier": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+    "wave2_gci_rsm_f2_dossier_sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+    "wave1_g1_integrals_sha256": "ac84a8f779011bbad8ba4528b4da0ff49cb48b33d7392c2ba2ce7618b57613fa",
+    "wave2_tpms_g1_integrals_sha256": "aa769a5f446542227de0ff4becdb1c04ec43539dd5cdbe73790c8c8aec0fd4ae",
+    "baseline_ct35_integrals_sha256": "363da3375ec4057417a2ae1c55e5cc1614a64c062dd9d851dcafc73a5efd45ab"
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "items": [
+    "EV-07",
+    "EV-08-report-version"
+  ],
+  "checks": [
+    {
+      "command": "python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "c0fab41282caa839185cacaf1332d2b499ddb85b7377473b168bb76dedfa2c0c",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.04690247296821326,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.22829147498123348,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 4.7020680800196715,
+          "log_bytes": 228,
+          "log_sha256": "535dafb2f3c511bfa8cb4734835065f53c06cda8f9a9739a93e3bb4fe46eaed3"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 37.0100319859921,
+          "log_bytes": 8343,
+          "log_sha256": "bf3e52fcebbb7c6329defce094123b0cc28fa3328cb1098d41b81d6f72a0945e"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.5924646600033157,
+          "log_bytes": 1096,
+          "log_sha256": "5bbcf387854780374502e3c26d7aefcc43e4b560887a00b7f5f920626239794d"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 8.564450465026312,
+          "log_bytes": 6603,
+          "log_sha256": "3d3e0cd817da083a524c0b2525bd3b26415e7778db2cb0327e89431ceb2697d0"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.06553874496603385,
+          "log_bytes": 75,
+          "log_sha256": "633d05f2624d22be44599f7e632b8e1edf699fe47b3658aed34b3c6be560cbed"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 7.518070816004183,
+          "log_bytes": 190,
+          "log_sha256": "eef1deb384c933a534a890a8b20d0fc838f3026565e67dac8d600390e882cc99"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 0.8651287769898772,
+          "log_bytes": 28,
+          "log_sha256": "09dd18652b47c73b212fef140b8c67c9aaf6aeeb1c855dfaa8102ad7584af4b2"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 4.084519942989573,
+          "log_bytes": 2296,
+          "log_sha256": "41c7ef141c4e6d4297727477b386e831964a95fa94a79371a5879970e725aae0"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "four byte-pinned software receipt entries generate status",
+    "integrated branch check remains green",
+    "surrogate report schema version explicitly bumped to 2"
+  ],
+  "negative_checks": [
+    "unresolved physical requirement self-admission",
+    "weakened quantile sample policy",
+    "hand-edited status and stale evidence"
+  ],
+  "science_eligibility": "all scientific qualification remains incomplete; software evidence only",
+  "limitations": [
+    "EV-06/09/12 remain blocked; EV-10 hook pending other lane."
+  ],
+  "next_dependency": "independent data and scoped consumer/writer integration"
+}

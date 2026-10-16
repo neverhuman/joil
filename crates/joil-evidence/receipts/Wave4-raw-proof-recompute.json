@@ -1,0 +1,334 @@
+{
+  "item": "WAVE4-RAW-PROOF-RECOMPUTE",
+  "created_at_utc": "2026-10-16T09:26:01Z",
+  "state": "BLOCKED_MISSING_ORIGINAL_RAW_DATA",
+  "deliverable_state": "INDEPENDENT_CONSUMER_AND_TESTED_BLOCKER_RECEIPT_COMPLETE",
+  "kind": "software_contract_and_missing_source_audit_not_completed_raw_proof_recomputation",
+  "input_head": "78a181ceefef260e595b722b49fda0aacda4991a",
+  "summary_file": "docs/results/wave4-evolution-proof-v1.json",
+  "summary_sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+  "summary_used_as_recomputation_input": false,
+  "recomputed_proof_values": null,
+  "proof_numeric_mismatch_count": null,
+  "proof_comparison": null,
+  "blocker_confirmation": {
+    "from": "INT",
+    "at_utc": "2026-10-16T09:18:30Z",
+    "integration_head": "78a181c",
+    "channel": "JOIL-COORD.live.md GIVE INT -> EV EV-12 RETAINED CAPTURE & RAW-PROOF ACK",
+    "fact": "The original Wave4 campaign aggregated trajectories/outcomes in memory and wrote the summary directly. No separate raw JSONL candidate log was emitted during INT-04.",
+    "source_anchors": [
+      "crates/joil-cli/src/main.rs:790-826",
+      "crates/joil-core/src/evolve.rs:3391-3395"
+    ],
+    "source_files_sha256": {
+      "crates/joil-cli/src/main.rs": "26ea911fb5ace69a6dd7ba43eca152a2e85b8c0c9b1fae08e66482b8381d7fc5",
+      "crates/joil-core/src/evolve.rs": "0252c912d9c022e85b05ee793c9f4cac27d5385be497ad07fc36f286017f5496",
+      "crates/joil-core/src/program.rs": "8c36a81149cdd5a05d3e368b5b9ef9ca41a9f836cfd8dbf45d967e7a22a7cc57"
+    }
+  },
+  "requested_coverage": [
+    {
+      "result": "per_seed_KPI_vs_generation",
+      "state": "BLOCKED",
+      "recomputed": null,
+      "summary_pointers": [
+        "/arm_outcomes/*/*/generation_trace/*/best_kpi_score",
+        "/arm_outcomes/*/*/generation_trace/*/median_kpi_score",
+        "/generation_band_curves/*"
+      ],
+      "missing": "Original evaluated candidate metrics for every proposal plus generation survival/population membership, including invalid/repaired states and per-run reference."
+    },
+    {
+      "result": "equal_budget_evolution_random_and_CT35_mean_CI",
+      "state": "BLOCKED",
+      "recomputed": null,
+      "summary_pointers": [
+        "/final_summary_statistics/B3_Wave3_Exotic3D_QD_CEI",
+        "/final_summary_statistics/B1_Random_Search",
+        "/baseline_b0_ct35"
+      ],
+      "missing": "Separate raw seed runs; B0 is a single-evaluation reference, not a replicated equal-budget arm. Do not synthesize CT35 seed values/CI/test."
+    },
+    {
+      "result": "significance_statistic_p_effect_Holm",
+      "state": "BLOCKED",
+      "recomputed": null,
+      "summary_pointers": [
+        "/pairwise_tests"
+      ],
+      "missing": "Raw terminal outcomes for all comparator arms in the published16-test correction family, derived independently from candidates/populations."
+    },
+    {
+      "result": "held_out_geometry_performance",
+      "state": "BLOCKED",
+      "recomputed": null,
+      "summary_pointers": [
+        "/held_out_geometry_generalization"
+      ],
+      "missing": "Raw out-of-fold subject/train membership, target/prediction/uncertainty rows and evaluated family candidate pool; observed geometry groups for a true geometry holdout. Existing records are authored-family sandbox diagnostics and KPI RMSE is null."
+    }
+  ],
+  "consumer": {
+    "path": "crates/joil-evidence/receipts/wave4_raw_proof.py",
+    "tests_path": "crates/joil-evidence/receipts/wave4_raw_proof_tests.py",
+    "contract": "NEW joil.wave4-raw-seed.v1 / raw-reference.v1 / raw-holdouts.v1 consumer contract documented in script; not a claim these exports existed in INT-04.",
+    "methods": [
+      "Recompute per-candidate source-contract KPI, per-generation active median and incumbent; account invalid/repaired/evaluated proposals separately.",
+      "Replay declared SplitMix64 10000-resample percentile CIs from independent seed values.",
+      "Re-rank all16 comparisons with U, declared uncorrected one-sided normal approximation, Cliff delta and Holm correction; preserve the distinction from exact rank inference.",
+      "Recompute fold residual RMSE/2sigma coverage from prediction rows; reject train/test overlap, missing geometry grouping and invented zero KPI RMSE.",
+      "Diff only recomputed coverage at JSON pointers; reject summary JSON as raw input and leave unavailable sections null."
+    ],
+    "exit_codes": {
+      "0": "complete supplied coverage, no mismatches",
+      "1": "numeric/structural mismatch",
+      "2": "missing/invalid raw data or requested coverage"
+    },
+    "tested_files_sha256": {
+      "crates/joil-evidence/receipts/wave4_raw_proof.py": "915873c50506c5f59125797dd7a74e56887d692beca76ba05bbdb5cb8a75ddf3",
+      "crates/joil-evidence/receipts/wave4_raw_proof_tests.py": "a50ac415d8e6f59e5f702bef58143e188b5c6e09dba75970b6c391773d0547b1",
+      "tests/test_evidence.py": "4118d85570972d3b5ccacfe1b9729034c5ef72943464adb845c7edd259b6d174"
+    },
+    "limitations": [
+      "No original raw export was available to validate a real-data adapter; only explicit synthetic functional oracles execute the recomputation path.",
+      "Starts from original emitted candidate quantiles, not a fresh MC simulation or recomputation of quantiles from individual MC samples.",
+      "The four archive-volume test inputs are raw telemetry; this consumer does not independently integrate hypervolume.",
+      "Artifact hashes and residual arithmetic are not independent physical or geometry validation."
+    ]
+  },
+  "search_evidence": {
+    "initial_data_inventory": {
+      "files_examined": 398,
+      "matching_KPI_or_trajectory_artifacts": 0,
+      "sha256": "38d41a9cbf2e019f4f962b483c119683d65dd0edae716838862a83d1d2640fc1"
+    },
+    "expanded_metrics_inventory": {
+      "files_examined": 471,
+      "sha256": "5f63be197aa35efcbfbc7aa0891c1e483beb0faf50805f5fc0d24afcb3d45051",
+      "scope": "Integration checkout data files under runs/artifacts/.private/experiments, excluding source/docs/builds/node/environment/check logs; inventory grew during INT capture handoff.",
+      "other_dataset_excluded": "runs/rust-cuda-evolution-v1 has a different seed/config and24 MC samples, historical final archive/front only; not Wave4 raw generation populations."
+    }
+  },
+  "checks": [
+    {
+      "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/wave4_raw_proof_tests.py -v",
+      "exit_code": 0,
+      "tests": 7,
+      "kind": "explicit_synthetic_oracles_only",
+      "log_sha256": "fbd76a9e04530f042f4b90a76bd581cced82a15aac06378685d6fb5666a01f6c"
+    },
+    {
+      "command": ".private/ci-python/bin/python crates/joil-evidence/receipts/wave4_raw_proof.py --raw-root /home/ubuntu/joil/runs",
+      "exit_code": 2,
+      "expected_blocked": true,
+      "artifact_sha256": "7fd69cb81d287f185cd44419b096c86026c218d2bb57110f5673cb618ca4317d",
+      "report": {
+        "kind": "raw_independent_wave4_audit_not_physical_validation",
+        "state": "BLOCKED",
+        "raw_sources": [],
+        "summary_sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+        "recomputed": null,
+        "comparison": null,
+        "gaps": [
+          "no retained raw Wave-4 candidate/population exports supplied"
+        ]
+      }
+    },
+    {
+      "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only} JOIL_WAVE4_INPUTS_ROOT=/home/ubuntu/joil/.private/wave4-inputs-all JOIL_WAVE4_RUNS_ROOT=/home/ubuntu/joil/runs; python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "1a0a2fc87575d3e6d448a10e2a965ccce38a50858d91355f88c0d3304bef02e8",
+      "functional_source_hashes_match": true,
+      "environment": {
+        "CARGO_BUILD_JOBS": "4",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "RAYON_NUM_THREADS": "4",
+        "JOIL_WAVE4_INPUTS_ROOT": "/home/ubuntu/joil/.private/wave4-inputs-all",
+        "JOIL_WAVE4_RUNS_ROOT": "/home/ubuntu/joil/runs"
+      },
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.0457812329987064,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.32844354095868766,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.2072307380149141,
+          "log_bytes": 72,
+          "log_sha256": "fecede7c2157efe2f16c8c8b9dce94b0fb4dd384dca8207046c8bf7636eb0ffe"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 83.38102356600575,
+          "log_bytes": 11930,
+          "log_sha256": "78bcad7658e3eca05fe7394fa517e72b4eedfc54d46e8d4c0905316ec1e786f3"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.25565600401023403,
+          "log_bytes": 1019,
+          "log_sha256": "22446de6ff3f5af64ac056624eb447c9e6ad5ff20e7eb7270bfdc146e935f8c7"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 65.69910428003641,
+          "log_bytes": 10310,
+          "log_sha256": "a3f6a70eed277e8db695f04f14f00256824445d719568dbe123ce3f520e7059d"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.10968467901693657,
+          "log_bytes": 75,
+          "log_sha256": "7ac3206bf9ea7e4bb692e5d29ab45eb5f28620aa4cab5bd5798ae5d846d04ea2"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 15.874667130992748,
+          "log_bytes": 224,
+          "log_sha256": "3aa90d394fd6277c3fd7981a5352f4a7c8d5d25f6a712c479a075309d3d84b20"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 1.1487086709821597,
+          "log_bytes": 25,
+          "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 3.0537171990145,
+          "log_bytes": 1904,
+          "log_sha256": "5cfb191b8d25a6632d2ca2abb44692e05c4c22215100f5528607cc19e60e5473"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "Hand-calculated candidate/population KPI, constant-seed CI, separated/tied rank oracles and monotone Holm oracle.",
+    "Hand-calculated residual RMSE/coverage; legitimate null KPI error remains null.",
+    "Every current retained3 CFD sidecar verified and all11 preserved input snapshots exercised in the full gate."
+  ],
+  "negative_checks": [
+    "Summary substitution and absent raw files do not produce recomputed values or a comparison.",
+    "Missing arm/seed, unequal budget, missing observation and invalid evaluated subject rejected.",
+    "Train/test leakage rejected; summary zero substituted for null KPI RMSE detected.",
+    "Planted+1 mean and1e-7 p-value errors detected at exact pointers."
+  ],
+  "ancillary_EV12_handoff": {
+    "command": ".private/ci-python/bin/python -m analysis.case_identity --runs-root /home/ubuntu/joil/runs",
+    "exit_code": 0,
+    "audit_sha256": "0041c2395eea237e79df31781ce054ba8974345fb9e0cb97baec78fa11b8f215",
+    "retained_cases_verified": 3,
+    "scope": "Retained3 exact captures verified;8 quarantined unfinalized/prepared/pruned cases remain explicit, including5 solved originals without mesh captures. This is not all-original-case closure."
+  },
+  "unblock": [
+    "If separately retained original outputs exist elsewhere, INT provides their exact original file/run/config/compiler identities and raw candidate/population/prediction paths; preserve originals and review any format adapter.",
+    "Otherwise instrument the TR-owned proof runner to retain complete raw candidate/proposal/population membership and fold predictions before a separately identified, pinned-source reproducibility run. A new run cannot become recovered original evidence.",
+    "Reproduce original actual flags: explicit comma-separated seeds20261101..20261110, --islands2 --pop9 --generations24 --mc72. Program RNG is SplitMix64, not ChaCha8Rng; unknown --pop-size/--mc-samples flags do not configure this CLI.",
+    "Reserve resources before any full campaign; EV started no simulation. Preserve independent equal-budget CT35 replicates or keep it a single reference; do not invent a true geometry holdout or missing labels.",
+    "EV then recomputes only from those raw outputs and publishes exact diffs; DOC keeps the evidence gaps explicit meanwhile."
+  ],
+  "changed_paths": [
+    ".agent/JOIL-COORD.md",
+    "crates/joil-evidence/receipts/wave4_raw_proof.py",
+    "crates/joil-evidence/receipts/wave4_raw_proof_tests.py",
+    "tests/test_evidence.py",
+    "crates/joil-evidence/receipts/Wave4-raw-proof-recompute.json"
+  ],
+  "post_gate_metadata": "This final receipt and board metadata were written after the gate; functional source hashes match. Final public scan/diff check run before push.",
+  "auditor_commit": "a644e0f0acfd5d1998753fc13017247f0e099b4f"
+}

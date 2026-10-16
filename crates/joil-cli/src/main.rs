@@ -8,6 +8,32 @@ fn parse_arg(args: &[String], flag: &str) -> Option<String> {
     args.windows(2).find(|w| w[0] == flag).map(|w| w[1].clone())
 }
 
+/// Import a historical Wave-2 genome without upgrading its archived evidence.
+///
+/// Report/Individual evaluation schemas have changed since the committed v1
+/// receipt. CFD preparation needs only the selected program: validate and
+/// canonicalize that program, then let the case builder compute its current
+/// design_sha256. Archived genome hashes (which included authored topology
+/// labels), metrics, lineage and qualification flags are not imported.
+fn load_wave2_elite_program(
+    raw: &str,
+    family: &str,
+) -> Result<program::DesignProgram, Box<dyn std::error::Error>> {
+    let report: serde_json::Value = serde_json::from_str(raw)?;
+    let elites = report
+        .get("promoted_wave2_elites_by_family")
+        .and_then(serde_json::Value::as_object)
+        .ok_or("Wave-2 receipt has no promoted_wave2_elites_by_family object")?;
+    let elite = elites
+        .get(family)
+        .ok_or_else(|| format!("Wave-2 family '{family}' not found"))?;
+    let genome = elite
+        .get("program")
+        .ok_or_else(|| format!("Wave-2 family '{family}' has no program"))?;
+    let program: program::DesignProgram = serde_json::from_value(genome.clone())?;
+    Ok(program.canonicalize()?)
+}
+
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = std::env::args().collect();
     let command = args.get(1).cloned().unwrap_or_else(|| "baseline".into());
@@ -42,12 +68,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             ];
             let mut results = Vec::new();
             for (rel, step) in cases {
-                let eval = openfoam::evaluate_measured_cfd_kpis(&root, &root.join(rel), step)?;
+                let eval = openfoam::read_cfd_kpi_observation(&root, &root.join(rel), step)
+                    .map_err(|observation| serde_json::json!({"observation": observation}).to_string())?;
                 results.push(eval);
             }
             let out_json = serde_json::to_string_pretty(&serde_json::json!({
                 "schema_version": "0.2.0",
-                "evaluator": "joil-core::openfoam::evaluate_measured_cfd_kpis",
+                "evaluator": "joil-core::openfoam::read_cfd_kpi_observation",
                 "cases": results,
             }))?;
             if let Some(out_path) = parse_arg(&args, "--out") {
@@ -75,7 +102,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             println!("{out_json}");
         }
-        "qualify-structure" => {
+        "screen-structure" | "qualify-structure" => {
             let mut rng = program::Rng::new(20261015);
             let archetypes = program::DesignProgram::seed_wave2_archetypes(&mut rng);
             let lame_inner =
@@ -85,22 +112,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let mut reports = Vec::new();
             for (idx, prog) in archetypes.iter().enumerate() {
                 let (pheno, _) = phenotype::Phenotype3D::from_program(prog)?;
-                let sq = structure::qualify_structure(prog, &pheno, 29468.22, 0.001111111)?;
+                let sq = structure::analytic_structural_screen(prog, &pheno, 29468.22, 0.001111111)?;
                 reports.push(serde_json::json!({
                     "index": idx,
                     "topology_class": pheno.topology_class,
                     "genome_sha256": pheno.design_sha256,
-                    "structural_qualification": sq,
+                    "analytic_structural_screen": sq,
                 }));
             }
             let out_json = serde_json::to_string_pretty(&serde_json::json!({
                 "schema_version": "0.2.0",
-                "evaluator": "joil-core::structure::qualify_structure",
+                "evaluator": "joil-core::structure::analytic_structural_screen",
                 "lame_cylinder_oracle_head_35mm_id_38mm_od_2.5mpa": {
                     "inner_wall": lame_inner,
                     "outer_wall": lame_outer,
                 },
-                "archetype_qualifications": reports,
+                "archetype_analytic_screens": reports,
             }))?;
             if let Some(out_path) = parse_arg(&args, "--out") {
                 std::fs::write(out_path, &out_json)?;
@@ -142,7 +169,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let (pheno, mesh) = phenotype::Phenotype3D::from_program(&elite.program)?;
             redteam::check(&elite.program, &pheno, &mesh)
                 .map_err(|e| format!("top elite failed redteam gate: {e:?}"))?;
-            let struct_qual = structure::qualify_structure(
+            let struct_qual = structure::analytic_structural_screen(
                 &elite.program,
                 &pheno,
                 elite.nominal_metrics.dp_u_pa,
@@ -150,7 +177,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             )?;
             if !struct_qual.passed {
                 return Err(format!(
-                    "top elite failed P08 structural qualification: {:?}",
+                    "top candidate failed the P08 analytic structural screen: {:?}",
                     struct_qual.failure_reasons
                 )
                 .into());
@@ -191,7 +218,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "descriptors": elite.descriptors,
                     "phenotype_3d": pheno,
                     "multi_patch_cfd_surface_audit": multi_patch.audit,
-                    "structural_qualification_p08": struct_qual,
+                    "analytic_structural_screen_p08": struct_qual,
                     "nominal_f1_metrics": elite.nominal_metrics,
                     "monte_carlo_robustness": elite.mc_robustness,
                     "cuda_rtx3090_sdf_and_ode_audit": elite.cuda_sdf_audit,
@@ -223,21 +250,51 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("{out_str}");
         }
         "prepare-cfd-case" => {
-            let summary_path = PathBuf::from(
-                parse_arg(&args, "--summary")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
-            );
             let case_dir = PathBuf::from(parse_arg(&args, "--case").unwrap_or_else(|| {
                 "runs/rust-cfd-elite-gen024-isl2-ind014".into()
             }));
-            let raw = std::fs::read_to_string(&summary_path)?;
-            let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
-            let elite = campaign
-                .top_pareto_elites
-                .first()
-                .ok_or("no top_pareto_elites in campaign summary")?;
-            let cfg = cfd_case::CfdCaseConfig::default();
-            let manifest = cfd_case::build_openfoam_candidate_case(&elite.program, &case_dir, &cfg)?;
+            let prog = if args.iter().any(|a| a == "--baseline-ct35") {
+                program::DesignProgram::baseline_ct35()
+            } else if let Some(prog_path) = parse_arg(&args, "--program-json") {
+                let raw = std::fs::read_to_string(&prog_path)?;
+                let p: program::DesignProgram = serde_json::from_str(&raw)?;
+                p.canonicalize()?
+            } else if let Some(w2_family) = parse_arg(&args, "--wave2-family") {
+                let w2_path = PathBuf::from(parse_arg(&args, "--wave2-ablation").unwrap_or_else(
+                    || "docs/results/wave2-multiseed-ablation-and-holdout-v1.json".into(),
+                ));
+                let raw = std::fs::read_to_string(&w2_path)?;
+                load_wave2_elite_program(&raw, &w2_family)
+                    .map_err(|e| format!("{}: {e}", w2_path.display()))?
+            } else {
+                let summary_path = PathBuf::from(
+                    parse_arg(&args, "--summary").unwrap_or_else(|| {
+                        "runs/rust-cuda-evolution-v1/campaign-summary.json".into()
+                    }),
+                );
+                let raw = std::fs::read_to_string(&summary_path)?;
+                let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
+                let elite = campaign
+                    .top_pareto_elites
+                    .first()
+                    .ok_or("no top_pareto_elites in campaign summary")?;
+                elite.program.clone()
+            };
+            let mut cfg = cfd_case::CfdCaseConfig::default();
+            if let Some(p_pa) = parse_arg(&args, "--reject-pressure-pa").and_then(|s| s.parse().ok())
+            {
+                cfg.reject_pressure_pa = p_pa;
+            }
+            if let Some(steps) = parse_arg(&args, "--steps").and_then(|s| s.parse().ok()) {
+                cfg.steps = steps;
+            }
+            if let Some(model) = parse_arg(&args, "--model") {
+                cfg.turbulence_model = model;
+            }
+            if let Some(sub) = parse_arg(&args, "--subdomains").and_then(|s| s.parse().ok()) {
+                cfg.n_subdomains = sub;
+            }
+            let manifest = cfd_case::build_openfoam_candidate_case(&prog, &case_dir, &cfg)?;
             let out_json = serde_json::to_string_pretty(&manifest)?;
             if let Some(out_path) = parse_arg(&args, "--out") {
                 std::fs::write(out_path, &out_json)?;
@@ -730,11 +787,161 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }))?
             );
         }
+        "wave3-proof" => {
+            let out_path = PathBuf::from(
+                parse_arg(&args, "--out")
+                    .unwrap_or_else(|| "docs/results/wave3-evolution-proof-v1.json".into()),
+            );
+            let seeds: Vec<u64> = if let Some(s) = parse_arg(&args, "--seeds") {
+                s.split(',')
+                    .filter_map(|tok| tok.trim().parse::<u64>().ok())
+                    .collect()
+            } else {
+                vec![
+                    20261101, 20261102, 20261103, 20261104, 20261105, 20261106, 20261107,
+                    20261108, 20261109, 20261110,
+                ]
+            };
+            let cfg = evolve::EvolutionConfig {
+                islands: parse_arg(&args, "--islands")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(2),
+                pop_per_island: parse_arg(&args, "--pop")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(9),
+                generations: parse_arg(&args, "--generations")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(24),
+                mc_samples: parse_arg(&args, "--mc")
+                    .and_then(|s| s.parse().ok())
+                    .unwrap_or(12),
+                ..evolve::EvolutionConfig::default()
+            };
+            let report = if let Some(raw_dir) = parse_arg(&args, "--raw-dir") {
+                if out_path.exists() {
+                    return Err("raw capture requires a new --out summary path".into());
+                }
+                evolve::run_wave3_evolution_proof_with_raw_capture(&seeds, &cfg, std::path::Path::new(&raw_dir))?
+            } else {
+                evolve::run_wave3_evolution_proof(&seeds, &cfg)?
+            };
+            if let Some(parent) = out_path.parent() {
+                std::fs::create_dir_all(parent)?;
+            }
+            let pretty = serde_json::to_string_pretty(&report)?;
+            let out_json = pretty.lines().map(str::trim_start).collect::<Vec<_>>().join("\n") + "\n";
+            if parse_arg(&args, "--raw-dir").is_some() {
+                use std::io::Write;
+                std::fs::OpenOptions::new().write(true).create_new(true)
+                    .open(&out_path)?.write_all(out_json.as_bytes())?;
+            } else {
+                std::fs::write(&out_path, &out_json)?;
+            }
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&serde_json::json!({
+                    "status": "completed",
+                    "protocol_id": report.protocol_id,
+                    "n_seeds": report.n_seeds,
+                    "generations": report.generations,
+                    "evaluations_per_seed_per_arm": report.evaluations_per_seed_per_arm,
+                    "total_3d_evaluations_across_arms": report.total_3d_evaluations_across_arms,
+                    "baseline_b0_ct35_kpi_score": report.baseline_b0_ct35_kpi_score,
+                    "baseline_b0_ct35_cout_p95_mg_l": report.baseline_b0_ct35_cout_p95_mg_l,
+                    "promoted_wave3_top_elite_id": report.promoted_wave3_top_elite.id,
+                    "promoted_wave3_top_elite_topology": report.promoted_wave3_top_elite.topology_class,
+                    "promoted_wave3_top_elite_kpi_score": report.promoted_wave3_top_elite_kpi_score,
+                    "promoted_wave3_top_elite_cout_p95_mg_l": report.promoted_wave3_top_elite.mc_robustness.cout_p95_mg_l,
+                    "final_summary_statistics": report.final_summary_statistics,
+                    "pairwise_tests": report.pairwise_tests,
+                    "out_path": out_path,
+                }))?
+            );
+        }
         _ => {
             return Err(
-                "supported commands: baseline, kpi, verify-rotation, qualify-structure, audit-probe, promote-elite, prepare-cfd-case, qualify-surrogate, qualify-population, qualify-experiment, export-glb-scene, export-3d-preview, compile-3d, evolve, merge-cluster, wave2-benchmark".into(),
+                "supported commands: baseline, kpi, verify-rotation, screen-structure (legacy alias qualify-structure), audit-probe, promote-elite, prepare-cfd-case, qualify-surrogate, qualify-population, qualify-experiment, export-glb-scene, export-3d-preview, compile-3d, evolve, merge-cluster, wave2-benchmark, wave3-proof".into(),
             )
         }
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const COMMITTED_WAVE2: &str =
+        include_str!("../../../docs/results/wave2-multiseed-ablation-and-holdout-v1.json");
+
+    #[test]
+    fn historical_wave2_receipt_loads_all_promoted_genomes() {
+        let report: serde_json::Value = serde_json::from_str(COMMITTED_WAVE2).unwrap();
+        let elites = report["promoted_wave2_elites_by_family"]
+            .as_object()
+            .unwrap();
+        assert_eq!(elites.len(), 11);
+        for (family, elite) in elites {
+            let loaded = load_wave2_elite_program(COMMITTED_WAVE2, family).unwrap();
+            let archived: program::DesignProgram =
+                serde_json::from_value(elite["program"].clone()).unwrap();
+            assert_eq!(loaded, archived.canonicalize().unwrap(), "{family}");
+            assert_eq!(loaded.schema_version, 2);
+            assert_eq!(loaded.family, "ct35-exotic-head-v2");
+            let current_hash = loaded.canonical_sha256().unwrap();
+            assert_eq!(current_hash.len(), 64);
+            // Authored topology labels no longer belong to the serialized
+            // subject. The archived hash cannot identify the prepared case.
+            assert_ne!(Some(current_hash.as_str()), elite["genome_sha256"].as_str());
+        }
+    }
+
+    #[test]
+    fn historical_wave2_import_does_not_require_or_trust_evaluations() {
+        let mut report: serde_json::Value = serde_json::from_str(COMMITTED_WAVE2).unwrap();
+        let family = "trifurcated-6jet-vortex-head";
+        let elite = &mut report["promoted_wave2_elites_by_family"][family];
+        let genome = elite["program"].clone();
+        // A genome-only archive is sufficient. No current Individual, screen,
+        // admission or objective evidence is synthesized for missing fields.
+        *elite = serde_json::json!({"program": genome});
+        let raw = serde_json::to_string(&report).unwrap();
+        assert_eq!(
+            load_wave2_elite_program(&raw, family).unwrap(),
+            load_wave2_elite_program(COMMITTED_WAVE2, family).unwrap()
+        );
+    }
+
+    #[test]
+    fn historical_wave2_import_rejects_missing_or_invalid_genomes() {
+        assert!(load_wave2_elite_program(COMMITTED_WAVE2, "missing-family").is_err());
+        for raw in [
+            "not json",
+            "{}",
+            r#"{"promoted_wave2_elites_by_family":[]}"#,
+        ] {
+            assert!(load_wave2_elite_program(raw, "baseline-ct35").is_err());
+        }
+        let mut report: serde_json::Value = serde_json::from_str(COMMITTED_WAVE2).unwrap();
+        for genome in [
+            serde_json::Value::Null,
+            serde_json::json!({"schema_version": 2}),
+            {
+                let mut genome =
+                    report["promoted_wave2_elites_by_family"]["baseline-ct35"]["program"].clone();
+                genome["inlet_split"]["branches_per_port"] = serde_json::json!(0);
+                genome
+            },
+        ] {
+            report["promoted_wave2_elites_by_family"]["baseline-ct35"]["program"] = genome;
+            let raw = serde_json::to_string(&report).unwrap();
+            assert!(load_wave2_elite_program(&raw, "baseline-ct35").is_err());
+        }
+        report["promoted_wave2_elites_by_family"]["baseline-ct35"] = serde_json::json!({});
+        assert!(load_wave2_elite_program(
+            &serde_json::to_string(&report).unwrap(),
+            "baseline-ct35"
+        )
+        .is_err());
+    }
 }

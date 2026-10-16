@@ -2,55 +2,44 @@
 
 Evidence-driven evolutionary design of deoiling hydrocyclone cartridges.
 
-Goal: more compliant treated water per liner at a fixed pressure budget and reject fraction, with performance established through numerical verification and paired physical tests. Explore unconventional internal geometry without rewarding simulation errors.
+joil searches for 3D-printable internal geometries for deoiling hydrocyclone liners. The goal is more compliant treated water per liner at a fixed pressure budget and reject fraction than `CT-35`, a research baseline reconstructed from the Colman–Thew patent example, without rewarding simulation errors. The pipeline combines a bounded design genome, a reduced-order screen, an evolutionary search, OpenFOAM carrier CFD on compiled surfaces, and a claims audit that fails when a number in these documents does not trace to a committed receipt. So far the answer is negative, and the documents say so: on the repaired code, evolution does not beat uniform random search on the screen's best score; the CFD shells show no pressure-drop advantage over `CT-35` built by the same pipeline; and nothing has been tested physically. The [WHITEPAPER](docs/WHITEPAPER.md) gives the full account, and [`docs/RESULTS.md`](docs/RESULTS.md) holds the result tables, figure plates and evidence tiers.
 
-**Current status: full-liner baseline + promoted exotic 3D elite verified across a 3-grid OpenFOAM 14 spatial refinement sequence (`G0`: `139,981` cells, `G1`: `305,522` cells, `G2`: `552,513` cells) with Roache `GCI` and dual 7-equation `LRR` (linear pressure-strain) and `SSG` (quadratic pressure-strain) Reynolds-Stress Model (`RSM`) cross-checks, alongside the 3-node (`xbabe1`/`xbabe2`/`xbabe3`) Rust/CUDA multi-island evolutionary campaign (`119,235` 3D evaluations, `15.97B` droplet trajectories) and the pre-registered 11-family Wave-2 10-seed `B0`–`B3` ablation (`5,400` 3D evals, Mann–Whitney $U = 100$, $p_{\text{Holm}} = 0.000314$, Cliff's $\delta = 1.000$, `D1`–`D4` held-out duties `PASS`); `F2` full-residence oil fitness and `F4` physical rig validation remain open.** The extended-outlet `CT-35` SST initializer reaches 4 m³/h and 1.986% reject with 29.47 kPa static pressure drop and 33.71 kJ/m³ device mechanical loss, while the promoted 3D `trifurcated-6jet-vortex-head` (`xbabe2-gen043-isl10-ind030`) reaches 4.000 m³/h and 1.968%–1.996% reject at **18.70 kPa static pressure drop (`-36.54%`) and 22.05 kJ/m³ hydraulic loss (`-34.60%`) on the fine 553k-cell `G2` grid**, **18.12 kPa (`-38.51%`) and 21.56 kJ/m³ (`-36.04%`) under 7-equation `LRR` RSM**, and **18.17 kPa (`-38.35%`) and 21.54 kJ/m³ (`-36.09%`) under 7-equation `SSG` RSM** (`0.26%` inter-RSM parity). Full-residence oil closure and independent physical validation gates remain open; these are not qualified industrial performance claims.
+![Wave-4 screen search diagnostics on repaired operators: per-generation KPI trajectory, gene-label schematic and archived carrier CFD](docs/figures/wave4-readme-hero-kpi-and-elite.png)
+*Figure 0 (Wave-4, `F1` screen, sandbox): per-generation screen `KPI_score` across `10` seeds on repaired operators, with `72` Monte Carlo samples per candidate. Panels A and B: uniform random search (`B1`) ends with the higher best score, and `B3` leads only on population median. Panel C is a gene-label schematic, not compiled geometry; its labels are read from the receipt (`CT-35` Hinze diameter `64.0 µm`). Panel D repeats archived Wave-1/2 carrier CFD of different subjects ([`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json`](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json)), not Wave-4 designs, and its percentages compare with the different-pipeline `CT-35` case; against the same-pipeline control there is no detectable difference (WHITEPAPER §4.6). Source: [`docs/results/wave4-evolution-proof-v1.json`](docs/results/wave4-evolution-proof-v1.json); figure `SHA-256: f08b10b8d56abe1924fd3e3c94432335e6cb1273a3ae03befbe7abcbb211b5bd`. The pre-repair Wave-3 hero is listed with the figure plates in [`docs/RESULTS.md`](docs/RESULTS.md). Known plate errors, pending regeneration: Panel B's axis says all arms share generation 0, but only `A1`, `A2` and `B3` do; its dashed "discharge ceiling" is an authored research-screen threshold, not a permit limit; and Panel D's legend gives one cell count for every subject.*
 
-- **[Scientific White Paper (Process, Methods, 3D Topologies, GCI, LRR/SSG RSM, Hostile-Referee Audit & Figures)](docs/WHITEPAPER.md)**
-  - [Figure Plate 1: 7-Topology Compositional 3D Hydrocyclone Atlas](docs/figures/rust-3d-topology-atlas.png)
-  - [Figure Plate 2: Multi-Objective Pareto Front & 4D MAP-Elites Convergence](docs/figures/pareto-map-elites-convergence.png)
-  - [Figure Plate 3: 3-Grid Roache `GCI` & Dual 7-Eq. `LRR`/`SSG` RSM Verification](docs/figures/elite-gci-and-rsm-verification.png)
-  - [Figure Plate 4: 3D OpenFOAM 14 Internal Swirl-Head & Vortex-Physics Comparison](docs/figures/openfoam14-3d-vortex-physics-comparison.png)
-  - [Figure Plate 5: Wave-2 Exotic 3D Genome Atlas (11 Families: TPMS Gyroid, Schwarz-P, Octa-Branch & Counter-Fluted)](docs/figures/wave2-exotic-3d-genome-atlas.png)
-  - [Figure Plate 6: Wave-2 10-Seed Statistical Ablation, Bootstrap 95% CIs, Wilcoxon Tests & Held-Out Duties](docs/figures/wave2-multiseed-ablation-and-ci.png)
-  - [Figure Plate 7: Wave-2 10-Bin Grade-Efficiency Curves $E_{\text{red}}(d)$ & Inlet-to-Outlet DSD Transfer](docs/figures/wave2-grade-efficiency-and-dsd-shift.png)
-  - [Figure Plate 8: Wave-2 `P08` Structural Lamé Stress, Modal Lock-In & LPBF Overhang Qualification](docs/figures/wave2-structural-lame-and-modal-qualification.png)
-  - [Figure Plate 9: Top 8 Exotic Valid 3D Phenotypes Gallery & 11-Family Genome Expressiveness Audit (`220/220` Pass)](docs/figures/wave2-8-exotic-phenotypes-gallery.png)
-  - [Animation 1: 3D Helical Vortex Oil-Droplet Separation & 10-Seed QD Illumination (`GIF`)](docs/figures/wave2-vortex-and-qd-illumination.gif)
-  - [Animation 2: Phylogenetic 3D Topology Morph (`CT-35` → `4-Jet` → `6-Jet` → `Cylindrical-Gyroid TPMS`, `GIF`)](docs/figures/wave2-topology-morph-and-lineage.gif)
-- **[Wave-2 Execution Plan (Trans-Dimensional 3D Genome, Multi-Seed Baselines, GCI/RSM & Animations)](docs/WAVE2_PLAN.md)** · **[Pre-Registration Contract](experiments/wave2-preregistration-v1.json)** · **[10-Seed Ablation Dossier](docs/results/wave2-multiseed-ablation-and-holdout-v1.json)**
-- [Master implementation plan](docs/MASTER_PLAN.md)
-- [Physics, scoring and validation contract](docs/SCIENCE.md)
-- [Representation and CAD contract](docs/GENOME.md)
-- [Source review and corrections](docs/SOURCE_REVIEW.md)
-- [Primary references](docs/REFERENCES.md)
-- [Work packets](docs/WORK_PACKETS.json) · [Status](docs/STATUS.json)
-- [Compute and installation runbook](docs/COMPUTE.md)
-- [Actual baseline KPIs, failures and qualification limits](docs/BASELINE_RUN.md)
-- [Reproduce the pinned pilot](docs/PILOT_RUNBOOK.md)
+## Status
 
-![CT-35 exact CAD cutaway and head fluid domain; geometry only](docs/media/overview.png)
+**Claim status** (generated from [`docs/STATUS.json`](docs/STATUS.json), which `tools/gen_status.py` derives from the evidence registry; the claims audit fails if this table is stale):
 
-The research baseline is CT-35: the Colman–Thew patent example scaled to D2 = 35 mm, with explicit reconstruction assumptions. It is not an exact commercial liner or a validated experimental apparatus. Geometry dimensions are in mm; solver adapters must convert to SI explicitly.
+<!-- BEGIN GENERATED STATUS: python3 tools/claims_audit.py --write-readme-status (source docs/STATUS.json) -->
+Phase: `software_truth_repair_scientific_claim_inventory_incomplete`.
 
-Quick start — evolutionary flexibility, 10-seed ablation, and verification (verified from a fresh `git clone`; omit `rtk` / `rtk proxy` if `rtk` is not installed):
+| Claim | State | Missing evidence |
+|---|---|---|
+| Campaign admission | `sandbox_only` | unresolved pressure/energy/absolute-pressure limits and continuous duty band; unqualified oil transport and independent validation; unresolved installation and material/process requirements; current tail samples insufficient for physical p95 claims |
+| `qualified_baseline` | `incomplete` (flag `false`) | `baseline-numerics`, `baseline-oil-grade`, `baseline-validation` |
+| `structural_qualification` | `incomplete` (flag `false`) | `solid-fea`, `load-transfer`, `material-process-validation` |
+| `physical_validation` | `incomplete` (flag `false`) | `as-built-metrology`, `paired-independent-physical-comparator` |
+| `oil_grade_evaluated` | `incomplete` (flag `false`) | `full-residence-oil-inventory`, `size-resolved-grade` |
+| `qualified_fitness` | `null` (no qualified value) | - |
+| `qualified_capacity_gain` | `null` (no qualified value) | - |
+| `evidence_identity_observation_and_claim_kernel` | `software_contract_verified` | - |
+| `sandbox_campaign_contract_and_generated_status` | `software_contract_verified` | - |
+| `rust_python_observation_schema_parity` | `software_contract_verified` | - |
+| `surrogate_abstention_and_independent_admission_software` | `software_contract_verified` | - |
+<!-- END GENERATED STATUS -->
+
+## Install
+
+Requirements: Rust (stable, `cargo`), Python 3 with `numpy` and `matplotlib`, and Node.js `>=22.12.0` for the explorer (`apps/explorer/package.json`). Omit `rtk` / `rtk proxy` if `rtk` is not installed.
+
+From the repository root, install the Python requirements in an isolated environment (use Python 3.12 if you also want exact CAD):
 
 ```bash
-rtk cargo test --workspace --locked
-rtk cargo test -p joil-core --test regression genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit -- --nocapture
-rtk cargo test -p joil-core --test regression operator_random_walk_20step_11family_watertight_stress_test -- --nocapture
-rtk cargo run -p joil-cli -- baseline
-rtk cargo run --release -p joil-cli -- export-3d-preview
-rtk cargo run --release -p joil-cli -- wave2-benchmark
-rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing
-rtk proxy python3 -m unittest discover -s tests -v
-rtk proxy python3 tools/check_public.py
-rtk proxy python3 tools/claims_audit.py
-rtk proxy sh -c 'export PATH="/home/ubuntu/joil/.private/node-runtime/bin:$PATH" && cd apps/explorer && npm ci && npm run build'
-rtk proxy python3 tools/check.py
+python3 -m venv .private/quickstart-python
+. .private/quickstart-python/bin/activate
+python3 -m pip install numpy matplotlib
 ```
-
-Evolutionary 3D genome flexibility (`crates/joil-core/src/program.rs`): `DesignProgram::audit_11family_genome_expressiveness(20, 20261116)` draws `N = 220` stratified random 3D genomes (`20` per canonical family across `axisymmetric-stepped`, `twin-tangential-volute`, `spiral-rifled-vortex-head`, `quad-entry-involute-head`, `bifurcated-quad-manifold`, `trifurcated-6jet-vortex-head`, `hybrid-omni-exotic`, `cylindrical-gyroid-coalescer`, `schwarz-p-rectifier-head`, `octa-branch-helical-manifold`, and `counter-fluted-recovery-vortex`) and verifies `220 / 220` (`100.0%`) pass `canonicalize_and_preflight` with watertight 3D manifold meshes (`0` open/non-manifold edges, min LPBF clearance `>= 1.24 mm`, min Jacobian `1.000`) versus `0 / 30` (`0.0%`) on unprojected out-of-bounds negative controls (rendered in [Figure Plate 9](docs/figures/wave2-8-exotic-phenotypes-gallery.png)). Beyond static sampling, `DesignProgram::audit_11family_operator_random_walk(20, 20261116)` chains `20` consecutive genetic operator mutations and single-point crossovers from each of the `11` canonical families (`220` chained offspring steps, `85` cross-family topological jumps across all `11` families) and verifies `220 / 220` (`100.0%`) intermediate and terminal offspring remain watertight 3D manifolds (`0` open/non-manifold edges, min clearance `>= 1.00 mm`).
 
 Optional exact CAD, inside a project environment with **Python 3.12** (on macOS, `uv venv --python 3.12 .venv` can create it):
 
@@ -62,6 +51,43 @@ rtk proxy python3 tools/check.py --cad
 
 CAD outputs include canonical mm STEP, mm and metre STL previews, metre glTF, terminal patch definitions and an audit report. Each check run uses a fresh output directory. Labelled conformal CFD tessellation is a later acceptance gate. See the report before using geometry downstream; scaling STEP coordinates without changing declared units is not a unit conversion.
 
-Stack: Rust (`joil-core`, `joil-cli`) compositional 3D geometry/mesh/B-rep compiler, constrained multi-island NSGA-II + 4D MAP-Elites search engine, GP surrogate with Constrained Expected Improvement (`P07`), structural/modal/LPBF qualification (`P08`), PBM & blinded A/B/A power verifiers (`P05`/`P06`); CUDA C++20 3D volumetric SDF & Lagrangian droplet tensor evaluator (`sm_86`/`sm_89`); Python/OpenCASCADE CAD and scientific tools; pinned OpenFOAM Foundation 14 CPU/MPI solver; Vite/TypeScript/React interactive 3D hydrocyclone & droplet-vortex explorer (`apps/explorer`).
+## Quick start
+
+**1. Check the repository.** Every command below writes only to ignored paths. On a fresh clone, single checks take seconds to under a minute; `cargo test --workspace` and `tools/check.py` take a few minutes each. Workplan item DOC-05 runs this list from a clean checkout; the log is kept in ignored `.private/checks/`.
+
+```bash
+rtk cargo test --workspace --locked
+rtk proxy cargo test -p joil-core --test regression closed_catalog_validity_11family_sampling -- --nocapture --exact
+rtk proxy cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact
+rtk cargo run --locked -p joil-cli -- baseline
+rtk proxy python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json
+rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing
+rtk proxy python3 -m unittest discover -s tests -v
+rtk proxy python3 tools/check_public.py
+rtk proxy python3 tools/claims_audit.py
+rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'
+rtk proxy python3 tools/check.py
+```
+
+`tools/run_elite_3grid_gci_and_rsm.py --verify-existing` re-checks the recorded gates in the committed GCI receipts. The `PASS ... certified` line it prints comes from the historical single-point analysis against the different-pipeline `CT-35` case. It is not a current claim: see WHITEPAPER correction C2 and §4.6.
+
+**2. Re-run a screen study (optional, slow).** Always pass `--out` into the ignored `artifacts/` directory. The CLI defaults overwrite the committed, hash-bound receipts in `docs/results/`, and on repaired code the regenerated numbers differ from those historical receipts. Pass `--mc 72`: the p05/p95 objectives need `72` Monte Carlo samples for a distribution-free bound, and at the default of `12` they are reported insufficient, so no candidate is ranked and every hypervolume is zero ([TR fresh-clone check](docs/reviews/2026-10-16-TR-readme-freshclone.md)).
+
+```bash
+RAYON_NUM_THREADS=4 rtk cargo run --release --locked -p joil-cli -- wave2-benchmark --seeds 20261101,20261102,20261103,20261104,20261105 --mc 72 --out artifacts/wave2-rerun.json
+```
+
+Known limitations of re-runs on the current code:
+
+- `wave3-proof` runs on the current code and wrote the Wave-4 receipt. Its default `--out` is the historical Wave-3 receipt, so always pass `--out` into `artifacts/`.
+- `export-3d-preview` reads ignored campaign files under `runs/`, so it cannot run from a fresh checkout.
+- `tools/generate_wave3_proof_figures.py` rewrites the committed, hash-bound figures, so run it only when regenerating figures together with a new receipt.
+
+## Read more
+
+- [WHITEPAPER](docs/WHITEPAPER.md): methods, results, corrections and limitations
+- [Results and evidence detail](docs/RESULTS.md): Wave-4 and Wave-3 tables, figure plates, evidence tiers
+- [Design language](docs/GENOME.md) · [Physics and validation contract](docs/SCIENCE.md) · [Evidence kernel](docs/EVIDENCE.md)
+- [Review synthesis](docs/reviews/2026-10-15-SYNTHESIS.md) · [Final PR review](docs/reviews/2026-10-16-PR3-FINAL-REVIEW.md) · [Workplan](docs/WORKPLAN-2026-10-15.md) · [Master plan](docs/MASTER_PLAN.md)
 
 No jarambit code or shared environment is modified or required at runtime. Raw supplied material and installation details stay in ignored private storage. No project software license has been selected yet; dependency licenses remain their own.

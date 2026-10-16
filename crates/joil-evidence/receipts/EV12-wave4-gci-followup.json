@@ -1,0 +1,219 @@
+{
+  "items": [
+    "EV-12-WAVE4-HASH-CORRECTION",
+    "WAVE4-GCI-NUMBER-TRACE"
+  ],
+  "verified_at_utc": "2026-10-16T08:34:39Z",
+  "input_head": "523e7ccf88c2c01b173e3bf637747eb5780deec4",
+  "changed_paths": [
+    ".agent/JOIL-COORD.md",
+    "analysis/case_identity.py",
+    "tests/test_evidence.py",
+    "crates/joil-evidence/receipts/wave4_gci_trace.py",
+    "crates/joil-evidence/reports/wave4-gci-number-trace-v1.json",
+    "crates/joil-evidence/receipts/EV12-wave4-gci-followup.json"
+  ],
+  "kind": "arithmetic_and_artifact_contract_audit_with_unresolved_real_case_identity",
+  "canonical_hash_correction": "DesignProgram::canonical_sha256 uses struct-field-order compact JSON; DesignIrV1.program_sha256 uses sorted serde_json::Value compact JSON. Verify both and retain canonical_ir_source_genome_hash separately; never equate byte encodings. Synthetic fixture deliberately has unequal valid IDs; three retained actual input sets construct read-only identities successfully.",
+  "artifacts_sha256": {
+    "analysis/case_identity.py": "59580341c332fb49ed7830db302ae9c0eaf28adcfdea7634fe4bd919e2ac68ce",
+    "tests/test_evidence.py": "bb998bff2742785b7d466733df45fe206f7c6f497ab7bf3dbf0783ed707da208",
+    "crates/joil-evidence/receipts/wave4_gci_trace.py": "e298adeb968cd52c03f0a08c0779909f4b08c86aba06cba7e3f34aec70cc537f",
+    "crates/joil-evidence/reports/wave4-gci-number-trace-v1.json": "e7914915a44bfbcfe31fd65a7e1e7fd35595c58d51c069cf5f35784cf422e852"
+  },
+  "checks": [
+    {
+      "command": ".private/ci-python/bin/python -m unittest discover -s tests -p test_evidence.py -k wave4 -v",
+      "exit_code": 0,
+      "result": "3 synthetic positive/negative tests PASS; actual local-run test SKIP because none in EV worktree. Full Python gate log includes same tests."
+    },
+    {
+      "command": ".private/ci-python/bin/python -m analysis.case_identity --runs-root /home/ubuntu/joil/runs",
+      "exit_code": 1,
+      "expected_negative": "11 actual case directories,0 finalized identities,11 errors",
+      "artifact_sha256": "dffc9927e1f76e4e5e526c69ea63528b668a6a96194a608036fe6e0ae48cdbf5"
+    },
+    {
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .private/ci-python/bin/python crates/joil-evidence/receipts/wave4_gci_trace.py --runs-root /home/ubuntu/joil/runs > .private/wave4-gci-trace-summary.json",
+      "exit_code": 0,
+      "meaning": "trace generation completed, not all evidence supported",
+      "summary_sha256": "3b127241e9847a2f7ca549d49a650e394430ffd59216aaf662966cf9ca51ddb2",
+      "trace_sha256": "2f91c603586f81d6b7e4d39c8048ee67431aeab5cfba602ac34ee64ffbee71b4",
+      "numeric_leaves": 54618,
+      "matched": 54615,
+      "unsupported": 3
+    },
+    {
+      "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only}; python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "0bc9aff92253e861ddafe9094dacac8cb728deed8dca4d7f7b9aa334c4ccebc6",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.04367664497112855,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.45016195497009903,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 8.848193573998287,
+          "log_bytes": 303,
+          "log_sha256": "0d9dc2ff0698ca763ae5bd35b9cb691a488f3e36c62b0f97082aa5ae4b287567"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 95.53941635903902,
+          "log_bytes": 12162,
+          "log_sha256": "90d190d4b2990ef2d4eb01b3162ed6ca35e12d74a23cdd0425a99b2468b1f0ed"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.6105576190166175,
+          "log_bytes": 1096,
+          "log_sha256": "207269d5d9a5ec4acc36f53548440256c1ea830674dc2cc8931d18195ab8ebc4"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 52.60492015402997,
+          "log_bytes": 9650,
+          "log_sha256": "aa8f8cc3430473861a47d3a9f190cdf628663f05b04235700bee13443e561fd1"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.07410483702551574,
+          "log_bytes": 75,
+          "log_sha256": "bbd385f1e506618e7af14252007211bd3994a1978e090650fd1a951866dab55b"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 11.699351429007947,
+          "log_bytes": 224,
+          "log_sha256": "da53f3870146adcdd653e16776d1a74bdcac92f95637565a6b4f7a0972183fef"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 2.0141904419870116,
+          "log_bytes": 25,
+          "log_sha256": "42655418c228288a9dba4735657fb971df86f631b04c4ca47178142ac98df7fb"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 3.2532081119716167,
+          "log_bytes": 1904,
+          "log_sha256": "16d57c588d4bf16988b0166a2486e86e62d63c95bf666a53eae8811b07ce9b03"
+        }
+      ]
+    }
+  ],
+  "additional_checks": {
+    "retained_real_case_readonly_candidates": {
+      "artifact_sha256": "0ab775b1e9eb58fe4fe932458976803c102ef6b36235c65de3010ef9f642b3df",
+      "cases": 3,
+      "result": "exact retained input snapshot construction PASS; no original run metadata written"
+    },
+    "independent_gci_roots_and_planted_error": {
+      "artifact_sha256": "ec75abe6983eb8a946363688bfd1aef80081f3daf1a2ff7dfcab9c0f4b86b914",
+      "result": "known unequal-grid power-law roots1.5/2/3.2/5.5 PASS; planted+1Pa detects exact pointer, preserving original3 unsupported source gaps"
+    }
+  },
+  "limitations": [
+    "EV12 cannot be DONE-SCOPED for current Wave4: none of11 actual cases has finalized identity; five solved meshes were deleted without captured hashes. INT/IR handoff still needed.",
+    "Every-local-case foundation test will expose missing identities when integration runs against INT actual run set; wire writer and repair/defer actual cases together, rather than treating EV worktree SKIP as acceptance.",
+    "Full GCI trace is arithmetic/source provenance; copied observer quantities are not independently validated.",
+    "GCI failure status for all5 unfinished winners is not source-bound; three have no mesh/solver logs, one retains128 inlet faces per patch.",
+    "Three archived numeric leaves lack committed source; derived Euler/Betti/skimmer semantics also unresolved.",
+    "Deferral text delivered and DOC ACK inserted unchanged; independent oil dataset still absent."
+  ],
+  "next_dependency": "INT/IR retain/capture actual current-run identities or supply separately identified reruns for pruned cases; INT/DOC correct GCI source/status gaps and IR observer quantities. No PR merge by EV."
+}

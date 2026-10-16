@@ -2,6 +2,216 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(tag = "status", rename_all = "snake_case")]
+pub enum QuantileEstimate {
+    Estimated {
+        n: usize,
+        minimum_n: usize,
+        quantile: f64,
+        confidence: f64,
+        value: f64,
+        ci_low: f64,
+        ci_high: f64,
+        method: String,
+    },
+    Insufficient {
+        n: usize,
+        minimum_n: usize,
+        quantile: f64,
+        confidence: f64,
+        reason: String,
+    },
+}
+
+impl QuantileEstimate {
+    pub fn value(&self) -> Option<f64> {
+        match self {
+            Self::Estimated { value, .. } => Some(*value),
+            Self::Insufficient { .. } => None,
+        }
+    }
+}
+
+/// Distribution-free order-statistic interval, conditional on IID samples.
+/// A frozen synthetic sampling distribution does not establish physical risk.
+pub fn quantile_estimate(
+    samples: &[f64],
+    quantile: f64,
+    confidence: f64,
+    minimum_n: usize,
+) -> Result<QuantileEstimate, String> {
+    if samples.iter().any(|v| !v.is_finite())
+        || !quantile.is_finite()
+        || !(0.0..1.0).contains(&quantile)
+        || quantile == 0.0
+        || !confidence.is_finite()
+        || !(0.0..1.0).contains(&confidence)
+        || confidence == 0.0
+    {
+        return Err("finite samples and quantile/confidence strictly in (0,1) required".into());
+    }
+    let alpha_half = (1.0 - confidence) * 0.5;
+    let required_n = (alpha_half.ln() / quantile.max(1.0 - quantile).ln()).ceil() as usize;
+    let minimum_n = minimum_n.max(required_n);
+    let n = samples.len();
+    let insufficient = |reason: &str| QuantileEstimate::Insufficient {
+        n,
+        minimum_n,
+        quantile,
+        confidence,
+        reason: reason.into(),
+    };
+    if n < minimum_n {
+        return Ok(insufficient(
+            "too_few_samples_for_two_finite_order_statistic_bounds",
+        ));
+    }
+    let mut sorted = samples.to_vec();
+    sorted.sort_by(f64::total_cmp);
+    // Accumulate binomial masses in log space: (1-q)^n underflows for high
+    // quantiles, although masses near the mode remain perfectly resolved.
+    let mut log_mass = n as f64 * (1.0 - quantile).ln();
+    let mut masses = Vec::with_capacity(n + 1);
+    for k in 0..=n {
+        masses.push(log_mass.exp());
+        if k < n {
+            log_mass += ((n - k) as f64).ln() - ((k + 1) as f64).ln() + quantile.ln()
+                - (1.0 - quantile).ln();
+        }
+    }
+    let total: f64 = masses.iter().sum();
+    if !total.is_finite() || total <= 0.0 {
+        return Err("binomial interval calculation failed".into());
+    }
+    let mut cumulative = 0.0;
+    let mut lower_rank = None;
+    let mut upper_rank = None;
+    for rank in 1..=n {
+        cumulative += masses[rank - 1] / total;
+        if cumulative <= alpha_half {
+            lower_rank = Some(rank);
+        }
+        if cumulative >= 1.0 - alpha_half && upper_rank.is_none() {
+            upper_rank = Some(rank);
+        }
+    }
+    let (Some(lower), Some(upper)) = (lower_rank, upper_rank) else {
+        return Ok(insufficient("finite_order_statistic_interval_not_resolved"));
+    };
+    let position = quantile * (n - 1) as f64;
+    let fraction = position.fract();
+    let value = (1.0 - fraction) * sorted[position.floor() as usize]
+        + fraction * sorted[position.ceil() as usize];
+    if !value.is_finite() {
+        return Err("quantile interpolation overflow".into());
+    }
+    Ok(QuantileEstimate::Estimated {
+        n,
+        minimum_n,
+        quantile,
+        confidence,
+        value,
+        ci_low: sorted[lower - 1],
+        ci_high: sorted[upper - 1],
+        method: "binomial_order_statistic_interval_assuming_iid".into(),
+    })
+}
+
+/// Wilson 95% sampling interval. This is not an empirical physical probability.
+pub fn sampled_fraction_ci95(passes: usize, n: usize) -> Result<[f64; 2], String> {
+    if n == 0 || passes > n {
+        return Err("positive n and passes <= n required".into());
+    }
+    let z = 1.959_963_984_540_054_f64;
+    let n = n as f64;
+    let p = passes as f64 / n;
+    let denominator = 1.0 + z * z / n;
+    let center = (p + z * z / (2.0 * n)) / denominator;
+    let radius = z * (p * (1.0 - p) / n + z * z / (4.0 * n * n)).sqrt() / denominator;
+    Ok([(center - radius).max(0.0), (center + radius).min(1.0)])
+}
+
+/// Exact dominated union of axis-aligned boxes for minimization objectives.
+/// Points outside the reference box contribute no volume. No archive-size or
+/// diversity bonus is included; dimensions and reference values are explicit.
+pub fn pareto_hypervolume(points: &[Vec<f64>], reference: &[f64]) -> Result<f64, String> {
+    if reference.is_empty()
+        || reference.iter().any(|v| !v.is_finite())
+        || points
+            .iter()
+            .any(|p| p.len() != reference.len() || p.iter().any(|v| !v.is_finite()))
+    {
+        return Err("finite equal-dimensional points and nonempty reference required".into());
+    }
+    fn union(mut points: Vec<Vec<f64>>, reference: &[f64]) -> f64 {
+        if points.is_empty() {
+            return 0.0;
+        }
+        let dimension = reference.len();
+        if dimension == 1 {
+            return reference[0] - points.iter().map(|p| p[0]).fold(reference[0], f64::min);
+        }
+        points.sort_by(|a, b| {
+            a.iter()
+                .zip(b)
+                .find_map(|(a, b)| (a != b).then(|| a.total_cmp(b)))
+                .unwrap_or(std::cmp::Ordering::Equal)
+        });
+        points.dedup();
+        if dimension == 2 {
+            let mut lowest_y = reference[1];
+            let mut area = 0.0;
+            for point in points {
+                if point[1] < lowest_y {
+                    area += (reference[0] - point[0]) * (lowest_y - point[1]);
+                    lowest_y = point[1];
+                }
+            }
+            return area;
+        }
+        // Projected dominance differs at every sweep level. Pruning only once
+        // leaves exponentially many redundant lower-dimensional boxes.
+        let points: Vec<Vec<f64>> = points
+            .iter()
+            .enumerate()
+            .filter(|(index, point)| {
+                !points.iter().enumerate().any(|(other_index, other)| {
+                    other_index != *index && other.iter().zip(point.iter()).all(|(a, b)| a <= b)
+                })
+            })
+            .map(|(_, p)| p.clone())
+            .collect();
+        let axis = dimension - 1;
+        let mut coordinates: Vec<f64> = points.iter().map(|p| p[axis]).collect();
+        coordinates.push(reference[axis]);
+        coordinates.sort_by(f64::total_cmp);
+        coordinates.dedup();
+        coordinates
+            .windows(2)
+            .map(|slab| {
+                let active = points
+                    .iter()
+                    .filter(|p| p[axis] <= slab[0])
+                    .map(|p| p[..axis].to_vec())
+                    .collect();
+                (slab[1] - slab[0]) * union(active, &reference[..axis])
+            })
+            .sum()
+    }
+    let eligible = points
+        .iter()
+        .filter(|p| p.iter().zip(reference).all(|(v, r)| v < r))
+        .cloned()
+        .collect();
+    let volume = union(eligible, reference);
+    if volume.is_finite() {
+        Ok(volume)
+    } else {
+        Err("hypervolume overflow".into())
+    }
+}
+
 fn split(r: f64) -> Result<(), String> {
     if !r.is_finite() || !(0.0..1.0).contains(&r) {
         Err("split must be finite in [0,1)".into())

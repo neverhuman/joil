@@ -22,6 +22,115 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+/// Immutable, compiled campaign contract. Physical admission remains separate.
+pub fn research_requirements() -> Result<&'static joil_evidence::campaign::Requirements, String> {
+    static REQUIREMENTS: std::sync::OnceLock<
+        Result<joil_evidence::campaign::Requirements, String>,
+    > = std::sync::OnceLock::new();
+    REQUIREMENTS
+        .get_or_init(|| {
+            joil_evidence::campaign::Requirements::from_toml(include_bytes!(
+                "../../../requirements/joil-hydrocyclone-v1.toml"
+            ))
+        })
+        .as_ref()
+        .map_err(Clone::clone)
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct CampaignAdmissionReceipt {
+    pub schema: String,
+    pub mode: joil_evidence::campaign::CampaignMode,
+    pub requirements: joil_evidence::identity::ContentRef,
+    pub objective_sha256: String,
+    pub executed_objectives: Vec<joil_evidence::campaign::ObjectiveSpec>,
+    pub unresolved_claim_gates: Vec<String>,
+}
+
+/// The legacy prior screen has no trusted physical P0 receipt resolver. Sandbox
+/// runs are explicit; claim-bearing mode must refuse before any computation.
+pub fn admit_search_campaign(
+    mode: joil_evidence::campaign::CampaignMode,
+) -> Result<CampaignAdmissionReceipt, String> {
+    let requirements = research_requirements()?;
+    let objective_sha256 = requirements.objective_hash()?;
+    joil_evidence::campaign::admit_campaign(
+        mode,
+        requirements,
+        &requirements.objectives,
+        &objective_sha256,
+        &[],
+        |_| joil_evidence::Verdict::Incomplete,
+    )?;
+    Ok(CampaignAdmissionReceipt {
+        schema: "joil.campaign.v1".into(),
+        mode,
+        requirements: joil_evidence::identity::ContentRef::from_bytes(
+            &requirements.id,
+            &requirements.revision,
+            include_bytes!("../../../requirements/joil-hydrocyclone-v1.toml"),
+        ),
+        objective_sha256,
+        executed_objectives: requirements.objectives.clone(),
+        unresolved_claim_gates: joil_evidence::campaign::REQUIRED_P0_GATES
+            .iter()
+            .map(|id| (*id).into())
+            .collect(),
+    })
+}
+
+/// Mutually exclusive proposal-budget categories. `evaluations` counts only
+/// unrepaired evaluated proposals; actual evaluations also include repaired ones.
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct ProposalBudget {
+    pub budget: usize,
+    /// Separately charged common comparator evaluations outside the proposal slots.
+    #[serde(default)]
+    pub reference_evaluations: usize,
+    pub proposals_invalid: usize,
+    pub proposals_repaired: usize,
+    pub evaluations: usize,
+    pub operator_statistics: std::collections::BTreeMap<String, OperatorStatistics>,
+    pub proposal_receipts: Vec<crate::program::VariationOutcome>,
+}
+
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+pub struct OperatorStatistics {
+    pub attempts: usize,
+    pub invalid: usize,
+    pub repaired: usize,
+    pub evaluated: usize,
+}
+
+impl ProposalBudget {
+    pub fn record(&mut self, outcome: crate::program::VariationOutcome) {
+        self.budget += 1;
+        let statistics = self
+            .operator_statistics
+            .entry(outcome.operator_id.clone())
+            .or_default();
+        statistics.attempts += 1;
+        if outcome.failure.is_some() || outcome.child.is_none() {
+            self.proposals_invalid += 1;
+            statistics.invalid += 1;
+        } else if !outcome.repairs.is_empty() {
+            self.proposals_repaired += 1;
+            statistics.repaired += 1;
+        } else {
+            self.evaluations += 1;
+            statistics.evaluated += 1;
+        }
+        self.proposal_receipts.push(outcome);
+    }
+
+    pub fn absorb(&mut self, other: Self) {
+        self.reference_evaluations += other.reference_evaluations;
+        for receipt in other.proposal_receipts {
+            self.record(receipt);
+        }
+    }
+}
+
 /// `EXPERIMENT-01` & `METRIC-07`: Calibration curve and LOQ/LOD zero-censoring result.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct InstrumentCalibrationAudit {

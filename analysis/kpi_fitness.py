@@ -218,7 +218,12 @@ def verify_carrier_case_provenance(case_dir: Path, time_step: int) -> dict[str, 
         if not isinstance(manifest_data, dict) or not manifest_data:
             mismatched_inputs.append('<empty_or_non_dict_input_manifest>')
         else:
-            for rel_file, expected_hash in manifest_data.items():
+            file_map = (
+                manifest_data['dictionary_files_sha256']
+                if isinstance(manifest_data.get('dictionary_files_sha256'), dict)
+                else manifest_data
+            )
+            for rel_file, expected_hash in file_map.items():
                 rel_p = Path(rel_file)
                 if rel_p.is_absolute() or '..' in rel_p.parts:
                     mismatched_inputs.append(f'escaped_path:{rel_file}')
@@ -254,6 +259,12 @@ def verify_carrier_case_provenance(case_dir: Path, time_step: int) -> dict[str, 
 
     metrics_receipt_path = case_dir_resolved / f'metrics-t{time_step}-0-joilHydraulicMetrics.log.receipt.json'
     metrics_log_path = case_dir_resolved / f'metrics-t{time_step}-0-joilHydraulicMetrics.log'
+    if not metrics_receipt_path.is_file():
+        alt_rec = case_dir_resolved / f'water-3-hydraulicMetrics-{time_step}.log.receipt.json'
+        alt_log = case_dir_resolved / f'water-3-hydraulicMetrics-{time_step}.log'
+        if alt_rec.is_file() and alt_log.is_file():
+            metrics_receipt_path = alt_rec
+            metrics_log_path = alt_log
     receipt_verified = False
     receipt_sha256 = None
     if metrics_receipt_path.is_file() and metrics_log_path.is_file():
@@ -608,6 +619,118 @@ def constrained_dominates(cand_a: dict[str, Any], cand_b: dict[str, Any]) -> boo
     return no_worse and strictly_better
 
 
+def compute_wave3_composite_kpi(
+    cout_p95_mg_l: float,
+    grade_20um_p05: float,
+    dp_u_pa: float,
+    baseline_dp_u_pa: float = 29468.21,
+    constraint_violation: float = 0.0,
+) -> float:
+    """Compute the Wave-3 Composite Separation-Hydraulic KPI Score (matching crates/joil-core/src/evolve.rs).
+
+    KPI_score(g) = (30.0 - C_out,p95(g)) + 25.0 * E_reduced,20um,p05(g)
+                   + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)
+    """
+    dp_ref = max(1.0, float(baseline_dp_u_pa))
+    sep_margin = 30.0 - float(cout_p95_mg_l)
+    grade_term = 25.0 * float(grade_20um_p05)
+    dp_term = 10.0 * ((dp_ref - float(dp_u_pa)) / dp_ref)
+    penalty = 500.0 * float(constraint_violation)
+    return round(sep_margin + grade_term + dp_term - penalty, 6)
+
+
+def verify_wave3_evolution_proof_kpis(
+    wave3_results_path: Path | None = None,
+) -> dict[str, Any]:
+    """Independently recompute and audit every KPI score and statistical claim in wave3-evolution-proof-v1.json."""
+    if wave3_results_path is None:
+        wave3_results_path = ROOT / 'docs/results/wave3-evolution-proof-v1.json'
+    wave3_results_path = wave3_results_path.resolve()
+    if not wave3_results_path.is_file():
+        raise FileNotFoundError(f'Missing Wave-3 results file: {wave3_results_path}')
+
+    doc = json.loads(wave3_results_path.read_text(encoding='utf-8'))
+    dp_ref = float(doc['baseline_b0_ct35_dp_u_pa'])
+    def _mc_val(mc: dict[str, Any], *keys: str) -> float:
+        for k in keys:
+            if k in mc and mc[k] is not None:
+                return float(mc[k])
+        raise KeyError(f'None of {keys} found in mc_robustness: {list(mc.keys())}')
+
+    base_cand = doc['baseline_b0_ct35']
+    expected_base_kpi = compute_wave3_composite_kpi(
+        _mc_val(base_cand['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l', 'cout_sample_screen_upper_mg_l'),
+        _mc_val(base_cand['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05', 'grade_20um_sample_screen_lower'),
+        float(base_cand['nominal_metrics']['dp_u_pa']),
+        dp_ref,
+        float(base_cand['constraint_violation']),
+    )
+    if abs(expected_base_kpi - float(doc['baseline_b0_ct35_kpi_score'])) > 1e-4:
+        raise ValueError(
+            f'Baseline KPI mismatch: {expected_base_kpi} vs {doc["baseline_b0_ct35_kpi_score"]}'
+        )
+
+    top_cand = doc['promoted_wave3_top_elite']
+    expected_top_kpi = compute_wave3_composite_kpi(
+        _mc_val(top_cand['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l', 'cout_sample_screen_upper_mg_l'),
+        _mc_val(top_cand['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05', 'grade_20um_sample_screen_lower'),
+        float(top_cand['nominal_metrics']['dp_u_pa']),
+        dp_ref,
+        float(top_cand['constraint_violation']),
+    )
+    if abs(expected_top_kpi - float(doc['promoted_wave3_top_elite_kpi_score'])) > 1e-4:
+        raise ValueError(
+            f'Top elite KPI mismatch: {expected_top_kpi} vs {doc["promoted_wave3_top_elite_kpi_score"]}'
+        )
+
+    n_seeds = int(doc['n_seeds'])
+    if n_seeds < 5:
+        raise ValueError(f'Expected >= 5 seeds, found {n_seeds}')
+
+    arm_outcomes = doc['arm_outcomes']
+    verified_seed_runs = 0
+    for arm_name, outcomes in arm_outcomes.items():
+        if len(outcomes) != n_seeds:
+            raise ValueError(f'Arm {arm_name} has {len(outcomes)} seeds != {n_seeds}')
+        for o in outcomes:
+            bc = o['best_candidate']
+            recomp = compute_wave3_composite_kpi(
+                _mc_val(bc['mc_robustness'], 'cout_p95_mg_l', 'sample_screen_cout_p95_mg_l', 'cout_sample_screen_upper_mg_l'),
+                _mc_val(bc['mc_robustness'], 'grade_20um_p05', 'sample_screen_grade_20um_p05', 'grade_20um_sample_screen_lower'),
+                float(bc['nominal_metrics']['dp_u_pa']),
+                dp_ref,
+                float(bc['constraint_violation']),
+            )
+            if abs(recomp - float(o['final_best_kpi_score'])) > 1e-4:
+                raise ValueError(
+                    f'Seed {o["seed"]} arm {arm_name} KPI mismatch: {recomp} vs {o["final_best_kpi_score"]}'
+                )
+            verified_seed_runs += 1
+
+    # Verify A1, A2, and B3 start from the exact same Generation-0 population for every seed
+    for idx in range(n_seeds):
+        g0_a1 = float(arm_outcomes['A1_No_Mutation_Crossover_Only'][idx]['gen0_best_kpi_score'])
+        g0_a2 = float(arm_outcomes['A2_No_Selection_Random_Walk'][idx]['gen0_best_kpi_score'])
+        g0_b3 = float(arm_outcomes['B3_Wave3_Exotic3D_QD_CEI'][idx]['gen0_best_kpi_score'])
+        if abs(g0_a1 - g0_b3) > 1e-6 or abs(g0_a2 - g0_b3) > 1e-6:
+            raise ValueError(
+                f'Seed index {idx} Generation-0 best KPI not identical across A1/A2/B3: {g0_a1}, {g0_a2}, {g0_b3}'
+            )
+
+    return {
+        'passed': True,
+        'wave3_results_file': str(wave3_results_path.relative_to(ROOT)),
+        'wave3_results_sha256': file_sha256(wave3_results_path),
+        'n_seeds': n_seeds,
+        'verified_seed_runs': verified_seed_runs,
+        'baseline_b0_ct35_kpi_score': expected_base_kpi,
+        'promoted_wave3_top_elite_kpi_score': expected_top_kpi,
+        'qualification_tier': 'prior_laden_reduced_order_f1_screen_search_diagnostics_not_f2_or_f4_qualified',
+        'qualified_multiobjective_vector': None,
+        'qualified_capacity_gain': None,
+    }
+
+
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
@@ -617,22 +740,32 @@ if __name__ == '__main__':
         help='Path to executed OpenFOAM boundary mechanical flux JSON',
     )
     ap.add_argument('--time-step', type=int, default=600, help='Required explicit numeric saved time')
+    ap.add_argument(
+        '--wave3-results',
+        type=Path,
+        default=None,
+        help='Optional path to wave3-evolution-proof-v1.json to independently verify all KPIs',
+    )
     ap.add_argument('--out', type=Path, default=None, help='Immutable output path (opened with x mode)')
     args = ap.parse_args()
-    rep = evaluate_measured_cfd_kpis_and_fitness(args.integrals, expected_time_step=args.time_step)
-    all_points = []
-    for p_rel, t_exp in [
-        ('runs/ct35-sst-diagnostic-000/hydraulic-integrals-t300.json', 300),
-        ('runs/ct35-sst-split-001/hydraulic-integrals-t300.json', 300),
-        ('runs/ct35-sst-extended-000/hydraulic-integrals-t600.json', 600),
-    ]:
-        p_full = ROOT / p_rel
-        if p_full.exists():
-            all_points.append(evaluate_measured_cfd_kpis_and_fitness(p_full, expected_time_step=t_exp))
-    rep['executed_baseline_operating_points'] = all_points
+    if args.wave3_results is not None:
+        rep = verify_wave3_evolution_proof_kpis(args.wave3_results)
+    else:
+        rep = evaluate_measured_cfd_kpis_and_fitness(args.integrals, expected_time_step=args.time_step)
+        all_points = []
+        for p_rel, t_exp in [
+            ('runs/ct35-sst-diagnostic-000/hydraulic-integrals-t300.json', 300),
+            ('runs/ct35-sst-split-001/hydraulic-integrals-t300.json', 300),
+            ('runs/ct35-sst-extended-000/hydraulic-integrals-t600.json', 600),
+        ]:
+            p_full = ROOT / p_rel
+            if p_full.exists():
+                all_points.append(evaluate_measured_cfd_kpis_and_fitness(p_full, expected_time_step=t_exp))
+        rep['executed_baseline_operating_points'] = all_points
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         with open(args.out, 'x', encoding='utf-8') as f:
             f.write(json.dumps(rep, indent=2) + '\n')
     print(json.dumps(rep, indent=2))
+
 

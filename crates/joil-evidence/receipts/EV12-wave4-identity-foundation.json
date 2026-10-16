@@ -1,0 +1,204 @@
+{
+  "item": "EV-12-WAVE4-FOUNDATION",
+  "kind": "software_contract_and_deferral_not_actual_run_acceptance",
+  "input_head": "24a8126726f3fdbf697ff57ec2ec54ba1925dc76",
+  "changed_paths": [
+    ".agent/JOIL-COORD.md",
+    "analysis/case_identity.py",
+    "tests/test_evidence.py",
+    "crates/joil-evidence/reports/section6-ev09-ev12-deferrals.json",
+    "crates/joil-evidence/receipts/EV12-wave4-identity-foundation.json"
+  ],
+  "implementation": "Immutable case-identity.json written from retained exact program/IR/STL/polyMesh and solver-input bytes. Five artifact-chain hashes plus separately named canonical genome/IR IDs. Complete inventories are domain-separated using analysis.evidence.scientific_hash. Verification rehashes all artifacts; absent/stale mesh or input stages fail. Every local Wave4 G0/G1/G2/RSM directory is audited; no local cases is not acceptance.",
+  "artifacts_sha256": {
+    "analysis/case_identity.py": "2be206a5309ce422cde6d608edadc94b9782f04114492df5bde4be99a9c76f80",
+    "tests/test_evidence.py": "fc2252ab6b8a49f0172716614ae639de0bef02ca40213b8a89709d9589c96eb3",
+    "crates/joil-evidence/reports/section6-ev09-ev12-deferrals.json": "ee56d6d260e66e186ad1f1a5489c871fbcdd879a5c4368bdef5f50105482263f"
+  },
+  "checks": [
+    {
+      "command": ".private/ci-python/bin/python -m unittest discover -s tests -p test_evidence.py -k wave4 -v",
+      "exit_code": 0,
+      "result": "3 synthetic software tests PASS; 1 actual-run test SKIP because no local Wave4 run artifacts. Full Python-suite log and SHA256 below also contain these tests."
+    },
+    {
+      "command": ".private/ci-python/bin/python -m analysis.case_identity --runs-root runs",
+      "exit_code": 1,
+      "expected_negative": "no Wave4 cases available; actual acceptance not verified",
+      "artifact_sha256": "9c4f33c147ffae3782d0514a5573f2b59c9d87d151033e3056e6775095919e40"
+    },
+    {
+      "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only}; python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "40d0f8129fa1e04c604e988a4efa002dcba86866da0ef3124f22522da3d296af",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.06782164302421734,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.39176631800364703,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.1769413849688135,
+          "log_bytes": 72,
+          "log_sha256": "22e0df986057b9ba5be07526ac5fb348862a3dedef42108383cc3e088acbb889"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 75.27618858596543,
+          "log_bytes": 11829,
+          "log_sha256": "042c7253e3de28774233d2a99e26c00d7e1cf2e8d65ca149a2841c61b1b74a22"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.04803802102105692,
+          "log_bytes": 1019,
+          "log_sha256": "02325004404fe961768f51c58509540a38f387915507356951e8f607e087d85e"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 47.814535697048996,
+          "log_bytes": 9495,
+          "log_sha256": "e789fb62b2f07f0295cdb31d2615ac836a4345281174a2537506463756f16c4f"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.09009083703858778,
+          "log_bytes": 75,
+          "log_sha256": "7abf753eba107d461559db7c6f98a1444dd06f3ba9b9526ae7501e0df8e0f780"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 11.92250426899409,
+          "log_bytes": 224,
+          "log_sha256": "da53f3870146adcdd653e16776d1a74bdcac92f95637565a6b4f7a0972183fef"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 0.8865490190219134,
+          "log_bytes": 28,
+          "log_sha256": "f3081b0f340fa519cf3eb7a207367f7e6d3cc4b8629a766a81b562e4fa2ac449"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 0.8443017639801838,
+          "log_bytes": 1904,
+          "log_sha256": "07b0784f6baf9fb30699488f3b7ff2f2d33df317c1d701b2d733211646f5e44e"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "Writer and verifier agree on exact artifact bytes and stable retry",
+    "Every synthetic G0/G1/G2 manifest is read and counted",
+    "All required chain hashes populated; case hash excludes enclosing receipt"
+  ],
+  "negative_checks": [
+    "changed mesh points, solver dictionary or initial velocity rejected",
+    "missing volume-mesh component rejected",
+    "changed source and escaping surface path rejected",
+    "one missing case receipt among3 fails the every-case audit",
+    "no local cases yields nonzero CLI status rather than vacuous acceptance"
+  ],
+  "deferral_handoff": "DOC ACK08:14Z inserted unchanged proposed EV09 and historical/FEA deferral text; required dataset joil-independent-oil-observations-v1 is explicitly not collected/admitted.",
+  "limitations": [
+    "Actual runs are in INT checkout, not present in EV worktree; actual nonempty audit still required.",
+    "INT/IR must wire post-mesh finalizer before any mesh/input pruning and provide retained artifact access.",
+    "Previously pruned, uncaptured executed meshes cannot be reconstructed as original evidence.",
+    "Scoped receipt does not claim full claim-bearing ScientificIdentity, physical qualification or historical/FEA manifest completion.",
+    "wave4-gci-v1.json has not arrived; numeric trace pending its real data."
+  ],
+  "next_dependency": "INT/IR writer integration and retained actual-run artifacts; then nonempty every-case audit and scoped closure; trace wave4-gci-v1.json on publication."
+}

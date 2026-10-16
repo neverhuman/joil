@@ -1,0 +1,767 @@
+{
+  "schema_version": 1,
+  "kind": "wave2_elites_openfoam14_5run_gci_rsm_and_f2_oil_checkpoint_dossier",
+  "claim_state": "openfoam14_3grid_gci_and_dual_rsm_carrier_verified_f2_oil_4s_full_residence_and_f4_rig_still_open",
+  "qualified_multiobjective_vector": null,
+  "qualified_capacity_gain": null,
+  "wave2_tpms_gyroid_elite_5run_dossier": {
+    "schema_version": 1,
+    "kind": "openfoam14_3grid_roache_gci_and_rsm_turbulence_verification_not_physical_validation",
+    "subject_candidate_id": "s20261103-g008-i012",
+    "subject_topology_class": "cylindrical-gyroid-coalescer",
+    "subject_design_sha256": "0bc179e19a54f94e4dbd82ad10df4176fb89b4f283edc91717d34913e9af13d9",
+    "f1_surrogate_screen_metrics": {
+      "cout_p95_mg_l": 6.717288471622311,
+      "dp_u_pa": 28259.07999696
+    },
+    "openfoam_image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+    "baseline_ct35_comparator": {
+      "case_dir": "runs/ct35-sst-extended-000",
+      "cells": 334768,
+      "dp_u_pa": 29468.219129471345,
+      "hydraulic_loss_j_per_treated_m3": 33709.5467913188,
+      "reject_fraction": 0.019859604888413113,
+      "water_closure_fraction": 1.63e-05
+    },
+    "grids": [
+      {
+        "grid_id": "G0_coarse",
+        "case_dir": "runs/wave2-tpms-gyroid-g0-coarse",
+        "background_hex_grid": [
+          18,
+          12,
+          212
+        ],
+        "cells": 139852,
+        "total_volume_m3": 0.00110542311925,
+        "effective_cell_size_mm": 1.9919875539816532,
+        "max_non_orthogonality_deg": 62.4812235068,
+        "avg_non_orthogonality_deg": 6.75565043156,
+        "max_skewness": 4.26458320111,
+        "feed_m3_h": 4.00000000000273,
+        "treated_m3_h": 3.92044005420257,
+        "reject_fraction": 0.0198925712576952,
+        "water_closure_fraction": 2.58480766692715e-06,
+        "dp_u_pa": 17419.124854267102,
+        "dp_o_pa": 197419.1248543811,
+        "pdr": 11.333469764183937,
+        "hydraulic_loss_w": 23.4258473564268,
+        "hydraulic_loss_j_per_treated_m3": 21511.1184757779,
+        "hydraulic_integrals_sha256": "2f5d47c00f2e23498189a91926afc7c9f32c542facc3ef91337816fef3cb20d5",
+        "checkmesh_log_sha256": "7c58cd08b12a095cea3d589fed103c1e2c685e26e7d51efa9bd722cc15ef4da3"
+      },
+      {
+        "grid_id": "G1_medium",
+        "case_dir": "runs/wave2-tpms-gyroid-g1-medium",
+        "background_hex_grid": [
+          24,
+          16,
+          282
+        ],
+        "cells": 305311,
+        "total_volume_m3": 0.00110762084835,
+        "effective_cell_size_mm": 1.5365601178264414,
+        "max_non_orthogonality_deg": 46.8544367427,
+        "avg_non_orthogonality_deg": 6.29721949455,
+        "max_skewness": 2.6715933653,
+        "feed_m3_h": 4.00000000000345,
+        "treated_m3_h": 3.92122508981975,
+        "reject_fraction": 0.0197140376970593,
+        "water_closure_fraction": 2.03101511501338e-05,
+        "dp_u_pa": 19576.165924881498,
+        "dp_o_pa": 199576.1659249955,
+        "pdr": 10.194854635520445,
+        "hydraulic_loss_w": 25.2457439181801,
+        "hydraulic_loss_j_per_treated_m3": 23177.6233252721,
+        "hydraulic_integrals_sha256": "aa769a5f446542227de0ff4becdb1c04ec43539dd5cdbe73790c8c8aec0fd4ae",
+        "checkmesh_log_sha256": "3acb13f5dab06bc197a4a7f5b45e189428fd5ad1034a7aaad47801f94ae519aa"
+      },
+      {
+        "grid_id": "G2_fine",
+        "case_dir": "runs/wave2-tpms-gyroid-g2-fine",
+        "background_hex_grid": [
+          30,
+          20,
+          352
+        ],
+        "cells": 552067,
+        "total_volume_m3": 0.00110858362533,
+        "effective_cell_size_mm": 1.2616112621721771,
+        "max_non_orthogonality_deg": 51.5639607794,
+        "avg_non_orthogonality_deg": 6.24670935085,
+        "max_skewness": 3.44935617284,
+        "feed_m3_h": 4.00000000000303,
+        "treated_m3_h": 3.9202074949419,
+        "reject_fraction": 0.0199578032060332,
+        "water_closure_fraction": 9.67694076510098e-06,
+        "dp_u_pa": 18723.9389024235,
+        "dp_o_pa": 198723.9389025375,
+        "pdr": 10.613361853942818,
+        "hydraulic_loss_w": 24.0340348725845,
+        "hydraulic_loss_j_per_treated_m3": 22070.9045765922,
+        "hydraulic_integrals_sha256": "29280740bfdc8efcd8556b72d8f528396f9a57ad37915939290f6c3f9a036551",
+        "checkmesh_log_sha256": "3e5db36c0d8945ff554dc8cdaf235be22cb659989f71f8c30d06444aba12b22a"
+      }
+    ],
+    "roache_gci_analysis": {
+      "dp_u_pa": {
+        "f_g0_coarse": 17419.124854267102,
+        "f_g1_medium": 19576.165924881498,
+        "f_g2_fine": 18723.9389024235,
+        "r21_linear": 1.2179346870928145,
+        "r10_linear": 1.2963941539752066,
+        "e21_fine_minus_medium": -852.2270224579988,
+        "e10_medium_minus_coarse": 2157.0410706143957,
+        "relative_step_21_pct": 4.551537082551003,
+        "relative_step_10_pct": 11.018710603963443,
+        "convergence_ratio_R": -0.3950907722935738,
+        "convergence_regime": "oscillatory_convergent_unstructured_snapping",
+        "observed_order_p": 3.8491524146703258,
+        "formal_upwind_order_p": 1.0,
+        "gci21_standard_fs125_pct": 5.008758023808581,
+        "gci21_conservative_fs300_p1_pct": 62.65460276104535,
+        "richardson_extrapolated_f": 17973.66946870498,
+        "three_grid_extremum_span": 2157.0410706143957,
+        "three_grid_half_span_pct_of_f2": 5.760115651560909,
+        "asymptotic_ratio_magnitude": 0.7502293365271454
+      },
+      "hydraulic_loss_j_per_treated_m3": {
+        "f_g0_coarse": 21511.1184757779,
+        "f_g1_medium": 23177.6233252721,
+        "f_g2_fine": 22070.9045765922,
+        "r21_linear": 1.2179346870928145,
+        "r10_linear": 1.2963941539752066,
+        "e21_fine_minus_medium": -1106.7187486799012,
+        "e10_medium_minus_coarse": 1666.5048494941984,
+        "relative_step_21_pct": 5.0143787484526445,
+        "relative_step_10_pct": 7.190145538680396,
+        "convergence_ratio_R": -0.6640957264635634,
+        "convergence_regime": "oscillatory_convergent_unstructured_snapping",
+        "observed_order_p": 1.7454615920048386,
+        "formal_upwind_order_p": 1.0,
+        "gci21_standard_fs125_pct": 15.259422286979879,
+        "gci21_conservative_fs300_p1_pct": 69.02589232594869,
+        "richardson_extrapolated_f": 19376.590551073343,
+        "three_grid_extremum_span": 1666.5048494941984,
+        "three_grid_half_span_pct_of_f2": 3.7753433342774,
+        "asymptotic_ratio_magnitude": 0.7283929350739928
+      },
+      "reject_fraction": {
+        "f_g0_coarse": 0.0198925712576952,
+        "f_g1_medium": 0.0197140376970593,
+        "f_g2_fine": 0.0199578032060332,
+        "r21_linear": 1.2179346870928145,
+        "r10_linear": 1.2963941539752066,
+        "e21_fine_minus_medium": 0.00024376550897390117,
+        "e10_medium_minus_coarse": -0.00017853356063590037,
+        "relative_step_21_pct": 1.2214045125979167,
+        "relative_step_10_pct": 0.9056164109016178,
+        "convergence_ratio_R": -1.365376392570998,
+        "convergence_regime": "non_asymptotic",
+        "observed_order_p": 1.9577000782540361,
+        "formal_upwind_order_p": 1.0,
+        "gci21_standard_fs125_pct": 3.241206189133462,
+        "gci21_conservative_fs300_p1_pct": 16.813356270510653,
+        "richardson_extrapolated_f": 0.02047530204821642,
+        "three_grid_extremum_span": 0.00024376550897390117,
+        "three_grid_half_span_pct_of_f2": 0.6107022562989584,
+        "asymptotic_ratio_magnitude": 0.35848990201262254
+      },
+      "signal_to_uncertainty_margin": {
+        "fine_grid_dp_u_saving_pa": 10744.280227047846,
+        "fine_grid_dp_u_saving_pct": -36.46056851906068,
+        "three_grid_dp_u_span_pa": 2157.0410706143957,
+        "saving_to_3grid_span_ratio": 4.981027192026309,
+        "fine_grid_eloss_saving_j_m3": 11638.642214726598,
+        "fine_grid_eloss_saving_pct": -34.526249453237654,
+        "saving_to_3grid_eloss_span_ratio": 6.983863394252377
+      }
+    },
+    "rsm_turbulence_closure_crosscheck": [
+      {
+        "turbulence_model": "LRR",
+        "turbulence_family": "7-equation Reynolds-Stress Transport Model (RSM)",
+        "case_dir": "runs/wave2-tpms-gyroid-g1-rsm-lrr",
+        "continuation_steps_from_g1_sst": 60,
+        "feed_m3_h": 4.00000000000345,
+        "treated_m3_h": 3.92153478704407,
+        "reject_fraction": 0.0196948122407137,
+        "water_closure_fraction": 7.85090008862207e-05,
+        "dp_u_pa": 18245.09772013515,
+        "hydraulic_loss_w": 23.6310514902538,
+        "hydraulic_loss_j_per_treated_m3": 21693.4924677891,
+        "delta_dp_u_vs_kOmegaSST_pct": -6.799432584776715,
+        "delta_eloss_vs_kOmegaSST_pct": -6.403291815795253,
+        "delta_dp_u_vs_ct35_baseline_pct": -38.0855095451353,
+        "delta_eloss_vs_ct35_baseline_pct": -35.645849521252494,
+        "reynolds_stress_tensor_diagnostics": {
+          "cell_count": 305311,
+          "mean_tke_m2_s2": 0.04039187388422394,
+          "p95_tke_m2_s2": 0.1207316383541,
+          "max_tke_m2_s2": 2.404654806045,
+          "mean_rxx_m2_s2": 0.02475071230980186,
+          "mean_ryy_m2_s2": 0.024603492193374512,
+          "mean_rzz_m2_s2": 0.0314295432652715,
+          "mean_shear_stress_mag_m2_s2": 0.007859198305019695,
+          "mean_lumley_anisotropy_norm": 0.13847433288627634,
+          "p95_lumley_anisotropy_norm": 0.39246648988128574,
+          "mean_axial_to_transverse_normal_stress_ratio": 1.159181500585902,
+          "positive_definite_normal_stress_fraction": 1.0,
+          "quantiles_rxx": [
+            0.00450681718177,
+            0.007195366236845,
+            0.0134444597936,
+            0.0334307736103,
+            0.0557445848215
+          ],
+          "quantiles_ryy": [
+            0.00437663387746,
+            0.0072429149320149995,
+            0.0134527055296,
+            0.0336282877602,
+            0.0554170224875
+          ],
+          "quantiles_rzz": [
+            0.00471207908071,
+            0.00721998779562,
+            0.0152803048736,
+            0.03646086624295,
+            0.0704453917334
+          ]
+        },
+        "hydraulic_integrals_sha256": "39b449c958b2587c956c04fe88f3afe62620696a7ac2d0cab20821ea276313d6"
+      },
+      {
+        "turbulence_model": "SSG",
+        "turbulence_family": "7-equation Reynolds-Stress Transport Model (RSM)",
+        "case_dir": "runs/wave2-tpms-gyroid-g1-rsm-ssg",
+        "continuation_steps_from_g1_sst": 60,
+        "feed_m3_h": 4.00000000000345,
+        "treated_m3_h": 3.92135697770548,
+        "reject_fraction": 0.0196845583700202,
+        "water_closure_fraction": 2.38027955455081e-05,
+        "dp_u_pa": 18154.23731930825,
+        "hydraulic_loss_w": 23.4629755313905,
+        "hydraulic_loss_j_per_treated_m3": 21540.1740757685,
+        "delta_dp_u_vs_kOmegaSST_pct": -7.263570461292234,
+        "delta_eloss_vs_kOmegaSST_pct": -7.064784971797258,
+        "delta_dp_u_vs_ct35_baseline_pct": -38.39384307702501,
+        "delta_eloss_vs_ct35_baseline_pct": -36.10067139402856,
+        "reynolds_stress_tensor_diagnostics": {
+          "cell_count": 305311,
+          "mean_tke_m2_s2": 0.039858047059992734,
+          "p95_tke_m2_s2": 0.11989040362195,
+          "max_tke_m2_s2": 2.382530790905,
+          "mean_rxx_m2_s2": 0.02505646924493319,
+          "mean_ryy_m2_s2": 0.02497678255686914,
+          "mean_rzz_m2_s2": 0.02968284231818315,
+          "mean_shear_stress_mag_m2_s2": 0.0057108419241146445,
+          "mean_lumley_anisotropy_norm": 0.09954980691878572,
+          "p95_lumley_anisotropy_norm": 0.2603398905990028,
+          "mean_axial_to_transverse_normal_stress_ratio": 1.0790633421502194,
+          "positive_definite_normal_stress_fraction": 1.0,
+          "quantiles_rxx": [
+            0.00460512329196,
+            0.007265510574965,
+            0.0137686400357,
+            0.0339048233284,
+            0.0574240782482
+          ],
+          "quantiles_ryy": [
+            0.00451333907372,
+            0.0073328878429900005,
+            0.0136029027759,
+            0.033981542335050005,
+            0.057391156883
+          ],
+          "quantiles_rzz": [
+            0.00456250158015,
+            0.00710085613918,
+            0.0147157607884,
+            0.0352804423287,
+            0.0652940054512
+          ]
+        },
+        "hydraulic_integrals_sha256": "b9afc32c60714fd947820ae0a1ecbbb7f648a2a1bbc386a8dddbb9c0b45715da"
+      }
+    ],
+    "mandatory_promotion_gate": {
+      "subject_candidate_id": "s20261103-g008-i012",
+      "subject_topology_class": "cylindrical-gyroid-coalescer",
+      "gate_passed": true,
+      "checks": {
+        "grid_cells": [
+          139852,
+          305311,
+          552067
+        ],
+        "effective_cell_size_mm": [
+          1.9919875539816532,
+          1.5365601178264414,
+          1.2616112621721771
+        ],
+        "saving_to_3grid_span_ratio_dp_u": 4.981027192026309,
+        "saving_to_3grid_span_ratio_eloss": 6.983863394252377,
+        "inter_rsm_dp_u_delta_pct": 0.49924209180437173,
+        "inter_rsm_eloss_delta_pct": 0.7092546354639254
+      },
+      "failures": []
+    }
+  },
+  "wave2_octa_branch_8jet_elite_5run_dossier": {
+    "schema_version": 1,
+    "kind": "openfoam14_3grid_roache_gci_and_rsm_turbulence_verification_not_physical_validation",
+    "subject_candidate_id": "wave2-arch-octa-branch-helical-manifold",
+    "subject_topology_class": "octa-branch-helical-manifold",
+    "subject_design_sha256": "85c360d4226a17e23edfb5b5bcbeee733bd76e900919f38f7e39e180f3c8bab4",
+    "f1_surrogate_screen_metrics": {
+      "cout_p95_mg_l": 8.432443866711036,
+      "dp_u_pa": 28384.231527300002
+    },
+    "openfoam_image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+    "baseline_ct35_comparator": {
+      "case_dir": "runs/ct35-sst-extended-000",
+      "cells": 334768,
+      "dp_u_pa": 29468.219129471345,
+      "hydraulic_loss_j_per_treated_m3": 33709.5467913188,
+      "reject_fraction": 0.019859604888413113,
+      "water_closure_fraction": 1.63e-05
+    },
+    "grids": [
+      {
+        "grid_id": "G0_coarse",
+        "case_dir": "runs/wave2-octa8jet-g0-coarse",
+        "background_hex_grid": [
+          18,
+          12,
+          212
+        ],
+        "cells": 139966,
+        "total_volume_m3": 0.0011064133674,
+        "effective_cell_size_mm": 1.9920410679638971,
+        "max_non_orthogonality_deg": 62.4812235318,
+        "avg_non_orthogonality_deg": 6.72979551071,
+        "max_skewness": 4.26439316604,
+        "feed_m3_h": 4.00000000000313,
+        "treated_m3_h": 3.92046014851708,
+        "reject_fraction": 0.0198910134136732,
+        "water_closure_fraction": 6.05054217606803e-06,
+        "dp_u_pa": 17164.39654881485,
+        "dp_o_pa": 197164.39654892884,
+        "pdr": 11.486823669460284,
+        "hydraulic_loss_w": 23.14561304045,
+        "hydraulic_loss_j_per_treated_m3": 21253.6803816607,
+        "hydraulic_integrals_sha256": "4fcf6a14051f6985728f1c987f1bfd56e07b3bfd43e40ebacdf6526a38bb7443",
+        "checkmesh_log_sha256": "3f3cb355899efb001e229d44a54ea83d5b31dc1f24e5a5cfc0a332f947b185c8"
+      },
+      {
+        "grid_id": "G1_medium",
+        "case_dir": "runs/wave2-octa8jet-g1-medium",
+        "background_hex_grid": [
+          24,
+          16,
+          282
+        ],
+        "cells": 305469,
+        "total_volume_m3": 0.00110860752739,
+        "effective_cell_size_mm": 1.5367511966555365,
+        "max_non_orthogonality_deg": 46.8544367427,
+        "avg_non_orthogonality_deg": 6.27231169738,
+        "max_skewness": 2.67162260647,
+        "feed_m3_h": 4.00000000000349,
+        "treated_m3_h": 3.92118873828432,
+        "reject_fraction": 0.0197136395187548,
+        "water_closure_fraction": 1.08240889801901e-05,
+        "dp_u_pa": 19447.268502111,
+        "dp_o_pa": 199447.268502225,
+        "pdr": 10.25579857040463,
+        "hydraulic_loss_w": 25.1063473277292,
+        "hydraulic_loss_j_per_treated_m3": 23049.8597268162,
+        "hydraulic_integrals_sha256": "7d22be2520c1b7c431ad895ecbad439609354db0ecaf0b1ba0364f33c1e79f24",
+        "checkmesh_log_sha256": "d5ce2bac82d227464e1d8bb5009cd7a333934bfb54753d0cf2d46a03ca89435d"
+      },
+      {
+        "grid_id": "G2_fine",
+        "case_dir": "runs/wave2-octa8jet-g2-fine",
+        "background_hex_grid": [
+          30,
+          20,
+          352
+        ],
+        "cells": 552511,
+        "total_volume_m3": 0.00110956708696,
+        "effective_cell_size_mm": 1.2616460886829055,
+        "max_non_orthogonality_deg": 51.5636950424,
+        "avg_non_orthogonality_deg": 6.2233321482,
+        "max_skewness": 3.31970383324,
+        "feed_m3_h": 4.00000000000351,
+        "treated_m3_h": 3.92030285637414,
+        "reject_fraction": 0.0199485022019581,
+        "water_closure_fraction": 2.42162946326266e-05,
+        "dp_u_pa": 18628.96661342065,
+        "dp_o_pa": 198628.96661353466,
+        "pdr": 10.662371710432865,
+        "hydraulic_loss_w": 23.9278671980498,
+        "hydraulic_loss_j_per_treated_m3": 21972.8743081471,
+        "hydraulic_integrals_sha256": "90c3461f8f4691b05e97640cf41ba394b6a30a58d6fb662f82631a7127ee9637",
+        "checkmesh_log_sha256": "1f90205bfd8ed0d0cb0ef5db128fbd3ea41af8b3abf7c056716b7bd6d806cb88"
+      }
+    ],
+    "roache_gci_analysis": {
+      "dp_u_pa": {
+        "f_g0_coarse": 17164.39654881485,
+        "f_g1_medium": 19447.268502111,
+        "f_g2_fine": 18628.96661342065,
+        "r21_linear": 1.2180525191972233,
+        "r10_linear": 1.2962677838151142,
+        "e21_fine_minus_medium": -818.3018886903519,
+        "e10_medium_minus_coarse": 2282.8719532961513,
+        "relative_step_21_pct": 4.392631677705795,
+        "relative_step_10_pct": 11.738779423178867,
+        "convergence_ratio_R": -0.3584528197075781,
+        "convergence_regime": "oscillatory_convergent_unstructured_snapping",
+        "observed_order_p": 4.0,
+        "formal_upwind_order_p": 1.0,
+        "gci21_standard_fs125_pct": 4.570999091922615,
+        "gci21_conservative_fs300_p1_pct": 60.434500282926294,
+        "richardson_extrapolated_f": 17947.742697633428,
+        "three_grid_extremum_span": 2282.8719532961513,
+        "three_grid_half_span_pct_of_f2": 6.127210383348716,
+        "asymptotic_ratio_magnitude": 0.7997711749149184
+      },
+      "hydraulic_loss_j_per_treated_m3": {
+        "f_g0_coarse": 21253.6803816607,
+        "f_g1_medium": 23049.8597268162,
+        "f_g2_fine": 21972.8743081471,
+        "r21_linear": 1.2180525191972233,
+        "r10_linear": 1.2962677838151142,
+        "e21_fine_minus_medium": -1076.985418669101,
+        "e10_medium_minus_coarse": 1796.1793451555022,
+        "relative_step_21_pct": 4.901431663265722,
+        "relative_step_10_pct": 7.792582542555899,
+        "convergence_ratio_R": -0.5995979307822751,
+        "convergence_regime": "oscillatory_convergent_unstructured_snapping",
+        "observed_order_p": 2.1681028295638067,
+        "formal_upwind_order_p": 1.0,
+        "gci21_standard_fs125_pct": 11.480422205134932,
+        "gci21_conservative_fs300_p1_pct": 67.43464851464284,
+        "richardson_extrapolated_f": 19954.811315203973,
+        "three_grid_extremum_span": 1796.1793451555022,
+        "three_grid_half_span_pct_of_f2": 4.087265325341425,
+        "asymptotic_ratio_magnitude": 0.7325246487757561
+      },
+      "reject_fraction": {
+        "f_g0_coarse": 0.0198910134136732,
+        "f_g1_medium": 0.0197136395187548,
+        "f_g2_fine": 0.0199485022019581,
+        "r21_linear": 1.2180525191972233,
+        "r10_linear": 1.2962677838151142,
+        "e21_fine_minus_medium": 0.00023486268320329837,
+        "e10_medium_minus_coarse": -0.00017737389491839783,
+        "relative_step_21_pct": 1.1773449496385988,
+        "relative_step_10_pct": 0.8997521474898185,
+        "convergence_ratio_R": -1.324110762248011,
+        "convergence_regime": "non_asymptotic",
+        "observed_order_p": 1.7548107706225728,
+        "formal_upwind_order_p": 1.0,
+        "gci21_standard_fs125_pct": 3.5581923431716214,
+        "gci21_conservative_fs300_p1_pct": 16.198092376640485,
+        "richardson_extrapolated_f": 0.020516347064300097,
+        "three_grid_extremum_span": 0.00023486268320329837,
+        "three_grid_half_span_pct_of_f2": 0.5886724748192994,
+        "asymptotic_ratio_magnitude": 0.38770524921077715
+      },
+      "signal_to_uncertainty_margin": {
+        "fine_grid_dp_u_saving_pa": 10839.252516050696,
+        "fine_grid_dp_u_saving_pct": -36.782855687435465,
+        "three_grid_dp_u_span_pa": 2282.8719532961513,
+        "saving_to_3grid_span_ratio": 4.748077306920484,
+        "fine_grid_eloss_saving_j_m3": 11736.672483171697,
+        "fine_grid_eloss_saving_pct": -34.81705807505616,
+        "saving_to_3grid_eloss_span_ratio": 6.534243094837285
+      }
+    },
+    "rsm_turbulence_closure_crosscheck": [
+      {
+        "turbulence_model": "LRR",
+        "turbulence_family": "7-equation Reynolds-Stress Transport Model (RSM)",
+        "case_dir": "runs/wave2-octa8jet-g1-rsm-lrr",
+        "continuation_steps_from_g1_sst": 60,
+        "feed_m3_h": 4.00000000000349,
+        "treated_m3_h": 3.92148426615259,
+        "reject_fraction": 0.0196936893398616,
+        "water_closure_fraction": 6.47558771526201e-05,
+        "dp_u_pa": 18326.401473201302,
+        "hydraulic_loss_w": 23.7244608114671,
+        "hydraulic_loss_j_per_treated_m3": 21779.5235488925,
+        "delta_dp_u_vs_kOmegaSST_pct": -5.763621913216393,
+        "delta_eloss_vs_kOmegaSST_pct": -5.511253400148866,
+        "delta_dp_u_vs_ct35_baseline_pct": -37.80960636717624,
+        "delta_eloss_vs_ct35_baseline_pct": -35.39063671273869,
+        "reynolds_stress_tensor_diagnostics": {
+          "cell_count": 305469,
+          "mean_tke_m2_s2": 0.04036012138199972,
+          "p95_tke_m2_s2": 0.12078144615535999,
+          "max_tke_m2_s2": 2.399846501105,
+          "mean_rxx_m2_s2": 0.02472809794078443,
+          "mean_ryy_m2_s2": 0.024582919638973296,
+          "mean_rzz_m2_s2": 0.03140922518424172,
+          "mean_shear_stress_mag_m2_s2": 0.007851197463987141,
+          "mean_lumley_anisotropy_norm": 0.13833769118217304,
+          "p95_lumley_anisotropy_norm": 0.3924522779489948,
+          "mean_axial_to_transverse_normal_stress_ratio": 1.1592213735494046,
+          "positive_definite_normal_stress_fraction": 1.0,
+          "quantiles_rxx": [
+            0.004465028938038001,
+            0.00718764755156,
+            0.0133897539685,
+            0.033398463564,
+            0.05575049092008
+          ],
+          "quantiles_ryy": [
+            0.00435167360612,
+            0.00724401138982,
+            0.0133592119592,
+            0.0335929012188,
+            0.055378897004460005
+          ],
+          "quantiles_rzz": [
+            0.004645062605064,
+            0.00721025839156,
+            0.0152260193828,
+            0.0364426174133,
+            0.07046829233072001
+          ]
+        },
+        "hydraulic_integrals_sha256": "176ce7bfcd43a9a1e14c18e0b57be12002fd4f1d6893a0110c4b53bc6d60d6b3"
+      },
+      {
+        "turbulence_model": "SSG",
+        "turbulence_family": "7-equation Reynolds-Stress Transport Model (RSM)",
+        "case_dir": "runs/wave2-octa8jet-g1-rsm-ssg",
+        "continuation_steps_from_g1_sst": 60,
+        "feed_m3_h": 4.00000000000349,
+        "treated_m3_h": 3.92091131895815,
+        "reject_fraction": 0.0196796039188166,
+        "water_closure_fraction": 9.25663425021503e-05,
+        "dp_u_pa": 17960.57018702745,
+        "hydraulic_loss_w": 23.2539161141135,
+        "hydraulic_loss_j_per_treated_m3": 21350.6736574325,
+        "delta_dp_u_vs_kOmegaSST_pct": -7.64476674409144,
+        "delta_eloss_vs_kOmegaSST_pct": -7.371784859093386,
+        "delta_dp_u_vs_ct35_baseline_pct": -39.05104985097327,
+        "delta_eloss_vs_ct35_baseline_pct": -36.662827923480336,
+        "reynolds_stress_tensor_diagnostics": {
+          "cell_count": 305469,
+          "mean_tke_m2_s2": 0.039827863894772636,
+          "p95_tke_m2_s2": 0.11990114523085,
+          "max_tke_m2_s2": 2.377130519175,
+          "mean_rxx_m2_s2": 0.025035639045924842,
+          "mean_ryy_m2_s2": 0.024957038662033023,
+          "mean_rzz_m2_s2": 0.029663050081587376,
+          "mean_shear_stress_mag_m2_s2": 0.005705519443237154,
+          "mean_lumley_anisotropy_norm": 0.09944982234906026,
+          "p95_lumley_anisotropy_norm": 0.26039811224452625,
+          "mean_axial_to_transverse_normal_stress_ratio": 1.0790489431257466,
+          "positive_definite_normal_stress_fraction": 1.0,
+          "quantiles_rxx": [
+            0.004563586656662,
+            0.00725681578094,
+            0.0137278872247,
+            0.0338982439671,
+            0.057413760777140006
+          ],
+          "quantiles_ryy": [
+            0.004482600755743999,
+            0.00733317596073,
+            0.013510504708,
+            0.033949695527,
+            0.05739911584904001
+          ],
+          "quantiles_rzz": [
+            0.004508629704834,
+            0.00709605683736,
+            0.0146618702259,
+            0.0352801197241,
+            0.0652682005095
+          ]
+        },
+        "hydraulic_integrals_sha256": "4cf4264babd3fb81dc9c288588b2c71d399ddb70de152e655f712f36b0e197e8"
+      }
+    ],
+    "mandatory_promotion_gate": {
+      "subject_candidate_id": "wave2-arch-octa-branch-helical-manifold",
+      "subject_topology_class": "octa-branch-helical-manifold",
+      "gate_passed": true,
+      "checks": {
+        "grid_cells": [
+          139966,
+          305469,
+          552511
+        ],
+        "effective_cell_size_mm": [
+          1.9920410679638971,
+          1.5367511966555365,
+          1.2616460886829055
+        ],
+        "saving_to_3grid_span_ratio_dp_u": 4.748077306920484,
+        "saving_to_3grid_span_ratio_eloss": 6.534243094837285,
+        "inter_rsm_dp_u_delta_pct": 2.016323046184704,
+        "inter_rsm_eloss_delta_pct": 1.9886294023116973
+      },
+      "failures": []
+    }
+  },
+  "wave1_vs_wave2_surrogate_to_cfd_ranking_audit": [
+    {
+      "candidate_id": "s20261103-g008-i012",
+      "wave": "Wave-2",
+      "topology_class": "cylindrical-gyroid-coalescer",
+      "design_sha256": "0bc179e19a54f94e4dbd82ad10df4176fb89b4f283edc91717d34913e9af13d9",
+      "f1_cout_p95_mg_l": 6.717288471622311,
+      "f1_dp_u_pa": 28259.07999696,
+      "openfoam_g2_dp_u_pa": 18723.9389024235,
+      "openfoam_g2_eloss_j_m3": 22070.9045765922,
+      "openfoam_lrr_dp_u_pa": 18245.09772013515,
+      "openfoam_ssg_dp_u_pa": 18154.23731930825,
+      "snr_span_dp_u": 4.981027192026309,
+      "snr_span_eloss": 6.983863394252377,
+      "inter_rsm_dp_u_delta_pct": 0.49924209180437173,
+      "mandatory_5run_gate_passed": true,
+      "gate_failures": []
+    },
+    {
+      "candidate_id": "xbabe2-gen043-isl10-ind030",
+      "wave": "Wave-1",
+      "topology_class": "trifurcated-6jet-vortex-head",
+      "design_sha256": "88da933b54c303e6bda1031c11b3334cf90f997361f90ac6321994c1a2d9e7dd",
+      "f1_cout_p95_mg_l": 7.4991,
+      "f1_dp_u_pa": 28697.71,
+      "openfoam_g2_dp_u_pa": 18699.40443066995,
+      "openfoam_g2_eloss_j_m3": 22047.3249453656,
+      "openfoam_lrr_dp_u_pa": 18119.20008999115,
+      "openfoam_ssg_dp_u_pa": 18165.70578009965,
+      "snr_span_dp_u": 4.8605361405244,
+      "snr_span_eloss": 6.756149068929177,
+      "inter_rsm_dp_u_delta_pct": 0.25633628636107286,
+      "mandatory_5run_gate_passed": true,
+      "gate_failures": []
+    },
+    {
+      "candidate_id": "wave2-arch-octa-branch-helical-manifold",
+      "wave": "Wave-2",
+      "topology_class": "octa-branch-helical-manifold",
+      "design_sha256": "85c360d4226a17e23edfb5b5bcbeee733bd76e900919f38f7e39e180f3c8bab4",
+      "f1_cout_p95_mg_l": 8.432443866711036,
+      "f1_dp_u_pa": 28384.231527300002,
+      "openfoam_g2_dp_u_pa": 18628.96661342065,
+      "openfoam_g2_eloss_j_m3": 21972.8743081471,
+      "openfoam_lrr_dp_u_pa": 18326.401473201302,
+      "openfoam_ssg_dp_u_pa": 17960.57018702745,
+      "snr_span_dp_u": 4.748077306920484,
+      "snr_span_eloss": 6.534243094837285,
+      "inter_rsm_dp_u_delta_pct": 2.016323046184704,
+      "mandatory_5run_gate_passed": true,
+      "gate_failures": []
+    }
+  ],
+  "f2_oil_transient_droplet_closure_checkpoint_and_resumable_plan": {
+    "status": "stage0_checkpoint_executed_resumable_plan_bound_not_completed_4s_f2_oil",
+    "qualified_for_f2_oil_grade": false,
+    "qualified_multiobjective_vector": null,
+    "strict_unextended_overflow_backflow_gate_rejected": true,
+    "strict_unextended_overflow_backflow_gate_reason": "Carrier case wave2-tpms-gyroid-g1-medium (hydraulic-integrals-t150.json, sha256=aa769a5f4465) rejected: overflow terminal reverse flow 5.60293e-05 m3/s exceeds 1% of net outward flow 2.19045e-05 m3/s.",
+    "carrier_case": "runs/wave2-tpms-gyroid-g1-medium",
+    "carrier_time_step": 150,
+    "stage0_pilot_case_dir": "runs/gemini-ct35-full-liner-inlet-t150-dt5e-05-65f07d",
+    "stage0_result_file": "runs/gemini-ct35-full-liner-inlet-t150-dt5e-05-65f07d/result-review-v2.json",
+    "stage0_result_sha256": "bed1373689647e1d5e49ec96f035d5bfbc61a9b99f8d180a7fe29ea522f13b1c",
+    "dt_s": 5e-05,
+    "stage0_end_time_s": 0.01,
+    "stage0_steps": 200,
+    "stage0_foamRun_wall_seconds": 35.581284953979775,
+    "stage0_inventory_closure_passed": true,
+    "stage0_total_discrepancy_count": 0,
+    "stage0_remaining_in_domain_fraction_mean": 0.971875,
+    "measured_throughput": {
+      "wall_seconds_per_0.01s_physical": 35.581284953979775,
+      "estimated_wall_seconds_per_1.0s_physical": 3558.1284953979775,
+      "estimated_wall_hours_for_4.0s_full_residence_4cpus": 3.953476105997753
+    },
+    "resumable_8stage_continuation_plan": {
+      "target_physical_time_s": 4.0,
+      "target_max_retained_mass_fraction": 0.001,
+      "time_step_dt_s": 5e-05,
+      "total_steps_required": 80000,
+      "chunk_size_physical_s": 0.5,
+      "chunk_steps": 10000,
+      "num_chunks": 8,
+      "controlDict_continuation_settings": {
+        "startFrom": "latestTime",
+        "stopAt": "endTime",
+        "writeControl": "timeStep",
+        "writeInterval": 10000,
+        "purgeWrite": 2
+      },
+      "stages": [
+        {
+          "stage_index": 1,
+          "t_start_s": 0.0,
+          "t_end_s": 0.5,
+          "steps": 10000,
+          "estimated_wall_minutes_4cpus": 29.65
+        },
+        {
+          "stage_index": 2,
+          "t_start_s": 0.5,
+          "t_end_s": 1.0,
+          "steps": 10000,
+          "estimated_wall_minutes_4cpus": 29.65
+        },
+        {
+          "stage_index": 3,
+          "t_start_s": 1.0,
+          "t_end_s": 1.5,
+          "steps": 10000,
+          "estimated_wall_minutes_4cpus": 29.65
+        },
+        {
+          "stage_index": 4,
+          "t_start_s": 1.5,
+          "t_end_s": 2.0,
+          "steps": 10000,
+          "estimated_wall_minutes_4cpus": 29.65
+        },
+        {
+          "stage_index": 5,
+          "t_start_s": 2.0,
+          "t_end_s": 2.5,
+          "steps": 10000,
+          "estimated_wall_minutes_4cpus": 29.65
+        },
+        {
+          "stage_index": 6,
+          "t_start_s": 2.5,
+          "t_end_s": 3.0,
+          "steps": 10000,
+          "estimated_wall_minutes_4cpus": 29.65
+        },
+        {
+          "stage_index": 7,
+          "t_start_s": 3.0,
+          "t_end_s": 3.5,
+          "steps": 10000,
+          "estimated_wall_minutes_4cpus": 29.65
+        },
+        {
+          "stage_index": 8,
+          "t_start_s": 3.5,
+          "t_end_s": 4.0,
+          "steps": 10000,
+          "estimated_wall_minutes_4cpus": 29.65
+        }
+      ],
+      "resume_command": "JOIL_CPU_SET=0,1,2,3 python3 physics/openfoam/oil/oil_grade.py --carrier-case runs/wave2-tpms-gyroid-g1-medium --time-step 150 --run-inlet-cohort-pilot --pilot-dt 5e-5 --pilot-end-time 0.50 --cpuset 0,1,2,3"
+    }
+  }
+}
