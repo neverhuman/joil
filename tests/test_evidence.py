@@ -12,6 +12,106 @@ from analysis.units import pressure_scale
 
 
 class EvidenceTests(unittest.TestCase):
+    def _synthetic_wave4_case(self, runs, name):
+        import hashlib
+        from analysis.evidence import evidence_reference
+
+        case = runs/name
+        files = {
+            'design-program.json': b'{"synthetic":true}',
+            'design-ir.json': json.dumps({'program_sha256': 'a'*64,
+                                          'ir_sha256': 'b'*64}).encode(),
+            'constant/triSurface/ct35.stl': b'solid synthetic\nendsolid\n',
+            '0/U': b'synthetic initial velocity',
+            '0/p': b'synthetic initial pressure',
+            'system/controlDict': b'synthetic solver config',
+            'system/fvSchemes': b'synthetic schemes',
+            'system/fvSolution': b'synthetic solution',
+        }
+        for mesh_file in ['points', 'faces', 'owner', 'neighbour', 'boundary']:
+            files['constant/polyMesh/'+mesh_file] = ('synthetic '+mesh_file).encode()
+        for name, content in files.items():
+            path = case/name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content)
+        surface = 'constant/triSurface/ct35.stl'
+        bundle = {key: evidence_reference(path, 'synthetic-v1', files[path])
+                  for key, path in [('genome', 'design-program.json'),
+                                    ('ir', 'design-ir.json'), ('surface_mesh', surface)]}
+        for key in ['compiler', 'geometry_kernel', 'compiler_config']:
+            bundle[key] = evidence_reference(key, 'synthetic-v1', b'synthetic fixture')
+        (case/'input-manifest.json').write_text(json.dumps({
+            'design_sha256': 'a'*64, 'design_ir_sha256': 'b'*64,
+            'surface_stl_relpath': surface,
+            'surface_stl_sha256': hashlib.sha256(files[surface]).hexdigest(),
+            'subject_bundle': bundle,
+        }))
+        return case
+
+    def test_wave4_case_identity_binds_actual_mesh_and_solver_inputs(self):
+        from analysis.case_identity import finalize_case_identity, verify_case_identity
+        root = Path(__file__).resolve().parents[1]
+        (root/'.private').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root/'.private') as directory:
+            case = self._synthetic_wave4_case(Path(directory), 'wave4-synthetic-g0-coarse')
+            identity = finalize_case_identity(case)
+            self.assertEqual(verify_case_identity(case)['state'], 'exact_artifact_bytes_verified')
+            for key in ['genome_hash', 'ir_hash', 'geometry_hash', 'mesh_hash', 'case_hash']:
+                self.assertRegex(identity[key], r'^[0-9a-f]{64}$')
+            self.assertEqual(finalize_case_identity(case), identity)
+            for rel in ['constant/polyMesh/points', 'system/fvSchemes', '0/U']:
+                path = case/rel
+                original = path.read_bytes()
+                path.write_bytes(original+b' changed')
+                with self.subTest(changed=rel):
+                    with self.assertRaises(ValueError): verify_case_identity(case)
+                    with self.assertRaises(ValueError): finalize_case_identity(case)
+                path.write_bytes(original)
+            (case/'constant/polyMesh/points').unlink()
+            with self.assertRaises(ValueError): verify_case_identity(case)
+
+    def test_wave4_manifest_audit_reads_every_case_and_rejects_missing_stage(self):
+        from analysis.case_identity import audit_wave4_manifests, finalize_case_identity
+        root = Path(__file__).resolve().parents[1]
+        (root/'.private').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root/'.private') as directory:
+            runs = Path(directory)
+            self.assertFalse(audit_wave4_manifests(runs)['passed'])
+            cases = [self._synthetic_wave4_case(runs, f'wave4-synthetic-g{g}-test') for g in range(3)]
+            for case in cases: finalize_case_identity(case)
+            audit = audit_wave4_manifests(runs)
+            self.assertTrue(audit['passed'], audit['errors'])
+            self.assertEqual(audit['manifest_count'], 3)
+            (cases[-1]/'case-identity.json').unlink()
+            audit = audit_wave4_manifests(runs)
+            self.assertFalse(audit['passed'])
+            self.assertEqual(len(audit['errors']), 1)
+            self.assertEqual(audit['errors'][0]['case'], cases[-1].name)
+
+    def test_wave4_case_identity_rejects_cross_case_and_path_substitution(self):
+        from analysis.case_identity import finalize_case_identity, verify_case_identity
+        root = Path(__file__).resolve().parents[1]
+        (root/'.private').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=root/'.private') as directory:
+            runs = Path(directory)
+            case = self._synthetic_wave4_case(runs, 'wave4-synthetic-g1-medium')
+            finalize_case_identity(case)
+            (case/'design-program.json').write_bytes(b'changed source')
+            with self.assertRaises(ValueError): verify_case_identity(case)
+            prepared = json.loads((case/'input-manifest.json').read_text())
+            prepared['surface_stl_relpath'] = '../outside.stl'
+            (case/'input-manifest.json').write_text(json.dumps(prepared))
+            with self.assertRaises(ValueError): finalize_case_identity(case)
+
+    def test_every_local_wave4_run_manifest_has_complete_exact_identity(self):
+        from analysis.case_identity import audit_wave4_manifests
+        runs = Path(__file__).resolve().parents[1]/'runs'
+        if not any(runs.glob('wave4-*-g[012]-*')):
+            self.skipTest('no local Wave-4 run artifacts; actual acceptance requires nonempty audit')
+        report = audit_wave4_manifests(runs)
+        self.assertTrue(report['passed'], report['errors'])
+        self.assertGreater(report['manifest_count'], 0)
+
     def test_changed_evidence_is_rejected(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/'p';p.write_bytes(b'pressure')

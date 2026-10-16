@@ -9,7 +9,7 @@ Commit board changes on YOUR lane branch only for your row/locks; integrator rec
 |---|---|---|---|---|---|---|
 | INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | active (INT-01/03/04/05 DONE, CI-MATPLOTLIB/IR-R7/TR-10/DOC-04 merged, INT-06 next) | 2026-10-16T06:50:00Z |
 | TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | active (TR-05/06 DONE, TR-01 WIP) | 2026-10-16T05:16:57Z |
-| EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | EV-09/12 BLOCKED; EV-10 DONE; Wave-4 figure digests reverified, DOC prose numbers checked | 2026-10-16T07:41:52Z |
+| EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | EV-12 Wave4 WIP; identity writer/tests ready, actual run audit pending; EV09/12 section6 text to DOC | 2026-10-16T08:16:12Z |
 | IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | active (IR-01 WIP) | 2026-10-16T05:16:50Z |
 | DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | active (DOC-01 DONE, DOC-02 WIP) | 2026-10-16T05:13:41Z |
 
@@ -57,3 +57,5 @@ BLOCKED EV-09 independent source-bound Cout labels and reviewed observed mechani
 DONE EV-10 dcaf087d9c1f028e8f65699a50b28c0461b89bb1
 BLOCKED EV-12 current prepared-case subject bundle has volume_mesh=None and no full CaseManifest/ScientificIdentity; post-mesh, historical and FEA writer integration await IR/INT.
 HB 2026-10-16T07:41:52Z EV LEDGER-FIGURE-REVERIFY WIP c5eb7f1 both requested PNG hashes and all manifest sources verified from remote blobs; latest DOC cf9df59 Wave4 table and section5.7 key numbers match audited source; no new numeric gap; full gate running.
+HB 2026-10-16T08:16:12Z EV EV-12-WAVE4 WIP - scoped owner08:06 request; analysis.case_identity finalizer + every-run validator/tests implemented; actual meshes/writer integration still required; no DONE-SCOPED before nonempty actual-run audit.
+GIVE 2026-10-16T08:16:12Z EV -> DOC EV09/EV12-SECTION6 crates/joil-evidence/reports/section6-ev09-ev12-deferrals.json; dataset joil-independent-oil-observations-v1 required/not collected; disjoint geometry-family and observed-mechanism holdouts; historical/FEA artifact identity recovery deferred.
