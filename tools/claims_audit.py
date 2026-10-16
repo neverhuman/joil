@@ -814,6 +814,49 @@ def _descriptor_names(root: Path) -> list[str]:
     return names
 
 
+README_STATUS_BEGIN = "<!-- BEGIN GENERATED STATUS: python3 tools/claims_audit.py --write-readme-status (source docs/STATUS.json) -->"
+README_STATUS_END = "<!-- END GENERATED STATUS -->"
+
+
+def render_readme_status(status: dict[str, Any]) -> str:
+    """README status table derived only from docs/STATUS.json (DOC-05); never hand-edited."""
+
+    def cell(value: Any) -> str:
+        if value is None:
+            return "`null` (no qualified value)"
+        if isinstance(value, bool):
+            return "`true`" if value else "`false`"
+        return f"`{value}`"
+
+    rows = [
+        "| Claim | State | Missing evidence |",
+        "|---|---|---|",
+        f"| Campaign admission | {cell(status.get('campaign_admission'))} | "
+        + "; ".join(status.get("campaign_blockers", [])) + " |",
+    ]
+    for name, claim in status.get("claims", {}).items():
+        rows.append(
+            f"| `{name}` | {cell(claim.get('state'))} (flag {cell(status.get(name))}) | "
+            + ", ".join(f"`{m}`" for m in claim.get("missing", [])) + " |"
+        )
+    for name in ("qualified_fitness", "qualified_capacity_gain"):
+        rows.append(f"| `{name}` | {cell(status.get(name))} | - |")
+    for item in status.get("software", []):
+        rows.append(f"| `{item['id']}` | {cell(item.get('state'))} | - |")
+    return "\n".join(
+        [README_STATUS_BEGIN, f"Phase: {cell(status.get('phase'))}.", "", *rows, README_STATUS_END]
+    )
+
+
+def check_readme_status(readme: str, status: dict[str, Any]) -> list[str]:
+    if README_STATUS_BEGIN not in readme or README_STATUS_END not in readme:
+        return ["README.md: generated status block markers missing"]
+    block = readme[readme.index(README_STATUS_BEGIN) : readme.index(README_STATUS_END) + len(README_STATUS_END)]
+    if block != render_readme_status(status):
+        return ["README.md: status block is stale; run python3 tools/claims_audit.py --write-readme-status"]
+    return []
+
+
 REVIEW_INPUT_DIR = "docs/review-inputs/2026-10-15"
 REVIEW_SYNTHESIS = "docs/reviews/2026-10-15-SYNTHESIS.md"
 REVIEW_WORKPLAN = "docs/WORKPLAN-2026-10-15.md"
@@ -1093,9 +1136,16 @@ def run_claims_audit(root: Path = ROOT) -> dict[str, Any]:
     wording_errors, wording_checked = audit_claim_wording(
         docs, _evidence_tiers(root), _descriptor_names(root)
     )
+    status_errors = check_readme_status(docs["README.md"], bundle["status"])
 
     all_errors = (
-        path_hash_errors + structured_errors + token_errors + input_errors + trace_errors + wording_errors
+        path_hash_errors
+        + structured_errors
+        + token_errors
+        + input_errors
+        + trace_errors
+        + wording_errors
+        + status_errors
     )
     return {
         "passed": len(all_errors) == 0,
@@ -1123,7 +1173,23 @@ def main() -> int:
         type=Path,
         help="Coordination board file; update the synthesis ledger from its DONE/MERGED/HB lines (implies refresh)",
     )
+    parser.add_argument(
+        "--write-readme-status",
+        action="store_true",
+        help="Regenerate the README status block from docs/STATUS.json, then audit",
+    )
     args = parser.parse_args()
+    if args.write_readme_status:
+        root = args.root.resolve()
+        readme = (root / "README.md").read_text(encoding="utf-8")
+        block = render_readme_status(json.loads((root / "docs/STATUS.json").read_text(encoding="utf-8")))
+        if README_STATUS_BEGIN in readme and README_STATUS_END in readme:
+            start = readme.index(README_STATUS_BEGIN)
+            end = readme.index(README_STATUS_END) + len(README_STATUS_END)
+            readme = readme[:start] + block + readme[end:]
+        else:
+            raise SystemExit("README.md has no generated status markers")
+        (root / "README.md").write_text(readme, encoding="utf-8")
     if args.sync_ledger_from:
         path = args.root.resolve() / REVIEW_SYNTHESIS
         board = args.sync_ledger_from.read_text(encoding="utf-8")
