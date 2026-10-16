@@ -1,4 +1,8 @@
-"""Synthetic functional oracles; these fixtures are never Wave-4 run evidence."""
+"""Functional oracles and captured ten-seed arithmetic regressions.
+
+Synthetic fixtures are never Wave-4 run evidence. The arithmetic regression
+arrays below come from the separately identified 2026-10-16 reproduction.
+"""
 
 import copy
 import importlib.util
@@ -40,6 +44,23 @@ def synthetic_runs():
 
 
 class RawProofTests(unittest.TestCase):
+    def test_ten_seed_rust_operation_order_at_printed_digit_boundaries(self):
+        # Exact input series and scalar Rust-formula oracles, not widened tolerances.
+        iqr_series = [33.119062, 31.385112, 30.862944, 31.376746, 32.073769,
+                      32.808659, 33.084817, 32.561909, 31.222205, 33.005423]
+        mean_series = [38.83973, 37.826554, 35.256988, 37.542205, 35.743599,
+                       37.252037, 40.299436, 38.068048, 38.225689, 35.348779]
+        self.assertEqual(m.bootstrap(iqr_series, 20269102)['iqr'], 1.577394)
+        self.assertEqual(m.bootstrap(mean_series, 20269102)['mean'], 37.440306)
+        a = [44.973459, 44.84947, 45.30646, 43.970155, 45.479894,
+             45.787472, 45.377137, 45.93634, 44.588046, 45.050288]
+        b = [45.885544, 45.285807, 45.927149, 45.788986, 46.873867,
+             45.974593, 46.454856, 46.52071, 45.347453, 45.309231]
+        self.assertEqual(m.rank_test(a, b)['mean_diff'], -.804948)
+        self.assertEqual(m.rounded(math.nextafter(.5, 0), 0), 0)
+        self.assertEqual(m.rounded(.5, 0), 1)
+        self.assertEqual(m.rounded(-.5, 0), -1)
+
     def test_known_candidate_population_oracle_and_equal_budget_counts(self):
         raw = synthetic_runs()[0]
         trace = m.seed_trace(raw)
