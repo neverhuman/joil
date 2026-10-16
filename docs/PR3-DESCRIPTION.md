@@ -5,17 +5,26 @@ checks every number on this page against the result file named next to it.
 
 ## What this PR changes
 
-- **Truth repair.** A failed variation no longer silently becomes `CT-35`. Every proposal is charged to the budget,
-  with its repair recorded. GCI no longer clamps the order, Pareto hypervolume is a true union, and Monte Carlo tails
-  report their sample size. Thresholds come from the requirement file.
-- **Evidence kernel.** A new `joil-evidence` crate records content identity, typed observations and claims that can
-  be revoked. `docs/STATUS.json` and the README status table are generated from it, and campaigns stay sandbox-only.
-- **DesignIR.** Genes map to one design subject. The CFD case writer emits the geometry its enactment receipt
-  describes, including split inlet ducts.
-- **Re-run study (Wave-4).** The Wave-3 search study was repeated on the repaired code, and a `CT-35` control was
-  built and solved by the same CFD pipeline as the candidate shells.
-- **Documents.** README, WHITEPAPER and `docs/RESULTS.md` state each claim at its evidence tier. Earlier claims that
-  did not survive the repairs are corrected or withdrawn, and the claims audit fails on any untraced number.
+- **Truth repair.** A failed variation no longer silently becomes `CT-35`, and every proposal is charged to the
+  budget. GCI no longer clamps the order, Pareto hypervolume is a true union, and thresholds come from the
+  requirement file.
+- **Evidence kernel.** A new `joil-evidence` crate records content identity, typed observations and revocable
+  claims. The README status table is generated from it, and campaigns stay sandbox-only.
+- **DesignIR.** Genes map to one design subject, and the CFD case writer emits the split inlet ducts it describes.
+- **Wave-4 re-run.** The Wave-3 search study was repeated on the repaired code, and a `CT-35` control was built and
+  solved by the same CFD pipeline as the candidate shells.
+- **Documents.** README, WHITEPAPER and `docs/RESULTS.md` state each claim at its evidence tier, and the claims audit
+  fails on any untraced number.
+
+## Figures
+
+- **Figure 0 (README hero):** [`docs/figures/wave4-readme-hero-kpi-and-elite.png`](figures/wave4-readme-hero-kpi-and-elite.png)
+  (`SHA-256: fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0`). Screen score by generation for every
+  search arm, with a gene-label schematic and archived CFD of separate subjects.
+- **Page-1 figure (why it matters):** [`docs/figures/wave4-page1-why-it-matters.png`](figures/wave4-page1-why-it-matters.png)
+  (`SHA-256: 7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7`). Best screen score by generation for
+  evolution against uniform random search, with the `CT-35` reference: random search is not beaten on best score.
+  `CT-35` appears only as a single frozen reference, and there is no held-out geometry test.
 
 ## Headline results
 
@@ -32,37 +41,34 @@ checks every number on this page against the result file named next to it.
 All search numbers are values of a screen built from gene-derived descriptors (sandbox tier), not physical
 performance. Nothing has been tested physically.
 
-## Page-1 figure
-
-[`docs/figures/wave4-page1-why-it-matters.png`](figures/wave4-page1-why-it-matters.png) (generator
-`tools/generate_page1_figure.py`, `SHA-256: 7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7`) leads
-the WHITEPAPER. It plots best screen `KPI_score` against generation for evolution and uniform random search, with
-the `CT-35` reference ([`docs/results/wave4-evolution-proof-v1.json`](results/wave4-evolution-proof-v1.json)).
-It shows that random search is not beaten on best score. The figure has two gaps: `CT-35` appears only as a single
-frozen reference, not as an equal-budget arm, and there is no held-out geometry test.
-
 ## Checks
 
-- `tools/check.py` passes all `10` stages on each lane head and on the integration branch, and GitHub Actions is
-  green on the PR head.
-- The claims audit traces every numeral in README, WHITEPAPER, `docs/RESULTS.md` and this page.
-- Independent audits: TR checked every number in README and WHITEPAPER, and DOC applied all its findings. EV traced
-  the plotted figure values. IR ran every README command from a fresh clone
-  ([`docs/receipts/README-freshclone-2026-10-16.md`](receipts/README-freshclone-2026-10-16.md)). DOC re-ran every
-  current README install and quick-start command on a fresh checkout of `6450b70`; all passed and left the tree clean.
+- `tools/check.py` passes all stages on the lane heads and the integration branch.
+- The claims audit traces every numeral in README, WHITEPAPER, `docs/RESULTS.md` and this page. TR's independent
+  number audit and its rerun after the figure regeneration left no open findings
+  ([`crates/joil-core/tests/truth_numtrace_postregen_audit.json`](../crates/joil-core/tests/truth_numtrace_postregen_audit.json)).
+- EV re-checked the regenerated figures independently (a reproduction check, not scientific validation): all
+  reproduce byte-for-byte from committed sources
+  ([`crates/joil-evidence/reports/EV13-followup-reverify.md`](../crates/joil-evidence/reports/EV13-followup-reverify.md)).
+- IR and DOC ran every README install and quick-start command from fresh checkouts; all passed
+  ([`docs/receipts/README-freshclone-2026-10-16.md`](receipts/README-freshclone-2026-10-16.md)).
 - Final review and residual risks: [`docs/reviews/2026-10-16-PR3-FINAL-REVIEW.md`](reviews/2026-10-16-PR3-FINAL-REVIEW.md).
 
-## Open in this PR
+## Open residuals
 
-- Workplan items INT-02 (lane merges), INT-08 (ready for review) and DOC-10 (keep the workplan current).
-- Plate 10: its field panels have no committed arrays yet (EV is extracting them), so its caption flags them. The
-  other EV-13 figure fixes were regenerated by the acting integrator (TR `11033dd`).
+- Workplan items INT-02 (final lane merge), INT-08 (ready for review) and DOC-10 (keep the workplan current).
+- No figure compares evolution, random search and `CT-35` as three equal-budget arms; the equal-budget `CT-35` arm
+  exists only in the separate raw-log reproduction.
+- Plate 10's field maps use legacy cell positions (not finite-volume centroids), and its `CT-35` field mesh differs
+  from the archived one. The caption says so.
+- `main` already holds the integration branch through `3619bd7`, merged through PR #5. PR #4 is a draft and is not
+  the integration PR.
 
 ## Deferred to workplan §6
 
 - Physical limits and statistical policy criteria, pending admitted requirement sources (TR-16).
-- Independent oil-concentration labels and real out-of-distribution holdouts for the surrogate (EV-09).
-- Historical and FEA case identity, and full scientific identity beyond the Wave-4 artifact chain (EV-12).
+- Independent oil-concentration labels and real out-of-distribution holdouts (EV-09).
+- Historical and FEA case identity beyond the Wave-4 artifact chain (EV-12).
 - Conformal throat meshing and the full CFD sweep of the Wave-4 winners; five of six were not solved.
 - Homologous crossover (TR-12) and physical campaign admission (EV-06).
 - Oil transport (`F2-Oil`), transient (`F3`) and physical (`F4`) validation.

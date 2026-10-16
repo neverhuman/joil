@@ -1336,7 +1336,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | Numeral | Count | Source | JSON pointer | Match |
 |---|---|---|---|---|
 | `3` | 2 | declared | - | see table (`3@PR #3`) |
-| `10` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
+| `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `450` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/evaluations_per_seed_per_arm` | printed |
 | `45.936820` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B1_Random_Search/24/best_kpi_score/mean` | printed |
 | `45.615566` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B1_Random_Search/24/best_kpi_score/ci95_low` | printed |
@@ -1363,6 +1363,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `4,720.58` | 1 | `docs/results/wave4-gci-v1.json` | `/wave4_b3_top_winners/1/roache_gci_v2_analysis/dp_u_pa/gci21_conservative_fs300_p1_pct` | printed |
 | `3` | 1 | `crates/joil-evidence/receipts/EV12-Wave4-closure.json` | `/inventory/verified_scoped_artifact_chains` | printed |
 | `12` | 1 | `crates/joil-evidence/receipts/EV12-Wave4-closure.json` | `/inventory/total_cases_accounted` | printed |
+| `4` | 1 | declared | - | see table (`4@PR #4`) |
 
 ## Declared numerals
 
@@ -1489,6 +1490,7 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `45@\le 45^\circ` | literal | `crates/joil-core/src/structure.rs` | `MAX_LPBF_OVERHANG_FROM_VERTICAL_DEG: f64 = 45.0` |
 | `46.5` | derived | `SSG` minus `LRR` pressure drop | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/1/dp_u_pa - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/0/dp_u_pa` |
 | `475@[475, 525] mg/L` | literal | `crates/joil-core/src/evolve.rs` | `mc_rng.range(475.0, 525.0)` |
+| `4@PR #4` | protocol constant | GitHub pull request number | identifier, not a result |
 | `4@labelled 4, 6 and 8 jets` | protocol constant | `crates/joil-core/src/program.rs` `inlet_split` | two inlet ports × `branches_per_port` ∈ {2, 3, 4} |
 | `5,400` | derived | Wave-2 evaluations: seeds × evaluations per seed × three search arms | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/n_seeds * docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/evaluations_per_seed * 3` |
 | `5.60293e-5` | literal | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `overflow terminal reverse flow 5.60293e-05 m3/s` |
