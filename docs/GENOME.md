@@ -1,7 +1,9 @@
 # Design language and geometry contract (as implemented)
 
 This file describes the genome that the code **implements**. It reflects the integration branch
-`feat/joil-v4-truth-evidence` at merge `6873a7f` (TR-01–TR-09, TR-11, TR-14 and EV-01–EV-09 merged). The open-ended successor (typed
+`feat/joil-v4-truth-evidence` at merge `0139ca0` (TR-01–TR-09, TR-11, TR-14, TR-16, EV-01–EV-10, EV-12 and
+IR-01–IR-12 merged). The backend support matrix is in [`docs/IR_SUPPORT.md`](IR_SUPPORT.md) (IR-owned). The DOC
+lane's review of it is in [`docs/reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md`](reviews/2026-10-16-DOC07-IR-SUPPORT-REVIEW.md). The open-ended successor (typed
 developmental field graph, DesignIR, dual backends) is a separate design marked **PROPOSED** in
 [`docs/design/GENOME_V4.md`](design/GENOME_V4.md). Nothing in that file is implemented unless this file says so.
 
@@ -31,11 +33,14 @@ here exists in the code, and the reverse. A **Pending** cell naming a workplan i
   - `migrate_v2_to_v4()` is explicit and returns a `MigrationReceipt`.
   - The v4 label changes the envelope only. Its receipt states that no developmental graph is synthesized and
     that geometric equivalence is not audited. It is **not** the proposed v4 genome.
-- **Exact CAD** ([`cad/program/exotic_graph.py`](../cad/program/exotic_graph.py)) implements only schema v2.
-  It rejects `ribbon_cascade` and `tpms_insert` as unknown keys and coerces `branches_per_port = 4` to 2.
-  [`cad/program/wall_field.py`](../cad/program/wall_field.py) compiles only the older
-  `ct35-chamber-wall-field-v1` chamber modes. One genome can therefore mean different geometry on different
-  paths. IR-02/IR-03 own the support matrix (`docs/IR_SUPPORT.md` once it lands).
+- **Exact CAD** ([`cad/program/exotic_graph.py`](../cad/program/exotic_graph.py)).
+  - Since IR-03 it accepts schemas v2–v4 and builds splitter vanes for 2, 3 or 4 branches per port, with a hard
+    error otherwise.
+  - Ribbon and TPMS genes are the same wall-radius lobes and corrugation as in Rust, not vanes or a lattice.
+  - A `strict_csg` mode refuses ribbon and TPMS with `UnsupportedFeatureError`.
+- **The OpenFOAM writer** (`cfd_case.rs` → `MultiPatchSurface::from_program`) still writes CT-35's two
+  undivided inlet ducts for split programs. The enactment receipt it carries comes from a separately compiled
+  `IrCompiledMesh` (DOC-07 review IR-R1).
 
 ## 2. Field reference
 
@@ -55,8 +60,8 @@ Continuous values are rounded to 4 decimals in field units (§3).
 
 | Field | Accepted | Inactive | Ring mesh | CFD surface | Python B-rep | Descriptors | Pending |
 |---|---|---|---|---|---|---|---|
-| `schema_version` | 2, 3 or 4, paired with `family` | - | - | - | v2 only | - | - |
-| `family` | `ct35-exotic-head-v2` / `-v3` / `ct35-legacy-macro-v4` | - | - | - | v2 only | - | - |
+| `schema_version` | 2, 3 or 4, paired with `family` | - | - | - | v2–v4 | - | - |
+| `family` | `ct35-exotic-head-v2` / `-v3` / `ct35-legacy-macro-v4` | - | - | - | v2–v4 | - | - |
 | `topology_class` | any string, accepted for legacy files; overwritten by `classify_topology()`; **not serialized, not hashed** (`skip_serializing`) | - | - | - | accepted | - | IR-06 (measured `PhenotypeTaxon`) |
 | `baseline_file_sha256` | must equal SHA-256 of `baselines/ct35/genome.json` | - | - | - | checked | - | - |
 | `inlet_ramp.axial_drop_mm` | [0, 8] mm | 0 | scales inlet-boss bump (×(1−0.04·drop/8)) | no | yes | yes | - |
@@ -65,7 +70,7 @@ Continuous values are rounded to 4 decimals in field units (§3).
 | `inlet_split.enabled` | bool | false | no | no | yes | yes | - |
 | `inlet_split.vane_thickness_mm` | [1.0, 1.8] mm when enabled | 1.2 | no (arithmetic clearance/volume only) | no | yes | no | - |
 | `inlet_split.vane_z_fraction` | [0.35, 0.65] when enabled | 0.5 | no | no | used only when 2 branches | no | - |
-| `inlet_split.branches_per_port` | 1–4; enabled requires 2–4 (4, 6, 8 jets) | 1 | no (arithmetic hydraulic diameter only) | **no: always two inlet ducts** | 2 or 3; 4 coerced to 2 | yes | IR-02, IR-05 |
+| `inlet_split.branches_per_port` | 1–4; enabled requires 2–4 (4, 6, 8 jets) | 1 | no (arithmetic hydraulic diameter only) | **no: always two inlet ducts** | splitter vanes for 2, 3 or 4 | yes | IR-02, IR-05 (DOC-07 IR-R1: writer still unsplit) |
 | `inlet_split.azimuthal_phase_deg` | [0, 45] deg when enabled | 0 | no | no | accepted, not used | yes | - |
 | `chamber_modes[].azimuthal_order` | 2–8; ≤ 8 modes | list empty | yes (z ∈ [20, 65] mm) | yes | yes | yes | - |
 | `chamber_modes[].cos_mm` | finite; Σ amplitude ≤ 1.8 mm | - | yes | yes | yes | yes | - |
@@ -77,18 +82,18 @@ Continuous values are rounded to 4 decimals in field units (§3).
 | `skimmer.length_mm` | [0, 10] mm; 0 = off | 0 | no (arithmetic volume/clearance only) | no | yes | yes | IR-02 |
 | `skimmer.outer_radius_mm` | [1.8, 4.0] mm when on | 2.4 | no | no | yes | no | - |
 | `skimmer.capture_flutes` | 0, 4, 6 or 8 | 0 | no | no | accepted, not used | yes | - |
-| `ribbon_cascade.vane_count` | 2, 3, 4 or 6; 0 = off (omitted from JSON) | 0 | wall-radius lobes (cos⁴), not vane surfaces | wall-radius lobes | **rejected (unknown key)** | yes | IR-02, IR-03 |
-| `ribbon_cascade.axial_span_mm` | [8, 48] mm | 0 | lobe extent z ∈ [12, 12+span] | same | rejected | yes | - |
-| `ribbon_cascade.helical_twist_rad` | [−4.5, 4.5] rad | 0 | lobe phase | same | rejected | no | - |
-| `ribbon_cascade.thickness_mm` | [1.10, 1.80] mm | 1.2 | no (clearance and arithmetic volume only) | no | rejected | no | - |
-| `ribbon_cascade.radial_chord_mm` | [1.50, 4.20] mm | 2.0 | lobe depth 0.35·chord | same | rejected | no | - |
-| `tpms_insert.basis` | `None`, `Gyroid`, `SchwarzP`, `Diamond`, `CylindricalGyroid`; `None` = off (omitted) | `None` | outer-wall corrugation (4θ × axial wave), not a lattice | same | **rejected (unknown key)** | yes | IR-02, IR-03 |
-| `tpms_insert.radial_inner_fraction` | [0.58, 0.85] | 0.68 | **no** | **no** | rejected | yes | IR-02 |
-| `tpms_insert.axial_start_mm` | [15, 55] mm; end − start ≥ 16 | 24 | corrugation extent | same | rejected | no | - |
-| `tpms_insert.axial_end_mm` | [50, 95] mm | 64 | corrugation extent | same | rejected | no | - |
-| `tpms_insert.radial_wavelength_mm` | [6, 14] mm | 8.5 | no (arithmetic pore estimate only) | no | rejected | no | - |
-| `tpms_insert.axial_wavelength_mm` | [6, 14] mm | 9.0 | corrugation wavelength | same | rejected | no | - |
-| `tpms_insert.sheet_thickness_mm` | [1.20, 2.20] mm | 1.35 | corrugation amplitude 0.45·t | same | rejected | no | - |
+| `ribbon_cascade.vane_count` | 2, 3, 4 or 6; 0 = off (omitted from JSON) | 0 | wall-radius lobes (cos⁴), not vane surfaces | wall-radius lobes | wall-radius lobes (IR-03); rejected in `strict_csg` | yes | IR-02, IR-03 |
+| `ribbon_cascade.axial_span_mm` | [8, 48] mm | 0 | lobe extent z ∈ [12, 12+span] | same | same | yes | - |
+| `ribbon_cascade.helical_twist_rad` | [−4.5, 4.5] rad | 0 | lobe phase | same | same | no | - |
+| `ribbon_cascade.thickness_mm` | [1.10, 1.80] mm | 1.2 | no (clearance and arithmetic volume only) | no | no | no | - |
+| `ribbon_cascade.radial_chord_mm` | [1.50, 4.20] mm | 2.0 | lobe depth 0.35·chord | same | same | no | - |
+| `tpms_insert.basis` | `None`, `Gyroid`, `SchwarzP`, `Diamond`, `CylindricalGyroid`; `None` = off (omitted) | `None` | outer-wall corrugation (4θ × axial wave), not a lattice | same | corrugation (IR-03); rejected in `strict_csg` | yes | IR-02, IR-03 |
+| `tpms_insert.radial_inner_fraction` | [0.58, 0.85] | 0.68 | **no** | **no** | no | yes | IR-02 |
+| `tpms_insert.axial_start_mm` | [15, 55] mm; end − start ≥ 16 | 24 | corrugation extent | same | same | no | - |
+| `tpms_insert.axial_end_mm` | [50, 95] mm | 64 | corrugation extent | same | same | no | - |
+| `tpms_insert.radial_wavelength_mm` | [6, 14] mm | 8.5 | no (arithmetic pore estimate only) | no | no | no | - |
+| `tpms_insert.axial_wavelength_mm` | [6, 14] mm | 9.0 | corrugation wavelength | same | same | no | - |
+| `tpms_insert.sheet_thickness_mm` | [1.20, 2.20] mm | 1.35 | corrugation amplitude 0.45·t | same | same | no | - |
 
 Consequences for current claims:
 
@@ -144,8 +149,9 @@ Known artefacts:
   `double-vortex-skimmer`, `scalloped-parabolic-chamber`, `axisymmetric-stepped`, `twin-tangential-volute`
   and `quad-entry-involute-head`.
 
-IR-06 replaces the label with a `PhenotypeTaxon` derived from compiled geometry. The eleven labels become seed
-recipes and regression fixtures (S4 §2.1).
+Since IR-06 merged, serialized subject artifacts drop the authored label, and `VoxelSdfObserver::derive_taxon_from_mesh`
+derives a `PhenotypeTaxon` from the compiled `IrCompiledMesh`. That mesh is not the OpenFOAM surface (DOC-07 IR-R1).
+The eleven labels remain seed recipes and regression fixtures (S4 §2.1); `classify_topology()` still exists for them.
 
 ## 5. Gene-derived mechanism descriptors (priors, not observations)
 
@@ -159,7 +165,9 @@ For example, an active TPMS layer multiplies `shear_mitigation_factor` by 0.86, 
 - the surrogate feature vector.
 
 Results that depend on them are a search over a prior-laden screen, not physical evidence (S1 §3.4, S5 P0.5).
-IR-07 moves them to an inventor-only module as `PriorDescriptors`.
+Since IR-07 merged, `joil-ir` also has `PriorDescriptors`, marked `PriorOnlyNotAdmissibleForQualification`, and
+measured `ObservedDescriptors`. A qualification gate rejects priors. The sandbox `F1` screen in `evolve.rs` still
+scores with these gene-derived descriptors.
 
 | Descriptor | Gene inputs |
 |---|---|
@@ -224,17 +232,17 @@ geometry. Mapped loads require the shared hardware wetted faces and the exact ex
 
 ## 8. F0 checks: required versus implemented
 
-| Required check | Status at `bf9155b` | Owner |
+| Required check (measured on `IrCompiledMesh`, which is not the OpenFOAM STL; DOC-07 IR-R1) | Status at `0139ca0` | Owner |
 |---|---|---|
 | Closure, orientation, positive volume | implemented on the ring mesh (edge census, signed volume) | - |
-| Exact terminal area, normal, position | **asserted**: copied from baseline dimensions, not measured | IR-08 |
-| Frozen collar/tail unchanged | **asserted** `frozen_collar_and_tail_diff_mm3: 0.0` | IR-08 |
-| Trapped cavities | **asserted** `trapped_cavities: 0`, trusted by `redteam.rs` | IR-08 |
-| Minimum wall, gap, hydraulic diameter | arithmetic over gene values; one conflated `minimum_wall_clearance_mm` | IR-08, IR-09 |
+| Exact terminal area, normal, position | measured from triangles by the voxel/SDF observer (IR-08 merged) | - |
+| Frozen collar/tail unchanged | measured from mesh vertices on z ≥ 166 mm (IR-08 merged) | - |
+| Trapped cavities | measured by 6-connected voxel flood fill (IR-08 merged; `phenotype.rs` reads `trapped_cavities_total`) | - |
+| Minimum wall, gap, hydraulic diameter | eight separate metrics (`SplitGeometryMetrics`, IR-09 merged); the legacy arithmetic `minimum_wall_clearance_mm` field remains | - |
 | Section Jacobian | sampled over chamber modes only | IR-09 |
 | Self-intersection | not checked independently (ring mesh cannot fold radially) | IR-08 |
 | Overhang, span, powder removal | scalar overhang estimate in `structure.rs`; removal paths not checked | §6 follow-on |
-| Independent B-rep/voxel agreement | not implemented | IR-08 |
+| Independent B-rep/voxel agreement | volume ±2 %, area ±3 %, Betti numbers vs constant `(1, 0, 1)` (IR-03; DOC-07 IR-R5) | IR |
 
 Gate errors must report geometry invalid, manufacturing infeasible, kernel failure or unknown separately.
 Never repair a changed interface without declaring a new subject.
