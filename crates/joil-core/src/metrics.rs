@@ -2,6 +2,86 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+/// Exact dominated union of axis-aligned boxes for minimization objectives.
+/// Points outside the reference box contribute no volume. No archive-size or
+/// diversity bonus is included; dimensions and reference values are explicit.
+pub fn pareto_hypervolume(points: &[Vec<f64>], reference: &[f64]) -> Result<f64, String> {
+    if reference.is_empty()
+        || reference.iter().any(|v| !v.is_finite())
+        || points
+            .iter()
+            .any(|p| p.len() != reference.len() || p.iter().any(|v| !v.is_finite()))
+    {
+        return Err("finite equal-dimensional points and nonempty reference required".into());
+    }
+    fn union(mut points: Vec<Vec<f64>>, reference: &[f64]) -> f64 {
+        if points.is_empty() {
+            return 0.0;
+        }
+        let dimension = reference.len();
+        if dimension == 1 {
+            return reference[0] - points.iter().map(|p| p[0]).fold(reference[0], f64::min);
+        }
+        points.sort_by(|a, b| {
+            a.iter()
+                .zip(b)
+                .find_map(|(a, b)| (a != b).then(|| a.total_cmp(b)))
+                .unwrap_or(std::cmp::Ordering::Equal)
+        });
+        points.dedup();
+        if dimension == 2 {
+            let mut lowest_y = reference[1];
+            let mut area = 0.0;
+            for point in points {
+                if point[1] < lowest_y {
+                    area += (reference[0] - point[0]) * (lowest_y - point[1]);
+                    lowest_y = point[1];
+                }
+            }
+            return area;
+        }
+        // Projected dominance differs at every sweep level. Pruning only once
+        // leaves exponentially many redundant lower-dimensional boxes.
+        let points: Vec<Vec<f64>> = points
+            .iter()
+            .enumerate()
+            .filter(|(index, point)| {
+                !points.iter().enumerate().any(|(other_index, other)| {
+                    other_index != *index && other.iter().zip(point.iter()).all(|(a, b)| a <= b)
+                })
+            })
+            .map(|(_, p)| p.clone())
+            .collect();
+        let axis = dimension - 1;
+        let mut coordinates: Vec<f64> = points.iter().map(|p| p[axis]).collect();
+        coordinates.push(reference[axis]);
+        coordinates.sort_by(f64::total_cmp);
+        coordinates.dedup();
+        coordinates
+            .windows(2)
+            .map(|slab| {
+                let active = points
+                    .iter()
+                    .filter(|p| p[axis] <= slab[0])
+                    .map(|p| p[..axis].to_vec())
+                    .collect();
+                (slab[1] - slab[0]) * union(active, &reference[..axis])
+            })
+            .sum()
+    }
+    let eligible = points
+        .iter()
+        .filter(|p| p.iter().zip(reference).all(|(v, r)| v < r))
+        .cloned()
+        .collect();
+    let volume = union(eligible, reference);
+    if volume.is_finite() {
+        Ok(volume)
+    } else {
+        Err("hypervolume overflow".into())
+    }
+}
+
 fn split(r: f64) -> Result<(), String> {
     if !r.is_finite() || !(0.0..1.0).contains(&r) {
         Err("split must be finite in [0,1)".into())
