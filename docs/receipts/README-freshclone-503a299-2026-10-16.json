@@ -1,0 +1,2385 @@
+{
+  "schema_version": 1,
+  "kind": "fresh_clone_readme_install_and_quickstart_software_verification_not_physical_validation",
+  "source_commit": "503a299a93169bd416a625ea47023a77810b9362",
+  "created_utc": "2026-10-16T14:06:13.623546+00:00",
+  "repository": "https://github.com/neverhuman/joil",
+  "clone_policy": "OWNER13:40 explicitly authorized disposable /tmp clone; outputs archived outside it before deletion",
+  "clone_setup": [
+    {
+      "command": [
+        "git",
+        "clone",
+        "https://github.com/neverhuman/joil",
+        "/tmp/joil-fresh-1792158093"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 11.538676356023643,
+      "log_sha256": "30dea14aecd09126af41aedb0815b4100e96f4b66e05383d36f5631227db305a"
+    },
+    {
+      "command": [
+        "git",
+        "checkout",
+        "--detach",
+        "503a299a93169bd416a625ea47023a77810b9362"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.13087191997328773,
+      "log_sha256": "38f3b6c4a7175f0d4f2784fcb86da13af9bfe15cd1988f4e9abd54de46902d94"
+    }
+  ],
+  "execution": {
+    "command_selection": "all18 nonempty lines from all4 README bash blocks at exact pinned commit, including optionalCAD and5seed screen rerun",
+    "ordering": "verbatim sequential commands in one persistent bash shell; venv activation persists",
+    "clean_python_environments": true,
+    "clean_per_clone_target": true,
+    "physical_cpu_affinity": [
+      8,
+      9
+    ],
+    "cargo_jobs_outer": 2,
+    "check_runner_cargo_jobs": 4,
+    "maximum_physical_cores": 2,
+    "gpu_used": false,
+    "simulation_started": false,
+    "private_outputs": "exact external logs + archived checks and generated CAD/screen artifacts; no raw simulation files published"
+  },
+  "tool_versions": {
+    "python": {
+      "command": [
+        "python3",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "Python 3.12.3"
+    },
+    "cargo": {
+      "command": [
+        "cargo",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)"
+    },
+    "rustc": {
+      "command": [
+        "rustc",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "rustc 1.95.0 (59807616e 2026-04-14)"
+    },
+    "node": {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "v26.1.0"
+    },
+    "npm": {
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "11.13.0"
+    },
+    "rtk": {
+      "command": [
+        "rtk",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "rtk 0.40.0"
+    },
+    "numpy": {
+      "command": [
+        "/tmp/joil-fresh-1792158093/.private/quickstart-python/bin/python",
+        "-c",
+        "import numpy; print(numpy.__version__)"
+      ],
+      "exit_code": 0,
+      "output": "2.5.4"
+    },
+    "matplotlib": {
+      "command": [
+        "/tmp/joil-fresh-1792158093/.private/quickstart-python/bin/python",
+        "-c",
+        "import matplotlib; print(matplotlib.__version__)"
+      ],
+      "exit_code": 0,
+      "output": "3.11.2"
+    }
+  },
+  "commands": [
+    {
+      "step": 1,
+      "command": "python3 -m venv .private/quickstart-python",
+      "exit_code": 0,
+      "wall_seconds": 2.63305,
+      "output_file": "step-01.log",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "output_bytes": 0,
+      "finished_utc": "2026-10-16T13:46:27.892561+00:00",
+      "output": ""
+    },
+    {
+      "step": 2,
+      "command": ". .private/quickstart-python/bin/activate",
+      "exit_code": 0,
+      "wall_seconds": 0.013487,
+      "output_file": "step-02.log",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "output_bytes": 0,
+      "finished_utc": "2026-10-16T13:46:27.948639+00:00",
+      "output": ""
+    },
+    {
+      "step": 3,
+      "command": "python3 -m pip install numpy matplotlib",
+      "exit_code": 0,
+      "wall_seconds": 15.037824,
+      "output_file": "step-03.log",
+      "output_sha256": "70e3b541ca5d7dcd7b5890ed77fb61c02c503a909b90163728334e459091f761",
+      "output_bytes": 4381,
+      "finished_utc": "2026-10-16T13:46:43.024090+00:00",
+      "output": "Collecting numpy\n  Downloading numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)\nCollecting matplotlib\n  Downloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80.3/80.3 kB 1.9 MB/s eta 0:00:00\nCollecting contourpy>=1.0.1 (from matplotlib)\n  Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)\nCollecting cycler>=0.10 (from matplotlib)\n  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)\nCollecting fonttools>=4.28.2 (from matplotlib)\n  Downloading fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (137 kB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.2/137.2 kB 3.0 MB/s eta 0:00:00\nCollecting kiwisolver>=1.3.1 (from matplotlib)\n  Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)\nCollecting packaging>=20.0 (from matplotlib)\n  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)\nCollecting pillow>=9 (from matplotlib)\n  Downloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)\nCollecting pyparsing>=3 (from matplotlib)\n  Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)\nCollecting python-dateutil>=2.7 (from matplotlib)\n  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)\nCollecting six>=1.5 (from python-dateutil>=2.7->matplotlib)\n  Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)\nDownloading numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 6.2 MB/s eta 0:00:00\nDownloading matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 5.4 MB/s eta 0:00:00\nDownloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 383.2/383.2 kB 5.1 MB/s eta 0:00:00\nDownloading cycler-0.12.1-py3-none-any.whl (8.3 kB)\nDownloading fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 9.0 MB/s eta 0:00:00\nDownloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 9.3 MB/s eta 0:00:00\nDownloading packaging-26.3-py3-none-any.whl (129 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.0/130.0 kB 4.1 MB/s eta 0:00:00\nDownloading pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 11.4 MB/s eta 0:00:00\nDownloading pyparsing-3.3.3-py3-none-any.whl (126 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 126.4/126.4 kB 5.0 MB/s eta 0:00:00\nDownloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 6.8 MB/s eta 0:00:00\nDownloading six-1.17.0-py2.py3-none-any.whl (11 kB)\nInstalling collected packages: six, pyparsing, pillow, packaging, numpy, kiwisolver, fonttools, cycler, python-dateutil, contourpy, matplotlib\nSuccessfully installed contourpy-1.4.0 cycler-0.12.1 fonttools-4.67.0 kiwisolver-1.5.1 matplotlib-3.11.2 numpy-2.5.4 packaging-26.3 pillow-12.3.0 pyparsing-3.3.3 python-dateutil-2.9.0.post0 six-1.17.0\n"
+    },
+    {
+      "step": 4,
+      "command": "rtk proxy python3 -m venv .venv",
+      "exit_code": 0,
+      "wall_seconds": 2.511393,
+      "output_file": "step-04.log",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "output_bytes": 0,
+      "finished_utc": "2026-10-16T13:46:45.571275+00:00",
+      "output": ""
+    },
+    {
+      "step": 5,
+      "command": "rtk proxy .venv/bin/pip install -r requirements-cad.txt",
+      "exit_code": 0,
+      "wall_seconds": 53.129423,
+      "output_file": "step-05.log",
+      "output_sha256": "d996eb9eb6b9dae44eb0028fbbbd3cea8885f8394ae0dc70797cb7407ecf74df",
+      "output_bytes": 17887,
+      "finished_utc": "2026-10-16T13:47:38.737250+00:00",
+      "output": "Collecting aiohappyeyeballs==2.7.1 (from -r requirements-cad-lock.txt (line 2))\n  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)\nCollecting aiohttp==3.14.5 (from -r requirements-cad-lock.txt (line 3))\n  Downloading aiohttp-3.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)\nCollecting aiosignal==1.4.0 (from -r requirements-cad-lock.txt (line 4))\n  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)\nCollecting attrs==26.1.0 (from -r requirements-cad-lock.txt (line 5))\n  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)\nCollecting cadquery==2.7.0 (from -r requirements-cad-lock.txt (line 6))\n  Downloading cadquery-2.7.0-py3-none-any.whl.metadata (17 kB)\nCollecting cadquery-ocp==7.8.1.1.post1 (from -r requirements-cad-lock.txt (line 7))\n  Downloading cadquery_ocp-7.8.1.1.post1-cp312-cp312-manylinux_2_31_x86_64.whl.metadata (707 bytes)\nCollecting casadi==3.8.1 (from -r requirements-cad-lock.txt (line 8))\n  Downloading casadi-3.8.1-cp311-abi3-manylinux_2_28_x86_64.whl.metadata (2.2 kB)\nCollecting contourpy==1.4.0 (from -r requirements-cad-lock.txt (line 9))\n  Using cached contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)\nCollecting cycler==0.12.1 (from -r requirements-cad-lock.txt (line 10))\n  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)\nCollecting ezdxf==1.4.4 (from -r requirements-cad-lock.txt (line 11))\n  Downloading ezdxf-1.4.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (9.9 kB)\nCollecting fonttools==4.67.0 (from -r requirements-cad-lock.txt (line 12))\n  Using cached fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (137 kB)\nCollecting frozenlist==1.8.0 (from -r requirements-cad-lock.txt (line 13))\n  Downloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)\nCollecting gmsh==4.15.0 (from -r requirements-cad-lock.txt (line 14))\n  Downloading gmsh-4.15.0-py2.py3-none-manylinux_2_24_x86_64.whl.metadata (1.7 kB)\nCollecting idna==3.20 (from -r requirements-cad-lock.txt (line 15))\n  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)\nCollecting ImageIO==2.38.1 (from -r requirements-cad-lock.txt (line 16))\n  Downloading imageio-2.38.1-py3-none-any.whl.metadata (9.7 kB)\nCollecting kiwisolver==1.5.1 (from -r requirements-cad-lock.txt (line 17))\n  Using cached kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)\nCollecting lazy-loader==0.6 (from -r requirements-cad-lock.txt (line 18))\n  Downloading lazy_loader-0.6-py3-none-any.whl.metadata (6.0 kB)\nCollecting matplotlib==3.11.2 (from -r requirements-cad-lock.txt (line 19))\n  Using cached matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)\nCollecting more-itertools==11.2.1 (from -r requirements-cad-lock.txt (line 20))\n  Downloading more_itertools-11.2.1-py3-none-any.whl.metadata (42 kB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.7/42.7 kB 301.0 kB/s eta 0:00:00\nCollecting msgpack==1.2.3 (from -r requirements-cad-lock.txt (line 21))\n  Downloading msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)\nCollecting multidict==7.1.0 (from -r requirements-cad-lock.txt (line 22))\n  Downloading multidict-7.1.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (6.2 kB)\nCollecting multimethod==1.12 (from -r requirements-cad-lock.txt (line 23))\n  Downloading multimethod-1.12-py3-none-any.whl.metadata (9.6 kB)\nCollecting networkx==3.7 (from -r requirements-cad-lock.txt (line 24))\n  Downloading networkx-3.7-py3-none-any.whl.metadata (6.7 kB)\nCollecting nlopt==2.11.0 (from -r requirements-cad-lock.txt (line 25))\n  Downloading nlopt-2.11.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (2.1 kB)\nCollecting numpy==2.5.4 (from -r requirements-cad-lock.txt (line 26))\n  Using cached numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)\nCollecting packaging==26.3 (from -r requirements-cad-lock.txt (line 27))\n  Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)\nCollecting path==17.1.1 (from -r requirements-cad-lock.txt (line 28))\n  Downloading path-17.1.1-py3-none-any.whl.metadata (6.5 kB)\nCollecting pillow==12.3.0 (from -r requirements-cad-lock.txt (line 29))\n  Using cached pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)\nCollecting propcache==0.5.4 (from -r requirements-cad-lock.txt (line 30))\n  Downloading propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (25 kB)\nCollecting pyparsing==3.3.3 (from -r requirements-cad-lock.txt (line 31))\n  Using cached pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)\nCollecting python-dateutil==2.9.0.post0 (from -r requirements-cad-lock.txt (line 32))\n  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)\nCollecting PyYAML==6.0.3 (from -r requirements-cad-lock.txt (line 33))\n  Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)\nCollecting runtype==0.5.3 (from -r requirements-cad-lock.txt (line 34))\n  Downloading runtype-0.5.3-py3-none-any.whl.metadata (6.4 kB)\nCollecting scikit-image==0.26.0 (from -r requirements-cad-lock.txt (line 35))\n  Downloading scikit_image-0.26.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (15 kB)\nCollecting scipy==1.18.1 (from -r requirements-cad-lock.txt (line 36))\n  Downloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.4/62.4 kB 2.7 MB/s eta 0:00:00\nCollecting six==1.17.0 (from -r requirements-cad-lock.txt (line 37))\n  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)\nCollecting tifffile==2026.9.20 (from -r requirements-cad-lock.txt (line 38))\n  Downloading tifffile-2026.9.20-py3-none-any.whl.metadata (34 kB)\nCollecting trame==4.0.0 (from -r requirements-cad-lock.txt (line 39))\n  Downloading trame-4.0.0-py3-none-any.whl.metadata (8.7 kB)\nCollecting trame-client==4.1.4 (from -r requirements-cad-lock.txt (line 40))\n  Downloading trame_client-4.1.4-py3-none-any.whl.metadata (6.6 kB)\nCollecting trame-common==1.2.9 (from -r requirements-cad-lock.txt (line 41))\n  Downloading trame_common-1.2.9-py3-none-any.whl.metadata (4.2 kB)\nCollecting trame-components==2.5.0 (from -r requirements-cad-lock.txt (line 42))\n  Downloading trame_components-2.5.0-py3-none-any.whl.metadata (3.7 kB)\nCollecting trame-server==4.1.0 (from -r requirements-cad-lock.txt (line 43))\n  Downloading trame_server-4.1.0-py3-none-any.whl.metadata (5.3 kB)\nCollecting trame-vtk==2.11.17 (from -r requirements-cad-lock.txt (line 44))\n  Downloading trame_vtk-2.11.17-py3-none-any.whl.metadata (14 kB)\nCollecting trame-vuetify==3.3.0 (from -r requirements-cad-lock.txt (line 45))\n  Downloading trame_vuetify-3.3.0-py3-none-any.whl.metadata (5.5 kB)\nCollecting trimesh==5.1.1 (from -r requirements-cad-lock.txt (line 46))\n  Downloading trimesh-5.1.1-py3-none-any.whl.metadata (13 kB)\nCollecting typing_extensions==4.16.0 (from -r requirements-cad-lock.txt (line 47))\n  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)\nCollecting vtk==9.3.1 (from -r requirements-cad-lock.txt (line 48))\n  Downloading vtk-9.3.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.2 kB)\nCollecting wslink==2.6.0 (from -r requirements-cad-lock.txt (line 49))\n  Downloading wslink-2.6.0-py3-none-any.whl.metadata (3.3 kB)\nCollecting yarl==1.25.1 (from -r requirements-cad-lock.txt (line 50))\n  Downloading yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (111 kB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 111.6/111.6 kB 4.5 MB/s eta 0:00:00\nDownloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)\nDownloading aiohttp-3.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.9 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 21.1 MB/s eta 0:00:00\nDownloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)\nDownloading attrs-26.1.0-py3-none-any.whl (67 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.5/67.5 kB 1.8 MB/s eta 0:00:00\nDownloading cadquery-2.7.0-py3-none-any.whl (182 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 182.6/182.6 kB 8.3 MB/s eta 0:00:00\nDownloading cadquery_ocp-7.8.1.1.post1-cp312-cp312-manylinux_2_31_x86_64.whl (70.3 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.3/70.3 MB 16.3 MB/s eta 0:00:00\nDownloading casadi-3.8.1-cp311-abi3-manylinux_2_28_x86_64.whl (89.4 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.4/89.4 MB 14.6 MB/s eta 0:00:00\nUsing cached contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)\nUsing cached cycler-0.12.1-py3-none-any.whl (8.3 kB)\nDownloading ezdxf-1.4.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (5.8 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.8/5.8 MB 17.3 MB/s eta 0:00:00\nUsing cached fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)\nDownloading frozenlist-1.8.0-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (242 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 242.4/242.4 kB 7.2 MB/s eta 0:00:00\nDownloading gmsh-4.15.0-py2.py3-none-manylinux_2_24_x86_64.whl (40.0 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.0/40.0 MB 18.1 MB/s eta 0:00:00\nDownloading idna-3.20-py3-none-any.whl (69 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 69.6/69.6 kB 3.2 MB/s eta 0:00:00\nDownloading imageio-2.38.1-py3-none-any.whl (328 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 328.4/328.4 kB 14.6 MB/s eta 0:00:00\nUsing cached kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)\nDownloading lazy_loader-0.6-py3-none-any.whl (8.8 kB)\nUsing cached matplotlib-3.11.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)\nDownloading more_itertools-11.2.1-py3-none-any.whl (74 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 74.4/74.4 kB 1.8 MB/s eta 0:00:00\nDownloading msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (472 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 473.0/473.0 kB 15.6 MB/s eta 0:00:00\nDownloading multidict-7.1.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (483 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 483.0/483.0 kB 15.1 MB/s eta 0:00:00\nDownloading multimethod-1.12-py3-none-any.whl (10 kB)\nDownloading networkx-3.7-py3-none-any.whl (2.1 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 40.7 MB/s eta 0:00:00\nDownloading nlopt-2.11.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (402 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 402.8/402.8 kB 17.1 MB/s eta 0:00:00\nUsing cached numpy-2.5.4-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)\nUsing cached packaging-26.3-py3-none-any.whl (129 kB)\nDownloading path-17.1.1-py3-none-any.whl (23 kB)\nUsing cached pillow-12.3.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)\nDownloading propcache-0.5.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (250 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 250.4/250.4 kB 10.5 MB/s eta 0:00:00\nUsing cached pyparsing-3.3.3-py3-none-any.whl (126 kB)\nUsing cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)\nDownloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 30.8 MB/s eta 0:00:00\nDownloading runtype-0.5.3-py3-none-any.whl (31 kB)\nDownloading scikit_image-0.26.0-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (13.6 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.6/13.6 MB 44.7 MB/s eta 0:00:00\nDownloading scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 35.4 MB/s eta 0:00:00\nUsing cached six-1.17.0-py2.py3-none-any.whl (11 kB)\nDownloading tifffile-2026.9.20-py3-none-any.whl (275 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 275.0/275.0 kB 8.4 MB/s eta 0:00:00\nDownloading trame-4.0.0-py3-none-any.whl (27 kB)\nDownloading trame_client-4.1.4-py3-none-any.whl (568 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 568.3/568.3 kB 18.9 MB/s eta 0:00:00\nDownloading trame_common-1.2.9-py3-none-any.whl (24 kB)\nDownloading trame_components-2.5.0-py3-none-any.whl (82 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 82.3/82.3 kB 3.7 MB/s eta 0:00:00\nDownloading trame_server-4.1.0-py3-none-any.whl (46 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 46.9/46.9 kB 2.4 MB/s eta 0:00:00\nDownloading trame_vtk-2.11.17-py3-none-any.whl (851 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 852.0/852.0 kB 29.1 MB/s eta 0:00:00\nDownloading trame_vuetify-3.3.0-py3-none-any.whl (6.8 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.8/6.8 MB 49.7 MB/s eta 0:00:00\nDownloading trimesh-5.1.1-py3-none-any.whl (750 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 750.4/750.4 kB 21.5 MB/s eta 0:00:00\nDownloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 2.4 MB/s eta 0:00:00\nDownloading vtk-9.3.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (92.2 MB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 92.2/92.2 MB 28.7 MB/s eta 0:00:00\nDownloading wslink-2.6.0-py3-none-any.whl (37 kB)\nDownloading yarl-1.25.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (117 kB)\n   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 117.0/117.0 kB 5.9 MB/s eta 0:00:00\nInstalling collected packages: gmsh, typing_extensions, trame-common, six, runtype, PyYAML, pyparsing, propcache, pillow, path, packaging, numpy, networkx, multimethod, multidict, msgpack, more-itertools, kiwisolver, idna, frozenlist, fonttools, cycler, attrs, aiohappyeyeballs, yarl, trimesh, trame-client, tifffile, scipy, python-dateutil, nlopt, lazy-loader, ImageIO, ezdxf, contourpy, casadi, aiosignal, trame-vuetify, trame-vtk, trame-components, scikit-image, matplotlib, aiohttp, wslink, vtk, trame-server, cadquery-ocp, trame, cadquery\nSuccessfully installed ImageIO-2.38.1 PyYAML-6.0.3 aiohappyeyeballs-2.7.1 aiohttp-3.14.5 aiosignal-1.4.0 attrs-26.1.0 cadquery-2.7.0 cadquery-ocp-7.8.1.1.post1 casadi-3.8.1 contourpy-1.4.0 cycler-0.12.1 ezdxf-1.4.4 fonttools-4.67.0 frozenlist-1.8.0 gmsh-4.15.0 idna-3.20 kiwisolver-1.5.1 lazy-loader-0.6 matplotlib-3.11.2 more-itertools-11.2.1 msgpack-1.2.3 multidict-7.1.0 multimethod-1.12 networkx-3.7 nlopt-2.11.0 numpy-2.5.4 packaging-26.3 path-17.1.1 pillow-12.3.0 propcache-0.5.4 pyparsing-3.3.3 python-dateutil-2.9.0.post0 runtype-0.5.3 scikit-image-0.26.0 scipy-1.18.1 six-1.17.0 tifffile-2026.9.20 trame-4.0.0 trame-client-4.1.4 trame-common-1.2.9 trame-components-2.5.0 trame-server-4.1.0 trame-vtk-2.11.17 trame-vuetify-3.3.0 trimesh-5.1.1 typing_extensions-4.16.0 vtk-9.3.1 wslink-2.6.0 yarl-1.25.1\n"
+    },
+    {
+      "step": 6,
+      "command": "rtk proxy python3 tools/check.py --cad",
+      "exit_code": 0,
+      "wall_seconds": 320.23937,
+      "output_file": "step-06.log",
+      "output_sha256": "fbe7e4a81e7dad3ebbb683ca37282d88c8dc17505e3ed18b9e9df3acd45045d7",
+      "output_bytes": 380,
+      "finished_utc": "2026-10-16T13:52:59.013370+00:00",
+      "output": "generated-status: exit 0, 0.046s\nfmt: exit 0, 0.326s\nclippy: exit 0, 18.506s\nrust-tests: exit 0, 184.398s\nbaseline: exit 0, 1.076s\npython-tests: exit 0, 77.730s\npublic-check: exit 0, 0.126s\nclaims-audit: exit 0, 17.112s\nnpm-ci: exit 0, 1.253s\nui-build: exit 0, 2.688s\ncad: exit 0, 16.830s\nreceipt: /tmp/joil-fresh-1792158093/.private/checks/20261016T134738Z-5a65af4e/receipt.json\n"
+    },
+    {
+      "step": 7,
+      "command": "rtk cargo test --workspace --locked",
+      "exit_code": 0,
+      "wall_seconds": 173.15342,
+      "output_file": "step-07.log",
+      "output_sha256": "9e7f3bca68808cca78ceac15bedc2ca51e28b7280c3afaeaf6a261a6a22641a8",
+      "output_bytes": 44,
+      "finished_utc": "2026-10-16T13:55:52.211131+00:00",
+      "output": "cargo test: 107 passed (27 suites, 171.09s)\n"
+    },
+    {
+      "step": 8,
+      "command": "rtk proxy cargo test -p joil-core --test regression closed_catalog_validity_11family_sampling -- --nocapture --exact",
+      "exit_code": 0,
+      "wall_seconds": 31.768061,
+      "output_file": "step-08.log",
+      "output_sha256": "b0669278a7058460472fa2dafa064480510d516dd4bae4cee898b646dabedf62",
+      "output_bytes": 322,
+      "finished_utc": "2026-10-16T13:56:24.018114+00:00",
+      "output": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.11s\n     Running tests/regression.rs (target/debug/deps/regression-53bf842f4aae2d60)\n\nrunning 1 test\ntest closed_catalog_validity_11family_sampling ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 37 filtered out; finished in 31.05s\n\n"
+    },
+    {
+      "step": 9,
+      "command": "rtk proxy cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact",
+      "exit_code": 0,
+      "wall_seconds": 31.367141,
+      "output_file": "step-09.log",
+      "output_sha256": "cf216ea369afee85052ab0b89027154e2f85e6cb179c8e4076c8d70d6fa7c036",
+      "output_bytes": 457,
+      "finished_utc": "2026-10-16T13:56:55.420564+00:00",
+      "output": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s\n     Running tests/regression.rs (target/debug/deps/regression-53bf842f4aae2d60)\n\nrunning 1 test\nOPERATOR_RANDOM_WALK_SUMMARY: total_steps=220 total_passed=220 pass_fraction=1 transitions=85 global_families=11 min_clearance_mm=1.0000\ntest operator_chain_validity_20step_11family ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 37 filtered out; finished in 31.22s\n\n"
+    },
+    {
+      "step": 10,
+      "command": "rtk cargo run --locked -p joil-cli -- baseline",
+      "exit_code": 0,
+      "wall_seconds": 0.13018,
+      "output_file": "step-10.log",
+      "output_sha256": "52401d47957dca6eea9090fb39db0021a9fe4ec785a4613019237f8fd62215da",
+      "output_bytes": 1019,
+      "finished_utc": "2026-10-16T13:56:55.586109+00:00",
+      "output": "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s\n     Running `target/debug/joil-cli baseline`\n{\n  \"dimensions\": {\n    \"chamber_length_mm\": 70.0,\n    \"cone_length_mm\": 99.24743184330991,\n    \"d1_mm\": 70.0,\n    \"d2_mm\": 35.0,\n    \"d3_mm\": 17.5,\n    \"fluid_volume_mm3\": 1105802.5227442957,\n    \"inlet_area_each_mm2\": 120.26409377023427,\n    \"inlet_height_mm\": 15.508971195423266,\n    \"inlet_width_mm\": 7.754485597711633,\n    \"overflow_diameter_mm\": 1.4000000000000001,\n    \"tail_length_mm\": 700.0,\n    \"taper_length_mm\": 770.0,\n    \"z_cone_end_mm\": 169.24743184330993,\n    \"z_head_end_mm\": 186.74743184330993,\n    \"z_taper_end_mm\": 939.2474318433099,\n    \"z_underflow_mm\": 1639.2474318433099\n  },\n  \"genome_sha256\": \"fb7cb576427c4a4df9cfe6ee2851b7572a8a1b10c32d4db41cf5f03faf7a41b3\",\n  \"regression_example\": {\n    \"capture\": 0.94,\n    \"cin_mg_l\": 500,\n    \"cout_mg_l\": 30.612244897959215,\n    \"passes_30_mg_l\": false,\n    \"split\": 0.02\n  },\n  \"status\": \"analytic_geometry_only_not_cfd_validated\"\n}\n"
+    },
+    {
+      "step": 11,
+      "command": "rtk proxy python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json",
+      "exit_code": 0,
+      "wall_seconds": 0.149008,
+      "output_file": "step-11.log",
+      "output_sha256": "a499e1759dbfbdac0933b51aeed9af845fc1f58d8b56487ba3e92ce948bc99a6",
+      "output_bytes": 507,
+      "finished_utc": "2026-10-16T13:56:55.770004+00:00",
+      "output": "{\n  \"passed\": true,\n  \"wave3_results_file\": \"docs/results/wave3-evolution-proof-v1.json\",\n  \"wave3_results_sha256\": \"9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168\",\n  \"n_seeds\": 10,\n  \"verified_seed_runs\": 50,\n  \"baseline_b0_ct35_kpi_score\": 26.486473,\n  \"promoted_wave3_top_elite_kpi_score\": 47.745321,\n  \"qualification_tier\": \"prior_laden_reduced_order_f1_screen_search_diagnostics_not_f2_or_f4_qualified\",\n  \"qualified_multiobjective_vector\": null,\n  \"qualified_capacity_gain\": null\n}\n"
+    },
+    {
+      "step": 12,
+      "command": "rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing",
+      "exit_code": 0,
+      "wall_seconds": 0.130884,
+      "output_file": "step-12.log",
+      "output_sha256": "6219e364acbaeb600e76303d1931730021f04c41b6a221569224532f9accd23b",
+      "output_bytes": 128,
+      "finished_utc": "2026-10-16T13:56:55.935727+00:00",
+      "output": "PASS: elite GCI+RSM gate certified for xbabe2-gen043-isl10-ind030 (SNR_dp=4.86x, SNR_eloss=6.76x, LRR-vs-SSG dp_u delta=0.256%)\n"
+    },
+    {
+      "step": 13,
+      "command": "rtk proxy python3 -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "wall_seconds": 81.247355,
+      "output_file": "step-13.log",
+      "output_sha256": "9470c7a08764a2dc3a63f7607f566d9779e1d2490d21422276cb0a83cf09aa64",
+      "output_bytes": 15532,
+      "finished_utc": "2026-10-16T13:58:17.218845+00:00",
+      "output": "test_energy_requires_same_saved_state (test_baseline_report.BaselineReportTests.test_energy_requires_same_saved_state) ... ok\ntest_units_and_nonfinite_energy_fail_closed (test_baseline_report.BaselineReportTests.test_units_and_nonfinite_energy_fail_closed) ... ok\ntest_incomplete_and_duplicate_rows (test_carrier_snapshot.CarrierExtractionTests.test_incomplete_and_duplicate_rows) ... ok\ntest_ports_must_share_same_iteration (test_carrier_snapshot.CarrierExtractionTests.test_ports_must_share_same_iteration) ... ok\ntest_invalid_or_conflicting_selection_rejected (test_check.CheckRunnerTests.test_invalid_or_conflicting_selection_rejected) ... ok\ntest_partial_success_is_identified_as_one_suite (test_check.CheckRunnerTests.test_partial_success_is_identified_as_one_suite) ... fmt: exit 0, 0.000s\nreceipt: /tmp/tmp8udm855f/.private/checks/20261016T135656Z-adb7531a/receipt.json\nok\ntest_partition_covers_all_default_steps_once (test_check.CheckRunnerTests.test_partition_covers_all_default_steps_once) ... ok\ntest_suite_failure_propagates_and_stops_before_ui_build (test_check.CheckRunnerTests.test_suite_failure_propagates_and_stops_before_ui_build) ... npm-ci: exit 1, 0.000s\nfixture output\nreceipt: /tmp/tmp7c_862xf/.private/checks/20261016T135656Z-7c55232c/receipt.json\nok\ntest_invalid_gene_never_repairs_to_baseline (test_design_program.DesignContractTests.test_invalid_gene_never_repairs_to_baseline) ... ok\ntest_proposal_cannot_change_baseline_identity (test_design_program.DesignContractTests.test_proposal_cannot_change_baseline_identity) ... ok\ntest_descriptor_names_match_code (test_doc_genome.GenomeDocTests.test_descriptor_names_match_code) ... ok\ntest_documented_operators_exist (test_doc_genome.GenomeDocTests.test_documented_operators_exist) ... ok\ntest_every_serialized_field_is_documented (test_doc_genome.GenomeDocTests.test_every_serialized_field_is_documented) ... ok\ntest_family_labels_match_code (test_doc_genome.GenomeDocTests.test_family_labels_match_code) ... ok\ntest_proposed_v4_design_is_labelled_proposed (test_doc_genome.GenomeDocTests.test_proposed_v4_design_is_labelled_proposed) ... ok\ntest_cited_receipt_binds_numerals (test_doc_numbers_trace.NumbersTraceTests.test_cited_receipt_binds_numerals) ... ok\ntest_committed_trace_has_no_declaration_errors (test_doc_numbers_trace.NumbersTraceTests.test_committed_trace_has_no_declaration_errors) ... ok\ntest_committed_trace_is_current_and_complete (test_doc_numbers_trace.NumbersTraceTests.test_committed_trace_is_current_and_complete) ... ok\ntest_derived_constants_are_checked (test_doc_numbers_trace.NumbersTraceTests.test_derived_constants_are_checked) ... ok\ntest_identifiers_dates_and_lists_are_not_numerals (test_doc_numbers_trace.NumbersTraceTests.test_identifiers_dates_and_lists_are_not_numerals) ... ok\ntest_missing_literal_fails (test_doc_numbers_trace.NumbersTraceTests.test_missing_literal_fails) ... ok\ntest_planted_untraced_number_fails (test_doc_numbers_trace.NumbersTraceTests.test_planted_untraced_number_fails) ... ok\ntest_results_page_is_traced (test_doc_numbers_trace.NumbersTraceTests.test_results_page_is_traced) ... ok\ntest_scoped_declaration_stays_in_its_sentence (test_doc_numbers_trace.NumbersTraceTests.test_scoped_declaration_stays_in_its_sentence) ... ok\ntest_stale_trace_is_reported (test_doc_numbers_trace.NumbersTraceTests.test_stale_trace_is_reported) ... ok\ntest_statistic_symbol_outranks_column_header (test_doc_numbers_trace.NumbersTraceTests.test_statistic_symbol_outranks_column_header) ... ok\ntest_statistic_symbols_prefer_their_fields (test_doc_numbers_trace.NumbersTraceTests.test_statistic_symbols_prefer_their_fields) ... ok\ntest_units_select_scale_and_quantity (test_doc_numbers_trace.NumbersTraceTests.test_units_select_scale_and_quantity) ... ok\ntest_unused_scoped_declaration_fails (test_doc_numbers_trace.NumbersTraceTests.test_unused_scoped_declaration_fails) ... ok\ntest_wrong_derived_declaration_fails (test_doc_numbers_trace.NumbersTraceTests.test_wrong_derived_declaration_fails) ... ok\ntest_changed_receipt_value_changes_series_digest (test_doc_page1_figure.Page1FigureTests.test_changed_receipt_value_changes_series_digest) ... ok\ntest_committed_figure_matches_manifest_receipt_and_series (test_doc_page1_figure.Page1FigureTests.test_committed_figure_matches_manifest_receipt_and_series) ... ok\ntest_series_agree_with_final_statistics_and_tests (test_doc_page1_figure.Page1FigureTests.test_series_agree_with_final_statistics_and_tests) ... ok\ntest_whitepaper_shows_figure_first_under_read_this_first (test_doc_page1_figure.Page1FigureTests.test_whitepaper_shows_figure_first_under_read_this_first) ... ok\ntest_committed_inputs_match_checksums (test_doc_traceability.ReviewInputTests.test_committed_inputs_match_checksums) ... ok\ntest_tampered_or_unlisted_input_is_rejected (test_doc_traceability.ReviewInputTests.test_tampered_or_unlisted_input_is_rejected) ... ok\ntest_blocked_item_dominates_and_needs_reason (test_doc_traceability.TraceabilityTests.test_blocked_item_dominates_and_needs_reason) ... ok\ntest_committed_synthesis_traces_every_required_finding (test_doc_traceability.TraceabilityTests.test_committed_synthesis_traces_every_required_finding) ... ok\ntest_done_counts_as_merged_only_once_integration_contains_it (test_doc_traceability.TraceabilityTests.test_done_counts_as_merged_only_once_integration_contains_it) ... ok\ntest_gap_rows_must_cite_a_gap_entry (test_doc_traceability.TraceabilityTests.test_gap_rows_must_cite_a_gap_entry) ... ok\ntest_ledger_done_requires_sha_and_drives_derived_status (test_doc_traceability.TraceabilityTests.test_ledger_done_requires_sha_and_drives_derived_status) ... ok\ntest_ledger_sync_from_board_lines (test_doc_traceability.TraceabilityTests.test_ledger_sync_from_board_lines) ... ok\ntest_merge_without_done_is_not_completion (test_doc_traceability.TraceabilityTests.test_merge_without_done_is_not_completion) ... ok\ntest_missing_required_finding_fails (test_doc_traceability.TraceabilityTests.test_missing_required_finding_fails) ... ok\ntest_owner_blocked_overrides_merged_row_without_done (test_doc_traceability.TraceabilityTests.test_owner_blocked_overrides_merged_row_without_done) ... ok\ntest_refresh_derives_statuses_from_ledger (test_doc_traceability.TraceabilityTests.test_refresh_derives_statuses_from_ledger) ... ok\ntest_status_cannot_run_ahead_of_ledger (test_doc_traceability.TraceabilityTests.test_status_cannot_run_ahead_of_ledger) ... ok\ntest_unknown_workplan_item_fails (test_doc_traceability.TraceabilityTests.test_unknown_workplan_item_fails) ... ok\ntest_changed_receipt_value_changes_series_digest (test_doc_wave4_gci_figure.Wave4GciFigureTests.test_changed_receipt_value_changes_series_digest) ... ok\ntest_committed_figure_matches_manifest_receipts_and_series (test_doc_wave4_gci_figure.Wave4GciFigureTests.test_committed_figure_matches_manifest_receipts_and_series) ... ok\ntest_series_are_receipt_values (test_doc_wave4_gci_figure.Wave4GciFigureTests.test_series_are_receipt_values) ... ok\ntest_whitepaper_section_4_6_embeds_the_figure (test_doc_wave4_gci_figure.Wave4GciFigureTests.test_whitepaper_section_4_6_embeds_the_figure) ... ok\ntest_planted_descriptor_backed_claim_fails (test_doc_wording.ClaimWordingTests.test_planted_descriptor_backed_claim_fails) ... ok\ntest_planted_strong_claims_fail (test_doc_wording.ClaimWordingTests.test_planted_strong_claims_fail) ... ok\ntest_tiered_negated_or_cited_wording_passes (test_doc_wording.ClaimWordingTests.test_tiered_negated_or_cited_wording_passes) ... ok\ntest_vocabularies_come_from_code (test_doc_wording.ClaimWordingTests.test_vocabularies_come_from_code) ... ok\ntest_wrapped_paragraph_is_one_sentence (test_doc_wording.ClaimWordingTests.test_wrapped_paragraph_is_one_sentence) ... ok\ntest_actual_opposite_orderings_and_tests (test_ev13_generator_fixes.EV13GeneratorTests.test_actual_opposite_orderings_and_tests) ... ok\ntest_changed_source_reverses_narrative_and_missing_test_rejects (test_ev13_generator_fixes.EV13GeneratorTests.test_changed_source_reverses_narrative_and_missing_test_rejects) ... ok\ntest_live_manifests_bind_current_png_generator_and_all_sources (test_ev13_generator_fixes.EV13GeneratorTests.test_live_manifests_bind_current_png_generator_and_all_sources) ... ok\ntest_missing_requirement_cannot_silently_draw_a_limit (test_ev13_generator_fixes.EV13GeneratorTests.test_missing_requirement_cannot_silently_draw_a_limit) ... ok\ntest_plate10_preserves_nulls_and_rejects_zero_filling (test_ev13_generator_fixes.EV13GeneratorTests.test_plate10_preserves_nulls_and_rejects_zero_filling) ... ok\ntest_plate10_renders_from_json_without_raw_cases_and_binds_caveats (test_ev13_generator_fixes.EV13GeneratorTests.test_plate10_renders_from_json_without_raw_cases_and_binds_caveats) ... /tmp/joil-fresh-1792158093/tools/generate_wave2_vs_wave1_cfd_plate.py:203: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.\n  cmap_ut.set_bad(color=\"#0f172a\")\n/tmp/joil-fresh-1792158093/tools/generate_wave2_vs_wave1_cfd_plate.py:255: PendingDeprecationWarning: The set_bad function will be deprecated in a future version. Use cmap.with_extremes(bad=...) or Colormap(bad=...) instead.\n  cmap_p.set_bad(color=\"#0f172a\")\nok\ntest_plate3_needs_no_raw_cases_and_omits_untraced_gate (test_ev13_generator_fixes.EV13GeneratorTests.test_plate3_needs_no_raw_cases_and_omits_untraced_gate) ... ok\ntest_rendered_labels_follow_each_wave_without_blanket_cells_or_permit (test_ev13_generator_fixes.EV13GeneratorTests.test_rendered_labels_follow_each_wave_without_blanket_cells_or_permit) ... ok\ntest_wave2_draws_executed_values_with_protocol_and_policy_qualifications (test_ev13_generator_fixes.EV13GeneratorTests.test_wave2_draws_executed_values_with_protocol_and_policy_qualifications) ... ok\ntest_changed_evidence_is_rejected (test_evidence.EvidenceTests.test_changed_evidence_is_rejected) ... ok\ntest_claims_to_receipts_audit_and_negative_mutation_rejection (test_evidence.EvidenceTests.test_claims_to_receipts_audit_and_negative_mutation_rejection) ... ok\ntest_ev12_disposition_accounts_complete_pruned_and_failed_cases_without_promotion (test_evidence.EvidenceTests.test_ev12_disposition_accounts_complete_pruned_and_failed_cases_without_promotion) ... ok\ntest_ev12_disposition_rejects_inventory_loss_drift_and_broken_active_identity (test_evidence.EvidenceTests.test_ev12_disposition_rejects_inventory_loss_drift_and_broken_active_identity) ... ok\ntest_ev12_every_run_audit_includes_missing_bad_and_quarantined_cases (test_evidence.EvidenceTests.test_ev12_every_run_audit_includes_missing_bad_and_quarantined_cases) ... ok\ntest_ev12_g1_disposition_requires_bound_fatal_evidence_and_missing_inlet (test_evidence.EvidenceTests.test_ev12_g1_disposition_requires_bound_fatal_evidence_and_missing_inlet) ... ok\ntest_ev12_real_disposition_inventory_when_explicitly_supplied (test_evidence.EvidenceTests.test_ev12_real_disposition_inventory_when_explicitly_supplied) ... skipped 'set all three Wave4 roots for read-only real disposition audit'\ntest_every_local_wave4_run_manifest_has_complete_exact_identity (test_evidence.EvidenceTests.test_every_local_wave4_run_manifest_has_complete_exact_identity) ... skipped 'no local Wave-4 run artifacts; actual acceptance requires nonempty audit'\ntest_inventory_wall_and_remaining_are_not_known_capture (test_evidence.EvidenceTests.test_inventory_wall_and_remaining_are_not_known_capture) ... ok\ntest_mandatory_elite_gci_and_rsm_promotion_gate (test_evidence.EvidenceTests.test_mandatory_elite_gci_and_rsm_promotion_gate) ... ok\ntest_pressure_dimensions (test_evidence.EvidenceTests.test_pressure_dimensions) ... ok\ntest_receipts_cannot_be_overwritten (test_evidence.EvidenceTests.test_receipts_cannot_be_overwritten) ... ok\ntest_threshold_and_unknown_fitness (test_evidence.EvidenceTests.test_threshold_and_unknown_fitness) ... ok\ntest_tr07_int05_python_gci_order_and_wave2_v2_reports (test_evidence.EvidenceTests.test_tr07_int05_python_gci_order_and_wave2_v2_reports) ... ok\ntest_tracer_is_not_oil_separation (test_evidence.EvidenceTests.test_tracer_is_not_oil_separation) ... ok\ntest_wave2_preregistration_contract (test_evidence.EvidenceTests.test_wave2_preregistration_contract) ... ok\ntest_wave2_receipt_and_whitepaper_hash_consistency (test_evidence.EvidenceTests.test_wave2_receipt_and_whitepaper_hash_consistency) ... ok\ntest_wave3_evolution_proof_kpi_and_ablation_audit (test_evidence.EvidenceTests.test_wave3_evolution_proof_kpi_and_ablation_audit) ... ok\ntest_wave4_audit_continues_after_malformed_manifest_and_checks_all_cases (test_evidence.EvidenceTests.test_wave4_audit_continues_after_malformed_manifest_and_checks_all_cases) ... ok\ntest_wave4_case_identity_binds_actual_mesh_and_solver_inputs (test_evidence.EvidenceTests.test_wave4_case_identity_binds_actual_mesh_and_solver_inputs) ... ok\ntest_wave4_case_identity_rejects_cross_case_and_path_substitution (test_evidence.EvidenceTests.test_wave4_case_identity_rejects_cross_case_and_path_substitution) ... ok\ntest_wave4_identity_rejects_symlinks_and_pruned_mesh_even_with_sidecar (test_evidence.EvidenceTests.test_wave4_identity_rejects_symlinks_and_pruned_mesh_even_with_sidecar) ... ok\ntest_wave4_input_capture_replays_retained_runs_and_rejects_pruned_cases (test_evidence.EvidenceTests.test_wave4_input_capture_replays_retained_runs_and_rejects_pruned_cases)\nOpt-in real-input regression: source runs remain read-only, including sidecars. ... skipped 'set JOIL_WAVE4_INPUTS_ROOT for retained/pruned real-input regression'\ntest_wave4_manifest_audit_reads_every_case_and_rejects_missing_stage (test_evidence.EvidenceTests.test_wave4_manifest_audit_reads_every_case_and_rejects_missing_stage) ... ok\ntest_wave4_raw_independent_recompute_contract (test_evidence.EvidenceTests.test_wave4_raw_independent_recompute_contract) ... ok\ntest_all_inputs_have_disposition (test_foundation.FoundationTests.test_all_inputs_have_disposition) ... ok\ntest_analytic_fluid_reference (test_foundation.FoundationTests.test_analytic_fluid_reference) ... ok\ntest_inlet_area (test_foundation.FoundationTests.test_inlet_area) ... ok\ntest_invalid_geometry (test_foundation.FoundationTests.test_invalid_geometry) ... ok\ntest_packet_dag_and_scopes (test_foundation.FoundationTests.test_packet_dag_and_scopes) ... ok\ntest_publication_guard (test_foundation.FoundationTests.test_publication_guard) ... ok\ntest_vertex_touch_does_not_change_closed_section (test_mesh_section.MeshSectionTests.test_vertex_touch_does_not_change_closed_section) ... ok\ntest_exotic_graph_rejects_unknown_keys_and_canonicalizes_inactive_genes (test_rust_cuda_and_hardening.TestHardenedPipeline.test_exotic_graph_rejects_unknown_keys_and_canonicalizes_inactive_genes) ... ok\ntest_kpi_fitness_rejects_escaped_paths_and_failure_markers (test_rust_cuda_and_hardening.TestHardenedPipeline.test_kpi_fitness_rejects_escaped_paths_and_failure_markers) ... ok\ntest_oil_grade_strict_parsers (test_rust_cuda_and_hardening.TestHardenedPipeline.test_oil_grade_strict_parsers) ... ok\n\n----------------------------------------------------------------------\nRan 101 tests in 80.605s\n\nOK (skipped=3)\nWrote /tmp/joil-fresh-1792158093/.private/tmpo39d0i64/docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png (SHA-256: aad0e83d14cfb8e34d0db72c35eff3646e9d441d91c56ebb0a7b6754fd827f1f, 764.4 KiB)\nWrote /tmp/joil-fresh-1792158093/docs/figures/elite-gci-and-rsm-verification.png (SHA-256: e79722d3ef6dfd4b8b74bc46114f6515a7fbc3500fdb8f034714172a68ee75ea)\n"
+    },
+    {
+      "step": 14,
+      "command": "rtk proxy python3 tools/check_public.py",
+      "exit_code": 0,
+      "wall_seconds": 0.686672,
+      "output_file": "step-14.log",
+      "output_sha256": "649634ab58c31b7181324463730679bcbd39649c93c76c7bae636cdf286bbb1c",
+      "output_bytes": 75,
+      "finished_utc": "2026-10-16T13:58:17.967918+00:00",
+      "output": "PASS: 366 public candidate files checked; private deny rules applied=False\n"
+    },
+    {
+      "step": 15,
+      "command": "rtk proxy python3 tools/claims_audit.py",
+      "exit_code": 0,
+      "wall_seconds": 19.437301,
+      "output_file": "step-15.log",
+      "output_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "output_bytes": 256,
+      "finished_utc": "2026-10-16T13:58:37.440596+00:00",
+      "output": "claims_audit: OK (152 structured receipt claims + 1462 markdown numeric tokens verified across WHITEPAPER.md, SCIENCE.md, README.md, RESULTS.md, PR3-DESCRIPTION.md; 6 review inputs checksummed; 135 review findings traced; 23 strong-wording claims checked)\n"
+    },
+    {
+      "step": 16,
+      "command": "rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'",
+      "exit_code": 0,
+      "wall_seconds": 5.017514,
+      "output_file": "step-16.log",
+      "output_sha256": "d6e726edaca1856181a75751c750ecb99f9eadbce5f5f23ad85773528a555c7f",
+      "output_bytes": 2044,
+      "finished_utc": "2026-10-16T13:58:42.493984+00:00",
+      "output": "\nadded 25 packages, and audited 26 packages in 2s\n\n9 packages are looking for funding\n  run `npm fund` for details\n\nfound 0 vulnerabilities\n\n> joil-explorer@0.1.0 build\n> tsc --noEmit && vite build\n\nvite v8.3.4 building client environment for production...\ntransforming...\n✓ 38 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                                                             0.41 kB │ gzip:   0.28 kB\ndist/assets/wave2-topology-morph-and-lineage-D8pZs2Mb.gif                 317.81 kB\ndist/assets/pareto-map-elites-convergence-czPBzCjd.png                    430.75 kB\ndist/assets/wave2-vortex-and-qd-illumination-Debwg9Di.gif                 439.69 kB\ndist/assets/wave2-structural-lame-and-modal-qualification-BFO5Flwt.png    482.17 kB\ndist/assets/wave2-grade-efficiency-and-dsd-shift-ztO6rHaW.png             492.39 kB\ndist/assets/chamber-sections-a5AA4HKo.png                                 492.48 kB\ndist/assets/wave2-multiseed-ablation-and-ci-CACeHTLb.png                  537.48 kB\ndist/assets/openfoam14-3d-vortex-physics-comparison-g8q2zorG.png          746.00 kB\ndist/assets/elite-gci-and-rsm-verification-B3uuHBGI.png                   783.41 kB\ndist/assets/wave2-exotic-3d-genome-atlas-XV-aFr8l.png                     856.84 kB\ndist/assets/rust-3d-topology-atlas-CxviRGy7.png                           866.37 kB\ndist/assets/wave2-8-exotic-phenotypes-gallery-c72bJhLX.png              1,705.59 kB\ndist/assets/index-BlXOHXw1.css                                              5.61 kB │ gzip:   1.81 kB\ndist/assets/index-DdWfy9-l.js                                           1,010.79 kB │ gzip: 231.93 kB\n\n✓ built in 1.97s\n[plugin builtin:vite-reporter] \n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    {
+      "step": 17,
+      "command": "rtk proxy python3 tools/check.py",
+      "exit_code": 0,
+      "wall_seconds": 279.26303,
+      "output_file": "step-17.log",
+      "output_sha256": "89dd6b344b8214cabd58dee23a598a5a89249e6b8486ef714f31e8c666bb9298",
+      "output_bytes": 358,
+      "finished_utc": "2026-10-16T14:03:21.818195+00:00",
+      "output": "generated-status: exit 0, 0.047s\nfmt: exit 0, 0.351s\nclippy: exit 0, 0.699s\nrust-tests: exit 0, 169.542s\nbaseline: exit 0, 0.077s\npython-tests: exit 0, 80.576s\npublic-check: exit 0, 0.104s\nclaims-audit: exit 0, 22.957s\nnpm-ci: exit 0, 1.212s\nui-build: exit 0, 3.472s\nreceipt: /tmp/joil-fresh-1792158093/.private/checks/20261016T135842Z-2915b714/receipt.json\n"
+    },
+    {
+      "step": 18,
+      "command": "RAYON_NUM_THREADS=4 rtk cargo run --release --locked -p joil-cli -- wave2-benchmark --seeds 20261101,20261102,20261103,20261104,20261105 --mc 72 --out artifacts/wave2-rerun.json",
+      "exit_code": 0,
+      "wall_seconds": 119.83769,
+      "output_file": "step-18.log",
+      "output_sha256": "e0780ff07a28ea71e9981db32f62e3b3735e6c3a871a56e1b3981061ae72f45d",
+      "output_bytes": 6555,
+      "finished_utc": "2026-10-16T14:05:21.702799+00:00",
+      "output": "   Compiling proc-macro2 v1.0.107\n   Compiling unicode-ident v1.0.27\n   Compiling quote v1.0.47\n   Compiling serde_core v1.0.229\n   Compiling version_check v0.9.5\n   Compiling generic-array v0.14.7\n   Compiling syn v3.0.9\n   Compiling serde v1.0.229\n   Compiling serde_derive v1.0.229\n   Compiling typenum v1.20.1\n   Compiling zmij v1.0.23\n   Compiling block-buffer v0.10.4\n   Compiling crypto-common v0.1.7\n   Compiling hashbrown v0.17.1\n   Compiling equivalent v1.0.3\n   Compiling serde_json v1.0.154\n   Compiling indexmap v2.14.2\n   Compiling toml_datetime v0.6.11\n   Compiling serde_spanned v0.6.9\n   Compiling digest v0.10.7\n   Compiling cpufeatures v0.2.17\n   Compiling toml_write v0.1.2\n   Compiling winnow v0.7.15\n   Compiling cfg-if v1.0.5\n   Compiling itoa v1.0.18\n   Compiling memchr v2.8.3\n   Compiling toml_edit v0.22.27\n   Compiling sha2 v0.10.9\n   Compiling tinyvec v1.13.3\n   Compiling unicode-normalization v0.1.25\n   Compiling toml v0.8.23\n   Compiling joil-evidence v0.1.0 (/tmp/joil-fresh-1792158093/crates/joil-evidence)\n   Compiling joil-ir v0.1.0 (/tmp/joil-fresh-1792158093/crates/joil-ir)\n   Compiling joil-core v0.1.0 (/tmp/joil-fresh-1792158093/crates/joil-core)\n   Compiling joil-cli v0.1.0 (/tmp/joil-fresh-1792158093/crates/joil-cli)\n    Finished `release` profile [optimized] target(s) in 1m 06s\n     Running `target/release/joil-cli wave2-benchmark --seeds 20261101,20261102,20261103,20261104,20261105 --mc 72 --out artifacts/wave2-rerun.json`\n{\n  \"evaluations_per_seed\": 180,\n  \"n_seeds\": 5,\n  \"out_path\": \"artifacts/wave2-rerun.json\",\n  \"pairwise_tests\": [\n    {\n      \"cliffs_delta\": 1.0,\n      \"comparator_a\": \"B3_Exotic3D_QD_CEI\",\n      \"comparator_b\": \"B1_Uniform_Random\",\n      \"mann_whitney_u\": 25.0,\n      \"mean_diff\": -1.705025,\n      \"median_diff\": -1.651831,\n      \"metric\": \"cout_sample_screen_upper_mg_l\",\n      \"p_value_holm_bonferroni\": 0.01804704,\n      \"p_value_one_sided\": 0.00451176,\n      \"statistically_significant_alpha_0025\": true,\n      \"z_score\": 2.6112\n    },\n    {\n      \"cliffs_delta\": 1.0,\n      \"comparator_a\": \"B3_Exotic3D_QD_CEI\",\n      \"comparator_b\": \"B2_Conventional_Axisym\",\n      \"mann_whitney_u\": 25.0,\n      \"mean_diff\": -12.410619,\n      \"median_diff\": -12.379852,\n      \"metric\": \"cout_sample_screen_upper_mg_l\",\n      \"p_value_holm_bonferroni\": 0.01804704,\n      \"p_value_one_sided\": 0.00451176,\n      \"statistically_significant_alpha_0025\": true,\n      \"z_score\": 2.6112\n    },\n    {\n      \"cliffs_delta\": 1.0,\n      \"comparator_a\": \"B3_Exotic3D_QD_CEI\",\n      \"comparator_b\": \"B1_Uniform_Random\",\n      \"mann_whitney_u\": 25.0,\n      \"mean_diff\": 0.019317,\n      \"median_diff\": 0.019049,\n      \"metric\": \"pareto_hypervolume\",\n      \"p_value_holm_bonferroni\": 0.01804704,\n      \"p_value_one_sided\": 0.00451176,\n      \"statistically_significant_alpha_0025\": true,\n      \"z_score\": 2.6112\n    },\n    {\n      \"cliffs_delta\": 1.0,\n      \"comparator_a\": \"B3_Exotic3D_QD_CEI\",\n      \"comparator_b\": \"B2_Conventional_Axisym\",\n      \"mann_whitney_u\": 25.0,\n      \"mean_diff\": 0.11617,\n      \"median_diff\": 0.11657,\n      \"metric\": \"pareto_hypervolume\",\n      \"p_value_holm_bonferroni\": 0.01804704,\n      \"p_value_one_sided\": 0.00451176,\n      \"statistically_significant_alpha_0025\": true,\n      \"z_score\": 2.6112\n    }\n  ],\n  \"promoted_families_count\": 11,\n  \"protocol_id\": \"joil-wave2-preregistration-v1\",\n  \"rejected_cohort_10pct_audit\": {\n    \"audit_fraction\": 0.1,\n    \"audit_passed\": true,\n    \"audited_sample_count\": 32,\n    \"false_omission_rank0_count\": 0,\n    \"false_omission_rate\": 0.0,\n    \"total_rejected_or_low_rank_pool\": 320,\n    \"worst_rank_reversal_cout_mg_l\": 0.0\n  },\n  \"status\": \"completed\",\n  \"summary_statistics\": {\n    \"B1_Uniform_Random\": {\n      \"cout_sample_screen_upper_mg_l\": {\n        \"ci95_high\": 9.432644,\n        \"ci95_low\": 9.048599,\n        \"iqr\": 0.127454,\n        \"mean\": 9.272927,\n        \"median\": 9.312121,\n        \"n_seeds\": 5,\n        \"std_dev\": 0.253237\n      },\n      \"dp_u_pa\": {\n        \"ci95_high\": 29368.88263,\n        \"ci95_low\": 28395.753601,\n        \"iqr\": 477.856656,\n        \"mean\": 28803.216573,\n        \"median\": 28544.27343,\n        \"n_seeds\": 5,\n        \"std_dev\": 639.459969\n      },\n      \"map_elites_cells\": {\n        \"ci95_high\": 108.8,\n        \"ci95_low\": 100.8,\n        \"iqr\": 8.0,\n        \"mean\": 104.8,\n        \"median\": 104.0,\n        \"n_seeds\": 5,\n        \"std_dev\": 5.118594\n      },\n      \"pareto_hypervolume\": {\n        \"ci95_high\": 0.409043,\n        \"ci95_low\": 0.404562,\n        \"iqr\": 0.004039,\n        \"mean\": 0.406857,\n        \"median\": 0.407716,\n        \"n_seeds\": 5,\n        \"std_dev\": 0.002865\n      }\n    },\n    \"B2_Conventional_Axisym\": {\n      \"cout_sample_screen_upper_mg_l\": {\n        \"ci95_high\": 20.632205,\n        \"ci95_low\": 19.356645,\n        \"iqr\": 0.90086,\n        \"mean\": 19.978521,\n        \"median\": 20.040142,\n        \"n_seeds\": 5,\n        \"std_dev\": 0.831917\n      },\n      \"dp_u_pa\": {\n        \"ci95_high\": 29190.723666,\n        \"ci95_low\": 28533.104975,\n        \"iqr\": 332.106839,\n        \"mean\": 28824.716586,\n        \"median\": 28654.219359,\n        \"n_seeds\": 5,\n        \"std_dev\": 439.398852\n      },\n      \"map_elites_cells\": {\n        \"ci95_high\": 17.6,\n        \"ci95_low\": 14.6,\n        \"iqr\": 1.0,\n        \"mean\": 16.0,\n        \"median\": 16.0,\n        \"n_seeds\": 5,\n        \"std_dev\": 1.870829\n      },\n      \"pareto_hypervolume\": {\n        \"ci95_high\": 0.313669,\n        \"ci95_low\": 0.306255,\n        \"iqr\": 0.006062,\n        \"mean\": 0.310003,\n        \"median\": 0.310195,\n        \"n_seeds\": 5,\n        \"std_dev\": 0.00484\n      }\n    },\n    \"B3_Exotic3D_QD_CEI\": {\n      \"cout_sample_screen_upper_mg_l\": {\n        \"ci95_high\": 7.812108,\n        \"ci95_low\": 7.323695,\n        \"iqr\": 0.527635,\n        \"mean\": 7.567902,\n        \"median\": 7.66029,\n        \"n_seeds\": 5,\n        \"std_dev\": 0.313536\n      },\n      \"dp_u_pa\": {\n        \"ci95_high\": 28696.076019,\n        \"ci95_low\": 28222.922491,\n        \"iqr\": 426.552485,\n        \"mean\": 28467.832867,\n        \"median\": 28587.385436,\n        \"n_seeds\": 5,\n        \"std_dev\": 301.765709\n      },\n      \"map_elites_cells\": {\n        \"ci95_high\": 77.2,\n        \"ci95_low\": 72.4,\n        \"iqr\": 2.0,\n        \"mean\": 75.0,\n        \"median\": 75.0,\n        \"n_seeds\": 5,\n        \"std_dev\": 3.082207\n      },\n      \"pareto_hypervolume\": {\n        \"ci95_high\": 0.42867,\n        \"ci95_low\": 0.423599,\n        \"iqr\": 0.002364,\n        \"mean\": 0.426174,\n        \"median\": 0.426765,\n        \"n_seeds\": 5,\n        \"std_dev\": 0.003299\n      }\n    }\n  }\n}\n"
+    }
+  ],
+  "acceptance": {
+    "command_count": 18,
+    "zero_exit_commands": 18,
+    "all_commands_exit_zero": true,
+    "failures": [],
+    "readme_patches_required": [
+      {
+        "file": "README.md",
+        "line": 56,
+        "kind": "timing_guidance_mismatch",
+        "observed": "Documented standalone Python unittest command exits0 but takes81.247355s on2cores; this exceeds the informal under-a-minute guidance.",
+        "old": "On a fresh clone, single checks take seconds to under a minute; `cargo test --workspace` and `tools/check.py` take a few minutes each.",
+        "replacement": "Runtime varies with available cores; individual checks can take over a minute, and `cargo test --workspace` and `tools/check.py` take several minutes on a fresh clone.",
+        "owner": "DOC",
+        "command_changes_required": false
+      }
+    ]
+  },
+  "figure_digest_checks": [
+    {
+      "checkout": "fresh_clone_503a299",
+      "head": "503a299a93169bd416a625ea47023a77810b9362",
+      "document": "README.md",
+      "figure": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+      "document_link_present": true,
+      "figure_sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "manifest_sha256": "ee6483a9f595baf87d4ab1ddbb0f2028acafb6c65cbbf98d243b55972a28e589",
+      "figure_matches_manifest": true,
+      "live_sha_reference_present": true,
+      "source_bindings": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "expected": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "actual": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "matches": true
+        },
+        {
+          "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+          "expected": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+          "actual": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+          "matches": true
+        },
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "expected": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+          "actual": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+          "matches": true
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "expected": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+          "actual": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+          "matches": true
+        }
+      ],
+      "generator_matches_manifest": true
+    },
+    {
+      "checkout": "fresh_clone_503a299",
+      "head": "503a299a93169bd416a625ea47023a77810b9362",
+      "document": "docs/WHITEPAPER.md",
+      "figure": "docs/figures/wave4-page1-why-it-matters.png",
+      "document_link_present": true,
+      "figure_sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "manifest_sha256": "54911b795c6189b609abe1eb5dd8c9f66abaa998af27985070b94002a29b02dd",
+      "figure_matches_manifest": true,
+      "live_sha_reference_present": true,
+      "source_bindings": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "expected": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "actual": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "checkout": "integration",
+      "head": "cedd6fa7ca1ec6a0d89d4acd790276ad820417cd",
+      "document": "README.md",
+      "figure": "docs/figures/wave4-readme-hero-kpi-and-elite.png",
+      "document_link_present": true,
+      "figure_sha256": "fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0",
+      "manifest_sha256": "ee6483a9f595baf87d4ab1ddbb0f2028acafb6c65cbbf98d243b55972a28e589",
+      "figure_matches_manifest": true,
+      "live_sha_reference_present": true,
+      "source_bindings": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "expected": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "actual": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "matches": true
+        },
+        {
+          "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+          "expected": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+          "actual": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+          "matches": true
+        },
+        {
+          "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+          "expected": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+          "actual": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+          "matches": true
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "expected": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+          "actual": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+          "matches": true
+        }
+      ],
+      "generator_matches_manifest": true
+    },
+    {
+      "checkout": "integration",
+      "head": "cedd6fa7ca1ec6a0d89d4acd790276ad820417cd",
+      "document": "docs/WHITEPAPER.md",
+      "figure": "docs/figures/wave4-page1-why-it-matters.png",
+      "document_link_present": true,
+      "figure_sha256": "7f87173ec83361279d92047cdc25da5102ad9f6c8bd88ff52937a6c41b9232e7",
+      "manifest_sha256": "54911b795c6189b609abe1eb5dd8c9f66abaa998af27985070b94002a29b02dd",
+      "figure_matches_manifest": true,
+      "live_sha_reference_present": true,
+      "source_bindings": [
+        {
+          "path": "docs/results/wave4-evolution-proof-v1.json",
+          "expected": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "actual": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+          "matches": true
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "This verifies the README software workflow only; no scientific or physical admission is inferred.",
+    "The historical verify-existing certified line is explicitly disclaimed by the pinned README.",
+    "The optional rerun writes ignored artifacts and is a separately executed current-code study; no historical result bytes are replaced."
+  ],
+  "cleanup": {
+    "head": "503a299a93169bd416a625ea47023a77810b9362",
+    "git_status_porcelain": "",
+    "git_stash_list": "",
+    "git_log_all_not_remotes": "",
+    "local_tag_count": 0,
+    "local_tags_match_remote": true,
+    "private_preservation": "fresh-clone-preserved/{checks,artifacts,target-evidence} outside disposable clone",
+    "preserved_check_receipts": 2,
+    "preserved_artifact_files": 11,
+    "target_evidence_files": 341,
+    "bundle_required": false,
+    "deleted_utc": "2026-10-16T14:06:13.569167+00:00",
+    "clone_deleted": true
+  },
+  "fresh_check_receipts": [
+    {
+      "run_id": "20261016T134738Z-5a65af4e",
+      "input_head": "503a299a93169bd416a625ea47023a77810b9362",
+      "all_requested_pass": true,
+      "step_count": 11,
+      "cad_executed": true,
+      "sha256": "5aeae5809081464417394f4a0646315b33d8fec53416478957cdfb61ebbb0c0d",
+      "steps": [
+        {
+          "name": "generated-status",
+          "exit_code": 0,
+          "wall_seconds": 0.04602271399926394,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "exit_code": 0,
+          "wall_seconds": 0.3264065510011278,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "exit_code": 0,
+          "wall_seconds": 18.50552433897974,
+          "log_sha256": "a0d6c0652e4d2afe2365e6581cec119cfaaf51f3e2a231fc5b717d726087fdcb"
+        },
+        {
+          "name": "rust-tests",
+          "exit_code": 0,
+          "wall_seconds": 184.3980081359623,
+          "log_sha256": "0a4e5bc39f76b89cfab74ac565bc56a61b6f8b14e31ebd6be07335490b1d3343"
+        },
+        {
+          "name": "baseline",
+          "exit_code": 0,
+          "wall_seconds": 1.0764495839830488,
+          "log_sha256": "14e21041620fe6c454d8155cc8870ef7adaf9eb9669bcae59d225bcac8ada3c3"
+        },
+        {
+          "name": "python-tests",
+          "exit_code": 0,
+          "wall_seconds": 77.7303126710467,
+          "log_sha256": "0f0e8f2339cd113805c3b6dac86da4d02ddd079b81f54331990f0eb43bbda754"
+        },
+        {
+          "name": "public-check",
+          "exit_code": 0,
+          "wall_seconds": 0.12598317401716486,
+          "log_sha256": "649634ab58c31b7181324463730679bcbd39649c93c76c7bae636cdf286bbb1c"
+        },
+        {
+          "name": "claims-audit",
+          "exit_code": 0,
+          "wall_seconds": 17.11190529196756,
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        },
+        {
+          "name": "npm-ci",
+          "exit_code": 0,
+          "wall_seconds": 1.2527420859551057,
+          "log_sha256": "59e8f33611545e4425b4df60379765c4307ba7179b5717f42de774b01569ca8f"
+        },
+        {
+          "name": "ui-build",
+          "exit_code": 0,
+          "wall_seconds": 2.6878417920088395,
+          "log_sha256": "6b0f43dec2473f51aa1ea7a5bf6e4b78f6ea790b3f14740199cc6b6a8d8c67dc"
+        },
+        {
+          "name": "cad",
+          "exit_code": 0,
+          "wall_seconds": 16.8296252739965,
+          "log_sha256": "581fca86e27b03d37ae28dcb4d8c91a68366f7688be1879ec307b6aa2a4f4056"
+        }
+      ]
+    },
+    {
+      "run_id": "20261016T135842Z-2915b714",
+      "input_head": "503a299a93169bd416a625ea47023a77810b9362",
+      "all_requested_pass": true,
+      "step_count": 10,
+      "cad_executed": false,
+      "sha256": "99dc8c98ade1d540bfd07be13206c4edc214430b6998dddebcce7e58ec68f362",
+      "steps": [
+        {
+          "name": "generated-status",
+          "exit_code": 0,
+          "wall_seconds": 0.047067058039829135,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "exit_code": 0,
+          "wall_seconds": 0.35078546399017796,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "exit_code": 0,
+          "wall_seconds": 0.699352121038828,
+          "log_sha256": "80a72ab0b6d57f57833fbff08eb4f1c216d4bb98fd0953be701bdd8ef1a25c8e"
+        },
+        {
+          "name": "rust-tests",
+          "exit_code": 0,
+          "wall_seconds": 169.54157082299935,
+          "log_sha256": "55784247697510b1b717e918cd0bbbcf31078a6226e002f22eaf4aeb550407ce"
+        },
+        {
+          "name": "baseline",
+          "exit_code": 0,
+          "wall_seconds": 0.07651817699661478,
+          "log_sha256": "3787e745d0412d279eb227d58231cb76785948a0fdbf17b32c39fcf132eefac1"
+        },
+        {
+          "name": "python-tests",
+          "exit_code": 0,
+          "wall_seconds": 80.5762775830226,
+          "log_sha256": "60266dde82f4706f5e0c1cd47b9fda062edf07db5721c4e547cd30c2f305d725"
+        },
+        {
+          "name": "public-check",
+          "exit_code": 0,
+          "wall_seconds": 0.10386467102216557,
+          "log_sha256": "649634ab58c31b7181324463730679bcbd39649c93c76c7bae636cdf286bbb1c"
+        },
+        {
+          "name": "claims-audit",
+          "exit_code": 0,
+          "wall_seconds": 22.956908802036196,
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        },
+        {
+          "name": "npm-ci",
+          "exit_code": 0,
+          "wall_seconds": 1.2121257730177604,
+          "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+        },
+        {
+          "name": "ui-build",
+          "exit_code": 0,
+          "wall_seconds": 3.472266505996231,
+          "log_sha256": "da93b041ea6dd638bbec0f33f17b4f779c598cc0fdd6ba8542186c52edf652da"
+        }
+      ]
+    }
+  ],
+  "artifact_inventory": [
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/cad_report.json",
+      "bytes": 4222,
+      "sha256": "581fca86e27b03d37ae28dcb4d8c91a68366f7688be1879ec307b6aa2a4f4056"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/fluid_m.glb",
+      "bytes": 266368,
+      "sha256": "5ba40a2525857992978b21f58b7438d39a0084388addce3af077fbb18d551350"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/fluid_mm.step",
+      "bytes": 50806,
+      "sha256": "30e7ad65c3b90d0684ca7a3e711b6e48f4af4e7b8deafbb9a8b53444cbf16abf"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/fluid_preview_m.stl",
+      "bytes": 3612584,
+      "sha256": "e3fc6c995704c732dac40d22c4f9ceee634e460b28980ea946bc905de325d59a"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/fluid_preview_mm.stl",
+      "bytes": 662784,
+      "sha256": "1badb5222506c5b3cc2131c884fa6942e35b006e6c2c45fbee43e8ab11129b6a"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/head_m.glb",
+      "bytes": 125952,
+      "sha256": "425c3e5f8b60224a803b0488326bb75626a09736deecaadc9004b33012f29025"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/head_mm.step",
+      "bytes": 84292,
+      "sha256": "d1969d7b374b6ff158a11ae2c3d9f6d7230ef4a18f8561257fe68079ff7f7561"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/head_preview_m.stl",
+      "bytes": 5576284,
+      "sha256": "b2311a6a43cb4bd7161bd235885dd677b704ec6f1132d0d7681969ddbb0bdb83"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/head_preview_mm.stl",
+      "bytes": 311984,
+      "sha256": "fb5d887a6f915f814e8a503ccd1d5b07418faa8ae1e3ad0f7e7397f2bbaa0168"
+    },
+    {
+      "path": "artifacts/20261016T134738Z-5a65af4e/ct35/patch_contract.json",
+      "bytes": 1162,
+      "sha256": "1a3f745e3bce465e82ca5b95010f57c8ff08224de971f552fc672cb0c956c568"
+    },
+    {
+      "path": "artifacts/wave2-rerun.json",
+      "bytes": 19138638,
+      "sha256": "d1ba11bfa224583e2ff5033c2e2ab736b442292c3943b5128d0e03c3e9067909"
+    }
+  ],
+  "target_evidence_inventory": {
+    "inspection": "all target files inspected by path; build/dependency/fingerprint/cache metadata is reproducible and excluded; candidate text/JSON/report files copied",
+    "evidence_files": [
+      {
+        "path": "target/truth-budget-smoke/campaign-summary.json",
+        "bytes": 1571786,
+        "sha256": "db647a1d535121cfd94e33b2480f5b8dfce38341d302c4880549d22ab134ef22"
+      },
+      {
+        "path": "target/truth-budget-smoke/pareto-front.json",
+        "bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "path": "target/truth-budget-smoke/map-elites-archive.json",
+        "bytes": 2017772,
+        "sha256": "039ccd9ae7d3dfbf33ecadcdaecff7200f62bd29dce54c16a5c308346268673e"
+      },
+      {
+        "path": "target/truth-budget-smoke/campaign.json",
+        "bytes": 1703,
+        "sha256": "4668809d07589ec889e9f3a6219f483ee9c1a1d5d2664f80a15fa229bfeaa853"
+      },
+      {
+        "path": "target/truth-lineage-smoke/campaign-summary.json",
+        "bytes": 1934825,
+        "sha256": "83a228908482aff0f4c7132465981564b6ba55da8438c48d17b686f7e149a0a9"
+      },
+      {
+        "path": "target/truth-lineage-smoke/pareto-front.json",
+        "bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "path": "target/truth-lineage-smoke/map-elites-archive.json",
+        "bytes": 2188335,
+        "sha256": "fbadc7838cb3de4ef3946adb2c3c70dad801c4dc9bc1a5ca4548f8d0c1ac460a"
+      },
+      {
+        "path": "target/truth-lineage-smoke/campaign.json",
+        "bytes": 1703,
+        "sha256": "4668809d07589ec889e9f3a6219f483ee9c1a1d5d2664f80a15fa229bfeaa853"
+      },
+      {
+        "path": "target/truth-requirements-smoke/campaign-summary.json",
+        "bytes": 489719,
+        "sha256": "a65cf52a89fb5ea04e812c8053e499f5e24bc708d27b34c7745107f1dcebff93"
+      },
+      {
+        "path": "target/truth-requirements-smoke/pareto-front.json",
+        "bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "path": "target/truth-requirements-smoke/map-elites-archive.json",
+        "bytes": 301146,
+        "sha256": "a9c3b97658cbdb63f835da3e3c67c6ee8d39ebb9eca55e10e2fb5ed41d94f228"
+      },
+      {
+        "path": "target/truth-requirements-smoke/campaign.json",
+        "bytes": 1703,
+        "sha256": "4668809d07589ec889e9f3a6219f483ee9c1a1d5d2664f80a15fa229bfeaa853"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/input-claim-bearing/campaign-summary.json",
+        "bytes": 137013,
+        "sha256": "91d65a5409d30d02ffad7a53cabe8c03e120959a3c55aa17e3ef0afba9275690"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/input-stale-objective-hash/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "8886c696ac118f62e9c21970eb2cd48294eb3966f077244d5c95f1fc3225206b"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/input-forged-gate-closure/campaign-summary.json",
+        "bytes": 136743,
+        "sha256": "1bcbae78a653e69fa0ee07d5e087289899812c1c168c5e2c8beba44d4a3a4112"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/input-objective-order/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "65c66cd3ba1b4c76ecb96aef174921edfc48f4d3afac15d3b28c2cdf492595ee"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/input-mode-mismatch/campaign-summary.json",
+        "bytes": 137007,
+        "sha256": "0a8e2fef7085bd22b4b10e050bdcb7509f4f53d82c912e212d4717ff21c70c2e"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/valid-sandbox-merge/campaign-summary.json",
+        "bytes": 489890,
+        "sha256": "df410441fa0b275f3d7b576d476c8d003d2322bf14a7068f6bf79a821e58fe20"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/valid-sandbox-merge/pareto-front.json",
+        "bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/valid-sandbox-merge/map-elites-archive.json",
+        "bytes": 301056,
+        "sha256": "fea967ae6b953b477194294ef2a6504fdc70151eb5927ca3647d2848d3e94d4f"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/valid-sandbox-merge/engineering-gates-report.json",
+        "bytes": 1195,
+        "sha256": "dbfec5789cc2136cefe23857783a81d3e26cfe6ed6f8da36501f353472f7688b"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158948674593581/input-stale-requirement/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "34eb9f1bfccebee15bf09b5118862d34935cec9bac9f296629d8cfd909cd0696"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/input-claim-bearing/campaign-summary.json",
+        "bytes": 137013,
+        "sha256": "91d65a5409d30d02ffad7a53cabe8c03e120959a3c55aa17e3ef0afba9275690"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/input-stale-objective-hash/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "8886c696ac118f62e9c21970eb2cd48294eb3966f077244d5c95f1fc3225206b"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/input-forged-gate-closure/campaign-summary.json",
+        "bytes": 136743,
+        "sha256": "1bcbae78a653e69fa0ee07d5e087289899812c1c168c5e2c8beba44d4a3a4112"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/input-objective-order/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "65c66cd3ba1b4c76ecb96aef174921edfc48f4d3afac15d3b28c2cdf492595ee"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/input-mode-mismatch/campaign-summary.json",
+        "bytes": 137007,
+        "sha256": "0a8e2fef7085bd22b4b10e050bdcb7509f4f53d82c912e212d4717ff21c70c2e"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/valid-sandbox-merge/campaign-summary.json",
+        "bytes": 489890,
+        "sha256": "c9f81c567df1a610ccc07b71078cf24f198b97d0a2583b0b92e83156dd691426"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/valid-sandbox-merge/pareto-front.json",
+        "bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/valid-sandbox-merge/map-elites-archive.json",
+        "bytes": 301056,
+        "sha256": "fea967ae6b953b477194294ef2a6504fdc70151eb5927ca3647d2848d3e94d4f"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/valid-sandbox-merge/engineering-gates-report.json",
+        "bytes": 1195,
+        "sha256": "dbfec5789cc2136cefe23857783a81d3e26cfe6ed6f8da36501f353472f7688b"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792159290455598713/input-stale-requirement/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "34eb9f1bfccebee15bf09b5118862d34935cec9bac9f296629d8cfd909cd0696"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/input-claim-bearing/campaign-summary.json",
+        "bytes": 137013,
+        "sha256": "91d65a5409d30d02ffad7a53cabe8c03e120959a3c55aa17e3ef0afba9275690"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/input-stale-objective-hash/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "8886c696ac118f62e9c21970eb2cd48294eb3966f077244d5c95f1fc3225206b"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/input-forged-gate-closure/campaign-summary.json",
+        "bytes": 136743,
+        "sha256": "1bcbae78a653e69fa0ee07d5e087289899812c1c168c5e2c8beba44d4a3a4112"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/input-objective-order/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "65c66cd3ba1b4c76ecb96aef174921edfc48f4d3afac15d3b28c2cdf492595ee"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/input-mode-mismatch/campaign-summary.json",
+        "bytes": 137007,
+        "sha256": "0a8e2fef7085bd22b4b10e050bdcb7509f4f53d82c912e212d4717ff21c70c2e"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/valid-sandbox-merge/campaign-summary.json",
+        "bytes": 489890,
+        "sha256": "70fcf84da2b48ed7108788c0e4fc0e8585115931e2d6bf73cf9a91878f4b5af1"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/valid-sandbox-merge/pareto-front.json",
+        "bytes": 2,
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/valid-sandbox-merge/map-elites-archive.json",
+        "bytes": 301056,
+        "sha256": "fea967ae6b953b477194294ef2a6504fdc70151eb5927ca3647d2848d3e94d4f"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/valid-sandbox-merge/engineering-gates-report.json",
+        "bytes": 1195,
+        "sha256": "dbfec5789cc2136cefe23857783a81d3e26cfe6ed6f8da36501f353472f7688b"
+      },
+      {
+        "path": "target/truth-shard-requirement-tests/1792158659187083335/input-stale-requirement/campaign-summary.json",
+        "bytes": 137001,
+        "sha256": "34eb9f1bfccebee15bf09b5118862d34935cec9bac9f296629d8cfd909cd0696"
+      },
+      {
+        "path": "target/truth-solver-failure/stopped/integrals.json",
+        "bytes": 48,
+        "sha256": "a4cf520f5b121f30b2a2cca24514ff782a851720e929bd9869cfd794a1bb81ba"
+      },
+      {
+        "path": "target/truth-solver-failure/stopped/foamRun.log.receipt.json",
+        "bytes": 39,
+        "sha256": "6c7027e183159223426541aa03b4b789798d7e212e0dace9fbe16de204e5a500"
+      },
+      {
+        "path": "target/truth-solver-failure/failed-marker-without-metrics/numerical-failure.json",
+        "bytes": 21,
+        "sha256": "1f1a67241569cf7ffeed7ce7aa4b8c8f230e7501aedfd54e68f33257d2a09aa6"
+      },
+      {
+        "path": "target/truth-solver-failure/failed-exit/integrals.json",
+        "bytes": 48,
+        "sha256": "a4cf520f5b121f30b2a2cca24514ff782a851720e929bd9869cfd794a1bb81ba"
+      },
+      {
+        "path": "target/truth-solver-failure/failed-exit/foamRun.log.receipt.json",
+        "bytes": 34,
+        "sha256": "6e74669d33e0360a08da254decde0dc7f4843cd42d9e47c8c81cda6dc4840962"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-4133861-1792159128840013682/wave4-proof-raw-B1_Random_Search-s1.jsonl",
+        "bytes": 48442,
+        "sha256": "ff3f7db5d58a4b88183a7c9521104ff9f550faa43bbdcc3cd398b590cefec577"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-4133861-1792159128840013682/capture-provenance.json",
+        "bytes": 3436,
+        "sha256": "e97df7ffc3ac3189020357e7006735b92d3df81deae337c653adff86df3bd7f9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-4133861-1792159128840013682/wave4-proof-raw-B1_Random_Search-s1.json",
+        "bytes": 45099,
+        "sha256": "ed46c1a2db7d2ab2ad0c6ff721401a45a1034f66bc835ec4c9d653898b7b58cd"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-006.jsonl",
+        "bytes": 49542,
+        "sha256": "65606f4728b123628c755be82eb0a17ff688b1ba0ec14d77304727138e2bf250"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4571.jsonl",
+        "bytes": 250385,
+        "sha256": "7ad6d391e3a6b88358710fad21b557763bd09d98bf9d329c12febbc720943861"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4570.jsonl",
+        "bytes": 253608,
+        "sha256": "1f90f096264738200f672a8c7391ce872cc9844222b55dfe74a7c9700eb2b1c8"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4568.json",
+        "bytes": 219822,
+        "sha256": "6f7f03e783abd751bfd1ce8c5826a37e545684ec0d4e3cb3dd4bdc2bdbd9b9d4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/holdouts.jsonl",
+        "bytes": 1581966,
+        "sha256": "6a9f2558900c7c22e044be437ca730822a2f4a7d4908be5ba65da81a8a32aed4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4568.jsonl",
+        "bytes": 253760,
+        "sha256": "cbf94be467903f48c43731f5b661c968ebc1df085588c7a97e12dd9f1250c256"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4568.json",
+        "bytes": 230963,
+        "sha256": "558d92570a4ef5773d7e52533f3216c1855fe3b3b1aee0b03f1f376dd3229444"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4571.jsonl",
+        "bytes": 252504,
+        "sha256": "ec371bd2ea98019d9f562ea5b77e41cf7f69494496d1797e9f4fc1547358c1e9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4569.json",
+        "bytes": 219817,
+        "sha256": "71e2d85430a8f359cdfe0609155b475f40d858d35862140d3e305bb17326b827"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-018.jsonl",
+        "bytes": 49929,
+        "sha256": "71d9e03e1df07f6a1d849a6371a6cbf66f4feef92b90e7db1b78c0281f79a2ea"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4571.json",
+        "bytes": 219817,
+        "sha256": "a0a75cc6f9091db80ab3da728c5f8cc7593f9043ab835aba549e6a4b15d74e7f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-baseline-ct35-b0.jsonl",
+        "bytes": 46106,
+        "sha256": "19f6741bad7794d55229bfcac2ae3ac8f6af5f58406669ed7bdedbd193519ae7"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4569.jsonl",
+        "bytes": 251701,
+        "sha256": "0c7ad80d5dcb46149e22edbb030d7ce3a5f7a2ed2b15d9aada8f8052f057d51f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4570.json",
+        "bytes": 233393,
+        "sha256": "2201079a9fcd3390f67aa5f6fb8924f2009db1a814ba413e4f06580456e34eb1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4567.jsonl",
+        "bytes": 258564,
+        "sha256": "efca57cd98d7e67629269f440b07597a24f571d3268f7b256c45716a77a1b32f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4567.json",
+        "bytes": 227455,
+        "sha256": "538d158c36e09a30a3259f9c6d9a40b31c23167b660318cfc757e76e3d487108"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4568.json",
+        "bytes": 233598,
+        "sha256": "3cabef5dbbecc353e0177bda46d730c17b8a747fcde3626d291c491a38cefbe1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4570.jsonl",
+        "bytes": 262901,
+        "sha256": "784c038fe1499f4bc39082a725990f9fa094b52eda8a217247bc7c4ebc261f60"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4571.json",
+        "bytes": 231189,
+        "sha256": "f0f30292216174e881054c1693cd3d9acd76d56e61c2617975ff97828281626b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4568.jsonl",
+        "bytes": 255847,
+        "sha256": "3ca0c869e7a474c5a5488d6bcfbf550b058dde53ee2ea20dd6b0799e0507c0b3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4571.jsonl",
+        "bytes": 250853,
+        "sha256": "03cf909ae65bac8f84f302bb93ccfe9dc3aa0b6c9ecfbbf465a6704e643055a1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-020.jsonl",
+        "bytes": 52032,
+        "sha256": "dacdd055f9a871ce23a70b588f8dba6bc297ffcb1eea2b7db0ddff35026a607a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-002.jsonl",
+        "bytes": 47406,
+        "sha256": "5c8107a6369ee20e3f860c69769e81b613814a467bc5aedf52f90f2afb3553bf"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4569.jsonl",
+        "bytes": 250109,
+        "sha256": "0a7f28504a15d53cff1b53aff310664d90bd89468434c6a7374465be5313e1f7"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4570.jsonl",
+        "bytes": 253591,
+        "sha256": "e2a3842731b434e2343e6d4f7a4fceffd0ed22dbf8cad5b92d3d3c68c472b92f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4571.json",
+        "bytes": 230709,
+        "sha256": "6bcbc239bcb58534223600d8df4782abe05de8e03bad6f9886b08e2f2c32f8f9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4570.json",
+        "bytes": 219802,
+        "sha256": "48f21de6cb75283893511c2d16581fcbf5692a09070dff417b96e1b9cd870744"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4570.jsonl",
+        "bytes": 247947,
+        "sha256": "0e2d8275211b537bae727dca25e8cf4d7e9a3220de7ccec26e8df18cdf4f10b7"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-003.jsonl",
+        "bytes": 47405,
+        "sha256": "f2eecedfcd6ded4b2b97aed623362cd370016e5da7dd33b75f740b8dd2b4009a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4567.jsonl",
+        "bytes": 247510,
+        "sha256": "358ea264bfd0dab8d5530f1de2e7c6ba0119f8c2cb04e983290049b4a5523cc7"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4570.json",
+        "bytes": 242661,
+        "sha256": "85e8c765ae8263f80a8fa45d43670812433e1d1df546dcb4d8306b9f8d4b8417"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4567.jsonl",
+        "bytes": 251897,
+        "sha256": "8b2c437e9900fc877582658e7e6e67a4dad97e3869bbb3c8c45b1cefa46f1821"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4567.json",
+        "bytes": 231028,
+        "sha256": "4bcb03655a1c67af108998683a5c33c3aeb529a5620a278705fba2b12261c9c3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4569.json",
+        "bytes": 237184,
+        "sha256": "1dfc1bca9030892bdde7f06b729deafb36ac58ece02834d5ffbec4840e3659fd"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-022.jsonl",
+        "bytes": 50303,
+        "sha256": "3cfd56365b9b065d43c6fca803530fa5104cdfde7d3d5f462a4a9bebb0d11ea5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-008.jsonl",
+        "bytes": 48372,
+        "sha256": "68e9c8a94f51d3a5c2cda5b0821e61c87395643a9dd27d0ba0213be0c0ec99e4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-013.jsonl",
+        "bytes": 51985,
+        "sha256": "d58512b8cee37f17d8fc3064b08d5767e6443aa0b0dbf095db0dd6fe9fc67e2c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/operating-duty-holdouts.jsonl",
+        "bytes": 2518,
+        "sha256": "570c97c717f09ca78abbb76c78734cabf9a7969b5839f9d30ca2e583e114c49e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4571.json",
+        "bytes": 231593,
+        "sha256": "9fbfe8e3c6fa0d1d005a4a175f8a7bf8cd100b046f509ce639309ec2be1e297f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-010.jsonl",
+        "bytes": 47037,
+        "sha256": "9112798d17ec2892e46b56862ce13ff5768485e5c846a14ce3385daae14c3f7f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-000.jsonl",
+        "bytes": 46114,
+        "sha256": "f01bf94dcce5db31f377499453d16ca63c81e4850c8f9b86c54b57617bd08b80"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-021.jsonl",
+        "bytes": 50315,
+        "sha256": "abf2b9b39f08827c34d2b856cb07b19dc4b23e674bec3f92a326fb39c7822964"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-025.jsonl",
+        "bytes": 51974,
+        "sha256": "4b60d4d270697a42931affb61608d4f4e1975ff7d31c73f14d3215ae8508374b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4569.jsonl",
+        "bytes": 251943,
+        "sha256": "388d4a7a3cc167f6e40ae26912cfa6891ff604f390471f3211b0086e6563701e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4567.json",
+        "bytes": 231724,
+        "sha256": "8c0a873f738bd14b0185d70857d1e02a5025db5b88ac1ae45db9214400ea1a5e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-001.jsonl",
+        "bytes": 47411,
+        "sha256": "00a45d7a7c8cb73f821c80b0bda21cd9dc45230f85d22b2bdcd0b3515c5c17d5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-012.jsonl",
+        "bytes": 47045,
+        "sha256": "cf7555a685a0246b7d3f5b9028b286da80c8d01203fb234ee609506060d6ee60"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/proof-summary.json",
+        "bytes": 427146,
+        "sha256": "072cf1a4d8584b90d94436c7f5cff221e174f6a41b57e756fc1fcc516447aa5e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-026.jsonl",
+        "bytes": 51973,
+        "sha256": "4b5cf72ac96633a420b0758598740d0c170472dc12c543c3cf9cea31d26b1c62"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4567.jsonl",
+        "bytes": 254282,
+        "sha256": "72e4a88f1ec26f91b0ad929cd319d53a6ba95b8c7581197253c5f6109127475b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-007.jsonl",
+        "bytes": 48384,
+        "sha256": "71dfc7f2aef36815b976e44c9150b10c35740c903e20bdb12bd5d9858d3b0bd3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-014.jsonl",
+        "bytes": 49908,
+        "sha256": "f0b9d1cf1c10b654a1d516616761a8dd9b7547a07a7416a2dcf7810a2ef28f12"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4567.json",
+        "bytes": 219802,
+        "sha256": "6f52c8d8e356501ec5fa7d6866fbb7341ff4620a2fa9e2d2d28318db31b02c88"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-024.jsonl",
+        "bytes": 53705,
+        "sha256": "fe6c87c1cd6623d16bdab6730270a1305d4fd294286e4b938eef8ea0bf873ed3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4569.jsonl",
+        "bytes": 239554,
+        "sha256": "39ff87b0bfbf6784a27f1c40b03bdd3955bc7069bd42fe120554360448aab038"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4569.json",
+        "bytes": 230025,
+        "sha256": "c8fa02071a0afe4f8328560953357da40a0e5a46a59b77f90e246e72c8054178"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-holdouts.json",
+        "bytes": 105766,
+        "sha256": "1a0a7612726232d0728d654063176ea97a3f4eab341c447335850b1ac010baba"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4567.jsonl",
+        "bytes": 251211,
+        "sha256": "c912ba08c5d0e87ffc55208acab9dd48a6faa1d8d9e125afbb7b5495c34477d8"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/capture-provenance.json",
+        "bytes": 3458,
+        "sha256": "04072353311c39b89b8971e3c3ca18173b5d0387c2b4cc6b28bc18d3a4e37e7e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-015.jsonl",
+        "bytes": 50234,
+        "sha256": "4625d26f5d9e0a6ceb2fa243d6847cb1402ee7cdf525c9fd5adc62dfac83715b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4571.json",
+        "bytes": 230272,
+        "sha256": "12d64a134f33d6065eac8257a9a2e81803ced4dbc40164834c60a95921985c50"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4568.json",
+        "bytes": 235601,
+        "sha256": "ec50dc69e338cca02971ae19f2cf66d2ca6ef7f8b49a99f03ff419fdbbeaf7a6"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4568.json",
+        "bytes": 232568,
+        "sha256": "e0b4d470f62d18eb322b4ae12cbb10539aa922bb916d7aff979c0c56d89a9973"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-reference.json",
+        "bytes": 42813,
+        "sha256": "121d89b68af5f19ed4bd140e7171bac80160747d296c1911f8b2892a39235800"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4567.json",
+        "bytes": 234066,
+        "sha256": "4bcb4ab7087c9f5a8a187a6d82c491f8eaca5b1a0120646d763e60bf20062ce8"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4568.jsonl",
+        "bytes": 245911,
+        "sha256": "f451e615463efb66adbb65a702e13c2581f548371180e2155bc07ad29a2ff2f8"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A2_No_Selection_Random_Walk-s4570.json",
+        "bytes": 233373,
+        "sha256": "f1d4a616fd15f4895775e8734686a026fe3b77c504895ff0154d290f0d6f6814"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-009.jsonl",
+        "bytes": 48370,
+        "sha256": "f8597d6573e15b180378f0ae2bc77a46ed3ba04fe5da28de98096904e5bb1d23"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/manifest.json",
+        "bytes": 17588,
+        "sha256": "3db3c0c81be12510b7611c9f93e1344aa3653811cd8eec30bcb0ca06844111b3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4570.json",
+        "bytes": 232136,
+        "sha256": "abd4f39fad0fa01bfaf53b49daeb23d72ebf823438e490d3c9de373dab73e969"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-011.jsonl",
+        "bytes": 47026,
+        "sha256": "5ac48f7f641750a2564d32df5aa24909a7f1910f5f763e643463f69b5200e6bb"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4567.jsonl",
+        "bytes": 239469,
+        "sha256": "6e9670b261a0000b38451e0ab652f64936560c7be2e269b62d664db4f729157d"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4570.json",
+        "bytes": 227937,
+        "sha256": "20a816e3f89956c53f6e199e2a12faad6331780d0e864f558a30753441fbfa7b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4568.jsonl",
+        "bytes": 251063,
+        "sha256": "da5011a1fc40896557a955f564034bd7c64c99115b315745c4336fe3758fd8fc"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4569.jsonl",
+        "bytes": 257428,
+        "sha256": "e0689d57940008defdd22e7d5fc5b8b65d0ed1ea12c71efdc58bfd903b297c08"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-005.jsonl",
+        "bytes": 47776,
+        "sha256": "079c0e0acd82f90fc92fcf91c20d33c3676db4e9e5d79ad457f5af238ec4f4ca"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-004.jsonl",
+        "bytes": 47777,
+        "sha256": "af27b484aa4e0cfbbb0d4df4728f851c8089f244287cf29b216259d844d916e9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4569.json",
+        "bytes": 230626,
+        "sha256": "13eb417ad25382767f47e5de470a25c2e7c68a43ab03b6820bf15ad0b3d5103f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4570.jsonl",
+        "bytes": 239499,
+        "sha256": "f85903433f7c7cfd55ca84454ea63e25756b7230ab37ba214f8d1d25f4d75eb8"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4571.json",
+        "bytes": 232319,
+        "sha256": "cc51fee64e28125005fb4804d467c2b764813b7a96d0e89ae8af114b64955d7c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4570.jsonl",
+        "bytes": 252347,
+        "sha256": "a03c649c9ddd5db8457a618e1762f17a0d1151513b1497241f2ee6f8743f7fb3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4568.jsonl",
+        "bytes": 252764,
+        "sha256": "fe35728181becd78901c3b788bef9ac92029e0e6bcaa00a7b482793adfe70175"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4569.jsonl",
+        "bytes": 250771,
+        "sha256": "3c7df90e673bebf8bceac51cdde76849549010ea2f8b7d5d6d116d75bf23a300"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4567.json",
+        "bytes": 238346,
+        "sha256": "e85e2079b15818b10cee193149a71f661a97992b4f1a7d6b7dd4b36c2996d4fa"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4568.json",
+        "bytes": 225953,
+        "sha256": "41cf499d20b37e82796135072574387e3bce6314aa591e2f87a514666f3c77c3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4569.json",
+        "bytes": 231509,
+        "sha256": "b64c75403498cf68c780afac3b6720fb96a6db0793d27000d97e9351c8102a4d"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-017.jsonl",
+        "bytes": 51967,
+        "sha256": "03570154295eff1ed2634ec17626da31bc64b06a17305c34e8f2a03979b2aa13"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-023.jsonl",
+        "bytes": 53717,
+        "sha256": "bc81eebcee7fd56c0b5238b7393d9c0f475f66b1a701384caac4644bbd1aa980"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4569.json",
+        "bytes": 231829,
+        "sha256": "1fd908e1f7807e208099beb5f0a7f3cc3c329533f1b7dd4b0a3e14e617c0f2d6"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4571.jsonl",
+        "bytes": 251373,
+        "sha256": "c541b807078957b67d8c59145d979f4f97f3f9f9928e5714b96a0ac9a15f0852"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B1_Random_Search-s4571.jsonl",
+        "bytes": 251802,
+        "sha256": "30429a2b61ae6c36cec4483bdd2015c41abbf1d9a8a0ea3b511e62f6393507e4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-019.jsonl",
+        "bytes": 52038,
+        "sha256": "940aa5abc72d2d3d5c778fcd0e589bba841ded9cecc99e8b5173ecc5789de4a3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4571.jsonl",
+        "bytes": 239579,
+        "sha256": "4bd18aaa8ca78ace054db7d8c955bb5a7a5ee38bdf1fdb138d5105166f9d65d1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/wave4-proof-raw-B0_CT35_Equal_Budget-s4568.jsonl",
+        "bytes": 239514,
+        "sha256": "be91e053007bf3119a0e3237c4dbfe6663bc13843ba6458060a0777d9b936289"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-169776-1792159269344290489/reference-family-016.jsonl",
+        "bytes": 49943,
+        "sha256": "da4fca177a988d11815eee7b1bcebe8160b851c54d6f7c575a5d3c0ebe86d91c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-3055736-1792158783361328610/wave4-proof-raw-B1_Random_Search-s1.jsonl",
+        "bytes": 48443,
+        "sha256": "eb693a5b1992fdeacc0f08ae8c40f9b04ef52e03d0b14708d0f7ec7ed67727bb"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-3055736-1792158783361328610/capture-provenance.json",
+        "bytes": 3437,
+        "sha256": "42ded38e7f0fb86d673b06f8dbf5a010c57f0d4903322d6556cac4dd40193146"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-3055736-1792158783361328610/wave4-proof-raw-B1_Random_Search-s1.json",
+        "bytes": 45099,
+        "sha256": "a3d476b4d6bb58deb6b540d89056348d0a5a0b6adb9bc1423693fbb0a1dd3096"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-2718404-1792158505884914810/wave4-proof-raw-B1_Random_Search-s1.jsonl",
+        "bytes": 48442,
+        "sha256": "0c077176669382b16a2b287e970fb1af2fe4647217f0ce25c66cb993cb257ab9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-2718404-1792158505884914810/capture-provenance.json",
+        "bytes": 3436,
+        "sha256": "750eebaf14ee0c2d89f1daea2582c702ff5b84372ddcc29ad84c629f92354f15"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/negative-2718404-1792158505884914810/wave4-proof-raw-B1_Random_Search-s1.json",
+        "bytes": 45099,
+        "sha256": "727360e69538da4090deec2844737341ec169073d56e99eefe4a8c97c7f3bd71"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-006.jsonl",
+        "bytes": 49542,
+        "sha256": "65606f4728b123628c755be82eb0a17ff688b1ba0ec14d77304727138e2bf250"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4571.jsonl",
+        "bytes": 250386,
+        "sha256": "ad4c78cc1e17ea203ef0703d710255814e6ab5060c8b7d7ecf9f1824df256964"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4570.jsonl",
+        "bytes": 253609,
+        "sha256": "09f7fa185d3b946aae19ab5f313859d351d5a49205337dd38cdd2a5a1f49d694"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4568.json",
+        "bytes": 219823,
+        "sha256": "649fc3ebb7c0d9185931e845751e7c38dd2d6415d70eaa85871832995f55f8b8"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/holdouts.jsonl",
+        "bytes": 1581966,
+        "sha256": "6a9f2558900c7c22e044be437ca730822a2f4a7d4908be5ba65da81a8a32aed4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4568.jsonl",
+        "bytes": 253761,
+        "sha256": "9bf373f97e313a014ed0cccbee2e210d22ce5fe231abdc357fcf93692c65b876"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4568.json",
+        "bytes": 230964,
+        "sha256": "761e4fca57633f53fe14b796ca13f7638b8b59dfa112d9b70ed8b271de1ed8fc"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4571.jsonl",
+        "bytes": 252505,
+        "sha256": "2141e2b6b8cca4e65886303a45958d72cff39b087424be042c7cc0f9093aaa22"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4569.json",
+        "bytes": 219818,
+        "sha256": "d50bccfc0ec758ba936233ff8cf8750efc545fe2c4b536d7490c178b69b293a8"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-018.jsonl",
+        "bytes": 49929,
+        "sha256": "71d9e03e1df07f6a1d849a6371a6cbf66f4feef92b90e7db1b78c0281f79a2ea"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4571.json",
+        "bytes": 219818,
+        "sha256": "3e8e45a437b4135f9298150810b4c8a26944a82527f4e6b84763da9733dbbc7f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-baseline-ct35-b0.jsonl",
+        "bytes": 46106,
+        "sha256": "19f6741bad7794d55229bfcac2ae3ac8f6af5f58406669ed7bdedbd193519ae7"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4569.jsonl",
+        "bytes": 251702,
+        "sha256": "1862fe4fd4cdbe5fce7e24b3e519061945c8dfa3090f466c411400edadee6b43"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4570.json",
+        "bytes": 233394,
+        "sha256": "6464c65dcc353259f73571b0cb18c77499499d5c46a96a2e2525ba4bc4f5fc9d"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4567.jsonl",
+        "bytes": 258565,
+        "sha256": "eaa9fc700df49afa5443b6c6a3ba4a1f2d3af080bea462d671a61c150b7ea06a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4567.json",
+        "bytes": 227456,
+        "sha256": "77f4c9134746716e83269ff95658976edd4d87543e3c14ae13345990a074dfa5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4568.json",
+        "bytes": 233599,
+        "sha256": "a69286ec3c2f9161575f44a986543b67b40226481bc82c663d0922d0adb0179a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4570.jsonl",
+        "bytes": 262902,
+        "sha256": "7627a461e230de85610f17d4bbb0b01b09c11b2a179175241f60bb1513a9d33d"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4571.json",
+        "bytes": 231190,
+        "sha256": "4c885e3bbc7f7732aabba45f6c5440241c8a3e8209eea6de0c3a082064f0730d"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4568.jsonl",
+        "bytes": 255848,
+        "sha256": "55bac721bc73c97940a93b9bbfbbdbf1df77634a3a4e7f58aa0105ed25ece85d"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4571.jsonl",
+        "bytes": 250854,
+        "sha256": "2b8dfa8fdaea65501bd27c45c3fbdb23b12d41049227a7bd7919b61210d1752b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-020.jsonl",
+        "bytes": 52032,
+        "sha256": "dacdd055f9a871ce23a70b588f8dba6bc297ffcb1eea2b7db0ddff35026a607a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-002.jsonl",
+        "bytes": 47406,
+        "sha256": "5c8107a6369ee20e3f860c69769e81b613814a467bc5aedf52f90f2afb3553bf"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4569.jsonl",
+        "bytes": 250110,
+        "sha256": "d2a0ee783470b3e776d03949e51239ef752143544fe8302b3a2f2f4d4663f17a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4570.jsonl",
+        "bytes": 253592,
+        "sha256": "9065ff44b4192bbce496ed472d92d1146617dd7923f5a11e02394478e79abd5e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4571.json",
+        "bytes": 230710,
+        "sha256": "d1f121d302c4d88990ffeeeb1dfb7233257ec72eebd9698ddb3f4f0e3ede66ff"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4570.json",
+        "bytes": 219803,
+        "sha256": "300b621568d404336736af519c57c408f6e25c59b9277faf5c3981fd772c71ca"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4570.jsonl",
+        "bytes": 247948,
+        "sha256": "59b92bc27e4d446cb2954787a0949438807ac3e8580654197efc324e72ede12f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-003.jsonl",
+        "bytes": 47405,
+        "sha256": "f2eecedfcd6ded4b2b97aed623362cd370016e5da7dd33b75f740b8dd2b4009a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4567.jsonl",
+        "bytes": 247511,
+        "sha256": "cb43edac10a7fbb5f21c6796b13918e9194a35f026a1842ebd3f366a7dafca92"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4570.json",
+        "bytes": 242662,
+        "sha256": "323f4b174e71643faf8a2fccda6c4e5975a861e4e39ba8ab359128d8b3b73e1f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4567.jsonl",
+        "bytes": 251898,
+        "sha256": "edc73a712b4954255ec48ef5c310d8017ddcc69a4becf6abe049c4a9aa4c21b1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4567.json",
+        "bytes": 231029,
+        "sha256": "8421ff4b6a583cd0960b64e8c5f26e0f2c17cc837824067c5d0408356f7d6798"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4569.json",
+        "bytes": 237185,
+        "sha256": "e49e1a79730724fa082094637c4d85f219979e9a583e889ed8d45a62dfaa2950"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-022.jsonl",
+        "bytes": 50303,
+        "sha256": "3cfd56365b9b065d43c6fca803530fa5104cdfde7d3d5f462a4a9bebb0d11ea5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-008.jsonl",
+        "bytes": 48372,
+        "sha256": "68e9c8a94f51d3a5c2cda5b0821e61c87395643a9dd27d0ba0213be0c0ec99e4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-013.jsonl",
+        "bytes": 51985,
+        "sha256": "d58512b8cee37f17d8fc3064b08d5767e6443aa0b0dbf095db0dd6fe9fc67e2c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/operating-duty-holdouts.jsonl",
+        "bytes": 2518,
+        "sha256": "570c97c717f09ca78abbb76c78734cabf9a7969b5839f9d30ca2e583e114c49e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4571.json",
+        "bytes": 231594,
+        "sha256": "e5b849f8e27a41b517d075111b92e9cc4728a3f1a80392d25af066f0f3b45e20"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-010.jsonl",
+        "bytes": 47037,
+        "sha256": "9112798d17ec2892e46b56862ce13ff5768485e5c846a14ce3385daae14c3f7f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-000.jsonl",
+        "bytes": 46114,
+        "sha256": "f01bf94dcce5db31f377499453d16ca63c81e4850c8f9b86c54b57617bd08b80"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-021.jsonl",
+        "bytes": 50315,
+        "sha256": "abf2b9b39f08827c34d2b856cb07b19dc4b23e674bec3f92a326fb39c7822964"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-025.jsonl",
+        "bytes": 51974,
+        "sha256": "4b60d4d270697a42931affb61608d4f4e1975ff7d31c73f14d3215ae8508374b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4569.jsonl",
+        "bytes": 251944,
+        "sha256": "a6b0441cfa7531c47141ff78c486b320d5743fed19a1ff8176ec20e92bc33068"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4567.json",
+        "bytes": 231725,
+        "sha256": "35cee3f3f1b76acbbfa6022ccdc60f1a47fa25c3cdaa25e6a0ab20c7f9dd94bd"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-001.jsonl",
+        "bytes": 47411,
+        "sha256": "00a45d7a7c8cb73f821c80b0bda21cd9dc45230f85d22b2bdcd0b3515c5c17d5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-012.jsonl",
+        "bytes": 47045,
+        "sha256": "cf7555a685a0246b7d3f5b9028b286da80c8d01203fb234ee609506060d6ee60"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/proof-summary.json",
+        "bytes": 427146,
+        "sha256": "072cf1a4d8584b90d94436c7f5cff221e174f6a41b57e756fc1fcc516447aa5e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-026.jsonl",
+        "bytes": 51973,
+        "sha256": "4b5cf72ac96633a420b0758598740d0c170472dc12c543c3cf9cea31d26b1c62"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4567.jsonl",
+        "bytes": 254283,
+        "sha256": "fbd372a88cd9195853028a09e1d03db02074b6b9bd33a898a81eb322d900f4d4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-007.jsonl",
+        "bytes": 48384,
+        "sha256": "71dfc7f2aef36815b976e44c9150b10c35740c903e20bdb12bd5d9858d3b0bd3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-014.jsonl",
+        "bytes": 49908,
+        "sha256": "f0b9d1cf1c10b654a1d516616761a8dd9b7547a07a7416a2dcf7810a2ef28f12"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4567.json",
+        "bytes": 219803,
+        "sha256": "14bef08aab8c26581f5c7bc405accbd05b9a83f132f5b2d098bff51677d27dfd"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-024.jsonl",
+        "bytes": 53705,
+        "sha256": "fe6c87c1cd6623d16bdab6730270a1305d4fd294286e4b938eef8ea0bf873ed3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4569.jsonl",
+        "bytes": 239555,
+        "sha256": "c89513dfafcddb5f623b914be434ce6563b6a038d5f6f340a4e7abc6f1ed2e31"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4569.json",
+        "bytes": 230026,
+        "sha256": "d59d03dda94dbb903654b3b0c58ff029606ad9eaec8a60cbc068762ca522e1c1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-holdouts.json",
+        "bytes": 105766,
+        "sha256": "1a0a7612726232d0728d654063176ea97a3f4eab341c447335850b1ac010baba"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4567.jsonl",
+        "bytes": 251212,
+        "sha256": "9fb434d0e842d99ab30947c75ea44a3c950044305a37fd22adb56008fb0a541e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/capture-provenance.json",
+        "bytes": 3459,
+        "sha256": "4f896943f68742d086973e888e02520433ee9a79263d192d821edda75bcd679c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-015.jsonl",
+        "bytes": 50234,
+        "sha256": "4625d26f5d9e0a6ceb2fa243d6847cb1402ee7cdf525c9fd5adc62dfac83715b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4571.json",
+        "bytes": 230273,
+        "sha256": "6335ae9cbc4e62b9d0746636ea6ad7874e1ace125ef88f66feb93ace4b1a6a21"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4568.json",
+        "bytes": 235602,
+        "sha256": "a863c0fa2dd8ef69584ebee973bc413e2c056913b235f3d5809f8320d4c8d5df"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4568.json",
+        "bytes": 232569,
+        "sha256": "fea6c31284a234f166699716f1772caf88fb1151cd6181799979d2ae709026af"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-reference.json",
+        "bytes": 42813,
+        "sha256": "121d89b68af5f19ed4bd140e7171bac80160747d296c1911f8b2892a39235800"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4567.json",
+        "bytes": 234067,
+        "sha256": "2b8319b6fe02b8eb95b3c9cb2258eb7a7be9f9a34fbee266c39a8c898d103296"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4568.jsonl",
+        "bytes": 245912,
+        "sha256": "ddba677b13463ce2739983f9114d12fc8a21eca5ad76e47f8119b8b42d05ab25"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A2_No_Selection_Random_Walk-s4570.json",
+        "bytes": 233374,
+        "sha256": "001126dbaf00671d0fafabedceeb0a665726b539e0ceaafe65480cd2d9319b63"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-009.jsonl",
+        "bytes": 48370,
+        "sha256": "f8597d6573e15b180378f0ae2bc77a46ed3ba04fe5da28de98096904e5bb1d23"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/manifest.json",
+        "bytes": 17589,
+        "sha256": "2819e0e0bc5f0230fa85573c329e75acce051da43d791cc564eb53ee0006e646"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4570.json",
+        "bytes": 232137,
+        "sha256": "a0e63cb1c04fe074eac5f28b20592035ee74f3b63d4b99d7589cfc13c1ed47c7"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-011.jsonl",
+        "bytes": 47026,
+        "sha256": "5ac48f7f641750a2564d32df5aa24909a7f1910f5f763e643463f69b5200e6bb"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4567.jsonl",
+        "bytes": 239470,
+        "sha256": "b7d82c90e3be3b8f0ef58342dce478d332107aefc634d98d301cefad1a817123"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4570.json",
+        "bytes": 227938,
+        "sha256": "4c08aea281bb1004197ddfff4d3645adc8d0ee9d028f2dd9eaa5190a8ba10cd4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4568.jsonl",
+        "bytes": 251064,
+        "sha256": "ccbefbbe6add3e96b8e1c5671946f16b100ff50da1180fcacf8c64ee16d06ae6"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4569.jsonl",
+        "bytes": 257429,
+        "sha256": "dfb0208b99d2e5f9cf6535602d7d19a76f047109a6891b3b15ff556453d83fa1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-005.jsonl",
+        "bytes": 47776,
+        "sha256": "079c0e0acd82f90fc92fcf91c20d33c3676db4e9e5d79ad457f5af238ec4f4ca"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-004.jsonl",
+        "bytes": 47777,
+        "sha256": "af27b484aa4e0cfbbb0d4df4728f851c8089f244287cf29b216259d844d916e9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4569.json",
+        "bytes": 230627,
+        "sha256": "580be3fb5f51bdb3e4ce04637df39701dd8488ff479a2b590d5248d7c1482da5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4570.jsonl",
+        "bytes": 239500,
+        "sha256": "ed9fee7915c452df721839be2b1d4046cc56fdaef02c0eb4a5d5a512181e01d2"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4571.json",
+        "bytes": 232320,
+        "sha256": "1a681b89815552387afafa1bca9607497753bed82a135809151482d63e3d41ae"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4570.jsonl",
+        "bytes": 252348,
+        "sha256": "94e964ea8521d079ed088d4314b7bfcf96700eaeb0d755004eae169f56017a8c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4568.jsonl",
+        "bytes": 252765,
+        "sha256": "95d9dd376cf2c4ffbfdcc9d412a0afe2bd7c68fe85df473901c2ca4189350169"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4569.jsonl",
+        "bytes": 250772,
+        "sha256": "609a46773c55db11a18ecc4f82b94beab8bb97b2017eb170b6bad57ef29bc82b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4567.json",
+        "bytes": 238347,
+        "sha256": "c706de23849642d1ff86cf0b5f01afee03e9ad39874f4aa7cad1c16f0678bfd5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4568.json",
+        "bytes": 225954,
+        "sha256": "00dfe3bc5a979a3c4cc8f26888ff2b4caf98f092a69e1dfdabd130e117704e78"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4569.json",
+        "bytes": 231510,
+        "sha256": "38778662d10c0239fd6b5488d4f3a0235b339a51b02955e607ec39c8a44e65ab"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-017.jsonl",
+        "bytes": 51967,
+        "sha256": "03570154295eff1ed2634ec17626da31bc64b06a17305c34e8f2a03979b2aa13"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-023.jsonl",
+        "bytes": 53717,
+        "sha256": "bc81eebcee7fd56c0b5238b7393d9c0f475f66b1a701384caac4644bbd1aa980"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4569.json",
+        "bytes": 231830,
+        "sha256": "7a2f156e6c59e2ce53fa61cf5546efc8f59f25ef8ccc38f44d9bc286db30e4d1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4571.jsonl",
+        "bytes": 251374,
+        "sha256": "8e1df2b3ff1fec1e7c7a819484eef4b343692734a0544ad1be58131141abecb1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B1_Random_Search-s4571.jsonl",
+        "bytes": 251803,
+        "sha256": "d559a79d1aed956a0863951cdfe07bbb982a354835983828e40f78c7bd93db8c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-019.jsonl",
+        "bytes": 52038,
+        "sha256": "940aa5abc72d2d3d5c778fcd0e589bba841ded9cecc99e8b5173ecc5789de4a3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4571.jsonl",
+        "bytes": 239580,
+        "sha256": "0f34a8d9b1a347296b6d04c931aaa0de07ead9fa35138298ec61c88699273697"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/wave4-proof-raw-B0_CT35_Equal_Budget-s4568.jsonl",
+        "bytes": 239515,
+        "sha256": "e668ecc74a21922de2587fb82c973feeadb13bb574424165818ac730416b83a9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-2840912-1792158636587837031/reference-family-016.jsonl",
+        "bytes": 49943,
+        "sha256": "da4fca177a988d11815eee7b1bcebe8160b851c54d6f7c575a5d3c0ebe86d91c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-006.jsonl",
+        "bytes": 49542,
+        "sha256": "65606f4728b123628c755be82eb0a17ff688b1ba0ec14d77304727138e2bf250"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4571.jsonl",
+        "bytes": 250387,
+        "sha256": "97e58d10de0093ad9cea684735585add4b235cc015ff45cd2b6f5f7d6649017a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4570.jsonl",
+        "bytes": 253610,
+        "sha256": "b3a6aa26e1f5bf055a7d55764fbba02965127e00e9ab717c2c73ee9a20e32e4b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4568.json",
+        "bytes": 219823,
+        "sha256": "04c1452360329bd09e73199573354300301d2353923f119977744b468080998e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/holdouts.jsonl",
+        "bytes": 1581966,
+        "sha256": "6a9f2558900c7c22e044be437ca730822a2f4a7d4908be5ba65da81a8a32aed4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4568.jsonl",
+        "bytes": 253762,
+        "sha256": "fbd7e1db8a475a028d73fd4ef776e3c16e7d8d961e7e7c3ca574f577046040fc"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4568.json",
+        "bytes": 230964,
+        "sha256": "58e855c46d6d804212b1e5ea3ef0cea28073f03ab96a93c3b2cbcb8802ed7ade"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4571.jsonl",
+        "bytes": 252506,
+        "sha256": "e63d6fe9a2491cec4328d9a1447f75169836b3d956a44a16084c127386394429"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4569.json",
+        "bytes": 219818,
+        "sha256": "649021ad74e9444cb6de7e212499adef6ccf4d7f09310eff18e3a1e96c7aed1a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-018.jsonl",
+        "bytes": 49929,
+        "sha256": "71d9e03e1df07f6a1d849a6371a6cbf66f4feef92b90e7db1b78c0281f79a2ea"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4571.json",
+        "bytes": 219818,
+        "sha256": "a485dafed2723aa314780267dab86d501bb4ff94e2d06ec473bf19073e2e5988"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-baseline-ct35-b0.jsonl",
+        "bytes": 46106,
+        "sha256": "19f6741bad7794d55229bfcac2ae3ac8f6af5f58406669ed7bdedbd193519ae7"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4569.jsonl",
+        "bytes": 251703,
+        "sha256": "63aee54d80b0b2f9d4ef48f4724407bf6af7adae199a5e679770d18dbbb6a0d7"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4570.json",
+        "bytes": 233394,
+        "sha256": "54db60a175f584d9a0b16dd2107ca3f9f943fe704e8212b43c3b9c249a58145a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4567.jsonl",
+        "bytes": 258566,
+        "sha256": "ed6346b30a9e071fa869f9d405a10bb569694e575589c6b342827f4df1afb7ad"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4567.json",
+        "bytes": 227456,
+        "sha256": "e4be032dc6e817bef7920627a05f789b294815e4320f62524cff3b55736e6fec"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4568.json",
+        "bytes": 233599,
+        "sha256": "6762daa8b785200db04635a7311e181f328b3b503c84dcaa536f491b50f985fd"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4570.jsonl",
+        "bytes": 262903,
+        "sha256": "b785a8861c41b2e3f19ce24647bd03c6a0accbf683aade46cf7a259390c67c05"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4571.json",
+        "bytes": 231190,
+        "sha256": "f61f441d181a6b189b350c586ed4ff840ab42eb30605ac093fc550c4d4764d87"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4568.jsonl",
+        "bytes": 255849,
+        "sha256": "8f4b920bafc029e5a64ba8056b1186bfb614062d263543734c334073b2248d92"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4571.jsonl",
+        "bytes": 250855,
+        "sha256": "3cd8f7f257f4250f51e88ad3a26ee9d0e9e546a3f82c1adf888c20e216e02d24"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-020.jsonl",
+        "bytes": 52032,
+        "sha256": "dacdd055f9a871ce23a70b588f8dba6bc297ffcb1eea2b7db0ddff35026a607a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-002.jsonl",
+        "bytes": 47406,
+        "sha256": "5c8107a6369ee20e3f860c69769e81b613814a467bc5aedf52f90f2afb3553bf"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4569.jsonl",
+        "bytes": 250111,
+        "sha256": "777f7d7ef6603cb1d8ad7115dd1c0a316ca518a2954a77c9dd83d98ae8303632"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4570.jsonl",
+        "bytes": 253593,
+        "sha256": "77a03e4beab1b7b0c1ae82172dc78498dc192331fb93e01aa78a6700b00e1ee9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4571.json",
+        "bytes": 230710,
+        "sha256": "338c3c7bc274ac66294cff7d8029dee4552c1643ebec20a86b57612ffd11cc62"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4570.json",
+        "bytes": 219803,
+        "sha256": "aa0fabeb7fd31b3c278749cfcba7b82a25a6edb7f1aa12aef58bf49442dccbc6"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4570.jsonl",
+        "bytes": 247949,
+        "sha256": "a0ef3f31352646f263c095d57d17489a23c013176bb43d7dfe51fb0dfef032b9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-003.jsonl",
+        "bytes": 47405,
+        "sha256": "f2eecedfcd6ded4b2b97aed623362cd370016e5da7dd33b75f740b8dd2b4009a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4567.jsonl",
+        "bytes": 247512,
+        "sha256": "a2d62061fc7fff22a387a4aa52dbafbba32b8a301572d50c73d25ba550d838c6"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4570.json",
+        "bytes": 242662,
+        "sha256": "47f874812c927d3aad4191792e70bf65b2bbc3019f9047b0b78926fd93f770d4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4567.jsonl",
+        "bytes": 251899,
+        "sha256": "ad93fd15b27cdfaa2658d27e46ec9f7683c8fc76ffa0008e9a10f10357030e15"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4567.json",
+        "bytes": 231029,
+        "sha256": "bff1f9bfb07bebc2986b657c9faec99131845198c3a69a7786e7b3bbfc937d10"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4569.json",
+        "bytes": 237185,
+        "sha256": "52d3327a4539f7358d138f020a09e56fe09524eb901ea97db57f1eea885c5faf"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-022.jsonl",
+        "bytes": 50303,
+        "sha256": "3cfd56365b9b065d43c6fca803530fa5104cdfde7d3d5f462a4a9bebb0d11ea5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-008.jsonl",
+        "bytes": 48372,
+        "sha256": "68e9c8a94f51d3a5c2cda5b0821e61c87395643a9dd27d0ba0213be0c0ec99e4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-013.jsonl",
+        "bytes": 51985,
+        "sha256": "d58512b8cee37f17d8fc3064b08d5767e6443aa0b0dbf095db0dd6fe9fc67e2c"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/operating-duty-holdouts.jsonl",
+        "bytes": 2518,
+        "sha256": "570c97c717f09ca78abbb76c78734cabf9a7969b5839f9d30ca2e583e114c49e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4571.json",
+        "bytes": 231594,
+        "sha256": "33090ecce9d2114269afcc823b881cdf6278073f81d15035e22a2920b6b2172a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-010.jsonl",
+        "bytes": 47037,
+        "sha256": "9112798d17ec2892e46b56862ce13ff5768485e5c846a14ce3385daae14c3f7f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-000.jsonl",
+        "bytes": 46114,
+        "sha256": "f01bf94dcce5db31f377499453d16ca63c81e4850c8f9b86c54b57617bd08b80"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-021.jsonl",
+        "bytes": 50315,
+        "sha256": "abf2b9b39f08827c34d2b856cb07b19dc4b23e674bec3f92a326fb39c7822964"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-025.jsonl",
+        "bytes": 51974,
+        "sha256": "4b60d4d270697a42931affb61608d4f4e1975ff7d31c73f14d3215ae8508374b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4569.jsonl",
+        "bytes": 251945,
+        "sha256": "1f9a482137571ee68013a2329a6237da828b257be39824a0bfed2fa560b6f1c9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4567.json",
+        "bytes": 231725,
+        "sha256": "b20bda8f82f88bcfac4d92287afd1226fd5f94c6aed0d24e48cb363484467165"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-001.jsonl",
+        "bytes": 47411,
+        "sha256": "00a45d7a7c8cb73f821c80b0bda21cd9dc45230f85d22b2bdcd0b3515c5c17d5"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-012.jsonl",
+        "bytes": 47045,
+        "sha256": "cf7555a685a0246b7d3f5b9028b286da80c8d01203fb234ee609506060d6ee60"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/proof-summary.json",
+        "bytes": 427146,
+        "sha256": "072cf1a4d8584b90d94436c7f5cff221e174f6a41b57e756fc1fcc516447aa5e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-026.jsonl",
+        "bytes": 51973,
+        "sha256": "4b5cf72ac96633a420b0758598740d0c170472dc12c543c3cf9cea31d26b1c62"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4567.jsonl",
+        "bytes": 254284,
+        "sha256": "bd8fb2513ea891edfe77f8120411f0032ebe9de2b5a50aa2d4e1a8ca4cd58578"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-007.jsonl",
+        "bytes": 48384,
+        "sha256": "71dfc7f2aef36815b976e44c9150b10c35740c903e20bdb12bd5d9858d3b0bd3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-014.jsonl",
+        "bytes": 49908,
+        "sha256": "f0b9d1cf1c10b654a1d516616761a8dd9b7547a07a7416a2dcf7810a2ef28f12"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4567.json",
+        "bytes": 219803,
+        "sha256": "b5a74f905d92557c15a7d172ddb585f3a5cdbe42d190dd892f2e0ce9eff385d3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-024.jsonl",
+        "bytes": 53705,
+        "sha256": "fe6c87c1cd6623d16bdab6730270a1305d4fd294286e4b938eef8ea0bf873ed3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4569.jsonl",
+        "bytes": 239556,
+        "sha256": "f2dc67b6af25e1f178bd12721189c74f5bb799cfc3a41c2400338994c2259103"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4569.json",
+        "bytes": 230026,
+        "sha256": "8a40fea5d590222a3e2d1ee921276e8b494d1c5522da0f9d10534e1fdfc94f06"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-holdouts.json",
+        "bytes": 105766,
+        "sha256": "1a0a7612726232d0728d654063176ea97a3f4eab341c447335850b1ac010baba"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4567.jsonl",
+        "bytes": 251213,
+        "sha256": "66cc5bc77ea957c493e0f917fd606033ee180c0d785b8f5be5c611be2f4a9fcd"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/capture-provenance.json",
+        "bytes": 3460,
+        "sha256": "542c99684c6098e636bd3d07199bbb97975e10edc95828ed4c6ba5d6dc70d73a"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-015.jsonl",
+        "bytes": 50234,
+        "sha256": "4625d26f5d9e0a6ceb2fa243d6847cb1402ee7cdf525c9fd5adc62dfac83715b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4571.json",
+        "bytes": 230273,
+        "sha256": "129578a6721d1afbc6536f265cd0f7878d730384db703836858f63f05291cc9e"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4568.json",
+        "bytes": 235602,
+        "sha256": "beaa932c72b12144488b40d45db13241218f4c801082a760c6340b05ec2b0d2d"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4568.json",
+        "bytes": 232569,
+        "sha256": "b0bc346955bac8b2bfc7c3587649ada6927a63090fe7f51f10c23536fd1250ef"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-reference.json",
+        "bytes": 42813,
+        "sha256": "121d89b68af5f19ed4bd140e7171bac80160747d296c1911f8b2892a39235800"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4567.json",
+        "bytes": 234067,
+        "sha256": "2725adb36397a4907a236848b8b6bae813429c7048f75db017cd4f67a1ceb6c4"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4568.jsonl",
+        "bytes": 245913,
+        "sha256": "f05cdf8db7996369209152d30410bef2c8ee9794bb79aaa50bfa8bf6e93429bf"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A2_No_Selection_Random_Walk-s4570.json",
+        "bytes": 233374,
+        "sha256": "838ee3e848676637ea312369f4df162c79c744c1b706ed97ef116cf814c288bf"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-009.jsonl",
+        "bytes": 48370,
+        "sha256": "f8597d6573e15b180378f0ae2bc77a46ed3ba04fe5da28de98096904e5bb1d23"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/manifest.json",
+        "bytes": 17590,
+        "sha256": "057e7209c42ff9378a8cffa8158f6619b71702407fefe87e27c90bb961159278"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4570.json",
+        "bytes": 232137,
+        "sha256": "16423d1d068037891ecc66dc9e4503172777489a76a06e067300530ebd622025"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-011.jsonl",
+        "bytes": 47026,
+        "sha256": "5ac48f7f641750a2564d32df5aa24909a7f1910f5f763e643463f69b5200e6bb"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4567.jsonl",
+        "bytes": 239471,
+        "sha256": "3446b29b1f1e9489ff901003b091cd854fabd116061f38d2aaece21247b73275"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4570.json",
+        "bytes": 227938,
+        "sha256": "39c02b5ceb219371635384c520b8be2d0d8bc74a4fc42c0520accf31c29aa060"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4568.jsonl",
+        "bytes": 251065,
+        "sha256": "b5933802dd434f3da067301745a75b4ee938a16e0f58f5e5f800974998ed855d"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4569.jsonl",
+        "bytes": 257430,
+        "sha256": "d3bdfa1ec6697626ac6c0c2a28b127b83a41654412ea124e5f9dcf79d8002021"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-005.jsonl",
+        "bytes": 47776,
+        "sha256": "079c0e0acd82f90fc92fcf91c20d33c3676db4e9e5d79ad457f5af238ec4f4ca"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-004.jsonl",
+        "bytes": 47777,
+        "sha256": "af27b484aa4e0cfbbb0d4df4728f851c8089f244287cf29b216259d844d916e9"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4569.json",
+        "bytes": 230627,
+        "sha256": "2d32cb16b5ae26576fbc13c21b8ef3d7467033970e7be1b4f307be4a30749302"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4570.jsonl",
+        "bytes": 239501,
+        "sha256": "d344913cb55c9ebbb579db49d1520ba2c74e47ad1968f33665cc3891377c04a3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4571.json",
+        "bytes": 232320,
+        "sha256": "fd0b01af6643539387e3f49088cadd7461e3f2ac46bf7eb9106eb6f54cff148b"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4570.jsonl",
+        "bytes": 252349,
+        "sha256": "67705dd989f6fb9aa070ee9ff2881ae59cbed7b2c0105b83aee18da2ee8c054f"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4568.jsonl",
+        "bytes": 252766,
+        "sha256": "42c6a1c4d1a9523e6f5c687e250ce6c20085cd587cc1da31332c18c54bf0fdc0"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4569.jsonl",
+        "bytes": 250773,
+        "sha256": "0fa8f6ac5667e52f0109d04e4dfb85dd990fb44ce35c9aa3416a7c456c51a9e1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4567.json",
+        "bytes": 238347,
+        "sha256": "cc9574fdccae41be12e1d62feef47e5d30ed25ac7024520da7e4af1a4cb9fe00"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4568.json",
+        "bytes": 225954,
+        "sha256": "d3f843077aebe24cf4bb94f6ccf0470a57ff5d41c48ceb7a2a31e347271d44dd"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B2_Conventional_Axisym_NSGA2-s4569.json",
+        "bytes": 231510,
+        "sha256": "660a42f32c483e6cfb44c6f3a936fc7a07ff73f69de9472a053c31f2ccfdc7e1"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-017.jsonl",
+        "bytes": 51967,
+        "sha256": "03570154295eff1ed2634ec17626da31bc64b06a17305c34e8f2a03979b2aa13"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-023.jsonl",
+        "bytes": 53717,
+        "sha256": "bc81eebcee7fd56c0b5238b7393d9c0f475f66b1a701384caac4644bbd1aa980"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B3_Wave3_Exotic3D_QD_CEI-s4569.json",
+        "bytes": 231830,
+        "sha256": "4c096cb96a896e7f4fc05e771c9acad3deaf3cbb88dd200cb57a92b0ab0e87e0"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-A1_No_Mutation_Crossover_Only-s4571.jsonl",
+        "bytes": 251375,
+        "sha256": "8c414bcc9393abb3e7d0e6969d3d64a27841c20be55cd7fd76eb63487021cdfa"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B1_Random_Search-s4571.jsonl",
+        "bytes": 251804,
+        "sha256": "5b13080d8944a53bf55d867f142ae1bf0b4aea6e59fec1a0129408c476eae6eb"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-019.jsonl",
+        "bytes": 52038,
+        "sha256": "940aa5abc72d2d3d5c778fcd0e589bba841ded9cecc99e8b5173ecc5789de4a3"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4571.jsonl",
+        "bytes": 239581,
+        "sha256": "95d84275c58381537fa2fc889b81846f4a4044bd2c95798f68bc1d50f9a1be17"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/wave4-proof-raw-B0_CT35_Equal_Budget-s4568.jsonl",
+        "bytes": 239516,
+        "sha256": "e29143384038d15d4cb321bfcd48a6cb05c04021bfec78f436ea4f8342d80ece"
+      },
+      {
+        "path": "target/truth-raw-capture-tests/parity-3452682-1792158924965356675/reference-family-016.jsonl",
+        "bytes": 49943,
+        "sha256": "da4fca177a988d11815eee7b1bcebe8160b851c54d6f7c575a5d3c0ebe86d91c"
+      }
+    ]
+  }
+}
