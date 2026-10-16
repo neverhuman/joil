@@ -28,6 +28,7 @@ jobs:
     env:
       RUSTUP_TOOLCHAIN: 1.95.0
       CARGO_INCREMENTAL: '0'
+      MPLCONFIGDIR: ${{ github.workspace }}/.private/matplotlib
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -62,6 +63,12 @@ jobs:
           node-version: 22.22.0
           cache: npm
           cache-dependency-path: apps/explorer/package-lock.json
+      - name: Install pinned plotting dependency for Python checks
+        if: matrix.suite == 'python-tests'
+        run: |
+          python3 -m venv .private/ci-python
+          .private/ci-python/bin/python -m pip install --disable-pip-version-check --cache-dir .private/pip-cache 'matplotlib==3.10.8'
+          echo "$GITHUB_WORKSPACE/.private/ci-python/bin" >> "$GITHUB_PATH"
       - name: Run suite with exact logs and receipt
         env:
           CHECK_SUITE: ${{ matrix.suite }}

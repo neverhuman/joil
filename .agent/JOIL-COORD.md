@@ -9,7 +9,7 @@ Commit board changes on YOUR lane branch only for your row/locks; integrator rec
 |---|---|---|---|---|---|---|
 | INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | active (INT-01 DONE, merging TR-05/06) | 2026-10-16T05:18:00Z |
 | TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | active (TR-05/06 DONE, TR-01 WIP) | 2026-10-16T05:16:57Z |
-| EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | EV-01..05/07/08/11 DONE; EV-06/09/10/12 BLOCKED (scoped handoffs/evidence) | 2026-10-16T05:53:40Z |
+| EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | CI-MATPLOTLIB verified; EV-06 physical admission BLOCKED; prior lane handoff retained | 2026-10-16T06:45:36Z |
 | IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | active (IR-01 WIP) | 2026-10-16T05:16:50Z |
 | DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | active (DOC-01 DONE, DOC-02 WIP) | 2026-10-16T05:13:41Z |
 
@@ -48,3 +48,5 @@ UNLOCK 2026-10-16T05:46:21Z EV Cargo.lock
 UNLOCK 2026-10-16T05:46:21Z EV tools/check.py
 UNLOCK 2026-10-16T05:46:21Z EV tests/test_check.py
 UNLOCK 2026-10-16T05:53:40Z EV tools/gen_status.py
+LOCK 2026-10-16T06:40:46Z EV .github/workflows/foundation.yml fix missing pinned Matplotlib in CI python-tests; project-local venv only
+UNLOCK 2026-10-16T06:45:36Z EV .github/workflows/foundation.yml pinned matplotlib==3.10.8; isolated regression + PNG render + full gate 10/10 + actionlint PASS; receipt crates/joil-evidence/receipts/CI-matplotlib.json
