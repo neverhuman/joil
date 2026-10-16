@@ -100,10 +100,11 @@ the PR; Jepson merges.
    and campaigns are sandbox-only.
 6. **No independent surrogate labels.** OOD metrics are "insufficient evidence" by design, and the per-label
    KPI error is `null`.
-7. **The Wave-4 CFD runs have incomplete case identity.** EV's every-run audit lists `12` case directories: `3`
-   active cases pass, and `9` quarantined cases fail. Five solved meshes were pruned before capture, and one
-   retained case no longer matches its recorded hash. Several solved runs therefore cannot be re-bound to their
-   exact meshes (EV-12 blocked for those runs).
+7. **The Wave-4 CFD runs have incomplete case identity.** EV's every-run audit listed `12` case directories at
+   09:54Z (`3` active cases pass, `9` quarantined cases fail). Five solved meshes were pruned before capture, and one
+   retained case no longer matched its recorded hash. By 10:15Z that failed case had been removed (`11` directories,
+   `3` pass, `8` fail); EV records the removal as neither a pass nor a recovery. Several solved runs cannot be
+   re-bound to their exact meshes (EV-12 blocked for those runs).
 8. **Audit limits.**
    - The public Wave-4 receipt drops per-proposal repair records, so individual repairs and pedigrees cannot be
      audited from it.
