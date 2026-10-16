@@ -24,6 +24,8 @@ class ContractTests(unittest.TestCase):
                  'baselines/ct35/genome.json', 'crates/joil-evidence/registry/status-registry.json',
                  'crates/joil-evidence/registry/legacy-status-before-v4.json',
                  'crates/joil-evidence/receipts/EV-01-05.json', 'docs/STATUS.json']
+        registry = json.loads((ROOT/'crates/joil-evidence/registry/status-registry.json').read_text())
+        names.extend(entry['receipt']['path'] for entry in registry['software'])
         for name in names:
             destination = root/name
             destination.parent.mkdir(parents=True, exist_ok=True)
@@ -71,6 +73,17 @@ class ContractTests(unittest.TestCase):
         for raw in ['{"a":1,"a":2}', '1e999', '1e-999', 'NaN', '{"é":0,"e\\u0301":1}']:
             with self.assertRaises(ValueError):
                 strict_json(raw)
+
+    def test_requirements_cannot_self_upgrade_with_missing_limits(self):
+        root = self.fixture()
+        requirement = root/'requirements/joil-hydrocyclone-v1.toml'
+        original = requirement.read_text()
+        requirement.write_text(original.replace('admission = "sandbox_only"', 'admission = "admitted"'))
+        with self.assertRaisesRegex(ValueError, 'cannot admit unresolved'):
+            generate(root)
+        requirement.write_text(original.replace('min_n_p05_p95 = 72', 'min_n_p05_p95 = 3'))
+        with self.assertRaisesRegex(ValueError, 'weakened tail'):
+            generate(root)
 
 
 if __name__ == '__main__':

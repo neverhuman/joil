@@ -311,7 +311,7 @@ impl GaussianProcessSurrogate {
                         .ok_or("missing features cannot enter performance regression")?;
                     if !cout.is_finite() || features.iter().any(|v| !v.is_finite()) {
                         return Err(
-                            "non-finite feature or target in ValidPhysicalScreen record".into()
+                            "non-finite feature or target in sandbox prior-screen record".into(),
                         );
                     }
                     valid.push((features, cout));
@@ -857,7 +857,7 @@ pub fn run_surrogate_and_engine_qualification(
         .is_err();
 
     Ok(SurrogateQualificationReport {
-        schema_version: 1,
+        schema_version: 2,
         kind: "sandbox_prior_screen_cross_validation_not_independent_ood".to_string(),
         independent_label_validation: joil_evidence::observation::Observation::Insufficient {
             reason: "Legacy candidate targets are derived from the reduced model; family folds are sandbox diagnostics".into(),
