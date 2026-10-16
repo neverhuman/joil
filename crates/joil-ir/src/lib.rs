@@ -3428,19 +3428,25 @@ impl VoxelSdfObserver {
         fluid_components: usize,
         trapped_cavities: usize,
     ) -> PhenotypeTaxon {
-        let v_cnt = mesh.vertices_m.len() as i64;
+        let ref_v_cnt = {
+            let mut s = BTreeSet::new();
+            for &[a, b, c] in &mesh.triangles {
+                s.insert(a);
+                s.insert(b);
+                s.insert(c);
+            }
+            s.len() as i64
+        };
         let f_cnt = mesh.triangles.len() as i64;
         let e_cnt = (f_cnt * 3) / 2;
-        let euler = v_cnt - e_cnt + f_cnt;
+        let euler = ref_v_cnt - e_cnt + f_cnt;
 
         let measured_inlets = mesh.measure_disjoint_inlet_paths();
         let measured_outlets = 2usize;
-        let internal_branch_cycles = measured_inlets.saturating_sub(2);
         let betti_0 = fluid_components.max(1);
         let betti_2 = 1 + trapped_cavities;
-        // Exact 2-manifold surface genus g = (2*S - chi)/2 where S = betti_0 + trapped_cavities = betti_2 (`IR-R5`)
-        let surface_genus = (((betti_0 + betti_2) as i64 - euler) / 2).max(0) as usize;
-        let betti_1 = surface_genus.max(internal_branch_cycles);
+        // Exact 2-manifold surface genus g = (2*S - chi)/2 where S = betti_0 + trapped_cavities = betti_2 (`IR-R5`, `G-11`)
+        let betti_1 = (((betti_0 + betti_2) as i64 - euler) / 2).max(0) as usize;
 
         // Recover azimuthal harmonic spectrum on z in [0.025, 0.055] m directly from mesh vertices
         let mut chamber_pts = Vec::new();
