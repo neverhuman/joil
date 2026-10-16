@@ -85,8 +85,8 @@ Quick start — tests, the Wave-3 screen study, figure generation and verificati
 
 ```bash
 rtk cargo test --workspace --locked
-rtk cargo test -p joil-core --test regression genome_expressiveness_11family_sampling_and_exotic_3d_gallery_audit -- --nocapture
-rtk cargo test -p joil-core --test regression operator_random_walk_20step_11family_watertight_stress_test -- --nocapture
+rtk cargo test -p joil-core --test regression closed_catalog_validity_11family_sampling -- --nocapture --exact
+rtk cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact
 rtk cargo run -p joil-cli -- baseline
 rtk cargo run --release -p joil-cli -- export-3d-preview
 rtk cargo run --release -p joil-cli -- wave2-benchmark
@@ -101,7 +101,7 @@ rtk proxy sh -c 'export PATH="/home/ubuntu/joil/.private/node-runtime/bin:$PATH"
 rtk proxy python3 tools/check.py
 ```
 
-Closed-catalog validity audits (`crates/joil-core/src/program.rs`; software contract, not open-ended expressiveness). `DesignProgram::audit_11family_genome_expressiveness(20, 20261116)` draws `N = 220` samples (`20` per label across the eleven labels listed in [`docs/GENOME.md`](docs/GENOME.md) §4) and finds `220 / 220` (`100.0%`) pass `canonicalize_and_preflight`, with closed ring surfaces (`0` open/non-manifold edges, arithmetic min clearance `>= 1.24 mm`, min Jacobian `1.000`). `0 / 30` (`0.0%`) out-of-bounds controls pass; they fail parameter bounds. `DesignProgram::audit_11family_operator_random_walk(20, 20261116)` chains `20` operator steps from each of the `11` labels (`220` steps, `85` label changes) and finds `220 / 220` (`100.0%`) passing steps. Because the ring surface is closed by construction and failed operators silently returned `CT-35` before TR-01, these counts are upper bounds on validity and say nothing about new topology (renderings in [Figure Plate 9](docs/figures/wave2-8-exotic-phenotypes-gallery.png)).
+Closed-catalog validity audits (`crates/joil-core/src/program.rs`; software contract, not open-ended expressiveness). `DesignProgram::audit_11family_genome_expressiveness(20, 20261116)` (since renamed `closed_catalog_validity`) draws `N = 220` samples (`20` per label across the eleven labels listed in [`docs/GENOME.md`](docs/GENOME.md) §4) and finds `220 / 220` (`100.0%`) pass `canonicalize_and_preflight`, with closed ring surfaces (`0` open/non-manifold edges, arithmetic min clearance `>= 1.24 mm`, min Jacobian `1.000`). `0 / 30` (`0.0%`) out-of-bounds controls pass; they fail parameter bounds. `DesignProgram::audit_11family_operator_random_walk(20, 20261116)` (since renamed `operator_chain_validity`) chains `20` operator steps from each of the `11` labels (`220` steps, `85` label changes) and finds `220 / 220` (`100.0%`) passing steps. Because the ring surface is closed by construction and failed operators silently returned `CT-35` before TR-01, these counts are upper bounds on validity and say nothing about new topology (renderings in [Figure Plate 9](docs/figures/wave2-8-exotic-phenotypes-gallery.png)).
 
 Optional exact CAD, inside a project environment with **Python 3.12** (on macOS, `uv venv --python 3.12 .venv` can create it):
 

@@ -67,6 +67,8 @@ def build_receipt_bundle(root: Path = ROOT) -> dict[str, Any]:
         "cfd_bench": load_json("docs/results/exotic-vs-baseline-cfd-benchmark-v1.json", root),
         "gci_rsm": load_json("docs/results/elite-3grid-gci-and-rsm-verification-v1.json", root),
         "wave2_5run": load_json("docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json", root),
+        "gci_rsm_v2": load_json("docs/results/elite-3grid-gci-and-rsm-verification-v2.json", root),
+        "wave2_5run_v2": load_json("docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json", root),
         "wave2_prereg": load_json("experiments/wave2-preregistration-v1.json", root),
         "wave2_ablation": load_json("docs/results/wave2-multiseed-ablation-and-holdout-v1.json", root),
         "wave3_proof": load_json("docs/results/wave3-evolution-proof-v1.json", root),
@@ -116,6 +118,8 @@ def verify_paths_and_sha256_digests(
         "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json",
         "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
         "docs/results/wave3-evolution-proof-v1.json",
+        "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+        "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
         "docs/results/interactive-3d-archetypes-v1.json",
         "docs/results/baseline-hydraulics-v1.json",
         "experiments/wave2-preregistration-v1.json",
@@ -256,6 +260,23 @@ def verify_seed_robustness_and_structured_claims(
 
     t_b3_b1 = w2_tests[("cout_p95_mg_l", "B3_Exotic3D_QD_CEI", "B1_Random_LHS")]
 
+    # v2 GCI dossiers (TR-07/INT-05): every executed sequence is Oscillatory, so no observed
+    # order or standard GCI may be reported; WHITEPAPER must say so and cite the conservative bounds.
+    v2_gci = bundle["gci_rsm_v2"]["roache_gci_analysis"]
+    v2_elites = [
+        bundle["wave2_5run_v2"][k]["roache_gci_analysis"]
+        for k in ("wave2_tpms_gyroid_elite_5run_dossier", "wave2_octa_branch_8jet_elite_5run_dossier")
+    ]
+    for analysis in [v2_gci, *v2_elites]:
+        for quantity in ("dp_u_pa", "hydraulic_loss_j_per_treated_m3", "reject_fraction"):
+            entry = analysis[quantity]
+            if entry.get("gci_validity_state") != "Oscillatory":
+                errors.append(f"v2 GCI {quantity}: state {entry.get('gci_validity_state')} but WHITEPAPER reports Oscillatory")
+            if entry.get("observed_order_p") is not None or entry.get("gci21_standard_fs125_pct") is not None:
+                errors.append(f"v2 GCI {quantity}: observed order/standard GCI present but WHITEPAPER says withheld")
+    if "`Oscillatory` / **`4.98×`**" not in wp or "withdrawn" not in wp:
+        errors.append("WHITEPAPER: v2 GCI validity states or v1 withdrawal statement missing")
+
     # Declarative list of (doc_label, doc_text, actual_value, expected_value, tolerance, required_substring)
     checks: list[tuple[str, str, float, float, float, str]] = [
         # CT-35 geometry & baseline hydraulics
@@ -334,6 +355,9 @@ def verify_seed_robustness_and_structured_claims(
         ("WHITEPAPER", wp, gci_eloss["gci21_standard_fs125_pct"], 12.61, 1e-2, "12.61\\%"),
         ("WHITEPAPER", wp, gci_split["gci21_standard_fs125_pct"], 3.27, 1e-2, "3.27\\%"),
         ("WHITEPAPER", wp, gci_snr["saving_to_3grid_span_ratio"], 4.86, 1e-2, "4.86×"),
+        ("WHITEPAPER", wp, v2_gci["dp_u_pa"]["gci21_conservative_fs300_p1_pct"], 60.88, 1e-2, "`60.88%` ($\\Delta p_u$)"),
+        ("WHITEPAPER", wp, v2_gci["hydraulic_loss_j_per_treated_m3"]["gci21_conservative_fs300_p1_pct"], 67.24, 1e-2, "`67.24%` ($e_{\\text{loss}}$)"),
+        ("WHITEPAPER", wp, v2_gci["reject_fraction"]["gci21_conservative_fs300_p1_pct"], 16.88, 1e-2, "`16.88%` ($r$)"),
         ("WHITEPAPER", wp, gci_snr["saving_to_3grid_eloss_span_ratio"], 6.76, 1e-2, "6.76×"),
         ("WHITEPAPER", wp, dp_u_ssg_vs_lrr_rel_pct, 0.2567, 1e-2, "0.26%"),
         # Section 4.5 P05 & Section 5.2 P06
@@ -769,6 +793,10 @@ def check_review_traceability(synthesis: str, workplan: str) -> tuple[list[str],
         ledger[item] = status
     for item in sorted(workplan_items - set(ledger)):
         errors.append(f"ledger: workplan item {item} missing")
+    for box, item in re.findall(r"^- \[( |x)\] \*\*([A-Z]{2,3}-\d{2}) — ", workplan, re.M):
+        closed = ledger.get(item) in ("MERGED", "MOVED-§6")
+        if (box == "x") != closed:
+            errors.append(f"workplan: {item} checkbox '[{box}]' disagrees with ledger status '{ledger.get(item)}'")
 
     gap_ids = set(re.findall(r"^\| (G-\d{2}) \|", _section(synthesis, "## 5."), re.M))
     seen: set[str] = set()
@@ -870,6 +898,23 @@ def sync_ledger(synthesis: str, board: str) -> str:
     return "".join(out)
 
 
+def sync_workplan_checkboxes(workplan: str, synthesis: str) -> str:
+    """Tick exactly the workplan items the synthesis ledger records as MERGED or MOVED-§6."""
+    closed = {
+        cells[0]
+        for line in _section(synthesis, "## 2.").splitlines()
+        if line.startswith("|")
+        for cells in [_table_cells(line)]
+        if len(cells) == 4 and cells[2] in ("MERGED", "MOVED-§6")
+    }
+    return re.sub(
+        r"^- \[[ x]\] \*\*([A-Z]{2,3}-\d{2}) — ",
+        lambda m: f"- [{'x' if m.group(1) in closed else ' '}] **{m.group(1)} — ",
+        workplan,
+        flags=re.M,
+    )
+
+
 def refresh_review_statuses(synthesis: str, now_utc: str) -> str:
     """Rewrite every finding's Status cell from the §2 ledger and stamp the as-of time."""
     ledger = {}
@@ -962,6 +1007,11 @@ def main() -> int:
         path = args.root.resolve() / REVIEW_SYNTHESIS
         stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")
         path.write_text(refresh_review_statuses(path.read_text(encoding="utf-8"), stamp), encoding="utf-8")
+        plan = args.root.resolve() / REVIEW_WORKPLAN
+        plan.write_text(
+            sync_workplan_checkboxes(plan.read_text(encoding="utf-8"), path.read_text(encoding="utf-8")),
+            encoding="utf-8",
+        )
 
     report = run_claims_audit(args.root.resolve())
     if args.json:

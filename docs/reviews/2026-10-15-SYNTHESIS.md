@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T05:49Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T05:51Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -309,17 +309,17 @@ fixes do. DOC-03 corrects the wording. Code-side owners are in §5.
 Findings with no owning workplan item. These are proposals only. The planner or integrator assigns them
 by adding items, or moves them to workplan §6 with a reason. Requests are posted as `NEED` lines on the board.
 
-| Gap | Finding rows | Proposal | Proposed owner (file ownership per workplan §1) |
+| Gap | Finding rows | Proposal | Owner / decision |
 |---|---|---|---|
-| G-01 | S2-4.09 | F1 DSD bins declare their basis (number/volume/mass) and integrate over bin edges; screening outputs carry the basis | TR (`evolve.rs`) or §6 |
-| G-02 | S4-2.07, DOC-F02 | Bootstrap: run the preregistered 10,000 resamples or amend the preregistration with a versioned reason; name the method (percentile vs BCa) | TR (`evolve.rs`, `experiment.rs`) before INT-04 |
-| G-03 | S4-2.07 | Implement real Latin hypercube for arm `RandomLhsExotic3d`, or rename the arm "uniform random"; docs follow | TR (`evolve.rs`) before INT-04 |
-| G-04 | S4-1.Q | Declare the `round4` quantization as a numeric contract (storage, quantum, rounding mode) | TR (`program.rs`, with TR-05) |
-| G-05 | S3-P0-10 | Rename `exoticness_index` to a name that states it measures gene activation (e.g. `catalog_activation_index`) and keep it out of any novelty claim | TR (`program.rs`) or IR |
-| G-06 | S6-3.9 | Classify tests as software-contract, independent-geometry, numerical-verification, model-validation or scientific-benchmark; report verdicts separately | DOC (docs) + EV (`tools/gen_status.py`) |
-| G-07 | DOC-F01 | Regenerate figure plates whose baked-in titles say "qualification" or "billion trajectories" (Plates 2, 8, 9) | INT (`tools/generate_wave3_*`) / unowned `tools/generate_wave2_figures_and_animations.py` |
-| G-08 | DOC-F03 | Explorer UI (`apps/explorer/src/`) carries family names and claim text; no lane owns it in this workplan | unassigned |
-| G-09 | DOC-F06 | Same-pipeline CT-35 control: run CT-35 through Rust `MultiPatchSurface` at G0/G1/G2 with the same outlet extension as the elites, and re-run the elites with the 0.12 m extension, before any Δp-gain sentence is promoted | INT (compute; with INT-05/INT-06) |
+| G-01 | S2-4.09 | F1 DSD bins declare their basis (number/volume/mass) and integrate over bin edges; screening outputs carry the basis | §6 proposed (workplan §5 decision 10) |
+| G-02 | S4-2.07, DOC-F02 | Bootstrap: run the preregistered 10,000 resamples or amend the preregistration with a versioned reason; name the method (percentile vs BCa) | TR (ACK 2026-10-16T05:24Z; `n_boot = 10000` since `2f24c18`; published intervals used 2,000) |
+| G-03 | S4-2.07 | Implement real Latin hypercube for arm `RandomLhsExotic3d`, or rename the arm "uniform random"; docs follow | TR (ACK 2026-10-16T05:24Z; arm naming with TR-15) |
+| G-04 | S4-1.Q | Declare the `round4` quantization as a numeric contract (storage, quantum, rounding mode) | §6 proposed (workplan §5 decision 10); documented in `docs/GENOME.md` §3 |
+| G-05 | S3-P0-10 | Rename `exoticness_index` to a name that states it measures gene activation (e.g. `catalog_activation_index`) and keep it out of any novelty claim | §6 proposed for code rename (workplan §5 decision 10); docs relabelled in DOC-03 |
+| G-06 | S6-3.9 | Classify tests as software-contract, independent-geometry, numerical-verification, model-validation or scientific-benchmark; report verdicts separately | DOC (docs) + EV (`tools/gen_status.py`); open |
+| G-07 | DOC-F01 | Regenerate figure plates whose baked-in titles say "qualification" or "billion trajectories" (Plates 2, 8, 9) | INT (ACK 2026-10-16T05:33Z) |
+| G-08 | DOC-F03 | Explorer UI (`apps/explorer/src/`) carries family names and claim text; no lane owns it in this workplan | INT (ACK 2026-10-16T05:33Z; owns `apps/explorer`) |
+| G-09 | DOC-F06 | Same-pipeline CT-35 control: run CT-35 through Rust `MultiPatchSurface` at G0/G1/G2 with the same outlet extension as the elites, and re-run the elites with the 0.12 m extension, before any Δp-gain sentence is promoted | INT (ACK 2026-10-16T05:33Z) |
 
 Notes on assigned items (no new item needed):
 
