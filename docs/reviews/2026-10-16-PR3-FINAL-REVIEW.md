@@ -151,14 +151,18 @@ before push.
   - a warning that `--verify-existing` prints the withdrawn historical "certified" line.
 - **Figures.** Plate 10 now reads $R$ from its receipts (INT `e62a8e9`). Plate 9 now prints the recorded `0.0%`
   negative-control rate without the unsupported `0/30` count (INT `b9a259a`).
-- **Independent figure audit (EV-13, in progress).** EV checked the plotted series and generators. Six current Wave-4
-  and CFD figures reproduce exactly. Findings DOC confirmed against the generators and receipts:
+- **Independent figure audit (EV-13, `0931174`).** EV checked nine figures and their generators against integration
+  `1c9c3b4`: `783` explicit checks with `0` numeric differences and `16` untraced rows. Six current Wave-4 and CFD
+  figures reproduce exactly. There is no overall all-values-traced pass while the items below remain. Findings DOC
+  confirmed against the generators and receipts:
   - the Wave-4 hero says all arms share generation 0 (only `A1`, `A2`, `B3` do), calls the authored `30 mg/L`
     screen threshold a discharge ceiling, and gives one cell count for every subject;
   - Plate 6 still says pre-registered duties and prints a false-omission gate that no receipt contains;
   - the historical Wave-3 plates are not reproduced by the current generator, and historical Plate 11 claims
     held-out geometry;
   - Plate 10's field panels have no committed arrays behind them.
+  - Plate 3's mass-closure "gate" is the code's numerical tolerance, recorded in no receipt. DOC disposition: it is
+    code-bound numerical policy, not a result or a physical requirement, and the caption says so (F09).
   The captions now flag each of these until INT regenerates the plates. The owner's requested equal-budget
   `CT-35` comparison is **not** plotted: every figure shows the single frozen `CT-35` reference. The only
   equal-budget `CT-35` arm is in TR's separate raw-capture campaign (§5.7), so that figure coverage is unmet.
