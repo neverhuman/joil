@@ -44,9 +44,18 @@ def same(actual, expected):
     return actual == expected
 
 
+def dispatch_line(call, line_map):
+    """An explicitly reviewed new->original line map preserves old audit pins."""
+    return line_map.get(call['source'], {}).get(str(call['line']), call['line'])
+
+
 class Audit:
-    def __init__(self, root, capture):
-        self.root, self.capture = Path(root), capture
+    def __init__(self, root, capture, line_map=None):
+        self.root, self.capture = Path(root), copy.deepcopy(capture)
+        for figure in self.capture['figures'].values():
+            for call in figure['calls']:
+                call['source_line_at_capture'] = call['line']
+                call['line'] = dispatch_line(call, line_map or {})
         self.rows, self.covered = [], set()
         self.cache = {}
 
@@ -74,7 +83,7 @@ class Audit:
         c = self.capture['figures'][fig]['calls'][idx]
         actual = c['kwargs'][part] if isinstance(part, str) else c['args'][part]
         self.covered.add((fig, idx))
-        self.add(fig, f"{c['method']}@{c['source']}:{c['line']} call{idx} {part}", actual, expected, refs, transform)
+        self.add(fig, f"{c['method']}@{c['source']}:{c['source_line_at_capture']} call{idx} {part}", actual, expected, refs, transform)
 
     def vector(self, fig, idx, part, file, pointers, factor=1):
         expected = [self.get(file, p)*factor for p in pointers]
@@ -367,7 +376,7 @@ class Audit:
                     self.text(fig,8,format(self.get(file,p),fmt),[file+'#'+p])
             else:
                 self.covered.add((fig,i))
-                self.rows.append(dict(figure=fig,series=f'{c["method"]}@{c["source"]}:{line}',sources=[],status='UNTRACED',reason='private U/p/k/mesh-derived field or profile array; no committed numeric JSON source',array_digest=hashlib.sha256(json.dumps(c['args'],sort_keys=True).encode()).hexdigest()))
+                self.rows.append(dict(figure=fig,series=f'{c["method"]}@{c["source"]}:{c["source_line_at_capture"]}',sources=[],status='UNTRACED',reason='private U/p/k/mesh-derived field or profile array; no committed numeric JSON source',array_digest=hashlib.sha256(json.dumps(c['args'],sort_keys=True).encode()).hexdigest()))
         for axis,file,prefix in [(0,G1,''),(1,G2,'/'+TP)]:
             for key,fmt,factor in [('cells',',d',1),('dp_u_pa','.2f',.001)]:
                 p=prefix+'/grids/1/'+key;self.text(fig,axis,format(self.get(file,p)*factor,fmt),[file+'#'+p])
@@ -424,8 +433,8 @@ class Audit:
         return self.rows
 
 
-def audit(root, captured):
-    worker=Audit(root,captured)
+def audit(root, captured, line_map=None):
+    worker=Audit(root,captured,line_map)
     rows=worker.run()
     return dict(schema_version=1,kind='independent_plot_call_to_committed_json_trace_not_physical_validation',
                 numeric_tolerance=dict(relative=1e-12,absolute=1e-12),
@@ -433,24 +442,24 @@ def audit(root, captured):
                 rows=rows)
 
 
-def self_test(root, captured):
+def self_test(root, captured, line_map=None):
     """Meaningful negatives: wrong seed, wrong arm band, GCI units, dropped call."""
     results={}
-    assert audit(root,captured)['summary']['FAIL']==0
+    assert audit(root,captured,line_map)['summary']['FAIL']==0
     for name,fig,line,part in [
         ('wrong_seed_point','wave4-readme-hero-kpi-and-elite.png',146,1),
         ('wrong_arm_ci','wave4-page1-why-it-matters.png',85,1),
         ('wrong_gci_units','wave4-gci-same-pipeline-control.png',89,1)]:
         changed=copy.deepcopy(captured)
-        call=next(c for c in changed['figures'][fig]['calls'] if c['line']==line)
+        call=next(c for c in changed['figures'][fig]['calls'] if dispatch_line(c,line_map or {})==line)
         call['args'][part][0]=call['args'][part][0]*1000 if name=='wrong_gci_units' else call['args'][part][0]+0.1
-        results[name]=audit(root,changed)['summary']['FAIL']>0
+        results[name]=audit(root,changed,line_map)['summary']['FAIL']>0
     changed=copy.deepcopy(captured)
     changed['figures']['wave4-page1-why-it-matters.png']['calls'].pop(0)
-    results['dropped_plot_call']=audit(root,changed)['summary']['FAIL']>0
+    results['dropped_plot_call']=audit(root,changed,line_map)['summary']['FAIL']>0
     changed=copy.deepcopy(captured)
     changed['figures']['wave4-page1-why-it-matters.png']['committed_sha256']='0'*64
-    results['wrong_capture_png_identity']=audit(root,changed)['summary']['FAIL']>0
+    results['wrong_capture_png_identity']=audit(root,changed,line_map)['summary']['FAIL']>0
     assert all(results.values()),results
     return results
 
@@ -461,10 +470,13 @@ if __name__=='__main__':
     ap.add_argument('--capture',type=Path,required=True)
     ap.add_argument('--output',type=Path,required=True)
     ap.add_argument('--self-test',action='store_true')
+    ap.add_argument('--plot-line-map',type=Path,help='reviewed JSON map: source path -> new line -> original audit line')
     args=ap.parse_args()
     captured=json.loads(args.capture.read_text())
-    result=audit(args.input_root,captured)
-    if args.self_test:result['negative_checks']=self_test(args.input_root,captured)
+    line_map=json.loads(args.plot_line_map.read_text()) if args.plot_line_map else None
+    result=audit(args.input_root,captured,line_map)
+    if line_map is not None:result['reviewed_plot_line_map']=line_map
+    if args.self_test:result['negative_checks']=self_test(args.input_root,captured,line_map)
     args.output.write_text(json.dumps(result,indent=2,allow_nan=False)+'\n')
     print(json.dumps(result['summary']))
     for row in result['rows']:

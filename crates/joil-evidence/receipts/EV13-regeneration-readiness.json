@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "kind": "EV13_regeneration_audit_readiness_not_new_figure_clearance",
+  "created_utc": "2026-10-16T12:24:09.028367+00:00",
+  "status": "WAITING_FOR_COMMITTED_INT_REGENERATED_FIGURES",
+  "new_figures_audited": false,
+  "original_audit_commit": "0931174ed46b395f0ade21d81a9ccf11c1a92aea",
+  "confirmed_origin_lane_head_before_this_followup": "0931174ed46b395f0ade21d81a9ccf11c1a92aea",
+  "merged_integration_head": "3619bd72b94be00e9ab83f3ecd0a2a6da07aa20e",
+  "lane_merge_commit": "e7937562a8feed80e43033b43f5b3741a190c009",
+  "sync_commands": [
+    {
+      "command": "git fetch origin",
+      "exit_code": 0
+    },
+    {
+      "command": "git merge --no-ff origin/feat/joil-v4-truth-evidence",
+      "exit_code": 0,
+      "initial_result": "Already up to date at integration1c9c3b4"
+    },
+    {
+      "command": "git merge --no-ff origin/feat/joil-v4-truth-evidence -m \"Merge integration updates into evidence lane\"",
+      "exit_code": 0,
+      "result": "merged integration3619bd7 as e793756"
+    },
+    {
+      "command": "git ls-remote origin refs/heads/lane/evidence",
+      "exit_code": 0,
+      "confirmed_sha": "0931174ed46b395f0ade21d81a9ccf11c1a92aea"
+    }
+  ],
+  "authored_paths": [
+    "crates/joil-evidence/receipts/ev13_figure_values.py",
+    "crates/joil-evidence/receipts/EV13-regeneration-readiness.json"
+  ],
+  "auditor_sha256": "bbcbe73eb29e3de4199befaefb612704179043dea128d7c72c30eb8b71b61371",
+  "compatibility_change": "Optional explicitly reviewed new->original plot source-line mapping; report retains actual captured source coordinates. No default remapping or silently guessed binding. Original pinned receipt unchanged.",
+  "original_audit_replay": {
+    "explicit_checks_pass": 783,
+    "numeric_failures": 0,
+    "untraced": 16,
+    "scope": "Original1c9c3b4 snapshot only; these are not a clearance of future figures."
+  },
+  "synthetic_line_mapping_tests": {
+    "kind": "synthetic_source_line_shift_test_not_scientific_data",
+    "same_summary_after_explicit_reviewed_map": true,
+    "captured_source_coordinates_preserved": true,
+    "incorrect_map_rejected": true,
+    "unmapped_source_line_shift_rejected": true,
+    "summary": {
+      "PASS": 783,
+      "FAIL": 0,
+      "UNTRACED": 16
+    },
+    "mapped_five_negative_checks": {
+      "wrong_seed_point": true,
+      "wrong_arm_ci": true,
+      "wrong_gci_units": true,
+      "dropped_plot_call": true,
+      "wrong_capture_png_identity": true
+    }
+  },
+  "committed_data_and_generator_preflight": {
+    "input_head": "3619bd72b94be00e9ab83f3ecd0a2a6da07aa20e",
+    "original_input_head": "1c9c3b484543ea459f5283fbc2dd7da4a0303207",
+    "rows": [
+      {
+        "path": "docs/results/baseline-hydraulics-v1.json",
+        "sha256": "2c53abe39be29a9ae9a160836773d35be761005a191ea3eaa093e58f5c5e4461",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/elite-3grid-gci-and-rsm-verification-v1.json",
+        "sha256": "6bcac03b3724fa5fd60a83db33614756016c5188a7c028ddda86ab7a10de966c",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+        "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json",
+        "sha256": "d20e9d72dfa004c1bc77a9389646b3ebb75f3004d85ad8c397f902afa181e496",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/interactive-3d-archetypes-v1.json",
+        "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/rust-evolution-qualification-v1.json",
+        "sha256": "1bc32f98d38cd22525130843bf42034c0078146924b76148e06a4a02c9cff6b3",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+        "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json",
+        "sha256": "52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+        "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/wave3-evolution-proof-v1.json",
+        "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/wave4-evolution-proof-v1.json",
+        "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/wave4-gci-v1.json",
+        "sha256": "92c5eea7189fc63b3a28802ecc051746e4eca3f32f1f162b27c9011367029287",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "docs/results/wave4-smoke-v1.json",
+        "sha256": "385ae75ff20a8b07d81e574027ebc2504a97887c7c4a8d681d5c74c3c3d9da32",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "tools/generate_gci_rsm_report_and_figures.py",
+        "sha256": "7c00484126eddfd07a881c0152d98a9e9b3c5c266016f327d57abacedf36e45e",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "tools/generate_openfoam14_flowfield_plate.py",
+        "sha256": "ad2a972f2faecc2a7593f38ffbb6b27e7069af6b0b79b442483a550999d5f085",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "tools/generate_page1_figure.py",
+        "sha256": "e60d7d751fc75029201d67110c3bac847c9fd3d85ef4dc58f2a2a9dc311be03f",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "sha256": "aff936e617a833f55da8ca6cc7eebcc0eb061b67022f8e1582dbfaf2e5bad503",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "tools/generate_wave2_vs_wave1_cfd_plate.py",
+        "sha256": "f5b18dacba886e90bbba0351509ef531b66b7f6eb677b149f2928b6aedc71f04",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "tools/generate_wave3_proof_figures.py",
+        "sha256": "0abce318b92089be22acd0fbdfc87005b26dea3a97afeceff31c5e7532851a15",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "tools/generate_wave4_gci_figure.py",
+        "sha256": "47b20e7d1427abb85f54aa49db9057964c74885c107d6c31c672505eeece301d",
+        "unchanged_from_original_audit": true
+      },
+      {
+        "path": "crates/joil-evidence/receipts/Wave4-raw-capture-number-trace.json",
+        "sha256": "ef05231ccea7e276128b9058723b060ba3b3a673374986cb037abe1e77581d38",
+        "unchanged_from_original_audit": true
+      }
+    ],
+    "data_files_unchanged": true,
+    "new_figure_generators_committed": false
+  },
+  "F01_source_nuance": {
+    "source_path": "crates/joil-core/src/evolve.rs",
+    "source_sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab",
+    "lines": [
+      2712,
+      2753
+    ],
+    "data_source": "docs/results/wave4-evolution-proof-v1.json#/arm_outcomes",
+    "checked": "A1/A2/B3 Gen0 best/median KPI, best/median Cout and Shannon metric vectors equal for all10 seeds",
+    "actual_source_semantics": "A1/A2/B3 clone shared_gen0_progs; B2 disables selected features on copies of them; B1 retains i0 shared candidate then samples fresh random programs for i>0.",
+    "handoff_utc": "2026-10-16T12:16:56Z",
+    "DOC_ACK_utc": "2026-10-16T12:21:09Z"
+  },
+  "EV09": {
+    "state": "BLOCKED-SCOPED",
+    "dataset_required": "joil-independent-oil-observations-v1",
+    "unblock": "Source-bound independent Cout and reviewed observed-mechanism labels, disjoint geometry-family and mechanism holdouts.",
+    "independent_labels_supplied": false,
+    "new_real_calibration_or_ood_metrics": null
+  },
+  "gate": {
+    "command": "python3 tools/check.py",
+    "exit_code": 0,
+    "receipt_path": ".private/checks/20261016T121948Z-95547de5/receipt.json",
+    "receipt_sha256": "a8a4d051023c5f2377a4275b4095786170f91242271801597d97e1b1fa990b4b",
+    "all_requested_pass": true,
+    "steps": [
+      {
+        "name": "generated-status",
+        "exit_code": 0,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "exit_code": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "exit_code": 0,
+        "log_sha256": "c92508a29848820f033cd2ea015c85dde0953c88b07cc967ce34b7c08f610549"
+      },
+      {
+        "name": "rust-tests",
+        "exit_code": 0,
+        "log_sha256": "c1f792efa83951c19d83a4218bbd32bd09aff4d0d36eb6d053aa682699024698"
+      },
+      {
+        "name": "baseline",
+        "exit_code": 0,
+        "log_sha256": "02325004404fe961768f51c58509540a38f387915507356951e8f607e087d85e"
+      },
+      {
+        "name": "python-tests",
+        "exit_code": 0,
+        "log_sha256": "2cdb78ad5ea487761a3a2d45ffa943db85863667b5cee08856ea6b882f78a21b"
+      },
+      {
+        "name": "public-check",
+        "exit_code": 0,
+        "log_sha256": "8f17d8e2b88bfc9dbddf37e08f0b43ac77c754a314542404608a4f742b3b3982"
+      },
+      {
+        "name": "claims-audit",
+        "exit_code": 0,
+        "log_sha256": "3219828ce5f591e2c4094ae226a361f950f6e8f718a144b0cccec55f493c8c44"
+      },
+      {
+        "name": "npm-ci",
+        "exit_code": 0,
+        "log_sha256": "ae6229299734af310f492ae81d6bf4b8df8e3025554872852da1dd2f2f21469a"
+      },
+      {
+        "name": "ui-build",
+        "exit_code": 0,
+        "log_sha256": "dce4cf3a5935d7a71627e455a60d2e4efa25911036901236583a3d2ec760bebe"
+      }
+    ],
+    "CARGO_BUILD_JOBS": 4
+  },
+  "next_dependency": "INT committed regeneration SHA+PNG/manifests for F01/F02/F05/F07/F08 (plus F06/F09 if supplied); then independent fresh capture/JSON-pointer audit and residual GIVE DOC/INT. IR F04 committed arrays will be checked only after its handoff. No new labels/limits or scientific PASS."
+}
