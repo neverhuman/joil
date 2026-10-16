@@ -35,3 +35,19 @@ case inputs, solver, model, scenario, requirements, objectives, material/process
 and extraction context. The solver-case digest covers the solver input payload
 excluding this enclosing manifest, avoiding a self-referential hash. Writers must
 verify exact artifact bytes; a missing mesh or case identity fails closed.
+
+`training::admit_sample` requires the live reviewed closure for every label and
+observed feature, a byte-pinned feature definition and reviewed observer-derived
+geometry/mechanism groups. Prior/analytic and synthetic targets are rejected.
+`holdout_folds` removes repeated geometry from the training side of both fold
+families. These APIs are tested with explicitly synthetic software fixtures.
+The independent Cout dataset is absent: `reports/surrogate-independent-ood-v1.json`
+reports insufficient evidence and an empty calibration result, not OOD scores.
+
+The core GP's `fit_independent` rechecks those inputs on every fit. Deserializing
+a training status cannot confer admission. `fit_sandbox_prior` keeps legacy
+search diagnostics explicitly separate. Feature extraction returns an error;
+missing geometry/structure never becomes a nominal vector. Gross feature-distance
+OOD triggers abstention and direct evaluation routing. The radius is an
+uncalibrated mathematical support guard; real OOD/interval calibration remains
+blocked on independent data. Surrogate predictions never authorize promotion.

@@ -1,0 +1,202 @@
+{
+  "items": [
+    "EV-08",
+    "EV-09-foundation"
+  ],
+  "owner": "EV",
+  "input_head": "55f168c86cb230c5e7f3f4785c78166153173e2e",
+  "changed_paths": [
+    "crates/joil-core/src/surrogate.rs",
+    "crates/joil-evidence/src/claims.rs",
+    "crates/joil-evidence/src/training.rs",
+    "crates/joil-evidence/tests/training.rs",
+    "crates/joil-evidence/reports/surrogate-independent-ood-v1.json",
+    "crates/joil-evidence/README.md"
+  ],
+  "checks": [
+    {
+      "command": "python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "f32133b0670dd1a9e384c3e7748653f5d9169662dc5ec3fdcf6ad9a6779c2938",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.044441592996008694,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.22661956498632208,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 6.872044524992816,
+          "log_bytes": 315,
+          "log_sha256": "9744a9973feca2aef1817bdcd4f5e1582f28dcdf823303dd6e931d32b54ca210"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 91.51865468302276,
+          "log_bytes": 8271,
+          "log_sha256": "5e29f3b3e71793ffcc78d202fc224f91bde5bd5b71fa988b6a2b844cb2e4b339"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 2.3690453059971333,
+          "log_bytes": 1096,
+          "log_sha256": "e797f656d4fce180d79217c98eee54639ec3be80fdc503f1d0ef16fd11d528d6"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 33.240622728015296,
+          "log_bytes": 5520,
+          "log_sha256": "7388bc1ffb47dbb016c709a2867a1c30a7e7cd250def61cb6bf0fb521c069f64"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.09649312100373209,
+          "log_bytes": 75,
+          "log_sha256": "61509ffbfe7f65f8c49a1ad175913b005f470da8e66b9330b998f67887e6f669"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 29.410477400000673,
+          "log_bytes": 190,
+          "log_sha256": "eef1deb384c933a534a890a8b20d0fc838f3026565e67dac8d600390e882cc99"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 4.575119686953258,
+          "log_bytes": 25,
+          "log_sha256": "fa0fa20b922de54ce4d60b7664c9375ea1b0db0bb802365264db6d0197f5c54d"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 8.905108340026345,
+          "log_bytes": 2295,
+          "log_sha256": "ab578bb2d8e322689a575bf4399dcdb824962adb295d58c399c7e81943534407"
+        }
+      ]
+    },
+    {
+      "command": "cargo test -p joil-evidence -j 8",
+      "exit_code": 0,
+      "log_sha256": "ea37d9dacb4e4c9082cd2ed8ef24ae2165b42e87c2ae637e2cc01b0c94616405"
+    }
+  ],
+  "positive_checks": [
+    "explicit missingness and separate failure-attempt model",
+    "gross feature-distance OOD abstention",
+    "abstentions preserved for direct evaluation by TR consumer bridge 55f168c",
+    "reviewed independent-label/observed-feature admission",
+    "family and mechanism holdouts remove repeated geometry",
+    "independent GP fitting rechecks live evidence closure"
+  ],
+  "negative_checks": [
+    "descriptor extraction failure never becomes baseline features",
+    "missing geometry/structure",
+    "nonfinite features",
+    "outside-support prediction",
+    "default regression refuses prior-derived targets",
+    "submitted/deserialized label status has no independent authority",
+    "missing feature observation",
+    "prior/analytic label",
+    "revoked observation blocks fresh training admission"
+  ],
+  "science_eligibility": "EV-08 software safety complete; EV-09 real independent calibration BLOCKED",
+  "limitations": [
+    "No admitted independent Cout labels; report metrics are typed Insufficient with reasons and missing inventory.",
+    "Distance support guard is uncalibrated; real OOD validity requires independent held-out data.",
+    "Legacy prior-screen GP remains available only via explicit sandbox method; not physical evidence.",
+    "Review authority must be authenticated by the application."
+  ],
+  "next_dependency": "IR-07 observed descriptors plus independently labelled oil-grade data; TR EV-10 hook; IR/INT EV-12 manifests"
+}

@@ -105,6 +105,34 @@ pub struct Registry {
 }
 
 impl Registry {
+    /// Read only exact, reviewed artifact bytes under the caller's admitted requirement scope.
+    pub fn checked_artifact(
+        &self,
+        reference: &ContentRef,
+        requirements: &[ContentRef],
+    ) -> Result<&[u8], String> {
+        if !self.has_artifact(reference) || self.reviewed(reference, requirements) != Verdict::Pass
+        {
+            return Err("artifact_not_reviewed_or_identity_mismatch".into());
+        }
+        Ok(&self.artifacts[&reference.id].1)
+    }
+
+    pub fn checked_measurement(
+        &self,
+        reference: &ContentRef,
+        requirements: &[ContentRef],
+    ) -> Result<&crate::observation::Measurement, String> {
+        if self.resolve_observation(reference, requirements, &mut BTreeSet::new()) != Verdict::Pass
+        {
+            return Err("observation_evidence_closure_incomplete_or_revoked".into());
+        }
+        match &self.observations[&reference.id].1.observation {
+            Observation::Measured { measurement } => Ok(measurement),
+            _ => Err("training_requires_measured_observation".into()),
+        }
+    }
+
     pub fn insert_artifact(&mut self, reference: ContentRef, bytes: Vec<u8>) -> Result<(), String> {
         verify_bytes(&reference, &bytes)?;
         if let Some((old, _)) = self.artifacts.get(&reference.id) {
