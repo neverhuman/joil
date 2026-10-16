@@ -222,6 +222,18 @@ pub struct DesignProgram {
     pub skimmer: Skimmer3D,
 }
 
+/// Explicit migration of the legacy macro language; this does not implement the
+/// proposed typed developmental v4 graph or establish geometric equivalence.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct MigrationReceipt {
+    pub source_hash: String,
+    pub target_hash: String,
+    pub implementation_hash: String,
+    pub semantics_version: String,
+    pub transcript: Vec<String>,
+    pub information_loss: Vec<String>,
+}
+
 /// Dimensionless physical mechanism descriptors for Quality-Diversity (MAP-Elites) and screening.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MechanismDescriptors {
@@ -236,6 +248,43 @@ pub struct MechanismDescriptors {
 }
 
 impl DesignProgram {
+    /// Check the declared schema and parameter bounds without changing the input.
+    pub fn validate(&self) -> Result<(), String> {
+        self.normalize().map(|_| ())
+    }
+
+    /// Canonicalization never migrates the declared schema.
+    pub fn canonicalize(&self) -> Result<Self, String> {
+        self.normalize()
+    }
+
+    /// Wrap v2 macro semantics in an explicitly identified legacy-v4 schema.
+    /// The developmental graph remains a separate, unimplemented language.
+    pub fn migrate_v2_to_v4(&self) -> Result<(Self, MigrationReceipt), String> {
+        self.validate()?;
+        if self.schema_version != 2 {
+            return Err("migrate_v2_to_v4 requires schema v2".into());
+        }
+        let source_hash = self.canonical_sha256()?;
+        let mut target = self.canonicalize()?;
+        target.schema_version = 4;
+        target.family = "ct35-legacy-macro-v4".into();
+        let target_hash = target.canonical_sha256()?;
+        let receipt = MigrationReceipt {
+            source_hash,
+            target_hash,
+            implementation_hash: format!("{:x}", Sha256::digest(include_bytes!("program.rs"))),
+            semantics_version: "legacy-macro-v2-to-v4/1".into(),
+            transcript: vec![
+                "preserved legacy macro fields and frozen interface identity".into(),
+                "changed schema envelope only; no developmental graph synthesized".into(),
+                "geometry equivalence has not been independently audited".into(),
+            ],
+            information_loss: Vec::new(),
+        };
+        Ok((target, receipt))
+    }
+
     /// Construct the exact zero-mutation CT-35 baseline program.
     pub fn baseline_ct35() -> Self {
         Self {
@@ -277,12 +326,10 @@ impl DesignProgram {
         if self.baseline_file_sha256 != expected_sha {
             return Err("baseline_file_sha256 mismatch with frozen CT-35 genome".into());
         }
-        if !matches!(self.schema_version, 2 | 3)
-            || !matches!(
-                self.family.as_str(),
-                "ct35-exotic-head-v2" | "ct35-exotic-head-v3"
-            )
-        {
+        if !matches!(
+            (self.schema_version, self.family.as_str()),
+            (2, "ct35-exotic-head-v2") | (3, "ct35-exotic-head-v3") | (4, "ct35-legacy-macro-v4")
+        ) {
             return Err("unsupported design program schema_version or family".into());
         }
 
@@ -315,6 +362,9 @@ impl DesignProgram {
         let mut vane_z = self.inlet_split.vane_z_fraction;
         let mut branches = self.inlet_split.branches_per_port;
         let mut phase_deg = self.inlet_split.azimuthal_phase_deg;
+        if !(1..=4).contains(&branches) {
+            return Err("inlet_split.branches_per_port must be in [1, 4]".into());
+        }
         if split_enabled {
             if !vane_t.is_finite()
                 || !vane_z.is_finite()
@@ -326,7 +376,7 @@ impl DesignProgram {
                 return Err("invalid inlet_split vane parameters".into());
             }
             if !(2..=4).contains(&branches) {
-                branches = 2;
+                return Err("enabled inlet_split requires 2..=4 branches_per_port".into());
             }
             vane_t = round4(vane_t);
             vane_z = round4(vane_z);
@@ -480,8 +530,8 @@ impl DesignProgram {
         }
 
         let mut out = Self {
-            schema_version: 2,
-            family: "ct35-exotic-head-v2".into(),
+            schema_version: self.schema_version,
+            family: self.family.clone(),
             topology_class: self.topology_class.clone(),
             baseline_file_sha256: expected_sha,
             inlet_ramp: InletRamp3D {
