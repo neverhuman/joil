@@ -74,6 +74,8 @@ dependencies = [
 name = "joil-core"
 version = "0.1.0"
 dependencies = [
+ "joil-evidence",
+ "joil-ir",
  "serde",
  "serde_json",
  "sha2",
@@ -87,6 +89,15 @@ dependencies = [
  "serde_json",
  "sha2",
  "unicode-normalization",
+]
+
+[[package]]
+name = "joil-ir"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sha2",
 ]
 
 [[package]]

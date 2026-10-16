@@ -56,6 +56,10 @@ pub struct CfdCaseManifest {
     pub kind: String,
     pub case_dir: String,
     pub design_sha256: String,
+    #[serde(default)]
+    pub design_ir_sha256: String,
+    /// Legacy in-memory field retained for internal callers; omitted from serialized subject (`IR-06`).
+    #[serde(skip_serializing, default)]
     pub topology_class: String,
     pub config: CfdCaseConfig,
     pub surface_stl_relpath: String,
@@ -67,6 +71,12 @@ pub struct CfdCaseManifest {
     pub dictionary_files_sha256: BTreeMap<String, String>,
     pub qualified_for_oil_grade: bool,
     pub limitations: Vec<String>,
+    #[serde(default)]
+    pub derived_taxon: Option<joil_ir::PhenotypeTaxon>,
+    #[serde(default)]
+    pub enactment_receipt: Option<joil_ir::FeatureEnactmentReceipt>,
+    #[serde(default)]
+    pub subject_bundle: Option<joil_evidence::subject::SubjectBundle>,
 }
 
 fn foam_file(object_name: &str, class_name: &str, body: &str) -> String {
@@ -435,12 +445,69 @@ relaxationFactors {fields {p .2;} equations {U .4; R .1; k .3; epsilon .3; omega
     let design_json = serde_json::to_string_pretty(&p).map_err(|e| e.to_string())?;
     fs::write(case_dir.join("design-program.json"), design_json.as_bytes())
         .map_err(|e| e.to_string())?;
+    dict_hashes.insert(
+        "design-program.json".to_string(),
+        joil_ir::sha256_hex(design_json.as_bytes()),
+    );
+
+    let ir = crate::geometry::compile_design_ir(&p).map_err(|e| e.to_string())?;
+    let ir_json = serde_json::to_string_pretty(&ir).map_err(|e| e.to_string())?;
+    fs::write(case_dir.join("design-ir.json"), ir_json.as_bytes()).map_err(|e| e.to_string())?;
+    dict_hashes.insert(
+        "design-ir.json".to_string(),
+        joil_ir::sha256_hex(ir_json.as_bytes()),
+    );
+
+    if let Some(ref receipt) = surface.audit.enactment_receipt {
+        let receipt_json = serde_json::to_string_pretty(receipt).map_err(|e| e.to_string())?;
+        fs::write(
+            case_dir.join("feature-enactment-receipt.json"),
+            receipt_json.as_bytes(),
+        )
+        .map_err(|e| e.to_string())?;
+        dict_hashes.insert(
+            "feature-enactment-receipt.json".to_string(),
+            joil_ir::sha256_hex(receipt_json.as_bytes()),
+        );
+    }
+
+    let cfg_bytes = serde_json::to_vec(config).map_err(|e| e.to_string())?;
+    let audit_bytes = serde_json::to_vec(&surface.audit).map_err(|e| e.to_string())?;
+    let dict_hashes_bytes = serde_json::to_vec(&dict_hashes).map_err(|e| e.to_string())?;
+    use joil_evidence::identity::ContentRef;
+    let subject_bundle = joil_evidence::subject::SubjectBundle {
+        genome: ContentRef::from_bytes("design-program.json", "v1", design_json.as_bytes()),
+        ir: ContentRef::from_bytes("design-ir.json", "v1", ir_json.as_bytes()),
+        compiler: ContentRef::from_bytes(
+            "joil-core::cfd_case::build_openfoam_candidate_case",
+            env!("CARGO_PKG_VERSION"),
+            b"joil-core::cfd_case::v1",
+        ),
+        geometry_kernel: ContentRef::from_bytes(
+            "joil-ir::IrCompiledMesh",
+            env!("CARGO_PKG_VERSION"),
+            b"joil-ir::IrCompiledMesh::v1",
+        ),
+        compiler_config: ContentRef::from_bytes("cfd_case_config", "v1", &cfg_bytes),
+        geometry: ContentRef::from_bytes("multi_patch_audit", "v1", &audit_bytes),
+        surface_mesh: ContentRef::from_bytes(stl_rel, "v1", &stl_bytes),
+        volume_mesh: None,
+        solver_case: Some(ContentRef::from_bytes(
+            "dictionary_files_sha256",
+            "v1",
+            &dict_hashes_bytes,
+        )),
+    };
+
+    let derived_taxon = surface.audit.derived_taxon.clone();
+    let enactment_receipt = surface.audit.enactment_receipt.clone();
 
     let manifest = CfdCaseManifest {
         schema_version: 1,
         kind: "rust_native_openfoam14_candidate_case_input_not_executed_cfd".to_string(),
         case_dir: case_dir.display().to_string(),
         design_sha256: p.canonical_sha256()?,
+        design_ir_sha256: ir.ir_sha256,
         topology_class: p.topology_class.clone(),
         config: config.clone(),
         surface_stl_relpath: stl_rel.to_string(),
@@ -455,6 +522,9 @@ relaxationFactors {fields {p .2;} equations {U .4; R .1; k .3; epsilon .3; omega
             "Case inputs and 5-patch watertight STL are prepared and hash-bound; OpenFOAM meshing and solver execution must still run under resource lease.".to_string(),
             "Not a qualified F2 oil-grade result until mesh convergence, zero-backflow steady/transient carrier, and 10-bin inlet DSD transport pass.".to_string(),
         ],
+        derived_taxon,
+        enactment_receipt,
+        subject_bundle: Some(subject_bundle),
     };
 
     let manifest_json = serde_json::to_string_pretty(&manifest).map_err(|e| e.to_string())?;
