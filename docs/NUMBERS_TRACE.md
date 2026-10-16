@@ -89,7 +89,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `0.2743` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B3_Exotic3D_QD_CEI/pareto_hypervolume/mean` | printed |
 | `0.2506` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B1_Random_LHS/pareto_hypervolume/mean` | printed |
 | `0.1509` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B2_Conventional_Axisym/pareto_hypervolume/mean` | printed |
-| `-0.59` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b2_conventional_axisym_outcomes/7/best_candidate/program/cone_profile/mode1_mm` | printed |
+| `-0.59` | 1 | declared | - | see table |
 | `28.17` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B3_Exotic3D_QD_CEI/dp_u_pa/mean` | /1000 |
 | `28.76` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B1_Random_LHS/dp_u_pa/mean` | /1000 |
 | `104.6` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B1_Random_LHS/map_elites_cells/mean` | printed |
@@ -162,10 +162,9 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `2.80` | 1 | `baselines/ct35/reference.json` | `/derived_mm/l_orifice` | printed |
 | `6.0` | 1 | `baselines/ct35/reference.json` | `/derived_mm/Rp` | printed |
 | `-20.0` | 1 | `baselines/ct35/reference.json` | `/derived_mm/Lp` | printed |
-| `86,560` | 1 | `baselines/ct35/reference.json` | `/supplied_surface_triangles` | printed |
-| `-1,105,747.56` | 1 | `baselines/ct35/reference.json` | `/supplied_surface_volume_mm3` | printed |
-| `+1,105,747.56` | 1 | `baselines/ct35/reference.json` | `/supplied_surface_volume_mm3` | printed |
-| `-0.005` | 1 | `docs/results/baseline-hydraulics-v1.json` | `/points/1/external_outlet_reverse_flow_m3_s/overflow` | x100 |
+| `86,560` | 1 | `docs/receipts/supplied_geometry_audit.json` | `/meshes/ct35_fluid_domain.stl/triangles` | printed |
+| `+1,105,747.56` | 1 | `docs/receipts/supplied_geometry_audit.json` | `/meshes/ct35_fluid_domain.stl/signed_volume_mm3` | printed |
+| `-0.005` | 1 | `docs/receipts/supplied_geometry_audit.json` | `/latest_fluid_relative_volume_error` | x100 |
 | `1,105,802.52` | 1 | `baselines/ct35/reference.json` | `/fluid_volume_mm3_analytic` | printed |
 | `120` | 2 | `baselines/ct35/reference.json` | `/derived_mm/Ai_each_mm2` | printed |
 | `0.12` | 2 | `docs/results/baseline-hydraulics-v1.json` | `/points/2/numerical_outlet_extension_m` | printed |
@@ -429,13 +428,14 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `10` | 1 | declared | - | see table (`10@10/20/40-bin PBM`) |
 | `0.453` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/p05_population_and_pbm_qualification/oil12_pbm_grid_gci_rel` | x100 |
 | `0.004529` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/p05_population_and_pbm_qualification/oil12_pbm_grid_gci_rel` | printed |
+| `0` | 2 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/cpu_gpu_ode_parity_abs_err` | printed |
 | `32` | 1 | `docs/receipts/capability-probes-20261015.json` | `/cases/0/neutral_density_1um_reference_cloud/injected_count` | printed |
 | `3` | 1 | `docs/receipts/capability-probes-20261015.json` | `/cases/0/cohort_counts/0/diameter_um` | printed |
 | `100` | 1 | `docs/receipts/capability-probes-20261015.json` | `/cases/0/cohort_counts/9/diameter_um` | printed |
 | `5e-5` | 1 | `docs/receipts/capability-probes-20261015.json` | `/cases/0/dt_s` | printed |
 | `2.5e-5` | 1 | `docs/receipts/capability-probes-20261015.json` | `/cases/1/dt_s` | printed |
 | `0.01` | 1 | `docs/receipts/capability-probes-20261015.json` | `/cases/0/end_time_s` | printed |
-| `0` | 2 | `docs/receipts/capability-probes-20261015.json` | `/cases/0/dt_s` | printed |
+| `0` | 1 | `docs/receipts/capability-probes-20261015.json` | `/cases/0/dt_s` | printed |
 
 ## §4.6
 
@@ -534,8 +534,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `3.2` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/3/best_candidate/program/chamber_modes/0/twist_rad` | printed |
 | `220` | 6 | declared | - | see table (`220@220 / 220`) |
 | `100.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/2/generation_trace/14/cumulative_lineage_jumps` | printed |
-| `0` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/cpu_gpu_ode_parity_abs_err` | printed |
-| `30` | 3 | `experiments/wave2-preregistration-v1.json` | `/hard_feasibility_gates/water_quality_cout_p95_max_mg_l` | printed |
+| `0.0` | 2 | `docs/results/rust-evolution-qualification-v1.json` | `/promoted_3d_elite/executed_openfoam14_reject_fraction` | printed |
 | `119,235` | 2 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/total_evaluations` | printed |
 | `5,400` | 4 | declared | - | see table |
 | `100` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/pairwise_tests/0/mann_whitney_u` | printed |
@@ -544,8 +543,10 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `0` | 2 | `docs/results/rust-evolution-qualification-v1.json` | `/promoted_3d_elite/executed_openfoam14_reject_fraction` | printed |
 | `-33.74` | 1 | declared | - | see table |
 | `-38.51` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/rsm_turbulence_closure_crosscheck/0/delta_dp_u_vs_ct35_baseline_pct` | printed |
+| `-41.26` | 1 | declared | - | see table |
 | `-31.40` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/2/generation_trace/5/q25_kpi_score` | printed |
 | `-36.09` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/rsm_turbulence_closure_crosscheck/1/delta_eloss_vs_ct35_baseline_pct` | printed |
+| `-36.52` | 1 | declared | - | see table |
 | `4.000` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/topology_family_counts/helical-pitched-ribbon` | printed |
 | `1.97` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/0/generation_trace/19/shannon_diversity_bits` | printed |
 | `2.00` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b3_exotic3d_qd_cei_outcomes/0/best_candidate/generation_born` | printed |
@@ -579,7 +580,6 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `30` | 1 | declared | - | see table (`30@$C_u \le 30\text{ mg/L}$`) |
 | `4.00` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/topology_family_counts/helical-pitched-ribbon` | printed |
 | `+10.0` | 2 | declared | - | see table (`+10.0@$\Delta Q_{\text{treated}} \ge +10.0\%$`) |
-| `0.0` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/promoted_3d_elite/executed_openfoam14_reject_fraction` | printed |
 | `11` | 1 | declared | - | see table (`11@giving **11 gene-activation labels**`) |
 | `2` | 2 | `experiments/wave2-preregistration-v1.json` | `/immutable_interfaces/overflow_bore_cfd_mm` | printed |
 | `3` | 3 | `experiments/wave2-preregistration-v1.json` | `/hard_feasibility_gates/p08_min_modal_lockin_freq_ratio` | printed |
@@ -589,7 +589,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `1.0` | 1 | `experiments/wave2-preregistration-v1.json` | `/schema_version` | printed |
 | `1.4` | 2 | `experiments/wave2-preregistration-v1.json` | `/hard_feasibility_gates/f0_min_passage_hydraulic_diameter_mm` | printed |
 | `45` | 1 | declared | - | see table (`45@\le 45^\circ`) |
-| `10` | 16 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/n_seeds` | printed |
+| `10` | 15 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/n_seeds` | printed |
 | `20261101` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/master_seeds/0` | printed |
 | `20261110` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/master_seeds/9` | printed |
 | `180` | 7 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/evaluations_per_seed` | printed |
@@ -640,16 +640,16 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `65.4` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B3_Exotic3D_QD_CEI/map_elites_cells/ci95_low` | printed |
 | `73.7` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/summary_statistics/B3_Exotic3D_QD_CEI/map_elites_cells/ci95_high` | printed |
 | `-1.82` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/pairwise_tests/0/mean_diff` | printed |
-| `-20.1` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/9/best_candidate/structural_qualification/swirl_reaction_torque_n_m` | x100 |
+| `-20.2` | 1 | declared | - | see table |
 | `7.21` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b3_exotic3d_qd_cei_outcomes/1/best_candidate/mc_robustness/d50_p05_um` | printed |
 | `-11.78` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/pairwise_tests/1/mean_diff` | printed |
-| `-62.0` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b3_exotic3d_qd_cei_outcomes/5/best_candidate/descriptors/core_shield_ratio` | x100 |
+| `-62.0` | 1 | declared | - | see table |
 | `+9.47` | 2 | declared | - | see table |
 | `+81.8` | 1 | declared | - | see table |
-| `-0.59` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b2_conventional_axisym_outcomes/7/best_candidate/program/cone_profile/mode1_mm` | printed |
-| `-2.05` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/0/best_candidate/program/ribbon_cascade/radial_chord_mm` | printed |
-| `-0.60` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/8/best_candidate/descriptors/core_shield_ratio` | printed |
-| `-2.09` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/8/best_candidate/program/chamber_modes/0/twist_rad` | printed |
+| `-0.59` | 2 | declared | - | see table |
+| `-2.05` | 1 | declared | - | see table |
+| `-0.60` | 1 | declared | - | see table |
+| `-2.10` | 1 | declared | - | see table |
 | `1.15` | 1 | declared | - | see table (`1.15@sandbox pressure cap of `1.15`) |
 | `33.89` | 1 | declared | - | see table |
 | `11` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/mc_robustness/d50_p05_um` | printed |
@@ -661,7 +661,6 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `10.0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/rejected_cohort_10pct_audit/audit_fraction` | x100 |
 | `0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
 | `0.0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_split/azimuthal_phase_deg` | printed |
-| `2.0` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b3_exotic3d_qd_cei_outcomes/0/best_candidate/generation_born` | printed |
 | `0.00` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/rejected_cohort_10pct_audit/worst_rank_reversal_cout_mg_l` | printed |
 | `38` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/0/d50_feed_um` | printed |
 | `29.5` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/2/d50_feed_um` | printed |
@@ -669,6 +668,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `22` | 4 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/0/d50_feed_um` | printed |
 | `14.5` | 2 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/2/d50_feed_um` | printed |
 | `20` | 2 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/3/d50_feed_um` | printed |
+| `30` | 2 | `experiments/wave2-preregistration-v1.json` | `/hard_feasibility_gates/water_quality_cout_p95_max_mg_l` | printed |
 | `2.60` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/0/q_in_m3_h` | printed |
 | `500.0` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/structural_qualification/vane_modal_freq_ratio` | printed |
 | `38.0` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/0/d50_feed_um` | printed |
@@ -702,22 +702,23 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `0.080` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/mandatory_promotion_gate/checks/inter_rsm_eloss_delta_pct` | printed |
 | `11` | 2 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/canonical_3d_families_verified` | printed |
 | `20` | 4 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/stratified_samples_per_family` | printed |
-| `20261116` | 2 | declared | - | see table |
+| `20261115` | 1 | declared | - | see table |
 | `220` | 5 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/n_stratified_expressiveness_samples` | printed |
 | `100.0` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/canonicalize_and_preflight_pass_rate` | x100 |
-| `0` | 3 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/commands_executed/0/exit_code` | printed |
+| `0` | 2 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/commands_executed/0/exit_code` | printed |
 | `1.24` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b2_conventional_axisym_outcomes/9/best_candidate/phenotype/minimum_wall_clearance_mm` | printed |
 | `1.000` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/schema_version` | printed |
-| `30` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/grids/2/background_hex_grid/0` | printed |
+| `0.0` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/unprojected_negative_control_pass_rate` | printed |
 | `0.35` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/6/best_candidate/descriptors/wall_rifling_stabilization` | printed |
 | `0.45` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/promoted_wave2_elites_by_family/hybrid-omni-exotic/nominal_metrics/grade_efficiency_bins/8um` | printed |
 | `18.0` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/grids/0/background_hex_grid/0` | printed |
+| `20261116` | 1 | declared | - | see table |
 | `85` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/operator_random_walk_family_transitions` | printed |
 | `5` | 2 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/roache_gci_analysis/hydraulic_loss_j_per_treated_m3/relative_step_21_pct` | printed |
 | `9` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/b1_random_lhs_cout_p95_mean_mg_l` | printed |
 | `1` | 1 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/schema_version` | printed |
 | `2` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v2.json` | `/schema_version` | printed |
-| `30` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/2/d50_feed_um` | printed |
+| `30` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/2/d50_feed_um` | printed |
 | `8` | 4 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/0/best_cout_p95_mg_l` | printed |
 | `3` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/phenotype/minimum_wall_clearance_mm` | printed |
 | `4` | 5 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/q_in_m3_h` | printed |
@@ -732,7 +733,6 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `58.41` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b3_exotic3d_qd_cei_outcomes/2/best_candidate/program/tpms_insert/axial_end_mm` | printed |
 | `0.70` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b1_random_lhs_outcomes/1/best_candidate/program/tpms_insert/radial_inner_fraction` | printed |
 | `1,800` | 2 | declared | - | see table |
-| `12` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/nominal_metrics/d50_um` | printed |
 | `18` | 2 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/grids/0/background_hex_grid/0` | printed |
 | `12` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/grids/0/background_hex_grid/1` | printed |
 | `212` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/grids/0/background_hex_grid/2` | printed |
@@ -876,6 +876,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `4.0181` | 2 | `docs/results/rust-evolution-qualification-v1.json` | `/surrogate_and_engine_qualification/ood_mean_rmse_mg_l` | printed |
 | `64` | 2 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/topology_family_counts/trifurcated-6jet-vortex-head` | printed |
 | `0.00` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_split/azimuthal_phase_deg` | printed |
+| `2.0` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/arm_b3_exotic3d_qd_cei_outcomes/0/best_candidate/generation_born` | printed |
 | `17.31` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/0/dp_u_pa` | /1000 |
 | `19.53` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/1/dp_u_pa` | /1000 |
 | `18.70` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/grids/2/dp_u_pa` | /1000 |
@@ -893,14 +894,13 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `1.2` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/roache_gci_analysis/dp_u_pa/r21_linear` | printed |
 | `850` | 1 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/3/cin_mg_l` | printed |
 | `1.32` | 1 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/3/viscosity_factor` | printed |
-| `0.1` | 1 | `experiments/wave2-preregistration-v1.json` | `/multiseed_statistical_protocol/rejected_cohort_random_audit_fraction` | printed |
+| `0.1` | 2 | `experiments/wave2-preregistration-v1.json` | `/multiseed_statistical_protocol/rejected_cohort_random_audit_fraction` | printed |
 | `0` | 1 | `experiments/wave2-preregistration-v1.json` | `/hard_feasibility_gates/reject_split_band/0` | printed |
 | `1` | 1 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/program/inlet_split/vane_thickness_mm` | printed |
 | `7.21` | 1 | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json` | `/rsm_turbulence_closure_crosscheck/0/delta_dp_u_vs_kOmegaSST_pct` | printed |
 | `1,639.25` | 1 | `baselines/ct35/reference.json` | `/derived_mm/z_end` | printed |
 | `0` | 1 | `experiments/wave2-preregistration-v1.json` | `/hard_feasibility_gates/f0_trapped_cavities_allowed` | printed |
 | `10` | 1 | `experiments/wave2-preregistration-v1.json` | `/multiseed_statistical_protocol/rejected_cohort_random_audit_fraction` | x100 |
-| `0.02` | 1 | `experiments/wave2-preregistration-v1.json` | `/hard_feasibility_gates/reject_split_band/0` | printed |
 | `10.0` | 1 | `experiments/wave2-preregistration-v1.json` | `/multiseed_statistical_protocol/rejected_cohort_random_audit_fraction` | x100 |
 | `54` | 1 | declared | - | see table (`54@`54 / 540` audit`) |
 | `540` | 1 | declared | - | see table |
@@ -919,13 +919,14 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `10.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `500.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/structural_qualification/vane_modal_freq_ratio` | printed |
 | `0` | 8 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
-| `1` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/schema_version` | printed |
+| `1` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/schema_version` | printed |
 | `29,468.22` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35_dp_u_pa` | printed |
 | `25.101952` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35_cout_p95_mg_l` | printed |
 | `0.863537` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35_grade_20um_p05` | printed |
 | `0.0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
 | `26.486473` | 3 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35_kpi_score` | printed |
 | `6` | 9 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/6/generation` | printed |
+| `5` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/objectives/3` | printed |
 | `22,500` | 4 | `docs/results/wave3-evolution-proof-v1.json` | `/total_3d_evaluations_across_arms` | printed |
 | `10` | 9 | `docs/results/wave3-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `20261101` | 4 | `docs/results/wave3-evolution-proof-v1.json` | `/master_seeds/0` | printed |
@@ -936,7 +937,6 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `9` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/9/generation` | printed |
 | `18` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/population_per_generation` | printed |
 | `450` | 3 | `docs/results/wave3-evolution-proof-v1.json` | `/evaluations_per_seed_per_arm` | printed |
-| `5` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/objectives/3` | printed |
 | `32.047462` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/gen0_best_kpi_score` | printed |
 | `0` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_split/vane_z_fraction` | printed |
 | `8` | 2 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A1_No_Mutation_Crossover_Only/0/generation_trace/8/generation` | printed |
@@ -1319,11 +1319,11 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `220` | 1 | declared | - | see table (`220@Closed-Catalog Validity Audit`) |
 | `35` | 1 | `baselines/ct35/genome.json` | `/parameters/d2_mm` | printed |
 | `20` | 4 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/grids/2/background_hex_grid/1` | printed |
-| `20261116` | 2 | declared | - | see table |
+| `20261115` | 1 | declared | - | see table |
 | `100.0` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/2/generation_trace/14/cumulative_lineage_jumps` | printed |
-| `0` | 2 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/rank_in_arm` | printed |
-| `30` | 1 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/grids/2/background_hex_grid/0` | printed |
+| `0` | 1 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/rank_in_arm` | printed |
 | `0.0` | 1 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/independent_f0_enactment_audit/internal_splitter_vane_triangles` | printed |
+| `20261116` | 1 | declared | - | see table |
 | `+20` | 1 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/grids/2/background_hex_grid/1` | printed |
 
 ## Declared numerals
@@ -1346,17 +1346,24 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `+90.05` | derived | `G2` gap: gyroid-labelled archived shell minus same-pipeline `CT-35` control | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json#/wave2_tpms_gyroid_elite_5run_dossier/grids/2/dp_u_pa - docs/results/wave4-gci-v1.json#/same_pipeline_ct35_control/grids/2/dp_u_pa` |
 | `-0.0008` | derived | `SSG` minus `LRR` reject split, percentage points | `(docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/1/reject_fraction - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/0/reject_fraction) * 100` |
 | `-0.08` | derived | `SSG` vs `LRR` energy loss | `(docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/1/hydraulic_loss_j_per_treated_m3 - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/0/hydraulic_loss_j_per_treated_m3) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/0/hydraulic_loss_j_per_treated_m3` |
+| `-0.59` | derived | `B3` minus `B1` 10-seed mean screen pressure drop, kPa | `(docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B3_Exotic3D_QD_CEI/dp_u_pa/mean - docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B1_Random_LHS/dp_u_pa/mean) / 1000` |
+| `-0.60` | derived | `B3` minus `B2` 10-seed mean screen pressure drop, kPa | `(docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B3_Exotic3D_QD_CEI/dp_u_pa/mean - docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B2_Conventional_Axisym/dp_u_pa/mean) / 1000` |
 | `-0.62@(shear ratio)` | literal | `crates/joil-core/src/evolve.rs` | `64.0_f64 * shear_ratio.powf(-0.62)` |
 | `-1.32` | derived | `SSG` vs `LRR` mean turbulent kinetic energy | `(docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/1/reynolds_stress_tensor_diagnostics/mean_tke_m2_s2 - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/0/reynolds_stress_tensor_diagnostics/mean_tke_m2_s2) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/0/reynolds_stress_tensor_diagnostics/mean_tke_m2_s2` |
 | `-17.24` | derived | `SSG` minus `LRR` energy loss | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/1/hydraulic_loss_j_per_treated_m3 - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/0/hydraulic_loss_j_per_treated_m3` |
 | `-180@p_o/\rho = -180` | protocol constant | overflow boundary condition of the recorded runs | case dictionaries are not committed; no receipt field |
+| `-2.05` | derived | `B3` vs `B1` 10-seed mean screen pressure drop, % | `(docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B3_Exotic3D_QD_CEI/dp_u_pa/mean - docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B1_Random_LHS/dp_u_pa/mean) / docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B1_Random_LHS/dp_u_pa/mean` |
+| `-2.10` | derived | `B3` vs `B2` 10-seed mean screen pressure drop, % (TR NUMTRACE-04) | `(docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B3_Exotic3D_QD_CEI/dp_u_pa/mean - docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B2_Conventional_Axisym/dp_u_pa/mean) / docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B2_Conventional_Axisym/dp_u_pa/mean` |
 | `-2.61` | derived | screen pressure-drop change of the promoted elite vs `CT-35` | `(docs/results/exotic-vs-baseline-cfd-benchmark-v1.json#/head_to_head_archetype_comparison/1/dp_u_pa - docs/results/exotic-vs-baseline-cfd-benchmark-v1.json#/head_to_head_archetype_comparison/0/dp_u_pa) / docs/results/exotic-vs-baseline-cfd-benchmark-v1.json#/head_to_head_archetype_comparison/0/dp_u_pa` |
+| `-20.2` | derived | `B3` vs `B1` 10-seed mean screen C_out,p95, % (TR NUMTRACE-03) | `(docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B3_Exotic3D_QD_CEI/cout_p95_mg_l/mean - docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B1_Random_LHS/cout_p95_mg_l/mean) / docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B1_Random_LHS/cout_p95_mg_l/mean` |
 | `-33.57` | derived | highest of the 15 Wave-2 runs vs the recorded `CT-35` case | `(docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json#/wave2_tpms_gyroid_elite_5run_dossier/grids/1/dp_u_pa - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa` |
 | `-33.74` | derived | elite `G1` pressure drop vs the recorded `CT-35` case | `(docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/grids/1/dp_u_pa - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa` |
 | `-35.43` | derived | screen cut-size change of the promoted elite vs `CT-35` | `(docs/results/exotic-vs-baseline-cfd-benchmark-v1.json#/head_to_head_archetype_comparison/1/d50_um - docs/results/exotic-vs-baseline-cfd-benchmark-v1.json#/head_to_head_archetype_comparison/0/d50_um) / docs/results/exotic-vs-baseline-cfd-benchmark-v1.json#/head_to_head_archetype_comparison/0/d50_um` |
+| `-36.52` | derived | `G0` energy loss vs the recorded `CT-35` case, in % | `(docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/grids/0/hydraulic_loss_j_per_treated_m3 - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/hydraulic_loss_j_per_treated_m3) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/hydraulic_loss_j_per_treated_m3` |
 | `-4.92` | derived | `G2` gap: octa-labelled archived shell minus same-pipeline `CT-35` control | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json#/wave2_octa_branch_8jet_elite_5run_dossier/grids/2/dp_u_pa - docs/results/wave4-gci-v1.json#/same_pipeline_ct35_control/grids/2/dp_u_pa` |
 | `-41.26` | derived | elite `G0` pressure drop vs the recorded `CT-35` case | `(docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/grids/0/dp_u_pa - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa` |
 | `-41.75` | derived | lowest of the 15 Wave-2 runs vs the recorded `CT-35` case | `(docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json#/wave2_octa_branch_8jet_elite_5run_dossier/grids/0/dp_u_pa - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa` |
+| `-62.0` | derived | `B3` vs `B2` 10-seed mean screen C_out,p95, % | `(docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B3_Exotic3D_QD_CEI/cout_p95_mg_l/mean - docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B2_Conventional_Axisym/cout_p95_mg_l/mean) / docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/summary_statistics/B2_Conventional_Axisym/cout_p95_mg_l/mean` |
 | `0.000157` | derived | two-sided Mann–Whitney p from the recorded one-sided p | `2 * docs/results/wave2-multiseed-ablation-and-holdout-v1.json#/pairwise_tests/0/p_value_one_sided` |
 | `0.0031@phase alignment (`0.0031 rad`)` | literal | `crates/joil-ir/src/lib.rs` | `let th_off = 0.0031_f64;` |
 | `0.025@\sigma = 0.025` | protocol constant | assumed interfacial tension for the estimate | assumption; not a measurement |
@@ -1408,6 +1415,7 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `2.5@`2.5 MPa` screening differential` | literal | `crates/joil-core/src/structure.rs` | `DESIGN_VESSEL_DELTA_P_PA: f64 = 2.5e6` |
 | `2.85` | derived | `G2` vs `SSG` pressure drop | `(docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/grids/2/dp_u_pa - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/1/dp_u_pa) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/grids/2/dp_u_pa` |
 | `20.0@[20.0, 23.0] kPa` | historical | Figure Plate 10 plot setting | colour-bar range chosen in the figure script, not a result |
+| `20261115` | literal | `crates/joil-core/tests/regression.rs` | `closed_catalog_validity(20, 20261115)` |
 | `20261116` | literal | `crates/joil-core/tests/regression.rs` | `operator_chain_validity(20, 20261116)` |
 | `204.1` | derived | Hinze estimate for the withdrawn dissipation, in µm | `0.725 * (0.025 / 998) ** (3 / 5) * 94.3 ** (-2 / 5) * 1000000` |
 | `20@C_u \le 20` | literal | `docs/SCIENCE.md` | `20 mg/L stretch` |

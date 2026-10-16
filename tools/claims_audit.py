@@ -425,7 +425,7 @@ def verify_seed_robustness_and_structured_claims(
         # 11-family expressiveness & 20-step operator random walk
         ("WHITEPAPER", wp, float(kf["n_stratified_expressiveness_samples"]), 220.0, 1e-6, "220 / 220"),
         ("WHITEPAPER", wp, float(kf["unprojected_negative_control_pass_rate"]), 0.0, 1e-6, "0 / 30"),
-        ("WHITEPAPER", wp, float(kf["operator_random_walk_total_steps"]), 220.0, 1e-6, "audit_11family_operator_random_walk(20, 20261116)"),
+        ("WHITEPAPER", wp, float(kf["operator_random_walk_total_steps"]), 220.0, 1e-6, "operator_chain_validity(20, 20261116)"),
         ("WHITEPAPER", wp, float(kf["operator_random_walk_family_transitions"]), 85.0, 1e-6, "85"),
         # Wave-2 5-Run OpenFOAM 14 GCI+RSM & F2-Oil Stage-0 Checkpoint checks
         (
