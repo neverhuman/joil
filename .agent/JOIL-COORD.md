@@ -9,7 +9,7 @@ Commit board changes on YOUR lane branch only for your row/locks; integrator rec
 |---|---|---|---|---|---|---|
 | INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | active (INT-01/03/04/05 DONE, CI-MATPLOTLIB/IR-R7/TR-10/DOC-04 merged, INT-06 next) | 2026-10-16T06:50:00Z |
 | TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | active (TR-05/06 DONE, TR-01 WIP) | 2026-10-16T05:16:57Z |
-| EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | EV-12 Wave4 WIP; identity writer/tests ready, actual run audit pending; EV09/12 section6 text to DOC | 2026-10-16T08:16:12Z |
+| EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | EV12 Wave4 BLOCKED (actual identities absent/pruned meshes); GCI trace complete with source gaps; section6 text delivered | 2026-10-16T08:34:39Z |
 | IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | active (IR-01 WIP) | 2026-10-16T05:16:50Z |
 | DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | active (DOC-01 DONE, DOC-02 WIP) | 2026-10-16T05:13:41Z |
 
@@ -59,3 +59,5 @@ BLOCKED EV-12 current prepared-case subject bundle has volume_mesh=None and no f
 HB 2026-10-16T07:41:52Z EV LEDGER-FIGURE-REVERIFY WIP c5eb7f1 both requested PNG hashes and all manifest sources verified from remote blobs; latest DOC cf9df59 Wave4 table and section5.7 key numbers match audited source; no new numeric gap; full gate running.
 HB 2026-10-16T08:16:12Z EV EV-12-WAVE4 WIP - scoped owner08:06 request; analysis.case_identity finalizer + every-run validator/tests implemented; actual meshes/writer integration still required; no DONE-SCOPED before nonempty actual-run audit.
 GIVE 2026-10-16T08:16:12Z EV -> DOC EV09/EV12-SECTION6 crates/joil-evidence/reports/section6-ev09-ev12-deferrals.json; dataset joil-independent-oil-observations-v1 required/not collected; disjoint geometry-family and observed-mechanism holdouts; historical/FEA artifact identity recovery deferred.
+HB 2026-10-16T08:34:39Z EV EV-12-WAVE4 BLOCKED - actual INT runs audit11 cases/0 full identities/11 errors;5 solved meshes pruned without captures. Corrected helper accepts distinct canonical JSON hash encodings; retained input construction passes on CT35G1 and two8jet G0 cases, no original metadata written.
+GIVE 2026-10-16T08:34:39Z EV -> INT/DOC WAVE4-GCI-NUMBER-TRACE crates/joil-evidence/reports/wave4-gci-number-trace-v1.json;54618 numeric fields traced,54615 match,3 unsupported archived-source leaves; full machine trace retained ignored with SHA256 and executable reproducer. Status/observer semantics gaps remain explicitly handed off.

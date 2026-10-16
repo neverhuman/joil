@@ -17,9 +17,12 @@ class EvidenceTests(unittest.TestCase):
         from analysis.evidence import evidence_reference
 
         case = runs/name
+        program = {'synthetic': True, 'z': 2, 'a': 0}
+        genome_hash = hashlib.sha256(json.dumps(program, separators=(',', ':')).encode()).hexdigest()
+        ir_program_hash = hashlib.sha256(json.dumps(program, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
         files = {
-            'design-program.json': b'{"synthetic":true}',
-            'design-ir.json': json.dumps({'program_sha256': 'a'*64,
+            'design-program.json': json.dumps(program).encode(),
+            'design-ir.json': json.dumps({'program_sha256': ir_program_hash,
                                           'ir_sha256': 'b'*64}).encode(),
             'constant/triSurface/ct35.stl': b'solid synthetic\nendsolid\n',
             '0/U': b'synthetic initial velocity',
@@ -41,7 +44,7 @@ class EvidenceTests(unittest.TestCase):
         for key in ['compiler', 'geometry_kernel', 'compiler_config']:
             bundle[key] = evidence_reference(key, 'synthetic-v1', b'synthetic fixture')
         (case/'input-manifest.json').write_text(json.dumps({
-            'design_sha256': 'a'*64, 'design_ir_sha256': 'b'*64,
+            'design_sha256': genome_hash, 'design_ir_sha256': 'b'*64,
             'surface_stl_relpath': surface,
             'surface_stl_sha256': hashlib.sha256(files[surface]).hexdigest(),
             'subject_bundle': bundle,
@@ -55,6 +58,7 @@ class EvidenceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=root/'.private') as directory:
             case = self._synthetic_wave4_case(Path(directory), 'wave4-synthetic-g0-coarse')
             identity = finalize_case_identity(case)
+            self.assertNotEqual(identity['canonical_genome_hash'], identity['canonical_ir_source_genome_hash'])
             self.assertEqual(verify_case_identity(case)['state'], 'exact_artifact_bytes_verified')
             for key in ['genome_hash', 'ir_hash', 'geometry_hash', 'mesh_hash', 'case_hash']:
                 self.assertRegex(identity[key], r'^[0-9a-f]{64}$')

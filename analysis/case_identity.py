@@ -81,8 +81,17 @@ def build_case_identity(case):
         raise ValueError('prepared surface digest mismatch')
     canonical_genome = _hash_id(prepared['design_sha256'])
     canonical_ir = _hash_id(prepared['design_ir_sha256'])
+    program = strict_json(_safe(case, 'design-program.json').read_bytes())
     ir = strict_json(_safe(case, 'design-ir.json').read_bytes())
-    if ir['ir_sha256'] != canonical_ir or ir['program_sha256'] != canonical_genome:
+    # The Rust struct and serde_json::Value use different field ordering.
+    # Preserve both identities instead of equating their byte encodings.
+    def program_hash(sorted_keys):
+        encoded = json.dumps(program, ensure_ascii=False, sort_keys=sorted_keys,
+                             separators=(',', ':')).encode()
+        return hashlib.sha256(encoded).hexdigest()
+    ir_source_genome = _hash_id(ir['program_sha256'])
+    if (ir['ir_sha256'] != canonical_ir or canonical_genome != program_hash(False)
+            or ir_source_genome != program_hash(True)):
         raise ValueError('IR and prepared manifest disagree on canonical subjects')
     mesh = _inventory(case, ['constant/polyMesh'])
     for name in ['points', 'faces', 'owner', 'neighbour', 'boundary']:
@@ -108,6 +117,7 @@ def build_case_identity(case):
         'schema': SCHEMA, 'kind': 'openfoam_artifact_identity_not_qualification',
         'hash_basis': 'genome/IR/geometry exact file bytes; mesh/case domain-separated inventories',
         'canonical_genome_hash': canonical_genome, 'canonical_ir_hash': canonical_ir,
+        'canonical_ir_source_genome_hash': ir_source_genome,
         **chain, 'prepared_manifest': _digest(prepared_path),
         'compiler': compiler, 'source_artifacts': artifacts,
         'mesh_files': mesh, 'solver_input_files': inputs,
