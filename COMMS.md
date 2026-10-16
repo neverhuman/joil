@@ -418,3 +418,15 @@ PR #1 merged by Jepson (d1ac285). agy_joil moved to feat/wave3-evolution with WI
 - **Standing Rules**: Do NOT merge PR #2 or PR #3 (Jepson merges). No force-push, no `--admin`, no squash.
 
 - 2026-10-16T06:39Z drive (ENG:watcher): INT+DOC busy; nudged EV (fix PR #3 red CI: matplotlib missing in python-tests), TR (IR-R7 wave2 receipt reload, then TR-12 scope), IR (DOC review IR-R1..R5); workplan ~48/59 items merged/handed off; PR #2 green, #3 draft red; cleaned stale /tmp joil hardcopies.
+
+## 2026-10-16T07:06Z — Gemini (`agy_joil`, Lane `INT` Integrator): Completed `INT-04` Wave-4 Multi-Seed Evolution Proof (`cb31ba3`), Merged `CI-MATPLOTLIB` (`84d0c2e`), `IR-R7` (`d13355b`), `TR-10` (`a5f16c0`), `DOC-04/09/10` (`0ef2b88` / `175db93`), and Confirmed `TR-12`/`EV-06` Scope on `feat/joil-v4-truth-evidence` (`PR #3`)
+
+- **`INT-04` Wave-4 Multi-Seed Evolution Proof (`docs/results/wave4-evolution-proof-v1.json`, `SHA-256: 2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885`)**:
+  - Executed 10-seed (`20261101..20261110`) $\times$ 5-arm (`B1`, `B2`, `A1`, `A2`, `B3`) + `B0` (`CT-35`) Wave-4 proof on repaired v4 operators (`TR-01..17`, `EV-01..12`, `IR-01..12`) with strict equal `450`-proposal budget per seed and `MC n = 72` (`TR-15` order-statistic tail bounds).
+  - Compacted serialized JSON to `1.94 MB` (`< 2.0 MB` `check_public.py` threshold) and regenerated Wave-4 figures (`docs/figures/wave4-readme-hero-kpi-and-elite.png`, `docs/figures/wave4-evolution-ablation-and-lineage-proof.png`).
+  - Honest findings handed off to `DOC` (`GIVE INT -> DOC INT-04 cb31ba3`): `B3` dominates `B1` on population median KPI ($\Delta = +5.644746$, $U = 100.0$, $p_{\text{Holm}} = 0.0012568$, $\delta = +1.00$), dominates `B2` ($\Delta = +8.895462$, $U = 100.0$), `A1` ($\Delta = +11.175107$, $U = 100.0$), and `A2` ($\Delta = +2.416283$, $U = 98.0$), while under strict equal `450`-proposal budget without `3x` GP pre-screening, `B1` uniform catalog sampling reaches a slightly higher 10-seed single-draw extremum (`45.80` vs `44.99`).
+- **Merged Partner Lanes & Verified Full 10-Stage `tools/check.py` (`receipt: 20261016T065903Z-a27ac410`)**:
+  - Merged `lane/evidence` (`84d0c2e`, pinned `matplotlib==3.10.8` in CI `python-tests`), `lane/truth` (`d13355b`, `IR-R7` historical Wave-2 genome loader + `TR-10` `AnalyticStructuralScreen`), and `lane/paper` (`0ef2b88` / `175db93`, `DOC-04` trace, `DOC-07` review, `DOC-09` draft review, `DOC-10` sync).
+  - Confirmed `TR-12` (`DONE-SCOPED`) and `EV-06` (`DONE-SANDBOX`) per workplan §5 Decisions 8 & 9. Waiting for `lane/ir` (`IR-R1..R5`) to merge and run `INT-06` OpenFOAM `G0`/`G1`/`G2` sweep.
+
+- 2026-10-16T07:06Z drive (ENG:watcher): PR #3 CI now 9/9 green (cb31ba3, still draft; INT-06/DOC-07/INT-08 open), PR #2 green; INT-04 Wave-4 10-seed proof landed; TR-12/EV-06 closed as scoped per INT; nudged idle TR (README fresh-clone verification) and EV (Wave-4 number trace); INT/IR/DOC busy; workplan ~55/61 done (~90%); no merges, no cleanup needed.
