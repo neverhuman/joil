@@ -214,6 +214,7 @@ def validate_carrier_case_eligibility(
     carrier_case: Path,
     time_step: int,
     allow_diagnostic_on_failed_seed_mesh: bool = False,
+    allow_unextended_overflow_backflow_diagnostic: bool = False,
 ) -> dict[str, Any]:
     """Verify carrier run has not diverged, satisfies water mass closure, and has no terminal backflow.
 
@@ -251,6 +252,7 @@ def validate_carrier_case_eligibility(
         raise ValueError(f'Carrier case {name} failed water mass closure ({closure:.6g} > 0.001).')
 
     patches = integrals.get('patches', {})
+    backflow_exceeded = False
     for outlet_name in ('overflow', 'underflow'):
         if outlet_name not in patches:
             raise ValueError(f'Missing outlet patch {outlet_name} in {integrals_path}')
@@ -264,10 +266,12 @@ def validate_carrier_case_eligibility(
                 f'Invalid outlet flow on {outlet_name} in {name}: signed_flow={net_q}, reverse_flow={rev_q}'
             )
         if rev_q / net_q > 0.01:
-            raise ValueError(
-                f'Carrier case {name} ({integrals_path.name}, sha256={integrals_sha256[:12]}) rejected: '
-                f'{outlet_name} terminal reverse flow {rev_q:.6g} m3/s exceeds 1% of net outward flow {net_q:.6g} m3/s.'
-            )
+            backflow_exceeded = True
+            if not (allow_unextended_overflow_backflow_diagnostic and outlet_name == 'overflow'):
+                raise ValueError(
+                    f'Carrier case {name} ({integrals_path.name}, sha256={integrals_sha256[:12]}) rejected: '
+                    f'{outlet_name} terminal reverse flow {rev_q:.6g} m3/s exceeds 1% of net outward flow {net_q:.6g} m3/s.'
+                )
 
     status_path = carrier_case / 'research-status.json'
     status_doc = json.loads(status_path.read_text()) if status_path.exists() else {}
@@ -285,7 +289,7 @@ def validate_carrier_case_eligibility(
         'integrals_sha256': integrals_sha256,
         'provenance': prov,
         'research_status': status_doc,
-        'is_qualified_carrier': bool(mesh_pass and campaign_admitted),
+        'is_qualified_carrier': bool(mesh_pass and campaign_admitted and not backflow_exceeded),
     }
 
 
@@ -598,6 +602,7 @@ def run_full_liner_frozen_carrier_pilot(
     cpuset: str = '4,5,6,7',
     seed_cache: dict[str, Any] | None = None,
     injection_mode: str = 'deterministic_32_probe_seeds',
+    allow_unextended_overflow_backflow_diagnostic: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """Run a bounded diagnostic full-liner frozen-carrier 10-bin + passive-tracer Lagrangian pilot on ct35-sst-extended-000.
 
@@ -611,6 +616,7 @@ def run_full_liner_frozen_carrier_pilot(
         carrier_case,
         time_step=time_step,
         allow_diagnostic_on_failed_seed_mesh=True,
+        allow_unextended_overflow_backflow_diagnostic=allow_unextended_overflow_backflow_diagnostic,
     )
     os.environ['JOIL_CPU_SET'] = cpuset
     mode_tag = 'inlet' if injection_mode == 'flux_weighted_inlet' else 'pilot'
@@ -781,6 +787,7 @@ functions {{
         end_time=end_time,
         commands=commands,
         injection_mode=injection_mode,
+        allow_unextended_overflow_backflow_diagnostic=allow_unextended_overflow_backflow_diagnostic,
     )
     return result, seed_cache
 
@@ -793,11 +800,13 @@ def evaluate_full_liner_pilot_case(
     end_time: float,
     commands: list[dict[str, Any]] | None = None,
     injection_mode: str = 'deterministic_32_probe_seeds',
+    allow_unextended_overflow_backflow_diagnostic: bool = False,
 ) -> dict[str, Any]:
     elig = validate_carrier_case_eligibility(
         carrier_case,
         time_step=time_step,
         allow_diagnostic_on_failed_seed_mesh=True,
+        allow_unextended_overflow_backflow_diagnostic=allow_unextended_overflow_backflow_diagnostic,
     )
     boundary_meta = parse_poly_mesh_boundary(carrier_case / 'constant/polyMesh/boundary')
     wall_start = boundary_meta['patches']['wall']['startFace']

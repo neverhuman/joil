@@ -223,21 +223,51 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("{out_str}");
         }
         "prepare-cfd-case" => {
-            let summary_path = PathBuf::from(
-                parse_arg(&args, "--summary")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
-            );
             let case_dir = PathBuf::from(parse_arg(&args, "--case").unwrap_or_else(|| {
                 "runs/rust-cfd-elite-gen024-isl2-ind014".into()
             }));
-            let raw = std::fs::read_to_string(&summary_path)?;
-            let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
-            let elite = campaign
-                .top_pareto_elites
-                .first()
-                .ok_or("no top_pareto_elites in campaign summary")?;
-            let cfg = cfd_case::CfdCaseConfig::default();
-            let manifest = cfd_case::build_openfoam_candidate_case(&elite.program, &case_dir, &cfg)?;
+            let prog = if let Some(w2_family) = parse_arg(&args, "--wave2-family") {
+                let w2_path = PathBuf::from(parse_arg(&args, "--wave2-ablation").unwrap_or_else(
+                    || "docs/results/wave2-multiseed-ablation-and-holdout-v1.json".into(),
+                ));
+                let raw = std::fs::read_to_string(&w2_path)?;
+                let report: evolve::Wave2MultiseedReport = serde_json::from_str(&raw)?;
+                let ind = report
+                    .promoted_wave2_elites_by_family
+                    .get(&w2_family)
+                    .ok_or_else(|| {
+                        format!(
+                            "Wave-2 family '{w2_family}' not found in {}",
+                            w2_path.display()
+                        )
+                    })?;
+                ind.program.clone()
+            } else {
+                let summary_path = PathBuf::from(
+                    parse_arg(&args, "--summary").unwrap_or_else(|| {
+                        "runs/rust-cuda-evolution-v1/campaign-summary.json".into()
+                    }),
+                );
+                let raw = std::fs::read_to_string(&summary_path)?;
+                let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
+                let elite = campaign
+                    .top_pareto_elites
+                    .first()
+                    .ok_or("no top_pareto_elites in campaign summary")?;
+                elite.program.clone()
+            };
+            let mut cfg = cfd_case::CfdCaseConfig::default();
+            if let Some(p_pa) = parse_arg(&args, "--reject-pressure-pa").and_then(|s| s.parse().ok())
+            {
+                cfg.reject_pressure_pa = p_pa;
+            }
+            if let Some(steps) = parse_arg(&args, "--steps").and_then(|s| s.parse().ok()) {
+                cfg.steps = steps;
+            }
+            if let Some(model) = parse_arg(&args, "--model") {
+                cfg.turbulence_model = model;
+            }
+            let manifest = cfd_case::build_openfoam_candidate_case(&prog, &case_dir, &cfg)?;
             let out_json = serde_json::to_string_pretty(&manifest)?;
             if let Some(out_path) = parse_arg(&args, "--out") {
                 std::fs::write(out_path, &out_json)?;

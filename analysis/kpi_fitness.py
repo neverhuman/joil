@@ -218,7 +218,12 @@ def verify_carrier_case_provenance(case_dir: Path, time_step: int) -> dict[str, 
         if not isinstance(manifest_data, dict) or not manifest_data:
             mismatched_inputs.append('<empty_or_non_dict_input_manifest>')
         else:
-            for rel_file, expected_hash in manifest_data.items():
+            file_map = (
+                manifest_data['dictionary_files_sha256']
+                if isinstance(manifest_data.get('dictionary_files_sha256'), dict)
+                else manifest_data
+            )
+            for rel_file, expected_hash in file_map.items():
                 rel_p = Path(rel_file)
                 if rel_p.is_absolute() or '..' in rel_p.parts:
                     mismatched_inputs.append(f'escaped_path:{rel_file}')
@@ -254,6 +259,12 @@ def verify_carrier_case_provenance(case_dir: Path, time_step: int) -> dict[str, 
 
     metrics_receipt_path = case_dir_resolved / f'metrics-t{time_step}-0-joilHydraulicMetrics.log.receipt.json'
     metrics_log_path = case_dir_resolved / f'metrics-t{time_step}-0-joilHydraulicMetrics.log'
+    if not metrics_receipt_path.is_file():
+        alt_rec = case_dir_resolved / f'water-3-hydraulicMetrics-{time_step}.log.receipt.json'
+        alt_log = case_dir_resolved / f'water-3-hydraulicMetrics-{time_step}.log'
+        if alt_rec.is_file() and alt_log.is_file():
+            metrics_receipt_path = alt_rec
+            metrics_log_path = alt_log
     receipt_verified = False
     receipt_sha256 = None
     if metrics_receipt_path.is_file() and metrics_log_path.is_file():

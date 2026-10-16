@@ -323,3 +323,36 @@ Cross-screen coordination for neverhuman/joil. Screens: `agy_joil` (xbabe2). Pre
    - `rtk proxy python3 tools/claims_audit.py`: `OK (132 structured receipt claims + 899 markdown numeric tokens verified across WHITEPAPER.md, SCIENCE.md, README.md)`.
    - `rtk proxy python3 tools/check.py`: all 9 stages (`fmt`, `clippy`, `rust-tests`, `baseline`, `python-tests`, `public-check`, `claims-audit`, `npm-ci`, `ui-build`) exited `0`.
 
+
+## 2026-10-16T02:36Z — Joil drive routine (Grok Bot) [2026-10-15 07:36PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) was **IDLE** after push @ `806f9e0`; **nudged** toward WAVE2_PLAN §2 computational gate: 5-run OpenFOAM 14 G0/G1/G2 GCI + LRR/SSG RSM on the Wave-2 TPMS/8-jet elite(s) (report failures too), F2 transient droplet closure (or resumable plan), and a Wave-1 vs Wave-2 matched-scale CFD comparison plate. Accepted (Loading…).
+- **Jepson override**: none in hardcopy.
+- **PR #1** (`806f9e0`, not draft, MERGEABLE/UNSTABLE): **not merged** — Foundation still QUEUED (runs 38839967266 / 38839962573) on the known neverhuman-lan runner gap; already escalated, CI config untouched.
+- **Merges / cleanup**: none (single worktree `/home/ubuntu/joil`, screen owns it).
+- 2026-10-16T02:54:04Z ENG:watcher: PR #1 CI still queued (neverhuman-lan group not serving joil; org admin needed). agy_joil active.
+
+## 2026-10-16 03:35 PT ENG:watcher
+PR #1 merged by Jepson (d1ac285). agy_joil moved to feat/wave3-evolution with WIP; feat branch deleted. Wave-3 evolution + plots order sent.
+
+## 2026-10-16T03:38Z — Joil drive routine (ENG:watcher) [2026-10-15 8:38PM PDT]
+
+- **Screen**: xbabe2 `agy_joil` (3791793) Detached — was **IDLE** at Gemini prompt after truncated Jepson ADDENDUM display; **re-pasted** full proof-priority Wave-3 order via readbuf+paste (file `/tmp/joil_proof_repaste_*.txt`).
+- **Jepson override**: ADDENDUM 8:36pm PT — proof evolution works (detailed WHITEPAPER + README + real multi-seed KPI evidence). Overrides routine defaults.
+- **Open PRs**: none. **PR #1** already merged by Jepson @ `d1ac285` (2026-10-16T03:31:54Z).
+- **Merges / approve**: none this run (Jepson merges Joil going forward per his order).
+- **Cleanup**: none — single worktree `/home/ubuntu/joil` on `feat/wave3-evolution`, dirty WIP owned by `agy_joil` (oil_grade / OpenFOAM wave2 tools). No extra temp folders.
+- **WakeParent**: NO (no new merge/cleanup/blocker; proof nudge re-delivered).
+- **Follow-up**: `agy_joil` accepted queued Jepson ADDENDUM into edit buffer (full proof text visible, 25+ lines) and is **ACTIVE** finishing Wave-2 CFD plate (`generate_wave2_vs_wave1_cfd_plate.py`). Remaining queue may still hold proof/Wave-3 fragments — next drive cycle should Up+Enter if still queued-idle. Do not interrupt mid-command.
+- **Status at end of cycle**: `agy_joil` **ACTIVE** (`Running command…` spinner on `generate_wave2_vs_wave1_cfd_plate.py`); Gemini UI still shows queued-message banner — Jepson proof ADDENDUM is queued behind current turn (full text confirmed in Up-edit buffer). Leave alone; next cycle only Up+Enter if truly idle with queue remaining.
+
+## 2026-10-16T03:56Z — Gemini (`agy_joil`): Completed Mandatory 5-Case OpenFOAM 14 (`G0`/`G1`/`G2` Roache `GCI` + Dual `LRR`/`SSG` RSM) Verification on Wave-2 TPMS & 8-Jet Elites + `F2-Oil` Checkpoint + Plate 10; Opening Focused PR & Launching Wave-3 Evolutionary Proof
+
+1. **Completed Wave-2 OpenFOAM 14 3-Elite 5-Case (`G0`/`G1`/`G2` + `LRR`/`SSG` RSM) Verification & Honest Rank/Gate Audit (`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`, `SHA-256: 52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841`)**:
+   - **Wave-2 #1 TPMS Elite (`s20261103-g008-i012`, `cylindrical-gyroid-coalescer`)**: `G0` (`139,852` cells) $\Delta p_u = 17,419.12\text{ Pa}$; `G1` (`305,311` cells) $\Delta p_u = 19,576.17\text{ Pa}$; `G2` (`552,067` cells) $\Delta p_u = 18,723.94\text{ Pa}$ (`-36.46%` vs `CT-35`), $E_{\text{loss}} = 22,070.90\text{ J/m}^3$ (`-34.53%`), $\text{GCI}_{21}^{\text{std}} = 5.01\%$, $\text{SNR}_{\text{span}}(\Delta p_u) = 4.98\times \ge 3.0\times$, $\text{SNR}_{\text{span}}(E_{\text{loss}}) = 6.98\times \ge 3.0\times$; `LRR` (`18,245.10 Pa`) vs `SSG` (`18,154.24 Pa`) inter-RSM delta `0.499% <= 5.0%`, `100.0%` diagonal realizability (`gate_passed: true`).
+   - **Wave-2 #2 8-Jet Elite (`wave2-arch-octa-branch-helical-manifold`, `octa-branch-helical-manifold`)**: `G0` (`139,966` cells) $\Delta p_u = 17,164.40\text{ Pa}$; `G1` (`305,469` cells) $\Delta p_u = 19,447.27\text{ Pa}$; `G2` (`552,511` cells) $\Delta p_u = 18,628.97\text{ Pa}$ (`-36.78%` vs `CT-35`), $E_{\text{loss}} = 21,972.87\text{ J/m}^3$ (`-34.82%`), $\text{GCI}_{21}^{\text{std}} = 4.57\%$, $\text{SNR}_{\text{span}}(\Delta p_u) = 4.75\times \ge 3.0\times$, $\text{SNR}_{\text{span}}(E_{\text{loss}}) = 6.53\times \ge 3.0\times$; `LRR` (`18,326.40 Pa`) vs `SSG` (`17,960.57 Pa`) inter-RSM delta `2.016% <= 5.0%`, `100.0%` diagonal realizability (`gate_passed: true`).
+   - **Honest Ranking & Gate Failure Findings**: All 3 elites beat `CT-35` across all `15` OpenFOAM 14 runs by `-36.46%` to `-39.05%`, but fine-scale hydraulic rank reverses on `G2` (`8-Jet` `18,628.97 Pa` < `6-Jet` `18,699.40 Pa` < `TPMS` `18,723.94 Pa`) inside a `94.97 Pa` (`0.51%`) spread within the `4.57%–5.01%` `GCI` band; unextended (`L_ext = 0 m`) carriers fail `validate_carrier_case_eligibility` (`Q_rev = 255.8%` of `Q_net`); Stage-0 `F2-Oil` 10-bin checkpoint (`0.01 s`, `200` steps at $\Delta t = 5\times 10^{-5}\text{ s}$) completed in `35.58 s` wall-clock with `0` parcel discrepancy (`97.19%` remaining in domain), bounding the 8-stage (`T = 4.0 s`) resumable continuation plan at `3.95 wall-hours`.
+2. **Generated Plate 10 (`docs/figures/wave2-vs-wave1-openfoam14-cfd-comparison.png`, `SHA-256: 5b7a2f9cfc46df0ff1597df58c36b6abf60a85ab87873ae05fdfee4960ff0ec8`)** and verified `rtk proxy python3 tools/check.py` (all 9 stages exit `0`, `142` structured claims + `1,036` numeric tokens verified).
+3. **Next Step (Immediate)**:
+   - Committing and pushing this completed Wave-2 OpenFOAM 14 verification batch on `feat/wave3-evolution` and opening a focused PR (`jepsontaylor` HTTPS), then immediately executing Jepson's Wave-3 evolutionary proof order (`analysis/kpi_fitness.py` per-generation best/median KPI trajectories across `>= 5` (`10`) seeds with CI bands vs. random search, conventional NSGA-II, no-mutation, and no-selection ablations + `CT-35` baseline + held-out geometries + README hero plot + Whitepaper proof figures).
+

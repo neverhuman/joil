@@ -82,6 +82,20 @@ class EvidenceTests(unittest.TestCase):
         self.assertFalse(failed['gate_passed'])
         self.assertGreaterEqual(len(failed['failures']),2)
 
+        w2_bundle=json.loads((root/'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json').read_text())
+        self.assertIsNone(w2_bundle['qualified_multiobjective_vector'])
+        for key in ('wave2_tpms_gyroid_elite_5run_dossier','wave2_octa_branch_8jet_elite_5run_dossier'):
+            w2_res=evaluate_elite_gci_rsm_gate(w2_bundle[key],prereg)
+            self.assertTrue(w2_res['gate_passed'],w2_res['failures'])
+            self.assertGreaterEqual(w2_res['checks']['saving_to_3grid_span_ratio_dp_u'],3.0)
+            self.assertLessEqual(w2_res['checks']['inter_rsm_dp_u_delta_pct'],5.0)
+        f2_chk=w2_bundle['f2_oil_transient_droplet_closure_checkpoint_and_resumable_plan']
+        self.assertFalse(f2_chk['qualified_for_f2_oil_grade'])
+        self.assertTrue(f2_chk['strict_unextended_overflow_backflow_gate_rejected'])
+        self.assertTrue(f2_chk['stage0_inventory_closure_passed'])
+        self.assertEqual(f2_chk['stage0_total_discrepancy_count'],0)
+        self.assertEqual(len(f2_chk['resumable_8stage_continuation_plan']['stages']),8)
+
     def test_wave2_receipt_and_whitepaper_hash_consistency(self):
         import hashlib
         root=Path(__file__).resolve().parents[1]

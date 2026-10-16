@@ -204,6 +204,33 @@ def main() -> int:
             args.wave2_ablation.read_bytes()
         ).hexdigest()
 
+    w2_5run_path = ROOT / "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json"
+    if args.verify_existing and w2_5run_path.is_file():
+        w2_bundle = json.loads(w2_5run_path.read_text(encoding="utf-8"))
+        for key in (
+            "wave2_tpms_gyroid_elite_5run_dossier",
+            "wave2_octa_branch_8jet_elite_5run_dossier",
+        ):
+            sub_d = w2_bundle.get(key)
+            if not isinstance(sub_d, dict):
+                result["gate_passed"] = False
+                result["failures"].append(f"missing {key} in {w2_5run_path.name}")
+                continue
+            sub_res = evaluate_elite_gci_rsm_gate(sub_d, prereg)
+            recorded_gate = sub_d.get("mandatory_promotion_gate", {})
+            if bool(recorded_gate.get("gate_passed")) != bool(sub_res["gate_passed"]):
+                result["gate_passed"] = False
+                result["failures"].append(
+                    f"gate_passed mismatch for {key}: recorded={recorded_gate.get('gate_passed')} vs evaluated={sub_res['gate_passed']}"
+                )
+            result["checks"][f"{key}_gate_passed"] = sub_res["gate_passed"]
+            result["checks"][f"{key}_snr_dp_u"] = sub_res["checks"].get(
+                "saving_to_3grid_span_ratio_dp_u", 0.0
+            )
+            result["checks"][f"{key}_inter_rsm_dp_u_delta_pct"] = sub_res[
+                "checks"
+            ].get("inter_rsm_dp_u_delta_pct", 0.0)
+
     if not result["gate_passed"]:
         print(json.dumps(result, indent=2))
         return 1
