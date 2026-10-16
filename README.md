@@ -53,7 +53,7 @@ CAD outputs include canonical mm STEP, mm and metre STL previews, metre glTF, te
 
 ## Quick start
 
-**1. Check the repository.** Every command below writes only to ignored paths. On a fresh clone, single checks take seconds to under a minute; `cargo test --workspace` and `tools/check.py` take a few minutes each. Workplan item DOC-05 runs this list from a clean checkout; the log is kept in ignored `.private/checks/`.
+**1. Check the repository.** Every command below writes only to ignored paths. Runtime varies with available cores; individual checks can take over a minute, and `cargo test --workspace` and `tools/check.py` take several minutes on a fresh clone. Workplan item DOC-05 runs this list from a clean checkout; the log is kept in ignored `.private/checks/`.
 
 ```bash
 rtk cargo test --workspace --locked
