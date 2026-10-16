@@ -7,11 +7,11 @@ Commit board changes on YOUR lane branch only for your row/locks; integrator rec
 ## Lanes
 | Lane | Screen | CLI | Worktree | Branch | Status | Last heartbeat |
 |---|---|---|---|---|---|---|
-| INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | assigned | — |
-| TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | assigned | — |
-| EV | joil_evidence | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | assigned | — |
-| IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | assigned | — |
-| DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | assigned | — |
+| INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | active (INT-01 DONE, merging TR-05/06) | 2026-10-16T05:18:00Z |
+| TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | active (TR-05/06 DONE, TR-01 WIP) | 2026-10-16T05:16:57Z |
+| EV | joil_evidence | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | active (EV-01..04 WIP) | 2026-10-16T05:17:04Z |
+| IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | active (IR-01 WIP) | 2026-10-16T05:16:50Z |
+| DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | active (DOC-01 DONE, DOC-02 WIP) | 2026-10-16T05:13:41Z |
 
 ## Heartbeat protocol
 Every ≤30 min (and on each item state change) append to the live file:
