@@ -727,7 +727,7 @@ fn p07_surrogate_constrained_expected_improvement_and_prescreen() {
     let gp = GaussianProcessSurrogate::fit(&records, 0.85, 0.015).unwrap();
     let mut pool = Vec::new();
     for p in &archetypes {
-        pool.push(p.mutate(&mut rng));
+        pool.push(p.mutate(&mut rng).unwrap().into_child().unwrap());
     }
     let ranked = active_prescreen_offspring(&gp, &pool, 18.5, 5);
     assert_eq!(ranked.len(), 5);
@@ -845,17 +845,48 @@ fn wave2_exotic_3d_genome_operators_and_multiseed_ablation_gates() {
     // Verify Wave-2 operators preserve watertightness, manifoldness, RedTeam checks, and 5-patch OpenFOAM meshability across single and chained mutations
     for i in 0..6 {
         let base_prog = &archetypes[i * 3 % archetypes.len()];
-        let m1 = base_prog.mutate_diffeomorphic_spline(&mut rng);
-        let m2 = base_prog.mutate_branch_topology(&mut rng);
-        let m3 = base_prog.mutate_tpms_grading(&mut rng);
+        let m1 = base_prog
+            .mutate_diffeomorphic_spline(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
+        let m2 = base_prog
+            .mutate_branch_topology(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
+        let m3 = base_prog
+            .mutate_tpms_grading(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
         let mate = &archetypes[(i * 3 + 5) % archetypes.len()];
-        let c1 = base_prog.crossover_homologous_graph(mate, &mut rng);
+        let c1 = base_prog
+            .crossover_homologous_graph(mate, &mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
         let chained = m1
             .mutate_branch_topology(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap()
             .mutate_tpms_grading(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap()
             .crossover_homologous_graph(&m2, &mut rng)
-            .mutate_diffeomorphic_spline(&mut rng);
-        let rand_exotic = DesignProgram::sample_random_exotic(&mut rng);
+            .unwrap()
+            .into_child()
+            .unwrap()
+            .mutate_diffeomorphic_spline(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
+        let rand_exotic = DesignProgram::sample_random_exotic(&mut rng)
+            .unwrap()
+            .into_child()
+            .unwrap();
 
         for child in [m1, m2, m3, c1, chained, rand_exotic] {
             let (norm_c, pheno, mesh) = child.canonicalize_and_preflight().unwrap();
