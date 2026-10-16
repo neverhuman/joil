@@ -96,11 +96,14 @@ def generate_readme_hero(
     fig = plt.figure(figsize=(15.5, 10.6), dpi=180, facecolor='#F8FAFC')
     gs = fig.add_gridspec(2, 2, hspace=0.33, wspace=0.24, left=0.06, right=0.97, top=0.89, bottom=0.08)
 
-    mc_n = int(w3.get('mc_samples_per_candidate', 28))
+    mc_n = int(
+        w3.get('mc_samples_per_candidate')
+        or w3.get('promoted_wave3_top_elite', {}).get('mc_robustness', {}).get('samples', 28)
+    )
     fig.suptitle(
-        f'Joil {wave_label} De-Novo Evolutionary Screen Proof: Per-Generation KPI Trajectory (n = 10 Seeds, 22,500 3D Evals, MC n={mc_n})\n'
-        '& 15-Run 3D OpenFOAM 14 G0/G1/G2 + LRR/SSG RSM Verification vs. CT-35 Baseline',
-        fontsize=13.2,
+        f'Joil {wave_label} Prior-Screen Search Diagnostics: Per-Generation KPI Trajectory (n = 10 Seeds, 22,500 Evals, MC n={mc_n})\n'
+        'B1 > B3 on Best KPI (p_Holm=1.00) & B3 > B1 on Pop-Median KPI (p_Holm=0.0013) | Panel D: Archived W1/2 CFD (Separate Subjects)',
+        fontsize=12.4,
         fontweight='bold',
         color='#0F172A',
         y=0.965,
@@ -110,9 +113,9 @@ def generate_readme_hero(
         0.922,
         f'Source Receipts: {proof_filename} (SHA-256: {w3_sha[:16]}…) | '
         f'{cfd_filename} (SHA-256: {cfd_sha[:16]}…) | '
-        'Shared Unseeded Gen-0 Init across B2, A1, A2, B3',
+        'Shared Unseeded Gen-0 Init across B2, A1, A2, B3 (B0 CT-35 = Single-Eval Reference)',
         ha='center',
-        fontsize=8.1,
+        fontsize=8.0,
         color='#334155',
         style='italic',
     )
@@ -125,8 +128,8 @@ def generate_readme_hero(
     base_cout = float(_get(w3, 'baseline_b0_ct35_cout_p95_mg_l', 'baseline_b0_ct35_cout_sample_screen_upper_mg_l'))
 
     arm_styles = [
-        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label} Exotic3D-QD-CEI (Full Evolution)', '#0284C7', '-', 2.6),
-        (b1_k, 'B1: Equal-Budget Uniform Random (Exotic 3D)', '#D97706', '--', 2.1),
+        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label} Exotic3D-QD-CEI (B1>B3 Best; B3>B1 Median)', '#0284C7', '-', 2.6),
+        (b1_k, 'B1: Equal-Budget Uniform Random (Higher Best Extremum)', '#D97706', '--', 2.1),
         ('A1_No_Mutation_Crossover_Only', 'A1: No-Mutation (Crossover-Only Ablation)', '#7C3AED', '-.', 2.0),
         ('A2_No_Selection_Random_Walk', 'A2: No-Selection (Random-Walk Ablation)', '#DC2626', ':', 2.0),
         ('B2_Conventional_Axisym_NSGA2', 'B2: Conventional Axisym NSGA-II (2-Port)', '#475569', '--', 1.9),
@@ -135,7 +138,7 @@ def generate_readme_hero(
     # Panel A: Per-Generation KPI_score (Best + Population Median with 10-seed CI bands)
     ax_a = fig.add_subplot(gs[0, 0])
     ax_a.set_facecolor('#FFFFFF')
-    ax_a.axhline(base_kpi, color='#1E293B', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Baseline ({base_kpi:.2f} [-])')
+    ax_a.axhline(base_kpi, color='#1E293B', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Single-Eval Ref ({base_kpi:.2f} [-])')
 
     # Thin individual seed traces for B3 and B1
     for o in outcomes_map['B3_Wave3_Exotic3D_QD_CEI']:
@@ -154,22 +157,22 @@ def generate_readme_hero(
     b3_med = np.array([b['median_kpi_score']['mean'] for b in bands_map['B3_Wave3_Exotic3D_QD_CEI']])
     b1_med = np.array([b['median_kpi_score']['mean'] for b in bands_map[b1_k]])
     a2_med = np.array([b['median_kpi_score']['mean'] for b in bands_map['A2_No_Selection_Random_Walk']])
-    ax_a.plot(gens, b3_med, color='#0369A1', linestyle=':', linewidth=1.8, label=f'B3 Active Population Median [{b3_med[-1]:.2f}]')
+    ax_a.plot(gens, b3_med, color='#0369A1', linestyle=':', linewidth=1.8, label=f'B3 Active Pop Median [{b3_med[-1]:.2f}, p_Holm=0.0013 vs B1]')
     ax_a.plot(gens, b1_med, color='#B45309', linestyle=':', linewidth=1.4, label=f'B1 Random Batch Median [{b1_med[-1]:.2f}]')
     ax_a.plot(gens, a2_med, color='#991B1B', linestyle=':', linewidth=1.3, label=f'A2 No-Selection Pop Median [{a2_med[-1]:.2f}]')
 
-    ax_a.set_title('A. Composite Screen KPI Score vs. Generation (n = 10 Seeds, Mean ± 95% Bootstrap CI)')
-    ax_a.set_xlabel('Evolutionary Generation g [-] (18 3D Evals/Gen, 450 Total Evals/Seed)')
+    ax_a.set_title('A. Screen KPI vs. Gen (n=10 Seeds: B1 > B3 on Best KPI, p_Holm=1.00; B3 > B1 on Pop-Median)')
+    ax_a.set_xlabel('Evolutionary Generation g [-] (18 3D Evals/Gen, 450 Total Charged Proposals/Seed)')
     ax_a.set_ylabel('Composite KPI_score [-] (analysis/kpi_fitness.py, Higher = Better)')
     ax_a.set_xlim(0, gens[-1])
     ax_a.grid(True, linestyle='--', alpha=0.35)
-    ax_a.legend(loc='lower right', fontsize=7.3, framealpha=0.94)
+    ax_a.legend(loc='lower right', fontsize=7.0, framealpha=0.94)
 
     # Panel B: Per-Generation Treated-Water Oil Concentration C_out,p95 [mg/L]
     ax_b = fig.add_subplot(gs[0, 1])
     ax_b.set_facecolor('#FFFFFF')
     ax_b.axhline(30.0, color='#EF4444', linestyle='--', linewidth=1.4, label='Discharge Ceiling (30.0 mg/L)')
-    ax_b.axhline(base_cout, color='#1E293B', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Baseline ({base_cout:.2f} mg/L)')
+    ax_b.axhline(base_cout, color='#1E293B', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Single-Eval Ref ({base_cout:.2f} mg/L)')
 
     for o in outcomes_map['B3_Wave3_Exotic3D_QD_CEI']:
         y_seed = [float(_get(s, 'best_cout_p95_mg_l', 'best_cout_sample_screen_upper_mg_l')) for s in o['generation_trace']]
@@ -189,21 +192,21 @@ def generate_readme_hero(
     ax_b.plot(gens, b3_med_c, color='#0369A1', linestyle=':', linewidth=1.8, label=f'B3 Active Pop Median [{b3_med_c[-1]:.2f} mg/L]')
     ax_b.plot(gens, b1_med_c, color='#B45309', linestyle=':', linewidth=1.4, label=f'B1 Random Batch Median [{b1_med_c[-1]:.2f} mg/L]')
 
-    ax_b.set_title('B. De-Novo Evolution of Screen Oil Concentration C_out,p95 [mg/L] (n = 10 Seeds)')
+    ax_b.set_title(f'B. Screen Oil Concentration C_out,upper [mg/L] vs. Gen (n = 10 Seeds, MC n={mc_n})')
     ax_b.set_xlabel('Evolutionary Generation g [-] (Shared Unseeded Gen-0 Init at g = 0)')
-    ax_b.set_ylabel('Screen Treated-Water Oil C_out,p95 [mg/L] (Lower = Better)')
+    ax_b.set_ylabel('Screen Treated-Water Oil C_out,upper [mg/L] (Lower = Better)')
     ax_b.set_xlim(0, gens[-1])
     ax_b.grid(True, linestyle='--', alpha=0.35)
     ax_b.legend(loc='upper right', fontsize=7.4, framealpha=0.94)
 
-    # Panel C: Evolved 3D Elite Architecture vs CT-35 Baseline Visual Schematic
+    # Panel C: Gene-Label Schematic vs CT-35 Baseline (Explicitly marked as gene-label schematic, not compiled geometry)
     ax_c = fig.add_subplot(gs[1, 0])
     ax_c.set_facecolor('#0F172A')
     ax_c.set_xlim(0, 100)
     ax_c.set_ylim(0, 62)
     ax_c.set_xticks([])
     ax_c.set_yticks([])
-    ax_c.set_title('C. Evolved 3D Phenotype Architecture vs. CT-35 Baseline (Exact Millimeter Scale)')
+    ax_c.set_title('C. Gene-Label Schematic vs. CT-35 (Prior-Screen Genes; Not Compiled Geometry, C1/IR-R4)')
 
     # Left sub-diagram: CT-35 Baseline cross-section & axial cut
     c_base = Circle((20, 36.2), 13.0, facecolor='#1E293B', edgecolor='#94A3B8', linewidth=2.0)
@@ -213,31 +216,28 @@ def generate_readme_hero(
     # 2 abrupt flat ports
     ax_c.add_patch(FancyBboxPatch((4.5, 46.2), 9.0, 3.0, boxstyle='round,pad=0.2', facecolor='#EF4444', edgecolor='#FCA5A5'))
     ax_c.add_patch(FancyBboxPatch((26.5, 22.8), 9.0, 3.0, boxstyle='round,pad=0.2', facecolor='#EF4444', edgecolor='#FCA5A5'))
-    ax_c.text(20, 54.5, 'B0: CT-35 Baseline (2 Abrupt Ports)', color='#F8FAFC', fontweight='bold', ha='center', fontsize=9.0)
+    ax_c.text(20, 54.5, 'B0: CT-35 Single-Eval Ref (2 Ports)', color='#F8FAFC', fontweight='bold', ha='center', fontsize=9.0)
     ax_c.text(
         20,
         13.2,
         f'd_max(Hinze) = 69.2 µm (High Entry Shear)\n'
-        f'C_out,p95 = {base_cout:.2f} mg/L | KPI = {base_kpi:.2f} [-]\n'
-        f'OpenFOAM Δp_u = 29.47 kPa',
+        f'C_out,upper = {base_cout:.2f} mg/L | KPI = {base_kpi:.2f} [-]\n'
+        f'Structured-Hex CFD Δp_u = 29.47 kPa',
         color='#CBD5E1',
         ha='center',
         fontsize=7.6,
     )
 
-    # Right sub-diagram: Evolved B3 Elite
+    # Right sub-diagram: Gene-Label Schematic of Top B3 Elite
     c_outer = Circle((68, 36.2), 13.8, facecolor='#0F172A', edgecolor='#38BDF8', linewidth=2.2)
     ax_c.add_patch(c_outer)
-    # Annular TPMS sleeve r in [0.70R, R]
     w_tpms = Wedge((68, 36.2), 13.6, 0, 360, width=4.1, facecolor='#0284C7', edgecolor='#7DD3FC', alpha=0.55, hatch='xx')
     ax_c.add_patch(w_tpms)
-    # Unobstructed vortex core r < 0.70R
     c_unob = Circle((68, 36.2), 9.5, facecolor='#0F172A', edgecolor='#22D3EE', linestyle='--', linewidth=1.3)
     ax_c.add_patch(c_unob)
     c_oil = Circle((68, 36.2), 3.5, facecolor='#10B981', edgecolor='#A7F3D0', linewidth=1.5)
     ax_c.add_patch(c_oil)
 
-    # Draw 6 phased tangential entry jets around circumference
     for k_jet in range(6):
         ang = math.radians(k_jet * 60.0 + 25.0)
         x0 = 68.0 + 15.6 * math.cos(ang)
@@ -251,20 +251,20 @@ def generate_readme_hero(
     top_cout = _mc_cout(top_el['mc_robustness'])
     base_cout_val = float(_get(w3, 'baseline_b0_ct35_cout_p95_mg_l', 'baseline_b0_ct35_cout_sample_screen_upper_mg_l'))
     top_cout_red_pct = (top_cout - base_cout_val) / base_cout_val * 100.0
-    ax_c.text(68, 54.5, f'Evolved B3 Elite ({top_el["topology_class"]})', color='#38BDF8', fontweight='bold', ha='center', fontsize=9.0)
+    ax_c.text(68, 54.5, f'B3 Elite Gene-Label Schematic ({top_el["topology_class"]})', color='#38BDF8', fontweight='bold', ha='center', fontsize=8.6)
     ax_c.text(
         68,
         10.5,
-        f'① Phased Helical Entry Jets (d_max = 91.6 µm)\n'
-        f'② Peripheral TPMS Coalescer Sleeve r ∈ [0.70R, R]\n'
-        f'③ 100% Unobstructed Oil Core (r < 0.70R, Do = 1.40 mm)\n'
-        f'C_out,p95 = {top_cout:.2f} mg/L ({top_cout_red_pct:.1f}%) | KPI = {top_kpi:.2f} [-]',
+        f'GENE-LABEL SCHEMATIC ONLY (Not Compiled Geometry):\n'
+        f'Authored genes: {top_el["program"]["inlet_split"]["branches_per_port"]}x2 jets, TPMS={top_el["program"]["tpms_insert"]["basis"]}\n'
+        f'Compiled surface enacts wall-corrugation proxy only (C1, IR-R4)\n'
+        f'Screen C_out,upper = {top_cout:.2f} mg/L ({top_cout_red_pct:.1f}%) | KPI = {top_kpi:.2f} [-]',
         color='#E2E8F0',
         ha='center',
-        fontsize=7.5,
+        fontsize=7.2,
     )
 
-    # Panel D: 15-Run OpenFOAM 14 3-Grid (G0/G1/G2) + Dual LRR/SSG RSM Verification across Promoted Elites
+    # Panel D: Archived Wave-1/2 OpenFOAM 14 3-Grid (G0/G1/G2) + Dual LRR/SSG RSM Screen (Separate Subjects from Wave-4)
     ax_d = fig.add_subplot(gs[1, 1])
     ax_d.set_facecolor('#FFFFFF')
     audit_by_topo = {
@@ -278,10 +278,10 @@ def generate_readme_hero(
     tpms_row = audit_by_topo['cylindrical-gyroid-coalescer']
     octa_row = audit_by_topo['octa-branch-helical-manifold']
     labels_d = [
-        'CT-35\nBaseline\n(Extended)',
-        'Wave-1 Elite\n6-Jet Vortex\n(G2 553k / RSM)',
-        'Wave-2/3 Elite\nTPMS Gyroid\n(G2 552k / RSM)',
-        'Wave-2/3 Elite\n8-Jet Helical\n(G2 553k / RSM)',
+        'CT-35 Ref\n(Structured-Hex\nG2 Only; L_ext>0)',
+        'Archived W1\n2-Port Wall-Mod\n("6-Jet" Label, L_ext=0)',
+        'Archived W2\n2-Port Wall-Mod\n("TPMS" Label, L_ext=0)',
+        'Archived W2\n2-Port Wall-Mod\n("8-Jet" Label, L_ext=0)',
     ]
     g2_dp_kpa = [
         base_dp_pa / 1000.0,
@@ -289,14 +289,13 @@ def generate_readme_hero(
         float(tpms_row['openfoam_g2_dp_u_pa']) / 1000.0,
         float(octa_row['openfoam_g2_dp_u_pa']) / 1000.0,
     ]
+    # CT-35 has NO LRR or SSG RSM runs in any receipt -> plot only the 3 measured RSM subjects (indices 1, 2, 3)
     lrr_dp_kpa = [
-        base_dp_pa / 1000.0,
         float(w1_row['openfoam_lrr_dp_u_pa']) / 1000.0,
         float(tpms_row['openfoam_lrr_dp_u_pa']) / 1000.0,
         float(octa_row['openfoam_lrr_dp_u_pa']) / 1000.0,
     ]
     ssg_dp_kpa = [
-        base_dp_pa / 1000.0,
         float(w1_row['openfoam_ssg_dp_u_pa']) / 1000.0,
         float(tpms_row['openfoam_ssg_dp_u_pa']) / 1000.0,
         float(octa_row['openfoam_ssg_dp_u_pa']) / 1000.0,
@@ -321,25 +320,34 @@ def generate_readme_hero(
     ]
 
     x_pos = np.arange(len(labels_d))
+    x_rsm = np.array([1, 2, 3])
     w_bar = 0.25
-    ax_d.bar(x_pos - w_bar, g2_dp_kpa, width=w_bar, yerr=gci_err_kpa, capsize=4, color='#0284C7', label='OpenFOAM 14 G2 Fine (552k cells ± GCI_21)')
-    ax_d.bar(x_pos, lrr_dp_kpa, width=w_bar, color='#0D9488', label='7-Eq. LRR RSM (305k cells, 100% Realizable)')
-    ax_d.bar(x_pos + w_bar, ssg_dp_kpa, width=w_bar, color='#6366F1', label='7-Eq. SSG RSM (305k cells, 100% Realizable)')
+    ax_d.bar(
+        x_pos - w_bar,
+        g2_dp_kpa,
+        width=w_bar,
+        yerr=gci_err_kpa,
+        capsize=4,
+        color='#0284C7',
+        label='OpenFOAM 14 G2 Fine (552k cells ± 3-Grid Half-Span; v2 Oscillatory, std GCI=null)',
+    )
+    ax_d.bar(x_rsm, lrr_dp_kpa, width=w_bar, color='#0D9488', label='7-Eq. LRR RSM (G1 305k cells; W1/W2 shells only)')
+    ax_d.bar(x_rsm + w_bar, ssg_dp_kpa, width=w_bar, color='#6366F1', label='7-Eq. SSG RSM (G1 305k cells; W1/W2 shells only)')
 
     for i, val in enumerate(g2_dp_kpa):
         if i == 0:
-            ax_d.text(x_pos[i] - w_bar, val + 0.6, f'{val:.2f} kPa', ha='center', fontsize=8.0, fontweight='bold')
+            ax_d.text(x_pos[i] - w_bar, val + 0.6, f'{val:.2f} kPa\n(G2 only)', ha='center', fontsize=7.6, fontweight='bold')
         else:
             pct = (val - g2_dp_kpa[0]) / g2_dp_kpa[0] * 100.0
-            ax_d.text(x_pos[i], val + 1.2, f'{val:.2f} kPa\n({pct:.1f}%)', ha='center', fontsize=7.8, fontweight='bold', color='#0F172A')
+            ax_d.text(x_pos[i], val + 1.2, f'{val:.2f} kPa\n({pct:.1f}%)', ha='center', fontsize=7.6, fontweight='bold', color='#0F172A')
 
-    ax_d.set_title('D. 15-Run OpenFOAM 14 3D CFD Verification (G0/G1/G2 + LRR/SSG RSM)')
+    ax_d.set_title('D. Archived W1/W2 2-Port Wall-Modulated CFD Screen (Separate Subjects; G-09/C1 Noted)')
     ax_d.set_xticks(x_pos)
-    ax_d.set_xticklabels(labels_d, fontsize=8.5)
+    ax_d.set_xticklabels(labels_d, fontsize=7.8)
     ax_d.set_ylabel('Static Pressure Drop Δp_u [kPa] (Lower = Better)')
     ax_d.set_ylim(0, 34.5)
     ax_d.grid(True, axis='y', linestyle='--', alpha=0.35)
-    ax_d.legend(loc='upper right', fontsize=7.6, framealpha=0.94)
+    ax_d.legend(loc='upper right', fontsize=7.1, framealpha=0.94)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, dpi=180)
@@ -356,7 +364,7 @@ def generate_plate11_proof(
     plt.rcParams.update({
         'font.family': 'DejaVu Sans',
         'font.size': 9.2,
-        'axes.titlesize': 10.8,
+        'axes.titlesize': 10.6,
         'axes.titleweight': 'bold',
         'axes.labelsize': 9.4,
         'axes.labelweight': 'bold',
@@ -365,11 +373,14 @@ def generate_plate11_proof(
     fig = plt.figure(figsize=(15.5, 10.8), dpi=180, facecolor='#F8FAFC')
     gs = fig.add_gridspec(2, 2, hspace=0.34, wspace=0.25, left=0.06, right=0.97, top=0.89, bottom=0.08)
 
-    mc_n = int(w3.get('mc_samples_per_candidate', 28))
+    mc_n = int(
+        w3.get('mc_samples_per_candidate')
+        or w3.get('promoted_wave3_top_elite', {}).get('mc_robustness', {}).get('samples', 28)
+    )
     fig.suptitle(
-        f'Plate 11 — {wave_label} Evolutionary Screen Proof: 6-Arm Ablation (n = 10 Seeds), De-Novo Phylogenetic Lineage,\n'
-        'Population Diversity Dynamics & 11-Family Held-Out Geometry Generalization',
-        fontsize=13.2,
+        f'Plate 11 — {wave_label} Prior-Screen Search Diagnostics: 5-Arm + B0 Reference (n = 10 Seeds, MC n={mc_n})\n'
+        'B1 > B3 on Best KPI (p_Holm=1.00); B3 > B1 on Pop-Median KPI (+5.64, p_Holm=0.0013) & Authored 11-Family Screen Summary',
+        fontsize=12.4,
         fontweight='bold',
         color='#0F172A',
         y=0.965,
@@ -378,9 +389,9 @@ def generate_plate11_proof(
         0.5,
         0.922,
         f'Source Receipt: {proof_filename} (SHA-256: {w3_sha}) | '
-        f'n = 10 Independent Seeds × 25 Generations × 18 Evals/Gen = 22,500 Real 3D Evaluations (MC n={mc_n})',
+        f'n = 10 Seeds × 25 Gens × 18 Proposals/Gen = 22,500 Charged Proposals Across 5 Search Arms (MC n={mc_n}; B0 = 1-Eval Ref)',
         ha='center',
-        fontsize=8.4,
+        fontsize=8.1,
         color='#334155',
         style='italic',
     )
@@ -395,12 +406,12 @@ def generate_plate11_proof(
     ax_a = fig.add_subplot(gs[0, 0])
     ax_a.set_facecolor('#FFFFFF')
     arm_order = [
-        ('B0_CT35', 'B0: CT-35\nBaseline', '#64748B'),
+        ('B0_CT35', 'B0: CT-35\n(1-Eval Ref)', '#64748B'),
         ('B2_Conventional_Axisym_NSGA2', 'B2: Axisym\nNSGA-II', '#475569'),
         ('A2_No_Selection_Random_Walk', 'A2: No-Selection\n(Random Walk)', '#DC2626'),
         ('A1_No_Mutation_Crossover_Only', 'A1: No-Mutation\n(Crossover Only)', '#7C3AED'),
-        (b1_k, 'B1: Equal-Budget\nUniform Random', '#D97706'),
-        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label}\nExotic3D-QD-CEI', '#0284C7'),
+        (b1_k, 'B1: Equal-Budget\nRandom (Best)', '#D97706'),
+        ('B3_Wave3_Exotic3D_QD_CEI', f'B3: {wave_label}\nQD-CEI (Pop-Med)', '#0284C7'),
     ]
 
     x_idx = np.arange(len(arm_order))
@@ -434,7 +445,7 @@ def generate_plate11_proof(
                 zorder=5,
                 edgecolor='#0F172A',
                 linewidth=0.6,
-                label='Individual Seeds (n=10)' if idx == 5 else None,
+                label='Individual Seeds (n=10; B1 > B3 on Best KPI, p_Holm=1.00)' if idx == 5 else None,
             )
 
     ax_a.bar(
@@ -450,12 +461,13 @@ def generate_plate11_proof(
     for idx, m_val in enumerate(means):
         ax_a.text(idx, m_val + ci_highs[idx] + 0.55, f'{m_val:.2f}', ha='center', fontsize=8.3, fontweight='bold')
 
-    ax_a.set_title('A. Final Composite Screen KPI Score Across 6 Comparator/Ablation Arms (n = 10 Seeds ± 95% CI)')
+    ax_a.set_title('A. Final Best KPI Score (n=10 Seeds: B1 > B3 on Best KPI, p_Holm=1.00; B3 > B1 on Pop-Med)')
     ax_a.set_xticks(x_idx)
-    ax_a.set_xticklabels([x[1] for x in arm_order], fontsize=8.1)
-    ax_a.set_ylabel('Final Composite KPI_score [-] (analysis/kpi_fitness.py)')
-    ax_a.set_ylim(18.0, max(means) + 4.5)
+    ax_a.set_xticklabels([x[1] for x in arm_order], fontsize=8.0)
+    ax_a.set_ylabel('Final Seed-Best KPI_score [-] (analysis/kpi_fitness.py)')
+    ax_a.set_ylim(18.0, max(means) + 5.2)
     ax_a.grid(True, axis='y', linestyle='--', alpha=0.35)
+    ax_a.legend(loc='lower right', fontsize=7.2, framealpha=0.94)
 
     # Annotate pairwise Mann-Whitney U + Cliff's delta
     tests = {
@@ -464,18 +476,20 @@ def generate_plate11_proof(
         if t['comparator_a'] == 'B3_Wave3_Exotic3D_QD_CEI'
     }
     t_b1 = tests[('final_best_kpi_score', b1_k)]
+    t_b1_med = tests[('final_median_kpi_score', b1_k)]
     t_a1 = tests[('final_best_kpi_score', 'A1_No_Mutation_Crossover_Only')]
     t_a2 = tests[('final_best_kpi_score', 'A2_No_Selection_Random_Walk')]
     ax_a.text(
         0.02,
-        0.95,
-        f"B3 vs B1 (Random): Δ={t_b1['mean_diff']:+.2f}, U={t_b1['mann_whitney_u']:.0f}, p_Holm={t_b1['p_value_holm_bonferroni']:.4g}, δ={t_b1['cliffs_delta']:+.2f}\n"
-        f"B3 vs A1 (No-Mut): Δ={t_a1['mean_diff']:+.2f}, U={t_a1['mann_whitney_u']:.0f}, p_Holm={t_a1['p_value_holm_bonferroni']:.4g}, δ={t_a1['cliffs_delta']:+.2f}\n"
-        f"B3 vs A2 (No-Sel): Δ={t_a2['mean_diff']:+.2f}, U={t_a2['mann_whitney_u']:.0f}, p_Holm={t_a2['p_value_holm_bonferroni']:.4g}, δ={t_a2['cliffs_delta']:+.2f}",
+        0.96,
+        f"B3 vs B1 (Best KPI, B1>B3): Δ={t_b1['mean_diff']:+.2f}, U={t_b1['mann_whitney_u']:.0f}, p_Holm={t_b1['p_value_holm_bonferroni']:.4g}, δ={t_b1['cliffs_delta']:+.2f}\n"
+        f"B3 vs B1 (Pop-Median KPI): Δ={t_b1_med['mean_diff']:+.2f}, U={t_b1_med['mann_whitney_u']:.0f}, p_Holm={t_b1_med['p_value_holm_bonferroni']:.4g}, δ={t_b1_med['cliffs_delta']:+.2f}\n"
+        f"B3 vs A1 (No-Mut Best): Δ={t_a1['mean_diff']:+.2f}, U={t_a1['mann_whitney_u']:.0f}, p_Holm={t_a1['p_value_holm_bonferroni']:.4g}, δ={t_a1['cliffs_delta']:+.2f}\n"
+        f"B3 vs A2 (No-Sel Best): Δ={t_a2['mean_diff']:+.2f}, U={t_a2['mann_whitney_u']:.0f}, p_Holm={t_a2['p_value_holm_bonferroni']:.4g}, δ={t_a2['cliffs_delta']:+.2f}",
         transform=ax_a.transAxes,
         va='top',
-        fontsize=7.6,
-        bbox={'boxstyle': 'round,pad=0.35', 'facecolor': '#F1F5F9', 'edgecolor': '#94A3B8'},
+        fontsize=7.1,
+        bbox={'boxstyle': 'round,pad=0.32', 'facecolor': '#F1F5F9', 'edgecolor': '#94A3B8'},
     )
 
     # Panel B: De-Novo Phylogenetic Lineage Milestones & Step-by-Step Topological Discovery
@@ -561,7 +575,7 @@ def generate_plate11_proof(
     ax_c.grid(True, linestyle='--', alpha=0.35)
     ax_c.legend(loc='upper right', fontsize=7.4, framealpha=0.94)
 
-    # Panel D: Held-Out 3D Geometry Generalization Across All 11 Topological Families
+    # Panel D: 11-Family Screen Coverage, De-Novo Rediscovery & Sandbox Authored-Family LOFO Diagnostics
     ax_d = fig.add_subplot(gs[1, 1])
     ax_d.set_facecolor('#FFFFFF')
     held_out = sorted(
@@ -570,33 +584,55 @@ def generate_plate11_proof(
     )
     fams = [r['topology_class'].replace('-vortex-head', '').replace('-coalescer', '') for r in held_out]
     kpis_ho = [float(r.get('held_out_best_kpi_score') or 0.0) for r in held_out]
-    rmses_ho = [float(r.get('lofo_surrogate_rmse_kpi_score') or 0.0) for r in held_out]
+    has_kpi_rmse = all(r.get('lofo_surrogate_rmse_kpi_score') is not None for r in held_out)
+    rmses_ho = [float(r['lofo_surrogate_rmse_kpi_score']) for r in held_out] if has_kpi_rmse else None
+    cout_rmses_ho = [r.get('sandbox_authored_family_rmse_cout_mg_l') for r in held_out]
     disc_ho = [int(r['de_novo_rediscovery_seeds']) for r in held_out]
 
     y_pos = np.arange(len(fams))
     bar_cols = ['#64748B' if 'baseline' in r['topology_class'] else '#0284C7' for r in held_out]
+    bar_label = (
+        'Held-Out Family Best KPI_score ± LOFO-CV Surrogate RMSE'
+        if has_kpi_rmse
+        else '11-Family Screen Best KPI_score (KPI surrogate RMSE = null; Cout LOFO RMSE annotated)'
+    )
     ax_d.barh(
         y_pos,
         kpis_ho,
         xerr=rmses_ho,
-        capsize=3,
+        capsize=3 if has_kpi_rmse else 0,
         color=bar_cols,
         alpha=0.82,
         edgecolor='#0F172A',
         linewidth=0.8,
-        label='Held-Out Family Best KPI_score ± LOFO-CV Surrogate RMSE',
+        label=bar_label,
     )
-    ax_d.axvline(base_kpi, color='#EF4444', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Baseline ({base_kpi:.2f} [-])')
+    ax_d.axvline(base_kpi, color='#EF4444', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Single-Eval Reference ({base_kpi:.2f} [-])')
     for idx, (kv, dv) in enumerate(zip(kpis_ho, disc_ho)):
-        ax_d.text(kv + rmses_ho[idx] + 0.35, idx, f'{kv:.2f} ({dv}/10 seeds)', va='center', fontsize=7.3, fontweight='bold')
+        offset = (rmses_ho[idx] if rmses_ho is not None else 0.0) + 0.35
+        c_rmse = cout_rmses_ho[idx]
+        ann = (
+            f'{kv:.2f} ({dv}/10 seeds; Cout RMSE={float(c_rmse):.2f} mg/L)'
+            if (not has_kpi_rmse and c_rmse is not None)
+            else f'{kv:.2f} ({dv}/10 seeds)'
+        )
+        ax_d.text(kv + offset, idx, ann, va='center', fontsize=6.9, fontweight='bold')
 
-    ax_d.set_title('D. Held-Out 3D Geometry Family Performance & LOFO-CV Generalization')
+    ax_d.set_title(
+        'D. Held-Out 3D Geometry Family Performance & LOFO-CV Generalization'
+        if has_kpi_rmse
+        else 'D. Authored 11-Family Screen Summary (Not Held-Out; KPI Surrogate RMSE = null)'
+    )
     ax_d.set_yticks(y_pos)
     ax_d.set_yticklabels(fams, fontsize=7.7)
-    ax_d.set_xlabel('Held-Out Family Composite KPI_score [-] (± LOFO Surrogate RMSE)')
-    ax_d.set_xlim(18.0, max(kpis_ho) + 12.2)
+    ax_d.set_xlabel(
+        'Held-Out Family Composite KPI_score [-] (± LOFO Surrogate RMSE)'
+        if has_kpi_rmse
+        else 'Authored 11-Family Screen KPI_score [-] (sandbox_authored_family_rmse_kpi_score = null)'
+    )
+    ax_d.set_xlim(18.0, max(kpis_ho) + (12.2 if has_kpi_rmse else 18.5))
     ax_d.grid(True, axis='x', linestyle='--', alpha=0.35)
-    ax_d.legend(loc='lower right', fontsize=7.5, framealpha=0.94)
+    ax_d.legend(loc='lower right', fontsize=7.2, framealpha=0.94)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, dpi=180)
