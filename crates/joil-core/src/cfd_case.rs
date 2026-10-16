@@ -539,41 +539,76 @@ relaxationFactors {fields {p .2;} equations {U .4; R .1; k .3; epsilon .3; omega
     )
     .map_err(|e| e.to_string())?;
 
-    let ev12_script = "#!/usr/bin/env bash\n\
-set -euo pipefail\n\
-# EV-12 (crates/joil-evidence/reports/EV12-capture-checklist.md):\n\
-# Finalize case-identity.json (joil.wave4-case-identity.v1) AFTER the last mesh/0/dictionary/RSM edit\n\
-# and BEFORE solver start; archive and verify restored copy BEFORE pruning constant/polyMesh.\n\
-CASE_DIR=\"${1:-$(pwd)}\"\n\
-ARCHIVE_DIR=\"${2:-}\"\n\
-python3 - \"$CASE_DIR\" <<'PY'\n\
-import sys\n\
-from analysis.case_identity import finalize_case_identity, verify_case_identity\n\
-finalize_case_identity(sys.argv[1])\n\
-print(verify_case_identity(sys.argv[1]))\n\
-PY\n\
-if [ -n \"$ARCHIVE_DIR\" ]; then\n\
-  python3 - \"$CASE_DIR\" \"$ARCHIVE_DIR\" <<'PY'\n\
-import pathlib, shutil, sys\n\
-from analysis.case_identity import MANIFEST, verify_case_identity\n\
-from analysis.evidence import strict_json\n\
-case = pathlib.Path(sys.argv[1]).resolve()\n\
-arch = pathlib.Path(sys.argv[2]).resolve()\n\
-if arch.is_relative_to(case):\n\
-    raise SystemExit('archive_dir must be outside case_dir')\n\
-verify_case_identity(case)\n\
-ident = strict_json((case / MANIFEST).read_bytes())\n\
-rels = {'input-manifest.json', MANIFEST, *ident['source_artifacts'], *ident['mesh_files'], *ident['solver_input_files']}\n\
-arch.mkdir(parents=True, exist_ok=False)\n\
-for rel in sorted(rels):\n\
-    dst = arch / rel\n\
-    dst.parent.mkdir(parents=True, exist_ok=True)\n\
-    shutil.copyfile(case / rel, dst)\n\
-print(verify_case_identity(arch))\n\
-verify_case_identity(case)\n\
-PY\n\
-  rm -rf \"$CASE_DIR/constant/polyMesh\"\n\
-fi\n";
+    let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../..")
+        .canonicalize()
+        .map_err(|e| e.to_string())?;
+    let ev12_script = format!(
+        r#"#!/usr/bin/env bash
+set -euo pipefail
+# EV-12 (crates/joil-evidence/reports/EV12-capture-checklist.md):
+# 1) Finalize case-identity.json (joil.wave4-case-identity.v1) AFTER the last mesh/0/dictionary/RSM edit
+#    and BEFORE solver start.
+# 2) Optionally copy all indexed inputs + sidecars to ARCHIVE_DIR and verify both copies (retaining polyMesh).
+# 3) Pass --prune-polymesh as 3rd argument ONLY after solver completion to prune constant/polyMesh after
+#    re-verifying the disjoint archive copy.
+REPO_ROOT="${{JOIL_REPO_ROOT:-{repo_root}}}"
+export PYTHONPATH="${{REPO_ROOT}}${{PYTHONPATH:+:$PYTHONPATH}}"
+CASE_DIR="${{1:-$(pwd)}}"
+ARCHIVE_DIR="${{2:-}}"
+PRUNE_FLAG="${{3:-}}"
+python3 - "$CASE_DIR" <<'PY'
+import sys
+from analysis.case_identity import finalize_case_identity, verify_case_identity
+finalize_case_identity(sys.argv[1])
+print(verify_case_identity(sys.argv[1]))
+PY
+if [ -n "$ARCHIVE_DIR" ] && [ ! -e "$ARCHIVE_DIR" ]; then
+  python3 - "$CASE_DIR" "$ARCHIVE_DIR" <<'PY'
+import pathlib, shutil, sys
+from analysis.case_identity import MANIFEST, verify_case_identity
+from analysis.evidence import strict_json
+case = pathlib.Path(sys.argv[1]).resolve()
+arch = pathlib.Path(sys.argv[2]).resolve()
+if arch.is_relative_to(case) or case.is_relative_to(arch):
+    raise SystemExit('archive_dir must be outside case_dir')
+verify_case_identity(case)
+ident = strict_json((case / MANIFEST).read_bytes())
+rels = {{'input-manifest.json', MANIFEST, *ident['source_artifacts'], *ident['mesh_files'], *ident['solver_input_files']}}
+arch.mkdir(parents=True, exist_ok=False)
+for rel in sorted(rels):
+    dst = arch / rel
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(case / rel, dst)
+print(verify_case_identity(arch))
+verify_case_identity(case)
+PY
+fi
+if [ "$PRUNE_FLAG" = "--prune-polymesh" ]; then
+  if [ -z "$ARCHIVE_DIR" ]; then
+    echo "refusing to prune polyMesh without verified ARCHIVE_DIR" >&2
+    exit 1
+  fi
+  python3 - "$CASE_DIR" "$ARCHIVE_DIR" <<'PY'
+import pathlib, sys
+from analysis.case_identity import verify_case_identity
+case = pathlib.Path(sys.argv[1]).resolve()
+arch = pathlib.Path(sys.argv[2]).resolve()
+if arch.is_relative_to(case) or case.is_relative_to(arch):
+    raise SystemExit('archive_dir must be outside case_dir')
+vc = verify_case_identity(case)
+va = verify_case_identity(arch)
+if vc['case_hash'] != va['case_hash'] or vc['mesh_hash'] != va['mesh_hash']:
+    raise SystemExit('archive verification hashes differ from source case')
+PY
+  rm -rf "$CASE_DIR/constant/polyMesh"
+elif [ -n "$PRUNE_FLAG" ]; then
+  echo "unknown option: $PRUNE_FLAG (expected --prune-polymesh)" >&2
+  exit 1
+fi
+"#,
+        repo_root = repo_root.display()
+    );
     fs::write(
         case_dir.join("ev12-capture-workflow.sh"),
         ev12_script.as_bytes(),
@@ -786,6 +821,88 @@ fn require_content_ref(
     Ok(cref)
 }
 
+#[derive(Clone, Debug, PartialEq)]
+enum OrderedJson {
+    Null,
+    Bool(bool),
+    Number(serde_json::Number),
+    String(String),
+    Array(Vec<OrderedJson>),
+    Object(Vec<(String, OrderedJson)>),
+}
+
+impl Serialize for OrderedJson {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        match self {
+            Self::Null => serializer.serialize_unit(),
+            Self::Bool(b) => serializer.serialize_bool(*b),
+            Self::Number(n) => n.serialize(serializer),
+            Self::String(s) => serializer.serialize_str(s),
+            Self::Array(arr) => serializer.collect_seq(arr),
+            Self::Object(entries) => serializer.collect_map(entries.iter().map(|(k, v)| (k, v))),
+        }
+    }
+}
+
+impl<'de> Deserialize<'de> for OrderedJson {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        struct OrderedVisitor;
+        impl<'de> serde::de::Visitor<'de> for OrderedVisitor {
+            type Value = OrderedJson;
+            fn expecting(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                f.write_str("any valid JSON value")
+            }
+            fn visit_bool<E>(self, v: bool) -> Result<Self::Value, E> {
+                Ok(OrderedJson::Bool(v))
+            }
+            fn visit_i64<E>(self, v: i64) -> Result<Self::Value, E> {
+                Ok(OrderedJson::Number(v.into()))
+            }
+            fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E> {
+                Ok(OrderedJson::Number(v.into()))
+            }
+            fn visit_f64<E: serde::de::Error>(self, v: f64) -> Result<Self::Value, E> {
+                serde_json::Number::from_f64(v)
+                    .map(OrderedJson::Number)
+                    .ok_or_else(|| E::custom("non-finite JSON number"))
+            }
+            fn visit_str<E>(self, v: &str) -> Result<Self::Value, E> {
+                Ok(OrderedJson::String(v.to_owned()))
+            }
+            fn visit_string<E>(self, v: String) -> Result<Self::Value, E> {
+                Ok(OrderedJson::String(v))
+            }
+            fn visit_none<E>(self) -> Result<Self::Value, E> {
+                Ok(OrderedJson::Null)
+            }
+            fn visit_unit<E>(self) -> Result<Self::Value, E> {
+                Ok(OrderedJson::Null)
+            }
+            fn visit_seq<A: serde::de::SeqAccess<'de>>(
+                self,
+                mut seq: A,
+            ) -> Result<Self::Value, A::Error> {
+                let mut vec = Vec::new();
+                while let Some(elem) = seq.next_element()? {
+                    vec.push(elem);
+                }
+                Ok(OrderedJson::Array(vec))
+            }
+            fn visit_map<A: serde::de::MapAccess<'de>>(
+                self,
+                mut map: A,
+            ) -> Result<Self::Value, A::Error> {
+                let mut entries = Vec::new();
+                while let Some((k, v)) = map.next_entry()? {
+                    entries.push((k, v));
+                }
+                Ok(OrderedJson::Object(entries))
+            }
+        }
+        deserializer.deserialize_any(OrderedVisitor)
+    }
+}
+
 /// Build the exact `joil.wave4-case-identity.v1` record from retained artifacts on disk.
 ///
 /// Enforces every path, symlink, canonical-subject, volume-mesh, and solver-input invariant
@@ -843,6 +960,11 @@ pub fn build_wave4_case_identity(case_dir: &Path) -> Result<Wave4CaseIdentity, S
     if !prog_val.is_object() {
         return Err("design-program.json must contain a JSON object".into());
     }
+    let ordered_prog: OrderedJson =
+        serde_json::from_slice(&prog_bytes).map_err(|e| e.to_string())?;
+    let unsorted_prog_compact = serde_json::to_vec(&ordered_prog).map_err(|e| e.to_string())?;
+    let unsorted_prog_hash = joil_ir::sha256_hex(&unsorted_prog_compact);
+
     let ir_path = safe_case_relpath(case_dir, "design-ir.json")?;
     let ir_bytes = fs::read(&ir_path).map_err(|e| e.to_string())?;
     let ir_val = joil_evidence::identity::strict_json(&ir_bytes)?;
@@ -857,7 +979,10 @@ pub fn build_wave4_case_identity(case_dir: &Path) -> Result<Wave4CaseIdentity, S
         .unwrap_or("");
     let sorted_prog_compact = serde_json::to_vec(&prog_val).map_err(|e| e.to_string())?;
     let sorted_prog_hash = joil_ir::sha256_hex(&sorted_prog_compact);
-    if ir_sha != canonical_ir || ir_source_genome != sorted_prog_hash {
+    if ir_sha != canonical_ir
+        || canonical_genome != unsorted_prog_hash
+        || ir_source_genome != sorted_prog_hash
+    {
         return Err("IR and prepared manifest disagree on canonical subjects".into());
     }
     if let Ok(dp) = serde_json::from_slice::<DesignProgram>(&prog_bytes) {
@@ -945,6 +1070,7 @@ fn run_ev_python_case_identity(
     case_dir: &Path,
     finalize_first: bool,
 ) -> Result<(Wave4CaseIdentity, Wave4CaseVerification), String> {
+    let canon_case = check_no_symlink_case_root(case_dir)?;
     let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../..")
         .canonicalize()
@@ -967,7 +1093,7 @@ print(json.dumps({'record': rec, 'verification': ver}))\n"
     let output = std::process::Command::new("python3")
         .arg("-c")
         .arg(script)
-        .arg(case_dir)
+        .arg(&canon_case)
         .current_dir(&repo_root)
         .env("PYTHONPATH", &repo_root)
         .output()
@@ -1035,27 +1161,11 @@ pub fn verify_wave4_case_identity(case_dir: &Path) -> Result<Wave4CaseVerificati
     Ok(py_ver)
 }
 
-/// Archive all indexed case inputs (`input-manifest.json`, `case-identity.json`,
-/// `source_artifacts`, `mesh_files`, `solver_input_files`) to a separate directory and
-/// run `verify_wave4_case_identity` on the restored copy per `EV12-capture-checklist.md`.
-pub fn archive_and_verify_wave4_case_inputs(
+fn collect_archived_case_inventory(
     case_dir: &Path,
-    archive_dir: &Path,
-) -> Result<Wave4ArchiveVerificationReceipt, String> {
-    let canon_case = check_no_symlink_case_root(case_dir)?;
-    if let Ok(meta) = fs::symlink_metadata(archive_dir) {
-        if meta.file_type().is_symlink() {
-            return Err("archive_dir cannot be a symlink".into());
-        }
-        return Err(format!(
-            "archive_dir already exists; refusing to overwrite: {}",
-            archive_dir.display()
-        ));
-    }
-    let _ = verify_wave4_case_identity(case_dir)?;
-    let identity = build_wave4_case_identity(case_dir)?;
+    identity: &Wave4CaseIdentity,
+) -> Result<BTreeMap<String, FileDigestEntry>, String> {
     let sidecar_digest = digest_file(&safe_case_relpath(case_dir, WAVE4_CASE_IDENTITY_FILE)?)?;
-
     let mut all_files: BTreeMap<String, FileDigestEntry> = BTreeMap::new();
     all_files.insert(
         "input-manifest.json".to_string(),
@@ -1075,6 +1185,29 @@ pub fn archive_and_verify_wave4_case_inputs(
             }
         }
     }
+    Ok(all_files)
+}
+
+/// Archive all indexed case inputs (`input-manifest.json`, `case-identity.json`,
+/// `source_artifacts`, `mesh_files`, `solver_input_files`) to a separate directory and
+/// run `verify_wave4_case_identity` on the restored copy per `EV12-capture-checklist.md`.
+pub fn archive_and_verify_wave4_case_inputs(
+    case_dir: &Path,
+    archive_dir: &Path,
+) -> Result<Wave4ArchiveVerificationReceipt, String> {
+    let canon_case = check_no_symlink_case_root(case_dir)?;
+    if let Ok(meta) = fs::symlink_metadata(archive_dir) {
+        if meta.file_type().is_symlink() {
+            return Err("archive_dir cannot be a symlink".into());
+        }
+        return Err(format!(
+            "archive_dir already exists; refusing to overwrite: {}",
+            archive_dir.display()
+        ));
+    }
+    let _ = verify_wave4_case_identity(case_dir)?;
+    let identity = build_wave4_case_identity(case_dir)?;
+    let all_files = collect_archived_case_inventory(case_dir, &identity)?;
 
     fs::create_dir_all(archive_dir).map_err(|e| e.to_string())?;
     let canon_arch = check_no_symlink_case_root(archive_dir)?;
@@ -1164,21 +1297,13 @@ pub fn prune_polymesh_after_verified_archive(
         );
     }
 
+    let all_files = collect_archived_case_inventory(archive_dir, &arch_id)?;
+    let file_count = all_files.len();
+    let total_bytes: u64 = all_files.values().map(|d| d.bytes).sum();
+
     let poly_mesh_dir = safe_case_relpath(case_dir, "constant/polyMesh")?;
     fs::remove_dir_all(&poly_mesh_dir).map_err(|e| e.to_string())?;
 
-    let total_bytes: u64 = arch_id.prepared_manifest.bytes
-        + arch_id
-            .source_artifacts
-            .values()
-            .chain(arch_id.mesh_files.values())
-            .chain(arch_id.solver_input_files.values())
-            .map(|d| d.bytes)
-            .sum::<u64>();
-    let file_count = 2
-        + arch_id.source_artifacts.len()
-        + arch_id.mesh_files.len()
-        + arch_id.solver_input_files.len();
     Ok(Wave4ArchiveVerificationReceipt {
         schema: "joil.wave4-case-archive-verification.v1".to_string(),
         source_case: case_dir
@@ -1526,12 +1651,255 @@ mod tests {
         let prune_receipt = prune_polymesh_after_verified_archive(&case_dir, &archive_dir)
             .expect("prune_polymesh_after_verified_archive must succeed after verified archive");
         assert_eq!(prune_receipt.case_hash, identity.case_hash);
+        // EV12-WR-01: prune receipt must report exact deduplicated archive inventory including case-identity.json
+        assert_eq!(
+            prune_receipt.file_count, arch_receipt.file_count,
+            "EV12-WR-01: prune receipt file_count must equal archive receipt file_count"
+        );
+        assert_eq!(
+            prune_receipt.total_bytes, arch_receipt.total_bytes,
+            "EV12-WR-01: prune receipt total_bytes must equal archive receipt total_bytes"
+        );
         assert!(!case_dir.join("constant/polyMesh").exists());
 
         // The retained archive copy still passes full EV-12 verification
         let arch_ver_after = verify_wave4_case_identity(&archive_dir)
             .expect("retained archive copy must remain verifiable after source polyMesh prune");
         assert_eq!(arch_ver_after.state, "exact_artifact_bytes_verified");
+
+        let _ = fs::remove_dir_all(&root_tmp);
+    }
+
+    #[test]
+    fn ev12_wr01_to_wr05_regression_suite() {
+        let mut prog = DesignProgram::baseline_ct35();
+        prog.inlet_split = InletSplit3D {
+            enabled: true,
+            vane_thickness_mm: 1.2,
+            vane_z_fraction: 0.5,
+            branches_per_port: 3,
+            azimuthal_phase_deg: 10.0,
+        };
+        let p_norm = prog.normalize().expect("normalize");
+        let cfg = CfdCaseConfig::default();
+
+        let root_tmp =
+            std::env::temp_dir().join(format!("joil_ev12_wr_test_{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root_tmp);
+        fs::create_dir_all(&root_tmp).expect("create root_tmp");
+
+        let populate_synthetic_polymesh = |case_dir: &Path| {
+            let poly_dir = case_dir.join("constant/polyMesh");
+            fs::create_dir_all(&poly_dir).expect("create polyMesh");
+            for name in [
+                "points",
+                "faces",
+                "owner",
+                "neighbour",
+                "boundary",
+                "cellZones",
+            ] {
+                fs::write(
+                    poly_dir.join(name),
+                    format!("synthetic polyMesh {name} payload\n").as_bytes(),
+                )
+                .expect("write polyMesh file");
+            }
+        };
+
+        // --- EV12-WR-03: build_wave4_case_identity and finalize_wave4_case_identity must reject forged canonical_genome on non-DesignProgram JSON ---
+        {
+            let forged_case = root_tmp.join("wr03-forged-canonical");
+            build_openfoam_candidate_case(&p_norm, &forged_case, &cfg)
+                .expect("prepare forged_case");
+            populate_synthetic_polymesh(&forged_case);
+
+            let prog_path = forged_case.join("design-program.json");
+            fs::write(
+                &prog_path,
+                b"{\n  \"synthetic\": true,\n  \"z\": 2,\n  \"a\": 0\n}\n",
+            )
+            .expect("write synthetic non-DesignProgram JSON");
+            let prog_bytes = fs::read(&prog_path).expect("read prog_path");
+            let prog_sha = joil_ir::sha256_hex(&prog_bytes);
+            let ordered_prog: OrderedJson =
+                serde_json::from_slice(&prog_bytes).expect("parse OrderedJson");
+            let valid_canonical_genome = joil_ir::sha256_hex(
+                &serde_json::to_vec(&ordered_prog).expect("serialize OrderedJson"),
+            );
+            let sorted_prog: serde_json::Value =
+                serde_json::from_slice(&prog_bytes).expect("parse Value");
+            let valid_ir_source_genome =
+                joil_ir::sha256_hex(&serde_json::to_vec(&sorted_prog).expect("serialize Value"));
+
+            let ir_path = forged_case.join("design-ir.json");
+            let mut ir_doc: serde_json::Value =
+                serde_json::from_slice(&fs::read(&ir_path).expect("read ir")).expect("parse ir");
+            ir_doc["program_sha256"] = serde_json::Value::String(valid_ir_source_genome);
+            let ir_bytes =
+                format!("{}\n", serde_json::to_string_pretty(&ir_doc).unwrap()).into_bytes();
+            let ir_file_sha = joil_ir::sha256_hex(&ir_bytes);
+            fs::write(&ir_path, &ir_bytes).expect("write updated design-ir.json");
+
+            let im_path = forged_case.join("input-manifest.json");
+            let mut im: serde_json::Value =
+                serde_json::from_slice(&fs::read(&im_path).expect("read im")).expect("parse im");
+            im["design_sha256"] = serde_json::Value::String("f".repeat(64));
+            im["subject_bundle"]["genome"]["sha256"] = serde_json::Value::String(prog_sha);
+            im["subject_bundle"]["ir"]["sha256"] = serde_json::Value::String(ir_file_sha);
+            fs::write(
+                &im_path,
+                format!("{}\n", serde_json::to_string_pretty(&im).unwrap()),
+            )
+            .expect("write forged im");
+
+            let err = build_wave4_case_identity(&forged_case)
+                .expect_err("EV12-WR-03: build_wave4_case_identity must reject forged canonical_genome on non-DesignProgram JSON");
+            assert!(
+                err.contains("canonical subjects"),
+                "EV12-WR-03: expected canonical subjects error, got: {err}"
+            );
+            assert!(
+                finalize_wave4_case_identity(&forged_case).is_err(),
+                "EV12-WR-03: finalize_wave4_case_identity must reject forged canonical_genome on non-DesignProgram JSON"
+            );
+
+            // Restoring the valid canonical_genome makes Rust builder accept it
+            im["design_sha256"] = serde_json::Value::String(valid_canonical_genome);
+            fs::write(
+                &im_path,
+                format!("{}\n", serde_json::to_string_pretty(&im).unwrap()),
+            )
+            .expect("write valid im");
+            assert!(
+                build_wave4_case_identity(&forged_case).is_ok(),
+                "EV12-WR-03: build_wave4_case_identity must accept valid canonical_genome on non-DesignProgram JSON"
+            );
+        }
+
+        // --- EV12-WR-02: relative case_dir from foreign working directory must resolve against caller cwd, not repo_root ---
+        {
+            let repo_root = Path::new(env!("CARGO_MANIFEST_DIR"))
+                .parent()
+                .and_then(|p| p.parent())
+                .expect("repo root")
+                .to_path_buf();
+            let rel_subpath = format!(
+                ".private/ev12_wr02_rel_probe_{}/target_case",
+                std::process::id()
+            );
+            let repo_rel_target = repo_root.join(&rel_subpath);
+            let foreign_cwd = root_tmp.join("foreign_cwd");
+            let foreign_target = foreign_cwd.join(&rel_subpath);
+
+            let _ = fs::remove_dir_all(repo_root.join(format!(
+                ".private/ev12_wr02_rel_probe_{}",
+                std::process::id()
+            )));
+            build_openfoam_candidate_case(&p_norm, &repo_rel_target, &cfg)
+                .expect("prepare repo_rel_target");
+            populate_synthetic_polymesh(&repo_rel_target);
+            build_openfoam_candidate_case(&p_norm, &foreign_target, &cfg)
+                .expect("prepare foreign_target");
+            populate_synthetic_polymesh(&foreign_target);
+
+            let orig_cwd = std::env::current_dir().expect("get current_dir");
+            std::env::set_current_dir(&foreign_cwd).expect("set_current_dir to foreign_cwd");
+            let finalize_res = finalize_wave4_case_identity(Path::new(&rel_subpath));
+            let verify_res = verify_wave4_case_identity(Path::new(&rel_subpath));
+            std::env::set_current_dir(&orig_cwd).expect("restore orig_cwd");
+
+            let _ =
+                finalize_res.expect("EV12-WR-02: relative finalize from foreign cwd must succeed");
+            let ver =
+                verify_res.expect("EV12-WR-02: relative verify from foreign cwd must succeed");
+            assert_eq!(ver.state, "exact_artifact_bytes_verified");
+            assert!(
+                foreign_target.join(WAVE4_CASE_IDENTITY_FILE).is_file(),
+                "EV12-WR-02: foreign_target must receive case-identity.json"
+            );
+            assert!(
+                !repo_rel_target.join(WAVE4_CASE_IDENTITY_FILE).exists(),
+                "EV12-WR-02: repo_rel_target must NOT be touched when caller cwd is foreign_cwd"
+            );
+
+            let _ = fs::remove_dir_all(repo_root.join(format!(
+                ".private/ev12_wr02_rel_probe_{}",
+                std::process::id()
+            )));
+        }
+
+        // --- EV12-WR-04 & EV12-WR-05: emitted ev12-capture-workflow.sh works from case cwd without PYTHONPATH, does not prune before solver, and prunes only with --prune-polymesh ---
+        {
+            let wf_case = root_tmp.join("wr04_05_workflow_case");
+            let wf_archive = root_tmp.join("wr04_05_workflow_archive");
+            build_openfoam_candidate_case(&p_norm, &wf_case, &cfg).expect("prepare wf_case");
+            populate_synthetic_polymesh(&wf_case);
+
+            // EV12-WR-04: Run `bash ev12-capture-workflow.sh` with no args from inside wf_case and without PYTHONPATH
+            let out_no_args = std::process::Command::new("bash")
+                .arg("ev12-capture-workflow.sh")
+                .current_dir(&wf_case)
+                .env_remove("PYTHONPATH")
+                .output()
+                .expect("spawn bash ev12-capture-workflow.sh");
+            assert!(
+                out_no_args.status.success(),
+                "EV12-WR-04: ev12-capture-workflow.sh from case cwd without PYTHONPATH failed: stdout={} stderr={}",
+                String::from_utf8_lossy(&out_no_args.stdout),
+                String::from_utf8_lossy(&out_no_args.stderr)
+            );
+            assert!(wf_case.join(WAVE4_CASE_IDENTITY_FILE).is_file());
+            assert!(wf_case.join("constant/polyMesh/points").is_file());
+
+            // EV12-WR-05 (pre-solver capture with ARCHIVE_DIR): must archive + verify AND retain constant/polyMesh
+            let out_capture = std::process::Command::new("bash")
+                .arg(wf_case.join("ev12-capture-workflow.sh"))
+                .arg(&wf_case)
+                .arg(&wf_archive)
+                .current_dir(&wf_case)
+                .env_remove("PYTHONPATH")
+                .output()
+                .expect("spawn bash ev12-capture-workflow.sh with archive_dir");
+            assert!(
+                out_capture.status.success(),
+                "EV12-WR-05: pre-solver archive capture failed: stdout={} stderr={}",
+                String::from_utf8_lossy(&out_capture.stdout),
+                String::from_utf8_lossy(&out_capture.stderr)
+            );
+            assert!(
+                wf_archive.join(WAVE4_CASE_IDENTITY_FILE).is_file(),
+                "EV12-WR-05: archive_dir must contain verified case-identity.json"
+            );
+            assert!(
+                wf_case.join("constant/polyMesh/points").is_file(),
+                "EV12-WR-05: pre-solver capture must NOT implicitly delete constant/polyMesh before solver runs"
+            );
+
+            // EV12-WR-05 (explicit post-solver --prune-polymesh): must verify archive and prune constant/polyMesh
+            let out_prune = std::process::Command::new("bash")
+                .arg(wf_case.join("ev12-capture-workflow.sh"))
+                .arg(&wf_case)
+                .arg(&wf_archive)
+                .arg("--prune-polymesh")
+                .current_dir(&wf_case)
+                .env_remove("PYTHONPATH")
+                .output()
+                .expect("spawn bash ev12-capture-workflow.sh --prune-polymesh");
+            assert!(
+                out_prune.status.success(),
+                "EV12-WR-05: explicit --prune-polymesh failed: stdout={} stderr={}",
+                String::from_utf8_lossy(&out_prune.stdout),
+                String::from_utf8_lossy(&out_prune.stderr)
+            );
+            assert!(
+                !wf_case.join("constant/polyMesh").exists(),
+                "EV12-WR-05: constant/polyMesh must be pruned when --prune-polymesh is explicitly passed"
+            );
+            let arch_ver = verify_wave4_case_identity(&wf_archive)
+                .expect("retained archive must remain verified after --prune-polymesh");
+            assert_eq!(arch_ver.state, "exact_artifact_bytes_verified");
+        }
 
         let _ = fs::remove_dir_all(&root_tmp);
     }
