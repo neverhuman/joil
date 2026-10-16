@@ -58,6 +58,16 @@ def collect_json_numbers(obj: Any, out: set[float]) -> None:
             collect_json_numbers(item, out)
 
 
+def _without_long_arrays(obj: Any, max_len: int = 32) -> Any:
+    """Drop long lists (mesh face indices, vertex arrays): their values are never quoted, and their scaled copies
+    would let the tolerance registry match almost any number."""
+    if isinstance(obj, dict):
+        return {k: _without_long_arrays(v, max_len) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_without_long_arrays(v, max_len) for v in obj] if len(obj) <= max_len else []
+    return obj
+
+
 def build_receipt_bundle(root: Path = ROOT) -> dict[str, Any]:
     return {
         "ct35_genome": load_json("baselines/ct35/genome.json", root),
@@ -72,9 +82,9 @@ def build_receipt_bundle(root: Path = ROOT) -> dict[str, Any]:
         "wave2_prereg": load_json("experiments/wave2-preregistration-v1.json", root),
         "wave2_ablation": load_json("docs/results/wave2-multiseed-ablation-and-holdout-v1.json", root),
         "wave3_proof": load_json("docs/results/wave3-evolution-proof-v1.json", root),
-        "wave4_proof": load_json("docs/results/wave4-evolution-proof-v1.json", root),
-        "wave4_smoke": load_json("docs/results/wave4-smoke-v1.json", root),
-        "wave4_gci": load_json("docs/results/wave4-gci-v1.json", root),
+        "wave4_proof": _without_long_arrays(load_json("docs/results/wave4-evolution-proof-v1.json", root)),
+        "wave4_smoke": _without_long_arrays(load_json("docs/results/wave4-smoke-v1.json", root)),
+        "wave4_gci": _without_long_arrays(load_json("docs/results/wave4-gci-v1.json", root)),
         "wave2_receipt": load_json("docs/receipts/wave2-genome-and-10seed-ablation-20261015.json", root),
         "archetypes_3d": load_json("docs/results/interactive-3d-archetypes-v1.json", root),
         "status": load_json("docs/STATUS.json", root),

@@ -92,11 +92,14 @@ PR; Jepson merges. It is finalised when the open items in §4 close or are moved
    and campaigns are sandbox-only.
 6. **No independent surrogate labels.** OOD metrics are "insufficient evidence" by design, and the per-label
    KPI error is `null`.
-7. **Audit limits.**
+7. **The Wave-4 CFD runs have no complete case identity.** EV's read-only audit of the 11 Wave-4 case directories
+   found no complete scientific identity record (EV-12 BLOCKED). Five solved meshes were pruned before capture, so
+   the solved runs cannot be re-bound to their exact meshes.
+8. **Audit limits.**
    - The public Wave-4 receipt drops per-proposal repair records, so individual repairs and pedigrees cannot be
      audited from it.
    - The reported p-values use the normal approximation without continuity correction (EV).
-8. **The genome is still the bounded macro language.** Open-ended invention (genome v4, QD over measured
+9. **The genome is still the bounded macro language.** Open-ended invention (genome v4, QD over measured
    descriptors, mechanism cards) is a §6 follow-on.
 
 ## 6. Sign-off
