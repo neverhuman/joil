@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "figure_path": "docs/figures/wave4-evolution-ablation-and-lineage-proof.png",
-  "figure_sha256": "a452818e3ebfe1e01f76eab811af7e64d9fb3ccd451253027ea338ad4d625105",
+  "figure_sha256": "4e4a1c082d6e9593f9f14e16053bbca9dfb3b4802fd3be98458b6ffbb9f65fcf",
   "title": "Wave-4 Plate: 6-Arm Ablation on Repaired Operators (n=10 Seeds, MC n=72), De-Novo Phylogenetic Lineage, Phenotypic Diversity & 11-Family Held-Out Geometry Generalization",
   "generator_script": "tools/generate_wave3_proof_figures.py",
   "source_receipts": [

@@ -208,8 +208,69 @@ def build_enactment_receipt(
     return receipt
 
 
+def _count_cross_section_loops_at_x(
+    triangles: list[list[tuple[float, float, float]]],
+    x_slice_m: float,
+) -> int:
+    """Intersect triangles in the inlet axial band `0.0 <= z <= 0.016 m` with the plane `x = x_slice_m`
+    and count closed 2D polygon loops via segment-graph connectivity (`IR-R2`).
+    """
+    from collections import defaultdict, deque
+
+    adj: dict[tuple[int, int], set[tuple[int, int]]] = defaultdict(set)
+    for tri in triangles:
+        p0, p1, p2 = tri
+        z_min = min(p0[2], p1[2], p2[2])
+        z_max = max(p0[2], p1[2], p2[2])
+        if z_max < -0.002 or z_min > 0.018:
+            continue
+
+        pts: list[tuple[int, int]] = []
+        for a, b in ((p0, p1), (p1, p2), (p2, p0)):
+            da = a[0] - x_slice_m
+            db = b[0] - x_slice_m
+            if abs(da) < 1e-12:
+                da = -1e-9
+            if abs(db) < 1e-12:
+                db = -1e-9
+            if (da < 0.0 and db > 0.0) or (da > 0.0 and db < 0.0):
+                t = da / (da - db)
+                y = a[1] + t * (b[1] - a[1])
+                z = a[2] + t * (b[2] - a[2])
+                pts.append((int(round(y * 100000.0)), int(round(z * 100000.0))))
+
+        if len(pts) == 2 and pts[0] != pts[1]:
+            adj[pts[0]].add(pts[1])
+            adj[pts[1]].add(pts[0])
+
+    visited: set[tuple[int, int]] = set()
+    closed_loops = 0
+    for start in adj:
+        if start in visited:
+            continue
+        q = deque([start])
+        visited.add(start)
+        comp_nodes = 0
+        all_deg_ge_2 = True
+        while q:
+            u = q.popleft()
+            comp_nodes += 1
+            nbrs = adj.get(u, set())
+            if len(nbrs) < 2:
+                all_deg_ge_2 = False
+            for v in nbrs:
+                if v not in visited:
+                    visited.add(v)
+                    q.append(v)
+        if comp_nodes >= 3 and all_deg_ge_2:
+            closed_loops += 1
+    return closed_loops
+
+
 def audit_stl_inlet_enactment(stl_path: Path, program: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Forensically inspect an ASCII STL surface for internal splitter vanes and disjoint inlet channels (`IR-05`)."""
+    """Forensically inspect an ASCII STL surface for disjoint inlet channels via 2D plane-slice
+    closed-loop connectivity at `x = +-0.045 m` and `x = +-0.050 m` (`IR-05`, `IR-R2`).
+    """
     text = stl_path.read_text(errors='ignore')
     stl_sha = hashlib.sha256(stl_path.read_bytes()).hexdigest()
 
@@ -221,43 +282,30 @@ def audit_stl_inlet_enactment(stl_path: Path, program: dict[str, Any] | None = N
     verts = [(float(m.group(1)), float(m.group(2)), float(m.group(3))) for m in vertex_re.finditer(text)]
     triangles = [verts[i : i + 3] for i in range(0, len(verts) - 2, 3)]
 
-    # Count triangles in the tangential inlet duct region |x| in [0.020, 0.042] m
-    # that act as horizontal internal flow-divider vanes (normal predominantly along +-Z, i.e. |nz| > 0.85,
-    # and z strictly interior to the duct height (0.002 m < z < 0.0135 m)).
-    internal_vane_triangles = 0
-    port1_duct_tris = 0
-    port2_duct_tris = 0
-    interior_vane_z_levels_p1: set[int] = set()
-    interior_vane_z_levels_p2: set[int] = set()
+    # Primary topological measurement (`IR-R2`): count closed cross-section loops on plane slices
+    # at x = +-0.045 m and x = +-0.050 m.
+    loops_neg_45 = _count_cross_section_loops_at_x(triangles, -0.045)
+    loops_pos_45 = _count_cross_section_loops_at_x(triangles, 0.045)
+    loops_neg_50 = _count_cross_section_loops_at_x(triangles, -0.050)
+    loops_pos_50 = _count_cross_section_loops_at_x(triangles, 0.050)
+    measured_paths = loops_neg_45 + loops_pos_45
 
+    # Secondary diagnostic only: count horizontal internal splitter-vane facets (|nz| > 0.85)
+    # strictly interior to the duct height (0.002 m < z < 0.0135 m).
+    internal_vane_triangles = 0
     for tri in triangles:
         (x0, y0, z0), (x1, y1, z1), (x2, y2, z2) = tri
         xc = (x0 + x1 + x2) / 3.0
-        yc = (y0 + y1 + y2) / 3.0
         zc = (z0 + z1 + z2) / 3.0
-        if 0.0 <= zc <= 0.016 and abs(xc) >= 0.020:
-            if xc < -0.020 and yc > 0.020:
-                port1_duct_tris += 1
-            elif xc > 0.020 and yc < -0.020:
-                port2_duct_tris += 1
-
+        if 0.0020 < zc < 0.0135 and 0.020 <= abs(xc) <= 0.058:
             ux, uy, uz = x1 - x0, y1 - y0, z1 - z0
             vx, vy, vz = x2 - x0, y2 - y0, z2 - z0
             nx = uy * vz - uz * vy
             ny = uz * vx - ux * vz
             nz = ux * vy - uy * vx
             norm = math.sqrt(nx * nx + ny * ny + nz * nz)
-            if norm > 1e-16 and abs(nz / norm) > 0.85 and 0.0020 < zc < 0.0135 and 0.020 <= abs(xc) <= 0.042:
+            if norm > 1e-16 and abs(nz / norm) > 0.85:
                 internal_vane_triangles += 1
-                z_bucket = int(round(zc * 2000.0))
-                if xc < 0:
-                    interior_vane_z_levels_p1.add(z_bucket)
-                else:
-                    interior_vane_z_levels_p2.add(z_bucket)
-
-    p1_paths = (1 + len(interior_vane_z_levels_p1)) if port1_duct_tris > 0 else 0
-    p2_paths = (1 + len(interior_vane_z_levels_p2)) if port2_duct_tris > 0 else 0
-    measured_paths = p1_paths + p2_paths
 
     expected_paths = 2
     authored_topology_label = None
@@ -280,7 +328,10 @@ def audit_stl_inlet_enactment(stl_path: Path, program: dict[str, Any] | None = N
         'authored_topology_label': authored_topology_label,
         'expected_disjoint_inlet_paths': expected_paths,
         'measured_disjoint_inlet_paths': measured_paths,
+        'slice_loops_at_x_pm45mm': [loops_neg_45, loops_pos_45],
+        'slice_loops_at_x_pm50mm': [loops_neg_50, loops_pos_50],
         'internal_splitter_vane_triangles': internal_vane_triangles,
+        'horizontal_splitter_facet_diagnostic': internal_vane_triangles,
         'actual_simulated_geometry': actual_geometry_label,
         'claimed_multi_jet_enacted_in_stl': measured_paths == expected_paths,
     }

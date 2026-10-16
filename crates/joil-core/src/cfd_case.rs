@@ -541,3 +541,57 @@ relaxationFactors {fields {p .2;} equations {U .4; R .1; k .3; epsilon .3; omega
 
     Ok(manifest)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::program::{DesignProgram, InletSplit3D};
+
+    #[test]
+    fn ir_r1_openfoam_cfd_stl_is_ir_compiled_mesh_and_slices_to_3_inlet_loops_per_duct() {
+        let mut prog = DesignProgram::baseline_ct35();
+        prog.inlet_split = InletSplit3D {
+            enabled: true,
+            vane_thickness_mm: 1.2,
+            vane_z_fraction: 0.5,
+            branches_per_port: 3,
+            azimuthal_phase_deg: 12.0,
+        };
+        prog.skimmer.length_mm = 5.5;
+        prog.skimmer.outer_radius_mm = 2.5;
+        prog.skimmer.capture_flutes = 4;
+
+        let tmp_dir =
+            std::env::temp_dir().join(format!("joil_ir_r1_cfd_case_test_{}", std::process::id()));
+        let _ = fs::remove_dir_all(&tmp_dir);
+
+        let cfg = CfdCaseConfig::default();
+        let manifest = build_openfoam_candidate_case(&prog, &tmp_dir, &cfg)
+            .expect("3-branch 6jet OpenFOAM case generation must succeed");
+
+        let receipt = manifest
+            .enactment_receipt
+            .as_ref()
+            .expect("enactment_receipt must be present");
+        assert!(receipt.all_active_features_enacted);
+        assert_eq!(receipt.measured_disjoint_inlet_paths, 6);
+        assert_eq!(receipt.expected_disjoint_inlet_paths, 6);
+
+        let taxon = manifest
+            .derived_taxon
+            .as_ref()
+            .expect("derived_taxon must be present");
+        assert_eq!(taxon.measured_inlet_channel_count, 6);
+        assert_eq!(taxon.betti_1, 4);
+
+        let stl_path = tmp_dir.join(&manifest.surface_stl_relpath);
+        let stl_text = fs::read_to_string(&stl_path).expect("read constant/triSurface/ct35.stl");
+        let (total_loops, loops_inlet1, loops_inlet2) =
+            joil_ir::IrCompiledMesh::audit_ascii_stl_inlet_enactment(&stl_text);
+        assert_eq!(loops_inlet1, 3, "inlet1 duct must slice to 3 closed loops");
+        assert_eq!(loops_inlet2, 3, "inlet2 duct must slice to 3 closed loops");
+        assert_eq!(total_loops, 6, "total disjoint inlet loops must equal 6");
+
+        let _ = fs::remove_dir_all(&tmp_dir);
+    }
+}
