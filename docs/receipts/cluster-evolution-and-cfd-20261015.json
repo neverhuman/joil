@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "packet": "P03_P05_P06_P07_P08_P09_cluster_evolution_and_openfoam14_pilot",
+  "date_utc": "2026-10-15T19:00:00Z",
+  "cluster_nodes": [
+    "xbabe1",
+    "xbabe2",
+    "xbabe3"
+  ],
+  "gpu_devices": [
+    "xbabe1 (NVIDIA GeForce RTX 4090)",
+    "xbabe2 (NVIDIA GeForce RTX 3090)",
+    "xbabe3 (NVIDIA GeForce RTX 3090)"
+  ],
+  "peak_gpu_vram_utilization_pct": 85.5,
+  "total_3d_evaluations": 119235,
+  "valid_f0_evaluations": 119061,
+  "red_team_rejections": 174,
+  "monte_carlo_realizations": 2857464,
+  "total_gpu_lagrangian_parcels_integrated": 15970490852,
+  "map_elites_occupied_cells": 191,
+  "pareto_front_rank0_count": 275,
+  "pareto_elites_dominating_baseline_count": 275,
+  "promoted_candidate_id": "xbabe2-gen043-isl10-ind030",
+  "promoted_topology_class": "trifurcated-6jet-vortex-head",
+  "executed_openfoam14_elite_pilot": {
+    "case_dir": "runs/rust-cfd-elite-gen024-isl2-ind014",
+    "cells": 305522,
+    "feed_m3_h": 4.00000000000349,
+    "reject_fraction": 0.0197134128042312,
+    "inlet_static_pressure_pa": 19526.53356004685,
+    "hydraulic_loss_j_per_treated_m3": 23124.5724531485,
+    "hydraulic_integrals_sha256": "ac84a8f779011bbad8ba4528b4da0ff49cb48b33d7392c2ba2ce7618b57613fa"
+  },
+  "artifacts_sha256": {
+    "rust_evolution_qualification": "1bc32f98d38cd22525130843bf42034c0078146924b76148e06a4a02c9cff6b3",
+    "exotic_vs_baseline_cfd_benchmark": "d20e9d72dfa004c1bc77a9389646b3ebb75f3004d85ad8c397f902afa181e496",
+    "interactive_3d_archetypes": "51be25b250a19024b6b87b35d01a90a82f9decccd04a20af456e4b3472a19757",
+    "rust_3d_topology_atlas_png": "76e7ce10a2c334575b5dedcea04b33d51f8959d38ef849560c477aa1cc5cd8b7",
+    "pareto_map_elites_convergence_png": "3afd610ac646a3ae13c84d2939213d487e98935541457292f65d7507d8a7c6f7"
+  },
+  "qualified_fitness": null,
+  "qualified_capacity_gain": null
+}

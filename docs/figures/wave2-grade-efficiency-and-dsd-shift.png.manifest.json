@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "figure_file": "docs/figures/wave2-grade-efficiency-and-dsd-shift.png",
+  "figure_sha256": "cebfca5828bf295e0eac566bb55d2fd03b837b66c3dfb760bd4ca43cda8d1ef8",
+  "title": "Wave-2 10-Bin Grade-Efficiency Curves E_red(d) & Inlet-to-Outlet DSD Transfer",
+  "description": "Size-resolved 10-bin reduced grade efficiency E_red(d), stratified DSD mass transfer, 11-family Euler-Stokes cut-size vs shear trade-off, and held-out duty D1..D4 capture retention.",
+  "units_declared": true,
+  "scale_policy": "true_aspect_si_and_mm_annotated",
+  "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
+  "source_artifacts": [
+    {
+      "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+    }
+  ]
+}

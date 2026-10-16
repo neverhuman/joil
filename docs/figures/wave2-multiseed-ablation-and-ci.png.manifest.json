@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "figure_file": "docs/figures/wave2-multiseed-ablation-and-ci.png",
+  "figure_sha256": "ef83db92f9658d5aac0c2a3ecaa86774914b33f2d47e8f97184cc83fdde137c8",
+  "title": "Wave-2 10-Seed Equal-Budget Ablation, Bootstrap 95% CIs, Wilcoxon Tests & Held-Out Duties",
+  "description": "10-seed statistical comparison of B0 (CT-35), B1 (Random/LHS Exotic 3D), B2 (Conventional Axisymmetric NSGA-II), and B3 (Exotic 3D MAP-Elites + GP-CEI) with held-out duties D1..D4 and 10% rejected-cohort audit.",
+  "units_declared": true,
+  "scale_policy": "true_aspect_si_and_mm_annotated",
+  "claim_state": "wave2_multiseed_f1_ablation_and_f0_geometry_qualified_fitness_null_pending_f2_f4",
+  "source_artifacts": [
+    {
+      "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799"
+    }
+  ]
+}

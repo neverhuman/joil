@@ -1,24 +1,94 @@
 name: Foundation
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
+
 permissions:
   contents: read
+
+# One run per PR; new revisions cancel obsolete work without blocking other PRs.
+concurrency:
+  group: foundation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  foundation:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
+  checks:
+    name: check (${{ matrix.suite }})
+    runs-on:
+      group: neverhuman-lan
+      # Both qualified Ubuntu images belong to this general Linux pool.
+      labels: [self-hosted, Linux, X64, lan-ci]
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: [fmt, clippy, rust-tests, baseline, python-tests, public-check, claims-audit, ui]
+    env:
+      RUSTUP_TOOLCHAIN: 1.95.0
+      CARGO_INCREMENTAL: '0'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Install pinned Rust, including rustup on clean VMs
+        if: contains(fromJSON('["fmt", "clippy", "rust-tests", "baseline"]'), matrix.suite)
+        uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # master, 2026-10-16
+        with:
+          toolchain: 1.95.0
+          components: rustfmt, clippy
+      - name: Identify build-cache platform
+        id: platform
+        if: contains(fromJSON('["clippy", "rust-tests", "baseline"]'), matrix.suite)
+        run: |
+          . /etc/os-release
+          echo "os=$ID-$VERSION_ID" >> "$GITHUB_OUTPUT"
+      - name: Restore Rust build cache
+        if: contains(fromJSON('["clippy", "rust-tests", "baseline"]'), matrix.suite)
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            ~/.cargo/git/db
+            target
+          key: ${{ steps.platform.outputs.os }}-${{ runner.arch }}-rust-1.95.0-${{ matrix.suite }}-${{ hashFiles('Cargo.lock') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ steps.platform.outputs.os }}-${{ runner.arch }}-rust-1.95.0-${{ matrix.suite }}-${{ hashFiles('Cargo.lock') }}-
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        if: matrix.suite == 'ui'
         with:
           node-version: 22.22.0
           cache: npm
           cache-dependency-path: apps/explorer/package-lock.json
-      - name: Pin tested Rust toolchain
+      - name: Run suite with exact logs and receipt
+        env:
+          CHECK_SUITE: ${{ matrix.suite }}
+        run: python3 tools/check.py --suite "$CHECK_SUITE"
+      - name: Retain reviewed check receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: foundation-${{ matrix.suite }}-${{ github.run_attempt }}
+          # Selected JSON only; no private inputs or raw log archives.
+          path: .private/checks/*/receipt.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 14
+
+  # Preserve the required-check name; failed/cancelled/skipped lanes cannot pass.
+  foundation:
+    name: foundation
+    needs: checks
+    if: always()
+    runs-on:
+      group: neverhuman-lan
+      labels: [self-hosted, Linux, X64, lan-ci]
+    timeout-minutes: 5
+    steps:
+      - name: Require every foundation suite
+        env:
+          CHECKS_RESULT: ${{ needs.checks.result }}
         run: |
-          rustup toolchain install 1.95.0 --profile minimal --component rustfmt --component clippy
-          rustup override set 1.95.0
-      - name: Run reproducible foundation checks
-        run: python3 tools/check.py
+          test "$CHECKS_RESULT" = success

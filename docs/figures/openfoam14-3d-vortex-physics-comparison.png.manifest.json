@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "publication_figure_manifest_not_physical_validation",
+  "figure_path": "docs/figures/openfoam14-3d-vortex-physics-comparison.png",
+  "figure_sha256": "5c0c4b1ee4d0a82f09d8c086334fe222201473e8801cda806319dd76ef7cac44",
+  "figure_bytes": 746001,
+  "generator_script": "tools/generate_openfoam14_flowfield_plate.py",
+  "generator_sha256": "ad2a972f2faecc2a7593f38ffbb6b27e7069af6b0b79b442483a550999d5f085",
+  "elite_case_dir": "runs/rust-cfd-elite-gen024-isl2-ind014",
+  "baseline_case_dir": "runs/ct35-sst-extended-000",
+  "extracted_summary": {
+    "elite": {
+      "cell_count": 305522,
+      "peak_centrifugal_g_p99": 39.96061265775272,
+      "mean_swirl_velocity_chamber_m_s": 0.7263257254010512
+    },
+    "baseline": {
+      "cell_count": 313260,
+      "peak_centrifugal_g_p99": 80.42668459831783,
+      "mean_swirl_velocity_chamber_m_s": 1.9005981512535428
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "packet": "P04_P05_3grid_roache_gci_and_lrr_rsm_turbulence_verification",
+  "date_utc": "2026-10-15T20:10:00Z",
+  "subject_candidate_id": "xbabe2-gen043-isl10-ind030",
+  "subject_topology_class": "trifurcated-6jet-vortex-head",
+  "subject_design_sha256": "88da933b54c303e6bda1031c11b3334cf90f997361f90ac6321994c1a2d9e7dd",
+  "openfoam_image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+  "three_grid_refinement": {
+    "g0_coarse": {
+      "case_dir": "runs/rust-cfd-elite-g0-coarse",
+      "cells": 139981,
+      "dp_u_pa": 17310.97248047435,
+      "hydraulic_loss_j_per_treated_m3": 21398.4083725502,
+      "reject_fraction": 0.0198928433755562,
+      "water_closure_fraction": 1.40701315791607e-05,
+      "hydraulic_integrals_sha256": "5a34d28b79850819c73110c3769447e208f710d1b304823139f7e97a169a0d0a"
+    },
+    "g1_medium": {
+      "case_dir": "runs/rust-cfd-elite-gen024-isl2-ind014",
+      "cells": 305522,
+      "dp_u_pa": 19526.53356004685,
+      "hydraulic_loss_j_per_treated_m3": 23124.5724531485,
+      "reject_fraction": 0.0197134128042312,
+      "water_closure_fraction": 1.81032009865009e-05,
+      "hydraulic_integrals_sha256": "ac84a8f779011bbad8ba4528b4da0ff49cb48b33d7392c2ba2ce7618b57613fa"
+    },
+    "g2_fine": {
+      "case_dir": "runs/rust-cfd-elite-g2-fine",
+      "cells": 552513,
+      "dp_u_pa": 18699.40443066995,
+      "hydraulic_loss_j_per_treated_m3": 22047.3249453656,
+      "reject_fraction": 0.0199581759733635,
+      "water_closure_fraction": 8.6584415254665e-06,
+      "hydraulic_integrals_sha256": "d3d08739748abbccce8ca8c1a6b0a3bf7b6f6d0f0bbb031e9faebd8cf0f47664"
+    }
+  },
+  "rsm_turbulence_crosscheck": {
+    "model": "LRR",
+    "case_dir": "runs/rust-cfd-elite-g1-rsm-lrr",
+    "cells": 305522,
+    "dp_u_pa": 18119.20008999115,
+    "hydraulic_loss_j_per_treated_m3": 21560.7533668708,
+    "reject_fraction": 0.0196914615565798,
+    "water_closure_fraction": 0.000107154169459282,
+    "positive_definite_normal_stress_fraction": 1.0,
+    "mean_lumley_anisotropy_norm": 0.138279016366768,
+    "hydraulic_integrals_sha256": "c2ad9d3249225546eda7e5d6712b6d523e2ce4cc65956e1ed93609635de35c18"
+  },
+  "artifacts_sha256": {
+    "elite_3grid_gci_and_rsm_verification_json": "1344ad58e9b4af9cf8163c553e4fc3b25c504ac49a0571981bbb02d3052bc9ac",
+    "elite_gci_and_rsm_verification_png": "36106ba1e3aeaaad9f5fa4595175d912b6a809d5109d2c1b2f526e482121e767",
+    "whitepaper_md": "cf4ec615615ff6d32346033b419b7b0e202c5dc42651c244f621ef833a44a750"
+  },
+  "qualified_fitness": null,
+  "qualified_capacity_gain": null
+}
