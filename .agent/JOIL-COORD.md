@@ -1,0 +1,36 @@
+# JOIL live coordination board (real-time)
+
+Plan: `docs/WORKPLAN-2026-10-15.md` · Integration branch: `feat/joil-v4-truth-evidence` · Integrator: `agy_joil`
+Rules: re-read this file before every edit batch. Append-only except your own lane row. Times UTC ISO.
+Commit board changes on YOUR lane branch only for your row/locks; integrator reconciles. For instant visibility also append to the shared live copy `/home/ubuntu/joil-wt/JOIL-COORD.live.md` (not in git; everyone writes, `flock` it: `flock /home/ubuntu/joil-wt/.coord.lock -c 'echo "..." >> /home/ubuntu/joil-wt/JOIL-COORD.live.md'`).
+
+## Lanes
+| Lane | Screen | CLI | Worktree | Branch | Status | Last heartbeat |
+|---|---|---|---|---|---|---|
+| INT | agy_joil | agy Gemini 4 Argon high | /home/ubuntu/joil | feat/joil-v4-truth-evidence | assigned | — |
+| TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | assigned | — |
+| EV | joil_evidence | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | assigned | — |
+| IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | assigned | — |
+| DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | assigned | — |
+
+## Heartbeat protocol
+Every ≤30 min (and on each item state change) append to the live file:
+`HB <UTC> <lane> <item-id> <state: START|WIP|BLOCKED|DONE> <sha|-> <one-line note>`
+No heartbeat for 60 min ⇒ the drive routine nudges the screen; 2 h ⇒ its locks expire.
+
+## File locks (shared files only; lane-owned files need no lock — see workplan §1)
+`LOCK <UTC> <lane> <path> <reason>` / `UNLOCK <UTC> <lane> <path>`
+Shared: Cargo.toml, Cargo.lock, crates/joil-core/src/lib.rs, crates/joil-core/Cargo.toml, tools/check.py, .github/**, COMMS.md, COORD.md, runs/** metadata.
+
+## Handoffs
+`NEED <UTC> <from> -> <to> <item> <what>` · `GIVE <UTC> <from> -> <to> <item> <sha/path>`
+Known handoffs: EV-03 types → TR-17, IR-07, EV-08 · EV-02 identity → TR-13, IR-10, EV-12 · EV-06 requirements → TR-16, INT-04 · TR-07 → INT-05 · TR-01..03 + IR-02 → INT-03/04 · IR-05/TR-10/TR-14 wording → DOC-03.
+
+## Merge protocol
+Lane: push lane branch, append `DONE <item> <sha>`. Integrator: `git merge --no-ff lane/<x>`, run `python3 tools/check.py`, push, append `MERGED <item> <sha>`. Lanes then `git merge feat/joil-v4-truth-evidence` into their lane (never rebase after pushing, never force-push). Order: workplan §3.
+
+## Compute
+OpenFOAM: INT only, ≤16 cores. Cargo `-j 8` per lane, pytest `-n 4`. GPU: IR only. Announce any job >30 min as `JOB <UTC> <lane> <cores> <eta> <cmd>`.
+
+## Hard rules
+Never merge the PR (Jepson merges). No force-push, no --admin, no squash. Push as jepsontaylor over HTTPS. Never touch xbabe0. Don't edit another lane's owned files — send NEED instead.

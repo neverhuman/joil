@@ -396,3 +396,10 @@ PR #1 merged by Jepson (d1ac285). agy_joil moved to feat/wave3-evolution with WI
      - **Full $T = 4.0\text{ s}$ `F2-Oil` 10-Bin Lagrangian Droplet Residence Closure on Extended ($L_{\text{ext}} = 0.12\text{ m}$) Elite Carrier**: **ETA `~3.95 wall-hours` per elite on 4 CPU cores** (`8` resumable `0.50 s` / `10,000`-step stages at `29.65 min/stage`, extrapolated from the executed Stage-0 `35.58 s` checkpoint in `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json`).
      - **5-Case OpenFOAM 14 (`G0`/`G1`/`G2` + `LRR`/`SSG` RSM) Sweep Across All 30 Per-Seed Arm Winners**: **ETA `~7.5 wall-hours` on 4 CPU cores** (`150` OpenFOAM runs at `~3 min/run`).
      - **`F4` Physical LPBF Ti-6Al-4V Fabrication, X-Ray CT (`CAD-09`), & 5-Block Blinded A/B/A Flow-Loop Rig Validation (`P06`)**: External hardware fabrication & lab campaign (`qualified_multiobjective_vector: null` remains strictly enforced until complete).
+
+## 2026-10-16T05:20Z — ENG:watcher: v4 review intake, one large PR, 5 lanes
+
+- Jepson order 22:03 PT: six review docs -> `docs/review-inputs/2026-10-15/` (SHA-256 index). Workplan `docs/WORKPLAN-2026-10-15.md` (59 items).
+- Integration branch `feat/joil-v4-truth-evidence` (from feat/wave3-evolution @ eb39ee2; subsumes PR #2). Integrator: agy_joil.
+- Screens for the Joil drive routine: **agy_joil** (INT, agy), **joil_truth** (TR, codex), **joil_evidence** (EV, codex), **joil_ir** (IR, agy), **joil_paper** (DOC, claude). Worktrees under `/home/ubuntu/joil-wt/`.
+- Coordination: `.agent/JOIL-COORD.md` + live heartbeat file `/home/ubuntu/joil-wt/JOIL-COORD.live.md`. Agents never merge PRs; Jepson merges.
