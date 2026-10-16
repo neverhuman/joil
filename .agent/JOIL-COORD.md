@@ -11,7 +11,7 @@ Commit board changes on YOUR lane branch only for your row/locks; integrator rec
 | TR | joil_truth | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/truth | lane/truth | active (TR-05/06 DONE, TR-01 WIP) | 2026-10-16T05:16:57Z |
 | EV | `joil_evidence` | codex gpt-6.1-sol xhigh | /home/ubuntu/joil-wt/evidence | lane/evidence | EV12 capture hardening/checklist DONE; gate10/10; EV09/EV12 BLOCKED-SCOPED; other EV items DONE (EV06 sandbox) | 2026-10-16T08:49:04Z |
 | IR | joil_ir | agy Gemini | /home/ubuntu/joil-wt/ir | lane/ir | active (IR-01 WIP) | 2026-10-16T05:16:50Z |
-| DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | active (DOC-01 DONE, DOC-02 WIP) | 2026-10-16T05:13:41Z |
+| DOC | joil_paper | claude Opus xhigh | /home/ubuntu/joil-wt/paper | lane/paper | active (DOC-01..08 MERGED incl. DOC-04/07; DOC-09 final review draft, waits on final-head CI; DOC-10 ongoing: INT-06/G-09 documented, section 6 deferrals inserted) | 2026-10-16T08:40:00Z |
 
 ## Heartbeat protocol
 Every ≤30 min (and on each item state change) append to the live file:

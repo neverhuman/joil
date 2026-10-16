@@ -51,6 +51,18 @@ the ignored `.private/checks/doc07-ir-verify-20261016T072137Z/`.
 | IR-R6 | Note | unchanged |
 | IR-R7 | **Resolved** (TR `d13355b`) | `prepare-cfd-case --wave2-family trifurcated-6jet-vortex-head` exits 0 on the committed Wave-2 receipt. It imports the program only and recomputes `design_sha256 = 34c41d4d…`. Its STL is the split mesh above. |
 
+### G-11 remainder (IR `e58f3f3`, merged `cab01e8`; checked by DOC)
+
+- **Counter key.** `DistributedClusterMetrics` now serializes `total_gpu_workspace_tensor_cells_evaluated` and reads
+  the legacy key as an alias (`evolve.rs:1003`). Committed historical receipts keep the old key.
+- **Betti numbers.** The B-rep path computes them from OpenCascade solids, shells and the Euler characteristic
+  (`cad/program/exotic_graph.py`). `tools/f0_voxel.py::verify_brep_rust_mesh_parity` compares the B-rep against
+  the mesh. Residual: the exact-baseline branch still returns an asserted `[1, 0, 1]` (`exotic_graph.py:565`).
+- **New observation (reported to IR).** In `docs/results/wave4-gci-v1.json` the derived taxon of
+  `s20261106-g023-i001` gives `measured_skimmer_protrusion_mm` equal to the full body length, and
+  `euler_characteristic = 50`, which does not match its Betti numbers `(1, 6, 1)`. The documents do not quote
+  either value.
+
 ## Effect on the documentation
 
 - WHITEPAPER correction C1 stays in force for every executed CFD run. Cases built since `f49f67e` contain the split

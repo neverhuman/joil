@@ -1,7 +1,7 @@
 # PR #3 final review (DOC-09): DRAFT, not yet signed off
 
 Reviewer: DOC lane (`joil_paper`, Claude Opus). This revision was written 2026-10-16 against integration head
-`db23f28`, merged into `lane/paper`. The first draft was written against `0139ca0`. This review never merges the
+`cab01e8`, merged into `lane/paper`. The first draft was written against `0139ca0`. This review never merges the
 PR; Jepson merges. It is finalised when the open items in §4 close or are moved to workplan §6 with a reason
 (INT-08).
 
@@ -68,12 +68,13 @@ PR; Jepson merges. It is finalised when the open items in §4 close or are moved
 |---|---|---|---|
 | O-1 | CI on the final PR head. The matplotlib fix (`84d0c2e`) is merged and `python-tests` passes. | INT | yes, until green on the final head |
 | O-2 | ~~DOC-07 IR-R1 (CFD writer)~~. Resolved at `f49f67e`; DOC verified it by re-slicing the CLI-written STL. | - | closed |
-| O-3 | DOC-07 IR-R2..R5: resolved. Residual (synthesis G-11): the campaign summary still serializes the legacy GPU counter key, and Betti numbers are checked against a formula rather than B-rep against mesh. | IR | no |
+| O-3 | ~~DOC-07 IR-R2..R5 and G-11~~. Resolved at `cab01e8`. Residuals: the exact-baseline branch asserts its Betti numbers, and two derived-taxon fields of the Wave-4 winner are inconsistent (reported to IR; not quoted). | IR | no |
 | O-4 | ~~INT-04 Wave-4 study~~. Done (`cb31ba3`) and documented in WHITEPAPER §5.7 and the README. | - | closed |
-| O-5 | INT-06: CFD on Wave-4 winners plus the same-pipeline `CT-35` control (G-09). Started at `f49f67e`. Any result must be documented (DOC-10) before sign-off, or the item moves to §6. | INT | yes, until done or moved |
+| O-5 | ~~INT-06 / G-09~~. Done in scope (`docs/results/wave4-gci-v1.json`); documented in WHITEPAPER §4.6, correction C2, Abstract item 3 and README. One Wave-4 winner was solved, but it is not grid-converged. Of the other five, one mesh pinched off, one meshed but was never solved, and three were never meshed (logs read by EV and DOC). The rest of the sweep is §6. | - | closed |
 | O-6 | TR-12 and EV-06 were closed on the workplan §5 decision 8–9 defaults (INT confirmation 07:02Z). Homologous crossover and physical admission go to §6. | Jepson may override | no |
 | O-7 | Evidence-kernel notes R-1..R-3 (point-value pass/fail, upper-bound-only criteria, F2 sub-levels) | EV | no |
 | O-8 | Figure plates with baked-in stale text (G-07). The Wave-4 figures were regenerated and checked by DOC; Plates 2, 8 and 9 were not. | INT | no |
+| O-10 | `wave4-gci-v1.json` labels all five unsolved winners as G0 pinch-offs, and its G-09 text quotes an archived value hard-coded in `tools/run_wave4_gci_sweep.py` that no receipt holds. The documents use the run logs and the receipt values instead (NEED to INT). | INT | no |
 | O-9 | Ledger hygiene. INT recorded `MERGED` for EV-09, EV-10, EV-12 and TR-16 with no `DONE` from the owner, and EV stated that `MERGED EV-09` is not completion. The audit now counts `MERGED` only after `DONE`; existing rows were not downgraded. | owners | no |
 
 ## 5. Residual risks after this PR (for Jepson)
@@ -84,21 +85,24 @@ PR; Jepson merges. It is finalised when the open items in §4 close or are moved
    random draws over all labels score high at once. No physics-observed screen exists yet.
 3. **GP-CEI no longer filters anything.** With every proposal charged, the acquisition only orders a batch that is
    fully evaluated. Any future claim about the surrogate needs a design in which it chooses.
-4. **CFD comparisons are not yet like-for-like.** Every executed run used the pre-IR-R1 two-duct surface, and the
-   `CT-35` control used a different pipeline and outlet extension (G-09). INT-06 is the first run on the repaired
-   writer.
+4. **No CFD pressure-drop advantage has been shown.** A same-pipeline `CT-35` control matches the archived
+   two-duct shells; the published reductions were a pipeline offset (correction C2). The one Wave-4 design simulated
+   with split ducts is not grid-converged, and its fine-grid value is higher than the control's.
 5. **No oil, transient or physical evidence.** `F2-Oil`, `F3` and `F4` have not run, physical validation is false,
    and campaigns are sandbox-only.
 6. **No independent surrogate labels.** OOD metrics are "insufficient evidence" by design, and the per-label
    KPI error is `null`.
-7. **Audit limits.**
+7. **The Wave-4 CFD runs have no complete case identity.** EV's read-only audit of the 11 Wave-4 case directories
+   found no complete scientific identity record (EV-12 BLOCKED). Five solved meshes were pruned before capture, so
+   the solved runs cannot be re-bound to their exact meshes.
+8. **Audit limits.**
    - The public Wave-4 receipt drops per-proposal repair records, so individual repairs and pedigrees cannot be
      audited from it.
    - The reported p-values use the normal approximation without continuity correction (EV).
-8. **The genome is still the bounded macro language.** Open-ended invention (genome v4, QD over measured
+9. **The genome is still the bounded macro language.** Open-ended invention (genome v4, QD over measured
    descriptors, mechanism cards) is a §6 follow-on.
 
 ## 6. Sign-off
 
-Not signed off. The remaining blockers are O-1 (CI green on the final head) and O-5 (INT-06 documented or moved
-to §6). Once both close, this review becomes the PR #3 comment for Jepson.
+Not signed off. The remaining blocker is O-1 (CI green on the final head). Once it closes, this review becomes the
+PR #3 comment for Jepson.
