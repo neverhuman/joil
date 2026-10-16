@@ -1,5 +1,6 @@
 """DOC-01/DOC-02: review inputs stay verbatim and every review P0 traces to a workplan item."""
 from pathlib import Path
+import re
 import shutil
 import sys
 import tempfile
@@ -78,8 +79,8 @@ class TraceabilityTests(unittest.TestCase):
 
     def test_refresh_derives_statuses_from_ledger(self):
         stamp = '2026-10-16T05:23Z'
-        self.assertEqual(refresh_review_statuses(SYNTHESIS, stamp).replace(stamp, ''),
-                         SYNTHESIS.replace(SYNTHESIS.split('**Status as of ')[1].split('.**')[0], ''))
+        norm = lambda text: re.sub(r'\*\*Status as of [^*]+\.\*\*', '', text)
+        self.assertEqual(norm(refresh_review_statuses(SYNTHESIS, stamp)), norm(SYNTHESIS))
         ledger_row = next(line for line in SYNTHESIS.splitlines() if line.startswith('| TR-09 |'))
         changed = SYNTHESIS.replace(ledger_row, '| TR-09 | TR | MERGED | `abc1234` |')
         errors, _ = check_review_traceability(changed, WORKPLAN)
