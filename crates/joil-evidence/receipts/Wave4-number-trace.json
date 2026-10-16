@@ -1,0 +1,217 @@
+{
+  "item": "WAVE4-NUMBER-TRACE",
+  "kind": "independent_arithmetic_and_publication_audit_not_physical_validation",
+  "verified_at_utc": "2026-10-16T07:17:23Z",
+  "reviewed_head": "cb31ba338dc6284fe4c481ac0c550ff756e8ef87",
+  "input_file": "docs/results/wave4-evolution-proof-v1.json",
+  "input_sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+  "changed_paths": [
+    ".agent/JOIL-COORD.md",
+    "docs/reviews/2026-10-16-EV-wave4-number-trace.md",
+    "crates/joil-evidence/receipts/wave4_number_trace.py",
+    "crates/joil-evidence/receipts/Wave4-number-trace.json"
+  ],
+  "report_sha256": "368dead16b6c4ec3ef87c95f113fb7b56b38c001abe1b815517d24bba1bd6133",
+  "independent_helper_sha256": "a6794534e2a086edccc758a1bf4d8e85b777990e50d999edcf916d3c4dfb3f69",
+  "checks": [
+    {
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .private/ci-python/bin/python crates/joil-evidence/receipts/wave4_number_trace.py > .private/wave4-number-trace-recomputed.json",
+      "exit_code": 0,
+      "artifact_sha256": "6dd35fb98456a7791acbd0e2d5838f57560927bdf6be9dc67e87a4eb3a9358a8",
+      "arithmetic_mismatches": 0,
+      "comparison_tolerance": {
+        "serialized_arithmetic": 1.01e-06,
+        "four_decimal_z": 5.1e-05,
+        "eight_decimal_p_U_delta": 1e-09
+      }
+    },
+    {
+      "command": [
+        ".private/ci-python/bin/python",
+        "-"
+      ],
+      "environment": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1"
+      },
+      "stdin_python": "import importlib.util,json\nspec=importlib.util.spec_from_file_location(\"wave4_trace\", \"crates/joil-evidence/receipts/wave4_number_trace.py\")\nm=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)\nx=json.load(open(\"docs/results/wave4-evolution-proof-v1.json\"))\nx[\"final_summary_statistics\"][\"B3_Wave3_Exotic3D_QD_CEI\"][\"best_kpi_score\"][\"mean\"] += 1\nr=m.audit(x)\nassert len(r[\"arithmetic_mismatches\"]) == 1, r[\"arithmetic_mismatches\"]\nassert r[\"arithmetic_mismatches\"][0][\"path\"] == \"final_summary_statistics/B3_Wave3_Exotic3D_QD_CEI/best_kpi_score/mean\"\nprint(\"PASS: planted +1 KPI mean rejected at exact JSON pointer\")\nx[\"arm_outcomes\"][\"B1_Random_Search\"][0][\"budget\"] = 449\ntry:\n    m.audit(x)\nexcept AssertionError:\n    print(\"PASS: planted unequal budget rejected\")\nelse:\n    raise AssertionError(\"unequal budget accepted\")\nx=json.load(open(\"docs/results/wave4-evolution-proof-v1.json\"))\nx[\"pairwise_tests\"][0][\"p_value_one_sided\"] += 0.0000001\nr=m.audit(x)\nassert len(r[\"arithmetic_mismatches\"]) == 1, r[\"arithmetic_mismatches\"]\nassert r[\"arithmetic_mismatches\"][0][\"path\"] == \"pairwise_tests/0/p_value_one_sided\"\nprint(\"PASS: planted 1e-7 p-value error rejected at exact JSON pointer\")\n",
+      "exit_code": 0,
+      "log_sha256": "60d8635e9781f11e74840f60060c4a2e688bf732a9a391644f16a0f940b7a8c5"
+    },
+    {
+      "command": "export PATH=\"$PWD/.private/ci-python/bin:$PATH\" MPLCONFIGDIR=\"$PWD/.private/matplotlib\" CARGO_INCREMENTAL=${CARGO_INCREMENTAL:-0} CARGO_PROFILE_DEV_DEBUG=${CARGO_PROFILE_DEV_DEBUG:-line-tables-only}; python3 tools/check.py",
+      "exit_code": 0,
+      "receipt_sha256": "efb71682acfc493913fa3fabb25b59e8ebbc786452697acb257015a8bbde3b1e",
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.0844244760228321,
+          "log_bytes": 68,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.3390455709886737,
+          "log_bytes": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 7.585913191956934,
+          "log_bytes": 228,
+          "log_sha256": "0a89594bbd4e32e28ff1b47fffcc551bdcddade64ab8a09e6271f9dbc41b2711"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 84.51107130001765,
+          "log_bytes": 11791,
+          "log_sha256": "c6d6f99dbf58163759fd199f6d9ffd40b7324db8fe89a9997612483ef9318a14"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.7494149710400961,
+          "log_bytes": 1096,
+          "log_sha256": "dcaa135132c13f7e10d1da636c2eb122a58e6082bee0ed4c7b590d5186ac509a"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 51.50740562804276,
+          "log_bytes": 7818,
+          "log_sha256": "7d3a24b9240cf43e8eb5825457685d6aad73bc099e8b9c3cc51e53c711af86ca"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 0.11328445601975545,
+          "log_bytes": 75,
+          "log_sha256": "0555a55575fdd05b2bf996154d9ea6aa1afe48a4aa775feffbfe673fdbbeccac"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": 0,
+          "wall_seconds": 14.351006537966896,
+          "log_bytes": 224,
+          "log_sha256": "40e5f46f36e9f0dbe4f0cf0967e9642e77fec3efce8c741c06253e40af35b77a"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 1.0825987069983967,
+          "log_bytes": 28,
+          "log_sha256": "e55201fdca6ec70b54c3655135091fd765713981d3f46abdd2cd884bdc10f59b"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": 0,
+          "wall_seconds": 4.632697483000811,
+          "log_bytes": 1904,
+          "log_sha256": "4e0902c07451401a7ded848f4a04a6d71d272d9a5b9bcc7692309e7510da279a"
+        }
+      ]
+    }
+  ],
+  "positive_checks": [
+    "125 arm-generation checkpoints across all10 seeds; all1000 metric distributions including bootstrapCI recomputed",
+    "16 rank tests plus Holm family recomputed; untied exact-rank sensitivity calculated separately",
+    "50 winner KPI values, baseline, promoted elite and11 family KPI values recomputed",
+    "11 family rediscovery counts independently recounted from B3 labels",
+    "50 search proposal partitions verified; budgets450 each; lineage milestone flags counted",
+    "Both PNG manifests match actual SHA256; visual inspection confirms stale labels at reviewed head"
+  ],
+  "negative_checks": [
+    "planted +1 in B3 final best-KPI summary is detected at exact pointer",
+    "single B1 budget changed from450 to449 is rejected",
+    "planted 1e-7 p-value error rejected at exact JSON pointer"
+  ],
+  "limitations": [
+    "This audits committed sandbox arithmetic; it does not independently evaluate geometry or physical performance.",
+    "Seven publication/evidence gap groups W4-G1..G7 are documented and handed off to INT/DOC.",
+    "CT35 has no replicated equal450 arm/CI/test.",
+    "No blinded geometry-holdout arm or raw out-of-fold residual ledger; KPI RMSE absent.",
+    "Compacted proposal ledgers prevent full-event lineage recount.",
+    "Report is pinned to cb31ba3; later producer/prose repairs require their own review."
+  ],
+  "scope_decision": "EV-06 DONE-SANDBOX per INT07:02Z; physical admission deferred to section6 until external limit sources exist.",
+  "next_dependency": "INT/DOC integrate this lane commit and resolve or explicitly scope W4-G1..G7; EV does not merge PRs."
+}
