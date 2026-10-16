@@ -162,9 +162,9 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `2.80` | 1 | `baselines/ct35/reference.json` | `/derived_mm/l_orifice` | printed |
 | `6.0` | 1 | `baselines/ct35/reference.json` | `/derived_mm/Rp` | printed |
 | `-20.0` | 1 | `baselines/ct35/reference.json` | `/derived_mm/Lp` | printed |
-| `86,560` | 1 | `baselines/ct35/reference.json` | `/supplied_surface_triangles` | printed |
-| `+1,105,747.56` | 1 | `baselines/ct35/reference.json` | `/supplied_surface_volume_mm3` | printed |
-| `-0.005` | 1 | `docs/results/baseline-hydraulics-v1.json` | `/points/1/external_outlet_reverse_flow_m3_s/overflow` | x100 |
+| `86,560` | 1 | `docs/receipts/supplied_geometry_audit.json` | `/meshes/ct35_fluid_domain.stl/triangles` | printed |
+| `+1,105,747.56` | 1 | `docs/receipts/supplied_geometry_audit.json` | `/meshes/ct35_fluid_domain.stl/signed_volume_mm3` | printed |
+| `-0.005` | 1 | `docs/receipts/supplied_geometry_audit.json` | `/latest_fluid_relative_volume_error` | x100 |
 | `1,105,802.52` | 1 | `baselines/ct35/reference.json` | `/fluid_volume_mm3_analytic` | printed |
 | `120` | 2 | `baselines/ct35/reference.json` | `/derived_mm/Ai_each_mm2` | printed |
 | `0.12` | 2 | `docs/results/baseline-hydraulics-v1.json` | `/points/2/numerical_outlet_extension_m` | printed |
