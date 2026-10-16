@@ -1330,6 +1330,23 @@ pub fn merge_cluster_shards(
     if shard_dirs.is_empty() {
         return Err("at least one shard directory is required".to_string());
     }
+    // A serialized shard cannot grant physical admission or replace the frozen
+    // requirement/objective policy. Validate every receipt before creating any
+    // output, and retain these exact parsed summaries for the merge below.
+    let summaries: Vec<CampaignSummary> = shard_dirs
+        .iter()
+        .map(|directory| {
+            let bytes =
+                fs::read(directory.join("campaign-summary.json")).map_err(|e| e.to_string())?;
+            let summary: CampaignSummary =
+                serde_json::from_slice(&bytes).map_err(|e| e.to_string())?;
+            let expected = crate::experiment::admit_search_campaign(summary.config.campaign_mode)?;
+            if summary.campaign_admission != expected {
+                return Err("shard admission/requirement/objective receipt mismatch".into());
+            }
+            Ok(summary)
+        })
+        .collect::<Result<_, String>>()?;
     fs::create_dir_all(out_dir).map_err(|e| e.to_string())?;
     let meshes_dir = out_dir.join("meshes");
     fs::create_dir_all(&meshes_dir).map_err(|e| e.to_string())?;
@@ -1347,14 +1364,11 @@ pub fn merge_cluster_shards(
     let mut peak_vram_mib = 0.0_f64;
     let mut total_gpu_parcels = 0u64;
 
-    for (s_idx, sdir) in shard_dirs.iter().enumerate() {
+    for (s_idx, (sdir, sum)) in shard_dirs.iter().zip(summaries).enumerate() {
         let node_tag = node_labels
             .get(s_idx)
             .cloned()
             .unwrap_or_else(|| format!("shard{}", s_idx));
-        let sum_raw =
-            fs::read_to_string(sdir.join("campaign-summary.json")).map_err(|e| e.to_string())?;
-        let sum: CampaignSummary = serde_json::from_str(&sum_raw).map_err(|e| e.to_string())?;
         let arch_raw =
             fs::read_to_string(sdir.join("map-elites-archive.json")).map_err(|e| e.to_string())?;
         let arch: BTreeMap<String, Individual> =

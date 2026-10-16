@@ -37,7 +37,7 @@ pub fn research_requirements() -> Result<&'static joil_evidence::campaign::Requi
         .map_err(Clone::clone)
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CampaignAdmissionReceipt {
     pub schema: String,
     pub mode: joil_evidence::campaign::CampaignMode,
