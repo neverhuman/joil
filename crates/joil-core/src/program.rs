@@ -26,6 +26,17 @@ pub fn baseline_file_sha256() -> String {
 pub struct Rng(pub u64);
 
 impl Rng {
+    /// SplitMix advances by an odd constant, whose modular inverse recovers the
+    /// number of draws modulo 2^64 even when state endpoints wrap.
+    pub fn draws_between(before: u64, after: u64) -> u64 {
+        let gamma = 0x9E37_79B9_7F4A_7C15_u64;
+        let mut inverse = 1_u64;
+        for _ in 0..6 {
+            inverse = inverse.wrapping_mul(2_u64.wrapping_sub(gamma.wrapping_mul(inverse)));
+        }
+        after.wrapping_sub(before).wrapping_mul(inverse)
+    }
+
     pub fn new(seed: u64) -> Self {
         Self(seed)
     }
@@ -266,6 +277,10 @@ pub struct LocalityMetrics {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct VariationOutcome {
+    #[serde(default)]
+    pub candidate_id: Option<String>,
+    #[serde(default)]
+    pub parent_ids: Vec<String>,
     pub child: Option<DesignProgram>,
     pub proposal: Option<DesignProgram>,
     pub edits: Vec<GenomeEdit>,
@@ -289,6 +304,10 @@ impl From<VariationError> for String {
 }
 
 impl VariationOutcome {
+    pub fn with_parent_ids(mut self, ids: Vec<String>) -> Self {
+        self.parent_ids = ids;
+        self
+    }
     /// Explicit generation/control operator, never an error recovery path.
     pub fn introduce(
         program: DesignProgram,
@@ -308,6 +327,7 @@ impl VariationOutcome {
         };
         let mut out = next(child)?;
         out.parent_hashes = self.parent_hashes;
+        out.parent_ids = self.parent_ids;
         out.operator_id = format!("{}+{}", self.operator_id, out.operator_id);
         out.rng_span.before = self.rng_span.before;
         let mut edits = self.edits;
@@ -380,6 +400,8 @@ fn variation(
     kernel: impl Fn(&mut Rng, bool) -> DesignProgram,
 ) -> Result<VariationOutcome, VariationError> {
     let mut out = VariationOutcome {
+        candidate_id: None,
+        parent_ids: Vec::new(),
         child: None,
         proposal: None,
         edits: Vec::new(),

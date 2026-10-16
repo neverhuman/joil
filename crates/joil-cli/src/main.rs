@@ -42,12 +42,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             ];
             let mut results = Vec::new();
             for (rel, step) in cases {
-                let eval = openfoam::evaluate_measured_cfd_kpis(&root, &root.join(rel), step)?;
+                let eval = openfoam::read_cfd_kpi_observation(&root, &root.join(rel), step)
+                    .map_err(|observation| serde_json::json!({"observation": observation}).to_string())?;
                 results.push(eval);
             }
             let out_json = serde_json::to_string_pretty(&serde_json::json!({
                 "schema_version": "0.2.0",
-                "evaluator": "joil-core::openfoam::evaluate_measured_cfd_kpis",
+                "evaluator": "joil-core::openfoam::read_cfd_kpi_observation",
                 "cases": results,
             }))?;
             if let Some(out_path) = parse_arg(&args, "--out") {
@@ -75,7 +76,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             println!("{out_json}");
         }
-        "qualify-structure" => {
+        "screen-structure" | "qualify-structure" => {
             let mut rng = program::Rng::new(20261015);
             let archetypes = program::DesignProgram::seed_wave2_archetypes(&mut rng);
             let lame_inner =
@@ -85,22 +86,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let mut reports = Vec::new();
             for (idx, prog) in archetypes.iter().enumerate() {
                 let (pheno, _) = phenotype::Phenotype3D::from_program(prog)?;
-                let sq = structure::qualify_structure(prog, &pheno, 29468.22, 0.001111111)?;
+                let sq = structure::analytic_structural_screen(prog, &pheno, 29468.22, 0.001111111)?;
                 reports.push(serde_json::json!({
                     "index": idx,
                     "topology_class": pheno.topology_class,
                     "genome_sha256": pheno.design_sha256,
-                    "structural_qualification": sq,
+                    "analytic_structural_screen": sq,
                 }));
             }
             let out_json = serde_json::to_string_pretty(&serde_json::json!({
                 "schema_version": "0.2.0",
-                "evaluator": "joil-core::structure::qualify_structure",
+                "evaluator": "joil-core::structure::analytic_structural_screen",
                 "lame_cylinder_oracle_head_35mm_id_38mm_od_2.5mpa": {
                     "inner_wall": lame_inner,
                     "outer_wall": lame_outer,
                 },
-                "archetype_qualifications": reports,
+                "archetype_analytic_screens": reports,
             }))?;
             if let Some(out_path) = parse_arg(&args, "--out") {
                 std::fs::write(out_path, &out_json)?;
@@ -142,7 +143,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let (pheno, mesh) = phenotype::Phenotype3D::from_program(&elite.program)?;
             redteam::check(&elite.program, &pheno, &mesh)
                 .map_err(|e| format!("top elite failed redteam gate: {e:?}"))?;
-            let struct_qual = structure::qualify_structure(
+            let struct_qual = structure::analytic_structural_screen(
                 &elite.program,
                 &pheno,
                 elite.nominal_metrics.dp_u_pa,
@@ -150,7 +151,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             )?;
             if !struct_qual.passed {
                 return Err(format!(
-                    "top elite failed P08 structural qualification: {:?}",
+                    "top candidate failed the P08 analytic structural screen: {:?}",
                     struct_qual.failure_reasons
                 )
                 .into());
@@ -191,7 +192,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "descriptors": elite.descriptors,
                     "phenotype_3d": pheno,
                     "multi_patch_cfd_surface_audit": multi_patch.audit,
-                    "structural_qualification_p08": struct_qual,
+                    "analytic_structural_screen_p08": struct_qual,
                     "nominal_f1_metrics": elite.nominal_metrics,
                     "monte_carlo_robustness": elite.mc_robustness,
                     "cuda_rtx3090_sdf_and_ode_audit": elite.cuda_sdf_audit,
@@ -820,7 +821,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         _ => {
             return Err(
-                "supported commands: baseline, kpi, verify-rotation, qualify-structure, audit-probe, promote-elite, prepare-cfd-case, qualify-surrogate, qualify-population, qualify-experiment, export-glb-scene, export-3d-preview, compile-3d, evolve, merge-cluster, wave2-benchmark, wave3-proof".into(),
+                "supported commands: baseline, kpi, verify-rotation, screen-structure (legacy alias qualify-structure), audit-probe, promote-elite, prepare-cfd-case, qualify-surrogate, qualify-population, qualify-experiment, export-glb-scene, export-3d-preview, compile-3d, evolve, merge-cluster, wave2-benchmark, wave3-proof".into(),
             )
         }
     }

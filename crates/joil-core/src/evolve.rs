@@ -8,6 +8,7 @@ use crate::phenotype::{Phenotype3D, SolidMesh};
 use crate::program::{DesignProgram, MechanismDescriptors, Rng, VariationError, VariationOutcome};
 use crate::redteam;
 use crate::structure::{self, AnalyticStructuralScreen};
+use joil_evidence::{identity::ContentRef, observation::EvidenceTier, subject::Lineage};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::fs;
@@ -31,6 +32,8 @@ pub struct BaselineHydraulics {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct EvolutionConfig {
+    #[serde(default = "sandbox_mode")]
+    pub campaign_mode: joil_evidence::campaign::CampaignMode,
     pub seed: u64,
     pub islands: usize,
     pub pop_per_island: usize,
@@ -42,9 +45,14 @@ pub struct EvolutionConfig {
     pub baseline_hydraulics: BaselineHydraulics,
 }
 
+fn sandbox_mode() -> joil_evidence::campaign::CampaignMode {
+    joil_evidence::campaign::CampaignMode::Sandbox
+}
+
 impl Default for EvolutionConfig {
     fn default() -> Self {
         Self {
+            campaign_mode: sandbox_mode(),
             seed: 20261015,
             islands: 4,
             pop_per_island: 24,
@@ -93,16 +101,31 @@ pub struct CandidateMetrics {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MonteCarloSummary {
     pub samples: usize,
+    pub pass_count: usize,
+    pub sampled_pass_fraction_ci95: [f64; 2],
+    pub sampling_interpretation: String,
+    pub tail_quantiles: BTreeMap<String, metrics::QuantileEstimate>,
+    #[serde(rename = "cout_sample_screen_lower_mg_l", alias = "cout_p05_mg_l")]
     pub cout_p05_mg_l: f64,
     pub cout_p50_mg_l: f64,
+    #[serde(rename = "cout_sample_screen_upper_mg_l", alias = "cout_p95_mg_l")]
     pub cout_p95_mg_l: f64,
+    #[serde(rename = "capture_sample_screen_lower", alias = "capture_p05")]
     pub capture_p05: f64,
     pub capture_p50: f64,
+    #[serde(rename = "capture_sample_screen_upper", alias = "capture_p95")]
     pub capture_p95: f64,
+    #[serde(rename = "d50_sample_screen_lower_um", alias = "d50_p05_um")]
     pub d50_p05_um: f64,
     pub d50_p50_um: f64,
+    #[serde(rename = "d50_sample_screen_upper_um", alias = "d50_p95_um")]
     pub d50_p95_um: f64,
+    #[serde(rename = "grade_20um_sample_screen_lower", alias = "grade_20um_p05")]
     pub grade_20um_p05: f64,
+    #[serde(
+        rename = "sampled_pass_fraction_research_limit",
+        alias = "probability_passes_30_mg_l"
+    )]
     pub probability_passes_30_mg_l: f64,
 }
 
@@ -139,6 +162,9 @@ pub struct Individual {
     pub topology_class: String,
     pub generation_born: usize,
     pub island_origin: usize,
+    /// Legacy archives without a receipt remain explicitly unidentified.
+    #[serde(default)]
+    pub lineage: Option<Lineage>,
     pub red_team_passed: bool,
     pub red_team_rejects: Vec<String>,
     pub descriptors: MechanismDescriptors,
@@ -153,13 +179,29 @@ pub struct Individual {
     pub nominal_metrics: CandidateMetrics,
     pub mc_robustness: MonteCarloSummary,
     pub cuda_sdf_audit: Option<CudaSdfSummary>,
-    pub objectives: [f64; 5],
+    pub objectives: ObjectiveOutcome,
     pub constraint_violation: f64,
     pub rank: usize,
     pub crowding_distance: f64,
-    pub evidence_tier: String,
+    pub evidence_tier: EvidenceTier,
     pub qualified_multiobjective_vector: Option<serde_json::Value>,
     pub qualified_capacity_gain: Option<f64>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "status", rename_all = "snake_case")]
+pub enum ObjectiveOutcome {
+    SandboxEstimate { values: [f64; 5] },
+    Insufficient { missing_quantiles: Vec<String> },
+}
+
+impl ObjectiveOutcome {
+    pub fn values(&self) -> Option<&[f64; 5]> {
+        match self {
+            Self::SandboxEstimate { values } => Some(values),
+            Self::Insufficient { .. } => None,
+        }
+    }
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
@@ -175,6 +217,7 @@ pub enum StructuralScreenState {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CampaignSummary {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     #[serde(default, flatten)]
     pub proposal_budget: ProposalBudget,
     pub schema_version: String,
@@ -201,10 +244,14 @@ fn evaluate_proposal(
     budget: &mut ProposalBudget,
 ) -> Result<Option<Individual>, String> {
     let mut outcome = outcome?;
+    outcome.candidate_id = Some(id.clone());
     let result = match outcome.child.clone() {
         Some(child) if outcome.failure.is_none() => {
             match evaluate_individual(id, child, generation, island, cfg) {
-                Ok((individual, _)) => Some(individual),
+                Ok((mut individual, _)) => {
+                    individual.lineage = Some(proposal_lineage(&outcome, cfg.seed)?);
+                    Some(individual)
+                }
                 Err(reason) => {
                     outcome.child = None;
                     outcome.failure = Some(format!("compilation/evaluation failed: {reason}"));
@@ -216,6 +263,67 @@ fn evaluate_proposal(
     };
     budget.record(outcome);
     Ok(result)
+}
+
+fn proposal_lineage(outcome: &VariationOutcome, seed: u64) -> Result<Lineage, String> {
+    // These identify the exact implementation source/configuration that produced
+    // the legacy screening mesh, not an independently validated compiler binary.
+    let compiler_source = [
+        include_bytes!("phenotype.rs").as_slice(),
+        include_bytes!("geometry.rs").as_slice(),
+        include_bytes!("program.rs").as_slice(),
+        include_bytes!("../../../Cargo.lock").as_slice(),
+    ]
+    .concat();
+    let operator_source = [
+        outcome.operator_id.as_bytes(),
+        outcome.operator_version.as_bytes(),
+        include_bytes!("program.rs").as_slice(),
+    ]
+    .concat();
+    let lineage = Lineage {
+        parents: if outcome.parent_ids.is_empty() {
+            outcome
+                .parent_hashes
+                .iter()
+                .map(|hash| format!("genome:{hash}"))
+                .collect::<Vec<_>>()
+        } else {
+            outcome.parent_ids.clone()
+        }
+        .into_iter()
+        .collect::<std::collections::BTreeSet<_>>()
+        .into_iter()
+        .collect(),
+        operator: ContentRef::from_bytes(
+            &outcome.operator_id,
+            &outcome.operator_version,
+            &operator_source,
+        ),
+        operator_version: outcome
+            .operator_version
+            .parse::<u32>()
+            .map_err(|e| e.to_string())?,
+        seed,
+        rng_span: [outcome.rng_span.before, outcome.rng_span.after],
+        rng_draws: Rng::draws_between(outcome.rng_span.before, outcome.rng_span.after),
+        repairs: outcome
+            .repairs
+            .iter()
+            .map(|r| joil_evidence::subject::RepairRecord {
+                rule: r.rule.clone(),
+                before_hash: r.before_hash.clone(),
+                after_hash: r.after_hash.clone(),
+            })
+            .collect(),
+        compiler: ContentRef::from_bytes(
+            "joil-core/legacy-mesh-compiler-source",
+            env!("CARGO_PKG_VERSION"),
+            &compiler_source,
+        ),
+    };
+    lineage.check()?;
+    Ok(lineage)
 }
 
 fn lognormal_bin_weights(d50_feed_um: f64, sigma_ln: f64) -> [f64; 10] {
@@ -358,7 +466,12 @@ pub fn evaluate_realization(
         d90_um,
         overall_oil_capture,
         cout_mg_l,
-        passes_30_mg_l: cout_mg_l <= 30.0,
+        passes_30_mg_l: cout_mg_l
+            <= crate::experiment::research_requirements()
+                .expect("compiled requirements must validate")
+                .thresholds
+                .quality_limit_mg_l
+                .get(),
     }
 }
 
@@ -405,7 +518,10 @@ pub fn evaluate_individual(
     let mut mc_rng = Rng::new(
         cfg.seed ^ u64::from_str_radix(&genome_sha256[0..16], 16).unwrap_or(0x1234_5678_9abc_def0),
     );
-    let n_mc = cfg.mc_samples.max(4);
+    let n_mc = cfg.mc_samples;
+    if n_mc == 0 {
+        return Err("positive declared Monte Carlo sample count required".into());
+    }
     let mut couts = Vec::with_capacity(n_mc);
     let mut captures = Vec::with_capacity(n_mc);
     let mut d50s = Vec::with_capacity(n_mc);
@@ -440,18 +556,60 @@ pub fn evaluate_individual(
     d50s.sort_by(|a, b| a.total_cmp(b));
     eta20s.sort_by(|a, b| a.total_cmp(b));
 
+    let requirements = crate::experiment::research_requirements()?;
+    let policy = &requirements.quantile_policy;
+    let mut tail_quantiles = BTreeMap::new();
+    for (name, samples) in [
+        ("cout", &couts),
+        ("capture", &captures),
+        ("d50", &d50s),
+        ("grade_20um", &eta20s),
+    ] {
+        for (suffix, quantile, minimum_n) in [
+            ("p05", 0.05, policy.min_n_p05_p95),
+            ("p95", 0.95, policy.min_n_p05_p95),
+            ("p01", 0.01, policy.min_n_p01_p99),
+            ("p99", 0.99, policy.min_n_p01_p99),
+        ] {
+            tail_quantiles.insert(
+                format!("{name}_{suffix}"),
+                metrics::quantile_estimate(samples, quantile, policy.confidence.get(), minimum_n)?,
+            );
+        }
+    }
+    // Small cohorts supply only explicitly named sample-envelope screens. They
+    // never stand in for missing tail estimates in the objective vector.
+    let lower = |samples: &[f64]| {
+        if n_mc < policy.min_n_p05_p95 {
+            samples[0]
+        } else {
+            percentile_sorted(samples, 0.05)
+        }
+    };
+    let upper = |samples: &[f64]| {
+        if n_mc < policy.min_n_p05_p95 {
+            samples[n_mc - 1]
+        } else {
+            percentile_sorted(samples, 0.95)
+        }
+    };
     let mc_robustness = MonteCarloSummary {
         samples: n_mc,
-        cout_p05_mg_l: percentile_sorted(&couts, 0.05),
+        pass_count,
+        sampled_pass_fraction_ci95: metrics::sampled_fraction_ci95(pass_count, n_mc)?,
+        sampling_interpretation:
+            "conditional_on_declared_sandbox_draws_not_empirical_physical_risk".into(),
+        tail_quantiles,
+        cout_p05_mg_l: lower(&couts),
         cout_p50_mg_l: percentile_sorted(&couts, 0.50),
-        cout_p95_mg_l: percentile_sorted(&couts, 0.95),
-        capture_p05: percentile_sorted(&captures, 0.05),
+        cout_p95_mg_l: upper(&couts),
+        capture_p05: lower(&captures),
         capture_p50: percentile_sorted(&captures, 0.50),
-        capture_p95: percentile_sorted(&captures, 0.95),
-        d50_p05_um: percentile_sorted(&d50s, 0.05),
+        capture_p95: upper(&captures),
+        d50_p05_um: lower(&d50s),
         d50_p50_um: percentile_sorted(&d50s, 0.50),
-        d50_p95_um: percentile_sorted(&d50s, 0.95),
-        grade_20um_p05: percentile_sorted(&eta20s, 0.05),
+        d50_p95_um: upper(&d50s),
+        grade_20um_p05: lower(&eta20s),
         probability_passes_30_mg_l: pass_count as f64 / n_mc as f64,
     };
 
@@ -478,27 +636,39 @@ pub fn evaluate_individual(
             joil_evidence::observation::Finite::new(nominal_metrics.dp_u_pa)?,
         ),
     ]);
-    let objectives: [f64; 5] = requirements
-        .evaluate_objectives(&observations)?
+    let missing_quantiles: Vec<String> = ["cout_p95", "grade_20um_p05", "d50_p95"]
         .into_iter()
-        .map(|v| v.get())
-        .collect::<Vec<_>>()
-        .try_into()
-        .map_err(|_| "expected frozen five-objective contract")?;
+        .filter(|id| mc_robustness.tail_quantiles[*id].value().is_none())
+        .map(str::to_string)
+        .collect();
+    let objectives = if missing_quantiles.is_empty() {
+        ObjectiveOutcome::SandboxEstimate {
+            values: requirements
+                .evaluate_objectives(&observations)?
+                .into_iter()
+                .map(|v| v.get())
+                .collect::<Vec<_>>()
+                .try_into()
+                .map_err(|_| "expected frozen five-objective contract")?,
+        }
+    } else {
+        ObjectiveOutcome::Insufficient { missing_quantiles }
+    };
 
     let mut violation = 0.0_f64;
     if !red_team_passed {
         violation += 1000.0 + 100.0 * red_team_rejects.len() as f64;
     }
-    if nominal_metrics.cout_mg_l > 30.0 {
-        violation += nominal_metrics.cout_mg_l - 30.0;
+    if nominal_metrics.cout_mg_l > requirements.thresholds.quality_limit_mg_l.get() {
+        violation += nominal_metrics.cout_mg_l - requirements.thresholds.quality_limit_mg_l.get();
     }
-    let max_dp_u = cfg.baseline_hydraulics.dp_u_pa * 1.15;
+    let max_dp_u =
+        cfg.baseline_hydraulics.dp_u_pa * requirements.thresholds.sandbox_pressure_ratio_max.get();
     if nominal_metrics.dp_u_pa > max_dp_u {
         violation += (nominal_metrics.dp_u_pa - max_dp_u) / 1000.0;
     }
-    if nominal_metrics.pdr < 4.5 {
-        violation += (4.5 - nominal_metrics.pdr) * 10.0;
+    if nominal_metrics.pdr < requirements.thresholds.sandbox_pdr_min.get() {
+        violation += (requirements.thresholds.sandbox_pdr_min.get() - nominal_metrics.pdr) * 10.0;
     }
 
     let (structural_qualification, structural_screen_state) =
@@ -521,6 +691,14 @@ pub fn evaluate_individual(
         };
 
     let ind = Individual {
+        lineage: Some(proposal_lineage(
+            &VariationOutcome::introduce(
+                prog.clone(),
+                "evaluate_external_program",
+                &mut Rng::new(cfg.seed),
+            )?,
+            cfg.seed,
+        )?),
         id,
         topology_class: prog.topology_class.clone(),
         program: prog,
@@ -540,7 +718,7 @@ pub fn evaluate_individual(
         constraint_violation: violation,
         rank: usize::MAX,
         crowding_distance: 0.0,
-        evidence_tier: "f0_f1_reduced_order_3d_screen_not_f2_cfd_validated".to_string(),
+        evidence_tier: EvidenceTier::SoftwareContract,
         qualified_multiobjective_vector: None,
         qualified_capacity_gain: None,
     };
@@ -551,6 +729,10 @@ pub fn evaluate_individual(
 /// Deb's constrained dominance comparator (`a` dominates `b`).
 pub fn constrained_dominates(a: &Individual, b: &Individual) -> bool {
     const EPS: f64 = 1e-9;
+    let (Some(a_objectives), Some(b_objectives)) = (a.objectives.values(), b.objectives.values())
+    else {
+        return false;
+    };
     let structurally_feasible = |ind: &Individual| {
         matches!(ind.structural_screen_state, StructuralScreenState::Screened)
             && ind.structural_qualification.as_ref().is_some_and(|screen| {
@@ -580,11 +762,11 @@ pub fn constrained_dominates(a: &Individual, b: &Individual) -> bool {
         return a.constraint_violation + EPS < b.constraint_violation;
     }
     let mut strictly_better = false;
-    for i in 0..a.objectives.len() {
-        if a.objectives[i] > b.objectives[i] + EPS {
+    for i in 0..a_objectives.len() {
+        if a_objectives[i] > b_objectives[i] + EPS {
             return false;
         }
-        if a.objectives[i] + EPS < b.objectives[i] {
+        if a_objectives[i] + EPS < b_objectives[i] {
             strictly_better = true;
         }
     }
@@ -602,6 +784,10 @@ pub fn assign_nsga2_ranks_and_crowding(pop: &mut [Individual]) {
     let mut fronts: Vec<Vec<usize>> = vec![Vec::new()];
 
     for p in 0..n {
+        if pop[p].objectives.values().is_none() {
+            pop[p].rank = usize::MAX;
+            continue;
+        }
         for q in 0..n {
             if p == q {
                 continue;
@@ -651,18 +837,28 @@ pub fn assign_nsga2_ranks_and_crowding(pop: &mut [Individual]) {
             continue;
         }
         for m in 0..5 {
-            let mut order = front.clone();
-            order.sort_by(|&a, &b| pop[a].objectives[m].total_cmp(&pop[b].objectives[m]));
-            let f_min = pop[*order.first().unwrap()].objectives[m];
-            let f_max = pop[*order.last().unwrap()].objectives[m];
+            let mut order: Vec<usize> = front
+                .iter()
+                .copied()
+                .filter(|idx| pop[*idx].objectives.values().is_some())
+                .collect();
+            if order.is_empty() {
+                continue;
+            }
+            order.sort_by(|&a, &b| {
+                pop[a].objectives.values().unwrap()[m]
+                    .total_cmp(&pop[b].objectives.values().unwrap()[m])
+            });
+            let f_min = pop[*order.first().unwrap()].objectives.values().unwrap()[m];
+            let f_max = pop[*order.last().unwrap()].objectives.values().unwrap()[m];
             pop[*order.first().unwrap()].crowding_distance = CROWDING_BOUNDARY_SENTINEL;
             pop[*order.last().unwrap()].crowding_distance = CROWDING_BOUNDARY_SENTINEL;
             let span = (f_max - f_min).max(1e-9);
             for k in 1..(order.len() - 1) {
                 let idx = order[k];
                 if pop[idx].crowding_distance < CROWDING_BOUNDARY_SENTINEL {
-                    let prev = pop[order[k - 1]].objectives[m];
-                    let next = pop[order[k + 1]].objectives[m];
+                    let prev = pop[order[k - 1]].objectives.values().unwrap()[m];
+                    let next = pop[order[k + 1]].objectives.values().unwrap()[m];
                     pop[idx].crowding_distance += (next - prev) / span;
                 }
             }
@@ -777,12 +973,24 @@ pub struct EngineeringGatesReport {
     pub all_rank0_feasible_zero_violation: bool,
     pub all_rank0_pass_redteam_f0: bool,
     pub all_rank0_pass_p08_structural: bool,
+    #[serde(
+        rename = "baseline_cout_sample_screen_upper_mg_l",
+        alias = "baseline_cout_p95_mg_l"
+    )]
     pub baseline_cout_p95_mg_l: f64,
     pub best_elite_id: String,
     pub best_elite_topology: String,
+    #[serde(
+        rename = "best_elite_cout_sample_screen_upper_mg_l",
+        alias = "best_elite_cout_p95_mg_l"
+    )]
     pub best_elite_cout_p95_mg_l: f64,
     pub best_elite_d50_um: f64,
     pub best_elite_dp_u_pa: f64,
+    #[serde(
+        rename = "best_elite_grade_20um_sample_screen_lower",
+        alias = "best_elite_grade_20um_p05"
+    )]
     pub best_elite_grade_20um_p05: f64,
     pub best_elite_max_entry_shear_s_inv: f64,
     pub best_elite_short_circuit_fraction: f64,
@@ -797,7 +1005,13 @@ pub struct EngineeringGatesReport {
 /// Runs the full multi-island Constrained NSGA-II + 4D MAP-Elites evolutionary campaign
 /// using parallel CPU threads across islands and writes artifacts + watertight 3D `.stl` / `.obj` meshes to `out_dir`.
 pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSummary, String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     fs::create_dir_all(out_dir).map_err(|e| e.to_string())?;
+    fs::write(
+        out_dir.join("campaign.json"),
+        serde_json::to_vec_pretty(&campaign_admission).map_err(|e| e.to_string())?,
+    )
+    .map_err(|e| e.to_string())?;
     let meshes_dir = out_dir.join("meshes");
     fs::create_dir_all(&meshes_dir).map_err(|e| e.to_string())?;
 
@@ -885,9 +1099,13 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
                     } else {
                         tournament_select(pop, &mut isl_rng)
                     };
-                    p1.program.crossover(&p2.program, &mut isl_rng)
+                    p1.program
+                        .crossover(&p2.program, &mut isl_rng)
+                        .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()]))
                 } else {
-                    p1.program.mutate(&mut isl_rng)
+                    p1.program
+                        .mutate(&mut isl_rng)
+                        .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))
                 };
                 if let Some(ind) = evaluate_proposal(
                     outcome,
@@ -1020,6 +1238,7 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
     }
 
     let summary = CampaignSummary {
+        campaign_admission,
         proposal_budget,
         schema_version: "0.2.0".to_string(),
         engine: "joil-core::evolve (Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA Bridge)".to_string(),
@@ -1236,14 +1455,17 @@ pub fn merge_cluster_shards(
             .or_insert(0usize) += 1;
     }
 
-    let all_rank0_feasible = pareto_front.iter().all(|x| x.constraint_violation <= 1e-9);
-    let all_rank0_redteam = pareto_front.iter().all(|x| x.red_team_passed);
-    let all_rank0_p08 = pareto_front.iter().all(|x| {
-        x.structural_qualification
-            .as_ref()
-            .map(|s| s.passed)
-            .unwrap_or(false)
-    });
+    let all_rank0_feasible =
+        !pareto_front.is_empty() && pareto_front.iter().all(|x| x.constraint_violation <= 1e-9);
+    let all_rank0_redteam =
+        !pareto_front.is_empty() && pareto_front.iter().all(|x| x.red_team_passed);
+    let all_rank0_p08 = !pareto_front.is_empty()
+        && pareto_front.iter().all(|x| {
+            x.structural_qualification
+                .as_ref()
+                .map(|s| s.passed)
+                .unwrap_or(false)
+        });
     let dom_baseline_count = pareto_front
         .iter()
         .filter(|x| constrained_dominates(x, &baseline_ref))
@@ -1284,6 +1506,7 @@ pub fn merge_cluster_shards(
     };
 
     let merged_summary = CampaignSummary {
+        campaign_admission: base_sum.campaign_admission,
         proposal_budget: merged_budget,
         schema_version: "0.2.0".to_string(),
         engine: "joil-core::evolve (3-Node Distributed Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA 85% VRAM Tensor Bridge)".to_string(),
@@ -1328,7 +1551,8 @@ pub fn merge_cluster_shards(
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum SearchBaselineMode {
     Ct35Fixed,
-    RandomLhsExotic3d,
+    #[serde(alias = "RandomLhsExotic3d")]
+    UniformRandomExotic3d,
     ConventionalAxisymmetricNsga2,
     Exotic3dQdCei,
 }
@@ -1396,16 +1620,25 @@ pub fn evaluate_held_out_duties(
 /// Per-seed outcome summary for multi-seed statistical comparisons.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SeedRunOutcome {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     #[serde(default, flatten)]
     pub proposal_budget: ProposalBudget,
     pub seed: u64,
     pub mode: SearchBaselineMode,
     pub total_evaluations: usize,
     pub valid_f0_evaluations: usize,
+    #[serde(
+        rename = "best_cout_sample_screen_upper_mg_l",
+        alias = "best_cout_p95_mg_l"
+    )]
     pub best_cout_p95_mg_l: f64,
     pub best_dp_u_pa: f64,
     pub best_specific_energy_j_m3: f64,
     pub best_d50_um: f64,
+    #[serde(
+        rename = "best_grade_20um_sample_screen_lower",
+        alias = "best_grade_20um_p05"
+    )]
     pub best_grade_20um_p05: f64,
     pub pareto_hypervolume: f64,
     pub map_elites_cells: usize,
@@ -1445,6 +1678,7 @@ pub struct PairwiseWilcoxonComparison {
 /// Complete Wave-2 Multi-Seed Ablation, Bootstrap CI, and Holdout Qualification Dossier.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Wave2MultiseedReport {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     pub schema_version: u32,
     pub protocol_id: String,
     pub n_seeds: usize,
@@ -1452,6 +1686,10 @@ pub struct Wave2MultiseedReport {
     pub evaluations_per_seed: usize,
     pub baseline_b0_ct35: Individual,
     pub baseline_b0_held_out_duties: Vec<HeldOutDutyResult>,
+    #[serde(
+        rename = "arm_b1_uniform_random_outcomes",
+        alias = "arm_b1_random_lhs_outcomes"
+    )]
     pub arm_b1_random_lhs_outcomes: Vec<SeedRunOutcome>,
     pub arm_b2_conventional_axisym_outcomes: Vec<SeedRunOutcome>,
     pub arm_b3_exotic3d_qd_cei_outcomes: Vec<SeedRunOutcome>,
@@ -1489,6 +1727,7 @@ fn compute_normalized_hypervolume(front: &[Individual], _base_ref: &Individual) 
         .filter(|ind| {
             ind.red_team_passed
                 && ind.constraint_violation <= 1e-9
+                && ind.objectives.values().is_some()
                 && ind
                     .structural_qualification
                     .as_ref()
@@ -1496,6 +1735,8 @@ fn compute_normalized_hypervolume(front: &[Individual], _base_ref: &Individual) 
         })
         .map(|ind| {
             ind.objectives
+                .values()
+                .unwrap()
                 .iter()
                 .zip(&policy.normalization)
                 .map(|(v, n)| v / n.get())
@@ -1633,6 +1874,7 @@ pub fn run_single_seed_comparator(
     mode: SearchBaselineMode,
     cfg: &EvolutionConfig,
 ) -> Result<(SeedRunOutcome, Vec<Individual>), String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     let mut seed_cfg = cfg.clone();
     seed_cfg.seed = seed;
     let (base_ind, _) = evaluate_individual(
@@ -1681,7 +1923,7 @@ pub fn run_single_seed_comparator(
                     "insert_baseline_control",
                     &mut rng,
                 ),
-                SearchBaselineMode::RandomLhsExotic3d => {
+                SearchBaselineMode::UniformRandomExotic3d => {
                     DesignProgram::sample_random_exotic(&mut rng)
                 }
                 SearchBaselineMode::ConventionalAxisymmetricNsga2 => {
@@ -1690,7 +1932,10 @@ pub fn run_single_seed_comparator(
                     } else {
                         tournament_select(&pop, &mut rng)
                     };
-                    parent.program.mutate_conventional_axisymmetric(&mut rng)
+                    parent
+                        .program
+                        .mutate_conventional_axisymmetric(&mut rng)
+                        .map(|outcome| outcome.with_parent_ids(vec![parent.id.clone()]))
                 }
                 SearchBaselineMode::Exotic3dQdCei => {
                     if gen == 0 {
@@ -1709,9 +1954,13 @@ pub fn run_single_seed_comparator(
                         let p1 = tournament_select(&pop, &mut rng);
                         if rng.f64() < cfg.crossover_rate && !arch_vals.is_empty() {
                             let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
-                            p1.program.crossover(&p2.program, &mut rng)
+                            p1.program.crossover(&p2.program, &mut rng).map(|outcome| {
+                                outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()])
+                            })
                         } else {
-                            p1.program.mutate(&mut rng)
+                            p1.program
+                                .mutate(&mut rng)
+                                .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))
                         }
                     }
                 }
@@ -1789,6 +2038,7 @@ pub fn run_single_seed_comparator(
     }
 
     let outcome = SeedRunOutcome {
+        campaign_admission,
         proposal_budget,
         seed,
         mode,
@@ -1813,6 +2063,7 @@ pub fn run_wave2_multiseed_benchmark(
     seeds: &[u64],
     cfg: &EvolutionConfig,
 ) -> Result<Wave2MultiseedReport, String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     if seeds.is_empty() {
         return Err("at least 1 master seed required".into());
     }
@@ -1832,7 +2083,8 @@ pub fn run_wave2_multiseed_benchmark(
     let mut best_by_family: BTreeMap<String, Individual> = BTreeMap::new();
 
     for &seed in seeds {
-        let (o1, _) = run_single_seed_comparator(seed, SearchBaselineMode::RandomLhsExotic3d, cfg)?;
+        let (o1, _) =
+            run_single_seed_comparator(seed, SearchBaselineMode::UniformRandomExotic3d, cfg)?;
         let (o2, _) = run_single_seed_comparator(
             seed,
             SearchBaselineMode::ConventionalAxisymmetricNsga2,
@@ -1875,7 +2127,7 @@ pub fn run_wave2_multiseed_benchmark(
     // Compute bootstrap CIs across all arms
     let mut summary_stats = BTreeMap::new();
     for (arm_name, outcomes) in [
-        ("B1_Random_LHS", &b1_outcomes),
+        ("B1_Uniform_Random", &b1_outcomes),
         ("B2_Conventional_Axisym", &b2_outcomes),
         ("B3_Exotic3D_QD_CEI", &b3_outcomes),
     ] {
@@ -1885,7 +2137,7 @@ pub fn run_wave2_multiseed_benchmark(
         let hvs: Vec<f64> = outcomes.iter().map(|o| o.pareto_hypervolume).collect();
         let cells: Vec<f64> = outcomes.iter().map(|o| o.map_elites_cells as f64).collect();
         arm_map.insert(
-            "cout_p95_mg_l".into(),
+            "cout_sample_screen_upper_mg_l".into(),
             compute_bootstrap_ci(&couts, 20269001),
         );
         arm_map.insert("dp_u_pa".into(), compute_bootstrap_ci(&dps, 20269002));
@@ -1911,15 +2163,15 @@ pub fn run_wave2_multiseed_benchmark(
 
     let mut tests = vec![
         mann_whitney_and_cliffs_delta(
-            "cout_p95_mg_l",
+            "cout_sample_screen_upper_mg_l",
             "B3_Exotic3D_QD_CEI",
-            "B1_Random_LHS",
+            "B1_Uniform_Random",
             &b3_cout,
             &b1_cout,
             true,
         ),
         mann_whitney_and_cliffs_delta(
-            "cout_p95_mg_l",
+            "cout_sample_screen_upper_mg_l",
             "B3_Exotic3D_QD_CEI",
             "B2_Conventional_Axisym",
             &b3_cout,
@@ -1929,7 +2181,7 @@ pub fn run_wave2_multiseed_benchmark(
         mann_whitney_and_cliffs_delta(
             "pareto_hypervolume",
             "B3_Exotic3D_QD_CEI",
-            "B1_Random_LHS",
+            "B1_Uniform_Random",
             &b3_hv,
             &b1_hv,
             false,
@@ -1994,6 +2246,7 @@ pub fn run_wave2_multiseed_benchmark(
         .unwrap_or(0);
 
     Ok(Wave2MultiseedReport {
+        campaign_admission,
         schema_version: 1,
         protocol_id: "joil-wave2-preregistration-v1".into(),
         n_seeds: seeds.len(),
@@ -2021,11 +2274,16 @@ pub fn run_wave2_multiseed_benchmark(
 }
 
 /// Canonical Composite Separation-Hydraulic KPI Score matching `analysis/kpi_fitness.py`:
-/// `KPI_score(g) = (30.0 - C_out,p95(g)) + 25.0 * E_reduced,20um,p05(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)`.
+/// `KPI_score(g) = (requirements.quality_limit_mg_l - C_out,sample_screen_upper(g)) + 25.0 * E_reduced,20um,sample_screen_lower(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)`.
 /// Higher is better; `CT-35` baseline evaluates to `22.972463`.
 pub fn compute_wave3_kpi_score(ind: &Individual, baseline_dp_u_pa: f64) -> f64 {
     let dp_ref = baseline_dp_u_pa.max(1.0);
-    let sep_margin = 30.0 - ind.mc_robustness.cout_p95_mg_l;
+    let sep_margin = crate::experiment::research_requirements()
+        .expect("compiled requirements must validate")
+        .thresholds
+        .quality_limit_mg_l
+        .get()
+        - ind.mc_robustness.cout_p95_mg_l;
     let grade_term = 25.0 * ind.mc_robustness.grade_20um_p05;
     let dp_term = 10.0 * ((dp_ref - ind.nominal_metrics.dp_u_pa) / dp_ref);
     let penalty = 500.0 * ind.constraint_violation;
@@ -2055,12 +2313,36 @@ pub struct Wave3GenerationStats {
     pub median_kpi_score: f64,
     pub q25_kpi_score: f64,
     pub q75_kpi_score: f64,
+    #[serde(
+        rename = "best_cout_sample_screen_upper_mg_l",
+        alias = "best_cout_p95_mg_l"
+    )]
     pub best_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "active_best_cout_sample_screen_upper_mg_l",
+        alias = "active_best_cout_p95_mg_l"
+    )]
     pub active_best_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "median_cout_sample_screen_upper_mg_l",
+        alias = "median_cout_p95_mg_l"
+    )]
     pub median_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "q25_cout_sample_screen_upper_mg_l",
+        alias = "q25_cout_p95_mg_l"
+    )]
     pub q25_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "q75_cout_sample_screen_upper_mg_l",
+        alias = "q75_cout_p95_mg_l"
+    )]
     pub q75_cout_p95_mg_l: f64,
     pub best_dp_u_pa: f64,
+    #[serde(
+        rename = "best_grade_20um_sample_screen_lower",
+        alias = "best_grade_20um_p05"
+    )]
     pub best_grade_20um_p05: f64,
     pub pareto_hypervolume: f64,
     pub map_elites_occupied_cells: usize,
@@ -2077,7 +2359,15 @@ pub struct Wave3GenerationBand {
     pub cumulative_evaluations: usize,
     pub best_kpi_score: BootstrapConfidenceInterval,
     pub median_kpi_score: BootstrapConfidenceInterval,
+    #[serde(
+        rename = "best_cout_sample_screen_upper_mg_l",
+        alias = "best_cout_p95_mg_l"
+    )]
     pub best_cout_p95_mg_l: BootstrapConfidenceInterval,
+    #[serde(
+        rename = "median_cout_sample_screen_upper_mg_l",
+        alias = "median_cout_p95_mg_l"
+    )]
     pub median_cout_p95_mg_l: BootstrapConfidenceInterval,
     pub pareto_hypervolume: BootstrapConfidenceInterval,
     pub map_elites_occupied_cells: BootstrapConfidenceInterval,
@@ -2096,8 +2386,10 @@ pub struct Wave3LineageMilestone {
     pub operator_applied: String,
     pub cross_family_jump: bool,
     pub kpi_score: f64,
+    #[serde(rename = "cout_sample_screen_upper_mg_l", alias = "cout_p95_mg_l")]
     pub cout_p95_mg_l: f64,
     pub dp_u_pa: f64,
+    #[serde(rename = "grade_20um_sample_screen_lower", alias = "grade_20um_p05")]
     pub grade_20um_p05: f64,
     pub exoticness_index: f64,
     pub total_entry_jets: u32,
@@ -2107,6 +2399,7 @@ pub struct Wave3LineageMilestone {
 /// Complete single-seed trajectory and terminal outcome for a Wave-3 arm.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Wave3SeedOutcome {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     #[serde(default, flatten)]
     pub proposal_budget: ProposalBudget,
     pub seed: u64,
@@ -2115,15 +2408,35 @@ pub struct Wave3SeedOutcome {
     pub valid_f0_evaluations: usize,
     pub gen0_best_kpi_score: f64,
     pub gen0_median_kpi_score: f64,
+    #[serde(
+        rename = "gen0_best_cout_sample_screen_upper_mg_l",
+        alias = "gen0_best_cout_p95_mg_l"
+    )]
     pub gen0_best_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "gen0_median_cout_sample_screen_upper_mg_l",
+        alias = "gen0_median_cout_p95_mg_l"
+    )]
     pub gen0_median_cout_p95_mg_l: f64,
     pub final_best_kpi_score: f64,
     pub final_median_kpi_score: f64,
+    #[serde(
+        rename = "final_best_cout_sample_screen_upper_mg_l",
+        alias = "final_best_cout_p95_mg_l"
+    )]
     pub final_best_cout_p95_mg_l: f64,
+    #[serde(
+        rename = "final_median_cout_sample_screen_upper_mg_l",
+        alias = "final_median_cout_p95_mg_l"
+    )]
     pub final_median_cout_p95_mg_l: f64,
     pub final_best_dp_u_pa: f64,
     pub final_best_specific_energy_j_m3: f64,
     pub final_best_d50_um: f64,
+    #[serde(
+        rename = "final_best_grade_20um_sample_screen_lower",
+        alias = "final_best_grade_20um_p05"
+    )]
     pub final_best_grade_20um_p05: f64,
     pub final_pareto_hypervolume: f64,
     pub final_map_elites_cells: usize,
@@ -2142,14 +2455,25 @@ pub struct Wave3SeedOutcome {
 pub struct Wave3HeldOutGeometryRecord {
     pub topology_class: String,
     pub sample_count: usize,
-    pub lofo_surrogate_rmse_cout_mg_l: f64,
-    pub lofo_surrogate_rmse_kpi_score: f64,
-    pub lofo_2sigma_coverage: f64,
+    #[serde(rename = "sandbox_authored_family_rmse_cout_mg_l")]
+    pub lofo_surrogate_rmse_cout_mg_l: Option<f64>,
+    #[serde(rename = "sandbox_authored_family_rmse_kpi_score")]
+    pub lofo_surrogate_rmse_kpi_score: Option<f64>,
+    #[serde(rename = "sandbox_authored_family_2sigma_coverage")]
+    pub lofo_2sigma_coverage: Option<f64>,
     pub de_novo_rediscovery_seeds: usize,
     pub de_novo_rediscovery_fraction: f64,
     pub held_out_best_kpi_score: f64,
+    #[serde(
+        rename = "held_out_best_cout_sample_screen_upper_mg_l",
+        alias = "held_out_best_cout_p95_mg_l"
+    )]
     pub held_out_best_cout_p95_mg_l: f64,
     pub held_out_best_dp_u_pa: f64,
+    #[serde(
+        rename = "held_out_best_grade_20um_sample_screen_lower",
+        alias = "held_out_best_grade_20um_p05"
+    )]
     pub held_out_best_grade_20um_p05: f64,
     pub kpi_gain_vs_ct35: f64,
     pub cout_reduction_pct_vs_ct35: f64,
@@ -2158,9 +2482,11 @@ pub struct Wave3HeldOutGeometryRecord {
 /// Complete Wave-3 Multi-Seed (`N = 10` seeds x `25` generations x `5` active arms = `22,500` 3D evals) Proof Report.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Wave3EvolutionProofReport {
+    pub campaign_admission: crate::experiment::CampaignAdmissionReceipt,
     pub schema_version: u32,
     pub protocol_id: String,
     pub kpi_formula: String,
+    #[serde(rename = "screen_comparison_note", alias = "qualification_note")]
     pub qualification_note: String,
     pub n_seeds: usize,
     pub master_seeds: Vec<u64>,
@@ -2169,8 +2495,16 @@ pub struct Wave3EvolutionProofReport {
     pub evaluations_per_seed_per_arm: usize,
     pub total_3d_evaluations_across_arms: usize,
     pub baseline_b0_ct35_kpi_score: f64,
+    #[serde(
+        rename = "baseline_b0_ct35_cout_sample_screen_upper_mg_l",
+        alias = "baseline_b0_ct35_cout_p95_mg_l"
+    )]
     pub baseline_b0_ct35_cout_p95_mg_l: f64,
     pub baseline_b0_ct35_dp_u_pa: f64,
+    #[serde(
+        rename = "baseline_b0_ct35_grade_20um_sample_screen_lower",
+        alias = "baseline_b0_ct35_grade_20um_p05"
+    )]
     pub baseline_b0_ct35_grade_20um_p05: f64,
     pub baseline_b0_ct35: Individual,
     pub baseline_b0_held_out_duties: Vec<HeldOutDutyResult>,
@@ -2282,6 +2616,7 @@ pub fn run_single_seed_wave3_arm(
     arm: Wave3ComparatorArm,
     cfg: &EvolutionConfig,
 ) -> Result<Wave3SeedOutcome, String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     let mut seed_cfg = cfg.clone();
     seed_cfg.seed = seed;
     let (base_ind, _) = evaluate_individual(
@@ -2439,7 +2774,9 @@ pub fn run_single_seed_wave3_arm(
                 for _ in 0..pop_size {
                     let p1 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
-                        p1.program.mutate_conventional_axisymmetric(&mut rng)?,
+                        p1.program
+                            .mutate_conventional_axisymmetric(&mut rng)
+                            .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))?,
                         p1.topology_class.clone(),
                         "mutate_conventional_axisymmetric".into(),
                     ));
@@ -2451,7 +2788,10 @@ pub fn run_single_seed_wave3_arm(
                     let p2 = tournament_select(&pop, &mut rng);
                     offspring_specs.push((
                         p1.program
-                            .crossover_non_homologous_macro(&p2.program, &mut rng)?,
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)
+                            .map(|outcome| {
+                                outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()])
+                            })?,
                         p1.topology_class.clone(),
                         "crossover_non_homologous_macro_only".into(),
                     ));
@@ -2466,14 +2806,19 @@ pub fn run_single_seed_wave3_arm(
                         let p2 = &pop[idx2];
                         let c = p1
                             .program
-                            .crossover_non_homologous_macro(&p2.program, &mut rng)?;
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)
+                            .map(|outcome| {
+                                outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()])
+                            })?;
                         (
                             c.then(|p| p.mutate_wave3_progressive(&mut rng))?,
                             "unselected_crossover_and_progressive_mutate",
                         )
                     } else {
                         (
-                            p1.program.mutate_wave3_progressive(&mut rng)?,
+                            p1.program
+                                .mutate_wave3_progressive(&mut rng)
+                                .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))?,
                             "unselected_progressive_mutate",
                         )
                     };
@@ -2494,14 +2839,19 @@ pub fn run_single_seed_wave3_arm(
                         let p2 = &arch_vals[(rng.next_u64() as usize) % arch_vals.len()];
                         let crossed = p1
                             .program
-                            .crossover_non_homologous_macro(&p2.program, &mut rng)?;
+                            .crossover_non_homologous_macro(&p2.program, &mut rng)
+                            .map(|outcome| {
+                                outcome.with_parent_ids(vec![p1.id.clone(), p2.id.clone()])
+                            })?;
                         (
                             crossed.then(|p| p.mutate_wave3_progressive(&mut rng))?,
                             "crossover_homologous_plus_progressive_mutate",
                         )
                     } else {
                         (
-                            p1.program.mutate_wave3_progressive(&mut rng)?,
+                            p1.program
+                                .mutate_wave3_progressive(&mut rng)
+                                .map(|outcome| outcome.with_parent_ids(vec![p1.id.clone()]))?,
                             "mutate_wave3_progressive",
                         )
                     };
@@ -2669,10 +3019,10 @@ pub fn run_single_seed_wave3_arm(
     let gf = generation_trace.last().unwrap().clone();
     let mut compact_best = best_so_far;
     compact_best.phenotype = None;
-    compact_best.structural_qualification = None;
     compact_best.cuda_sdf_audit = None;
 
     Ok(Wave3SeedOutcome {
+        campaign_admission,
         proposal_budget,
         seed,
         arm,
@@ -2710,6 +3060,7 @@ pub fn run_wave3_evolution_proof(
     seeds: &[u64],
     cfg: &EvolutionConfig,
 ) -> Result<Wave3EvolutionProofReport, String> {
+    let campaign_admission = crate::experiment::admit_search_campaign(cfg.campaign_mode)?;
     if seeds.len() < 5 {
         return Err("Wave-3 proof requires at least 5 independent master seeds".into());
     }
@@ -2809,14 +3160,10 @@ pub fn run_wave3_evolution_proof(
             0,
             cfg,
         )?;
+        lofo_candidates.push(ind.clone());
         let mut ind_compact = ind;
         ind_compact.phenotype = None;
-        lofo_candidates.push(ind_compact.clone());
         let tc = ind_compact.topology_class.clone();
-        family_seed_discovery
-            .entry(tc.clone())
-            .or_default()
-            .insert(seeds[0], true);
         match best_by_family.get(&tc) {
             Some(inc)
                 if compute_wave3_kpi_score(&ind_compact, dp_ref)
@@ -2827,7 +3174,9 @@ pub fn run_wave3_evolution_proof(
         }
     }
     for o in arm_outcomes.get("B3_Wave3_Exotic3D_QD_CEI").unwrap() {
-        lofo_candidates.push(o.best_candidate.clone());
+        let mut candidate = o.best_candidate.clone();
+        candidate.phenotype = Some(Phenotype3D::from_program(&candidate.program)?.0);
+        lofo_candidates.push(candidate);
     }
 
     // Build per-generation confidence band curves across all 10 seeds for each arm
@@ -2892,9 +3241,12 @@ pub fn run_wave3_evolution_proof(
         let mut stat_map = BTreeMap::new();
         stat_map.insert("best_kpi_score".into(), final_band.best_kpi_score);
         stat_map.insert("median_kpi_score".into(), final_band.median_kpi_score);
-        stat_map.insert("best_cout_p95_mg_l".into(), final_band.best_cout_p95_mg_l);
         stat_map.insert(
-            "median_cout_p95_mg_l".into(),
+            "best_cout_sample_screen_upper_mg_l".into(),
+            final_band.best_cout_p95_mg_l,
+        );
+        stat_map.insert(
+            "median_cout_sample_screen_upper_mg_l".into(),
             final_band.median_cout_p95_mg_l,
         );
         stat_map.insert("pareto_hypervolume".into(), final_band.pareto_hypervolume);
@@ -2947,7 +3299,7 @@ pub fn run_wave3_evolution_proof(
             false,
         ));
         tests.push(mann_whitney_and_cliffs_delta(
-            "final_best_cout_p95_mg_l",
+            "final_best_cout_sample_screen_upper_mg_l",
             "B3_Wave3_Exotic3D_QD_CEI",
             other_arm,
             &b3_best_cout,
@@ -2991,26 +3343,17 @@ pub fn run_wave3_evolution_proof(
             .family_holdouts
             .iter()
             .find(|f| &f.held_out_family == tc);
-        let rmse_cout = fold.map(|f| f.rmse_cout_mg_l).unwrap_or(1.85);
-        let cov_2s = fold.map(|f| f.coverage_within_2sigma).unwrap_or(0.90);
-        let sample_cnt = fold.map(|f| f.test_count).unwrap_or(2);
+        let rmse_cout = fold.map(|f| f.rmse_cout_mg_l);
+        let cov_2s = fold.map(|f| f.coverage_within_2sigma);
+        let sample_cnt = fold.map_or(0, |f| f.test_count);
         let elite_kpi = compute_wave3_kpi_score(elite_ind, dp_ref);
-        let disc_seeds = family_seed_discovery
-            .get(tc)
-            .map(|m| m.len())
-            .unwrap_or(1)
-            .max(if tc != "baseline-ct35" {
-                6
-            } else {
-                seeds.len()
-            })
-            .min(seeds.len());
+        let disc_seeds = family_seed_discovery.get(tc).map_or(0, |m| m.len());
         held_out_geometries.push(Wave3HeldOutGeometryRecord {
             topology_class: tc.clone(),
             sample_count: sample_cnt,
-            lofo_surrogate_rmse_cout_mg_l: ((rmse_cout * 1e4).round()) / 1e4,
-            lofo_surrogate_rmse_kpi_score: (((rmse_cout * 1.12) * 1e4).round()) / 1e4,
-            lofo_2sigma_coverage: ((cov_2s * 1e4).round()) / 1e4,
+            lofo_surrogate_rmse_cout_mg_l: rmse_cout,
+            lofo_surrogate_rmse_kpi_score: None, // KPI error was never independently evaluated.
+            lofo_2sigma_coverage: cov_2s,
             de_novo_rediscovery_seeds: disc_seeds,
             de_novo_rediscovery_fraction: ((disc_seeds as f64 / seeds.len() as f64) * 1e4).round()
                 / 1e4,
@@ -3045,10 +3388,11 @@ pub fn run_wave3_evolution_proof(
     let total_evals_all = evals_per_seed * seeds.len() * arms.len();
 
     Ok(Wave3EvolutionProofReport {
+        campaign_admission,
         schema_version: 1,
         protocol_id: "joil-wave3-de-novo-evolution-proof-v1".into(),
-        kpi_formula: "KPI_score(g) = (30.0 - C_out,p95(g)) + 25.0 * E_reduced,20um,p05(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)".into(),
-        qualification_note: "All arms (B2, A1, A2, B3) start at Generation 0 from the identical unseeded mild-perturbation population around CT-35 (0 pre-baked 6/8-jet or TPMS archetypes). Evaluated with validated F0/F1/P08 3D evaluator + GP-CEI surrogate; top promoted elites verified in 15 3D OpenFOAM 14 G0/G1/G2 + LRR/SSG RSM runs. F4 physical flow-loop validation remains open.".into(),
+        kpi_formula: "KPI_score(g) = (requirements.quality_limit_mg_l - C_out,sample_screen_upper(g)) + 25.0 * E_reduced,20um,sample_screen_lower(g) + 10.0 * (dp_u_CT35 - dp_u(g)) / dp_u_CT35 - 500.0 * V(g)".into(),
+        qualification_note: "Sandbox comparisons use a shared mild CT-35 initialization where specified. Scores and GP targets come from the prior-laden reduced screen. Archived carrier diagnostics are separate subjects and do not validate new winners. Independent oil, structural and physical evidence remains incomplete.".into(),
         n_seeds: seeds.len(),
         master_seeds: seeds.to_vec(),
         generations: cfg.generations,

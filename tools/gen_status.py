@@ -32,6 +32,18 @@ def pinned_json(root, reference):
 
 def objective_contract(root):
     requirements = tomllib.loads((root/'requirements/joil-hydrocyclone-v1.toml').read_text())
+    import math
+    admission = requirements['admission']
+    if admission not in {'sandbox_only', 'admitted', 'suspended', 'superseded', 'closed'}:
+        raise ValueError('unknown campaign admission state')
+    thresholds = requirements['thresholds']
+    for key, value in thresholds.items():
+        values = value if isinstance(value, list) else [value]
+        if any(isinstance(x, bool) or not isinstance(x, (int, float)) or not math.isfinite(x) for x in values):
+            raise ValueError(f'invalid finite requirement threshold: {key}')
+    mandatory = ('pressure_budget_pa', 'energy_budget_j_per_treated_m3', 'absolute_pressure_min_pa', 'duty_band_m3_h')
+    if admission == 'admitted' and (requirements['blockers'] or any(key not in thresholds for key in mandatory)):
+        raise ValueError('cannot admit unresolved physical requirements')
     prereg_path = root/'experiments/wave2-preregistration-v1.json'
     prereg_bytes = prereg_path.read_bytes()
     if hashlib.sha256(prereg_bytes).hexdigest() != requirements['preregistration']['sha256']:
@@ -54,6 +66,19 @@ def objective_contract(root):
         raise ValueError('scenario inventory drift')
     if any(s['sha256'] != requirements['preregistration']['sha256'] for s in scenarios):
         raise ValueError('scenario distribution identity drift')
+    hypervolume = requirements['hypervolume']
+    if (hypervolume['scope'] != 'sandbox_only_new_policy_not_legacy_preregistered'
+            or hypervolume['objective_ids'] != [spec['id'] for spec in actual]
+            or len(hypervolume['reference_point']) != len(actual)
+            or len(hypervolume['normalization']) != len(actual)
+            or any(not math.isfinite(x) for x in hypervolume['reference_point'])
+            or any(not math.isfinite(x) or x <= 0 for x in hypervolume['normalization'])):
+        raise ValueError('invalid frozen sandbox hypervolume policy')
+    if requirements['quantile_policy'] != {
+        'interpretation': 'empirical_distribution_free_two_sided_order_statistic_ci',
+        'confidence': 0.95, 'min_n_p05_p95': 72, 'min_n_p01_p99': 368,
+    }:
+        raise ValueError('unsupported or weakened tail quantile policy')
     return requirements, actual, scientific_hash(actual)
 
 

@@ -37,6 +37,9 @@ Phase: `software_truth_repair_scientific_claim_inventory_incomplete`.
 | `qualified_fitness` | `null` (no qualified value) | - |
 | `qualified_capacity_gain` | `null` (no qualified value) | - |
 | `evidence_identity_observation_and_claim_kernel` | `software_contract_verified` | - |
+| `sandbox_campaign_contract_and_generated_status` | `software_contract_verified` | - |
+| `rust_python_observation_schema_parity` | `software_contract_verified` | - |
+| `surrogate_abstention_and_independent_admission_software` | `software_contract_verified` | - |
 <!-- END GENERATED STATUS -->
 
 **Results by evidence tier:**
