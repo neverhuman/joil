@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "kind": "pareto_map_elites_and_gp_surrogate_lofo_cv_diagnostic_plate",
+  "figure_path": "docs/figures/pareto-map-elites-convergence.png",
+  "figure_sha256": "3afd610ac646a3ae13c84d2939213d487e98935541457292f65d7507d8a7c6f7",
+  "image_sha256": "3afd610ac646a3ae13c84d2939213d487e98935541457292f65d7507d8a7c6f7",
+  "source_bundle_sha256": "51be25b250a19024b6b87b35d01a90a82f9decccd04a20af456e4b3472a19757",
+  "surrogate_cv_report_sha256": "e42bd1f3e45beddeb6fc0ffb3e429f6e09d2c087197f2b2df3e395c9c76c03f6",
+  "extractor_sha256": "de3cb783ab2fa4c0da8a8dd76abe96bd22900e5a4bb15cc2d21a3b58c2887f00",
+  "archive_cells": 191,
+  "qualified_performance_claim": false
+}

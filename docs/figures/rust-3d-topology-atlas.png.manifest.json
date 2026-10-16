@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "true_scale_3d_hydrocyclone_topology_and_trajectory_atlas_screen_only",
+  "figure_path": "docs/figures/rust-3d-topology-atlas.png",
+  "figure_sha256": "76e7ce10a2c334575b5dedcea04b33d51f8959d38ef849560c477aa1cc5cd8b7",
+  "image_sha256": "76e7ce10a2c334575b5dedcea04b33d51f8959d38ef849560c477aa1cc5cd8b7",
+  "units": "mm",
+  "true_scale": 1.0,
+  "source_bundle_sha256": "51be25b250a19024b6b87b35d01a90a82f9decccd04a20af456e4b3472a19757",
+  "campaign_summary_sha256": "d1823cdaeb9179afde9789f752438ee0ae6e0087a43602125942e4438d31d5eb",
+  "extractor_sha256": "de3cb783ab2fa4c0da8a8dd76abe96bd22900e5a4bb15cc2d21a3b58c2887f00",
+  "rendered_candidate_ids": [
+    "baseline-ct35-0000",
+    "xbabe2-gen043-isl10-ind030",
+    "xbabe3-gen038-isl12-ind013",
+    "xbabe2-gen006-isl18-ind017",
+    "xbabe2-gen004-isl3-ind030",
+    "xbabe3-gen001-isl8-ind033"
+  ],
+  "qualified_performance_claim": false
+}
