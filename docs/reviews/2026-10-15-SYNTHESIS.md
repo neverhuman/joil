@@ -8,7 +8,7 @@ P0, stop-the-line, critical, immediate or no-regret appears below with the workp
 - Reviews audited JOIL `main` at `d1ac285`. The DOC lane re-checked each finding against this lane's base
   commit `7353526`. That base includes Wave-3 (`eb39ee2`), so Wave-3 claims are within scope.
 - Workplan: [`docs/WORKPLAN-2026-10-15.md`](../WORKPLAN-2026-10-15.md) (59 items).
-- **Status as of 2026-10-16T10:38Z.** Statuses come only from `DONE`/`MERGED` lines on the live
+- **Status as of 2026-10-16T11:22Z.** Statuses come only from `DONE`/`MERGED` lines on the live
   coordination board, never from this file's author. `python3 tools/claims_audit.py` checks that this
   table is internally consistent: every required finding is present, every item ID exists in the
   workplan, and every finding status matches the ledger in §2.
@@ -68,7 +68,7 @@ reason.
 | TR-13 | TR | MERGED | `1ed5865` (board `MERGED TR-13`) |
 | TR-14 | TR | MERGED | `92be04f` (board `MERGED TR-14`) |
 | TR-15 | TR | MERGED | `1ed5865` (board `MERGED TR-15`) |
-| TR-16 | TR | BLOCKED | merged at `ceaa03d` without board `DONE TR-16`; 2026-10-16T08:51:59Z e49c3c268cdef65a6020cfea2817e901c716aab9 BLOCKED-SCOPED physical remainder still requires s |
+| TR-16 | TR | MOVED-§6 | board `MOVED-§6 TR-16`: physical limits and experimental/statistical policy criteria deferred to workplan §6 pending admitte |
 | TR-17 | TR | MERGED | `1ed5865` (board `MERGED TR-17`) |
 | EV-01 | EV | MERGED | `1433a71` (board `MERGED EV-01`) |
 | EV-02 | EV | MERGED | `1433a71` (board `MERGED EV-02`) |
@@ -78,7 +78,7 @@ reason.
 | EV-06 | EV | MERGED | `84d0c2e` (board `MERGED EV-06`) |
 | EV-07 | EV | MERGED | `cae5bac` (board `MERGED EV-07`) |
 | EV-08 | EV | MERGED | `e83c833` (board `MERGED EV-08`) |
-| EV-09 | EV | BLOCKED | merged at `e83c833` without board `DONE EV-09`; 2026-10-16T08:52:00Z c2db553877b1026b6463cb545c4312e4e2d868a7 section6 deferral delivered aea27ae and ACKed inse |
+| EV-09 | EV | MOVED-§6 | board `MOVED-§6 EV-09`: independent Cout labels and reviewed observed-mechanism dataset joil-independent-oil-observations-v1 |
 | EV-10 | EV | MERGED | `ceaa03d` (board `MERGED EV-10`) |
 | EV-11 | EV | MERGED | `d3a5449` (board `MERGED EV-11`) |
 | EV-12 | EV | BLOCKED | merged at `2f15710` without board `DONE EV-12`; 2026-10-16T08:52:00Z c2db553877b1026b6463cb545c4312e4e2d868a7 accepted owner08:39 missing-capture blocker persis |
@@ -110,8 +110,8 @@ reason.
 | DOC-06 | DOC | MERGED | `940d0b4` (board `MERGED DOC-06`) |
 | DOC-07 | DOC | MERGED | `cf9df59` (board `MERGED DOC-07`) |
 | DOC-08 | DOC | MERGED | `6aa68b4` (board `MERGED DOC-08`) |
-| DOC-09 | DOC | DONE | `57a9f21` (board `DONE DOC-09`; not yet in integration) |
-| DOC-10 | DOC | WIP | merged at `78a181c` without board `DONE DOC-10` |
+| DOC-09 | DOC | MERGED | `5f95ad2` (board `MERGED DOC-09`) |
+| DOC-10 | DOC | WIP | merged at `5947b75` without board `DONE DOC-10` |
 
 ## 3. Consensus themes
 
@@ -142,10 +142,10 @@ The reviews agree on eleven themes. The workplan §0 numbers them the same way.
 | S1-3.3 | S1 §3.3 | Topology is named by the generator (`classify_topology`), not measured | V: `program.rs:551` | IR-06 | FULL | MERGED |
 | S1-3.4 | S1 §3.4 | Reduced evaluator rewards genome assumptions (gene-derived descriptors feed the score) | V: `program.rs:618` `descriptors()`; e.g. TPMS shear ×0.86 at `program.rs:684` | IR-07, DOC-03, DOC-08 | PARTIAL (judge separation is §6) | MERGED |
 | S1-3.5 | S1 §3.5 | Invalid designs silently become the baseline | V: 26 sites: 24 in `program.rs` (first `program.rs:1040`), `surrogate.rs:361`, `evolve.rs:2268` | TR-01, TR-02, TR-03, EV-08 | FULL | MERGED |
-| S1-3.6 | S1 §3.6 | Requirement set not admitted while runtime invents thresholds | V: `requirements/RS-joil-research-v1.json` status `draft_no_campaign_admission`; `evolve.rs:427` (1.15× baseline Δp), `evolve.rs:431` (PDR 4.5) | EV-06, EV-10, TR-16 | FULL | BLOCKED |
+| S1-3.6 | S1 §3.6 | Requirement set not admitted while runtime invents thresholds | V: `requirements/RS-joil-research-v1.json` status `draft_no_campaign_admission`; `evolve.rs:427` (1.15× baseline Δp), `evolve.rs:431` (PDR 4.5) | EV-06, EV-10, TR-16 | FULL | DEFERRED |
 | S1-3.7 | S1 §3.7 | Structural "qualification" has non-independent checks; structural failure ignored by dominance | V: `structure.rs:232` `div_euclid` then clamp to [1,4]; `structure.rs:243`, `structure.rs:250` reaction := load; `evolve.rs:435` result stored, not in violation | TR-07, TR-08, TR-09, TR-10 | PARTIAL (solid FEA is §6) | MERGED |
 | S1-3.8 | S1 §3.8 | CUDA tensor size is reported as Lagrangian parcel count; candidate Cout/d50 are closed-form | V: `physics/cuda/joil_cuda_eval.cu:452` `parcels_integrated = num_cells`; d50/Cout closed-form at `:507`, `:535`; no reduction over cells | IR-10, DOC-03 | FULL | MERGED |
-| S1-3.9 | S1 §3.9 | Surrogate LOFO uses authored labels and gene-derived features; not out-of-ontology | V: `surrogate.rs:535` folds keyed on `topology_class` | EV-08, EV-09 | FULL | BLOCKED |
+| S1-3.9 | S1 §3.9 | Surrogate LOFO uses authored labels and gene-derived features; not out-of-ontology | V: `surrogate.rs:535` folds keyed on `topology_class` | EV-08, EV-09 | FULL | DEFERRED |
 | S1-15.01 | S1 §15-1 | Remove every silent fallback to `baseline_ct35()` or default performance features | V: see S1-3.5 | TR-01, TR-02, EV-08 | FULL | MERGED |
 | S1-15.02 | S1 §15-2 | Invalid branch counts and schema mismatches become hard errors | V: `program.rs:329` silently coerces `branches_per_port` to 2; `cad/program/exotic_graph.py:125` coerces to {2,3} | TR-06, IR-03 | FULL | MERGED |
 | S1-15.03 | S1 §15-3 | Stop accepting one schema/family and serialising it as another | V: `program.rs:280` accepts v2/v3, `program.rs:483` emits v2 | TR-05 | FULL | MERGED |
@@ -161,9 +161,9 @@ The reviews agree on eleven themes. The workplan §0 numbers them the same way.
 | S1-15.13 | S1 §15-13 | Evidence-tier enums and evidence references instead of mutable strings | R: string tiers in `analysis/evidence.py` not enumerated here | EV-04 | FULL | MERGED |
 | S1-15.14 | S1 §15-14 | Parent IDs, operator ID/version, seed, repair receipt, compiler identity on every individual | V: `Individual` struct `evolve.rs:134` has no parent/operator fields | TR-13, TR-04 | FULL | MERGED |
 | S1-15.15 | S1 §15-15 | Stop calling tensor-cell count an integrated parcel count | V: see S1-3.8 | IR-10, DOC-03 | FULL | MERGED |
-| S1-15.16 | S1 §15-16 | Use admitted requirement values; no unexplained search thresholds | V: see S1-3.6 | EV-06, TR-16 | FULL | BLOCKED |
+| S1-15.16 | S1 §15-16 | Use admitted requirement values; no unexplained search thresholds | V: see S1-3.6 | EV-06, TR-16 | FULL | DEFERRED |
 | S1-15.17 | S1 §15-17 | Rename Monte Carlo "probability" outputs unless distributions are justified | R: wording audit pending in DOC-08 | TR-15, DOC-08 | FULL | MERGED |
-| S1-15.18 | S1 §15-18 | Train surrogates only on independent labels; real OOD holdouts | V: see S1-3.9 | EV-09 | FULL | BLOCKED |
+| S1-15.18 | S1 §15-18 | Train surrogates only on independent labels; real OOD holdouts | V: see S1-3.9 | EV-09 | FULL | DEFERRED |
 | S1-15.19 | S1 §15-19 | Judge blind to topology labels and generator origin | V: MAP-Elites key includes `topology_class` (`evolve.rs:589`) | IR-07, IR-06 | PARTIAL (process-level blind judge is §6) | MERGED |
 | S1-15.20 | S1 §15-20 | Explicit sandbox vs claim-bearing campaign boundary | N/A (absent) | EV-10 | FULL | MERGED |
 
@@ -229,7 +229,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 | S4-19.06 | S4 §19-6 | Remove direct gene-name effects from the physics evaluator | V: see S1-3.4 | IR-07 | PARTIAL (judge separation is §6) | MERGED |
 | S4-19.07 | S4 §19-7 | Evaluators depend only on phenotype artifacts | N/A | IR-07 | PARTIAL (crate split is §6) | MERGED |
 | S4-19.08 | S4 §19-8 | Import Jarambit scientific identity and lineage | N/A | EV-01, EV-02, TR-13 | FULL | MERGED |
-| S4-19.09 | S4 §19-9 | Requirement files are the sole source of thresholds | V: see S1-3.6 | EV-06, TR-16 | FULL | BLOCKED |
+| S4-19.09 | S4 §19-9 | Requirement files are the sole source of thresholds | V: see S1-3.6 | EV-06, TR-16 | FULL | DEFERRED |
 | S4-19.10 | S4 §19-10 | Demote the eleven families from ontology to seed recipes | N/A | IR-06, DOC-06 | FULL | MERGED |
 | S4-19.11 | S4 §19-11 | Typed graph plus implicit-field IR | N/A | IR-01 | PARTIAL (field DAG and genome v4 are §6) | MERGED |
 | S4-19.12 | S4 §19-12 | Morphology and mechanism archives from measured outputs | N/A | - | FOLLOW-ON | DEFERRED |
@@ -263,7 +263,7 @@ S2 Milestone A items 2, 3 and 6 are the same as S2-4.05, S2-4.06 and S2-4.08.
 | S6-3.5 | S6 §3.5 | Invalid variation can silently become the baseline | V: see S1-3.5 | TR-01, TR-02 | FULL | MERGED |
 | S6-3.6 | S6 §3.6 | Reduced-order evaluator contains the design theory it tests | V: see S1-3.4 | IR-07, DOC-03 | PARTIAL (science-court separation is §6) | MERGED |
 | S6-3.7 | S6 §3.7 | Structural "qualification" is an F1 analytic screen; zero-by-construction load transfer; `div_euclid` | V: see S1-3.7 | TR-07, TR-08, TR-10 | PARTIAL (3D FEA is §6) | MERGED |
-| S6-3.8 | S6 §3.8 | CUDA and surrogate subjects incomplete (partial genome JSON + descriptors; 12-D handcrafted features) | V: CUDA reads gene-derived descriptors (`physics/cuda/joil_cuda_eval.cu:265`); see S1-3.9 | IR-10, EV-08, EV-09 | FULL | BLOCKED |
+| S6-3.8 | S6 §3.8 | CUDA and surrogate subjects incomplete (partial genome JSON + descriptors; 12-D handcrafted features) | V: CUDA reads gene-derived descriptors (`physics/cuda/joil_cuda_eval.cu:265`); see S1-3.9 | IR-10, EV-08, EV-09 | FULL | DEFERRED |
 | S6-3.9 | S6 §3.9 | Tests prove internal consistency, not external truth; classify tests and never combine verdicts | V: `crates/joil-core/tests/regression.rs` family-validity audits | DOC-03 | PARTIAL (wording now; test taxonomy is §5 G-06) | MERGED |
 | S6-A.01 | S6 App.A-1 | All `mutate_*`/crossover return `Result<VariationOutcome, VariationError>` | V: see S1-3.5 | TR-01 | FULL | MERGED |
 | S6-A.02 | S6 App.A-2 | Delete every `unwrap_or_else(\|_\| baseline_ct35())` in variation | V: see S1-3.5 | TR-02 | FULL | MERGED |
