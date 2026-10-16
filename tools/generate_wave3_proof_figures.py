@@ -561,7 +561,7 @@ def generate_plate11_proof(
     ax_c.grid(True, linestyle='--', alpha=0.35)
     ax_c.legend(loc='upper right', fontsize=7.4, framealpha=0.94)
 
-    # Panel D: Held-Out 3D Geometry Generalization Across All 11 Topological Families
+    # Panel D: 11-Family Screen Coverage, De-Novo Rediscovery & Sandbox Authored-Family LOFO Diagnostics
     ax_d = fig.add_subplot(gs[1, 1])
     ax_d.set_facecolor('#FFFFFF')
     held_out = sorted(
@@ -570,33 +570,55 @@ def generate_plate11_proof(
     )
     fams = [r['topology_class'].replace('-vortex-head', '').replace('-coalescer', '') for r in held_out]
     kpis_ho = [float(r.get('held_out_best_kpi_score') or 0.0) for r in held_out]
-    rmses_ho = [float(r.get('lofo_surrogate_rmse_kpi_score') or 0.0) for r in held_out]
+    has_kpi_rmse = all(r.get('lofo_surrogate_rmse_kpi_score') is not None for r in held_out)
+    rmses_ho = [float(r['lofo_surrogate_rmse_kpi_score']) for r in held_out] if has_kpi_rmse else None
+    cout_rmses_ho = [r.get('sandbox_authored_family_rmse_cout_mg_l') for r in held_out]
     disc_ho = [int(r['de_novo_rediscovery_seeds']) for r in held_out]
 
     y_pos = np.arange(len(fams))
     bar_cols = ['#64748B' if 'baseline' in r['topology_class'] else '#0284C7' for r in held_out]
+    bar_label = (
+        'Held-Out Family Best KPI_score ± LOFO-CV Surrogate RMSE'
+        if has_kpi_rmse
+        else '11-Family Screen Best KPI_score (KPI surrogate RMSE = null; Cout LOFO RMSE annotated)'
+    )
     ax_d.barh(
         y_pos,
         kpis_ho,
         xerr=rmses_ho,
-        capsize=3,
+        capsize=3 if has_kpi_rmse else 0,
         color=bar_cols,
         alpha=0.82,
         edgecolor='#0F172A',
         linewidth=0.8,
-        label='Held-Out Family Best KPI_score ± LOFO-CV Surrogate RMSE',
+        label=bar_label,
     )
-    ax_d.axvline(base_kpi, color='#EF4444', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Baseline ({base_kpi:.2f} [-])')
+    ax_d.axvline(base_kpi, color='#EF4444', linestyle=':', linewidth=1.6, label=f'B0: CT-35 Single-Eval Reference ({base_kpi:.2f} [-])')
     for idx, (kv, dv) in enumerate(zip(kpis_ho, disc_ho)):
-        ax_d.text(kv + rmses_ho[idx] + 0.35, idx, f'{kv:.2f} ({dv}/10 seeds)', va='center', fontsize=7.3, fontweight='bold')
+        offset = (rmses_ho[idx] if rmses_ho is not None else 0.0) + 0.35
+        c_rmse = cout_rmses_ho[idx]
+        ann = (
+            f'{kv:.2f} ({dv}/10 seeds; Cout RMSE={float(c_rmse):.2f} mg/L)'
+            if (not has_kpi_rmse and c_rmse is not None)
+            else f'{kv:.2f} ({dv}/10 seeds)'
+        )
+        ax_d.text(kv + offset, idx, ann, va='center', fontsize=6.9, fontweight='bold')
 
-    ax_d.set_title('D. Held-Out 3D Geometry Family Performance & LOFO-CV Generalization')
+    ax_d.set_title(
+        'D. Held-Out 3D Geometry Family Performance & LOFO-CV Generalization'
+        if has_kpi_rmse
+        else 'D. 11-Family Screen Best KPI_score, De-Novo Rediscovery & Sandbox Cout LOFO RMSE'
+    )
     ax_d.set_yticks(y_pos)
     ax_d.set_yticklabels(fams, fontsize=7.7)
-    ax_d.set_xlabel('Held-Out Family Composite KPI_score [-] (± LOFO Surrogate RMSE)')
-    ax_d.set_xlim(18.0, max(kpis_ho) + 12.2)
+    ax_d.set_xlabel(
+        'Held-Out Family Composite KPI_score [-] (± LOFO Surrogate RMSE)'
+        if has_kpi_rmse
+        else '11-Family Screen Composite KPI_score [-] (sandbox_authored_family_rmse_kpi_score = null)'
+    )
+    ax_d.set_xlim(18.0, max(kpis_ho) + (12.2 if has_kpi_rmse else 18.5))
     ax_d.grid(True, axis='x', linestyle='--', alpha=0.35)
-    ax_d.legend(loc='lower right', fontsize=7.5, framealpha=0.94)
+    ax_d.legend(loc='lower right', fontsize=7.2, framealpha=0.94)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out_path, dpi=180)
