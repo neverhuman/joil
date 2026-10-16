@@ -107,6 +107,8 @@ pub struct SurrogateRecord {
     pub status: SurrogateRecordStatus,
     pub features: Option<[f64; 12]>,
     pub feature_failure: Option<SurrogateAbstention>,
+    #[serde(skip)]
+    admitted_label: Option<joil_evidence::training::AdmittedSample>,
     pub target_cout_mg_l: Option<f64>,
     pub target_dp_pa: Option<f64>,
     pub target_d50_um: Option<f64>,
@@ -154,6 +156,7 @@ impl SurrogateRecord {
             },
             features,
             feature_failure,
+            admitted_label: None,
             target_cout_mg_l: Some(cand.mc_robustness.cout_p95_mg_l),
             target_dp_pa: Some(cand.nominal_metrics.dp_u_pa),
             target_d50_um: Some(cand.mc_robustness.d50_p95_um),
@@ -173,12 +176,13 @@ pub struct PosteriorPrediction {
 /// Matérn-5/2 Gaussian Process surrogate with automatic failure quarantine (`ENGINE-04`).
 #[derive(Clone, Debug)]
 pub struct GaussianProcessSurrogate {
-    pub length_scale: f64,
-    pub signal_variance: f64,
-    pub noise_variance: f64,
+    length_scale: f64,
+    signal_variance: f64,
+    noise_variance: f64,
     pub quarantined_failures: usize,
     pub failure_model: FailureModel,
-    pub support_radius: f64,
+    support_radius: f64,
+    independent_labels: bool,
     train_x: Vec<[f64; 12]>,
     y_mean_cout: f64,
     y_std_cout: f64,
@@ -188,6 +192,46 @@ pub struct GaussianProcessSurrogate {
 
 #[allow(clippy::needless_range_loop)]
 impl GaussianProcessSurrogate {
+    /// Rechecks the complete, live evidence closure on every training call.
+    /// Neither a submitted status string nor deserialization can confer label admission.
+    pub fn fit_independent(
+        registry: &joil_evidence::claims::Registry,
+        requirements: &[joil_evidence::identity::ContentRef],
+        feature_contract: &joil_evidence::identity::ContentRef,
+        inputs: &[joil_evidence::training::TrainingInput],
+        length_scale: f64,
+        noise_variance: f64,
+    ) -> Result<Self, String> {
+        joil_evidence::identity::unique_ids(inputs.iter().map(|input| input.label.id.as_str()))?;
+        let records: Result<Vec<_>, String> = inputs
+            .iter()
+            .map(|input| {
+                let sample = joil_evidence::training::admit_sample(
+                    registry,
+                    requirements,
+                    feature_contract,
+                    input,
+                )?;
+                Ok(SurrogateRecord {
+                    candidate_id: sample.id().into(),
+                    topology_class: "observed-independent-subject".into(),
+                    status: SurrogateRecordStatus::IndependentObservation,
+                    features: Some(*sample.features()),
+                    feature_failure: None,
+                    target_cout_mg_l: Some(sample.target().get()),
+                    target_dp_pa: None,
+                    target_d50_um: None,
+                    admitted_label: Some(sample),
+                })
+            })
+            .collect();
+        Self::fit_records(&records?, length_scale, noise_variance, false)
+    }
+
+    pub fn uses_independent_labels(&self) -> bool {
+        self.independent_labels
+    }
+
     /// Matérn-5/2 covariance kernel $k(\mathbf{x}, \mathbf{x}')$.
     pub fn matern52(&self, a: &[f64; 12], b: &[f64; 12]) -> f64 {
         let mut d2 = 0.0;
@@ -246,6 +290,18 @@ impl GaussianProcessSurrogate {
         let mut quarantined = 0usize;
         for rec in records {
             match rec.status {
+                SurrogateRecordStatus::IndependentObservation if !sandbox => {
+                    let admitted = rec
+                        .admitted_label
+                        .as_ref()
+                        .ok_or("independent label authority missing")?;
+                    if rec.features.as_ref() != Some(admitted.features())
+                        || rec.target_cout_mg_l != Some(admitted.target().get())
+                    {
+                        return Err("admitted training record was mutated".into());
+                    }
+                    valid.push((*admitted.features(), admitted.target().get()));
+                }
                 SurrogateRecordStatus::SandboxPriorScreen if sandbox => {
                     let cout = rec
                         .target_cout_mg_l
@@ -287,6 +343,7 @@ impl GaussianProcessSurrogate {
             quarantined_failures: quarantined,
             failure_model: FailureModel::from_attempts(records),
             support_radius: (length_scale * 12.0_f64.sqrt()).max(1e-6),
+            independent_labels: !sandbox,
             train_x: valid.iter().map(|(x, _)| *x).collect(),
             y_mean_cout: y_mean,
             y_std_cout: y_std,
@@ -370,7 +427,19 @@ impl GaussianProcessSurrogate {
         x: &[f64; 12],
     ) -> Result<PosteriorPrediction, SurrogateAbstention> {
         self.check_support(x)?;
-        Ok(self.predict_cout(x))
+        let prediction = self.predict_cout(x);
+        if [
+            prediction.mean,
+            prediction.std_dev,
+            prediction.lcb_2sigma,
+            prediction.ucb_2sigma,
+        ]
+        .iter()
+        .any(|x| !x.is_finite())
+        {
+            return Err(SurrogateAbstention::NumericalPredictionFailure);
+        }
+        Ok(prediction)
     }
 
     /// Predict posterior mean and epistemic standard deviation at `x` (`ENGINE-04`).
@@ -412,12 +481,14 @@ impl GaussianProcessSurrogate {
         prog: &DesignProgram,
         incumbent_best_cout_mg_l: f64,
     ) -> Result<SurrogateAcquisition, SurrogateAbstention> {
+        if self.independent_labels {
+            return Err(SurrogateAbstention::ObservedFeaturesRequired);
+        }
         if !incumbent_best_cout_mg_l.is_finite() {
             return Err(SurrogateAbstention::InvalidIncumbent);
         }
         let x = extract_program_features(prog)?;
-        self.check_support(&x)?;
-        let pred = self.predict_cout(&x);
+        let pred = self.predict_in_domain(&x)?;
         let sigma = pred.std_dev.max(1e-6);
         let z_imp = (incumbent_best_cout_mg_l - pred.mean) / sigma;
         let phi_pdf = (-0.5 * z_imp * z_imp).exp() / (2.0 * std::f64::consts::PI).sqrt();
@@ -462,12 +533,12 @@ pub fn extract_program_features(prog: &DesignProgram) -> Result<[f64; 12], Surro
             reason,
         }
     })?;
-    let st = structure::qualify_structure(prog, &ph, 29468.22, 0.001111111).map_err(|reason| {
-        SurrogateAbstention::ExtractionFailure {
+    let st = structure::analytic_structural_screen(prog, &ph, 29468.22, 0.001111111).map_err(
+        |reason| SurrogateAbstention::ExtractionFailure {
             stage: "structural_screen".into(),
             reason,
-        }
-    })?;
+        },
+    )?;
     finite_features([
         d.swirl_flux_index,
         d.axial_pitch_sin,
@@ -487,6 +558,8 @@ pub fn extract_program_features(prog: &DesignProgram) -> Result<[f64; 12], Surro
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "status", rename_all = "snake_case")]
 pub enum SurrogateAbstention {
+    NumericalPredictionFailure,
+    ObservedFeaturesRequired,
     InvalidIncumbent,
     DistanceOverflow,
     MissingFeatures { fields: Vec<String> },
@@ -617,12 +690,16 @@ pub struct FamilyHoldoutMetrics {
 pub struct SurrogateQualificationReport {
     pub schema_version: u32,
     pub kind: String,
+    pub independent_label_validation: joil_evidence::observation::Observation,
     pub total_records_input: usize,
     pub quarantined_failure_records: usize,
     pub valid_training_records: usize,
     pub in_distribution_rmse_mg_l: f64,
+    #[serde(rename = "sandbox_authored_family_holdout_mean_rmse_mg_l")]
     pub ood_mean_rmse_mg_l: f64,
+    #[serde(rename = "sandbox_authored_family_holdout_mean_2sigma_coverage")]
     pub ood_mean_2sigma_coverage: f64,
+    #[serde(rename = "sandbox_holdout_std_exceeds_training_std")]
     pub ood_std_exceeds_in_dist_std: bool,
     pub failure_quarantine_verified: bool,
     pub checkpoint_determinism_verified: bool,
@@ -648,6 +725,7 @@ pub fn run_surrogate_and_engine_qualification(
         status: SurrogateRecordStatus::InfrastructureFailure,
         features: None,
         feature_failure: Some(SurrogateAbstention::missing("failed attempt")),
+        admitted_label: None,
         target_cout_mg_l: None,
         target_dp_pa: None,
         target_d50_um: None,
@@ -658,6 +736,7 @@ pub fn run_surrogate_and_engine_qualification(
         status: SurrogateRecordStatus::NumericalFailure,
         features: None,
         feature_failure: Some(SurrogateAbstention::missing("failed attempt")),
+        admitted_label: None,
         target_cout_mg_l: Some(f64::NAN),
         target_dp_pa: None,
         target_d50_um: None,
@@ -780,6 +859,10 @@ pub fn run_surrogate_and_engine_qualification(
     Ok(SurrogateQualificationReport {
         schema_version: 1,
         kind: "sandbox_prior_screen_cross_validation_not_independent_ood".to_string(),
+        independent_label_validation: joil_evidence::observation::Observation::Insufficient {
+            reason: "Legacy candidate targets are derived from the reduced model; family folds are sandbox diagnostics".into(),
+            missing: vec!["independently labelled Cout observations".into(), "observed geometry and mechanism holdouts".into()],
+        },
         total_records_input: records.len(),
         quarantined_failure_records: full_gp.quarantined_failures,
         valid_training_records: valid_records.len(),
@@ -818,7 +901,7 @@ pub fn evaluate_batch_with_ledger(
             ledger.redteam_rejected += 1;
             continue;
         }
-        let st = structure::qualify_structure(prog, &pheno, 29468.22, 0.001111111)?;
+        let st = structure::analytic_structural_screen(prog, &pheno, 29468.22, 0.001111111)?;
         if !st.passed {
             ledger.structural_rejected += 1;
             continue;
@@ -923,5 +1006,17 @@ mod evidence_tests {
         assert_eq!(gp.failure_model.attempts, 7);
         records[0].features = None;
         assert!(GaussianProcessSurrogate::fit_sandbox_prior(&records, 0.85, 0.015).is_err());
+    }
+
+    #[test]
+    fn truth_surrogate_submitted_status_cannot_create_independent_authority() {
+        let mut records = prior_records();
+        for record in &mut records {
+            record.status = SurrogateRecordStatus::IndependentObservation;
+        }
+        let bytes = serde_json::to_vec(&records).unwrap();
+        let submitted: Vec<SurrogateRecord> = serde_json::from_slice(&bytes).unwrap();
+        assert!(GaussianProcessSurrogate::fit(&submitted, 0.85, 0.015).is_err());
+        assert!(GaussianProcessSurrogate::fit_sandbox_prior(&submitted, 0.85, 0.015).is_err());
     }
 }
