@@ -450,7 +450,11 @@
       "write_scope": [
         "crates/crucible-store/",
         "tests/fixtures/v5-store/",
-        "docs/design/V5_STORE.md"
+        "docs/design/V5_STORE.md",
+        "Cargo.toml",
+        "Cargo.lock",
+        "docs/v5-plan/progress/V5-05.json",
+        "docs/receipts/v5-05-*"
       ],
       "edge_cases": [
         "A fingerprint detects near-duplicates but cannot authorize reuse",

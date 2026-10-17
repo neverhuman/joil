@@ -45,6 +45,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-store"
+version = "0.1.0"
+dependencies = [
+ "crucible-contract",
+ "crucible-units",
+ "joil-evidence",
+ "libc",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "crucible-units"
 version = "0.1.0"
 dependencies = [
