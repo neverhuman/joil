@@ -47,9 +47,9 @@
       ]
     },
     "V5-07-05": {
-      "status": "done",
+      "status": "in_progress",
       "owner": "codex-v5-integrator",
-      "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+      "note": "Reopened after exacthead CI retry-limit failure. Preserve prior local completion receipt; verify startup/native deadline separation, mandated build defaults and CI portability before accepting the follow-up.",
       "evidence": [
         {
           "path": "docs/receipts/v5-07-05-completed-20261017.json",

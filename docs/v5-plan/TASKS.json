@@ -617,7 +617,8 @@
         "docs/design/V5_RECOVERY.md",
         "tools/check.py",
         "tests/test_check.py",
-        ".github/workflows/foundation.yml"
+        ".github/workflows/foundation.yml",
+        "crates/crucible-runtime/src/task.rs"
       ],
       "edge_cases": [
         "Logical replay and native solver rerun are separate claims",

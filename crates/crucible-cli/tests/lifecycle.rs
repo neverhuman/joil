@@ -100,7 +100,31 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     let mut two = cfg.clone();
     two.workers = 2;
     let b_cfg = base.join("two.toml");
+    let topology = crucible_runtime::lease::Topology::system().unwrap();
+    let physical = topology
+        .allowed
+        .iter()
+        .map(|cpu| topology.cpus[cpu])
+        .collect::<std::collections::BTreeSet<_>>()
+        .len();
     std::fs::write(&b_cfg, toml::to_string(&two).unwrap()).unwrap();
+    if physical < 2 {
+        // Two workers are not permitted here. Test the refusal before using the allowed count.
+        call(
+            &base,
+            &[
+                "run",
+                b_cfg.to_str().unwrap(),
+                "--root",
+                root_b.to_str().unwrap(),
+            ],
+            78,
+        );
+        assert!(!root_b.exists());
+        two.workers = 1;
+        std::fs::write(&b_cfg, toml::to_string(&two).unwrap()).unwrap();
+    }
+    write_new(&base.join("worker-capability.json"),serde_json::json!({"physical_cores_available":physical,"worker_counts_exercised":[1,two.workers],"two_workers_refused_if_unavailable":physical<2}).to_string().as_bytes()).unwrap();
     let a = a_cfg.to_str().unwrap();
     let b = b_cfg.to_str().unwrap();
     let ra = root_a.to_str().unwrap();

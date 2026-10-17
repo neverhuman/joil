@@ -594,3 +594,67 @@ fn cost_digest_preserves_charge_data_and_family_ledger_reset_is_refused() {
         c.actual_cost_digest().unwrap()
     );
 }
+
+#[test]
+fn charged_preparation_does_not_consume_native_deadline_and_real_slow_child_still_times_out() {
+    use std::os::unix::fs::PermissionsExt;
+    let _native = NATIVE.lock().unwrap();
+    let (mut db, s, _, state) = context("execution-clock");
+    let binary = Path::new(env!("CARGO_BIN_EXE_runtime-fixture"));
+    let frozen = BlobDigest::of_bytes(&std::fs::read(binary).unwrap());
+    for (name, delay, expected) in [
+        ("fast", 0.08, Phase::Committed),
+        ("slow", 0.6, Phase::TimedOut),
+    ] {
+        // Trusted, single-PID software fixture: Python sleeps then execs the byte-bound Rust fixture.
+        // No subprocess/model/GPU is invoked by this test producer.
+        let script = s.path().join(format!("{name}.py"));
+        let body=format!("#!/usr/bin/python3\nimport hashlib,os,sys,time\np={}\nassert hashlib.sha256(open(p,'rb').read()).hexdigest()=={}\ntime.sleep({delay})\nos.execv(p,[p]+sys.argv[1:])\n",serde_json::to_string(&binary.to_str().unwrap()).unwrap(),serde_json::to_string(frozen.as_str()).unwrap());
+        std::fs::write(&script, body).unwrap();
+        std::fs::set_permissions(&script, std::fs::Permissions::from_mode(0o700)).unwrap();
+        let digest = BlobDigest::of_bytes(&std::fs::read(&script).unwrap());
+        let executable = FixtureExecutable::from_operator_binary(&script, &digest).unwrap();
+        let mut proposal = state.clone();
+        proposal
+            .prepare_epoch(&digest, reserve(), FixtureMode::Succeed)
+            .unwrap();
+        let mut job = proposal.in_flight.values().next().unwrap().clone();
+        job.id = format!("{name}-execution-clock");
+        db.enqueue(&job.id, &job.spec).unwrap();
+        let l = lease(&format!("{name}-lease"));
+        let a = db
+            .lease(
+                &job.id,
+                &format!("{name}-attempt"),
+                &l,
+                utc_millis().unwrap(),
+            )
+            .unwrap();
+        let result = execute_fixture_checked(
+            &mut db,
+            &s,
+            &a,
+            &l,
+            &executable,
+            Duration::from_millis(300),
+            || std::thread::sleep(Duration::from_millis(700)),
+        )
+        .unwrap();
+        assert_eq!(
+            result.phase, expected,
+            "preparation is charged but not native execution time"
+        );
+        assert!(result.charge.wall_ns >= 700_000_000);
+        assert!(result.charge.measured.cpu_ms > 0);
+        if expected == Phase::Committed {
+            let observation: FixtureObservation =
+                serde_json::from_slice(&s.read(result.object.as_ref().unwrap()).unwrap().payload)
+                    .unwrap();
+            assert_eq!(observation.score, 25);
+        } else {
+            assert!(db.task(&job.id).unwrap().accepted_object.is_none());
+        }
+    }
+    assert_eq!(db.accounting().unwrap().charges, 2);
+    assert_eq!(db.accounting().unwrap().reserved, Resources::default());
+}

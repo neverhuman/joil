@@ -54,6 +54,8 @@ def main():
     env=os.environ.copy()
     env['PATH']=os.pathsep.join([str(ROOT/'.private/node-runtime/bin'),str(ROOT/'.private/node-runtime/node_modules/.bin'),str(Path.home()/'joil/.private/node-runtime/bin'),str(Path.home()/'.cargo/bin'),env['PATH']])
     env.update(CARGO_BUILD_JOBS='2',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',RAYON_NUM_THREADS='1')
+    env.setdefault('CARGO_INCREMENTAL','0')
+    env.setdefault('CARGO_PROFILE_DEV_DEBUG','line-tables-only')
     steps=check_steps(ROOT,suite=args.suite,skip_ui=args.skip_ui,cad=args.cad,runid=runid)
     receipt={'schema_version':1,'run_id':runid,'kind':'foundation_checks_not_physical_validation',
              'steps':[],'requested_suite':args.suite or 'all',
@@ -74,15 +76,16 @@ def main():
         try:
             result=subprocess.run(cmd,cwd=cwd,env=env,capture_output=True,timeout=600)
             data=result.stdout+result.stderr;code=result.returncode
+            diagnostic=result.stdout.decode(errors='replace')[-5000:]+'\n'+result.stderr.decode(errors='replace')[-2500:]
         except (OSError,subprocess.TimeoutExpired) as e:
-            data=str(e).encode();code=124
+            data=str(e).encode();code=124;diagnostic=str(e)
         (out/f'{name}.log').write_bytes(data)
         receipt['steps'].append({'name':name,'command':cmd,'cwd':str(cwd.relative_to(ROOT)) or '.',
             'exit_code':code,'wall_seconds':time.perf_counter()-start,'log_bytes':len(data),
             'log_sha256':hashlib.sha256(data).hexdigest()})
         print(f'{name}: exit {code}, {receipt["steps"][-1]["wall_seconds"]:.3f}s',flush=True)
         if code:
-            print(data.decode(errors='replace')[-5000:]);break
+            print(diagnostic);break
     receipt['all_requested_pass']=len(receipt['steps'])==len(steps) and all(x['exit_code']==0 for x in receipt['steps'])
     (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
     print('receipt:',out/'receipt.json',flush=True)

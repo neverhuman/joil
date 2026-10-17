@@ -240,6 +240,20 @@ pub fn execute_fixture(
     executable: &FixtureExecutable,
     timeout: Duration,
 ) -> Result<Execution> {
+    execute_fixture_checked(db, store, attempt, lease, executable, timeout, || {})
+}
+/// Preparation fault hook is trusted coordinator test code, never a worker payload.
+/// `timeout` bounds native execution; preparation/verification stay in the actual
+/// CPU/wall charge, and the absolute lease still bounds every phase.
+pub fn execute_fixture_checked(
+    db: &mut RuntimeDb,
+    store: &Store,
+    attempt: &Attempt,
+    lease: &AdmittedLease,
+    executable: &FixtureExecutable,
+    timeout: Duration,
+    prepare: impl FnOnce(),
+) -> Result<Execution> {
     if timeout.is_zero() || timeout > Duration::from_secs(30) {
         return Err(RuntimeError::Invalid("fixture_deadline"));
     }
@@ -285,6 +299,7 @@ pub fn execute_fixture(
                 &path.join("request.json"),
                 crate::encode(&invocation)?.as_bytes(),
             )?;
+            prepare();
             match OwnedProcess::spawn_fixture(
                 executable,
                 &path,
@@ -309,13 +324,14 @@ pub fn execute_fixture(
                     };
                 }
                 Ok(mut child) => {
+                    let native_start = Instant::now();
                     db.record_process(attempt, &child.identity()?, crate::utc_millis()?)?;
                     let mut timed_out = false;
                     let exit = loop {
                         if let Some(exit) = child.poll()? {
                             break exit;
                         }
-                        if start.elapsed() >= timeout
+                        if native_start.elapsed() >= timeout
                             || crate::utc_millis()? >= lease.record().expires_ms
                             || scratch_bytes(&path)? > row.spec.reserve.scratch_bytes
                         {
