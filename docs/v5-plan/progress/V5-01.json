@@ -14,9 +14,9 @@
       ]
     },
     "V5-01-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "blocked",
+      "owner": "claude-v5-truth-worker",
+      "note": "In-scope slice 7ebb126: observer/qualification gate/Phenotype3D/Python tools report NotMeasured + legacy_proxy; enclosed-cavity negative control passes. Blocked: redteam.rs:90 (outside V5-01 scope) still passes the F1 screen on the legacy proxy trapped_cavities; needs path transfer or integrator disposition (private scope-request).",
       "evidence": []
     },
     "V5-01-03": {
