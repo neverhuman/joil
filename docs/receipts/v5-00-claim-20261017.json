@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-01",
+    "V5-00-02",
+    "V5-00-03",
+    "V5-00-04",
+    "V5-00-05"
+  ],
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-17T20:54:38.642421+00:00",
+  "input_head": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "write_paths": [
+    "docs/v5-plan/execution/BASELINE.json",
+    "docs/v5-plan/execution/DEFECTS.json",
+    "docs/receipts/v5-00-*",
+    "docs/receipts/P00-v5-workers-claim-20261017.json",
+    "docs/v5-plan/progress/V5-00.json",
+    "docs/v5-plan/todos/V5-00.md",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/dashboard.html"
+  ],
+  "dependencies": [],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "gpu": false,
+    "simulations": false
+  },
+  "stop_conditions": [
+    "owned process RSS over allocation",
+    "owned output/build files over allocation",
+    "host MemAvailable below 12 GiB",
+    "scope conflict",
+    "auth/quota/tool denial without a safe permitted path"
+  ],
+  "claim_basis": "User-authorized implementation in existing PR #6; no tags, merge or lane PRs."
+}
