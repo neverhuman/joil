@@ -306,7 +306,9 @@
         "Cargo.toml",
         "Cargo.lock",
         "docs/v5-plan/progress/V5-03.json",
-        "docs/receipts/v5-03-*"
+        "docs/receipts/v5-03-*",
+        "crates/crucible-architecture/",
+        "crates/joil-evidence/src/claims.rs"
       ],
       "edge_cases": [
         "Integrator alone registers workspace members and generated clients",
@@ -316,7 +318,8 @@
       "validation_commands": [
         "rtk cargo test --locked -p crucible-contract",
         "rtk cargo test --locked -p crucible-units",
-        "rtk cargo test --locked -p crucible-contract --test architecture"
+        "rtk cargo test --locked -p crucible-contract --test architecture",
+        "rtk cargo test --locked -p crucible-architecture"
       ],
       "tasks": [
         {

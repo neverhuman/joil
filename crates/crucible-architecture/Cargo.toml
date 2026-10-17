@@ -1,0 +1,8 @@
+[package]
+name = "crucible-architecture"
+version.workspace = true
+edition.workspace = true
+
+[dev-dependencies]
+crucible-contract = { path = "../crucible-contract" }
+serde_json.workspace = true

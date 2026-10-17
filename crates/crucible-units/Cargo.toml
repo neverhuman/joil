@@ -1,0 +1,11 @@
+[package]
+name = "crucible-units"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+joil-evidence = { path = "../joil-evidence" }
+
+[dev-dependencies]
+serde_json.workspace = true

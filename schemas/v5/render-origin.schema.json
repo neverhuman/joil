@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Render-only sidecar; never supplied to a judge.",
+  "$defs": {
+    "SemanticId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "subject": {
+      "$ref": "#/$defs/SemanticId"
+    },
+    "module_kind": {
+      "type": "string"
+    },
+    "ancestry": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/SemanticId"
+      }
+    },
+    "display_label": {
+      "type": "string"
+    },
+    "schematic": {
+      "type": "boolean"
+    },
+    "disclosure": {
+      "enum": [
+        "private",
+        "public_reviewed"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "subject",
+    "module_kind",
+    "ancestry",
+    "display_label",
+    "schematic",
+    "disclosure"
+  ],
+  "additionalProperties": false
+}

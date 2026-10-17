@@ -1,0 +1,1008 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:joil:v5:physical-contracts:1",
+  "$comment": "Structural JSON only; strict Rust decode, semantic checks and authenticated reviews required. Report types are integrator outputs, never worker authority.",
+  "$defs": {
+    "BlobDigest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "SemanticId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "ContentRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "CoordinateFrame": {
+      "enum": [
+        "right_handed_si_z_downstream",
+        "right_handed_si_z_up"
+      ]
+    },
+    "FrameTransform": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "enum": [
+            "right_handed_si_z_downstream",
+            "right_handed_si_z_up"
+          ]
+        },
+        "to": {
+          "enum": [
+            "right_handed_si_z_downstream",
+            "right_handed_si_z_up"
+          ]
+        },
+        "translation_m": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "rotation": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "translation_m",
+        "rotation"
+      ],
+      "additionalProperties": false
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "enum": [
+            "geometry",
+            "surface_mesh",
+            "volume_mesh",
+            "solver_case"
+          ]
+        },
+        "format": {
+          "enum": [
+            "triangle_surface_json",
+            "step",
+            "native_volume_mesh",
+            "native_solver_case"
+          ]
+        },
+        "blob": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740992
+        },
+        "length_unit": {
+          "enum": [
+            "metre",
+            "millimetre"
+          ]
+        },
+        "approximation_bound_m": {
+          "type": "number"
+        },
+        "acceptance": {
+          "$ref": "#/$defs/BlobDigest"
+        }
+      },
+      "required": [
+        "role",
+        "format",
+        "blob",
+        "bytes",
+        "length_unit",
+        "approximation_bound_m",
+        "acceptance"
+      ],
+      "additionalProperties": false
+    },
+    "Port": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "purpose": {
+          "enum": [
+            "inlet",
+            "outlet",
+            "support",
+            "fixed_interface"
+          ]
+        },
+        "frame": {
+          "enum": [
+            "right_handed_si_z_downstream",
+            "right_handed_si_z_up"
+          ]
+        },
+        "centre_m": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "area_m2": {
+          "type": "number"
+        },
+        "outward_normal": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "tag",
+        "purpose",
+        "frame",
+        "centre_m",
+        "area_m2",
+        "outward_normal"
+      ],
+      "additionalProperties": false
+    },
+    "FrozenRegion": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65535
+        },
+        "boundary": {
+          "$ref": "#/$defs/BlobDigest"
+        }
+      },
+      "required": [
+        "tag",
+        "boundary"
+      ],
+      "additionalProperties": false
+    },
+    "MaterialState": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "unknown"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "identified"
+            },
+            "passport": {
+              "$ref": "#/$defs/BlobDigest"
+            }
+          },
+          "required": [
+            "status",
+            "passport"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "RoughnessState": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "unknown"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "characterized"
+            },
+            "sand_grain_m": {
+              "type": "number"
+            },
+            "source": {
+              "$ref": "#/$defs/BlobDigest"
+            }
+          },
+          "required": [
+            "status",
+            "sand_grain_m",
+            "source"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Calibration": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "uncalibrated"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "bound"
+            },
+            "record": {
+              "$ref": "#/$defs/BlobDigest"
+            }
+          },
+          "required": [
+            "status",
+            "record"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "SubjectBundle": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArtifactRef"
+          }
+        },
+        "transform": {
+          "$ref": "#/$defs/FrameTransform"
+        },
+        "material": {
+          "$ref": "#/$defs/MaterialState"
+        },
+        "roughness": {
+          "$ref": "#/$defs/RoughnessState"
+        },
+        "interface_contract": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Port"
+          }
+        },
+        "frozen_regions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FrozenRegion"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "artifacts",
+        "transform",
+        "material",
+        "roughness",
+        "interface_contract",
+        "ports",
+        "frozen_regions"
+      ],
+      "additionalProperties": false
+    },
+    "TriangleSurface": {
+      "type": "object",
+      "properties": {
+        "vertices_m": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3
+          }
+        },
+        "triangles": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            "minItems": 3,
+            "maxItems": 3
+          }
+        }
+      },
+      "required": [
+        "vertices_m",
+        "triangles"
+      ],
+      "additionalProperties": false
+    },
+    "EvaluationKey": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "subject": {
+          "$ref": "#/$defs/SubjectBundle"
+        },
+        "manufacturing_state": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "scenario": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "solver_build": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "container": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "numerics": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "mesh_policy": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "sampling_design": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "randomness": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "extractor": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "calibration": {
+          "$ref": "#/$defs/Calibration"
+        }
+      },
+      "required": [
+        "schema_version",
+        "subject",
+        "manufacturing_state",
+        "scenario",
+        "solver_build",
+        "container",
+        "numerics",
+        "mesh_policy",
+        "sampling_design",
+        "randomness",
+        "extractor",
+        "calibration"
+      ],
+      "additionalProperties": false
+    },
+    "DecisionKey": {
+      "type": "object",
+      "properties": {
+        "observation": {
+          "$ref": "#/$defs/SemanticId"
+        },
+        "requirement": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "decision_profile": {
+          "$ref": "#/$defs/BlobDigest"
+        },
+        "preference_policy": {
+          "$ref": "#/$defs/BlobDigest"
+        }
+      },
+      "required": [
+        "observation",
+        "requirement",
+        "decision_profile",
+        "preference_policy"
+      ],
+      "additionalProperties": false
+    },
+    "Quantity": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "enum": [
+            "metre",
+            "millimetre",
+            "second",
+            "kilogram",
+            "cubic_metre",
+            "cubic_metre_per_second",
+            "pascal",
+            "kilopascal",
+            "kilogram_per_cubic_metre",
+            "mg_per_litre_dispersed_oil",
+            "dimensionless",
+            "mechanical_loss_watt",
+            "treated_cubic_metre_per_second",
+            "joule_per_treated_cubic_metre"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "unit"
+      ],
+      "additionalProperties": false
+    },
+    "Expr": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "constant"
+            },
+            "quantity": {
+              "$ref": "#/$defs/Quantity"
+            }
+          },
+          "required": [
+            "op",
+            "quantity"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "parameter"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "add"
+            },
+            "left": {
+              "$ref": "#/$defs/Expr"
+            },
+            "right": {
+              "$ref": "#/$defs/Expr"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "subtract"
+            },
+            "left": {
+              "$ref": "#/$defs/Expr"
+            },
+            "right": {
+              "$ref": "#/$defs/Expr"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "multiply"
+            },
+            "left": {
+              "$ref": "#/$defs/Expr"
+            },
+            "right": {
+              "$ref": "#/$defs/Expr"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "divide"
+            },
+            "left": {
+              "$ref": "#/$defs/Expr"
+            },
+            "right": {
+              "$ref": "#/$defs/Expr"
+            }
+          },
+          "required": [
+            "op",
+            "left",
+            "right"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "negate"
+            },
+            "value": {
+              "$ref": "#/$defs/Expr"
+            }
+          },
+          "required": [
+            "op",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "concentration_to_volume_fraction"
+            },
+            "concentration": {
+              "$ref": "#/$defs/Expr"
+            },
+            "oil_density": {
+              "$ref": "#/$defs/Expr"
+            }
+          },
+          "required": [
+            "op",
+            "concentration",
+            "oil_density"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "op": {
+              "const": "energy_per_treated_volume"
+            },
+            "mechanical_loss": {
+              "$ref": "#/$defs/Expr"
+            },
+            "treated_flow": {
+              "$ref": "#/$defs/Expr"
+            }
+          },
+          "required": [
+            "op",
+            "mechanical_loss",
+            "treated_flow"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "TaskOutcome": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "succeeded"
+            },
+            "output_manifest": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/BlobDigest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "state",
+            "output_manifest"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "numerical_failure"
+            },
+            "diagnostic": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/BlobDigest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "state",
+            "diagnostic"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "infrastructure_failure"
+            },
+            "diagnostic": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/BlobDigest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "state",
+            "diagnostic"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "unsupported"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "not_run"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ObservationState": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "measured"
+            },
+            "claim": {
+              "$ref": "#/$defs/ContentRef"
+            }
+          },
+          "required": [
+            "state",
+            "claim"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "missing"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "invalid"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "out_of_scope"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "not_applicable"
+            },
+            "rule": {
+              "$ref": "#/$defs/ContentRef"
+            }
+          },
+          "required": [
+            "state",
+            "rule"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "NonPassingReason": {
+      "enum": [
+        "not_run",
+        "numerical_failure",
+        "infrastructure_failure",
+        "unsupported",
+        "absent_output",
+        "missing_observation",
+        "invalid_observation",
+        "out_of_scope",
+        "unregistered_not_applicable",
+        "source_mismatch",
+        "unreviewed_policy",
+        "incomplete_evidence",
+        "invalid_evidence",
+        "reopened_evidence",
+        "revoked_evidence"
+      ]
+    },
+    "GateStateReport": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "pass"
+            },
+            "claim": {
+              "$ref": "#/$defs/ContentRef"
+            }
+          },
+          "required": [
+            "state",
+            "claim"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "fail"
+            },
+            "claim": {
+              "$ref": "#/$defs/ContentRef"
+            }
+          },
+          "required": [
+            "state",
+            "claim"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "unknown"
+            },
+            "reason": {
+              "$ref": "#/$defs/NonPassingReason"
+            }
+          },
+          "required": [
+            "state",
+            "reason"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "not_applicable"
+            },
+            "rule": {
+              "$ref": "#/$defs/ContentRef"
+            }
+          },
+          "required": [
+            "state",
+            "rule"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "GateDecisionReport": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/GateStateReport"
+        },
+        "policy": {
+          "$ref": "#/$defs/ContentRef"
+        },
+        "requirements": {
+          "$ref": "#/$defs/ContentRef"
+        },
+        "gate_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "state",
+        "policy",
+        "requirements",
+        "gate_id"
+      ],
+      "additionalProperties": false
+    },
+    "EligibilityStateReport": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "blocked"
+            },
+            "gates": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "state",
+            "gates"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "ready_for_evidence_review"
+            },
+            "claims": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ContentRef"
+              }
+            }
+          },
+          "required": [
+            "state",
+            "claims"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ClaimEligibilityReport": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/EligibilityStateReport"
+        }
+      },
+      "required": [
+        "state"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

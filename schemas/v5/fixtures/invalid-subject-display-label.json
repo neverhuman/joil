@@ -1,0 +1,81 @@
+{
+  "artifacts": [
+    {
+      "acceptance": "ea787f1457fd82aa20234a09a1fc2319a3b77a4735891abe35067e09b336256a",
+      "approximation_bound_m": 1e-07,
+      "blob": "87b82c967bc6607327c578e0fbaab77ebccc732f025faa11f2bf70e2de691f4b",
+      "bytes": 118,
+      "format": "triangle_surface_json",
+      "length_unit": "metre",
+      "role": "geometry"
+    },
+    {
+      "acceptance": "ea787f1457fd82aa20234a09a1fc2319a3b77a4735891abe35067e09b336256a",
+      "approximation_bound_m": 1e-07,
+      "blob": "87b82c967bc6607327c578e0fbaab77ebccc732f025faa11f2bf70e2de691f4b",
+      "bytes": 118,
+      "format": "triangle_surface_json",
+      "length_unit": "metre",
+      "role": "surface_mesh"
+    }
+  ],
+  "frozen_regions": [
+    {
+      "boundary": "ad3390bd546ab91305d62b0280482bd8a02d7d13c8acce71d9a124aa99d53439",
+      "tag": 2
+    }
+  ],
+  "interface_contract": "8f5acdd1e104fcca26d85b2243872fd1b32605e44c725661dee036ad7bfaaeaa",
+  "material": {
+    "status": "unknown"
+  },
+  "ports": [
+    {
+      "area_m2": 1.0,
+      "centre_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "frame": "right_handed_si_z_downstream",
+      "outward_normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "purpose": "inlet",
+      "tag": 1
+    }
+  ],
+  "roughness": {
+    "status": "unknown"
+  },
+  "schema_version": 1,
+  "transform": {
+    "from": "right_handed_si_z_downstream",
+    "rotation": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "to": "right_handed_si_z_downstream",
+    "translation_m": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "display_label": "synthetic winner"
+}

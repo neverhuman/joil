@@ -27,6 +27,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-architecture"
+version = "0.1.0"
+dependencies = [
+ "crucible-contract",
+ "serde_json",
+]
+
+[[package]]
+name = "crucible-contract"
+version = "0.1.0"
+dependencies = [
+ "crucible-units",
+ "joil-evidence",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "crucible-units"
+version = "0.1.0"
+dependencies = [
+ "joil-evidence",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "crypto-common"
 version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"

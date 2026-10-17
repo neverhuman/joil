@@ -1,0 +1,13 @@
+[package]
+name = "crucible-contract"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+joil-evidence = { path = "../joil-evidence" }
+crucible-units = { path = "../crucible-units" }
+
+[package.metadata.crucible]
+role = "evaluator_contract"
