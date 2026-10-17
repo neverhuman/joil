@@ -25,10 +25,15 @@
       ]
     },
     "V5-01-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "claude-v5-truth-worker",
+      "note": "checkpoint_determinism_verified renamed to checkpoint_compatibility_selftest_passed (legacy alias); campaign_replay explicitly unsupported; dispersion helper renamed/relabelled arithmetic-only with well_mixed_transport Insufficient. No restart or transport capability claimed.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-03-completed-20261017.json",
+          "sha256": "e5641bcfba71c0e3d313a4d9a3f398b68b78748259c9c6abe9351793a5070404"
+        }
+      ]
     },
     "V5-01-04": {
       "status": "todo",
