@@ -14,10 +14,15 @@
       ]
     },
     "V5-01-02": {
-      "status": "blocked",
+      "status": "done",
       "owner": "claude-v5-truth-worker",
-      "note": "In-scope slice 7ebb126: observer/qualification gate/Phenotype3D/Python tools report NotMeasured + legacy_proxy; enclosed-cavity negative control passes. Blocked: redteam.rs:90 (outside V5-01 scope) still passes the F1 screen on the legacy proxy trapped_cavities; needs path transfer or integrator disposition (private scope-request).",
-      "evidence": []
+      "note": "Observer/qualification/phenotype/Python tools report unmeasured cavity and topology facts instead of proxy zeros; red-team screen (transferred, option B) reports unevaluated facts, propagated to Individual and CLI; no threshold relaxed. Software semantics only.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-02-completed-20261017.json",
+          "sha256": "45b2ddc83aebe001242b188bb75d3e667a11813f8e1f5083cb524c3487b5e171"
+        }
+      ]
     },
     "V5-01-03": {
       "status": "todo",
