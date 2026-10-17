@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "kind": "software_store_task_completion_not_physical_admission",
+  "packet": "V5-05",
+  "tested_commit": "9e26a728efb7bd431f5505bd5d95efc50f9f7881",
+  "created_utc": "2026-10-17T22:14:45.102164+00:00",
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-store"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fe5b7a96d2a41872bb63ced4e24889086227c2742f8b40f56239e8efcff857c4",
+      "wall_seconds": 3.9262421909952536
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-store",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "0f528ad407ccf0b2e8eef31d55b890e639a44d9ea8cce12bf61b3e9b1e7f5c66",
+      "wall_seconds": 1.0849694649805315
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1f058e9338ba7dda4f3b8b597f3c61dded89ef6614f84c2f6b8a5ab17fee09d6",
+      "wall_seconds": 1.6605097779538482
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "dbc33ab0b368c733de6c2440ee5dcce617822e475dc3590083110b4a81fb34e0",
+      "wall_seconds": 0.8997017180081457
+    }
+  ],
+  "private_artifact_inventory_sha256": "3bef48019130a4b71b05fb115c344bcf499b3727aa401d91c9292c9be57fc6af",
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Software storage/closure/freshness verification only; no physical performance, independent native mesh/field correctness or qualified campaign claim",
+    "Linux procfs/no-follow directory descriptors, local filesystem rename/fsync and advisory lock semantics required; SIGKILL tested, storage-device power loss not experimentally tested",
+    "Remote object protocol tested with synthetic in-memory backend only; no cloud provider, credential use or remote-worker readiness claimed",
+    "GC uses reversible private quarantine, not destructive erasure; pinning and object-kind labels confer no PASS",
+    "Cache indexes are rebuildable; full campaign/state/SQLite recovery is V5-06/07. No physical solver/GPU/simulation run",
+    "TR-16/EV-09/EV-12 and unresolved physical requirements retained; no scientific STATUS promotion",
+    "Full required publication gate is still required before next push"
+  ],
+  "failed_attempts": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-store",
+        "--test",
+        "store"
+      ],
+      "exit_code": 101,
+      "log_sha256": "31759f9715cf0a48b0ca74c8d56d42ce19b9a88e4d8c0d7e44aa90b85c1f3188",
+      "wall_seconds": 4.724143703002483
+    }
+  ],
+  "failure_resolution": "Initial export fixture reused an immutable review ID and correctly hit artifact_identity_conflict; only fixture review identity made unique. Original failure log retained.",
+  "task_ids": [
+    "V5-05-01"
+  ],
+  "changed_paths": [
+    "crates/crucible-store/src/bin/store-fixture.rs",
+    "crates/crucible-store/src/secure_fs.rs",
+    "crates/crucible-store/src/store.rs",
+    "crates/crucible-store/tests/store.rs"
+  ],
+  "positive_checks": [
+    "Actual owned SIGKILL at8 file-write/fsync/rename boundaries; restart accepts only complete exact bytes",
+    "Concurrent identical publication idempotent; known SHA256 abc oracle passes"
+  ],
+  "negative_checks": [
+    "Wrong expected digest, truncation, symlink/traversal, excessive object/closure budgets refuse before acceptance"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-store/src/bin/store-fixture.rs",
+      "sha256": "43ac8cafaa38ecf711ca55f36d01ea6723b5c6ef39e041dcd9db12e386a69a53"
+    },
+    {
+      "path": "crates/crucible-store/src/secure_fs.rs",
+      "sha256": "958fd4fa9b84932107ed6879c2bbe8571546d8b81f8793149c1987d5f603a0a5"
+    },
+    {
+      "path": "crates/crucible-store/src/store.rs",
+      "sha256": "7cf6e7698dfa9a688eebe326198b0b44b5c5bce874cc69714def0cfadb4c4037"
+    },
+    {
+      "path": "crates/crucible-store/tests/store.rs",
+      "sha256": "e4f3bb0154a48d916faeee762d79d3f1f87fe6f8248d810bbb97b45be8602c7d"
+    }
+  ],
+  "next_dependency": "V5-05-02"
+}
