@@ -36,9 +36,9 @@
       ]
     },
     "V5-01-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "blocked",
+      "owner": "claude-v5-truth-worker",
+      "note": "In-scope slice e90ad30 green (explicit GPU opt-in with lease, no implicit VRAM target, SCHEMATIC trajectory provenance, main.tsx evidence-bound labels and schematic banner, UI build). Blocked on SR-2: apps/explorer/src/Viewport3D.tsx (outside V5-01 scope) still labels authored paths as F1/F2 screen capture trajectories.",
       "evidence": []
     },
     "V5-01-05": {
