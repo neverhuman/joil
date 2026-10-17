@@ -57,13 +57,18 @@ def synthetic_same_pipeline(offset_pa=400.0):
         g.update(dp_u_pa=dp, hydraulic_loss_j_per_treated_m3=el, subject_design_sha256=subject)
         cmp_grids.append({'grid_id': g['grid_id'], 'background_hex_grid': list(g['background_hex_grid']),
                           'subject_design_sha256': control, 'reject_fraction': g['reject_fraction'],
-                          'water_closure_fraction': g['water_closure_fraction'],
+                          'water_closure_fraction': g['water_closure_fraction'], 'cells': g['cells'],
+                          'effective_cell_size_mm': g['effective_cell_size_mm'],
                           'dp_u_pa': dp + offset_pa, 'hydraulic_loss_j_per_treated_m3': el + offset_pa})
     d['baseline_ct35_comparator'] = {'synthetic_fixture': 'SYNTHETIC same-pipeline CT-35 control',
                                      'subject_design_sha256': control, 'openfoam_version': 'Foundation-14',
                                      'pipeline_identity': dict(ident), 'grids': cmp_grids}
+    g1 = d['grids'][1]
     for e in d['rsm_turbulence_closure_crosscheck']:
         e['delta_dp_u_vs_ct35_baseline_pct'] = -2.0
+        e.update(subject_design_sha256=subject, grid_id=g1['grid_id'],
+                 background_hex_grid=list(g1['background_hex_grid']), pipeline_identity=dict(ident),
+                 openfoam_version='Foundation-14')
     return d
 
 
@@ -297,7 +302,7 @@ class EliteCfdGateAdmissionTruth(unittest.TestCase):
         mutate(lambda d: d['grids'][0].__setitem__('water_closure_fraction', math.nan), 'non-finite')
         mutate(lambda d: d['grids'][2].__setitem__('dp_u_pa', math.inf), 'non-finite')
         mutate(lambda d: d['grids'][1].__setitem__('reject_fraction', '0.0197'), 'not a number')
-        mutate(lambda d: d['grids'][1].__setitem__('cells', True), 'not a number')
+        mutate(lambda d: d['grids'][1].__setitem__('cells', True), 'cells must be a positive integer')
         mutate(lambda d: d['grids'][0].pop('water_closure_fraction'), 'missing')
         mutate(lambda d: rsm(d)[0]['reynolds_stress_tensor_diagnostics'].__setitem__(
             'positive_definite_normal_stress_fraction', math.nan), 'non-finite')
@@ -317,6 +322,119 @@ class EliteCfdGateAdmissionTruth(unittest.TestCase):
         for key in ('subject_candidate_id', 'subject_topology_class', 'gate_passed', 'checks', 'failures'):
             self.assertIn(key, res)
         self.assertIn('runner_policy_constraints_not_preregistered', res)
+
+
+class EliteCfdGateReviewFixes(unittest.TestCase):
+    """V5-01-01 follow-up to the integrator review: ladders, arithmetic domains and RSM binding."""
+
+    def setUp(self):
+        self.prereg = load(PREREG)
+
+    def assertRefused(self, dossier, *needles):
+        res = gate.evaluate_elite_gci_rsm_gate(dossier, self.prereg)
+        self.assertEqual(res['admission'], 'not_admitted')
+        for needle in needles:
+            self.assertTrue(any(needle in f for f in res['failures']), (needle, res['failures']))
+
+    def test_positive_fixture_still_admitted(self):
+        res = gate.evaluate_elite_gci_rsm_gate(synthetic_same_pipeline(), self.prereg)
+        self.assertEqual(res['failures'], [])
+        self.assertEqual(res['checks']['grid_cells'], [139981, 305522, 552513])
+
+    def test_missing_background_ladders_are_not_equal(self):
+        d = synthetic_same_pipeline()
+        for g in d['grids'] + d['baseline_ct35_comparator']['grids']:
+            g.pop('background_hex_grid')
+        self.assertRefused(d, 'grid G0_coarse background_hex_grid missing or invalid',
+                           'comparator grid G2_fine background_hex_grid missing or invalid',
+                           'RSM LRR background ladder descriptor not bound')
+
+    def test_malformed_or_reversed_ladders_refused(self):
+        def comparator_grid(i, **fields):
+            d = synthetic_same_pipeline()
+            d['baseline_ct35_comparator']['grids'][i].update(fields)
+            return d
+        for bad in ([24, -16, 282], [24, 16], [24.0, 16, 282], [24, True, 282], '24x16x282'):
+            self.assertRefused(comparator_grid(1, background_hex_grid=bad),
+                               'comparator grid G1_medium background_hex_grid missing or invalid')
+        self.assertRefused(comparator_grid(1, cells=305522.5), 'comparator grid G1_medium cells must be a positive integer')
+        self.assertRefused(comparator_grid(0, cells=0), 'comparator grid G0_coarse cells must be a positive integer')
+        missing_h = synthetic_same_pipeline()
+        del missing_h['baseline_ct35_comparator']['grids'][0]['effective_cell_size_mm']
+        self.assertRefused(missing_h, 'comparator grid G0_coarse effective_cell_size_mm missing')
+        reversed_cmp = synthetic_same_pipeline()
+        cmp_grids = reversed_cmp['baseline_ct35_comparator']['grids']
+        for g, bg, cells in zip(cmp_grids, [list(x['background_hex_grid']) for x in reversed(cmp_grids)],
+                                [x['cells'] for x in reversed(cmp_grids)]):
+            g.update(background_hex_grid=bg, cells=cells)
+        self.assertRefused(reversed_cmp, 'comparator background ladder is not a refinement',
+                           'comparator non-monotonic grid cell counts')
+        # A ladder reversed consistently on both sides is still not a refinement.
+        both = synthetic_same_pipeline()
+        backgrounds = [list(g['background_hex_grid']) for g in reversed(both['grids'])]
+        for side in (both['grids'], both['baseline_ct35_comparator']['grids']):
+            for g, bg in zip(side, backgrounds):
+                g['background_hex_grid'] = list(bg)
+        for e in both['rsm_turbulence_closure_crosscheck']:
+            e['background_hex_grid'] = list(both['grids'][1]['background_hex_grid'])
+        self.assertRefused(both, 'candidate background ladder is not a refinement')
+
+    def test_impossible_fractions_and_negative_losses_refused(self):
+        probe = synthetic_same_pipeline()  # integrator probe mutant, verbatim
+        for g in probe['grids']:
+            g['water_closure_fraction'] = -0.1
+        for e in probe['rsm_turbulence_closure_crosscheck']:
+            e['reynolds_stress_tensor_diagnostics']['positive_definite_normal_stress_fraction'] = 1.5
+        self.assertRefused(probe, 'grid G0_coarse water_closure_fraction -0.1 outside [0, 1]',
+                           'RSM LRR positive_definite_normal_stress_fraction 1.5 outside [0, 1]')
+        d = synthetic_same_pipeline()
+        d['grids'][2]['reject_fraction'] = 1.2
+        d['grids'][1]['hydraulic_loss_j_per_treated_m3'] = -5.0
+        d['rsm_turbulence_closure_crosscheck'][1]['hydraulic_loss_j_per_treated_m3'] = -1.0
+        self.assertRefused(d, 'grid G2_fine reject_fraction 1.2 outside [0, 1]',
+                           'grid G1_medium hydraulic_loss_j_per_treated_m3 -5.0 is negative',
+                           'RSM SSG hydraulic_loss_j_per_treated_m3 -1.0 is negative')
+
+    def test_extreme_finite_inputs_cannot_overflow_into_admission(self):
+        probe = synthetic_same_pipeline()  # integrator probe mutant, verbatim
+        for g, dp in zip(probe['grids'], [1e-308, 2e-308, 1.5e-308]):
+            g['dp_u_pa'] = dp
+        for g in probe['baseline_ct35_comparator']['grids']:
+            g['dp_u_pa'] = 1.79e308
+        self.assertRefused(probe, 'dp_u comparator difference or signal-to-span ratio is non-finite')
+        span = synthetic_same_pipeline()
+        for g, dp in zip(span['grids'], [-1.7e308, 1.7e308, 0.0]):
+            g['dp_u_pa'] = dp
+        self.assertRefused(span, '3-grid dp_u_pa span is non-finite')
+        mean = synthetic_same_pipeline()
+        for e in mean['rsm_turbulence_closure_crosscheck']:
+            e['dp_u_pa'] = 1.7e308
+        self.assertRefused(mean, 'inter-RSM (LRR vs SSG) dp_u non-finite mean')
+
+    def test_rsm_runs_must_bind_to_candidate_g1_pipeline(self):
+        probe = synthetic_same_pipeline()  # integrator probe mutant, verbatim
+        for e in probe['rsm_turbulence_closure_crosscheck']:
+            e.update(subject_design_sha256='0' * 64, grid_id='G0', pipeline_identity={'solver_build': 'wrong'})
+        self.assertRefused(probe, 'RSM LRR subject identity not bound to candidate subject',
+                           'RSM SSG not bound to candidate grid G1', 'RSM LRR pipeline identity not bound')
+        absent = synthetic_same_pipeline()
+        for e in absent['rsm_turbulence_closure_crosscheck']:
+            for key in ('subject_design_sha256', 'grid_id', 'background_hex_grid', 'pipeline_identity',
+                        'openfoam_version'):
+                e.pop(key)
+        self.assertRefused(absent, 'RSM LRR subject identity not bound', 'RSM LRR not bound to candidate grid G1',
+                           'RSM LRR background ladder descriptor not bound', 'RSM LRR pipeline identity not bound',
+                           'RSM LRR solver version not bound')
+        g2_background = synthetic_same_pipeline()
+        g2_background['rsm_turbulence_closure_crosscheck'][0]['background_hex_grid'] = \
+            list(g2_background['grids'][2]['background_hex_grid'])
+        self.assertRefused(g2_background, 'RSM LRR background ladder descriptor not bound to candidate grid G1')
+        other_mesher = synthetic_same_pipeline()
+        other_mesher['rsm_turbulence_closure_crosscheck'][1]['pipeline_identity']['mesher'] = sha(b'SYNTHETIC-other')
+        self.assertRefused(other_mesher, 'RSM SSG pipeline identity not bound')
+        for name, dossier in legacy_dossiers():
+            with self.subTest(dossier=name):
+                self.assertRefused(dossier, 'RSM LRR subject identity not bound', 'RSM SSG pipeline identity not bound')
 
 
 class EliteCfdGateCliTruth(unittest.TestCase):

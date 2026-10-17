@@ -10,7 +10,11 @@ missing or unknown key, or malformed value raises GateConfigError and never fall
 defaults. Observations that are missing, non-numeric or non-finite are failures. Admission needs
 a same-pipeline CT-35 control with its own three grids on the candidate's grid ladder, an equal
 pipeline identity (compiler, mesher, boundary/controller, taps, solver build, extractor digests),
-per-grid subject binding and the preregistered solver version. The signal-to-span ratio is
+per-grid subject binding and the preregistered solver version. Both ladders need explicit,
+refining background descriptors, positive integral cell counts and shrinking cell sizes. Each
+required RSM run must be bound to the candidate subject, its G1 grid and background descriptor,
+the same pipeline identity and the solver version. Fractions must lie in [0, 1], losses must be
+nonnegative, and any non-finite derived quantity refuses admission. The signal-to-span ratio is
 recomputed from grid values:
 
     SNR_span = |dp_u(control, finest) - dp_u(candidate, finest)| / span(candidate G0, G1, G2)
@@ -188,9 +192,60 @@ def evaluate_elite_gci_rsm_gate(
             return None
         return float(value)
 
+    def fraction(label: str, entry: Any, key: str) -> float | None:
+        value = num(label, entry, key)
+        if value is not None and not 0.0 <= value <= 1.0:
+            failures.append(f"{label} {key} {value!r} outside [0, 1]")
+            return None
+        return value
+
+    def nonnegative(label: str, entry: Any, key: str) -> float | None:
+        value = num(label, entry, key)
+        if value is not None and value < 0.0:
+            failures.append(f"{label} {key} {value!r} is negative")
+            return None
+        return value
+
+    def background(label: str, g: dict[str, Any]) -> tuple[int, ...] | None:
+        bg = g.get("background_hex_grid")
+        if (not isinstance(bg, list) or len(bg) != 3
+                or any(isinstance(n, bool) or not isinstance(n, int) or n <= 0 for n in bg)):
+            failures.append(f"{label} background_hex_grid missing or invalid: {bg!r}")
+            return None
+        return tuple(bg)
+
+    def check_refinement(who: str, prefix: str, grids: list[dict[str, Any]]) -> list[int | None]:
+        """Positive integral cells, shrinking cell size and a refining background ladder."""
+        cells: list[int | None] = []
+        h_mm: list[float | None] = []
+        ladder: list[tuple[int, ...] | None] = []
+        for g in grids:
+            label = f"{prefix} {g.get('grid_id', 'unknown')}"
+            c = g.get("cells")
+            if isinstance(c, bool) or not isinstance(c, int) or c <= 0:
+                failures.append(f"{label} cells must be a positive integer: {c!r}")
+                c = None
+            cells.append(c)
+            h = num(label, g, "effective_cell_size_mm")
+            if h is not None and not h > 0.0:
+                failures.append(f"{label} effective_cell_size_mm must be positive: {h!r}")
+                h = None
+            h_mm.append(h)
+            ladder.append(background(label, g))
+        if None not in cells and not cells[0] < cells[1] < cells[2]:
+            failures.append(f"{who} non-monotonic grid cell counts: {cells}")
+        if None not in h_mm and not h_mm[0] > h_mm[1] > h_mm[2]:
+            failures.append(f"{who} non-monotonic effective cell sizes (mm): {h_mm}")
+        if None not in ladder and not all(
+            all(b >= a for a, b in zip(ladder[i - 1], ladder[i])) and math.prod(ladder[i]) > math.prod(ladder[i - 1])
+            for i in (1, 2)
+        ):
+            failures.append(f"{who} background ladder is not a refinement: {ladder}")
+        return cells
+
     def check_flow_quality(label: str, entry: Any) -> None:
-        wc = num(label, entry, "water_closure_fraction")
-        rf = num(label, entry, "reject_fraction")
+        wc = fraction(label, entry, "water_closure_fraction")
+        rf = fraction(label, entry, "reject_fraction")
         if rf is not None and not lo <= rf <= hi:
             failures.append(f"{label} reject_fraction {rf:.6f} outside preregistered [{lo:.4f}, {hi:.4f}]")
         if rf is not None and not policy_lo <= rf <= policy_hi:
@@ -224,19 +279,12 @@ def evaluate_elite_gci_rsm_gate(
     dp: list[float | None] = [None, None, None]
     el: list[float | None] = [None, None, None]
     if ladder_ok:
-        cells = [num(f"grid {g.get('grid_id', 'unknown')}", g, "cells") for g in grids]
-        h_mm = [num(f"grid {g.get('grid_id', 'unknown')}", g, "effective_cell_size_mm") for g in grids]
-        checks["grid_cells"] = cells
-        checks["effective_cell_size_mm"] = h_mm
-        if None not in cells and not cells[0] < cells[1] < cells[2]:
-            failures.append(f"non-monotonic grid cell counts: {cells}")
-        if None not in h_mm and not h_mm[0] > h_mm[1] > h_mm[2] > 0.0:
-            failures.append(f"non-monotonic effective cell sizes (mm): {h_mm}")
+        checks["grid_cells"] = check_refinement("candidate", "grid", grids)
         for i, g in enumerate(grids):
             label = f"grid {g.get('grid_id', 'unknown')}"
             check_flow_quality(label, g)
             dp[i] = num(label, g, "dp_u_pa")
-            el[i] = num(label, g, "hydraulic_loss_j_per_treated_m3")
+            el[i] = nonnegative(label, g, "hydraulic_loss_j_per_treated_m3")
 
     if dossier.get("openfoam_version") != cfg["openfoam_version"]:
         failures.append(
@@ -268,6 +316,7 @@ def evaluate_elite_gci_rsm_gate(
         if cmp_grids is None:
             failures.append("comparator 3-grid ladder not bound: comparator has no grids (single-point reference)")
         elif check_ladder("comparator", cmp_grids, comparator.get("subject_design_sha256")):
+            check_refinement("comparator", "comparator grid", cmp_grids)
             if ladder_ok:
                 for g, c in zip(grids, cmp_grids):
                     if g.get("background_hex_grid") != c.get("background_hex_grid"):
@@ -279,7 +328,8 @@ def evaluate_elite_gci_rsm_gate(
                 check_flow_quality(f"comparator grid {c.get('grid_id', 'unknown')}", c)
             finest = cmp_grids[-1]
             cmp_dp = num(f"comparator grid {finest.get('grid_id', 'unknown')}", finest, "dp_u_pa")
-            cmp_el = num(f"comparator grid {finest.get('grid_id', 'unknown')}", finest, "hydraulic_loss_j_per_treated_m3")
+            cmp_el = nonnegative(f"comparator grid {finest.get('grid_id', 'unknown')}", finest,
+                                 "hydraulic_loss_j_per_treated_m3")
 
     gci = dossier.get("roache_gci_analysis")
     gci = gci if isinstance(gci, dict) else {}
@@ -292,13 +342,20 @@ def evaluate_elite_gci_rsm_gate(
         if None not in values:
             span = max(values) - min(values)
             checks[f"candidate_3grid_{metric}_span"] = span
-            if not span > 0.0:
-                field = "dp_u_pa" if metric == "dp_u" else "hydraulic_loss_j_per_treated_m3"
+            field = "dp_u_pa" if metric == "dp_u" else "hydraulic_loss_j_per_treated_m3"
+            if not math.isfinite(span):
+                failures.append(f"3-grid {field} span is non-finite (arithmetic overflow); signal-to-span undefined")
+            elif not span > 0.0:
                 failures.append(f"3-grid {field} span {span!r} is not positive; signal-to-span undefined")
             elif ref is not None:
                 difference = ref - values[-1]
                 checks[f"comparator_minus_candidate_finest_{metric}_{'pa' if metric == 'dp_u' else 'j_per_m3'}"] = difference
                 ratio = abs(difference) / span
+                if not (math.isfinite(difference) and math.isfinite(ratio)):
+                    failures.append(
+                        f"{metric} comparator difference or signal-to-span ratio is non-finite (arithmetic overflow)"
+                    )
+                    ratio = None
         checks[ratio_key] = ratio
         if ratio is not None and ratio < min_snr_span:
             source = "preregistered" if preregistered else "runner policy (not preregistered) reusing preregistered"
@@ -341,20 +398,36 @@ def evaluate_elite_gci_rsm_gate(
     by_model = {str(item.get("turbulence_model")): item for item in rsm_list if isinstance(item, dict)}
     rsm_dp: dict[str, float] = {}
     rsm_el: dict[str, float] = {}
+    rsm_ordinal = cfg["grid_ordinals"][1]
+    rsm_grid = grids[1] if ladder_ok else None
     for model_name in cfg["rsm_closures_required"]:
         if model_name not in by_model:
             failures.append(f"missing required 7-equation RSM closure: {model_name}")
             continue
         entry = by_model[model_name]
         label = f"RSM {model_name}"
+        # Each RSM run must be the candidate's own G1 case on the same pipeline.
+        if not (isinstance(subject, str) and SHA256.fullmatch(subject)) or entry.get("subject_design_sha256") != subject:
+            failures.append(f"{label} subject identity not bound to candidate subject")
+        if _ordinal(entry.get("grid_id")) != rsm_ordinal:
+            failures.append(f"{label} not bound to candidate grid {rsm_ordinal}: grid_id {entry.get('grid_id')!r}")
+        if (rsm_grid is None or background(label, entry) is None
+                or entry.get("background_hex_grid") != rsm_grid.get("background_hex_grid")):
+            failures.append(f"{label} background ladder descriptor not bound to candidate grid {rsm_ordinal}")
+        if (not _pipeline_identity_ok(entry.get("pipeline_identity"))
+                or entry.get("pipeline_identity") != dossier.get("pipeline_identity")):
+            failures.append(f"{label} pipeline identity not bound to the candidate pipeline")
+        if entry.get("openfoam_version") != cfg["openfoam_version"]:
+            failures.append(f"{label} solver version not bound: {entry.get('openfoam_version')!r}")
         check_flow_quality(label, entry)
-        pos_frac = num(label, entry.get("reynolds_stress_tensor_diagnostics"), "positive_definite_normal_stress_fraction")
+        pos_frac = fraction(label, entry.get("reynolds_stress_tensor_diagnostics"),
+                            "positive_definite_normal_stress_fraction")
         if pos_frac is not None and pos_frac < min_realizability:
             failures.append(f"{label} realizability fraction {pos_frac:.6f} < {min_realizability:.6f}")
         value = num(label, entry, "dp_u_pa")
         if value is not None:
             rsm_dp[model_name] = value
-        value = num(label, entry, "hydraulic_loss_j_per_treated_m3")
+        value = nonnegative(label, entry, "hydraulic_loss_j_per_treated_m3")
         if value is not None:
             rsm_el[model_name] = value
 
@@ -369,10 +442,16 @@ def evaluate_elite_gci_rsm_gate(
             if a not in values or b not in values:
                 continue
             mean = 0.5 * (values[a] + values[b])
+            if not math.isfinite(mean):
+                failures.append(f"inter-RSM ({a} vs {b}) {metric} non-finite mean (arithmetic overflow)")
+                continue
             if not mean > 0.0:
                 failures.append(f"inter-RSM ({a} vs {b}) {metric} non-positive mean {mean!r}; discrepancy undefined")
                 continue
             pct = 100.0 * abs(values[a] - values[b]) / mean
+            if not math.isfinite(pct):
+                failures.append(f"inter-RSM ({a} vs {b}) {metric} non-finite discrepancy (arithmetic overflow)")
+                continue
             checks[f"inter_rsm_{metric}_delta_pct_{a}_{b}"] = pct
             worst = pct if worst is None else max(worst, pct)
             if pct > max_rsm_delta_pct:
