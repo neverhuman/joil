@@ -450,23 +450,30 @@ class EvidenceTests(unittest.TestCase):
         root=Path(__file__).resolve().parents[1]
         dossier=json.loads((root/'docs/results/elite-3grid-gci-and-rsm-verification-v1.json').read_text())
         prereg=json.loads((root/'experiments/wave2-preregistration-v1.json').read_text())
-        passed=evaluate_elite_gci_rsm_gate(dossier,prereg)
-        self.assertTrue(passed['gate_passed'],passed['failures'])
-        self.assertGreaterEqual(passed['checks']['saving_to_3grid_span_ratio_dp_u'],3.0)
-        self.assertLessEqual(passed['checks']['inter_rsm_dp_u_delta_pct'],5.0)
+        # V5-01-01: the recorded historical ratio stays readable; the corrected gate does not admit a
+        # single-point different-pipeline CT-35 comparison (see tests/test_v5_truth.py).
+        self.assertGreaterEqual(dossier['roache_gci_analysis']['signal_to_uncertainty_margin']['saving_to_3grid_span_ratio'],3.0)
+        corrected=evaluate_elite_gci_rsm_gate(dossier,prereg)
+        self.assertEqual(corrected['admission'],'not_admitted')
+        self.assertTrue(any('comparator 3-grid ladder not bound' in f for f in corrected['failures']),corrected['failures'])
+        self.assertIsNone(corrected['checks']['saving_to_3grid_span_ratio_dp_u'])
+        self.assertLessEqual(corrected['checks']['inter_rsm_dp_u_delta_pct'],5.0)
         bad=copy.deepcopy(dossier)
         bad['rsm_turbulence_closure_crosscheck'][0]['reynolds_stress_tensor_diagnostics']['positive_definite_normal_stress_fraction']=0.98
         bad['roache_gci_analysis']['signal_to_uncertainty_margin']['saving_to_3grid_span_ratio']=2.1
         failed=evaluate_elite_gci_rsm_gate(bad,prereg)
         self.assertFalse(failed['gate_passed'])
-        self.assertGreaterEqual(len(failed['failures']),2)
+        self.assertTrue(any('realizability fraction 0.980000' in f for f in failed['failures']),failed['failures'])
+        self.assertTrue(any('recorded saving_to_3grid_span_ratio 2.1' in f for f in failed['failures']),failed['failures'])
 
         w2_bundle=json.loads((root/'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json').read_text())
         self.assertIsNone(w2_bundle['qualified_multiobjective_vector'])
         for key in ('wave2_tpms_gyroid_elite_5run_dossier','wave2_octa_branch_8jet_elite_5run_dossier'):
+            self.assertTrue(w2_bundle[key]['mandatory_promotion_gate']['gate_passed'])
+            self.assertGreaterEqual(w2_bundle[key]['roache_gci_analysis']['signal_to_uncertainty_margin']['saving_to_3grid_span_ratio'],3.0)
             w2_res=evaluate_elite_gci_rsm_gate(w2_bundle[key],prereg)
-            self.assertTrue(w2_res['gate_passed'],w2_res['failures'])
-            self.assertGreaterEqual(w2_res['checks']['saving_to_3grid_span_ratio_dp_u'],3.0)
+            self.assertEqual(w2_res['admission'],'not_admitted')
+            self.assertTrue(any('pipeline identity not bound' in f for f in w2_res['failures']),w2_res['failures'])
             self.assertLessEqual(w2_res['checks']['inter_rsm_dp_u_delta_pct'],5.0)
         f2_chk=w2_bundle['f2_oil_transient_droplet_closure_checkpoint_and_resumable_plan']
         self.assertFalse(f2_chk['qualified_for_f2_oil_grade'])
@@ -580,7 +587,15 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(v2_w1['roache_gci_analysis']['dp_u_pa']['gci_validity_state'], 'Oscillatory')
         self.assertIsNone(v2_w1['roache_gci_analysis']['dp_u_pa']['observed_order_p'])
         self.assertIsNone(v2_w1['roache_gci_analysis']['dp_u_pa']['gci21_standard_fs125_pct'])
-        self.assertTrue(evaluate_elite_gci_rsm_gate(v2_w1, prereg)['gate_passed'])
+
+        def gci_rule_failures(dossier):
+            # V5-01-01: v2 GCI validity rules still pass; admission fails on unbound comparator identity.
+            res = evaluate_elite_gci_rsm_gate(dossier, prereg)
+            self.assertEqual(res['admission'], 'not_admitted')
+            return [f for f in res['failures'] if 'gci' in f or 'observed_order_p' in f or 'asymptotic' in f]
+
+        self.assertTrue(v2_w1['mandatory_promotion_gate']['gate_passed'])
+        self.assertEqual(gci_rule_failures(v2_w1), [])
 
         v2_w2 = json.loads((root / 'docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json').read_text())
         self.assertEqual(v2_w2['schema_version'], 2)
@@ -589,7 +604,11 @@ class EvidenceTests(unittest.TestCase):
             self.assertEqual(sub['roache_gci_analysis']['dp_u_pa']['gci_validity_state'], 'Oscillatory')
             self.assertIsNone(sub['roache_gci_analysis']['dp_u_pa']['observed_order_p'])
             self.assertIsNone(sub['roache_gci_analysis']['dp_u_pa']['gci21_standard_fs125_pct'])
-            self.assertTrue(evaluate_elite_gci_rsm_gate(sub, prereg)['gate_passed'])
+            self.assertTrue(sub['mandatory_promotion_gate']['gate_passed'])
+            self.assertEqual(gci_rule_failures(sub), [])
+            broken = json.loads(json.dumps(sub))
+            broken['roache_gci_analysis']['dp_u_pa']['observed_order_p'] = 2.0
+            self.assertTrue(gci_rule_failures(broken))
 
 
 if __name__=='__main__':unittest.main()

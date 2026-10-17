@@ -61,7 +61,7 @@ rtk proxy cargo test -p joil-core --test regression closed_catalog_validity_11fa
 rtk proxy cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact
 rtk cargo run --locked -p joil-cli -- baseline
 rtk proxy python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json
-rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --verify-existing
+rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --interpret-existing
 rtk proxy python3 -m unittest discover -s tests -v
 rtk proxy python3 tools/check_public.py
 rtk proxy python3 tools/claims_audit.py
@@ -69,7 +69,7 @@ rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'
 rtk proxy python3 tools/check.py
 ```
 
-`tools/run_elite_3grid_gci_and_rsm.py --verify-existing` re-checks the recorded gates in the committed GCI receipts. The `PASS ... certified` line it prints comes from the historical single-point analysis against the different-pipeline `CT-35` case. It is not a current claim: see WHITEPAPER correction C2 and §4.6.
+`tools/run_elite_3grid_gci_and_rsm.py --interpret-existing` prints each committed elite GCI dossier's recorded historical gate value next to its corrected admission. The gate now reads only the frozen preregistration block, applies no improvement threshold, and admits only a resolved difference from a same-pipeline `CT-35` control with bound pipeline, grid-ladder, subject and solver identities. No committed dossier records those identities, so every one is `not_admitted` and `--verify-existing` exits nonzero. The historical `PASS ... certified` line came from a single-point analysis against the different-pipeline `CT-35` case. It is not a current claim: see WHITEPAPER correction C2 and §4.6.
 
 **2. Re-run a screen study (optional, slow).** Always pass `--out` into the ignored `artifacts/` directory. The CLI defaults overwrite the committed, hash-bound receipts in `docs/results/`, and on repaired code the regenerated numbers differ from those historical receipts. Pass `--mc 72`: the p05/p95 objectives need `72` Monte Carlo samples for a distribution-free bound, and at the default of `12` they are reported insufficient, so no candidate is ranked and every hypervolume is zero ([TR fresh-clone check](docs/reviews/2026-10-16-TR-readme-freshclone.md)).
 
