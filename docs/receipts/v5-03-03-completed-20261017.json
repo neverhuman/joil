@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "kind": "software_contract_task_completion_not_physical_admission",
+  "packet": "V5-03",
+  "task_ids": [
+    "V5-03-03"
+  ],
+  "tested_commit": "4a546fd9d69d2e3872d3f929d10e27acc7f8b5a1",
+  "verifier_commit": "ee45bf4a2f3f51dc007c8beda23a1a671afdfde9",
+  "created_utc": "2026-10-17T21:53:58.382821+00:00",
+  "changed_paths": [
+    "crates/crucible-contract/src/outcomes.rs",
+    "crates/crucible-contract/tests/outcomes.rs",
+    "crates/joil-evidence/src/claims.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-units",
+        "-p",
+        "crucible-contract",
+        "-p",
+        "crucible-architecture",
+        "-p",
+        "joil-evidence"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2bc7aee5e544186b04d0656dabf26bdd9b12bd31074705418c6b96e9dad7e52d",
+      "wall_seconds": 1.2715524979867041
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-units",
+        "-p",
+        "crucible-contract",
+        "-p",
+        "crucible-architecture",
+        "-p",
+        "joil-evidence",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "886fde50ceef5d8a01836e8b050ec10e8f88583505998cc475ecda9641ff65e0",
+      "wall_seconds": 4.1274069040082395
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-contract",
+        "--test",
+        "interchange"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9216b49eeb25eae89c532f025a7c6f713108a823ee87cc1fd31b2f5d7e5d65db",
+      "wall_seconds": 0.12766275997273624
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "apps/explorer/node_modules/.bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--target",
+        "ES2020",
+        "schemas/v5/contracts.generated.ts",
+        "schemas/v5/render-origin.generated.ts",
+        "schemas/v5/contracts.typecheck.ts"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.370147225970868
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "schemas/v5/validate_fixtures.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1b5ed505cb698a9a57736657241e11752af235f452e0f66bdc7582dc47745146",
+      "wall_seconds": 0.17024140700232238
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "0164bf72e25e62a631c48ae7f63a9326cee7d3552ccb023578956cac0cbc74c0",
+      "wall_seconds": 1.805989678017795
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5600da2e8b913ee394ae1f90239d1ff1b1835d86a6b74e0716721231c49fcbf6",
+      "wall_seconds": 0.33220330701442435
+    }
+  ],
+  "positive_checks": [
+    "Exhaustive distinct nonpassing reasons and current source-bound Pass/Fail/NA resolution covered",
+    "Private verdict/eligibility constructors and noDeserialize compile-fail checks pass"
+  ],
+  "negative_checks": [
+    "Exit success with no output remains Unknown; empty/renamed gate inventory and stale policy refuse",
+    "Old-requirement passing claim cannot satisfy new-requirement gate"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-contract/src/outcomes.rs",
+      "sha256": "d148798914f6988e6b026a49c7b59cff32e302b65dd8dddab88df879d15c73ea"
+    },
+    {
+      "path": "crates/crucible-contract/tests/outcomes.rs",
+      "sha256": "63f3d915d9a72cd973d30a57bd402bda97d2f6c54de08c008bb1f224f4a8329f"
+    },
+    {
+      "path": "crates/joil-evidence/src/claims.rs",
+      "sha256": "ec619b2b60cc9306d6a360faf03cbc904f316a4147d8049d90b30413d6b44682"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Software contracts and byte/review closure only; no native physical measurement, material qualification, mesh-quality or performance claim",
+    "Authenticated reviewer is an explicit application trust boundary; synthetic approvals supply software fixtures only",
+    "Static dependency graph does not establish native process isolation; runtime boundary is V5-06; native artifact observer is V5-09",
+    "Finite JSON and semantic checks exceed structural schema; TS describes shape only; independent jsonschema/tsc checks recorded locally",
+    "TR-16/EV-09/EV-12 deferrals retained; v1 requirements/preregistration/scientific STATUS untouched",
+    "Required full workspace gate remains mandatory before push"
+  ],
+  "next_dependency": "V5-03-04"
+}

@@ -1,0 +1,420 @@
+{
+  "schema_version": 1,
+  "kind": "accepted_typed_contracts_not_physical_admission",
+  "packet": "V5-03",
+  "task_ids": [
+    "V5-03-01",
+    "V5-03-02",
+    "V5-03-03",
+    "V5-03-04",
+    "V5-03-05"
+  ],
+  "tested_commit": "4a546fd9d69d2e3872d3f929d10e27acc7f8b5a1",
+  "verifier_commit": "ee45bf4a2f3f51dc007c8beda23a1a671afdfde9",
+  "created_utc": "2026-10-17T21:53:58.680147+00:00",
+  "changed_paths": [
+    "Cargo.lock",
+    "Cargo.toml",
+    "crates/crucible-architecture/Cargo.toml",
+    "crates/crucible-architecture/src/lib.rs",
+    "crates/crucible-architecture/tests/blind_boundary.rs",
+    "crates/crucible-contract/Cargo.toml",
+    "crates/crucible-contract/examples/freeze_fixtures.rs",
+    "crates/crucible-contract/src/architecture.rs",
+    "crates/crucible-contract/src/keys.rs",
+    "crates/crucible-contract/src/lib.rs",
+    "crates/crucible-contract/src/outcomes.rs",
+    "crates/crucible-contract/src/subject.rs",
+    "crates/crucible-contract/tests/architecture.rs",
+    "crates/crucible-contract/tests/common/mod.rs",
+    "crates/crucible-contract/tests/interchange.rs",
+    "crates/crucible-contract/tests/outcomes.rs",
+    "crates/crucible-contract/tests/subject_keys.rs",
+    "crates/crucible-units/Cargo.toml",
+    "crates/crucible-units/src/lib.rs",
+    "crates/crucible-units/tests/dimensions.rs",
+    "crates/joil-evidence/src/claims.rs",
+    "docs/design/V5_CONTRACTS.md",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/todos/V5-03.md",
+    "schemas/v5/README.md",
+    "schemas/v5/contracts.generated.ts",
+    "schemas/v5/contracts.typecheck.ts",
+    "schemas/v5/fixtures/invalid-expression-dimension.json",
+    "schemas/v5/fixtures/invalid-subject-display-label.json",
+    "schemas/v5/fixtures/invalid-subject-duplicate-key.json",
+    "schemas/v5/fixtures/invalid-subject-expected-score.json",
+    "schemas/v5/fixtures/invalid-subject-family-bonus.json",
+    "schemas/v5/fixtures/invalid-subject-negative-zero.json",
+    "schemas/v5/fixtures/invalid-subject-nested-label.json",
+    "schemas/v5/fixtures/invalid-task-outcome-forged-pass.json",
+    "schemas/v5/fixtures/valid-decision-key.json",
+    "schemas/v5/fixtures/valid-evaluation-key.json",
+    "schemas/v5/fixtures/valid-expression.json",
+    "schemas/v5/fixtures/valid-observation-state.json",
+    "schemas/v5/fixtures/valid-subject.json",
+    "schemas/v5/fixtures/valid-surface.json",
+    "schemas/v5/fixtures/valid-task-outcome.json",
+    "schemas/v5/generate_contracts.py",
+    "schemas/v5/physical-contracts.schema.json",
+    "schemas/v5/render-origin.generated.ts",
+    "schemas/v5/render-origin.schema.json",
+    "schemas/v5/validate_fixtures.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-units",
+        "-p",
+        "crucible-contract",
+        "-p",
+        "crucible-architecture",
+        "-p",
+        "joil-evidence"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2bc7aee5e544186b04d0656dabf26bdd9b12bd31074705418c6b96e9dad7e52d",
+      "wall_seconds": 1.2715524979867041
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-units",
+        "-p",
+        "crucible-contract",
+        "-p",
+        "crucible-architecture",
+        "-p",
+        "joil-evidence",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "886fde50ceef5d8a01836e8b050ec10e8f88583505998cc475ecda9641ff65e0",
+      "wall_seconds": 4.1274069040082395
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-contract",
+        "--test",
+        "interchange"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9216b49eeb25eae89c532f025a7c6f713108a823ee87cc1fd31b2f5d7e5d65db",
+      "wall_seconds": 0.12766275997273624
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "apps/explorer/node_modules/.bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--target",
+        "ES2020",
+        "schemas/v5/contracts.generated.ts",
+        "schemas/v5/render-origin.generated.ts",
+        "schemas/v5/contracts.typecheck.ts"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.370147225970868
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "schemas/v5/validate_fixtures.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1b5ed505cb698a9a57736657241e11752af235f452e0f66bdc7582dc47745146",
+      "wall_seconds": 0.17024140700232238
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "0164bf72e25e62a631c48ae7f63a9326cee7d3552ccb023578956cac0cbc74c0",
+      "wall_seconds": 1.805989678017795
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5600da2e8b913ee394ae1f90239d1ff1b1835d86a6b74e0716721231c49fcbf6",
+      "wall_seconds": 0.33220330701442435
+    }
+  ],
+  "positive_checks": [
+    "Independent 1mg/L=.001kg/m3 and1000mg/L oil-density conversion oracle",
+    "Pa/kPa/mm/m and proper rigid coordinate transforms pass",
+    "Artifact-only tetrahedron judge computes volume1/6 without genotype",
+    "Byte/interface/acceptance/frozen closure checked under current authenticated reviews",
+    "Exhaustive distinct nonpassing reasons and current source-bound Pass/Fail/NA resolution covered",
+    "Private verdict/eligibility constructors and noDeserialize compile-fail checks pass",
+    "Each of13 independent input mutations changes observation identity",
+    "Changed weights change decision identity and preserve observation identity",
+    "Resolved actual normal/build/dev graph is checked in dedicated package",
+    "7valid frozen examples, schema7valid/5rejected/3semantic cases; generated TS controls pass",
+    "Separate render-only origin schema excludes provenance from evaluator transport"
+  ],
+  "negative_checks": [
+    "Wrong dimensions/basis, nonfinite, negative zero, inexact integers, AST gas/depth/overflow/underflow and reflection/scale refuse",
+    "Changed tail, missing boundary bytes, changed units, excessive approximation bounds, revoked acceptance refuse",
+    "Expected score/family bonus/nested module labels rejected",
+    "Exit success with no output remains Unknown; empty/renamed gate inventory and stale policy refuse",
+    "Old-requirement passing claim cannot satisfy new-requirement gate",
+    "Identical subject with different mesh policy/sampling cannot share exact cache",
+    "Storage and canonical semantic hash are distinct",
+    "Synthetic indirect build/dev bridge to genome registry rejects",
+    "Label leaks, forged worker Pass, unknown/duplicate keys, negative zero and wrong dimensions reject through strict/semantic boundaries"
+  ],
+  "artifacts": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "a29d2bbcee72388c2ab6ce9b23358ebaaca69ee077095cf97d0c0082a6afc140"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "bc5bb49a2012b1d3df644150fa0faf25d73388833e1ae038fe40c49e91051ac9"
+    },
+    {
+      "path": "crates/crucible-architecture/Cargo.toml",
+      "sha256": "719d03c3c49679a8bc8a323b6b69726bba8448d42bfb5bae7f054b42f248a847"
+    },
+    {
+      "path": "crates/crucible-architecture/src/lib.rs",
+      "sha256": "40f0d3115fc9f77f7e44c47317f66b832c6486442a76a96963d1cf91a23c8c72"
+    },
+    {
+      "path": "crates/crucible-architecture/tests/blind_boundary.rs",
+      "sha256": "fa9646ca7346958b3616874022f89a9d70648fb1299e823344d6b5d8657b2e52"
+    },
+    {
+      "path": "crates/crucible-contract/Cargo.toml",
+      "sha256": "6e0df0b3f1d23f4fc4279eeaf4a239b120f055ba11b0c96763bfd849ecc8c726"
+    },
+    {
+      "path": "crates/crucible-contract/examples/freeze_fixtures.rs",
+      "sha256": "eab289f7b1bf4626d2ed0a9b184177db6b457bc4fdfecee7cadb6992f2d3a911"
+    },
+    {
+      "path": "crates/crucible-contract/src/architecture.rs",
+      "sha256": "d124b9efeec78008953f600fd8e0e9068612bad37144a9d1967f4e87f99ccd89"
+    },
+    {
+      "path": "crates/crucible-contract/src/keys.rs",
+      "sha256": "599679c3243bbff0485e1369f8e44e81dbfffd96dc35f88360f08055bf8a2e2f"
+    },
+    {
+      "path": "crates/crucible-contract/src/lib.rs",
+      "sha256": "51296a55c4c91552deaa59cdec92f7399521947e14ef12b97e313e00a90d3f00"
+    },
+    {
+      "path": "crates/crucible-contract/src/outcomes.rs",
+      "sha256": "d148798914f6988e6b026a49c7b59cff32e302b65dd8dddab88df879d15c73ea"
+    },
+    {
+      "path": "crates/crucible-contract/src/subject.rs",
+      "sha256": "79dbfed751dc0a484048cd7eee41426d0754bd58ce2eb6e020e0a4f6693b4faa"
+    },
+    {
+      "path": "crates/crucible-contract/tests/architecture.rs",
+      "sha256": "fa9646ca7346958b3616874022f89a9d70648fb1299e823344d6b5d8657b2e52"
+    },
+    {
+      "path": "crates/crucible-contract/tests/common/mod.rs",
+      "sha256": "e16d0a559a7903f20b810038fcc87c62db990159a4b20f01e771052117abc946"
+    },
+    {
+      "path": "crates/crucible-contract/tests/interchange.rs",
+      "sha256": "4c84e83c5dd90ca4a7b2a3058a754f4052d12f4403ad90d020b73f3869af94ce"
+    },
+    {
+      "path": "crates/crucible-contract/tests/outcomes.rs",
+      "sha256": "63f3d915d9a72cd973d30a57bd402bda97d2f6c54de08c008bb1f224f4a8329f"
+    },
+    {
+      "path": "crates/crucible-contract/tests/subject_keys.rs",
+      "sha256": "11d7a495815893f433deeedbea7a4347f83c1e003b86463925997386451b4367"
+    },
+    {
+      "path": "crates/crucible-units/Cargo.toml",
+      "sha256": "493dead8f3b2cafebba4611bb03b84ae5d15a96ec6a2fccd114591817713075f"
+    },
+    {
+      "path": "crates/crucible-units/src/lib.rs",
+      "sha256": "431744c3c964c9fc9f73ece11c58a40850a8bf7576bdcb2179507722aed72955"
+    },
+    {
+      "path": "crates/crucible-units/tests/dimensions.rs",
+      "sha256": "62388f9344dddd63159d5f8bd41542999229d16221e2f619c35bdfb5af3d5e07"
+    },
+    {
+      "path": "crates/joil-evidence/src/claims.rs",
+      "sha256": "ec619b2b60cc9306d6a360faf03cbc904f316a4147d8049d90b30413d6b44682"
+    },
+    {
+      "path": "docs/design/V5_CONTRACTS.md",
+      "sha256": "6ba887d2d4f7144351d82d2aff51db64c87f958d99951d6460d0c45a512c30bf"
+    },
+    {
+      "path": "docs/v5-plan/TASKS.json",
+      "sha256": "05e918aa7536c2932adf8bc9ed302daad5e3d895e0986cd3e305e7872fbc249f"
+    },
+    {
+      "path": "docs/v5-plan/dashboard.html",
+      "sha256": "0f4441d7c2ae2ab2a2b028983771692d4201046889a9a480942271b8d5413fd1"
+    },
+    {
+      "path": "docs/v5-plan/todos/V5-03.md",
+      "sha256": "7605840c1f979dfef0de9c0e1d4be1fd3b500d5ae00e3e3c38650961b4ea8211"
+    },
+    {
+      "path": "schemas/v5/README.md",
+      "sha256": "85518552ccbde0e0725442903b3b8acdd2bd573bd74fdc20ad21f766abca6e0d"
+    },
+    {
+      "path": "schemas/v5/contracts.generated.ts",
+      "sha256": "1c08b1b22b8a3f1a2a1bffaf2422423a16ceb1e04d5f56ea82d454793f4da557"
+    },
+    {
+      "path": "schemas/v5/contracts.typecheck.ts",
+      "sha256": "bec37c2419ee7e2ce0d745f4a3dcb185defcccf5bba83e182beb11c93edd4e70"
+    },
+    {
+      "path": "schemas/v5/fixtures/invalid-expression-dimension.json",
+      "sha256": "f1f59c7589b4a804f4a3ee7b385f7f8b526515d54a511b928b109a031fb612ca"
+    },
+    {
+      "path": "schemas/v5/fixtures/invalid-subject-display-label.json",
+      "sha256": "1bae425b475e32d233055b676def434210d5e89c918036c795dfaedbb3bc2d02"
+    },
+    {
+      "path": "schemas/v5/fixtures/invalid-subject-duplicate-key.json",
+      "sha256": "f1bc1a56bf5ededb3e4136250b6d115c17ab65f43c5f6ab34017a6233814d150"
+    },
+    {
+      "path": "schemas/v5/fixtures/invalid-subject-expected-score.json",
+      "sha256": "d487c49abccc2c3a73cab6f015e429a03e804ad79eed922c7db33cafde926a66"
+    },
+    {
+      "path": "schemas/v5/fixtures/invalid-subject-family-bonus.json",
+      "sha256": "008975ea9051ca352af011f328ec273fac8e7fd0768517b0d250e52d4155fb35"
+    },
+    {
+      "path": "schemas/v5/fixtures/invalid-subject-negative-zero.json",
+      "sha256": "c232f3eed76cfba645047b264ee53afc0143cd3060f783793f357de1cdca1625"
+    },
+    {
+      "path": "schemas/v5/fixtures/invalid-subject-nested-label.json",
+      "sha256": "39f447edb1c09b61d8ff272e5a9f9754f35810803dbd6c723d7662cbc788c930"
+    },
+    {
+      "path": "schemas/v5/fixtures/invalid-task-outcome-forged-pass.json",
+      "sha256": "3b149bdfc50f97ae0ab43dd80632bfaac1e59b1d1de25c4798c707fad141376f"
+    },
+    {
+      "path": "schemas/v5/fixtures/valid-decision-key.json",
+      "sha256": "9d4b227c60db288d2e331afae966fb8a8dd75ac8cfe8190b6a5e7c07e5203ea9"
+    },
+    {
+      "path": "schemas/v5/fixtures/valid-evaluation-key.json",
+      "sha256": "394d589d4a35a2904d21dcb829ca7d3cf17dae3e58e4b0b906f7384920dd19a6"
+    },
+    {
+      "path": "schemas/v5/fixtures/valid-expression.json",
+      "sha256": "6ce3a90c2db975cdb3b114ba348e2dcd69ec4bda471a2743119b9453a1b2baf0"
+    },
+    {
+      "path": "schemas/v5/fixtures/valid-observation-state.json",
+      "sha256": "697945d93777e3124181d9031a642979a3b1cebed34cda33e7077404ae0821f4"
+    },
+    {
+      "path": "schemas/v5/fixtures/valid-subject.json",
+      "sha256": "294e45e601bfba35c117616b5b37358926a65b277267c14edd74eec238babf5c"
+    },
+    {
+      "path": "schemas/v5/fixtures/valid-surface.json",
+      "sha256": "287e0037986b605a91a405e6dfcfcdd0381381f00780551e08fab161c3c99f2a"
+    },
+    {
+      "path": "schemas/v5/fixtures/valid-task-outcome.json",
+      "sha256": "cd11dff175fff57003c80a225b3432addf885c00b5afc7e2f93768459be07809"
+    },
+    {
+      "path": "schemas/v5/generate_contracts.py",
+      "sha256": "d2b4266c4e199fa477655a186f1706d3205c166e0b5d76296ac8d79d2d564656"
+    },
+    {
+      "path": "schemas/v5/physical-contracts.schema.json",
+      "sha256": "56153c01856129a0bd86160641e9b72259d6b60554fa01e07a4ec47b52315009"
+    },
+    {
+      "path": "schemas/v5/render-origin.generated.ts",
+      "sha256": "0f84d478017d7148e103fac920fa2191b12d769d61a9efe45d0b6f0b984af972"
+    },
+    {
+      "path": "schemas/v5/render-origin.schema.json",
+      "sha256": "aadf112951c436770d9c52459f044651d1c8281e711d0c406c8b8d6ec8a90b85"
+    },
+    {
+      "path": "schemas/v5/validate_fixtures.py",
+      "sha256": "698ba91f9de738efae89aa6987d323497b649e9757b8fe484ba563e15d73ed18"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Software contracts and byte/review closure only; no native physical measurement, material qualification, mesh-quality or performance claim",
+    "Authenticated reviewer is an explicit application trust boundary; synthetic approvals supply software fixtures only",
+    "Static dependency graph does not establish native process isolation; runtime boundary is V5-06; native artifact observer is V5-09",
+    "Finite JSON and semantic checks exceed structural schema; TS describes shape only; independent jsonschema/tsc checks recorded locally",
+    "TR-16/EV-09/EV-12 deferrals retained; v1 requirements/preregistration/scientific STATUS untouched",
+    "Required full workspace gate remains mandatory before push"
+  ],
+  "next_dependency": "V5-05 private content store; V5-04 estimators separate",
+  "accepted_by": "codex-v5-integrator"
+}
