@@ -2,13 +2,13 @@
 
 Generated from `TASKS.json` and packet-owned `progress/*.json`. Run `rtk proxy python3 tools/v5_plan.py build` after a progress commit.
 
-**Planning is prepared; engineering implementation progress is 5/160. Scientific qualification remains governed by `docs/STATUS.json`.**
+**Planning is prepared; engineering implementation progress is 10/160. Scientific qualification remains governed by `docs/STATUS.json`.**
 
 | Packet | Milestone | Owner role | Complete | Dependencies |
 | --- | --- | --- | ---: | --- |
 | [V5-00 — Baseline preservation and reproducible defect inventory](todos/V5-00.md) | M0 | integrator | 5/5 | none |
 | [V5-01 — Repair current misleading observations and presentation](todos/V5-01.md) | M0 | truth integrator | 0/5 | V5-00 |
-| [V5-02 — Requirements authority and decision profiles](todos/V5-02.md) | M0 | requirements integrator | 0/5 | V5-00 |
+| [V5-02 — Requirements authority and decision profiles](todos/V5-02.md) | M0 | requirements integrator | 5/5 | V5-00 |
 | [V5-03 — Typed contracts and enforced blind evaluator boundary](todos/V5-03.md) | M0 | contract integrator | 0/5 | V5-02 |
 | [V5-04 — Independent statistics and qualification inference](todos/V5-04.md) | M1 | statistics owner | 0/5 | V5-02, V5-03 |
 | [V5-05 — Private content store, exact caches and revocation](todos/V5-05.md) | M1 | store owner | 0/5 | V5-03 |

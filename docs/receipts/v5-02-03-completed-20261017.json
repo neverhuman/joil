@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "kind": "software_contract_task_completion_not_physical_admission",
+  "packet": "V5-02",
+  "task_ids": [
+    "V5-02-03"
+  ],
+  "tested_commit": "ad4193d3eca61b2ebbac820c853e8f5685faae6c",
+  "created_utc": "2026-10-17T21:30:26.018460+00:00",
+  "changed_paths": [
+    "crates/joil-evidence/src/decision.rs",
+    "crates/joil-evidence/tests/decision.rs",
+    "schemas/v5/decision-profile.schema.json",
+    "docs/v5-plan/execution/DECISIONS.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "decision"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9670999a3387cfc7a304be2cf610a73db4cb660cdf10f03cd73f5bca1e115979",
+      "wall_seconds": 0.3315996060264297
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence"
+      ],
+      "exit_code": 0,
+      "log_sha256": "7a36f9068dde2d876d6fe58d02bbf81cabf0aa5aedec22114ab6126db533d978",
+      "wall_seconds": 4.164022377051879
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.09752129198750481
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "df521ec815a61bac38142481b6d12d0170bc388161a0ba4d949e01cd11489973",
+      "wall_seconds": 0.628557504969649
+    }
+  ],
+  "positive_checks": [
+    "Complete reviewed synthetic profile validates against exact requirement bytes and full5gate-by4scenario family",
+    "Reviewed estimand/population/expression, joint sampling, numerical/model bounds, selection/stopping/holdout and fixture sources are resolved through existing Registry"
+  ],
+  "negative_checks": [
+    "Missing cold scenario, empty model discrepancy, unit drift, unknown/duplicate/nonfinite wire input and negative zero bounds reject",
+    "Unreviewed/revoked source, changed formula direction, fixed subject or sidedness reject for specific reasons"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/joil-evidence/src/decision.rs",
+      "sha256": "ac08f7c4caf941d1946664beea7ef78691e88fa7d511845a605e20ac12297660"
+    },
+    {
+      "path": "crates/joil-evidence/tests/decision.rs",
+      "sha256": "d93334610391c61092c6001cc86c74a01baa35e8fe67a2f743ba4674de700502"
+    },
+    {
+      "path": "schemas/v5/decision-profile.schema.json",
+      "sha256": "68b5f6cc3818f3746145a1ddb953c71a4834950458e3d5c0a791a049147d1b37"
+    },
+    {
+      "path": "docs/v5-plan/execution/DECISIONS.md",
+      "sha256": "dbd6c2097f9619ca7034e574e84ada0695f42b674bdfbcb30cfe72ef33b555b9"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_physical_campaign": false
+  },
+  "limitations": [
+    "Policy semantic validation and reviewed input integrity only; synthetic reviewer fixtures do not supply physical measurements or owner admission",
+    "Actual durable experiment-family alpha/attempt spending is V5-06; statistical estimator coverage is V5-04",
+    "V1 requirements/preregistration and scientific STATUS byte-identical; TR-16/EV-09/EV-12 deferrals remain",
+    "Coherent module implementation shared across the five tasks; receipt closure is serialized in required task order"
+  ],
+  "next_dependency": "V5-02-04",
+  "failed_attempts": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "decision"
+      ],
+      "exit_code": 101,
+      "log_sha256": "03b622c6338cd04608333dfe0520e453a12b7e5ee0673cb9b812790700377bce",
+      "wall_seconds": 4.403219572966918
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "decision"
+      ],
+      "exit_code": 101,
+      "log_sha256": "98f60f42f13804ccfbb6bb2620a29857a229bc16338636ae34074f42cd45bad5",
+      "wall_seconds": 4.48233273497317
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "decision"
+      ],
+      "exit_code": 101,
+      "log_sha256": "ac38039c1305103d7532984658eb5a6ff356f1c8319c37a975639fea97d99ac7",
+      "wall_seconds": 0.1693347220425494
+    }
+  ]
+}

@@ -3,34 +3,59 @@
   "packet": "V5-02",
   "tasks": {
     "V5-02-01": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "V5-00 accepted and pushed; claimed exact v2 requirement/decision paths plus integrator module export. Source-bound Proposed/Unresolved limits remain non-admitted.",
-      "evidence": []
+      "note": "Committed ad4193d: source-bound statuses and non-runnable qualified draft; proposed values cannot self-admit.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-02-01-completed-20261017.json",
+          "sha256": "aa6eb687f2f02bcc59719e827229c2cd0ded141cb91e6dd72e036e6bf4cb4732"
+        }
+      ]
     },
     "V5-02-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Exact frozen D1-D4,7 conflicts and explicit concentration/weighting basis retained; source drift refuses.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-02-02-completed-20261017.json",
+          "sha256": "cb4c68bced1333a918d29703430151d0a2206297b82b87039851c6d1e78444f4"
+        }
+      ]
     },
     "V5-02-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Strict source-reviewed DecisionProfile validation; complete family/uncertainty/source negative controls passed.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-02-03-completed-20261017.json",
+          "sha256": "86f4db193d5f0ec8bb70914ac9c18f7de05645a1616736e3a6191d5377b8c09a"
+        }
+      ]
     },
     "V5-02-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Planning precision separated from declared inference; simultaneous/IUT/adaptive/fork policies tested without physical confidence claims.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-02-04-completed-20261017.json",
+          "sha256": "efe43a975dbb79d403dc2a030701d19fafeaab6e758b9734ef8b114f5cec07e4"
+        }
+      ]
     },
     "V5-02-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Nine accountable external inputs block named dependent claims; synthetic sandbox remains allowed, missing data never infeasible.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-02-05-completed-20261017.json",
+          "sha256": "fc8fc2c1576bdf483f5224815342845f3e6b9713387759e1cc39a928c51398e7"
+        }
+      ]
     }
   }
 }
