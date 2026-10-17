@@ -331,14 +331,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }));
             let oil04 =
                 population::verify_added_mass_and_pressure_gradient(30.0, 50.0, 2.0e-7, 0.002)?;
-            let oil05_06 = population::verify_dispersion_and_les_partition(
+            let oil05_06 = population::dispersion_partition_arithmetic(
                 &[0.12, 0.28, 0.54, 0.88, 1.32],
                 0.004,
                 1.45,
                 0.18,
                 0.18,
             )?;
-            let oil06_neg = population::verify_dispersion_and_les_partition(
+            let oil06_neg = population::dispersion_partition_arithmetic(
                 &[0.12, 0.28, 0.54, 0.88, 1.32],
                 0.004,
                 1.45,
@@ -367,12 +367,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 population::check_multiphase_regime_envelope(0.00059, 0.0, 0.0032, 0.024);
             let oil15_violation =
                 population::check_multiphase_regime_envelope(0.035, 0.012, 0.22, 0.002);
+            let well_mixed_transport = oil05_06.well_mixed_transport.clone();
             let report = serde_json::json!({
-                "schema_version": "0.2.0",
+                "schema_version": "0.3.0",
                 "packet": "P05",
                 "evaluator": "joil-core::population",
+                "kind": "software_arithmetic_oracles_not_transport_or_restart_qualification",
                 "oil04_added_mass_and_pressure_gradient": oil04,
-                "oil05_06_dispersion_and_les_partition": oil05_06,
+                "oil05_06_dispersion_partition_arithmetic": oil05_06,
+                "well_mixed_turbulent_transport": well_mixed_transport,
                 "oil07_parcel_substep_halving": oil07,
                 "oil08_stratified_dsd_weights": {
                     "bins": oil08_weights,
@@ -389,8 +392,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "nominal_operating_point": oil15_valid,
                     "dense_core_and_gas_rejection_test": oil15_violation,
                 },
-                "all_p05_gates_passed": oil04.passed
-                    && oil05_06.passed
+                "all_p05_software_checks_passed": oil04.passed
+                    && oil05_06.arithmetic_checks_passed
                     && oil06_neg
                     && oil07.passed
                     && (mass_sum - 1.0).abs() < 1e-12

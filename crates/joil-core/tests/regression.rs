@@ -509,7 +509,12 @@ fn openfoam_candidate_case_builder_and_surrogate_engine_qualification() {
     let sq = run_surrogate_and_engine_qualification(&individuals).unwrap();
     assert!(sq.failure_quarantine_verified);
     assert_eq!(sq.quarantined_failure_records, 2);
-    assert!(sq.checkpoint_determinism_verified);
+    // V5-01-03: compatibility self-test only; campaign replay stays unsupported.
+    assert!(sq.checkpoint_compatibility_selftest_passed);
+    assert!(matches!(
+        sq.campaign_replay,
+        joil_evidence::observation::Observation::Insufficient { .. }
+    ));
     assert!(sq.evaluator_drift_rejection_verified);
     assert!(sq.budget_conservation_verified);
     assert!(sq.ood_std_exceeds_in_dist_std);
@@ -520,8 +525,8 @@ fn openfoam_candidate_case_builder_and_surrogate_engine_qualification() {
 fn p05_population_pbm_dsd_and_multiphase_regime_gates() {
     use joil_core::population::{
         build_stratified_dsd_weights, check_multiphase_regime_envelope,
-        generate_mpi_rank_invariant_cohort, verify_added_mass_and_pressure_gradient,
-        verify_dispersion_and_les_partition, verify_parcel_substep_halving,
+        dispersion_partition_arithmetic, generate_mpi_rank_invariant_cohort,
+        verify_added_mass_and_pressure_gradient, verify_parcel_substep_halving,
         verify_pbm_breakup_coalescence_and_resolution,
     };
 
@@ -531,17 +536,17 @@ fn p05_population_pbm_dsd_and_multiphase_regime_gates() {
     assert!(oil04.exact_initial_accel_ratio_ap_over_af > 1.05);
     assert!(oil04.wrong_omitted_pressure_accel_ratio < 0.5);
 
-    let oil05_06 = verify_dispersion_and_les_partition(
-        &[0.12, 0.28, 0.54, 0.88, 1.32],
-        0.004,
-        1.45,
-        0.18,
-        0.18,
-    )
-    .unwrap();
-    assert!(oil05_06.passed);
-    assert!(oil05_06.negative_control_rans_on_les_rejected);
-    assert!(verify_dispersion_and_les_partition(
+    let oil05_06 =
+        dispersion_partition_arithmetic(&[0.12, 0.28, 0.54, 0.88, 1.32], 0.004, 1.45, 0.18, 0.18)
+            .unwrap();
+    // V5-01-03: arithmetic only; no well-mixed transport qualification.
+    assert!(oil05_06.arithmetic_checks_passed);
+    assert!(oil05_06.claimed_les_dispersion_within_sgs_bound);
+    assert!(matches!(
+        oil05_06.well_mixed_transport,
+        joil_evidence::observation::Observation::Insufficient { .. }
+    ));
+    assert!(dispersion_partition_arithmetic(
         &[0.12, 0.28, 0.54, 0.88, 1.32],
         0.004,
         1.45,

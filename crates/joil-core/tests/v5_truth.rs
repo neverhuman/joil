@@ -260,3 +260,128 @@ fn v5_01_02_individual_serializes_incomplete_screen_and_legacy_reads_unevaluated
         vec!["legacy record: cavity and topology facts not evaluated".to_string()]
     );
 }
+
+fn insufficient_missing(obs: &joil_evidence::observation::Observation) -> Vec<String> {
+    match obs {
+        joil_evidence::observation::Observation::Insufficient { missing, .. } => missing.clone(),
+        other => panic!("expected Insufficient, got {other:?}"),
+    }
+}
+
+#[test]
+fn v5_01_03_empty_islands_and_literal_hashes_cannot_yield_verified_replay() {
+    use joil_core::surrogate::{campaign_replay_status, BudgetLedger, CampaignCheckpoint};
+    let ckpt = CampaignCheckpoint {
+        schema_version: 1,
+        evaluator_sha256: "eval-v1-sha256".into(),
+        cuda_binary_sha256: "cuda-v1-sha256".into(),
+        generation: 10,
+        rng_states: vec![0x1234_5678, 0x9abc_def0],
+        islands: vec![],
+        seen_phenotype_hashes: vec![],
+        ledger: BudgetLedger::default(),
+    };
+    // The label comparison still succeeds, which is why it cannot stand for replay.
+    assert!(ckpt
+        .verify_resume_compatibility(1, "eval-v1-sha256", "cuda-v1-sha256")
+        .is_ok());
+    let missing = insufficient_missing(&campaign_replay_status(&ckpt));
+    for needle in [
+        "native kill/resume/replay test of a real campaign",
+        "non-empty island populations",
+        "phenotype deduplication state",
+        "content-addressed evaluator SHA-256",
+        "content-addressed CUDA binary SHA-256",
+    ] {
+        assert!(missing.iter().any(|m| m == needle), "{needle}: {missing:?}");
+    }
+}
+
+#[test]
+fn v5_01_03_populated_checkpoint_still_reports_unsupported_replay() {
+    use joil_core::evolve::{evaluate_individual, EvolutionConfig};
+    use joil_core::surrogate::{campaign_replay_status, BudgetLedger, CampaignCheckpoint};
+    let cfg = EvolutionConfig {
+        mc_samples: 6,
+        ..EvolutionConfig::default()
+    };
+    let (ind, _) =
+        evaluate_individual("base".into(), DesignProgram::baseline_ct35(), 0, 0, &cfg).unwrap();
+    let ckpt = CampaignCheckpoint {
+        schema_version: 1,
+        evaluator_sha256: "a".repeat(64),
+        cuda_binary_sha256: "b".repeat(64),
+        generation: 1,
+        rng_states: vec![1],
+        seen_phenotype_hashes: vec![ind.genome_sha256.clone()],
+        islands: vec![vec![ind]],
+        ledger: BudgetLedger::default(),
+    };
+    assert_eq!(
+        insufficient_missing(&campaign_replay_status(&ckpt)),
+        vec!["native kill/resume/replay test of a real campaign".to_string()]
+    );
+}
+
+#[test]
+fn v5_01_03_legacy_checkpoint_flag_reads_into_compatibility_selftest() {
+    use joil_core::surrogate::SurrogateQualificationReport;
+    let legacy = serde_json::json!({
+        "schema_version": 2,
+        "kind": "sandbox_prior_screen_cross_validation_not_independent_ood",
+        "independent_label_validation": {"status": "insufficient", "reason": "SYNTHETIC", "missing": []},
+        "total_records_input": 1,
+        "quarantined_failure_records": 0,
+        "valid_training_records": 1,
+        "in_distribution_rmse_mg_l": 0.4,
+        "sandbox_authored_family_holdout_mean_rmse_mg_l": 4.0,
+        "sandbox_authored_family_holdout_mean_2sigma_coverage": 0.86,
+        "sandbox_holdout_std_exceeds_training_std": true,
+        "failure_quarantine_verified": true,
+        "checkpoint_determinism_verified": true,
+        "evaluator_drift_rejection_verified": true,
+        "budget_conservation_verified": true,
+        "family_holdouts": []
+    });
+    let report: SurrogateQualificationReport = serde_json::from_value(legacy).unwrap();
+    assert!(report.checkpoint_compatibility_selftest_passed);
+    insufficient_missing(&report.campaign_replay);
+    let written = serde_json::to_value(&report).unwrap();
+    assert!(written.get("checkpoint_determinism_verified").is_none());
+    assert_eq!(written["campaign_replay"]["status"], "insufficient");
+}
+
+#[test]
+fn v5_01_03_dispersion_helper_is_arithmetic_only() {
+    use joil_core::population::{dispersion_partition_arithmetic, DispersionQualificationResult};
+    // The drift identity holds for an arbitrary non-monotone SYNTHETIC profile: it cannot
+    // discriminate correct from incorrect transport.
+    let r = dispersion_partition_arithmetic(&[0.9, 0.1, 1.7, 0.3, 2.2], 0.004, 1.45, 0.18, 0.18)
+        .unwrap();
+    assert!(r.telescoping_drift_identity_residual <= 1e-13);
+    assert_eq!(
+        r.kind,
+        "arithmetic_identity_check_not_transport_qualification"
+    );
+    insufficient_missing(&r.well_mixed_transport);
+
+    let legacy = serde_json::json!({
+        "uncompensated_turbophoresis_drift_err": 300.0,
+        "drift_corrected_well_mixed_err": 0.0,
+        "les_sgs_tke_fraction": 0.11,
+        "negative_control_rans_on_les_rejected": true,
+        "passed": true
+    });
+    let old: DispersionQualificationResult = serde_json::from_value(legacy).unwrap();
+    assert!(old.arithmetic_checks_passed);
+    assert_eq!(
+        old.kind,
+        "arithmetic_identity_check_not_transport_qualification"
+    );
+    insufficient_missing(&old.well_mixed_transport);
+    let written = serde_json::to_value(&old).unwrap();
+    assert!(written.get("passed").is_none());
+    assert!(written
+        .get("negative_control_rans_on_les_rejected")
+        .is_none());
+}

@@ -1,8 +1,9 @@
 //! Search Engine Qualification, Checkpoint/Restart, Budget Ledger & GP Surrogate (`P07`, `ENGINE-02..05`).
 //!
 //! Implements:
-//! - `ENGINE-02`: Deterministic checkpoint/restart (`CampaignCheckpoint`) with bit-identical continuation
-//!   and explicit evaluator-hash / schema-version drift rejection.
+//! - `ENGINE-02`: Checkpoint compatibility checks (`CampaignCheckpoint`): schema-version, evaluator
+//!   and CUDA label drift rejection plus ledger conservation. No code path saves, restores or replays
+//!   a campaign; real resume is unsupported until native kill/resume tests exist (`V5-01-03`).
 //! - `ENGINE-03`: Exhaustive evaluation budget ledger (`BudgetLedger`) accounting for every F0 attempt,
 //!   red-team rejection, P08 structural rejection, phenotype deduplication cache hit, and MC sample.
 //! - `ENGINE-04`: Matérn-5/2 GP with explicit missingness, failure quarantine and abstention.
@@ -42,7 +43,8 @@ impl BudgetLedger {
     }
 }
 
-/// Deterministic checkpoint state for multi-island evolutionary search (`ENGINE-02`).
+/// Checkpoint compatibility record for multi-island search (`ENGINE-02`). Its compatibility check
+/// compares labels and ledger arithmetic only; it does not restore or replay a campaign.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct CampaignCheckpoint {
     pub schema_version: u32,
@@ -86,6 +88,46 @@ impl CampaignCheckpoint {
             return Err("checkpoint budget ledger violates conservation identity".into());
         }
         Ok(())
+    }
+}
+
+fn is_sha256_hex(value: &str) -> bool {
+    value.len() == 64
+        && value
+            .bytes()
+            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+}
+
+/// Campaign replay status for `ckpt` (`V5-01-03`). Never a verified record: real resume and replay
+/// are unsupported until a native kill/resume/replay test exists. Missing campaign state is listed.
+pub fn campaign_replay_status(
+    ckpt: &CampaignCheckpoint,
+) -> joil_evidence::observation::Observation {
+    let mut missing = vec!["native kill/resume/replay test of a real campaign".to_string()];
+    if ckpt.islands.iter().all(|island| island.is_empty()) {
+        missing.push("non-empty island populations".into());
+    }
+    if ckpt.seen_phenotype_hashes.is_empty() {
+        missing.push("phenotype deduplication state".into());
+    }
+    if !is_sha256_hex(&ckpt.evaluator_sha256) {
+        missing.push("content-addressed evaluator SHA-256".into());
+    }
+    if !is_sha256_hex(&ckpt.cuda_binary_sha256) {
+        missing.push("content-addressed CUDA binary SHA-256".into());
+    }
+    joil_evidence::observation::Observation::Insufficient {
+        reason:
+            "campaign resume and replay are unsupported; the checkpoint check compares labels only"
+                .into(),
+        missing,
+    }
+}
+
+fn legacy_campaign_replay() -> joil_evidence::observation::Observation {
+    joil_evidence::observation::Observation::Insufficient {
+        reason: "legacy record: no campaign was saved, restored or replayed".into(),
+        missing: vec!["native kill/resume/replay test of a real campaign".into()],
     }
 }
 
@@ -721,9 +763,15 @@ pub struct SurrogateQualificationReport {
     #[serde(rename = "sandbox_holdout_std_exceeds_training_std")]
     pub ood_std_exceeds_in_dist_std: bool,
     pub failure_quarantine_verified: bool,
-    pub checkpoint_determinism_verified: bool,
+    /// Self-test of `verify_resume_compatibility` on a synthetic empty-island checkpoint with
+    /// literal hashes (`V5-01-03`); reads the legacy `checkpoint_determinism_verified` name.
+    #[serde(alias = "checkpoint_determinism_verified")]
+    pub checkpoint_compatibility_selftest_passed: bool,
     pub evaluator_drift_rejection_verified: bool,
     pub budget_conservation_verified: bool,
+    /// Real campaign resume/replay is unsupported (`V5-01-03`); never a verified record.
+    #[serde(default = "legacy_campaign_replay")]
+    pub campaign_replay: joil_evidence::observation::Observation,
     pub family_holdouts: Vec<FamilyHoldoutMetrics>,
 }
 
@@ -903,9 +951,10 @@ pub fn run_surrogate_and_engine_qualification_with_fold_rows(
     let drift_rejected = ckpt
         .verify_resume_compatibility(1, "eval-v2-mutated-sha256", "cuda-v1-sha256")
         .is_err();
+    let campaign_replay = campaign_replay_status(&ckpt);
 
     Ok((SurrogateQualificationReport {
-        schema_version: 2,
+        schema_version: 3,
         kind: "sandbox_prior_screen_cross_validation_not_independent_ood".to_string(),
         independent_label_validation: joil_evidence::observation::Observation::Insufficient {
             reason: "Legacy candidate targets are derived from the reduced model; family folds are sandbox diagnostics".into(),
@@ -919,9 +968,10 @@ pub fn run_surrogate_and_engine_qualification_with_fold_rows(
         ood_mean_2sigma_coverage: ood_mean_cov,
         ood_std_exceeds_in_dist_std: ood_mean_std > in_dist_mean_std,
         failure_quarantine_verified,
-        checkpoint_determinism_verified: resume_ok,
+        checkpoint_compatibility_selftest_passed: resume_ok,
         evaluator_drift_rejection_verified: drift_rejected,
         budget_conservation_verified,
+        campaign_replay,
         family_holdouts: holdouts,
     }, fold_rows))
 }
