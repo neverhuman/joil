@@ -10,11 +10,12 @@ fn parse_arg(args: &[String], flag: &str) -> Option<String> {
 
 /// GPU use is explicit opt-in (`V5-01-04`). Without `--cuda-bin` no GPU is requested.
 /// `--cuda-bin` needs an existing binary and `--gpu-lease <json>` with `"gpu": true` and an
-/// `expires_utc` later than `now_utc` (`YYYY-MM-DDTHH:MM:SS`). `--gpu-vram-target-pct` is passed
-/// only when given. Anything incomplete is an error, never a silent CPU or GPU fallback.
+/// `expires_utc` that parses strictly as UTC (see `parse_utc_expiry_seconds`) and lies after
+/// `now_unix_seconds`. `--gpu-vram-target-pct` is passed only when given. Anything incomplete or
+/// malformed is an error, never a silent CPU or GPU fallback.
 fn explicit_gpu_opt_in(
     args: &[String],
-    now_utc: &str,
+    now_unix_seconds: i64,
 ) -> Result<(Option<PathBuf>, Option<f64>), String> {
     let lease_arg = parse_arg(args, "--gpu-lease");
     let vram_arg = parse_arg(args, "--gpu-vram-target-pct");
@@ -42,9 +43,11 @@ fn explicit_gpu_opt_in(
     let expires = lease
         .get("expires_utc")
         .and_then(|v| v.as_str())
-        .filter(|s| s.len() >= 19 && s.as_bytes()[10] == b'T')
         .ok_or(format!("GPU lease {lease_path} lacks expires_utc"))?;
-    if expires[..19] <= *now_utc {
+    let expires_at = parse_utc_expiry_seconds(expires).map_err(|reason| {
+        format!("GPU lease {lease_path} has invalid expires_utc {expires:?}: {reason}")
+    })?;
+    if expires_at <= now_unix_seconds {
         return Err(format!("GPU lease {lease_path} expired at {expires}"));
     }
     let vram = match vram_arg {
@@ -120,12 +123,93 @@ fn write_optional_new(path: &Option<PathBuf>, text: &str) -> Result<(), String> 
     }
 }
 
-/// Current UTC time as `YYYY-MM-DDTHH:MM:SS` (civil-from-days, proleptic Gregorian).
-fn utc_now_seconds() -> Result<String, String> {
-    let secs = std::time::SystemTime::now()
+/// Parse a GPU lease expiry as Unix seconds (`V5-01-04`). Accepted form, ASCII only:
+/// `YYYY-MM-DDTHH:MM:SS` with an optional `.fraction` of 1-9 digits, then `Z` or `+00:00`.
+/// The calendar date (including leap years) and time of day are validated; any other offset,
+/// a missing zone, trailing characters or out-of-range fields are rejected. A fraction is
+/// truncated, which can only make the expiry earlier.
+fn parse_utc_expiry_seconds(text: &str) -> Result<i64, String> {
+    if !text.is_ascii() {
+        return Err("not ASCII".into());
+    }
+    let syntax = || {
+        "malformed timestamp syntax (expected YYYY-MM-DDTHH:MM:SS[.fraction] then Z or +00:00)"
+            .to_string()
+    };
+    let b = text.as_bytes();
+    if b.len() < 19
+        || b[4] != b'-'
+        || b[7] != b'-'
+        || b[10] != b'T'
+        || b[13] != b':'
+        || b[16] != b':'
+    {
+        return Err(syntax());
+    }
+    let field = |lo: usize, hi: usize| -> Result<i64, String> {
+        let digits = &b[lo..hi];
+        if !digits.iter().all(u8::is_ascii_digit) {
+            return Err(syntax());
+        }
+        Ok(digits
+            .iter()
+            .fold(0_i64, |acc, d| acc * 10 + i64::from(d - b'0')))
+    };
+    let (year, month, day) = (field(0, 4)?, field(5, 7)?, field(8, 10)?);
+    let (hour, minute, second) = (field(11, 13)?, field(14, 16)?, field(17, 19)?);
+    let mut zone = &b[19..];
+    if let Some(fraction) = zone.strip_prefix(b".") {
+        let n = fraction.iter().take_while(|c| c.is_ascii_digit()).count();
+        if n == 0 || n > 9 {
+            return Err(syntax());
+        }
+        zone = &fraction[n..];
+    }
+    match zone {
+        b"Z" | b"+00:00" => {}
+        b"" => return Err("missing time zone designator (Z or +00:00 required)".into()),
+        [b'+' | b'-', _, _, b':', _, _] => {
+            return Err("offset is not UTC (Z or +00:00 required)".into())
+        }
+        _ => return Err(syntax()),
+    }
+    let leap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+    let days_in_month = match month {
+        1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
+        4 | 6 | 9 | 11 => 30,
+        2 if leap => 29,
+        2 => 28,
+        _ => 0,
+    };
+    if year < 1 || !(1..=days_in_month).contains(&day) {
+        return Err(format!(
+            "invalid calendar date {year:04}-{month:02}-{day:02}"
+        ));
+    }
+    if hour > 23 || minute > 59 || second > 59 {
+        return Err(format!(
+            "invalid time of day {hour:02}:{minute:02}:{second:02}"
+        ));
+    }
+    // Days from civil date (proleptic Gregorian), inverse of `utc_now_seconds`.
+    let y = if month <= 2 { year - 1 } else { year };
+    let era = y.div_euclid(400);
+    let yoe = y - era * 400;
+    let doy = (153 * ((month + 9) % 12) + 2) / 5 + day - 1;
+    let days = era * 146_097 + yoe * 365 + yoe / 4 - yoe / 100 + doy - 719_468;
+    Ok(days * 86_400 + hour * 3_600 + minute * 60 + second)
+}
+
+fn utc_now_unix_seconds() -> Result<i64, String> {
+    Ok(std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .map_err(|e| e.to_string())?
-        .as_secs() as i64;
+        .as_secs() as i64)
+}
+
+/// Current UTC time as `YYYY-MM-DDTHH:MM:SS` (civil-from-days, proleptic Gregorian).
+fn utc_now_seconds() -> Result<String, String> {
+    let secs = utc_now_unix_seconds()?;
     let (days, rem) = (secs.div_euclid(86_400), secs.rem_euclid(86_400));
     let z = days + 719_468;
     let era = z.div_euclid(146_097);
@@ -771,7 +855,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             if let Some(seed) = parse_arg(&args, "--seed").and_then(|s| s.parse().ok()) {
                 cfg.seed = seed;
             }
-            let (cuda_bin, vram_target) = explicit_gpu_opt_in(&args, &utc_now_seconds()?)?;
+            let (cuda_bin, vram_target) = explicit_gpu_opt_in(&args, utc_now_unix_seconds()?)?;
             cfg.cuda_bin_path = cuda_bin;
             cfg.gpu_vram_target_pct = vram_target;
             let summary = evolve::run_campaign(&cfg, &out_dir)?;
@@ -1004,9 +1088,12 @@ mod tests {
         )
     }
 
+    /// 2026-10-17T22:00:00Z, independently computed with Python datetime.
+    const NOW_2026_10_17T22: i64 = 1_792_274_400;
+
     #[test]
     fn v5_01_04_ordinary_runs_request_no_gpu() {
-        let now = "2026-10-17T22:00:00";
+        let now = NOW_2026_10_17T22;
         assert_eq!(
             explicit_gpu_opt_in(&argv(&["evolve", "--out", "x"]), now).unwrap(),
             (None, None)
@@ -1022,7 +1109,7 @@ mod tests {
 
     #[test]
     fn v5_01_04_missing_or_invalid_gpu_lease_cannot_execute() {
-        let now = "2026-10-17T22:00:00";
+        let now = NOW_2026_10_17T22;
         let good = r#"{"gpu": true, "expires_utc": "2026-10-18T08:52:43+00:00"}"#;
         let cases = [
             ("no-lease-file", None, "cannot read GPU lease"),
@@ -1176,6 +1263,183 @@ mod tests {
         assert_eq!(now.len(), 19);
         assert_eq!(&now[10..11], "T");
         assert!(now.as_str() > "2026-01-01T00:00:00");
+        // The clock formatter and the expiry parser are inverses (within a second boundary).
+        let parsed = parse_utc_expiry_seconds(&format!("{now}Z")).unwrap();
+        assert!((utc_now_unix_seconds().unwrap() - parsed).abs() <= 2);
+    }
+
+    #[test]
+    fn v5_01_04_expiry_parser_matches_independent_epoch_oracles() {
+        // Expected values computed independently with Python datetime (UTC).
+        for (text, want) in [
+            ("1970-01-01T00:00:00Z", 0_i64),
+            ("2000-02-29T12:00:00Z", 951_825_600),
+            ("2026-10-17T22:00:00+00:00", NOW_2026_10_17T22),
+            ("2026-10-18T08:52:43Z", 1_792_313_563),
+            ("2026-10-18T08:52:43.818175+00:00", 1_792_313_563),
+            ("1900-03-01T00:00:00Z", -2_203_891_200),
+            ("9999-12-31T23:59:59Z", 253_402_300_799),
+            ("0001-01-01T00:00:00Z", -62_135_596_800),
+        ] {
+            assert_eq!(parse_utc_expiry_seconds(text), Ok(want), "{text}");
+        }
+    }
+
+    /// Review 2 controls through the production `explicit_gpu_opt_in` path; nothing is executed.
+    #[test]
+    fn v5_01_04_malformed_or_non_utc_expiry_never_authorizes_gpu() {
+        let now = NOW_2026_10_17T22;
+        let run = |name: &str, expires: &str| {
+            let lease = serde_json::json!({"gpu": true, "expires_utc": expires}).to_string();
+            let (dir, bin, lease_path) = gpu_fixture(name, Some(&lease));
+            let result = explicit_gpu_opt_in(
+                &argv(&["evolve", "--cuda-bin", &bin, "--gpu-lease", &lease_path]),
+                now,
+            );
+            std::fs::remove_dir_all(dir).unwrap();
+            result
+        };
+        // Positive: valid future UTC expiry, with Z, +00:00 and a fraction.
+        for (i, ok) in [
+            "2026-10-18T08:52:43Z",
+            "2026-10-18T08:52:43+00:00",
+            "2026-10-18T08:52:43.818175+00:00",
+        ]
+        .into_iter()
+        .enumerate()
+        {
+            let (bin, vram) = run(&format!("valid-{i}"), ok).unwrap();
+            assert!(bin.is_some(), "{ok}");
+            assert_eq!(vram, None);
+        }
+        let cases = [
+            (
+                "feb-30",
+                "2026-02-30T00:00:00Z",
+                "invalid calendar date 2026-02-30",
+            ),
+            (
+                "non-leap-feb-29",
+                "2027-02-29T00:00:00Z",
+                "invalid calendar date 2027-02-29",
+            ),
+            (
+                "century-feb-29",
+                "2100-02-29T00:00:00Z",
+                "invalid calendar date 2100-02-29",
+            ),
+            (
+                "all-nines",
+                "9999-99-99T99:99:99Z",
+                "invalid calendar date 9999-99-99",
+            ),
+            (
+                "all-nines-no-zone",
+                "9999-99-99T99:99:99",
+                "missing time zone designator",
+            ),
+            (
+                "month-13",
+                "2026-13-01T00:00:00Z",
+                "invalid calendar date 2026-13-01",
+            ),
+            (
+                "year-zero",
+                "0000-01-01T00:00:00Z",
+                "invalid calendar date 0000-01-01",
+            ),
+            (
+                "hour-24",
+                "2026-10-18T24:00:00Z",
+                "invalid time of day 24:00:00",
+            ),
+            (
+                "minute-60",
+                "2026-10-18T08:60:00Z",
+                "invalid time of day 08:60:00",
+            ),
+            (
+                "leap-second",
+                "2026-10-18T08:52:60Z",
+                "invalid time of day 08:52:60",
+            ),
+            ("plus-two", "2026-10-18T08:52:43+02:00", "offset is not UTC"),
+            (
+                "minus-five",
+                "2026-10-18T08:52:43-05:00",
+                "offset is not UTC",
+            ),
+            (
+                "minus-zero",
+                "2026-10-18T08:52:43-00:00",
+                "offset is not UTC",
+            ),
+            (
+                "no-zone",
+                "2026-10-18T08:52:43",
+                "missing time zone designator",
+            ),
+            (
+                "trailing",
+                "2026-10-18T08:52:43Zjunk",
+                "malformed timestamp syntax",
+            ),
+            (
+                "lower-z",
+                "2026-10-18T08:52:43z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "space-sep",
+                "2026-10-18 08:52:43Z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "five-digit-year",
+                "20261-10-18T08:52:43Z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "long-fraction",
+                "2026-10-18T08:52:43.1234567890Z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "empty-fraction",
+                "2026-10-18T08:52:43.Z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "signed-field",
+                "2026-10-+8T08:52:43Z",
+                "malformed timestamp syntax",
+            ),
+            ("short", "2026-10-18", "malformed timestamp syntax"),
+            // Byte 18-19 is a two-byte character: the old slice at [..19] panicked here.
+            ("utf8-split", "2026-10-18T08:52:4\u{e9}Z", "not ASCII"),
+            ("utf8-fullwidth", "2026-10-18T08:52:4\u{ff13}Z", "not ASCII"),
+            ("past", "2026-10-17T21:59:59Z", "expired at"),
+            ("equal-now", "2026-10-17T22:00:00Z", "expired at"),
+        ];
+        for (name, expires, needle) in cases {
+            let err = run(name, expires).unwrap_err();
+            assert!(err.contains(needle), "{name}: {err}");
+            if needle != "expired at" {
+                assert!(err.contains("invalid expires_utc"), "{name}: {err}");
+            }
+        }
+        // A non-string expiry is still refused.
+        let (dir, bin, lease_path) = gpu_fixture(
+            "numeric-expiry",
+            Some(r#"{"gpu": true, "expires_utc": 1792313563}"#),
+        );
+        let err = explicit_gpu_opt_in(
+            &argv(&["evolve", "--cuda-bin", &bin, "--gpu-lease", &lease_path]),
+            now,
+        )
+        .unwrap_err();
+        assert!(err.contains("lacks expires_utc"), "{err}");
+        std::fs::remove_dir_all(dir).unwrap();
     }
 
     #[test]
