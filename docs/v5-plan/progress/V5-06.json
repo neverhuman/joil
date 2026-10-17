@@ -3,34 +3,59 @@
   "packet": "V5-06",
   "tasks": {
     "V5-06-01": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Implementing local SQLite transactional task/attempt/resource store and strict migration/backup.",
-      "evidence": []
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-01-completed-20261017.json",
+          "sha256": "54f395f67e9f7b2217a767facb41ddc698d374b21b1238b3bff30b4325273ff8"
+        }
+      ]
     },
     "V5-06-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-02-completed-20261017.json",
+          "sha256": "774936603a23cb1f0b057050a5baee7c28381b08854707b026a4b80084a3cd59"
+        }
+      ]
     },
     "V5-06-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-03-completed-20261017.json",
+          "sha256": "311fb67be4d46515baae44b03311ba79f8c993f78bca2d297d107795ecf7c6b5"
+        }
+      ]
     },
     "V5-06-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-04-completed-20261017.json",
+          "sha256": "3185d72560f238c375cc82e6c29b09a2a4985735a1764f74a07d26f43f56e51f"
+        }
+      ]
     },
     "V5-06-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-05-completed-20261017.json",
+          "sha256": "8df46ee2d07ac13d10648565052b810590d4dc06d0f0b5e153d2534d9cb9ce5b"
+        }
+      ]
     }
   }
 }
