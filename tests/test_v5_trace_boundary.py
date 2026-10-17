@@ -19,7 +19,10 @@ class OperationalTraceBoundary(unittest.TestCase):
     def test_planted_matching_worker_allocation_needs_explicit_citation(self):
         existing = (ROOT/audit.NUMBERS_TRACE).read_text()
         planted_path = 'docs/receipts/v5-00-synthetic-worker-allocation.json'
-        values = [(planted_path, '/physical_cores', 2.0)] + audit._trace_values(ROOT)
+        values = [(planted_path, '/resources/codex/physical_cores', 2.0)] + [
+            row for row in audit._trace_values(ROOT)
+            if not row[0].startswith(('docs/receipts/v5-', 'docs/receipts/P00-v5-'))
+        ]
         with patch.object(audit, '_trace_values', return_value=values):
             rendered, errors = audit.build_numbers_trace(ROOT, existing)
             self.assertEqual(errors, [])

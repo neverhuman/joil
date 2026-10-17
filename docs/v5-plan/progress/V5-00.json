@@ -14,28 +14,48 @@
       ]
     },
     "V5-00-02": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Historical inventory prepared independently during Git blocker; reviewing retained scalar/mesh availability and explicit unavailable evidence.",
-      "evidence": []
+      "note": "Historical records retained; present/incomplete/pruned mesh availability explicit; no tag and no scalar-only qualification.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-02-completed-20261017.json",
+          "sha256": "b1e8f4de0d8f499aba2cf2386f478610821f83679afb361d3f87ac8451f70cf3"
+        }
+      ]
     },
     "V5-00-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "All31 source allegations dispositioned; production software probes and source-mutation controls passed; unresolved physical hypotheses and future regression designs retained.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-03-completed-20261017.json",
+          "sha256": "512d931601fab719939ed7889774e22a32d6b64ec1204ccac4dadc2dcc8f347a"
+        }
+      ]
     },
     "V5-00-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "TR-16, threshold audit, EV-09/EV-12 exact dispositions and downstream owners retained; physical admission remains blocked.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-04-completed-20261017.json",
+          "sha256": "ae2cc3ca0c2f361b3316a890fc148c6db62a929fcfe937dfc4763b041f2beda5"
+        }
+      ]
     },
     "V5-00-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Primary dirty bytes preserved; scoped ownership correction and Claude preflight reviewed. Publish gate only after final acceptance commit/checks; no assumed concurrency.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-05-completed-20261017.json",
+          "sha256": "52f14d3e9320be991874b6b57ebe219c29a4f651d49445213ddb634a324b302a"
+        }
+      ]
     }
   }
 }

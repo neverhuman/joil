@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-05"
+  ],
+  "tested_commit": "6b09a009c67bcf4ad789852ba932a89413b67f30",
+  "created_utc": "2026-10-17T21:08:22.490536+00:00",
+  "changed_paths": [
+    "docs/receipts/v5-00-handoff-20261017.json",
+    "docs/receipts/v5-00-preflight-reviewed-20261017.json",
+    "docs/receipts/v5-00-scope-revision-20261017.json",
+    "docs/v5-plan/execution/V5-01-SCOPE-REVISION.md",
+    "docs/v5-plan/TASKS.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a8c7c7476f5a3a92d0fab24dd3c90456d7b1450203c217be96735f4d1e552b7b",
+      "wall_seconds": 1.7211204339982942
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "cb75ff4dff323b1a6418b1069fed83dbb0340ae52ee85812df8248c8e07fd533",
+      "wall_seconds": 0.12055197200970724
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "4f5d10b972bd3a544df46635d6285bdf97ab89391512b1fde8a3c57c9d7c5906",
+      "wall_seconds": 0.3074811580008827
+    }
+  ],
+  "positive_checks": [
+    "All91 pre-existing primary dirty-file bytes verified unchanged, including COMMS; primary branch retained",
+    "Read Claude acknowledgement and preflight; independently verified saved preflight reproducer/log digests without repeating execution",
+    "Narrow missing-path correction committed before handoff; integrator retains manifests/requirements/shared contracts/generated views"
+  ],
+  "negative_checks": [
+    "Allocation proposal alone grants no concurrency: Claude tracked tree is clean and remains gated until accepted full commit plus revised acknowledgement",
+    "Read-only Git denial was preserved in immutable review receipt; legitimate scoped commit now succeeds, no bypass or config mutation"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/receipts/v5-00-handoff-20261017.json",
+      "sha256": "5d0b9da7569b5a7030ac4041b807dfab707b8d01e65098bd2876099ce87b2731"
+    },
+    {
+      "path": "docs/receipts/v5-00-preflight-reviewed-20261017.json",
+      "sha256": "6ff43d262ee1d5643e71fb98c6205ac78b0db8adf424d3f6ca00905d46c8ba45"
+    },
+    {
+      "path": "docs/receipts/v5-00-scope-revision-20261017.json",
+      "sha256": "672926b6f488da5fe14c94e355016eab941cb0fd763e54578f5ec7e433d114a6"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-01-SCOPE-REVISION.md",
+      "sha256": "c908847ddcff05d9fda14abd46fc5cb750a1f243e862fdb33f402cf6cb520669"
+    },
+    {
+      "path": "docs/v5-plan/TASKS.json",
+      "sha256": "688bb92dc899dfe3443ef9a1ab1e09f87aa5d6d22c23a3f4512bad5ca43aa27e"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_mib": 733.4,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Gate and reviewed final canonical progress commit are published only after this receipt is included and checks pass",
+    "No shared-host expansion, physical campaign, tag, merge or new PR authorized"
+  ],
+  "next_dependency": "Accepted V5-00 gate enables Claude V5-01; Codex claims V5-02"
+}

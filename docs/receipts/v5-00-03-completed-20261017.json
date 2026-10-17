@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-03"
+  ],
+  "tested_commit": "6b09a009c67bcf4ad789852ba932a89413b67f30",
+  "created_utc": "2026-10-17T21:08:22.488947+00:00",
+  "changed_paths": [
+    "docs/v5-plan/execution/DEFECTS.json",
+    "docs/receipts/v5-00-checks.py",
+    "docs/receipts/v5-00-python-probes.py",
+    "docs/receipts/v5-00-rust-probes.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "build",
+        "--locked",
+        "-p",
+        "joil-core"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1cf53bb537bc94d8442d392674304722e837a8033ad69a87da3b43670d0a9c0a",
+      "wall_seconds": 17.45575603301404
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "build",
+        "--locked",
+        "-p",
+        "joil-ir"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a13905646e2aed93ec6ea9ed6ac91490a4e01f91af0215c3965279a910612149",
+      "wall_seconds": 0.04142834502272308
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "rustc",
+        "--edition=2021",
+        "docs/receipts/v5-00-rust-probes.rs",
+        "--extern",
+        "joil_core=/home/ubuntu/joil/.private/v5-workers/codex/target/debug/libjoil_core.rlib",
+        "--extern",
+        "joil_ir=/home/ubuntu/joil/.private/v5-workers/codex/target/debug/libjoil_ir.rlib",
+        "-L",
+        "dependency=/home/ubuntu/joil/.private/v5-workers/codex/target/debug/deps",
+        "-o",
+        "/home/ubuntu/joil/.private/v5-workers/codex/rust-probes"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.29671674099517986
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "/home/ubuntu/joil/.private/v5-workers/codex/rust-probes",
+        "/home/ubuntu/joil/.private/v5-workers/codex/digest-negative.glb",
+        "/home/ubuntu/joil/.private/v5-workers/codex/case-probe"
+      ],
+      "exit_code": 0,
+      "log_sha256": "569c2c20f68468152f3e2b0320d4918fff01fd78412050e1606cdc75c4b0fc6f",
+      "wall_seconds": 0.5538210560334846
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "docs/receipts/v5-00-python-probes.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ec304ef3cc43657766d171b5689a1ace4e687bc8534c4074838cbd6ab5de0451",
+      "wall_seconds": 0.05180602095788345
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "docs/receipts/v5-00-checks.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "800128604bda64554a114357edef3a0c75ab1a0dcbb2f0d2995e32da631b3887",
+      "wall_seconds": 0.618236288020853
+    }
+  ],
+  "positive_checks": [
+    "All31 allegations map to one existing primary repair task with source SHA, current symbol/line and observed disposition",
+    "Production probes reproduce descriptor dependence, gate-key mismatch, copied delta, false skimmer, energy denominator, small-n quantile, telescoping covariance acceptance, empty-state compatibility, topology assumption and weak scene digest acceptance",
+    "Independent analytic t4 CDF inversion confirms critical value discrepancy; frozen genome arithmetic isolates five region dimension conflicts"
+  ],
+  "negative_checks": [
+    "Canonical-key impossible SNR remains ignored while the consumed legacy-key control rejects; source-bound defect observed rather than merely asserted",
+    "Off-axis cap, excessive LES energy, nonindependent preparation, changed checkpoint identity, empty digest and existing case directory each exercise specific production rejection paths",
+    "Whole-file source mutation/line-shift controls forbid reuse from line number or anchor alone"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/v5-plan/execution/DEFECTS.json",
+      "sha256": "5dea8125c1bb94e929504bae709b1e0eb7f9da7b144cc6bd947248b0837b27d3"
+    },
+    {
+      "path": "docs/receipts/v5-00-checks.py",
+      "sha256": "d8341794ccfecd53f3b2b0c585675f03357caaa56fab67e67b1f9acb3fed0cf4"
+    },
+    {
+      "path": "docs/receipts/v5-00-python-probes.py",
+      "sha256": "2e93532926d2ebc24b6199027c8af58eea4b388888affd1e7d2763024d736cf5"
+    },
+    {
+      "path": "docs/receipts/v5-00-rust-probes.rs",
+      "sha256": "5a4ba251291f4720776fc9ed9e8ef7bf912448e402c0f821a9fc83c70e02ba1a"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_mib": 733.4,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "All physical causes/performance remain hypotheses; future independent physical/native regression designs are recorded but not executed",
+    "A boundary-sphere Betti tuple is not intrinsically wrong; volume-versus-boundary quantity contract remains explicit work",
+    "Source-only findings are labelled source facts/design debt, not runtime or physical validation"
+  ],
+  "next_dependency": "V5-00-04 preserved v4 deferrals",
+  "failed_attempts": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "rustc",
+        "--edition=2021",
+        "docs/receipts/v5-00-rust-probes.rs",
+        "--extern",
+        "joil_core=/home/ubuntu/joil/.private/v5-workers/codex/target/debug/libjoil_core.rlib",
+        "--extern",
+        "joil_ir=/home/ubuntu/joil/.private/v5-workers/codex/target/debug/libjoil_ir.rlib",
+        "-L",
+        "dependency=/home/ubuntu/joil/.private/v5-workers/codex/target/debug/deps",
+        "-o",
+        "/home/ubuntu/joil/.private/v5-workers/codex/rust-probes"
+      ],
+      "exit_code": 1,
+      "log_sha256": "77b3a1a1a7dee5e255f955bbe5000ce56134ea13d6378accdd7647b42f18ff24",
+      "wall_seconds": 0.07984690298326313
+    }
+  ]
+}
