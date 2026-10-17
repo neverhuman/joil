@@ -3,15 +3,20 @@
   "packet": "V5-00",
   "tasks": {
     "V5-00-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Baseline committed at 8268533; source SHA mutation controls pass. Scoped Git metadata blocker resolved; historical review receipt preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-01-completed-20261017.json",
+          "sha256": "306cb4244dc212e2de2b7daef7b3ef69de7bd78e9671e9c8051f9a84a10a5ab5"
+        }
+      ]
     },
     "V5-00-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "in_progress",
+      "owner": "codex-v5-integrator",
+      "note": "Historical inventory prepared independently during Git blocker; reviewing retained scalar/mesh availability and explicit unavailable evidence.",
       "evidence": []
     },
     "V5-00-03": {

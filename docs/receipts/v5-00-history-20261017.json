@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "packet": "V5-00",
+  "created_utc": "2026-10-17T20:58:34.700131+00:00",
+  "frozen_source": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "records": [
+    {
+      "path": "docs/receipts/wave2-genome-and-10seed-ablation-20261015.json",
+      "sha256": "c4d6730a08e995acdbe113c19191375d45fa69a35bfd511584cc4796c881e28f",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/baseline-hydraulics-v1.json",
+      "sha256": "2c53abe39be29a9ae9a160836773d35be761005a191ea3eaa093e58f5c5e4461",
+      "retained": true,
+      "referenced_run_paths": 6,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/elite-3grid-gci-and-rsm-verification-v1.json",
+      "sha256": "6bcac03b3724fa5fd60a83db33614756016c5188a7c028ddda86ab7a10de966c",
+      "retained": true,
+      "referenced_run_paths": 6,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/elite-3grid-gci-and-rsm-verification-v2.json",
+      "sha256": "c5c04e32e375414ba93e91f761552c79774613e267af4a01d19b4a07ab901615",
+      "retained": true,
+      "referenced_run_paths": 6,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json",
+      "sha256": "d20e9d72dfa004c1bc77a9389646b3ebb75f3004d85ad8c397f902afa181e496",
+      "retained": true,
+      "referenced_run_paths": 1,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/interactive-3d-archetypes-v1.json",
+      "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/rust-evolution-qualification-v1.json",
+      "sha256": "1bc32f98d38cd22525130843bf42034c0078146924b76148e06a4a02c9cff6b3",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+      "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json",
+      "sha256": "52567eb972bb45b0e01343b019d9fdd9767a4ffa79dd28c1e8351e91cba47841",
+      "retained": true,
+      "referenced_run_paths": 15,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json",
+      "sha256": "4fa41f6b755453af22befd5f2294156afa655edbda8c69f1dbaccd7452f42eb9",
+      "retained": true,
+      "referenced_run_paths": 15,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/wave3-evolution-proof-v1.json",
+      "sha256": "9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/wave4-evolution-proof-v1.json",
+      "sha256": "2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/wave4-gci-v1.json",
+      "sha256": "92c5eea7189fc63b3a28802ecc051746e4eca3f32f1f162b27c9011367029287",
+      "retained": true,
+      "referenced_run_paths": 13,
+      "unavailable_run_paths": 10,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "docs/results/wave4-smoke-v1.json",
+      "sha256": "385ae75ff20a8b07d81e574027ebc2504a97887c7c4a8d681d5c74c3c3d9da32",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "experiments/wave2-preregistration-v1.json",
+      "sha256": "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "requirements/RS-joil-research-v1.json",
+      "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    },
+    {
+      "path": "requirements/joil-hydrocyclone-v1.toml",
+      "sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+      "retained": true,
+      "referenced_run_paths": 0,
+      "unavailable_run_paths": 0,
+      "executed_case_identity": "not_established_by_scalar_record"
+    }
+  ],
+  "raw_inventory_sha256": "8965d51eb145deac3ad62df906d03acb777ab351ce6e4b59df4960b098a09166",
+  "discovered_case_directories": 42,
+  "mesh_file_sets_present": 22,
+  "mesh_file_sets_incomplete": 20,
+  "historical_mesh_qualification": "Unverified. Presence is only an inventory fact; source/case/solver/mesh identities must be audited individually. Missing original artifacts cannot be inferred from retained scalars or regenerated.",
+  "deferrals": [
+    {
+      "id": "TR-16",
+      "source": "docs/reviews/2026-10-16-TR16-section6-deferral.md",
+      "source_sha256": "cf2291a29e9bdd635a8014ced1556c0c2819d1bd499a18dcf622489604f7e9cc",
+      "carry_to_packets": [
+        "V5-02",
+        "V5-13",
+        "V5-18",
+        "V5-20"
+      ],
+      "state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "TR-16-threshold-audit",
+      "source": "crates/joil-core/tests/truth_tr16_threshold_audit.json",
+      "source_sha256": "5ca904dfc63a2685a9a252c0305ba5515dd39f66da235e24dcb3d97df784151d",
+      "carry_to_packets": [
+        "V5-02",
+        "V5-03",
+        "V5-04"
+      ],
+      "state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "EV-09",
+      "source": "crates/joil-evidence/reports/section6-ev09-ev12-deferrals.json",
+      "source_sha256": "ee56d6d260e66e186ad1f1a5489c871fbcdd879a5c4368bdef5f50105482263f",
+      "carry_to_packets": [
+        "V5-17",
+        "V5-20",
+        "V5-22"
+      ],
+      "state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "EV-12",
+      "source": "crates/joil-evidence/reports/section6-ev09-ev12-deferrals.json",
+      "source_sha256": "ee56d6d260e66e186ad1f1a5489c871fbcdd879a5c4368bdef5f50105482263f",
+      "carry_to_packets": [
+        "V5-05",
+        "V5-14",
+        "V5-19",
+        "V5-31"
+      ],
+      "state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    }
+  ],
+  "tag_decision": "No tag created; historical-head choice remains with owner.",
+  "qualification": "No historical observation rewritten; no qualified physical PASS."
+}

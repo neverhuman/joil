@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "packet": "V5-00",
+  "kind": "baseline_handoff_ownership",
+  "created_utc": "2026-10-17T21:03:08.961178+00:00",
+  "source_head": "826853315a35e5760cda6f579cdb435d37a15e83",
+  "baseline": "docs/v5-plan/execution/BASELINE.json",
+  "defects": "docs/v5-plan/execution/DEFECTS.json",
+  "historical_inventory": "docs/receipts/v5-00-history-20261017.json",
+  "primary_preservation": {
+    "dirty_paths_verified": 91,
+    "mismatches": [],
+    "COMMS_preserved": true,
+    "primary_branch_unchanged": true
+  },
+  "coordination_policy": "Authoritative root COORD append under private shared lock; worktree COORD read mirror. No primary COMMS writes.",
+  "ownership": {
+    "codex": [
+      "V5-00 evidence and integration",
+      "V5-02 then V5-03 then ready V5-05/06/07",
+      "root manifests/lockfiles/schemas/requirements/shared public types/generated views"
+    ],
+    "claude": {
+      "acknowledgement_sha256": "6c41c1437e7d9afb43c2a7d17b4ad078061b0791ddfddf261efcfe55485c7c60",
+      "until_gate": "private read-only preflight only",
+      "after_gate": "V5-01 only",
+      "exact_write_paths": [
+        "crates/joil-core/src/evolve.rs",
+        "crates/joil-core/src/surrogate.rs",
+        "crates/joil-core/src/population.rs",
+        "crates/joil-ir/src/lib.rs",
+        "tools/run_elite_3grid_gci_and_rsm.py",
+        "tools/f0_enactment.py",
+        "apps/explorer/src/main.tsx",
+        "crates/joil-core/tests/v5_truth.rs",
+        "tests/test_v5_truth.py"
+      ],
+      "shared_contract_change": "Request integrator contract commit before changing consumers",
+      "preflight_status": "not yet published at this capture; acceptance gate requires reading it"
+    }
+  },
+  "resources": {
+    "codex": {
+      "physical_cores": 2,
+      "memory_gib": 6,
+      "scratch_gib": 2.5
+    },
+    "claude": {
+      "physical_cores": 2,
+      "memory_gib": 6,
+      "scratch_gib": 2.5
+    },
+    "aggregate": {
+      "physical_cores": 4,
+      "memory_gib": 12,
+      "scratch_gib": 5,
+      "gpu": false
+    },
+    "allocation": "Acknowledged existing user-authorized lease, not an assumed new allocation",
+    "expires_utc": "2026-10-18T08:52:43.818175+00:00",
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1
+  },
+  "scientific_state": "Unchanged sandbox-only; TR-16/EV-09/EV-12 deferrals retained. No physical claim or campaign.",
+  "historical_tag": "No tag created; explicit original identities preserved.",
+  "delivery_policy": "Existing draft PR6 only. No lane PR, merge, force-push or main integration."
+}
