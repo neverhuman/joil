@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "kind": "software_contract_ci_portability_followup",
+  "packet": "V5-03",
+  "task_ids": [
+    "V5-03-05"
+  ],
+  "tested_commit": "223c0d60207859f76dcb68c124ae9fb3abe56fcb",
+  "created_utc": "2026-10-17T22:51:26.376044+00:00",
+  "changed_paths": [
+    "crates/crucible-architecture/tests/blind_boundary.rs",
+    "crates/crucible-contract/tests/architecture.rs",
+    "crates/crucible-contract/tests/interchange.rs",
+    "schemas/v5/check_portability.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "schemas/v5/check_portability.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "21f25736c879830aff8ab25d0d81fcbe2cd9166c408d824b1fb2d234c418d0e5",
+      "wall_seconds": 0.7017115859780461
+    }
+  ],
+  "positive_checks": [
+    "Dedicated architecture, compatibility architecture and strict interchange tests all pass with Cargo/Python process launches",
+    "All original assertions and locked/offline metadata controls retained"
+  ],
+  "negative_checks": [
+    "Control child PATH has no rtk; all8 tests pass; the former nested wrapper cannot launch in this environment",
+    "Indirect normal/build/dev registry bridges and leaked serialization labels remain rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-architecture/tests/blind_boundary.rs",
+      "sha256": "328f398c49d9b4fb705aaa8b2f6e8387e64abbd81cb14b2f5b915bb2678d5b6c"
+    },
+    {
+      "path": "crates/crucible-contract/tests/architecture.rs",
+      "sha256": "328f398c49d9b4fb705aaa8b2f6e8387e64abbd81cb14b2f5b915bb2678d5b6c"
+    },
+    {
+      "path": "crates/crucible-contract/tests/interchange.rs",
+      "sha256": "076a22708f4d8a98b3731fb70ed0423204f1a9ad00755e2e09389da46c81b234"
+    },
+    {
+      "path": "schemas/v5/check_portability.py",
+      "sha256": "6b9ddbf8fd6aca80a525b0e636986a96e1ff21a2e28b2106d3bfb9637083652c"
+    }
+  ],
+  "limitations": [
+    "Published dc12e0e CI run39073277671 failed on missing nested rtk; local original checks did not expose runner dependency",
+    "This follow-up proves the identified fix locally; full publication gate/new exact-head CI still pending",
+    "No physical claim or scientific STATUS promotion"
+  ],
+  "next_dependency": "Full required gate, push only existing integration branch to PR6, verify exact-head CI",
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false
+  }
+}
