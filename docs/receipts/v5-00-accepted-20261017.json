@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "kind": "accepted_baseline_inventory_not_scientific_validation",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-01",
+    "V5-00-02",
+    "V5-00-03",
+    "V5-00-04",
+    "V5-00-05"
+  ],
+  "tested_commit": "f60081126066b87f9ac633a83e2f1d1ba6c9313e",
+  "accepted_by": "codex-v5-integrator",
+  "created_utc": "2026-10-17T21:16:04.200850+00:00",
+  "task_receipts": [
+    {
+      "path": "docs/receipts/v5-00-01-completed-20261017.json",
+      "sha256": "306cb4244dc212e2de2b7daef7b3ef69de7bd78e9671e9c8051f9a84a10a5ab5"
+    },
+    {
+      "path": "docs/receipts/v5-00-02-completed-20261017.json",
+      "sha256": "b1e8f4de0d8f499aba2cf2386f478610821f83679afb361d3f87ac8451f70cf3"
+    },
+    {
+      "path": "docs/receipts/v5-00-03-completed-20261017.json",
+      "sha256": "512d931601fab719939ed7889774e22a32d6b64ec1204ccac4dadc2dcc8f347a"
+    },
+    {
+      "path": "docs/receipts/v5-00-04-completed-20261017.json",
+      "sha256": "ae2cc3ca0c2f361b3316a890fc148c6db62a929fcfe937dfc4763b041f2beda5"
+    },
+    {
+      "path": "docs/receipts/v5-00-05-completed-20261017.json",
+      "sha256": "52f14d3e9320be991874b6b57ebe219c29a4f651d49445213ddb634a324b302a"
+    }
+  ],
+  "changed_paths": [
+    "docs/v5-plan/execution/BASELINE.json",
+    "docs/v5-plan/execution/DEFECTS.json",
+    "docs/v5-plan/execution/V5-01-SCOPE-REVISION.md",
+    "docs/v5-plan/progress/V5-00.json",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/dashboard.html",
+    "tools/claims_audit.py",
+    "tests/test_v5_trace_boundary.py"
+  ],
+  "commands": [
+    {
+      "name": "generated-status",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.05024384998250753,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+    },
+    {
+      "name": "fmt",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.3590211709961295,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 14.791570293018594,
+      "log_sha256": "5cc6a32ff65044444b32b2cf7f0e9c8e0678ad255f51022b771701fc2ed32f51"
+    },
+    {
+      "name": "rust-tests",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 168.09522435598774,
+      "log_sha256": "a52382c08126e4f77ce7e231f44583caa6321088ed77f26c9b4811fc3f66fd48"
+    },
+    {
+      "name": "baseline",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.6962548739975318,
+      "log_sha256": "e3e2dc1776a672f2758573d4fc73d9d60a2e2d7108f625480fe94a39e0f239f0"
+    },
+    {
+      "name": "python-tests",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 94.43670384900179,
+      "log_sha256": "7d268f127635ef9d34e0794b8f06a73244e066115571ddb5a54df164c92d726f"
+    },
+    {
+      "name": "public-check",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.1568907600012608,
+      "log_sha256": "b3302d789cd347875efef7f8181e1b94553560dcbbb3505d007187217054c390"
+    },
+    {
+      "name": "claims-audit",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 17.04923119902378,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "name": "npm-ci",
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 1.2682043880340643,
+      "log_sha256": "59e8f33611545e4425b4df60379765c4307ba7179b5717f42de774b01569ca8f"
+    },
+    {
+      "name": "ui-build",
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 1.8102367839892395,
+      "log_sha256": "678dae0ede81f716f69c49e509e6536f84f4c38d0e5f18bb24e19e97e57d600d"
+    }
+  ],
+  "required_check_reuse": "Rust/fmt/clippy/baseline passed at6b09a00; their source/manifests/frozen inputs are unchanged at tested commit. Changed Python/provenance boundary and all remaining required steps passed at tested commit. No expensive Rust work repeated without a source change.",
+  "positive_checks": [
+    "All five ordered task receipts and canonical5/160 progress validated",
+    "Frozen original main/plan, actual source/requirements/preregistration identities and primary preservation recorded",
+    "All31 allegations have explicit observed dispositions, source identities, primary task and independent regression designs",
+    "Full required command set passed after narrow source-bound corrections; historical NUMBERS_TRACE unchanged",
+    "Claude preflight reviewed and its script/log hashes verified; scope correction committed before handoff"
+  ],
+  "negative_checks": [
+    "Source mutation/line-only reuse rejected",
+    "Missing mesh/case-chain and sandbox claim-bearing admission rejected by production evidence tests",
+    "Copied measurement, ignored gate configuration, false skimmer, anti-conservative t4 critical value, covariance identity, weak digest and CPU topology assumption reproduced on production paths with independent controls",
+    "Counterfactual removal of cite-only guard reproduces operational allocation stealing scientific provenance; guard preserves historical trace"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/v5-plan/execution/BASELINE.json",
+      "sha256": "5469811a26e96b20b9e368737e85e12efa85059e9d36a324a0a1e26ea82bdec1"
+    },
+    {
+      "path": "docs/v5-plan/execution/DEFECTS.json",
+      "sha256": "5dea8125c1bb94e929504bae709b1e0eb7f9da7b144cc6bd947248b0837b27d3"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-01-SCOPE-REVISION.md",
+      "sha256": "c908847ddcff05d9fda14abd46fc5cb750a1f243e862fdb33f402cf6cb520669"
+    },
+    {
+      "path": "docs/v5-plan/progress/V5-00.json",
+      "sha256": "9dc68a18860a9059a71da8a4e824149e628350b641becc76160d75ab6b548d29"
+    },
+    {
+      "path": "docs/v5-plan/TASKS.json",
+      "sha256": "688bb92dc899dfe3443ef9a1ab1e09f87aa5d6d22c23a3f4512bad5ca43aa27e"
+    },
+    {
+      "path": "docs/v5-plan/dashboard.html",
+      "sha256": "f494ba94d4ca5ab4c5ce4f359b9caeca590271a1c22cfb50d1a4736f1d2572b8"
+    },
+    {
+      "path": "tools/claims_audit.py",
+      "sha256": "51d2c7775832b8cc7cd73eaa96d2e52ce9111f629c7495416bb0cfa38cf6b570"
+    },
+    {
+      "path": "tests/test_v5_trace_boundary.py",
+      "sha256": "adde87a117b0f928af32fc6e8fa0f79cabfe8a2ac7538ddb7ba264138518a5bd"
+    },
+    {
+      "path": "docs/receipts/v5-00-01-completed-20261017.json",
+      "sha256": "306cb4244dc212e2de2b7daef7b3ef69de7bd78e9671e9c8051f9a84a10a5ab5"
+    },
+    {
+      "path": "docs/receipts/v5-00-02-completed-20261017.json",
+      "sha256": "b1e8f4de0d8f499aba2cf2386f478610821f83679afb361d3f87ac8451f70cf3"
+    },
+    {
+      "path": "docs/receipts/v5-00-03-completed-20261017.json",
+      "sha256": "512d931601fab719939ed7889774e22a32d6b64ec1204ccac4dadc2dcc8f347a"
+    },
+    {
+      "path": "docs/receipts/v5-00-04-completed-20261017.json",
+      "sha256": "ae2cc3ca0c2f361b3316a890fc148c6db62a929fcfe937dfc4763b041f2beda5"
+    },
+    {
+      "path": "docs/receipts/v5-00-05-completed-20261017.json",
+      "sha256": "52f14d3e9320be991874b6b57ebe219c29a4f651d49445213ddb634a324b302a"
+    },
+    {
+      "identifier": "private_required_checks_initial_failed_then_remaining_and_ui_receipts",
+      "sha256": "206743cb65c7545149c5ac80348de79185109aaa27237b7416d6932c5349e07b"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_build_and_node_scratch_bytes": 971602896,
+    "peak_child_rss_kib": 518780,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false
+  },
+  "failed_attempts": [
+    {
+      "identifier": "v5-00-required/receipt.json",
+      "sha256": "a5a9d607c126a180902f8e8067a0b398cf6824a67449af138d234a8346a699c5"
+    },
+    {
+      "identifier": "v5-00-python-r2/receipt.json",
+      "sha256": "316d2b86f3e6caf32fb9154a87dc12c7734744b529206aa5b0db7e1e618fb7bc"
+    },
+    {
+      "identifier": "v5-00-remaining/receipt.json",
+      "sha256": "d41ab25b9d859baf592c3f85b62eceadd6c5d0a7b4deefda060e9fb1d12f1a16"
+    },
+    {
+      "identifier": "trace-boundary-tests.command.json",
+      "sha256": "ab36c711bdea20761378c44b70f48d03fe14a9c92c088a7f5919bbff5e4bee3b"
+    }
+  ],
+  "limitations": [
+    "Initial required Python run failed due operational numeric fallback pollution; fix and independent regression are committed, original trace unchanged",
+    "First counterfactual fixture used a nonmatching JSON pointer; corrected fixture passes and failed logs remain private",
+    "npm initially tried read-only global cache; retry uses per-worker project cache via environment only and passes",
+    "Claude root COORD append permission denial was recorded and integrator posted its pending preflight update under the coordination lock",
+    "TR-16/EV-09/EV-12 and all native/physical hypotheses remain unresolved; no scientific STATUS promotion",
+    "No tag, physical campaign, new lane PR, force push, main/PR merge or global configuration change"
+  ],
+  "next_dependency": "Publish full accepted commit gate atomically; Claude acknowledges revised V5-01 scope, Codex alone claims V5-02 contracts."
+}
