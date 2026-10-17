@@ -608,7 +608,16 @@
         "crates/crucible-runtime/tests/recovery.rs",
         "crates/crucible-cli/",
         "joil",
-        "campaigns/fixture-v5.toml"
+        "campaigns/fixture-v5.toml",
+        "crates/crucible-runtime/src/lib.rs",
+        "crates/crucible-runtime/src/db.rs",
+        "crates/crucible-runtime/Cargo.toml",
+        "Cargo.toml",
+        "Cargo.lock",
+        "docs/design/V5_RECOVERY.md",
+        "tools/check.py",
+        "tests/test_check.py",
+        ".github/workflows/foundation.yml"
       ],
       "edge_cases": [
         "Logical replay and native solver rerun are separate claims",

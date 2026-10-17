@@ -53,7 +53,7 @@ def main():
     (ROOT/'.private').chmod(0o700)
     env=os.environ.copy()
     env['PATH']=os.pathsep.join([str(ROOT/'.private/node-runtime/bin'),str(ROOT/'.private/node-runtime/node_modules/.bin'),str(Path.home()/'joil/.private/node-runtime/bin'),str(Path.home()/'.cargo/bin'),env['PATH']])
-    env.update(CARGO_BUILD_JOBS='4',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',RAYON_NUM_THREADS='4')
+    env.update(CARGO_BUILD_JOBS='2',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',RAYON_NUM_THREADS='1')
     steps=check_steps(ROOT,suite=args.suite,skip_ui=args.skip_ui,cad=args.cad,runid=runid)
     receipt={'schema_version':1,'run_id':runid,'kind':'foundation_checks_not_physical_validation',
              'steps':[],'requested_suite':args.suite or 'all',

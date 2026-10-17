@@ -1,0 +1,8 @@
+schema_version = 1
+domain = "synthetic_integer_fixture"
+epochs = 2
+workers = 2
+seeds = [[3, 4], [5, 12]]
+weights = [1, 0]
+mode = "succeed"
+timeout_ms = 1000

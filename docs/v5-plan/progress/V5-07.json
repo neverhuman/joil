@@ -3,9 +3,9 @@
   "packet": "V5-07",
   "tasks": {
     "V5-07-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "in_progress",
+      "owner": "codex-v5-integrator",
+      "note": "Accepted V5-06 dependency; implementing complete synthetic state and authoritative-ledger closure under exact scoped claim.",
       "evidence": []
     },
     "V5-07-02": {

@@ -69,6 +69,11 @@ jobs:
           python3 -m venv .private/ci-python
           .private/ci-python/bin/python -m pip install --disable-pip-version-check --cache-dir .private/pip-cache 'matplotlib==3.10.8'
           echo "$GITHUB_WORKSPACE/.private/ci-python/bin" >> "$GITHUB_PATH"
+      # Architecture checks resolve the entire locked graph (including non-host dependencies).
+      # A host-only build does not warm those packages for their offline metadata control.
+      - name: Fetch complete locked graph for offline architecture controls
+        if: matrix.suite == 'rust-tests'
+        run: cargo fetch --locked
       - name: Run suite with exact logs and receipt
         env:
           CHECK_SUITE: ${{ matrix.suite }}

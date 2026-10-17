@@ -115,7 +115,7 @@ fn task(connection: &Connection, name: &str) -> Result<TaskRow> {
             .transpose()?,
     })
 }
-fn accounting(connection: &Connection) -> Result<Accounting> {
+pub(crate) fn accounting(connection: &Connection) -> Result<Accounting> {
     let authorized: Resources = decode(&connection.query_row::<String, _, _>(
         "SELECT value FROM metadata WHERE key='authorized'",
         [],
@@ -171,6 +171,30 @@ fn live(tx: &Transaction<'_>, attempt: &Attempt, now: u64) -> Result<(TaskRow, P
     Ok((row, phase(&actual.4)?))
 }
 impl RuntimeDb {
+    pub fn inspect_existing(path: &Path) -> Result<Self> {
+        let directory = OpenOptions::new()
+            .read(true)
+            .custom_flags(libc::O_DIRECTORY | libc::O_NOFOLLOW)
+            .open(path)?;
+        let resolved = std::fs::read_link(format!("/proc/self/fd/{}", directory.as_raw_fd()))?;
+        let connection = Connection::open_with_flags(
+            resolved.join("runtime.sqlite"),
+            OpenFlags::SQLITE_OPEN_READ_ONLY | OpenFlags::SQLITE_OPEN_NOFOLLOW,
+        )?;
+        let version: i64 = connection.pragma_query_value(None, "user_version", |r| r.get(0))?;
+        let hash: String =
+            connection.query_row("SELECT value FROM metadata WHERE key='schema'", [], |r| {
+                r.get(0)
+            })?;
+        if version != SCHEMA_VERSION || hash != BlobDigest::of_bytes(SCHEMA.as_bytes()).as_str() {
+            return Err(RuntimeError::Conflict("inspection_schema_contract"));
+        }
+        Ok(Self {
+            connection,
+            directory,
+            path: path.to_path_buf(),
+        })
+    }
     pub fn open(path: &Path, authorized: Resources, experiment: &SemanticId) -> Result<Self> {
         authorized.check()?;
         let _private = Store::open(path)?;
@@ -185,7 +209,7 @@ impl RuntimeDb {
                 | OpenFlags::SQLITE_OPEN_CREATE
                 | OpenFlags::SQLITE_OPEN_NOFOLLOW,
         )?;
-        connection.busy_timeout(Duration::from_millis(250))?;
+        connection.busy_timeout(Duration::from_secs(3))?;
         let version: i64 = connection.pragma_query_value(None, "user_version", |r| r.get(0))?;
         if version != 0 && version != SCHEMA_VERSION {
             return Err(RuntimeError::Unsupported("runtime_schema_version"));

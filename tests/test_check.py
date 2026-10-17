@@ -35,6 +35,9 @@ class CheckRunnerTests(unittest.TestCase):
             def run(command, **kwargs):
                 if command[0] == 'git':
                     return subprocess.CompletedProcess(command, 0, stdout='f' * 40, stderr='')
+                self.assertEqual(kwargs['env']['CARGO_BUILD_JOBS'], '2')
+                for key in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'RAYON_NUM_THREADS'):
+                    self.assertEqual(kwargs['env'][key], '1')
                 return subprocess.CompletedProcess(command, 1 if fail else 0, stdout=b'fixture output', stderr=b'')
 
             with patch.object(check, 'ROOT', root), patch('sys.argv', ['check.py', '--suite', suite]), \
