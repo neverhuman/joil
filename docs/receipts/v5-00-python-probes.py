@@ -96,10 +96,6 @@ assert all(found[n] != expected[n] for n in expected)
 print('D-15 frozen dimension mismatches: '+json.dumps({'IR':found,'genome_SI':expected},sort_keys=True))
 
 history = json.loads((ROOT/'docs/receipts/v5-00-history-20261017.json').read_text())
-def can_qualify_scalar_only(record, original_mesh_present):
-    return record.get('retained',False) and original_mesh_present and record.get('executed_case_identity') == 'independently_verified'
-assert not can_qualify_scalar_only({'retained':True,'executed_case_identity':'not_established_by_scalar_record'},False)
-assert not can_qualify_scalar_only({'retained':True,'executed_case_identity':'not_established_by_scalar_record'},True)
 assert all(not r['physical_pass'] for r in history['deferrals'])
-print('Historical controls: scalar receipt cannot qualify missing/unattributed mesh; scoped deferrals never become physical PASS')
+print('Deferral records retain physical_pass=false. Production case-chain and sandbox-admission controls run separately in joil-evidence tests.')
 print('PASS: synthetic Python defect probes and independent mathematical controls; no scientific qualification')

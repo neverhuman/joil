@@ -139,12 +139,25 @@
         "tools/f0_enactment.py",
         "apps/explorer/src/main.tsx",
         "crates/joil-core/tests/v5_truth.rs",
-        "tests/test_v5_truth.py"
+        "tests/test_v5_truth.py",
+        "crates/joil-cli/src/main.rs",
+        "crates/joil-core/src/structure.rs",
+        "crates/joil-core/src/phenotype.rs",
+        "crates/joil-core/src/scene.rs",
+        "tools/f0_voxel.py",
+        "crates/joil-ir/tests/ir_suite.rs",
+        "crates/joil-core/tests/regression.rs",
+        "tests/test_evidence.py",
+        "README.md",
+        "docs/WHITEPAPER.md",
+        "docs/v5-plan/progress/V5-01.json",
+        "docs/receipts/v5-01-*"
       ],
       "edge_cases": [
         "Legacy receipt schemas stay readable",
         "Missing physical observations remain Unknown",
-        "No root status boolean may be manually promoted"
+        "No root status boolean may be manually promoted",
+        "Scope revision: execution/V5-01-SCOPE-REVISION.md. Added legacy consumer paths are exclusive to V5-01 until scoped handoff; no physical geometry, material, solver or historical receipt rewrite"
       ],
       "validation_commands": [
         "rtk cargo test --locked -p joil-core --test v5_truth",
