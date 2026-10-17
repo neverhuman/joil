@@ -453,3 +453,170 @@ fn v5_01_04_cuda_boundary_records_only_explicit_bounded_requests() {
     assert!(ind.cuda_sdf_audit.is_none());
     std::fs::remove_dir_all(dir).unwrap();
 }
+
+fn reference_derived_mm() -> serde_json::Value {
+    let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../baselines/ct35/reference.json");
+    serde_json::from_str::<serde_json::Value>(&std::fs::read_to_string(path).unwrap()).unwrap()
+        ["derived_mm"]
+        .clone()
+}
+
+fn body_envelope(ir: &joil_ir::DesignIrV1) -> [f64; 4] {
+    ir.nodes
+        .iter()
+        .find_map(|n| match n {
+            joil_ir::IrNode::BodyEnvelope {
+                d3_m,
+                l2_m,
+                l3_m,
+                z_underflow_m,
+                ..
+            } => Some([*d3_m, *l2_m, *l3_m, *z_underflow_m]),
+            _ => None,
+        })
+        .unwrap()
+}
+
+#[test]
+fn v5_01_05_ir_envelope_matches_reference_contract_and_compiled_mesh() {
+    let (ir, mesh) = baseline_ir_and_mesh();
+    let d = reference_derived_mm();
+    let [d3, l2, l3, zu] = body_envelope(&ir);
+    for (got_m, key) in [(d3, "D3"), (l2, "L2"), (l3, "L3"), (zu, "z_end")] {
+        let want_mm = d[key].as_f64().unwrap();
+        assert!(
+            (got_m * 1e3 - want_mm).abs() < 1e-6,
+            "{key}: {got_m} m vs {want_mm} mm"
+        );
+    }
+    assert_eq!(ir.ir_schema_version, joil_ir::IR_SCHEMA_VERSION);
+    // The recorded underflow terminal area agrees with the area measured on the compiled mesh.
+    let underflow_area_m2 = ir
+        .nodes
+        .iter()
+        .find_map(|n| match n {
+            joil_ir::IrNode::TerminalPatch {
+                patch_name,
+                expected_area_m2,
+                ..
+            } if patch_name == "underflow" => Some(*expected_area_m2),
+            _ => None,
+        })
+        .unwrap();
+    let report = VoxelSdfObserver::observe(&ir, &mesh);
+    assert!((report.terminal_underflow_z_mm - d["z_end"].as_f64().unwrap()).abs() < 0.05);
+    let underflow_origins: Vec<u16> = mesh
+        .origin_table
+        .iter()
+        .filter(|o| o.cfd_patch == "underflow")
+        .map(|o| o.origin_id)
+        .collect();
+    let mut measured_m2 = 0.0;
+    for (idx, &[a, b, c]) in mesh.triangles.iter().enumerate() {
+        if underflow_origins.contains(&mesh.triangle_origin_ids[idx]) {
+            let (pa, pb, pc) = (mesh.vertices_m[a], mesh.vertices_m[b], mesh.vertices_m[c]);
+            let u = [pb[0] - pa[0], pb[1] - pa[1], pb[2] - pa[2]];
+            let v = [pc[0] - pa[0], pc[1] - pa[1], pc[2] - pa[2]];
+            let cross = [
+                u[1] * v[2] - u[2] * v[1],
+                u[2] * v[0] - u[0] * v[2],
+                u[0] * v[1] - u[1] * v[0],
+            ];
+            measured_m2 += 0.5 * (cross[0].powi(2) + cross[1].powi(2) + cross[2].powi(2)).sqrt();
+        }
+    }
+    let reference_m2 = std::f64::consts::PI * (d["R3"].as_f64().unwrap() * 1e-3).powi(2);
+    assert!((underflow_area_m2 - reference_m2).abs() / reference_m2 < 1e-6);
+    assert!(
+        (measured_m2 - underflow_area_m2).abs() / underflow_area_m2 < 1e-3,
+        "mesh {measured_m2} vs IR {underflow_area_m2}"
+    );
+    // New identity: the corrected record cannot share the historical schema-1 hash.
+    let historical = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../docs/results/wave4-gci-v1.json");
+    let wave4: serde_json::Value =
+        serde_json::from_str(&std::fs::read_to_string(historical).unwrap()).unwrap();
+    let old_ir = wave4["same_pipeline_ct35_control"]["design_ir_sha256"]
+        .as_str()
+        .unwrap();
+    assert_ne!(ir.ir_sha256, old_ir);
+}
+
+#[test]
+fn v5_01_05_changed_tail_and_legacy_identity_are_rejected() {
+    let (ir, _) = baseline_ir_and_mesh();
+    assert!(ir.verify_reference_envelope().is_ok());
+    let round_trip: joil_ir::DesignIrV1 =
+        serde_json::from_str(&serde_json::to_string(&ir).unwrap()).unwrap();
+    assert!(IrCompiledMesh::compile(&round_trip, BackendId::RustMultiPatchCfdSurface).is_ok());
+
+    for (field, value) in [("l3_m", 0.400), ("l2_m", 1.070), ("d3_m", 0.020)] {
+        let mut changed = ir.clone();
+        for node in &mut changed.nodes {
+            if let joil_ir::IrNode::BodyEnvelope {
+                d3_m, l2_m, l3_m, ..
+            } = node
+            {
+                match field {
+                    "l3_m" => *l3_m = value,
+                    "l2_m" => *l2_m = value,
+                    _ => *d3_m = value,
+                }
+            }
+        }
+        let err = IrCompiledMesh::compile(&changed, BackendId::RustMultiPatchCfdSurface)
+            .unwrap_err()
+            .to_string();
+        assert!(
+            err.contains(field) && err.contains("downstream tail"),
+            "{err}"
+        );
+    }
+
+    let mut legacy = ir.clone();
+    legacy.ir_schema_version = 1;
+    legacy.ir_family = "joil-design-ir-v1".into();
+    let err = IrCompiledMesh::compile(&legacy, BackendId::RustMultiPatchCfdSurface)
+        .unwrap_err()
+        .to_string();
+    assert!(err.contains("legacy IR identity"), "{err}");
+}
+
+#[test]
+fn v5_01_05_structural_and_mass_values_are_versioned_estimates() {
+    use joil_core::{phenotype::Phenotype3D, structure};
+    let base = DesignProgram::baseline_ct35();
+    let (pheno, _) = Phenotype3D::from_program(&base).unwrap();
+    assert_eq!(
+        pheno.head_mass_basis,
+        joil_core::phenotype::HEAD_MASS_ESTIMATE_BASIS
+    );
+    let screen =
+        structure::analytic_structural_screen(&base, &pheno, 29468.22, 0.001111111).unwrap();
+    assert_eq!(
+        screen.estimate_kind,
+        structure::ANALYTIC_STRUCTURAL_ESTIMATE_KIND
+    );
+    assert_eq!(screen.buckling_status, structure::BUCKLING_NOT_EVALUATED);
+    assert_eq!(screen.hydraulic_dp_u_pa_input, Some(29468.22));
+
+    // Legacy records stay readable and never acquire a buckling or qualification claim.
+    let mut value = serde_json::to_value(&screen).unwrap();
+    for key in [
+        "estimate_kind",
+        "buckling_status",
+        "hydraulic_dp_u_pa_input",
+    ] {
+        value.as_object_mut().unwrap().remove(key);
+    }
+    let legacy: structure::AnalyticStructuralScreen = serde_json::from_value(value).unwrap();
+    assert!(legacy.estimate_kind.starts_with("legacy_record"));
+    assert_eq!(legacy.buckling_status, structure::BUCKLING_NOT_EVALUATED);
+    assert_eq!(legacy.hydraulic_dp_u_pa_input, None);
+    let mut value = serde_json::to_value(&pheno).unwrap();
+    value.as_object_mut().unwrap().remove("head_mass_basis");
+    let legacy: Phenotype3D = serde_json::from_value(value).unwrap();
+    assert!(legacy.head_mass_basis.starts_with("legacy_record"));
+    assert_eq!(legacy.head_mass_ti64_g, pheno.head_mass_ti64_g);
+}

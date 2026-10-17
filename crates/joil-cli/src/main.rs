@@ -300,9 +300,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .map_err(|e| format!("top elite failed redteam gate: {e:?}"))?;
             let f0_unevaluated = redteam::unevaluated_geometry_facts(&pheno);
             let claim_state = if f0_unevaluated.is_empty() {
-                "f0_geometry_and_p08_structural_screen_passed_ready_for_f2_cfd_promotion_not_yet_f2_or_f4_validated"
+                "f0_geometry_screen_and_p08_analytic_structural_estimate_passed_ready_for_f2_cfd_promotion_not_yet_f2_or_f4_validated"
             } else {
-                "f0_partial_sandbox_screen_passed_with_unevaluated_geometry_facts_not_f0_qualified_not_f2_or_f4_validated"
+                "f0_partial_sandbox_screen_and_p08_analytic_structural_estimate_passed_with_unevaluated_geometry_facts_not_qualified"
             };
             let struct_qual = structure::analytic_structural_screen(
                 &elite.program,

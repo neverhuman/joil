@@ -159,6 +159,13 @@ impl SolidMesh {
     }
 }
 
+/// Mass/solid-volume estimate label (`V5-01-05`).
+pub const HEAD_MASS_ESTIMATE_BASIS: &str = "analytic_estimate_v2: baseline B-rep head volume minus closed-form fluid deltas; TPMS credited by annulus solid fraction although the meshed wall carries only a corrugation; not integrated from the accepted solid";
+
+fn legacy_head_mass_basis() -> String {
+    "legacy_record_analytic_estimate_basis_unrecorded".to_string()
+}
+
 fn default_mechanism_descriptors() -> MechanismDescriptors {
     MechanismDescriptors {
         swirl_flux_index: 1.0,
@@ -185,6 +192,9 @@ pub struct Phenotype3D {
     pub fluid_volume_mm3: f64,
     pub head_solid_volume_mm3: f64,
     pub head_mass_ti64_g: f64,
+    /// Basis of the two estimates above (`V5-01-05`): not integrated from the accepted solid.
+    #[serde(default = "legacy_head_mass_basis")]
+    pub head_mass_basis: String,
     pub minimum_wall_clearance_mm: f64,
     pub minimum_passage_diameter_mm: f64,
     pub min_section_jacobian: f64,
@@ -553,6 +563,7 @@ impl Phenotype3D {
             fluid_volume_mm3: fluid_vol,
             head_solid_volume_mm3: head_solid_vol_mm3,
             head_mass_ti64_g,
+            head_mass_basis: HEAD_MASS_ESTIMATE_BASIS.to_string(),
             minimum_wall_clearance_mm: min_clearance,
             minimum_passage_diameter_mm: min_passage_d,
             min_section_jacobian: min_jacobian,

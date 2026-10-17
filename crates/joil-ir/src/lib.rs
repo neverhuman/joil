@@ -13,6 +13,20 @@ use std::f64::consts::PI;
 
 pub type P3 = [f64; 3];
 
+/// CT-35 reference envelope (`baselines/ct35/reference.json` `derived_mm`) in SI metres. The IR
+/// record and the mesh compiler share these values (`V5-01-05`). IR schema 1 recorded D3 = 20 mm,
+/// L2 = 1070 mm and L3 = 400 mm while the mesh used the reference; schema-1 hashes keep that
+/// historical identity and schema-1 IRs are not recompiled.
+pub const CT35_D1_M: f64 = 0.070;
+pub const CT35_D2_M: f64 = 0.035;
+pub const CT35_D3_M: f64 = 0.0175;
+pub const CT35_L1_M: f64 = 0.070;
+pub const CT35_L2_M: f64 = 0.770;
+pub const CT35_L3_M: f64 = 0.700;
+/// Current IR identity (`V5-01-05`): schema 2 records the reference envelope.
+pub const IR_SCHEMA_VERSION: u32 = 2;
+pub const IR_FAMILY: &str = "joil-design-ir-v2";
+
 /// Canonical SHA-256 digest of a byte slice.
 pub fn sha256_hex(bytes: &[u8]) -> String {
     Sha256::digest(bytes)
@@ -415,15 +429,15 @@ impl DesignIrV1 {
         })?;
         let program_sha256 = sha256_hex(&program_bytes);
 
-        // Fixed CT-35 baseline envelope dimensions in SI metres
-        let d2_m = 0.035_f64;
-        let d1_m = 0.070_f64;
-        let d3_m = 0.020_f64;
-        let l1_m = 0.070_f64;
+        // Fixed CT-35 reference envelope dimensions in SI metres (`V5-01-05`)
+        let d2_m = CT35_D2_M;
+        let d1_m = CT35_D1_M;
+        let d3_m = CT35_D3_M;
+        let l1_m = CT35_L1_M;
         let cone_angle_deg = 10.0_f64;
         let lc_m = ((d1_m - d2_m) / 2.0) / cone_angle_deg.to_radians().tan();
-        let l2_m = 1.070_f64;
-        let l3_m = 0.400_f64;
+        let l2_m = CT35_L2_M;
+        let l3_m = CT35_L3_M;
         let do_m = 0.0014_f64;
         let orifice_length_m = 0.0028_f64;
         let plenum_radius_m = 0.0175_f64;
@@ -1224,8 +1238,8 @@ impl DesignIrV1 {
         // Canonical IR digest depends ONLY on canonical lowered nodes, gene_mapping, and semantic_origins
         // (so inactive-gene perturbations and mode orderings produce bit-identical `ir_sha256`).
         let hash_payload = serde_json::json!({
-            "ir_schema_version": 1,
-            "ir_family": "joil-design-ir-v1",
+            "ir_schema_version": IR_SCHEMA_VERSION,
+            "ir_family": IR_FAMILY,
             "units": "SI",
             "baseline_file_sha256": expected_baseline_sha256,
             "nodes": &nodes,
@@ -1240,8 +1254,8 @@ impl DesignIrV1 {
         let ir_sha256 = sha256_hex(&ir_bytes);
 
         Ok(Self {
-            ir_schema_version: 1,
-            ir_family: "joil-design-ir-v1".into(),
+            ir_schema_version: IR_SCHEMA_VERSION,
+            ir_family: IR_FAMILY.into(),
             source_genome_schema_version: schema_version,
             source_genome_family: family,
             units: "SI".into(),
@@ -1252,6 +1266,60 @@ impl DesignIrV1 {
             gene_mapping,
             semantic_origins,
         })
+    }
+
+    /// Refuse an IR whose identity or recorded envelope differs from the CT-35 reference
+    /// (`V5-01-05`). A changed downstream tail or a schema-1 envelope is a different subject and is
+    /// never compiled as if it were the reference.
+    pub fn verify_reference_envelope(&self) -> Result<(), IrError> {
+        if self.ir_schema_version != IR_SCHEMA_VERSION || self.ir_family != IR_FAMILY {
+            return Err(IrError::SchemaOrFamilyUnsupported {
+                schema_version: self.ir_schema_version,
+                family: self.ir_family.clone(),
+                reason: "legacy IR identity recorded a non-reference envelope; rebuild the IR from its program"
+                    .into(),
+            });
+        }
+        let envelope = self.nodes.iter().find_map(|node| match node {
+            IrNode::BodyEnvelope {
+                d1_m,
+                d2_m,
+                d3_m,
+                l1_m,
+                l2_m,
+                l3_m,
+                z_underflow_m,
+                ..
+            } => Some([*d1_m, *d2_m, *d3_m, *l1_m, *l2_m, *l3_m, *z_underflow_m]),
+            _ => None,
+        });
+        let Some(recorded) = envelope else {
+            return Err(IrError::InvalidParameter {
+                gene_path: "node.body_envelope".into(),
+                reason: "IR has no BodyEnvelope".into(),
+            });
+        };
+        let lc_m = ((CT35_D1_M - CT35_D2_M) / 2.0) / 10.0_f64.to_radians().tan();
+        let reference = [
+            ("d1_m", CT35_D1_M),
+            ("d2_m", CT35_D2_M),
+            ("d3_m", CT35_D3_M),
+            ("l1_m", CT35_L1_M),
+            ("l2_m", CT35_L2_M),
+            ("l3_m", CT35_L3_M),
+            ("z_underflow_m", CT35_L1_M + lc_m + CT35_L2_M + CT35_L3_M),
+        ];
+        for (got, (name, want)) in recorded.into_iter().zip(reference) {
+            if !got.is_finite() || (got - want).abs() > 1e-9 {
+                return Err(IrError::InvalidParameter {
+                    gene_path: format!("node.body_envelope.{name}"),
+                    reason: format!(
+                        "recorded {got} m differs from the CT-35 reference {want} m (changed frozen envelope or downstream tail)"
+                    ),
+                });
+            }
+        }
+        Ok(())
     }
 
     /// Evaluate the backend support matrix for a target `BackendId` (`IR-02`).
@@ -1923,6 +1991,7 @@ impl IrCompiledMesh {
         backend: BackendId,
         outlet_extension_m: f64,
     ) -> Result<Self, IrError> {
+        ir.verify_reference_envelope()?;
         ir.check_backend_support(backend)?;
         if !outlet_extension_m.is_finite() || !(0.0..=0.5).contains(&outlet_extension_m) {
             return Err(IrError::InvalidParameter {
