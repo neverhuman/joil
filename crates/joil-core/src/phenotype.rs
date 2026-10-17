@@ -159,6 +159,13 @@ impl SolidMesh {
     }
 }
 
+/// Mass/solid-volume estimate label (`V5-01-05`).
+pub const HEAD_MASS_ESTIMATE_BASIS: &str = "analytic_estimate_v2: baseline B-rep head volume minus closed-form fluid deltas; TPMS credited by annulus solid fraction although the meshed wall carries only a corrugation; not integrated from the accepted solid";
+
+fn legacy_head_mass_basis() -> String {
+    "legacy_record_analytic_estimate_basis_unrecorded".to_string()
+}
+
 fn default_mechanism_descriptors() -> MechanismDescriptors {
     MechanismDescriptors {
         swirl_flux_index: 1.0,
@@ -185,6 +192,9 @@ pub struct Phenotype3D {
     pub fluid_volume_mm3: f64,
     pub head_solid_volume_mm3: f64,
     pub head_mass_ti64_g: f64,
+    /// Basis of the two estimates above (`V5-01-05`): not integrated from the accepted solid.
+    #[serde(default = "legacy_head_mass_basis")]
+    pub head_mass_basis: String,
     pub minimum_wall_clearance_mm: f64,
     pub minimum_passage_diameter_mm: f64,
     pub min_section_jacobian: f64,
@@ -192,7 +202,11 @@ pub struct Phenotype3D {
     pub terminal_inlet_area_each_mm2: f64,
     pub terminal_overflow_diameter_mm: f64,
     pub terminal_underflow_z_mm: f64,
+    /// Legacy proxy from `VoxelSdfAuditReport::trapped_cavities_total`; not a measured cavity count.
     pub trapped_cavities: usize,
+    /// Trapped powder is not observed by the current observer (`V5-01-02`).
+    #[serde(default = "joil_ir::GeometryCountObservation::legacy_unrecorded")]
+    pub trapped_powder_cavity_observation: joil_ir::GeometryCountObservation,
     /// Legacy heuristic descriptors; omitted from serialized subject (`IR-07`).
     #[serde(skip_serializing, default = "default_mechanism_descriptors")]
     pub descriptors: MechanismDescriptors,
@@ -549,6 +563,7 @@ impl Phenotype3D {
             fluid_volume_mm3: fluid_vol,
             head_solid_volume_mm3: head_solid_vol_mm3,
             head_mass_ti64_g,
+            head_mass_basis: HEAD_MASS_ESTIMATE_BASIS.to_string(),
             minimum_wall_clearance_mm: min_clearance,
             minimum_passage_diameter_mm: min_passage_d,
             min_section_jacobian: min_jacobian,
@@ -558,6 +573,7 @@ impl Phenotype3D {
             terminal_overflow_diameter_mm: f0_report.terminal_overflow_diameter_mm,
             terminal_underflow_z_mm: f0_report.terminal_underflow_z_mm,
             trapped_cavities: f0_report.trapped_cavities_total,
+            trapped_powder_cavity_observation: f0_report.trapped_powder_cavity_observation.clone(),
             descriptors,
             mesh_census: census,
             derived_taxon: Some(f0_report.derived_taxon),

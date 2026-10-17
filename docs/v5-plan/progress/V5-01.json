@@ -3,34 +3,59 @@
   "packet": "V5-01",
   "tasks": {
     "V5-01-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "review",
+      "owner": "codex-v5-integrator",
+      "note": "All scoped source including e537966 and18f577d independently reviewed; original receipts retained, full combined integration gate pending.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-01-completed-20261017.json",
+          "sha256": "843f568098e8685a712926a91f13a39e98f3b1d93b723a1ee2aa8da541395c71"
+        }
+      ]
     },
     "V5-01-02": {
       "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "owner": "codex-v5-integrator",
+      "note": "Reviewed worker source/receipts retained; canonical integrator acceptance awaits the full combined source gate, not a new coding assignment.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-02-completed-20261017.json",
+          "sha256": "45b2ddc83aebe001242b188bb75d3e667a11813f8e1f5083cb524c3487b5e171"
+        }
+      ]
     },
     "V5-01-03": {
       "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "owner": "codex-v5-integrator",
+      "note": "Reviewed worker source/receipts retained; canonical integrator acceptance awaits the full combined source gate, not a new coding assignment.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-03-completed-20261017.json",
+          "sha256": "e5641bcfba71c0e3d313a4d9a3f398b68b78748259c9c6abe9351793a5070404"
+        }
+      ]
     },
     "V5-01-04": {
       "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "owner": "codex-v5-integrator",
+      "note": "Reviewed worker source/receipts retained; canonical integrator acceptance awaits the full combined source gate, not a new coding assignment.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-04-completed-20261017.json",
+          "sha256": "d9e678024f8ec511008bca3793425ed7cec381cfa8c9acaa97408064518fdb09"
+        }
+      ]
     },
     "V5-01-05": {
       "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "owner": "codex-v5-integrator",
+      "note": "Reviewed worker source/receipts retained; canonical integrator acceptance awaits the full combined source gate, not a new coding assignment.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-05-completed-20261017.json",
+          "sha256": "1e8d0e9a2a760448476b7bc602a78d9c7e4d5304fca48b1069dee59910b0e52a"
+        }
+      ]
     }
   }
 }

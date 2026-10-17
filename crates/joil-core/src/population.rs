@@ -4,8 +4,8 @@
 //! Implements source-bound verification and analytical/numerical oracles for:
 //! - `OIL-04`: Added-mass ($C_{vm} = 0.5$) + undisturbed pressure-gradient ($-\nabla p / \rho_p$)
 //!   accelerating-flow transient oracle for light oil droplets ($\rho_p < \rho_f$).
-//! - `OIL-05` & `OIL-06`: Anisotropic Reynolds-Stress well-mixed drift correction ($\nabla \cdot \mathbf{R}$)
-//!   and LES subgrid vs. resolved TKE partition check.
+//! - `OIL-05` & `OIL-06`: arithmetic only (`V5-01-03`): a drift identity that telescopes for any
+//!   Reynolds-stress profile and an LES subgrid vs. resolved TKE ratio. No well-mixed transport is tested.
 //! - `OIL-07`: Stiff small-droplet ($3\,\mu\text{m}$) parcel substep halving convergence against exact
 //!   exponential relaxation, rejecting fluid CFL alone when $\Delta t_{\text{sub}} > \tau_p$.
 //! - `OIL-08`: Stratified 10-bin log-normal / Rosin-Rammler parcel mass-weight constructor, rejecting
@@ -108,17 +108,46 @@ pub fn verify_added_mass_and_pressure_gradient(
     })
 }
 
-/// `OIL-05` & `OIL-06`: Anisotropic RSM well-mixed drift correction and LES subgrid partition gate.
+/// `OIL-05` & `OIL-06` arithmetic only (`V5-01-03`). The drift term is the mean of adjacent
+/// differences, which telescopes to the end-to-end gradient, so its residual is zero for any
+/// profile; the LES check compares two input numbers. No particle is transported, so this
+/// authorizes no well-mixed or turbulent-transport qualification. Legacy field names still read.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct DispersionQualificationResult {
-    pub uncompensated_turbophoresis_drift_err: f64,
-    pub drift_corrected_well_mixed_err: f64,
+    #[serde(default = "dispersion_arithmetic_kind")]
+    pub kind: String,
+    #[serde(alias = "uncompensated_turbophoresis_drift_err")]
+    pub radial_stress_gradient_magnitude: f64,
+    #[serde(alias = "drift_corrected_well_mixed_err")]
+    pub telescoping_drift_identity_residual: f64,
     pub les_sgs_tke_fraction: f64,
-    pub negative_control_rans_on_les_rejected: bool,
-    pub passed: bool,
+    #[serde(alias = "negative_control_rans_on_les_rejected")]
+    pub claimed_les_dispersion_within_sgs_bound: bool,
+    #[serde(alias = "passed")]
+    pub arithmetic_checks_passed: bool,
+    #[serde(default = "unsupported_well_mixed_transport")]
+    pub well_mixed_transport: joil_evidence::observation::Observation,
 }
 
-pub fn verify_dispersion_and_les_partition(
+fn dispersion_arithmetic_kind() -> String {
+    "arithmetic_identity_check_not_transport_qualification".to_string()
+}
+
+fn unsupported_well_mixed_transport() -> joil_evidence::observation::Observation {
+    joil_evidence::observation::Observation::Insufficient {
+        reason: "no particle transport was integrated; the drift identity holds for any profile"
+            .into(),
+        missing: vec![
+            "native well-mixed tracer test under anisotropic Reynolds stress".into(),
+            "native LES subgrid dispersion test".into(),
+        ],
+    }
+}
+
+/// Arithmetic checks behind the historical `OIL-05`/`OIL-06` labels (`V5-01-03`); see
+/// [`DispersionQualificationResult`]. Errors when the claimed LES dispersion energy exceeds the
+/// subgrid energy by more than 5 %.
+pub fn dispersion_partition_arithmetic(
     r_rr_profile_m2_s2: &[f64],
     dr_m: f64,
     k_resolved: f64,
@@ -149,11 +178,15 @@ pub fn verify_dispersion_and_les_partition(
     let les_sgs_fraction = k_sgs / (k_resolved + k_sgs).max(1e-18);
 
     Ok(DispersionQualificationResult {
-        uncompensated_turbophoresis_drift_err: uncompensated_err,
-        drift_corrected_well_mixed_err: drift_corrected_err,
+        kind: dispersion_arithmetic_kind(),
+        radial_stress_gradient_magnitude: uncompensated_err,
+        telescoping_drift_identity_residual: drift_corrected_err,
         les_sgs_tke_fraction: les_sgs_fraction,
-        negative_control_rans_on_les_rejected: true,
-        passed: uncompensated_err > 0.1 && drift_corrected_err <= 1e-13 && les_sgs_fraction < 0.25,
+        claimed_les_dispersion_within_sgs_bound: true,
+        arithmetic_checks_passed: uncompensated_err > 0.1
+            && drift_corrected_err <= 1e-13
+            && les_sgs_fraction < 0.25,
+        well_mixed_transport: unsupported_well_mixed_transport(),
     })
 }
 

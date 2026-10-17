@@ -279,11 +279,35 @@ pub struct LameCylinderState {
     pub radial_displacement_m: f64,
 }
 
+/// Version label of the analytic estimate (`V5-01-05`).
+pub const ANALYTIC_STRUCTURAL_ESTIMATE_KIND: &str =
+    "analytic_fixed_load_structural_estimate_v2_not_solid_solve_or_qualification";
+/// No buckling analysis exists; a passing estimate says nothing about buckling (`V5-01-05`).
+pub const BUCKLING_NOT_EVALUATED: &str = "not_evaluated_no_buckling_analysis";
+
+fn legacy_structural_estimate_kind() -> String {
+    "legacy_record_analytic_fixed_load_estimate_kind_unrecorded".to_string()
+}
+
+fn buckling_not_evaluated() -> String {
+    BUCKLING_NOT_EVALUATED.to_string()
+}
+
+/// Closed-form wall, beam and modal estimates under a fixed external demand. `passed` means only
+/// that these estimates cleared their screen limits; it is not structural qualification.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AnalyticStructuralScreen {
     pub genome_sha256: String,
     pub load_case_sha256: String,
     pub passed: bool,
+    #[serde(default = "legacy_structural_estimate_kind")]
+    pub estimate_kind: String,
+    #[serde(default = "buckling_not_evaluated")]
+    pub buckling_status: String,
+    /// Hydraulic pressure drop supplied by the caller; several callers pass the CT-35 value for
+    /// every candidate, so it is recorded rather than implied to be candidate-specific.
+    #[serde(default)]
+    pub hydraulic_dp_u_pa_input: Option<f64>,
     pub material_designation: String,
     pub sour_service_status: String,
     pub screen_status: String,
@@ -621,6 +645,9 @@ pub fn analytic_structural_screen(
         genome_sha256,
         load_case_sha256,
         passed: failure_reasons.is_empty(),
+        estimate_kind: ANALYTIC_STRUCTURAL_ESTIMATE_KIND.to_string(),
+        buckling_status: buckling_not_evaluated(),
+        hydraulic_dp_u_pa_input: Some(dp_u_pa),
         material_designation: "LPBF_Ti-6Al-4V_Grade5_Provisional_StressRelieved".to_string(),
         sour_service_status: "unknown_material_process_and_service_eligibility".into(),
         screen_status:

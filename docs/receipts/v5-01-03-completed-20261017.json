@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-01",
+  "task_ids": [
+    "V5-01-03"
+  ],
+  "owner": "claude-v5-truth-worker",
+  "input_head": "1d7b895",
+  "tested_commit": "4e7db9a770311b530b60d797099eebfe54d7da38",
+  "created_utc": "2026-10-17T22:11:30Z",
+  "changed_paths": [
+    "crates/joil-core/src/surrogate.rs",
+    "crates/joil-core/src/population.rs",
+    "crates/joil-cli/src/main.rs",
+    "crates/joil-core/tests/regression.rs",
+    "crates/joil-core/tests/v5_truth.rs"
+  ],
+  "commands": [
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--locked", "-p", "joil-core", "--test", "v5_truth"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.432,
+      "log_sha256": "b524f65f81d9d8e10c3de553f6a59a32c6eb92df4df9c71c61d49743cc680a5d",
+      "note": "11 tests at the tested commit (4 new for V5-01-03)"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "fmt", "--all", "--", "--check"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.324,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "clippy", "--workspace", "--locked", "--all-targets", "--", "-D", "warnings"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 6.277,
+      "log_sha256": "b3d6269b3a8ac03aa7864f995dfc590ee2fa17a9d8ca23d070495b891337d7d6"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--workspace", "--locked"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 164.786,
+      "log_sha256": "6ca2aba6848b5fd4334b65a7edebeed7bcbe7470ccfdbfc74b480c483be9c537",
+      "note": "tree byte-identical to the tested commit (git diff HEAD empty after commit)"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "run", "--locked", "-p", "joil-cli", "--", "baseline"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 1.068,
+      "log_sha256": "56016a0e2de42e5457d2b0a825ad7b29f3a5af5051e5ca1821a6013ef016260d"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_[!v]*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 66.902,
+      "log_sha256": "3e10cdbbf0527d8f1769e696776a54d56dea76b284c8156cf561e598bb6bf6aa",
+      "note": "includes test_doc_numbers_trace, which copies population.rs and main.rs and checks their declared literals"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_v5_t*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 12.339,
+      "log_sha256": "447e1543c83e333a310dffa84afc28f0e5d9d09d8a28514595f69146cb82cdad"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/claims_audit.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 15.967,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    }
+  ],
+  "known_failure_not_caused_by_code": "tests/test_v5_plan.py test_current_package_is_consistent reports stale generated V5-01 views after worker-owned progress updates; the integrator rebuilds views",
+  "pre_change_failing_evidence": {
+    "result": "The new negatives target the renamed report field, campaign_replay_status() and dispersion_partition_arithmetic(); at the input head the report wrote checkpoint_determinism_verified=true from an empty-island checkpoint with literal hashes (asserted by regression.rs), and the dispersion result wrote negative_control_rans_on_les_rejected=true as a literal and passed=true, with no transport capability status"
+  },
+  "positive_checks": [
+    "Compatibility self-test and evaluator-drift rejection still run and pass under their accurate names",
+    "A populated checkpoint with content-hash-shaped evaluator/CUDA identities, a real evaluated Individual and seen-phenotype state reports exactly one missing item: the native kill/resume/replay test",
+    "Legacy SurrogateQualificationReport JSON with checkpoint_determinism_verified reads into checkpoint_compatibility_selftest_passed; new output never writes the old name",
+    "Legacy dispersion JSON with passed / negative_control_rans_on_les_rejected / drift names reads into the renamed fields; new output never writes the old names",
+    "The RANS-on-LES input bound still errors for claimed dispersion energy above 1.05 times the subgrid energy"
+  ],
+  "negative_checks": [
+    "Empty islands and literal hashes: the label compatibility check still succeeds, but campaign_replay_status is Insufficient and lists the native replay test, non-empty island populations, phenotype deduplication state and content-addressed evaluator and CUDA hashes; no verified replay record is produced",
+    "SurrogateQualificationReport.campaign_replay is Insufficient for every report, including legacy records",
+    "An arbitrary non-monotone SYNTHETIC Reynolds-stress profile gives a drift identity residual at most 1e-13, showing the helper cannot discriminate transport; well_mixed_transport is Insufficient for every input"
+  ],
+  "artifacts": [
+    {"path": "crates/joil-core/src/surrogate.rs", "sha256": "fe32a5f7b40c47fc28e4863e07843a72431cf544921aba2026571be02f25ea58"},
+    {"path": "crates/joil-core/src/population.rs", "sha256": "019a9704da0d1bc65d93c618f7d4e37c24e62380217161cf1c6032ce6f51d8ce"},
+    {"path": "crates/joil-cli/src/main.rs", "sha256": "47f1ce5af5b64fab03a105bf3132f3ed82709feb27c401d316cce8791bbccfe0"},
+    {"path": "crates/joil-core/tests/regression.rs", "sha256": "cd3702302ec1cedbd54387e1b4c38d139281f922f4a7c518163eeeac687ed53c"},
+    {"path": "crates/joil-core/tests/v5_truth.rs", "sha256": "37e176466b977e77eb980360979be74e85f4b2a4be258be5e245cd8efa65d84f"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_bytes": 730999392,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Software claim-name repair only; no restart, replay or turbulent-transport capability was added or tested",
+    "The 'P05' CLI subcommand output (ignored runs/ path) changes keys to schema 0.3.0; committed historical receipts keep their original keys and values",
+    "Budget-ledger and drift self-tests still use synthetic counts and literal labels; they test comparison logic only"
+  ],
+  "next_dependency": "Integrator review/integration and view rebuild; V5-01-04 next in this lane"
+}
