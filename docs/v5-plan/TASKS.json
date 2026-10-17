@@ -151,13 +151,15 @@
         "README.md",
         "docs/WHITEPAPER.md",
         "docs/v5-plan/progress/V5-01.json",
-        "docs/receipts/v5-01-*"
+        "docs/receipts/v5-01-*",
+        "crates/joil-core/src/redteam.rs"
       ],
       "edge_cases": [
         "Legacy receipt schemas stay readable",
         "Missing physical observations remain Unknown",
         "No root status boolean may be manually promoted",
-        "Scope revision: execution/V5-01-SCOPE-REVISION.md. Added legacy consumer paths are exclusive to V5-01 until scoped handoff; no physical geometry, material, solver or historical receipt rewrite"
+        "Scope revision: execution/V5-01-SCOPE-REVISION.md. Added legacy consumer paths are exclusive to V5-01 until scoped handoff; no physical geometry, material, solver or historical receipt rewrite",
+        "Second correction: execution/V5-01-SCOPE-REVISION-2.md. Unevaluated cavity facts cannot satisfy qualification; a partial sandbox screen is explicitly incomplete."
       ],
       "validation_commands": [
         "rtk cargo test --locked -p joil-core --test v5_truth",
@@ -300,7 +302,11 @@
         "crates/crucible-contract/",
         "schemas/v5/",
         "crates/crucible-contract/tests/architecture.rs",
-        "docs/design/V5_CONTRACTS.md"
+        "docs/design/V5_CONTRACTS.md",
+        "Cargo.toml",
+        "Cargo.lock",
+        "docs/v5-plan/progress/V5-03.json",
+        "docs/receipts/v5-03-*"
       ],
       "edge_cases": [
         "Integrator alone registers workspace members and generated clients",
@@ -1475,7 +1481,7 @@
         {
           "id": "V5-19-03",
           "title": "Qualify native static FEA first",
-          "instructions": "Use a pinned mature solver through isolated process adapter. Run patch, rigid body, Lamé, cantilever, reaction/energy balance and mesh-convergence fixtures; preserve analytic screens only as oracles.",
+          "instructions": "Use a pinned mature solver through isolated process adapter. Run patch, rigid body, Lam\u00e9, cantilever, reaction/energy balance and mesh-convergence fixtures; preserve analytic screens only as oracles.",
           "acceptance": "Finite declared stress/deflection outputs are tied to material/process and support evidence.",
           "negative_control": "A fixed-load formula cannot produce structural qualification."
         },

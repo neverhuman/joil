@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "V5-03",
+  "task_ids": [
+    "V5-03-01",
+    "V5-03-02",
+    "V5-03-03",
+    "V5-03-04",
+    "V5-03-05"
+  ],
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-17T21:33:47.193200+00:00",
+  "tested_base": "e5fcab69149b41598614fe3ef5439cd5a4f1b13b",
+  "dependencies": {
+    "V5-02": "e5fcab69149b41598614fe3ef5439cd5a4f1b13b"
+  },
+  "write_paths": [
+    "crates/crucible-units/",
+    "crates/crucible-contract/",
+    "schemas/v5/",
+    "crates/crucible-contract/tests/architecture.rs",
+    "docs/design/V5_CONTRACTS.md",
+    "Cargo.toml",
+    "Cargo.lock",
+    "docs/receipts/v5-03-*",
+    "docs/v5-plan/progress/V5-03.json",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/todos/V5-03.md"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "gpu": false,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1
+  },
+  "lease_expires_utc": "2026-10-18T08:52:43.818175+00:00",
+  "scope_correction": "Integrator-only Cargo workspace/lock registration for the two planned crates; all dependency/JSON architecture tests reside in real crucible-contract package. No Claude V5-01 paths."
+}

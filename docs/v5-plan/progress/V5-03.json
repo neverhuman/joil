@@ -3,9 +3,9 @@
   "packet": "V5-03",
   "tasks": {
     "V5-03-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "in_progress",
+      "owner": "codex-v5-integrator",
+      "note": "V5-02 accepted; exact units/contract and serialized workspace paths claimed. Building actual dimensional and strict-boundary fixtures.",
       "evidence": []
     },
     "V5-03-02": {

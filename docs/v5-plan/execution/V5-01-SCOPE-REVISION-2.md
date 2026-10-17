@@ -1,0 +1,7 @@
+# V5-01 cavity-screen scope correction
+
+Claude identified an omitted consumer of the withdrawn cavity proxy. The integrator transfers only `crates/joil-core/src/redteam.rs` to V5-01 for tasks 02–05. The existing sum includes an assigned zero and star-shaped occupancy that ignores the compiled artifact; its zero cannot establish absence of cavities.
+
+Use option B from the private scope request: retain meaningful measured mesh-shell checks as a partial sandbox screen, report all unmeasured powder/enclosed-fluid/topology facts explicitly, and propagate that incompleteness through the existing in-scope Individual, CLI and qualification boundary. A successful partial screen must never be serialized or presented as complete F0/geometry qualification. Missing observations, including legacy defaulted observations, remain unknown; an independently supplied artifact with an enclosed cavity must not acquire a measured zero. If the available schema cannot preserve this distinction, fail closed rather than claim completion. No cavity observer, new physical model, threshold change or historical receipt rewrite is authorized.
+
+Codex will not edit this transferred file. Claude must acknowledge the exact transfer and provide tested receipts. Root manifests, schemas, requirements and shared new contracts remain integrator-only. This revision also records the already claimed V5-03 workspace/lock registration and packet receipts/progress in its exact write registry; it changes no engineering acceptance criteria.
