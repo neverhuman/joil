@@ -138,11 +138,30 @@ pub fn export_glb_scene_bundle(
                 .into(),
         );
     }
-    if governing_stl_sha256.is_empty() {
-        return Err("OPS_VIEW-02: governing_stl_sha256 required for artifact binding".into());
+    if governing_stl_sha256.len() != 64
+        || !governing_stl_sha256
+            .bytes()
+            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+    {
+        return Err("OPS_VIEW-02: governing_stl_sha256 must be a SHA-256 hex digest".into());
     }
     if surface.vertices_m.is_empty() || surface.triangles.is_empty() {
         return Err("cannot export empty surface to GLB".into());
+    }
+    // V5-01-05: the governing STL must be this surface's own serialization. A digest of another
+    // subject (for example a historical run's STL) is not evidence of equivalence.
+    let check_path = glb_path.with_extension(format!("subject-check-{}.stl", std::process::id()));
+    if check_path.exists() {
+        return Err(format!("refusing to replace {}", check_path.display()));
+    }
+    surface.write_openfoam_ascii_stl(&check_path)?;
+    let own_sha = crate::openfoam::file_sha256(&check_path);
+    let _ = fs::remove_file(&check_path);
+    if own_sha? != governing_stl_sha256 {
+        return Err(
+            "OPS_VIEW-02: governing STL digest does not match the exported surface; subject equivalence unknown"
+                .into(),
+        );
     }
 
     let n_verts = surface.vertices_m.len();

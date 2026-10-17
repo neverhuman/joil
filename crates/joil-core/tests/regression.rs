@@ -700,14 +700,26 @@ fn p09_ops_view_resource_lease_and_glb_scene_bundle_gates() {
     let mut rng = Rng::new(20261015);
     let archetypes = DesignProgram::seed_archetypes(&mut rng);
     let surf = MultiPatchSurface::from_program(&archetypes[3], 0.0).unwrap();
-    let manifest = export_glb_scene_bundle(&surf, "stl-sha-test", 1.0, &glb_path).unwrap();
+    // V5-01-05: the governing digest must come from this surface's own STL.
+    let own_stl = tmp_dir.join("governing.stl");
+    surf.write_openfoam_ascii_stl(&own_stl).unwrap();
+    let own_sha = joil_core::openfoam::file_sha256(&own_stl).unwrap();
+    let manifest = export_glb_scene_bundle(&surf, &own_sha, 1.0, &glb_path).unwrap();
     assert_eq!(manifest.units, "m");
     assert!((manifest.true_deformation_scale - 1.0).abs() < 1e-12);
     assert!(glb_path.is_file());
     assert!(glb_path.with_extension("scene-manifest.json").is_file());
     let bytes = std::fs::read(&glb_path).unwrap();
     assert_eq!(&bytes[0..4], &0x46546C67u32.to_le_bytes()); // 'glTF' magic
-    assert!(export_glb_scene_bundle(&surf, "stl-sha-test", 2.5, &glb_path).is_err());
+    assert!(export_glb_scene_bundle(&surf, &own_sha, 2.5, &glb_path).is_err());
+    // Unknown subject equivalence: a label or another subject's STL digest is rejected.
+    assert!(export_glb_scene_bundle(&surf, "stl-sha-test", 1.0, &glb_path).is_err());
+    let other = MultiPatchSurface::from_program(&archetypes[4], 0.0).unwrap();
+    let other_stl = tmp_dir.join("other.stl");
+    other.write_openfoam_ascii_stl(&other_stl).unwrap();
+    let other_sha = joil_core::openfoam::file_sha256(&other_stl).unwrap();
+    let err = export_glb_scene_bundle(&surf, &other_sha, 1.0, &glb_path).unwrap_err();
+    assert!(err.contains("subject equivalence unknown"), "{err}");
     let _ = std::fs::remove_dir_all(&tmp_dir);
 }
 

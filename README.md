@@ -71,7 +71,7 @@ rtk proxy python3 tools/check.py
 
 `tools/run_elite_3grid_gci_and_rsm.py --interpret-existing` prints each committed elite GCI dossier's recorded historical gate value next to its corrected admission. The gate now reads only the frozen preregistration block, applies no improvement threshold, and admits only a resolved difference from a same-pipeline `CT-35` control with bound pipeline, grid-ladder, subject and solver identities. No committed dossier records those identities, so every one is `not_admitted` and `--verify-existing` exits nonzero. The historical `PASS ... certified` line came from a single-point analysis against the different-pipeline `CT-35` case. It is not a current claim: see WHITEPAPER correction C2 and §4.6.
 
-**2. Re-run a screen study (optional, slow).** Always pass `--out` into the ignored `artifacts/` directory. The CLI defaults overwrite the committed, hash-bound receipts in `docs/results/`, and on repaired code the regenerated numbers differ from those historical receipts. Pass `--mc 72`: the p05/p95 objectives need `72` Monte Carlo samples for a distribution-free bound, and at the default of `12` they are reported insufficient, so no candidate is ranked and every hypervolume is zero ([TR fresh-clone check](docs/reviews/2026-10-16-TR-readme-freshclone.md)).
+**2. Re-run a screen study (optional, slow).** Pass `--out` into the ignored `artifacts/` directory, or omit it: CLI output defaults are unique paths under the ignored `runs/` directory, and every command refuses an existing output path, so the committed, hash-bound receipts in `docs/results/` are never overwritten. On repaired code the regenerated numbers differ from those historical receipts. Pass `--mc 72`: the p05/p95 objectives need `72` Monte Carlo samples for a distribution-free bound, and at the default of `12` they are reported insufficient, so no candidate is ranked and every hypervolume is zero ([TR fresh-clone check](docs/reviews/2026-10-16-TR-readme-freshclone.md)).
 
 ```bash
 RAYON_NUM_THREADS=4 rtk cargo run --release --locked -p joil-cli -- wave2-benchmark --seeds 20261101,20261102,20261103,20261104,20261105 --mc 72 --out artifacts/wave2-rerun.json
@@ -79,7 +79,7 @@ RAYON_NUM_THREADS=4 rtk cargo run --release --locked -p joil-cli -- wave2-benchm
 
 Known limitations of re-runs on the current code:
 
-- `wave3-proof` runs on the current code and wrote the Wave-4 receipt. Its default `--out` is the historical Wave-3 receipt, so always pass `--out` into `artifacts/`.
+- `wave3-proof` runs on the current code and wrote the Wave-4 receipt. Its default output is a unique path under `runs/`; it never replaces the historical Wave-3 receipt.
 - `export-3d-preview` reads ignored campaign files under `runs/`, so it cannot run from a fresh checkout.
 - `tools/generate_wave3_proof_figures.py` rewrites the committed, hash-bound figures, so run it only when regenerating figures together with a new receipt.
 

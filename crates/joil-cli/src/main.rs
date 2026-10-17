@@ -57,6 +57,69 @@ fn explicit_gpu_opt_in(
     Ok((Some(bin), vram))
 }
 
+/// Output policy (`V5-01-05`): a default is a unique ignored path under `runs/`; an explicit path
+/// must not exist yet. Commands call this before evaluating, so committed receipts and earlier runs
+/// are never replaced. `None` default means the output is written only when the flag is given.
+fn fresh_output(
+    args: &[String],
+    flag: &str,
+    default_stem: Option<&str>,
+    extension: &str,
+) -> Result<Option<PathBuf>, String> {
+    let path = match (parse_arg(args, flag), default_stem) {
+        (Some(p), _) => PathBuf::from(p),
+        (None, Some(stem)) => PathBuf::from(format!("runs/{stem}-{}{extension}", run_stamp()?)),
+        (None, None) => return Ok(None),
+    };
+    if path.exists() || path.is_symlink() {
+        return Err(format!(
+            "refusing to replace existing output {}",
+            path.display()
+        ));
+    }
+    Ok(Some(path))
+}
+
+/// Same policy for a required output path.
+fn fresh_required_output(
+    args: &[String],
+    flag: &str,
+    default_stem: &str,
+    extension: &str,
+) -> Result<PathBuf, String> {
+    fresh_output(args, flag, Some(default_stem), extension)
+        .map(|p| p.expect("default stem always yields a path"))
+}
+
+fn run_stamp() -> Result<String, String> {
+    Ok(format!(
+        "{}Z-{}",
+        utc_now_seconds()?.replace(['-', ':'], ""),
+        std::process::id()
+    ))
+}
+
+/// Create `path` (and parent directories) and write `text`; an existing file is an error.
+fn write_new(path: &std::path::Path, text: &str) -> Result<(), String> {
+    use std::io::Write;
+    if let Some(parent) = path.parent().filter(|p| !p.as_os_str().is_empty()) {
+        std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    std::fs::OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(path)
+        .and_then(|mut f| f.write_all(text.as_bytes()))
+        .map_err(|e| format!("cannot create new output {}: {e}", path.display()))
+}
+
+fn write_optional_new(path: &Option<PathBuf>, text: &str) -> Result<(), String> {
+    match path {
+        Some(p) => write_new(p, text),
+        None => Ok(()),
+    }
+}
+
 /// Current UTC time as `YYYY-MM-DDTHH:MM:SS` (civil-from-days, proleptic Gregorian).
 fn utc_now_seconds() -> Result<String, String> {
     let secs = std::time::SystemTime::now()
@@ -124,6 +187,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             );
         }
         "kpi" => {
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let root = PathBuf::from(parse_arg(&args, "--root").unwrap_or_else(|| ".".into()));
             let cases = [
                 (
@@ -150,12 +214,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "evaluator": "joil-core::openfoam::read_cfd_kpi_observation",
                 "cases": results,
             }))?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "verify-rotation" => {
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let ode_20 = openfoam::integrate_coupled_rotation_ode(20.0, 0.01, 200.0, 2e-6, 0.002);
             let ode_40 = openfoam::integrate_coupled_rotation_ode(40.0, 0.01, 200.0, 2e-6, 0.002);
             let ratio_d2 =
@@ -170,12 +233,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     && ode_20.u_r_end_m_s < 0.0
                     && ode_40.u_r_end_m_s < 0.0,
             }))?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "screen-structure" | "qualify-structure" => {
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let mut rng = program::Rng::new(20261015);
             let archetypes = program::DesignProgram::seed_wave2_archetypes(&mut rng);
             let lame_inner =
@@ -202,21 +264,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 },
                 "archetype_analytic_screens": reports,
             }))?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "audit-probe" => {
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let root = PathBuf::from(parse_arg(&args, "--root").unwrap_or_else(|| ".".into()));
             let summary_path = PathBuf::from(parse_arg(&args, "--summary").unwrap_or_else(|| {
                 "runs/gemini-ct35-full-liner-oil-pilot-summary-r4.json".into()
             }));
             let audit = openfoam::audit_lagrangian_probe_summary(&summary_path, &root)?;
             let out_json = serde_json::to_string_pretty(&audit)?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
             if !audit.audit_passed {
                 return Err(format!("probe audit failed: {:?}", audit.failure_reasons).into());
@@ -227,10 +286,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 parse_arg(&args, "--summary")
                     .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
             );
-            let out_path = PathBuf::from(
-                parse_arg(&args, "--out")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/promotion-dossier.json".into()),
-            );
+            let out_path = fresh_required_output(&args, "--out", "promotion-dossier", ".json")?;
             let raw = std::fs::read_to_string(&summary_path)?;
             let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
             let elite = campaign
@@ -326,13 +382,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 ]
             });
             let out_str = serde_json::to_string_pretty(&dossier)?;
-            std::fs::write(&out_path, &out_str)?;
+            write_new(&out_path, &out_str)?;
             println!("{out_str}");
         }
         "prepare-cfd-case" => {
-            let case_dir = PathBuf::from(parse_arg(&args, "--case").unwrap_or_else(|| {
-                "runs/rust-cfd-elite-gen024-isl2-ind014".into()
-            }));
+            let case_dir = fresh_required_output(&args, "--case", "cfd-case", "")?;
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let prog = if args.iter().any(|a| a == "--baseline-ct35") {
                 program::DesignProgram::baseline_ct35()
             } else if let Some(prog_path) = parse_arg(&args, "--program-json") {
@@ -376,9 +431,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             let manifest = cfd_case::build_openfoam_candidate_case(&prog, &case_dir, &cfg)?;
             let out_json = serde_json::to_string_pretty(&manifest)?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "qualify-surrogate" => {
@@ -386,22 +439,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 parse_arg(&args, "--summary")
                     .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
             );
-            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
-                "runs/rust-cuda-evolution-v1/surrogate-cv-report.json".into()
-            }));
+            let out_path = fresh_required_output(&args, "--out", "surrogate-cv-report", ".json")?;
             let raw = std::fs::read_to_string(&summary_path)?;
             let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
             let mut candidates = vec![campaign.baseline_reference.clone()];
             candidates.extend(campaign.top_pareto_elites.clone());
             let report = surrogate::run_surrogate_and_engine_qualification(&candidates)?;
             let out_json = serde_json::to_string_pretty(&report)?;
-            std::fs::write(&out_path, &out_json)?;
+            write_new(&out_path, &out_json)?;
             println!("{out_json}");
         }
         "qualify-population" => {
-            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
-                "runs/rust-p05-population-qualification.json".into()
-            }));
+            let out_path =
+                fresh_required_output(&args, "--out", "p05-population-checks", ".json")?;
             let oil04 =
                 population::verify_added_mass_and_pressure_gradient(30.0, 50.0, 2.0e-7, 0.002)?;
             let oil05_06 = population::dispersion_partition_arithmetic(
@@ -480,13 +530,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     && !oil15_violation.within_dilute_lagrangian_envelope,
             });
             let out_json = serde_json::to_string_pretty(&report)?;
-            std::fs::write(&out_path, &out_json)?;
+            write_new(&out_path, &out_json)?;
             println!("{out_json}");
         }
         "qualify-experiment" => {
-            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
-                "runs/rust-p06-experiment-qualification.json".into()
-            }));
+            let out_path =
+                fresh_required_output(&args, "--out", "p06-experiment-checks", ".json")?;
             let exp01 = experiment::verify_instrument_calibration(
                 "batch-ct35-oil-20261015-sha256",
                 "batch-ct35-oil-20261015-sha256",
@@ -622,7 +671,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     && exp06_unmatched_rejected,
             });
             let out_json = serde_json::to_string_pretty(&report)?;
-            std::fs::write(&out_path, &out_json)?;
+            write_new(&out_path, &out_json)?;
             println!("{out_json}");
         }
         "export-glb-scene" => {
@@ -630,9 +679,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 parse_arg(&args, "--summary")
                     .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
             );
-            let glb_path = PathBuf::from(parse_arg(&args, "--glb").unwrap_or_else(|| {
-                "runs/rust-cuda-evolution-v1/meshes/top_elite_scene_m.glb".into()
-            }));
+            let glb_path = fresh_required_output(&args, "--glb", "glb-scene", ".glb")?;
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let raw = std::fs::read_to_string(&summary_path)?;
             let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
             let elite = campaign
@@ -640,9 +688,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .first()
                 .ok_or("no top_pareto_elites in campaign summary")?;
             let surface = phenotype::MultiPatchSurface::from_program(&elite.program, 0.0)?;
-            let stl_sha = openfoam::file_sha256(std::path::Path::new(
-                "runs/rust-cfd-elite-gen024-isl2-ind014/constant/triSurface/ct35.stl",
-            ))?;
+            // V5-01-05: bind the scene to the STL of this exact surface, not a historical run file.
+            let stl_path = glb_path.with_extension("governing.stl");
+            if stl_path.exists() {
+                return Err(format!("refusing to replace existing output {}", stl_path.display()).into());
+            }
+            surface.write_openfoam_ascii_stl(&stl_path)?;
+            let stl_sha = openfoam::file_sha256(&stl_path)?;
             let scene_manifest =
                 scene::export_glb_scene_bundle(&surface, &stl_sha, 1.0, &glb_path)?;
             let lease_valid = scene::verify_resource_lease(
@@ -663,24 +715,21 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             )
             .is_err();
             let out_json = serde_json::to_string_pretty(&serde_json::json!({
-                "schema_version": "0.2.0",
+                "schema_version": "0.3.0",
                 "packet": "P09",
                 "evaluator": "joil-core::scene",
-                "ops_view01_resource_lease": {
+                "ops_view01_lease_arithmetic_selftest_synthetic_cpu_lists_not_this_run": {
                     "valid_lease": lease_valid,
                     "smt_sibling_mistake_rejected": lease_smt_rejected,
                 },
+                "governing_surface_stl": stl_path,
                 "ops_view02_03_glb_scene_manifest": scene_manifest,
             }))?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "compile-3d" => {
-            let out_dir = PathBuf::from(
-                parse_arg(&args, "--out").unwrap_or_else(|| "runs/rust-3d-archetypes".into()),
-            );
+            let out_dir = fresh_required_output(&args, "--out", "rust-3d-archetypes", "")?;
             std::fs::create_dir_all(&out_dir)?;
             let mut rng = program::Rng::new(20261015);
             let archetypes = program::DesignProgram::seed_archetypes(&mut rng);
@@ -705,9 +754,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("{}", serde_json::to_string_pretty(&reports)?);
         }
         "evolve" => {
-            let out_dir = PathBuf::from(
-                parse_arg(&args, "--out").unwrap_or_else(|| "runs/rust-cuda-evolution-v1".into()),
-            );
+            let out_dir = fresh_required_output(&args, "--out", "rust-cuda-evolution", "")?;
             let mut cfg = evolve::EvolutionConfig::default();
             if let Some(g) = parse_arg(&args, "--generations").and_then(|s| s.parse().ok()) {
                 cfg.generations = g;
@@ -752,10 +799,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 parse_arg(&args, "--archive")
                     .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/map-elites-archive.json".into()),
             );
-            let out_path = PathBuf::from(
-                parse_arg(&args, "--out")
-                    .unwrap_or_else(|| "docs/results/interactive-3d-archetypes-v1.json".into()),
-            );
+            let out_path =
+                fresh_required_output(&args, "--out", "interactive-3d-preview", ".json")?;
             let bundle = scene::export_interactive_3d_preview_bundle(
                 &summary_path,
                 &archive_path,
@@ -784,9 +829,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .filter(|s| !s.trim().is_empty())
                 .map(|s| s.trim().to_string())
                 .collect();
-            let out_dir = PathBuf::from(
-                parse_arg(&args, "--out").unwrap_or_else(|| "runs/rust-cuda-evolution-v1".into()),
-            );
+            let out_dir = fresh_required_output(&args, "--out", "rust-cuda-evolution-merged", "")?;
             let (summary, gates) = evolve::merge_cluster_shards(&shard_dirs, &node_labels, &out_dir)?;
             println!(
                 "{}",
@@ -806,10 +849,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             );
         }
         "wave2-benchmark" => {
-            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
-                "docs/results/wave2-multiseed-ablation-and-holdout-v1.json".into()
-            }));
-            let stl_dir = parse_arg(&args, "--stl-dir").map(PathBuf::from);
+            let out_path = fresh_required_output(&args, "--out", "wave2-benchmark", ".json")?;
+            let stl_dir = fresh_output(&args, "--stl-dir", None, "")?;
             let seeds: Vec<u64> = if let Some(s) = parse_arg(&args, "--seeds") {
                 s.split(',')
                     .filter_map(|tok| tok.trim().parse::<u64>().ok())
@@ -840,7 +881,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 std::fs::create_dir_all(parent)?;
             }
             let out_json = serde_json::to_string_pretty(&report)?;
-            std::fs::write(&out_path, &out_json)?;
+            write_new(&out_path, &out_json)?;
 
             if let Some(dir) = stl_dir {
                 std::fs::create_dir_all(&dir)?;
@@ -868,10 +909,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             );
         }
         "wave3-proof" => {
-            let out_path = PathBuf::from(
-                parse_arg(&args, "--out")
-                    .unwrap_or_else(|| "docs/results/wave3-evolution-proof-v1.json".into()),
-            );
+            let out_path = fresh_required_output(&args, "--out", "wave3-proof", ".json")?;
             let seeds: Vec<u64> = if let Some(s) = parse_arg(&args, "--seeds") {
                 s.split(',')
                     .filter_map(|tok| tok.trim().parse::<u64>().ok())
@@ -898,9 +936,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 ..evolve::EvolutionConfig::default()
             };
             let report = if let Some(raw_dir) = parse_arg(&args, "--raw-dir") {
-                if out_path.exists() {
-                    return Err("raw capture requires a new --out summary path".into());
-                }
                 evolve::run_wave3_evolution_proof_with_raw_capture(&seeds, &cfg, std::path::Path::new(&raw_dir))?
             } else {
                 evolve::run_wave3_evolution_proof(&seeds, &cfg)?
@@ -910,13 +945,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             let pretty = serde_json::to_string_pretty(&report)?;
             let out_json = pretty.lines().map(str::trim_start).collect::<Vec<_>>().join("\n") + "\n";
-            if parse_arg(&args, "--raw-dir").is_some() {
-                use std::io::Write;
-                std::fs::OpenOptions::new().write(true).create_new(true)
-                    .open(&out_path)?.write_all(out_json.as_bytes())?;
-            } else {
-                std::fs::write(&out_path, &out_json)?;
-            }
+            write_new(&out_path, &out_json)?;
             println!(
                 "{}",
                 serde_json::to_string_pretty(&serde_json::json!({
@@ -1082,6 +1111,63 @@ mod tests {
             None
         );
         std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn v5_01_05_existing_outputs_and_committed_receipts_are_refused() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        for rel in [
+            "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+            "docs/results/wave3-evolution-proof-v1.json",
+            "docs/results/interactive-3d-archetypes-v1.json",
+        ] {
+            let committed = root.join(rel);
+            let before = std::fs::read(&committed).unwrap();
+            let arg = committed.display().to_string();
+            let err = fresh_output(&argv(&["x", "--out", &arg]), "--out", Some("x"), ".json")
+                .unwrap_err();
+            assert!(err.contains("refusing to replace existing output"), "{err}");
+            assert!(write_new(&committed, "SYNTHETIC").is_err());
+            assert_eq!(std::fs::read(&committed).unwrap(), before);
+        }
+        let (dir, _bin, _lease) = gpu_fixture("sentinel", None);
+        let sentinel = dir.join("sentinel.json");
+        std::fs::write(&sentinel, b"keep").unwrap();
+        let arg = sentinel.display().to_string();
+        assert!(fresh_output(&argv(&["x", "--glb", &arg]), "--glb", None, ".glb").is_err());
+        assert!(write_optional_new(&Some(sentinel.clone()), "SYNTHETIC").is_err());
+        assert_eq!(std::fs::read(&sentinel).unwrap(), b"keep");
+        // A fresh explicit path is created exactly once.
+        let fresh = dir.join("nested/fresh.json");
+        let got = fresh_output(
+            &argv(&["x", "--out", &fresh.display().to_string()]),
+            "--out",
+            None,
+            ".json",
+        )
+        .unwrap()
+        .unwrap();
+        write_new(&got, "{}").unwrap();
+        assert!(write_new(&got, "{}").is_err());
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn v5_01_05_defaults_are_unique_ignored_run_paths() {
+        let no_out = argv(&["wave3-proof"]);
+        let file = fresh_required_output(&no_out, "--out", "wave3-proof", ".json").unwrap();
+        let text = file.display().to_string();
+        assert!(
+            text.starts_with("runs/wave3-proof-") && text.ends_with(".json"),
+            "{text}"
+        );
+        assert!(
+            text.contains(&format!("-{}.json", std::process::id())),
+            "{text}"
+        );
+        let dir = fresh_required_output(&no_out, "--case", "cfd-case", "").unwrap();
+        assert!(dir.display().to_string().starts_with("runs/cfd-case-"));
+        assert_eq!(fresh_output(&no_out, "--out", None, ".json").unwrap(), None);
     }
 
     #[test]
