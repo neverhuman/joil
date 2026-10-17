@@ -11,10 +11,8 @@ fn actual_resolved_normal_build_dev_graph_keeps_judges_blind() {
         .unwrap()
         .parent()
         .unwrap();
-    let result = Command::new("rtk")
+    let result = Command::new(env!("CARGO"))
         .args([
-            "proxy",
-            "cargo",
             "metadata",
             "--locked",
             "--offline",

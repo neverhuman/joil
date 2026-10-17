@@ -69,13 +69,8 @@ fn frozen_wire_examples_roundtrip_and_reject_leaked_or_invalid_inputs() {
 #[test]
 fn generated_interchange_is_current() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-    let result = Command::new("rtk")
-        .args([
-            "proxy",
-            "python3",
-            "schemas/v5/generate_contracts.py",
-            "--check",
-        ])
+    let result = Command::new("python3")
+        .args(["schemas/v5/generate_contracts.py", "--check"])
         .current_dir(root)
         .output()
         .unwrap();
