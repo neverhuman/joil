@@ -517,6 +517,22 @@ impl Store {
         fs::rename(&self.objects, id.as_str(), &quarantine, id.as_str())
     }
     pub fn backup_into(&self, destination: &Store, roots: &BTreeSet<BlobDigest>) -> Result<()> {
+        let copied = self.copy_objects_into(destination, roots)?;
+        // Backups remain private and preserve the coordinator's full history.
+        destination.restore_event_prefix(&self.invalidations()?)?;
+        for id in self.pinned_roots()? {
+            if copied.contains(&id) {
+                destination.pin_restored_root(id)?;
+            }
+        }
+        destination.closure(roots)?;
+        Ok(())
+    }
+    fn copy_objects_into(
+        &self,
+        destination: &Store,
+        roots: &BTreeSet<BlobDigest>,
+    ) -> Result<BTreeSet<BlobDigest>> {
         let closure = self.closure(roots)?;
         let mut remaining = closure.objects;
         let mut copied = BTreeSet::new();
@@ -531,15 +547,8 @@ impl Store {
                 .publish_checked(&o.payload, o.manifest.metadata, Some(&ready), |_| Ok(()))?;
             copied.insert(ready);
         }
-        // Preserve invalidation history; destination must have a compatible prefix.
-        destination.restore_event_prefix(&self.invalidations()?)?;
-        for id in self.pinned_roots()? {
-            if copied.contains(&id) {
-                destination.pin_restored_root(id)?;
-            }
-        }
         destination.closure(roots)?;
-        Ok(())
+        Ok(copied)
     }
     pub(crate) fn pin_restored_root(&self, id: BlobDigest) -> Result<()> {
         let kind = self.read(&id)?.manifest.metadata.kind;
@@ -585,6 +594,16 @@ impl Store {
         if decode::<ExportAllowlist>(bytes)? != permit.record {
             return Err(StoreError::Conflict);
         }
+        // An export is a fresh exact selection. Existing private journals,
+        // indexes, partial staging or unrelated objects cannot hitchhike.
+        if fs::entries(&destination.root)? != ["indexes", "objects", "staging"]
+            || !fs::entries(&destination.objects)?.is_empty()
+            || !fs::entries(&destination.indexes)?.is_empty()
+            || !fs::entries(&destination.staging)?.is_empty()
+        {
+            return Err(StoreError::Invalid("export_destination_must_be_fresh"));
+        }
+        let _source_lock = fs::lock(&self.root, "coordinator.lock")?;
         let closure = self.current_closure(&permit.record.roots)?;
         if closure
             .objects
@@ -596,7 +615,8 @@ impl Store {
         if closure.objects.keys().cloned().collect::<BTreeSet<_>>() != permit.record.objects {
             return Err(StoreError::Invalid("export_allowlist_not_exact_closure"));
         }
-        self.backup_into(destination, &permit.record.roots)
+        self.copy_objects_into(destination, &permit.record.roots)?;
+        Ok(())
     }
 }
 pub struct RetentionPlan {

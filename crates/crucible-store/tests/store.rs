@@ -20,7 +20,12 @@ fn root(label: &str) -> PathBuf {
         .map(PathBuf::from)
         .filter(|p| p.is_absolute() && p.components().any(|p| p.as_os_str() == ".private"))
         .unwrap_or_else(|| {
-            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../.private/test-evidence")
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .parent()
+                .unwrap()
+                .parent()
+                .unwrap()
+                .join(".private/test-evidence")
         });
     base.join(format!(
         "v5-store-{label}-{}-{}-{}",
@@ -761,4 +766,72 @@ fn remote_upload_corruption_lost_cas_and_permission_denial_remain_explicit() {
     assert!(
         matches!(restore_snapshot(&store("denied-restore"),&raced),Err(StoreError::Io(e)) if e.kind()==std::io::ErrorKind::PermissionDenied)
     );
+}
+
+#[test]
+fn reviewed_export_cannot_copy_an_unselected_private_invalidation_journal() {
+    let source = store("export-canary");
+    let private = source
+        .publish(
+            b"synthetic private unselected source",
+            Metadata::private(ObjectKind::Calibration),
+        )
+        .unwrap();
+    source
+        .invalidate(
+            private,
+            InvalidationKind::Revoked,
+            "SYNTHETIC_PRIVATE_UNSELECTED_REASON".into(),
+        )
+        .unwrap();
+    let public = source
+        .publish(
+            b"synthetic reviewed public selection",
+            Metadata {
+                disclosure: Disclosure::PublicCandidate,
+                ..Metadata::private(ObjectKind::Input)
+            },
+        )
+        .unwrap();
+    let mut review = physical_fixture::ReviewFixture::new();
+    let (permit, _) = permit(&mut review, &source, &public);
+    let target = store("export-no-private-history");
+    source
+        .export_reviewed(&review.registry, &permit, &target)
+        .unwrap();
+    assert_eq!(
+        target.read(&public).unwrap().payload,
+        b"synthetic reviewed public selection"
+    );
+    assert!(
+        target.invalidations().unwrap().is_empty(),
+        "unselected private journal must stay at source"
+    );
+    assert!(!target.path().join("invalidations.jsonl").exists());
+}
+
+#[test]
+fn reviewed_export_refuses_an_existing_destination_with_unselected_private_files() {
+    let source = store("fresh-export-source");
+    let public = source
+        .publish(
+            b"synthetic reviewed public selection",
+            Metadata {
+                disclosure: Disclosure::PublicCandidate,
+                ..Metadata::private(ObjectKind::Input)
+            },
+        )
+        .unwrap();
+    let mut review = physical_fixture::ReviewFixture::new();
+    let (permit, _) = permit(&mut review, &source, &public);
+    let target = store("existing-export-target");
+    std::fs::write(
+        target.path().join("unselected-private-note"),
+        b"SYNTHETIC_PRIVATE_DESTINATION_CANARY",
+    )
+    .unwrap();
+    assert!(source
+        .export_reviewed(&review.registry, &permit, &target)
+        .is_err());
+    assert!(target.read(&public).is_err());
 }
