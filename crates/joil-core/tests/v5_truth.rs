@@ -184,3 +184,79 @@ fn v5_01_02_legacy_records_stay_readable_and_read_as_unmeasured() {
         report.observed_geometry.unmeasured_facts
     );
 }
+
+#[test]
+fn v5_01_02_partial_red_team_screen_reports_unevaluated_facts() {
+    use joil_core::{phenotype::Phenotype3D, redteam};
+    let base = DesignProgram::baseline_ct35();
+    let (pheno, mesh) = Phenotype3D::from_program(&base).unwrap();
+    // The measured checks still pass, but the pass is explicitly incomplete.
+    assert!(redteam::check(&base, &pheno, &mesh).is_ok());
+    let facts = redteam::unevaluated_geometry_facts(&pheno);
+    assert!(facts
+        .iter()
+        .any(|f| f.starts_with("trapped_powder_cavities")));
+    assert!(facts
+        .iter()
+        .any(|f| f.starts_with("enclosed_fluid_cavities")));
+
+    // A nonzero legacy count still rejects: no threshold is relaxed.
+    let mut shelled = pheno.clone();
+    shelled.trapped_cavities = 1;
+    let err = redteam::check(&base, &shelled, &mesh).unwrap_err();
+    assert!(err.contains(&redteam::RedTeamReject::TrappedPowderOrFluidCavity));
+
+    // Missing observations stay unevaluated, including legacy defaults.
+    let mut missing = pheno.clone();
+    missing.observed_geometry = None;
+    missing.trapped_powder_cavity_observation = GeometryCountObservation::legacy_unrecorded();
+    let facts = redteam::unevaluated_geometry_facts(&missing);
+    assert!(facts
+        .iter()
+        .any(|f| f.starts_with("observed_geometry missing")));
+    assert!(facts
+        .iter()
+        .any(|f| f == "trapped_powder_cavities: legacy record without measurement status"));
+
+    // Positive control: a SYNTHETIC record with every fact measured has nothing unevaluated.
+    let mut measured = pheno.clone();
+    measured.trapped_powder_cavity_observation = GeometryCountObservation::Measured {
+        value: 0,
+        method: "SYNTHETIC".into(),
+    };
+    measured
+        .observed_geometry
+        .as_mut()
+        .unwrap()
+        .unmeasured_facts
+        .clear();
+    assert!(redteam::unevaluated_geometry_facts(&measured).is_empty());
+}
+
+#[test]
+fn v5_01_02_individual_serializes_incomplete_screen_and_legacy_reads_unevaluated() {
+    use joil_core::evolve::{evaluate_individual, EvolutionConfig, Individual};
+    let cfg = EvolutionConfig {
+        mc_samples: 6,
+        ..EvolutionConfig::default()
+    };
+    let (ind, _) =
+        evaluate_individual("base".into(), DesignProgram::baseline_ct35(), 0, 0, &cfg).unwrap();
+    assert!(ind.red_team_passed);
+    assert!(!ind.red_team_unevaluated_facts.is_empty());
+    let mut value = serde_json::to_value(&ind).unwrap();
+    assert!(!value["red_team_unevaluated_facts"]
+        .as_array()
+        .unwrap()
+        .is_empty());
+    value
+        .as_object_mut()
+        .unwrap()
+        .remove("red_team_unevaluated_facts");
+    let legacy: Individual = serde_json::from_value(value).unwrap();
+    assert!(legacy.red_team_passed);
+    assert_eq!(
+        legacy.red_team_unevaluated_facts,
+        vec!["legacy record: cavity and topology facts not evaluated".to_string()]
+    );
+}

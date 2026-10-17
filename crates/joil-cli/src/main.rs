@@ -169,6 +169,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let (pheno, mesh) = phenotype::Phenotype3D::from_program(&elite.program)?;
             redteam::check(&elite.program, &pheno, &mesh)
                 .map_err(|e| format!("top elite failed redteam gate: {e:?}"))?;
+            let f0_unevaluated = redteam::unevaluated_geometry_facts(&pheno);
+            let claim_state = if f0_unevaluated.is_empty() {
+                "f0_geometry_and_p08_structural_screen_passed_ready_for_f2_cfd_promotion_not_yet_f2_or_f4_validated"
+            } else {
+                "f0_partial_sandbox_screen_passed_with_unevaluated_geometry_facts_not_f0_qualified_not_f2_or_f4_validated"
+            };
             let struct_qual = structure::analytic_structural_screen(
                 &elite.program,
                 &pheno,
@@ -202,9 +208,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
 
             let dossier = serde_json::json!({
-                "schema_version": "0.2.0",
+                "schema_version": "0.3.0",
                 "kind": "multi_fidelity_3d_elite_promotion_dossier",
-                "claim_state": "f0_geometry_and_p08_structural_screen_passed_ready_for_f2_cfd_promotion_not_yet_f2_or_f4_validated",
+                "claim_state": claim_state,
+                "f0_unevaluated_geometry_facts": f0_unevaluated,
                 "qualified_multiobjective_vector": null,
                 "qualified_capacity_gain": null,
                 "campaign_summary_sha256": openfoam::file_sha256(&summary_path)?,

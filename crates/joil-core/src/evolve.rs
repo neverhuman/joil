@@ -168,6 +168,10 @@ pub struct Individual {
     pub lineage: Option<Lineage>,
     pub red_team_passed: bool,
     pub red_team_rejects: Vec<String>,
+    /// Cavity/topology facts the partial red-team screen did not evaluate (`V5-01-02`). A pass with
+    /// entries is not complete F0/geometry qualification; legacy records read as unevaluated.
+    #[serde(default = "legacy_unevaluated_geometry_facts")]
+    pub red_team_unevaluated_facts: Vec<String>,
     pub descriptors: MechanismDescriptors,
     pub phenotype: Option<Phenotype3D>,
     #[serde(
@@ -187,6 +191,10 @@ pub struct Individual {
     pub evidence_tier: EvidenceTier,
     pub qualified_multiobjective_vector: Option<serde_json::Value>,
     pub qualified_capacity_gain: Option<f64>,
+}
+
+fn legacy_unevaluated_geometry_facts() -> Vec<String> {
+    vec!["legacy record: cavity and topology facts not evaluated".to_string()]
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -541,6 +549,7 @@ fn evaluate_individual_recorded(
         Ok(()) => (true, Vec::new()),
         Err(rejs) => (false, rejs.into_iter().map(|r| format!("{r:?}")).collect()),
     };
+    let red_team_unevaluated_facts = redteam::unevaluated_geometry_facts(&pheno);
 
     let nominal_metrics = evaluate_realization(
         &prog,
@@ -752,6 +761,7 @@ fn evaluate_individual_recorded(
         island_origin,
         red_team_passed,
         red_team_rejects,
+        red_team_unevaluated_facts,
         descriptors,
         phenotype: Some(pheno),
         structural_qualification,
