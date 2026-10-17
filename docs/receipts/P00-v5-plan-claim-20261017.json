@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "P00-V5-PLAN",
+  "owner": "Codex planning integrator",
+  "created_utc": "2026-10-17T17:22:15.349533+00:00",
+  "input_head": "cc86edc90d06f0eac69022f84354abc94bb453c4",
+  "write_scope": [
+    "docs/v5-plan/**",
+    "docs/WORKPLAN-2026-10-17.md",
+    "docs/MASTER_PLAN.md (planning addendum only)",
+    "docs/WORK_PACKETS.json (planning pointer only)",
+    "docs/receipts/P00-v5-plan-*",
+    "tools/v5_plan.py",
+    "tools/v5_dashboard.html",
+    "tests/test_v5_plan.py"
+  ],
+  "purpose": "Study final and xfinal specifications, prepare worker-ready planning package and local HTML dashboard in one draft PR. Implementation remains future work.",
+  "boundaries": [
+    "No scientific implementation or requirement activation",
+    "No existing receipt or generated scientific-status edits",
+    "No source simulations or GPU jobs",
+    "No subagents",
+    "Preserve existing COMMS.md and all unrelated dirty/untracked work"
+  ]
+}

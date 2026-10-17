@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "cc86edc90d06f0eac69022f84354abc94bb453c4",
+  "anchors": [
+    {
+      "path": "crates/joil-core/src/evolve.rs",
+      "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab",
+      "anchor": "let specific_energy_j_m3 =",
+      "lines": [
+        409
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "tools/run_elite_3grid_gci_and_rsm.py",
+      "sha256": "27ef494bafda0337233bf4226e8a74a542314d16f61471ffb79cfcf1a23ca601",
+      "anchor": "mandatory_elite_gci_and_rsm_gate",
+      "lines": [
+        42
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "tools/f0_enactment.py",
+      "sha256": "2809c7750565dcce47cf0572b2b275e3506349f54277512ff004d4fa800da079",
+      "anchor": "spec['expected_delta_mm']",
+      "lines": [
+        179
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "crates/joil-ir/src/lib.rs",
+      "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+      "anchor": "_mesh: &IrCompiledMesh",
+      "lines": [
+        3355
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "crates/joil-ir/src/lib.rs",
+      "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+      "anchor": "let trapped_powder = 0usize",
+      "lines": [
+        3415
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "crates/joil-core/src/surrogate.rs",
+      "sha256": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905",
+      "anchor": "checkpoint_determinism_verified: resume_ok",
+      "lines": [
+        922
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "crates/joil-core/src/evolve.rs",
+      "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab",
+      "anchor": "Some(85.5)",
+      "lines": [
+        1248,
+        1250
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "apps/explorer/src/main.tsx",
+      "sha256": "77d32c1c3474d06e0fe90af5f9a4ef808f5874f8d4c5c6a834b5d446a25373db",
+      "anchor": "−38.5% / −38.4%",
+      "lines": [
+        113,
+        168
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "crates/joil-core/src/population.rs",
+      "sha256": "25c919457542dcb6532798d2adf7c43782ebda3a7b899cf90b6b5d032bc731e0",
+      "anchor": "pub fn verify_dispersion_and_les_partition",
+      "lines": [
+        121
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    },
+    {
+      "path": "crates/joil-core/src/structure.rs",
+      "sha256": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c",
+      "anchor": "pub const DESIGN_VESSEL_DELTA_P_PA",
+      "lines": [
+        31
+      ],
+      "scope": "Code-anchor confirmation, not independent scientific validation"
+    }
+  ]
+}

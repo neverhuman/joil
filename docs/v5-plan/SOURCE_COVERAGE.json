@@ -1,0 +1,7287 @@
+{
+  "schema_version": 1,
+  "note": "Section-level navigation; keyword-assisted routing reviewed alongside substantive SOURCE_REVIEW. Not an atomic MUST extractor or scientific qualification. PDF line numbers refer to local pdftotext extraction.",
+  "sections": [
+    {
+      "source": "S01",
+      "section": "JOIL v5 Engineering Specification",
+      "start_line": 1,
+      "end_line": 4,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "Executive summary",
+      "start_line": 5,
+      "end_line": 31,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "1. What joil is today",
+      "start_line": 32,
+      "end_line": 35,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "1.1 Keep",
+      "start_line": 36,
+      "end_line": 47,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "1.2 Critical gaps",
+      "start_line": 48,
+      "end_line": 65,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "1.3 The vortex-fidelity finding",
+      "start_line": 66,
+      "end_line": 79,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "2. Goals, non-goals and success criteria",
+      "start_line": 80,
+      "end_line": 107,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "3. System architecture",
+      "start_line": 108,
+      "end_line": 121,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "3.1 Workspace layout",
+      "start_line": 122,
+      "end_line": 145,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "4. Genome: the Morphogenetic Program Graph (MPG-1)",
+      "start_line": 146,
+      "end_line": 149,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "4.1 What a genome contains",
+      "start_line": 150,
+      "end_line": 160,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "4.2 Module library",
+      "start_line": 161,
+      "end_line": 189,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "4.3 Development and budgets",
+      "start_line": 190,
+      "end_line": 193,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "4.4 From genome to geometry",
+      "start_line": 194,
+      "end_line": 200,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "4.5 Identity",
+      "start_line": 201,
+      "end_line": 206,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "4.6 Variation operators",
+      "start_line": 207,
+      "end_line": 224,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "4.7 Seeds",
+      "start_line": 225,
+      "end_line": 231,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "5. Engineering gates",
+      "start_line": 232,
+      "end_line": 235,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "5.1 Gate contract",
+      "start_line": 236,
+      "end_line": 247,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "5.2 Fidelity ladder",
+      "start_line": 248,
+      "end_line": 261,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "5.3 Gate catalogue (hydrocyclone pack)",
+      "start_line": 262,
+      "end_line": 338,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "5.4 Physics solvers behind the gates",
+      "start_line": 339,
+      "end_line": 358,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "5.5 Uncertainty budget",
+      "start_line": 359,
+      "end_line": 371,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "6. Objectives and decision policy",
+      "start_line": 372,
+      "end_line": 375,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "6.1 Default objectives (hydrocyclone pack)",
+      "start_line": 376,
+      "end_line": 388,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-05",
+        "V5-06",
+        "V5-07",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "6.2 Hard constraints",
+      "start_line": 389,
+      "end_line": 395,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "6.3 Selection",
+      "start_line": 396,
+      "end_line": 402,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "6.4 Decision utility",
+      "start_line": 403,
+      "end_line": 417,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "6.5 Scenarios",
+      "start_line": 418,
+      "end_line": 424,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "7. Evolution engine",
+      "start_line": 425,
+      "end_line": 428,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "7.1 The loop",
+      "start_line": 429,
+      "end_line": 438,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "7.2 Archives and novelty",
+      "start_line": 439,
+      "end_line": 457,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "7.3 Surrogate",
+      "start_line": 458,
+      "end_line": 461,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "7.4 Honesty mechanisms",
+      "start_line": 462,
+      "end_line": 468,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "7.5 Search-algorithm study (preregistered)",
+      "start_line": 469,
+      "end_line": 482,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "8. Run model: one command, checkpoints, seeding",
+      "start_line": 483,
+      "end_line": 486,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "8.1 What `run` does",
+      "start_line": 487,
+      "end_line": 496,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "8.2 Checkpoint contents",
+      "start_line": 497,
+      "end_line": 509,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "8.3 Seeding future campaigns",
+      "start_line": 510,
+      "end_line": 515,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "8.4 Commands",
+      "start_line": 516,
+      "end_line": 530,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "8.5 Layout",
+      "start_line": 531,
+      "end_line": 542,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "9. HPC architecture",
+      "start_line": 543,
+      "end_line": 546,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "9.1 Stack",
+      "start_line": 547,
+      "end_line": 559,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "9.2 Fleet use",
+      "start_line": 560,
+      "end_line": 566,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "9.3 Planning arithmetic",
+      "start_line": 567,
+      "end_line": 572,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "9.4 Benchmark receipts",
+      "start_line": 573,
+      "end_line": 585,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "10. Blender rendering system",
+      "start_line": 586,
+      "end_line": 589,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "10.1 Pipeline",
+      "start_line": 590,
+      "end_line": 597,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "10.2 Quality rules",
+      "start_line": 598,
+      "end_line": 608,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "10.3 Plate catalogue",
+      "start_line": 609,
+      "end_line": 635,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "11. White paper plan",
+      "start_line": 636,
+      "end_line": 667,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "12. Extensibility and repurposing",
+      "start_line": 668,
+      "end_line": 671,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "12.1 Contracts",
+      "start_line": 672,
+      "end_line": 701,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "12.2 Declaring objectives",
+      "start_line": 702,
+      "end_line": 716,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "12.3 Packs this engine can carry",
+      "start_line": 717,
+      "end_line": 728,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "13. IP and process",
+      "start_line": 729,
+      "end_line": 732,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-28",
+        "V5-30",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "13.1 Protecting results",
+      "start_line": 733,
+      "end_line": 740,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "13.2 Licence hygiene",
+      "start_line": 741,
+      "end_line": 752,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "13.3 Process",
+      "start_line": 753,
+      "end_line": 766,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "14. Migration: keep, refactor, retire",
+      "start_line": 767,
+      "end_line": 797,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "15. Roadmap",
+      "start_line": 798,
+      "end_line": 813,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "16. Risks and mitigations",
+      "start_line": 814,
+      "end_line": 831,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "17. Appendices",
+      "start_line": 832,
+      "end_line": 833,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "A. Example campaign file",
+      "start_line": 834,
+      "end_line": 898,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S01",
+      "section": "B. Sources",
+      "start_line": 899,
+      "end_line": 910,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "JOIL — Final Engineering Specification",
+      "start_line": 1,
+      "end_line": 31,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "1. Product decision and scope",
+      "start_line": 32,
+      "end_line": 33,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "1.1 The system to build",
+      "start_line": 34,
+      "end_line": 43,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "1.2 Binding decisions",
+      "start_line": 44,
+      "end_line": 57,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "1.3 Four distinct release outcomes",
+      "start_line": 58,
+      "end_line": 66,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "1.4 Terminology and evidence scope",
+      "start_line": 67,
+      "end_line": 79,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "2. Repository diagnosis and first corrections",
+      "start_line": 80,
+      "end_line": 81,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "2.1 Review basis",
+      "start_line": 82,
+      "end_line": 87,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "2.2 Correction register",
+      "start_line": 88,
+      "end_line": 112,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "2.3 Preserve and simplify",
+      "start_line": 113,
+      "end_line": 118,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "2.4 Requirements authority",
+      "start_line": 119,
+      "end_line": 126,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "3. Architecture, contracts and code design",
+      "start_line": 127,
+      "end_line": 128,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "3.1 Module boundaries",
+      "start_line": 129,
+      "end_line": 151,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "3.2 Dependency and evidence flow",
+      "start_line": 152,
+      "end_line": 169,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "3.3 Core contract sketch",
+      "start_line": 170,
+      "end_line": 226,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "3.4 Identity, caching and revision rules",
+      "start_line": 227,
+      "end_line": 248,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "3.5 Generic scientific reuse",
+      "start_line": 249,
+      "end_line": 252,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "4. Objectives, engineering feasibility and preference policy",
+      "start_line": 253,
+      "end_line": 254,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "4.1 Fixed engineering demand",
+      "start_line": 255,
+      "end_line": 260,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "4.2 Four primary objectives",
+      "start_line": 261,
+      "end_line": 277,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "4.3 Metric oracles and uncertainty",
+      "start_line": 278,
+      "end_line": 291,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "4.4 Hard feasibility first",
+      "start_line": 292,
+      "end_line": 297,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "4.5 Weighted preference without losing the Pareto front",
+      "start_line": 298,
+      "end_line": 307,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "4.6 Decision uncertainty and practical thresholds",
+      "start_line": 308,
+      "end_line": 313,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "5. Genome and canonical subject",
+      "start_line": 314,
+      "end_line": 315,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "5.1 A bounded developmental program, with variable physical topology",
+      "start_line": 316,
+      "end_line": 370,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "5.2 One explicit geometric subject, with honest approximation semantics",
+      "start_line": 371,
+      "end_line": 384,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "5.3 Identity is provenance, not a claim of universal geometric equivalence",
+      "start_line": 385,
+      "end_line": 406,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-04",
+        "V5-05",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "5.4 Rust contracts and a domain-independent boundary",
+      "start_line": 407,
+      "end_line": 438,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "5.5 Independent enactment, manufacturability and observation",
+      "start_line": 439,
+      "end_line": 454,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "6. Autonomous evolution",
+      "start_line": 455,
+      "end_line": 456,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "6.1 The optimizer is an executable experiment",
+      "start_line": 457,
+      "end_line": 468,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "6.2 Complementary emitters and constrained selection",
+      "start_line": 469,
+      "end_line": 495,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "6.3 Diversity that survives measurement and version changes",
+      "start_line": 496,
+      "end_line": 503,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "6.4 Surrogates allocate experiments; evidence decides outcomes",
+      "start_line": 504,
+      "end_line": 523,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "6.5 Optional reduced domains must earn authority",
+      "start_line": 524,
+      "end_line": 529,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "6.6 Checkpoints, replay and budget semantics",
+      "start_line": 530,
+      "end_line": 541,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "6.7 Acceptance and research controls",
+      "start_line": 542,
+      "end_line": 549,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7. Scientific gates: accurate comparisons before evolutionary claims",
+      "start_line": 550,
+      "end_line": 553,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19",
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.1 Evidence stages and solver fidelity are independent",
+      "start_line": 554,
+      "end_line": 568,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.2 Repair the current scientific truth defects first",
+      "start_line": 569,
+      "end_line": 583,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.3 Freeze applicability and material/process envelopes",
+      "start_line": 584,
+      "end_line": 591,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.4 One reference pipeline and per-variable verification/validation",
+      "start_line": 592,
+      "end_line": 601,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.5 Carrier flow and direct vortex validation",
+      "start_line": 602,
+      "end_line": 615,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.6 Native oil transport, inventory and sampling units",
+      "start_line": 616,
+      "end_line": 631,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.7 Common-flow capacity and controlled energy comparison",
+      "start_line": 632,
+      "end_line": 639,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.8 Structural reserve, dynamics and finite-life fatigue",
+      "start_line": 640,
+      "end_line": 651,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.9 Manufacturing, drainage and as-built qualification",
+      "start_line": 652,
+      "end_line": 657,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.10 Joint uncertainty, decision statistics and independent confirmation",
+      "start_line": 658,
+      "end_line": 671,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "7.11 Mandatory decision profile and executable simultaneous-confidence fixture",
+      "start_line": 672,
+      "end_line": 717,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "8. Durable runner and one-command operation",
+      "start_line": 718,
+      "end_line": 774,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "8.1 Core contracts and task graph",
+      "start_line": 775,
+      "end_line": 798,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "8.2 Leases, attempts and accounting",
+      "start_line": 799,
+      "end_line": 814,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "8.3 Cache and artifact publication",
+      "start_line": 815,
+      "end_line": 824,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "8.4 Checkpoint and replay acceptance",
+      "start_line": 825,
+      "end_line": 834,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "9. HPC performance specification",
+      "start_line": 835,
+      "end_line": 838,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "9.1 Resource model and scheduling",
+      "start_line": 839,
+      "end_line": 846,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "9.2 Measurement before campaign sizing",
+      "start_line": 847,
+      "end_line": 856,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "9.3 Acceleration order and research options",
+      "start_line": 857,
+      "end_line": 866,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "9.4 Silent numerical-fault containment",
+      "start_line": 867,
+      "end_line": 874,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "10. Blender visualizations and evidence explorer",
+      "start_line": 875,
+      "end_line": 878,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "10.1 Scientific scene contract",
+      "start_line": 879,
+      "end_line": 886,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "10.2 Professional visual standard",
+      "start_line": 887,
+      "end_line": 896,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "10.3 Complete coverage, explorer and acceptance",
+      "start_line": 897,
+      "end_line": 908,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "10.4 Complete current test visualization coverage",
+      "start_line": 909,
+      "end_line": 981,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "10.5 Implementation acceptance summary",
+      "start_line": 982,
+      "end_line": 991,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "11. Research programme, white paper and technical IP",
+      "start_line": 992,
+      "end_line": 993,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "11.1 Falsifiable contributions and claim boundaries",
+      "start_line": 994,
+      "end_line": 1008,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "11.2 Factorized representation and algorithm experiment",
+      "start_line": 1009,
+      "end_line": 1022,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "11.3 Confirmation, uncertainty and experimental integrity",
+      "start_line": 1023,
+      "end_line": 1036,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "11.4 Mechanism dossiers and controlled interventions",
+      "start_line": 1037,
+      "end_line": 1044,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "11.5 White paper and reproducible release",
+      "start_line": 1045,
+      "end_line": 1052,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-28",
+        "V5-30",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "11.6 Technical records and disclosure",
+      "start_line": 1053,
+      "end_line": 1058,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "11.7 Transfer acceptance",
+      "start_line": 1059,
+      "end_line": 1064,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "12. Delivery, acceptance and unresolved decisions",
+      "start_line": 1065,
+      "end_line": 1066,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "12.1 Preserve ownership and create scoped subpackets",
+      "start_line": 1067,
+      "end_line": 1083,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "12.2 First implementation changes",
+      "start_line": 1084,
+      "end_line": 1091,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "12.3 Release gates",
+      "start_line": 1092,
+      "end_line": 1103,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "12.4 Risk register and unresolved inputs",
+      "start_line": 1104,
+      "end_line": 1111,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "Appendix A. Comparative evaluation of the six supplied specifications",
+      "start_line": 1112,
+      "end_line": 1113,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.1 Method and interpretation",
+      "start_line": 1114,
+      "end_line": 1123,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.2 Detailed weighted rubric",
+      "start_line": 1124,
+      "end_line": 1140,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.3 File labels and ranking",
+      "start_line": 1141,
+      "end_line": 1151,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.4 Criterion scores, all on a 0–100 scale",
+      "start_line": 1152,
+      "end_line": 1168,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.5 A — Open-Ended Evolutionary Design with Hard Engineering Gates",
+      "start_line": 1169,
+      "end_line": 1184,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.6 B — Joil Engineering Specification PDF",
+      "start_line": 1185,
+      "end_line": 1199,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.7 C — JOIL Final Engineering Specification DOCX",
+      "start_line": 1200,
+      "end_line": 1215,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.8 D — joil2 / EvoGate brief",
+      "start_line": 1216,
+      "end_line": 1225,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.9 E — joil1 / Joil vNext brief",
+      "start_line": 1226,
+      "end_line": 1235,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "A.10 F — JOIL v5 / Crucible",
+      "start_line": 1236,
+      "end_line": 1251,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "Appendix B. Synthesis decisions and traceability",
+      "start_line": 1252,
+      "end_line": 1281,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "Appendix C. Final specification score and remaining limits",
+      "start_line": 1282,
+      "end_line": 1283,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "C.1 Final score: **95.0 / 100**",
+      "start_line": 1284,
+      "end_line": 1302,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "C.2 What the final review changed",
+      "start_line": 1303,
+      "end_line": 1308,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "C.3 Why this is not 100",
+      "start_line": 1309,
+      "end_line": 1316,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "Appendix D. Source basis and reproducibility of this review",
+      "start_line": 1317,
+      "end_line": 1318,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "D.1 Repository evidence",
+      "start_line": 1319,
+      "end_line": 1334,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "D.2 Primary methodological and software references",
+      "start_line": 1335,
+      "end_line": 1355,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "D.3 Review limitations and change control",
+      "start_line": 1356,
+      "end_line": 1361,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S02",
+      "section": "D.4 Supplied-file identity manifest",
+      "start_line": 1362,
+      "end_line": 1371,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "JOIL final engineering specification",
+      "start_line": 1,
+      "end_line": 14,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "1. Decision and intended outcome",
+      "start_line": 15,
+      "end_line": 27,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "1.1 Four independently earned outcomes",
+      "start_line": 28,
+      "end_line": 38,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "1.2 User experience",
+      "start_line": 39,
+      "end_line": 50,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "2. Repository remediation before expansion",
+      "start_line": 51,
+      "end_line": 72,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "2.1 Immediate corrective changes",
+      "start_line": 73,
+      "end_line": 76,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "3. Architecture and contracts",
+      "start_line": 77,
+      "end_line": 78,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "3.1 Minimal module structure",
+      "start_line": 79,
+      "end_line": 98,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "3.2 Three separate kinds of outcome",
+      "start_line": 99,
+      "end_line": 133,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "3.3 Required observation fields",
+      "start_line": 134,
+      "end_line": 139,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "3.4 Requirements and configuration",
+      "start_line": 140,
+      "end_line": 156,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "3.5 Identity and change semantics",
+      "start_line": 157,
+      "end_line": 171,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "4. Gene representation and geometry enactment",
+      "start_line": 172,
+      "end_line": 173,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "4.1 Selected representation",
+      "start_line": 174,
+      "end_line": 188,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "4.2 Primitive contracts",
+      "start_line": 189,
+      "end_line": 204,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "4.3 Development and repair",
+      "start_line": 205,
+      "end_line": 212,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "4.4 Region authority and backend coverage",
+      "start_line": 213,
+      "end_line": 227,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "4.5 Independent measurement and acceptance",
+      "start_line": 228,
+      "end_line": 241,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "5. Objectives, feasibility and decision integrity",
+      "start_line": 242,
+      "end_line": 243,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "5.1 Four primary objectives",
+      "start_line": 244,
+      "end_line": 256,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "5.2 Structural reserve has a fixed meaning",
+      "start_line": 257,
+      "end_line": 264,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "5.3 Oil concentration and capacity",
+      "start_line": 265,
+      "end_line": 280,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "5.4 Energy at a frozen operating basis",
+      "start_line": 281,
+      "end_line": 305,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "5.5 Preference and Pareto policy",
+      "start_line": 306,
+      "end_line": 320,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "6. Scientific gates and qualification",
+      "start_line": 321,
+      "end_line": 322,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "6.1 Capability evidence vector",
+      "start_line": 323,
+      "end_line": 338,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "6.2 Carrier flow",
+      "start_line": 339,
+      "end_line": 356,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "6.3 Oil transport",
+      "start_line": 357,
+      "end_line": 370,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "6.4 Structure, durability and manufacturing",
+      "start_line": 371,
+      "end_line": 384,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07",
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "6.5 Error budgets, robustness and multiple decisions",
+      "start_line": 385,
+      "end_line": 394,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "6.6 Qualification gate registry",
+      "start_line": 395,
+      "end_line": 415,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "7. Automatic evolution and discovery",
+      "start_line": 416,
+      "end_line": 417,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "7.1 Selected first implementation",
+      "start_line": 418,
+      "end_line": 425,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "7.2 Campaign loop",
+      "start_line": 426,
+      "end_line": 439,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "7.3 Emitters and protection of new structure",
+      "start_line": 440,
+      "end_line": 445,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "7.4 Acquisition and surrogate controls",
+      "start_line": 446,
+      "end_line": 455,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "7.5 Comparable experiments and stopping",
+      "start_line": 456,
+      "end_line": 461,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "8. Durable execution, checkpoints and seeding",
+      "start_line": 462,
+      "end_line": 463,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "8.1 Task graph and storage",
+      "start_line": 464,
+      "end_line": 503,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "8.2 Crash-safe publication and transaction boundary",
+      "start_line": 504,
+      "end_line": 511,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "8.3 Complete checkpoint schema",
+      "start_line": 512,
+      "end_line": 529,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "8.4 Determinism contract",
+      "start_line": 530,
+      "end_line": 539,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "8.5 Budget accounting and admission",
+      "start_line": 540,
+      "end_line": 547,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "8.6 Fault-injection release gate",
+      "start_line": 548,
+      "end_line": 553,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-05",
+        "V5-06",
+        "V5-07",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "8.7 Seeding and revocation",
+      "start_line": 554,
+      "end_line": 559,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "9. HPC design and performance qualification",
+      "start_line": 560,
+      "end_line": 561,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "9.1 Optimize useful qualified decisions",
+      "start_line": 562,
+      "end_line": 575,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "9.2 CPU, GPU and cluster execution",
+      "start_line": 576,
+      "end_line": 585,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "9.3 Accelerator admission card",
+      "start_line": 586,
+      "end_line": 593,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "9.4 Reduced downstream response operator",
+      "start_line": 594,
+      "end_line": 599,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "9.5 Benchmark matrix and release rule",
+      "start_line": 600,
+      "end_line": 613,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "10. Extensibility and the one-command interface",
+      "start_line": 614,
+      "end_line": 615,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "10.1 Domain pack contract",
+      "start_line": 616,
+      "end_line": 623,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "10.2 Command contract",
+      "start_line": 624,
+      "end_line": 643,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "10.3 Example campaign schema",
+      "start_line": 644,
+      "end_line": 700,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "11. Blender rendering and explorer",
+      "start_line": 701,
+      "end_line": 702,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "11.1 Render from evidence",
+      "start_line": 703,
+      "end_line": 718,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "11.2 Publication visual standard",
+      "start_line": 719,
+      "end_line": 728,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "11.3 Signature sequences",
+      "start_line": 729,
+      "end_line": 737,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "11.4 Complete coverage and QA",
+      "start_line": 738,
+      "end_line": 745,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "11.5 React/Vite explorer",
+      "start_line": 746,
+      "end_line": 751,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "12. White paper, experiments and technical IP",
+      "start_line": 752,
+      "end_line": 753,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "12.1 Research thesis",
+      "start_line": 754,
+      "end_line": 759,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "12.2 Preregistered study matrix",
+      "start_line": 760,
+      "end_line": 775,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "12.3 Statistical protocol",
+      "start_line": 776,
+      "end_line": 785,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "12.4 Mechanism and novelty evidence",
+      "start_line": 786,
+      "end_line": 793,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "12.5 Paper build and evidence release",
+      "start_line": 794,
+      "end_line": 801,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "13. Implementation sequence and engineering merge gates",
+      "start_line": 802,
+      "end_line": 819,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "13.1 First reviewable pull requests",
+      "start_line": 820,
+      "end_line": 829,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "13.2 Required reference search policy",
+      "start_line": 830,
+      "end_line": 858,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "13.3 Schema and adapter release artifacts",
+      "start_line": 859,
+      "end_line": 864,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "13.4 CI and release levels",
+      "start_line": 865,
+      "end_line": 876,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "13.5 Release definition of done",
+      "start_line": 877,
+      "end_line": 882,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "13.6 Remaining decisions and risks",
+      "start_line": 883,
+      "end_line": 897,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "Appendix A. Engineering-test render catalogue",
+      "start_line": 898,
+      "end_line": 986,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-26",
+        "V5-27",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "Appendix B. Detailed comparative rubric and feedback",
+      "start_line": 987,
+      "end_line": 1009,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "B.1 All scores",
+      "start_line": 1010,
+      "end_line": 1036,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "B.2 A — joil v5 Engineering Spec — Open-Ended Evolutionary Design with Hard Engineering Gates.md",
+      "start_line": 1037,
+      "end_line": 1059,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "B.3 B — Joil_Engineering_Specification(1).pdf",
+      "start_line": 1060,
+      "end_line": 1082,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "B.4 C — JOIL_Final_Engineering_Specification(1).docx",
+      "start_line": 1083,
+      "end_line": 1105,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "B.5 D — joil2.md",
+      "start_line": 1106,
+      "end_line": 1128,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "B.6 E — joil1.md",
+      "start_line": 1129,
+      "end_line": 1151,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "B.7 F — JOIL v5 Engineering Specification.md",
+      "start_line": 1152,
+      "end_line": 1174,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "Appendix C. How the six specifications were synthesized",
+      "start_line": 1175,
+      "end_line": 1197,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "New requirements added by the synthesis",
+      "start_line": 1198,
+      "end_line": 1203,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "Appendix D. Sources, reviewed inputs and limits",
+      "start_line": 1204,
+      "end_line": 1205,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "D.1 Repository anchors",
+      "start_line": 1206,
+      "end_line": 1226,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "D.2 Primary technical references",
+      "start_line": 1227,
+      "end_line": 1240,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "D.3 Input identity",
+      "start_line": 1241,
+      "end_line": 1253,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "Appendix E. Final specification score and residual limitations",
+      "start_line": 1254,
+      "end_line": 1275,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S03",
+      "section": "Why the score is below 100",
+      "start_line": 1276,
+      "end_line": 1284,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "JOIL v5 Final Engineering Specification",
+      "start_line": 1,
+      "end_line": 9,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "Executive Summary",
+      "start_line": 10,
+      "end_line": 28,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "1. Repository Diagnosis (Confirmed)",
+      "start_line": 29,
+      "end_line": 43,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "2. Architecture",
+      "start_line": 44,
+      "end_line": 68,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "3. Genome: Morphogenetic Program Graph",
+      "start_line": 69,
+      "end_line": 81,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "4. Engineering Gates and Multi-Fidelity Ladder",
+      "start_line": 82,
+      "end_line": 114,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "5. Execution, Checkpoints, and HPC",
+      "start_line": 115,
+      "end_line": 128,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07",
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "6. Blender Rendering",
+      "start_line": 129,
+      "end_line": 134,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "7. White Paper, Evidence, and IP",
+      "start_line": 135,
+      "end_line": 143,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "8. Migration and Milestones",
+      "start_line": 144,
+      "end_line": 158,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S04",
+      "section": "9. Success Criteria",
+      "start_line": 159,
+      "end_line": 165,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "1 Repository assessment and required corrections . . . . . . . . . . . . . . . . . . . . . . 5",
+      "start_line": 32,
+      "end_line": 36,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "2 Product behavior and one-command execution . . . . . . . . . . . . . . . . . . . . . . . 8",
+      "start_line": 37,
+      "end_line": 38,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "3 Architecture and reusable code design . . . . . . . . . . . . . . . . . . . . . . . . . . . 8",
+      "start_line": 39,
+      "end_line": 43,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "4 Genome that can express unanticipated 3D designs                            . . . . . . . . . . . . . . . . . . . 11",
+      "start_line": 44,
+      "end_line": 50,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "5 Autonomous evolution and multi-fidelity selection                        . . . . . . . . . . . . . . . . . . . . 14",
+      "start_line": 51,
+      "end_line": 56,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "6 Mass, structural reserve and process performance . . . . . . . . . . . . . . . . . . . . 15",
+      "start_line": 57,
+      "end_line": 61,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "7 Scientific gates and validation programme                      . . . . . . . . . . . . . . . . . . . . . . . . 17",
+      "start_line": 62,
+      "end_line": 70,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "8 Durable execution, checkpoints and resource management . . . . . . . . . . . . . . . . 21",
+      "start_line": 71,
+      "end_line": 76,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-05",
+        "V5-06",
+        "V5-07",
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "9 HPC performance specification                   . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 24",
+      "start_line": 77,
+      "end_line": 82,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "10 Blender engineering visualizations and evidence explorer . . . . . . . . . . . . . . . . 25",
+      "start_line": 83,
+      "end_line": 98,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "11 White paper, scientific novelty and defensible IP                      . . . . . . . . . . . . . . . . . . . . 28",
+      "start_line": 99,
+      "end_line": 104,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "12 Implementation sequence and merge gates . . . . . . . . . . . . . . . . . . . . . . . 29",
+      "start_line": 105,
+      "end_line": 110,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "13 Concrete configuration and interchange examples . . . . . . . . . . . . . . . . . . . . 32",
+      "start_line": 111,
+      "end_line": 146,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "1. A reliable software engine: fresh-clone execution, complete accounting, crash recovery,",
+      "start_line": 147,
+      "end_line": 148,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "2. A qualified computational comparator: measured geometry, verified numerics, independently",
+      "start_line": 149,
+      "end_line": 150,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "3. A demonstrated discovery method: new compiled structures and better equal-budget results than",
+      "start_line": 151,
+      "end_line": 152,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "4. A qualified physical candidate: as-built metrology, material/process evidence, and independent",
+      "start_line": 153,
+      "end_line": 212,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "1 Repository assessment and required",
+      "start_line": 213,
+      "end_line": 399,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "2 Product behavior and one-command execution",
+      "start_line": 400,
+      "end_line": 442,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "3 Architecture and reusable code design",
+      "start_line": 443,
+      "end_line": 606,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "4 Genome that can express unanticipated 3D",
+      "start_line": 607,
+      "end_line": 800,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "5 Autonomous evolution and multi-fidelity",
+      "start_line": 801,
+      "end_line": 904,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "6 Mass, structural reserve and process",
+      "start_line": 905,
+      "end_line": 1001,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "7 Scientific gates and validation programme",
+      "start_line": 1002,
+      "end_line": 1288,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "8 Durable execution, checkpoints and resource",
+      "start_line": 1289,
+      "end_line": 1435,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-05",
+        "V5-06",
+        "V5-07",
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "9 HPC performance specification",
+      "start_line": 1436,
+      "end_line": 1506,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "1. Remove unnecessary recomputation with exact caches, paired scenario reuse and cheap",
+      "start_line": 1507,
+      "end_line": 1508,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "2. Improve compile/mesh yield and cost estimates so scheduling avoids pathological jobs without",
+      "start_line": 1509,
+      "end_line": 1510,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "3. Pack independent candidate/scenario simulations efficiently; tune ranks and NUMA placement",
+      "start_line": 1511,
+      "end_line": 1512,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "4. Use native binary field output, incremental extraction and explicit retention tiers. Keep raw",
+      "start_line": 1513,
+      "end_line": 1514,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "5. Reuse fixed-domain meshes or initial fields only with verified interface/transfer compatibility and",
+      "start_line": 1515,
+      "end_line": 1516,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "6. Qualify reduced models and selective expensive acquisition. Test low-ranked designs to measure",
+      "start_line": 1517,
+      "end_line": 1518,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "7. Introduce GPU or alternative solver acceleration behind parity tests and complete-workflow",
+      "start_line": 1519,
+      "end_line": 1528,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "10 Blender engineering visualizations and",
+      "start_line": 1529,
+      "end_line": 1674,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "11 White paper, scientific novelty and defensible",
+      "start_line": 1675,
+      "end_line": 1774,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "12 Implementation sequence and merge gates",
+      "start_line": 1775,
+      "end_line": 1941,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S05",
+      "section": "13 Concrete configuration and interchange",
+      "start_line": 1942,
+      "end_line": 2367,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "joil v5 Engineering Spec — Open-Ended Evolutionary Design with Hard Engineering Gates",
+      "start_line": 1,
+      "end_line": 4,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "1. Executive summary",
+      "start_line": 5,
+      "end_line": 25,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "2. Audit of the current repository",
+      "start_line": 26,
+      "end_line": 29,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "2.1 Size and shape",
+      "start_line": 30,
+      "end_line": 39,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "2.2 Keep: what is strong",
+      "start_line": 40,
+      "end_line": 49,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "2.3 Gaps, in priority order",
+      "start_line": 50,
+      "end_line": 71,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "3. Design principles and non-goals",
+      "start_line": 72,
+      "end_line": 88,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "4. Target architecture and code design",
+      "start_line": 89,
+      "end_line": 96,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "4.1 Crate map",
+      "start_line": 97,
+      "end_line": 121,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "4.2 Core data flow, in types",
+      "start_line": 122,
+      "end_line": 132,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "4.3 What happens to today's code",
+      "start_line": 133,
+      "end_line": 146,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "5. Open-ended 3D gene representation",
+      "start_line": 147,
+      "end_line": 150,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "5.1 Five layers, two of them not genes",
+      "start_line": 151,
+      "end_line": 186,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "5.2 Development and validity by construction",
+      "start_line": 187,
+      "end_line": 198,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "5.3 Variation operators",
+      "start_line": 199,
+      "end_line": 212,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "5.4 Legacy layers become seeds, not ontology",
+      "start_line": 213,
+      "end_line": 216,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "5.5 Expressiveness challenge suite",
+      "start_line": 217,
+      "end_line": 220,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "5.6 Identity and numeric policy",
+      "start_line": 221,
+      "end_line": 224,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "6. Geometry kernel and manufacturability",
+      "start_line": 225,
+      "end_line": 228,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "6.1 Kernel",
+      "start_line": 229,
+      "end_line": 234,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "6.2 Backends and declared coverage",
+      "start_line": 235,
+      "end_line": 246,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "6.3 Manufacturability gates at L0",
+      "start_line": 247,
+      "end_line": 261,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "6.4 Measured topology replaces labels",
+      "start_line": 262,
+      "end_line": 265,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "7. Engineering gates",
+      "start_line": 266,
+      "end_line": 269,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "7.1 The ladder",
+      "start_line": 270,
+      "end_line": 281,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "7.2 What makes each gate accurate",
+      "start_line": 282,
+      "end_line": 290,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "7.3 Verification before any judge runs",
+      "start_line": 291,
+      "end_line": 303,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "7.4 Frozen-domain response operator",
+      "start_line": 304,
+      "end_line": 309,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "7.5 Accuracy budgets and the promotion rule",
+      "start_line": 310,
+      "end_line": 315,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "8. Objectives and scoring",
+      "start_line": 316,
+      "end_line": 319,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "8.1 Objective set for the hydrocyclone pack",
+      "start_line": 320,
+      "end_line": 330,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "8.2 Why weight and strength matter for this part",
+      "start_line": 331,
+      "end_line": 344,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "8.3 Robust statistics that the budget can afford",
+      "start_line": 345,
+      "end_line": 350,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "8.4 Ranking",
+      "start_line": 351,
+      "end_line": 364,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "9. Evolution engine",
+      "start_line": 365,
+      "end_line": 372,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "9.1 Why evolution loses today, as testable hypotheses",
+      "start_line": 373,
+      "end_line": 380,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "9.2 Three archives, all keyed by measurement",
+      "start_line": 381,
+      "end_line": 390,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "9.3 Emitters and adaptive allocation",
+      "start_line": 391,
+      "end_line": 399,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "9.4 Multi-fidelity promotion",
+      "start_line": 400,
+      "end_line": 405,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "9.5 Surrogates propose, never score",
+      "start_line": 406,
+      "end_line": 409,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "9.6 Built-in controls and ablations",
+      "start_line": 410,
+      "end_line": 420,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "9.7 Checkpoints and seeding",
+      "start_line": 421,
+      "end_line": 426,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "10. HPC and performance",
+      "start_line": 427,
+      "end_line": 430,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "10.1 Throughput targets per fidelity level",
+      "start_line": 431,
+      "end_line": 451,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "10.2 Compute stack",
+      "start_line": 452,
+      "end_line": 458,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "10.3 Scheduling across hosts",
+      "start_line": 459,
+      "end_line": 464,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "10.4 Storage and formats",
+      "start_line": 465,
+      "end_line": 474,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "10.5 Performance gates before any campaign",
+      "start_line": 475,
+      "end_line": 478,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "11. Extensibility and repurposing",
+      "start_line": 479,
+      "end_line": 482,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "11.1 The two extension traits",
+      "start_line": 483,
+      "end_line": 506,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "11.2 Out-of-process judges",
+      "start_line": 507,
+      "end_line": 510,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "11.3 A campaign file",
+      "start_line": 511,
+      "end_line": 566,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "11.4 Design-domain tiers within this pack",
+      "start_line": 567,
+      "end_line": 575,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "11.5 Other processes that reuse these gates",
+      "start_line": 576,
+      "end_line": 586,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "12. Blender rendering pipeline",
+      "start_line": 587,
+      "end_line": 590,
+      "packets": [
+        "V5-26",
+        "V5-27",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "12.1 Architecture",
+      "start_line": 591,
+      "end_line": 601,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "12.2 Visual language",
+      "start_line": 602,
+      "end_line": 605,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "12.3 One recipe per gate",
+      "start_line": 606,
+      "end_line": 627,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "12.4 Rules that keep renders honest",
+      "start_line": 628,
+      "end_line": 634,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "13. One-command run, checkpoints and explorer",
+      "start_line": 635,
+      "end_line": 638,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07",
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "13.1 Commands",
+      "start_line": 639,
+      "end_line": 654,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "13.2 Campaign lifecycle",
+      "start_line": 655,
+      "end_line": 662,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "13.3 Run directory",
+      "start_line": 663,
+      "end_line": 676,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "13.4 Explorer",
+      "start_line": 677,
+      "end_line": 693,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "14. White paper, evidence and IP strategy",
+      "start_line": 694,
+      "end_line": 697,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "14.1 Evidence: keep the kernel, drop the receipt layer",
+      "start_line": 698,
+      "end_line": 708,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "14.2 The white paper, preregistered",
+      "start_line": 709,
+      "end_line": 724,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "14.3 IP: decide before you disclose",
+      "start_line": 725,
+      "end_line": 735,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "15. Migration plan, milestones, acceptance criteria and risks",
+      "start_line": 736,
+      "end_line": 743,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "15.1 Gates",
+      "start_line": 744,
+      "end_line": 755,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "15.2 Fix now in the v4 lane",
+      "start_line": 756,
+      "end_line": 769,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "15.3 Python retirement",
+      "start_line": 770,
+      "end_line": 782,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S06",
+      "section": "15.4 Risks",
+      "start_line": 783,
+      "end_line": 794,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "1. Executive Summary",
+      "start_line": 11,
+      "end_line": 44,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "2. Repository Audit and Required Corrections",
+      "start_line": 45,
+      "end_line": 198,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "3. Design Principles (Non-Negotiable)",
+      "start_line": 199,
+      "end_line": 244,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "4. Architecture",
+      "start_line": 245,
+      "end_line": 457,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "5. Genome: Morphogenetic Program Graph (MPG)",
+      "start_line": 458,
+      "end_line": 517,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "6. Blind Multi-Fidelity Judges",
+      "start_line": 518,
+      "end_line": 653,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "7. Objectives and Decision Semantics",
+      "start_line": 654,
+      "end_line": 683,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "8. Search, Checkpoints and One-Command Execution",
+      "start_line": 684,
+      "end_line": 721,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07",
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "9. Blender Rendering Pipeline",
+      "start_line": 722,
+      "end_line": 749,
+      "packets": [
+        "V5-26",
+        "V5-27",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "10. White Paper, Evidence and IP",
+      "start_line": 750,
+      "end_line": 775,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "11. Migration, Milestones and Acceptance",
+      "start_line": 776,
+      "end_line": 815,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S07",
+      "section": "12. Success Criteria (Preregistered)",
+      "start_line": 816,
+      "end_line": 976,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S08",
+      "section": "1. Executive Summary & Goals",
+      "start_line": 4,
+      "end_line": 18,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S08",
+      "section": "2. Core Architecture",
+      "start_line": 19,
+      "end_line": 37,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S08",
+      "section": "3. Genome Representation (Profound Flexibility + Evolvability)",
+      "start_line": 38,
+      "end_line": 60,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S08",
+      "section": "4. Engineering Gates (Accurate, Modular, Tiered)",
+      "start_line": 61,
+      "end_line": 81,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S08",
+      "section": "5. Evolution Process & HPC",
+      "start_line": 82,
+      "end_line": 96,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-21",
+        "V5-22",
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S08",
+      "section": "6. Visualization & Blender Renderings",
+      "start_line": 97,
+      "end_line": 108,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S08",
+      "section": "7. Extensibility & Process",
+      "start_line": 109,
+      "end_line": 116,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S08",
+      "section": "8. Deliverables & Success Criteria",
+      "start_line": 117,
+      "end_line": 126,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "JOIL v5 · Final Engineering Specification",
+      "start_line": 1,
+      "end_line": 2,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Open-ended, blind-judged evolutionary design with validated engineering gates",
+      "start_line": 3,
+      "end_line": 18,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Contents",
+      "start_line": 19,
+      "end_line": 45,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "1. Executive summary",
+      "start_line": 46,
+      "end_line": 72,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "1.1 The sixteen decisions",
+      "start_line": 73,
+      "end_line": 93,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "1.2 What success means",
+      "start_line": 94,
+      "end_line": 107,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "2. Repository audit at `cc86edc`",
+      "start_line": 108,
+      "end_line": 109,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "2.1 Size and shape (measured)",
+      "start_line": 110,
+      "end_line": 123,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "2.2 Keep: what is strong",
+      "start_line": 124,
+      "end_line": 138,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "2.3 The vortex-fidelity finding",
+      "start_line": 139,
+      "end_line": 161,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "2.4 Why evolution lost, as testable hypotheses",
+      "start_line": 162,
+      "end_line": 172,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "2.5 Defect ledger (all verified at `cc86edc`)",
+      "start_line": 173,
+      "end_line": 210,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "2.6 Requirement contradictions and their resolution",
+      "start_line": 211,
+      "end_line": 226,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "3. Goals, non-goals, success criteria and release levels",
+      "start_line": 227,
+      "end_line": 228,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "3.1 Goals",
+      "start_line": 229,
+      "end_line": 237,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "3.2 Non-goals",
+      "start_line": 238,
+      "end_line": 245,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "3.3 Release levels",
+      "start_line": 246,
+      "end_line": 256,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "3.4 Success criteria",
+      "start_line": 257,
+      "end_line": 273,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "4. Invariants",
+      "start_line": 274,
+      "end_line": 294,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "5. Architecture and code design",
+      "start_line": 295,
+      "end_line": 324,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "5.1 Workspace and crate map",
+      "start_line": 325,
+      "end_line": 354,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "5.2 Blindness as a build failure",
+      "start_line": 355,
+      "end_line": 399,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "5.3 Data flow in types",
+      "start_line": 400,
+      "end_line": 412,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "5.4 Identity chain",
+      "start_line": 413,
+      "end_line": 435,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "5.5 Language and solver policy",
+      "start_line": 436,
+      "end_line": 448,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "5.6 Units and declared expressions",
+      "start_line": 449,
+      "end_line": 454,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6. Genome: the Morphogenetic Program Graph (MPG-1)",
+      "start_line": 455,
+      "end_line": 460,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.1 Layers",
+      "start_line": 461,
+      "end_line": 473,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.2 Core types",
+      "start_line": 474,
+      "end_line": 514,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.3 Module library",
+      "start_line": 515,
+      "end_line": 533,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.4 Field-program bounds",
+      "start_line": 534,
+      "end_line": 545,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.5 Composing fluid and solid",
+      "start_line": 546,
+      "end_line": 568,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.6 Development and budgets",
+      "start_line": 569,
+      "end_line": 585,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.7 Validity by construction",
+      "start_line": 586,
+      "end_line": 597,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.8 Geometry kernel and certification",
+      "start_line": 598,
+      "end_line": 605,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.9 Derived artifacts and declared coverage",
+      "start_line": 606,
+      "end_line": 617,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.10 Variation operators",
+      "start_line": 618,
+      "end_line": 638,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.11 Complexification, speciation, motifs and bloat",
+      "start_line": 639,
+      "end_line": 644,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.12 Seeds and legacy lowering",
+      "start_line": 645,
+      "end_line": 655,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "6.13 Expressiveness, enactment and operator robustness",
+      "start_line": 656,
+      "end_line": 686,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7. Engineering gates",
+      "start_line": 687,
+      "end_line": 690,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.1 Gate card",
+      "start_line": 691,
+      "end_line": 713,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.2 Outcome semantics",
+      "start_line": 714,
+      "end_line": 731,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.3 Fidelity ladder",
+      "start_line": 732,
+      "end_line": 745,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.4 Gate catalogue (hydrocyclone pack)",
+      "start_line": 746,
+      "end_line": 850,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.5 Verification suite (`./joil verify`)",
+      "start_line": 851,
+      "end_line": 867,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.6 Validation programme: G-VTX",
+      "start_line": 868,
+      "end_line": 882,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.7 Accuracy budgets, promotion and abstention",
+      "start_line": 883,
+      "end_line": 895,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.8 Uncertainty budget",
+      "start_line": 896,
+      "end_line": 917,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "7.9 Statistics policy",
+      "start_line": 918,
+      "end_line": 928,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "8. Physics judges",
+      "start_line": 929,
+      "end_line": 930,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "8.1 Two lanes and the admission rule",
+      "start_line": 931,
+      "end_line": 950,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "8.2 Reference lane: corrected OpenFOAM",
+      "start_line": 951,
+      "end_line": 983,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "8.3 Fast lane: sparse GPU lattice-Boltzmann LES (`crucible-lbm`)",
+      "start_line": 984,
+      "end_line": 1002,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "8.4 Frozen-liner response operator",
+      "start_line": 1003,
+      "end_line": 1014,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "8.5 Oil transport (`crucible-particles`)",
+      "start_line": 1015,
+      "end_line": 1054,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "8.6 Structure (`crucible-fea`)",
+      "start_line": 1055,
+      "end_line": 1085,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "8.7 Manufacturing and physical validation",
+      "start_line": 1086,
+      "end_line": 1100,
+      "packets": [
+        "V5-13",
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "9. Objectives, weight and strength, and the decision policy",
+      "start_line": 1101,
+      "end_line": 1110,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "9.1 Objectives (hydrocyclone pack)",
+      "start_line": 1111,
+      "end_line": 1129,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "9.2 Structural reserve: defining strength so it cannot be gamed",
+      "start_line": 1130,
+      "end_line": 1154,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-13",
+        "V5-18",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "9.3 Hard constraints and no-regression floors",
+      "start_line": 1155,
+      "end_line": 1165,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "9.4 Ranking and archive quality",
+      "start_line": 1166,
+      "end_line": 1171,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "9.5 Decision utility",
+      "start_line": 1172,
+      "end_line": 1200,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "9.6 Scenarios and robust statistics",
+      "start_line": 1201,
+      "end_line": 1215,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "9.7 Worked example (illustrative numbers, not results)",
+      "start_line": 1216,
+      "end_line": 1228,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10. Evolution engine",
+      "start_line": 1229,
+      "end_line": 1243,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.1 The loop",
+      "start_line": 1244,
+      "end_line": 1270,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.2 Deterministic asynchrony: due-epoch scheduling",
+      "start_line": 1271,
+      "end_line": 1280,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.3 Archives",
+      "start_line": 1281,
+      "end_line": 1307,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.4 Emitters and adaptive allocation",
+      "start_line": 1308,
+      "end_line": 1322,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.5 Multi-fidelity promotion and acquisition",
+      "start_line": 1323,
+      "end_line": 1338,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.6 Surrogates propose, never score",
+      "start_line": 1339,
+      "end_line": 1347,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.7 Honesty and anti-exploit mechanisms",
+      "start_line": 1348,
+      "end_line": 1355,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.8 Stopping rules",
+      "start_line": 1356,
+      "end_line": 1368,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "10.9 Controls and the preregistered study matrix",
+      "start_line": 1369,
+      "end_line": 1390,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11. One command: run, checkpoint, resume, fork, seed",
+      "start_line": 1391,
+      "end_line": 1398,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11.1 Commands",
+      "start_line": 1399,
+      "end_line": 1419,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11.2 What `run` does",
+      "start_line": 1420,
+      "end_line": 1438,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11.3 Durable state",
+      "start_line": 1439,
+      "end_line": 1445,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11.4 Checkpoint contents and atomic publish",
+      "start_line": 1446,
+      "end_line": 1473,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11.5 Resume, fork and seed are different operations",
+      "start_line": 1474,
+      "end_line": 1481,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11.6 Fault-injection acceptance (G-ENG-2)",
+      "start_line": 1482,
+      "end_line": 1506,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11.7 Run directory",
+      "start_line": 1507,
+      "end_line": 1522,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "11.8 Completion states and exit codes",
+      "start_line": 1523,
+      "end_line": 1538,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12. High-performance computing",
+      "start_line": 1539,
+      "end_line": 1550,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.1 The metric is useful throughput",
+      "start_line": 1551,
+      "end_line": 1562,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20",
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.2 Stack",
+      "start_line": 1563,
+      "end_line": 1578,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.3 Fleet and leases",
+      "start_line": 1579,
+      "end_line": 1594,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.4 Planning arithmetic for the fast lane",
+      "start_line": 1595,
+      "end_line": 1610,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.5 Campaign budgets",
+      "start_line": 1611,
+      "end_line": 1627,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.6 Cache layers",
+      "start_line": 1628,
+      "end_line": 1642,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.7 Storage formats",
+      "start_line": 1643,
+      "end_line": 1655,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.8 Benchmark gates",
+      "start_line": 1656,
+      "end_line": 1669,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "12.9 Optimisation order",
+      "start_line": 1670,
+      "end_line": 1683,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13. Blender renderings and the explorer",
+      "start_line": 1684,
+      "end_line": 1687,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13.1 Pipeline",
+      "start_line": 1688,
+      "end_line": 1703,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "writes bundles, then for each recipe:",
+      "start_line": 1704,
+      "end_line": 1707,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13.2 Three layers",
+      "start_line": 1708,
+      "end_line": 1715,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13.3 Visual language",
+      "start_line": 1716,
+      "end_line": 1725,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13.4 Plate recipes",
+      "start_line": 1726,
+      "end_line": 1770,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13.5 Coverage of all 66 catalogue tests",
+      "start_line": 1771,
+      "end_line": 1778,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13.6 Honesty rules",
+      "start_line": 1779,
+      "end_line": 1787,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13.7 Render budget and scheduling",
+      "start_line": 1788,
+      "end_line": 1796,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "13.8 Explorer",
+      "start_line": 1797,
+      "end_line": 1815,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "14. White paper and the research programme",
+      "start_line": 1816,
+      "end_line": 1819,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "14.1 Title and contributions",
+      "start_line": 1820,
+      "end_line": 1836,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "14.2 Hypotheses (hashed into the preregistration before generation 0)",
+      "start_line": 1837,
+      "end_line": 1848,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "14.3 Experiments",
+      "start_line": 1849,
+      "end_line": 1863,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "14.4 Mechanism analysis that is causal, not narrative",
+      "start_line": 1864,
+      "end_line": 1872,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "14.5 Numbers are queries",
+      "start_line": 1873,
+      "end_line": 1884,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "14.6 The early paper",
+      "start_line": 1885,
+      "end_line": 1888,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "14.7 Physics levers evolution can exploit (hypotheses, not promises)",
+      "start_line": 1889,
+      "end_line": 1900,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19",
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "15. Extensibility and repurposing",
+      "start_line": 1901,
+      "end_line": 1908,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "15.1 Extension contracts (full signatures in Appendix C)",
+      "start_line": 1909,
+      "end_line": 1932,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "15.2 Out-of-process judges",
+      "start_line": 1933,
+      "end_line": 1942,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "15.3 Design-domain tiers within the hydrocyclone pack",
+      "start_line": 1943,
+      "end_line": 1951,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "15.4 Other packs",
+      "start_line": 1952,
+      "end_line": 1966,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "16. IP and process",
+      "start_line": 1967,
+      "end_line": 1970,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-28",
+        "V5-30",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "16.1 Disclosure control",
+      "start_line": 1971,
+      "end_line": 1977,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "16.2 Inventorship and invention dossiers",
+      "start_line": 1978,
+      "end_line": 2002,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "16.3 Licence hygiene",
+      "start_line": 2003,
+      "end_line": 2016,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "16.4 Process",
+      "start_line": 2017,
+      "end_line": 2043,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "17. Migration and Python retirement",
+      "start_line": 2044,
+      "end_line": 2047,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "17.1 Keep, refactor, retire (Rust and assets)",
+      "start_line": 2048,
+      "end_line": 2069,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "17.2 Python retirement (measured lines)",
+      "start_line": 2070,
+      "end_line": 2086,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "18. Fix-now ledger for the v4 lane",
+      "start_line": 2087,
+      "end_line": 2116,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "19. Roadmap and milestone gates",
+      "start_line": 2117,
+      "end_line": 2135,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "20. Risks",
+      "start_line": 2136,
+      "end_line": 2156,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Appendix A · `campaigns/ct35-head-v5-c01.toml`",
+      "start_line": 2157,
+      "end_line": 2358,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Appendix B · `requirements/joil-hydrocyclone-v2.toml` (skeleton)",
+      "start_line": 2359,
+      "end_line": 2386,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "derived, unit-checked: 1000 mg/L ↔ 0.112–0.122 vol% at 820–890 kg/m3",
+      "start_line": 2387,
+      "end_line": 2433,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Appendix C · Core Rust contracts",
+      "start_line": 2434,
+      "end_line": 2495,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Appendix D · All 66 catalogue tests → gate → level → render",
+      "start_line": 2496,
+      "end_line": 2572,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-26",
+        "V5-27",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Appendix E · Formulas and oracles",
+      "start_line": 2573,
+      "end_line": 2599,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Appendix F · Glossary",
+      "start_line": 2600,
+      "end_line": 2630,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Appendix G · Sources",
+      "start_line": 2631,
+      "end_line": 2679,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S09",
+      "section": "Appendix H · Self-score on the review rubric",
+      "start_line": 2680,
+      "end_line": 2700,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "JOIL v5 — Final Engineering Specification",
+      "start_line": 1,
+      "end_line": 14,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "Contents",
+      "start_line": 15,
+      "end_line": 38,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "1. Executive summary",
+      "start_line": 39,
+      "end_line": 64,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "2. What the repository is today",
+      "start_line": 65,
+      "end_line": 66,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "2.1 Shape",
+      "start_line": 67,
+      "end_line": 77,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "2.2 Keep — these are genuine assets",
+      "start_line": 78,
+      "end_line": 89,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "2.3 What prevents discovery — summary",
+      "start_line": 90,
+      "end_line": 109,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "2.4 Why evolution lost — hypotheses, not conclusions",
+      "start_line": 110,
+      "end_line": 121,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "3. Principles that are not negotiable",
+      "start_line": 122,
+      "end_line": 137,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "4. Architecture and code design",
+      "start_line": 138,
+      "end_line": 139,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "4.1 Workspace, staged",
+      "start_line": 140,
+      "end_line": 187,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "4.2 Core contracts",
+      "start_line": 188,
+      "end_line": 243,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "4.3 Identity and cache reuse",
+      "start_line": 244,
+      "end_line": 258,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "4.4 Out-of-process adapters",
+      "start_line": 259,
+      "end_line": 262,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "4.5 What happens to today's code",
+      "start_line": 263,
+      "end_line": 277,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "4.6 Python retirement",
+      "start_line": 278,
+      "end_line": 292,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5. Gene representation and the physical subject",
+      "start_line": 293,
+      "end_line": 294,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5.1 The Morphogenetic Program Graph",
+      "start_line": 295,
+      "end_line": 309,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5.2 First enabled operator registry",
+      "start_line": 310,
+      "end_line": 329,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5.3 Development, budgets and enactment",
+      "start_line": 330,
+      "end_line": 335,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5.4 One material partition, with honest approximation",
+      "start_line": 336,
+      "end_line": 348,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5.5 Realizations, backends and coverage",
+      "start_line": 349,
+      "end_line": 360,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5.6 Independent geometry observation",
+      "start_line": 361,
+      "end_line": 371,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5.7 Expressiveness challenge suite (CAD-10)",
+      "start_line": 372,
+      "end_line": 390,
+      "packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "5.8 Identity and numeric policy",
+      "start_line": 391,
+      "end_line": 396,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "6. Objectives, feasibility and the weight/strength trade-off",
+      "start_line": 397,
+      "end_line": 398,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "6.1 One external demand for every candidate",
+      "start_line": 399,
+      "end_line": 402,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "6.2 Four primary objectives",
+      "start_line": 403,
+      "end_line": 415,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "6.3 Why weight and strength matter for this part",
+      "start_line": 416,
+      "end_line": 429,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "6.4 Hard feasibility before preference",
+      "start_line": 430,
+      "end_line": 433,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "6.5 Preference without losing the Pareto front",
+      "start_line": 434,
+      "end_line": 450,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "6.6 Robust statistics the budget can support",
+      "start_line": 451,
+      "end_line": 459,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "6.7 Decision rules",
+      "start_line": 460,
+      "end_line": 492,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7. Engineering gates and how they are made accurate",
+      "start_line": 493,
+      "end_line": 494,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.1 Evidence classes and fidelity levels are different axes",
+      "start_line": 495,
+      "end_line": 513,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.2 Gate registry for the hydrocyclone pack",
+      "start_line": 514,
+      "end_line": 539,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.3 Carrier flow, reference specification",
+      "start_line": 540,
+      "end_line": 550,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.4 G-VTX: vortex validation before any flow ranking",
+      "start_line": 551,
+      "end_line": 563,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.5 Oil transport",
+      "start_line": 564,
+      "end_line": 573,
+      "packets": [
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-19"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.6 Capacity and energy at the common duty",
+      "start_line": 574,
+      "end_line": 577,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.7 Structure",
+      "start_line": 578,
+      "end_line": 586,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.8 Manufacturing and as-built",
+      "start_line": 587,
+      "end_line": 590,
+      "packets": [
+        "V5-13",
+        "V5-19",
+        "V5-20",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.9 Uncertainty bookkeeping",
+      "start_line": 591,
+      "end_line": 594,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.10 Verification before any evaluator scores",
+      "start_line": 595,
+      "end_line": 598,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "7.11 Accuracy budgets across levels",
+      "start_line": 599,
+      "end_line": 604,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "8. Autonomous evolution",
+      "start_line": 605,
+      "end_line": 606,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "8.1 The loop, one batch at a time",
+      "start_line": 607,
+      "end_line": 626,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "8.2 Pools and archives, all keyed by measurement",
+      "start_line": 627,
+      "end_line": 641,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "8.3 Emitters — reference search policy v1",
+      "start_line": 642,
+      "end_line": 658,
+      "packets": [
+        "V5-21",
+        "V5-22"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "8.4 Acquisition: surrogates allocate experiments, evidence decides",
+      "start_line": 659,
+      "end_line": 672,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "8.5 Controls and benchmark mode",
+      "start_line": 673,
+      "end_line": 683,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "8.6 Four kinds of novelty, reported separately",
+      "start_line": 684,
+      "end_line": 692,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "8.7 The concept space the engine can reach",
+      "start_line": 693,
+      "end_line": 707,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9. One command, durable checkpoints, seeding",
+      "start_line": 708,
+      "end_line": 709,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.1 Commands",
+      "start_line": 710,
+      "end_line": 727,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.2 A complete campaign file",
+      "start_line": 728,
+      "end_line": 789,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.3 Campaign lifecycle",
+      "start_line": 790,
+      "end_line": 797,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.4 Coordinator, tasks and leases",
+      "start_line": 798,
+      "end_line": 803,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.5 Atomic publication",
+      "start_line": 804,
+      "end_line": 807,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.6 What a checkpoint contains",
+      "start_line": 808,
+      "end_line": 813,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.7 Determinism contract",
+      "start_line": 814,
+      "end_line": 819,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.8 Resume, fork and seeding",
+      "start_line": 820,
+      "end_line": 823,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.9 Budget accounting",
+      "start_line": 824,
+      "end_line": 827,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.10 Run directory",
+      "start_line": 828,
+      "end_line": 842,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "9.11 Release gates for the runner",
+      "start_line": 843,
+      "end_line": 848,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "10. High-performance computing",
+      "start_line": 849,
+      "end_line": 850,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "10.1 What \"fast\" means",
+      "start_line": 851,
+      "end_line": 854,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "10.2 Resource model",
+      "start_line": 855,
+      "end_line": 858,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "10.3 Reference-track throughput (planning arithmetic, replaced by `joil bench`)",
+      "start_line": 859,
+      "end_line": 871,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "10.4 Acceleration track: accelerators earn admission",
+      "start_line": 872,
+      "end_line": 883,
+      "packets": [
+        "V5-23",
+        "V5-24",
+        "V5-25"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "10.5 Order of optimization",
+      "start_line": 884,
+      "end_line": 891,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "10.6 Silent numerical faults",
+      "start_line": 892,
+      "end_line": 895,
+      "packets": [
+        "V5-05",
+        "V5-06",
+        "V5-07"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "10.7 `joil bench`",
+      "start_line": 896,
+      "end_line": 901,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "11. Extensibility and repurposing",
+      "start_line": 902,
+      "end_line": 905,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "11.1 Adding a test or an objective",
+      "start_line": 906,
+      "end_line": 927,
+      "packets": [
+        "V5-02",
+        "V5-04",
+        "V5-18",
+        "V5-19",
+        "V5-20"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "11.2 Design-domain tiers in the hydrocyclone pack",
+      "start_line": 928,
+      "end_line": 936,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "11.3 Other processes that reuse the same gates",
+      "start_line": 937,
+      "end_line": 945,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "11.4 The acceptance test for extensibility",
+      "start_line": 946,
+      "end_line": 951,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "12. Blender rendering and the explorer",
+      "start_line": 952,
+      "end_line": 953,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "12.1 What every render must obey",
+      "start_line": 954,
+      "end_line": 962,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "12.2 Architecture",
+      "start_line": 963,
+      "end_line": 973,
+      "packets": [
+        "V5-02",
+        "V5-03",
+        "V5-05"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "12.3 Visual standard",
+      "start_line": 974,
+      "end_line": 977,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "12.4 Recipes for the engineering gates",
+      "start_line": 978,
+      "end_line": 1003,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "12.5 Signature sequences for the paper and talks",
+      "start_line": 1004,
+      "end_line": 1007,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "12.6 Explorer",
+      "start_line": 1008,
+      "end_line": 1011,
+      "packets": [
+        "V5-26",
+        "V5-27"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "12.7 Acceptance",
+      "start_line": 1012,
+      "end_line": 1017,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "13. White paper, research programme and IP",
+      "start_line": 1018,
+      "end_line": 1019,
+      "packets": [
+        "V5-21",
+        "V5-22",
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "13.1 Thesis and hypotheses",
+      "start_line": 1020,
+      "end_line": 1033,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "13.2 Study design",
+      "start_line": 1034,
+      "end_line": 1041,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "13.3 Mechanism dossiers",
+      "start_line": 1042,
+      "end_line": 1045,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "13.4 Physical confirmation",
+      "start_line": 1046,
+      "end_line": 1049,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "13.5 The white paper",
+      "start_line": 1050,
+      "end_line": 1062,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "13.6 IP and disclosure",
+      "start_line": 1063,
+      "end_line": 1075,
+      "packets": [
+        "V5-28",
+        "V5-30"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "14. Delivery plan and acceptance",
+      "start_line": 1076,
+      "end_line": 1077,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "14.1 Milestones",
+      "start_line": 1078,
+      "end_line": 1108,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "14.2 First pull requests, in order",
+      "start_line": 1109,
+      "end_line": 1121,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "14.3 Release levels",
+      "start_line": 1122,
+      "end_line": 1130,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "14.4 Process, simplified",
+      "start_line": 1131,
+      "end_line": 1136,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "15. Risks and unresolved inputs",
+      "start_line": 1137,
+      "end_line": 1138,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "15.1 Inputs that only the owners can supply",
+      "start_line": 1139,
+      "end_line": 1142,
+      "packets": [
+        "V5-00",
+        "V5-02",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "15.2 Risk register",
+      "start_line": 1143,
+      "end_line": 1160,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "Appendix A — Verified defect register",
+      "start_line": 1161,
+      "end_line": 1196,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "Appendix B — Gate, oracle and render map",
+      "start_line": 1197,
+      "end_line": 1273,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-26",
+        "V5-27",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "Appendix C — What changed from the earlier drafts and why",
+      "start_line": 1274,
+      "end_line": 1295,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    },
+    {
+      "source": "S10",
+      "section": "Appendix D — Sources",
+      "start_line": 1296,
+      "end_line": 1319,
+      "packets": [
+        "V5-00",
+        "V5-01",
+        "V5-31"
+      ]
+    }
+  ]
+}

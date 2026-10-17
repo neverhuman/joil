@@ -1,0 +1,2480 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-17",
+  "baseline_commit": "cc86edc90d06f0eac69022f84354abc94bb453c4",
+  "source_count": 10,
+  "sources": [
+    {
+      "id": "S01",
+      "path": "final/JOIL v5 Engineering Specification.md",
+      "sha256": "7d2ad7b66d7346767e6d5478eaea018eed69ed76bd19c63e2b6eb789c6cf495d",
+      "bytes": 84587,
+      "text_lines": 910,
+      "format": "md",
+      "sections": [
+        {
+          "line": 1,
+          "title": "JOIL v5 Engineering Specification"
+        },
+        {
+          "line": 5,
+          "title": "Executive summary"
+        },
+        {
+          "line": 32,
+          "title": "1. What joil is today"
+        },
+        {
+          "line": 36,
+          "title": "1.1 Keep"
+        },
+        {
+          "line": 48,
+          "title": "1.2 Critical gaps"
+        },
+        {
+          "line": 66,
+          "title": "1.3 The vortex-fidelity finding"
+        },
+        {
+          "line": 80,
+          "title": "2. Goals, non-goals and success criteria"
+        },
+        {
+          "line": 108,
+          "title": "3. System architecture"
+        },
+        {
+          "line": 122,
+          "title": "3.1 Workspace layout"
+        },
+        {
+          "line": 146,
+          "title": "4. Genome: the Morphogenetic Program Graph (MPG-1)"
+        },
+        {
+          "line": 150,
+          "title": "4.1 What a genome contains"
+        },
+        {
+          "line": 161,
+          "title": "4.2 Module library"
+        },
+        {
+          "line": 190,
+          "title": "4.3 Development and budgets"
+        },
+        {
+          "line": 194,
+          "title": "4.4 From genome to geometry"
+        },
+        {
+          "line": 201,
+          "title": "4.5 Identity"
+        },
+        {
+          "line": 207,
+          "title": "4.6 Variation operators"
+        },
+        {
+          "line": 225,
+          "title": "4.7 Seeds"
+        },
+        {
+          "line": 232,
+          "title": "5. Engineering gates"
+        },
+        {
+          "line": 236,
+          "title": "5.1 Gate contract"
+        },
+        {
+          "line": 248,
+          "title": "5.2 Fidelity ladder"
+        },
+        {
+          "line": 262,
+          "title": "5.3 Gate catalogue (hydrocyclone pack)"
+        },
+        {
+          "line": 339,
+          "title": "5.4 Physics solvers behind the gates"
+        },
+        {
+          "line": 359,
+          "title": "5.5 Uncertainty budget"
+        },
+        {
+          "line": 372,
+          "title": "6. Objectives and decision policy"
+        },
+        {
+          "line": 376,
+          "title": "6.1 Default objectives (hydrocyclone pack)"
+        },
+        {
+          "line": 389,
+          "title": "6.2 Hard constraints"
+        },
+        {
+          "line": 396,
+          "title": "6.3 Selection"
+        },
+        {
+          "line": 403,
+          "title": "6.4 Decision utility"
+        },
+        {
+          "line": 418,
+          "title": "6.5 Scenarios"
+        },
+        {
+          "line": 425,
+          "title": "7. Evolution engine"
+        },
+        {
+          "line": 429,
+          "title": "7.1 The loop"
+        },
+        {
+          "line": 439,
+          "title": "7.2 Archives and novelty"
+        },
+        {
+          "line": 458,
+          "title": "7.3 Surrogate"
+        },
+        {
+          "line": 462,
+          "title": "7.4 Honesty mechanisms"
+        },
+        {
+          "line": 469,
+          "title": "7.5 Search-algorithm study (preregistered)"
+        },
+        {
+          "line": 483,
+          "title": "8. Run model: one command, checkpoints, seeding"
+        },
+        {
+          "line": 487,
+          "title": "8.1 What `run` does"
+        },
+        {
+          "line": 497,
+          "title": "8.2 Checkpoint contents"
+        },
+        {
+          "line": 510,
+          "title": "8.3 Seeding future campaigns"
+        },
+        {
+          "line": 516,
+          "title": "8.4 Commands"
+        },
+        {
+          "line": 531,
+          "title": "8.5 Layout"
+        },
+        {
+          "line": 543,
+          "title": "9. HPC architecture"
+        },
+        {
+          "line": 547,
+          "title": "9.1 Stack"
+        },
+        {
+          "line": 560,
+          "title": "9.2 Fleet use"
+        },
+        {
+          "line": 567,
+          "title": "9.3 Planning arithmetic"
+        },
+        {
+          "line": 573,
+          "title": "9.4 Benchmark receipts"
+        },
+        {
+          "line": 586,
+          "title": "10. Blender rendering system"
+        },
+        {
+          "line": 590,
+          "title": "10.1 Pipeline"
+        },
+        {
+          "line": 598,
+          "title": "10.2 Quality rules"
+        },
+        {
+          "line": 609,
+          "title": "10.3 Plate catalogue"
+        },
+        {
+          "line": 636,
+          "title": "11. White paper plan"
+        },
+        {
+          "line": 668,
+          "title": "12. Extensibility and repurposing"
+        },
+        {
+          "line": 672,
+          "title": "12.1 Contracts"
+        },
+        {
+          "line": 702,
+          "title": "12.2 Declaring objectives"
+        },
+        {
+          "line": 717,
+          "title": "12.3 Packs this engine can carry"
+        },
+        {
+          "line": 729,
+          "title": "13. IP and process"
+        },
+        {
+          "line": 733,
+          "title": "13.1 Protecting results"
+        },
+        {
+          "line": 741,
+          "title": "13.2 Licence hygiene"
+        },
+        {
+          "line": 753,
+          "title": "13.3 Process"
+        },
+        {
+          "line": 767,
+          "title": "14. Migration: keep, refactor, retire"
+        },
+        {
+          "line": 798,
+          "title": "15. Roadmap"
+        },
+        {
+          "line": 814,
+          "title": "16. Risks and mitigations"
+        },
+        {
+          "line": 832,
+          "title": "17. Appendices"
+        },
+        {
+          "line": 834,
+          "title": "A. Example campaign file"
+        },
+        {
+          "line": 899,
+          "title": "B. Sources"
+        }
+      ],
+      "pdf_pages": null
+    },
+    {
+      "id": "S02",
+      "path": "final/JOIL_Final_Engineering_Specification.md",
+      "sha256": "0adbb8444b3c5bc331be14de0a764224d0f8afc86a25a35c98debe8bfa0adecd",
+      "bytes": 213038,
+      "text_lines": 1371,
+      "format": "md",
+      "sections": [
+        {
+          "line": 1,
+          "title": "JOIL — Final Engineering Specification"
+        },
+        {
+          "line": 32,
+          "title": "1. Product decision and scope"
+        },
+        {
+          "line": 34,
+          "title": "1.1 The system to build"
+        },
+        {
+          "line": 44,
+          "title": "1.2 Binding decisions"
+        },
+        {
+          "line": 58,
+          "title": "1.3 Four distinct release outcomes"
+        },
+        {
+          "line": 67,
+          "title": "1.4 Terminology and evidence scope"
+        },
+        {
+          "line": 80,
+          "title": "2. Repository diagnosis and first corrections"
+        },
+        {
+          "line": 82,
+          "title": "2.1 Review basis"
+        },
+        {
+          "line": 88,
+          "title": "2.2 Correction register"
+        },
+        {
+          "line": 113,
+          "title": "2.3 Preserve and simplify"
+        },
+        {
+          "line": 119,
+          "title": "2.4 Requirements authority"
+        },
+        {
+          "line": 127,
+          "title": "3. Architecture, contracts and code design"
+        },
+        {
+          "line": 129,
+          "title": "3.1 Module boundaries"
+        },
+        {
+          "line": 152,
+          "title": "3.2 Dependency and evidence flow"
+        },
+        {
+          "line": 170,
+          "title": "3.3 Core contract sketch"
+        },
+        {
+          "line": 227,
+          "title": "3.4 Identity, caching and revision rules"
+        },
+        {
+          "line": 249,
+          "title": "3.5 Generic scientific reuse"
+        },
+        {
+          "line": 253,
+          "title": "4. Objectives, engineering feasibility and preference policy"
+        },
+        {
+          "line": 255,
+          "title": "4.1 Fixed engineering demand"
+        },
+        {
+          "line": 261,
+          "title": "4.2 Four primary objectives"
+        },
+        {
+          "line": 278,
+          "title": "4.3 Metric oracles and uncertainty"
+        },
+        {
+          "line": 292,
+          "title": "4.4 Hard feasibility first"
+        },
+        {
+          "line": 298,
+          "title": "4.5 Weighted preference without losing the Pareto front"
+        },
+        {
+          "line": 308,
+          "title": "4.6 Decision uncertainty and practical thresholds"
+        },
+        {
+          "line": 314,
+          "title": "5. Genome and canonical subject"
+        },
+        {
+          "line": 316,
+          "title": "5.1 A bounded developmental program, with variable physical topology"
+        },
+        {
+          "line": 371,
+          "title": "5.2 One explicit geometric subject, with honest approximation semantics"
+        },
+        {
+          "line": 385,
+          "title": "5.3 Identity is provenance, not a claim of universal geometric equivalence"
+        },
+        {
+          "line": 407,
+          "title": "5.4 Rust contracts and a domain-independent boundary"
+        },
+        {
+          "line": 439,
+          "title": "5.5 Independent enactment, manufacturability and observation"
+        },
+        {
+          "line": 455,
+          "title": "6. Autonomous evolution"
+        },
+        {
+          "line": 457,
+          "title": "6.1 The optimizer is an executable experiment"
+        },
+        {
+          "line": 469,
+          "title": "6.2 Complementary emitters and constrained selection"
+        },
+        {
+          "line": 496,
+          "title": "6.3 Diversity that survives measurement and version changes"
+        },
+        {
+          "line": 504,
+          "title": "6.4 Surrogates allocate experiments; evidence decides outcomes"
+        },
+        {
+          "line": 524,
+          "title": "6.5 Optional reduced domains must earn authority"
+        },
+        {
+          "line": 530,
+          "title": "6.6 Checkpoints, replay and budget semantics"
+        },
+        {
+          "line": 542,
+          "title": "6.7 Acceptance and research controls"
+        },
+        {
+          "line": 550,
+          "title": "7. Scientific gates: accurate comparisons before evolutionary claims"
+        },
+        {
+          "line": 554,
+          "title": "7.1 Evidence stages and solver fidelity are independent"
+        },
+        {
+          "line": 569,
+          "title": "7.2 Repair the current scientific truth defects first"
+        },
+        {
+          "line": 584,
+          "title": "7.3 Freeze applicability and material/process envelopes"
+        },
+        {
+          "line": 592,
+          "title": "7.4 One reference pipeline and per-variable verification/validation"
+        },
+        {
+          "line": 602,
+          "title": "7.5 Carrier flow and direct vortex validation"
+        },
+        {
+          "line": 616,
+          "title": "7.6 Native oil transport, inventory and sampling units"
+        },
+        {
+          "line": 632,
+          "title": "7.7 Common-flow capacity and controlled energy comparison"
+        },
+        {
+          "line": 640,
+          "title": "7.8 Structural reserve, dynamics and finite-life fatigue"
+        },
+        {
+          "line": 652,
+          "title": "7.9 Manufacturing, drainage and as-built qualification"
+        },
+        {
+          "line": 658,
+          "title": "7.10 Joint uncertainty, decision statistics and independent confirmation"
+        },
+        {
+          "line": 672,
+          "title": "7.11 Mandatory decision profile and executable simultaneous-confidence fixture"
+        },
+        {
+          "line": 718,
+          "title": "8. Durable runner and one-command operation"
+        },
+        {
+          "line": 775,
+          "title": "8.1 Core contracts and task graph"
+        },
+        {
+          "line": 799,
+          "title": "8.2 Leases, attempts and accounting"
+        },
+        {
+          "line": 815,
+          "title": "8.3 Cache and artifact publication"
+        },
+        {
+          "line": 825,
+          "title": "8.4 Checkpoint and replay acceptance"
+        },
+        {
+          "line": 835,
+          "title": "9. HPC performance specification"
+        },
+        {
+          "line": 839,
+          "title": "9.1 Resource model and scheduling"
+        },
+        {
+          "line": 847,
+          "title": "9.2 Measurement before campaign sizing"
+        },
+        {
+          "line": 857,
+          "title": "9.3 Acceleration order and research options"
+        },
+        {
+          "line": 867,
+          "title": "9.4 Silent numerical-fault containment"
+        },
+        {
+          "line": 875,
+          "title": "10. Blender visualizations and evidence explorer"
+        },
+        {
+          "line": 879,
+          "title": "10.1 Scientific scene contract"
+        },
+        {
+          "line": 887,
+          "title": "10.2 Professional visual standard"
+        },
+        {
+          "line": 897,
+          "title": "10.3 Complete coverage, explorer and acceptance"
+        },
+        {
+          "line": 909,
+          "title": "10.4 Complete current test visualization coverage"
+        },
+        {
+          "line": 982,
+          "title": "10.5 Implementation acceptance summary"
+        },
+        {
+          "line": 992,
+          "title": "11. Research programme, white paper and technical IP"
+        },
+        {
+          "line": 994,
+          "title": "11.1 Falsifiable contributions and claim boundaries"
+        },
+        {
+          "line": 1009,
+          "title": "11.2 Factorized representation and algorithm experiment"
+        },
+        {
+          "line": 1023,
+          "title": "11.3 Confirmation, uncertainty and experimental integrity"
+        },
+        {
+          "line": 1037,
+          "title": "11.4 Mechanism dossiers and controlled interventions"
+        },
+        {
+          "line": 1045,
+          "title": "11.5 White paper and reproducible release"
+        },
+        {
+          "line": 1053,
+          "title": "11.6 Technical records and disclosure"
+        },
+        {
+          "line": 1059,
+          "title": "11.7 Transfer acceptance"
+        },
+        {
+          "line": 1065,
+          "title": "12. Delivery, acceptance and unresolved decisions"
+        },
+        {
+          "line": 1067,
+          "title": "12.1 Preserve ownership and create scoped subpackets"
+        },
+        {
+          "line": 1084,
+          "title": "12.2 First implementation changes"
+        },
+        {
+          "line": 1092,
+          "title": "12.3 Release gates"
+        },
+        {
+          "line": 1104,
+          "title": "12.4 Risk register and unresolved inputs"
+        },
+        {
+          "line": 1112,
+          "title": "Appendix A. Comparative evaluation of the six supplied specifications"
+        },
+        {
+          "line": 1114,
+          "title": "A.1 Method and interpretation"
+        },
+        {
+          "line": 1124,
+          "title": "A.2 Detailed weighted rubric"
+        },
+        {
+          "line": 1141,
+          "title": "A.3 File labels and ranking"
+        },
+        {
+          "line": 1152,
+          "title": "A.4 Criterion scores, all on a 0–100 scale"
+        },
+        {
+          "line": 1169,
+          "title": "A.5 A — Open-Ended Evolutionary Design with Hard Engineering Gates"
+        },
+        {
+          "line": 1185,
+          "title": "A.6 B — Joil Engineering Specification PDF"
+        },
+        {
+          "line": 1200,
+          "title": "A.7 C — JOIL Final Engineering Specification DOCX"
+        },
+        {
+          "line": 1216,
+          "title": "A.8 D — joil2 / EvoGate brief"
+        },
+        {
+          "line": 1226,
+          "title": "A.9 E — joil1 / Joil vNext brief"
+        },
+        {
+          "line": 1236,
+          "title": "A.10 F — JOIL v5 / Crucible"
+        },
+        {
+          "line": 1252,
+          "title": "Appendix B. Synthesis decisions and traceability"
+        },
+        {
+          "line": 1282,
+          "title": "Appendix C. Final specification score and remaining limits"
+        },
+        {
+          "line": 1284,
+          "title": "C.1 Final score: **95.0 / 100**"
+        },
+        {
+          "line": 1303,
+          "title": "C.2 What the final review changed"
+        },
+        {
+          "line": 1309,
+          "title": "C.3 Why this is not 100"
+        },
+        {
+          "line": 1317,
+          "title": "Appendix D. Source basis and reproducibility of this review"
+        },
+        {
+          "line": 1319,
+          "title": "D.1 Repository evidence"
+        },
+        {
+          "line": 1335,
+          "title": "D.2 Primary methodological and software references"
+        },
+        {
+          "line": 1356,
+          "title": "D.3 Review limitations and change control"
+        },
+        {
+          "line": 1362,
+          "title": "D.4 Supplied-file identity manifest"
+        }
+      ],
+      "pdf_pages": null
+    },
+    {
+      "id": "S03",
+      "path": "final/JOIL_Final_Engineering_Specification_Synthesis.md",
+      "sha256": "bca37c15e8ef3062657598dc356fa35558b8ca3d1474e11c9415dbdef81f0245",
+      "bytes": 209635,
+      "text_lines": 1284,
+      "format": "md",
+      "sections": [
+        {
+          "line": 1,
+          "title": "JOIL final engineering specification"
+        },
+        {
+          "line": 15,
+          "title": "1. Decision and intended outcome"
+        },
+        {
+          "line": 28,
+          "title": "1.1 Four independently earned outcomes"
+        },
+        {
+          "line": 39,
+          "title": "1.2 User experience"
+        },
+        {
+          "line": 51,
+          "title": "2. Repository remediation before expansion"
+        },
+        {
+          "line": 73,
+          "title": "2.1 Immediate corrective changes"
+        },
+        {
+          "line": 77,
+          "title": "3. Architecture and contracts"
+        },
+        {
+          "line": 79,
+          "title": "3.1 Minimal module structure"
+        },
+        {
+          "line": 99,
+          "title": "3.2 Three separate kinds of outcome"
+        },
+        {
+          "line": 134,
+          "title": "3.3 Required observation fields"
+        },
+        {
+          "line": 140,
+          "title": "3.4 Requirements and configuration"
+        },
+        {
+          "line": 157,
+          "title": "3.5 Identity and change semantics"
+        },
+        {
+          "line": 172,
+          "title": "4. Gene representation and geometry enactment"
+        },
+        {
+          "line": 174,
+          "title": "4.1 Selected representation"
+        },
+        {
+          "line": 189,
+          "title": "4.2 Primitive contracts"
+        },
+        {
+          "line": 205,
+          "title": "4.3 Development and repair"
+        },
+        {
+          "line": 213,
+          "title": "4.4 Region authority and backend coverage"
+        },
+        {
+          "line": 228,
+          "title": "4.5 Independent measurement and acceptance"
+        },
+        {
+          "line": 242,
+          "title": "5. Objectives, feasibility and decision integrity"
+        },
+        {
+          "line": 244,
+          "title": "5.1 Four primary objectives"
+        },
+        {
+          "line": 257,
+          "title": "5.2 Structural reserve has a fixed meaning"
+        },
+        {
+          "line": 265,
+          "title": "5.3 Oil concentration and capacity"
+        },
+        {
+          "line": 281,
+          "title": "5.4 Energy at a frozen operating basis"
+        },
+        {
+          "line": 306,
+          "title": "5.5 Preference and Pareto policy"
+        },
+        {
+          "line": 321,
+          "title": "6. Scientific gates and qualification"
+        },
+        {
+          "line": 323,
+          "title": "6.1 Capability evidence vector"
+        },
+        {
+          "line": 339,
+          "title": "6.2 Carrier flow"
+        },
+        {
+          "line": 357,
+          "title": "6.3 Oil transport"
+        },
+        {
+          "line": 371,
+          "title": "6.4 Structure, durability and manufacturing"
+        },
+        {
+          "line": 385,
+          "title": "6.5 Error budgets, robustness and multiple decisions"
+        },
+        {
+          "line": 395,
+          "title": "6.6 Qualification gate registry"
+        },
+        {
+          "line": 416,
+          "title": "7. Automatic evolution and discovery"
+        },
+        {
+          "line": 418,
+          "title": "7.1 Selected first implementation"
+        },
+        {
+          "line": 426,
+          "title": "7.2 Campaign loop"
+        },
+        {
+          "line": 440,
+          "title": "7.3 Emitters and protection of new structure"
+        },
+        {
+          "line": 446,
+          "title": "7.4 Acquisition and surrogate controls"
+        },
+        {
+          "line": 456,
+          "title": "7.5 Comparable experiments and stopping"
+        },
+        {
+          "line": 462,
+          "title": "8. Durable execution, checkpoints and seeding"
+        },
+        {
+          "line": 464,
+          "title": "8.1 Task graph and storage"
+        },
+        {
+          "line": 504,
+          "title": "8.2 Crash-safe publication and transaction boundary"
+        },
+        {
+          "line": 512,
+          "title": "8.3 Complete checkpoint schema"
+        },
+        {
+          "line": 530,
+          "title": "8.4 Determinism contract"
+        },
+        {
+          "line": 540,
+          "title": "8.5 Budget accounting and admission"
+        },
+        {
+          "line": 548,
+          "title": "8.6 Fault-injection release gate"
+        },
+        {
+          "line": 554,
+          "title": "8.7 Seeding and revocation"
+        },
+        {
+          "line": 560,
+          "title": "9. HPC design and performance qualification"
+        },
+        {
+          "line": 562,
+          "title": "9.1 Optimize useful qualified decisions"
+        },
+        {
+          "line": 576,
+          "title": "9.2 CPU, GPU and cluster execution"
+        },
+        {
+          "line": 586,
+          "title": "9.3 Accelerator admission card"
+        },
+        {
+          "line": 594,
+          "title": "9.4 Reduced downstream response operator"
+        },
+        {
+          "line": 600,
+          "title": "9.5 Benchmark matrix and release rule"
+        },
+        {
+          "line": 614,
+          "title": "10. Extensibility and the one-command interface"
+        },
+        {
+          "line": 616,
+          "title": "10.1 Domain pack contract"
+        },
+        {
+          "line": 624,
+          "title": "10.2 Command contract"
+        },
+        {
+          "line": 644,
+          "title": "10.3 Example campaign schema"
+        },
+        {
+          "line": 701,
+          "title": "11. Blender rendering and explorer"
+        },
+        {
+          "line": 703,
+          "title": "11.1 Render from evidence"
+        },
+        {
+          "line": 719,
+          "title": "11.2 Publication visual standard"
+        },
+        {
+          "line": 729,
+          "title": "11.3 Signature sequences"
+        },
+        {
+          "line": 738,
+          "title": "11.4 Complete coverage and QA"
+        },
+        {
+          "line": 746,
+          "title": "11.5 React/Vite explorer"
+        },
+        {
+          "line": 752,
+          "title": "12. White paper, experiments and technical IP"
+        },
+        {
+          "line": 754,
+          "title": "12.1 Research thesis"
+        },
+        {
+          "line": 760,
+          "title": "12.2 Preregistered study matrix"
+        },
+        {
+          "line": 776,
+          "title": "12.3 Statistical protocol"
+        },
+        {
+          "line": 786,
+          "title": "12.4 Mechanism and novelty evidence"
+        },
+        {
+          "line": 794,
+          "title": "12.5 Paper build and evidence release"
+        },
+        {
+          "line": 802,
+          "title": "13. Implementation sequence and engineering merge gates"
+        },
+        {
+          "line": 820,
+          "title": "13.1 First reviewable pull requests"
+        },
+        {
+          "line": 830,
+          "title": "13.2 Required reference search policy"
+        },
+        {
+          "line": 859,
+          "title": "13.3 Schema and adapter release artifacts"
+        },
+        {
+          "line": 865,
+          "title": "13.4 CI and release levels"
+        },
+        {
+          "line": 877,
+          "title": "13.5 Release definition of done"
+        },
+        {
+          "line": 883,
+          "title": "13.6 Remaining decisions and risks"
+        },
+        {
+          "line": 898,
+          "title": "Appendix A. Engineering-test render catalogue"
+        },
+        {
+          "line": 987,
+          "title": "Appendix B. Detailed comparative rubric and feedback"
+        },
+        {
+          "line": 1010,
+          "title": "B.1 All scores"
+        },
+        {
+          "line": 1037,
+          "title": "B.2 A — joil v5 Engineering Spec — Open-Ended Evolutionary Design with Hard Engineering Gates.md"
+        },
+        {
+          "line": 1060,
+          "title": "B.3 B — Joil_Engineering_Specification(1).pdf"
+        },
+        {
+          "line": 1083,
+          "title": "B.4 C — JOIL_Final_Engineering_Specification(1).docx"
+        },
+        {
+          "line": 1106,
+          "title": "B.5 D — joil2.md"
+        },
+        {
+          "line": 1129,
+          "title": "B.6 E — joil1.md"
+        },
+        {
+          "line": 1152,
+          "title": "B.7 F — JOIL v5 Engineering Specification.md"
+        },
+        {
+          "line": 1175,
+          "title": "Appendix C. How the six specifications were synthesized"
+        },
+        {
+          "line": 1198,
+          "title": "New requirements added by the synthesis"
+        },
+        {
+          "line": 1204,
+          "title": "Appendix D. Sources, reviewed inputs and limits"
+        },
+        {
+          "line": 1206,
+          "title": "D.1 Repository anchors"
+        },
+        {
+          "line": 1227,
+          "title": "D.2 Primary technical references"
+        },
+        {
+          "line": 1241,
+          "title": "D.3 Input identity"
+        },
+        {
+          "line": 1254,
+          "title": "Appendix E. Final specification score and residual limitations"
+        },
+        {
+          "line": 1276,
+          "title": "Why the score is below 100"
+        }
+      ],
+      "pdf_pages": null
+    },
+    {
+      "id": "S04",
+      "path": "final/JOIL_v5_Final_Engineering_Specification.md",
+      "sha256": "00f0d4c70dc72805d7402725697552ef70ef079f0de5b7e37cdd330f8a225e81",
+      "bytes": 11443,
+      "text_lines": 165,
+      "format": "md",
+      "sections": [
+        {
+          "line": 1,
+          "title": "JOIL v5 Final Engineering Specification"
+        },
+        {
+          "line": 10,
+          "title": "Executive Summary"
+        },
+        {
+          "line": 29,
+          "title": "1. Repository Diagnosis (Confirmed)"
+        },
+        {
+          "line": 44,
+          "title": "2. Architecture"
+        },
+        {
+          "line": 69,
+          "title": "3. Genome: Morphogenetic Program Graph"
+        },
+        {
+          "line": 82,
+          "title": "4. Engineering Gates and Multi-Fidelity Ladder"
+        },
+        {
+          "line": 115,
+          "title": "5. Execution, Checkpoints, and HPC"
+        },
+        {
+          "line": 129,
+          "title": "6. Blender Rendering"
+        },
+        {
+          "line": 135,
+          "title": "7. White Paper, Evidence, and IP"
+        },
+        {
+          "line": 144,
+          "title": "8. Migration and Milestones"
+        },
+        {
+          "line": 159,
+          "title": "9. Success Criteria"
+        }
+      ],
+      "pdf_pages": null
+    },
+    {
+      "id": "S05",
+      "path": "final/Joil_Engineering_Specification.pdf",
+      "sha256": "9561cc4f19651a4f07da22cc4ca8f41c271b4d380c55862a8eee69ae0d3a8b74",
+      "bytes": 252039,
+      "text_lines": 2367,
+      "format": "pdf",
+      "sections": [],
+      "pdf_pages": 38
+    },
+    {
+      "id": "S06",
+      "path": "final/joil v5 Engineering Spec — Open-Ended Evolutionary Design with Hard Engineering Gates.md",
+      "sha256": "04fe7afc655aa19aa4040f9ebff38825205e34cc5c809a4c9301686f4c1c7ebf",
+      "bytes": 74373,
+      "text_lines": 794,
+      "format": "md",
+      "sections": [
+        {
+          "line": 1,
+          "title": "joil v5 Engineering Spec — Open-Ended Evolutionary Design with Hard Engineering Gates"
+        },
+        {
+          "line": 5,
+          "title": "1. Executive summary"
+        },
+        {
+          "line": 26,
+          "title": "2. Audit of the current repository"
+        },
+        {
+          "line": 30,
+          "title": "2.1 Size and shape"
+        },
+        {
+          "line": 40,
+          "title": "2.2 Keep: what is strong"
+        },
+        {
+          "line": 50,
+          "title": "2.3 Gaps, in priority order"
+        },
+        {
+          "line": 72,
+          "title": "3. Design principles and non-goals"
+        },
+        {
+          "line": 89,
+          "title": "4. Target architecture and code design"
+        },
+        {
+          "line": 97,
+          "title": "4.1 Crate map"
+        },
+        {
+          "line": 122,
+          "title": "4.2 Core data flow, in types"
+        },
+        {
+          "line": 133,
+          "title": "4.3 What happens to today's code"
+        },
+        {
+          "line": 147,
+          "title": "5. Open-ended 3D gene representation"
+        },
+        {
+          "line": 151,
+          "title": "5.1 Five layers, two of them not genes"
+        },
+        {
+          "line": 187,
+          "title": "5.2 Development and validity by construction"
+        },
+        {
+          "line": 199,
+          "title": "5.3 Variation operators"
+        },
+        {
+          "line": 213,
+          "title": "5.4 Legacy layers become seeds, not ontology"
+        },
+        {
+          "line": 217,
+          "title": "5.5 Expressiveness challenge suite"
+        },
+        {
+          "line": 221,
+          "title": "5.6 Identity and numeric policy"
+        },
+        {
+          "line": 225,
+          "title": "6. Geometry kernel and manufacturability"
+        },
+        {
+          "line": 229,
+          "title": "6.1 Kernel"
+        },
+        {
+          "line": 235,
+          "title": "6.2 Backends and declared coverage"
+        },
+        {
+          "line": 247,
+          "title": "6.3 Manufacturability gates at L0"
+        },
+        {
+          "line": 262,
+          "title": "6.4 Measured topology replaces labels"
+        },
+        {
+          "line": 266,
+          "title": "7. Engineering gates"
+        },
+        {
+          "line": 270,
+          "title": "7.1 The ladder"
+        },
+        {
+          "line": 282,
+          "title": "7.2 What makes each gate accurate"
+        },
+        {
+          "line": 291,
+          "title": "7.3 Verification before any judge runs"
+        },
+        {
+          "line": 304,
+          "title": "7.4 Frozen-domain response operator"
+        },
+        {
+          "line": 310,
+          "title": "7.5 Accuracy budgets and the promotion rule"
+        },
+        {
+          "line": 316,
+          "title": "8. Objectives and scoring"
+        },
+        {
+          "line": 320,
+          "title": "8.1 Objective set for the hydrocyclone pack"
+        },
+        {
+          "line": 331,
+          "title": "8.2 Why weight and strength matter for this part"
+        },
+        {
+          "line": 345,
+          "title": "8.3 Robust statistics that the budget can afford"
+        },
+        {
+          "line": 351,
+          "title": "8.4 Ranking"
+        },
+        {
+          "line": 365,
+          "title": "9. Evolution engine"
+        },
+        {
+          "line": 373,
+          "title": "9.1 Why evolution loses today, as testable hypotheses"
+        },
+        {
+          "line": 381,
+          "title": "9.2 Three archives, all keyed by measurement"
+        },
+        {
+          "line": 391,
+          "title": "9.3 Emitters and adaptive allocation"
+        },
+        {
+          "line": 400,
+          "title": "9.4 Multi-fidelity promotion"
+        },
+        {
+          "line": 406,
+          "title": "9.5 Surrogates propose, never score"
+        },
+        {
+          "line": 410,
+          "title": "9.6 Built-in controls and ablations"
+        },
+        {
+          "line": 421,
+          "title": "9.7 Checkpoints and seeding"
+        },
+        {
+          "line": 427,
+          "title": "10. HPC and performance"
+        },
+        {
+          "line": 431,
+          "title": "10.1 Throughput targets per fidelity level"
+        },
+        {
+          "line": 452,
+          "title": "10.2 Compute stack"
+        },
+        {
+          "line": 459,
+          "title": "10.3 Scheduling across hosts"
+        },
+        {
+          "line": 465,
+          "title": "10.4 Storage and formats"
+        },
+        {
+          "line": 475,
+          "title": "10.5 Performance gates before any campaign"
+        },
+        {
+          "line": 479,
+          "title": "11. Extensibility and repurposing"
+        },
+        {
+          "line": 483,
+          "title": "11.1 The two extension traits"
+        },
+        {
+          "line": 507,
+          "title": "11.2 Out-of-process judges"
+        },
+        {
+          "line": 511,
+          "title": "11.3 A campaign file"
+        },
+        {
+          "line": 567,
+          "title": "11.4 Design-domain tiers within this pack"
+        },
+        {
+          "line": 576,
+          "title": "11.5 Other processes that reuse these gates"
+        },
+        {
+          "line": 587,
+          "title": "12. Blender rendering pipeline"
+        },
+        {
+          "line": 591,
+          "title": "12.1 Architecture"
+        },
+        {
+          "line": 602,
+          "title": "12.2 Visual language"
+        },
+        {
+          "line": 606,
+          "title": "12.3 One recipe per gate"
+        },
+        {
+          "line": 628,
+          "title": "12.4 Rules that keep renders honest"
+        },
+        {
+          "line": 635,
+          "title": "13. One-command run, checkpoints and explorer"
+        },
+        {
+          "line": 639,
+          "title": "13.1 Commands"
+        },
+        {
+          "line": 655,
+          "title": "13.2 Campaign lifecycle"
+        },
+        {
+          "line": 663,
+          "title": "13.3 Run directory"
+        },
+        {
+          "line": 677,
+          "title": "13.4 Explorer"
+        },
+        {
+          "line": 694,
+          "title": "14. White paper, evidence and IP strategy"
+        },
+        {
+          "line": 698,
+          "title": "14.1 Evidence: keep the kernel, drop the receipt layer"
+        },
+        {
+          "line": 709,
+          "title": "14.2 The white paper, preregistered"
+        },
+        {
+          "line": 725,
+          "title": "14.3 IP: decide before you disclose"
+        },
+        {
+          "line": 736,
+          "title": "15. Migration plan, milestones, acceptance criteria and risks"
+        },
+        {
+          "line": 744,
+          "title": "15.1 Gates"
+        },
+        {
+          "line": 756,
+          "title": "15.2 Fix now in the v4 lane"
+        },
+        {
+          "line": 770,
+          "title": "15.3 Python retirement"
+        },
+        {
+          "line": 783,
+          "title": "15.4 Risks"
+        }
+      ],
+      "pdf_pages": null
+    },
+    {
+      "id": "S07",
+      "path": "final/joil1.md",
+      "sha256": "e5e99e23dd9cfce04c93564240fbfdeb8e679ebecae8f9ae481f4f3b85a203e9",
+      "bytes": 16445,
+      "text_lines": 976,
+      "format": "md",
+      "sections": [],
+      "pdf_pages": null
+    },
+    {
+      "id": "S08",
+      "path": "final/joil2.md",
+      "sha256": "b6bd88c1cbce643ec13343ace3d77e3efb1540a247ee14db6050e44941d9c663",
+      "bytes": 11553,
+      "text_lines": 126,
+      "format": "md",
+      "sections": [
+        {
+          "line": 4,
+          "title": "1. Executive Summary & Goals"
+        },
+        {
+          "line": 19,
+          "title": "2. Core Architecture"
+        },
+        {
+          "line": 38,
+          "title": "3. Genome Representation (Profound Flexibility + Evolvability)"
+        },
+        {
+          "line": 61,
+          "title": "4. Engineering Gates (Accurate, Modular, Tiered)"
+        },
+        {
+          "line": 82,
+          "title": "5. Evolution Process & HPC"
+        },
+        {
+          "line": 97,
+          "title": "6. Visualization & Blender Renderings"
+        },
+        {
+          "line": 109,
+          "title": "7. Extensibility & Process"
+        },
+        {
+          "line": 117,
+          "title": "8. Deliverables & Success Criteria"
+        }
+      ],
+      "pdf_pages": null
+    },
+    {
+      "id": "S09",
+      "path": "xfinal/JOIL_FINAL_ENGINEERING_SPEC.md",
+      "sha256": "952dc4564866ce6dd1161d9259cf0d714b6398707756419eee6a9ce9c2c4993d",
+      "bytes": 226802,
+      "text_lines": 2700,
+      "format": "md",
+      "sections": [
+        {
+          "line": 1,
+          "title": "JOIL v5 · Final Engineering Specification"
+        },
+        {
+          "line": 3,
+          "title": "Open-ended, blind-judged evolutionary design with validated engineering gates"
+        },
+        {
+          "line": 19,
+          "title": "Contents"
+        },
+        {
+          "line": 46,
+          "title": "1. Executive summary"
+        },
+        {
+          "line": 73,
+          "title": "1.1 The sixteen decisions"
+        },
+        {
+          "line": 94,
+          "title": "1.2 What success means"
+        },
+        {
+          "line": 108,
+          "title": "2. Repository audit at `cc86edc`"
+        },
+        {
+          "line": 110,
+          "title": "2.1 Size and shape (measured)"
+        },
+        {
+          "line": 124,
+          "title": "2.2 Keep: what is strong"
+        },
+        {
+          "line": 139,
+          "title": "2.3 The vortex-fidelity finding"
+        },
+        {
+          "line": 162,
+          "title": "2.4 Why evolution lost, as testable hypotheses"
+        },
+        {
+          "line": 173,
+          "title": "2.5 Defect ledger (all verified at `cc86edc`)"
+        },
+        {
+          "line": 211,
+          "title": "2.6 Requirement contradictions and their resolution"
+        },
+        {
+          "line": 227,
+          "title": "3. Goals, non-goals, success criteria and release levels"
+        },
+        {
+          "line": 229,
+          "title": "3.1 Goals"
+        },
+        {
+          "line": 238,
+          "title": "3.2 Non-goals"
+        },
+        {
+          "line": 246,
+          "title": "3.3 Release levels"
+        },
+        {
+          "line": 257,
+          "title": "3.4 Success criteria"
+        },
+        {
+          "line": 274,
+          "title": "4. Invariants"
+        },
+        {
+          "line": 295,
+          "title": "5. Architecture and code design"
+        },
+        {
+          "line": 325,
+          "title": "5.1 Workspace and crate map"
+        },
+        {
+          "line": 355,
+          "title": "5.2 Blindness as a build failure"
+        },
+        {
+          "line": 400,
+          "title": "5.3 Data flow in types"
+        },
+        {
+          "line": 413,
+          "title": "5.4 Identity chain"
+        },
+        {
+          "line": 436,
+          "title": "5.5 Language and solver policy"
+        },
+        {
+          "line": 449,
+          "title": "5.6 Units and declared expressions"
+        },
+        {
+          "line": 455,
+          "title": "6. Genome: the Morphogenetic Program Graph (MPG-1)"
+        },
+        {
+          "line": 461,
+          "title": "6.1 Layers"
+        },
+        {
+          "line": 474,
+          "title": "6.2 Core types"
+        },
+        {
+          "line": 515,
+          "title": "6.3 Module library"
+        },
+        {
+          "line": 534,
+          "title": "6.4 Field-program bounds"
+        },
+        {
+          "line": 546,
+          "title": "6.5 Composing fluid and solid"
+        },
+        {
+          "line": 569,
+          "title": "6.6 Development and budgets"
+        },
+        {
+          "line": 586,
+          "title": "6.7 Validity by construction"
+        },
+        {
+          "line": 598,
+          "title": "6.8 Geometry kernel and certification"
+        },
+        {
+          "line": 606,
+          "title": "6.9 Derived artifacts and declared coverage"
+        },
+        {
+          "line": 618,
+          "title": "6.10 Variation operators"
+        },
+        {
+          "line": 639,
+          "title": "6.11 Complexification, speciation, motifs and bloat"
+        },
+        {
+          "line": 645,
+          "title": "6.12 Seeds and legacy lowering"
+        },
+        {
+          "line": 656,
+          "title": "6.13 Expressiveness, enactment and operator robustness"
+        },
+        {
+          "line": 687,
+          "title": "7. Engineering gates"
+        },
+        {
+          "line": 691,
+          "title": "7.1 Gate card"
+        },
+        {
+          "line": 714,
+          "title": "7.2 Outcome semantics"
+        },
+        {
+          "line": 732,
+          "title": "7.3 Fidelity ladder"
+        },
+        {
+          "line": 746,
+          "title": "7.4 Gate catalogue (hydrocyclone pack)"
+        },
+        {
+          "line": 851,
+          "title": "7.5 Verification suite (`./joil verify`)"
+        },
+        {
+          "line": 868,
+          "title": "7.6 Validation programme: G-VTX"
+        },
+        {
+          "line": 883,
+          "title": "7.7 Accuracy budgets, promotion and abstention"
+        },
+        {
+          "line": 896,
+          "title": "7.8 Uncertainty budget"
+        },
+        {
+          "line": 918,
+          "title": "7.9 Statistics policy"
+        },
+        {
+          "line": 929,
+          "title": "8. Physics judges"
+        },
+        {
+          "line": 931,
+          "title": "8.1 Two lanes and the admission rule"
+        },
+        {
+          "line": 951,
+          "title": "8.2 Reference lane: corrected OpenFOAM"
+        },
+        {
+          "line": 984,
+          "title": "8.3 Fast lane: sparse GPU lattice-Boltzmann LES (`crucible-lbm`)"
+        },
+        {
+          "line": 1003,
+          "title": "8.4 Frozen-liner response operator"
+        },
+        {
+          "line": 1015,
+          "title": "8.5 Oil transport (`crucible-particles`)"
+        },
+        {
+          "line": 1055,
+          "title": "8.6 Structure (`crucible-fea`)"
+        },
+        {
+          "line": 1086,
+          "title": "8.7 Manufacturing and physical validation"
+        },
+        {
+          "line": 1101,
+          "title": "9. Objectives, weight and strength, and the decision policy"
+        },
+        {
+          "line": 1111,
+          "title": "9.1 Objectives (hydrocyclone pack)"
+        },
+        {
+          "line": 1130,
+          "title": "9.2 Structural reserve: defining strength so it cannot be gamed"
+        },
+        {
+          "line": 1155,
+          "title": "9.3 Hard constraints and no-regression floors"
+        },
+        {
+          "line": 1166,
+          "title": "9.4 Ranking and archive quality"
+        },
+        {
+          "line": 1172,
+          "title": "9.5 Decision utility"
+        },
+        {
+          "line": 1201,
+          "title": "9.6 Scenarios and robust statistics"
+        },
+        {
+          "line": 1216,
+          "title": "9.7 Worked example (illustrative numbers, not results)"
+        },
+        {
+          "line": 1229,
+          "title": "10. Evolution engine"
+        },
+        {
+          "line": 1244,
+          "title": "10.1 The loop"
+        },
+        {
+          "line": 1271,
+          "title": "10.2 Deterministic asynchrony: due-epoch scheduling"
+        },
+        {
+          "line": 1281,
+          "title": "10.3 Archives"
+        },
+        {
+          "line": 1308,
+          "title": "10.4 Emitters and adaptive allocation"
+        },
+        {
+          "line": 1323,
+          "title": "10.5 Multi-fidelity promotion and acquisition"
+        },
+        {
+          "line": 1339,
+          "title": "10.6 Surrogates propose, never score"
+        },
+        {
+          "line": 1348,
+          "title": "10.7 Honesty and anti-exploit mechanisms"
+        },
+        {
+          "line": 1356,
+          "title": "10.8 Stopping rules"
+        },
+        {
+          "line": 1369,
+          "title": "10.9 Controls and the preregistered study matrix"
+        },
+        {
+          "line": 1391,
+          "title": "11. One command: run, checkpoint, resume, fork, seed"
+        },
+        {
+          "line": 1399,
+          "title": "11.1 Commands"
+        },
+        {
+          "line": 1420,
+          "title": "11.2 What `run` does"
+        },
+        {
+          "line": 1439,
+          "title": "11.3 Durable state"
+        },
+        {
+          "line": 1446,
+          "title": "11.4 Checkpoint contents and atomic publish"
+        },
+        {
+          "line": 1474,
+          "title": "11.5 Resume, fork and seed are different operations"
+        },
+        {
+          "line": 1482,
+          "title": "11.6 Fault-injection acceptance (G-ENG-2)"
+        },
+        {
+          "line": 1507,
+          "title": "11.7 Run directory"
+        },
+        {
+          "line": 1523,
+          "title": "11.8 Completion states and exit codes"
+        },
+        {
+          "line": 1539,
+          "title": "12. High-performance computing"
+        },
+        {
+          "line": 1551,
+          "title": "12.1 The metric is useful throughput"
+        },
+        {
+          "line": 1563,
+          "title": "12.2 Stack"
+        },
+        {
+          "line": 1579,
+          "title": "12.3 Fleet and leases"
+        },
+        {
+          "line": 1595,
+          "title": "12.4 Planning arithmetic for the fast lane"
+        },
+        {
+          "line": 1611,
+          "title": "12.5 Campaign budgets"
+        },
+        {
+          "line": 1628,
+          "title": "12.6 Cache layers"
+        },
+        {
+          "line": 1643,
+          "title": "12.7 Storage formats"
+        },
+        {
+          "line": 1656,
+          "title": "12.8 Benchmark gates"
+        },
+        {
+          "line": 1670,
+          "title": "12.9 Optimisation order"
+        },
+        {
+          "line": 1684,
+          "title": "13. Blender renderings and the explorer"
+        },
+        {
+          "line": 1688,
+          "title": "13.1 Pipeline"
+        },
+        {
+          "line": 1704,
+          "title": "writes bundles, then for each recipe:"
+        },
+        {
+          "line": 1708,
+          "title": "13.2 Three layers"
+        },
+        {
+          "line": 1716,
+          "title": "13.3 Visual language"
+        },
+        {
+          "line": 1726,
+          "title": "13.4 Plate recipes"
+        },
+        {
+          "line": 1771,
+          "title": "13.5 Coverage of all 66 catalogue tests"
+        },
+        {
+          "line": 1779,
+          "title": "13.6 Honesty rules"
+        },
+        {
+          "line": 1788,
+          "title": "13.7 Render budget and scheduling"
+        },
+        {
+          "line": 1797,
+          "title": "13.8 Explorer"
+        },
+        {
+          "line": 1816,
+          "title": "14. White paper and the research programme"
+        },
+        {
+          "line": 1820,
+          "title": "14.1 Title and contributions"
+        },
+        {
+          "line": 1837,
+          "title": "14.2 Hypotheses (hashed into the preregistration before generation 0)"
+        },
+        {
+          "line": 1849,
+          "title": "14.3 Experiments"
+        },
+        {
+          "line": 1864,
+          "title": "14.4 Mechanism analysis that is causal, not narrative"
+        },
+        {
+          "line": 1873,
+          "title": "14.5 Numbers are queries"
+        },
+        {
+          "line": 1885,
+          "title": "14.6 The early paper"
+        },
+        {
+          "line": 1889,
+          "title": "14.7 Physics levers evolution can exploit (hypotheses, not promises)"
+        },
+        {
+          "line": 1901,
+          "title": "15. Extensibility and repurposing"
+        },
+        {
+          "line": 1909,
+          "title": "15.1 Extension contracts (full signatures in Appendix C)"
+        },
+        {
+          "line": 1933,
+          "title": "15.2 Out-of-process judges"
+        },
+        {
+          "line": 1943,
+          "title": "15.3 Design-domain tiers within the hydrocyclone pack"
+        },
+        {
+          "line": 1952,
+          "title": "15.4 Other packs"
+        },
+        {
+          "line": 1967,
+          "title": "16. IP and process"
+        },
+        {
+          "line": 1971,
+          "title": "16.1 Disclosure control"
+        },
+        {
+          "line": 1978,
+          "title": "16.2 Inventorship and invention dossiers"
+        },
+        {
+          "line": 2003,
+          "title": "16.3 Licence hygiene"
+        },
+        {
+          "line": 2017,
+          "title": "16.4 Process"
+        },
+        {
+          "line": 2044,
+          "title": "17. Migration and Python retirement"
+        },
+        {
+          "line": 2048,
+          "title": "17.1 Keep, refactor, retire (Rust and assets)"
+        },
+        {
+          "line": 2070,
+          "title": "17.2 Python retirement (measured lines)"
+        },
+        {
+          "line": 2087,
+          "title": "18. Fix-now ledger for the v4 lane"
+        },
+        {
+          "line": 2117,
+          "title": "19. Roadmap and milestone gates"
+        },
+        {
+          "line": 2136,
+          "title": "20. Risks"
+        },
+        {
+          "line": 2157,
+          "title": "Appendix A · `campaigns/ct35-head-v5-c01.toml`"
+        },
+        {
+          "line": 2359,
+          "title": "Appendix B · `requirements/joil-hydrocyclone-v2.toml` (skeleton)"
+        },
+        {
+          "line": 2387,
+          "title": "derived, unit-checked: 1000 mg/L ↔ 0.112–0.122 vol% at 820–890 kg/m3"
+        },
+        {
+          "line": 2434,
+          "title": "Appendix C · Core Rust contracts"
+        },
+        {
+          "line": 2496,
+          "title": "Appendix D · All 66 catalogue tests → gate → level → render"
+        },
+        {
+          "line": 2573,
+          "title": "Appendix E · Formulas and oracles"
+        },
+        {
+          "line": 2600,
+          "title": "Appendix F · Glossary"
+        },
+        {
+          "line": 2631,
+          "title": "Appendix G · Sources"
+        },
+        {
+          "line": 2680,
+          "title": "Appendix H · Self-score on the review rubric"
+        }
+      ],
+      "pdf_pages": null
+    },
+    {
+      "id": "S10",
+      "path": "xfinal/JOIL_v5_Final_Engineering_Specification.md",
+      "sha256": "838214f30e31396e9e8588160155a14f7a69a9a86c7ce5484b1034aab2d63d94",
+      "bytes": 142626,
+      "text_lines": 1319,
+      "format": "md",
+      "sections": [
+        {
+          "line": 1,
+          "title": "JOIL v5 — Final Engineering Specification"
+        },
+        {
+          "line": 15,
+          "title": "Contents"
+        },
+        {
+          "line": 39,
+          "title": "1. Executive summary"
+        },
+        {
+          "line": 65,
+          "title": "2. What the repository is today"
+        },
+        {
+          "line": 67,
+          "title": "2.1 Shape"
+        },
+        {
+          "line": 78,
+          "title": "2.2 Keep — these are genuine assets"
+        },
+        {
+          "line": 90,
+          "title": "2.3 What prevents discovery — summary"
+        },
+        {
+          "line": 110,
+          "title": "2.4 Why evolution lost — hypotheses, not conclusions"
+        },
+        {
+          "line": 122,
+          "title": "3. Principles that are not negotiable"
+        },
+        {
+          "line": 138,
+          "title": "4. Architecture and code design"
+        },
+        {
+          "line": 140,
+          "title": "4.1 Workspace, staged"
+        },
+        {
+          "line": 188,
+          "title": "4.2 Core contracts"
+        },
+        {
+          "line": 244,
+          "title": "4.3 Identity and cache reuse"
+        },
+        {
+          "line": 259,
+          "title": "4.4 Out-of-process adapters"
+        },
+        {
+          "line": 263,
+          "title": "4.5 What happens to today's code"
+        },
+        {
+          "line": 278,
+          "title": "4.6 Python retirement"
+        },
+        {
+          "line": 293,
+          "title": "5. Gene representation and the physical subject"
+        },
+        {
+          "line": 295,
+          "title": "5.1 The Morphogenetic Program Graph"
+        },
+        {
+          "line": 310,
+          "title": "5.2 First enabled operator registry"
+        },
+        {
+          "line": 330,
+          "title": "5.3 Development, budgets and enactment"
+        },
+        {
+          "line": 336,
+          "title": "5.4 One material partition, with honest approximation"
+        },
+        {
+          "line": 349,
+          "title": "5.5 Realizations, backends and coverage"
+        },
+        {
+          "line": 361,
+          "title": "5.6 Independent geometry observation"
+        },
+        {
+          "line": 372,
+          "title": "5.7 Expressiveness challenge suite (CAD-10)"
+        },
+        {
+          "line": 391,
+          "title": "5.8 Identity and numeric policy"
+        },
+        {
+          "line": 397,
+          "title": "6. Objectives, feasibility and the weight/strength trade-off"
+        },
+        {
+          "line": 399,
+          "title": "6.1 One external demand for every candidate"
+        },
+        {
+          "line": 403,
+          "title": "6.2 Four primary objectives"
+        },
+        {
+          "line": 416,
+          "title": "6.3 Why weight and strength matter for this part"
+        },
+        {
+          "line": 430,
+          "title": "6.4 Hard feasibility before preference"
+        },
+        {
+          "line": 434,
+          "title": "6.5 Preference without losing the Pareto front"
+        },
+        {
+          "line": 451,
+          "title": "6.6 Robust statistics the budget can support"
+        },
+        {
+          "line": 460,
+          "title": "6.7 Decision rules"
+        },
+        {
+          "line": 493,
+          "title": "7. Engineering gates and how they are made accurate"
+        },
+        {
+          "line": 495,
+          "title": "7.1 Evidence classes and fidelity levels are different axes"
+        },
+        {
+          "line": 514,
+          "title": "7.2 Gate registry for the hydrocyclone pack"
+        },
+        {
+          "line": 540,
+          "title": "7.3 Carrier flow, reference specification"
+        },
+        {
+          "line": 551,
+          "title": "7.4 G-VTX: vortex validation before any flow ranking"
+        },
+        {
+          "line": 564,
+          "title": "7.5 Oil transport"
+        },
+        {
+          "line": 574,
+          "title": "7.6 Capacity and energy at the common duty"
+        },
+        {
+          "line": 578,
+          "title": "7.7 Structure"
+        },
+        {
+          "line": 587,
+          "title": "7.8 Manufacturing and as-built"
+        },
+        {
+          "line": 591,
+          "title": "7.9 Uncertainty bookkeeping"
+        },
+        {
+          "line": 595,
+          "title": "7.10 Verification before any evaluator scores"
+        },
+        {
+          "line": 599,
+          "title": "7.11 Accuracy budgets across levels"
+        },
+        {
+          "line": 605,
+          "title": "8. Autonomous evolution"
+        },
+        {
+          "line": 607,
+          "title": "8.1 The loop, one batch at a time"
+        },
+        {
+          "line": 627,
+          "title": "8.2 Pools and archives, all keyed by measurement"
+        },
+        {
+          "line": 642,
+          "title": "8.3 Emitters — reference search policy v1"
+        },
+        {
+          "line": 659,
+          "title": "8.4 Acquisition: surrogates allocate experiments, evidence decides"
+        },
+        {
+          "line": 673,
+          "title": "8.5 Controls and benchmark mode"
+        },
+        {
+          "line": 684,
+          "title": "8.6 Four kinds of novelty, reported separately"
+        },
+        {
+          "line": 693,
+          "title": "8.7 The concept space the engine can reach"
+        },
+        {
+          "line": 708,
+          "title": "9. One command, durable checkpoints, seeding"
+        },
+        {
+          "line": 710,
+          "title": "9.1 Commands"
+        },
+        {
+          "line": 728,
+          "title": "9.2 A complete campaign file"
+        },
+        {
+          "line": 790,
+          "title": "9.3 Campaign lifecycle"
+        },
+        {
+          "line": 798,
+          "title": "9.4 Coordinator, tasks and leases"
+        },
+        {
+          "line": 804,
+          "title": "9.5 Atomic publication"
+        },
+        {
+          "line": 808,
+          "title": "9.6 What a checkpoint contains"
+        },
+        {
+          "line": 814,
+          "title": "9.7 Determinism contract"
+        },
+        {
+          "line": 820,
+          "title": "9.8 Resume, fork and seeding"
+        },
+        {
+          "line": 824,
+          "title": "9.9 Budget accounting"
+        },
+        {
+          "line": 828,
+          "title": "9.10 Run directory"
+        },
+        {
+          "line": 843,
+          "title": "9.11 Release gates for the runner"
+        },
+        {
+          "line": 849,
+          "title": "10. High-performance computing"
+        },
+        {
+          "line": 851,
+          "title": "10.1 What \"fast\" means"
+        },
+        {
+          "line": 855,
+          "title": "10.2 Resource model"
+        },
+        {
+          "line": 859,
+          "title": "10.3 Reference-track throughput (planning arithmetic, replaced by `joil bench`)"
+        },
+        {
+          "line": 872,
+          "title": "10.4 Acceleration track: accelerators earn admission"
+        },
+        {
+          "line": 884,
+          "title": "10.5 Order of optimization"
+        },
+        {
+          "line": 892,
+          "title": "10.6 Silent numerical faults"
+        },
+        {
+          "line": 896,
+          "title": "10.7 `joil bench`"
+        },
+        {
+          "line": 902,
+          "title": "11. Extensibility and repurposing"
+        },
+        {
+          "line": 906,
+          "title": "11.1 Adding a test or an objective"
+        },
+        {
+          "line": 928,
+          "title": "11.2 Design-domain tiers in the hydrocyclone pack"
+        },
+        {
+          "line": 937,
+          "title": "11.3 Other processes that reuse the same gates"
+        },
+        {
+          "line": 946,
+          "title": "11.4 The acceptance test for extensibility"
+        },
+        {
+          "line": 952,
+          "title": "12. Blender rendering and the explorer"
+        },
+        {
+          "line": 954,
+          "title": "12.1 What every render must obey"
+        },
+        {
+          "line": 963,
+          "title": "12.2 Architecture"
+        },
+        {
+          "line": 974,
+          "title": "12.3 Visual standard"
+        },
+        {
+          "line": 978,
+          "title": "12.4 Recipes for the engineering gates"
+        },
+        {
+          "line": 1004,
+          "title": "12.5 Signature sequences for the paper and talks"
+        },
+        {
+          "line": 1008,
+          "title": "12.6 Explorer"
+        },
+        {
+          "line": 1012,
+          "title": "12.7 Acceptance"
+        },
+        {
+          "line": 1018,
+          "title": "13. White paper, research programme and IP"
+        },
+        {
+          "line": 1020,
+          "title": "13.1 Thesis and hypotheses"
+        },
+        {
+          "line": 1034,
+          "title": "13.2 Study design"
+        },
+        {
+          "line": 1042,
+          "title": "13.3 Mechanism dossiers"
+        },
+        {
+          "line": 1046,
+          "title": "13.4 Physical confirmation"
+        },
+        {
+          "line": 1050,
+          "title": "13.5 The white paper"
+        },
+        {
+          "line": 1063,
+          "title": "13.6 IP and disclosure"
+        },
+        {
+          "line": 1076,
+          "title": "14. Delivery plan and acceptance"
+        },
+        {
+          "line": 1078,
+          "title": "14.1 Milestones"
+        },
+        {
+          "line": 1109,
+          "title": "14.2 First pull requests, in order"
+        },
+        {
+          "line": 1122,
+          "title": "14.3 Release levels"
+        },
+        {
+          "line": 1131,
+          "title": "14.4 Process, simplified"
+        },
+        {
+          "line": 1137,
+          "title": "15. Risks and unresolved inputs"
+        },
+        {
+          "line": 1139,
+          "title": "15.1 Inputs that only the owners can supply"
+        },
+        {
+          "line": 1143,
+          "title": "15.2 Risk register"
+        },
+        {
+          "line": 1161,
+          "title": "Appendix A — Verified defect register"
+        },
+        {
+          "line": 1197,
+          "title": "Appendix B — Gate, oracle and render map"
+        },
+        {
+          "line": 1274,
+          "title": "Appendix C — What changed from the earlier drafts and why"
+        },
+        {
+          "line": 1296,
+          "title": "Appendix D — Sources"
+        }
+      ],
+      "pdf_pages": null
+    }
+  ]
+}
