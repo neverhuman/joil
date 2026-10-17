@@ -36,16 +36,26 @@
       ]
     },
     "V5-01-04": {
-      "status": "blocked",
+      "status": "done",
       "owner": "claude-v5-truth-worker",
-      "note": "In-scope slice e90ad30 green (explicit GPU opt-in with lease, no implicit VRAM target, SCHEMATIC trajectory provenance, main.tsx evidence-bound labels and schematic banner, UI build). Blocked on SR-2: apps/explorer/src/Viewport3D.tsx (outside V5-01 scope) still labels authored paths as F1/F2 screen capture trajectories.",
-      "evidence": []
+      "note": "Explicit GPU opt-in with lease and no implicit VRAM target; SCHEMATIC trajectory provenance; main.tsx and Viewport3D (revision 3) label authored paths schematic and bind historical numbers as retracted. No measured trajectory or GPU run claimed.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-04-completed-20261017.json",
+          "sha256": "d9e678024f8ec511008bca3793425ed7cec381cfa8c9acaa97408064518fdb09"
+        }
+      ]
     },
     "V5-01-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "claude-v5-truth-worker",
+      "note": "Unique ignored output defaults and refusal of existing outputs; GLB scenes bound to their own STL; IR envelope corrected as new identity (schema 2) with changed-tail refusal; structural/mass values labelled as versioned estimates, buckling not evaluated.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-05-completed-20261017.json",
+          "sha256": "1e8d0e9a2a760448476b7bc602a78d9c7e4d5304fca48b1069dee59910b0e52a"
+        }
+      ]
     }
   }
 }

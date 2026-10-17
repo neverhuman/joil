@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-01",
+  "task_ids": [
+    "V5-01-04"
+  ],
+  "owner": "claude-v5-truth-worker",
+  "input_head": "82bb35e",
+  "tested_commit": "004a40a56f388ea2426adfcea1064f25aedb1f61",
+  "commits": [
+    "e90ad303bb68286fea1fbafe885965ab4ff65901",
+    "004a40a56f388ea2426adfcea1064f25aedb1f61"
+  ],
+  "scope_basis": "V5-01 write_scope plus apps/explorer/src/Viewport3D.tsx transferred by V5-01-SCOPE-REVISION-3.md (integrator commit b6b11a1b4e2e033187a64f368c731df3e96dc024)",
+  "created_utc": "2026-10-17T23:03:00Z",
+  "changed_paths": [
+    "apps/explorer/src/main.tsx",
+    "apps/explorer/src/Viewport3D.tsx",
+    "crates/joil-cli/src/main.rs",
+    "crates/joil-core/src/evolve.rs",
+    "crates/joil-core/src/scene.rs",
+    "crates/joil-core/tests/v5_truth.rs",
+    "tests/test_v5_truth.py"
+  ],
+  "commands": [
+    {
+      "argv": ["rtk", "proxy", "cargo", "fmt", "--all", "--", "--check"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.333,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "clippy", "--workspace", "--locked", "--all-targets", "--", "-D", "warnings"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.217,
+      "log_sha256": "2b34696728dc82b03cbf6311d7e3a6a41658bbde097834c3010a78bc82842c1a",
+      "note": "cached: no Rust input changed since the clean clippy run at 52ed7fc (log 2f81e30823e4eae40deaf9e64b038b0557d36af0c05c7d7b173a64c65f9a5fdd)"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--workspace", "--locked"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 161.224,
+      "log_sha256": "ed19d3770d0229f9eb5361c7740bab66b5a22bca5f5d3ebbaec244386e473673",
+      "note": "includes joil-cli GPU opt-in unit tests, scene.rs schematic provenance tests and v5_truth D-17 recording-fake regression; tree byte-identical to the tested commit"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "run", "--locked", "-p", "joil-cli", "--", "baseline"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.053,
+      "log_sha256": "68ce2c211c5423b4bbc9182b0ed88c52daf36d2c6d4a5e68f5baac22f9734e09"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_[!v]*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 79.407,
+      "log_sha256": "3c569f7909fcd71fa92faa6717e0f7fb5c641dc2bf3a3eed9c348c277a2acd92"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_v5_t*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 14.131,
+      "log_sha256": "7ece1a464b9ec53b5bfa23830e6af9ee184e15c83df43fe07c6f131bc510f7c6",
+      "note": "includes ExplorerClaimTruth source regressions for main.tsx and Viewport3D.tsx"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/claims_audit.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 16.748,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": ["rtk", "proxy", "npm", "--prefix", "apps/explorer", "run", "build"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 2.548,
+      "log_sha256": "75d578ab68bfaff05c9516ff03f916639f089301fd414f5ff50dd2d52e40c5b4",
+      "note": "tsc --noEmit type check plus vite build; node_modules installed project-locally by npm ci from the lockfile (log 22b13c0fbf7a8651742a36f072a7bd3a1897f40b07dede533c04112f719cbf25)"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.159,
+      "log_sha256": "61563bffd4c382ab5615b48e0140963a4a6805313ea960b7684bf4cb8666fc2e"
+    }
+  ],
+  "known_failure_not_caused_by_code": "tests/test_v5_plan.py test_current_package_is_consistent reports stale generated V5-01 views after worker-owned progress updates; the integrator rebuilds views",
+  "pre_change_failing_evidence": [
+    {
+      "commit": "82bb35e",
+      "log_sha256": "846f821e196c0ef3f8f0c5fbb632187123ddc42b5d8b15f991e9de95db83212d",
+      "result": "main.tsx showed -38.5%/-38.4% vs CT-35 twice, '100% realizable', 'pass F0 B-rep/mesh', no SCHEMATIC label; the CLI enabled runs/bin/joil_cuda_eval by default; evolve.rs requested Some(85.5) twice and advertised a CUDA 85% VRAM Tensor Bridge; scene.rs had no SCHEMATIC provenance"
+    },
+    {
+      "commit": "3088a57",
+      "log_sha256": "373f32254836e05b99e9097ac1a197ad9e5445eba263436eb7c6226d5093bacb",
+      "result": "Viewport3D.tsx said 'core capture trajectories (F1/F2 screen, unqualified)', 'Lagrangian parcel marker' and 'Lagrangian Oil Vortex'; no SCHEMATIC or provenance handling"
+    }
+  ],
+  "positive_checks": [
+    "Explicit --cuda-bin with an existing binary, a gpu:true lease with a future expires_utc and an explicit VRAM target is accepted and passed through unchanged; without a target none is passed",
+    "A recording fake CUDA executable receives --candidate-json, and --vram-target-pct only when explicitly requested",
+    "New scene exports label every path SCHEMATIC with provenance SCHEMATIC_AUTHORED_CURVE_NOT_SIMULATED_OR_MEASURED",
+    "Explorer historical numbers are bound to dossier fields (rsm delta_dp_u_vs_ct35_baseline_pct, recorded SNR) and labelled retracted or not admitted; the UI type-checks and builds"
+  ],
+  "negative_checks": [
+    "Ordinary runs request no GPU: no --cuda-bin gives no binary and no VRAM target; --gpu-lease or --gpu-vram-target-pct without --cuda-bin is an error; default EvolutionConfig has no binary or target and legacy configs read with none",
+    "Missing GPU lease file, gpu:false, gpu as a string, missing expires_utc, expired lease, non-JSON lease, missing binary and VRAM targets 0, -5, 100.5, NaN, inf or text are all errors",
+    "A missing CUDA binary attaches nothing even with an 85.5 target; a fake executable exiting nonzero attaches nothing",
+    "Missing measured trajectory: the historical interactive bundle has no provenance and reads as SCHEMATIC (bytes unchanged); the viewport treats missing provenance as schematic and never presents captured_to_overflow as an observed capture",
+    "UI source no longer contains the retracted pressure strings, 'core capture trajectories (F1/F2 screen', 'Lagrangian parcel marker' or 'Lagrangian Oil Vortex'"
+  ],
+  "artifacts": [
+    {"path": "apps/explorer/src/main.tsx", "sha256": "8bd6f3b4b71b113c2219f6814dd99ee8ad29ffb39a5b5c86060cba12d7eab64e"},
+    {"path": "apps/explorer/src/Viewport3D.tsx", "sha256": "c317cb94b0e843d3c57c55a28fdad57cf5c980417ccf13b12024c89ef894011f"},
+    {"path": "crates/joil-cli/src/main.rs", "sha256": "ad540d44e901c0b537b0e3a517931191ebfa04a8ec50c0c8cabdca07f3cc2051"},
+    {"path": "crates/joil-core/src/evolve.rs", "sha256": "c7842c03632a8a7b91796bb54b4367a5e278f8ce21cbe1c7d5e58c71d66e978d"},
+    {"path": "crates/joil-core/src/scene.rs", "sha256": "e87c96bdc371589179346526e4f8113126e88ce190294e4f35f201a0bf505d87"},
+    {"path": "crates/joil-core/tests/v5_truth.rs", "sha256": "d9d41e5c7a8952dfeb7f465c32f2dc0874e5261aa0c33780450c7374c8fda089"},
+    {"path": "tests/test_v5_truth.py", "sha256": "3891e8ff680084ecf4b6d79d1a98bbd39a540629f401f3c2cc65495741610962"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_bytes": 772753004,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "gpu_process_executed": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "No measured or simulated trajectory exists; the views show authored curves only, now labelled as such",
+    "The GPU lease check reads gpu and expires_utc from a JSON file; it does not verify device ownership or the shared-host scheduler",
+    "Historical figures and tools/render_evolution_atlas.py (outside V5-01 scope) still carry the historical '15.97B droplets' caption on a committed figure; WHITEPAPER correction C3 describes that counter",
+    "Campaign summary counters keep their historical names"
+  ],
+  "next_dependency": "Integrator review and view rebuild; V5-01-05 progress can now be recorded"
+}
