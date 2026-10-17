@@ -226,12 +226,14 @@
         "crates/joil-evidence/src/decision.rs",
         "crates/joil-evidence/tests/decision.rs",
         "schemas/v5/decision-profile.schema.json",
-        "docs/v5-plan/execution/DECISIONS.md"
+        "docs/v5-plan/execution/DECISIONS.md",
+        "crates/joil-evidence/src/lib.rs"
       ],
       "edge_cases": [
         "No source proposal silently admits a load or pressure limit",
         "A new fork does not reset experiment-family alpha",
-        "A qualified template must remain non-runnable when limits are unresolved"
+        "A qualified template must remain non-runnable when limits are unresolved",
+        "Integrator registers the new decision module in lib.rs; legacy v1 campaign and scientific status remain unchanged"
       ],
       "validation_commands": [
         "rtk cargo test --locked -p joil-evidence --test decision",

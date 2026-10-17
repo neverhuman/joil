@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "V5-02",
+  "task_ids": [
+    "V5-02-01",
+    "V5-02-02",
+    "V5-02-03",
+    "V5-02-04",
+    "V5-02-05"
+  ],
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-17T21:17:17.065119+00:00",
+  "tested_base": "a0baf325e44499125efbedd76ce1ec798f22ea4a",
+  "dependencies": {
+    "V5-00": "a0baf325e44499125efbedd76ce1ec798f22ea4a"
+  },
+  "write_paths": [
+    "requirements/joil-hydrocyclone-v2.toml",
+    "campaigns/ct35-v5-sandbox.toml",
+    "campaigns/ct35-v5-qualified.template.toml",
+    "crates/joil-evidence/src/decision.rs",
+    "crates/joil-evidence/tests/decision.rs",
+    "schemas/v5/decision-profile.schema.json",
+    "docs/v5-plan/execution/DECISIONS.md",
+    "crates/joil-evidence/src/lib.rs",
+    "docs/receipts/v5-02-*",
+    "docs/v5-plan/progress/V5-02.json",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/todos/V5-02.md",
+    "docs/v5-plan/dashboard.html"
+  ],
+  "scope_correction": "Export new decision module from existing joil-evidence lib.rs; integrator-owned shared contract registration. No V5-01 legacy path edits.",
+  "resource_allocation": {
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "physical_cores": 2
+  },
+  "lease_expires_utc": "2026-10-18T08:52:43.818175+00:00",
+  "CARGO_BUILD_JOBS": 2,
+  "numerical_threads": 1,
+  "gpu": false,
+  "simulation": false,
+  "stop_conditions": [
+    "owned process RSS over allocation",
+    "owned output/build files over allocation",
+    "host MemAvailable below 12 GiB",
+    "scope conflict",
+    "auth/quota/tool denial without a safe permitted path"
+  ]
+}

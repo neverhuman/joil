@@ -1,0 +1,385 @@
+# V2 draft policy. All physical limits remain proposed/unresolved; v1 bytes are preserved.
+schema_version = 2
+id = "joil-hydrocyclone-v2"
+revision = "draft-1"
+admission = "sandbox_only"
+concentration_basis = "dispersed_oil_mg_per_litre"
+claim_scopes = ["computational_comparator", "physical_candidate", "commercial_claim", "protected_export"]
+baseline = { id = "ct35-genome", revision = "1", sha256 = "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5" }
+preregistration = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+applicability = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+
+[[scenarios]]
+id = "D1_turndown"
+q_in_m3_h = 2.6
+cin_mg_l = 500.0
+d50_feed_um = 22.0
+viscosity_factor = 1.0
+dsd_basis = "oil_volume"
+concentration_basis = "dispersed_oil_mg_per_litre"
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+source_pointer = "/held_out_operating_duties/0"
+basis_source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+
+[[scenarios]]
+id = "D2_turnup"
+q_in_m3_h = 5.4
+cin_mg_l = 500.0
+d50_feed_um = 22.0
+viscosity_factor = 1.0
+dsd_basis = "oil_volume"
+concentration_basis = "dispersed_oil_mg_per_litre"
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+source_pointer = "/held_out_operating_duties/1"
+basis_source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+
+[[scenarios]]
+id = "D3_sheared_feed"
+q_in_m3_h = 4.0
+cin_mg_l = 500.0
+d50_feed_um = 14.5
+viscosity_factor = 1.0
+dsd_basis = "oil_volume"
+concentration_basis = "dispersed_oil_mg_per_litre"
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+source_pointer = "/held_out_operating_duties/2"
+basis_source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+
+[[scenarios]]
+id = "D4_cold_viscous_slug"
+q_in_m3_h = 4.0
+cin_mg_l = 850.0
+d50_feed_um = 20.0
+viscosity_factor = 1.32
+dsd_basis = "oil_volume"
+concentration_basis = "dispersed_oil_mg_per_litre"
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+source_pointer = "/held_out_operating_duties/3"
+basis_source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+
+[[mandatory_gates]]
+id = "oil_quality"
+estimand = "cout_upper"
+unit = "mg_per_litre_dispersed_oil"
+
+[[mandatory_gates]]
+id = "capacity"
+estimand = "common_treated_capacity_lower"
+unit = "cubic_metre_per_hour"
+
+[[mandatory_gates]]
+id = "energy"
+estimand = "mechanical_energy_upper"
+unit = "joule_per_treated_cubic_metre"
+
+[[mandatory_gates]]
+id = "mass"
+estimand = "printed_mass"
+unit = "kilogram"
+
+[[mandatory_gates]]
+id = "reserve"
+estimand = "common_demand_reserve_lower"
+unit = "load_multiplier"
+
+[[limits]]
+id = "pressure_budget_pa"
+unit = "pascal"
+comparison = "at_most"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "unresolved"
+owner = "process_owner"
+reason = "Missing admitted pressure loss definition, boundary planes and limit."
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[limits]]
+id = "energy_budget_j_per_treated_m3"
+unit = "joule_per_treated_cubic_metre"
+comparison = "at_most"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "unresolved"
+owner = "process_owner"
+reason = "Missing admitted mechanical loss/system boundary per treated volume."
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[limits]]
+id = "absolute_pressure_min_pa"
+unit = "pascal"
+comparison = "at_least"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "unresolved"
+owner = "process_owner"
+reason = "Missing system absolute-pressure datum and fluid/temperature scope."
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[limits]]
+id = "continuous_duty_band_m3_h"
+unit = "cubic_metre_per_hour"
+comparison = "within"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "unresolved"
+owner = "process_owner"
+reason = "Missing admitted continuous duty band and allowable reject conditions."
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[limits]]
+id = "external_demand_pa"
+unit = "pascal"
+comparison = "within"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "unresolved"
+owner = "installation_and_process_engineers"
+reason = "No admitted installation/upset/blockage load; analytic2.5MPa is not an allowable."
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[limits]]
+id = "quality_limit_mg_l"
+unit = "mg_per_litre_dispersed_oil"
+comparison = "at_most"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "proposed"
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+applicability = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+reason = "Research duty proposal; no permit equivalence or physical admission."
+[limits.value.value]
+lower = 30.0
+upper = 30.0
+unit = "mg_per_litre_dispersed_oil"
+
+[[limits]]
+id = "split_fraction"
+unit = "dimensionless"
+comparison = "within"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "proposed"
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+applicability = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+reason = "Frozen RS proposal retained; preregistration and runner bands differ, no conflict silently resolved."
+[limits.value.value]
+lower = 0.0198
+upper = 0.0202
+unit = "dimensionless"
+
+[[limits]]
+id = "printed_min_passage_mm"
+unit = "millimetre"
+comparison = "at_least"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "proposed"
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+applicability = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+reason = "Draft printed feature minimum; process passport not admitted."
+[limits.value.value]
+lower = 3.0
+upper = 3.0
+unit = "millimetre"
+
+[[limits]]
+id = "machined_overflow_nominal_mm"
+unit = "millimetre"
+comparison = "within"
+mandatory_for = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[limits.value]
+status = "proposed"
+source = { id = "ct35-genome", revision = "1", sha256 = "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5" }
+applicability = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+reason = "Baseline nominal geometry only; machining access, tolerance and metrology remain unresolved."
+[limits.value.value]
+lower = 1.4
+upper = 1.4
+unit = "millimetre"
+
+[[conflicts]]
+id = "split_tolerance"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[[conflicts.alternatives]]
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+pointer = "/reference/reject_tolerance_absolute"
+interpretation = "RS absolute tolerance0.0002"
+[[conflicts.alternatives]]
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+pointer = "/hard_feasibility_gates/reject_split_band"
+interpretation = "Preregistered interval0.0185..0.0215"
+[[conflicts.alternatives]]
+source = { id = "run_elite_3grid_gci_and_rsm", revision = "1", sha256 = "27ef494bafda0337233bf4226e8a74a542314d16f61471ffb79cfcf1a23ca601" }
+pointer = "evaluate_elite_gci_rsm_gate"
+interpretation = "Historical runner interval0.019..0.021 is diagnostic policy"
+
+[[conflicts]]
+id = "dsd_medians"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[[conflicts.alternatives]]
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+pointer = "/reference/dsd_volume_median_um"
+interpretation = "RS provisional volume median15um"
+[[conflicts.alternatives]]
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+pointer = "/held_out_operating_duties"
+interpretation = "Exact legacy D1-D4 medians22,22,14.5,20um copied above; no measured feed inferred"
+
+[[conflicts]]
+id = "concentration_basis"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[[conflicts.alternatives]]
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+pointer = "/robustness/cin_mg_l"
+interpretation = "Finite concentration scenarios include1000mg/L"
+[[conflicts.alternatives]]
+source = { id = "SCIENCE", revision = "1", sha256 = "2e00afad5a2a3f153ac0cf2994d2c59fdabc5909713880a23e2eefddb690445f" }
+pointer = "Declared applicability envelope"
+interpretation = "1000mg/L corresponds to about0.112..0.122vol% over oil density820..890kg/m3; cannot also assert<=0.10vol%"
+
+[[conflicts]]
+id = "radial_envelope"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[[conflicts.alternatives]]
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+pointer = "/limits/radial_envelope_draft_mm"
+interpretation = "Draft45mm radial envelope explicitly unresolved"
+[[conflicts.alternatives]]
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+pointer = "/immutable_interfaces/inlet1_x_mm"
+interpretation = "Frozen public terminal feeds at x=+-60mm; installation envelope needs owner source"
+
+[[conflicts]]
+id = "machined_overflow"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[[conflicts.alternatives]]
+source = { id = "ct35-genome", revision = "1", sha256 = "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5" }
+pointer = "/parameters/do_over_d2"
+interpretation = "Nominal1.4mm public baseline overflow"
+[[conflicts.alternatives]]
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+pointer = "/immutable_interfaces/overflow_bore_cfd_mm"
+interpretation = "Historical preregistration CFD bore2mm differs; neither establishes as-built tolerance"
+
+[[conflicts]]
+id = "printed_vs_machined"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[[conflicts.alternatives]]
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+pointer = "/limits/printed_passage_min_dh_draft_mm"
+interpretation = "Draft3mm printed passage"
+[[conflicts.alternatives]]
+source = { id = "joil-wave2-preregistration-v1", revision = "1", sha256 = "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4" }
+pointer = "/hard_feasibility_gates/f0_min_passage_hydraulic_diameter_mm"
+interpretation = "Legacy1.4mm screen threshold is not a printed process allowable"
+
+[[conflicts]]
+id = "pdr_authority"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+[[conflicts.alternatives]]
+source = { id = "joil-hydrocyclone-v1", revision = "1", sha256 = "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca" }
+pointer = "/thresholds/sandbox_pdr_min"
+interpretation = "Historical4.5 belongs to prior screen only and is absent from qualified v2 policy"
+[[conflicts.alternatives]]
+source = { id = "RS-joil-research-v1", revision = "1", sha256 = "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b" }
+pointer = "/limits/pdr_draft_range"
+interpretation = "Borrowed1.4..2.5 draft cannot be admitted for this liner without applicability"
+
+[[external_inputs]]
+id = "installation_interfaces"
+owner = "installation_engineer"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+independent_work = "Digital baseline and analytic geometry fixtures"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Exact drawing, ports, envelope, seals and supports."
+owner = "installation_engineer"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[external_inputs]]
+id = "system_pressure_and_loads"
+owner = "process_owner"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+independent_work = "Synthetic controller and pressure-unit software fixtures"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Absolute datum, pressure/energy limits, surge/upset and support/contact loads."
+owner = "process_owner"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[external_inputs]]
+id = "fluid_and_dsd"
+owner = "fluid_measurement_lead"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+independent_work = "Tracer and mass-inventory software oracles"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Measured density/viscosity/interfacial tension, DSD basis and dispersed-oil analyte."
+owner = "fluid_measurement_lead"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[external_inputs]]
+id = "manufacturing_passport"
+owner = "manufacturing_lead"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+independent_work = "Artifact-only geometry negative corpus"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Process, alloy, orientation, finish, minimum features, powder/tool access and machined overflow metrology."
+owner = "manufacturing_lead"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[external_inputs]]
+id = "material_allowables"
+owner = "materials_engineer"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+independent_work = "Analytic beam/cylinder numerical fixtures"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Process-specific allowables, scatter, fatigue spectrum and environment."
+owner = "materials_engineer"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[external_inputs]]
+id = "independent_validation"
+owner = "validation_lead"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+independent_work = "Source accession and numerical code verification"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Source-accessioned geometry/condition/observable data with independent labels and holdouts."
+owner = "validation_lead"
+blocks = ["computational_comparator", "physical_candidate", "commercial_claim"]
+
+[[external_inputs]]
+id = "laboratory_access"
+owner = "experimental_lead"
+blocks = ["physical_candidate", "commercial_claim"]
+independent_work = "Rig-analysis software fixtures"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Containment, calibrated instruments, independent builds/preparations and paired rig access."
+owner = "experimental_lead"
+blocks = ["physical_candidate", "commercial_claim"]
+
+[[external_inputs]]
+id = "contemporary_comparator"
+owner = "project_and_experimental_owners"
+blocks = ["commercial_claim"]
+independent_work = "Public baseline software reconstruction"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Same-duty appropriate contemporary commercial comparator."
+owner = "project_and_experimental_owners"
+blocks = ["commercial_claim"]
+
+[[external_inputs]]
+id = "license_and_disclosure"
+owner = "project_owner"
+blocks = ["protected_export"]
+independent_work = "Reviewable public source and private artifact preparation"
+[external_inputs.evidence]
+status = "unresolved"
+reason = "Owner license choice and explicit permitted design disclosure."
+owner = "project_owner"
+blocks = ["protected_export"]

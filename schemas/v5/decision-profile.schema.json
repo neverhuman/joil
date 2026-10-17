@@ -1,0 +1,457 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:joil:v5:decision-profile:1",
+  "$comment": "Wire shape only. Executable strict decoding and semantic validation require exact reviewed sources, units, complete families, sampling and alpha policy. No physical qualification.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "experiment_family_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "attempt": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4294967295
+    },
+    "requirements": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "subject": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "baseline": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "applicability": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "claim_scope": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "estimands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/estimand"
+      }
+    },
+    "gate_scenario_family": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/familyMember"
+      }
+    },
+    "sampling_design": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "joint_model": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "numerical_bounds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/uncertaintyBound"
+      }
+    },
+    "model_discrepancy": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/uncertaintyBound"
+      }
+    },
+    "statistical_method": {
+      "$ref": "#/$defs/statisticalMethod"
+    },
+    "selection_policy": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "stopping_policy": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "holdout_policy": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "operating_population": {
+      "$ref": "#/$defs/contentRef"
+    },
+    "unknown_policy": {
+      "const": "abstain"
+    },
+    "planning_precision": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/planningPrecision"
+      }
+    },
+    "executable_acceptance_fixtures": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/contentRef"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "experiment_family_id",
+    "attempt",
+    "requirements",
+    "subject",
+    "baseline",
+    "applicability",
+    "claim_scope",
+    "estimands",
+    "gate_scenario_family",
+    "sampling_design",
+    "joint_model",
+    "numerical_bounds",
+    "model_discrepancy",
+    "statistical_method",
+    "selection_policy",
+    "stopping_policy",
+    "holdout_policy",
+    "operating_population",
+    "unknown_policy",
+    "planning_precision",
+    "executable_acceptance_fixtures"
+  ],
+  "$defs": {
+    "contentRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "sha256"
+      ]
+    },
+    "boundedValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lower": {
+          "type": "number"
+        },
+        "upper": {
+          "type": "number"
+        },
+        "unit": {
+          "enum": [
+            "pascal",
+            "joule_per_treated_cubic_metre",
+            "cubic_metre_per_hour",
+            "millimetre",
+            "mg_per_litre_dispersed_oil",
+            "kilogram",
+            "load_multiplier",
+            "dimensionless"
+          ]
+        }
+      },
+      "required": [
+        "lower",
+        "upper",
+        "unit"
+      ]
+    },
+    "familyMember": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gate": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "scenario": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "estimand": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      "required": [
+        "gate",
+        "scenario",
+        "estimand"
+      ]
+    },
+    "requirementBound": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "const": "admitted"
+            },
+            "value": {
+              "$ref": "#/$defs/boundedValue"
+            },
+            "source": {
+              "$ref": "#/$defs/contentRef"
+            },
+            "applicability": {
+              "$ref": "#/$defs/contentRef"
+            }
+          },
+          "required": [
+            "status",
+            "value",
+            "source",
+            "applicability"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "const": "proposed"
+            },
+            "value": {
+              "$ref": "#/$defs/boundedValue"
+            },
+            "source": {
+              "$ref": "#/$defs/contentRef"
+            },
+            "applicability": {
+              "$ref": "#/$defs/contentRef"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            }
+          },
+          "required": [
+            "status",
+            "value",
+            "source",
+            "applicability",
+            "reason"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "const": "unresolved"
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "owner": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "blocks": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              }
+            }
+          },
+          "required": [
+            "status",
+            "reason",
+            "owner",
+            "blocks"
+          ]
+        }
+      ]
+    },
+    "estimand": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "unit": {
+          "enum": [
+            "pascal",
+            "joule_per_treated_cubic_metre",
+            "cubic_metre_per_hour",
+            "millimetre",
+            "mg_per_litre_dispersed_oil",
+            "kilogram",
+            "load_multiplier",
+            "dimensionless"
+          ]
+        },
+        "direction": {
+          "enum": [
+            "minimize",
+            "maximize"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "mean",
+            "quantile",
+            "worst_case",
+            "point"
+          ]
+        },
+        "population": {
+          "$ref": "#/$defs/contentRef"
+        },
+        "formula": {
+          "$ref": "#/$defs/contentRef"
+        }
+      },
+      "required": [
+        "id",
+        "unit",
+        "direction",
+        "kind",
+        "population",
+        "formula"
+      ]
+    },
+    "uncertaintyBound": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "estimand": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "bound": {
+          "$ref": "#/$defs/requirementBound"
+        }
+      },
+      "required": [
+        "estimand",
+        "bound"
+      ]
+    },
+    "alphaAllocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "member": {
+          "$ref": "#/$defs/familyMember"
+        },
+        "alpha": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        }
+      },
+      "required": [
+        "member",
+        "alpha"
+      ]
+    },
+    "statisticalMethod": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "criterion": {
+          "enum": [
+            "simultaneous_coverage",
+            "fixed_candidate_conjunction",
+            "adaptive_winner_qualification"
+          ]
+        },
+        "procedure": {
+          "enum": [
+            "bonferroni",
+            "intersection_union"
+          ]
+        },
+        "sidedness": {
+          "enum": [
+            "lower",
+            "upper",
+            "two_sided"
+          ]
+        },
+        "allocations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/alphaAllocation"
+          }
+        },
+        "family_policy": {
+          "$ref": "#/$defs/contentRef"
+        }
+      },
+      "required": [
+        "criterion",
+        "procedure",
+        "sidedness",
+        "allocations",
+        "family_policy"
+      ]
+    },
+    "planningPrecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "estimand": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "useful_effect": {
+          "$ref": "#/$defs/boundedValue"
+        },
+        "maximum_uncertainty_fraction": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 0.3333333333333333
+        }
+      },
+      "required": [
+        "estimand",
+        "useful_effect",
+        "maximum_uncertainty_fraction"
+      ]
+    }
+  }
+}

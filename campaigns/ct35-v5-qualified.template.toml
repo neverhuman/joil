@@ -1,0 +1,5 @@
+# Software fixture declaration; the qualified template deliberately refuses dispatch.
+schema_version = 1
+mode = "qualified"
+synthetic_software_only = false
+requirements = { id = "joil-hydrocyclone-v2", revision = "draft-1", sha256 = "5940f16bf8fcdbd86afc46e914f56c863d8a736118e578d33c356877ea818a05" }
