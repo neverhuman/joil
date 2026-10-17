@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-01",
+  "task_ids": [
+    "V5-01-05"
+  ],
+  "owner": "claude-v5-truth-worker",
+  "input_head": "f8fea18",
+  "tested_commit": "52ed7fcd209df27dbb4fc88be024510168687409",
+  "commits": [
+    "f854e80d4b063ff982d917d8124dc965b20d75d8",
+    "52ed7fcd209df27dbb4fc88be024510168687409"
+  ],
+  "progress_recording": "Executed as a documented independent substep while V5-01-04 is blocked on scope request SR-2; tools/v5_plan.py requires earlier ordered tasks to be done before this task can be recorded done",
+  "created_utc": "2026-10-17T22:48:00Z",
+  "changed_paths": [
+    "crates/joil-cli/src/main.rs",
+    "crates/joil-core/src/scene.rs",
+    "crates/joil-core/tests/regression.rs",
+    "README.md",
+    "crates/joil-ir/src/lib.rs",
+    "crates/joil-core/src/structure.rs",
+    "crates/joil-core/src/phenotype.rs",
+    "crates/joil-core/tests/v5_truth.rs"
+  ],
+  "commands": [
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--locked", "-p", "joil-core", "--test", "v5_truth"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.673,
+      "log_sha256": "6c0a19396dad3ab19ed84d940596bacae8fce851d25aec2c6eb4b9c5b9ad57d7",
+      "note": "16 tests at the tested commit (3 for V5-01-05)"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--locked", "-p", "joil-cli"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.207,
+      "log_sha256": "9b0a5b6b3fa89cfd128f5b54e775bb88b6fd5171ebb5947c5ad33c613f7be402",
+      "note": "8 CLI unit tests including output-policy tests"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "fmt", "--all", "--", "--check"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.384,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "clippy", "--workspace", "--locked", "--all-targets", "--", "-D", "warnings"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 10.137,
+      "log_sha256": "2f81e30823e4eae40deaf9e64b038b0557d36af0c05c7d7b173a64c65f9a5fdd"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--workspace", "--locked"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 178.799,
+      "log_sha256": "167e64df6d492d3d73a1b13a786ceafafffb7e812ab0696d80f3b05cf21bd8ba",
+      "note": "tree byte-identical to the tested commit (git diff HEAD empty after commit)"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "run", "--locked", "-p", "joil-cli", "--", "baseline"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 1.736,
+      "log_sha256": "dfda638d3bde8129eb44fd5807a389fe78907dc2452af47f21524e1a48604c91"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "run", "-q", "--locked", "-p", "joil-cli", "--", "qualify-population"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.047,
+      "log_sha256": "b6ee2f4300fc3736a66bc79f00e37f29c04cadcedf1f3c549ad5430d6ea9073b",
+      "note": "fresh default output written to an ignored runs/p05-population-checks-<UTC>-<pid>.json path (run at f854e80 tree)"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_[!v]*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 87.772,
+      "log_sha256": "f51c89637c1b29f03fda841a02140c4b5ed625b9c0d39a457a0d342a353cc016",
+      "note": "includes test_doc_numbers_trace over README and the copied Rust sources"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_v5_t*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 15.053,
+      "log_sha256": "5e97778cc735a50b5c9043429f7b986ea679d1a8dd2481d278a184221e97cbe2"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/claims_audit.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 18.783,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.196,
+      "log_sha256": "33c374e8c2a94fa9bfd939c6c4bbc3ac71a8ba506ca5e551dce8722bb0d437b4"
+    }
+  ],
+  "known_failure_not_caused_by_code": "tests/test_v5_plan.py test_current_package_is_consistent reports stale generated V5-01 views after worker-owned progress updates; the integrator rebuilds views",
+  "pre_change_failing_evidence": {
+    "argv": ["rtk", "proxy", "python3", "-I", "<private>/pre_change_blob_probe.py", "<checkout>", "f8fea18", "<path>=<needle>..."],
+    "exit_code": 0,
+    "log_sha256": "80bbec7966555f1ee94622ab954e97dd2c4e96b968fdd0e4567091c316c146c3",
+    "result": "At f8fea18 the CLI defaulted outputs to docs/results wave2/wave3/interactive receipts, used 14 replacing std::fs::write calls, and bound GLB scenes to runs/rust-cfd-elite-gen024-isl2-ind014 ct35.stl; the exporter accepted any non-empty digest; joil-ir recorded d3 0.020, l2 1.070 and l3 0.400 m with no envelope verification; structure.rs and phenotype.rs carried no estimate or buckling labels"
+  },
+  "positive_checks": [
+    "Default outputs are unique ignored runs/<command>-<UTC>Z-<pid> paths; a fresh explicit path is created exactly once",
+    "GLB export succeeds when bound to the STL serialized from the exported surface, including the CFD case STL of the same surface",
+    "The corrected IR BodyEnvelope equals reference.json D3, L2, L3 and z_end; the underflow terminal area equals the reference and the area measured on the compiled mesh within 1e-3; a JSON round-tripped schema-2 IR compiles",
+    "Baseline structural estimate still computes all historical fields; mass values are unchanged and labelled"
+  ],
+  "negative_checks": [
+    "Existing output: --out docs/results/rust-evolution-qualification-v1.json and --out docs/results/wave3-evolution-proof-v1.json are refused before evaluation (logs 0eca990b6e88d20bb795358fcc07ca5d9d14f4c1e32c999813ee8b612d607ff7 and 7b1fc06d99aa74e21ba499ecf59ff83117389b1b6555cea0975b837b3af9f977, exit 1); both files keep SHA-256 1bc32f98d38cd22525130843bf42034c0078146924b76148e06a4a02c9cff6b3 and 9a21229bd1c6762e21970a22c1bf2c9dd75e4a5540353f5b5bd20f6c4bb35168",
+    "Unit tests: committed wave2, wave3 and interactive receipts and a private sentinel are refused by fresh_output and write_new with bytes unchanged",
+    "Unknown subject equivalence: a label digest and another archetype's STL digest are rejected by the GLB exporter",
+    "Changed downstream tail: an IR with l3 0.400, l2 1.070 or d3 0.020 m is refused at compile, naming the field; a schema-1 IR identity is refused as legacy",
+    "New identity: the corrected baseline IR hash differs from the historical schema-1 hash recorded in docs/results/wave4-gci-v1.json",
+    "Legacy structural and phenotype records without the new fields read with explicit legacy labels and buckling not evaluated"
+  ],
+  "artifacts": [
+    {"path": "crates/joil-cli/src/main.rs", "sha256": "ad540d44e901c0b537b0e3a517931191ebfa04a8ec50c0c8cabdca07f3cc2051"},
+    {"path": "crates/joil-core/src/scene.rs", "sha256": "e87c96bdc371589179346526e4f8113126e88ce190294e4f35f201a0bf505d87"},
+    {"path": "crates/joil-core/tests/regression.rs", "sha256": "b872ebc2bdcbf0302ed214816153e330623577f237ee58b58fe8f5e41a2094d5"},
+    {"path": "README.md", "sha256": "75913d3a9c85f83999f4bb169583d011921d297bb86e5250121b88a84417717a"},
+    {"path": "crates/joil-ir/src/lib.rs", "sha256": "89519f29814585572f4dc332ec9294f02a47a4abe0ef2aaa9f955461203005e5"},
+    {"path": "crates/joil-core/src/structure.rs", "sha256": "8282bd375649e1cfe95d3c20ad9a5b15ae96cdf935ee988d66e6738b8db4e7f7"},
+    {"path": "crates/joil-core/src/phenotype.rs", "sha256": "2bad3971cd2369cff45e3939548690e464397dd7ebfbe0d36e80009eeff69c5b"},
+    {"path": "crates/joil-core/tests/v5_truth.rs", "sha256": "d9d41e5c7a8952dfeb7f465c32f2dc0874e5261aa0c33780450c7374c8fda089"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_bytes": 772672410,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Software identity and labelling repair only; no structural solve, buckling analysis or measured mass exists",
+    "Every newly built IR now has a schema-2 hash; historical receipts keep their schema-1 IR hashes, which describe the recorded 20/1070/400 mm envelope, and are not rewritten",
+    "joil-ir still holds the reference envelope as constants mirroring reference.json rather than reading it; a single shared contract belongs to the V5-03/V5-08 contracts",
+    "Callers still pass the CT-35 pressure drop to the analytic structural estimate (cfd_case.rs is outside V5-01 scope); the record now shows the input value",
+    "Commands that read inputs from runs/rust-cuda-evolution-v1 keep those input defaults; only output defaults changed"
+  ],
+  "next_dependency": "SR-2 decision to complete V5-01-04, then record V5-01-04 and V5-01-05 through tools/v5_plan.py; integrator review and view rebuild"
+}
