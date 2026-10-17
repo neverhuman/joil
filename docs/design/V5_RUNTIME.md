@@ -1,0 +1,7 @@
+# Transactional fixture runtime
+
+V5-06 implements bounded software fixture execution, not a physical campaign or solver qualification. Its original write registry omitted the normal crate manifest/library, owned fixture executable, runtime design and serialized workspace registration. The integrator records those exact supporting paths before creation; V5-07 checkpoint/replay paths remain separate and inactive until accepted V5-06. No Claude-owned legacy path transfers.
+
+Tasks, attempts, leases, events, object references, reservations, charges and experiment-family decisions persist transactionally in local SQLite. Verified store closure and exact evaluation identity precede a live-fence commit. CPU/GPU time spend is cumulative; RAM/VRAM/scratch reservations represent concurrent occupancy. Actual retries and failed/unsupported work remain charged separately from deterministic logical operations. Family policy and spent attempts cannot reset on resume or fork.
+
+Native child processes are restricted to the deterministic synthetic fixture executable. Their process group, affinity, limits, numerical-library environment, deadline and private scratch are task-owned. Physical topology comes from sysfs and the actual allowed affinity; no modulo mapping or historical GPU authorization is accepted. Unsupported native/MPI/GPU capabilities stay explicit until separately implemented and authorized. No other project's process is signaled.

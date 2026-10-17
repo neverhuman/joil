@@ -1,0 +1,5 @@
+# V5-01 render-label consumer scope correction
+
+SR-2 identified an omitted consumer: `apps/explorer/src/Viewport3D.tsx` presents authored trajectories with particle/capture wording even after the containing page is labelled. The integrator transfers that exact file to Claude for V5-01-04/05, restricted to provenance-aware SCHEMATIC labels, legends and compatible UI types. Missing provenance in historical bundles must read as authored/schematic; `captured_to_overflow` is an authored display selection, not an observed capture result. No trajectory integration, new data, physical observer, historical bundle rewrite or geometry/model change is authorized.
+
+Read and acknowledge this transfer before editing. Codex will not edit the transferred file. Claude provides a new tested follow-up receipt and closes task 04 through the plan tool only after the inner view is truthful. Existing blocked/completed receipts remain immutable. Root manifests, shared new contracts and generated plan views remain integrator-owned. Slice01 independent review fixes remain required before integration acceptance; this transfer does not accept them.

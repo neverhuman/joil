@@ -152,14 +152,16 @@
         "docs/WHITEPAPER.md",
         "docs/v5-plan/progress/V5-01.json",
         "docs/receipts/v5-01-*",
-        "crates/joil-core/src/redteam.rs"
+        "crates/joil-core/src/redteam.rs",
+        "apps/explorer/src/Viewport3D.tsx"
       ],
       "edge_cases": [
         "Legacy receipt schemas stay readable",
         "Missing physical observations remain Unknown",
         "No root status boolean may be manually promoted",
         "Scope revision: execution/V5-01-SCOPE-REVISION.md. Added legacy consumer paths are exclusive to V5-01 until scoped handoff; no physical geometry, material, solver or historical receipt rewrite",
-        "Second correction: execution/V5-01-SCOPE-REVISION-2.md. Unevaluated cavity facts cannot satisfy qualification; a partial sandbox screen is explicitly incomplete."
+        "Second correction: execution/V5-01-SCOPE-REVISION-2.md. Unevaluated cavity facts cannot satisfy qualification; a partial sandbox screen is explicitly incomplete.",
+        "Third correction: execution/V5-01-SCOPE-REVISION-3.md transfers Viewport3D.tsx only for authored trajectory provenance/labels; no new measurements or historical payload changes."
       ],
       "validation_commands": [
         "rtk cargo test --locked -p joil-core --test v5_truth",
@@ -526,12 +528,21 @@
         "crates/crucible-runtime/src/ledger.rs",
         "crates/crucible-runtime/src/lease.rs",
         "crates/crucible-runtime/src/db.rs",
-        "crates/crucible-runtime/tests/attempts.rs"
+        "crates/crucible-runtime/tests/attempts.rs",
+        "crates/crucible-runtime/Cargo.toml",
+        "crates/crucible-runtime/src/lib.rs",
+        "crates/crucible-runtime/src/bin/runtime-fixture.rs",
+        "docs/design/V5_RUNTIME.md",
+        "Cargo.toml",
+        "Cargo.lock",
+        "docs/v5-plan/progress/V5-06.json",
+        "docs/receipts/v5-06-*"
       ],
       "edge_cases": [
         "At-least-once attempts may incur duplicate real cost",
         "Expired historic leases grant no current GPU allocation",
-        "Actual elapsed cost is not a deterministic logical ledger"
+        "Actual elapsed cost is not a deterministic logical ledger",
+        "Supporting crate entry points/design/registration paths corrected before creation in docs/design/V5_RUNTIME.md; synthetic child executor only, no native solver qualification."
       ],
       "validation_commands": [
         "rtk cargo test --locked -p crucible-runtime --test attempts"

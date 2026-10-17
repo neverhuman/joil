@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "kind": "exclusive_packet_claim_not_completion",
+  "packet": "V5-06",
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-17T22:16:26.272332+00:00",
+  "dependency_commits": [
+    "bafa87e5dae493a17be65a09e551fad14c7ffd40",
+    "f4592ffd00d5628635feec6da4407cfc279624f2"
+  ],
+  "write_paths": [
+    "crates/crucible-runtime/src/task.rs",
+    "crates/crucible-runtime/src/ledger.rs",
+    "crates/crucible-runtime/src/lease.rs",
+    "crates/crucible-runtime/src/db.rs",
+    "crates/crucible-runtime/tests/attempts.rs",
+    "crates/crucible-runtime/Cargo.toml",
+    "crates/crucible-runtime/src/lib.rs",
+    "crates/crucible-runtime/src/bin/runtime-fixture.rs",
+    "docs/design/V5_RUNTIME.md",
+    "Cargo.toml",
+    "Cargo.lock",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/progress/V5-06.json",
+    "docs/receipts/v5-06-*",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/todos/V5-06.md",
+    "docs/v5-plan/dashboard.html"
+  ],
+  "resources": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false
+  }
+}

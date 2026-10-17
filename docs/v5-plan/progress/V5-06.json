@@ -3,9 +3,9 @@
   "packet": "V5-06",
   "tasks": {
     "V5-06-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "in_progress",
+      "owner": "codex-v5-integrator",
+      "note": "Implementing local SQLite transactional task/attempt/resource store and strict migration/backup.",
       "evidence": []
     },
     "V5-06-02": {
