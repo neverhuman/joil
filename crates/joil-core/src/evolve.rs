@@ -42,7 +42,12 @@ pub struct EvolutionConfig {
     pub migration_interval: usize,
     pub mc_samples: usize,
     pub crossover_rate: f64,
+    /// External CUDA audit binary; `None` requests no GPU (`V5-01-04`). Callers set it only from an
+    /// explicit user opt-in with a GPU lease.
     pub cuda_bin_path: Option<PathBuf>,
+    /// Optional explicit VRAM workspace target for the CUDA audit; never implied (`V5-01-04`).
+    #[serde(default)]
+    pub gpu_vram_target_pct: Option<f64>,
     pub baseline_hydraulics: BaselineHydraulics,
 }
 
@@ -62,6 +67,7 @@ impl Default for EvolutionConfig {
             mc_samples: 16,
             crossover_rate: 0.58,
             cuda_bin_path: None,
+            gpu_vram_target_pct: None,
             baseline_hydraulics: BaselineHydraulics {
                 q_in_m3_s: 0.001111111,
                 q_over_m3_s: 2.206626e-5,
@@ -1254,10 +1260,15 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
 
     let mut baseline_ref = baseline_ind;
     if let Some(cuda_bin) = &cfg.cuda_bin_path {
-        // Execute full 85.5% GPU VRAM 3D volumetric SDF & Lagrangian trajectory tensor sweep on baseline and top elites
-        attach_cuda_audit_with_vram(&mut baseline_ref, cuda_bin, Some(85.5));
+        // Explicit opt-in only (`V5-01-04`): attach the external audit; a VRAM workspace target is
+        // passed only when configured, for the baseline and top three elites.
+        attach_cuda_audit_with_vram(&mut baseline_ref, cuda_bin, cfg.gpu_vram_target_pct);
         for (idx, elite) in top_elites.iter_mut().enumerate() {
-            let vram_pct = if idx < 3 { Some(85.5) } else { None };
+            let vram_pct = if idx < 3 {
+                cfg.gpu_vram_target_pct
+            } else {
+                None
+            };
             attach_cuda_audit_with_vram(elite, cuda_bin, vram_pct);
         }
     }
@@ -1297,7 +1308,7 @@ pub fn run_campaign(cfg: &EvolutionConfig, out_dir: &Path) -> Result<CampaignSum
         campaign_admission,
         proposal_budget,
         schema_version: "0.2.0".to_string(),
-        engine: "joil-core::evolve (Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA Bridge)".to_string(),
+        engine: "joil-core::evolve (multi-island constrained NSGA-II + 4D MAP-Elites + Monte Carlo sandbox screen; external CUDA audit only on explicit opt-in)".to_string(),
         claim_state: "f0_f1_reduced_order_3d_screen_not_f2_cfd_validated".to_string(),
         config: cfg.clone(),
         total_evaluations,
@@ -1579,7 +1590,7 @@ pub fn merge_cluster_shards(
         campaign_admission: base_sum.campaign_admission,
         proposal_budget: merged_budget,
         schema_version: "0.2.0".to_string(),
-        engine: "joil-core::evolve (3-Node Distributed Multi-Island Constrained NSGA-II + 4D MAP-Elites + Monte Carlo + CUDA 85% VRAM Tensor Bridge)".to_string(),
+        engine: "joil-core::evolve (merged multi-island shards: constrained NSGA-II + 4D MAP-Elites + Monte Carlo sandbox screen; external CUDA audit only on explicit opt-in)".to_string(),
         claim_state: "f0_f1_reduced_order_3d_screen_not_f2_cfd_validated".to_string(),
         config: base_sum.config,
         total_evaluations,

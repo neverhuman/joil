@@ -385,3 +385,71 @@ fn v5_01_03_dispersion_helper_is_arithmetic_only() {
         .get("negative_control_rans_on_les_rejected")
         .is_none());
 }
+
+#[test]
+fn v5_01_04_default_config_requests_no_gpu_and_missing_binary_attaches_nothing() {
+    use joil_core::evolve::{attach_cuda_audit_with_vram, evaluate_individual, EvolutionConfig};
+    let cfg = EvolutionConfig::default();
+    assert!(cfg.cuda_bin_path.is_none());
+    assert!(cfg.gpu_vram_target_pct.is_none());
+    let mut legacy = serde_json::to_value(&cfg).unwrap();
+    legacy
+        .as_object_mut()
+        .unwrap()
+        .remove("gpu_vram_target_pct");
+    let old: EvolutionConfig = serde_json::from_value(legacy).unwrap();
+    assert!(old.gpu_vram_target_pct.is_none());
+
+    let small = EvolutionConfig {
+        mc_samples: 4,
+        ..EvolutionConfig::default()
+    };
+    let (mut ind, _) =
+        evaluate_individual("base".into(), DesignProgram::baseline_ct35(), 0, 0, &small).unwrap();
+    assert!(ind.cuda_sdf_audit.is_none());
+    attach_cuda_audit_with_vram(
+        &mut ind,
+        std::path::Path::new("runs/v5-01-04-missing-cuda-binary"),
+        Some(85.5),
+    );
+    assert!(ind.cuda_sdf_audit.is_none());
+}
+
+/// D-17 regression: a SYNTHETIC recording executable at the CUDA boundary sees a VRAM target only
+/// when one is explicitly requested; it exits nonzero, so nothing is attached as if measured.
+#[cfg(unix)]
+#[test]
+fn v5_01_04_cuda_boundary_records_only_explicit_bounded_requests() {
+    use joil_core::evolve::{attach_cuda_audit_with_vram, evaluate_individual, EvolutionConfig};
+    use std::os::unix::fs::PermissionsExt;
+    let dir = std::env::temp_dir().join(format!("joil-v5-01-04-recorder-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let record = dir.join("argv.txt");
+    let fake = dir.join("fake_cuda_eval");
+    std::fs::write(
+        &fake,
+        format!(
+            "#!/bin/sh\nprintf '%s\\n' \"$@\" >> '{}'\nexit 3\n",
+            record.display()
+        ),
+    )
+    .unwrap();
+    std::fs::set_permissions(&fake, std::fs::Permissions::from_mode(0o755)).unwrap();
+    let small = EvolutionConfig {
+        mc_samples: 4,
+        ..EvolutionConfig::default()
+    };
+    let (mut ind, _) =
+        evaluate_individual("base".into(), DesignProgram::baseline_ct35(), 0, 0, &small).unwrap();
+
+    attach_cuda_audit_with_vram(&mut ind, &fake, None);
+    let first = std::fs::read_to_string(&record).unwrap();
+    assert!(first.contains("--candidate-json"));
+    assert!(!first.contains("--vram-target-pct"));
+
+    attach_cuda_audit_with_vram(&mut ind, &fake, Some(50.0));
+    let second = std::fs::read_to_string(&record).unwrap();
+    assert!(second.contains("--vram-target-pct\n50.00\n"), "{second}");
+    assert!(ind.cuda_sdf_audit.is_none());
+    std::fs::remove_dir_all(dir).unwrap();
+}

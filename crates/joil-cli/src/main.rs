@@ -8,6 +8,79 @@ fn parse_arg(args: &[String], flag: &str) -> Option<String> {
     args.windows(2).find(|w| w[0] == flag).map(|w| w[1].clone())
 }
 
+/// GPU use is explicit opt-in (`V5-01-04`). Without `--cuda-bin` no GPU is requested.
+/// `--cuda-bin` needs an existing binary and `--gpu-lease <json>` with `"gpu": true` and an
+/// `expires_utc` later than `now_utc` (`YYYY-MM-DDTHH:MM:SS`). `--gpu-vram-target-pct` is passed
+/// only when given. Anything incomplete is an error, never a silent CPU or GPU fallback.
+fn explicit_gpu_opt_in(
+    args: &[String],
+    now_utc: &str,
+) -> Result<(Option<PathBuf>, Option<f64>), String> {
+    let lease_arg = parse_arg(args, "--gpu-lease");
+    let vram_arg = parse_arg(args, "--gpu-vram-target-pct");
+    let Some(bin) = parse_arg(args, "--cuda-bin") else {
+        if lease_arg.is_some() || vram_arg.is_some() {
+            return Err("--gpu-lease and --gpu-vram-target-pct require --cuda-bin".into());
+        }
+        return Ok((None, None));
+    };
+    let bin = PathBuf::from(bin);
+    if !bin.is_file() {
+        return Err(format!("--cuda-bin {} is not a file", bin.display()));
+    }
+    let lease_path =
+        lease_arg.ok_or("--cuda-bin requires --gpu-lease <lease.json> granting gpu")?;
+    let raw = std::fs::read_to_string(&lease_path)
+        .map_err(|e| format!("cannot read GPU lease {lease_path}: {e}"))?;
+    let lease: serde_json::Value =
+        serde_json::from_str(&raw).map_err(|e| format!("invalid GPU lease {lease_path}: {e}"))?;
+    if lease.get("gpu") != Some(&serde_json::Value::Bool(true)) {
+        return Err(format!(
+            "GPU lease {lease_path} does not grant \"gpu\": true"
+        ));
+    }
+    let expires = lease
+        .get("expires_utc")
+        .and_then(|v| v.as_str())
+        .filter(|s| s.len() >= 19 && s.as_bytes()[10] == b'T')
+        .ok_or(format!("GPU lease {lease_path} lacks expires_utc"))?;
+    if expires[..19] <= *now_utc {
+        return Err(format!("GPU lease {lease_path} expired at {expires}"));
+    }
+    let vram = match vram_arg {
+        None => None,
+        Some(s) => match s.parse::<f64>() {
+            Ok(v) if v.is_finite() && v > 0.0 && v <= 100.0 => Some(v),
+            _ => return Err(format!("--gpu-vram-target-pct must be in (0, 100]: {s}")),
+        },
+    };
+    Ok((Some(bin), vram))
+}
+
+/// Current UTC time as `YYYY-MM-DDTHH:MM:SS` (civil-from-days, proleptic Gregorian).
+fn utc_now_seconds() -> Result<String, String> {
+    let secs = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_err(|e| e.to_string())?
+        .as_secs() as i64;
+    let (days, rem) = (secs.div_euclid(86_400), secs.rem_euclid(86_400));
+    let z = days + 719_468;
+    let era = z.div_euclid(146_097);
+    let doe = z - era * 146_097;
+    let yoe = (doe - doe / 1_460 + doe / 36_524 - doe / 146_096) / 365;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let day = doy - (153 * mp + 2) / 5 + 1;
+    let month = if mp < 10 { mp + 3 } else { mp - 9 };
+    let year = yoe + era * 400 + i64::from(month <= 2);
+    Ok(format!(
+        "{year:04}-{month:02}-{day:02}T{:02}:{:02}:{:02}",
+        rem / 3_600,
+        rem % 3_600 / 60,
+        rem % 60
+    ))
+}
+
 /// Import a historical Wave-2 genome without upgrading its archived evidence.
 ///
 /// Report/Individual evaluation schemas have changed since the committed v1
@@ -651,12 +724,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             if let Some(seed) = parse_arg(&args, "--seed").and_then(|s| s.parse().ok()) {
                 cfg.seed = seed;
             }
-            let cuda_bin = parse_arg(&args, "--cuda-bin")
-                .map(PathBuf::from)
-                .unwrap_or_else(|| PathBuf::from("runs/bin/joil_cuda_eval"));
-            if cuda_bin.is_file() {
-                cfg.cuda_bin_path = Some(cuda_bin);
-            }
+            let (cuda_bin, vram_target) = explicit_gpu_opt_in(&args, &utc_now_seconds()?)?;
+            cfg.cuda_bin_path = cuda_bin;
+            cfg.gpu_vram_target_pct = vram_target;
             let summary = evolve::run_campaign(&cfg, &out_dir)?;
             println!(
                 "{}",
@@ -883,6 +953,144 @@ mod tests {
 
     const COMMITTED_WAVE2: &str =
         include_str!("../../../docs/results/wave2-multiseed-ablation-and-holdout-v1.json");
+
+    fn argv(items: &[&str]) -> Vec<String> {
+        items.iter().map(|s| s.to_string()).collect()
+    }
+
+    /// SYNTHETIC files in a fresh temp directory; nothing is executed.
+    fn gpu_fixture(name: &str, lease: Option<&str>) -> (PathBuf, String, String) {
+        let dir = std::env::temp_dir().join(format!("joil-v5-01-04-{name}-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let bin = dir.join("joil_cuda_eval");
+        std::fs::write(&bin, b"SYNTHETIC placeholder, never executed").unwrap();
+        let lease_path = dir.join("lease.json");
+        if let Some(text) = lease {
+            std::fs::write(&lease_path, text).unwrap();
+        }
+        (
+            dir,
+            bin.display().to_string(),
+            lease_path.display().to_string(),
+        )
+    }
+
+    #[test]
+    fn v5_01_04_ordinary_runs_request_no_gpu() {
+        let now = "2026-10-17T22:00:00";
+        assert_eq!(
+            explicit_gpu_opt_in(&argv(&["evolve", "--out", "x"]), now).unwrap(),
+            (None, None)
+        );
+        // A present default binary path no longer activates anything implicitly.
+        let (dir, _bin, lease) = gpu_fixture("ordinary", Some(r#"{"gpu": true}"#));
+        assert!(explicit_gpu_opt_in(&argv(&["evolve", "--gpu-lease", &lease]), now).is_err());
+        assert!(
+            explicit_gpu_opt_in(&argv(&["evolve", "--gpu-vram-target-pct", "85.5"]), now).is_err()
+        );
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn v5_01_04_missing_or_invalid_gpu_lease_cannot_execute() {
+        let now = "2026-10-17T22:00:00";
+        let good = r#"{"gpu": true, "expires_utc": "2026-10-18T08:52:43+00:00"}"#;
+        let cases = [
+            ("no-lease-file", None, "cannot read GPU lease"),
+            (
+                "gpu-false",
+                Some(r#"{"gpu": false, "expires_utc": "2026-10-18T08:52:43Z"}"#),
+                "does not grant",
+            ),
+            (
+                "gpu-string",
+                Some(r#"{"gpu": "true", "expires_utc": "2026-10-18T08:52:43Z"}"#),
+                "does not grant",
+            ),
+            ("no-expiry", Some(r#"{"gpu": true}"#), "lacks expires_utc"),
+            (
+                "expired",
+                Some(r#"{"gpu": true, "expires_utc": "2026-10-17T21:59:59Z"}"#),
+                "expired",
+            ),
+            ("not-json", Some("gpu: true"), "invalid GPU lease"),
+        ];
+        for (name, lease, needle) in cases {
+            let (dir, bin, lease_path) = gpu_fixture(name, lease);
+            let err = explicit_gpu_opt_in(
+                &argv(&["evolve", "--cuda-bin", &bin, "--gpu-lease", &lease_path]),
+                now,
+            )
+            .unwrap_err();
+            assert!(err.contains(needle), "{name}: {err}");
+            std::fs::remove_dir_all(dir).unwrap();
+        }
+        let (dir, bin, lease_path) = gpu_fixture("no-lease-arg", Some(good));
+        let err = explicit_gpu_opt_in(&argv(&["evolve", "--cuda-bin", &bin]), now).unwrap_err();
+        assert!(err.contains("requires --gpu-lease"), "{err}");
+        let missing_bin = format!("{}.missing", bin);
+        assert!(explicit_gpu_opt_in(
+            &argv(&[
+                "evolve",
+                "--cuda-bin",
+                &missing_bin,
+                "--gpu-lease",
+                &lease_path
+            ]),
+            now
+        )
+        .unwrap_err()
+        .contains("not a file"));
+        for bad in ["0", "-5", "100.5", "NaN", "inf", "x"] {
+            assert!(explicit_gpu_opt_in(
+                &argv(&[
+                    "evolve",
+                    "--cuda-bin",
+                    &bin,
+                    "--gpu-lease",
+                    &lease_path,
+                    "--gpu-vram-target-pct",
+                    bad,
+                ]),
+                now
+            )
+            .is_err());
+        }
+        // Positive control: explicit binary, current lease and explicit VRAM target.
+        let (got_bin, vram) = explicit_gpu_opt_in(
+            &argv(&[
+                "evolve",
+                "--cuda-bin",
+                &bin,
+                "--gpu-lease",
+                &lease_path,
+                "--gpu-vram-target-pct",
+                "50",
+            ]),
+            now,
+        )
+        .unwrap();
+        assert_eq!(got_bin, Some(PathBuf::from(&bin)));
+        assert_eq!(vram, Some(50.0));
+        assert_eq!(
+            explicit_gpu_opt_in(
+                &argv(&["evolve", "--cuda-bin", &bin, "--gpu-lease", &lease_path]),
+                now
+            )
+            .unwrap()
+            .1,
+            None
+        );
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn v5_01_04_utc_clock_format() {
+        let now = utc_now_seconds().unwrap();
+        assert_eq!(now.len(), 19);
+        assert_eq!(&now[10..11], "T");
+        assert!(now.as_str() > "2026-01-01T00:00:00");
+    }
 
     #[test]
     fn historical_wave2_receipt_loads_all_promoted_genomes() {

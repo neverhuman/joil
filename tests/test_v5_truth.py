@@ -479,5 +479,27 @@ class GeometryMeasurementTruth(unittest.TestCase):
         self.assertEqual(self.voxel.audit_negative_corpus_dir()['fixture_count'], 22)
 
 
+class ExplorerClaimTruth(unittest.TestCase):
+    """V5-01-04: explorer strings match current evidence; authored paths are labelled SCHEMATIC."""
+
+    def setUp(self):
+        self.src = (ROOT / 'apps/explorer/src/main.tsx').read_text(encoding='utf-8')
+
+    def test_retracted_pressure_reduction_strings_removed(self):
+        for stale in ('−38.5% / −38.4%', '100% realizable)', 'pass F0 B-rep/mesh', 'oil-droplet core capture',
+                      'coupled droplet trajectories'):
+            self.assertNotIn(stale, self.src)
+        self.assertIn('retracted comparison, not a reduction claim', self.src)
+        self.assertIn('corrected gate: not admitted', self.src)
+        # Historical numbers are bound to the committed dossier fields, not typed into the UI.
+        self.assertIn('rsm[0].delta_dp_u_vs_ct35_baseline_pct', self.src)
+
+    def test_three_d_view_is_labelled_schematic(self):
+        view = self.src[self.src.index("tab === '3D Explorer'"):]
+        view = view[:view.index('<Viewport3D />')]
+        self.assertIn('SCHEMATIC paths.', view)
+        self.assertIn('No simulated or measured trajectory is supplied', view)
+
+
 if __name__ == '__main__':
     unittest.main()
