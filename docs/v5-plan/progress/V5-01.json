@@ -3,10 +3,15 @@
   "packet": "V5-01",
   "tasks": {
     "V5-01-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "claude-v5-truth-worker",
+      "note": "Gate reads only frozen mandatory_elite_cfd_gates + preregistered split band and fails closed; 25% rule deleted; same-pipeline 3-grid control with bound identities required; --interpret-existing reports corrected not_admitted beside recorded values. Software semantics only; no physical claim.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-01-completed-20261017.json",
+          "sha256": "843f568098e8685a712926a91f13a39e98f3b1d93b723a1ee2aa8da541395c71"
+        }
+      ]
     },
     "V5-01-02": {
       "status": "todo",

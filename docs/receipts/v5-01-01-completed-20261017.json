@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-01",
+  "task_ids": [
+    "V5-01-01"
+  ],
+  "owner": "claude-v5-truth-worker",
+  "input_head": "a0baf325e44499125efbedd76ce1ec798f22ea4a",
+  "tested_commit": "fec9c91c9865909a0bd49cb1ea7c52089643e6cc",
+  "created_utc": "2026-10-17T21:45:00Z",
+  "changed_paths": [
+    "tools/run_elite_3grid_gci_and_rsm.py",
+    "tests/test_v5_truth.py",
+    "tests/test_evidence.py",
+    "README.md",
+    "docs/WHITEPAPER.md"
+  ],
+  "commands": [
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_v5_truth.py", "-v"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "bbb771698a37038cb8b0239c3ae551c1d083a43d6dd53122a86622a514d15019",
+      "wall_seconds": 0.606,
+      "note": "21 tests at the tested commit"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-v"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "a75cf6ca3c21e1c00d8c4147805f3e1b32c93be9e43722d12988521042246c66",
+      "wall_seconds": 87.669,
+      "note": "142 tests, 3 pre-existing optional skips; working tree byte-identical to the tested commit (git diff HEAD empty after commit)"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/claims_audit.py"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "wall_seconds": 16.333
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/gen_status.py", "--check"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.046
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/v5_plan.py", "check"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "98d8aa6ced1ac2553135f70b34c784b1dc9810dc2ab6e8d50a6bb5042ba08c43",
+      "wall_seconds": 0.09
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "137bfb2988483b6189884d5fb38a5762ba0b407164283690f792aca9c482c479",
+      "wall_seconds": 0.194
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/run_elite_3grid_gci_and_rsm.py", "--interpret-existing", "--out", "<private worker log directory>/v5-01-01-interpretation-report.json"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "caa754b5d612788094fbf5f4fd701ecacda04e2b2bd7d25d22f26ca3dab22457",
+      "wall_seconds": 0.058
+    }
+  ],
+  "pre_change_failing_evidence": {
+    "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_v5_truth.py"],
+    "source_commit": "a0baf325e44499125efbedd76ce1ec798f22ea4a",
+    "exit_code": 1,
+    "result": "21 tests: 8 failures, 44 errors (subtests) against the unchanged gate",
+    "log_sha256": "49785d2a213ae83ce17f6c7582365a2763d7722b736ded5554f05f74401b4003"
+  },
+  "positive_checks": [
+    "Loader returns exactly the frozen mandatory_elite_cfd_gates values and hard_feasibility_gates.reject_split_band, with protocol_id joil-wave2-preregistration-v1 and canonical-JSON block digest (integrity record, not case identity)",
+    "SYNTHETIC same-pipeline control (equal six-part pipeline identity, equal grid ladder, per-grid subject binding, Foundation-14) is admitted with RSM delta vs CT-35 at -2 %, with that field deleted, and with the opposite sign of difference: no hidden improvement threshold",
+    "Boundary: recomputed signal-to-span exactly 3.0 admitted, 2.99 not admitted",
+    "Recorded ratio that reproduces from grids is accepted; control argument replaces the dossier comparator",
+    "--interpret-existing exits 0, reports six committed dossiers (Wave-1 v1/v2, Wave-2 v1/v2 TPMS and 8-jet) with source SHA-256, recorded gate value, corrected admission and an arithmetic-only INT-06 diagnostic; committed source bytes unchanged afterwards",
+    "Legacy test_evidence consumers now assert corrected not_admitted results while still reading recorded historical values; v2 GCI validity rules still pass and a planted observed_order_p on an Oscillatory sequence still fails",
+    "Independent post-change rerun of the private preflight reproducer: every pre-change false PASS case now fails closed; outcomes at RSM delta -25.00 and -24.99 are identical"
+  ],
+  "negative_checks": [
+    "Misspelled key mandatory_elite_cfd_gate, old code key mandatory_elite_gci_and_rsm_gate only, prereg None/{}/list/string, missing protocol_id: GateConfigError naming the block; CLI exits 2 with no PASS or ADMITTED",
+    "Each of the six required keys deleted in turn, an unknown key, missing reject_split_band: GateConfigError naming the key",
+    "NaN, +/-inf, bool, string, zero or negative SNR; realizability 2.0 or 0; negative inter-RSM limit; empty/duplicate/blank closures; two grid levels or duplicate ordinals; reversed/degenerate/out-of-range/non-finite/bool split band: GateConfigError; NaN or duplicate keys in prereg JSON: CLI exit 2",
+    "Old mismatched CT-35 baseline: all six committed dossiers not admitted for unbound pipeline identity, single-point comparator without a grid ladder and unbound solver version; no failure cites a 25 % rule; inputs unmodified",
+    "Real Wave-1 v2 grids against INT-06 same-pipeline control grids with SYNTHETIC equal identities: recomputed SNR below 0.05, not admitted",
+    "Changed mesher digest, extra or arbitrary identity keys, changed comparator background_hex_grid, comparator without grids, prior-elite G1 subject, other comparator subject, solver v2606, wrong grid ordinal, comparator split outside band: not admitted with the specific reason",
+    "Recorded ratio 4.86 that does not reproduce from grids: not admitted",
+    "NaN/inf/string/bool/missing observations, negative RSM means (no epsilon denominator), missing SSG closure, zero 3-grid span, water closure above runner policy: not admitted with the specific reason",
+    "CLI: committed dossier exits 1 with NOT ADMITTED and no certified/PASS text; --verify-existing with missing ablation exits nonzero; --verify-existing on committed data exits 1 (log 642782cfd20ad8dbac0d07bf8e04342de9491b050940fabfb98a7c2fc41ee17f, expected); --interpret-existing refuses an existing --out leaving bytes unchanged; --generate-v2 without --out-dir or into an existing directory exits 2 and committed v2 reports are unchanged"
+  ],
+  "artifacts": [
+    {"path": "tools/run_elite_3grid_gci_and_rsm.py", "sha256": "bc9720a2d6ec896d36fc0130efb358649c4b3f4e1f6ee723bb1efd7de6478498"},
+    {"path": "tests/test_v5_truth.py", "sha256": "327eaab25b97fb77f8fbc87916963614b805b1024cbad47f41bcf46804f4696c"},
+    {"path": "tests/test_evidence.py", "sha256": "bda47f61e1dd22d58ff2f0486d432dd80dbe01afc38f5c820361c181e82c05e8"},
+    {"path": "README.md", "sha256": "540d8ffb7e5b5c9e1a33c5b3442a015012a70de3d667ee76451635a25febfcae"},
+    {"path": "docs/WHITEPAPER.md", "sha256": "77c8ca3ee041ed7644e1af5f58d6d5be7e854df9875962ea0037bb1f2994497b"},
+    {"path": "private: v5-01-01-interpretation-report.json (not published)", "sha256": "8a01526b9c36fe52b9679f57b19ad5d4108e867efa96471ae9acc2581aeabd3b"},
+    {"path": "private: repro-v5-01-01-post.json post-change reproducer log (not published)", "sha256": "d68a8641a603cc7d04f30817b3ddb03b1b0b65a0e830846984878db353414a95"},
+    {"path": "private: repro-v5-01-01.json pre-change reproducer log (not published)", "sha256": "f15d449bb808555791dcee9b4e3364cbd07cc4df3c9a5266cd3c773e86e7b304"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_bytes": 194220,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "cargo_build_executed": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "not_executed": [
+    "fmt, clippy, rust-tests, baseline and UI stages: this slice changes no Rust, Cargo or UI input; V5-00 acceptance at a0baf325 recorded them on identical Rust/UI bytes",
+    "tools/check.py entry point (forces four Cargo jobs; scope revision requires the two-job private wrapper)"
+  ],
+  "limitations": [
+    "Software claim-semantics repair only; no candidate is physically validated, refuted or ranked",
+    "Pipeline identity is a tool-local interim contract (compiler, mesher, boundary_controller, taps, solver_build, extractor SHA-256 plus per-grid subject_design_sha256 and openfoam_version) until V5-03 schemas exist; the integrator owns the shared contract",
+    "RSM entries are not yet bound to the G1 grid or subject; GCI validity states are read, not recomputed",
+    "Split-band authority conflict remains open for V5-02: preregistered [0.0185, 0.0215], runner policy [0.019, 0.021], RS-joil-research-v1 [0.0198, 0.0202]; committed G1 grids at about 0.0197 pass the first two and fail the third, which this gate does not apply",
+    "Water closure 1e-3 and e_loss checks are runner policy, not preregistered; they can only add failures",
+    "docs/receipts/v5-00-python-probes.py intentionally asserted the pre-change false-pass behaviour; rerunning it after this commit fails by design; historical receipts were not edited",
+    "tools/run_wave2_elites_openfoam14.py (not in V5-01 scope) imports the gate unchanged; its future dossiers are not admitted until they record pipeline identities"
+  ],
+  "next_dependency": "Integrator review/integration into PR #6; V5-01-02 (withdraw assigned geometry measurements) proceeds in this lane"
+}
