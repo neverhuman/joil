@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "kind": "independent_ci_cache_and_worker_resource_followup_not_physical_evidence",
+  "packet": "V5-03",
+  "task_ids": [
+    "V5-03-05"
+  ],
+  "tested_commit": "e7d7293a3bc1f76c16742ebe38f8de5b3ef01090",
+  "created_utc": "2026-10-17T23:39:30.311050+00:00",
+  "changed_paths": [
+    ".github/workflows/foundation.yml",
+    "tools/check.py",
+    "tests/test_check.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "4e3e6460aa17f5ea5a7ab609ad103537d1fc04806a1b56969e87e568d50275a6"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ea7cfb34fc23b2e61e57d23539158e903a6800fbcf9a8ab1c560de9254fa20cf"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "feae12e9487d92c59bc217412c778ab0243ede1e9aa3f388b6e95f17f33e1aa0"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "650da2f300ecaaa97d516b3735604c4c3fcb58fb5df0f41e56ec3d4734284ea9"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1b6bd9004681f330b0a3fea68a72a46891f05cd8e04e70fcdcaf9cc82ebd53f2"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c15d2eea10ab9adb153027237f2955463a5cee84dadd2721bb517c3a2f4251fe"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ccbb7821c8f869f5a6593909aa9d9a33f735f5afab8421844e058234175a6693"
+    }
+  ],
+  "positive_checks": [
+    "Full canonical10step gate passed on complete current workspace; all normal/build/dev architecture assertions remain",
+    "Offline all-platform metadata succeeds with complete locked cache; native-only cold-cache failure reproduced independently",
+    "Required runner child environment observed as Cargo2 and OMP/BLAS/MKL/Rayon1"
+  ],
+  "negative_checks": [
+    "Native-only cache: unchanged all-platform offline command fails101 needing missing bumpalo; host-filtered control succeeds but that graph restriction was not adopted",
+    "Old nestedRTK absence control remains in prior immutable receipt; no assertions or offline guard removed",
+    "Original a897 remote CI remains failed; new exact-head CI is pending and not fabricated as PASS"
+  ],
+  "artifacts": [
+    {
+      "path": ".github/workflows/foundation.yml",
+      "sha256": "e1e6fe4d607a2f5a6f9e6cd5150191c692c4e4bcfc33e5d50a46e8f3377d5b6c"
+    },
+    {
+      "path": "tools/check.py",
+      "sha256": "0931f78272054f46703c239216fa08f1a6d2ed3f93d79d8f146d36d7cd30323d"
+    },
+    {
+      "path": "tests/test_check.py",
+      "sha256": "c57ed3f06654604bf15e12e5cdf12d9e95b2dc7a19c505df42df941108aee19b"
+    }
+  ],
+  "private_cache_control": {
+    "all_platform_cold_exit": 101,
+    "all_platform_cold_stderr_sha256": "a7d480c353b047e01be30fe6f52dadc2e651b043976a4157b1cccb2f5a5c4c01",
+    "host_filter_diagnostic_exit": 0,
+    "complete_cache_all_platform_exit": 0,
+    "complete_cache_metadata_sha256": "b5604c6951dc71131d52c8713e0d569340462330cd7dab78ed67a1b6057bce84",
+    "interpretation": "Independent reproduction of dependency-cache portability condition; exact remote panic was truncated, so subsequent CI remains the final integration check"
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false
+  },
+  "limitations": [
+    "No physical evidence/status promotion; all historical receipts retained",
+    "CI must be checked on exact pushed head; not inferred from local success"
+  ],
+  "next_dependency": "Exact-head CI on existing draft PR6"
+}

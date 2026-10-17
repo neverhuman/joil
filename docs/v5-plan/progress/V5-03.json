@@ -49,11 +49,11 @@
     "V5-03-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Strict architecture/interchange controls pass with rtk absent; CI portability follow-up updates current evidence without rewriting historical receipts.",
+      "note": "Full current-source gate and cold-cache controls pass; complete locked graph is prefetched in CI, offline/all-platform assertions retained; exact-head CI remains to observe.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-03-ci-portability-20261017.json",
-          "sha256": "9e104f096aab840f9b7eda99f6b51aa4502751adfecd5518edd4807887088e8a"
+          "path": "docs/receipts/v5-03-prefetch-ci-followup-20261017.json",
+          "sha256": "2af8d48459ca15604c38bbb79dbecf3816aadfb51ef55eb1dc4d3fa3f7a549b3"
         }
       ]
     }
