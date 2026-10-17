@@ -193,7 +193,7 @@ def generated(root=ROOT):
             body += [f'### {"[x]" if t["status"] == "done" else "[ ]"} {t["id"]} — {t["title"]}', '',
                      f'Status: **{t["status"]}**. Assigned owner: {t["owner"] or "unassigned"}.', '', t['instructions'], '',
                      f'Acceptance: {t["acceptance"]}', '', f'Negative control: {t["negative_control"]}', '',
-                     f'Progress note: {t["note"] or "None; work has not started."}', '']
+                     f'Progress note: {t["note"] or "No note recorded."}', '']
             if t['evidence']:
                 body += [f'Evidence: `{r["path"]}` SHA-256 `{r["sha256"]}`.' for r in t['evidence']] + ['']
         body += ['## Hard parts and edge cases', ''] + [f'- {v.strip()}.' for v in p['edge_cases']]

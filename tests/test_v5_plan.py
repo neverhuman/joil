@@ -21,6 +21,13 @@ class PlanIntegrity(unittest.TestCase):
         (self.root / 'tools').mkdir()
         shutil.copyfile(ROOT / 'tools/v5_dashboard.html', self.root / 'tools/v5_dashboard.html')
         shutil.copyfile(ROOT / 'docs/TEST_CATALOG.json', self.root / 'docs/TEST_CATALOG.json')
+        # Integrity tests use an independent all-todo fixture even after real work advances.
+        for path in (self.root / 'docs/v5-plan/progress').glob('*.json'):
+            data = json.loads(path.read_text())
+            for task in data['tasks'].values():
+                task.update(status='todo', owner=None, note='', evidence=[])
+            path.write_text(json.dumps(data))
+        plan.build(self.root)
 
     def mutate(self, name, fn):
         path = self.root / 'docs/v5-plan' / name
@@ -39,9 +46,9 @@ class PlanIntegrity(unittest.TestCase):
         return str(path.relative_to(self.root))
 
     def test_current_package_is_consistent(self):
-        data = plan.build(self.root, check=True)
+        data = plan.build(ROOT, check=True)
         self.assertEqual(sum(len(p['tasks']) for p in data['packets']), 160)
-        self.assertFalse(any(t['status'] == 'done' for p in data['packets'] for t in p['tasks']))
+        self.assertTrue(all(t['status'] in plan.STATES for p in data['packets'] for t in p['tasks']))
 
     def test_cycle_rejected(self):
         self.mutate('TASKS.json', lambda d: d['packets'][0]['dependencies'].append('V5-01'))
