@@ -612,6 +612,23 @@ class ExplorerClaimTruth(unittest.TestCase):
         # Historical numbers are bound to the committed dossier fields, not typed into the UI.
         self.assertIn('rsm[0].delta_dp_u_vs_ct35_baseline_pct', self.src)
 
+    def test_viewport_labels_authored_paths_schematic(self):
+        view = (ROOT / 'apps/explorer/src/Viewport3D.tsx').read_text(encoding='utf-8')
+        for stale in ('core capture trajectories (F1/F2 screen', 'Lagrangian parcel marker', 'Lagrangian Oil Vortex',
+                      'oil droplets → reverse core', 'droplet\n                trajectories above'):
+            self.assertNotIn(stale, view)
+        # Missing provenance (historical bundle) reads as the scene.rs schematic provenance.
+        scene = (ROOT / 'crates/joil-core/src/scene.rs').read_text(encoding='utf-8')
+        provenance = 'SCHEMATIC_AUTHORED_CURVE_NOT_SIMULATED_OR_MEASURED'
+        self.assertIn(f'"{provenance}"', scene)
+        self.assertIn(f"const SCHEMATIC_PROVENANCE = '{provenance}';", view)
+        self.assertIn('t.provenance ?? SCHEMATIC_PROVENANCE', view)
+        self.assertIn('SCHEMATIC paths: authored, not simulated', view)
+        bundle = load(ROOT / 'docs/results/interactive-3d-archetypes-v1.json')
+        trajectories = [t for c in bundle['candidates_3d'] for t in c['droplet_trajectories_3d_mm']]
+        self.assertTrue(trajectories)
+        self.assertTrue(all('provenance' not in t for t in trajectories))  # historical bytes unchanged
+
     def test_three_d_view_is_labelled_schematic(self):
         view = self.src[self.src.index("tab === '3D Explorer'"):]
         view = view[:view.index('<Viewport3D />')]

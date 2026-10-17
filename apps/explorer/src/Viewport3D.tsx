@@ -4,8 +4,18 @@ import bundleData from '../../../docs/results/interactive-3d-archetypes-v1.json'
 interface DropletTrajectory3D {
   label: string;
   diameter_um: number;
+  /** Authored display selection (diameter >= screen d50), not an observed capture result. */
   captured_to_overflow: boolean;
   points_mm: number[][];
+  /** Absent in historical bundles, which hold the same authored curves (V5-01-04). */
+  provenance?: string;
+}
+
+const SCHEMATIC_PROVENANCE = 'SCHEMATIC_AUTHORED_CURVE_NOT_SIMULATED_OR_MEASURED';
+
+/** Missing provenance reads as schematic; only an explicit non-schematic value would differ. */
+function pathProvenance(t: DropletTrajectory3D): string {
+  return t.provenance ?? SCHEMATIC_PROVENANCE;
 }
 
 interface Candidate3D {
@@ -96,6 +106,12 @@ export function Viewport3D() {
   });
 
   const cand = candidates[selectedIdx] ?? baseline;
+  const pathsSchematic = cand.droplet_trajectories_3d_mm.every((t) =>
+    pathProvenance(t).startsWith('SCHEMATIC'),
+  );
+  const pathsLabel = pathsSchematic
+    ? 'SCHEMATIC authored paths (closed-form curves; not simulated or measured)'
+    : `Paths with mixed provenance: ${[...new Set(cand.droplet_trajectories_3d_mm.map(pathProvenance))].join(', ')}`;
 
   useEffect(() => {
     let animId = 0;
@@ -247,7 +263,7 @@ export function Viewport3D() {
         ctx.stroke();
       });
 
-      // 5. Coupled 3D Oil Droplet & Carrier Vortex Trajectories
+      // 5. SCHEMATIC authored droplet and carrier paths (no particle is integrated)
       if (showDroplets) {
         const trajColors = ['#ffd166', '#ff9f43', '#f368e0', '#48dbfb'];
         cand.droplet_trajectories_3d_mm.forEach((traj, idx) => {
@@ -262,7 +278,7 @@ export function Viewport3D() {
           });
           ctx.stroke();
 
-          // Animated Lagrangian parcel marker along trajectory
+          // Animated schematic marker along the authored path
           const pCount = traj.points_mm.length;
           if (pCount > 1) {
             const fIdx = ((rotRef.current.phase + idx * 0.23) % 1.0) * (pCount - 1);
@@ -283,6 +299,9 @@ export function Viewport3D() {
             ctx.fill();
           }
         });
+        ctx.fillStyle = '#ffd166';
+        ctx.font = '12px ui-monospace, monospace';
+        ctx.fillText(pathsSchematic ? 'SCHEMATIC paths: authored, not simulated' : 'Paths: mixed provenance', 14, 22);
       }
 
       // Labels in 3D space
@@ -298,7 +317,7 @@ export function Viewport3D() {
 
     animId = requestAnimationFrame(render);
     return () => cancelAnimationFrame(animId);
-  }, [cand, cutaway, showDroplets, autoSpin, zoom]);
+  }, [cand, cutaway, showDroplets, autoSpin, zoom, pathsSchematic]);
 
   const onMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     dragRef.current = { active: true, lastX: e.clientX, lastY: e.clientY };
@@ -330,11 +349,11 @@ export function Viewport3D() {
           <div className="panelhead">
             <div>
               <h2>
-                Interactive 3D Hydrocyclone &amp; Lagrangian Oil Vortex (<code>{cand.id}</code>)
+                Interactive 3D Hydrocyclone Geometry &amp; Schematic Oil Paths (<code>{cand.id}</code>)
               </h2>
               <p>
-                True-scale millimetre B-rep rings · drag to orbit · coupled 10/20/40 μm oil droplet
-                core capture trajectories (F1/F2 screen, unqualified)
+                True-scale millimetre B-rep rings · drag to orbit · 10/20/40 μm oil and carrier
+                paths: {pathsLabel}
               </p>
             </div>
             <div className="toggle">
@@ -345,7 +364,7 @@ export function Viewport3D() {
                 className={showDroplets ? 'selected' : ''}
                 onClick={() => setShowDroplets(!showDroplets)}
               >
-                Droplets
+                Schematic paths
               </button>
               <button className={autoSpin ? 'selected' : ''} onClick={() => setAutoSpin(!autoSpin)}>
                 Orbit
@@ -393,11 +412,12 @@ export function Viewport3D() {
             </span>
             <span>
               <i className="dot" style={{ background: '#ffd166' }} />
-              40 μm &amp; 20 μm oil droplets → reverse core (-22.8 mm)
+              SCHEMATIC 40 μm &amp; 20 μm oil paths toward the reject (authored; shown captured
+              when d ≥ screen d50)
             </span>
             <span>
               <i className="dot" style={{ background: '#48dbfb' }} />
-              Treated water outer vortex (+186.75 mm)
+              SCHEMATIC treated-water outer path (authored)
             </span>
           </div>
         </section>
@@ -450,8 +470,8 @@ export function Viewport3D() {
             <div>
               <h2>Pareto Front &amp; 4D MAP-Elites Archive ({archive.length} QD Elites)</h2>
               <p>
-                Click any highlighted Rank-0 Pareto elite to inspect its 3D geometry &amp; droplet
-                trajectories above
+                Click any highlighted Rank-0 Pareto elite to inspect its 3D geometry &amp; schematic
+                paths above
               </p>
             </div>
           </div>
