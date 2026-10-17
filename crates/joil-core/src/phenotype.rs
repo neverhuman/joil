@@ -192,7 +192,11 @@ pub struct Phenotype3D {
     pub terminal_inlet_area_each_mm2: f64,
     pub terminal_overflow_diameter_mm: f64,
     pub terminal_underflow_z_mm: f64,
+    /// Legacy proxy from `VoxelSdfAuditReport::trapped_cavities_total`; not a measured cavity count.
     pub trapped_cavities: usize,
+    /// Trapped powder is not observed by the current observer (`V5-01-02`).
+    #[serde(default = "joil_ir::GeometryCountObservation::legacy_unrecorded")]
+    pub trapped_powder_cavity_observation: joil_ir::GeometryCountObservation,
     /// Legacy heuristic descriptors; omitted from serialized subject (`IR-07`).
     #[serde(skip_serializing, default = "default_mechanism_descriptors")]
     pub descriptors: MechanismDescriptors,
@@ -558,6 +562,7 @@ impl Phenotype3D {
             terminal_overflow_diameter_mm: f0_report.terminal_overflow_diameter_mm,
             terminal_underflow_z_mm: f0_report.terminal_underflow_z_mm,
             trapped_cavities: f0_report.trapped_cavities_total,
+            trapped_powder_cavity_observation: f0_report.trapped_powder_cavity_observation.clone(),
             descriptors,
             mesh_census: census,
             derived_taxon: Some(f0_report.derived_taxon),

@@ -610,12 +610,17 @@ fn ir_07_prior_vs_observed_descriptors_qualification_gate() {
         geometry: report.observed_geometry.clone(),
         physics: None,
     };
-    let verified = require_observed_descriptors_for_qualification(&obs)
-        .expect("measured GeometryObservedDescriptors must pass qualification gate");
+    // V5-01-02: the observer does not measure cavities or topology, so its descriptors cannot qualify.
+    let refused = require_observed_descriptors_for_qualification(&obs).unwrap_err();
+    assert!(refused.contains("trapped_powder_cavities"), "{refused}");
+    let mut synthetic_measured = obs.clone();
+    synthetic_measured.geometry.unmeasured_facts.clear();
+    let verified = require_observed_descriptors_for_qualification(&synthetic_measured)
+        .expect("SYNTHETIC fully measured GeometryObservedDescriptors pass the qualification gate");
     assert_eq!(verified.measured_inlet_channel_count, 4);
 
     // Unmeasured / zeroed GeometryObservedDescriptors must fail qualification gate
-    let mut invalid_obs = obs.clone();
+    let mut invalid_obs = synthetic_measured.clone();
     invalid_obs.geometry.fluid_volume_m3 = 0.0;
     assert!(require_observed_descriptors_for_qualification(&invalid_obs).is_err());
 }
@@ -625,7 +630,16 @@ fn ir_08_independent_voxel_sdf_observer_detects_cavities_and_frozen_diff() {
     let ir = DesignIrV1::from_program_json(&baseline_program_json(), BASE_SHA).unwrap();
     let mesh = IrCompiledMesh::compile(&ir, BackendId::RustMultiPatchCfdSurface).unwrap();
     let report = VoxelSdfObserver::observe(&ir, &mesh);
+    // Legacy proxy count; V5-01-02 records that powder and enclosed cavities are not measured.
     assert_eq!(report.trapped_cavities_total, 0);
+    assert_eq!(
+        report.trapped_powder_cavity_observation.measured_value(),
+        None
+    );
+    assert_eq!(
+        report.enclosed_fluid_cavity_observation.measured_value(),
+        None
+    );
     assert_eq!(report.frozen_collar_and_tail_diff_mm3, 0.0);
     assert!(report.all_terminals_reachable_from_chamber);
     assert!((report.terminal_overflow_diameter_mm - 1.40).abs() < 0.02);

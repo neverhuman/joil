@@ -1573,7 +1573,46 @@ pub struct GeometryObservedDescriptors {
     pub cone_radial_curvature_rms_m_inv: f64,
     pub skimmer_core_blockage_fraction: f64,
     pub betti_numbers: [usize; 3],
+    /// Geometry facts in this record that were not measured (`V5-01-02`). A non-empty list blocks
+    /// qualification. Records written before this field existed read as unmeasured.
+    #[serde(default = "legacy_unmeasured_facts")]
+    pub unmeasured_facts: Vec<String>,
 }
+
+fn legacy_unmeasured_facts() -> Vec<String> {
+    vec!["legacy record without geometry measurement status".to_string()]
+}
+
+/// Measurement status of one geometry count (`V5-01-02`). Proxy or assumed values are never `Measured`.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "status", rename_all = "snake_case")]
+pub enum GeometryCountObservation {
+    Measured { value: usize, method: String },
+    NotMeasured { reason: String },
+}
+
+impl GeometryCountObservation {
+    pub fn measured_value(&self) -> Option<usize> {
+        match self {
+            Self::Measured { value, .. } => Some(*value),
+            Self::NotMeasured { .. } => None,
+        }
+    }
+
+    /// Serde default for records written before measurement status existed.
+    pub fn legacy_unrecorded() -> Self {
+        Self::NotMeasured {
+            reason: "legacy record without measurement status".to_string(),
+        }
+    }
+}
+
+/// Facts the `VoxelSdfObserver` reports but does not measure (`V5-01-02`).
+pub const OBSERVER_UNMEASURED_FACTS: [&str; 3] = [
+    "trapped_powder_cavities: no solid-region or powder-escape observation",
+    "enclosed_fluid_cavities: star-shaped voxel occupancy from the IR cannot represent an enclosed cavity",
+    "betti_numbers: derived from the unmeasured cavity count and a closed-manifold edge-count assumption",
+];
 
 /// Physics descriptors measured strictly from executed 3D solver fields/integrals (`IR-07`).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -1608,6 +1647,12 @@ pub fn require_observed_descriptors_for_qualification(
         || observed.geometry.measured_inlet_channel_count == 0
     {
         return Err("invalid or unmeasured GeometryObservedDescriptors".into());
+    }
+    if !observed.geometry.unmeasured_facts.is_empty() {
+        return Err(format!(
+            "GeometryObservedDescriptors contain unmeasured facts: {}",
+            observed.geometry.unmeasured_facts.join("; ")
+        ));
     }
     Ok(&observed.geometry)
 }
@@ -1691,10 +1736,19 @@ pub struct VoxelSdfAuditReport {
     pub fluid_volume_mm3: f64,
     pub wetted_area_mm2: f64,
     pub connected_fluid_components: usize,
+    /// Legacy proxy: voxel components of star-shaped IR occupancy plus extra mesh shells.
     pub trapped_fluid_cavities: usize,
+    /// Legacy constant proxy (always 0); see `trapped_powder_cavity_observation`.
     pub trapped_powder_cavities: usize,
+    /// Legacy proxy sum of the two fields above; never a measured cavity count.
     pub trapped_cavities_total: usize,
     pub all_terminals_reachable_from_chamber: bool,
+    #[serde(default = "GeometryCountObservation::legacy_unrecorded")]
+    pub trapped_powder_cavity_observation: GeometryCountObservation,
+    #[serde(default = "GeometryCountObservation::legacy_unrecorded")]
+    pub enclosed_fluid_cavity_observation: GeometryCountObservation,
+    #[serde(default = "GeometryCountObservation::legacy_unrecorded")]
+    pub mesh_shell_component_observation: GeometryCountObservation,
     pub frozen_collar_and_tail_diff_mm3: f64,
     pub terminal_inlet1_area_mm2: f64,
     pub terminal_inlet2_area_mm2: f64,
@@ -3322,6 +3376,10 @@ impl VoxelSdfObserver {
                 derived_taxon.betti_1,
                 derived_taxon.betti_2,
             ],
+            unmeasured_facts: OBSERVER_UNMEASURED_FACTS
+                .iter()
+                .map(|s| s.to_string())
+                .collect(),
         };
 
         VoxelSdfAuditReport {
@@ -3334,6 +3392,17 @@ impl VoxelSdfObserver {
             trapped_powder_cavities: trapped_powder,
             trapped_cavities_total: total_trapped,
             all_terminals_reachable_from_chamber: reachable && total_trapped_fluid == 0,
+            trapped_powder_cavity_observation: GeometryCountObservation::NotMeasured {
+                reason: OBSERVER_UNMEASURED_FACTS[0].to_string(),
+            },
+            enclosed_fluid_cavity_observation: GeometryCountObservation::NotMeasured {
+                reason: OBSERVER_UNMEASURED_FACTS[1].to_string(),
+            },
+            mesh_shell_component_observation: GeometryCountObservation::Measured {
+                value: mesh_components,
+                method: "vertex-adjacency components of mesh.triangles; internal_feature_triangles excluded"
+                    .to_string(),
+            },
             frozen_collar_and_tail_diff_mm3: round6(frozen_diff_mm3),
             terminal_inlet1_area_mm2: area_in1_m2 * 1e6,
             terminal_inlet2_area_mm2: area_in2_m2 * 1e6,
@@ -3411,6 +3480,8 @@ impl VoxelSdfObserver {
             }
         }
 
+        // Legacy proxies (`V5-01-02`): star-shaped occupancy is one component by construction and no
+        // powder observation exists; the report carries `NotMeasured` status for both.
         let trapped_fluid = fluid_components.saturating_sub(1);
         let trapped_powder = 0usize;
         let terminals_reachable = fluid_components == 1;

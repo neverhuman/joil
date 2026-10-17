@@ -3,12 +3,12 @@
 
 Provides:
 1. `observe_voxel_sdf(program)`:
-   Independent 3D voxel/SDF flood-fill and mesh observer that measures:
-   - Connected fluid components and trapped fluid/powder cavities via 3D flood-fill (`IR-08`, no hardcoded 0)
-   - Symmetric volume difference on the frozen collar and downstream liner (`z >= 166.0 mm`)
-   - Terminal patch areas, normals, and positions (`inlet1`, `inlet2`, `overflow`, `underflow`)
-   - Split geometry metrics (`SplitGeometryMetrics`, `IR-09`) with physical meaning and `mm` units
-   - Geometry-derived `PhenotypeTaxon` (`IR-06`) and `GeometryObservedDescriptors` (`IR-07`)
+   Reads only the authored program, never a compiled artifact (V5-01-02). Its flood fill runs on
+   star-shaped occupancy r <= R(theta, z), which cannot represent an enclosed cavity; powder
+   cavities came from a split-metric threshold; frozen-interface difference, terminal values and
+   taxon counts were constants or authored values. Those facts are now `None` with a
+   `measurement_status` reason; the historical values are kept under `legacy_proxy`. Fluid volume,
+   wetted area and split metrics are closed-form estimates from the program (`analytic_estimates`).
 2. `verify_brep_rust_mesh_parity(program)`:
    Compiles `program` with CadQuery B-rep (`cad/program/exotic_graph.py`) and compares against the
    Rust mesh model on enclosed volume (`<= 2%`), wetted area (`<= 3%`), and exact Betti numbers (`[1, 0, 1]`) (`IR-03`).
@@ -306,6 +306,7 @@ def rust_mesh_reference_metrics(program: dict[str, Any]) -> dict[str, Any]:
         'wetted_area_mm2': base_area_mm2 + extra_area_mm2,
         'euler_characteristic': euler_chi,
         'betti_numbers': [betti_0, betti_1, betti_2],
+        'betti_basis': 'reference-mesh Euler characteristic with beta_0 = beta_2 = 1 assumed, not measured',
     }
 
 
@@ -367,10 +368,7 @@ def observe_voxel_sdf(program: dict[str, Any]) -> dict[str, Any]:
     dom_order = p['chamber_modes'][0]['azimuthal_order'] if p['chamber_modes'] else 0
     cone_inflections = 2 if abs(float(p['cone_profile']['mode2_mm'])) > 0.05 else (1 if abs(float(p['cone_profile']['mode1_mm'])) > 0.05 else 0)
 
-    return {
-        'voxel_grid_dimensions': grid_dims,
-        'fluid_volume_mm3': round(ref['fluid_volume_mm3'], 6),
-        'wetted_area_mm2': round(ref['wetted_area_mm2'], 6),
+    legacy_proxy = {
         'connected_fluid_components': fluid_components,
         'trapped_fluid_cavities': trapped_fluid,
         'trapped_powder_cavities': trapped_powder,
@@ -381,7 +379,6 @@ def observe_voxel_sdf(program: dict[str, Any]) -> dict[str, Any]:
         'terminal_inlet2_area_mm2': d['area'],
         'terminal_overflow_diameter_mm': 2.0 * d['ro'],
         'terminal_underflow_z_mm': d['ze'],
-        'split_metrics': split_metrics,
         'derived_taxon': {
             'betti_0': betti_0,
             'betti_1': betti_1,
@@ -393,6 +390,42 @@ def observe_voxel_sdf(program: dict[str, Any]) -> dict[str, Any]:
             'measured_cone_inflection_count': cone_inflections,
         },
     }
+    star = 'star-shaped occupancy r <= R(theta, z) from the authored program; cannot represent an enclosed cavity'
+    status = {
+        'connected_fluid_components': star,
+        'trapped_fluid_cavities': star,
+        'trapped_powder_cavities': 'threshold on an analytic powder-exit diameter; no powder-escape observation',
+        'trapped_cavities_total': 'sum of unmeasured cavity counts',
+        'all_terminals_reachable_from_chamber': star,
+        'frozen_collar_and_tail_diff_mm3': 'constant 0.0; no artifact compared',
+        'terminal_inlet1_area_mm2': 'copied from the baseline record',
+        'terminal_inlet2_area_mm2': 'copied from the baseline record',
+        'terminal_overflow_diameter_mm': 'copied from the baseline record',
+        'terminal_underflow_z_mm': 'copied from the baseline record',
+        'derived_taxon': 'Betti numbers assumed or from star-shaped occupancy; channel/order/inflection counts authored',
+    }
+    out: dict[str, Any] = {
+        'kind': 'program_derived_proxy_not_artifact_observation',
+        'observed_artifact': None,
+        'voxel_grid_dimensions': grid_dims,
+        'fluid_volume_mm3': None,
+        'wetted_area_mm2': None,
+        'analytic_estimates': {
+            'basis': 'closed-form from the authored program; not measured',
+            'fluid_volume_mm3': round(ref['fluid_volume_mm3'], 6),
+            'wetted_area_mm2': round(ref['wetted_area_mm2'], 6),
+        },
+        'split_metrics': split_metrics,
+        'split_metrics_basis': 'closed-form from the authored program; not measured',
+        'measurement_status': {
+            'fluid_volume_mm3': 'analytic estimate only',
+            'wetted_area_mm2': 'analytic estimate only',
+            **status,
+        },
+        'legacy_proxy': legacy_proxy,
+    }
+    out.update({key: None for key in status})
+    return out
 
 
 def verify_brep_rust_mesh_parity(program: dict[str, Any]) -> dict[str, Any]:
@@ -433,56 +466,84 @@ def verify_brep_rust_mesh_parity(program: dict[str, Any]) -> dict[str, Any]:
 
 
 def audit_negative_fixture(fixture: dict[str, Any]) -> list[str]:
-    """Audit a single negative geometry fixture (`tests/fixtures/negative/*.json`) (`IR-12`)."""
+    """Audit a single negative geometry fixture (`tests/fixtures/negative/*.json`) (`IR-12`).
+
+    A missing, `None` or non-numeric fact is `geometry_fact_not_measured` (V5-01-02), never a
+    passing default; a non-finite value fails its own check.
+    """
     reasons: list[str] = []
-    if int(fixture.get('active_unsupported_features', 0)) > 0:
+
+    def fact(key: str) -> float | None:
+        value = fixture.get(key)
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            if 'geometry_fact_not_measured' not in reasons:
+                reasons.append('geometry_fact_not_measured')
+            return None
+        return float(value)
+
+    def above(key: str, limit: float) -> bool:
+        v = fact(key)
+        return v is not None and (not math.isfinite(v) or v > limit)
+
+    def below(key: str, limit: float) -> bool:
+        v = fact(key)
+        return v is not None and (not math.isfinite(v) or v < limit)
+
+    def off(key: str, target: float, tol: float, relative: bool = False) -> bool:
+        v = fact(key)
+        if v is None:
+            return False
+        dev = abs(v - target) / target if relative else abs(v - target)
+        return not math.isfinite(v) or dev > tol
+
+    if above('active_unsupported_features', 0):
         reasons.append('unsupported_feature')
-    if int(fixture.get('missing_origin_traces', 0)) > 0:
+    if above('missing_origin_traces', 0):
         reasons.append('missing_semantic_origin_trace')
-    if int(fixture.get('unenacted_active_mechanisms', 0)) > 0:
+    if above('unenacted_active_mechanisms', 0):
         reasons.append('unenacted_active_mechanism')
-    if fixture.get('declared_units') != 'm' or not (0.5 <= float(fixture.get('coordinate_span_m', 0.0)) <= 5.0):
+    span = fact('coordinate_span_m')
+    if fixture.get('declared_units') != 'm' or (span is not None and not 0.5 <= span <= 5.0):
         reasons.append('unit_scale_mismatch')
-    if int(fixture.get('open_boundary_edges', 0)) > 0:
+    if above('open_boundary_edges', 0):
         reasons.append('open_boundary_edges')
-    if int(fixture.get('non_manifold_edges', 0)) > 0:
+    if above('non_manifold_edges', 0):
         reasons.append('non_manifold_edges')
-    vol = float(fixture.get('signed_volume_mm3', 0.0))
-    if not math.isfinite(vol) or vol <= 0.0:
+    vol = fact('signed_volume_mm3')
+    if vol is not None and (not math.isfinite(vol) or vol <= 0.0):
         reasons.append('negative_signed_volume')
-    if int(fixture.get('degenerate_sliver_triangles', 0)) > 0:
+    if above('degenerate_sliver_triangles', 0):
         reasons.append('degenerate_sliver_triangles')
-    if int(fixture.get('trapped_fluid_cavities', 0)) > 0:
+    if above('trapped_fluid_cavities', 0):
         reasons.append('trapped_fluid_cavity')
-    if int(fixture.get('trapped_powder_cavities', 0)) > 0:
+    if above('trapped_powder_cavities', 0):
         reasons.append('trapped_powder_cavity')
-    if int(fixture.get('blind_dead_end_channels', 0)) > 0:
+    if above('blind_dead_end_channels', 0):
         reasons.append('blind_channel_dead_end')
-    fdiff = float(fixture.get('frozen_collar_and_tail_diff_mm3', 0.0))
-    if not math.isfinite(fdiff) or fdiff > 1e-4:
+    if above('frozen_collar_and_tail_diff_mm3', 1e-4):
         reasons.append('frozen_collar_or_tail_modified')
     exp_in = 120.264094
-    in1 = float(fixture.get('terminal_inlet1_area_mm2', 0.0))
-    in2 = float(fixture.get('terminal_inlet2_area_mm2', 0.0))
-    if abs(in1 - exp_in) / exp_in > 0.002 or abs(in2 - exp_in) / exp_in > 0.002:
+    in1 = off('terminal_inlet1_area_mm2', exp_in, 0.002, relative=True)
+    in2 = off('terminal_inlet2_area_mm2', exp_in, 0.002, relative=True)
+    if in1 or in2:
         reasons.append('terminal_patch_area_mismatch')
-    if float(fixture.get('min_terminal_normal_alignment', 1.0)) < 0.999:
+    if below('min_terminal_normal_alignment', 0.999):
         reasons.append('terminal_patch_normal_misaligned')
-    if abs(float(fixture.get('terminal_overflow_diameter_mm', 1.4)) - 1.40) > 0.01:
+    if off('terminal_overflow_diameter_mm', 1.40, 0.01):
         reasons.append('terminal_overflow_modified')
-    if abs(float(fixture.get('terminal_underflow_z_mm', 1639.247432)) - 1639.247432) > 0.05:
+    if off('terminal_underflow_z_mm', 1639.247432, 0.05):
         reasons.append('terminal_underflow_modified')
-    if float(fixture.get('minimum_shell_thickness_mm', 3.0)) < 1.0:
+    if below('minimum_shell_thickness_mm', 1.0):
         reasons.append('shell_thickness_below_minimum')
-    if float(fixture.get('minimum_solid_ligament_mm', 3.0)) < 1.0:
+    if below('minimum_solid_ligament_mm', 1.0):
         reasons.append('solid_ligament_below_minimum')
-    if float(fixture.get('minimum_fluid_hydraulic_diameter_mm', 1.4)) < 1.40:
+    if below('minimum_fluid_hydraulic_diameter_mm', 1.40):
         reasons.append('fluid_hydraulic_diameter_below_minimum')
-    if float(fixture.get('minimum_local_flow_gap_mm', 1.4)) < 1.20:
+    if below('minimum_local_flow_gap_mm', 1.20):
         reasons.append('local_flow_gap_below_minimum')
-    if float(fixture.get('min_section_jacobian', 1.0)) < 0.10:
+    if below('min_section_jacobian', 0.10):
         reasons.append('singular_or_inverted_jacobian')
-    if float(fixture.get('tpms_radial_inner_fraction', 1.0)) < 0.58:
+    if below('tpms_radial_inner_fraction', 0.58):
         reasons.append('core_obstruction_violation')
     return reasons
 

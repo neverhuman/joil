@@ -410,5 +410,74 @@ class EliteCfdGateCliTruth(unittest.TestCase):
         self.assertEqual({p: sha(p.read_bytes()) for p in committed}, committed)
 
 
+class GeometryMeasurementTruth(unittest.TestCase):
+    """V5-01-02: copied, assigned or star-shaped geometry values are proxies, never measurements."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, str(ROOT / 'tools'))
+        import f0_enactment
+        import f0_voxel
+        cls.enact, cls.voxel = f0_enactment, f0_voxel
+
+    def ramp_program(self, drop_mm):
+        p = self.enact.exotic_graph.default_exotic_program()
+        p['inlet_ramp']['axial_drop_mm'] = drop_mm
+        return p
+
+    def test_enactment_receipt_does_not_copy_authored_delta(self):
+        for drop in (4.0, 6.0):
+            r = self.enact.build_enactment_receipt(self.ramp_program(drop))
+            ramp = r['active_mechanisms'][0]
+            self.assertEqual(ramp['gene_name'], 'inlet_ramp')
+            self.assertIsNone(ramp['measured_geometric_delta_mm'])
+            self.assertIsNone(ramp['enacted_surface_area_m2'])
+            self.assertIsNone(ramp['enacted_triangle_count'])
+            self.assertEqual(ramp['boundary_face_ids'], [])
+            self.assertEqual(ramp['measurement_status'], 'not_measured')
+            self.assertEqual(ramp['legacy_proxy']['geometric_delta_mm'], drop)
+            self.assertIsNone(r['measured_disjoint_inlet_paths'])
+            self.assertIsNone(r['all_active_features_enacted'])
+            self.assertIsNone(r['actual_simulated_geometry_label'])
+            self.assertTrue(r['legacy_proxy']['all_active_features_enacted'])
+            self.assertEqual(r['kind'], 'authored_enactment_manifest_not_geometry_measurement')
+        with self.assertRaises(self.enact.EnactmentVerificationError):
+            self.enact.build_enactment_receipt(self.ramp_program(4.0), dropped_features=('inlet_ramp',))
+
+    def test_program_observer_returns_no_measured_cavity_zero(self):
+        for p in (self.enact.exotic_graph.default_exotic_program(), self.ramp_program(4.0)):
+            o = self.voxel.observe_voxel_sdf(p)
+            self.assertIsNone(o['observed_artifact'])
+            for key in ('trapped_powder_cavities', 'trapped_fluid_cavities', 'trapped_cavities_total',
+                        'connected_fluid_components', 'frozen_collar_and_tail_diff_mm3',
+                        'terminal_inlet1_area_mm2', 'terminal_overflow_diameter_mm', 'derived_taxon',
+                        'fluid_volume_mm3', 'wetted_area_mm2'):
+                self.assertIsNone(o[key], key)
+                self.assertTrue(o['measurement_status'][key], key)
+            self.assertEqual(o['legacy_proxy']['trapped_powder_cavities'], 0)
+            self.assertEqual(o['legacy_proxy']['frozen_collar_and_tail_diff_mm3'], 0.0)
+            self.assertIn('star-shaped', o['measurement_status']['trapped_fluid_cavities'])
+
+    def test_proxy_or_missing_values_cannot_satisfy_geometry_gate(self):
+        fixture = load(ROOT / 'tests/fixtures/negative/neg_01_open_boundary_edge.json')
+        fixture['open_boundary_edges'] = 0
+        self.assertEqual(self.voxel.audit_negative_fixture(fixture), [])  # complete declared facts pass
+        for value in ('missing', None, True, '0'):
+            bad = copy.deepcopy(fixture)
+            if value == 'missing':
+                del bad['trapped_powder_cavities']
+            else:
+                bad['trapped_powder_cavities'] = value
+            with self.subTest(value=value):
+                self.assertEqual(self.voxel.audit_negative_fixture(bad), ['geometry_fact_not_measured'])
+        nan = copy.deepcopy(fixture)
+        nan['minimum_shell_thickness_mm'] = math.nan
+        self.assertEqual(self.voxel.audit_negative_fixture(nan), ['shell_thickness_below_minimum'])
+        observed = self.voxel.observe_voxel_sdf(self.ramp_program(4.0))
+        observed.update(declared_units='m', coordinate_span_m=1.662)
+        self.assertIn('geometry_fact_not_measured', self.voxel.audit_negative_fixture(observed))
+        self.assertEqual(self.voxel.audit_negative_corpus_dir()['fixture_count'], 22)
+
+
 if __name__ == '__main__':
     unittest.main()
