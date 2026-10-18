@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "kind": "v5_30_software_acceptance_receipt",
+  "packet": "V5-30",
+  "task_ids": [
+    "V5-30-01",
+    "V5-30-02",
+    "V5-30-03",
+    "V5-30-04",
+    "V5-30-05"
+  ],
+  "owner": "1052087.joil_v5_claude",
+  "state": "software_acceptance_recorded",
+  "packet_acceptance": false,
+  "packet_acceptance_scope": "Software verification at tested_commit only. Scientific admission is false. No physical build, rig run, metrology or confirmation data exists in this receipt.",
+  "scientific_admission": false,
+  "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
+  "changed_paths": [
+    "experiments/rig/v5/protocol.json",
+    "experiments/rig/v5/calibration_manifest.json",
+    "experiments/rig/v5/README.md",
+    "experiments/holdout/v5/manifest.json",
+    "analysis/validation/v5/protocol.py",
+    "analysis/validation/v5/dossier.schema.json",
+    "analysis/validation/v5/public_export.schema.json",
+    "docs/rig/V5_CONFIRMATION.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "claims",
+        "--test",
+        "campaign",
+        "--test",
+        "decision"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/joil-evidence-tests.log",
+      "log_sha256": "a6ec05f31e5f8dfe2cb1e30001e9b06ea9f008731a12f644fc298dee478614d3",
+      "expected_result": "claims, campaign and decision test binaries pass with 0 failures.",
+      "observed_result": "claims: 2 passed, 0 failed; campaign: 4 passed, 0 failed; decision: 23 passed, 0 failed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "expected_result": "claims_audit OK.",
+      "observed_result": "claims_audit: OK (152 structured receipt claims + 1462 markdown numeric tokens verified; 135 review findings traced; 23 strong-wording claims checked)."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
+      "log_sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66",
+      "expected_result": "PASS public candidate files checked.",
+      "observed_result": "PASS: 981 public candidate files checked; private deny rules applied=True."
+    }
+  ],
+  "positive_checks": [
+    "V5-30-01: experiments/rig/v5/protocol.json and docs/rig/V5_CONFIRMATION.md are tracked at tested_commit and pass check_public. The protocol is not approved; see the V5-30-01 dossier.",
+    "V5-30-02: the decision and campaign suites pass (decision 23/23, campaign 4/4); no synchronized measurement reduction is run here.",
+    "V5-30-03: experiments/rig/v5/calibration_manifest.json is tracked and public-checked; no specimen passport or metrology record is bound.",
+    "V5-30-04: the claims audit passes (claims_audit OK) and the claims tests pass (2/2), including revoked_dependency_revokes_every_downstream_claim.",
+    "V5-30-05: the public check passes and the dossier scope excludes private material (check_public, 981 files, deny rules applied)."
+  ],
+  "negative_checks": [
+    "V5-30-01: no approval is recorded; the unsigned protocol is not described as registered or approved.",
+    "V5-30-02: no censoring or misalignment negative is executed in this wave.",
+    "V5-30-03: no passport-mismatch negative is executed in this wave.",
+    "V5-30-04: mutation_missing_source_and_review_authority_fail_closed and revoked_dependency_revokes_every_downstream_claim pass; no physical confirmation negative is run.",
+    "V5-30-05: the dossier exports only allowlisted material per check_public; no legal or licence review is executed."
+  ],
+  "artifacts": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/joil-evidence-tests.log",
+      "sha256": "a6ec05f31e5f8dfe2cb1e30001e9b06ea9f008731a12f644fc298dee478614d3"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/claims-audit.log",
+      "sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
+      "sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66"
+    }
+  ],
+  "resource_allocation": {
+    "host": "xbabe2 (shared)",
+    "cpus": "unpinned; no taskset or cgroup lease applied to this wave",
+    "cargo_build_jobs": "cargo default; CARGO_BUILD_JOBS not set",
+    "cargo_target_dir": "/home/ubuntu/joil/.private/worktrees/v5-claude-truth/target (lane default, not a per-task target)",
+    "incremental": false,
+    "debug_info": "line-tables-only",
+    "gpu": false,
+    "simulation": false,
+    "search_campaign": false,
+    "private_log_root": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31"
+  },
+  "limitations": [
+    "Software acceptance only. No physical build, rig run, metrology, calibration or confirmation data exists; this receipt does not establish physical validity or scientific qualification.",
+    "scientific_admission is false.",
+    "V5-30-01 (rig protocol and release governance) and V5-30-05 (legal, disclosure and licence review) require human sign-off in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md (dossiers 4 and 5). This receipt does not sign them.",
+    "V5-30-02 and V5-30-03 physical measurement, metrology and passport inputs are missing; see docs/release/v5/EXTERNAL_DATA_REQUESTS.json.",
+    "The assigned command set does not run analysis/validation/v5/tests/test_protocol.py or any rig/holdout validator; those validators were NOT executed in this wave and are not cited as evidence.",
+    "changed_paths lists the V5-30 write-scope files verified at tested_commit (integrated at 1b150c2 and 1d7f2e2). No file in those paths changed in this receipt-only wave.",
+    "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
+  ],
+  "next_dependency": "Owner approval of the rig protocol and disclosure scope (dossiers 4 and 5), then physical measurement inputs from EXTERNAL_DATA_REQUESTS.json before any V5-30-02..04 claim.",
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
+      "sha256": "a2fc0a60d914561ba9dd0000e8388f864b3d94771fabd218a89297bd99d4301d"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
+}

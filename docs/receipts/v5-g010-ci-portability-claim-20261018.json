@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "G010_narrow_CI_portability_scope_revision",
+  "created_utc": "2026-10-18T12:41:01.783143+00:00",
+  "base_commit": "6ba77cafc61f7f0611f1bb6213140da2c5cbbfdf",
+  "ci_run": 39127457544,
+  "failed_job": 117675486252,
+  "observed_failure": "nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts panics: lane target directory required when CARGO_TARGET_DIR absent",
+  "write_paths": [
+    "packs/bracket/tests/reuse_proof.rs",
+    "docs/receipts/v5-g010-ci-portability-claim-20261018.json",
+    "docs/receipts/v5-g010-ci-portability-repair-20261018.json"
+  ],
+  "implementation": "Use existing scoped TestScratch for checkpoint root, with actual file persistence, child kill, resume and changed-subject refusal unchanged. No production code, deadline, threshold, model or task-count change.",
+  "positive_control": "Original configured-env test passes; repaired binary with environment variable absent exercises all9 bracket controls including actual kill/resume.",
+  "negative_control": "Frozen original pre-repair executable with CARGO_TARGET_DIR removed must reproduce actual panic/101; preserve binary/log/source hashes.",
+  "resources": {
+    "cpus": [
+      32,
+      33
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 6.0,
+    "build_jobs": 2,
+    "numerical_threads": 1,
+    "gpu": false
+  },
+  "task_counts": {
+    "done": 85,
+    "blocked": 75,
+    "review": 0,
+    "todo": 0
+  },
+  "scientific_admission": false,
+  "packet_acceptance": false
+}

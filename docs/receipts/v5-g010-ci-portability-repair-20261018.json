@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "kind": "additive_G010_CI_fixture_portability_and_sync_repair",
+  "created_utc": "2026-10-18T12:53:48.418626+00:00",
+  "task_ids": [
+    "V5-29-03",
+    "V5-29-04",
+    "V5-31-04"
+  ],
+  "tested_commit": "2c921e234c62e45fca7a10a2b90ca7f0c8dd4706",
+  "changed_paths": [
+    "packs/bracket/tests/reuse_proof.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "-u",
+        "CARGO_TARGET_DIR",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--target-dir",
+        "/home/ubuntu/joil/.private/v5-workers/codex/target",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "log_sha256": "90e9d96ba522ffe733797958deea18cfeac691e8350808f8677040b57a887424",
+      "wall_seconds": 24.385705891996622,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-readiness-cargo-default.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9c52b8e260022ff75272a6e8b08e027dcf6df3005db24ae5b97d15e5031dbc20",
+      "wall_seconds": 24.766783943981864,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-readiness-cargo-leased.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "17ea728e4c371c055097e239114f833cdacc1c83d8499d015f6eeb895a827a56",
+      "wall_seconds": 0.6158068170188926,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-readiness-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 1.7351901609799825,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-readiness-fmt.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "/home/ubuntu/joil/.private/v5-workers/codex/g009_workspace_prelink_strip.py",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--no-run"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b8c78dcc46c28da350726e1cd4e3d825814204c555c56304e79ae0fc6ababd00",
+      "wall_seconds": 3.438599055982195,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-readiness-prelink.log"
+    }
+  ],
+  "positive_checks": [
+    "Final actualCargo9/9passes with CARGO_TARGET_DIR absent while--target-dir names the existing provided worker cache, avoiding fresh/default build output outside the lease.",
+    "Final actualCargo9/9passes with the normal provided worker environment; strictClippy and formatting pass.",
+    "The actual child process is killed after checkpoint sync readiness; nonempty checkpoint identity/attempt order, resume and changed-subject refusal assertions remain active.",
+    "The unchanged five-second readiness bound and five-millisecond polling interval are retained; scoped scratch cleans successful roots and preserves failures."
+  ],
+  "negative_checks": [
+    "Frozen original6ba executable passes configured target mode but fails101 with CARGO_TARGET_DIR absent, reproducing CI rather than changing workflow defaults.",
+    "Intermediate5085 Cargo run8/9fails101 on actualemptycheckpointEOF. That source binary and emptycheckpoint SHAe3b0 remain retained; this failure is not reported asPASS.",
+    "Final child creates ready marker onlyafter checkpointwrite+sync; parent kills/reaps its own child before readiness assertion, preventing file-creation from impersonating persistence."
+  ],
+  "negative_controls": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "-u",
+        "CARGO_TARGET_DIR",
+        "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-portability-original/reuse-proof-original",
+        "--exact",
+        "nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "log_sha256": "ba546e5b750948ddcc4ace468e7a321ee731e041293bba9c6182d6e3a3693c7a",
+      "wall_seconds": 0.00938889803364873,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-portability-original-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "-u",
+        "CARGO_TARGET_DIR",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--target-dir",
+        "/home/ubuntu/joil/.private/v5-workers/codex/target",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "log_sha256": "e0ec21e87d5ca28b88b55be7db8ba6a9de141ec307588aebd479f575dc948e04",
+      "wall_seconds": 5.0990319839911535,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-portability-cargo-default.log"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "packs/bracket/tests/reuse_proof.rs",
+      "sha256": "740a2bfc58befcb5b3ed0ef9a99c9a07ee1e56cbc749b1fff2109f045401e8e5"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-portability-original/reuse-proof-original",
+      "sha256": "18409b43200166c2b14c8d98f08d7f3fac2b287c7956cc158990fc2bbc475ae1"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-failed-39127457544/source-binding.json",
+      "sha256": "0361c5d3de45fb18e65ea90f8df2bc268fbe70a63fa3fbdfc598b1d42ffc9d6a"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-ci-readiness-race-scope-and-retention.json",
+      "sha256": "e82a7e039a757147cf5d0fde924b4451e26275e72819cb24d7ba17a2a4698e9e"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      32,
+      33
+    ],
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 6.0,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false
+  },
+  "packet_acceptance": false,
+  "scientific_admission": false,
+  "failed_ci": {
+    "run": 39127457544,
+    "head": "6ba77cafc61f7f0611f1bb6213140da2c5cbbfdf",
+    "checkout": "d634f4184a4f7324680ca565744b41697cff9c6d",
+    "checkout_tree": "53468e282297b2ca85b6af6f60710c9ac88dfeef",
+    "source_files_hash_verified": 753,
+    "successful_suites": 7,
+    "failing_suite": "rust-tests",
+    "raw_job_log_sha256": "5ca174e7efcf62ff023f2ceb16cfa8d9550f04ac3568f4f2081b14379db826ad",
+    "original_fixture_identical_to_main": "c212d251a5e3f032521f742dbacc9495c4974151"
+  },
+  "source_history": {
+    "initial_portability_fix": "5085dd1f980c9d8505b010628effae5d813df38b",
+    "sync_readiness_fix": "2c921e234c62e45fca7a10a2b90ca7f0c8dd4706"
+  },
+  "limitations": [
+    "Test fixture change only; production code, numerical/physical thresholds, model/configuration defaults and scientific STATUS remain unchanged.",
+    "This receipt establishes focusedsourceverification, not an all8officialsuite or CIpass for the repair head. Published6ba local8pass remains distinct from its actualCIred.",
+    "Current canonical and primary-mirror counts remain85done/75blocked/0review/0todo,16packets5/5; no G011promotion is claimed.",
+    "Broader Wave7/8 prompt and dispatcher request a combined-head gate; no second85-only fullgate or repaired-head push has been performed.",
+    "Original logs, binaries, priorreceiptversions and failedemptycheckpoint remain unchanged; success cleanup is restricted to newlyowned test roots."
+  ],
+  "next_dependency": "Supervisor G011 handoff or direct-user scope clarification. Review supplied six Wave7/8 source commits/receipts/substitutions before any further acceptance; execute all8officialsuites/10steps on the final combined committed head, public/index review, normalPR8push and fresh exact-headCI. No merge or force push."
+}

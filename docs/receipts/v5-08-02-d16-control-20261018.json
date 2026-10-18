@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "kind": "executed_frozen_source_defect_control",
+  "packet": "V5-08",
+  "task_ids": [
+    "V5-08-02"
+  ],
+  "owner": "3128818.joil_v5_codex_lane1",
+  "created_utc": "2026-10-18T11:38:15.095954+00:00",
+  "tested_commit": "8d8d67c44658e615ea588666edba60a704acb78b",
+  "changed_paths": [
+    "docs/receipts/v5-08-02-d16-control-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-16",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-positive.log",
+      "log_sha256": "02c0c0ea4fffd21a67532b7cf980fdf008324838d881170df6af9637a075c000",
+      "note": "Fresh frozen Rust/Python D-16 positive control."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/check-public.log",
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4"
+    }
+  ],
+  "positive_checks": [
+    "D-16 positive returned exit 0; inactive baselines and the in-band recorded program agreed at 54 points.",
+    "Public candidate scan passed (977 files)."
+  ],
+  "negative_checks": [
+    "D-16 red returned exit 1 with C006-RED D-16: wall_authorities_disagree; recorded out-of-band TPMS case max_abs_diff_mm=0.0254179.",
+    "This is a frozen software mismatch; accepted boundary corpus and third CAD authority remain unavailable."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/kernel.rs",
+      "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
+    }
+  ],
+  "resource_allocation": {
+    "logical_cpus": [
+      36,
+      37
+    ],
+    "memory_gib_cap": 6,
+    "scratch_gib_cap": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "frozen_rust": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen",
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target"
+  },
+  "limitations": [
+    "D-16 control is frozen-source software evidence, not a geometry repair or physical qualification.",
+    "The positive sample does not establish the full authority mismatch envelope."
+  ],
+  "next_dependency": "Obtain the accepted boundary corpus, reconcile the third CAD authority, and independently repair and validate wall authority agreement before physical geometry claims.",
+  "defect_controls": [
+    {
+      "defect_id": "D-16",
+      "fixture": {
+        "path": "crates/crucible-geom/tests/kernel.rs",
+        "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/phenotype.rs",
+        "symbol": "Phenotype3D::inner_radius_mm",
+        "sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-16",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-positive.log",
+        "log_sha256": "02c0c0ea4fffd21a67532b7cf980fdf008324838d881170df6af9637a075c000",
+        "expected_result": "Frozen D-16 positive: baseline and in-band recorded Wave-2 case agree. "
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-16",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-red.log",
+        "log_sha256": "19ea08d55723ef7f23bf4da45e02f4ed7b9a7ae30c8241741217535b2fe41433",
+        "expected_result": "C006-RED D-16: wall_authorities_disagree"
+      }
+    }
+  ],
+  "control_log_bindings": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-positive.log",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-positive.log",
+      "log_sha256": "02c0c0ea4fffd21a67532b7cf980fdf008324838d881170df6af9637a075c000",
+      "exit_code": 0
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-red.log",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-red.log",
+      "log_sha256": "19ea08d55723ef7f23bf4da45e02f4ed7b9a7ae30c8241741217535b2fe41433",
+      "exit_code": 1
+    }
+  ],
+  "task_completion": true,
+  "scientific_admission": false
+}

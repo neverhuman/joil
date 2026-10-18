@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "kind": "v5_29_software_acceptance_receipt",
+  "packet": "V5-29",
+  "task_ids": [
+    "V5-29-01",
+    "V5-29-02",
+    "V5-29-03",
+    "V5-29-04",
+    "V5-29-05"
+  ],
+  "owner": "1052087.joil_v5_claude",
+  "state": "software_acceptance_recorded",
+  "packet_acceptance": false,
+  "packet_acceptance_scope": "Software verification at tested_commit only. Scientific admission is false. No physical bracket data or measured validation is claimed.",
+  "scientific_admission": false,
+  "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
+  "changed_paths": [
+    "packs/bracket/Cargo.toml",
+    "packs/bracket/src/lib.rs",
+    "packs/bracket/tests/reuse_proof.rs",
+    "campaigns/bracket-v5-fixture.toml",
+    "tests/fixtures/v5-bracket/input.json",
+    "tests/fixtures/v5-bracket/expected-card.svg"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/crucible-cli-lifecycle.log",
+      "log_sha256": "a9bda449c1121fc2a953501590df6b5d1b1d8bb01ab29af635276dceb2dc326c",
+      "expected_result": "lifecycle test binary passes with 0 failures.",
+      "observed_result": "test result: ok. 3 passed; 0 failed; finished in 179.40s."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "expected_result": "claims_audit OK.",
+      "observed_result": "claims_audit: OK (152 structured receipt claims + 1462 markdown numeric tokens verified; 135 review findings traced; 23 strong-wording claims checked)."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
+      "log_sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66",
+      "expected_result": "PASS public candidate files checked.",
+      "observed_result": "PASS: 981 public candidate files checked; private deny rules applied=True."
+    }
+  ],
+  "positive_checks": [
+    "V5-29-01: packs/bracket and campaigns/bracket-v5-fixture.toml are tracked at tested_commit and the claims audit and public check pass there. The bracket pack's own contract is not exercised by the lifecycle suite (see limitations).",
+    "V5-29-02: lifecycle suite passes 3/3, including actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import, which exercises the CLI campaign path end to end.",
+    "V5-29-03: bounded_wait_drains_small_pipes_before_child_exit and quiescent_charge_oracle_preserves_retries_and_rejects_unaccounted_attempts pass.",
+    "V5-29-04: the bracket fixture (tests/fixtures/v5-bracket) is tracked and public-checked; the rendered card is not re-rendered in this wave.",
+    "V5-29-05: this receipt records the generalization boundary and the claims audit passes at tested_commit."
+  ],
+  "negative_checks": [
+    "V5-29-01: crucible-cli lifecycle negative paths (worker kill, replay, retry-cost and stop) pass; these are CLI-level negatives, not bracket-pack negatives.",
+    "V5-29-03: quiescent_charge_oracle_preserves_retries_and_rejects_unaccounted_attempts passes, so unaccounted cost attempts are rejected.",
+    "V5-29-04: no bracket-specific blocked-physical-claim negative is executed in this wave.",
+    "V5-29-05: no generalization test beyond the bracket fixture was executed."
+  ],
+  "artifacts": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/crucible-cli-lifecycle.log",
+      "sha256": "a9bda449c1121fc2a953501590df6b5d1b1d8bb01ab29af635276dceb2dc326c"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/claims-audit.log",
+      "sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
+      "sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66"
+    }
+  ],
+  "resource_allocation": {
+    "host": "xbabe2 (shared)",
+    "cpus": "unpinned; no taskset or cgroup lease applied to this wave",
+    "cargo_build_jobs": "cargo default; CARGO_BUILD_JOBS not set",
+    "cargo_target_dir": "/home/ubuntu/joil/.private/worktrees/v5-claude-truth/target (lane default, not a per-task target)",
+    "incremental": false,
+    "debug_info": "line-tables-only",
+    "gpu": false,
+    "simulation": false,
+    "search_campaign": false,
+    "private_log_root": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31"
+  },
+  "limitations": [
+    "Software acceptance only. The bracket fixture is SYNTHETIC/elementary; this receipt does not establish physical bracket behaviour, measured data or solver validation.",
+    "scientific_admission is false. No physical bracket campaign was run.",
+    "The lifecycle suite was the command assigned for this wave. It does not exercise packs/bracket/tests/reuse_proof.rs; the bracket pack tests were NOT re-run at tested_commit in this wave and are not cited as evidence here.",
+    "changed_paths lists the V5-29 write-scope files verified at tested_commit (integrated at 3bedc9b and 1d7f2e2). No file in those paths changed in this receipt-only wave.",
+    "V5-29-05 generalization boundary is limited to the bracket fixture; no second domain beyond the repository was exercised.",
+    "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
+  ],
+  "next_dependency": "Run packs/bracket reuse_proof tests at a tested commit so the bracket pack itself is bound, then an independent review of the offline dossier before any domain-generalization claim.",
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+      "sha256": "b883405b50bbbc28ae2cfdd72abfea461fcf3f1d389a09e2b1f24ac391d3b00b"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
+}

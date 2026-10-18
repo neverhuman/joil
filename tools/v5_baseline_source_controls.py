@@ -53,8 +53,10 @@ ROWS = {
              'assertion': 'An equal-IR mesh with k sealed closed shells beyond the open fluid shell reports trapped_powder_cavities >= k; with k = 0 nothing is trapped and terminals stay reachable.',
              'positive': 'Frozen compiled baseline mesh (open connected cavity, k = 0).',
              'red': 'Same IR and mesh plus one SYNTHETIC sealed tetrahedral shell inside the wall band (k = 1).'},
-    'D-07': {'kind': 'blocked',
-             'blocker': 'Needs one accepted solid artifact with independently integrated volume (V5-13 input); frozen Phenotype3D::from_program has no seam accepting an arbitrary solid, so neither the positive nor the red can run on the frozen component.'},
+    'D-07': {'kind': 'runtime', 'rust': True,
+             'assertion': 'Reported head solid volume and Ti-6Al-4V mass equal density times volume in declared units and never change between two programs whose compiled SolidMesh has identical integrated volume.',
+             'positive': 'Frozen Phenotype3D::from_program on DesignProgram::baseline_ct35() (watertight mesh, mass = 4.43 g/cm^3 * head_solid_volume_mm3 * 1e-3).',
+             'red': 'Frozen Phenotype3D::from_program on two active Gyroid TPMS programs with radial_inner_fraction 0.62 vs 0.84: compiled SolidMesh signed_volume is identical, yet reported head_solid_volume_mm3 and head_mass_ti64_g change.'},
     'D-10': {'kind': 'static',
              'assertion': 'STATIC: quantities declared by both frozen requirement sources admit a common value.',
              'positive': 'Quality and stretch limits (v1 thresholds vs RS-v1 quality).',
@@ -121,7 +123,7 @@ PYTHON_SOURCES = {
     'D-30': ['tools/generate_gci_rsm_report_and_figures.py', 'analysis/kpi_fitness.py'],
     'D-31': ['tools/claims_audit.py'],
 }
-RUST_ARTIFACTS = {'D-05': ['libjoil_core', 'libjoil_ir'], 'D-16': ['libjoil_core', 'libjoil_ir'], 'D-17': ['libjoil_core', 'libjoil_ir'],
+RUST_ARTIFACTS = {'D-05': ['libjoil_core', 'libjoil_ir'], 'D-07': ['libjoil_core', 'libjoil_ir'], 'D-16': ['libjoil_core', 'libjoil_ir'], 'D-17': ['libjoil_core', 'libjoil_ir'],
                   'D-24': ['joil-cli'], 'D-30': ['libjoil_core', 'libjoil_ir']}
 ARTIFACT_FILES = {'libjoil_core': 'libjoil_core.rlib', 'libjoil_ir': 'libjoil_ir.rlib', 'joil-cli': 'joil-cli'}
 BUILD_ARGV = ['cargo', 'build', '--locked', '--offline', '--manifest-path', '<frozen-e1-extract>/Cargo.toml',
@@ -287,6 +289,7 @@ def load_module(name, path, dest):
 RUST_PROBE = r'''
 // C006 probe of frozen e1e9203 components. SYNTHETIC inputs only; no GPU, CFD or search.
 use joil_core::{evolve, geometry, metrics, program, structure};
+use joil_core::program::{DesignProgram, TpmsBasis, TpmsInsert3D};
 use joil_ir::{BackendId, IrCompiledMesh, VoxelSdfObserver};
 
 fn num(x: Option<f64>) -> String { x.map(|v| format!("{v:?}")).unwrap_or_else(|| "null".into()) }
@@ -294,6 +297,40 @@ fn num(x: Option<f64>) -> String { x.map(|v| format!("{v:?}")).unwrap_or_else(||
 fn main() {
     let a: Vec<String> = std::env::args().collect();
     match a[1].as_str() {
+        "d07" => {
+            let compile = |p: &DesignProgram| {
+                let (pheno, mesh) = joil_core::phenotype::Phenotype3D::from_program(p).unwrap();
+                let census = mesh.edge_census();
+                (pheno, mesh.signed_volume(), census.open_boundary_edges, census.non_manifold_edges)
+            };
+            if a[2] == "baseline" {
+                let (pheno, mesh_signed_volume_mm3, open_boundary_edges, non_manifold_edges) =
+                    compile(&DesignProgram::baseline_ct35());
+                println!("{{\"head_solid_volume_mm3\":{:?},\"head_mass_ti64_g\":{:?},\"mesh_signed_volume_mm3\":{:?},\"open_boundary_edges\":{},\"non_manifold_edges\":{}}}",
+                    pheno.head_solid_volume_mm3, pheno.head_mass_ti64_g, mesh_signed_volume_mm3,
+                    open_boundary_edges, non_manifold_edges);
+            } else {
+                let make = |radial_inner_fraction| {
+                    let mut p = DesignProgram::baseline_ct35();
+                    p.tpms_insert = TpmsInsert3D {
+                        basis: TpmsBasis::Gyroid,
+                        radial_inner_fraction,
+                        sheet_thickness_mm: 1.6,
+                        radial_wavelength_mm: 8.0,
+                        axial_wavelength_mm: 14.0,
+                        axial_start_mm: 22.0,
+                        axial_end_mm: 58.0,
+                    };
+                    p
+                };
+                let (pa, va, oa, na) = compile(&make(0.62));
+                let (pb, vb, ob, nb) = compile(&make(0.84));
+                println!("{{\"a\":{{\"head_solid_volume_mm3\":{:?},\"head_mass_ti64_g\":{:?},\"mesh_signed_volume_mm3\":{:?},\"open_boundary_edges\":{},\"non_manifold_edges\":{}}},\"b\":{{\"head_solid_volume_mm3\":{:?},\"head_mass_ti64_g\":{:?},\"mesh_signed_volume_mm3\":{:?},\"open_boundary_edges\":{},\"non_manifold_edges\":{}}},\"delta_mesh_signed_volume_mm3\":{:?},\"delta_head_mass_ti64_g\":{:?}}}",
+                    pa.head_solid_volume_mm3, pa.head_mass_ti64_g, va, oa, na,
+                    pb.head_solid_volume_mm3, pb.head_mass_ti64_g, vb, ob, nb,
+                    (vb - va).abs(), (pb.head_mass_ti64_g - pa.head_mass_ti64_g).abs());
+            }
+        }
         "d05" => {
             let p = program::DesignProgram::baseline_ct35();
             let ir = geometry::compile_design_ir(&p).unwrap();
@@ -399,6 +436,25 @@ def control_d05(mode, ctx):
     if obs['trapped_powder_cavities'] < k:
         raise Red(f'sealed_pocket_not_reported_as_powder trapped_powder={obs["trapped_powder_cavities"]} '
                   f'trapped_fluid={obs["trapped_fluid_cavities"]} sealed_shells={k}')
+    return obs
+
+
+def control_d07(mode, ctx):
+    if mode == 'positive':
+        obs = probe(ctx['rust'], ctx['scratch'], 'd07', 'baseline')
+        expected_mass = obs['head_solid_volume_mm3'] * 1e-3 * 4.43
+        if (obs['open_boundary_edges'] != 0 or obs['non_manifold_edges'] != 0
+                or abs(obs['head_solid_volume_mm3'] - 128_835.217) > 1e-9
+                or abs(obs['head_mass_ti64_g'] - expected_mass) > 1e-12):
+            raise Red(f'baseline_volume_or_mass_invariant_failed {json.dumps(obs)}')
+        return obs
+    obs = probe(ctx['rust'], ctx['scratch'], 'd07', 'tpms_pair')
+    a, b = obs['a'], obs['b']
+    if (abs(obs['delta_head_mass_ti64_g']) > 1e-9
+            and obs['delta_head_mass_ti64_g'] > 0
+            and obs['delta_mesh_signed_volume_mm3'] <= 1e-9
+            and abs(a['mesh_signed_volume_mm3'] - b['mesh_signed_volume_mm3']) <= 1e-9):
+        raise Red(f'mass_change_unsupported_by_compiled_solid {json.dumps(obs)}')
     return obs
 
 
@@ -682,7 +738,7 @@ def control_d31(mode, ctx):
     return obs
 
 
-CONTROLS = {'D-05': control_d05, 'D-10': control_d10, 'D-14': control_d14, 'D-16': control_d16, 'D-17': control_d17, 'D-22': control_d22,
+CONTROLS = {'D-05': control_d05, 'D-07': control_d07, 'D-10': control_d10, 'D-14': control_d14, 'D-16': control_d16, 'D-17': control_d17, 'D-22': control_d22,
             'D-24': control_d24, 'D-25': control_d25, 'D-27': control_d27, 'D-30': control_d30,
             'D-31': control_d31}
 

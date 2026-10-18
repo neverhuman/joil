@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "kind": "v5_31_software_acceptance_receipt",
+  "packet": "V5-31",
+  "task_ids": [
+    "V5-31-01",
+    "V5-31-02",
+    "V5-31-03",
+    "V5-31-04",
+    "V5-31-05"
+  ],
+  "owner": "1052087.joil_v5_claude",
+  "state": "software_acceptance_recorded",
+  "packet_acceptance": false,
+  "packet_acceptance_scope": "Software verification at tested_commit only, including the executed D-30 primary defect control for V5-31-02. Scientific admission is false. Clean source/head CI, the single draft PR and the owner merge are not claimed here.",
+  "scientific_admission": false,
+  "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
+  "changed_paths": [
+    "Cargo.lock",
+    "tools/check_public.py",
+    "docs/release/v5/EXTERNAL_DATA_REQUESTS.json",
+    "docs/release/v5/OWNER_APPROVAL_DOSSIERS.md",
+    "README.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/crucible-cli-lifecycle.log",
+      "log_sha256": "a9bda449c1121fc2a953501590df6b5d1b1d8bb01ab29af635276dceb2dc326c",
+      "expected_result": "lifecycle test binary passes with 0 failures.",
+      "observed_result": "test result: ok. 3 passed; 0 failed; finished in 179.40s."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-30",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/claude/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+      "log_sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82",
+      "expected_result": "C006 frozen-source positive control: assertion_holds=true; analytic monotone refinement p=2 and passive-tracer concentration 200.0 agree between Rust and Python.",
+      "observed_result": "assertion_holds=true; monotone observed_order_p=2.0 (rust and python); tracer=200.0 (rust and python)."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "expected_result": "claims_audit OK.",
+      "observed_result": "claims_audit: OK (152 structured receipt claims + 1462 markdown numeric tokens verified; 135 review findings traced; 23 strong-wording claims checked)."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
+      "log_sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66",
+      "expected_result": "PASS public candidate files checked.",
+      "observed_result": "PASS: 981 public candidate files checked; private deny rules applied=True."
+    }
+  ],
+  "positive_checks": [
+    "V5-31-01: this receipt binds tested_commit, changed paths, exact commands with exit codes, and log SHA-256 values for every V5-31 check.",
+    "V5-31-02: D-30 positive control passes on the frozen e1e9203 GCI/KPI sources (analytic monotone p=2 and tracer 200.0 agree).",
+    "V5-31-03: check_public passes (981 files) and claims_audit is OK at tested_commit; no CI run is cited.",
+    "V5-31-04: the claims audit and public check pass for the release-scope documents at tested_commit.",
+    "V5-31-05: this receipt records, in limitations, the open items for V5-31-01..05 and a next dependency; the merge is not performed."
+  ],
+  "negative_checks": [
+    "V5-31-02: D-30 red control on the frozen sources returns C006-RED (exit 1): Rust reports concentration overflow while Python reports inf for the same synthetic overflow input. The Rust/Python duplicate disagreement is therefore reproduced on frozen code.",
+    "V5-31-01: no draft PR is opened or inspected in this wave; the negative is that this receipt is not a PR and carries no merge claim.",
+    "V5-31-03: no CI workflow run is executed; the negative is that CI status is not asserted here.",
+    "V5-31-04: no reference-only release build is executed in this wave.",
+    "V5-31-05: no owner merge is performed or implied."
+  ],
+  "defect_controls": [
+    {
+      "defect_id": "D-30",
+      "fixture": {
+        "path": "tools/v5_baseline_source_controls.py",
+        "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_gci_rsm_report_and_figures.py",
+        "symbol": "compute_roache_3grid_gci_v2",
+        "sha256": "ee090ae4396ff2d0dc43aaa6cf2282a78a6aa7e6a76b84cb79b8abe08672e77d"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-30",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/claude/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82",
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+        "expected_result": "C006 frozen-source positive control: assertion_holds=true.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log"
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-30",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/claude/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "4baf2b89ee51fededa04a471f5a4f65e3bb4f2d6df0e33f225fe5a54ad0241c9",
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
+        "expected_result": "C006-RED D-30: explicit_state_disagrees (Rust and Python disagree on an overflow concentration).",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "tools/v5_baseline_source_controls.py",
+      "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/crucible-cli-lifecycle.log",
+      "sha256": "a9bda449c1121fc2a953501590df6b5d1b1d8bb01ab29af635276dceb2dc326c"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+      "sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
+      "sha256": "4baf2b89ee51fededa04a471f5a4f65e3bb4f2d6df0e33f225fe5a54ad0241c9"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/claims-audit.log",
+      "sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
+      "sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66"
+    }
+  ],
+  "resource_allocation": {
+    "host": "xbabe2 (shared)",
+    "cpus": "unpinned; no taskset or cgroup lease applied to this wave",
+    "cargo_build_jobs": "cargo default; CARGO_BUILD_JOBS not set",
+    "cargo_target_dir": "/home/ubuntu/joil/.private/worktrees/v5-claude-truth/target (lane default, not a per-task target)",
+    "incremental": false,
+    "debug_info": "line-tables-only",
+    "gpu": false,
+    "simulation": false,
+    "search_campaign": false,
+    "private_log_root": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31"
+  },
+  "limitations": [
+    "Software acceptance only. The D-30 controls use SYNTHETIC inputs (analytic refinement and an overflow fixture); they do not establish physical GCI validity or solver admission.",
+    "scientific_admission is false.",
+    "D-30 is a frozen-source control: the red shows the frozen e1e9203 Rust and Python GCI/KPI copies disagree on an overflow case. It does not show the current checkout has been repaired; the duplicate-logic repair (V5-31-02 parity) remains open.",
+    "V5-31-01 requires one draft PR of contract-first commits. No PR is opened or inspected here; the PR and its tested head are not claimed.",
+    "V5-31-03 requires clean source/head CI. No CI run is executed or cited here.",
+    "V5-31-04 reference-only release scope is not reconciled here; no release build is run.",
+    "V5-31-05 exact-head handoff and owner merge are not performed; the merge remains with the owner.",
+    "The assigned command set does not run cargo test for every workspace package; only the crucible-cli lifecycle suite, the D-30 controls, the claims audit and the public check are recorded for this packet.",
+    "changed_paths lists V5-31 write-scope files verified at tested_commit. No file in those paths changed in this receipt-only wave.",
+    "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
+  ],
+  "next_dependency": "Open the single draft PR from the tested head, obtain clean CI at its exact head, reconcile the D-30 parity repair, and leave the merge to the owner.",
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
+      "sha256": "0dcb5fb56055ce4141bc0b7a6abcd2cb2c2d2ee8035a2a3e00d22f518345eede"
+    },
+    "resolved_log_paths": [
+      {
+        "node": "docs/receipts/v5-31-software-acceptance-20261018.json.defect_controls[0].positive",
+        "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+        "sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82"
+      },
+      {
+        "node": "docs/receipts/v5-31-software-acceptance-20261018.json.defect_controls[0].red",
+        "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
+        "sha256": "4baf2b89ee51fededa04a471f5a4f65e3bb4f2d6df0e33f225fe5a54ad0241c9"
+      }
+    ],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
+}

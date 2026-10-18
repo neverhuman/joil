@@ -75,10 +75,10 @@ fn absent_oil_judge_cannot_be_marked_not_applicable_by_caller_alone() {
 #[test]
 fn nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts() {
     let campaign: Campaign = toml::from_str(CAMPAIGN).unwrap();
-    let root = std::env::var_os("CARGO_TARGET_DIR")
-        .map(std::path::PathBuf::from)
-        .expect("lane target directory required");
-    let path = root.join(format!("bracket-kill-resume-{}.json", std::process::id()));
+    let _scratch = scratch::TestScratch::new();
+    let root = scratch::TestScratch::path("bracket-kill-resume");
+    std::fs::create_dir_all(&root).unwrap();
+    let path = root.join("checkpoint.json");
     let mut child = Command::new(std::env::current_exe().unwrap())
         .args([
             "--exact",
@@ -90,16 +90,15 @@ fn nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts() {
         .stderr(Stdio::null())
         .spawn()
         .unwrap();
+    let ready = path.with_extension("ready");
     let started = Instant::now();
-    while !path.exists() && started.elapsed() < Duration::from_secs(5) {
+    while !ready.exists() && started.elapsed() < Duration::from_secs(5) {
         std::thread::sleep(Duration::from_millis(5));
     }
-    assert!(
-        path.exists(),
-        "checkpoint child did not persist its attempt"
-    );
+    let persisted = ready.exists();
     child.kill().unwrap();
     let status = child.wait().unwrap();
+    assert!(persisted, "checkpoint child did not sync its attempt");
     assert!(
         !status.success(),
         "child should have been killed after checkpoint sync"
@@ -108,7 +107,6 @@ fn nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts() {
     let mut restored: pack_bracket::CampaignCheckpoint = serde_json::from_slice(&bytes).unwrap();
     assert_eq!(restored.next_ordinal, 1);
     assert_eq!(restored.attempts.len(), 1);
-    std::fs::remove_file(path).unwrap();
     pack_bracket::advance_campaign(&campaign, &mut restored, 8).unwrap();
     assert_eq!(restored.next_ordinal, 3);
     assert_eq!(
@@ -134,10 +132,15 @@ fn checkpoint_child_persists_nonempty_state() {
     let campaign: Campaign = toml::from_str(CAMPAIGN).unwrap();
     let mut state = pack_bracket::start_campaign(&campaign).unwrap();
     pack_bracket::advance_campaign(&campaign, &mut state, 1).unwrap();
-    let mut file = std::fs::File::create(path).unwrap();
+    let path = std::path::PathBuf::from(path);
+    let mut file = std::fs::File::create(&path).unwrap();
     file.write_all(&serde_json::to_vec(&state).unwrap())
         .unwrap();
     file.sync_all().unwrap();
+    std::fs::File::create(path.with_extension("ready"))
+        .unwrap()
+        .sync_all()
+        .unwrap();
     loop {
         std::thread::sleep(Duration::from_secs(1));
     }

@@ -3,64 +3,34 @@
   "packet": "V5-24",
   "tasks": {
     "V5-24-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: No measured native acceleration capability comparison or GPU lease. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     },
     "V5-24-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Bounded CPU spring/LBM references exist; GPU kernels and production parity absent. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     },
     "V5-24-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Elementary fixtures do not qualify turbulent deoiling or continuum collapse. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     },
     "V5-24-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: No held-out paired decision-quality/speedup admission evidence. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     },
     "V5-24-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Reference fallback software exists; mature native reference qualification still required. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     }
   }
 }

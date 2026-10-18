@@ -113,7 +113,62 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+          "sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "crates/joil-core/src/phenotype.rs",
+          "symbol": "Phenotype3D::from_program",
+          "sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+        },
+        "fixture": {
+          "path": "tests/test_v5_baseline_source_controls.py",
+          "sha256": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-07",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-pos",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+          ],
+          "exit_code": 0,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-positive.log",
+          "log_sha256": "7169acdae3a1434df33cddc09f5d25f6ec5605f84db6814b2509ecad4d52b3d9",
+          "expected_result": "C006 frozen-source positive completed with assertion_holds=true; baseline mesh watertight, volume=128835.217 mm3, density-derived mass within 1e-12 g."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-07",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-red",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+          ],
+          "exit_code": 1,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-red.log",
+          "log_sha256": "8bf32275cfd10e7da8aa8ce1cda3d3f2ebc7fd07d635014fb72fdedc8e393c69",
+          "expected_result": "C006-RED D-07: mass_change_unsupported_by_compiled_solid; identical signed mesh volume with a 39.42736202906883 g reported mass delta."
+        },
+        "integration_source_commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-08",
@@ -223,7 +278,68 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "physics/openfoam/oil/oil_grade.py",
+          "symbol": "select_flux_weighted_inlet_seeds",
+          "sha256": "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d"
+        },
+        "fixture": {
+          "path": "crates/crucible-particles/tests/transport.rs",
+          "sha256": "f7357ebbebd7acb2c7261c9e647a161ed303adf24582a612a27ea04b835a12b1"
+        },
+        "positive": {
+          "argv": [
+            "nice",
+            "-n",
+            "10",
+            "rtk",
+            "proxy",
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-14",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-pos"
+          ],
+          "exit_code": 0,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-positive.log",
+          "log_sha256": "f5ac8c8f192c9f5b05aa7b2d12b73a68f7770253de1d8d886dd91ae129e5ccbf",
+          "expected_result": "C006 frozen-source positive control completed with assertion_holds=true."
+        },
+        "red": {
+          "argv": [
+            "nice",
+            "-n",
+            "10",
+            "rtk",
+            "proxy",
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-14",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-red"
+          ],
+          "exit_code": 1,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-red.log",
+          "log_sha256": "a55bbc16f7d0a5851ea535920d9e139e182a064980a5d6888b5cb3a2de463a1f",
+          "expected_result": "C006-RED D-14: seed_share_ignores_inward_flux; inward-flux share rejects equal-speed seed weighting."
+        },
+        "integration_source_commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-15",
@@ -256,7 +372,62 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+          "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "crates/joil-core/src/phenotype.rs",
+          "symbol": "Phenotype3D::inner_radius_mm",
+          "sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+        },
+        "fixture": {
+          "path": "crates/crucible-geom/tests/kernel.rs",
+          "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-16",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-pos",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+          ],
+          "exit_code": 0,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-positive.log",
+          "log_sha256": "02c0c0ea4fffd21a67532b7cf980fdf008324838d881170df6af9637a075c000",
+          "expected_result": "Frozen D-16 positive: baseline and in-band recorded Wave-2 case agree."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-16",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-red",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+          ],
+          "exit_code": 1,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-red.log",
+          "log_sha256": "19ea08d55723ef7f23bf4da45e02f4ed7b9a7ae30c8241741217535b2fe41433",
+          "expected_result": "C006-RED D-16: wall_authorities_disagree"
+        },
+        "integration_source_commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-17",
@@ -287,7 +458,60 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+          "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "crates/joil-core/src/evolve.rs",
+          "symbol": "island offspring loop",
+          "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+        },
+        "fixture": {
+          "path": "tools/v5_d18_scheduler_control.py",
+          "sha256": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_d18_scheduler_control.py",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-pos",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+          ],
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+          "log_sha256": "461b296892a93f15891367e8d0e7669de29c2e82056c643c9999f93e4447e56e",
+          "exit_code": 0,
+          "raw_log": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+          "expected_result": "assertion_holds=true; total_evaluations=3; active_concurrent_evaluator_tasks=1; unleased_child_evaluator_processes=0"
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_d18_scheduler_control.py",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+          ],
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red.log",
+          "log_sha256": "4314becba7d61bd485cd39c43e6436122aa473acf0a2c19f2a78cc5e198e25c1",
+          "exit_code": 1,
+          "raw_log": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red.log",
+          "expected_result": "C006-RED D-18: unleased_serial_island_loop; fake evaluator invocations recorded with monotonic timestamps"
+        },
+        "integration_source_commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-19",
@@ -396,7 +620,58 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "docs/design/GENOME_V4.md",
+          "symbol": "review defaults",
+          "sha256": "7521d8334604130f8bfbe54ac9738fc41cca359151f47664890c8fcd50514095"
+        },
+        "fixture": {
+          "path": "crates/crucible-genome/tests/operators.rs",
+          "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-25",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-pos"
+          ],
+          "exit_code": 0,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-positive.log",
+          "log_sha256": "2b5bac3ebcd3b8c7106d45fb6fa2ca2e1134543e90bcf02ef4057be8654f3abb",
+          "expected_result": "Frozen GENOME_V4 judge clause positive holds."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-25",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-red"
+          ],
+          "exit_code": 1,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-red.log",
+          "log_sha256": "31426891a89d27e472265cdc0ec7a71a372c9ea534e8431e933f24917516cc08",
+          "expected_result": "C006-RED D-25: policy_admits_agent_proposals_in_search_loop"
+        },
+        "integration_source_commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-26",

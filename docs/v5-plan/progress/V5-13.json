@@ -3,64 +3,34 @@
   "packet": "V5-13",
   "tasks": {
     "V5-13-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "in_progress",
+      "owner": "codex_lane2",
+      "note": "Unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062). Active worker lane codex_lane2 executing implementation and verification receipt for origin/main. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     },
     "V5-13-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "D-07 remains kind:blocked: no frozen accepted-solid/integrated-volume seam. Assertion-inversion control is explicitly withdrawn; manufacturing tests provide integration-only support.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     },
     "V5-13-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     },
     "V5-13-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     },
     "V5-13-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     }
   }
 }

@@ -1,0 +1,83 @@
+{
+  "schema": "joil.v5.software-acceptance.v1",
+  "packet": "V5-24",
+  "task_ids": [
+    "V5-24-01",
+    "V5-24-02",
+    "V5-24-03",
+    "V5-24-04",
+    "V5-24-05"
+  ],
+  "tested_commit": "5e3cd22a6a17d75890d03299521e37faf2b50162",
+  "changed_paths": [
+    "docs/receipts/v5-24-software-acceptance-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-store",
+        "--test",
+        "store"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b979a318e684caf2be119bf84bf8ceb2aed4454bb97fc6e12155734f563cbf0c",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/crucible-store-test.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/check-public.log"
+    }
+  ],
+  "positive_checks": [
+    "crucible-store store suite passed 13 tests, including crash-boundary, integrity, remote-pointer and export-safety checks.",
+    "Publication check passed: 978 public candidate files checked."
+  ],
+  "negative_checks": [
+    "Storage/publication software behavior only; no scientific admission or accelerator qualification is established."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-store/tests/store.rs",
+      "sha256": "89cf8c2f4162596abe18e983324accc70e5111c85e8e25928287c03a82ca97f3"
+    }
+  ],
+  "resource_allocation": {
+    "cpus_available": 1,
+    "execution": "serial",
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target"
+  },
+  "limitations": [
+    "Software/harness verification only; scientific admission remains false."
+  ],
+  "next_dependency": "Integrator acceptance and scientific evidence gates remain separate.",
+  "packet_acceptance": false,
+  "scientific_admission": false,
+  "agent_trailers": {
+    "Agent-Session": "lane3-wave6-v5-21-22-24",
+    "Agent-Model": "gpt-6-luna medium",
+    "Agent-Task": "V5-21-01 V5-21-02 V5-21-03 V5-21-04 V5-21-05 V5-22-01 V5-22-02 V5-22-03 V5-22-04 V5-22-05 V5-24-01 V5-24-02 V5-24-03 V5-24-04 V5-24-05"
+  },
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-24-software-acceptance-20261018.json",
+      "sha256": "91ef2d3b0091754ac2448c1cea0136e289810b496a5e59f971332d3e596f1003"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "owner": "484638.joil_v5_codex_lane4",
+  "model": "gpt-6-luna medium",
+  "tested_commit": "70d1d3f9c925814fa8d8718fc51980f2c3c27c6e",
+  "changed_paths": [
+    "docs/receipts/v5-25-software-acceptance-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/pack-judges-validation.log",
+      "log_sha256": "efa451a13b5a80308ebb8ef4b65f41c395ec35d6cdbbab7f6e924a6d7ea417a4",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "pack-judges-validation.log completed successfully."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/check-public.log",
+      "log_sha256": "bb3990a0d7f8fb2bd70858267bcb878246d95634ffe8d025752e3743610e863a",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Public-content check passed."
+    }
+  ],
+  "executed_logs": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/pack-judges-validation.log",
+      "log_sha256": "efa451a13b5a80308ebb8ef4b65f41c395ec35d6cdbbab7f6e924a6d7ea417a4",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "pack-judges-validation.log completed successfully."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/check-public.log",
+      "log_sha256": "bb3990a0d7f8fb2bd70858267bcb878246d95634ffe8d025752e3743610e863a",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Public-content check passed."
+    }
+  ],
+  "positive_checks": [
+    "pack-hydrocyclone-judges validation passed (28 tests), including source/licence admission controls, held-out geometry separation, pressure-versus-oil-grade negative control, and launch-gate refusal.",
+    "python3 tools/check_public.py passed with exit 0."
+  ],
+  "negative_checks": [
+    "Negative fixtures reject borrowed commercial PDR as a passing case, changed frozen items, selected-branch generalization, missing startup conditions, and altered evaluator versions. No physical dataset or qualified campaign was admitted."
+  ],
+  "artifacts": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/pack-judges-validation.log",
+      "sha256": "efa451a13b5a80308ebb8ef4b65f41c395ec35d6cdbbab7f6e924a6d7ea417a4"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/check-public.log",
+      "sha256": "bb3990a0d7f8fb2bd70858267bcb878246d95634ffe8d025752e3743610e863a"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": [
+      110,
+      111
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "CARGO_BUILD_JOBS": 2,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Software and harness verification only; no scientific admission, physical validation, qualification, or performance claim.",
+    "Evidence is bounded to the listed source commit, exact commands, and tested targets."
+  ],
+  "next_dependency": "Independent packet review; scientific admission remains dependent on packet-specific external evidence and owner approvals.",
+  "packet_acceptance": false,
+  "scientific_admission": false,
+  "kind": "v5_software_acceptance_receipt",
+  "task_ids": [
+    "V5-25-01",
+    "V5-25-02",
+    "V5-25-03",
+    "V5-25-04",
+    "V5-25-05"
+  ],
+  "software_scope": "V5-25 software acceptance based on the named verification harnesses; scientific admission is explicitly false.",
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
+      "sha256": "451468ebcba9fd051cfe7ca67fe944618ea232efe4c444fbda0bc4c3a4a5c9f4"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
+}
