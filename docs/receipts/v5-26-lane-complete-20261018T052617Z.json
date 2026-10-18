@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "task": "V5-26",
+  "lane": "codex_lane4",
+  "state": "lane_complete",
+  "tested_commit": "8649910a1cfc672da7adf1da2c97426d649c1e6f",
+  "changed_paths_since_prior_receipt": [
+    "Cargo.lock",
+    "crates/crucible-render/Cargo.toml",
+    "crates/crucible-render/src/lib.rs"
+  ],
+  "draft_scaffolding_disclosure": {
+    "Cargo.toml": "The crucible-render workspace member remains draft lane scaffolding for integrator reconciliation.",
+    "Cargo.lock": "Offline metadata registered only crucible-render 0.1.0 and its existing pinned/local dependency graph; no dependency version upgrades or removals. The local lock diff is lane-only scaffolding, not a canonical integrator lock update.",
+    "V5-10": "Future surface/export bundle supplies exact artifact digest, SI unit/frame and canonical GLB path; no concrete V5-10 API was available in this lane.",
+    "crucible-cli": "Render subcommand remains integrator-owned and is not wired here."
+  },
+  "commands": [
+    {"command":"rtk proxy taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target cargo test --locked -p crucible-render","exit_code":0,"log_path":"/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-rust-test.log","log_sha256":"f7bcdfff938bf4ed18cf5f7e2e12764cfb22e8e187779ca1bef3caf0b47de495"},
+    {"command":"rtk proxy taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target cargo clippy --locked -p crucible-render --all-targets -- -D warnings","exit_code":0,"log_path":"/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-rust-clippy.log","log_sha256":"bee01758209d66368e1f5fa896accee09272c654975314513e30a1a89ed0d9ac"},
+    {"command":"rtk proxy taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target cargo fmt --check -- crates/crucible-render/src/lib.rs","exit_code":0,"log_path":"/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-rust-fmt.log","log_sha256":"d81c1ef08fbc3e789f5c36be42e7ee8f6b7f5a2b6c0a663509bece68babd8a03"},
+    {"command":"rtk proxy taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target python3 -m py_compile render/blender/plate.py render/blender/render_job.py","exit_code":0,"log_path":"/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-py-compile.log","log_sha256":"6250533ee5fdd9135e9230ca549dd6d5eab5ebd425d8fa5607ce186e952036f3"},
+    {"command":"rtk proxy taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target python3 render/blender/plate.py --probe","exit_code":0,"log_path":"/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-blender-probe.log","log_sha256":"c6dee0f62562bf4abc12eef4651bfd590bc42ab62275ba02cbc81ef5ba35805c"},
+    {"command":"rtk proxy taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target python3 render/blender/plate.py --dry-run --bundle tests/fixtures/v5-scenes/unavailable-oil-card.json --recipe recipes/v5/registry.json --output /home/ubuntu/joil/.private/v5-workers/codex_lane4/dry-run --frames 2","exit_code":0,"log_path":"/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-blender-dry-run.log","log_sha256":"92d8bc97945eeda599afacc79065c643b07aaff05fc3409757e6a257dd7fb2ed"},
+    {"command":"rtk proxy taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target python3 tools/check_public.py","exit_code":0,"log_path":"/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-public-scan.log","log_sha256":"f3c7682ed1e5f462ad141bf85fcb1b4fef45f51523eb74293838c137e2584087"},
+    {"command":"rtk proxy taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target git diff --check","exit_code":0,"log_path":"/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-diff-check.log","log_sha256":"851cc166c32d441b5be63cfc6872dd9300ac9fbb4b9513a61ce876aaa60befc7"}
+  ],
+  "positive_checks": [
+    "Locked crucible-render unit tests passed.",
+    "All-target clippy passed with warnings denied.",
+    "Rust format check, Python compilation, Blender availability probe, unavailable-oil-card dry-run, publication scan and diff whitespace check passed.",
+    "Dry-run retained the unavailable oil data state; it did not author trajectories or promote evidence.",
+    "Recipe registry maps all 66 catalogue families and 8 additional v5 gates (74 total); implementation, available evidence and completed rendering remain distinct counts."
+  ],
+  "negative_checks": [
+    "Rust controls exercise wrong subject, time, unit and transform, unapproved private geometry, invalid scalar/mask, mirrored basis, build-specific cache key and missing catalogue mapping; test suite passed.",
+    "Unavailable oil evidence remains unavailable; authored droplet trajectories are prohibited by the recipe policy.",
+    "Rendering and successful software gates do not establish scientific qualification or physical validation."
+  ],
+  "artifact_sha256": {
+    "Cargo.lock": "39e4d6565f2b79ca6c65b126b5deb0224a10c38a1a5d72a6c0445403cd3834e5",
+    "crates/crucible-render/Cargo.toml": "17450425ebd23e87e3037ae28d82e59c3526eb7d5281efe206f6b3d0de980941",
+    "crates/crucible-render/src/lib.rs": "868d47a3abc01194b7c5c914299a697c1a83f03843ee09eac28c36d924390035"
+  },
+  "resources": {"cpus":[110,111],"rss_gib_cap":6,"scratch_gib_cap":2.5,"gpu":false,"simulation":false},
+  "limitations": [
+    "No actual Blender frame render, review/publication profile parity integration test or human layout review was run.",
+    "No oil data was available and no scene is scientifically qualified by this software or rendering."
+  ],
+  "next_dependency": "Integrator reconciliation and independent review; no physical/scientific qualification is claimed."
+}
