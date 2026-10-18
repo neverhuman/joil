@@ -153,3 +153,47 @@ finding on that literal is a detector limitation, not permission to rename a fro
 progress state. General malformed-JSON and OS error wording remains native to each
 language; tested semantic failures and supported D28 controls have exact output/exit
 parity. Existing Python entrypoints remain for legacy consumers.
+
+### I013 measured re-audit
+
+`jankurai 1.7.5`: **55 score / 55 raw**, **14 caps**, **57 findings**,
+**36 conformance blockers**. Advisory threshold 45 passes; conformance does not.
+Report SHA-256: `4de467b2e5b9dcefd607428e7c8b260057f0c5543307bcaf1ad16511b17e788e`.
+The complete report and failed/successful logs are retained in the private I013
+evidence archive. `.jankurai/` scratch was moved there before committing.
+
+| ID | Historical fingerprint | Current scan |
+| --- | --- | --- |
+| I010-J016 | `sha256:e3de85f3144b1d5a9831cce0a0528dfdf63804b2a2c34c62e86fea281f63e9d1` | present |
+| I010-J017 | `sha256:6544b82d5044a87069667f774e4cad6ac2c980bc8f0c24d17eec6949e1de760e` | present |
+| I010-J018 | `sha256:abe7d03a3432e9df83f076bf84dd0987ebe20f600072f7a086a077ab5f25eb6e` | absent |
+| I010-J019 | `sha256:020a52c1d53c4c876af9365262e36dfdc99423eebdbde62d3a0ad3f6ab76889c` | absent |
+| I010-J020 | `sha256:2a3d89e192ea6247ffaa27249d827cb9aa939b5ee75ccb2466c37c80997ff517` | absent |
+| I010-J021 | `sha256:571d35c2e730a393b782bac14825b197c0543920bb21967079d264ac602ea5b1` | present |
+| I010-J022 | `sha256:8ece7234070a20910736663e65a530625acd16dac7fa57476cfc7c9a74bd745c` | absent |
+| I010-J023 | `sha256:a57016dbcde35220ab3f3c167b4c2c59c00ff50130ee6ffa3080c9894ff15689` | present |
+| I010-J024 | `sha256:b75a06daa9b211224f9b57cb3038ba6029ce99aff44a7d13c34b25063c0959c7` | absent |
+| I010-J025 | `sha256:1d37e5eb654abd16bea4f38678e03f240bdc6fe6d065a1ec19293dae0755703e` | absent |
+| I010-J026 | `sha256:b75a06daa9b211224f9b57cb3038ba6029ce99aff44a7d13c34b25063c0959c7` | absent |
+| I010-J027 | `sha256:4fbefe565f3248efb31ffc389c4cf29e39711c9daf396d96a7e22963f8bcfcfa` | absent |
+| I010-J028 | `sha256:5902e53ae4fd5d10052e6bb556142ff7dd48be86bd5292c4b7eb9664f380de02` | present |
+| I010-J029 | `sha256:8be4ab72acf7fcca8056149c8c4ca26b03328de6f984ce943f94891f37cfd5e8` | present |
+| I010-J030 | `sha256:5e32ae5a903307c9f0d251af2b14406971a1eb0e3787386f245018527b48193c` | present |
+| I010-J031 | `sha256:caa1ac9db64ce14b3a9063b592a1b0193c8a12d9eabc596c6e65736b65361c0f` | present |
+| I010-J032 | `sha256:e8f3c394d9dfef3bbe6483aa7bfbbaa0cdaab1de3e45f940425f8bb712665501` | present |
+| I010-J033 | `sha256:5397fac53d136d19a1a64647a144755a80f58329e3b33b939c292c3fe6e07af8` | present |
+
+Absence is exact detector-fingerprint closure only. J027 was already absent in
+the I012 report; the pipe-drain regression remains intact. J024/J026 share one
+fingerprint because the detector normalized both block openings identically.
+The new native-validator `todo` finding is
+`sha256:741fe87f3f83c6741de5817a0d6c0bcbe6a2cf601e7ff6a1225bf9aba1e74dc8`;
+the wire status is intentionally retained. Existing dossier-parity test text also
+remains flagged (`sha256:be881250e51bef76182fbf0a09685c286fed3477e673a7bb5be90c18ac3eb277`).
+
+I013 verification: the full Foundation gate passed all 10 steps (Rust suite
+576.567 s; entire gate 754.160 s), along with the requested parity, security and
+canonical checks. An earlier standalone CLI lifecycle run timed out; its failed
+scratch and log remain archived. The same lifecycle tests, including the new
+lock cleanup check, passed in the full workspace run. No timeouts or acceptance
+thresholds were relaxed. This is software verification only.

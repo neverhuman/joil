@@ -1,0 +1,656 @@
+{
+  "schema_version": 1,
+  "kind": "software_ci_and_parity_not_physical_validation",
+  "packet": "I013",
+  "base_commit": "74928fa8b0f38885238884edb4fc53c4a0e765a8",
+  "implementation_commits": [
+    "8ba833f",
+    "c2d7b2d4d943b853e7a23915b47125894a1e5a77"
+  ],
+  "tested_commit": "c2d7b2d4d943b853e7a23915b47125894a1e5a77",
+  "changed_paths": [
+    "PY_TO_RUST_PLAN.md",
+    "apps/explorer/src/contracts.ts",
+    "apps/explorer/src/main.tsx",
+    "apps/explorer/tests/registry-boundary.test.ts",
+    "crates/crucible-cli/src/bin/v5-d28-ownership-control.rs",
+    "crates/crucible-cli/src/bin/v5-explorer-manifest.rs",
+    "crates/crucible-cli/src/lib.rs",
+    "crates/crucible-cli/src/plan_validation.rs",
+    "crates/crucible-cli/tests/d28_ownership_parity.rs",
+    "crates/crucible-cli/tests/explorer_manifest_parity.rs",
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i013-claim-20261018.json",
+    "docs/receipts/i013-rust-ci-20261018.json"
+  ],
+  "source_files_sha256": {
+    "PY_TO_RUST_PLAN.md": "3fd48c7623beb6eaa35752f7f5ffd2e657d82688ba501ed7250e2ce2fe58ce50",
+    "apps/explorer/src/contracts.ts": "28f89b0e640c336e0313309b843b5840ca95a0e6feae5bb1c67e4e72efeb5541",
+    "apps/explorer/src/main.tsx": "4bbddef7a0b0fb7e05f717f482380ea535b42cdff0e1c0062e6bb7e24d5bd031",
+    "apps/explorer/tests/registry-boundary.test.ts": "442ab5aa015d245a03b7462ce5e2e960d0f1e7a816af5bb088c2be620350b41e",
+    "crates/crucible-cli/src/bin/v5-d28-ownership-control.rs": "d567c683718cdfcbb23ad9ee11fde601b27c6a6aa54d2323b8edc1ac88c92709",
+    "crates/crucible-cli/src/bin/v5-explorer-manifest.rs": "70a4522aa0be1e494d77079b32e2a4fdefa03356ecd16871e09bc92279886a4b",
+    "crates/crucible-cli/src/lib.rs": "07159979b01afb549221375df61fb36fa2a2965af85de1de14cdc60e92e607be",
+    "crates/crucible-cli/src/plan_validation.rs": "64d6f0463b751f4c8356b9d83abe4a2f21fdd41270946bad434e4e206462391c",
+    "crates/crucible-cli/tests/d28_ownership_parity.rs": "e273174f27d03308b48ea15579f56deea1e3267645dd63fd029c8df1cef0b563",
+    "crates/crucible-cli/tests/explorer_manifest_parity.rs": "1bda83b4442c6a7810701b950186349f61f333246091c1fa1101453ce1399009",
+    "crates/crucible-cli/tests/lifecycle.rs": "99f60fff05b135d38606f615b979eb7f13d0fe5414ade4ae805d5d0eea082d9c",
+    "docs/JANKURAI_REMEDIATIONS.md": "57d41ee5af256c6fd068dafabfc518cdc749ea4c8a40261ee6729b7ba6acd53b",
+    "docs/receipts/i013-claim-20261018.json": "00da7f07ae3684062951e7f7f72ac7ae42e654e90320d0c53f2ca7860984e6b6"
+  },
+  "commands": [
+    {
+      "label": "fmt",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 1.12,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log": "fmt.log"
+    },
+    {
+      "label": "clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "seconds": 0.59,
+      "log_sha256": "c41b6435ef0ad74eb9fae422ed4539d36cec5bf4de03b045943c5611ba3f7ca5",
+      "log": "clippy.log"
+    },
+    {
+      "label": "ownership-unit",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--bin",
+        "v5-d28-ownership-control"
+      ],
+      "exit_code": 0,
+      "seconds": 0.46,
+      "log_sha256": "60ce0afe8686e9d6aaa7716177f884e4bebf716fabdeb58ef07168e17e8177c6",
+      "log": "ownership-unit.log"
+    },
+    {
+      "label": "lifecycle",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle"
+      ],
+      "exit_code": 101,
+      "seconds": 63.54,
+      "log_sha256": "e18f30bdc3bb4b42c7bd7350f3e5ea87a901463c1003edd304726335675d8688",
+      "log": "lifecycle.log"
+    },
+    {
+      "label": "ui",
+      "argv": [
+        "bash",
+        "scripts/ci-local.sh",
+        "--suite",
+        "ui"
+      ],
+      "exit_code": 0,
+      "seconds": 9.87,
+      "log_sha256": "d5c8ca7013970a99471e0002d26c29539988246cc32638f06cf8d9e6630c8cd1",
+      "log": "ui.log"
+    },
+    {
+      "label": "public",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.24,
+      "log_sha256": "f5f29b240c2ec0eaabec9e8f334d0183729fe8b67f3df41bf780b851379c2d9e",
+      "log": "public.log"
+    },
+    {
+      "label": "plan",
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.55,
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132",
+      "log": "plan.log"
+    },
+    {
+      "label": "manifest",
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.66,
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b",
+      "log": "manifest.log"
+    },
+    {
+      "label": "claims",
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "seconds": 24.12,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "log": "claims.log"
+    },
+    {
+      "label": "security",
+      "argv": [
+        "bash",
+        "ops/ci/security.sh"
+      ],
+      "exit_code": 0,
+      "seconds": 19.88,
+      "log_sha256": "4d9a434d9b13a44ab4a744fe9718e814a58a5eb648418814b654b6f7f54f1f4e",
+      "log": "security.log"
+    },
+    {
+      "label": "required",
+      "argv": [
+        "bash",
+        "scripts/ci-local.sh"
+      ],
+      "exit_code": 0,
+      "seconds": 754.16,
+      "log_sha256": "bcc904d7a8a9d67328fb293125c17edaa4fc99488cb86309e595fa7a1556a217",
+      "log": "required.log"
+    },
+    {
+      "label": "parity",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "d28_ownership_parity",
+        "--test",
+        "explorer_manifest_parity"
+      ],
+      "exit_code": 0,
+      "log": "parity.log",
+      "log_sha256": "1fd3e52d2bca1757bff0b638a28898a7a90f64afdc3266803967008d847c6f3e"
+    },
+    {
+      "label": "ui-final",
+      "argv": [
+        "taskset",
+        "-c",
+        "0,1",
+        "bash",
+        "scripts/ci-local.sh",
+        "--suite",
+        "ui"
+      ],
+      "exit_code": 0,
+      "log": "ui-final.log",
+      "log_sha256": "da789e843a9801b5cf8964bf09bf9961bf14957e3db3f335d513d17f809547fe"
+    },
+    {
+      "label": "audit",
+      "argv": [
+        "taskset",
+        "-c",
+        "0,1",
+        "bash",
+        "ops/ci/audit.sh"
+      ],
+      "exit_code": 0,
+      "log": "audit.log",
+      "log_sha256": "ce042935f74dd72759f4e6978ca338bfafec7333ee788f97be70eda025392fe3"
+    },
+    {
+      "label": "final-public",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log": "final-public.log",
+      "log_sha256": "018e2768f4e33f5d2038c2e49ac1d75a01d2c3f5fd82b28b266fc89def3b1ea9"
+    }
+  ],
+  "foundation": {
+    "all_requested_pass": true,
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.1517071280395612,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 1.158628770033829,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.9865560790058225,
+        "log_bytes": 72,
+        "log_sha256": "f92dab9cbe3b243772444bd8f17f10a7dd3fc483a1a264eee42aef77e5bce6e3"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 576.5665572610451,
+        "log_bytes": 76248,
+        "log_sha256": "994b45ab9b9fed1a8bc01d95bc17b34ce0bd57fd3831969ce2a7c13f40498039"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.3377477560425177,
+        "log_bytes": 1019,
+        "log_sha256": "75bf8fc21f59edbd78e401ca572740b29ee051b5659e45b30d6d9692d03f5357"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 140.08620885189157,
+        "log_bytes": 35598,
+        "log_sha256": "3349dbdde69be7671f2b6b9bfaecb545911b30f2bcc5aa1da19ab8851e0456c4"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 1.500175780034624,
+        "log_bytes": 75,
+        "log_sha256": "f5f29b240c2ec0eaabec9e8f334d0183729fe8b67f3df41bf780b851379c2d9e"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 25.163897630991414,
+        "log_bytes": 256,
+        "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 4.9702562019228935,
+        "log_bytes": 25,
+        "log_sha256": "0120c59d5b2da9b103bc16e444b5bba874276eee1b9aa2dac14dcbc76d311172"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 3.060343944001943,
+        "log_bytes": 1715,
+        "log_sha256": "b9368598f523b70fd8a7a421d374fba42262628b6fd1624c20034184833810ae"
+      }
+    ],
+    "original_input_head": "74928fa8b0f38885238884edb4fc53c4a0e765a8",
+    "source_binding_note": "Foundation started with the uncommitted I013 implementation. Rust source bytes match the implementation commit. The later empty-selection preservation was separately verified by the final UI receipt at c2d7b2d; audit/receipt documentation was finalized after measurement.",
+    "changed_rust_source_hashes_match": true,
+    "final_ui_source_hashes_match": true
+  },
+  "positive_checks": [
+    "D28 frozen Git source digests and acknowledged/disjoint/leased synthetic allocation",
+    "Native manifest and immutable snapshot generation byte equality with Python; current check output/exit equality",
+    "Final UI runtime narrowing and subject-selection behavior; all 10 Foundation steps",
+    "Writer lock release/reacquisition and full workspace lifecycle SIGINT/worker recovery"
+  ],
+  "negative_checks": [
+    "D28 unacknowledged allocation red exit 1; missing commit and mismatched source digest exit 2; exact stdout/stderr parity across six CLI cases",
+    "Missing lease, empty scope and equal/ancestor/descendant write overlaps rejected",
+    "37 explorer negative parity scenarios: stale output/source, immutable collision, output symlinks, registry/schema/dependency/path failures, progress owner/status/evidence failures, receipt/hash/defect controls, catalogue/source/defect maps, duplicate keys and malformed/nonfinite JSON",
+    "UI malformed/null/array payloads, invalid sequences and non-string revoked IDs rejected",
+    "Writer contention and missing lock directory rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "audit-final/repo-score.json",
+      "sha256": "4de467b2e5b9dcefd607428e7c8b260057f0c5543307bcaf1ad16511b17e788e"
+    },
+    {
+      "path": "foundation/receipt.json",
+      "sha256": "5a709600a562ce48af590f96fa9ba900a3f0d8490fb86b2c399c37f0f472d235"
+    },
+    {
+      "path": "ui-final-receipt/receipt.json",
+      "sha256": "857c6405b7cf61d1cd1408a5a1050780850ee71a7e76d52b1b8f7e23b662c21a"
+    },
+    {
+      "path": "failed-test-artifacts-sha256.json",
+      "sha256": "2c2555892af27a8f41ca7646b571e88062cad8bd91a4eaa02346efdf6706afb0"
+    }
+  ],
+  "audit": {
+    "version": "1.7.5",
+    "score": 55,
+    "raw_score": 55,
+    "caps": [
+      "python-direct-product-truth-or-db-ownership",
+      "no-jankurai-audit-lane-in-ci",
+      "non-optimal-product-language-found",
+      "fallback-soup-in-product-code",
+      "future-hostile-dead-language-in-product-code",
+      "missing-rendered-ux-qa-lane",
+      "false-green-test-risk",
+      "input-boundary-gap",
+      "release-readiness-gap",
+      "no-agent-friendly-exception-pattern",
+      "rust-bad-behavior",
+      "python-bad-behavior",
+      "ci-bad-behavior",
+      "repo-rot-bad-behavior"
+    ],
+    "finding_count": 57,
+    "conformance_blocker_count": 36,
+    "conformance_blockers": [
+      "HLT-000-SCORE-DIMENSION:audit on .github/workflows",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/foundation.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/jankurai.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/security.yml",
+      "HLT-000-SCORE-DIMENSION:stack on analysis/__init__.py",
+      "HLT-001-DEAD-MARKER on analysis/kpi_fitness.py",
+      "HLT-013-RENDERED-UX-GAP on apps/web",
+      "HLT-001-DEAD-MARKER on crates/crucible-cli/src/plan_validation.rs",
+      "HLT-008-FALSE-GREEN-RISK on crates/crucible-cli/tests/dossier_parity.rs",
+      "HLT-023-INPUT-BOUNDARY-GAP on crates/crucible-runtime/src/checkpoint.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/task.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/task.rs",
+      "HLT-017-OPAQUE-OBSERVABILITY on crates/domain",
+      "HLT-033-PYTHON-BAD-BEHAVIOR on crates/joil-evidence/receipts/ev13_figure_trace.py",
+      "HLT-025-RELEASE-READINESS-GAP on docs/testing.md",
+      "HLT-005-PYTHON-PRODUCT-TRUTH on python/",
+      "HLT-033-PYTHON-BAD-BEHAVIOR on tools/claims_audit.py"
+    ],
+    "report_sha256": "4de467b2e5b9dcefd607428e7c8b260057f0c5543307bcaf1ad16511b17e788e",
+    "target_fingerprints": [
+      {
+        "id": "I010-J016",
+        "path": "analysis/__init__.py",
+        "fingerprint": "sha256:e3de85f3144b1d5a9831cce0a0528dfdf63804b2a2c34c62e86fea281f63e9d1",
+        "status": "present"
+      },
+      {
+        "id": "I010-J017",
+        "path": "analysis/kpi_fitness.py",
+        "fingerprint": "sha256:6544b82d5044a87069667f774e4cad6ac2c980bc8f0c24d17eec6949e1de760e",
+        "status": "present"
+      },
+      {
+        "id": "I010-J018",
+        "path": "apps/explorer/src/main.tsx",
+        "fingerprint": "sha256:abe7d03a3432e9df83f076bf84dd0987ebe20f600072f7a086a077ab5f25eb6e",
+        "status": "absent"
+      },
+      {
+        "id": "I010-J019",
+        "path": "apps/explorer/src/main.tsx",
+        "fingerprint": "sha256:020a52c1d53c4c876af9365262e36dfdc99423eebdbde62d3a0ad3f6ab76889c",
+        "status": "absent"
+      },
+      {
+        "id": "I010-J020",
+        "path": "apps/explorer/src/main.tsx",
+        "fingerprint": "sha256:2a3d89e192ea6247ffaa27249d827cb9aa939b5ee75ccb2466c37c80997ff517",
+        "status": "absent"
+      },
+      {
+        "id": "I010-J021",
+        "path": "apps/web",
+        "fingerprint": "sha256:571d35c2e730a393b782bac14825b197c0543920bb21967079d264ac602ea5b1",
+        "status": "present"
+      },
+      {
+        "id": "I010-J022",
+        "path": "crates/",
+        "fingerprint": "sha256:8ece7234070a20910736663e65a530625acd16dac7fa57476cfc7c9a74bd745c",
+        "status": "absent"
+      },
+      {
+        "id": "I010-J023",
+        "path": "crates/crucible-cli/src/explore.rs",
+        "fingerprint": "sha256:a57016dbcde35220ab3f3c167b4c2c59c00ff50130ee6ffa3080c9894ff15689",
+        "status": "present"
+      },
+      {
+        "id": "I010-J024",
+        "path": "crates/crucible-cli/src/lib.rs",
+        "fingerprint": "sha256:b75a06daa9b211224f9b57cb3038ba6029ce99aff44a7d13c34b25063c0959c7",
+        "status": "absent"
+      },
+      {
+        "id": "I010-J025",
+        "path": "crates/crucible-cli/src/lib.rs",
+        "fingerprint": "sha256:1d37e5eb654abd16bea4f38678e03f240bdc6fe6d065a1ec19293dae0755703e",
+        "status": "absent"
+      },
+      {
+        "id": "I010-J026",
+        "path": "crates/crucible-cli/src/lib.rs",
+        "fingerprint": "sha256:b75a06daa9b211224f9b57cb3038ba6029ce99aff44a7d13c34b25063c0959c7",
+        "status": "absent"
+      },
+      {
+        "id": "I010-J027",
+        "path": "crates/crucible-cli/tests/lifecycle.rs",
+        "fingerprint": "sha256:4fbefe565f3248efb31ffc389c4cf29e39711c9daf396d96a7e22963f8bcfcfa",
+        "status": "absent"
+      },
+      {
+        "id": "I010-J028",
+        "path": "crates/crucible-contract/src/subject.rs",
+        "fingerprint": "sha256:5902e53ae4fd5d10052e6bb556142ff7dd48be86bd5292c4b7eb9664f380de02",
+        "status": "present"
+      },
+      {
+        "id": "I010-J029",
+        "path": "crates/crucible-contract/src/subject.rs",
+        "fingerprint": "sha256:8be4ab72acf7fcca8056149c8c4ca26b03328de6f984ce943f94891f37cfd5e8",
+        "status": "present"
+      },
+      {
+        "id": "I010-J030",
+        "path": "crates/crucible-geom/src/export.rs",
+        "fingerprint": "sha256:5e32ae5a903307c9f0d251af2b14406971a1eb0e3787386f245018527b48193c",
+        "status": "present"
+      },
+      {
+        "id": "I010-J031",
+        "path": "crates/crucible-gpu/src/lib.rs",
+        "fingerprint": "sha256:caa1ac9db64ce14b3a9063b592a1b0193c8a12d9eabc596c6e65736b65361c0f",
+        "status": "present"
+      },
+      {
+        "id": "I010-J032",
+        "path": "crates/crucible-render/src/lib.rs",
+        "fingerprint": "sha256:e8f3c394d9dfef3bbe6483aa7bfbbaa0cdaab1de3e45f940425f8bb712665501",
+        "status": "present"
+      },
+      {
+        "id": "I010-J033",
+        "path": "crates/crucible-render/src/lib.rs",
+        "fingerprint": "sha256:5397fac53d136d19a1a64647a144755a80f58329e3b33b939c292c3fe6e07af8",
+        "status": "present"
+      }
+    ]
+  },
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "max_physical_cores": 4,
+    "max_ram_gib": 12,
+    "max_output_gib": 5,
+    "gpu": false,
+    "cargo_incremental": 0,
+    "cargo_profile_dev_debug": "line-tables-only",
+    "reused_target": true
+  },
+  "retained_attempts": [
+    {
+      "label": "initial-parity-fixture-incomplete",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "d28_ownership_parity",
+        "--test",
+        "explorer_manifest_parity",
+        "--bin",
+        "v5-d28-ownership-control"
+      ],
+      "exit_code": 101,
+      "log": "parity-first.log",
+      "log_sha256": "af76980b7be53f09cf48f702cf8e3359c5324e45bebc416ef5510e38f15bde7a"
+    },
+    {
+      "label": "second-parity-fixture-incomplete",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "explorer_manifest_parity"
+      ],
+      "exit_code": 101,
+      "log": "parity-second.log",
+      "log_sha256": "36794cba1f036c7d8e1ff0bd4215ab23da45b3de2e646cba0b09ae35d0512bb8"
+    }
+  ],
+  "limitations": [
+    "Initial standalone lifecycle timed out; retained failed log and scratch. Full workspace lifecycle and all required steps subsequently passed; no threshold change.",
+    "Parity covers canonical records and the listed controls; arbitrary Python numeric coercions and extreme JSON numeric ranges are not established. Syntax/OS diagnostics and native usage text can differ.",
+    "Python scripts and legacy callers remain; no new Python files, frozen contract/hash changes or physical observations.",
+    "Audit passes advisory floor only: remaining enum contracts and detector limitations are documented, not waived.",
+    "No new rendered browser or assistive-technology review is claimed."
+  ],
+  "next_dependency": "Review PR; migrate legacy consumers only after remaining P1b/P2 parity work; contract owners review the retained enum distinctions.",
+  "scientific_admission": false
+}
