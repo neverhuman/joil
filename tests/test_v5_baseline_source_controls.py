@@ -26,6 +26,7 @@ SOURCE_ONLY = ['D-05', 'D-07', 'D-10', 'D-14', 'D-16', 'D-17', 'D-18', 'D-21', '
                'D-27', 'D-28', 'D-29', 'D-30', 'D-31']
 RED_CODES = {
     'D-05': 'sealed_pocket_not_reported_as_powder',
+    'D-07': 'mass_change_unsupported_by_compiled_solid',
     'D-10': 'requirement_sources_disagree',
     'D-14': 'seed_share_ignores_inward_flux',
     'D-16': 'wall_authorities_disagree',
@@ -346,6 +347,9 @@ class BindingFailsClosedTests(unittest.TestCase):
 class RustControlTests(ControlAssertions, unittest.TestCase):
     def test_d05_sealed_pocket_counts_as_fluid_but_never_powder(self):
         self.assert_pair('D-05', '--frozen-rust', RUST)
+
+    def test_d07_mass_changes_when_compiled_solid_volume_is_unchanged(self):
+        self.assert_pair('D-07', '--frozen-rust', RUST)
 
     def test_d16_wall_authorities_disagree_on_a_recorded_tpms_elite(self):
         self.assert_pair('D-16', '--frozen-rust', RUST)
