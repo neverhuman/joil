@@ -117,6 +117,22 @@ class NumbersTraceTests(unittest.TestCase):
         self.assertIn('evaluates to', _check_declared('255.9', 'derived', 'ratio', '`5.60293e-5 / 2.19045e-5`', ROOT, []))
         self.assertIn('unsupported', _check_declared('1', 'derived', 'x', '`__import__`', ROOT, []))
 
+    def test_bounded_arithmetic_grammar(self):
+        import ast
+        from tools.claims_audit import _arithmetic_value
+        for expression, expected in [('1+2*3', 7), ('(1+2)*3', 9),
+                                     ('-v0/+2', -3), ('1e-3+2', 2.001)]:
+            self.assertEqual(_arithmetic_value(ast.parse(expression, mode='eval'), {'v0': 6}), expected)
+        for expression in ['2**3', '1//2', 'abs(1)', 'v0.real', '[1]', 'True']:
+            with self.assertRaises(ValueError):
+                _arithmetic_value(ast.parse(expression, mode='eval'), {'v0': 6})
+        with self.assertRaises(ZeroDivisionError):
+            _arithmetic_value(ast.parse('1/0', mode='eval'), {})
+        with self.assertRaises(KeyError):
+            _arithmetic_value(ast.parse('v9', mode='eval'), {})
+        with self.assertRaises(SyntaxError):
+            ast.parse('1+', mode='eval')
+
     def test_statistic_symbols_prefer_their_fields(self):
         self.assertEqual(_lead_affinity('Whitney $U = '), ('mann_whitney_u',))
         self.assertEqual(_lead_affinity("Cliff's $\\delta = "), ('cliffs_delta',))

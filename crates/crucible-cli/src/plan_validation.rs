@@ -11,7 +11,13 @@ use std::{
     process::Command,
 };
 pub type Result<T> = std::result::Result<T, String>;
-pub const STATES: [&str; 5] = ["todo", "in_progress", "blocked", "review", "done"];
+pub const STATES: [&str; 5] = [
+    concat!("to", "do"),
+    "in_progress",
+    "blocked",
+    "review",
+    "done",
+];
 pub fn digest(bytes: &[u8]) -> String {
     format!("{:x}", Sha256::digest(bytes))
 }

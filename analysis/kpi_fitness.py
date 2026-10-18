@@ -254,7 +254,7 @@ def verify_carrier_case_provenance(case_dir: Path, time_step: int) -> dict[str, 
                     metrics_bin_verified = (
                         len(expected_bin_sha) == 64 and metrics_bin_exec_sha256 == expected_bin_sha
                     )
-        except Exception:
+        except (OSError, ValueError, KeyError, TypeError):
             metrics_bin_verified = False
 
     metrics_receipt_path = case_dir_resolved / f'metrics-t{time_step}-0-joilHydraulicMetrics.log.receipt.json'

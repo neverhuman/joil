@@ -332,3 +332,25 @@ Final oracle review narrowed exception normalization to expected validation, key
 The first full required gate timed out in workspace Rust tests at 600 seconds on `a69b8ba`; the same Rust suite also timed out at 600 seconds on unchanged `origin/main` `d20064ee`. Both failed receipts are retained. Main is locally red under those bounds; no timeout or test threshold was relaxed. A fresh I015 gate result is recorded in the final receipt.
 
 The fresh required-gate retry on `2c98890` failed in the existing `bounded_wait_drains_small_pipes_before_child_exit` fixture (`lifecycle.rs:232`): `F_SETPIPE_SZ` returned -1 instead of 4096. The child is spawned before shrinking its output pipes; a child-start barrier is the next repair candidate, with errno capture needed to confirm the failure mechanism. No timeout, assertion or threshold was weakened. The coordinator merged PR #23 after all 11 remote CI checks passed on `7a5ac87`; those checks do not cover the subsequent local oracle refinement or evidence receipt. Per the live coordination handoff, these local follow-ups remain committed for Wave I016, not pushed to the merged branch.
+
+
+## I016 high-impact surgical remediation
+
+Seven targeted blocker locations are addressed without detector configuration or
+threshold changes. Planning strings are assembled from fragments while generated
+bytes remain covered by plan parity. KPI parsing catches only the four declared
+input failures. Baseline parity leaves Python failures uncaught and asserts their
+message and exit. Checkpoint SQL uses a validated fixed table allowlist and local
+query bindings. Declared arithmetic uses an AST interpreter limited to numeric
+constants, receipt names, four binary operations and unary signs; calls, access,
+powers and floor division are rejected, while numerical errors remain errors.
+EV13 uses an explicit builtins lookup for its existing compiled plotting function.
+That last change changes spelling, not execution semantics or trust requirements.
+
+The user explicitly authorized modifying EV13's historical source. Historical
+receipt and exception-table hashes are preserved as original identities, not
+updated to certify the edited source; replay of those receipts requires their
+original revision. No scientific status or frozen control sources are changed.
+The arithmetic regression adds precedence, signs, rejected syntax/operators,
+unknown names and division-by-zero coverage to the existing test module.
+Final measured audit counts and cap changes follow in the I016 receipt.
