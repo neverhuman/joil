@@ -15,3 +15,7 @@ Read root `COORD.md`, `docs/COORDINATION.md` and any ignored `.private/coordinat
 - Plans must be worker-ready: scope, ordered reads, exact paths/functions, dependencies, boundaries, small steps, numerical edge cases, commands, evidence, stop conditions and handoff. Follow `docs/MASTER_PLAN.md`; do not fork a competing master plan.
 
 Full project implementation is planned. The initial commit implements only the explicitly listed foundation in `docs/STATUS.json`.
+
+Language migration: read [PYTHON_EXCEPTIONS.md](PYTHON_EXCEPTIONS.md) and
+[PY_TO_RUST_PLAN.md](PY_TO_RUST_PLAN.md). Local proof commands and budgets:
+[docs/testing.md](docs/testing.md); boundaries: [docs/architecture.md](docs/architecture.md).

@@ -1,0 +1,34 @@
+name: Jankurai
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: jankurai-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on:
+      group: neverhuman-lan
+      labels: [self-hosted, Linux, X64, lan-ci, ubuntu24]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Audit repository
+        run: bash ops/ci/audit.sh
+      - name: Retain audit reports
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: jankurai-${{ github.run_attempt }}
+          path: |
+            .jankurai/repo-score.json
+            .jankurai/repo-score.md
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
