@@ -598,7 +598,7 @@ class GeometryMeasurementTruth(unittest.TestCase):
 
 
 class ExplorerClaimTruth(unittest.TestCase):
-    """V5-01-04: explorer strings match current evidence; authored paths are labelled SCHEMATIC."""
+    """V5-01-04: current evidence UI cannot restore retired claims or authored paths."""
 
     def setUp(self):
         self.src = (ROOT / 'apps/explorer/src/main.tsx').read_text(encoding='utf-8')
@@ -607,33 +607,39 @@ class ExplorerClaimTruth(unittest.TestCase):
         for stale in ('−38.5% / −38.4%', '100% realizable)', 'pass F0 B-rep/mesh', 'oil-droplet core capture',
                       'coupled droplet trajectories'):
             self.assertNotIn(stale, self.src)
-        self.assertIn('retracted comparison, not a reduction claim', self.src)
-        self.assertIn('corrected gate: not admitted', self.src)
-        # Historical numbers are bound to the committed dossier fields, not typed into the UI.
-        self.assertIn('rsm[0].delta_dp_u_vs_ct35_baseline_pct', self.src)
+        # Corrections come from the selected manifest, not hardcoded legacy widgets.
+        self.assertIn('manifest.historical_corrections.map', self.src)
+        self.assertNotIn('rsm[0].delta_dp_u_vs_ct35_baseline_pct', self.src)
+        default = load(ROOT / 'apps/explorer/public/evidence-manifest.json')
+        self.assertEqual(default['values'], [])
+        self.assertEqual(default['subjects'], [])
+        self.assertEqual(default['campaign']['admitted_capabilities'], [])
 
-    def test_viewport_labels_authored_paths_schematic(self):
+    def test_viewport_does_not_consume_legacy_authored_paths(self):
         view = (ROOT / 'apps/explorer/src/Viewport3D.tsx').read_text(encoding='utf-8')
         for stale in ('core capture trajectories (F1/F2 screen', 'Lagrangian parcel marker', 'Lagrangian Oil Vortex',
                       'oil droplets → reverse core', 'droplet\n                trajectories above'):
             self.assertNotIn(stale, view)
-        # Missing provenance (historical bundle) reads as the scene.rs schematic provenance.
+        # The retained producer still labels authored paths. The new artifact-only
+        # viewport does not load that historical bundle or reconstruct its curves.
         scene = (ROOT / 'crates/joil-core/src/scene.rs').read_text(encoding='utf-8')
         provenance = 'SCHEMATIC_AUTHORED_CURVE_NOT_SIMULATED_OR_MEASURED'
         self.assertIn(f'"{provenance}"', scene)
-        self.assertIn(f"const SCHEMATIC_PROVENANCE = '{provenance}';", view)
-        self.assertIn('t.provenance ?? SCHEMATIC_PROVENANCE', view)
-        self.assertIn('SCHEMATIC paths: authored, not simulated', view)
+        self.assertNotIn('droplet_trajectories_3d_mm', view)
+        self.assertNotIn('interactive-3d-archetypes-v1.json', self.src + view)
+        self.assertIn('No geometry artifact attached', view)
+        self.assertIn('subject.geometry_source ?', view)
+        self.assertIn('overlay.geometry_sha256 === subject.geometry_sha256', view)
         bundle = load(ROOT / 'docs/results/interactive-3d-archetypes-v1.json')
         trajectories = [t for c in bundle['candidates_3d'] for t in c['droplet_trajectories_3d_mm']]
         self.assertTrue(trajectories)
         self.assertTrue(all('provenance' not in t for t in trajectories))  # historical bytes unchanged
 
-    def test_three_d_view_is_labelled_schematic(self):
-        view = self.src[self.src.index("tab === '3D Explorer'"):]
-        view = view[:view.index('<Viewport3D />')]
-        self.assertIn('SCHEMATIC paths.', view)
-        self.assertIn('No simulated or measured trajectory is supplied', view)
+    def test_geometry_view_uses_only_the_resolved_subject(self):
+        self.assertIn('resolveIdentity(manifest, requestedRevision, requestedSubject)', self.src)
+        self.assertIn('<Viewport3D subject={selected}', self.src)
+        self.assertNotIn('<Viewport3D />', self.src)
+        self.assertIn('No replacement subject has been selected', self.src)
 
 
 if __name__ == '__main__':

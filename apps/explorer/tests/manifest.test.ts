@@ -81,3 +81,23 @@ test('g009 default software view has exact source bytes and no invented scientif
   assert.deepEqual(raw.values,[]);assert.deepEqual(raw.subjects,[]);
   assert.equal(raw.campaign.attempts,null);assert.equal(raw.campaign.spend,null);
 });
+
+test('legacy authored trajectory bundles cannot become current evidence', () => {
+  const legacy = JSON.parse(readFileSync(new URL('../../../docs/results/interactive-3d-archetypes-v1.json', import.meta.url), 'utf8'));
+  assert.equal(isManifest(legacy), false);
+  assert.ok(legacy.candidates_3d.some((c: {droplet_trajectories_3d_mm: unknown[]}) => c.droplet_trajectories_3d_mm.length));
+  const forged = structuredClone(manifest);
+  Object.assign(forged.subjects[0], { droplet_trajectories_3d_mm: legacy.candidates_3d[0].droplet_trajectories_3d_mm });
+  assert.equal(isManifest(forged), false);
+  assert.deepEqual(manifest.subjects[0].values, []);
+});
+
+test('historical correction text cannot supply an unbacked available pressure value', () => {
+  const corrected = structuredClone(manifest);
+  Object.assign(corrected, { historical_corrections: [{ id: 'retracted', label: 'retracted comparison, not a reduction claim', source: './dossier.json' }] });
+  assert.equal(isManifest(corrected), true);
+  assert.equal(corrected.values[0].value, null);
+  const forged = structuredClone(corrected);
+  Object.assign(forged.values[0], { value: -38.5, unit: '%', status: 'available' });
+  assert.equal(isManifest(forged), false);
+});
