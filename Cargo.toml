@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "packs/bracket",
     "crates/crucible-search",
     "crates/crucible-fea",
     "crates/crucible-gpu",

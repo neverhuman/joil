@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "partition_id": "joil-v5-calibration-draft",
+  "status": "empty_manifest_no_physical_data",
+  "purpose": "Measurement lag, uncertainty and recovery controls only. Confirmation outcomes must not be used to fit these controls.",
+  "records": []
+}

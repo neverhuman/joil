@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "packet": "V5-30",
+  "tasks": ["V5-30-01", "V5-30-02", "V5-30-03", "V5-30-04", "V5-30-05"],
+  "state": "in_progress",
+  "worker": "308711.joil_v5_codex_lane3",
+  "model": "gpt-6-luna medium",
+  "worktree": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane3",
+  "branch": "codex/v5-lane3",
+  "base_commit": "c63c74e8316d70406a8b3d78ad59a95691cacc03",
+  "write_paths": ["experiments/rig/v5/", "experiments/holdout/v5/", "analysis/validation/v5/", "docs/rig/V5_CONFIRMATION.md", "docs/receipts/v5-30-*.json", ".agent/handoffs/V5-30.md"],
+  "cpus": [90, 91],
+  "rss_limit_gib": 6,
+  "scratch_limit_gib": 2.5,
+  "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+  "incremental": false,
+  "gpu": false,
+  "dependencies": ["V5-15", "V5-17", "V5-20", "V5-28"],
+  "stop_conditions": ["scope conflict", "stale lease", "resource pressure", "identity or unit ambiguity", "failed required gate"],
+  "known_boundary": "Planning and deterministic software fixtures only; no fabrication, purchase, external messaging, or physical study authorization. Private dossier records remain outside public Git."
+}

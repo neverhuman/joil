@@ -900,6 +900,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "pack-bracket"
+version = "0.1.0"
+dependencies = [
+ "crucible-contract",
+ "crucible-runtime",
+ "crucible-store",
+ "crucible-units",
+ "joil-evidence",
+ "serde",
+ "serde_json",
+ "sha2",
+ "toml",
+]
+
+[[package]]
 name = "pack-hydrocyclone-judges"
 version = "0.1.0"
 dependencies = [

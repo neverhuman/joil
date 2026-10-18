@@ -1,0 +1,49 @@
+schema_version = 1
+domain = "structural_bracket_fixture"
+attempts = 3
+objectives = ["minimize_estimated_mass_g", "maximize_fixture_reserve_factor"]
+disable_judges = ["oil_grade", "fluid_capacity", "hydraulic_energy"]
+
+[[inapplicability_rules]]
+judge = "oil_grade"
+admitted_domain = "structural_bracket_fixture"
+reason = "Bracket fixture has no fluid domain or oil transport subject."
+
+[[inapplicability_rules]]
+judge = "fluid_capacity"
+admitted_domain = "structural_bracket_fixture"
+reason = "Bracket fixture defines no flow interfaces or capacity duty."
+
+[[inapplicability_rules]]
+judge = "hydraulic_energy"
+admitted_domain = "structural_bracket_fixture"
+reason = "Bracket fixture defines no hydraulic system."
+
+[fixture]
+schema_version = 1
+
+[fixture.interface]
+bolt_centres_mm = [[-20.0, -15.0], [20.0, -15.0], [-20.0, 15.0], [20.0, 15.0]]
+bolt_diameter_mm = 8.0
+plate_thickness_mm = 5.0
+
+[fixture.support]
+span_mm = 80.0
+width_mm = 20.0
+thickness_mm = 10.0
+
+[fixture.load]
+force_n = [0.0, -1000.0, -300.0]
+moment_nm = [0.2, 2.0, 0.0]
+source = "synthetic_fixture_load_case_A"
+
+[fixture.material]
+name = "synthetic_aluminum_allowable"
+fixture_yield_mpa = 250.0
+fixture_density_kg_m3 = 2700.0
+evidence = "synthetic_assumption_not_material_passport"
+
+[fixture.geometry]
+envelope_mm = [100.0, 60.0, 30.0]
+minimum_web_mm = 4.0
+maximum_span_mm = 90.0

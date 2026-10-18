@@ -1,0 +1,15 @@
+[package]
+name = "pack-bracket"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+toml = "=0.8.23"
+crucible-contract = { path = "../../crates/crucible-contract" }
+crucible-store = { path = "../../crates/crucible-store" }
+crucible-runtime = { path = "../../crates/crucible-runtime" }
+crucible-units = { path = "../../crates/crucible-units" }
+joil-evidence = { path = "../../crates/joil-evidence" }
