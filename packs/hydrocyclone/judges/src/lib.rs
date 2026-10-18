@@ -5,6 +5,9 @@
 //! `Unresolved` and names its blockers. Geometry arrives as caller-supplied measurements of
 //! one accepted subject (V5-09/V5-10 observers are not accepted yet and are not depended on).
 //! Nothing in this crate is a physical qualification.
+pub mod as_built;
+pub mod dynamics;
+pub mod fatigue;
 pub mod manufacturing;
 pub mod mass;
 pub mod material;
