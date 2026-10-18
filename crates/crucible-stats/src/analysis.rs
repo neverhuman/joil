@@ -2,6 +2,7 @@
 //! assert independence, coverage or power; each submodule states its applicability.
 use crate::StatsError;
 
+pub mod calibration;
 pub mod capture;
 pub mod joint;
 pub mod order;
