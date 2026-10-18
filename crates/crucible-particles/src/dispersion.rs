@@ -7,6 +7,36 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Matrix3(pub [[f64; 3]; 3]);
 
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+pub struct RsmDispersion {
+    /// Diffusivity tensor derived as R_ij * tau_c, in m²/s.
+    pub diffusivity_m2_s: Matrix3,
+    pub correlation_time_s: f64,
+    /// Diagonal repair applied to the diffusivity for positive definiteness, in m²/s.
+    pub realizability_repair_m2_s: f64,
+}
+
+/// Convert a Reynolds-stress velocity covariance (m²/s²) into a covariance
+/// consistent stochastic diffusivity (m²/s) using an explicit correlation time.
+pub fn rsm_covariance_to_dispersion(
+    reynolds_stress_m2_s2: Matrix3,
+    correlation_time_s: f64,
+) -> Result<RsmDispersion, String> {
+    if !correlation_time_s.is_finite() || correlation_time_s <= 0.0 {
+        return Err("RSM dispersion correlation time must be finite and positive".into());
+    }
+    let mut diffusivity = reynolds_stress_m2_s2;
+    for value in diffusivity.0.iter_mut().flatten() {
+        *value *= correlation_time_s;
+    }
+    let (diffusivity_m2_s, realizability_repair_m2_s) = diffusivity.repair_realizability()?;
+    Ok(RsmDispersion {
+        diffusivity_m2_s,
+        correlation_time_s,
+        realizability_repair_m2_s,
+    })
+}
+
 impl Matrix3 {
     fn cholesky(self) -> Result<[[f64; 3]; 3], String> {
         let a = self.0;

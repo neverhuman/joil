@@ -1,6 +1,9 @@
 //! Synthetic numerical controls only; none of these fixtures qualifies native CFD.
 use crucible_particles::{
-    dispersion::{periodic_density_deviation, LesPartition, Matrix3, PeriodicFixture},
+    dispersion::{
+        periodic_density_deviation, rsm_covariance_to_dispersion, LesPartition, Matrix3,
+        PeriodicFixture,
+    },
     population::{
         refine_mass_classes, refine_velocity_groups, smoluchowski_constant_kernel, BreakupModel,
         DataStatus, DaughterClass, VelocityGroup,
@@ -13,7 +16,18 @@ use crucible_particles::{
 
 #[test]
 fn anisotropic_covariance_and_well_mixed_drift_have_independent_controls() {
-    let covariance = Matrix3([[2.0, 0.3, 0.0], [0.3, 1.0, 0.0], [0.0, 0.0, 0.25]]);
+    let rsm = rsm_covariance_to_dispersion(
+        Matrix3([[4.0, 0.6, 0.0], [0.6, 2.0, 0.0], [0.0, 0.0, 0.5]]),
+        0.5,
+    )
+    .unwrap();
+    assert_eq!(rsm.realizability_repair_m2_s, 0.0);
+    let covariance = rsm.diffusivity_m2_s;
+    assert!(rsm_covariance_to_dispersion(
+        Matrix3([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]),
+        0.0
+    )
+    .is_err());
     let mut state = 19_u64;
     let mut sums = [0.0; 3];
     let mut cross = [[0.0; 3]; 3];
