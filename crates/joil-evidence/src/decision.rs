@@ -880,6 +880,7 @@ impl DecisionProfile {
             } = &l.value
             {
                 let stored: LimitSource = decode_reviewed(registry, source, &self.requirements)?;
+                stored.value.check()?;
                 if stored.limit_id != l.id
                     || stored.value != *value
                     || stored.comparison != l.comparison
