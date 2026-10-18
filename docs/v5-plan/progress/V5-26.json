@@ -47,16 +47,10 @@
       ]
     },
     "V5-26-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause E: irreversible owner/disclosure/budget authority remains unsigned; software render/cache evidence does not supply approval. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
-          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "in_progress",
+      "owner": "codex_lane4",
+      "note": "Unblocked by Fleet Admiral decisions (SC-DEC-045 (budget/provider cap signed); SC-DEC-062). Active worker lane codex_lane4 executing implementation and verification receipt for origin/main. Prior integration receipt: docs/receipts/v5-26-software-acceptance-20261018.json (sha256 29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c).",
+      "evidence": []
     }
   }
 }

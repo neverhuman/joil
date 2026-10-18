@@ -3,64 +3,34 @@
   "packet": "V5-28",
   "tasks": {
     "V5-28-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: measured study data, signed preregistration and publication authority remain absent; offline schemas and paper tests do not sign or populate a study. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
-          "sha256": "3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-046..047, SC-DEC-050..051; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-28-software-acceptance-20261018.json (sha256 3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998).",
+      "evidence": []
     },
     "V5-28-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: measured study data, signed preregistration and publication authority remain absent; offline schemas and paper tests do not sign or populate a study. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
-          "sha256": "3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-046..047, SC-DEC-050..051; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-28-software-acceptance-20261018.json (sha256 3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998).",
+      "evidence": []
     },
     "V5-28-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: measured study data, signed preregistration and publication authority remain absent; offline schemas and paper tests do not sign or populate a study. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
-          "sha256": "3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-046..047, SC-DEC-050..051; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-28-software-acceptance-20261018.json (sha256 3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998).",
+      "evidence": []
     },
     "V5-28-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: measured study data, signed preregistration and publication authority remain absent; offline schemas and paper tests do not sign or populate a study. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
-          "sha256": "3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-046..047, SC-DEC-050..051; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-28-software-acceptance-20261018.json (sha256 3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998).",
+      "evidence": []
     },
     "V5-28-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: measured study data, signed preregistration and publication authority remain absent; offline schemas and paper tests do not sign or populate a study. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
-          "sha256": "3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-046..047, SC-DEC-050..051; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-28-software-acceptance-20261018.json (sha256 3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998).",
+      "evidence": []
     }
   }
 }

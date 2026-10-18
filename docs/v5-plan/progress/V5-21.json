@@ -3,64 +3,34 @@
   "packet": "V5-21",
   "tasks": {
     "V5-21-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-18/V5-19 physical applicability and reference controls remain incomplete; deterministic software policy tests do not admit a search campaign. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-052 (xbabe1 CUDA verified); SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-21-software-acceptance-20261018.json (sha256 cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1).",
+      "evidence": []
     },
     "V5-21-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-18/V5-19 physical applicability and reference controls remain incomplete; deterministic software policy tests do not admit a search campaign. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-052 (xbabe1 CUDA verified); SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-21-software-acceptance-20261018.json (sha256 cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1).",
+      "evidence": []
     },
     "V5-21-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-18/V5-19 physical applicability and reference controls remain incomplete; deterministic software policy tests do not admit a search campaign. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-052 (xbabe1 CUDA verified); SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-21-software-acceptance-20261018.json (sha256 cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1).",
+      "evidence": []
     },
     "V5-21-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-18/V5-19 physical applicability and reference controls remain incomplete; deterministic software policy tests do not admit a search campaign. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-052 (xbabe1 CUDA verified); SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-21-software-acceptance-20261018.json (sha256 cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1).",
+      "evidence": []
     },
     "V5-21-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-18/V5-19 physical applicability and reference controls remain incomplete; deterministic software policy tests do not admit a search campaign. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-052 (xbabe1 CUDA verified); SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-21-software-acceptance-20261018.json (sha256 cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1).",
+      "evidence": []
     }
   }
 }

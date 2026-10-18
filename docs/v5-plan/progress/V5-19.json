@@ -3,64 +3,34 @@
   "packet": "V5-19",
   "tasks": {
     "V5-19-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
-          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-032; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-19-software-acceptance-20261018.json (sha256 b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9).",
+      "evidence": []
     },
     "V5-19-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
-          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-032; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-19-software-acceptance-20261018.json (sha256 b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9).",
+      "evidence": []
     },
     "V5-19-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
-          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-032; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-19-software-acceptance-20261018.json (sha256 b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9).",
+      "evidence": []
     },
     "V5-19-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
-          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-032; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-19-software-acceptance-20261018.json (sha256 b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9).",
+      "evidence": []
     },
     "V5-19-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
-          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-032; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-19-software-acceptance-20261018.json (sha256 b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9).",
+      "evidence": []
     }
   }
 }

@@ -8,7 +8,7 @@
       "unqualified oil transport and independent validation",
       "unresolved installation and material/process requirements",
       "current tail samples insufficient for physical p95 claims",
-      "75 software tasks blocked; inspect the source snapshot for exact reasons",
+      "0 software tasks blocked; inspect the source snapshot for exact reasons",
       "V5-00-03 remains AUDIT-HELD on D-07, D-18 and D-21",
       "TR-16 / EV-09 / EV-12 remain deferred"
     ],
@@ -16,7 +16,7 @@
     "control_arms": [],
     "reservations": null,
     "scientific_release": "Scientific phase: software_truth_repair_scientific_claim_inventory_incomplete; campaign admission: sandbox_only",
-    "software_status": "0 todo, 0 in_progress, 75 blocked, 0 review, 85 done",
+    "software_status": "71 todo, 4 in_progress, 0 blocked, 0 review, 85 done",
     "spend": null,
     "tasks_completed": 85,
     "tasks_total": 160
@@ -24,11 +24,11 @@
   "current": true,
   "generated_at": "Wall-clock time not recorded; revision identifies exact source bytes",
   "historical_corrections": [],
-  "revision": "8f8a09b4c48a52c7c65da4385f50c71883e2fced16b3f13b181cb27e302dda19",
+  "revision": "0d5dd0cd66dff6e279923f254c701ed590c6c3b4ddb401cc096362798f365571",
   "schema_version": 1,
   "source_snapshot": {
-    "sha256": "8f8a09b4c48a52c7c65da4385f50c71883e2fced16b3f13b181cb27e302dda19",
-    "source": "./v5/source-8f8a09b4c48a52c7c65da4385f50c71883e2fced16b3f13b181cb27e302dda19.json"
+    "sha256": "0d5dd0cd66dff6e279923f254c701ed590c6c3b4ddb401cc096362798f365571",
+    "source": "./v5/source-0d5dd0cd66dff6e279923f254c701ed590c6c3b4ddb401cc096362798f365571.json"
   },
   "subjects": [],
   "values": []

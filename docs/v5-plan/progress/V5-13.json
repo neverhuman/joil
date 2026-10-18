@@ -3,64 +3,34 @@
   "packet": "V5-13",
   "tasks": {
     "V5-13-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: independently measured material/process/allowable data remain absent; D07 frozen-source controls now execute but do not supply physical material validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
-          "sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "in_progress",
+      "owner": "codex_lane2",
+      "note": "Unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062). Active worker lane codex_lane2 executing implementation and verification receipt for origin/main. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     },
     "V5-13-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: independently measured material/process/allowable data remain absent; D07 frozen-source controls now execute but do not supply physical material validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
-          "sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     },
     "V5-13-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: independently measured material/process/allowable data remain absent; D07 frozen-source controls now execute but do not supply physical material validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
-          "sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     },
     "V5-13-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: independently measured material/process/allowable data remain absent; D07 frozen-source controls now execute but do not supply physical material validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
-          "sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     },
     "V5-13-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: independently measured material/process/allowable data remain absent; D07 frozen-source controls now execute but do not supply physical material validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
-          "sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
+      "evidence": []
     }
   }
 }

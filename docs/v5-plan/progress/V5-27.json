@@ -3,64 +3,34 @@
   "packet": "V5-27",
   "tasks": {
     "V5-27-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-039..040; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-27-software-acceptance-20261018.json (sha256 cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add).",
+      "evidence": []
     },
     "V5-27-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-039..040; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-27-software-acceptance-20261018.json (sha256 cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add).",
+      "evidence": []
     },
     "V5-27-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-039..040; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-27-software-acceptance-20261018.json (sha256 cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add).",
+      "evidence": []
     },
     "V5-27-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-039..040; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-27-software-acceptance-20261018.json (sha256 cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add).",
+      "evidence": []
     },
     "V5-27-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-039..040; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-27-software-acceptance-20261018.json (sha256 cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add).",
+      "evidence": []
     }
   }
 }

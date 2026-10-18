@@ -3,64 +3,34 @@
   "packet": "V5-15",
   "tasks": {
     "V5-15-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
-          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "in_progress",
+      "owner": "codex_lane1",
+      "note": "Unblocked by Fleet Admiral decisions (SC-DEC-028..029; SC-DEC-062). Active worker lane codex_lane1 executing implementation and verification receipt for origin/main. Prior integration receipt: docs/receipts/v5-15-software-acceptance-20261018.json (sha256 cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c).",
+      "evidence": []
     },
     "V5-15-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
-          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane1",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-028..029; SC-DEC-062); queued on active lane codex_lane1 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-15-software-acceptance-20261018.json (sha256 cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c).",
+      "evidence": []
     },
     "V5-15-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
-          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane1",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-028..029; SC-DEC-062); queued on active lane codex_lane1 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-15-software-acceptance-20261018.json (sha256 cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c).",
+      "evidence": []
     },
     "V5-15-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
-          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane1",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-028..029; SC-DEC-062); queued on active lane codex_lane1 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-15-software-acceptance-20261018.json (sha256 cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c).",
+      "evidence": []
     },
     "V5-15-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
-          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane1",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-028..029; SC-DEC-062); queued on active lane codex_lane1 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-15-software-acceptance-20261018.json (sha256 cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c).",
+      "evidence": []
     }
   }
 }

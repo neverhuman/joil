@@ -3,64 +3,34 @@
   "packet": "V5-30",
   "tasks": {
     "V5-30-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: signed protocol, independent as-built/rig/comparator observations and collection authority remain absent; reducer/protocol software does not collect or approve evidence. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
-          "sha256": "d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-048..049; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-30-software-acceptance-20261018.json (sha256 d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2).",
+      "evidence": []
     },
     "V5-30-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: signed protocol, independent as-built/rig/comparator observations and collection authority remain absent; reducer/protocol software does not collect or approve evidence. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
-          "sha256": "d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-048..049; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-30-software-acceptance-20261018.json (sha256 d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2).",
+      "evidence": []
     },
     "V5-30-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: signed protocol, independent as-built/rig/comparator observations and collection authority remain absent; reducer/protocol software does not collect or approve evidence. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
-          "sha256": "d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-048..049; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-30-software-acceptance-20261018.json (sha256 d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2).",
+      "evidence": []
     },
     "V5-30-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: signed protocol, independent as-built/rig/comparator observations and collection authority remain absent; reducer/protocol software does not collect or approve evidence. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
-          "sha256": "d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-048..049; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-30-software-acceptance-20261018.json (sha256 d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2).",
+      "evidence": []
     },
     "V5-30-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Causes B/E: signed protocol, independent as-built/rig/comparator observations and collection authority remain absent; reducer/protocol software does not collect or approve evidence. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
-          "sha256": "d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "claude",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-048..049; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-30-software-acceptance-20261018.json (sha256 d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2).",
+      "evidence": []
     }
   }
 }

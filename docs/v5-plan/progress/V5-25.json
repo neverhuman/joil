@@ -3,64 +3,34 @@
   "packet": "V5-25",
   "tasks": {
     "V5-25-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B frozen-liner calibration/training/held-out data and upstream acceptance remain incomplete; software operator/refusal contracts do not admit the optional track. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
-          "sha256": "c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-035..037; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-25-software-acceptance-20261018.json (sha256 c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8).",
+      "evidence": []
     },
     "V5-25-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B frozen-liner calibration/training/held-out data and upstream acceptance remain incomplete; software operator/refusal contracts do not admit the optional track. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
-          "sha256": "c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-035..037; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-25-software-acceptance-20261018.json (sha256 c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8).",
+      "evidence": []
     },
     "V5-25-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B frozen-liner calibration/training/held-out data and upstream acceptance remain incomplete; software operator/refusal contracts do not admit the optional track. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
-          "sha256": "c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-035..037; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-25-software-acceptance-20261018.json (sha256 c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8).",
+      "evidence": []
     },
     "V5-25-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B frozen-liner calibration/training/held-out data and upstream acceptance remain incomplete; software operator/refusal contracts do not admit the optional track. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
-          "sha256": "c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-035..037; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-25-software-acceptance-20261018.json (sha256 c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8).",
+      "evidence": []
     },
     "V5-25-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Cause B frozen-liner calibration/training/held-out data and upstream acceptance remain incomplete; software operator/refusal contracts do not admit the optional track. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
-          "sha256": "c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane4",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-035..037; SC-DEC-062); queued on active lane codex_lane4 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-25-software-acceptance-20261018.json (sha256 c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8).",
+      "evidence": []
     }
   }
 }

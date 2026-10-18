@@ -3,64 +3,34 @@
   "packet": "V5-18",
   "tasks": {
     "V5-18-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
-          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
+      "evidence": []
     },
     "V5-18-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
-          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
+      "evidence": []
     },
     "V5-18-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
-          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
+      "evidence": []
     },
     "V5-18-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
-          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
+      "evidence": []
     },
     "V5-18-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
-          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane2",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
+      "evidence": []
     }
   }
 }

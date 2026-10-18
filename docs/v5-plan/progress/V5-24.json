@@ -3,64 +3,34 @@
   "packet": "V5-24",
   "tasks": {
     "V5-24-01": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Optional native accelerator track and its upstream qualification/admission remain incomplete; CPU reference harnesses do not admit GPU/LBM/FEA execution or performance. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-24-software-acceptance-20261018.json",
-          "sha256": "946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     },
     "V5-24-02": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Optional native accelerator track and its upstream qualification/admission remain incomplete; CPU reference harnesses do not admit GPU/LBM/FEA execution or performance. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-24-software-acceptance-20261018.json",
-          "sha256": "946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     },
     "V5-24-03": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Optional native accelerator track and its upstream qualification/admission remain incomplete; CPU reference harnesses do not admit GPU/LBM/FEA execution or performance. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-24-software-acceptance-20261018.json",
-          "sha256": "946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     },
     "V5-24-04": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Optional native accelerator track and its upstream qualification/admission remain incomplete; CPU reference harnesses do not admit GPU/LBM/FEA execution or performance. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-24-software-acceptance-20261018.json",
-          "sha256": "946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     },
     "V5-24-05": {
-      "status": "blocked",
-      "owner": "codex-v5-integrator",
-      "note": "Optional native accelerator track and its upstream qualification/admission remain incomplete; CPU reference harnesses do not admit GPU/LBM/FEA execution or performance. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-24-software-acceptance-20261018.json",
-          "sha256": "946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53",
-          "purpose": "integration_only"
-        }
-      ]
+      "status": "todo",
+      "owner": "codex_lane3",
+      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-038, SC-DEC-052; SC-DEC-062); queued on active lane codex_lane3 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-24-software-acceptance-20261018.json (sha256 946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53).",
+      "evidence": []
     }
   }
 }
