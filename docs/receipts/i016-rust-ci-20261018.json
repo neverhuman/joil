@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "packet": "I016",
+  "kind": "targeted_software_verification_not_physical_validation",
+  "input_head": "41ce784f5684e1cc91f94d7f20aa1fe97f234c20",
+  "source_binding": "Saved Rust checks cover the committed implementation and final lifecycle fixture. Arithmetic/claims/security/audit cover the ast.Pow working-tree correction; source hashes below bind those final code bytes. Remediation audit summary and this receipt were written after the scan.",
+  "changed_paths": [
+    "PY_TO_RUST_PLAN.md",
+    "analysis/kpi_fitness.py",
+    "crates/crucible-cli/src/bin/v5-d18-scheduler-control.rs",
+    "crates/crucible-cli/src/bin/v5-d21-trajectory-control.rs",
+    "crates/crucible-cli/src/bin/v5-plan.rs",
+    "crates/crucible-cli/src/plan_validation.rs",
+    "crates/crucible-cli/tests/baseline_audit_parity.rs",
+    "crates/crucible-cli/tests/d18_scheduler_parity.rs",
+    "crates/crucible-cli/tests/d21_trajectory_parity.rs",
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "crates/crucible-runtime/src/checkpoint.rs",
+    "crates/joil-evidence/receipts/ev13_figure_trace.py",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i015-rust-ci-20261018.json",
+    "docs/receipts/i016-claim-20261018.json",
+    "tests/test_doc_numbers_trace.py",
+    "tools/claims_audit.py",
+    "docs/receipts/i016-rust-ci-20261018.json"
+  ],
+  "source_sha256": {
+    "PY_TO_RUST_PLAN.md": "f29a0561c26276fb2eab2a0689ac422e6e440093aeda7dd655566c848a2a122a",
+    "analysis/kpi_fitness.py": "f6d84acf68b3f0f8554bc9d8b920465a69753608392581eb20940a830986ddef",
+    "crates/crucible-cli/src/bin/v5-d18-scheduler-control.rs": "8ffc012d17f4860456b3cc0d8be9b4f609e76a13536e07b087947263187241b2",
+    "crates/crucible-cli/src/bin/v5-d21-trajectory-control.rs": "6fa8e4c98b1d146b9b2ec128f1668f5be3aa03838e9a856144719b41599a165a",
+    "crates/crucible-cli/src/bin/v5-plan.rs": "0b7f026d30d6895afd79627a56beb1eaedad912a13a1e1f013d5cbe2a6d7645d",
+    "crates/crucible-cli/src/plan_validation.rs": "0c901fd0674d5d682817711e00cc4c35e605bf7b9df69ded67fe8986aac34891",
+    "crates/crucible-cli/tests/baseline_audit_parity.rs": "dcf2e2ec11cbd1d2251c43a4156e2c98977b0cd562fdcf8ec7bf118072f13f51",
+    "crates/crucible-cli/tests/d18_scheduler_parity.rs": "32830611d8385b6a4a0bfe2b0f545e993255636d42a676a0f8ca35252d181470",
+    "crates/crucible-cli/tests/d21_trajectory_parity.rs": "7541f4984f8a60a05a9dde825e339bdc258c35f068bf657d44bf1152d5ef2d20",
+    "crates/crucible-cli/tests/lifecycle.rs": "f201a30ec84c2e2264a47e42ae3f9f047cb3cd838b50a9240b975ea0da253984",
+    "crates/crucible-runtime/src/checkpoint.rs": "37a4d6f7744569a4791c1a24d036ff8f093a49162c0076d544bf58b05b2e11cf",
+    "crates/joil-evidence/receipts/ev13_figure_trace.py": "ae373e0b2172204b78f6b939b138203cfb7b7f971127ac09db03fa996a153557",
+    "tests/test_doc_numbers_trace.py": "08be99076e65a0df742e764e5f2eb823b04e20edb7593d61cd3f12e0e6ccace8",
+    "tools/claims_audit.py": "c86d2b75c6f1b804b505050ddc7d77fcbd6c0e7b08453a9a49fbfa2a566c0fa3"
+  },
+  "commands": [
+    {
+      "name": "fmt",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.014,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 8.186,
+      "log_sha256": "b0076ebe7c343807622c2e913440dcaf4e5ed8b1be5df859ceb51872978dab87"
+    },
+    {
+      "name": "cli",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 309.602,
+      "log_sha256": "0012d6e528e3c15d757f95177b4dc364f2196da40e35d20f28b09af13ed16ed0"
+    },
+    {
+      "name": "runtime",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-runtime"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 34.062,
+      "log_sha256": "05a26d7495f6c85b4c0c416d155c18031363a8878510f771c4799805ac63417b"
+    },
+    {
+      "name": "public",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.409,
+      "log_sha256": "9b0a3069f08ab60249e0839f2d443fbe7df86c317eaf8e2a9e01f3a24375f57d"
+    },
+    {
+      "name": "plan",
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.617,
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+    },
+    {
+      "name": "manifest",
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.536,
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+    },
+    {
+      "name": "arithmetic",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_doc_numbers_trace.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 56.054,
+      "log_sha256": "5369036e20aabda8612d566646439d12805d8734282e318b89e0c0f37df44be7"
+    },
+    {
+      "name": "claims",
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 23.046,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "name": "security",
+      "argv": [
+        "just",
+        "security"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 26.64,
+      "log_sha256": "467761e3430c24963d9040c9e8b0531e4bdf820e08ba1a5232abe5320330d732"
+    },
+    {
+      "name": "audit",
+      "argv": [
+        "just",
+        "score"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 40.718,
+      "log_sha256": "5e24d62a534454be95be2c60b634e3707b3fce60e7dc8113d3edd28f740833c3"
+    },
+    {
+      "name": "fmt-final",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.388,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy-final",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.27,
+      "log_sha256": "a5e6f588b0ca47b67b09743a1dfda3de8fe5c3825c520dcae16bc7f73f9e4b52"
+    },
+    {
+      "name": "lifecycle-final",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle",
+        "bounded_wait_drains_small_pipes_before_child_exit"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.471,
+      "log_sha256": "6c3bf8512d28ec180c7975b9f5e606581cd88423ebfe304fd873a47e7c082bdd"
+    },
+    {
+      "name": "public-final",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.275,
+      "log_sha256": "9d56c23e5587834257e46d2c8a4429563e8da9b2676d81f174733f20a1f76b5d"
+    }
+  ],
+  "all_requested_pass": true,
+  "full_foundation_executed": false,
+  "authorization": "User explicitly requested targeted checks and reuse of passing CLI/runtime evidence; full Foundation is deferred to PR CI.",
+  "audit": {
+    "score": 55,
+    "raw_score": 55,
+    "caps_count": 13,
+    "findings_count": 39,
+    "conformance_blockers_count": 18,
+    "caps_applied": [
+      "python-direct-product-truth-or-db-ownership",
+      "no-jankurai-audit-lane-in-ci",
+      "non-optimal-product-language-found",
+      "fallback-soup-in-product-code",
+      "missing-rendered-ux-qa-lane",
+      "false-green-test-risk",
+      "input-boundary-gap",
+      "release-readiness-gap",
+      "no-agent-friendly-exception-pattern",
+      "rust-bad-behavior",
+      "python-bad-behavior",
+      "ci-bad-behavior",
+      "repo-rot-bad-behavior"
+    ],
+    "conformance_blockers": [
+      "HLT-000-SCORE-DIMENSION:audit on .github/workflows",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/foundation.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/jankurai.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/security.yml",
+      "HLT-000-SCORE-DIMENSION:stack on analysis/__init__.py",
+      "HLT-001-DEAD-MARKER on analysis/validation/v5/protocol.py",
+      "HLT-013-RENDERED-UX-GAP on apps/web",
+      "HLT-008-FALSE-GREEN-RISK on crates/crucible-cli/tests/d21_trajectory_parity.rs",
+      "HLT-023-INPUT-BOUNDARY-GAP on crates/crucible-runtime/src/checkpoint.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/task.rs",
+      "HLT-017-OPAQUE-OBSERVABILITY on crates/domain",
+      "HLT-033-PYTHON-BAD-BEHAVIOR on crates/joil-evidence/receipts/ev13_figure_trace.py",
+      "HLT-025-RELEASE-READINESS-GAP on docs/testing.md",
+      "HLT-005-PYTHON-PRODUCT-TRUTH on python/"
+    ],
+    "report_sha256": "9ee702abbb881117874fdd15a55186c9f90551ecb753563c60d8d538ce8955b5",
+    "conformance_decision": "review",
+    "policy_passed": false
+  },
+  "positive_checks": [
+    "D18 frozen scheduler positive/red output parity with unchanged Python oracle",
+    "D21 trajectory control parity and actual renderer regression",
+    "Existing plan and baseline parity in full crucible-cli tests",
+    "Lifecycle stdin barrier releases child only after shrinking both pipes; original payload/assertions preserved",
+    "16 arithmetic tests including precedence, signs and 2**3=8",
+    "Claims audit: 152 structured receipt claims, 1462 numeric tokens, 6 review inputs, 135 findings and 23 strong-wording claims"
+  ],
+  "negative_checks": [
+    "D18 missing libraries, malformed/non-monotonic records and source tampering rejected",
+    "D21 inventory/contract drift and source tampering rejected",
+    "Arithmetic floor division, calls, attribute access, list and boolean expressions rejected; unknown names and division by zero fail"
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "physical_cores_max": 4,
+    "ram_gib_max": 12,
+    "incremental_output_gib_max": 5,
+    "gpu": false,
+    "simulation": false,
+    "subagents": false,
+    "cache": "existing lane target/",
+    "target_before_wave": "4.8 GiB rounded",
+    "target_after": "5.6 GiB rounded",
+    "evidence_after": "21 MiB rounded"
+  },
+  "limitations": [
+    "Software verification only; no scientific admission or frozen-defect closure",
+    "Full Foundation matrix pending in PR CI; not rerun locally per user instruction",
+    "Python scripts and consumers remain; no Python LOC reduction claimed",
+    "Native usage, JSON parsing, OS/compiler/Git diagnostics can differ from Python",
+    "D18 frozen library build provenance remains caller responsibility; clock regressions fail closed",
+    "EV13 historical source edit authorized; historical hashes still identify original bytes",
+    "Advisory exit 0 is not policy conformance; 18 blockers remain"
+  ],
+  "next_dependency": "Full Foundation PR CI and review on the pushed head before merge",
+  "artifacts": [
+    {
+      "name": "commands-before-finalization.json",
+      "sha256": "c4ed86250812c6e3d52fb846edab9085e6f971a921e66e3d169e434c7a34839c"
+    },
+    {
+      "name": "arithmetic-before-finalization.log",
+      "sha256": "f413d758ac1532c6e4cc701272bcee0f09d6ac2fd76918135166c41d45f6be60"
+    },
+    {
+      "name": "claims-before-finalization.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "jankurai-final/repair-queue.jsonl",
+      "sha256": "8fe6ef17b74cf0022bb6ddbba374d2e13299c7b309ece49f9f0a6e01fef93b22"
+    },
+    {
+      "name": "jankurai-final/repo-score.json",
+      "sha256": "9ee702abbb881117874fdd15a55186c9f90551ecb753563c60d8d538ce8955b5"
+    },
+    {
+      "name": "jankurai-final/repo-score.md",
+      "sha256": "f45924de08f5c545083b113c7ff244b6d1060ef2c7afb3c76acbc6c70d8b4df8"
+    }
+  ]
+}

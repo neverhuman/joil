@@ -342,8 +342,9 @@ bytes remain covered by plan parity. KPI parsing catches only the four declared
 input failures. Baseline parity leaves Python failures uncaught and asserts their
 message and exit. Checkpoint SQL uses a validated fixed table allowlist and local
 query bindings. Declared arithmetic uses an AST interpreter limited to numeric
-constants, receipt names, four binary operations and unary signs; calls, access,
-powers and floor division are rejected, while numerical errors remain errors.
+constants, receipt names, four binary operations plus exponentiation (`**`) and
+unary signs; floor division (`//`), calls, attribute access, indexing, and booleans
+are rejected, while numerical errors remain errors.
 EV13 uses an explicit builtins lookup for its existing compiled plotting function.
 That last change changes spelling, not execution semantics or trust requirements.
 
@@ -353,4 +354,15 @@ updated to certify the edited source; replay of those receipts requires their
 original revision. No scientific status or frozen control sources are changed.
 The arithmetic regression adds precedence, signs, rejected syntax/operators,
 unknown names and division-by-zero coverage to the existing test module.
-Final measured audit counts and cap changes follow in the I016 receipt.
+Final Jankurai 1.7.5 advisory audit: score **55**, raw **55**,
+**13 caps**, **39 findings**, **18 conformance blockers**.
+Compared with I015, caps fell from 15 to 13, findings from 42 to 39, and blockers
+from 21 to 18; score remains 55. The command exits 0 under the advisory gate,
+but policy conformance remains review / not passed. Remaining findings include
+EV13 dynamic execution, checkpoint input boundaries and the new D21 parity test;
+seven edited locations do not mean seven verified finding closures.
+Report SHA-256: `9ee702abbb881117874fdd15a55186c9f90551ecb753563c60d8d538ce8955b5`.
+The raw report is retained privately; scratch output was removed from the checkout.
+All four final checks passed, including 16 arithmetic tests and the claims audit.
+Full Foundation remains a PR CI dependency; CLI/runtime passing logs were reused.
+Exact commands, hashes and limitations are in `docs/receipts/i016-rust-ci-20261018.json`.
