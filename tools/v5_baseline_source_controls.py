@@ -54,14 +54,15 @@ ROWS = {
     'D-10': {'kind': 'static',
              'assertion': 'STATIC: quantities declared by both frozen requirement sources admit a common value.',
              'positive': 'Quality and stretch limits (v1 thresholds vs RS-v1 quality).',
-             'red': 'PDR: v1 sandbox_pdr_min vs RS-v1 limits.pdr_draft_range.'},
+             'red': 'PDR: v1 sandbox_pdr_min vs RS-v1 limits.pdr_draft_range.',
+             'limits': 'Original positive (explicit synthetic sandbox contract validates software without physical admission) is the current decision test complete_source_bound_synthetic_profile_is_semantically_valid_without_physical_admission, pinned in the receipt at the tested commit.'},
     'D-14': {'kind': 'runtime',
              'assertion': 'Each jet\'s seed share of a cell group equals that group\'s inward-flux share (U . n_in per equal SYNTHETIC cell area) within one 1/16 stratum.',
-             'positive': 'SYNTHETIC jets, all velocities parallel to the declared inlet normal (|U| equals inward flux).',
+             'positive': 'Original positive: frozen verify_passive_tracer_split_oracle preserves inlet concentration; plus SYNTHETIC jets with all velocities parallel to the declared inlet normal (|U| equals inward flux).',
              'red': 'SYNTHETIC jets, equal speed, one azimuth half tangent to the inlet face (zero inward flux).'},
     'D-16': {'kind': 'runtime', 'rust': True,
              'assertion': 'Two wall authorities evaluating the same accepted program agree on the chamber wall radius at common sample points within 1e-9 mm.',
-             'positive': 'Frozen Rust Phenotype3D::inner_radius_mm vs Python exotic_graph.chamber_radius_mm on a recorded Wave-2 elite whose TPMS band lies inside [16, 66] mm.',
+             'positive': 'Original positive: the exact inactive baseline of each implementation (Rust DesignProgram::baseline_ct35, Python default_exotic_program) agrees; plus frozen Rust Phenotype3D::inner_radius_mm vs Python exotic_graph.chamber_radius_mm on a recorded Wave-2 elite whose TPMS band lies inside [16, 66] mm.',
              'red': 'Same pair on a recorded Wave-2 elite whose TPMS band ends above 66 mm (valid for both normalizers).',
              'limits': 'cad/program/wall_field.compile_program (third authority) needs cadquery, absent here; accepted boundary artifacts are absent, so the full mismatch envelope stays unmeasured.'},
     'D-17': {'kind': 'runtime', 'rust': True,
@@ -75,7 +76,8 @@ ROWS = {
     'D-22': {'kind': 'runtime',
              'assertion': 'Every plotted series is bound to evidence in the input record: a series follows changes in its evidence, and a series with no evidence is not plotted.',
              'positive': 'Frozen structural plate, actual Wave-2 record vs the same record with one family\'s TPMS amplitude raised by a SYNTHETIC 1 mm: only that family\'s Panel C bar changes.',
-             'red': 'Frozen structural plate with every modal key removed from the record: Panel B still plots a modal-frequency series.'},
+             'red': 'Frozen structural plate with every modal key removed from the record: Panel B still plots a modal-frequency series.',
+             'limits': 'Original positive (a verified modal table bound to subject, load/material and units) has no frozen or current component; the positive is a known-valid case on the same frozen plate.'},
     'D-24': {'kind': 'runtime', 'rust': True,
              'assertion': 'An output command writes a fresh private destination, and refuses an existing destination while preserving its bytes.',
              'positive': 'Frozen joil-cli verify-rotation --out <fresh private path>.',
@@ -83,15 +85,14 @@ ROWS = {
     'D-25': {'kind': 'static',
              'assertion': 'STATIC POLICY: the recorded v4 review default keeps LLMs out of judging and admits no agent/LLM proposal channel into the evolutionary search loop (current user authorization, as recorded in the V5-00 inventory).',
              'positive': 'Judge clause of the frozen GENOME_V4.md "LLM proposals" default.',
-             'red': 'Proposal clause of the same frozen default.'},
+             'red': 'Proposal clause of the same frozen default.',
+             'limits': 'Original runtime fixtures need an operator admission registry, absent at the frozen commit; this row is static policy only.'},
     'D-27': {'kind': 'runtime',
              'assertion': 'The publication gate admits reviewed public plan files and refuses a candidate artifact that carries no owner-admitted disclosure class.',
              'positive': 'Frozen check_public.violations on the frozen docs/v5-plan/INPUTS_AND_RISKS.md bytes.',
              'red': 'Frozen check_public.violations on a SYNTHETIC private candidate geometry export placed on a public path.'},
-    'D-28': {'kind': 'runtime',
-             'assertion': 'The ownership-recording gate refuses an assignment that lacks required ownership evidence (an owner, and that owner\'s acknowledgement).',
-             'positive': 'Frozen v5_plan.update on a private copy of the frozen registry: V5-00-01 in_progress with no owner.',
-             'red': 'Same update with a proposed owner that never acknowledged (no acknowledgement field exists).'},
+    'D-28': {'kind': 'blocked',
+             'blocker': 'No ownership/acknowledgement checker exists at the frozen commit or now. Frozen tools/v5_plan.update is status bookkeeping, and recording an owner name is not a permission grant (integrator review 2026-10-18T02:29:42Z), so treating it as one would invent an ack-admission contract. The documented protocol (COORDINATION.md: a notice is a proposal until acknowledged) is already resolved for workers; its original positive needs the current private acknowledgement records, which are not public test inputs.'},
     'D-29': {'kind': 'blocked',
              'blocker': 'The negative fixture needs an architecture traversal checker, absent at the frozen commit; module size alone is not a measured defect, so there is no frozen component to run.'},
     'D-30': {'kind': 'runtime', 'rust': True,
@@ -101,7 +102,8 @@ ROWS = {
     'D-31': {'kind': 'runtime',
              'assertion': 'A displayed numeric claim is accepted only while a live source with the same subject and unit supports it; an unsupported or revoked claim is invalidated.',
              'positive': 'Frozen claims-audit registry and scanner: a SYNTHETIC claim with its live same-subject kPa source is accepted, and an unbound numeral is refused.',
-             'red': 'Same scanner after the claim\'s source is revoked, leaving only a SYNTHETIC different-subject wall thickness in mm with the same numeral.'},
+             'red': 'Same scanner after the claim\'s source is revoked, leaving only a SYNTHETIC different-subject wall thickness in mm with the same numeral.',
+             'limits': 'Original positive (a live exact-query dependency chain reconstructible offline) has no frozen component; the positive is a known-valid case on the same frozen scanner.'},
 }
 
 PYTHON_SOURCES = {
@@ -112,7 +114,6 @@ PYTHON_SOURCES = {
     'D-22': ['tools/generate_wave2_figures_and_animations.py', 'docs/results/wave2-multiseed-ablation-and-holdout-v1.json'],
     'D-25': ['docs/design/GENOME_V4.md'],
     'D-27': ['tools/check_public.py', 'docs/v5-plan/INPUTS_AND_RISKS.md'],
-    'D-28': ['tools/v5_plan.py', 'docs/v5-plan', 'docs/TEST_CATALOG.json', 'docs/COORDINATION.md'],
     'D-30': ['tools/generate_gci_rsm_report_and_figures.py', 'analysis/kpi_fitness.py'],
     'D-31': ['tools/claims_audit.py'],
 }
@@ -245,7 +246,11 @@ fn main() {
         }
         "d16" => {
             let spec: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&a[2]).unwrap()).unwrap();
-            let p: program::DesignProgram = serde_json::from_value(spec["program"].clone()).unwrap();
+            let p = if spec["baseline"].as_bool() == Some(true) {
+                program::DesignProgram::baseline_ct35()
+            } else {
+                serde_json::from_value::<program::DesignProgram>(spec["program"].clone()).unwrap()
+            };
             let p = p.canonicalize().unwrap();
             let d = geometry::baseline().derive().unwrap();
             let radii: Vec<String> = spec["points"].as_array().unwrap().iter().map(|pt| {
@@ -350,6 +355,10 @@ def control_d14(mode, ctx):
     flux = np.clip(velocity @ n_in, 0.0, None)  # equal SYNTHETIC cell areas
     picked = oil.select_flux_weighted_inlet_seeds(centres, velocity)['all_indices']
     obs = {'synthetic': True, 'seeds': len(picked), 'jets': []}
+    if mode == 'positive':
+        obs['passive_tracer_oracle'] = oil.verify_passive_tracer_split_oracle()
+        if not obs['passive_tracer_oracle']['passed']:
+            raise Red(f'passive_tracer_oracle_failed {json.dumps(obs["passive_tracer_oracle"])}')
     for j in range(2):
         jet = slice(32 * j, 32 * (j + 1))
         seeds = [i for i in picked[16 * j:16 * (j + 1)]]
@@ -379,18 +388,28 @@ def control_d16(mode, ctx):
                           and in_band(prog) == (mode == 'positive'))
     _, d = sys.modules['geometry'].load()
     points = [[theta, z] for theta in (0.0, 0.7, 1.9, 3.1, 4.4, 5.6) for z in (12.0, 18.0, 24.0, 30.0, 36.0, 42.0, 48.0, 54.0, 60.0)]
-    spec = ctx['scratch'] / 'd16-spec.json'
-    spec.write_text(json.dumps({'program': program, 'points': points}))
-    rust = probe(ctx['rust'], ctx['scratch'], 'd16', spec)
-    if max(z for _, z in points) > rust['chamber_length_mm'] or abs(rust['r1_mm'] - d['r1']) > 1e-12:
-        raise Setup('sample grid leaves the chamber or the two authorities use different r1')
-    p_norm = graph.normalize_program(program)
-    python = [graph.chamber_radius_mm(p_norm, d['r1'], theta, z) for theta, z in points]
-    diffs = [abs(a - b) for a, b in zip(python, rust['radii_mm'])]
-    worst = max(range(len(diffs)), key=diffs.__getitem__)
+
+    def compare(name, rust_spec, python_program):
+        spec = ctx['scratch'] / f'd16-{name}.json'
+        spec.write_text(json.dumps({**rust_spec, 'points': points}))
+        rust = probe(ctx['rust'], ctx['scratch'], 'd16', spec)
+        if max(z for _, z in points) > rust['chamber_length_mm'] or abs(rust['r1_mm'] - d['r1']) > 1e-12:
+            raise Setup('sample grid leaves the chamber or the two authorities use different r1')
+        p_norm = graph.normalize_program(python_program)
+        python = [graph.chamber_radius_mm(p_norm, d['r1'], theta, z) for theta, z in points]
+        diffs = [abs(a - b) for a, b in zip(python, rust['radii_mm'])]
+        return diffs, max(range(len(diffs)), key=diffs.__getitem__)
+
+    obs = {}
+    if mode == 'positive':
+        diffs, worst = compare('baseline', {'baseline': True}, graph.default_exotic_program(2))
+        obs['inactive_baseline_max_abs_diff_mm'] = diffs[worst]
+        if diffs[worst] > 1e-9:
+            raise Red(f'wall_authorities_disagree inactive_baseline max_abs_diff_mm={diffs[worst]:.6g} theta_z={points[worst]}')
+    diffs, worst = compare('recorded', {'program': program}, program)
     band = [program['tpms_insert']['axial_start_mm'], program['tpms_insert']['axial_end_mm']]
-    obs = {'recorded_program': where, 'tpms_basis': program['tpms_insert']['basis'], 'tpms_band_mm': band, 'points': len(points),
-           'max_abs_diff_mm': diffs[worst], 'worst_point_theta_z': points[worst]}
+    obs.update({'recorded_program': where, 'tpms_basis': program['tpms_insert']['basis'], 'tpms_band_mm': band,
+                'points': len(points), 'max_abs_diff_mm': diffs[worst], 'worst_point_theta_z': points[worst]})
     if diffs[worst] > 1e-9:
         raise Red(f'wall_authorities_disagree recorded_program={where} tpms_band_mm={band} max_abs_diff_mm={diffs[worst]:.6g} '
                   f'theta_z={points[worst]}')
@@ -524,22 +543,6 @@ def control_d27(mode, ctx):
     return obs
 
 
-def control_d28(mode, ctx):
-    plan = load_module('c006_v5_plan', ctx['dest'] / 'tools/v5_plan.py', ctx['dest'])
-    owner = None if mode == 'positive' else 'proposed-worker-without-acknowledgement'
-    path = ctx['dest'] / 'docs/v5-plan/progress/V5-00.json'
-    before = path.read_bytes()
-    try:
-        plan.update(ctx['dest'], 'V5-00-01', 'in_progress', owner, None, None)
-    except ValueError as err:
-        obs = {'refused': str(err), 'progress_unchanged': path.read_bytes() == before}
-        if not obs['progress_unchanged']:
-            raise Red('refusal_left_progress_modified')
-        return obs
-    state = json.loads(path.read_text())['tasks']['V5-00-01']
-    raise Red(f'unacknowledged_owner_recorded_as_grant owner={state["owner"]!r} status={state["status"]}')
-
-
 def control_d30(mode, ctx):
     gci = load_module('c006_gci', ctx['dest'] / 'tools/generate_gci_rsm_report_and_figures.py', ctx['dest'])
     kpi = load_module('c006_kpi', ctx['dest'] / 'analysis/kpi_fitness.py', ctx['dest'])
@@ -595,7 +598,7 @@ def control_d31(mode, ctx):
 
 
 CONTROLS = {'D-05': control_d05, 'D-10': control_d10, 'D-14': control_d14, 'D-16': control_d16, 'D-17': control_d17, 'D-22': control_d22,
-            'D-24': control_d24, 'D-25': control_d25, 'D-27': control_d27, 'D-28': control_d28, 'D-30': control_d30,
+            'D-24': control_d24, 'D-25': control_d25, 'D-27': control_d27, 'D-30': control_d30,
             'D-31': control_d31}
 
 

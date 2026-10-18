@@ -30,7 +30,6 @@ RED_CODES = {
     'D-24': 'existing_destination_overwritten',
     'D-25': 'policy_admits_agent_proposals_in_search_loop',
     'D-27': 'candidate_without_disclosure_class_admitted',
-    'D-28': 'unacknowledged_owner_recorded_as_grant',
     'D-30': 'explicit_state_disagrees',
     'D-31': 'revoked_claim_still_accepted',
 }
@@ -120,9 +119,6 @@ class PythonControlTests(ControlAssertions, unittest.TestCase):
 
     def test_d27_publication_gate_admits_candidate_without_disclosure_class(self):
         self.assert_pair('D-27')
-
-    def test_d28_unacknowledged_owner_is_recorded_as_a_grant(self):
-        self.assert_pair('D-28')
 
     def test_d31_revoked_claim_survives_on_an_unrelated_numeric_match(self):
         self.assert_pair('D-31')
