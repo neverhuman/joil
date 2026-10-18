@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "camera": {"location_m": [0.22, -0.26, 0.12], "target_m": [0.0, 0.0, 0.08], "fov_degrees": 35.0},
+  "lighting": {"key_energy_w": 800.0, "fill_energy_w": 250.0, "world_strength": 0.2},
+  "random_seed": 2601,
+  "scientific_geometry": {"smoothing": false, "denoising": false, "post_transform": "identity"},
+  "overlay": {"labels_outside_part": true, "legend_outside_part": true}
+}
