@@ -1,0 +1,12 @@
+[package]
+name = "crucible-geom"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+joil-geometry = { path = "../joil-geometry" }
+serde.workspace = true
+serde_json.workspace = true
+joil-evidence = { path = "../joil-evidence" }
+crucible-contract = { path = "../crucible-contract" }
+crucible-units = { path = "../crucible-units" }

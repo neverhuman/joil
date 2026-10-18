@@ -1,0 +1,14 @@
+[package]
+name = "joil-geometry"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+joil-evidence = { path = "../joil-evidence" }
+crucible-contract = { path = "../crucible-contract" }
+crucible-units = { path = "../crucible-units" }
+
+[target.'cfg(all(target_os = "linux", target_arch = "x86_64"))'.dependencies]
+fidget = { version = "=0.5.1", default-features = false, features = ["jit"] }
