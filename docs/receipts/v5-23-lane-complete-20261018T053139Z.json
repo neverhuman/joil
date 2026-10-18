@@ -1,0 +1,110 @@
+{
+  "schema": "joil.v5.lane-receipt.v1",
+  "packet": "V5-23",
+  "tasks": ["V5-23-01", "V5-23-02", "V5-23-03", "V5-23-04", "V5-23-05", "D-18"],
+  "state": "software_controls_complete_acceptance_open",
+  "utc": "2026-10-18T05:31:39Z",
+  "tested_commit": "d320c61bdcc0f00163984d185560c1dbcb7043fb",
+  "source_commits": [
+    "1009fe2e0c17160160290239d323a024ae48e1a8",
+    "d320c61bdcc0f00163984d185560c1dbcb7043fb"
+  ],
+  "branch": "codex/v5-lane1",
+  "implementation_paths": [
+    "crates/crucible-runtime/src/worker.rs",
+    "crates/crucible-runtime/src/bench.rs",
+    "crates/crucible-runtime/src/lib.rs",
+    "crates/crucible-runtime/tests/workers.rs",
+    "leases/examples/worker-request.json",
+    "docs/bench/V5_PROTOCOL.md"
+  ],
+  "commands": [
+    {
+      "command": "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane1/target CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only taskset -c 36,37 rtk cargo test --locked -p crucible-runtime --test workers",
+      "exit_code": 0,
+      "result": "6 passed",
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/workers-test.log",
+      "sha256": "41d7e74f5a9f9d5cb8bbe910150112f876362fd64ed6560cc7ff73c98de3f746"
+    },
+    {
+      "command": "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane1/target CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only taskset -c 36,37 rtk cargo test --locked -p crucible-runtime",
+      "exit_code": 0,
+      "result": "28 passed across 6 suites",
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/runtime-test.log",
+      "sha256": "252f027ad073a89246b834bcaaf9ee916bcc20a6847ba082dab3cedb90fa1a0e"
+    },
+    {
+      "command": "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane1/target CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only taskset -c 36,37 rtk cargo clippy --locked -p crucible-runtime --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/clippy.log",
+      "sha256": "caa636ec9c7cba2c4f265005f356629e3a1e8fe35395de581375a782de9931bc"
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/fmt-check.log",
+      "sha256": "19eaf43821a7660ec323a87c8457bf74823beb296c39f5e01aa8a683aa50f061"
+    },
+    {
+      "command": "rtk proxy python3 tools/check_public.py",
+      "exit_code": 0,
+      "result": "PASS: 677 public candidate files checked; private deny rules applied=False",
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/check-public.log",
+      "sha256": "6febfcaba6f6baa0f32fbb4ee08328c924f662cc5b62dd789b1cd5d05f9cc163"
+    },
+    {
+      "command": "rtk git diff --check",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/diff-check.log",
+      "sha256": "3c696c094e2a1323fa00cf0974a861af0cd6824b1672248c1d12791a70a61e4e"
+    }
+  ],
+  "positive_checks": [
+    "authenticated current-fence read request resolves inside the task root",
+    "all attempts including numerical failures remain in benchmark denominator",
+    "qualified throughput counts unique decisions only",
+    "current runtime fixture accounting and physical-topology lease controls remain covered by the package suite"
+  ],
+  "negative_checks": [
+    "reject unauthenticated peer, path traversal, unsupported schema, stale fence, and expired lease",
+    "reject synthetic evaluator and missing-quality/evidence attempts marked Qualified",
+    "reject mixed warm/cold benchmark cohorts",
+    "reject overlong or NUL-containing argv"
+  ],
+  "resource_allocation": {
+    "cpus_pinned": [36, 37],
+    "gpu": false,
+    "cargo_incremental": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target",
+    "target_tree_bytes": 543893050,
+    "rss_cap_bytes": 6442450944,
+    "rss_cap_enforcement_or_peak_measurement": "not instrumented by this pass",
+    "scratch_cap_bytes": 2684354560,
+    "measured_lane_worker_and_log_bytes": 543893256,
+    "heavy_benchmark_campaign": false
+  },
+  "scientific_admission": false,
+  "packet_acceptance": false,
+  "limitations": [
+    "Worker controls are typed software protocol checks; no production authenticated transport adapter or remote worker was exercised.",
+    "Resource vector admission and physical topology use existing lease controls; process-tree RAM, scratch quota, walltime, and nested solver thread enforcement were not drilled end-to-end here.",
+    "BENCH-01..07 protocol and aggregation API are defined, but no fixed native CFD corpus, measured warm/cold cohort, p50/p95 campaign result, scaling comparison, or selected packing exists.",
+    "Physical evidence is represented by a digest supplied to the benchmark aggregator; this pass does not independently verify it against a scientific artifact registry.",
+    "No cache reuse, binary I/O, warm-start invariance, MPI scaling, coordinator restore, network-delay or quota-pressure failure campaign was run.",
+    "No source-document fleet size or expired 16-core launch test was performed in a process-launch drill. Synthetic unit controls are not native worker qualification."
+  ],
+  "next_dependency": [
+    "Bind worker messages to the production authenticated coordinator transport and verified task/artifact registry.",
+    "Acquire an authorized native CFD measurement lease and fixed corpus; produce BENCH-01..07 records with cold/warm cohorts, complete failures, p50/p95 wall/RSS/disk, and numerical-quality identity.",
+    "Exercise process-tree resource enforcement, permitted rank/thread packs, invariance checks, ledger charging, failure recovery, and logical replay before selecting a configuration.",
+    "Integrator and independent validator review this exact tested commit before task status promotion."
+  ],
+  "raw_log_manifest_sha256": {
+    "check-public.log": "6febfcaba6f6baa0f32fbb4ee08328c924f662cc5b62dd789b1cd5d05f9cc163",
+    "clippy.log": "caa636ec9c7cba2c4f265005f356629e3a1e8fe35395de581375a782de9931bc",
+    "diff-check.log": "3c696c094e2a1323fa00cf0974a861af0cd6824b1672248c1d12791a70a61e4e",
+    "fmt-check.log": "19eaf43821a7660ec323a87c8457bf74823beb296c39f5e01aa8a683aa50f061",
+    "runtime-test.log": "252f027ad073a89246b834bcaaf9ee916bcc20a6847ba082dab3cedb90fa1a0e",
+    "workers-test.log": "41d7e74f5a9f9d5cb8bbe910150112f876362fd64ed6560cc7ff73c98de3f746"
+  }
+}
