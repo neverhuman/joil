@@ -416,6 +416,84 @@ pub fn missing_catalogue_ids(
     catalogue.difference(mapped).cloned().collect()
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct CompletedFrameRecord {
+    pub frame_index: u32,
+    pub cache_key: DigestRef,
+    pub frame_sha256: DigestRef,
+    pub bytes: u64,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct PlateGenerationPlan {
+    pub cache_key: DigestRef,
+    pub reused_frames: Vec<u32>,
+    pub pending_frames: Vec<u32>,
+    pub low_priority_leased: bool,
+    pub human_layout_review_required: bool,
+    pub evidence_limitations: Vec<String>,
+    pub scientific_qualification_upgraded: bool,
+}
+
+/// Resume only completed records published after durable frame writes.
+/// The caller must verify frame bytes against frame_sha256 before supplying records.
+pub fn plan_interrupt_safe_plate_generation(
+    bundle: &SceneBundle,
+    blender_build: &str,
+    config: &DigestRef,
+    total_frames: u32,
+    completed: &[CompletedFrameRecord],
+    low_priority_leased: bool,
+    caller_requests_qualification_upgrade: bool,
+) -> Result<PlateGenerationPlan, RenderError> {
+    bundle.validate()?;
+    if caller_requests_qualification_upgrade {
+        return Err(RenderError::InvalidBundle(
+            "rendered_plate_cannot_upgrade_qualification",
+        ));
+    }
+    if !low_priority_leased {
+        return Err(RenderError::InvalidBundle("low_priority_lease_required"));
+    }
+    if total_frames == 0 {
+        return Err(RenderError::InvalidBundle("empty_frame_range"));
+    }
+    let key = cache_key(&bundle.subject, &bundle.recipe, blender_build, config)?;
+    let mut reusable = BTreeSet::new();
+    for record in completed {
+        if record.frame_index >= total_frames {
+            return Err(RenderError::InvalidBundle("completed_frame_out_of_range"));
+        }
+        if record.cache_key == key && record.bytes > 0 {
+            DigestRef::parse(&record.frame_sha256.sha256)?;
+            reusable.insert(record.frame_index);
+        }
+    }
+    let mut reused_frames = Vec::new();
+    let mut pending_frames = Vec::new();
+    for frame in 0..total_frames {
+        if reusable.contains(&frame) {
+            reused_frames.push(frame);
+        } else {
+            pending_frames.push(frame);
+        }
+    }
+    Ok(PlateGenerationPlan {
+        cache_key: key,
+        reused_frames,
+        pending_frames,
+        low_priority_leased,
+        human_layout_review_required: true,
+        evidence_limitations: vec![
+            "Rendering is not scientific validation; source evidence tier is unchanged.".into(),
+            "Cache records require caller-verified bytes and atomic completion publication.".into(),
+            "Human layout and label review is required before publication.".into(),
+            format!("Source evidence class: {:?}", bundle.evidence_class),
+        ],
+        scientific_qualification_upgraded: false,
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

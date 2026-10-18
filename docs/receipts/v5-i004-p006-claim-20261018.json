@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "kind": "append_only_packet_claim",
+  "packet": "I004/P006",
+  "task_ids": [
+    "V5-24-01",
+    "V5-26-05",
+    "V5-27-05",
+    "V5-28-04"
+  ],
+  "state": "claimed",
+  "owner": "codex",
+  "tested_commit": "b09319febf4afd93a110787b5a18829a8864a4ee",
+  "scope": [
+    "crates/crucible-gpu",
+    "crates/crucible-render",
+    "crates/crucible-cli/src/explore.rs",
+    "crates/crucible-paper",
+    "experiments/v5-accelerator-admission.toml",
+    "docs/receipts/per-task",
+    "docs/v5-plan",
+    "docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json",
+    "apps/explorer/public"
+  ],
+  "scientific_admission": false
+}

@@ -173,6 +173,89 @@ impl<T> BoundedPool<T> {
     }
 }
 
+#[derive(Clone, Debug, PartialEq)]
+pub struct AcceleratorAlternativeBenchmark {
+    pub backend_id: String,
+    pub kind: String,
+    pub measured_useful_cost_s: Option<f64>,
+    pub assumed_gupdates_per_s: Option<f64>,
+    pub hypothetical_fleet: bool,
+    pub held_out_pairs: usize,
+    pub decision_quality_matched: bool,
+    pub gpu_lease_present: bool,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct CustomKernelAdrDecision {
+    pub pubadr_id: String,
+    pub custom_kernels_justified: bool,
+    pub selected_backend: String,
+    pub reference_fallback_retained: bool,
+    pub rejected_alternatives: Vec<(String, &'static str)>,
+}
+
+/// Compare useful measured work; throughput assumptions never constitute admission.
+pub fn evaluate_accelerator_alternatives(
+    alternatives: &[AcceleratorAlternativeBenchmark],
+    min_speedup: f64,
+    reference_cost_s: f64,
+) -> Result<CustomKernelAdrDecision, &'static str> {
+    if !reference_cost_s.is_finite() || reference_cost_s <= 0.0 {
+        return Err("invalid_reference_cost");
+    }
+    if !min_speedup.is_finite() || min_speedup <= 0.0 {
+        return Err("invalid_min_speedup");
+    }
+    let mut decision = CustomKernelAdrDecision {
+        pubadr_id: "ADR-V5-24-01".into(),
+        custom_kernels_justified: false,
+        selected_backend: "reference".into(),
+        reference_fallback_retained: true,
+        rejected_alternatives: Vec::new(),
+    };
+    let mut best_cost = f64::INFINITY;
+    for alternative in alternatives {
+        let mut reasons = Vec::new();
+        if alternative.backend_id.trim().is_empty() || alternative.kind.trim().is_empty() {
+            reasons.push("missing_alternative_identity");
+        }
+        if alternative.hypothetical_fleet {
+            reasons.push("hypothetical_gpu_fleet_rejected");
+        }
+        if alternative.assumed_gupdates_per_s.is_some()
+            && alternative.measured_useful_cost_s.is_none()
+        {
+            reasons.push("assumed_gupdates_without_measured_cost");
+        }
+        if !alternative.gpu_lease_present {
+            reasons.push("gpu_lease_required");
+        }
+        if alternative.held_out_pairs < 10 {
+            reasons.push("insufficient_held_out_pairs");
+        }
+        if !alternative.decision_quality_matched {
+            reasons.push("decision_quality_not_matched");
+        }
+        let cost = alternative.measured_useful_cost_s.unwrap_or(f64::NAN);
+        if !cost.is_finite() || cost <= 0.0 {
+            reasons.push("invalid_or_missing_measured_cost");
+        } else if reference_cost_s / cost < min_speedup {
+            reasons.push("measured_speedup_below_gate");
+        }
+        if reasons.is_empty() && cost < best_cost {
+            best_cost = cost;
+            decision.selected_backend = alternative.backend_id.clone();
+            decision.custom_kernels_justified = alternative.kind == "custom_kernel";
+        }
+        for reason in reasons {
+            decision
+                .rejected_alternatives
+                .push((alternative.backend_id.clone(), reason));
+        }
+    }
+    Ok(decision)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -282,5 +365,86 @@ mod tests {
         p.clear();
         assert_eq!(p.push(5), Ok(()));
         assert!(BoundedPool::<u64>::new(1_000_001).is_err());
+    }
+
+    #[test]
+    fn v5_24_01_adr_benchmarks_alternatives_retains_reference_fallback_and_rejects_assumed_gupdates_or_hypothetical_fleet(
+    ) {
+        let good = AcceleratorAlternativeBenchmark {
+            backend_id: "synthetic-custom".into(),
+            kind: "custom_kernel".into(),
+            measured_useful_cost_s: Some(2.0),
+            assumed_gupdates_per_s: None,
+            hypothetical_fleet: false,
+            held_out_pairs: 10,
+            decision_quality_matched: true,
+            gpu_lease_present: true,
+        };
+        let admitted =
+            evaluate_accelerator_alternatives(std::slice::from_ref(&good), 2.0, 4.0).unwrap();
+        assert!(admitted.custom_kernels_justified && admitted.reference_fallback_retained);
+        assert_eq!(admitted.selected_backend, good.backend_id);
+        for index in 0..8 {
+            let mut bad = good.clone();
+            let expected = match index {
+                0 => {
+                    bad.hypothetical_fleet = true;
+                    "hypothetical_gpu_fleet_rejected"
+                }
+                1 => {
+                    bad.measured_useful_cost_s = None;
+                    bad.assumed_gupdates_per_s = Some(99.0);
+                    "assumed_gupdates_without_measured_cost"
+                }
+                2 => {
+                    bad.gpu_lease_present = false;
+                    "gpu_lease_required"
+                }
+                3 => {
+                    bad.held_out_pairs = 9;
+                    "insufficient_held_out_pairs"
+                }
+                4 => {
+                    bad.decision_quality_matched = false;
+                    "decision_quality_not_matched"
+                }
+                5 => {
+                    bad.measured_useful_cost_s = Some(f64::NAN);
+                    "invalid_or_missing_measured_cost"
+                }
+                6 => {
+                    bad.measured_useful_cost_s = Some(0.0);
+                    "invalid_or_missing_measured_cost"
+                }
+                _ => {
+                    bad.measured_useful_cost_s = Some(3.0);
+                    "measured_speedup_below_gate"
+                }
+            };
+            let result = evaluate_accelerator_alternatives(&[bad], 2.0, 4.0).unwrap();
+            assert!(!result.custom_kernels_justified);
+            assert!(result.reference_fallback_retained);
+            assert_eq!(result.selected_backend, "reference");
+            assert!(result
+                .rejected_alternatives
+                .iter()
+                .any(|(_, reason)| *reason == expected));
+        }
+        let mut library = good.clone();
+        library.kind = "library".into();
+        library.backend_id = "library".into();
+        library.measured_useful_cost_s = Some(1.0);
+        let result = evaluate_accelerator_alternatives(&[good, library], 2.0, 4.0).unwrap();
+        assert_eq!(result.selected_backend, "library");
+        assert!(!result.custom_kernels_justified);
+        for invalid in [0.0, -1.0, f64::NAN, f64::INFINITY] {
+            assert!(evaluate_accelerator_alternatives(&[], invalid, 4.0).is_err());
+            assert!(evaluate_accelerator_alternatives(&[], 2.0, invalid).is_err());
+        }
+        assert!(
+            !evaluate_accelerator_alternatives(&[], 2.0, 4.0)
+                .unwrap()
+                .custom_kernels_justified
+        );
     }
 }

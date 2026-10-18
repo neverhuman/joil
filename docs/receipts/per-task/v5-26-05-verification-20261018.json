@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-26-05"
+  ],
+  "tested_commit": "b09319febf4afd93a110787b5a18829a8864a4ee",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by current artifact SHA-256; not a claim that new tests exist at the base commit.",
+  "decision_resolution": "SC-DEC-045 software scope implemented within existing compute: interrupt-safe planning reuses complete matching frames and schedules interrupted or stale frames; no external spend or rendering.",
+  "changed_paths": [
+    "crates/crucible-render/src/lib.rs",
+    "crates/crucible-render/tests/sc_dec_045_plate_cache.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-render",
+        "--test",
+        "sc_dec_045_plate_cache",
+        "--",
+        "--exact",
+        "v5_26_05_sc_dec_045_cached_interrupted_safe_plate_generation_within_zero_external_budget"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 2.065,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-26-05.log",
+      "log_sha256": "21f6b4bc9947b5c47d1379a5be97263ea6d412e5c730f803f45b856ad5888cbb"
+    }
+  ],
+  "positive_checks": [
+    "Matching completed frame reused; partial/mismatched frames pending; resume advances only completed records."
+  ],
+  "negative_checks": [
+    "Absent low-priority lease, zero frames, invalid scene and requested qualification upgrade rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-render/src/lib.rs",
+      "sha256": "988999abf0ef8b32625d37a33d645eb85ca3a183bd7f2a3031d48f2dddb37971"
+    },
+    {
+      "path": "crates/crucible-render/tests/sc_dec_045_plate_cache.rs",
+      "sha256": "4661688a63d5cb14b6a9f0ede9dbae61b90cc2c8ac5c06a18e2647c50dec5633"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "ram_limit_gib": 12,
+    "output_limit_gib": 5,
+    "gpu": false,
+    "simulation": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software verification with synthetic controls only; no physical qualification.",
+    "Planner assumes caller-verified frame bytes and atomic completed-record publication; no Blender rendering or human layout review executed."
+  ],
+  "next_dependency": "Independent integrator review; scientific admission still requires qualified source evidence."
+}

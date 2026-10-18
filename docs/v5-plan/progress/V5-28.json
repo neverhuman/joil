@@ -39,10 +39,15 @@
       ]
     },
     "V5-28-04": {
-      "status": "in_progress",
-      "owner": "codex_lane1",
-      "note": "SC-DEC-071 red-team remediation (SC-DEC-041 substitute:typed_manifest_observations+substitute:synthetic_fixture): moved back to in_progress; typed claim query and denominator/unit/tier checks exist in crates/crucible-paper, but planted-error negative corpus execution against built manuscript tables remains open.",
-      "evidence": []
+      "status": "done",
+      "owner": "codex",
+      "note": "SC-DEC-041 substitute:typed_manifest_observations+substitute:synthetic_fixture: production exact-token verifier and five-class planted-error corpus execute on typed synthetic baseline, rejecting every mutation. scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-28-04-verification-20261018.json",
+          "sha256": "3a0c889ae3060ed9a184238952a1ab5cfe3ddb1cffeaac26b587e5915b92ac3a"
+        }
+      ]
     },
     "V5-28-05": {
       "status": "done",

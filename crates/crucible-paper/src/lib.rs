@@ -198,6 +198,140 @@ impl PaperBundle {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct PlantedErrorAuditReport {
+    pub baseline_valid: bool,
+    pub planted_mutations_tested: usize,
+    pub planted_mutations_rejected: usize,
+    pub rejected_classes: Vec<&'static str>,
+}
+
+/// query_id is the exact observation_id of a registered typed query, never prose similarity.
+pub fn verify_exact_claim_token(
+    bundle: &PaperBundle,
+    query_id: &str,
+    prose_value: &str,
+    prose_unit: &str,
+) -> Result<(), PaperError> {
+    bundle.validate()?;
+    let query = bundle
+        .queries
+        .iter()
+        .find(|q| q.observation_id == query_id)
+        .ok_or_else(|| PaperError::MissingObservation(query_id.into()))?;
+    if query.observation_id.trim().is_empty()
+        || query.estimand_id.trim().is_empty()
+        || query.unit.trim().is_empty()
+        || query.subject_sha256.trim().is_empty()
+    {
+        return Err(PaperError::WrongBinding(query_id.into()));
+    }
+    let observation = bundle
+        .observations
+        .iter()
+        .find(|o| o.id == query.observation_id)
+        .ok_or_else(|| PaperError::MissingObservation(query_id.into()))?;
+    if observation.value != prose_value || observation.unit != prose_unit {
+        return Err(PaperError::WrongBinding(query_id.into()));
+    }
+    Ok(())
+}
+
+/// Execute mutation controls against a validated baseline; inability to plant is an error.
+pub fn verify_planted_error_negative_corpus(
+    bundle: &PaperBundle,
+) -> Result<PlantedErrorAuditReport, PaperError> {
+    bundle.validate()?;
+    let query = bundle
+        .queries
+        .first()
+        .ok_or_else(|| PaperError::MissingObservation("negative_corpus_query".into()))?;
+    let index = bundle
+        .observations
+        .iter()
+        .position(|o| o.id == query.observation_id)
+        .ok_or_else(|| PaperError::MissingObservation(query.observation_id.clone()))?;
+    let observation = &bundle.observations[index];
+    verify_exact_claim_token(
+        bundle,
+        &query.observation_id,
+        &observation.value,
+        &observation.unit,
+    )?;
+    let value = observation
+        .value
+        .parse::<f64>()
+        .map_err(|_| PaperError::WrongBinding("negative_corpus_numeric_value".into()))?;
+    if !value.is_finite() || value == 0.0 || query.unit == "mg/L" {
+        return Err(PaperError::WrongBinding(
+            "negative_corpus_inapplicable_baseline".into(),
+        ));
+    }
+    let mut report = PlantedErrorAuditReport {
+        baseline_valid: true,
+        planted_mutations_tested: 0,
+        planted_mutations_rejected: 0,
+        rejected_classes: Vec::new(),
+    };
+    for class in [
+        "wrong_denominator",
+        "wrong_unit",
+        "wrong_subject",
+        "stale_tier",
+        "fuzzy_1000x_or_0_15pct_prose_match",
+    ] {
+        let mut mutated = bundle.clone();
+        let rejected = match class {
+            "wrong_denominator" => {
+                mutated.observations[index].denominator = "parcel".into();
+                mutated.validate().is_err()
+            }
+            "wrong_unit" => {
+                mutated.queries[0].unit = "mg/L".into();
+                mutated.validate().is_err()
+            }
+            "wrong_subject" => {
+                mutated.queries[0].subject_sha256 = if query.subject_sha256 == "b".repeat(64) {
+                    "c".repeat(64)
+                } else {
+                    "b".repeat(64)
+                };
+                mutated.validate().is_err()
+            }
+            "stale_tier" => {
+                mutated.observations[index].tier_current = false;
+                mutated.validate().is_err()
+            }
+            _ => {
+                [value * 1000.0, value * 1.0015].iter().all(|wrong| {
+                    verify_exact_claim_token(
+                        &mutated,
+                        &query.observation_id,
+                        &wrong.to_string(),
+                        &observation.unit,
+                    )
+                    .is_err()
+                }) && verify_exact_claim_token(
+                    &mutated,
+                    "unbound-prose-number",
+                    &observation.value,
+                    &observation.unit,
+                )
+                .is_err()
+            }
+        };
+        report.planted_mutations_tested += 1;
+        if !rejected {
+            return Err(PaperError::WrongBinding(format!(
+                "planted_error_accepted:{class}"
+            )));
+        }
+        report.planted_mutations_rejected += 1;
+        report.rejected_classes.push(class);
+    }
+    Ok(report)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -410,5 +544,42 @@ mod tests {
                 "public bundle leaked private marker {private_marker}"
             );
         }
+    }
+
+    #[test]
+    fn v5_28_04_planted_error_negative_corpus_rejects_denominator_unit_subject_stale_tier_and_fuzzy_numeric_matches(
+    ) {
+        let baseline = bundle();
+        let report = verify_planted_error_negative_corpus(&baseline).unwrap();
+        assert!(report.baseline_valid);
+        assert_eq!(report.planted_mutations_tested, 5);
+        assert_eq!(report.planted_mutations_rejected, 5);
+        assert_eq!(
+            report.rejected_classes,
+            vec![
+                "wrong_denominator",
+                "wrong_unit",
+                "wrong_subject",
+                "stale_tier",
+                "fuzzy_1000x_or_0_15pct_prose_match"
+            ]
+        );
+        let id = &baseline.queries[0].observation_id;
+        assert!(verify_exact_claim_token(&baseline, id, "0.42", "dimensionless").is_ok());
+        for value in ["420", "0.42063", "0.420", "NaN"] {
+            assert!(verify_exact_claim_token(&baseline, id, value, "dimensionless").is_err());
+        }
+        assert!(verify_exact_claim_token(&baseline, id, "0.42", "mg/L").is_err());
+        assert!(verify_exact_claim_token(&baseline, "absent", "0.42", "dimensionless").is_err());
+        let mut bad = baseline.clone();
+        bad.observations[0].tier_current = false;
+        assert!(verify_planted_error_negative_corpus(&bad).is_err());
+        let mut bad = baseline.clone();
+        bad.queries.clear();
+        assert!(verify_planted_error_negative_corpus(&bad).is_err());
+        let mut bad = baseline.clone();
+        bad.queries[0].estimand_id.clear();
+        assert!(verify_exact_claim_token(&bad, id, "0.42", "dimensionless").is_err());
+        assert_eq!(baseline, bundle());
     }
 }

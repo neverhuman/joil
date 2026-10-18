@@ -96,6 +96,112 @@ pub fn inspect(path: &Path, requested_revision: &str, subject_id: &str) -> Resul
     Ok(result)
 }
 
+/// Static source/manifest audit, not a browser or assistive-technology certification.
+pub fn verify_accessibility_and_truthful_content(
+    manifest_path: &Path,
+    html_source: &str,
+    css_source: &str,
+) -> Result<Value> {
+    let mut bytes = Vec::new();
+    std::fs::File::open(manifest_path)?
+        .take(4 * 1024 * 1024 + 1)
+        .read_to_end(&mut bytes)?;
+    if bytes.len() > 4 * 1024 * 1024 {
+        return Err(RuntimeError::Invalid("explorer_manifest_size_limit"));
+    }
+    let manifest: Value =
+        joil_evidence::identity::strict_decode(&bytes).map_err(RuntimeError::Wire)?;
+    if !manifest.is_object() {
+        return Err(RuntimeError::Invalid("explorer_manifest_object_required"));
+    }
+    let css: String = css_source.chars().filter(|c| !c.is_whitespace()).collect();
+    if !css.contains(":focus-visible")
+        || !css.contains("@media(prefers-reduced-motion:reduce)")
+        || !(css.contains("@media(max-width:") || css.contains("@media(min-width:"))
+    {
+        return Err(RuntimeError::Invalid("explorer_accessibility_css_missing"));
+    }
+    let source: String = html_source.chars().filter(|c| !c.is_whitespace()).collect();
+    // These are forbidden missing-value fallbacks in the supported JSX source contract.
+    for token in ["0", "0.0", "PASS"] {
+        for quoted in [format!("'{token}'"), format!("\"{token}\"")] {
+            if source.contains(&format!("??{quoted}"))
+                || source.contains(&format!("||{quoted}"))
+                || source.contains(&format!(":{quoted}"))
+                || source.contains(&format!("className=\"placeholder\">{token}<"))
+            {
+                return Err(RuntimeError::Invalid("explorer_missing_value_fabricated"));
+            }
+        }
+    }
+    if ["value", "attempts", "spend", "reservations", "uncertainty"]
+        .iter()
+        .any(|field| {
+            source.contains(&format!("{field}??0")) || source.contains(&format!("{field}||0"))
+        })
+    {
+        return Err(RuntimeError::Invalid("explorer_missing_value_fabricated"));
+    }
+    let admitted = manifest
+        .get("scientific_admission")
+        .or_else(|| {
+            manifest
+                .get("claims")
+                .and_then(|c| c.get("scientific_admission"))
+        })
+        .and_then(Value::as_bool)
+        .unwrap_or(false);
+    let mut stack = vec![&manifest];
+    let mut observations_checked = 0;
+    while let Some(node) = stack.pop() {
+        match node {
+            Value::Object(map) => {
+                let unavailable =
+                    map.get("status").and_then(Value::as_str).is_some_and(|v| {
+                        matches!(v, "missing" | "unavailable" | "revoked" | "failed")
+                    }) || map.get("tier").and_then(Value::as_str) == Some("unavailable");
+                if unavailable {
+                    observations_checked += 1;
+                    for field in ["value", "display_value", "rendered_value"] {
+                        if map.get(field).is_some_and(|v| !v.is_null()) {
+                            return Err(RuntimeError::Invalid("explorer_missing_value_fabricated"));
+                        }
+                    }
+                }
+                if !admitted {
+                    for claim in ["pressure_gain", "coupled_trajectory"] {
+                        if map.get(claim).is_some_and(|v| !v.is_null() && v != false) {
+                            return Err(RuntimeError::Invalid(
+                                "explorer_unbacked_scientific_claim",
+                            ));
+                        }
+                        if map.get("id").and_then(Value::as_str) == Some(claim)
+                            && map.get("value").is_some_and(|v| !v.is_null())
+                        {
+                            return Err(RuntimeError::Invalid(
+                                "explorer_unbacked_scientific_claim",
+                            ));
+                        }
+                    }
+                }
+                stack.extend(map.values());
+            }
+            Value::Array(values) => stack.extend(values),
+            _ => {}
+        }
+    }
+    if !admitted && (source.contains("pressure_gain") || source.contains("coupled_trajectory")) {
+        return Err(RuntimeError::Invalid("explorer_unbacked_scientific_claim"));
+    }
+    Ok(serde_json::json!({
+        "audit": "static_source_and_manifest", "keyboard_focus": true,
+        "reduced_motion": true, "responsive": true,
+        "unavailable_observations_checked": observations_checked,
+        "scientific_admission": admitted, "qualification_upgraded": false,
+        "limitations": ["Static checks do not execute JSX or certify browser accessibility."]
+    }))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -219,6 +325,55 @@ mod tests {
         assert!(missing.get("budget").is_none());
         assert_eq!(missing["claims"]["pressure_gain"], Value::Null);
         assert_eq!(missing["scientific_eligibility"], "revoked_ineligible");
+        fs::remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn v5_27_05_accessibility_and_truthful_content_audits_real_explorer_assets_and_blocks_fake_zero_or_retracted_claims(
+    ) {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let html = fs::read_to_string(root.join("apps/explorer/src/main.tsx")).unwrap();
+        let css = fs::read_to_string(root.join("apps/explorer/src/style.css")).unwrap();
+        let real = root.join("apps/explorer/public/evidence-manifest.json");
+        assert!(verify_accessibility_and_truthful_content(&real, &html, &css).is_ok());
+        let (path, _) = fixture();
+        let original: Value = serde_json::from_slice(&fs::read(&path).unwrap()).unwrap();
+        let result = verify_accessibility_and_truthful_content(&path, &html, &css).unwrap();
+        assert_eq!(result["unavailable_observations_checked"], 1);
+        for value in [
+            serde_json::json!(0),
+            serde_json::json!("0"),
+            serde_json::json!("0.0"),
+            serde_json::json!("PASS"),
+        ] {
+            let mut bad = original.clone();
+            bad["subjects"][0]["values"][0]["value"] = value;
+            fs::write(&path, bad.to_string()).unwrap();
+            assert!(verify_accessibility_and_truthful_content(&path, &html, &css).is_err());
+        }
+        for claim in ["pressure_gain", "coupled_trajectory"] {
+            let mut bad = original.clone();
+            bad["claims"] = serde_json::json!({"scientific_admission": false});
+            bad["claims"][claim] = serde_json::json!(1.5);
+            fs::write(&path, bad.to_string()).unwrap();
+            assert!(verify_accessibility_and_truthful_content(&path, &html, &css).is_err());
+        }
+        fs::write(&path, original.to_string()).unwrap();
+        for bad in [
+            html.replace("'Not reported'", "'0'"),
+            html.replace("'Not reported'", "'0.0'"),
+            html.replace("'Not reported'", "'PASS'"),
+            format!("{html}<p>pressure_gain: PASS</p>"),
+        ] {
+            assert!(verify_accessibility_and_truthful_content(&path, &bad, &css).is_err());
+        }
+        for bad in [
+            css.replace(":focus-visible", ":focus"),
+            css.replace("prefers-reduced-motion", "motion"),
+            css.replace("max-width:", "width:"),
+        ] {
+            assert!(verify_accessibility_and_truthful_content(&path, &html, &bad).is_err());
+        }
         fs::remove_file(path).unwrap();
     }
 }

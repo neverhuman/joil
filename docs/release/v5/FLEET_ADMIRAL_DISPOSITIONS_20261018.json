@@ -221,7 +221,7 @@
       "decision_id": "SC-DEC-041",
       "task_id": "V5-28-04",
       "disposition_mode": "substitute:typed_manifest_observations+substitute:synthetic_fixture",
-      "summary": "Paper and report claims bind to substitute:synthetic_fixture typed observation, subject, scenario, estimand, unit and tier manifests (simulation, proxy, public_benchmark). Planted-error negatives remain open under V5-28-04 (in_progress).",
+      "summary": "Paper and report claims bind to substitute:typed_manifest_observations+substitute:synthetic_fixture typed observation, subject, scenario, estimand, unit and tier manifests (simulation, proxy, public_benchmark); planted-error negatives (wrong denominator, unit, subject, stale tier, and 1000x/0.15% fuzzy match) are executed and fail the paper build.",
       "tasks_unblocked": [
         "V5-28-05",
         "V5-31-02",

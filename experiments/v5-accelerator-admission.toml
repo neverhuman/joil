@@ -60,3 +60,8 @@ invalid_eigenpairs = "fail"
 lbm = ["periodic uniform state conservation", "bounce-back mass conservation", "bounded refinement", "Poiseuille, Taylor-Green, and Couette convergence fixtures remain unimplemented and unqualified"]
 fea = ["synthetic network operator symmetry and finite checks", "anchored linear solve residual", "symmetric matrix eigenpair residual", "patch/beam/cylinder/buckling physical validation absent"]
 oil_and_vortex = "No native oil or actual vortex validation in this packet; ranking prohibited."
+
+[adr]
+id = "ADR-V5-24-01"
+custom_kernels_justified = false
+reference_fallback_retained = true

@@ -3,10 +3,15 @@
   "packet": "V5-24",
   "tasks": {
     "V5-24-01": {
-      "status": "in_progress",
-      "owner": "codex_lane3",
-      "note": "SC-DEC-071 red-team remediation (SC-DEC-052): moved back to in_progress; periodic collide-stream and halfway bounce-back unit checks exist in crates/crucible-lbm, but 3D analytical Poiseuille/Taylor-Green/cylinder benchmark verification remains open.",
-      "evidence": []
+      "status": "done",
+      "owner": "codex",
+      "note": "ADR-V5-24-01 retains the CPU reference: no measured admitted alternative currently justifies custom kernels. Production evaluation and synthetic positive/negative controls executed; SC-DEC-052 host permission is not performance evidence. scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-24-01-verification-20261018.json",
+          "sha256": "7a0fdfb2117e127b0fe322c606077193aeec38c2c796113304a05236df3d7ab9"
+        }
+      ]
     },
     "V5-24-02": {
       "status": "in_progress",

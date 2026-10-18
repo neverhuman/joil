@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-24-01"
+  ],
+  "tested_commit": "b09319febf4afd93a110787b5a18829a8864a4ee",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by current artifact SHA-256; not a claim that new tests exist at the base commit.",
+  "decision_resolution": "ADR-V5-24-01 retains the CPU reference: no measured admitted alternative currently justifies custom kernels. Production evaluation and synthetic positive/negative controls executed; SC-DEC-052 host permission is not performance evidence.",
+  "changed_paths": [
+    "crates/crucible-gpu/src/lib.rs",
+    "experiments/v5-accelerator-admission.toml"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-gpu",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::v5_24_01_adr_benchmarks_alternatives_retains_reference_fallback_and_rejects_assumed_gupdates_or_hypothetical_fleet"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-24-01.log",
+      "log_sha256": "81d894888f67a34ceaca912c70737112069153a7adff78b17768a907faa56210"
+    }
+  ],
+  "positive_checks": [
+    "Measured held-out leased decision-matched synthetic alternative passes at exact speedup threshold; faster library displaces custom kernel."
+  ],
+  "negative_checks": [
+    "Assumed Gupdates, hypothetical fleet, absent lease, insufficient pairs, unmatched decisions and invalid measured costs rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-gpu/src/lib.rs",
+      "sha256": "f63c9655620c506568ef0b9a9ff7726510996b6130b83ed65bdd36dd5368eee7"
+    },
+    {
+      "path": "experiments/v5-accelerator-admission.toml",
+      "sha256": "c80197acd6ca8b6f8d68c550b5fe0759a3f3e865656632073d335b6ef66f5e18"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "ram_limit_gib": 12,
+    "output_limit_gib": 5,
+    "gpu": false,
+    "simulation": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software verification with synthetic controls only; no physical qualification."
+  ],
+  "next_dependency": "Independent integrator review; scientific admission still requires qualified source evidence."
+}

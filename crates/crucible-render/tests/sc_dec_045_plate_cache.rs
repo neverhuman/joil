@@ -3,7 +3,6 @@ use crucible_render::{
 };
 use crucible_units::{CoordinateFrame, FrameTransform, Metres};
 use joil_evidence::observation::Finite;
-use serde::{Deserialize, Serialize};
 
 fn hash() -> DigestRef {
     DigestRef::parse(&"a".repeat(64)).unwrap()
@@ -67,107 +66,91 @@ fn scene() -> SceneBundle {
 
 #[test]
 fn v5_26_05_sc_dec_045_cached_interrupted_safe_plate_generation_within_zero_external_budget() {
-    #[derive(Serialize, Deserialize)]
-    struct CachedPlate {
-        payload: Vec<u8>,
-        digest: DigestRef,
-        evidence_class: EvidenceClass,
-        limitations: Vec<String>,
-    }
-
-    fn cached_or_render(
-        path: &std::path::Path,
-        identity: &str,
-        plate: &str,
-        render_count: &mut usize,
-    ) -> Vec<u8> {
-        let entry_path = path.join(format!("{plate}.json"));
-        if let Ok(bytes) = std::fs::read(&entry_path) {
-            if let Ok(entry) = serde_json::from_slice::<CachedPlate>(&bytes) {
-                if entry.digest == DigestRef::of(&entry.payload)
-                    && entry.evidence_class == EvidenceClass::Synthetic
-                    && !entry.limitations.is_empty()
-                {
-                    return entry.payload;
-                }
-            }
-        }
-
-        *render_count += 1;
-        let payload = format!("synthetic-plate-v1:{identity}:{plate}").into_bytes();
-        let entry = CachedPlate {
-            digest: DigestRef::of(&payload),
-            payload: payload.clone(),
-            evidence_class: EvidenceClass::Synthetic,
-            limitations: vec!["synthetic fixture; no rendering or scientific validation".into()],
-        };
-        let encoded = serde_json::to_vec(&entry).unwrap();
-        let temporary = entry_path.with_extension(format!("{}.tmp", std::process::id()));
-        std::fs::write(&temporary, encoded).unwrap();
-        std::fs::rename(&temporary, &entry_path).unwrap();
-        payload
-    }
-
-    let target = std::env::var_os("CARGO_TARGET_DIR")
-        .map(std::path::PathBuf::from)
-        .unwrap_or_else(|| std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("target"));
-    let root = target.join(format!("v5-26-05-cache-test-{}", std::process::id()));
-    let cache = root.join("cache");
-    std::fs::create_dir_all(&cache).unwrap();
-
+    use crucible_render::{plan_interrupt_safe_plate_generation, CompletedFrameRecord};
     let bundle = scene();
-    let bundle_manifest = serde_json::to_vec(&bundle).unwrap();
-    let manifest_path = root.join("bundle-manifest.json");
-    std::fs::write(&manifest_path, &bundle_manifest).unwrap();
-    let identity = cache_key(
-        &bundle.identity().unwrap(),
-        &bundle.recipe,
-        "synthetic-build-1",
-        &bundle.mapping,
-    )
-    .unwrap()
-    .sha256;
-
-    // First invocation is interrupted after one complete plate has been cached.
-    let mut render_count = 0;
-    let intact = cached_or_render(&cache, &identity, "overview", &mut render_count);
-    assert_eq!(render_count, 1);
-
-    // Simulate a torn/corrupt second entry left by an interrupted writer.
-    let corrupt_path = cache.join("pressure.json");
-    std::fs::write(
-        &corrupt_path,
-        serde_json::to_vec(&CachedPlate {
-            payload: b"partial-corrupt-payload".to_vec(),
-            digest: DigestRef::of(b"expected-but-missing-payload"),
-            evidence_class: EvidenceClass::Synthetic,
-            limitations: vec!["synthetic fixture".into()],
-        })
-        .unwrap(),
+    let key = cache_key(&bundle.subject, &bundle.recipe, "synthetic-build", &hash()).unwrap();
+    let completed = vec![
+        CompletedFrameRecord {
+            frame_index: 0,
+            cache_key: key.clone(),
+            frame_sha256: hash(),
+            bytes: 12,
+        },
+        CompletedFrameRecord {
+            frame_index: 1,
+            cache_key: key.clone(),
+            frame_sha256: hash(),
+            bytes: 0,
+        },
+        CompletedFrameRecord {
+            frame_index: 2,
+            cache_key: hash(),
+            frame_sha256: hash(),
+            bytes: 12,
+        },
+    ];
+    let plan = plan_interrupt_safe_plate_generation(
+        &bundle,
+        "synthetic-build",
+        &hash(),
+        4,
+        &completed,
+        true,
+        false,
     )
     .unwrap();
-
-    // Resume reuses the intact plate byte-for-byte and regenerates the bad entry.
-    let resumed_intact = cached_or_render(&cache, &identity, "overview", &mut render_count);
-    let regenerated = cached_or_render(&cache, &identity, "pressure", &mut render_count);
-    assert_eq!(resumed_intact, intact);
-    assert_eq!(
-        render_count, 2,
-        "only the missing/corrupt plate is recomputed"
-    );
-
-    // A second resume is deterministic and hits both now-valid entries.
-    let mut second_resume_count = 0;
-    assert_eq!(
-        cached_or_render(&cache, &identity, "overview", &mut second_resume_count),
-        intact
-    );
-    assert_eq!(
-        cached_or_render(&cache, &identity, "pressure", &mut second_resume_count),
-        regenerated
-    );
-    assert_eq!(second_resume_count, 0);
-    assert_eq!(std::fs::read(manifest_path).unwrap(), bundle_manifest);
-    assert_eq!(bundle.evidence_class, EvidenceClass::Synthetic);
-    std::fs::remove_dir_all(root).unwrap();
+    assert_eq!(plan.reused_frames, vec![0]);
+    assert_eq!(plan.pending_frames, vec![1, 2, 3]);
+    assert!(plan.low_priority_leased && plan.human_layout_review_required);
+    assert!(!plan.scientific_qualification_upgraded);
+    assert!(!plan.evidence_limitations.is_empty());
+    let changed = plan_interrupt_safe_plate_generation(
+        &bundle,
+        "changed-build",
+        &hash(),
+        4,
+        &completed,
+        true,
+        false,
+    )
+    .unwrap();
+    assert_eq!(changed.pending_frames, vec![0, 1, 2, 3]);
+    for (frames, lease, upgrade) in [(0, true, false), (4, false, false), (4, true, true)] {
+        assert!(plan_interrupt_safe_plate_generation(
+            &bundle,
+            "synthetic-build",
+            &hash(),
+            frames,
+            &completed,
+            lease,
+            upgrade
+        )
+        .is_err());
+    }
+    let mut invalid = bundle.clone();
+    invalid.window.end_s = invalid.window.start_s;
+    assert!(plan_interrupt_safe_plate_generation(
+        &invalid,
+        "synthetic-build",
+        &hash(),
+        4,
+        &completed,
+        true,
+        false
+    )
+    .is_err());
+    let mut resumed = completed.clone();
+    resumed[1].bytes = 12;
+    let plan = plan_interrupt_safe_plate_generation(
+        &bundle,
+        "synthetic-build",
+        &hash(),
+        4,
+        &resumed,
+        true,
+        false,
+    )
+    .unwrap();
+    assert_eq!(plan.reused_frames, vec![0, 1]);
+    assert_eq!(plan.pending_frames, vec![2, 3]);
 }

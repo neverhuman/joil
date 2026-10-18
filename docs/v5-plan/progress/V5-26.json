@@ -53,20 +53,21 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
-          "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
-        },
-        {
-          "path": "docs/receipts/per-task/v5-26-04-verification-20261018.json",
-          "sha256": "ebba675fffda7e2fad318ee2ccf28b530573e9b97fdd5fa85dd92a9bab079139"
+          "path": "docs/receipts/per-task/v5-26-04-source-refresh-20261018.json",
+          "sha256": "8f777ba00efe97288cc78d94830160105fa422e63f6932888150b6319be0e345"
         }
       ]
     },
     "V5-26-05": {
-      "status": "in_progress",
-      "owner": "codex_lane4",
-      "note": "SC-DEC-071 red-team remediation (SC-DEC-045 budget_approved_existing_compute): moved back to in_progress; cached plate manifest and dry-run stand-in checks exist in crates/crucible-render and render/blender, but real headless Blender plate rendering and human layout review remain open.",
-      "evidence": []
+      "status": "done",
+      "owner": "codex",
+      "note": "SC-DEC-045 software scope implemented within existing compute: interrupt-safe planning reuses complete matching frames and schedules interrupted or stale frames; no external spend or rendering. scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-26-05-verification-20261018.json",
+          "sha256": "4583ca68f2024b31771b6bcf96872fce32228a88ca20a7aa37ad6ff5fd67d123"
+        }
+      ]
     }
   }
 }
