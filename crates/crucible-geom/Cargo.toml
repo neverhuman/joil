@@ -1,0 +1,10 @@
+# DRAFT V5-10 lane scaffold: integrator owns the final V5-08 crate root.
+[package]
+name = "crucible-geom"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true

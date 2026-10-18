@@ -1,0 +1,28 @@
+{
+  "packet": "V5-10",
+  "state": "in_progress",
+  "utc": "20261018T050252Z",
+  "branch": "codex/v5-lane1",
+  "base": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+  "scope": [
+    "crates/crucible-geom/src/surface.rs",
+    "crates/crucible-geom/src/tet.rs",
+    "crates/crucible-geom/src/export.rs",
+    "crates/crucible-geom/tests/artifacts.rs",
+    "docs/receipts/v5-10-*.json"
+  ],
+  "draft_scaffolding": [
+    "Cargo.toml",
+    "Cargo.lock (generated workspace package only)",
+    "crates/crucible-geom/Cargo.toml",
+    "crates/crucible-geom/src/lib.rs"
+  ],
+  "lease_sha256": "75b547301b70967a979a6eeae92c22dff37e65184ef6c8371f91e6bdcf825f7b",
+  "cpus": [
+    36,
+    37
+  ],
+  "memory_gib": 6,
+  "scratch_gib": 2.5,
+  "scientific_admission": false
+}
