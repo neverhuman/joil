@@ -1,0 +1,35 @@
+{
+  "archive": [],
+  "campaign": {
+    "admitted_capabilities": [],
+    "attempts": null,
+    "blockers": [
+      "unresolved pressure/energy/absolute-pressure limits and continuous duty band",
+      "unqualified oil transport and independent validation",
+      "unresolved installation and material/process requirements",
+      "current tail samples insufficient for physical p95 claims",
+      "40 software tasks blocked; inspect the source snapshot for exact reasons",
+      "V5-00-03 remains AUDIT-HELD on D-07, D-18 and D-21",
+      "TR-16 / EV-09 / EV-12 remain deferred"
+    ],
+    "checkpoint": null,
+    "control_arms": [],
+    "reservations": null,
+    "scientific_release": "Scientific phase: software_truth_repair_scientific_claim_inventory_incomplete; campaign admission: sandbox_only",
+    "software_status": "84 todo, 0 in_progress, 40 blocked, 2 review, 34 done",
+    "spend": null,
+    "tasks_completed": 34,
+    "tasks_total": 160
+  },
+  "current": true,
+  "generated_at": "Wall-clock time not recorded; revision identifies exact source bytes",
+  "historical_corrections": [],
+  "revision": "286846e11df7827f9a06e4c2e099ac936ef0ac11790edd25a97d6124c215dfcd",
+  "schema_version": 1,
+  "source_snapshot": {
+    "sha256": "286846e11df7827f9a06e4c2e099ac936ef0ac11790edd25a97d6124c215dfcd",
+    "source": "./v5/source-286846e11df7827f9a06e4c2e099ac936ef0ac11790edd25a97d6124c215dfcd.json"
+  },
+  "subjects": [],
+  "values": []
+}

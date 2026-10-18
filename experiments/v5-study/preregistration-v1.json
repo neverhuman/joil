@@ -1,0 +1,25 @@
+{
+  "protocol_id": "V5-28-study-v1",
+  "status": "frozen-prospective-software-protocol; generation-zero-not-authorized",
+  "family_policy": "all-attempts-retained; no post-result endpoint substitution; any endpoint change creates a new protocol identity",
+  "estimands": [
+    {"id":"best-feasible-quality-at-fixed-cost","unit":"declared-objective-vector","independent_unit":"search_seed"},
+    {"id":"cost-to-first-feasible","unit":"normalized-resource-vector","independent_unit":"search_seed"},
+    {"id":"confirmation-effect-vs-conventional","unit":"paired-independent-preparation","independent_unit":"fluid_preparation_and_physical_build"}
+  ],
+  "arms": [
+    {"id":"R0","representation":"CT-35 frozen baseline","optimizer":"direct evaluation","role":"reference"},
+    {"id":"R1","representation":"fixed smooth parameterization","optimizer":"competent conventional CMA-ES","role":"representation-control"},
+    {"id":"E1","representation":"same fixed smooth parameterization","optimizer":"Joil reference-search/1","role":"optimizer-control"},
+    {"id":"E2","representation":"graph/implicit representation when compiler gate passes","optimizer":"Joil reference-search/1","role":"representation-plus-optimizer"},
+    {"id":"A1","representation":"same as E2","optimizer":"ablation without novelty archive","role":"targeted-ablation"},
+    {"id":"A2","representation":"same as E2","optimizer":"ablation without selected operator family","role":"targeted-ablation"}
+  ],
+  "independent_seeds": {"pilot": [1301,1302,1303,1304], "confirmation": [2301,2302,2303,2304,2305,2306,2307,2308], "disjoint": true},
+  "power_policy": {"pilot_based": true, "pilot_variance_required_before_confirmation": true, "minimum_power": 0.8, "familywise_alpha": 0.05, "method": "simulation-based power on independent seed or preparation units; publish code and assumptions before confirmation"},
+  "resource_normalization": {"schema":"CPU-core-seconds, peak-RSS-byte-seconds, GPU-device-seconds, disk-byte-seconds, human-review-seconds", "weights":"freeze measured reference task medians before generation zero", "charge_failed_retries_audits_training_and_confirmation":true, "no_equal-walltime-substitution":true},
+  "confirmation": {"budget":"reserve 25% of total normalized resource units before generation zero", "fresh_data":true, "independent_units":true, "retain_every_attempted_finalist":true, "family_adjustment":"simultaneous intervals across all finalists and primary estimands"},
+  "unavailable_l4_negative_control": {"if_unavailable":"mark L4 estimand not estimable and stop that claim", "forbidden":"replace endpoint after inspecting winners", "new_endpoint_requires":"new protocol id, fresh confirmation and explicit disclosure"},
+  "exclusions": "Only predeclared infrastructure failure before outcome access; preserve attempt and reason in ledger. Numerical failures remain outcomes, not exclusions.",
+  "limitations": ["pilot values and resource weights are not yet measured", "no generation-zero campaign ran", "no physical confirmation data exist", "this protocol does not activate campaign admission"]
+}

@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "purpose": "review inventory for reproducible paper packaging; not legal advice or a novelty search",
+  "dependency_inventory": "dependency-license-inventory.json",
+  "prior_designs": [
+    {
+      "name": "Colman-Thew CT-35 twin-tangential-inlet deoiling hydrocyclone",
+      "role": "frozen public research reconstruction and comparator",
+      "identity_source": "docs/MASTER_PLAN.md and docs/WHITEPAPER.md references; exact geometry identity remains receipt-bound per baseline files",
+      "accession_status": "reconstruction documented; do not imply modern commercial best-in-class status",
+      "license_or_rights": "not determined here",
+      "review_status": "prior design; human source and claim review required"
+    },
+    {
+      "source_id": "S01",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S02",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S03",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S04",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S05",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S06",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S07",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S08",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S09",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    },
+    {
+      "source_id": "S10",
+      "source_review": "docs/v5-plan/SOURCE_REVIEW.md",
+      "role": "engineering specification / prior-art research input",
+      "license_or_access": "not adjudicated by source review",
+      "overlap_review": "design claims and architecture require human review before disclosure",
+      "status": "inventory pointer only; not a novelty or legal conclusion"
+    }
+  ],
+  "novelty_boundary": "descriptor-hull escape is computational/archive novelty only; no legal novelty, patentability, freedom-to-operate, commercial superiority or service qualification follows",
+  "redistribution_gate": "all package licenses, private inputs, source rights, and candidate disclosure require human review before any external release"
+}

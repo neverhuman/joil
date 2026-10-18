@@ -2,7 +2,7 @@ use crucible_cli::*;
 use crucible_runtime::{Result, RuntimeError};
 use std::path::{Path, PathBuf};
 fn error() -> RuntimeError {
-    RuntimeError::Invalid("usage: admit FILE | run FILE [--root FRESH | --resume ROOT] [--until N] [--continue] | status ROOT | stop ROOT | checkpoint verify ROOT | fork ROOT --weights A,B | seed-import FILE")
+    RuntimeError::Invalid("usage: explore verify FILE --revision REV --subject ID | admit FILE | run FILE [--root FRESH | --resume ROOT] [--until N] [--continue] | status ROOT | stop ROOT | checkpoint verify ROOT | fork ROOT --weights A,B | seed-import FILE")
 }
 fn main_command(args: &[String]) -> Result<i32> {
     if args.first().map(String::as_str) == Some("--fixture-child") {
@@ -14,6 +14,14 @@ fn main_command(args: &[String]) -> Result<i32> {
     install_interrupt();
     let first = args.first().ok_or_else(error)?.as_str();
     let output = match first {
+        "explore"
+            if args.len() == 7
+                && args[1] == "verify"
+                && args[3] == "--revision"
+                && args[5] == "--subject" =>
+        {
+            explore::inspect(Path::new(&args[2]), &args[4], &args[6])?
+        }
         "admit" if args.len() == 2 => {
             let c = Campaign::load(Path::new(&args[1]))?;
             serde_json::json!({"admitted":true,"synthetic_only":true,"physical_eligibility":"Unsupported","campaign":c})
