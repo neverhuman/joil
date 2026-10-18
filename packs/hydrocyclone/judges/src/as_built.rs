@@ -94,6 +94,12 @@ pub fn build_partition(
         deviations_mm.insert(f.feature_id.clone(), deviation);
         match f.rerun_threshold_mm.admitted() {
             None => open.push(format!("{}:rerun_threshold_not_admitted", f.feature_id)),
+            Some(threshold) if !(threshold.is_finite() && *threshold > 0.0) => {
+                open.push(format!(
+                    "{}:rerun_threshold_not_finite_positive",
+                    f.feature_id
+                ));
+            }
             Some(threshold) if deviation.abs() > *threshold => {
                 physics_reruns.push(f.feature_id.clone());
             }
@@ -101,17 +107,15 @@ pub fn build_partition(
         }
     }
     physics_reruns.sort();
-    let verdict = if !physics_reruns.is_empty() {
-        Verdict::Unresolved(
-            physics_reruns
-                .iter()
-                .map(|id| format!("physics_rerun_required:{id}"))
-                .collect(),
-        )
-    } else if !open.is_empty() {
-        Verdict::Unresolved(open)
-    } else {
+    let mut reasons: Vec<String> = physics_reruns
+        .iter()
+        .map(|id| format!("physics_rerun_required:{id}"))
+        .collect();
+    reasons.extend(open);
+    let verdict = if reasons.is_empty() {
         Verdict::Pass
+    } else {
+        Verdict::Unresolved(reasons)
     };
     Ok(AsBuiltPartition {
         identity: identity.clone(),

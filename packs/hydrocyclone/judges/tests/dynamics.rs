@@ -431,6 +431,51 @@ fn v5_20_02_unadmitted_coverage_factor_is_unresolved() {
     assert!(mentions(&report.verdict, "coverage_k:not_admitted"));
 }
 
+#[test]
+fn v5_20_02_representable_tiny_amplitude_keeps_finite_life_pass() {
+    // 1e-3 Pa / 1e9 Pa = 1e-12; N = 0.5 * (1e-12)^(-10) = 5e119, finite and far above the 1 cycle target.
+    let report = judge_finite_life(
+        &passport("A", true),
+        &fatigue_input("A", single_bin(1.0e-3, 0.0), 1.0),
+    );
+    assert_eq!(report.verdict, Verdict::Pass, "{:?}", report.verdict);
+    let predicted = report.predicted_cycles.expect("predicted life");
+    assert!(
+        ((predicted - 5.0e119) / 5.0e119).abs() < 1e-9,
+        "{predicted}"
+    );
+}
+
+#[test]
+fn v5_20_02_finite_tiny_amplitude_never_passes_on_infinite_life() {
+    // 1e-300 Pa / 1e9 Pa = 1e-309 is subnormal; (1e-309)^(-10) overflows, so N = +inf.
+    let report = judge_finite_life(
+        &passport("A", true),
+        &fatigue_input("A", single_bin(1.0e-300, 0.0), 3.0e4),
+    );
+    assert!(!report.verdict.is_pass(), "{:?}", report.verdict);
+    assert!(report.predicted_cycles.is_none_or(f64::is_finite));
+    assert!(report.lower_bound_cycles.is_none_or(f64::is_finite));
+}
+
+#[test]
+fn v5_20_02_subnormal_cycle_count_never_passes_on_underflowed_damage() {
+    // N = 84675 cycles at 3e8 Pa, so a 1e-320 cycle count gives damage 1e-325, which underflows to 0.0.
+    let mut input = fatigue_input("A", single_bin(3.0e8, 0.0), 3.0e4);
+    input.spectrum = admitted(
+        vec![CycleBin {
+            amplitude_pa: 3.0e8,
+            mean_pa: 0.0,
+            cycles: 1.0e-320,
+        }],
+        "cycle-count-source",
+    );
+    let report = judge_finite_life(&passport("A", true), &input);
+    assert!(!report.verdict.is_pass(), "{:?}", report.verdict);
+    assert!(report.predicted_cycles.is_none_or(f64::is_finite));
+    assert!(report.lower_bound_cycles.is_none_or(f64::is_finite));
+}
+
 // ---------------------------------------------------------------- V5-20-03 as-built
 
 fn identity() -> SubjectIdentity {
@@ -498,6 +543,54 @@ fn v5_20_03_unadmitted_rerun_threshold_is_unresolved_not_pass() {
         "bore:rerun_threshold_not_admitted"
     ));
     assert!(!partition.verdict.is_pass());
+}
+
+#[test]
+fn v5_20_03_finite_positive_threshold_keeps_unchanged_feature_passing() {
+    let masses = Masses {
+        nominal_kg: 0.52,
+        as_built_kg: 0.52,
+    };
+    let features = [feature(
+        "bore",
+        10.0,
+        10.0,
+        admitted(0.2, "threshold-source"),
+    )];
+    let partition = build_partition(&identity(), &masses, &features).expect("valid partition");
+    assert_eq!(partition.verdict, Verdict::Pass, "{:?}", partition.verdict);
+    assert!(partition.physics_reruns.is_empty());
+    assert_eq!(partition.deviations_mm["bore"], 0.0);
+}
+
+#[test]
+fn v5_20_03_nonfinite_or_nonpositive_admitted_threshold_is_unresolved() {
+    let masses = Masses {
+        nominal_kg: 0.52,
+        as_built_kg: 0.52,
+    };
+    for threshold in [f64::NAN, f64::INFINITY, 0.0, -0.2] {
+        let features = [feature(
+            "bore",
+            10.0,
+            10.0,
+            admitted(threshold, "threshold-source"),
+        )];
+        let partition = build_partition(&identity(), &masses, &features).expect("valid partition");
+        assert!(
+            !partition.verdict.is_pass(),
+            "threshold {threshold}: {:?}",
+            partition.verdict
+        );
+        assert!(
+            mentions(
+                &partition.verdict,
+                "bore:rerun_threshold_not_finite_positive"
+            ),
+            "threshold {threshold}: {:?}",
+            partition.verdict
+        );
+    }
 }
 
 #[test]
