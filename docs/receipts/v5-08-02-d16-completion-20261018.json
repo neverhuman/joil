@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "packet": "V5-08",
+  "task_ids": [
+    "V5-08-01",
+    "V5-08-02",
+    "V5-08-03",
+    "V5-08-04",
+    "V5-08-05"
+  ],
+  "kind": "tested_implementation_checkpoint_with_primary_D-16_source_control",
+  "owner": "3128818.joil_v5_codex_lane1",
+  "created_utc": "2026-10-18T09:20:00Z",
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "source_binding": "The frozen C006 source was extracted and built from the pinned commit; controls ran against the assigned tested commit and the exact frozen source binding. The workspace test ran against the compatible package present at that head.",
+  "changed_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/progress/V5-08.json",
+    "docs/v5-plan/todos/V5-08.md",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/execution/V5-08-G007-SCOPE.md",
+    "docs/design/V5_GEOMETRY.md",
+    "docs/design/decisions/V5_KERNEL.md",
+    "crates/joil-geometry/src/certify.rs",
+    "crates/joil-geometry/src/chamber_wall/ct35.rs",
+    "crates/joil-geometry/src/chamber_wall.rs",
+    "crates/joil-geometry/src/csg.rs",
+    "crates/joil-geometry/src/field/fidget.rs",
+    "crates/joil-geometry/src/field.rs",
+    "crates/joil-geometry/src/interval.rs",
+    "crates/joil-geometry/src/lib.rs",
+    "crates/joil-geometry/src/partition.rs",
+    "crates/joil-geometry/tests/kernel.rs",
+    "crates/joil-geometry/Cargo.toml",
+    "crates/crucible-geom/Cargo.toml",
+    "crates/crucible-geom/src/lib.rs",
+    "crates/crucible-geom/tests/kernel.rs",
+    "docs/receipts/v5-08-02-d16-completion-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "extract",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d16-extract.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "build-frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1cf42fb52a6cd6d63e3063d81d41fb621694bd8c18d5963197f481ad4a56b255",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d16-build.log",
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target"
+      }
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-16",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d16-pos-scratch",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9b5700cdd8c9ee15b97e850caf9b16a9cc3892dc03a48139df89807c7f38ae3d",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d16-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "kernel"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f973f597c7909948245a93aabd9195a01d93be3ed3bef173f3a3698bdd9be5d9",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/kernel-available.log",
+      "note": "The tested workspace package is crucible-geom; kernel suite passed 17/17."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "cc2b8ab9e2ac182ae2f9511fd2d471ccc59ce87f0354e6edf88b97bc09ee8f12",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/check-public.log"
+    }
+  ],
+  "positive_checks": [
+    "Frozen C006 source extraction completed (exit 0); frozen Rust artifacts rebuilt offline in the lane target (exit 0).",
+    "Frozen D-16 positive passed on the recorded in-band TPMS elite (exit 0); durable log and probe outputs retained, generated probe binary removed.",
+    "Available crucible-geom kernel integration suite passed: 17 passed, 0 failed, 0 ignored (exit 0).",
+    "tools/check_public.py passed at the current receipt-editing HEAD (exit 0); output and exit record are retained in the controls directory."
+  ],
+  "negative_checks": [
+    "Frozen D-16 red returned expected exit 1: TPMS band [30.1525, 68.3397] mm yielded max_abs_diff_mm=0.0254179 at theta_z=[5.6, 60.0], above the 66 mm boundary; C006-RED D-16 was emitted.",
+    "The literal requested cargo test package crucible-geometry exited 101 because no workspace package by that name exists. Exact command log: /home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/kernel-requested.log (sha256 8f00c6a0bcd309ec7e3ea03e048fb9868ccda1d3865f40d46c3471b91a605f86). The available crucible-geom package and kernel target passed separately."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/kernel.rs",
+      "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "logical_cpus": [
+      36,
+      37
+    ],
+    "ram_gib": 6,
+    "scratch_gib": 2.5,
+    "cargo_jobs": 2,
+    "gpu": false,
+    "simulation": false,
+    "frozen_build_target": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target"
+  },
+  "limitations": [
+    "D-16 C006 reproduction is frozen-source software evidence of a mismatch, not a repair or physical qualification.",
+    "No crucible-geometry package exists at the tested commit; its exact requested command cannot have an honest exit_code 0. The available crucible-geom package and tests/kernel.rs provide the successful compatible kernel run.",
+    "The source control records the available Wave-2 TPMS boundary observation; accepted boundary artifacts and the third CAD authority remain outside this control."
+  ],
+  "next_dependency": "Use the available crucible-geom package name or add an explicitly reviewed package alias in a separate contract change; independently repair and validate the D-16 wall-authority mismatch and obtain accepted boundary artifacts before any physical geometry claim.",
+  "defect_controls": [
+    {
+      "defect_id": "D-16",
+      "fixture": {
+        "path": "crates/crucible-geom/tests/kernel.rs",
+        "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/phenotype.rs",
+        "symbol": "Phenotype3D::inner_radius_mm",
+        "sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-16",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d16-pos-scratch",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "9b5700cdd8c9ee15b97e850caf9b16a9cc3892dc03a48139df89807c7f38ae3d",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d16-positive.log",
+        "expected_result": "Frozen D-16 positive passes: inactive baselines and an in-band recorded Wave-2 TPMS program agree across Rust and Python wall authorities."
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-16",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d16-red-scratch",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "d1655b6530fc765c1905e03a70ab25ce87a85ffb89d6cdc8725065f2f561dc06",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d16-red.log",
+        "expected_result": "C006-RED D-16: frozen Rust inner_radius_mm vs Python chamber_radius_mm differ by max_abs_diff_mm=0.0254179 for the recorded TPMS band [30.1525, 68.3397] mm."
+      }
+    }
+  ]
+}

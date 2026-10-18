@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "kind": "v5_primary_defect_control_receipt",
+  "task_ids": [
+    "V5-13-01",
+    "V5-13-02",
+    "V5-13-03",
+    "V5-13-04",
+    "V5-13-05"
+  ],
+  "owner": "codex-lane4",
+  "model": "gpt-6-luna medium (T1)",
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/manufacturing.rs",
+    "docs/receipts/v5-13-02-d07-control-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "bd5f30341d3fcb69c381ab7de88aaf8eed512f1b2eae02ff824cc3e0aebb996f",
+      "note": "Requested package integration test passed.",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/v5-13-02-manufacturing-test.log"
+    }
+  ],
+  "positive_checks": [
+    "v5_13_02_tpms_wall_corrugation_receives_no_missing_annulus_mass_credit and the full pack-hydrocyclone-judges manufacturing test target passed; synthetic software fixture only."
+  ],
+  "negative_checks": [
+    "D-07 frozen-source negative control is kind: blocked in tools/v5_baseline_source_controls.py because frozen Phenotype3D::from_program has no seam for an accepted solid artifact with independently integrated volume; no executed defect control is claimed."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/manufacturing.rs",
+      "sha256": "643b5c0c670c3d9a6ef3e4a57627221e49b0179f00329cbdbf824294cff8f3a7"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Software fixture evidence only; no physical or native validation, measurement, qualification, or performance claim.",
+    "Requested source commit 82685334a9121a97a7161e9910e43ff0144bc42b is unavailable in this checkout, and the active gate freezes e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0. The validator requires the gate commit; source path, symbol and digest remain the assigned values.",
+    "Audit 027 disposition: D-07 is kind: blocked in tools/v5_baseline_source_controls.py because frozen Phenotype3D::from_program has no seam for an accepted solid artifact with independently integrated volume. The assertion-inversion control is withdrawn. V5-13-02 remains blocked with integration_only support; packet_acceptance=false and scientific_admission=false."
+  ],
+  "next_dependency": "Independent review of the source-bound defect controls and native/physical evidence gates; no scientific admission.",
+  "packet_acceptance": false,
+  "scientific_admission": false
+}

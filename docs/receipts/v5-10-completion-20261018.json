@@ -1,0 +1,80 @@
+{
+  "task_ids": [
+    "V5-10-01",
+    "V5-10-02",
+    "V5-10-03",
+    "V5-10-04",
+    "V5-10-05"
+  ],
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "changed_paths": [
+    "crates/crucible-geom/src/surface.rs",
+    "crates/crucible-geom/src/tet.rs",
+    "crates/crucible-geom/src/export.rs",
+    "crates/crucible-geom/tests/artifacts.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "artifacts"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b819f49b3429d72d057d79ba418de705d68e784f281f39339f17ede43be840fa",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/controls/v5-10-artifacts-test.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "21f7e0da9d26ba7a5303afa6784e755f232fce15f5967a9de134ebf7f3b35766",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/controls/check-public.log"
+    }
+  ],
+  "positive_checks": [
+    "Documented V5-10 artifacts integration suite passed: 14 tests, 0 failed, on the assigned source commit.",
+    "Rotated asymmetric ports retained tags; P1/P2, coverage mapping, export dimensions and fixed-corpus retention controls passed."
+  ],
+  "negative_checks": [
+    "Surface, tetrahedral, projection, scaling, unsupported-feature, scalar-only deletion and tampered retention controls reject invalid artifacts.",
+    "The assignment command naming package crucible-mesh was attempted and exited 101 because that package is absent at c007fa5; the current V5-10 packet names crucible-geom --test artifacts."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/artifacts.rs",
+      "sha256": "2148c82744f07fca4bb970866cb103cf2b283a003928e936ecc6376829fed1f9"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      90,
+      91
+    ],
+    "rss_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+    "incremental": false
+  },
+  "limitations": [
+    "The requested crates/crucible-mesh/tests/mesh_export.rs is absent at the assigned commit; the current packet artifact suite and fixture are crates/crucible-geom/tests/artifacts.rs.",
+    "This software evidence does not establish geometry authority, solver admission, physical validation or scientific qualification.",
+    "Lane receipt records integration evidence only; packet acceptance remains integrator-owned."
+  ],
+  "next_dependency": "Integrator review of the current crucible-geom integration and reconciliation with accepted V5-08 authority before downstream geometry capability claims.",
+  "scientific_admission": false,
+  "packet_acceptance": false
+}

@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "packet": "V5-04",
+  "task_ids": [
+    "V5-04-01",
+    "V5-04-02",
+    "V5-04-03",
+    "V5-04-04",
+    "V5-04-05"
+  ],
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "changed_paths": [
+    "crates/crucible-stats/Cargo.toml",
+    "crates/crucible-stats/src/analysis.rs",
+    "crates/crucible-stats/src/analysis/calibration.rs",
+    "crates/crucible-stats/src/analysis/capture.rs",
+    "crates/crucible-stats/src/analysis/joint.rs",
+    "crates/crucible-stats/src/analysis/order.rs",
+    "crates/crucible-stats/src/analysis/pilot.rs",
+    "crates/crucible-stats/src/distribution.rs",
+    "crates/crucible-stats/src/lib.rs",
+    "crates/crucible-stats/tests/calibration.rs",
+    "crates/crucible-stats/tests/capture.rs",
+    "crates/crucible-stats/tests/common/mod.rs",
+    "crates/crucible-stats/tests/distribution_contract.rs",
+    "crates/crucible-stats/tests/joint.rs",
+    "crates/crucible-stats/tests/order.rs",
+    "crates/crucible-stats/tests/pilot.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-stats"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3c7874bda616919f713a8264c1fb292a6d86c35643a46dfc3287b79d3f212bb1",
+      "result": "40 passed, 0 failed across lib, calibration (5), capture (7), distribution_contract (3), joint (12), order (7), pilot (6) suites",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/v5-04-test-c007fa5.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-stats",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6d6386a9ca9471b13f14227519c10e864c7ad6dc7c69b07509eb990ad5b03d97",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/v5-04-clippy-c007fa5.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2a17e39fa6414c916b5f5f05ce64f57862a911c05322c0ecda4cdedb18f872bb",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/v5-04-check-public-c007fa5.log"
+    }
+  ],
+  "positive_checks": [
+    "calibration: preregistered_calibration_joint_normal_coverage_and_boundary_false_qualification, preregistered_calibration_clustered_skewed_cluster_level_and_naive_demonstration, preregistered_calibration_prospective_plan_power_and_null_false_qualification, preregistration_is_bounded_identified_and_reports_distinct_metrics, family_ledger_charges_every_adaptive_attempt_and_refuses_resets",
+    "capture: preregistered_coverage_correlated_unequal_weight_cohort, preregistered_coverage_randomized_lattice_replicates, unequal_weight_mass_ratio_matches_hand_derivation_not_a_count_share, shared_cluster_strata_keep_their_covariance, splitting_a_parcel_into_daughters_with_the_same_fate_changes_nothing",
+    "distribution_contract: finite_moments_preserve_zero_variance_and_reject_overflow",
+    "joint: frozen_four_margin_family_reproduces_the_simultaneous_lower_bounds, fixed_conjunction_and_adaptive_winner_are_different_claims_from_simultaneous_display, paired_blocks_keep_correlations_and_match_their_summaries, pearson_is_stable_under_huge_scale_and_offset_in_paired_blocks",
+    "order: holm_matches_hand_adjustment_with_ties_and_is_order_invariant, cliff_counts_ties_as_zero_and_is_permutation_and_swap_consistent, exact_order_statistic_ranks_and_tail_thresholds_match_independent_derivation, finite_envelopes_stay_finite_envelopes, signed_zero_ties_are_ties_in_cliffs_delta_and_exact_permutation",
+    "pilot: df1_bound_matches_the_closed_form_cauchy_oracle, small_n_bound_uses_the_independent_critical_value_and_rejects_the_legacy_one, planned_count_is_adequate_and_efficient_under_exact_noncentral_power"
+  ],
+  "negative_checks": [
+    "distribution_contract: independent_critical_values_reject_legacy_t_approximation, invalid_distribution_inputs_are_errors_before_library_evaluation",
+    "capture: dependent_units_and_broken_ancestry_are_refused, naive_wilson_over_daughters_is_narrower_than_the_cluster_interval_and_is_refused",
+    "calibration: family_ledger_charges_every_adaptive_attempt_and_refuses_resets, preregistered_calibration_clustered_skewed_cluster_level_and_naive_demonstration",
+    "joint: one_failed_margin_blocks_the_whole_family, missing_or_unreviewed_bias_and_unresolved_requirements_never_pass, constant_paired_margin_never_yields_a_nonfinite_pass, every_paired_ratio_baseline_block_must_be_strictly_positive, reviewed_ratio_margin_cannot_omit_its_baseline, reviewed_ratio_domain_cannot_be_relabelled_to_an_absolute_margin, unspecified_legacy_domain_and_missing_paired_ratio_baseline_never_pass, wrong_family_scenario_unit_and_nonpositive_baseline_block",
+    "order: censored_values_bound_the_tail_only_as_at_most_loq_never_as_zero, sample_count_alone_never_buys_a_tail_interval",
+    "pilot: confirmation_refuses_reuse_dependence_wrong_count_and_zero_variance, confirmation_outcomes_cannot_change_the_frozen_plan, invalid_designs_are_refused_before_planning"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-stats/Cargo.toml",
+      "sha256": "2245239411ff363b9f7232c1ce9994e1ef0c0f0b029de8c8e75bdc04b6a08857"
+    },
+    {
+      "path": "crates/crucible-stats/src/analysis.rs",
+      "sha256": "a278b1e5cec67acb4f6ee5837d6ed6d45c7196b80584f861d7e427a89d6b6833"
+    },
+    {
+      "path": "crates/crucible-stats/src/analysis/calibration.rs",
+      "sha256": "0f69e98fe73ecdef157bdffbf94ee7e1a9762e8e5c3f4e152837b575a29ed44a"
+    },
+    {
+      "path": "crates/crucible-stats/src/analysis/capture.rs",
+      "sha256": "7fba2ce33a787bca62b132fea75288fcfc2b88d8d99406d86051c0241aeaa0a7"
+    },
+    {
+      "path": "crates/crucible-stats/src/analysis/joint.rs",
+      "sha256": "27e257162ab8ea6d8d8ca0137b0d65dcac321c13729c7559e80fe5b811705efe"
+    },
+    {
+      "path": "crates/crucible-stats/src/analysis/order.rs",
+      "sha256": "cdda3483503dcd06bdc68eace5186054f0dc7407d3d48a8428c6495b2a7bc346"
+    },
+    {
+      "path": "crates/crucible-stats/src/analysis/pilot.rs",
+      "sha256": "f60d3a833aed90ec145c621576aa36df8d91c3a3bb6c278cdce603051e546fc7"
+    },
+    {
+      "path": "crates/crucible-stats/src/distribution.rs",
+      "sha256": "0ce195190d6fce983b7652957419d1009c74447ab17652008cf1901c3af05b75"
+    },
+    {
+      "path": "crates/crucible-stats/src/lib.rs",
+      "sha256": "1950a509428a3c35408c4c430c5a0b79313c81b469fa68f4148dcbd2894b6bb7"
+    },
+    {
+      "path": "crates/crucible-stats/tests/calibration.rs",
+      "sha256": "e2c6398fddccb653dd78bbaa79a6320a260fcec94993f309613cb9b314041e63"
+    },
+    {
+      "path": "crates/crucible-stats/tests/capture.rs",
+      "sha256": "bda1c6430dac74616c57d0ba4229b77a496881a6ff1c19b1cf3eb3f9a62f1fe1"
+    },
+    {
+      "path": "crates/crucible-stats/tests/common/mod.rs",
+      "sha256": "a884f261c3125b1ab75ec3556c550519abbb42ba60f6fb3269f435e172ef433a"
+    },
+    {
+      "path": "crates/crucible-stats/tests/distribution_contract.rs",
+      "sha256": "c6f2b90d63c201c69838460208602e53ec3ef908e9a6cce20060e7d175c1ea12"
+    },
+    {
+      "path": "crates/crucible-stats/tests/joint.rs",
+      "sha256": "39bee95538d6614ec08edd89c4bf4f9557c985181891509f186228124f335144"
+    },
+    {
+      "path": "crates/crucible-stats/tests/order.rs",
+      "sha256": "3eaa7a460ac69781ae66d343da4881d5972a3093d15fdbb8bc5bbbc0fb523566"
+    },
+    {
+      "path": "crates/crucible-stats/tests/pilot.rs",
+      "sha256": "9a05bf3da7b30e7f2ff781f22babd3df7e7845d7c9530127e312cb7ccf9a3876"
+    }
+  ],
+  "resource_allocation": {
+    "cpu": "cargo build jobs capped at 2 (CARGO_BUILD_JOBS=2); test-harness threads not separately capped",
+    "ram": "not separately limited",
+    "disk": "per-worker target dir only (CARGO_TARGET_DIR under the v5 worker tree); no output artifacts committed",
+    "gpu": "none",
+    "simulation": "none"
+  },
+  "limitations": [
+    "Software and fixture evidence only: these are synthetic and pinned-fixture tests. No physical, scientific or qualification claim is admitted by this receipt (physical_qualification not asserted).",
+    "Pass status is taken from test names and exit codes; individual numeric expectations (e.g. the 2.912/1.640/573.520/0.06117 margin bounds and coverage rates) were not re-derived by hand in this session.",
+    "Coverage tests are Monte Carlo with finite replicates; binomial uncertainty is as implemented in the tests and is not independently recomputed here.",
+    "The ratio-margin gap noted in the earlier V5-04 follow-up commit message (ratio margin without ratio_baseline_mean) is addressed by tests named reviewed_ratio_margin_cannot_omit_its_baseline and reviewed_ratio_domain_cannot_be_relabelled_to_an_absolute_margin; the code path was not re-reviewed in this session.",
+    "docs/v5-plan/progress/V5-04.json and generated views (TODO, dashboard) are integrator-owned and remain todo until the integrator consumes this receipt.",
+    "No cross-crate integration (joil-core experiment.rs, regression.rs) is covered by this receipt; V5-04 write_scope includes those paths but this receipt tests crucible-stats only."
+  ],
+  "next_dependency": "V5-14 (oil transport) lists V5-04 as a dependency; integrator to validate this receipt and regenerate docs/v5-plan views."
+}

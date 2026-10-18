@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "kind": "scoped_integration_claim",
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-18T10:52:14.325079+00:00",
+  "base_commit": "26afbcff33e6327a45b37390b55a10b0a2d36e6c",
+  "authority": "Direct G009-R003 Priority1 plus user host merged-PR fallback and COORD CHECK14 successor directive; original audited commits preserved",
+  "paths": [
+    "docs/receipts/v5-04-combined-acceptance-20261018.json",
+    "docs/receipts/v5-08-02-d16-completion-20261018.json",
+    "docs/receipts/v5-09-d05-completion-20261018.json",
+    "docs/receipts/v5-26-d22-completion-20261018.json",
+    "docs/receipts/v5-28-d31-completion-20261018.json",
+    "docs/receipts/v5-10-completion-20261018.json",
+    "docs/receipts/v5-11-d25-completion-20261018.json",
+    "docs/receipts/v5-13-02-d07-control-20261018.json",
+    "docs/receipts/v5-16-02-d14-control-20261018.json",
+    "docs/receipts/v5-23-04-d18-control-20261018.json",
+    "docs/receipts/v5-31-d30-completion-20261018.json",
+    "docs/receipts/v5-remaining-packets-completion-20261018.json",
+    "docs/v5-plan/execution/V5-R003-WAVE34-SCOPE.md",
+    "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+    "docs/v5-plan/PR_HANDOFF.md",
+    "docs/release/v5/README.md"
+  ],
+  "boundary": "Import exact immutable receipt bytes only. Exclude stale lane changelog/handoff copies; no engineering source or shared manifest changes. Packet progress is serialized separately and completion requires independent criterion/dependency review."
+}

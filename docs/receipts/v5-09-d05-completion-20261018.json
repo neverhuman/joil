@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "kind": "v5_09_combined_completion_software_controls_only",
+  "task_ids": [
+    "V5-09-01",
+    "V5-09-02",
+    "V5-09-03",
+    "V5-09-04",
+    "V5-09-05"
+  ],
+  "owner": "61562.joil_v5_codex_lane2",
+  "state": "lane_complete",
+  "created_utc": "2026-10-18T09:28:00Z",
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "changed_paths": [
+    "crates/crucible-geom/Cargo.toml",
+    "crates/crucible-geom/src/lib.rs",
+    "crates/crucible-geom/src/observe/README.md",
+    "crates/crucible-geom/src/observe/clearance.rs",
+    "crates/crucible-geom/src/observe/distance.rs",
+    "crates/crucible-geom/src/observe/enactment.rs",
+    "crates/crucible-geom/src/observe/mesh.rs",
+    "crates/crucible-geom/src/observe/mod.rs",
+    "crates/crucible-geom/src/observe/topology.rs",
+    "crates/crucible-geom/src/observe/volume.rs",
+    "crates/crucible-geom/tests/observers.rs",
+    "tests/fixtures/v5-geometry/ball.json",
+    "tests/fixtures/v5-geometry/disconnected.json",
+    "tests/fixtures/v5-geometry/hollow-ball.json",
+    "tests/fixtures/v5-geometry/oracles.json",
+    "tests/fixtures/v5-geometry/solid-torus.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "extract",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_result": "Frozen C006 source e1e9203 extracted to the existing lane target."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "build-frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "log_sha256": "560a68a7611ffe14f953565913a9e6df27229d3dbf13fc47e58d549d76920e14",
+      "expected_result": "Frozen joil-ir/core/cli artifacts built with the c006frozen profile."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-05",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
+      "expected_result": "Frozen C006 D-05 positive runtime control passed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "observers"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e81cea0fa07b42056833460976d15703270c60146aab9e09de4231032d24924a",
+      "expected_result": "15 observer tests passed, 0 failed."
+    }
+  ],
+  "positive_checks": [
+    "D-05 positive runtime probe passed against frozen source e1e9203.",
+    "Locked offline crucible-geom observers test passed 15/15.",
+    "The tracked observer fixture hash is bound to the source and the positive runtime control."
+  ],
+  "negative_checks": [
+    "Frozen-source red control returned the expected exit 1 for a synthetic sealed shell missed as powder.",
+    "Observer tests reject inaccessible pockets, sealed pockets, unresolved/subvoxel throats and zero escape diameter."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/observers.rs",
+      "sha256": "d044eda78e6a06d12cb76db7a600e7b3b42af93ce7cb41f28803ee5722295ffd"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/ball.json",
+      "sha256": "cfae6d87c26b16793dc6a26a3bae3f95eaf88652270a3242fdc405464158d166"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/disconnected.json",
+      "sha256": "687aba51c99144278ce460a1b2189ed0f62c5a98ec2ad438a51965909783cb94"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/hollow-ball.json",
+      "sha256": "c7cdcf061dbf8c99d824b8dec0f4be837e1097d3d035a5cbc774c3f9c93d3573"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/oracles.json",
+      "sha256": "006822918330abb6f75720e7a895d84d69bd7dd474f0e93fadd954ef28813442"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/solid-torus.json",
+      "sha256": "33f966858bd52173afe8fd3e6434278c20fda3734548498818d7476a67314cad"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      38,
+      39
+    ],
+    "nice": 10,
+    "max_group_rss_gib": 6,
+    "max_scratch_gib": 2.5,
+    "cargo_build_jobs": 2,
+    "rayon_threads": 2,
+    "omp_openblas_mkl_threads": 1,
+    "rust_test_threads": 2,
+    "gpu": false,
+    "simulation": false,
+    "search_campaign": false,
+    "private_scratch_root": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls"
+  },
+  "limitations": [
+    "Software fixtures are synthetic; no physical powder escape, residual powder mass, or manufacturing qualification is established.",
+    "The full workspace gate was not part of this scoped assignment."
+  ],
+  "next_dependency": "Integrator/validator acceptance and downstream V5-10 reader integration; physical qualification remains external.",
+  "defect_controls": [
+    {
+      "defect_id": "D-05",
+      "fixture": {
+        "path": "crates/crucible-geom/tests/observers.rs",
+        "sha256": "d044eda78e6a06d12cb76db7a600e7b3b42af93ce7cb41f28803ee5722295ffd"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-ir/src/lib.rs",
+        "symbol": "VoxelSdfObserver::run_voxel_flood_fill",
+        "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-05",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
+        "expected_result": "Frozen open connected cavity is reachable; trapped powder is zero."
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-05",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "41ea7191bc82a68554faf968bcd435b278dc13e918a5fe318a919f93cb8a72cb",
+        "expected_result": "C006-RED D-05 reports a sealed synthetic shell missed as powder; exit 1."
+      }
+    }
+  ]
+}
