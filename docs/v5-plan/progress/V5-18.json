@@ -3,34 +3,59 @@
   "packet": "V5-18",
   "tasks": {
     "V5-18-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "Software tests pass at tested commit 7635854 on synthetic fixtures (metrics 26/26, crate green, clippy -D warnings, fmt, check_public). Blocked by packet dependencies V5-04, V5-13, V5-15 (blocked), V5-17, V5-20 not accepted: tools/v5_plan.py refuses in_progress/done. No scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-01-concentration-oracles-20261018T060814Z.json",
+          "sha256": "f342eb9bfb2d999425249f6fdcae83aaaa0e5a2141e438e6cdf383013e998984"
+        }
+      ]
     },
     "V5-18-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "Software tests pass at tested commit 7635854 on synthetic fixtures (metrics 26/26, crate green, clippy -D warnings, fmt, check_public). Blocked by packet dependencies V5-04, V5-13, V5-15 (blocked), V5-17, V5-20 not accepted: tools/v5_plan.py refuses in_progress/done. No scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-02-common-flow-operating-maps-20261018T060814Z.json",
+          "sha256": "0634046b20884886065624f09341d38f6f8a1d003e6f5b4f5733019054b429fc"
+        }
+      ]
     },
     "V5-18-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "Software tests pass at tested commit 7635854 on synthetic fixtures (metrics 26/26, crate green, clippy -D warnings, fmt, check_public). Blocked by packet dependencies V5-04, V5-13, V5-15 (blocked), V5-17, V5-20 not accepted: tools/v5_plan.py refuses in_progress/done. No scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-03-treated-volume-energy-20261018T060814Z.json",
+          "sha256": "c1dcea0a70e8a63a936f996dbb44aff43cf385693b21850c88190158dc4914e6"
+        }
+      ]
     },
     "V5-18-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "Software tests pass at tested commit 7635854 on synthetic fixtures (metrics 26/26, crate green, clippy -D warnings, fmt, check_public). Blocked by packet dependencies V5-04, V5-13, V5-15 (blocked), V5-17, V5-20 not accepted: tools/v5_plan.py refuses in_progress/done. No scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-04-bounded-objectives-20261018T060814Z.json",
+          "sha256": "8f6ca4ab665ae6ae414138914d1abc0befbf30dca383178b0c9aa3f7965e2ab1"
+        }
+      ]
     },
     "V5-18-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "Software tests pass at tested commit 7635854 on synthetic fixtures (metrics 26/26, crate green, clippy -D warnings, fmt, check_public). Blocked by packet dependencies V5-04, V5-13, V5-15 (blocked), V5-17, V5-20 not accepted: tools/v5_plan.py refuses in_progress/done. No scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-05-ratios-uncertainty-policy-20261018T060814Z.json",
+          "sha256": "3c67cf539287d57c29a8b4e4a328cce6f8d7f134cdd8b117c2a2010ca0975580"
+        }
+      ]
     }
   }
 }
