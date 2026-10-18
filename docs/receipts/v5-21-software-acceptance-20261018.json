@@ -1,0 +1,78 @@
+{
+  "schema": "joil.v5.software-acceptance.v1",
+  "packet": "V5-21",
+  "task_ids": [
+    "V5-21-01",
+    "V5-21-02",
+    "V5-21-03",
+    "V5-21-04",
+    "V5-21-05"
+  ],
+  "tested_commit": "5e3cd22a6a17d75890d03299521e37faf2b50162",
+  "changed_paths": [
+    "docs/receipts/v5-21-software-acceptance-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-search",
+        "--test",
+        "acquisition",
+        "--test",
+        "reference"
+      ],
+      "exit_code": 0,
+      "log_sha256": "022bc67f2dc15b77616d8a560ab6d0fe9f66bf24280a9b02df95f11a85f8b136",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/crucible-search-tests.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/check-public.log"
+    }
+  ],
+  "positive_checks": [
+    "crucible-search acquisition suite passed 5 tests; reference suite passed 12 tests.",
+    "Independent fixture/oracle and anti-exploitation checks passed."
+  ],
+  "negative_checks": [
+    "No scientific or physical admission is established; fixtures are software controls."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-search/tests/reference.rs",
+      "sha256": "2e9fab1c1926c18a31970d7b95ed7ad11c99a8f178f87b9459b6164fc0b3d68a"
+    },
+    {
+      "path": "crates/crucible-search/tests/acquisition.rs",
+      "sha256": "6ab15626303c5a63006369fa935e1b41037593785c2af36232d04696d811c7f7"
+    }
+  ],
+  "resource_allocation": {
+    "cpus_available": 1,
+    "execution": "serial",
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target"
+  },
+  "limitations": [
+    "Software/harness verification only; scientific admission remains false."
+  ],
+  "next_dependency": "Integrator acceptance and scientific evidence gates remain separate.",
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "agent_trailers": {
+    "Agent-Session": "lane3-wave6-v5-21-22-24",
+    "Agent-Model": "gpt-6-luna medium",
+    "Agent-Task": "V5-21-01 V5-21-02 V5-21-03 V5-21-04 V5-21-05 V5-22-01 V5-22-02 V5-22-03 V5-22-04 V5-22-05 V5-24-01 V5-24-02 V5-24-03 V5-24-04 V5-24-05"
+  }
+}
