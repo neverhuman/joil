@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "packet": "V5-02",
+  "kind": "bounded_audit_verification_scope_transfer_not_task_acceptance",
+  "created_utc": "2026-10-18T00:16:56.737441+00:00",
+  "owner": "existing-claude-v5-worker",
+  "exclusive_paths": [
+    "crates/joil-evidence/tests/decision.rs",
+    "docs/receipts/v5-02-audit-tests-*.json"
+  ],
+  "integrator_paths_retained": [
+    "crates/joil-evidence/src/decision.rs",
+    "requirements/",
+    "schemas/",
+    "Cargo.toml",
+    "Cargo.lock",
+    "docs/v5-plan/progress/",
+    "docs/v5-plan/todos/",
+    "docs/v5-plan/dashboard.html"
+  ],
+  "basis": "Existing user-authorized two-worker coordination and later disjoint assignment; closes two exact audit gaps only",
+  "lease_unchanged": true,
+  "scientific_status_promoted": false
+}
