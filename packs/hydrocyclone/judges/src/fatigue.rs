@@ -172,15 +172,30 @@ pub fn judge_finite_life(passport: &MaterialPassport, input: &FatigueInput) -> F
     let (Some(curve), Some(u), Some(k), Some(bins)) = (curve, ultimate, coverage, spectrum) else {
         return unresolved(open);
     };
-    let damage: f64 = bins
-        .iter()
-        .map(|b| {
-            let equivalent = goodman_amplitude(b.amplitude_pa, b.mean_pa, u);
-            b.cycles / basquin_cycles(equivalent, curve)
-        })
-        .sum();
-    let block_cycles: f64 = bins.iter().map(|b| b.cycles).sum();
+    // Basquin life and damage can leave the f64 range for a finite tiny amplitude. Such a bin
+    // has no representable life, so the claim is unresolved rather than an infinite life.
+    let mut damage = 0.0;
+    let mut block_cycles = 0.0;
+    for b in bins {
+        let equivalent = goodman_amplitude(b.amplitude_pa, b.mean_pa, u);
+        let cycles_to_failure = basquin_cycles(equivalent, curve);
+        if !(cycles_to_failure.is_finite() && cycles_to_failure > 0.0) {
+            return unresolved(vec!["life:basquin_cycles_unrepresentable".into()]);
+        }
+        let term = b.cycles / cycles_to_failure;
+        if b.cycles > 0.0 && term == 0.0 {
+            return unresolved(vec!["life:damage_underflow".into()]);
+        }
+        damage += term;
+        block_cycles += b.cycles;
+    }
+    if !(damage.is_finite() && damage > 0.0) {
+        return unresolved(vec!["life:damage_unrepresentable".into()]);
+    }
     let predicted = block_cycles / damage;
+    if !predicted.is_finite() {
+        return unresolved(vec!["life:predicted_unrepresentable".into()]);
+    }
     let lower_bound = predicted * 10f64.powf(-k * curve.log10_life_sigma);
     let verdict = if lower_bound >= input.target_cycles {
         Verdict::Pass

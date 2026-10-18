@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_20_finite_arithmetic_followup",
+  "packet": "V5-20",
+  "task_ids": ["V5-20-02", "V5-20-03"],
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "assignment": "G008 precise existing-Claude V5-20 finite-arithmetic follow-up grant (claude/next-assignment.json); COORD 2026-10-18T06:47:03Z grant, 2026-10-18T06:51:30Z claim",
+  "input_head": "f562a68aa07fe09692db5516c20bae06270cf402",
+  "tested_commit": "e165b8b45136a98f58864e1c22a40c5ddaa5daf4",
+  "created_utc": "2026-10-18T06:53:40Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/fatigue.rs",
+    "packs/hydrocyclone/judges/src/as_built.rs",
+    "packs/hydrocyclone/judges/tests/dynamics.rs"
+  ],
+  "findings_closed": [
+    "fatigue: finite tiny stress amplitude overflowed Basquin life to +inf and judge_finite_life returned Pass with infinite predicted life",
+    "fatigue: subnormal cycle count with damage underflowing to 0.0 made predicted life +inf and returned Pass",
+    "as_built: admitted rerun threshold NaN or +inf returned Pass; nonpositive admitted threshold was accepted as a rerun criterion"
+  ],
+  "red_runs": [
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "dynamics", "v5_20_02_"], "cwd": ".", "source_state": "f562a68 unedited src/fatigue.rs and src/as_built.rs; red tests added to tests/dynamics.rs", "exit_code": 101, "log": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-basquin-red.log", "log_sha256": "abc2acde4bd460bc7d6c7736870285fa197967d4404b43dbe99cf720723e53b9", "failing_tests": ["v5_20_02_finite_tiny_amplitude_never_passes_on_infinite_life", "v5_20_02_subnormal_cycle_count_never_passes_on_underflowed_damage"], "observed": "both panicked with verdict Pass at dynamics.rs:453 and :471"},
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "dynamics", "v5_20_03_"], "cwd": ".", "source_state": "f562a68 unedited src/as_built.rs; red tests added to tests/dynamics.rs", "exit_code": 101, "log": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-threshold-red.log", "log_sha256": "e2de27e66fb7926bb41218c066b87dd90d090a4fdca2cb47c231f8ed98ccf56f", "failing_tests": ["v5_20_03_nonfinite_or_nonpositive_admitted_threshold_is_unresolved"], "observed": "panicked with 'threshold NaN: Pass'"}
+  ],
+  "commands": [
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "dynamics"], "cwd": ".", "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-dynamics-green-2.log", "log_sha256": "87a8edaf702c3c313c27eaf6fc1ebdfc646a60b98f24e16a6b643853d59dfbb8", "note": "38 passed at e165b8b"},
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges"], "cwd": ".", "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-crate-green-2.log", "log_sha256": "db030e456ceee83b89063e79967531ee5447e48ebdfa3355e0df0f30ed32e9b1", "note": "all targets passed: 38 dynamics, 45, 18, 26, 17, 27; no failures"},
+    {"argv": ["cargo", "clippy", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--all-targets", "--", "-D", "warnings"], "cwd": ".", "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-clippy-2.log", "log_sha256": "e1e58ae53384756f6dd81e902ce7773b70bc46c26fefe9e5c26677be54b99bf7", "note": "clean with -D warnings; the first run (clippy.log, exit 101) flagged map_or(true, ..) in the new tests and was fixed to is_none_or"},
+    {"argv": ["cargo", "fmt", "--all", "--", "--check"], "cwd": ".", "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-fmt-check-2.log", "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b", "note": "exit 0; log contains only the exit marker (7 bytes), same digest as the diff-check log. The first run (fmt-check.log, exit 1) was fixed by cargo fmt --all on the three changed files"},
+    {"argv": ["python3", "tools/check_public.py"], "cwd": ".", "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-check-public-2.log", "log_sha256": "1df562f150654761625924df4566c5648169a9da71eb006970d2b5f6fa6fea48", "note": "exit 0"},
+    {"argv": ["git", "diff", "--check"], "cwd": ".", "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-diff-check-2.log", "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b", "note": "exit 0; log contains only the exit marker (7 bytes)"}
+  ],
+  "superseded_failed_logs": [
+    "v5-20-followup-clippy.log (exit 101, map_or lint on the first test draft)",
+    "v5-20-followup-fmt-check.log (exit 1, formatting of the first draft)"
+  ],
+  "resources": {"cpus": "34,35 (taskset)", "cargo_jobs": 2, "profile": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only", "gpu": false},
+  "disclosures": [
+    "The red runs were captured before a lint-only edit (map_or(true, f64::is_finite) to is_none_or(f64::is_finite)) and cargo fmt on the test file. Neither changes the asserted behaviour; the red panics occur at the earlier !is_pass() assertion in both tests.",
+    "fmt-check and diff-check logs contain only the exit marker. Their digests are identical and are weak evidence on their own, as flagged in audit 020 for V5-25.",
+    "Fixtures are synthetic. Nothing here is a physical qualification, a material allowable, or a manifest or status change.",
+    "Public signatures, result types, threshold values, manifests, shared roots and other modules are unchanged."
+  ],
+  "remaining_limitations": [
+    "Underflow of damage is caught only as an exact 0.0 for nonzero cycles. Subnormal but nonzero damage is still accepted; the existing check does not add a relative-precision bound.",
+    "Acceptance remains open: the physical inputs and upstream admissions named by V5-20 are unchanged by this followup."
+  ],
+  "next_dependency": "Integrator review of commit e165b8b and this receipt's commit; no push, merge or PR made by this worker."
+}
