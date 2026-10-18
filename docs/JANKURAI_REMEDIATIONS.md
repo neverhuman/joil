@@ -221,3 +221,53 @@ cancellation that leaves a second process group alive, pidfd rejection of a chan
 start time without signaling, crash reservations, and actual checkpoint kills.
 These tests and local arguments are software evidence, not proof of arbitrary
 process-tree containment: recovery supports the single-process fixture only.
+
+### I014 measured re-audit
+
+`jankurai 1.7.5`: **55 score / 55 raw**, **15 caps**, **42 findings**,
+**21 conformance blockers**. Advisory threshold 45 passes; conformance does not.
+Report SHA-256: `f10a9d98b9409cdffcf209dbd26656e81499f34d2a1e9f911387c4a7db521c4f`.
+
+| ID | Historical fingerprint | Current scan |
+| --- | --- | --- |
+| I010-J034 | `sha256:83821d7963d62afdab5e3bb375c8f937ea5052e065051fc7888f708c5d018560` | absent |
+| I010-J035 | `sha256:1dc2c0f2272ea43f08aca79d5dfb5c0d467605cb886059e43f93512db2c6460b` | absent |
+| I010-J036 | `sha256:441896ca75260bfd1562f03d3174e4454fc29dfa8181f79e273780b146e25d13` | absent |
+| I010-J037 | `sha256:363e170b49b56489c80d817d8da4ff61e8b5fc4bd891157d1340f120071a895d` | absent |
+| I010-J038 | `sha256:3e8bc6dd321735a036d584570d5980b88d86b5c21b7d39aedcab2e69c648725a` | absent |
+| I010-J039 | `sha256:8fabbd27e8b9d1410eee4bd9eee12aaf7f7087b726935fcb18b10ba959418e53` | absent |
+| I010-J040 | `sha256:c27b903072546b8d8300e7a46e54209775465a0665a4288b86695736d9b34d65` | absent |
+| I010-J041 | `sha256:7e7cc5e7267c43c5ffd9e2e6793fc22f8a21d30b2a69002c7a82f4b4b3b6bc1b` | absent |
+| I010-J042 | `sha256:d0430e036a04313a022ecc83106da75695b5bd7596ad66f0a33e59a279b4cc6f` | absent |
+| I010-J043 | `sha256:3448b193bd118030846ed089f30cf02490550a3b7e9a8baea55ad256fb1d2009` | absent |
+| I010-J044 | `sha256:fa830e0fb294867d66cfd061494b365bf80e2c4ef1a7792ac05725d2c143ab44` | absent |
+| I010-J045 | `sha256:4dc5e175a6d45e5db5115d3efacd8ad90d947e6c0c7352d5c21b953013243187` | absent |
+| I010-J046 | `sha256:0d24242ce6d0d328168e7f38dfb4b4c72c470c4a87fd6411206e5121e8b5ab14` | absent |
+| I010-J047 | `sha256:6c198cd2b5924ce1f3437a9a691023f82afd20d3f5e7cda0091948ded4f1b053` | absent |
+| I010-J048 | `sha256:aa4fdea5725515c1910e667ebfd6f4430104bd5a3e458c3eccff1f0c1d2dc4e1` | absent |
+| I010-J049 | `sha256:da63a99a2940d25e755edfda52bb3daea6b6eac22447dd639a2292c84f9cb825` | absent |
+| I010-J050 | `sha256:836dd6ab8d0adbc4fff60a72b6906a3de6f6a3faac6fd3cd43d25cfeb4fdbf77` | absent |
+| I010-J051 | `sha256:d22ec739962f2eb7f61ab5a32785115b992e4c13c5eb2a65f74bfb43686841d6` | absent |
+| I010-J052 | `sha256:38986527653efc6a68af5ec50db516c56f907241a3c1608514cc634b0d5795d9` | absent |
+| I010-J053 | `sha256:cd7a8e8451f7bf96706e3d986782dfd2061ce596fc1f8e64fe11dd115285ca91` | absent |
+| I010-J054 | `sha256:77574c8e1b49d3c52a137a22ee19efdbfcaf2bdaed6bb00715f2a2171551cc25` | absent |
+
+All 21 historical undocumented-block fingerprints are absent. The scanner now
+reports five separate `rust.unsafe.zeroed` findings at the same valid C integer
+buffer initializers; these remain open detector findings despite the local validity
+arguments. The sixth new finding flags the required `TODO.md` output filename
+as a placeholder. The filename is part of the byte-parity contract and is retained.
+No suppression, wire rename, zeroing rewrite or broad conformance closure is claimed.
+
+Retained caps: `python-direct-product-truth-or-db-ownership`, `no-jankurai-audit-lane-in-ci`, `non-optimal-product-language-found`, `vibe-placeholders-in-product-code`, `fallback-soup-in-product-code`, `future-hostile-dead-language-in-product-code`, `missing-rendered-ux-qa-lane`, `false-green-test-risk`, `input-boundary-gap`, `release-readiness-gap`, `no-agent-friendly-exception-pattern`, `rust-bad-behavior`, `python-bad-behavior`, `ci-bad-behavior`, `repo-rot-bad-behavior`.
+
+The raw report and logs are retained in the private I014 evidence archive;
+`.jankurai/` scratch was moved there before the evidence commit. Exact command
+results, source hashes and limitations are in `docs/receipts/i014-rust-ci-20261018.json`.
+
+I014 verification: all ten requested standalone checks and the full Foundation
+gate passed. Foundation completed all 10 steps, including workspace Rust tests
+(484.855 s), Python regressions (129.805 s), publication/claims checks and UI build.
+The initial Clippy failure for redundant renderer string conversions is retained;
+those conversions were removed before successful checks. No runtime thresholds
+or scientific acceptance rules changed.
