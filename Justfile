@@ -13,7 +13,10 @@ fast:
 check: required
 
 required:
-    python3 tools/check.py
+    bash scripts/ci-local.sh
+
+security:
+    bash ops/ci/security.sh
 
 score:
     bash ops/ci/audit.sh

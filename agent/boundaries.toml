@@ -1,0 +1,40 @@
+version = 1
+source_of_truth = "docs/MASTER_PLAN.md"
+coordination = "COORD.md"
+policy = "Exclusive packet writes; integrator owns shared manifests and contracts."
+[[boundaries]]
+name = "backend"
+paths = ["crates/", "packs/"]
+owner = "rust-integrator"
+rule = "No private installation data; evidence admission belongs to joil-evidence."
+[[boundaries]]
+name = "explorer"
+paths = ["apps/explorer/"]
+owner = "visualization-owner"
+rule = "Read-only research UI; rendered views never grant scientific qualification."
+[[boundaries]]
+name = "legacy-migration"
+paths = ["tools/", "analysis/", "physics/", "cad/", "experiments/", "visualization/"]
+owner = "migration-integrator"
+rule = "No new Python; preserve frozen receipts and require Rust parity before removal."
+[[boundaries]]
+name = "private"
+paths = [".private/", "runs/", "artifacts/"]
+owner = "integrator"
+rule = "Never public Git content. No simulation without resource lease."
+
+[stack]
+id = "rust-ts-vite-react"
+version = "1"
+
+[rust]
+domain_paths = ["crates/crucible-units/src"]
+forbidden_domain_imports = ["std::fs", "std::net", "std::process", "sqlx::", "reqwest::"]
+
+[typescript]
+web_paths = ["apps/explorer/src"]
+forbidden_web_imports = ["pg", "postgres", "mysql", "better-sqlite3", "@aws-sdk/client-s3"]
+generated_contract_paths = []
+
+[python]
+allowed_truth_paths = []

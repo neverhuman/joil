@@ -7,13 +7,19 @@ For plotting tests create a project-local virtual environment and install
 matplotlib==3.10.8; keep pip and Matplotlib caches under .private/.
 
 `just fast` runs the Rust publication guard and deterministic plan/explorer checks.
-`just required` runs all eight Foundation suites through tools/check.py, with
+`just required` runs all eight Foundation suites through scripts/ci-local.sh and
+ops/ci/foundation.sh (currently the Python compatibility runner), with
 exact commands, exit codes, source hashes and log hashes under .private/checks/.
 `python3 tools/check.py --suite NAME` selects fmt, clippy, rust-tests, baseline,
 python-tests, public-check, claims-audit or ui. UI includes npm ci and build.
 `just portability` executes the architecture/interchange controls with rtk absent.
 `just score` emits Jankurai JSON and Markdown in ignored .jankurai/.
 A nonzero exit is failure; missing prerequisites are never passing evidence.
+`scripts/ci-doctor.sh` checks local prerequisites. `just security` runs the Rust
+publication scan, cargo-audit 0.22.1 and npm production-dependency audit; the CI
+Security workflow provisions the scanner project-locally. Missing scanners fail.
+The new `check-foundation` binary must run from the repository root; automated
+Rust/Python receipt parity lives in crucible-cli/tests/foundation_parity.rs.
 Optional local pre-push enforcement: `git config core.hooksPath ops/git-hooks`.
 
 Reuse this checkout's target/ cache. Default two Cargo jobs, one Rayon/BLAS thread;
