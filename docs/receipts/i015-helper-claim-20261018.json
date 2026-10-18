@@ -1,0 +1,9 @@
+{
+  "packet": "I015",
+  "additional_paths": [
+    "crates/crucible-cli/src/ordered_json.rs",
+    "crates/crucible-cli/src/bin/v5-plan.rs"
+  ],
+  "reason": "Remove new duplicated internal JSON-order implementation; preserve existing wire behavior",
+  "verification": "plan_parity plus new port parity and full required gate"
+}
