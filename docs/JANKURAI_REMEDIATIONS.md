@@ -80,3 +80,46 @@ because it has a task. The unchanged Foundation suites remain required.
 | I010-J066 | HLT-005-PYTHON-PRODUCT-TRUTH | `python/` | Python appears without a rare advanced-ML/data exception or owns product truth | Integrator → language migration / 2026-10-29 | P1–P5 per PY_TO_RUST_PLAN.md; preserve frozen receipts and replace active gates with Rust. |
 | I010-J067 | HLT-005-PYTHON-PRODUCT-TRUTH | `python/ai-service` | Python containment and polyglot hygiene scored 0 below the standard floor of 85 | Integrator → language migration / 2026-10-29 | P1–P5 per PY_TO_RUST_PLAN.md; preserve frozen receipts and replace active gates with Rust. |
 | I010-J068 | HLT-033-PYTHON-BAD-BEHAVIOR | `tools/claims_audit.py` | dynamic code execution runs attacker-controlled source directly | Integrator → language migration / 2026-10-29 | P1–P5 per PY_TO_RUST_PLAN.md; preserve frozen receipts and replace active gates with Rust. |
+
+## I012 re-audit (18 October 2026)
+
+Measured advisory score **55**, raw **55**, **14 caps**, **61 findings**, **40 conformance blockers**. `bash ops/ci/audit.sh` passes its existing score-45 threshold; this is not full conformance. Report SHA-256: `1c1e84508968e4ac6ab90af59cc3490832977834f97c050e36bb41a03ab89267`.
+
+The four target dimensions now score ownership 78, boundaries 63, proof routing 78, security 60 (I010 snapshot: 60, 53, 52, 38). Source and generated-evidence scan scope can change aggregate findings; fingerprints below determine closure.
+
+I010-J003/J004 now have a versioned Security workflow and secret/dependency scan entrypoint. J005/J007/J008/J009 have shared executable shell entrypoints; J006 was already addressed by the pinned Rust toolchain. J010/J012 have explicit same-repository PR guards, but the scanner still flags self-hosted runners: these findings remain open for runner-policy review. J001 remains outside this scoped port. J002 remains a detector finding despite the existing executable audit workflow. J011/J013/J014/J015 improve but remain below the audit floor. No finding is waived.
+
+The full Foundation gate fails on the unchanged recovery execution-clock assertion (TimedOut vs Committed); the exact workspace-feature test also fails on clean pinned main `2aba9ea5700669813c71156802a7af8f7a6d1403`, exit 101. No deadline or scientific threshold was relaxed.
+
+### Prior target fingerprints absent in this scan
+
+| Rule | Path | Fingerprint |
+| --- | --- | --- |
+| HLT-009-GENERATED-SECURITY | `.github/workflows` | `sha256:c249be982d975721833fe396cdfff422f53a2d61819df881968fba63fdd6b9bf` |
+| HLT-016-SUPPLY-CHAIN-DRIFT | `.github/workflows` | `sha256:2e22551cbdbd8da1f6fedd2d509dba064990dc4b1505df71609f431d11901099` |
+| HLT-042-CI-LOCAL-PARITY | `.github/workflows/foundation.yml` | `sha256:113fcf74bc0676605648f3d2cbfedd30e98c674f99f9d1b2ccae3b93c79c2035` |
+| HLT-042-CI-LOCAL-PARITY | `.github/workflows/foundation.yml` | `sha256:d79e126522011191f8d2cc9a3c7adf22b2295f0cbe491226f8bd563689b44647` |
+| HLT-042-CI-LOCAL-PARITY | `.github/workflows/foundation.yml` | `sha256:b9e9377cfbd74accd3be0a70bae913c13084682683c972026866e420ce2fa4cd` |
+| HLT-042-CI-LOCAL-PARITY | `.github/workflows/foundation.yml` | `sha256:3ca72b43d78f894459032ae79277bd1a4ec73f56aae105552f08ccff9bc38e8c` |
+| HLT-034-CI-BAD-BEHAVIOR | `.github/workflows/foundation.yml` | `sha256:8dad8bad78b739db22ccfb0ca756cfc53e374625a9e5309e1cedd2ed1c201afa` |
+| HLT-016-SUPPLY-CHAIN-DRIFT | `.github/workflows/jankurai.yml` | `sha256:5d723962d61319b08997b1d4a4053fdd8666e6602bb682944026942da98f455e` |
+| HLT-034-CI-BAD-BEHAVIOR | `.github/workflows/jankurai.yml` | `sha256:48a55f18eaecd95e09b7537fbfed29545fd39105b33c01e51b666989016a694e` |
+| HLT-007-HANDWRITTEN-CONTRACT | `agent/boundaries.toml` | `sha256:597090ac1c3e503fd3ee8b22c5511acc687a6cdc699cb2c05c1455a7828db8c3` |
+| HLT-003-OWNERLESS-PATH | `agent/owner-map.json` | `sha256:967c135cb8c46bf79ed4b1db7bb20a5c7ac77ca176f6ce93196e5bed4a5b6713` |
+| HLT-004-UNMAPPED-PROOF | `agent/test-map.json` | `sha256:644f7fde2fd9c012ff91ab4e81fdc034f2850ea588d31bcfb4eaa6697ce6990f` |
+
+Absence means the old exact fingerprint is no longer observed; dimension-score changes are replaced by the current findings below, not declared resolved.
+
+### Remaining target fingerprints
+
+| Finding | Fingerprint |
+| --- | --- |
+| .: `Code shape and semantic surface` scored 2 below the standard floor of 85 | `sha256:ed90e9b81d323b7b66384f3cd6bca54cc0751ef8ed3bb0096636b7fe26edd7c0` |
+| .github/workflows: CI does not run the jankurai audit lane | `sha256:dcdd57510181477041c184ca8e3087ad93965fd92fe3357b1be5d73986e805ae` |
+| .github/workflows/foundation.yml: untrusted CI job runs with privileged Docker access | `sha256:289aadc74ca4b9d3d58c90b43932546bfaf2033efca10fb35c2435dff29c5077` |
+| .github/workflows/jankurai.yml: `Security and supply-chain posture` scored 60 below the standard floor of 85 | `sha256:7ebd628238a6519f74ee16a89f65c868fbe3782f2aaa14d2a7843e54b2e86b00` |
+| .github/workflows/jankurai.yml: untrusted CI job runs with privileged Docker access | `sha256:4498ca8c1256e8e49a97c1a670d3b8e6efb814c937e7badb82d76766fb790a07` |
+| .github/workflows/security.yml: untrusted CI job runs with privileged Docker access | `sha256:bb0285ec2b243cdcd8814d700e0a0a7dcbcf27ac532af67e240c995262a29270` |
+| agent/boundaries.toml: `Contract and boundary integrity` scored 63 below the standard floor of 85 | `sha256:ed023acdcb8f3c1710aea494ab21c2989c629e6a50074915ca7e12b28a3846ef` |
+| agent/owner-map.json: `Ownership and navigation surface` scored 78 below the standard floor of 85 | `sha256:91cfdb02b0a23fe5036eb59a8d50ece86f01196f41dffc4e2d5c76f8c5805f4d` |
+| agent/test-map.json: `Proof lanes and test routing` scored 78 below the standard floor of 85 | `sha256:58be05a7ef8771f9dd43f9de38ff8776c926e255df1be4e6778a986dcfbfd5b3` |

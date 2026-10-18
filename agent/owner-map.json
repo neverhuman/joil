@@ -40,6 +40,11 @@
     "scripts/": "integrator",
     "tests/": "migration-integrator",
     "tools/": "migration-integrator",
-    "visualization/": "migration-integrator"
+    "visualization/": "migration-integrator",
+    ".private/": "integrator",
+    ".jankurai/": "integrator",
+    "target/": "integrator",
+    "runs/": "integrator",
+    "artifacts/": "integrator"
   }
 }

@@ -1,0 +1,171 @@
+{
+  "packet": "I012",
+  "worker": "1052075.joil_v5_codex",
+  "input_head": "2aba9ea5700669813c71156802a7af8f7a6d1403",
+  "implementation_commit": "572b5a7",
+  "branch": "codex/v5-i012-jankurai-and-rust-port",
+  "scientific_admission": false,
+  "commands": [
+    {
+      "command": "bash scripts/ci-local.sh",
+      "exit_code": 1,
+      "log_path": ".private/i012-required-retry.log",
+      "log_sha256": "c30e9933fc65701c4354086555f7517f0e5cea02f04dc1e75208c459b424c716"
+    },
+    {
+      "command": "cargo test --workspace --locked --test recovery charged_preparation_does_not_consume_native_deadline_and_real_slow_child_still_times_out -- --exact [clean main 2aba9ea]",
+      "exit_code": 101,
+      "log_path": ".private/i012-main-control.log",
+      "log_sha256": "169892bd396762e068c65b6ca9d22b1688f032e084a1c41b7e8b7e3fca4721db"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log_path": ".private/i012-fmt-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "cargo clippy --workspace --all-targets --locked -- -D warnings",
+      "exit_code": 0,
+      "log_path": ".private/i012-clippy-final.log",
+      "log_sha256": "916e84902373dfe2d1ec4362ec78285d40690d65d2ef8adaca249bc8e612667f"
+    },
+    {
+      "command": "cargo test --locked -p crucible-cli",
+      "exit_code": 0,
+      "log_path": ".private/i012-cli-final.log",
+      "log_sha256": "8d57a023004881909e447d167c45b7cb3efb8ab6133044a2ddcd5079a389c3e1"
+    },
+    {
+      "command": "cargo test --locked -p crucible-cli --test foundation_parity --test dossier_parity",
+      "exit_code": 0,
+      "log_path": ".private/i012-parity-final.log",
+      "log_sha256": "35449bd7c2743d3188746b93b8d9adc259b92b68d7ae9a7086469dfb4f4b1eec"
+    },
+    {
+      "command": "bash scripts/ci-local.sh --suite baseline",
+      "exit_code": 0,
+      "log_path": ".private/i012-suite-baseline.log",
+      "log_sha256": "e09666bed5d1ffb689b7112c3e00495ad822c679cd34be2e0c8f7445bda13d35"
+    },
+    {
+      "command": "bash scripts/ci-local.sh --suite python-tests",
+      "exit_code": 0,
+      "log_path": ".private/i012-suite-python-tests.log",
+      "log_sha256": "a75e874f6cbded9e193b1715c4138be485afa24fa3e6ca33569ec944ddeba922"
+    },
+    {
+      "command": "bash scripts/ci-local.sh --suite public-check",
+      "exit_code": 0,
+      "log_path": ".private/i012-suite-public-check.log",
+      "log_sha256": "2a744eb62dbca74d06b565a662791ae199ed20c0ff7739100e257b89c6b690de"
+    },
+    {
+      "command": "bash scripts/ci-local.sh --suite claims-audit",
+      "exit_code": 0,
+      "log_path": ".private/i012-suite-claims-audit.log",
+      "log_sha256": "8a6510e12bee6e4c0a155d89dfab1755143c00227b56ed14504197e3978b9e96"
+    },
+    {
+      "command": "bash scripts/ci-local.sh --suite ui",
+      "exit_code": 0,
+      "log_path": ".private/i012-suite-ui.log",
+      "log_sha256": "df6f272174e50a3109d60e671c825e869d0bf70078f750bfbf88f5a6ebcce77e"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_path": ".private/i012-final-public.log",
+      "log_sha256": "0a348bfa23d19366fabbece566ddf59137c7690a6de37d3f7ba9517e7ceac1a3"
+    },
+    {
+      "command": "python3 tools/v5_plan.py check",
+      "exit_code": 0,
+      "log_path": ".private/i012-final-plan.log",
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+    },
+    {
+      "command": "python3 tools/v5_explorer_manifest.py check",
+      "exit_code": 0,
+      "log_path": ".private/i012-final-explorer.log",
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+    },
+    {
+      "command": "python3 tools/claims_audit.py",
+      "exit_code": 0,
+      "log_path": ".private/i012-final-claims.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "command": "bash ops/ci/security.sh",
+      "exit_code": 0,
+      "log_path": ".private/i012-security-final.log",
+      "log_sha256": "006381ccb37ecdc6d2c87b386a7bc7527a3661e8e5f6775dea9aaed35c03c3ea"
+    },
+    {
+      "command": "bash ops/ci/audit.sh",
+      "exit_code": 0,
+      "log_path": ".private/i012-audit-verified.log",
+      "log_sha256": "87d42bee45b4bb232c6fb559fbe73b0ba8a91570a90d25a42dda321d139c7b81"
+    }
+  ],
+  "audit": {
+    "score": 55,
+    "raw_score": 55,
+    "caps": 14,
+    "findings": 61,
+    "blockers": 40,
+    "report_sha256": "1c1e84508968e4ac6ab90af59cc3490832977834f97c050e36bb41a03ab89267",
+    "full_conformance": false
+  },
+  "changed_paths": [
+    ".github/workflows/foundation.yml",
+    ".github/workflows/security.yml",
+    "Cargo.lock",
+    "Justfile",
+    "PY_TO_RUST_PLAN.md",
+    "agent/boundaries.toml",
+    "agent/owner-map.json",
+    "agent/test-map.json",
+    "crates/crucible-cli/Cargo.toml",
+    "crates/crucible-cli/src/bin/check-foundation.rs",
+    "crates/crucible-cli/src/bin/v5-private-dossier.rs",
+    "crates/crucible-cli/tests/dossier_parity.rs",
+    "crates/crucible-cli/tests/foundation_parity.rs",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/testing.md",
+    "ops/ci/audit.sh",
+    "ops/ci/foundation.sh",
+    "ops/ci/lib.sh",
+    "ops/ci/security-bootstrap.sh",
+    "ops/ci/security.sh",
+    "scripts/ci-doctor.sh",
+    "scripts/ci-local.sh"
+  ],
+  "positive_controls": [
+    "all eight suites plus default and skip-ui receipt/log hash parity",
+    "approved dossier projection",
+    "seven Foundation suites and final CLI package retry"
+  ],
+  "negative_controls": [
+    "failed child commands retain fail-closed receipts and stop at first failure",
+    "invalid suite/flag combinations exit 2",
+    "nine dossier classification/authorization/review/allowlist/value/identity rejections"
+  ],
+  "remaining_limitations": [
+    "Full workspace recovery execution-clock failure reproduced on unchanged main; no all-eight-suites PASS",
+    "Initial CLI lifecycle AfterRename failure passed on workspace/package retries; original failed evidence retained",
+    "Python runner remains shared CI/local compatibility entrypoint until Rust provisioning is universal",
+    "Timeout diagnostic text and broader Unicode dossier edge parity remain follow-up work",
+    "Self-hosted workflow findings remain open despite explicit fork guards; no audit waivers",
+    "No Python files removed and no physical validation claimed"
+  ],
+  "next_dependency": "Integrator triages main-red recovery timing; P1b migrates all Foundation consumers and broadens timeout/CAD parity; Jankurai runner/conformance review continues",
+  "resources": {
+    "cargo_jobs": 2,
+    "memory_limit_gib": 12,
+    "new_output_budget_gib": 5,
+    "gpu": false
+  },
+  "evidence_preservation": "Failed test scratch and audit reports moved to private status/i012-evidence, not discarded"
+}

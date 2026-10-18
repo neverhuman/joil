@@ -199,7 +199,8 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
         (nonce as u32) ^ std::process::id()
     );
     let out = root.join(".private/checks").join(&runid);
-    fs::create_dir_all(&out)?;
+    fs::create_dir_all(root.join(".private/checks"))?;
+    fs::create_dir(&out)?;
     #[cfg(unix)]
     fs::set_permissions(root.join(".private"), fs::Permissions::from_mode(0o700))?;
     let home = PathBuf::from(env::var_os("HOME").ok_or("HOME missing")?);
