@@ -3,8 +3,8 @@
   "task_ids": [
     "V5-24-02"
   ],
-  "tested_commit": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
-  "tested_commit_semantics": "Base commit plus working-tree changes identified by source SHA-256; implementation is not present in the base commit.",
+  "tested_commit": "987a6215486fdf2e9a92fbe4494cbc9c036388c2",
+  "tested_commit_semantics": "Exact task tests ran against the committed implementation at this code commit.",
   "decision_resolution": "Added a bounded CPU-reference curved-wall Bouzidi link update, conservative block restriction, precision parity guard, D2Q9 MRT collision/streaming, anchored voxel Jacobi PCG and eigenpair residual/orthogonality checks. This is synthetic software verification only and does not assert GPU execution or scientific admission.",
   "changed_paths": [
     "crates/crucible-lbm/src/lib.rs",

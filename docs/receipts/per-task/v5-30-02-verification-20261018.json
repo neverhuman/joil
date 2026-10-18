@@ -3,8 +3,8 @@
   "task_ids": [
     "V5-30-02"
   ],
-  "tested_commit": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
-  "tested_commit_semantics": "Base commit plus working-tree changes identified by source SHA-256; implementation is not present in the base commit.",
+  "tested_commit": "987a6215486fdf2e9a92fbe4494cbc9c036388c2",
+  "tested_commit_semantics": "Exact task tests ran against the committed implementation at this code commit.",
   "decision_resolution": "Resolved under SC-DEC-043: synthetic stream reduction is accepted; physical wet-rig ingestion remains rescoped post-manufacturing.",
   "changed_paths": [
     "crates/crucible-stats/src/analysis.rs",

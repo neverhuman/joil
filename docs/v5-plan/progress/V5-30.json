@@ -9,7 +9,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-30-01-verification-20261018.json",
-          "sha256": "5e6107fd5d34ac6e2a24c2d0b0266112ceb57cc5a8b926a18be24d3699ba63f3"
+          "sha256": "b0288eb45d118b3ddc6ca35d22097f5ec5e5b7b2a766c1bfb2a5fd68e6af471e"
         }
       ]
     },
@@ -20,7 +20,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-30-02-verification-20261018.json",
-          "sha256": "e011a8cd87780bf0213f056dbe2461ce5cf2e1cc430559ccd10074e0829b1bcc"
+          "sha256": "4ea50291a64ee68255cd6daefafaa07b3929e9ad1510b60bf13b87671ef428ee"
         }
       ]
     },
@@ -31,7 +31,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-30-03-verification-20261018.json",
-          "sha256": "8ef8e579bc6a2a3f30f3a054abb569e50979d8772c8a0ebdbf666686120486f7"
+          "sha256": "6e5168a90393f26cce6dc77fcdb01efbd08050ffc245f34051835ce9d320fe3e"
         }
       ]
     },
@@ -42,7 +42,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-30-04-verification-20261018.json",
-          "sha256": "6dc7493640e58808040518487de193f59ff3cffab39aaa1995d112752638c896"
+          "sha256": "358be3edf67ef1689fd8d4b19b986e51c45bb64c53a49fc8c86185ef9c688a5e"
         }
       ]
     },
