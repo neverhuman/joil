@@ -28,6 +28,13 @@ benchmark percentiles must implement their declared nearest-rank convention.
 Reuse the existing success-only test scratch guard in new worker tests. These
 changes stay within the selected source/test paths and require fresh receipts.
 
+The V5-16 review also found unchecked restart windows and parcel data, non-atomic
+duplicate-daughter insertion, a kilogram-scale absolute breakup tolerance applied
+to tiny parcels, and unchecked derived bounds/sampling arithmetic. The same owned
+inventory and transport-test paths may receive independent refusal controls and
+narrow repairs. Numerical roundoff is separate from any physical acceptance
+threshold; invalid records cannot become qualified concentration bounds.
+
 Retain historical receipts unchanged. Record missing or overwritten original
 logs explicitly and add new, source-bound integration evidence. The V5-19 fresh
 log-retention supplement is imported separately from the later V5-15 delivery.

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "synthetic_independent_controls",
+  "units": "SI",
+  "density_kg_m3": 1000.0,
+  "gravity_m_s2": [0.0, 0.0, -9.81],
+  "datum_position_m": [0.0, 0.0, 0.0],
+  "datum_absolute_pressure_pa": 101325.0,
+  "outlets": [
+    {"name": "treated", "z_m": 0.0, "static_gauge_pa": 0.0, "static_absolute_pa": 101325.0},
+    {"name": "reject", "z_m": 10.0, "p_rgh_m2_s2": 0.0, "static_gauge_pa": -98100.0, "static_absolute_pa": 3225.0}
+  ],
+  "mechanical_flux_control": {
+    "pressure_pa": 10000.0,
+    "velocity_m_s": [3.0, 4.0, 0.0],
+    "area_m2": 0.02,
+    "mass_flow_kg_s": 2.0,
+    "elevation_m": 2.0,
+    "expected_flux_w": 84.24
+  },
+  "limitations": ["Synthetic analytic fixture; no native OpenFOAM execution or physical validation."]
+}
