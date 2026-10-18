@@ -1,0 +1,68 @@
+{
+  "schema": "joil.hydrocyclone.coupon-plan.v1",
+  "passport_id": "ti64-lpbf-as-built-draft-1",
+  "orders_placed": false,
+  "vendor_contacted": false,
+  "records": [
+    {
+      "kind": "tensile",
+      "purpose": "as-built yield and ultimate strength for each qualified build orientation and heat-treatment condition",
+      "process_condition": "same machine, parameters, orientation, heat treatment/HIP and finish as the passport context",
+      "acceptance_rule": "lower confidence bound of measured yield per orientation >= admitted passport yield allowable, with n from the V5-04 prospective plan",
+      "acceptance_threshold": {"status": "unresolved", "reason": "yield allowable not yet admitted", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "minimum_specimens": {"status": "unresolved", "reason": "specimen count follows a prospective variance plan, not a copied constant", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "uncertainty_components": ["load_cell_calibration", "extensometer_calibration", "specimen_dimension_measurement", "specimen_to_specimen_scatter"],
+      "external_dependency": {"owner": "materials_engineer", "description": "accredited tensile test laboratory capacity and specimen preparation route", "blocks": ["physical_candidate", "commercial_claim"]}
+    },
+    {
+      "kind": "fatigue",
+      "purpose": "as-built high-cycle fatigue endurance with the stated surface finish and service environment",
+      "process_condition": "as-built surfaces of the stated finish class; environment per temperature_environment",
+      "acceptance_rule": "measured run-out stress at the declared cycle count with a lower confidence bound >= admitted endurance allowable",
+      "acceptance_threshold": {"status": "unresolved", "reason": "fatigue allowable and cycle count not yet admitted", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "minimum_specimens": {"status": "unresolved", "reason": "staircase or S-N specimen count follows a prospective plan", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "uncertainty_components": ["load_calibration", "alignment", "surface_roughness_measurement", "environment_control"],
+      "external_dependency": {"owner": "materials_engineer", "description": "fatigue test capacity in the declared environment", "blocks": ["physical_candidate", "commercial_claim"]}
+    },
+    {
+      "kind": "density",
+      "purpose": "measured density bounds for the mass judge",
+      "process_condition": "coupons from the same builds and heat treatment as the part",
+      "acceptance_rule": "Archimedes density with expanded uncertainty recorded as passport density bounds",
+      "acceptance_threshold": {"status": "unresolved", "reason": "density requirement depends on the mass budget", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "minimum_specimens": {"status": "unresolved", "reason": "specimen count follows a prospective plan", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "uncertainty_components": ["balance_calibration", "fluid_temperature_and_density", "air_entrapment"],
+      "external_dependency": {"owner": "materials_engineer", "description": "calibrated balance and immersion fluid reference", "blocks": ["physical_candidate"]}
+    },
+    {
+      "kind": "porosity",
+      "purpose": "defect population supporting the passport defect assumptions",
+      "process_condition": "sections or CT of coupons from the same builds and heat treatment",
+      "acceptance_rule": "measured porosity fraction and maximum pore size within the admitted defect assumption, with detection limit stated",
+      "acceptance_threshold": {"status": "unresolved", "reason": "defect assumption not yet admitted", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "minimum_specimens": {"status": "unresolved", "reason": "specimen count follows a prospective plan", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "uncertainty_components": ["detection_limit", "sectioning_representativeness", "segmentation_threshold"],
+      "external_dependency": {"owner": "materials_engineer", "description": "metallography or CT access for coupons", "blocks": ["physical_candidate"]}
+    },
+    {
+      "kind": "roughness",
+      "purpose": "per-finish-class Ra and the calibration of equivalent sand roughness ks against Ra",
+      "process_condition": "each finish class used on a part face, at the relevant build angles",
+      "acceptance_rule": "at least 3 calibration points per finish class spanning the Ra range, with the ks/Ra bounds and range admitted per class",
+      "acceptance_threshold": {"status": "unresolved", "reason": "ks calibration against flow data not yet available", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "minimum_specimens": {"status": "unresolved", "reason": "points per class follow a prospective plan; 3 is only the minimum the judge accepts", "owner": "materials_engineer", "blocks": ["physical_candidate"]},
+      "uncertainty_components": ["profilometer_calibration", "stylus_tip_radius", "evaluation_length", "flow_derived_ks_uncertainty"],
+      "external_dependency": {"owner": "fluid_measurement_lead", "description": "flow-derived equivalent sand roughness measurements for each finish class", "blocks": ["physical_candidate", "commercial_claim"]}
+    },
+    {
+      "kind": "ct_calibration",
+      "purpose": "dimensional accuracy and wall detectability of the CT metrology used for as-built checks",
+      "process_condition": "calibration artifact scanned with the same scanner settings as parts",
+      "acceptance_rule": "expanded dimensional accuracy from artifact, edge localization and repeatability meets the admitted requirement; voxel pitch alone is not accepted",
+      "acceptance_threshold": {"status": "unresolved", "reason": "dimensional accuracy requirement not yet admitted", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+      "minimum_specimens": {"status": "unresolved", "reason": "repeat scans follow a prospective plan", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+      "uncertainty_components": ["calibration_artifact_uncertainty", "edge_localization", "repeatability", "voxel_quantization"],
+      "external_dependency": {"owner": "manufacturing_lead", "description": "traceable calibration artifact and CT scanner access", "blocks": ["physical_candidate", "commercial_claim"]}
+    }
+  ]
+}
