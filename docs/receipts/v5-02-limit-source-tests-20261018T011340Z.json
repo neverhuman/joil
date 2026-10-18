@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "kind": "audit_followup_tests_not_task_acceptance_or_scientific_validation",
+  "packet": "V5-02",
+  "task_ids": [
+    "V5-02-02",
+    "V5-02-05"
+  ],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "Gorkbot G-005 LimitSource test adaptation under integrator contract 3f8a9c138ab6d29a74caaeceeb058892878ca816 (docs/v5-plan/execution/V5-02-LIMIT-SOURCE-SCOPE.md)",
+  "input_head": "3f8a9c138ab6d29a74caaeceeb058892878ca816",
+  "input_history": "Lane fast-forwarded 794d044 -> 63c93dd434708cba8829fcf3a42dc8a14bb74ad6 before editing, then (contract revised mid-edit) fast-forwarded to 3f8a9c1 with the disjoint test edit kept in place; no reset, stash or merge",
+  "tested_commit": "b5b0eb28b1977d4396fed05c4cc2391721a33b5b",
+  "created_utc": "2026-10-18T01:13:40Z",
+  "changed_paths": [
+    "crates/joil-evidence/tests/decision.rs"
+  ],
+  "commands_wrapper": "Each argv ran as `rtk proxy taskset -c 34,35 python3 .private/v5-workers/claude/scripts/run_logged.py <name> -- <argv>`; raw logs stay private",
+  "commands": [
+    {
+      "argv": ["cargo", "test", "--locked", "-p", "joil-evidence", "--test", "decision"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 2.204,
+      "log_sha256": "8c63a3bbb51cc7eb9edacbec001480c7077474c913ec12d1dc54397e98fa8a38",
+      "note": "At the tested commit, test target recompiled from the lane: 22 passed, 0 failed, 0 ignored"
+    },
+    {
+      "argv": ["cargo", "test", "--locked", "-p", "joil-evidence", "--test", "decision"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 6.252,
+      "log_sha256": "dad6dd2150b3e2f546ecd5a3966d73cb917f2cd895215fab6684359289750d2c",
+      "note": "Pre-commit on 3f8a9c1 plus the uncommitted test file (byte-identical to the tested blob): 22 passed, 0 ignored"
+    },
+    {
+      "argv": ["cargo", "clippy", "--locked", "-p", "joil-evidence", "--all-targets", "--", "-D", "warnings"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 2.819,
+      "log_sha256": "ce6804f77a64d918849c9463a900ac7f2bbe6868963827fd887b666b6a047101"
+    },
+    {
+      "argv": ["cargo", "fmt", "--all", "--", "--check"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.47,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": ["python3", "tools/check_public.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.312,
+      "log_sha256": "b563a949f979866c8bd05f13424d013502cf372f45e8c0d8fcc5b280f0b891fe"
+    }
+  ],
+  "executed_red_controls": [
+    {
+      "argv": ["cargo", "test", "--locked", "--manifest-path", "<private-scratch>/g005-pre-63c93dd/Cargo.toml", "--target-dir", "<private-scratch>/g005-pre-63c93dd/target", "-p", "joil-evidence", "--test", "decision"],
+      "exit_code": 101, "wall_seconds": 14.354,
+      "log_sha256": "a820dc776eef4dc392d7bcb439c0d13174b33b5965e7092da196fbf9ef90aab1",
+      "subject": "git archive of 63c93dd434708cba8829fcf3a42dc8a14bb74ad6 (library crates/joil-evidence/src/decision.rs sha256 3c098acbbbe2e73bd95bf601216f64bf5b8becfa44f30ad921e382330dceef11, no source-bound check) with the tracked test file (sha256 ee9ebee94f4917cab46e5598dc65a506e9f42240a171a4a6fe8e4c75ca85b52d, equal to the tested blob), built in its own target directory",
+      "result": "21 passed, 1 failed: only zero_limit_source_admits_and_negative_zero_source_is_refused_before_equality, with left Ok(()) and right Err(Invalid(\"reversed_bound_or_negative_zero\")) for computational_comparator after its +0.0 half passed"
+    }
+  ],
+  "historical_red_support": [
+    {
+      "source": "G-004 receipt docs/receipts/v5-02-audit-tests-20261018T004328Z.json (sha256 15f65a564c7eb7dc3d9d4b2b0cc09b2f29af7cabff49fa449f985a7c2857b491) at 794d0448df98acd7248a7647effb5f2ac97c3f8a, not rewritten",
+      "log_sha256": "2ef2a8f234138ad8482a48c5685eb1c21d4a40094935e5cb72b716abb44f12c6",
+      "exit_code": 101,
+      "result": "Under the identity-free SourceValue contract, a record restating the machined 1.4 mm with the printed at_least comparison was admitted (Ok(())). The same scenario is now the active control restated_machined_limit_identity_is_refused_for_the_printed_limit. It cannot be rerun red against the pre-LimitSource library because that type does not exist there."
+    },
+    {
+      "source": "Integrator private probe at 63c93dd (COORD 2026-10-18T01:05:17Z; codex/contract-handoff.json private_strict_red_log_sha256)",
+      "log_sha256": "40b33dffd6ad78e1887e66bf15573562b503bd4928638f1dde6ff96a8c535056",
+      "exit_code": 101,
+      "result": "A reviewed LimitSource with -0.0 matched a valid +0.0 requirement and qualified readiness returned Ok. Referenced here as reported; independently reproduced by the executed red control above, not byte-for-byte"
+    }
+  ],
+  "invalid_probe_disclosed": {
+    "argv": ["cargo", "test", "--locked", "--manifest-path", "<private-scratch>/g005-pre-63c93dd/Cargo.toml", "-p", "joil-evidence", "--test", "decision"],
+    "exit_code": 0,
+    "log_sha256": "87278514e547b73cdd5cca18e11b5e9e73574bb1afc121f19fed0f5280c615bb",
+    "reason": "Not evidence. It shared the lane target directory: the path-package metadata hash does not depend on location, and git archive stamps files with the older commit time, so cargo treated the lane's 3f8a9c1 library as fresh and linked the test against the fixed library. Superseded by the isolated red control above"
+  },
+  "environment": {
+    "CARGO_BUILD_JOBS": "2",
+    "RAYON_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "positive_checks": [
+    "Complete bound SYNTHETIC policy now binds every one of the nine limits to a LimitSource whose limit_id equals its real LimitSpec.id (uncertainty sources stay SourceValue). It validates, and qualified_admission returns Ok for all four claim scopes",
+    "Proper printed context: LimitSource{limit_id: printed_min_passage_mm, 1.4..1.4 mm, at_least, set applicability} is admitted for evidence review, so there is no numeric ban on 1.4 mm",
+    "Valid zero: LimitSource{limit_id: external_demand_pa, [+0.0, 2.5e6] Pa, within} against a [+0.0, 2.5e6] Pa requirement validates and is admitted for all four claim scopes",
+    "With exactly one external input missing, every claim scope outside that input's independently stated row is still admitted (unchanged nine-input matrix)",
+    "Waiting-data timeout on laboratory_access leaves computational_comparator and protected_export admitted and the policy valid (unchanged)",
+    "The decision target has 22 active #[test] functions and no #[ignore]: the 19 previously active controls plus the reactivated cross-feature control, the missing-limit_id negative and the zero/negative-zero pair"
+  ],
+  "negative_checks": [
+    "Formerly ignored G-004 control, now an ordinary active test: LimitSource{limit_id: machined_overflow_nominal_mm, 1.4..1.4 mm, at_least, set applicability} admitted as the printed-passage source is refused with exactly Invalid(\"limit_source_drift:printed_min_passage_mm\"), although value, comparison and applicability all match the printed limit",
+    "Reverse borrow: LimitSource{limit_id: printed_min_passage_mm, 1.4 mm, within} as the machined-overflow source is refused with exactly Invalid(\"limit_source_drift:machined_overflow_nominal_mm\")",
+    "Old generic SourceValue limit records (no limit_id) for printed_min_passage_mm and pressure_budget_pa are refused with Invalid containing \"missing field `limit_id`\"; there is no automatic migration",
+    "Source -0.0 against a valid +0.0 requirement is refused with exactly Invalid(\"reversed_bound_or_negative_zero\") for computational_comparator, physical_candidate and commercial_claim",
+    "Exact reuse of the machined-overflow LimitSource as the printed source is refused with Invalid(limit_source_drift:printed_min_passage_mm); the baseline-genome source is refused as Invalid (unknown field)",
+    "The draft's proposed 3 mm printed passage stays exactly Unresolved([limit:printed_min_passage_mm]) for each computational, physical and commercial claim",
+    "Each of the nine external inputs missing alone, and all nine together, gives exactly Unresolved([external:<input>:<owner>]) for its independent-matrix scopes; the waiting-data timeout stays Unresolved with its reason and owner and with unchanged uncertainty bounds; an empty-claims timeout is refused (unchanged)",
+    "Executed red: the tracked test file against the 63c93dd library fails exactly the zero/negative-zero control (exit 101), so the control detects the integrator's counterexample"
+  ],
+  "artifacts": [
+    {"path": "crates/joil-evidence/tests/decision.rs", "sha256": "ee9ebee94f4917cab46e5598dc65a506e9f42240a171a4a6fe8e4c75ca85b52d"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_bytes": 970452273,
+    "observed_red_probe_scratch_bytes": 167275709,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Tests only. Library, requirements, schemas, manifests, progress and generated views are unchanged; this is not a V5-02 completion or acceptance claim",
+    "All admitted values and sources are SYNTHETIC test-registry fixtures with no physical authority",
+    "limit_source_drift:<id> does not say which field mismatched. The restated control isolates identity only because its value, comparison and applicability are built to match",
+    "reversed_bound_or_negative_zero is shared by reversed and negative-zero ranges; this receipt executes only the negative-zero case on the source side",
+    "The executed red ran against a private git-archive export of 63c93dd in a one-off target directory; the integrator's red log 40b33dff is referenced, not reproduced byte-for-byte",
+    "The public scan after adding this receipt cannot be hashed inside the receipt itself; it is recorded in the private handoff"
+  ],
+  "next_dependency": "Integrator review and integration of b5b0eb2 and this receipt into PR #6, then the full required gate. The V5-02-02/05 audit status stays an integrator decision through tools/v5_plan.py"
+}
