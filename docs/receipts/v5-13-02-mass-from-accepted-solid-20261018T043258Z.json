@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_13_material_process_mass",
+  "packet": "V5-13",
+  "task_ids": [
+    "V5-13-02"
+  ],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "C008 via Captain G-010 (stage v5-13-materials-C008); COORD 2026-10-18T04:19:30Z dispatch",
+  "input_head": "6f5f178d3ac1cd62ddfb0168469f26b9ec3e0d73",
+  "tested_commit": "76cc1b7b5c492f75714a2abdf07c575ab2a326ac",
+  "created_utc": "2026-10-18T04:32:58Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/mass.rs",
+    "Cargo.toml",
+    "Cargo.lock",
+    "packs/hydrocyclone/judges/Cargo.toml",
+    "packs/hydrocyclone/judges/tests/manufacturing.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 3.27,
+      "log_sha256": "bca690569fe08e72f99bc4cef154169830d48ca3e41ea65c63e92ad5109d9a01",
+      "note": "18 tests, all passed, at the tested commit"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 2.043,
+      "log_sha256": "09943d4d945e016029b3c2c2c612ff79953052427959520ef88cabdd0c739fc4"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.877,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.644,
+      "log_sha256": "3ebe841af34accfc43496fbb1c4dbc5a81775d8ca7743b171b96b239a0e1b637"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "6f5f178d3ac1cd62ddfb0168469f26b9ec3e0d73",
+        "HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.012,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-architecture"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.574,
+      "log_sha256": "eedcbe6e44384fa7089a74d3dd45757c393e45d4cfb5b71e2f89d3a4d576dea7",
+      "note": "workspace architecture checks still pass with the new member"
+    }
+  ],
+  "task_tests": [
+    "v5_13_02_mass_is_admitted_density_times_the_accepted_solid_with_hand_derived_bounds",
+    "v5_13_02_unadmitted_density_unresolved_mesh_disagreement_and_foreign_features_are_refused",
+    "v5_13_02_tpms_wall_corrugation_receives_no_missing_annulus_mass_credit",
+    "v5_13_02_printed_support_machined_and_weighed_mass_stay_separate"
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "B",
+      "description": "mass.rs check_claimed_volume(): an extra arm `VolumeBasis::AnalyticEstimate(_) if true => Ok(())` accepted analytic volume credits; exactly v5_13_02_tpms_wall_corrugation_receives_no_missing_annulus_mass_credit failed, 17 passed",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing"
+      ],
+      "cwd": ".",
+      "exit_code": 101,
+      "wall_seconds": 4.044,
+      "log_sha256": "d8e4106e223b5150cd6b719f8439427fea9a2dbb0f25b5ac6abcceb83194315e"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/mass.rs",
+      "sha256": "6166b1fa2de0e1cfa171fa5124665dc3e2f92382baedb38a5acb7c5bd84be980"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "00b92ba18c91ff95a90cbb8c0b867fc2d8fdf55d229b825b5e5033241150bb2a"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "0b33b711b30086c1d6129477c8d4310360fea57c0e5e291b5a9a2fc7e642b52a"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/Cargo.toml",
+      "sha256": "bc10df92d605e237c91df6831979415a4d3232a801652e561476660071f13378"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/manufacturing.rs",
+      "sha256": "643b5c0c670c3d9a6ef3e4a57627221e49b0179f00329cbdbf824294cff8f3a7"
+    }
+  ],
+  "positive_checks": [
+    "Mass bounds equal the hand derivation: V in [1.188e-4, 1.212e-4] m3 and density [4400, 4460] give [0.52272, 0.540552] kg",
+    "Resolved wall, rib and internal-solid features partition the same accepted subject; a 1.195e-4 m3 tetrahedral mesh agrees within 2%",
+    "Printed, support/allowance, machined-removed and weighed mass stay separate; interval arithmetic and the weighed comparison match hand values"
+  ],
+  "negative_checks": [
+    "An independent numerical oracle gives the corrugated TPMS wall a net solid change under 50 mm3, while the legacy annulus x clamped-solid-fraction formula credits about 13,100 mm3; an analytic-estimate volume and a relabelled accepted-solid claim carrying that credit are both refused",
+    "Unadmitted or proposed density is Unresolved; a mesh volume outside tolerance, a feature from another subject, a partition gap and NaN volume are refused",
+    "An unplanned support or machining term makes the weighed comparison Unresolved rather than zero; a weighed mass outside the expected bounds fails"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges and unresolved draft records only; SYNTHETIC test values; no physical qualification",
+  "limitations": [
+    "V5-09/V5-10 are not accepted: AcceptedSolid is a packet-local caller-supplied record, not a shared type, and its volumes are not produced by any observer here",
+    "The old-source probe ran the CURRENT base phenotype.rs (sha256 2bad3971cd23...), which still contains the annulus credit; the frozen D-07 source (ebd876e6c5d8...) is bound for the gate. Its totals include non-TPMS deltas, so they show the pattern, not a pure TPMS figure; the isolated arithmetic is in the test",
+    "This task provides the V5-13-02 seam for baseline row D-07; it does not by itself lift the V5-00-03 audit hold",
+    "Draft lane scaffold disclosed for super-merge: root Cargo.toml workspace member and the minimal Cargo.lock entry for pack-hydrocyclone-judges (existing locked dependencies only); the integrator reconciles them",
+    "Synthetic fixtures are labelled synthetic; no physical allowable, density, threshold or tolerance is admitted",
+    "Task evidence, not acceptance: V5-13 depends on V5-09/V5-10 which are not yet accepted, and V5-00-03 stays AUDIT-HELD"
+  ],
+  "disclosed_non_evidence_runs": [
+    {
+      "name": "c008-mutation1-context-mismatch-disabled",
+      "exit_code": 0,
+      "log_sha256": "3d1cf1fcd67467c158baa1f875dbc957b3253641548dda7f47025cf30370d07f",
+      "reason": "NOT evidence: the intended mutation did not apply (rustfmt had changed indentation), so this run is an unmutated green run despite its name; mutation A was redone and is the cited red"
+    }
+  ],
+  "next_dependency": "Integrator review and super-merge of 76cc1b7 with its receipts; V5-13 progress promotion stays integrator-owned via tools/v5_plan.py; real passport, threshold and coupon values need the named owners",
+  "old_source_observation": {
+    "subject": "joil-core phenotype.rs as compiled at the lane base (blob sha256 2bad3971cd2369cff45e3939548690e464397dd7ebfbe0d36e80009eeff69c5b); frozen D-07 source blob ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957",
+    "probe_compile": {
+      "argv": [
+        "rustc",
+        "--edition=2021",
+        "<private>/d07_old_source_probe.rs",
+        "--extern",
+        "joil_core=<worker-target>/debug/libjoil_core.rlib"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 3.237,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe_run": {
+      "argv": [
+        "<private>/d07-old-source-probe"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.622,
+      "log_sha256": "35e3b4391102c4a5186f0fa2416914c82087102dbbe1d467fa160c3065a5626e"
+    },
+    "observed": "Phenotype3D::from_program on the four TPMS-active wave-2 archetypes reports head_solid_volume_mm3 of 8222.0, 6678.4, 5396.2 and 4150.3 mm3 above the 128835.217 baseline, labelled analytic_estimate_v2, with the meshed wall only corrugated"
+  },
+  "defect_controls": [
+    {
+      "defect_id": "D-07",
+      "fixture": {
+        "path": "packs/hydrocyclone/judges/tests/manufacturing.rs",
+        "sha256": "643b5c0c670c3d9a6ef3e4a57627221e49b0179f00329cbdbf824294cff8f3a7"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/phenotype.rs",
+        "symbol": "Phenotype3D::from_program",
+        "sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+      },
+      "positive": {
+        "argv": [
+          "cargo",
+          "test",
+          "--locked",
+          "-p",
+          "pack-hydrocyclone-judges",
+          "--test",
+          "manufacturing"
+        ],
+        "exit_code": 0,
+        "log_sha256": "bca690569fe08e72f99bc4cef154169830d48ca3e41ea65c63e92ad5109d9a01",
+        "expected_result": "exit 0: the accepted-solid mass, the honest accepted-solid volume claim and the corrugation oracle pass"
+      },
+      "red": {
+        "argv": [
+          "cargo",
+          "test",
+          "--locked",
+          "-p",
+          "pack-hydrocyclone-judges",
+          "--test",
+          "manufacturing"
+        ],
+        "exit_code": 101,
+        "log_sha256": "d8e4106e223b5150cd6b719f8439427fea9a2dbb0f25b5ac6abcceb83194315e",
+        "expected_result": "exit 101 with the analytic-credit refusal removed (mutation B): v5_13_02_tpms_wall_corrugation_receives_no_missing_annulus_mass_credit fails because the legacy annulus credit would be accepted",
+        "meaning": "the red is the same test run with the guard removed, not the old code; the old-code observation is old_source_observation"
+      }
+    }
+  ]
+}

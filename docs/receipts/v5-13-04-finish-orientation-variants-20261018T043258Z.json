@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_13_material_process_mass",
+  "packet": "V5-13",
+  "task_ids": [
+    "V5-13-04"
+  ],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "C008 via Captain G-010 (stage v5-13-materials-C008); COORD 2026-10-18T04:19:30Z dispatch",
+  "input_head": "6f5f178d3ac1cd62ddfb0168469f26b9ec3e0d73",
+  "tested_commit": "76cc1b7b5c492f75714a2abdf07c575ab2a326ac",
+  "created_utc": "2026-10-18T04:32:58Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/surface.rs",
+    "Cargo.toml",
+    "Cargo.lock",
+    "packs/hydrocyclone/judges/Cargo.toml",
+    "packs/hydrocyclone/judges/tests/manufacturing.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 3.27,
+      "log_sha256": "bca690569fe08e72f99bc4cef154169830d48ca3e41ea65c63e92ad5109d9a01",
+      "note": "18 tests, all passed, at the tested commit"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 2.043,
+      "log_sha256": "09943d4d945e016029b3c2c2c612ff79953052427959520ef88cabdd0c739fc4"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.877,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.644,
+      "log_sha256": "3ebe841af34accfc43496fbb1c4dbc5a81775d8ca7743b171b96b239a0e1b637"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "6f5f178d3ac1cd62ddfb0168469f26b9ec3e0d73",
+        "HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.012,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-architecture"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.574,
+      "log_sha256": "eedcbe6e44384fa7089a74d3dd45757c393e45d4cfb5b71e2f89d3a4d576dea7",
+      "note": "workspace architecture checks still pass with the new member"
+    }
+  ],
+  "task_tests": [
+    "v5_13_04_ra_and_equivalent_sand_roughness_are_different_and_ks_needs_a_calibration",
+    "v5_13_04_same_variant_serves_flow_structure_and_export_and_a_change_makes_them_stale"
+  ],
+  "executed_mutation_reds": [],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/surface.rs",
+      "sha256": "2bb5c19f4f746738e3068021cf7f50f4f3f6f19d54251df21e64c74cd67a736d"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "00b92ba18c91ff95a90cbb8c0b867fc2d8fdf55d229b825b5e5033241150bb2a"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "0b33b711b30086c1d6129477c8d4310360fea57c0e5e291b5a9a2fc7e642b52a"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/Cargo.toml",
+      "sha256": "bc10df92d605e237c91df6831979415a4d3232a801652e561476660071f13378"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/manufacturing.rs",
+      "sha256": "643b5c0c670c3d9a6ef3e4a57627221e49b0179f00329cbdbf824294cff8f3a7"
+    }
+  ],
+  "positive_checks": [
+    "An admitted SYNTHETIC calibration for a face's own finish class and Ra range gives ks bounds [15.6, 23.4] um for Ra 6.5 um and a ratio range 2.4-3.6; ks is not Ra",
+    "Flow, structure and export evaluations carrying the same variant identity pass; face order does not change identity"
+  ],
+  "negative_checks": [
+    "The legacy universal ks = 3.1 Ra stays unresolved: no calibration, a proposal-only value, a \"universal\" finish class, fewer than three calibration points, a wrong finish class, Ra outside the calibrated range and unmeasured Ra all give Unresolved",
+    "Changing orientation, a face finish class or Ra changes the variant identity and names the stale flow, structure and export evaluations; a single stale evaluation is named alone; a missing evaluation is Unresolved"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges and unresolved draft records only; SYNTHETIC test values; no physical qualification",
+  "limitations": [
+    "No executed mutation red was run for this task; its negative controls are executed refusal tests only",
+    "The ks calibration used in tests is SYNTHETIC; no flow-derived equivalent sand roughness exists yet (owner: fluid_measurement_lead)",
+    "Draft lane scaffold disclosed for super-merge: root Cargo.toml workspace member and the minimal Cargo.lock entry for pack-hydrocyclone-judges (existing locked dependencies only); the integrator reconciles them",
+    "Synthetic fixtures are labelled synthetic; no physical allowable, density, threshold or tolerance is admitted",
+    "Task evidence, not acceptance: V5-13 depends on V5-09/V5-10 which are not yet accepted, and V5-00-03 stays AUDIT-HELD"
+  ],
+  "disclosed_non_evidence_runs": [
+    {
+      "name": "c008-mutation1-context-mismatch-disabled",
+      "exit_code": 0,
+      "log_sha256": "3d1cf1fcd67467c158baa1f875dbc957b3253641548dda7f47025cf30370d07f",
+      "reason": "NOT evidence: the intended mutation did not apply (rustfmt had changed indentation), so this run is an unmutated green run despite its name; mutation A was redone and is the cited red"
+    }
+  ],
+  "next_dependency": "Integrator review and super-merge of 76cc1b7 with its receipts; V5-13 progress promotion stays integrator-owned via tools/v5_plan.py; real passport, threshold and coupon values need the named owners"
+}
