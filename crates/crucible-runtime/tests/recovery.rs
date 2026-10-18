@@ -599,9 +599,10 @@ fn charged_preparation_does_not_consume_native_deadline_and_real_slow_child_stil
         ("slow", 0.6, Phase::TimedOut),
     ] {
         // Trusted, single-PID software fixture: Python sleeps then execs the byte-bound Rust fixture.
+        // Verify the Rust producer in charged preparation, not again inside the native deadline.
         // No subprocess/model/GPU is invoked by this test producer.
         let script = s.path().join(format!("{name}.py"));
-        let body=format!("#!/usr/bin/python3\nimport hashlib,os,sys,time\np={}\nassert hashlib.sha256(open(p,'rb').read()).hexdigest()=={}\ntime.sleep({delay})\nos.execv(p,[p]+sys.argv[1:])\n",serde_json::to_string(&binary.to_str().unwrap()).unwrap(),serde_json::to_string(frozen.as_str()).unwrap());
+        let body=format!("#!/usr/bin/python3\nimport os,sys,time\np={}\n# Coordinator verifies producer sha256 {} before spawn.\ntime.sleep({delay})\nos.execv(p,[p]+sys.argv[1:])\n",serde_json::to_string(&binary.to_str().unwrap()).unwrap(),frozen.as_str());
         std::fs::write(&script, body).unwrap();
         std::fs::set_permissions(&script, std::fs::Permissions::from_mode(0o700)).unwrap();
         let digest = BlobDigest::of_bytes(&std::fs::read(&script).unwrap());
@@ -629,7 +630,10 @@ fn charged_preparation_does_not_consume_native_deadline_and_real_slow_child_stil
             &l,
             &executable,
             Duration::from_millis(300),
-            || std::thread::sleep(Duration::from_millis(700)),
+            || {
+                FixtureExecutable::from_operator_binary(binary, &frozen).unwrap();
+                std::thread::sleep(Duration::from_millis(700));
+            },
         )
         .unwrap();
         assert_eq!(
