@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "selected_software_milestone_integration_acceptance_not_physical_release",
+  "accepted_by": "codex-v5-integrator",
+  "tested_commit": "71f590512ffa887b598ae78a559e8d979fa89530",
+  "created_utc": "2026-10-18T00:05:27.351448+00:00",
+  "accepted_packets": [
+    "V5-00",
+    "V5-01",
+    "V5-02",
+    "V5-03",
+    "V5-05",
+    "V5-06",
+    "V5-07"
+  ],
+  "canonical_completed_tasks": 35,
+  "receipts": [
+    {
+      "path": "docs/receipts/v5-01-integrator-01-20261018.json",
+      "sha256": "b67d8f6367d23f93aea7aafda9b3aecada37b03e1ee94dc41685161d06d1a911"
+    },
+    {
+      "path": "docs/receipts/v5-01-integrator-02-20261018.json",
+      "sha256": "c27d5cbfd82cb0080859e107c1042333c56542330c34c4d0d5a2b4aa991fb095"
+    },
+    {
+      "path": "docs/receipts/v5-01-integrator-03-20261018.json",
+      "sha256": "225ce6450379a207b0fe53a99e4b472c693880e84100dc0adb18afa55c3c4ef2"
+    },
+    {
+      "path": "docs/receipts/v5-01-integrator-04-20261018.json",
+      "sha256": "acceba8b48c662c925f5443fcb2ea5cd4abbee308d4b9599acb45fa35d2d5ccf"
+    },
+    {
+      "path": "docs/receipts/v5-01-integrator-05-20261018.json",
+      "sha256": "d9baed45d754e55094a8f9972691d9643821643186899007ca9264a339865abe"
+    },
+    {
+      "path": "docs/receipts/v5-07-ci-followup-20261018.json",
+      "sha256": "dd2d502c83a0c142e9d4fa4f9c17bbb257d1df5e5404f457672689d390c51fc2"
+    }
+  ],
+  "private_combined_artifact_inventory_sha256": "1b45aa33f7ea5df3a9c87fdf4570e3e7d79ebd98dc728c29a24247a94c24031a",
+  "scientific_status_promoted": false,
+  "remaining": [
+    "Exact-head CI after publication",
+    "V5-04 statistics and all later domain prerequisites",
+    "Physical requirements/validation and TR-16/EV-09/EV-12 remain unresolved",
+    "Lost active-attempt cost holds reservation and blocks automatic redispatch; declared attempt measurement scope retained"
+  ]
+}

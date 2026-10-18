@@ -47,13 +47,13 @@
       ]
     },
     "V5-07-05": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Reopened after exacthead CI retry-limit failure. Preserve prior local completion receipt; verify startup/native deadline separation, mandated build defaults and CI portability before accepting the follow-up.",
+      "note": "Reopened CI item reaccepted after old-timer red/new-timer positive+slow-child negative and complete combined source gate; exact-head CI remains pending.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-07-05-completed-20261017.json",
-          "sha256": "fcc2a4b1ab61a5b8cd6eb49e10131e2598094f1825871277c516c8ab472505ff"
+          "path": "docs/receipts/v5-07-ci-followup-20261018.json",
+          "sha256": "dd2d502c83a0c142e9d4fa4f9c17bbb257d1df5e5404f457672689d390c51fc2"
         }
       ]
     }

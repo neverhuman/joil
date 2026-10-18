@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "kind": "fixture_ci_followup_completion_not_physical_admission",
+  "packet": "V5-07",
+  "task_ids": [
+    "V5-07-05"
+  ],
+  "tested_commit": "71f590512ffa887b598ae78a559e8d979fa89530",
+  "created_utc": "2026-10-18T00:05:06.622857+00:00",
+  "changed_paths": [
+    "crates/crucible-runtime/src/task.rs",
+    "crates/crucible-runtime/tests/recovery.rs",
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "tools/check.py",
+    "tests/test_check.py",
+    "docs/design/V5_RECOVERY.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "name": "generated-status",
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.04801848798524588,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "name": "fmt",
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.44963137398008257,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "name": "clippy",
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 8.582771040033549,
+      "log_sha256": "e90673f85ca16d2302c3b8127b8bbc26a1a386c30f5217b87a2be3ff54e25fcc"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "name": "rust-tests",
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 366.5947998780175,
+      "log_sha256": "bc394238002c33410de7ae6c05a50be5d0c3da8e8c584e02abd04498510c8253"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "name": "baseline",
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 10.114342028973624,
+      "log_sha256": "6f0889a521ecc6d8dec1cd73692face9bad5537f9abd0bdea8a168aba1e3a2fc"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "name": "python-tests",
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 93.8591329010087,
+      "log_sha256": "c0ed3b7c5a4969ef0c351541a84fe3525ba93d1f0804965a0d550b4da763321c"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "name": "public-check",
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.1591240189736709,
+      "log_sha256": "5a27f984eef4d8adf706e28787a34021e4823f934a5fda61c776d54c66413817"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "name": "claims-audit",
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 17.12725058099022,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "name": "npm-ci",
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 1.1582980350358412,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "name": "ui-build",
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 2.4833255559788086,
+      "log_sha256": "51ca4be4487c946b6af90622bb1261a4900cdf479083f29080e23f7dbb67431c"
+    }
+  ],
+  "positive_checks": [
+    "Deterministic delayed-preparation positive completes native score25 while all preparation remains in actual CPU/wall charge",
+    "Actual slow native child still times out; absolute resource lease and all limits unchanged",
+    "Clean CI profile defaults and explicit override controls pass; available physical topology governs permitted worker counts; independent stdout diagnostic survives long compiler stderr",
+    "Full combined native lifecycle/recovery/store/contract/legacy truth workspace and remaining publication checks pass"
+  ],
+  "negative_checks": [
+    "Old whole-attempt timer counterfactual fails101 by timing out the healthy delayed-preparation producer; new timer positive plus real slow-child negative pass",
+    "CI0d0d failure was real fixture_retry_limit, not a physical failure; previous receipt retained and task reopened until this follow-up",
+    "Missing canonical ledger, unaccounted crash cost, revoked acceptance, corrupt latest, invalid admission and unavailable worker-count controls remain fail-closed"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-runtime/src/task.rs",
+      "sha256": "735d255a2eabcde2ebd4e75bde935d9de306137e97a63147cdaeb875632ebefe"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/recovery.rs",
+      "sha256": "e9a2b1fb720208ae3d18f38e61c02b4e854d561fc8f0cf4dc6965c4ec53998af"
+    },
+    {
+      "path": "crates/crucible-cli/tests/lifecycle.rs",
+      "sha256": "73c0bd19f6e6fd370f25d4dbb4c663fbf63e4dcca06844d6f9c34011427b5a0b"
+    },
+    {
+      "path": "tools/check.py",
+      "sha256": "3e3ce2318212ec90f1226820a12878e0c3b88727ea734fe18787c7fb5fd92f69"
+    },
+    {
+      "path": "tests/test_check.py",
+      "sha256": "5c5333ff4643ded69c43d9c4c8889785fca199125c94ca8a39edad76868adadc"
+    },
+    {
+      "path": "docs/design/V5_RECOVERY.md",
+      "sha256": "2334873546cab24007f9d2a46b15e8bd7954c71de29ea73793a23fb79c6a1597"
+    }
+  ],
+  "private_combined_artifact_inventory_sha256": "1b45aa33f7ea5df3a9c87fdf4570e3e7d79ebd98dc728c29a24247a94c24031a",
+  "private_full_gate_receipt_sha256": "2cde5b529a4f5101dda58b4d10c3367050279892751efbe65d4d299c8f7a841d",
+  "controlled_red_log_sha256": "f2bb2d1c6e053c365d10a7ff307bc72c89eb0ee853742913965d53fb04e4e030",
+  "controlled_green_log_sha256": "6a8161a2eafe2dbb340d51e4f9ff226a3cabce810b54eee1da724984ffbc81bc",
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "per_command_peak_rss": "not separately retained by canonical runner; lease guard and native address-space limits apply"
+  },
+  "limitations": [
+    "Coding/independent software controls only; no physical solver campaign, GPU or physical performance claim",
+    "Unmeasured cavity/powder/topology facts remain unqualified; the partial sandbox screen does not supply those measurements",
+    "Legacy checkpoint compatibility/dispersion identities remain insufficient; bounded new fixture evidence does not validate that legacy campaign or physical transport",
+    "New IR schema2 creates new subject identities; historical IR hashes/receipts retain their meanings",
+    "Active native crash cost without wait4 remains unknown: reservation is held and redispatch blocks until explicit reconciliation",
+    "Native attempt cost includes its declared wait4/thread verification scope; checkpoint/admission overhead and shared coordinator RAM excluded",
+    "V5-04 statistics and broader physical release remain open; TR-16/EV-09/EV-12 and unresolved requirements retained",
+    "Exact-head remote CI remains to observe after publication; local full gate is not substituted for CI"
+  ],
+  "next_dependency": "Observe exact-head CI; unassigned statistics/physical evidence remain open"
+}
