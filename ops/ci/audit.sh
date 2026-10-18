@@ -47,5 +47,5 @@ fi
 
 test -s .jankurai/repo-score.json
 test -s .jankurai/repo-score.md
-jq -r '"score=\(.score) raw=\(.raw_score) caps=\(.caps | length) findings=\(.findings | length)"' .jankurai/repo-score.json
+jq -r '"score=\(.score) raw=\(.raw_score) caps=\(.caps_applied | length) findings=\(.findings | length)"' .jankurai/repo-score.json
 jq -e '.score >= 45' .jankurai/repo-score.json >/dev/null

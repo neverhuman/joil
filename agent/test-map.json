@@ -160,6 +160,26 @@
     "visualization/": {
       "command": "bash scripts/ci-local.sh --suite python-tests",
       "purpose": "Legacy compatibility controls pending Rust migration"
+    },
+    ".private/": {
+      "command": "python3 tools/check_public.py",
+      "purpose": "Ensure local evidence and generated output never enter public Git candidates"
+    },
+    ".jankurai/": {
+      "command": "python3 tools/check_public.py",
+      "purpose": "Ensure local evidence and generated output never enter public Git candidates"
+    },
+    "target/": {
+      "command": "python3 tools/check_public.py",
+      "purpose": "Ensure local evidence and generated output never enter public Git candidates"
+    },
+    "runs/": {
+      "command": "python3 tools/check_public.py",
+      "purpose": "Ensure local evidence and generated output never enter public Git candidates"
+    },
+    "artifacts/": {
+      "command": "python3 tools/check_public.py",
+      "purpose": "Ensure local evidence and generated output never enter public Git candidates"
     }
   }
 }
