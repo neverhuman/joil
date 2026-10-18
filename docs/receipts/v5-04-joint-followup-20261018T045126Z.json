@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "packet": "V5-04",
+  "task_ids": ["V5-04-03"],
+  "kind": "task_receipt_joint_followup",
+  "owner": "claude-haiku-5-5 medium worker (1052087.joil_v5_claude)",
+  "assignment": "C007-F3 bounded joint paired-ratio and Pearson follow-up; Stage G-011 c007-f2-f3-stats-fix-C009; review request c007-f3-joint-review-request.json",
+  "input_head": "b30d7eb1cc22a4f930037b9e8b94e5b5298b1769",
+  "tested_commit": "1842b3c4ae809488ee18c3caf9894872cf83bad2",
+  "created_utc": "2026-10-18T04:51:26Z",
+  "original_c007_receipts_rewritten": false,
+  "resource_allocation": {
+    "cpus": "34,35",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "simulation_executed": false
+  },
+  "scientific_eligibility": "software statistics only; SYNTHETIC fixtures; no threshold, requirement, calibration or registration change",
+  "changed_paths": [
+    "crates/crucible-stats/src/analysis/joint.rs",
+    "crates/crucible-stats/tests/joint.rs"
+  ],
+  "source_sha256_at_tested_commit": {
+    "crates/crucible-stats/src/analysis/joint.rs": "91e063e027defd0bdcdf607c77e5bfe9c0161eab644ca9526acce8aabd08d417",
+    "crates/crucible-stats/tests/joint.rs": "6e31933d2919bf40e9d0e50df9b3c42c2dc1a8b7fb466589619c3236184f58e8"
+  },
+  "hypotheses": [
+    {
+      "id": "S02-ratio-missing-baseline",
+      "status": "NOT FIXED; shared-contract decision required",
+      "finding": "A margin with ratio_baseline_mean = None is accepted as an absolute margin. The shared EstimandKind (joil-evidence decision.rs) has only Mean, Quantile, WorstCase and Point, so a ratio estimand cannot be identified locally. Fixing it needs a joil-evidence contract change, which is integrator-owned, so this was not changed here."
+    },
+    {
+      "id": "paired-ratio-block-positivity",
+      "status": "CONFIRMED by red and fixed",
+      "red": {
+        "command": "cargo test --locked --offline -p crucible-stats --test joint",
+        "exit_code": 101,
+        "result": "every_paired_ratio_baseline_block_must_be_strictly_positive FAILED: a positive-mean baseline with one block -2.0 returned Ok(Pass)",
+        "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-03-red-b30d7eb.log",
+        "log_sha256": "cf6395f59751b8598327d30dabcc73e45dcce70be370958f61d6f684ea0dc9ab"
+      },
+      "fix": "summaries() rejects any paired ratio baseline block that is nonfinite or <= 0 with the message 'every ratio baseline block must be finite and strictly positive'"
+    },
+    {
+      "id": "pearson-large-finite-offset",
+      "status": "CONFIRMED by red and fixed",
+      "red": {
+        "result": "pearson_is_stable_under_huge_scale_and_offset_in_paired_blocks FAILED: diagonal correlation was 0 instead of 1 because sqrt(va*vb) overflowed to inf (red log line '(0,0) = 0')",
+        "log_sha256": "cf6395f59751b8598327d30dabcc73e45dcce70be370958f61d6f684ea0dc9ab"
+      },
+      "fix": "pearson centres each margin, scales deviations into [-1, 1], correlates, and returns NumericalFailure for zero variance or nonfinite results instead of NaN or a misleading finite value"
+    },
+    {
+      "id": "constant-paired-margin",
+      "status": "guard test added; passed before and after the fix",
+      "result": "constant_paired_margin_never_yields_a_nonfinite_pass asserts the outcome is not Pass"
+    }
+  ],
+  "positive_controls": [
+    {
+      "command": "cargo test --locked --offline -p crucible-stats --test joint",
+      "exit_code": 0,
+      "result": "9 passed; 0 failed",
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-03-positive-joint.log",
+      "log_sha256": "a2602b761a36251a3a53f3608b4d92e13c6ca8297d356791ceb8c2d62303204f"
+    },
+    {
+      "command": "cargo test --locked --offline -p crucible-stats",
+      "exit_code": 0,
+      "result": "all suites ok; 0 failed",
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-positive-test-crucible-stats.log",
+      "log_sha256": "0aef094133d12278dc93666fa0eb929ed6b44dca2063b6d5b0ff094e60e899fc"
+    },
+    {
+      "command": "cargo clippy --locked --offline -p crucible-stats --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-positive-clippy.log",
+      "log_sha256": "5767ea84ed67796d881420e0dcfa22f135d14903a734d06a5c709ff0a2b10df0"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-positive-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-positive-check-public.log",
+      "log_sha256": "a75664b4ba036cb7eaf86411366483db51149d6bd73ec779029cc7b133f9174b"
+    }
+  ],
+  "remaining_limitations": [
+    "S02-ratio-missing-baseline is unresolved and needs an integrator decision on the shared EstimandKind contract.",
+    "The Summaries path cannot check per-block baseline positivity, because it has only summary statistics."
+  ],
+  "status_claim": "software guards fixed and gated at the tested commit; not a physical validation; integrator acceptance pending",
+  "next_dependency": "integrator decision on S02 ratio estimand contract, then super-merge"
+}
