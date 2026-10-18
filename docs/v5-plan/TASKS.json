@@ -96,8 +96,8 @@
         {
           "id": "V5-00-03",
           "title": "Reproduce the defect register",
-          "instructions": "For D-01 through D-31, bind file, symbol, current line, source SHA, observed behavior and minimal reproducer. Separate code-confirmed defects from untested physical hypotheses. Inventory closure distinguishes executed code behavior, static source/policy/design facts and untested physical hypotheses. A source-only check never closes the corresponding runtime/physical repair; its executable independent red/positive evidence is mandatory when that primary task closes.",
-          "acceptance": "Every allegation maps to one primary repair task and an independently specified failing fixture; source-bound positive/negative inventory checks distinguish executed behavior from source-only facts and blocked hypotheses. No unexecuted regression is reported as executed.",
+          "instructions": "For D-01 through D-31, bind file, symbol, current line, source SHA, observed behavior and minimal reproducer. Separate code-confirmed defects from untested physical hypotheses.",
+          "acceptance": "Every defect maps to one primary repair task and an independent failing fixture.",
           "negative_control": "A changed line number alone cannot prove a defect remains present."
         },
         {

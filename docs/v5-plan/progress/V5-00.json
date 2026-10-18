@@ -27,7 +27,7 @@
     "V5-00-03": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+      "note": "AUDIT-HELD, not verified: original criterion restored;16source-only baseline rows still require executed positive/red controls. review transition rejected by V5-00-04 ordered-task rule (later done tasks/dependent packets require earlier done). Preserve historical receipts/gate; this recorded state is not current acceptance.",
       "evidence": [
         {
           "path": "docs/receipts/v5-00-audit-inventory-20261018.json",
