@@ -302,7 +302,7 @@ receipts. The scan below determines detector closure; remaining findings stay op
 ### I015 exact audit evidence
 
 Jankurai 1.7.5: score **55**, raw **55**, **15 caps**, **42 findings**, **21 conformance blockers**.
-Report SHA-256: `123da0a21376ba175bc691892ad7d795aef7473b91f2df55403d4347164b0cea`. Advisory command exits 0; this is not full conformance. Raw reports are retained privately with the I015 evidence.
+Report SHA-256: `9a68558e7ff86336c7bdb18c414a9b6f4b2214565d01a6456fa66330060b7247`. Advisory command exits 0; this is not full conformance. Raw reports are retained privately with the I015 evidence.
 
 | ID | Historical fingerprint | Current disposition |
 | --- | --- | --- |
@@ -323,6 +323,12 @@ Report SHA-256: `123da0a21376ba175bc691892ad7d795aef7473b91f2df55403d4347164b0ce
 
 J064 still has the current observability-56 fingerprint `sha256:dca91d28f08cf11b7117d5e796a0dee64c9c35685ca23e874564dca7cf74f5b2`. J065 remains despite the expanded budget procedure. The separate launch-artifact blocker `sha256:0f21fe749a193e4585d996dc6d063b41115e23a172c09ba76bba9b549301861b` also remains. No runtime monitoring, backup restoration or paid-service kill-switch proof was fabricated.
 
-The first source scan identified duplicated ordered JSON decoding; that implementation is now shared with v5-plan and its duplicate fingerprint is absent. The new baseline parity test retains scanner fingerprint `sha256:e357121f6a62701b66a18006ccf25be731f5a8f4ca552c4e3dbdbcfa152a5c9e`: its cited inline Python oracle executes the unchanged validator; Rust assertions compare exit/output and require explicit rejection of tampered/missing evidence. This is retained for detector review, not suppressed or described as closed. No target fingerprint newly closed in I015.
+The first source scan identified duplicated ordered JSON decoding; that implementation is now shared with v5-plan and its duplicate fingerprint is absent. The new baseline parity test retains scanner fingerprint `sha256:ba05fae25d16a0fea8f4a4562cecf7a43993d043857710137262453ea61b3b99`: its cited inline Python oracle executes the unchanged validator; Rust assertions compare exit/output and require explicit rejection of tampered/missing evidence. This is retained for detector review, not suppressed or described as closed. No target fingerprint newly closed in I015.
 
 The first audit invocation failed because read-only reporting forbids scratch outputs inside the checkout. Its log is retained; rerun with private scratch outside the checkout succeeded. Initial status byte parity exposed sorted JSON keys and was repaired before passing checks. Full commands, exits, evidence hashes and remaining limitations are in `docs/receipts/i015-rust-ci-20261018.json`.
+
+Final oracle review narrowed exception normalization to expected validation, key, I/O and Git failures; unexpected exceptions remain unhandled. The scanner still flags the inline oracle. Both parity suites pass with explicit rejection assertions, so the finding remains a detector-review dependency.
+
+The first full required gate timed out in workspace Rust tests at 600 seconds on `a69b8ba`; the same Rust suite also timed out at 600 seconds on unchanged `origin/main` `d20064ee`. Both failed receipts are retained. Main is locally red under those bounds; no timeout or test threshold was relaxed. A fresh I015 gate result is recorded in the final receipt.
+
+The fresh required-gate retry on `2c98890` failed in the existing `bounded_wait_drains_small_pipes_before_child_exit` fixture (`lifecycle.rs:232`): `F_SETPIPE_SZ` returned -1 instead of 4096. The child is spawned before shrinking its output pipes; a child-start barrier is the next repair candidate, with errno capture needed to confirm the failure mechanism. No timeout, assertion or threshold was weakened. The coordinator merged PR #23 after all 11 remote CI checks passed on `7a5ac87`; those checks do not cover the subsequent local oracle refinement or evidence receipt. Per the live coordination handoff, these local follow-ups remain committed for Wave I016, not pushed to the merged branch.

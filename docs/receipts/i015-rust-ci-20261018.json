@@ -1,0 +1,578 @@
+{
+  "schema_version": 1,
+  "kind": "software_ci_and_parity_not_physical_validation",
+  "packet": "I015",
+  "base_commit": "d20064ee4ed1899b0e95072ce96e031c6cce9b21",
+  "tested_commit": "2c988907915ca3f4652722e7a049e6320b306338",
+  "changed_paths": [
+    "PY_TO_RUST_PLAN.md",
+    "crates/crucible-cli/src/bin/gen-status.rs",
+    "crates/crucible-cli/src/bin/v5-baseline-audit.rs",
+    "crates/crucible-cli/src/bin/v5-plan.rs",
+    "crates/crucible-cli/src/ordered_json.rs",
+    "crates/crucible-cli/tests/baseline_audit_parity.rs",
+    "crates/crucible-cli/tests/gen_status_parity.rs",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i015-claim-20261018.json",
+    "docs/receipts/i015-helper-claim-20261018.json",
+    "docs/release.md",
+    "docs/testing.md",
+    "docs/receipts/i015-rust-ci-20261018.json"
+  ],
+  "source_files_sha256": {
+    "PY_TO_RUST_PLAN.md": "d14f7002dbbd5cd4c25da3e26b4c521aea221c3dd321faa72bd26c9ac2f540d2",
+    "crates/crucible-cli/src/bin/gen-status.rs": "22f8345ed5c06da82e0ee8cff6928e9562848c9051a1263030bc0c1440823200",
+    "crates/crucible-cli/src/bin/v5-baseline-audit.rs": "d108ed89adca015092ee9131942c78c1f1f0803fb002176e392b45c0ae3f100c",
+    "crates/crucible-cli/src/bin/v5-plan.rs": "7cf48ee36e0f6c01fff52e9f3aa3104e222085706074b590b4b6bc9d7cbc338d",
+    "crates/crucible-cli/src/ordered_json.rs": "725a4e13d493e182166943a8011caa2617b377db8f160d59b3fcf14a8606fa52",
+    "crates/crucible-cli/tests/baseline_audit_parity.rs": "e2c307432f9afa5f2524554f28de006727c3293805e0c847f27cff401b211a42",
+    "crates/crucible-cli/tests/gen_status_parity.rs": "1750371f5dd2c83f84dbc393fa1b4f155da2ff7b9e74c61192bf9e57b6857956",
+    "docs/JANKURAI_REMEDIATIONS.md": "b18ac6b6f3e11c1eb1b034406be7c457ed5e33b778f289cf6ca150cc046a4b92",
+    "docs/receipts/i015-claim-20261018.json": "e0dee0b8730166f629ec6ff8bf03ef34aa1c898cf386dc7e3650488bba6531fc",
+    "docs/receipts/i015-helper-claim-20261018.json": "47573dce94102b86c86707a31d46e6e3c03e9683601f9de00bacc377fc994437",
+    "docs/release.md": "c851c9de4797259b4b990aecc6ecaca067a82370487698b512623526b07f17e0",
+    "docs/testing.md": "8bcee663173be64a1b358c95841013246d623a1ec0e64e3f59809807256f7a83"
+  },
+  "commands": [
+    {
+      "name": "fmt",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.13,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.489,
+      "log_sha256": "1be0b636f76b4bd29d1b76582d243cf891876b520b23f761ba856653746d1a2a"
+    },
+    {
+      "name": "parity",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "baseline_audit_parity",
+        "--test",
+        "gen_status_parity"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 5.622,
+      "log_sha256": "5e06681ae201b3e879fe5b83df1c97b75f103a5e2dce66fb3f01f5e80a312300"
+    },
+    {
+      "name": "plan-parity",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "plan_parity"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 34.097,
+      "log_sha256": "c411a9614b046491159419544c90da565f47a89f6a76a5756e3a313c6ea0d864"
+    },
+    {
+      "name": "public",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.945,
+      "log_sha256": "c5628be64607181617afc0bc52a643ad4b727a4b7534fcbb9317aab3d470482d"
+    },
+    {
+      "name": "plan",
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.664,
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+    },
+    {
+      "name": "manifest",
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.451,
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+    },
+    {
+      "name": "claims",
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 28.925,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "name": "security",
+      "argv": [
+        "bash",
+        "ops/ci/security.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 23.836,
+      "log_sha256": "af8a6f9964c9d73331fe63caed23c62177155bf7927e225f0f92a2f4236a3f8c"
+    },
+    {
+      "name": "audit",
+      "argv": [
+        "bash",
+        "ops/ci/audit.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 39.069,
+      "log_sha256": "1570642e112a496fc7f4e1671e5950c212cb9b51af9314addff7f0f22ad46b37"
+    },
+    {
+      "name": "fmt-final",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.044,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy-final",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.492,
+      "log_sha256": "395ed7dd640382d3872d15298fdd2d8771ac63edde90aa19d61ba9e324ee19be"
+    },
+    {
+      "name": "parity-final",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "baseline_audit_parity",
+        "--test",
+        "gen_status_parity"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.912,
+      "log_sha256": "cb2f5b23cf486e92f158f338048a8d6f23221acc25a377bb174b96be28c781c1"
+    },
+    {
+      "name": "audit-final",
+      "argv": [
+        "bash",
+        "ops/ci/audit.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 35.771,
+      "log_sha256": "1570642e112a496fc7f4e1671e5950c212cb9b51af9314addff7f0f22ad46b37"
+    },
+    {
+      "name": "public-final",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.224,
+      "log_sha256": "15183acc691f0451d2dbc6c80bba5be96c6e7af001dcfdade56f848548986893"
+    }
+  ],
+  "audit": {
+    "version": "1.7.5",
+    "score": 55,
+    "raw_score": 55,
+    "caps_count": 15,
+    "caps_applied": [
+      "python-direct-product-truth-or-db-ownership",
+      "no-jankurai-audit-lane-in-ci",
+      "non-optimal-product-language-found",
+      "vibe-placeholders-in-product-code",
+      "fallback-soup-in-product-code",
+      "future-hostile-dead-language-in-product-code",
+      "missing-rendered-ux-qa-lane",
+      "false-green-test-risk",
+      "input-boundary-gap",
+      "release-readiness-gap",
+      "no-agent-friendly-exception-pattern",
+      "rust-bad-behavior",
+      "python-bad-behavior",
+      "ci-bad-behavior",
+      "repo-rot-bad-behavior"
+    ],
+    "findings_count": 42,
+    "conformance_blockers_count": 21,
+    "conformance_blockers": [
+      "HLT-000-SCORE-DIMENSION:audit on .github/workflows",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/foundation.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/jankurai.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/security.yml",
+      "HLT-000-SCORE-DIMENSION:stack on analysis/__init__.py",
+      "HLT-001-DEAD-MARKER on analysis/kpi_fitness.py",
+      "HLT-013-RENDERED-UX-GAP on apps/web",
+      "HLT-001-DEAD-MARKER on crates/crucible-cli/src/bin/v5-plan.rs",
+      "HLT-001-DEAD-MARKER on crates/crucible-cli/src/plan_validation.rs",
+      "HLT-008-FALSE-GREEN-RISK on crates/crucible-cli/tests/baseline_audit_parity.rs",
+      "HLT-023-INPUT-BOUNDARY-GAP on crates/crucible-runtime/src/checkpoint.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/task.rs",
+      "HLT-017-OPAQUE-OBSERVABILITY on crates/domain",
+      "HLT-033-PYTHON-BAD-BEHAVIOR on crates/joil-evidence/receipts/ev13_figure_trace.py",
+      "HLT-025-RELEASE-READINESS-GAP on docs/testing.md",
+      "HLT-005-PYTHON-PRODUCT-TRUTH on python/",
+      "HLT-033-PYTHON-BAD-BEHAVIOR on tools/claims_audit.py"
+    ],
+    "report_sha256": "9a68558e7ff86336c7bdb18c414a9b6f4b2214565d01a6456fa66330060b7247",
+    "targets": [
+      {
+        "id": "I010-J055",
+        "fingerprint": "sha256:c8dc4ad5d637d83bb4bf706a7400a3d4e7b5342b0603b7a3be5d8ffc6b52c9f8",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J056",
+        "fingerprint": "sha256:74dcad6c80b0b3434ffb9175d2a341388f968697f4b0a1fa0cb4a77320431a52",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J057",
+        "fingerprint": "sha256:538667a01e35d8e91eae100627364816dd225911862fa2fa1578642af63d4af8",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J058",
+        "fingerprint": "sha256:ae5e7dbf512c24e79a848bb257e29b6e0b23edf6c1b5445f2985b68222d28ef0",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J059",
+        "fingerprint": "sha256:5aed6448da5acd015ce0672c37538cd7b9cd1d84c4abd5ad1824ac75878eade2",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J060",
+        "fingerprint": "sha256:9e590a70e56e77620d38492e45a010615b522a082637aff257b0cf40fa116e30",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J061",
+        "fingerprint": "sha256:26495967e2fc6e0e0fce4e23daac8cbeea514c7091bc12c8c0209b812635248f",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J062",
+        "fingerprint": "sha256:6dc277f838aa42b508c136f6ba666d602ecefe226bc4c238b24388640ee21f82",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J063",
+        "fingerprint": "sha256:a4c75d4a3f2dc344afc5d7ea9151e9a554622634368dd8d11b858b8a110e05b4",
+        "present": false,
+        "present_before_i015": false
+      },
+      {
+        "id": "I010-J064",
+        "fingerprint": "sha256:fdb3a84a21c55960774c72b44aa6af4228427d0ba1a9eeb7d25802508b687411",
+        "present": false,
+        "present_before_i015": false
+      },
+      {
+        "id": "I010-J065",
+        "fingerprint": "sha256:edd248b7afc24b644107205fa5b84a88103ac4b622009ff9f19b779de8798f59",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J066",
+        "fingerprint": "sha256:a9ed62b36b036c9cc50ca8f42844065f4bb44a12c1b6a715d99db7453617b019",
+        "present": true,
+        "present_before_i015": true
+      },
+      {
+        "id": "I010-J067",
+        "fingerprint": "sha256:eae71529c913c75e7e72af20256e5ec033b133306819383269593fa630421803",
+        "present": false,
+        "present_before_i015": false
+      },
+      {
+        "id": "I010-J068",
+        "fingerprint": "sha256:e03218560ae46e56df7d6d93c96650a260e8b2955f8361382bdc6f71e3dbe494",
+        "present": true,
+        "present_before_i015": true
+      }
+    ]
+  },
+  "positive_checks": [
+    "Frozen baseline inventory output/exit parity with and without historical Git source checking",
+    "Conservative STATUS generation exact bytes and SHA-256; check mode; scientific objective identity",
+    "Existing plan generated-byte/update/rollback parity after shared codec extraction",
+    "Rebound empty/failing software receipts produce incomplete, never verified"
+  ],
+  "negative_checks": [
+    "Tampered/missing/malformed baseline inventory/gates, source identity and deferral coverage",
+    "Repair task/disposition/probe/fixture/closure/physical promotion mutations",
+    "Stale receipt, duplicate-key/nonfinite/malformed evidence with rebound hashes",
+    "Unsupported schema, scientific observations and missing registry field",
+    "Unresolved admission, nonfinite threshold, weakened quantile and invalid hypervolume policy",
+    "Preregistration/baseline byte drift and stale campaign objective hash"
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "physical_cores_max": 4,
+    "ram_gib_max": 12,
+    "output_gib_max": 5,
+    "gpu": false,
+    "simulation": false,
+    "subagents": false,
+    "cache": "existing lane target/",
+    "observed_target_before": "4.2 GiB rounded du -sh",
+    "observed_target_after_standalone": "4.3 GiB rounded du -sh",
+    "paid_operations": 0,
+    "observed_target_after_retry": "4.8 GiB rounded du -sh"
+  },
+  "limitations": [
+    "Software verification only; no scientific or physical admission",
+    "Python files and legacy entrypoints retained; no Python LOC reduction",
+    "Malformed/missing-key/OS/Git diagnostics are implementation-specific; baseline Python traceback normalized by oracle",
+    "Byte parity is verified for the pinned inventory and tested controls, not arbitrary noncanonical numeric/Unicode/reference-extension inputs",
+    "Budget procedures are not kernel-enforced memory-cap or paid-service kill-switch evidence",
+    "Audit advisory PASS is not conformance; 21 blockers remain; no newly closed target fingerprint",
+    "Initial JSON-order parity failure repaired; initial read-only audit scratch location rejected and corrected; failures retained/described in private evidence",
+    "First full gate and unchanged-main Rust comparison timed out at unchanged 600 seconds; neither is PASS",
+    "Fresh required gate failed existing lifecycle pipe-sizing assertion: fcntl returned -1, expected 4096; no errno was captured",
+    "No independent rerun of every remaining full-gate suite after fail-fast Rust failure; original PR CI is distinct evidence"
+  ],
+  "next_dependency": "Wave I016 integrator carries local oracle refinement and final receipt onto merged main; diagnose lifecycle pipe sizing with child-start barrier/errno capture, rerun full required under authorized resources before another worker push",
+  "post_verification_edits": [
+    "docs/JANKURAI_REMEDIATIONS.md: append exact audit results and fingerprint dispositions",
+    "docs/receipts/i015-rust-ci-20261018.json: final evidence receipt"
+  ],
+  "verification_attempts": [
+    {
+      "name": "required",
+      "argv": [
+        "just",
+        "required"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 608.677,
+      "log_sha256": "bfc4788a83980b9e8a809243dc135af3282f2b6a2b22e1755369b069bc99c146",
+      "tested_commit": "a69b8ba8f69973f81cabf90e19e7d34aa37e0e5c"
+    },
+    {
+      "name": "unchanged-main-rust-tests",
+      "argv": [
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "rust-tests"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 601.022,
+      "log_sha256": "b51b8e4fa13650ce13cbd71515be5ff1c73d88042fc64756c45fa7ee37d9c695",
+      "tested_commit": "d20064ee4ed1899b0e95072ce96e031c6cce9b21"
+    },
+    {
+      "name": "required-retry",
+      "argv": [
+        "just",
+        "required"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 189.838,
+      "log_sha256": "b11082a451c3beab62ea600accec526c698d69252f0e248d98d4dbcfb0bcf19f",
+      "tested_commit": "2c988907915ca3f4652722e7a049e6320b306338"
+    }
+  ],
+  "all_required_pass": false,
+  "foundation": {
+    "schema_version": 1,
+    "run_id": "20261018T231926Z-2b49655c",
+    "kind": "foundation_checks_not_physical_validation",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.051592771080322564,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 1.0744584299391136,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 1.4431845620274544,
+        "log_bytes": 72,
+        "log_sha256": "8b271f32754aa79b02cdbf827170c834c40cbec8fc0a7d7c8657b8db93407fec"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 101,
+        "wall_seconds": 181.6657625020016,
+        "log_bytes": 8143,
+        "log_sha256": "26d23944d624b3677641ce07ff13825645ee971854f64a2e41eb08351430b7f8"
+      }
+    ],
+    "requested_suite": "all",
+    "ui_executed": true,
+    "cad_executed": false,
+    "cfd_executed": false,
+    "input_head": "2c988907915ca3f4652722e7a049e6320b306338",
+    "environment": {
+      "CARGO_BUILD_JOBS": "2",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "RAYON_NUM_THREADS": "1"
+    },
+    "all_requested_pass": false
+  },
+  "remote_delivery": {
+    "pr": 23,
+    "url": "https://github.com/neverhuman/joil/pull/23",
+    "state": "MERGED",
+    "head": "7a5ac87c92f4cd528bd39a81ab9c2ee950e0343a",
+    "merge_commit": "f1d4c923cdbc3a5d484481056b3a7666fc6d241a",
+    "checks_passed": 11,
+    "actor": "coordinator; this worker did not push or merge",
+    "scope": "Original ports and documentation; excludes local 2c98890 refinement and this final receipt",
+    "handoff": "2026-10-18T23:23Z root coordination asks local commits carried into I016"
+  },
+  "artifacts": [
+    {
+      "name": "jankurai-final/repo-score.json",
+      "sha256": "9a68558e7ff86336c7bdb18c414a9b6f4b2214565d01a6456fa66330060b7247"
+    },
+    {
+      "name": "jankurai/repo-score.json",
+      "sha256": "123da0a21376ba175bc691892ad7d795aef7473b91f2df55403d4347164b0cea"
+    },
+    {
+      "name": "jankurai-first/repo-score.json",
+      "sha256": "ed23744675c9e0887c6e3e8779f0ca3de9cef84885601728bf42d2f895b9a450"
+    },
+    {
+      "name": "audit-first.log",
+      "sha256": "6f6b2967c168d7d2aabb20d9b1e241f66875cb06509be1d876194943a2e5a473"
+    },
+    {
+      "name": "initial-order-failure.txt",
+      "sha256": "4acfe9c5ada925a5760da365b1e491edc2879cb53a180a10bad54b545119952a"
+    },
+    {
+      "name": "foundation-timeout/receipt.json",
+      "sha256": "b5174216846e731d994635460fb996f77b161ef308d60221b8f9be3ac8780568"
+    },
+    {
+      "name": "main-rust-timeout/receipt.json",
+      "sha256": "15ee67ea3f753c7fb6645d76cecbf15b5b7947be6c87f7db0e71311bba0653ea"
+    },
+    {
+      "name": "foundation-retry-failure/receipt.json",
+      "sha256": "a5ee21574cc8d28770f482fabd066155bdc701f85fb20c3ec7384543bdedef36"
+    },
+    {
+      "name": "foundation-retry-failure/rust-tests.log",
+      "sha256": "26d23944d624b3677641ce07ff13825645ee971854f64a2e41eb08351430b7f8"
+    },
+    {
+      "name": "pr23-ci.json",
+      "sha256": "b9792fc580c6ce8092435ce28782aaf6eefdda6131bb52f88d191cefe65ebbd3"
+    }
+  ]
+}
