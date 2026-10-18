@@ -23,6 +23,16 @@ Packet-local inference result types may live inside the owned analysis module;
 new cross-packet shared types, dependencies or crate-root exports require a
 serialized integrator contract before use. No worker edits progress/views/gates.
 
+Code inspection found one necessary adapter-test scope omission: the existing
+`p06_experiment_calibration_crossover_holdout_ct_and_comparator_gates` function in
+`crates/joil-core/tests/regression.rs` expects the observed-effect power gate to
+qualify without a prospective design. Once the replacement explicit-design API
+contract is accepted, the statistics worker may update only this named function
+to supply a declared synthetic pilot/effect protocol and test legacy refusal.
+Every other function and item in that file stays byte-identical. This is a caller
+migration for the repaired contract, not permission to weaken a positive check,
+change a physical threshold or declare a protocol from confirmation outcomes.
+
 V5-08 depends on accepted V5-03/05 and remains integrator-owned while Claude
 implements V5-04. Its existing exact write scope remains authoritative. Crate
 registration and any backend dependency pin precede the kernel comparison. A

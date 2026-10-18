@@ -397,7 +397,8 @@
       "write_scope": [
         "crates/crucible-stats/",
         "crates/joil-core/src/experiment.rs",
-        "tests/fixtures/v5-statistics/"
+        "tests/fixtures/v5-statistics/",
+        "crates/joil-core/tests/regression.rs"
       ],
       "edge_cases": [
         "Weighted parcels are not IID Bernoulli draws",
