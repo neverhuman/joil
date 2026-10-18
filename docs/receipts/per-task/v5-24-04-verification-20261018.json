@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-24-04"
+  ],
+  "tested_commit": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by source SHA-256; implementation is not present in the base commit.",
+  "decision_resolution": "Added held-out paired-family admission and revocation boundary checks. Passing software fixtures do not imply device execution or scientific admission.",
+  "changed_paths": [
+    "crates/crucible-gpu/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "crucible-gpu",
+        "--lib",
+        "tests::v5_24_04_held_out_paired_admission_families_revocation_and_winner_only_guard",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-24-04.log",
+      "log_sha256": "242f6e30f95e03c740ae746adaa65521c38393289e16871a918197a4310e18fe"
+    }
+  ],
+  "positive_checks": [
+    "All subject families and paired evidence within policy gates admit the declared capability identity."
+  ],
+  "negative_checks": [
+    "Missing family, changed implementation fingerprint, or winner-only disagreement prevents admission."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-gpu/src/lib.rs",
+      "sha256": "8637fb7775ca9a54066670e48c74520e6225bf092be202897a90792ac9c69b46"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and synthetic fixture verification only; no physical admission or installation authority."
+  ],
+  "next_dependency": "V5-25"
+}

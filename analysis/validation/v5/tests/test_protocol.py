@@ -10,6 +10,7 @@ from analysis.validation.v5.protocol import (
     reduce_measurements, sample_size_from_pilot, store_private_dossier,
     validate_independent_pairs, validate_specimen_passport,
     validate_holdout_partition,
+    evaluate_preregistered_confirmation_campaign,
 )
 
 
@@ -38,6 +39,34 @@ def measurement_record():
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_v5_30_04_preregistered_confirmation_campaign_and_negatives(self):
+        root = Path(__file__).parents[4]
+        campaign = json.loads((root / "experiments/rig/v5/confirmation_campaign_v1.json").read_text())
+        protocol = {"decision_profile_sha256":"a"*64,"requirements_sha256":"b"*64,"duty_id":"duty",
+                    "band_id":"band","pressure_policy_sha256":"c"*64,"required_scenarios":["nominal","upset"],
+                    "claim_threshold_pct":10.0,"confidence":0.95,"independent_unit":"independent build/preparation pair",
+                    "drift_concentration_limit_pct":10.0,"drift_pressure_limit_pct":5.0}
+        result=evaluate_preregistered_confirmation_campaign(protocol,campaign)
+        self.assertTrue(result["campaign_admitted_for_software_analysis"])
+        self.assertFalse(result["physical_qualification"])
+        self.assertTrue(result["analysis"]["software_bound_reaches_10pct"])
+        bad=copy.deepcopy(campaign);bad["holdout_manifest"]["status"]="open"
+        from analysis.validation.v5.protocol import _digest
+        bad["holdout_seal_sha256"]=_digest(bad["holdout_manifest"])
+        with self.assertRaisesRegex(AnalysisError,"sealed_confirmation"):
+            evaluate_preregistered_confirmation_campaign(protocol,bad)
+        bad=copy.deepcopy(campaign);bad["evidence_admission"]["material_admitted"]=False
+        with self.assertRaisesRegex(AnalysisError,"mandatory_model_material"):
+            evaluate_preregistered_confirmation_campaign(protocol,bad)
+        bad=copy.deepcopy(campaign);bad["holdout_seal_sha256"]="0"*64
+        with self.assertRaisesRegex(AnalysisError,"seal_mismatch"):
+            evaluate_preregistered_confirmation_campaign(protocol,bad)
+        bad=copy.deepcopy(campaign);bad["pair_bindings"][1]["fluid_batch_id"]="fluid-1"
+        with self.assertRaisesRegex(AnalysisError,"does_not_match_analysis_unit|sealed_holdout_record"):
+            evaluate_preregistered_confirmation_campaign(protocol,bad)
+        bad=copy.deepcopy(campaign);bad["evidence_admission"]["decision_profile_sha256"]="9"*64
+        with self.assertRaisesRegex(AnalysisError,"decision_identity_mismatch"):
+            evaluate_preregistered_confirmation_campaign(protocol,bad)
     def test_g009_product_of_linear_signals_uses_independent_integral(self):
         from analysis.validation.v5.protocol import _product_integral
         rows = [(0.0, 1.0, 0.0, False), (1.0, 2.0, 0.0, False)]

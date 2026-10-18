@@ -3,53 +3,69 @@
   "task_ids": [
     "V5-30-02"
   ],
-  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
-  "decision_resolution": "Resolved under SC-DEC-043 (substitute:synthetic_rig_telemetry_reduction+rescope:post_manufacturing_hardware_stream_ingestion): Synthetic delayed and censored multi-stream telemetry reduction is accepted with substitute provenance. Physical wet-rig sensor ingestion is rescoped to the post-manufacturing phase. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_lag_compensation_common_window_mass_and_uncertainty.",
+  "tested_commit": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by source SHA-256; implementation is not present in the base commit.",
+  "decision_resolution": "Resolved under SC-DEC-043: synthetic stream reduction is accepted; physical wet-rig ingestion remains rescoped post-manufacturing.",
   "changed_paths": [
-    "experiments/rig/v5/",
-    "experiments/holdout/v5/",
-    "analysis/validation/v5/",
-    "docs/rig/V5_CONFIRMATION.md",
-    "experiments/rig/protocol_v1.md",
-    "docs/rig/MATERIAL_INPUTS.md"
+    "crates/crucible-stats/src/analysis.rs",
+    "analysis/validation/v5/protocol.py",
+    "analysis/validation/v5/tests/test_protocol.py"
   ],
   "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "crucible-stats",
+        "--lib",
+        "analysis::v5_30_tests::v5_30_02_delayed_censored_stream_reduction",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-02.log",
+      "log_sha256": "d5fcd54121603013a13a64de417818a61b337abb0dc2499771c7f81528a80356"
+    },
     {
       "argv": [
         "python3",
         "-m",
         "unittest",
         "-v",
-        "tests.test_v5_integrated_fixtures.ProtocolTests.test_lag_compensation_common_window_mass_and_uncertainty"
+        "analysis.validation.v5.tests.test_protocol.ProtocolTests.test_unsynchronized_and_censored_measurements_rejected"
       ],
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-02.log",
-      "log_sha256": "c75a65ad8e5a2178858fd47c0ddd2e317e9c71db4f4f66d41d9a26aff394bcf3"
+      "log_sha256": "d5fcd54121603013a13a64de417818a61b337abb0dc2499771c7f81528a80356"
     }
   ],
   "positive_checks": [
-    "V5-30-02 (Qualify synchronized measurement reduction): Mass/volume windows align with uncertainty and censoring treatment. \u2014 verified by python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_lag_compensation_common_window_mass_and_uncertainty"
+    "Delayed streams align on common process-time intervals and retain conservative censor bounds."
   ],
   "negative_checks": [
-    "V5-30-02 negative control: Unsynchronized oil and flow records cannot establish treatment capacity."
+    "Uncalibrated, post-hoc filtered, unaligned, or unsynchronized/censored-window inputs are rejected or abstained."
   ],
   "artifacts": [
     {
-      "path": "docs/rig/V5_CONFIRMATION.md",
-      "sha256": "e12f4834d96d40463425c4ff72aa5f66a0557b1a54a1991cc6b62c7f76f192d1"
+      "path": "crates/crucible-stats/src/analysis.rs",
+      "sha256": "6200e57503840e5e33a4aa00ce777496f71e0ccdbc98ff7493f6656c0fe2f6e2"
+    },
+    {
+      "path": "analysis/validation/v5/protocol.py",
+      "sha256": "29000bbc57874af2337909b5a79dd66b8d3cb161c78957932b10505d1b0c6ed6"
     }
   ],
   "resource_allocation": {
-    "lease_id": "renewal-004",
-    "physical_cores": 2,
-    "ram_gib": 12,
-    "disk_gib": 6,
-    "gpu": false
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
   },
   "scientific_admission": false,
   "limitations": [
-    "Software and contract verification only; scientific_admission remains false.",
-    "Resolved under SC-DEC-043 (substitute:synthetic_rig_telemetry_reduction+rescope:post_manufacturing_hardware_stream_ingestion): Synthetic delayed and censored multi-stream telemetry reduction is accepted with substitute provenance. Physical wet-rig sensor ingestion is rescoped to the post-manufacturing phase. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_lag_compensation_common_window_mass_and_uncertainty."
+    "Software and synthetic fixture verification only; no physical admission or installation authority."
   ],
   "next_dependency": "V5-30-03"
 }

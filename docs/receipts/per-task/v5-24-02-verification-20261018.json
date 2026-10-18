@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-24-02"
+  ],
+  "tested_commit": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by source SHA-256; implementation is not present in the base commit.",
+  "decision_resolution": "Added a bounded CPU-reference curved-wall Bouzidi link update, conservative block restriction, precision parity guard, D2Q9 MRT collision/streaming, anchored voxel Jacobi PCG and eigenpair residual/orthogonality checks. This is synthetic software verification only and does not assert GPU execution or scientific admission.",
+  "changed_paths": [
+    "crates/crucible-lbm/src/lib.rs",
+    "crates/crucible-fea/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-v",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-fea",
+        "--lib",
+        "tests::v5_24_02_pcg_parities_and_invalid_eigenpairs_fail",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-24-02.log",
+      "log_sha256": "0db2107811717924256e3066c8d11df80a610642a9605a1773b0f50c03d69f65"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-v",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-lbm",
+        "--lib",
+        "tests::v5_24_02_curved_wall_block_restriction_pcg_and_eigenpair_guards",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-24-02.log",
+      "log_sha256": "0db2107811717924256e3066c8d11df80a610642a9605a1773b0f50c03d69f65"
+    }
+  ],
+  "positive_checks": [
+    "Anchored PCG displacement matches conjugate-gradient reference to 1e-9.",
+    "Eigenpair residual and orthogonality guard accepts computed symmetric eigenpairs.",
+    "Restriction preserves population sums and same-precision reference parity returns zero drift."
+  ],
+  "negative_checks": [
+    "Nonconservative flux scale is rejected.",
+    "FP16 mode is rejected.",
+    "Malformed nonorthogonal eigenpairs return InvalidMatrix."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-fea/src/lib.rs",
+      "sha256": "53b5fd797e33e146157f0f8d6fb4aa0c0d89b093daf3fbb0474c100821534944"
+    },
+    {
+      "path": "crates/crucible-lbm/src/lib.rs",
+      "sha256": "f1bb3ec664cf753c4a18cc61a7f8afce6232fd4a18db7911484663ea76d1d6dd"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "No GPU kernel or device parity was run.",
+    "The D2Q9 fixture is synthetic and not a physical boundary validation."
+  ],
+  "next_dependency": "Implement and independently verify V5-24-03 and V5-24-04 qualification fixtures before changing packet progress."
+}

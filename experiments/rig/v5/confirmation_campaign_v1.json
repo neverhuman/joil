@@ -1,0 +1,156 @@
+{
+  "calibration_manifest": {
+    "schema_version": 1,
+    "partition_id": "synthetic-calibration",
+    "status": "calibration",
+    "purpose": "controls",
+    "records": [
+      {
+        "record_id": "c1",
+        "subject_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "fluid_batch_id": "cal-batch"
+      }
+    ]
+  },
+  "holdout_manifest": {
+    "schema_version": 1,
+    "partition_id": "synthetic-holdout",
+    "status": "sealed",
+    "purpose": "confirmation",
+    "records": [
+      {
+        "record_id": "h1",
+        "subject_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+        "fluid_batch_id": "fluid-1"
+      },
+      {
+        "record_id": "h2",
+        "subject_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "fluid_batch_id": "fluid-2"
+      },
+      {
+        "record_id": "h3",
+        "subject_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "fluid_batch_id": "fluid-3"
+      }
+    ]
+  },
+  "holdout_seal_sha256": "eabf09c47a2078fcdb23cfe3ee275a9728930aee8773c8dc7ab979150821894e",
+  "evidence_admission": {
+    "model_admitted": true,
+    "material_admitted": true,
+    "as_built_admitted": true,
+    "model_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "material_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+    "as_built_subjects_sha256": [
+      "1111111111111111111111111111111111111111111111111111111111111111",
+      "2222222222222222222222222222222222222222222222222222222222222222",
+      "3333333333333333333333333333333333333333333333333333333333333333"
+    ],
+    "decision_profile_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "requirements_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "pairs": [
+    {
+      "unit_id": "unit-1",
+      "build_a_id": "a-1",
+      "build_b_id": "b-1",
+      "fluid_batch_id": "fluid-1",
+      "decision_profile_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requirements_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "a1_capacity": 100.0,
+      "b_capacity": 112.0,
+      "a2_capacity": 100.0,
+      "a1_treated_conc_mg_l": 20.0,
+      "a2_treated_conc_mg_l": 20.0,
+      "a1_pressure_pa": 100000.0,
+      "a2_pressure_pa": 100000.0,
+      "duty_id": "duty",
+      "band_id": "band",
+      "pressure_policy_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "scenarios": [
+        {
+          "scenario_id": "nominal",
+          "required_pass": true
+        },
+        {
+          "scenario_id": "upset",
+          "required_pass": true
+        }
+      ]
+    },
+    {
+      "unit_id": "unit-2",
+      "build_a_id": "a-2",
+      "build_b_id": "b-2",
+      "fluid_batch_id": "fluid-2",
+      "decision_profile_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requirements_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "a1_capacity": 100.0,
+      "b_capacity": 112.0,
+      "a2_capacity": 100.0,
+      "a1_treated_conc_mg_l": 20.0,
+      "a2_treated_conc_mg_l": 20.0,
+      "a1_pressure_pa": 100000.0,
+      "a2_pressure_pa": 100000.0,
+      "duty_id": "duty",
+      "band_id": "band",
+      "pressure_policy_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "scenarios": [
+        {
+          "scenario_id": "nominal",
+          "required_pass": true
+        },
+        {
+          "scenario_id": "upset",
+          "required_pass": true
+        }
+      ]
+    },
+    {
+      "unit_id": "unit-3",
+      "build_a_id": "a-3",
+      "build_b_id": "b-3",
+      "fluid_batch_id": "fluid-3",
+      "decision_profile_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "requirements_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "a1_capacity": 100.0,
+      "b_capacity": 112.0,
+      "a2_capacity": 100.0,
+      "a1_treated_conc_mg_l": 20.0,
+      "a2_treated_conc_mg_l": 20.0,
+      "a1_pressure_pa": 100000.0,
+      "a2_pressure_pa": 100000.0,
+      "duty_id": "duty",
+      "band_id": "band",
+      "pressure_policy_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "scenarios": [
+        {
+          "scenario_id": "nominal",
+          "required_pass": true
+        },
+        {
+          "scenario_id": "upset",
+          "required_pass": true
+        }
+      ]
+    }
+  ],
+  "pair_bindings": [
+    {
+      "unit_id": "unit-1",
+      "subject_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "fluid_batch_id": "fluid-1"
+    },
+    {
+      "unit_id": "unit-2",
+      "subject_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "fluid_batch_id": "fluid-2"
+    },
+    {
+      "unit_id": "unit-3",
+      "subject_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "fluid_batch_id": "fluid-3"
+    }
+  ]
+}

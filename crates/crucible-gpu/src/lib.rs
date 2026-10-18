@@ -103,6 +103,169 @@ pub struct PairedEvidence {
     pub uncertainty_ratio: f64,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum SubjectFamily {
+    Baseline,
+    Conventional,
+    NovelInterior,
+}
+#[derive(Clone, Debug, PartialEq)]
+pub struct PairedSubjectObservation {
+    pub family: SubjectFamily,
+    pub profile_max_abs: f64,
+    pub grade_abs: f64,
+    pub pressure_relative: f64,
+    pub load_relative: f64,
+    pub uncertainty_ratio: f64,
+    pub reference_rank: usize,
+    pub candidate_rank: usize,
+    pub reference_omitted: bool,
+    pub candidate_omitted: bool,
+    pub selected_winner_agrees: bool,
+}
+#[derive(Clone, Debug, PartialEq)]
+pub struct HeldOutAdmissionReport {
+    pub evidence: PairedEvidence,
+    pub revoked_on_version_change: bool,
+    pub admitted: bool,
+}
+
+pub fn evaluate_held_out_paired_admission(
+    card: &CapabilityCard,
+    pairs: &[PairedSubjectObservation],
+    gates: &PairedEvidence,
+    required_speedup: f64,
+    policy_approved: bool,
+    active_version_fingerprint: &str,
+) -> Result<HeldOutAdmissionReport, &'static str> {
+    if pairs.is_empty() {
+        return Err("held_out_pairs_required");
+    }
+    if !required_speedup.is_finite() || required_speedup <= 0.0 {
+        return Err("invalid_speedup_policy_limit");
+    }
+    let families: [SubjectFamily; 3] = [
+        SubjectFamily::Baseline,
+        SubjectFamily::Conventional,
+        SubjectFamily::NovelInterior,
+    ];
+    if families
+        .iter()
+        .any(|f| !pairs.iter().any(|p| p.family == *f))
+    {
+        return Err("all_subject_families_required");
+    }
+    let mut e = PairedEvidence {
+        profile_max_abs: 0.0,
+        grade_abs: 0.0,
+        pressure_relative: 0.0,
+        load_relative: 0.0,
+        ranking_agreement: 0.0,
+        omission_agreement: 0.0,
+        uncertainty_ratio: 0.0,
+    };
+    for p in pairs {
+        let vals = [
+            p.profile_max_abs,
+            p.grade_abs,
+            p.pressure_relative,
+            p.load_relative,
+            p.uncertainty_ratio,
+        ];
+        if vals.iter().any(|x| !x.is_finite() || *x < 0.0) {
+            return Err("invalid_paired_observation");
+        }
+        e.profile_max_abs = e.profile_max_abs.max(vals[0]);
+        e.grade_abs = e.grade_abs.max(vals[1]);
+        e.pressure_relative = e.pressure_relative.max(vals[2]);
+        e.load_relative = e.load_relative.max(vals[3]);
+        e.uncertainty_ratio = e.uncertainty_ratio.max(vals[4]);
+        e.ranking_agreement += if p.reference_rank == p.candidate_rank {
+            1.0
+        } else {
+            0.0
+        };
+        e.omission_agreement += if p.reference_omitted == p.candidate_omitted {
+            1.0
+        } else {
+            0.0
+        };
+    }
+    e.ranking_agreement /= pairs.len() as f64;
+    e.omission_agreement /= pairs.len() as f64;
+    let winner_only = pairs.iter().all(|p| p.selected_winner_agrees);
+    if winner_only && (!e.within_gates(gates)) {
+        return Err("winner_only_agreement_insufficient");
+    }
+    if !e.within_gates(gates) {
+        return Err("paired_evidence_gate_failed");
+    }
+    let revoked = card.version_fingerprint != active_version_fingerprint;
+    if revoked {
+        return Ok(HeldOutAdmissionReport {
+            evidence: e,
+            revoked_on_version_change: true,
+            admitted: false,
+        });
+    }
+    if required_speedup >= 1.3 && !policy_approved {
+        return Err("policy_approval_required_for_speedup_gate");
+    }
+    let admission = matches!(
+        card.evaluate(required_speedup, policy_approved),
+        Admission::Admitted { .. }
+    );
+    Ok(HeldOutAdmissionReport {
+        evidence: e,
+        revoked_on_version_change: false,
+        admitted: admission,
+    })
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct FixtureQualificationRecord {
+    pub fixture_id: String,
+    pub domain: String,
+    pub regime: String,
+    pub observed_order: f64,
+    pub max_rel_error: f64,
+    pub validated_vortex_or_structure: bool,
+}
+pub fn qualify_numerical_and_physical_fixtures(
+    fixtures: &[FixtureQualificationRecord],
+    target_application: &str,
+) -> Result<Vec<String>, &'static str> {
+    let required = [
+        "poiseuille",
+        "taylor_green",
+        "couette",
+        "swirl",
+        "oil",
+        "structural_patch",
+        "beam",
+        "cylinder",
+        "buckling",
+    ];
+    for tag in required {
+        if !fixtures.iter().any(|f| {
+            f.fixture_id.to_lowercase().contains(tag) || f.domain.to_lowercase().contains(tag)
+        }) {
+            return Err("required_fixture_missing");
+        }
+    }
+    if ["turbulent_deoiling", "nonlinear_collapse"].contains(&target_application) {
+        if fixtures.iter().any(|f| f.regime == "laminar") {
+            return Err("laminar_fixture_cannot_qualify_target");
+        }
+    }
+    if fixtures.iter().any(|f| {
+        !f.observed_order.is_finite() || !f.max_rel_error.is_finite() || f.max_rel_error < 0.0
+    }) {
+        return Err("invalid_fixture_measurement");
+    }
+    Ok(fixtures.iter().map(|f| f.fixture_id.clone()).collect())
+}
+
 impl PairedEvidence {
     pub fn within_gates(&self, gates: &Self) -> bool {
         let upper_values = [
@@ -365,6 +528,96 @@ mod tests {
         p.clear();
         assert_eq!(p.push(5), Ok(()));
         assert!(BoundedPool::<u64>::new(1_000_001).is_err());
+    }
+
+    #[test]
+    fn v5_24_04_held_out_paired_admission_families_revocation_and_winner_only_guard() {
+        let gates = PairedEvidence {
+            profile_max_abs: 0.1,
+            grade_abs: 0.1,
+            pressure_relative: 0.1,
+            load_relative: 0.1,
+            ranking_agreement: 0.9,
+            omission_agreement: 0.9,
+            uncertainty_ratio: 1.0,
+        };
+        let pairs = [
+            SubjectFamily::Baseline,
+            SubjectFamily::Conventional,
+            SubjectFamily::NovelInterior,
+        ]
+        .map(|family| PairedSubjectObservation {
+            family,
+            profile_max_abs: 0.01,
+            grade_abs: 0.01,
+            pressure_relative: 0.01,
+            load_relative: 0.01,
+            uncertainty_ratio: 0.2,
+            reference_rank: 1,
+            candidate_rank: 1,
+            reference_omitted: false,
+            candidate_omitted: false,
+            selected_winner_agrees: true,
+        });
+        let r =
+            evaluate_held_out_paired_admission(&card(), &pairs, &gates, 1.3, true, "abc").unwrap();
+        assert!(r.admitted && !r.revoked_on_version_change);
+        assert_eq!(
+            evaluate_held_out_paired_admission(&card(), &pairs[..2], &gates, 1.3, true, "abc"),
+            Err("all_subject_families_required")
+        );
+        let mut changed = card();
+        changed.version_fingerprint = "old".into();
+        let r =
+            evaluate_held_out_paired_admission(&changed, &pairs, &gates, 1.3, true, "abc").unwrap();
+        assert!(r.revoked_on_version_change && !r.admitted);
+        let mut bad = pairs.clone();
+        bad[2].pressure_relative = 0.2;
+        assert_eq!(
+            evaluate_held_out_paired_admission(&card(), &bad, &gates, 1.3, true, "abc"),
+            Err("winner_only_agreement_insufficient")
+        );
+    }
+
+    #[test]
+    fn v5_24_03_mrt_benchmarks_and_laminar_cannot_qualify_turbulent_or_collapse() {
+        let ids = [
+            "poiseuille",
+            "taylor_green",
+            "couette",
+            "swirl",
+            "oil",
+            "structural_patch",
+            "beam",
+            "cylinder",
+            "buckling",
+        ];
+        let fixtures: Vec<_> = ids
+            .iter()
+            .map(|id| FixtureQualificationRecord {
+                fixture_id: (*id).into(),
+                domain: (*id).into(),
+                regime: "laminar".into(),
+                observed_order: 2.0,
+                max_rel_error: 0.01,
+                validated_vortex_or_structure: true,
+            })
+            .collect();
+        assert!(qualify_numerical_and_physical_fixtures(&fixtures, "laminar_reference").is_ok());
+        assert_eq!(
+            qualify_numerical_and_physical_fixtures(&fixtures, "turbulent_deoiling"),
+            Err("laminar_fixture_cannot_qualify_target")
+        );
+        assert_eq!(
+            qualify_numerical_and_physical_fixtures(&fixtures, "nonlinear_collapse"),
+            Err("laminar_fixture_cannot_qualify_target")
+        );
+        let mut bad = fixtures;
+        bad[0].observed_order = f64::NAN;
+        assert_eq!(
+            qualify_numerical_and_physical_fixtures(&bad, "laminar_reference"),
+            Err("invalid_fixture_measurement")
+        );
     }
 
     #[test]

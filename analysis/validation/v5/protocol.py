@@ -509,6 +509,71 @@ def validate_holdout_partition(calibration: dict[str, Any], holdout: dict[str, A
             "independent": True, "holdout_status": holdout["status"]}
 
 
+def evaluate_preregistered_confirmation_campaign(protocol: dict[str, Any], campaign: dict[str, Any]) -> dict[str, Any]:
+    """Admit a sealed synthetic campaign for analysis; never grant physical qualification."""
+    required = {"calibration_manifest", "holdout_manifest", "holdout_seal_sha256", "evidence_admission", "pairs", "pair_bindings"}
+    if not isinstance(campaign, dict) or set(campaign) != required:
+        raise AnalysisError("campaign: strict_schema_failure")
+    calibration, holdout = campaign["calibration_manifest"], campaign["holdout_manifest"]
+    if holdout.get("status") != "sealed" or holdout.get("purpose") != "confirmation":
+        raise AnalysisError("campaign_holdout_must_be_sealed_confirmation")
+    if not _is_sha256(campaign["holdout_seal_sha256"]) or campaign["holdout_seal_sha256"] != _digest(holdout):
+        raise AnalysisError("campaign_holdout_seal_mismatch")
+    partition = validate_holdout_partition(calibration, holdout)
+    evidence = campaign["evidence_admission"]
+    evidence_fields = {"model_admitted", "material_admitted", "as_built_admitted", "model_sha256", "material_sha256", "as_built_subjects_sha256", "decision_profile_sha256", "requirements_sha256"}
+    if not isinstance(evidence, dict) or set(evidence) != evidence_fields:
+        raise AnalysisError("campaign_evidence_admission_schema")
+    if any(evidence[name] is not True for name in ("model_admitted", "material_admitted", "as_built_admitted")):
+        raise AnalysisError("campaign_mandatory_model_material_as_built_evidence_not_admitted")
+    for name in ("model_sha256", "material_sha256", "decision_profile_sha256", "requirements_sha256"):
+        if not _is_sha256(evidence[name]):
+            raise AnalysisError("campaign_evidence_hash_invalid")
+    holdout_subjects = {row["subject_sha256"] for row in holdout["records"]}
+    if evidence["decision_profile_sha256"] != protocol.get("decision_profile_sha256") or evidence["requirements_sha256"] != protocol.get("requirements_sha256"):
+        raise AnalysisError("campaign_decision_identity_mismatch")
+    as_built = evidence["as_built_subjects_sha256"]
+    if not isinstance(as_built, list) or not as_built or any(not _is_sha256(x) for x in as_built):
+        raise AnalysisError("campaign_as_built_subject_inventory_required")
+    if len(set(as_built)) != len(as_built) or not set(as_built) <= holdout_subjects:
+        raise AnalysisError("campaign_as_built_subject_outside_sealed_holdout")
+    if not isinstance(campaign["pairs"], list) or not campaign["pairs"]:
+        raise AnalysisError("campaign_paired_aba_confirmation_units_required")
+    result = analyze_confirmation(protocol, campaign["pairs"])
+    bindings = campaign["pair_bindings"]
+    if not isinstance(bindings, list) or len(bindings) != len(campaign["pairs"]):
+        raise AnalysisError("campaign_pair_binding_count_mismatch")
+    by_unit = {}
+    for binding in bindings:
+        if not isinstance(binding, dict) or set(binding) != {"unit_id", "subject_sha256", "fluid_batch_id"}:
+            raise AnalysisError("campaign_pair_binding_schema")
+        if not binding["unit_id"] or not binding["fluid_batch_id"] or not _is_sha256(binding["subject_sha256"]):
+            raise AnalysisError("campaign_pair_binding_identity_invalid")
+        if binding["unit_id"] in by_unit:
+            raise AnalysisError("campaign_repeated_pair_binding")
+        by_unit[binding["unit_id"]] = binding
+    subjects = set()
+    batches = set()
+    for pair in campaign["pairs"]:
+        binding = by_unit.get(pair["unit_id"])
+        if binding is None or binding["fluid_batch_id"] != pair["fluid_batch_id"]:
+            raise AnalysisError("campaign_pair_binding_does_not_match_analysis_unit")
+        subject = binding["subject_sha256"]
+        record = next((row for row in holdout["records"] if row["subject_sha256"] == subject), None)
+        if record is None or record["fluid_batch_id"] != binding["fluid_batch_id"]:
+            raise AnalysisError("campaign_pair_not_bound_to_sealed_holdout_record")
+        subjects.add(subject); batches.add(binding["fluid_batch_id"])
+    if len(subjects) != len(bindings) or len(batches) != len(bindings):
+        raise AnalysisError("campaign_pair_subject_or_batch_reused")
+    if not subjects <= set(as_built):
+        raise AnalysisError("campaign_as_built_admission_does_not_cover_all_pairs")
+    return {"schema_version": 1, "partition": partition, "analysis": result,
+            "campaign_admitted_for_software_analysis": True, "physical_qualification": False,
+            "evidence_hashes": {k: evidence[k] for k in ("model_sha256", "material_sha256", "decision_profile_sha256", "requirements_sha256")},
+            "sealed_subject_count": len(subjects), "independent_confirmation_units": len(bindings),
+            "limitations": ["synthetic/software campaign admission only", "no physical or installation authority"]}
+
+
 PRIVATE_FIELDS = {"schema_version", "lineage", "first_seen_utc", "subject_sha256", "variant_id", "evidence",
                   "controls", "interventions", "human_decisions", "classification", "industrial_installation_authorized"}
 PUBLIC_FIELDS = {"schema_version", "subject_sha256", "variant_id", "evidence_summary", "review_id", "reviewed_by_role", "reviewed_utc"}
