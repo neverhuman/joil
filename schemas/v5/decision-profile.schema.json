@@ -339,6 +339,14 @@
         },
         "formula": {
           "$ref": "#/$defs/contentRef"
+        },
+        "input_domain": {
+          "enum": [
+            "unspecified",
+            "real_valued",
+            "strictly_positive_baseline"
+          ],
+          "default": "unspecified"
         }
       },
       "required": [

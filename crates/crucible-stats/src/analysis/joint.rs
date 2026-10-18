@@ -15,8 +15,8 @@ use crate::distribution::student_t_quantile;
 use crate::StatsError;
 use joil_evidence::claims::Registry;
 use joil_evidence::decision::{
-    DecisionError, DecisionProfile, DecisionUnit, ErrorCriterion, FamilyMember, Procedure,
-    RequirementSet, RequirementValue, Sidedness,
+    DecisionError, DecisionProfile, DecisionUnit, ErrorCriterion, EstimandInputDomain,
+    FamilyMember, Procedure, RequirementSet, RequirementValue, Sidedness,
 };
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
@@ -293,6 +293,24 @@ pub fn joint_lower_bounds(
             return Err(JointError::Input(
                 "margin unit differs from its estimand unit",
             ));
+        }
+        match estimand.input_domain {
+            EstimandInputDomain::Unspecified => {
+                return Err(JointError::Unsupported(
+                    "estimand input domain is unspecified",
+                ));
+            }
+            EstimandInputDomain::StrictlyPositiveBaseline if r.ratio_baseline_mean.is_none() => {
+                return Err(JointError::Input(
+                    "declared ratio margin requires baseline data",
+                ));
+            }
+            EstimandInputDomain::RealValued if r.ratio_baseline_mean.is_some() => {
+                return Err(JointError::Input(
+                    "baseline data supplied for a non-ratio domain",
+                ));
+            }
+            _ => {}
         }
         if r.n < 2 || !r.mean.is_finite() || !r.sd.is_finite() || r.sd <= 0.0 {
             return Err(JointError::Input(

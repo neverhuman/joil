@@ -176,6 +176,7 @@ impl Fixture {
                 &format!("synthetic-estimand-{i}"),
                 &EstimandDefinition {
                     kind: EstimandKind::Point,
+                    input_domain: EstimandInputDomain::Unspecified,
                     unit: g.unit,
                     direction: Direction::Minimize,
                     population: synthetic.clone(),
@@ -187,6 +188,7 @@ impl Fixture {
                 unit: g.unit,
                 direction: Direction::Minimize,
                 kind: EstimandKind::Point,
+                input_domain: EstimandInputDomain::Unspecified,
                 population: synthetic.clone(),
                 formula: definition,
             });
@@ -531,6 +533,7 @@ fn finite_envelope_does_not_supply_iid_quantile_inference() {
         "synthetic-tail-definition",
         &EstimandDefinition {
             kind: e.kind,
+            input_domain: e.input_domain,
             unit: e.unit,
             direction: e.direction,
             population: e.population,
@@ -571,6 +574,58 @@ fn schema_and_strict_wire_agree_on_every_profile_field() {
         DecisionProfile::from_json(b"{\"model_discrepancy\":[],\"unknown_policy\":\"pass\"}")
             .is_err()
     );
+}
+
+#[test]
+fn input_domain_is_bound_to_the_reviewed_definition_and_legacy_identity() {
+    let mut x = Fixture::new(DRAFT);
+    let legacy = serde_json::to_value(&x.profile.estimands[0]).unwrap();
+    assert!(legacy.get("input_domain").is_none());
+    let decoded: Estimand = serde_json::from_value(legacy.clone()).unwrap();
+    assert_eq!(decoded.input_domain, EstimandInputDomain::Unspecified);
+    assert_eq!(serde_json::to_value(&decoded).unwrap(), legacy);
+    let old_hash = joil_evidence::identity::scientific_hash(&legacy).unwrap();
+    assert_eq!(
+        joil_evidence::identity::scientific_hash(&decoded).unwrap(),
+        old_hash
+    );
+    x.valid().unwrap();
+
+    // The data/profile author cannot borrow an approved formula while changing
+    // its input obligations. This is checked before any inference algorithm.
+    x.profile.estimands[0].input_domain = EstimandInputDomain::StrictlyPositiveBaseline;
+    assert!(x
+        .valid()
+        .unwrap_err()
+        .to_string()
+        .contains("estimand_definition_or_population_drift"));
+    let e = x.profile.estimands[0].clone();
+    let expression = x.profile.estimands[1].population.clone();
+    let formula = x.artifact(
+        "synthetic-positive-baseline-definition",
+        &EstimandDefinition {
+            kind: e.kind,
+            input_domain: e.input_domain,
+            unit: e.unit,
+            direction: e.direction,
+            population: e.population,
+            expression,
+        },
+    );
+    x.profile.estimands[0].formula = formula;
+    x.valid().unwrap();
+
+    let schema: serde_json::Value = serde_json::from_slice(include_bytes!(
+        "../../../schemas/v5/decision-profile.schema.json"
+    ))
+    .unwrap();
+    assert_eq!(
+        schema["$defs"]["estimand"]["properties"]["input_domain"]["default"],
+        "unspecified"
+    );
+    let mut invalid = legacy;
+    invalid["input_domain"] = serde_json::json!("assume_positive");
+    assert!(serde_json::from_value::<Estimand>(invalid).is_err());
 }
 
 #[test]

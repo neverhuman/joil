@@ -372,10 +372,16 @@ pub mod joint {
                     1.0
                 };
                 let half = 0.5 * m["adverse_bound"].as_f64().unwrap() * scale;
+                let input_domain = if m["ratio_margin"].as_bool().unwrap() {
+                    EstimandInputDomain::StrictlyPositiveBaseline
+                } else {
+                    EstimandInputDomain::RealValued
+                };
                 let definition = x.artifact(
                     &format!("synthetic-s02-estimand-{i}"),
                     &EstimandDefinition {
                         kind: EstimandKind::Mean,
+                        input_domain,
                         unit,
                         direction: Direction::Maximize,
                         population: synthetic.clone(),
@@ -387,6 +393,7 @@ pub mod joint {
                     unit,
                     direction: Direction::Maximize,
                     kind: EstimandKind::Mean,
+                    input_domain,
                     population: synthetic.clone(),
                     formula: definition,
                 });

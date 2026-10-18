@@ -47,6 +47,98 @@ fn decide(x: &JointFixture, data: Vec<MarginSummary>) -> Result<JointDecision, J
 }
 
 #[test]
+fn reviewed_ratio_margin_cannot_omit_its_baseline() {
+    let fx = fixture("joint.json");
+    let x = JointFixture::new(&fx, true);
+    let mut data = summaries(&fx, &x);
+    let ratio = data
+        .iter_mut()
+        .find(|r| r.ratio_baseline_mean.is_some())
+        .unwrap();
+    ratio.ratio_baseline_mean = None;
+    assert_eq!(
+        decide(&x, data),
+        Err(JointError::Input(
+            "declared ratio margin requires baseline data"
+        ))
+    );
+}
+
+#[test]
+fn reviewed_ratio_domain_cannot_be_relabelled_to_an_absolute_margin() {
+    let fx = fixture("joint.json");
+    let mut x = JointFixture::new(&fx, true);
+    let data = summaries(&fx, &x);
+    let ratio = x
+        .profile
+        .estimands
+        .iter_mut()
+        .find(|e| e.input_domain == EstimandInputDomain::StrictlyPositiveBaseline)
+        .unwrap();
+    ratio.input_domain = EstimandInputDomain::RealValued;
+    assert!(
+        matches!(decide(&x, data), Err(JointError::Profile(m)) if m == "estimand_definition_or_population_drift")
+    );
+}
+
+#[test]
+fn unspecified_legacy_domain_and_missing_paired_ratio_baseline_never_pass() {
+    let fx = fixture("joint.json");
+    let mut x = JointFixture::new(&fx, true);
+    let data = summaries(&fx, &x);
+    let e = x.profile.estimands[0].clone();
+    let formula = x.artifact(
+        "synthetic-legacy-unspecified-domain",
+        &EstimandDefinition {
+            kind: e.kind,
+            input_domain: EstimandInputDomain::Unspecified,
+            unit: e.unit,
+            direction: e.direction,
+            population: e.population.clone(),
+            expression: e.population,
+        },
+    );
+    x.profile.estimands[0].input_domain = EstimandInputDomain::Unspecified;
+    x.profile.estimands[0].formula = formula;
+    assert_eq!(
+        decide(&x, data),
+        Err(JointError::Unsupported(
+            "estimand input domain is unspecified"
+        ))
+    );
+
+    let x = JointFixture::new(&fx, true);
+    let margins = summaries(&fx, &x)
+        .into_iter()
+        .map(|s| PairedMargin {
+            member: s.member,
+            unit: s.unit,
+            values: (0..20)
+                .map(|i| s.mean + if i % 2 == 0 { s.sd } else { -s.sd })
+                .collect(),
+            ratio_baseline: None,
+        })
+        .collect();
+    let result = joint_lower_bounds(
+        &x.profile,
+        &x.requirements,
+        &x.registry,
+        &MarginData::PairedBlocks {
+            block_ids: (0..20)
+                .map(|i| format!("synthetic-domain-block-{i}"))
+                .collect(),
+            margins,
+        },
+    );
+    assert_eq!(
+        result,
+        Err(JointError::Input(
+            "declared ratio margin requires baseline data"
+        ))
+    );
+}
+
+#[test]
 fn frozen_four_margin_family_reproduces_the_simultaneous_lower_bounds() {
     let fx = fixture("joint.json");
     let x = JointFixture::new(&fx, true);

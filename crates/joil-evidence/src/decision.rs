@@ -375,6 +375,21 @@ pub enum EstimandKind {
     WorstCase,
     Point,
 }
+/// Input-domain obligations are separate from the statistical functional.
+/// Omitted legacy domains carry no inference authority.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum EstimandInputDomain {
+    #[default]
+    Unspecified,
+    RealValued,
+    StrictlyPositiveBaseline,
+}
+impl EstimandInputDomain {
+    fn is_unspecified(&self) -> bool {
+        *self == Self::Unspecified
+    }
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Estimand {
@@ -382,6 +397,8 @@ pub struct Estimand {
     pub unit: DecisionUnit,
     pub direction: Direction,
     pub kind: EstimandKind,
+    #[serde(default, skip_serializing_if = "EstimandInputDomain::is_unspecified")]
+    pub input_domain: EstimandInputDomain,
     pub population: ContentRef,
     pub formula: ContentRef,
 }
@@ -389,6 +406,8 @@ pub struct Estimand {
 #[serde(deny_unknown_fields)]
 pub struct EstimandDefinition {
     pub kind: EstimandKind,
+    #[serde(default, skip_serializing_if = "EstimandInputDomain::is_unspecified")]
+    pub input_domain: EstimandInputDomain,
     pub unit: DecisionUnit,
     pub direction: Direction,
     pub population: ContentRef,
@@ -612,6 +631,7 @@ impl DecisionProfile {
             let definition: EstimandDefinition =
                 decode_reviewed(registry, &e.formula, &self.requirements)?;
             if definition.kind != e.kind
+                || definition.input_domain != e.input_domain
                 || definition.unit != e.unit
                 || definition.direction != e.direction
                 || definition.population != e.population
