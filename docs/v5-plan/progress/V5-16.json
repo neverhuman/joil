@@ -5,75 +5,75 @@
     "V5-16-01": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test transport -- --exact tracer_follows_uniform_accelerating_carrier_and_pressure_term_has_light_drop_sign in packet V5-16 (Native light-drop forces, face injection and inventory). Exact task command: cargo test --locked --offline -p crucible-particles --test transport -- --exact tracer_follows_uniform_accelerating_carrier_and_pressure_term_has_light_drop_sign. Per-task receipt docs/receipts/per-task/v5-16-01-verification-20261018.json (sha256 0faf4e10e75863fa22d4efb76e8de7f38f461941300e2e8f6a0280e7505fddbe); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
-          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
-        },
         {
           "path": "docs/receipts/per-task/v5-16-01-verification-20261018.json",
           "sha256": "0faf4e10e75863fa22d4efb76e8de7f38f461941300e2e8f6a0280e7505fddbe"
+        },
+        {
+          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
         }
       ]
     },
     "V5-16-02": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test transport -- --exact unequal_nonuniform_inlet_faces_integrate_mass_and_momentum_by_normal_flux in packet V5-16 (Native light-drop forces, face injection and inventory). Exact task command: cargo test --locked --offline -p crucible-particles --test transport -- --exact unequal_nonuniform_inlet_faces_integrate_mass_and_momentum_by_normal_flux. Per-task receipt docs/receipts/per-task/v5-16-02-verification-20261018.json (sha256 012d6e131de927eb3e805f286941678793e166770f6c271421307544b7011b1c); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
-          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
-        },
         {
           "path": "docs/receipts/per-task/v5-16-02-verification-20261018.json",
           "sha256": "012d6e131de927eb3e805f286941678793e166770f6c271421307544b7011b1c"
+        },
+        {
+          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
         }
       ]
     },
     "V5-16-03": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test transport -- --exact restart_identity_daughters_and_first_pass_recross_are_checked in packet V5-16 (Native light-drop forces, face injection and inventory). Exact task command: cargo test --locked --offline -p crucible-particles --test transport -- --exact restart_identity_daughters_and_first_pass_recross_are_checked. Per-task receipt docs/receipts/per-task/v5-16-03-verification-20261018.json (sha256 caabe567aa373692bb42c45398e7691d97a747ca19c3b7d2269d0ab51a23f1d3); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
-          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
-        },
         {
           "path": "docs/receipts/per-task/v5-16-03-verification-20261018.json",
           "sha256": "caabe567aa373692bb42c45398e7691d97a747ca19c3b7d2269d0ab51a23f1d3"
+        },
+        {
+          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
         }
       ]
     },
     "V5-16-04": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test transport -- --exact breakup_transfers_mass_and_keeps_one_injected_cohort in packet V5-16 (Native light-drop forces, face injection and inventory). Exact task command: cargo test --locked --offline -p crucible-particles --test transport -- --exact breakup_transfers_mass_and_keeps_one_injected_cohort. Per-task receipt docs/receipts/per-task/v5-16-04-verification-20261018.json (sha256 0497272901b86a949d6bc527d8a112b55e75036ca5bc2d646a289921590e4e18); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
-          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
-        },
         {
           "path": "docs/receipts/per-task/v5-16-04-verification-20261018.json",
           "sha256": "0497272901b86a949d6bc527d8a112b55e75036ca5bc2d646a289921590e4e18"
+        },
+        {
+          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
         }
       ]
     },
     "V5-16-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test transport -- --exact adverse_inventory_and_97_percent_retained_prevent_qualified_grade in packet V5-16 (Native light-drop forces, face injection and inventory). Exact task command: cargo test --locked --offline -p crucible-particles --test transport -- --exact adverse_inventory_and_97_percent_retained_prevent_qualified_grade. Per-task receipt docs/receipts/per-task/v5-16-05-verification-20261018.json (sha256 ddadecd97b2282079c40c2504755673f9e22f4c45cd8198dc43855f4fb9eb214); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
-          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
-        },
         {
           "path": "docs/receipts/per-task/v5-16-05-verification-20261018.json",
           "sha256": "ddadecd97b2282079c40c2504755673f9e22f4c45cd8198dc43855f4fb9eb214"
+        },
+        {
+          "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+          "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
         }
       ]
     }

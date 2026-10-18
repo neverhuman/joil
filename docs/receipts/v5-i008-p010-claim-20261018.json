@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "kind": "scope_claim",
+  "worker": "1052075.joil_v5_codex",
+  "packet": "V5-31",
+  "authority": "User I008/P010 Queue Item 5",
+  "base_commit": "f8338bc19d05fcd661fe7cc1282574af52570a36",
+  "write_scope": [
+    "crates/crucible-paper/src/lib.rs",
+    "docs/receipts/*v5-28*.json",
+    "docs/receipts/*v5-31*.json",
+    "docs/receipts/per-task/v5-28-*.json",
+    "docs/receipts/per-task/v5-31-*.json",
+    "docs/v5-plan/progress/V5-07..31.json",
+    "derived plan and explorer views",
+    "docs/receipts/v5-i008-*"
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cpu_affinity": [
+      32,
+      33
+    ]
+  },
+  "scientific_admission": false
+}

@@ -3,34 +3,59 @@
   "packet": "V5-31",
   "tasks": {
     "V5-31-01": {
-      "status": "in_progress",
-      "owner": "codex-integrator",
-      "note": "SC-DEC-071 red-team remediation: PR #10 held until sc_audit.py reports 0 RED findings on joil; 112/160 strict (141/160 incl. weak) tasks done, 14 bogus PR #9 tasks returned to in_progress.",
-      "evidence": []
+      "status": "done",
+      "owner": "1052075.joil_v5_codex",
+      "note": "Upstream packet metadata completeness checks all 31 packet IDs, exact commit identities, scoped paths, successful commands, raw-log presence and positive/negative controls. Exact test: cargo test --locked --offline -p crucible-paper --lib -- --exact tests::v5_31_01_packet_integration_completeness_rejects_unscoped_paths_and_missing_logs --nocapture. Per-task receipt docs/receipts/per-task/v5-31-01-verification-20261018.json (sha256 e3510f764f9e41fdedc9704484ad1e0dd3eb14b50ef6a25be27138be7cdd0528); scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-31-01-verification-20261018.json",
+          "sha256": "e3510f764f9e41fdedc9704484ad1e0dd3eb14b50ef6a25be27138be7cdd0528"
+        }
+      ]
     },
     "V5-31-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "1052075.joil_v5_codex",
+      "note": "Legacy parity validates golden identity and finite nonnegative discrepancy/tolerance; missing mesh requires explicit unavailable-input disposition and forbids restored provenance. Exact test: cargo test --locked --offline -p crucible-paper --lib -- --exact tests::v5_31_02_legacy_migration_parity_rejects_scalar_match_without_mesh_provenance --nocapture. Per-task receipt docs/receipts/per-task/v5-31-02-verification-20261018.json (sha256 a9331642954b076598a2f16dd69091cd7efb24bdebd8a0f7834eb498c8f07cde); scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-31-02-verification-20261018.json",
+          "sha256": "a9331642954b076598a2f16dd69091cd7efb24bdebd8a0f7834eb498c8f07cde"
+        }
+      ]
     },
     "V5-31-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "1052075.joil_v5_codex",
+      "note": "All eight Foundation suite records must pass on the status head; absent physical rig evidence prohibits structural, baseline and scientific qualification flips. Exact test: cargo test --locked --offline -p crucible-paper --lib -- --exact tests::v5_31_03_ci_tiers_enforce_conservative_status_and_forbid_manual_qualification_flip --nocapture. Per-task receipt docs/receipts/per-task/v5-31-03-verification-20261018.json (sha256 2968d5fb3be31638fb509be80c115df165fd0bf5cde6be080947ca911bafbb80); scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-31-03-verification-20261018.json",
+          "sha256": "2968d5fb3be31638fb509be80c115df165fd0bf5cde6be080947ca911bafbb80"
+        }
+      ]
     },
     "V5-31-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "1052075.joil_v5_codex",
+      "note": "SC-DEC-047, SC-DEC-049, SC-DEC-053; rescope:R0_software_and_methodology_release. Independent S/C/D/R labels, reference GPU/operator fallback and absent-input inventory are checked; R4 requires completed physical programme. Publication, licensing and industrial authorization remain owner decisions. Exact test: cargo test --locked --offline -p crucible-paper --lib -- --exact tests::v5_31_04_four_track_release_scope_forbids_r4_without_physical_measurements --nocapture. Per-task receipt docs/receipts/per-task/v5-31-04-verification-20261018.json (sha256 707f432abb0ee292f42d5ec37eb02629dc861dc6d7dc2c9d7897a5a57593fc51); scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-31-04-verification-20261018.json",
+          "sha256": "707f432abb0ee292f42d5ec37eb02629dc861dc6d7dc2c9d7897a5a57593fc51"
+        }
+      ]
     },
     "V5-31-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "1052075.joil_v5_codex",
+      "note": "Exact PR/CI/review head identity, 160 completed tasks, no unacknowledged items and immutable receipt presence are checked on synthetic metadata; actual remote CI/review and merge remain owner/integrator dependencies. Exact test: cargo test --locked --offline -p crucible-paper --lib -- --exact tests::v5_31_05_exact_head_handoff_rejects_stale_sha_and_unreconciled_tasks --nocapture. Per-task receipt docs/receipts/per-task/v5-31-05-verification-20261018.json (sha256 6c2e6d668bafec9d84f88a211a1e5bab79b6f75a6b9e7f4f7c57945a36ed0f7c); scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-31-05-verification-20261018.json",
+          "sha256": "6c2e6d668bafec9d84f88a211a1e5bab79b6f75a6b9e7f4f7c57945a36ed0f7c"
+        }
+      ]
     }
   }
 }

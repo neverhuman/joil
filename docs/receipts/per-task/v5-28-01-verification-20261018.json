@@ -61,7 +61,7 @@
   "artifacts": [
     {
       "path": "crates/crucible-paper/src/lib.rs",
-      "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
+      "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
     },
     {
       "path": "experiments/datasets/v5-28-02-confirmation-campaign.json",
@@ -148,5 +148,14 @@
       }
     }
   ],
-  "historical_defect_control_note": "Frozen-source controls inherited from prior receipt; not rerun by I007. New exact task test and complete regression suite are current."
+  "historical_defect_control_note": "Frozen-source controls inherited from prior receipt; not rerun by I007. New exact task test and complete regression suite are current.",
+  "i008_source_refresh": {
+    "tested_commit": "ee70637afdb03b6155ad207ca86b1a28162d0f24",
+    "source_path": "crates/crucible-paper/src/lib.rs",
+    "source_sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024",
+    "prior_source_sha256": [
+      "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
+    ],
+    "verification": "Full crucible-paper library regression passed; original command outcomes and tested_commit remain historical. Current source digest refreshed by explicit I008 order."
+  }
 }
