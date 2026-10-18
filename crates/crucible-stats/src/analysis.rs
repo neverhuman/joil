@@ -302,8 +302,6 @@ pub fn analyze_preregistered_confirmation_units(
     })
 }
 
-#[cfg(test)]
-
 /// Return the arithmetic mean and unbiased sample variance. No artificial
 /// variance floor converts zero variation into observed information.
 pub fn sample_moments(values: &[f64]) -> Result<(f64, f64), StatsError> {
@@ -328,7 +326,7 @@ pub fn sample_moments(values: &[f64]) -> Result<(f64, f64), StatsError> {
 mod v5_30_tests {
     use super::*;
     fn digest(c: char) -> String {
-        std::iter::repeat(c).take(64).collect()
+        std::iter::repeat_n(c, 64).collect()
     }
     fn unit(i: usize, b: f64) -> ConfirmationUnit {
         ConfirmationUnit {
@@ -391,7 +389,7 @@ mod v5_30_tests {
                 },
             ],
         };
-        let r = reduce_delayed_censored_streams(&[s.clone()]).unwrap();
+        let r = reduce_delayed_censored_streams(std::slice::from_ref(&s)).unwrap();
         assert_eq!(r[0][0].start_s, 1.);
         assert!(r[0][0].right_censored);
         assert_eq!(r[0][0].upper, 2.);
