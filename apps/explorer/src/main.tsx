@@ -50,7 +50,7 @@ function App() {
   const overlays = chosenSubject?.overlays.filter(o => o.geometry_sha256 === chosenSubject.geometry_sha256) ?? [];
   const offline = manifest.offline_dossier;
   function selectSubject(id: string) {
-    if (!subjects.some(subject => subject.id === id) || !manifest) return;
+    if ((id !== '' && !subjects.some(subject => subject.id === id)) || !manifest) return;
     const next = new URL(location.href);
     next.search = new URLSearchParams({manifest: source, revision: manifest.revision, subject: id}).toString();
     history.pushState({}, '', next);
