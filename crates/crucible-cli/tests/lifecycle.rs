@@ -6,7 +6,7 @@ use scratch::TestScratch;
 use serde_json::Value;
 use std::{
     fs::OpenOptions,
-    io::Write,
+    io::{Read, Write},
     path::{Path, PathBuf},
     process::{Child, Command, Output, Stdio},
     time::{Duration, Instant},
@@ -36,22 +36,53 @@ fn record(base: &Path, args: &[&str], out: &Output) {
     writeln!(f, "{row}").unwrap();
 }
 fn wait(mut child: Child, limit: Duration) -> Output {
+    // Drain both streams while the process is alive. A blocked pipe writer
+    // cannot exit, so polling exit before reading can deadlock the test itself.
+    let drain = |pipe: Option<_>| {
+        pipe.map(|mut stream: std::process::ChildStdout| {
+            std::thread::spawn(move || {
+                let mut bytes = Vec::new();
+                stream.read_to_end(&mut bytes).unwrap();
+                bytes
+            })
+        })
+    };
+    let stdout = drain(child.stdout.take());
+    let stderr = child.stderr.take().map(|mut stream| {
+        std::thread::spawn(move || {
+            let mut bytes = Vec::new();
+            stream.read_to_end(&mut bytes).unwrap();
+            bytes
+        })
+    });
     let start = Instant::now();
+    let mut timed_out = false;
     loop {
         if child.try_wait().unwrap().is_some() {
             break;
         }
         if start.elapsed() > limit {
             child.kill().unwrap();
-            let o = child.wait_with_output().unwrap();
-            panic!(
-                "owned CLI exceeded bound: {}",
-                String::from_utf8_lossy(&o.stderr)
-            );
+            timed_out = true;
+            break;
         }
         std::thread::sleep(Duration::from_millis(10));
     }
-    child.wait_with_output().unwrap()
+    let output = Output {
+        status: child.wait().unwrap(),
+        stdout: stdout
+            .map(|thread| thread.join().unwrap())
+            .unwrap_or_default(),
+        stderr: stderr
+            .map(|thread| thread.join().unwrap())
+            .unwrap_or_default(),
+    };
+    assert!(
+        !timed_out,
+        "owned CLI exceeded bound: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    output
 }
 fn call(base: &Path, args: &[&str], code: i32) -> Value {
     let out = wait(command(args).spawn().unwrap(), Duration::from_secs(60));
@@ -67,6 +98,41 @@ fn call(base: &Path, args: &[&str], code: i32) -> Value {
     } else {
         Value::Null
     }
+}
+
+#[test]
+fn bounded_wait_drains_small_pipes_before_child_exit() {
+    const CHILD: &str = "JOIL_TEST_SMALL_PIPE_CHILD";
+    const BYTES: usize = 128 * 1024;
+    if std::env::var_os(CHILD).is_some() {
+        std::io::stdout().write_all(&vec![b'x'; BYTES]).unwrap();
+        std::io::stderr().write_all(&vec![b'y'; BYTES]).unwrap();
+        return;
+    }
+    let child = Command::new(std::env::current_exe().unwrap())
+        .args([
+            "--exact",
+            "bounded_wait_drains_small_pipes_before_child_exit",
+            "--nocapture",
+        ])
+        .env(CHILD, "1")
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .unwrap();
+    use std::os::fd::AsRawFd;
+    for fd in [
+        child.stdout.as_ref().unwrap().as_raw_fd(),
+        child.stderr.as_ref().unwrap().as_raw_fd(),
+    ] {
+        // Deliberately smaller than either stream: waiting for exit before
+        // draining now deadlocks independently of host pipe-default policy.
+        assert_eq!(unsafe { libc::fcntl(fd, libc::F_SETPIPE_SZ, 4096) }, 4096);
+    }
+    let out = wait(child, Duration::from_secs(2));
+    assert!(out.status.success());
+    assert!(out.stdout.iter().filter(|b| **b == b'x').count() >= BYTES);
+    assert!(out.stderr.iter().filter(|b| **b == b'y').count() >= BYTES);
 }
 #[test]
 fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import() {

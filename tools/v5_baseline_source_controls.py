@@ -30,6 +30,7 @@ import re
 import shutil
 import subprocess
 import sys
+import sysconfig
 import tarfile
 import tomllib
 
@@ -261,10 +262,24 @@ def load_module(name, path, dest):
     module = importlib.util.module_from_spec(spec)
     sys.modules[name] = module
     spec.loader.exec_module(module)
+    root = ROOT.resolve()
+    frozen = Path(dest).resolve()
+    # CI intentionally installs interpreter dependencies in a checkout-local
+    # virtualenv. They are interpreter inputs, not current repository modules.
+    # Resolve both sides: a dependency-path symlink into source must still fail.
+    libraries = {
+        Path(value).resolve()
+        for key in ('purelib', 'platlib', 'stdlib', 'platstdlib')
+        if (value := sysconfig.get_path(key))
+        and not root.is_relative_to(Path(value).resolve())
+    }
     for mod in list(sys.modules.values()):
         f = getattr(mod, '__file__', None)
-        if f and Path(f).resolve().is_relative_to(ROOT.resolve()) and not Path(f).resolve().is_relative_to(Path(dest).resolve()):
-            if Path(f).resolve() != Path(__file__).resolve():
+        if f:
+            origin = Path(f).resolve()
+            if (origin.is_relative_to(root) and not origin.is_relative_to(frozen)
+                    and origin != Path(__file__).resolve()
+                    and not any(origin.is_relative_to(library) for library in libraries)):
                 raise Setup(f'current-checkout module leaked into frozen run: {f}')
     return module
 

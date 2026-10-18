@@ -17,6 +17,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import venv
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOL = ROOT / 'tools/v5_baseline_source_controls.py'
@@ -111,6 +112,50 @@ class ControlAssertions:
 
 
 class MatrixTests(unittest.TestCase):
+    def test_interpreter_library_under_checkout_is_allowed_but_source_and_symlink_leaks_are_refused(self):
+        with scratch() as path:
+            checkout = path / 'checkout'
+            environment = checkout / '.private/ci-python'
+            venv.EnvBuilder(with_pip=False, symlinks=True).create(environment)
+            python = environment / 'bin/python'
+            info = subprocess.run([str(python), '-I', '-c',
+                                   'import json,sysconfig; print(json.dumps(sysconfig.get_paths()))'],
+                                  check=True, capture_output=True, text=True)
+            libraries = json.loads(info.stdout)
+            purelib = Path(libraries['purelib'])
+            purelib.mkdir(parents=True, exist_ok=True)
+            (purelib / 'synthetic_dependency.py').write_text('VALUE = 42\n')
+            source = checkout / 'tools/current_source.py'
+            source.parent.mkdir(parents=True)
+            source.write_text('VALUE = 17\n')
+            (purelib / 'synthetic_source_link.py').symlink_to(source)
+            frozen = path / 'frozen'
+            frozen.mkdir()
+            cases = {
+                'dependency': ('import synthetic_dependency\nVALUE = synthetic_dependency.VALUE\n', 0),
+                'source': (f'import importlib.util, sys\ns = importlib.util.spec_from_file_location("leaked_source", {str(source)!r})\nm = importlib.util.module_from_spec(s)\nsys.modules["leaked_source"] = m\ns.loader.exec_module(m)\n', 2),
+                'symlink': ('import synthetic_source_link\n', 2),
+            }
+            for name, (body, expected) in cases.items():
+                with self.subTest(name=name):
+                    module = frozen / (name + '.py')
+                    module.write_text(body)
+                    script = (f'import importlib.util, sys\nfrom pathlib import Path\n'
+                              f's = importlib.util.spec_from_file_location("control_tool", {str(TOOL)!r})\n'
+                              'tool = importlib.util.module_from_spec(s)\ns.loader.exec_module(tool)\n'
+                              f'tool.ROOT = Path({str(checkout)!r})\n'
+                              'try:\n'
+                              f'    m = tool.load_module("frozen_case", Path({str(module)!r}), Path({str(frozen)!r}))\n'
+                              'except tool.Setup as error:\n    print(str(error), file=sys.stderr)\n    sys.exit(2)\n'
+                              'print(getattr(m, "VALUE", None))\n')
+                    result = subprocess.run([str(python), '-I', '-c', script],
+                                            capture_output=True, text=True, timeout=15)
+                    self.assertEqual(result.returncode, expected, result.stderr)
+                    if expected == 0:
+                        self.assertEqual(result.stdout.strip(), '42')
+                    else:
+                        self.assertIn('current-checkout module leaked', result.stderr)
+
     def test_every_source_only_row_appears_once_with_an_honest_kind(self):
         matrix = json.loads(subprocess.run([sys.executable, '-I', str(TOOL), 'matrix'], check=True,
                                            capture_output=True, text=True).stdout)
