@@ -64,6 +64,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-adapters"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "crucible-architecture"
 version = "0.1.0"
 dependencies = [

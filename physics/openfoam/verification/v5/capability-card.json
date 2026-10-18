@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "verification_state": "pinned_image_and_read_only_runtime_probes_verified",
+  "actual_runs": [
+    "docker image inspect pinned digest and linux/amd64 identity",
+    "read-only, network-disabled, 2-core/6-GiB container probe: foamRun -help build banner, WM_PROJECT_VERSION, g++ --version, mpirun --version, dpkg-query -W openfoam14",
+    "read-only library symbol inspection for SSG and LRR classes",
+    "foamRun executable SHA-256"
+  ],
+  "absent": [
+    "converged Foundation14 carrier case",
+    "native interrupted-restart evidence",
+    "measured full-liner mesh health",
+    "qualified transient carrier statistics",
+    "oil transport and hydrocyclone ranking"
+  ],
+  "environment_lock_sha256": "64fe54e323f398e842345a1d01d2137ec0a8880627d34426199ede4c03a136a4",
+  "source_revision": "a4867fc914c1",
+  "build": "14-a4867fc914c1",
+  "container_image_digest": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+  "compiler": "g++ 13.3.0-6ubuntu2~24.04.1",
+  "mpi": "Open MPI 4.1.6",
+  "models_available": [
+    "SSG",
+    "LRR"
+  ],
+  "models_absent": ["No absence claim; classes beyond SSG and LRR were not inspected."],
+  "native_restart_supported": false,
+  "native_restart_evidence": null,
+  "solver_executable_sha256": "7dfc03427dd8fe2d272f31995dc71a729a4350ec00476849c8372d15d7c4be3e",
+  "identity_evidence": {
+    "package": "openfoam14 20261008",
+    "precision": "double",
+    "platform": "linux/amd64",
+    "solver_executable": "/opt/openfoam14/platforms/linux64GccDPInt32Opt/bin/foamRun",
+    "model_evidence_limit": "Library symbols are present; model case construction and solver convergence were not run."
+  },
+  "qualification": "Binary startup/version identity only. No physics qualification."
+}
