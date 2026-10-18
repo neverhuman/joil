@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "packet": "V5-29",
+  "tasks": [
+    "V5-29-01",
+    "V5-29-02",
+    "V5-29-03",
+    "V5-29-04",
+    "V5-29-05"
+  ],
+  "state": "lane_complete_software_proof_with_open_interfaces",
+  "packet_acceptance": "open_general_partition_observer_native_structural_adapter_and_common_scene_pipeline",
+  "worker": "308711.joil_v5_codex_lane3",
+  "model": "gpt-6-luna medium",
+  "worktree": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane3",
+  "branch": "codex/v5-lane3",
+  "base_commit": "04dbed016264cda067d2a1f981aca015e9dbaefb",
+  "tested_commit": "3bedc9b0cb10f9101c35b398c6149452dc172da8",
+  "changed_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "packs/bracket/Cargo.toml",
+    "packs/bracket/src/lib.rs",
+    "packs/bracket/tests/reuse_proof.rs",
+    "campaigns/bracket-v5-fixture.toml",
+    "tests/fixtures/v5-bracket/README.md",
+    "tests/fixtures/v5-bracket/input.json",
+    "tests/fixtures/v5-bracket/expected-card.svg",
+    "docs/receipts/v5-29-claim-20261018T055246Z.json",
+    ".agent/CHANGELOG.md (local ignored handoff)",
+    ".agent/handoffs/V5-29.md (local ignored handoff)"
+  ],
+  "commands": [
+    {
+      "name": "bracket_tests",
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-bracket"
+      ],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-29-test.log",
+      "log_sha256": "c824fed8613648c9e198c5017d4e324d9c7507722c19378a66736ba9a4f3489e",
+      "summary": "7 passed across 3 suites; includes subprocess SIGKILL checkpoint/resume and exact cache controls."
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "rtk",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "pack-bracket",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-29-clippy.log",
+      "log_sha256": "caa636ec9c7cba2c4f265005f356629e3a1e8fe35395de581375a782de9931bc"
+    },
+    {
+      "name": "fmt",
+      "argv": [
+        "rtk",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-29-fmt.log",
+      "log_sha256": "6bc3bfe1fd41e1b1e0d0836e564e0256d905b01ed95b82c1b3b839d11dbdb1cb",
+      "nonempty_log": true
+    },
+    {
+      "name": "public_scan",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-29-public.log",
+      "log_sha256": "befc753e17d3149d308739cb37d6b32bd7e44c9626c5094694979728439b8b7d"
+    },
+    {
+      "name": "diff_check",
+      "argv": [
+        "rtk",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-29-diff-check.log",
+      "log_sha256": "ab27d85513466feba633927bbe41dc95a18cd24fc84dd7567ebaf736207f7f65",
+      "additional_staged_check": "rtk git diff --cached --check also exited 0"
+    }
+  ],
+  "positive_checks": [
+    "Independent bracket-owned bolt/support/load/material/bounds contract and fixture objectives contain no hydrocyclone geometry or DSD constants.",
+    "Bounded synthetic campaign reconciles all 3 attempt ordinals; material and load scenario are included in exact evaluation identity.",
+    "crucible-store exact cache lookup hits unchanged evaluation identity and misses after a bolt-location change; material changes alter subject identity and screen output.",
+    "Subprocess SIGKILL after syncing a nonempty campaign checkpoint; resumed state preserves ordinal 0 and finishes ordinals 1 and 2 without duplicate or reset.",
+    "Offline SVG card binds the subject SHA-256 and load source; labels force [N], moment [N m], stress [MPa], mass [g], material evidence, and blocked qualification.",
+    "Cargo.lock adds pack-bracket only; no dependency versions/sources changed. Workspace registration is draft lane scaffolding."
+  ],
+  "negative_checks": [
+    "Out-of-bounds support web and duplicate/out-of-envelope bolt layouts are rejected.",
+    "A disabled oil judge without the frozen rule, or with caller-invented reason/domain, is rejected.",
+    "Unknown campaign fields, including a hydrocyclone-like flow field, are rejected by strict TOML decoding.",
+    "Changed bolt locations cannot inherit the prior structural observation through exact cache; changed material changes identity.",
+    "No flow fields are rendered; physical qualification remains blocked in output."
+  ],
+  "resources": {
+    "cpus": [
+      90,
+      91
+    ],
+    "rss_cap_gib": 6,
+    "scratch_cap_gib": 2.5,
+    "gpu": false,
+    "large_simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+    "cargo_incremental": false,
+    "cargo_dev_debug": "line-tables-only"
+  },
+  "artifacts": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "f58ea126f8aa0e7f5aa5b5987a7b94d938676a3c91f829bd9c9b146b9a77f85e"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "2bafe5d2b4c9a5b5ccced19535f6f3988f39e8e1fdf7dc4e9d8cb1cc6642fa8d"
+    },
+    {
+      "path": "packs/bracket/Cargo.toml",
+      "sha256": "da8722d7d0df6060b9b1cd52f623767c3609746b37f766cdb0e72ddaeaf3ca85"
+    },
+    {
+      "path": "packs/bracket/src/lib.rs",
+      "sha256": "60163a72a1c825cfa797fb91bc1e0731d89c6f3b9744aa39e60478427aa5ddd3"
+    },
+    {
+      "path": "packs/bracket/tests/reuse_proof.rs",
+      "sha256": "e9c68036ac8102ea22a21b55499025a10434bdb7d7b44b996cd940e44b28368a"
+    },
+    {
+      "path": "campaigns/bracket-v5-fixture.toml",
+      "sha256": "c4988321974da00896dc6de278fb44545afcdda4c08af4ddbc94143811fdd988"
+    },
+    {
+      "path": "tests/fixtures/v5-bracket/README.md",
+      "sha256": "f1773a891fbd27e1d112a3bbade0c7663a3f30370a48c13b3a64a5e25fa6df96"
+    },
+    {
+      "path": "tests/fixtures/v5-bracket/input.json",
+      "sha256": "c9311c2a9dbc618fc68a243c038c3067cb2516ae67084d6395b8a3e349ce9a2a"
+    },
+    {
+      "path": "tests/fixtures/v5-bracket/expected-card.svg",
+      "sha256": "c1b242e6d8cf522c32059c7f52887d69a7b2d6903dc99a7104b4223c077a34ca"
+    },
+    {
+      "path": "docs/receipts/v5-29-claim-20261018T055246Z.json",
+      "sha256": "c21b6b1aff674bed2750c4027f523db017627aede8159b439331886d75e35d30"
+    }
+  ],
+  "limitations": [
+    "The repository has no general partition/observer/native structural adapter runner. The campaign uses a pack-owned elementary beam and four-bolt screen and pack-owned checkpoint driver; it does not execute through a shared native structural adapter.",
+    "The shared common scene/data-card registry is absent. Pack-specific SVG recipe is used; hydrocyclone templates are not invoked.",
+    "Structural output is a synthetic software screen, not validated FEA. No as-built identity, material passport, manufacturing/process review, fatigue, corrosion, service, or physical validation is present.",
+    "Karambit port deferred to its own authorization."
+  ],
+  "unchanged_engine_commits": [
+    "04dbed016264cda067d2a1f981aca015e9dbaefb"
+  ],
+  "next_dependency": "Integrator registration of general partition/observer/native-structure runner and common scene registry; separate evidence gates for structural validation and manufacturing/service claims."
+}
