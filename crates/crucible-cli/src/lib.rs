@@ -518,6 +518,9 @@ pub fn run(
         let tasks = state.in_flight.values().cloned().collect::<Vec<_>>();
         let mut arrivals = Vec::new();
         for batch in tasks.chunks(campaign.workers) {
+            if STOP.load(Ordering::Relaxed) || root.join("stop.request").exists() {
+                break;
+            }
             let (send, receive) = std::sync::mpsc::channel();
             std::thread::scope(|scope| {
                 for (i, task) in batch.iter().enumerate() {
@@ -548,8 +551,20 @@ pub fn run(
                 joil_evidence::identity::strict_decode(&store.read(&output)?.payload)
                     .map_err(RuntimeError::Wire)?;
             state.collect(&name, output, observed)?;
-            cp(&mut db, &store, &meta.experiment, &state)?;
         }
+        // The joined batch already has durable, charged canonical results. Publish
+        // its complete pending state once, including a stop request, rather than
+        // serializing the same executable/backup closure once per arrival and again
+        // on the next loop. Recovery still reconciles every accepted result against
+        // its original current acceptance if publication is interrupted.
+        if STOP.load(Ordering::Relaxed) || root.join("stop.request").exists() {
+            state.stop = StopState::Requested {
+                reason: "explicit signal or stop command; actual charged batch retained".into(),
+            };
+            pointer = cp(&mut db, &store, &meta.experiment, &state)?;
+            break;
+        }
+        cp(&mut db, &store, &meta.experiment, &state)?;
     }
     let ledger = db.ledger_snapshot()?;
     Ok(RunResult {

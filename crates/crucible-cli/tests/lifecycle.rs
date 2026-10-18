@@ -205,12 +205,18 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
         .unwrap();
     let pid = child.id();
     let start = Instant::now();
+    let running_generation;
     loop {
         let running = RuntimeDb::inspect_existing(&root_b)
             .ok()
             .and_then(|db| db.task("fixture-epoch-2-ordinal-2").ok())
             .is_some_and(|row| row.phase == Phase::Running);
         if running {
+            running_generation = RuntimeDb::inspect_existing(&root_b)
+                .unwrap()
+                .checkpoint_history()
+                .unwrap()[0]
+                .generation;
             break;
         }
         if start.elapsed() > Duration::from_secs(30) {
@@ -235,6 +241,23 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     let stopped: Value = serde_json::from_slice(&out.stdout).unwrap();
     assert_eq!(stopped["stopped"], true);
     assert_eq!(stopped["accounting"]["charges"], 6);
+    let mut stopped_db = RuntimeDb::inspect_existing(&root_b).unwrap();
+    assert_eq!(
+        stopped_db.checkpoint_history().unwrap()[0].generation,
+        running_generation + 1,
+        "the drained charged batch and stop state publish together"
+    );
+    let stopped_meta = metadata(&root_b).unwrap();
+    let restored = stopped_db
+        .restore_latest(&open_store(&root_b).unwrap(), &stopped_meta.experiment)
+        .unwrap();
+    assert!(restored.checkpoint.state.in_flight.is_empty());
+    assert_eq!(restored.checkpoint.state.pending_results.len(), 2);
+    assert!(matches!(
+        restored.checkpoint.state.stop,
+        crucible_runtime::replay::StopState::Requested { .. }
+    ));
+    drop(stopped_db);
     let second = call(&base, &["run", retry_path, "--resume", rb, "--continue"], 0);
     assert_eq!(second["epochs"], 2);
     assert_eq!(first["logical_digest"], second["logical_digest"]);

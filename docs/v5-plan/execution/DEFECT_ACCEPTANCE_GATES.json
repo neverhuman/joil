@@ -494,5 +494,71 @@
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
       "physical_qualification": false
     }
-  ]
+  ],
+  "accepted_prior_primary_receipts": [
+    {
+      "defect_id": "D-10",
+      "task_id": "V5-02-01",
+      "receipt": {
+        "path": "docs/receipts/v5-02-01-completed-20261017.json",
+        "sha256": "aa6eb687f2f02bcc59719e827229c2cd0ded141cb91e6dd72e036e6bf4cb4732"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-17",
+      "task_id": "V5-01-04",
+      "receipt": {
+        "path": "docs/receipts/v5-01-integrator-04-20261018.json",
+        "sha256": "acceba8b48c662c925f5443fcb2ea5cd4abbee308d4b9599acb45fa35d2d5ccf"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-21",
+      "task_id": "V5-01-04",
+      "receipt": {
+        "path": "docs/receipts/v5-01-integrator-04-20261018.json",
+        "sha256": "acceba8b48c662c925f5443fcb2ea5cd4abbee308d4b9599acb45fa35d2d5ccf"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-24",
+      "task_id": "V5-01-05",
+      "receipt": {
+        "path": "docs/receipts/v5-01-integrator-05-20261018.json",
+        "sha256": "d9baed45d754e55094a8f9972691d9643821643186899007ca9264a339865abe"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-27",
+      "task_id": "V5-05-05",
+      "receipt": {
+        "path": "docs/receipts/v5-05-combined-retention-export-20261018.json",
+        "sha256": "1c5b32b09dc53f52eac8bdbaeac8d0276ece7f3faf4cf9e8eaee537613255304"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-28",
+      "task_id": "V5-00-05",
+      "receipt": {
+        "path": "docs/receipts/v5-00-05-completed-20261017.json",
+        "sha256": "52f14d3e9320be991874b6b57ebe219c29a4f651d49445213ddb634a324b302a"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-29",
+      "task_id": "V5-03-05",
+      "receipt": {
+        "path": "docs/receipts/v5-03-combined-acceptance-20261018.json",
+        "sha256": "92c43aab2b7d7ab955583ec5e1a473bf171dda3ecab29471bfd95594e9d0e49b"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    }
+  ],
+  "closure_gate": "Every new source-only primary repair receipt requires tracked/hash-bound independent fixture, frozen source binding, executed positive and nonzero red-control command/log identities. Seven exact already accepted primary software row/receipt references are retained at cutover; nine remaining source-only primary tasks are open."
 }

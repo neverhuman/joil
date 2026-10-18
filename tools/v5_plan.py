@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +42,60 @@ def inside(root, name):
     return path
 
 
+def is_tracked(root, path):
+    return subprocess.run(['git', '-C', str(root), 'ls-files', '--error-unmatch', '--', path],
+                          capture_output=True).returncode == 0
+
+
+def validate_defect_controls(root, ref, task_id, receipt):
+    gate_path = root / PLAN / 'execution/DEFECT_ACCEPTANCE_GATES.json'
+    if not gate_path.exists():
+        return
+    gates = read_json(gate_path)
+    required = [r for r in gates['records'] if r['primary_task'] == task_id
+                and r['inventory_evidence_kind'] == 'source_only_inventory']
+    prior = gates.get('accepted_prior_primary_receipts', [])
+    required = [r for r in required if not any(
+        p['defect_id'] == r['id'] and p['task_id'] == task_id and p['receipt'] == ref
+        for p in prior)]
+    if not required:
+        return
+    controls = receipt.get('defect_controls', [])
+    ids = [c.get('defect_id') for c in controls]
+    if len(ids) != len(set(ids)) or not {r['id'] for r in required} <= set(ids):
+        raise ValueError(f'{task_id}: missing/duplicate executed defect controls')
+    inventory = read_json(root / gates['inventory_path'])
+    originals = {r['id']: r for r in inventory['defects']}
+    for row in required:
+        control = next(c for c in controls if c['defect_id'] == row['id'])
+        fixture = control.get('fixture', {})
+        if (set(fixture) != {'path', 'sha256'} or fixture not in receipt['artifacts']
+                or not SHA.fullmatch(fixture.get('sha256', ''))):
+            raise ValueError(f'{task_id}: defect fixture must bind a receipt artifact')
+        path = inside(root, fixture['path'])
+        if (not path.is_file() or digest(path.read_bytes()) != fixture['sha256']
+                or not is_tracked(root, fixture['path'])):
+            raise ValueError(f'{task_id}: stale defect fixture')
+        source = control.get('source', {})
+        if source.get('commit') != gates['frozen_source_commit'] or not any(
+            source.get('path') == s['path'] and source.get('symbol') == s['symbol']
+            and source.get('sha256') == s['source_sha256']
+            for s in originals[row['id']]['sources']):
+            raise ValueError(f'{task_id}: defect source binding drift')
+        for kind in ('positive', 'red'):
+            command = control.get(kind, {})
+            code = command.get('exit_code')
+            if (not isinstance(command.get('argv'), list) or not command['argv']
+                    or not SHA.fullmatch(command.get('log_sha256', ''))
+                    or not isinstance(command.get('expected_result'), str)
+                    or not command['expected_result'].strip()
+                    or type(code) is not int or (code != 0 if kind == 'positive' else code == 0)):
+                raise ValueError(f'{task_id}: invalid executed {kind} defect control')
+            if kind == 'positive' and not any(all(c.get(k) == command[k]
+                    for k in ('argv', 'exit_code', 'log_sha256')) for c in receipt['commands']):
+                raise ValueError(f'{task_id}: positive defect command not executed in receipt')
+
+
 def validate_receipt(root, ref, task_id):
     if set(ref) != {'path', 'sha256'} or not SHA.fullmatch(ref['sha256']):
         raise ValueError(f'{task_id}: invalid receipt reference')
@@ -65,6 +120,7 @@ def validate_receipt(root, ref, task_id):
             raise ValueError(f'{task_id}: missing log hash')
     if not receipt['artifacts'] or any(not SHA.fullmatch(a.get('sha256', '')) for a in receipt['artifacts']):
         raise ValueError(f'{task_id}: missing artifact hashes')
+    validate_defect_controls(root, ref, task_id, receipt)
 
 
 def load(root=ROOT):
