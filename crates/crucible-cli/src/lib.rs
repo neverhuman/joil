@@ -26,6 +26,9 @@ extern "C" fn interrupt(_: libc::c_int) {
     STOP.store(true, Ordering::Relaxed);
 }
 pub fn install_interrupt() {
+    // SAFETY: interrupt has the C signal-handler ABI and static lifetime. It only
+    // stores to a lock-free AtomicBool; it neither allocates nor acquires locks.
+    // SIGINT and SIGTERM are valid catchable signals; no pointers are dereferenced.
     unsafe {
         libc::signal(libc::SIGINT, interrupt as *const () as libc::sighandler_t);
         libc::signal(libc::SIGTERM, interrupt as *const () as libc::sighandler_t);
@@ -193,6 +196,9 @@ impl WriterLock {
             .mode(0o600)
             .custom_flags(libc::O_NOFOLLOW)
             .open(root.join("run.lock"))?;
+        // SAFETY: f owns a live descriptor throughout this call; flock takes no
+        // pointers, and these are valid exclusive/nonblocking operation flags.
+        // Failure returns before constructing WriterLock, so f is closed by RAII.
         if unsafe { libc::flock(f.as_raw_fd(), libc::LOCK_EX | libc::LOCK_NB) } != 0 {
             return Err(RuntimeError::Conflict("campaign_already_has_writer"));
         }
@@ -201,6 +207,9 @@ impl WriterLock {
 }
 impl Drop for WriterLock {
     fn drop(&mut self) {
+        // SAFETY: self.0 still owns the descriptor until Drop returns. LOCK_UN
+        // releases only this open file description's lock. File drop closes it
+        // even if explicit unlock fails, releasing the kernel lock on final close.
         unsafe {
             libc::flock(self.0.as_raw_fd(), libc::LOCK_UN);
         }

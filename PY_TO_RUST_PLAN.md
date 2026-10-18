@@ -192,3 +192,23 @@ provision Rust. P1b remains open for that provisioning/consumer migration, CAD,
 timeout/platform diagnostics and broader Unicode edge parity. No Python file or
 LOC reduction is claimed by adding these binaries. P2 plan/explorer ports remain
 separate work; this packet chose the authorized dossier alternative.
+
+## I013 additive ports
+
+`v5-d28-ownership-control` ports the frozen-source ownership control;
+`v5-explorer-manifest` ports build/check and its native `v5_plan.load` validation
+dependency (`crates/crucible-cli/src/plan_validation.rs`). No Python subprocess
+is used by either production binary. The explorer defaults to the source checkout;
+`--root ROOT` supports isolated replay against another canonical record tree.
+
+Parity integration tests compare D28 positive/red controls, missing frozen commit
+and digest mismatch exits/stdout/stderr; explorer tests compare generated manifest
+and snapshot bytes, successful check output, stale outputs, symlinks, immutable
+collisions, schema/receipt/hash/defect/dependency controls and malformed JSON.
+Syntax-error diagnostics remain parser-specific; both implementations reject them.
+CLI usage diagnostics use native binary names. Python files and legacy callers
+remain until P1b/P2 consumer migration. No scientific observations are generated.
+
+Run `cargo test --locked -p crucible-cli --test d28_ownership_parity --test explorer_manifest_parity`
+and `cargo test --locked -p crucible-cli --bin v5-d28-ownership-control`.
+Exact results and retained limitations are in `docs/receipts/i013-rust-ci-20261018.json`.
