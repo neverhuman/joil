@@ -95,6 +95,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-geom"
+version = "0.1.0"
+dependencies = [
+ "crucible-contract",
+ "crucible-units",
+ "joil-evidence",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "crucible-runtime"
 version = "0.1.0"
 dependencies = [

@@ -1,0 +1,17 @@
+# DRAFT LANE SCAFFOLD: integrator owns the final V5-08 package manifest.
+[package]
+name = "crucible-geom"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+crucible-contract = { path = "../crucible-contract" }
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+crucible-units = { path = "../crucible-units" }
+joil-evidence = { path = "../joil-evidence" }
+
+[package.metadata.crucible]
+role = "evaluator_contract"
