@@ -16,11 +16,11 @@
     "V5-02-02": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "AUDIT-HELD / NOT CURRENTLY VERIFIED. Historical done retained only because ordered dependency validation prevents review (02-03 / 03-01). G004 actual cross-feature red and G005 active22 controls are disclosed. Interrupted d1 official gate has NO RESULT. New full gate at exact pushed head, exact CI and combined updated evidence are required before acceptance.",
+      "note": "Accepted engineering source96d: exact feature-bound LimitSource and strict zero bounds;22 active tracked decision tests in full8-suite/all10-step gate, independent provided-target red controls and exact9/9CI39088444745. Combined receipt preserves G004/G005/original evidence. Synthetic controls do not resolve real physical inputs.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-02-02-completed-20261017.json",
-          "sha256": "cb4c68bced1333a918d29703430151d0a2206297b82b87039851c6d1e78444f4"
+          "path": "docs/receipts/v5-02-limit-source-combined-acceptance-20261018.json",
+          "sha256": "a237723506de9e868602a0e5908ce60dba197a162d2429362447f22072ffd1bc"
         }
       ]
     },
@@ -49,11 +49,11 @@
     "V5-02-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "AUDIT-HELD / NOT CURRENTLY VERIFIED. Historical done retained only because ordered dependency validation prevents review (02-03 / 03-01). G004 actual cross-feature red and G005 active22 controls are disclosed. Interrupted d1 official gate has NO RESULT. New full gate at exact pushed head, exact CI and combined updated evidence are required before acceptance.",
+      "note": "Accepted source96d: nine-input/four-scope blocking matrix and timeout-reason preservation; current22 tracked controls/fulllocalgate/exact9CI plus combined source-bound receipt. Real missing inputs remain unresolved, never zero uncertainty or infeasible.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-02-05-completed-20261017.json",
-          "sha256": "fc8fc2c1576bdf483f5224815342845f3e6b9713387759e1cc39a928c51398e7"
+          "path": "docs/receipts/v5-02-limit-source-combined-acceptance-20261018.json",
+          "sha256": "a237723506de9e868602a0e5908ce60dba197a162d2429362447f22072ffd1bc"
         }
       ]
     }

@@ -2,7 +2,7 @@
 
 Generated from `TASKS.json` and packet-owned `progress/*.json`. Run `rtk proxy python3 tools/v5_plan.py build` after a progress commit.
 
-**Planning is prepared; engineering implementation progress is 34/160. Scientific qualification remains governed by `docs/STATUS.json`.**
+**Planning is prepared; engineering implementation progress is 35/160. Scientific qualification remains governed by `docs/STATUS.json`.**
 
 | Packet | Milestone | Owner role | Complete | Dependencies |
 | --- | --- | --- | ---: | --- |
@@ -13,7 +13,7 @@ Generated from `TASKS.json` and packet-owned `progress/*.json`. Run `rtk proxy p
 | [V5-04 — Independent statistics and qualification inference](todos/V5-04.md) | M1 | statistics owner | 0/5 | V5-02, V5-03 |
 | [V5-05 — Private content store, exact caches and revocation](todos/V5-05.md) | M1 | store owner | 5/5 | V5-03 |
 | [V5-06 — Durable task execution, leases and complete accounting](todos/V5-06.md) | M1 | runtime owner | 5/5 | V5-03, V5-05 |
-| [V5-07 — Checkpoint, resume, fork and one-command fixture run](todos/V5-07.md) | M1 | runner owner | 4/5 | V5-06 |
+| [V5-07 — Checkpoint, resume, fork and one-command fixture run](todos/V5-07.md) | M1 | runner owner | 5/5 | V5-06 |
 | [V5-08 — One material partition and bounded geometry kernel](todos/V5-08.md) | M2 | geometry kernel owner | 0/5 | V5-03, V5-05 |
 | [V5-09 — Independent artifact-only geometry and topology observation](todos/V5-09.md) | M2 | geometry observation owner | 0/5 | V5-08 |
 | [V5-10 — Derived surfaces, volume meshes and honest exports](todos/V5-10.md) | M2 | mesh/export owner | 0/5 | V5-08 |

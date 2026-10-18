@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "kind": "combined_integrator_acceptance_not_physical_admission",
+  "tested_commit": "96d3bd6796d20bae199eb482f815f555178a1d27",
+  "created_utc": "2026-10-18T02:40:49.671223+00:00",
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.4992389450198971,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c5e13f1b670b6b79d98b39e34917d25b62d9e67e50ee0dd39908a2450a7c9e2d",
+      "wall_seconds": 11.321515128947794,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3b6f89fee8a39494f12d80769db942242708dece2aac756153306aca5fc9160a",
+      "wall_seconds": 501.9901616499992,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e7f73e26dd77a6173f6cb737585ebe1d67682e0ee4f1cb19de224ddf8cb58aca",
+      "wall_seconds": 8.600085347017739,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.05017675901763141,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "be3f6f44c853e1f8fdbd7ea51088a1b770d884c60116587360772246157e513a",
+      "wall_seconds": 93.6292350529693,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ef1760e9d9f2c07fd2079e68c28673a4ed116854921126c13a97c01b83051ec5",
+      "wall_seconds": 0.16493459203047678,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "wall_seconds": 16.682387367996853,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920",
+      "wall_seconds": 1.6059425600105897,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b5c306029017c680a48a3e12f0eb99dd59a6b0389336f18436aec752042d28bb",
+      "wall_seconds": 2.5946690469863825,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    }
+  ],
+  "private_full_gate_receipt_sha256": "4ddca92bdf20ecba147a394cd277c9da6260b501bd5ee6da3e2c688db9e0f95f",
+  "exact_source_ci": {
+    "run_id": 39088444745,
+    "url": "https://github.com/neverhuman/joil/actions/runs/39088444745",
+    "head_sha": "96d3bd6796d20bae199eb482f815f555178a1d27",
+    "status": "completed",
+    "conclusion": "success",
+    "successful_jobs": 9,
+    "private_verified_snapshot_sha256": "e811f118a3ff81680ff0825f0765a3229ce45fb3e1a64873422bc35fdc46971b"
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "physical_solver_campaign": false,
+    "local_Rust_affinity": "one permitted core; separate fresh witness uses both leased cores"
+  },
+  "limitations": [
+    "Software contract/runtime acceptance only; no physical qualification or scientific STATUS promotion.",
+    "Synthetic source and native integer fixtures are not owner-approved physical measurements or resolved installation/material requirements.",
+    "TR-16/EV-09/EV-12 and unresolved requirements remain deferred. V5-00-03 stays audit-held for its missing source-bound controls.",
+    "All source/test artifacts below are bound to tested/pushed96d; later receipt/progress metadata and future heads need their own publication gates.",
+    "The interrupted earlier d1 gate has NO RESULT; current source acceptance uses the completed96d gate and exact96d CI.",
+    "The G005 receipt includes one corroborating old-source build in an extra target directory, contrary to target-reuse instructions. Its original bytes are preserved; primary acceptance uses the separately retained provided-target red and the current tracked/full-gate controls."
+  ],
+  "packet": "V5-02",
+  "task_ids": [
+    "V5-02-02",
+    "V5-02-05"
+  ],
+  "changed_paths": [
+    "requirements/joil-hydrocyclone-v2.toml",
+    "crates/joil-evidence/src/decision.rs",
+    "crates/joil-evidence/tests/decision.rs",
+    "docs/v5-plan/execution/DECISIONS.md",
+    "docs/v5-plan/execution/V5-02-LIMIT-SOURCE-SCOPE.md"
+  ],
+  "artifacts": [
+    {
+      "path": "requirements/joil-hydrocyclone-v2.toml",
+      "sha256": "5940f16bf8fcdbd86afc46e914f56c863d8a736118e578d33c356877ea818a05"
+    },
+    {
+      "path": "crates/joil-evidence/src/decision.rs",
+      "sha256": "f55c56da3c222e5abb3cffad18c1833c5ee050f24a978f12c11e9554ba4ce775"
+    },
+    {
+      "path": "crates/joil-evidence/tests/decision.rs",
+      "sha256": "ee9ebee94f4917cab46e5598dc65a506e9f42240a171a4a6fe8e4c75ca85b52d"
+    },
+    {
+      "path": "docs/v5-plan/execution/DECISIONS.md",
+      "sha256": "dbd6c2097f9619ca7034e574e84ada0695f42b674bdfbcb30cfe72ef33b555b9"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-02-LIMIT-SOURCE-SCOPE.md",
+      "sha256": "ece478b7d80eae92c89f061b9725ab182b184270ab4afcbdba780d062d8d1c0c"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-02-02-completed-20261017.json",
+      "sha256": "cb4c68bced1333a918d29703430151d0a2206297b82b87039851c6d1e78444f4"
+    },
+    {
+      "path": "docs/receipts/v5-02-05-completed-20261017.json",
+      "sha256": "fc8fc2c1576bdf483f5224815342845f3e6b9713387759e1cc39a928c51398e7"
+    },
+    {
+      "path": "docs/receipts/v5-02-audit-tests-20261018T004328Z.json",
+      "sha256": "15f65a564c7eb7dc3d9d4b2b0cc09b2f29af7cabff49fa449f985a7c2857b491"
+    },
+    {
+      "path": "docs/receipts/v5-02-limit-source-tests-20261018T011340Z.json",
+      "sha256": "ff4b1f2b293b806b49fb13fe3a1f4196fd686e4fb565d023063438d44afda877"
+    }
+  ],
+  "positive_checks": [
+    "Exact frozen D1-D4 scenario values, seven authority conflicts, concentration/weighting basis and source identities remain intact; the original task receipts are retained.",
+    "All22 active tracked decision controls are actually present and passed in the full96d workspace log with zero ignored decision tests.",
+    "The nine accountable input/four-scope matrix and unresolved timeout reason are independently exercised. Missing input blocks its dependent claims; no zero uncertainty is substituted.",
+    "Correctly bound printed1.4mm and +0.0 sources remain admitted in declared synthetic fixtures, without changing real requirements or hardware defaults."
+  ],
+  "negative_checks": [
+    "G004 actual cross-feature counterexample fails101 on the old generic SourceValue interface: restating a machined limit as a printed limit was wrongly admitted.",
+    "Current LimitSource.limit_id must match the exact LimitSpec.id even if value/comparison/applicability otherwise match; reverse borrowing and missing limit_id refuse.",
+    "Provided-target source-bound63c negative-zero counterexample actually failed101; current BoundedValue validation refuses -0.0 even when float equality would match +0.0.",
+    "Changing frozen scenario sources/basis/identity refuses; timeout remains Unresolved with its reason, and an empty-claims timeout is rejected."
+  ],
+  "private_evidence": {
+    "full_gate_tracked_test_binding_sha256": "8b8d5113fa05e7e9a78d1b56a5100f8fcabc3c2e2d56d0d26fab97f452ab49cf",
+    "provided_target_negative_zero_red_log_sha256": "40b33dffd6ad78e1887e66bf15573562b503bd4928638f1dde6ff96a8c535056",
+    "provided_target_strict23_green_command_receipt_sha256": "88ce2db8ad460749e59c49c290d81dcd009c0bf7dbfa8acb1f6c342a88cebf8f",
+    "old_compiler_proof_retention_sha256": "fe9bb8a6e1f25813e943ed5b6562e9d89b0bc518c744afc5771b1054360f2168",
+    "G005_integration_review_sha256": "41ad160c11b4df90d1ed86aedcf61a99c9d9805f0acc4dac68977f0e47f1d911"
+  },
+  "next_dependency": "V5-02-03 remains accepted; independent statistics/domain/physical validation packets still require their declared contracts and inputs."
+}
