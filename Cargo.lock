@@ -189,6 +189,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-fea"
+version = "0.1.0"
+
+[[package]]
 name = "crucible-genome"
 version = "0.1.0"
 dependencies = [
@@ -210,6 +214,14 @@ dependencies = [
  "serde_json",
  "sha2",
 ]
+
+[[package]]
+name = "crucible-gpu"
+version = "0.1.0"
+
+[[package]]
+name = "crucible-lbm"
+version = "0.1.0"
 
 [[package]]
 name = "crucible-particles"
