@@ -320,7 +320,6 @@ pub fn estimate_normal(
     if !step_m.is_finite() || step_m <= 0.0 || !min_gradient.is_finite() || min_gradient <= 0.0 {
         return Err(GeometryError::InvalidInput("normal step/threshold"));
     }
-    budget.charge(6)?;
     let p = point.coordinates_m();
     let mut gradient = [0.0; 3];
     for i in 0..3 {
@@ -333,8 +332,8 @@ pub fn estimate_normal(
                 "normal step below coordinate resolution",
             ));
         }
-        let hi = field.evaluate(Point3::metres(a)?)?;
-        let lo = field.evaluate(Point3::metres(b)?)?;
+        let hi = field.evaluate_with_budget(Point3::metres(a)?, budget)?;
+        let lo = field.evaluate_with_budget(Point3::metres(b)?, budget)?;
         gradient[i] = (hi - lo) / (2.0 * step_m);
     }
     let norm = gradient[0].hypot(gradient[1]).hypot(gradient[2]);

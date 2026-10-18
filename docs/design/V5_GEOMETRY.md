@@ -15,3 +15,13 @@ Intervals outward-round finite basic arithmetic and square roots, special-case s
 Conformance is a single explicit majority-neighbour pass on a finite cubical artifact whose original labels were checked against the shared partition at their centres. The report computes actual relabel count, outward-rounded changed volume, conservative displacement, original/result identities and exact policy identity. Protected interface/feature witnesses cannot change; material components cannot disappear, split or merge; excessive changes and exhausted budgets are refused. This is a finite artifact contract: centre sampling does not establish continuous CAD equivalence or reveal an unsampled thin blade. Such claims remain unresolved and need independent artifact observation. No silent repair or physical admission is implemented.
 
 Synthetic tests use hand geometry, independent polar Fourier samples, explicit interval samples, frozen-byte mutations, derived-owner overlap/gap controls, degenerate normals, precision collapse and a deliberately perturbed JIT result. Runtime logs and receipts remain immutable. TR-16, EV-09 and EV-12 remain deferred; this kernel grants no physical performance claim.
+# Shared evaluation budgets
+
+Finite-difference normals consume the same source-node allowance at every sample.
+The reference interpreter charges every DAG node, including unused nodes. The
+experimental checked Fidget backend charges three source passes per sample
+(reference, VM, JIT); these are logical operations, not native instructions or a
+wall-clock bound. An external backend that does not implement budgeted evaluation
+is unsupported in budgeted algorithms. Failed charges exhaust the allowance and
+cannot refill it. A three-node plane therefore needs eighteen operations for its
+six-sample normal, even though its analytic normal is trivial.

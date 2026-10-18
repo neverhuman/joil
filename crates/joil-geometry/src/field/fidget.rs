@@ -100,6 +100,16 @@ impl ImplicitEval for FidgetKernel {
     fn identity(&self) -> &KernelIdentity {
         &self.identity
     }
+    fn evaluate_with_budget(
+        &mut self,
+        point: Point3,
+        budget: &mut EvaluationBudget,
+    ) -> Result<f64, GeometryError> {
+        // Three source-DAG passes: f64 reference, f32 VM and f32 JIT.
+        // This counts logical source operations, not native instructions/time.
+        budget.charge(3 * self.reference.program.nodes().len())?;
+        self.evaluate(point)
+    }
     fn evaluate(&mut self, point: Point3) -> Result<f64, GeometryError> {
         // Validate every source node, including dead nodes optimized away by a
         // backend. Constant folding cannot hide invalid source arithmetic.

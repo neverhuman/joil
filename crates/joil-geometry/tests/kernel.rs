@@ -31,6 +31,27 @@ fn constant(x: f64) -> FieldProgram {
 }
 
 #[test]
+fn normal_budget_counts_source_nodes_across_all_six_samples() {
+    // Three operations per sample: x + 1 has the analytic normal [1, 0, 0].
+    let p = FieldProgram::new(
+        vec![Op::Coordinate(Axis::X), Op::Constant(1.0), Op::Add(0, 1)],
+        2,
+    )
+    .unwrap();
+    let mut field = ReferenceInterpreter::compile(p).unwrap();
+    let mut short = EvaluationBudget::new(6);
+    assert!(
+        interval::estimate_normal(&mut field, point([0.0; 3]), 1e-3, 1e-9, &mut short).is_err()
+    );
+    assert_eq!(short.remaining(), 0);
+    let mut exact = EvaluationBudget::new(18);
+    let normal =
+        interval::estimate_normal(&mut field, point([0.0; 3]), 1e-3, 1e-9, &mut exact).unwrap();
+    assert_eq!(normal, [1.0, 0.0, 0.0]);
+    assert_eq!(exact.remaining(), 0);
+}
+
+#[test]
 fn analytic_primitive_values_match_hand_geometry() {
     let s = csg::sphere([1.0, 2.0, 3.0], 2.0).unwrap();
     near(value(&s, [1.0, 2.0, 3.0]), -2.0);

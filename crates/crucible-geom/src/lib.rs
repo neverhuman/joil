@@ -3,5 +3,5 @@
 pub use joil_geometry::*;
 
 pub mod observe;
-pub use observe::{BoundSurface, BoundVolume, Mesh};
 pub use observe::volume::Volume as CubicalVolume;
+pub use observe::{BoundSurface, BoundVolume, Mesh};

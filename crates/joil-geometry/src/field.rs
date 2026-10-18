@@ -195,6 +195,17 @@ pub struct KernelIdentity {
 pub trait ImplicitEval {
     fn identity(&self) -> &KernelIdentity;
     fn evaluate(&mut self, point: Point3) -> Result<f64, GeometryError>;
+    /// Consume the caller's shared source-node allowance. Backends without an
+    /// explicit accounting contract cannot participate in budgeted algorithms.
+    fn evaluate_with_budget(
+        &mut self,
+        _point: Point3,
+        _budget: &mut EvaluationBudget,
+    ) -> Result<f64, GeometryError> {
+        Err(GeometryError::Unsupported(
+            "backend has no budgeted evaluation",
+        ))
+    }
 }
 
 /// Monotonically consumed operation allowance. Failure never refills it.
@@ -253,6 +264,14 @@ impl ImplicitEval for ReferenceInterpreter {
 
     fn evaluate(&mut self, point: Point3) -> Result<f64, GeometryError> {
         self.evaluate_with_budget(point, &mut EvaluationBudget::new(FieldProgram::MAX_NODES))
+    }
+
+    fn evaluate_with_budget(
+        &mut self,
+        point: Point3,
+        budget: &mut EvaluationBudget,
+    ) -> Result<f64, GeometryError> {
+        ReferenceInterpreter::evaluate_with_budget(self, point, budget)
     }
 }
 
