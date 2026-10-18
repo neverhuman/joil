@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "task": "V5-26",
+  "lane": "codex_lane4",
+  "state": "adapter_followup_complete",
+  "tested_commit": "bcd483d2a799fcb6d09df2af7935e6a3e1c92f17",
+  "changed_paths": [
+    "crates/crucible-render/src/lib.rs",
+    "crates/crucible-render/src/bin/preflight.rs",
+    "render/blender/plate.py",
+    "render/blender/render_job.py",
+    "render/blender/test_plate.py",
+    "tests/fixtures/v5-scenes/wrong-unit.json",
+    "tests/fixtures/v5-scenes/wrong-subject.json",
+    "tests/fixtures/v5-scenes/wrong-time.json",
+    "tests/fixtures/v5-scenes/wrong-transform.json",
+    "tests/fixtures/v5-scenes/private-geometry-unapproved.json",
+    "tests/fixtures/v5-scenes/unavailable-oil-card.json"
+  ],
+  "commands": [
+    {
+      "command": "rtk cargo test --locked -p crucible-render -p crucible-paper",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-final-rust-test.log",
+      "log_sha256": "e75d702394c98d56bc1deeedeb0ed3efdbb81632d8dc36cf640069b43b746c3c"
+    },
+    {
+      "command": "rtk cargo clippy --locked -p crucible-render -p crucible-paper --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-final-rust-clippy.log",
+      "log_sha256": "7d58f56455f28db717deae3fba9ec582d78e7a65c254061e726095dc9570ef8c"
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-final-rust-fmt.log",
+      "log_sha256": "4b4c240ee69a59cc4f7862d02c1750266ac60feb9b663824637817819b579fb2"
+    },
+    {
+      "command": "rtk proxy python3 -m unittest render/blender/test_plate.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-final-python-plate.log",
+      "log_sha256": "b70cfefbb5af3d562fbab5f7f589a7a2d9a0f2dcade9042fdfad2412dcd4b3f8"
+    },
+    {
+      "command": "rtk proxy python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-final-public-scan.log",
+      "log_sha256": "661b5d76879d8c75d83455591203b250359eaa358122d24a23d246ca91ee9736"
+    },
+    {
+      "command": "rtk git diff --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-final-diff-check.log",
+      "log_sha256": "b05b1021a8b563106d4f69c53d6cd1b8b6f5ee86a04760767829aef9b9abf309"
+    }
+  ],
+  "negative_control_red_before_fix": {
+    "command": "rtk proxy python3 render/blender/plate.py --dry-run --bundle tests/fixtures/v5-scenes/wrong-unit.json --recipe recipes/v5/registry.json --output /home/ubuntu/joil/.private/v5-workers/codex_lane4/red --frames 1",
+    "exit_code": 0,
+    "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-26-wrong-unit-red.log",
+    "log_sha256": "d46c544a9f1f9b92bfe949f3fb354bb42f00b95161e4ea4f6021efb5ac22ee86",
+    "observed": "wrong-unit incorrectly accepted before fix"
+  },
+  "semantic_preflight_controls": {
+    "wrong-unit": {
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-26-preflight-wrong-unit.log",
+      "log_sha256": "056d0256d8e3e952f2813cd0e049125a621e43224210609ad07e928aedc57f76",
+      "exit_code": 1
+    },
+    "wrong-subject": {
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-26-preflight-wrong-subject.log",
+      "log_sha256": "c212970b1c3f035c2d3462396ea2b3e071be8f4855a9323647b674e5500ee147",
+      "exit_code": 1
+    },
+    "wrong-time": {
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-26-preflight-wrong-time.log",
+      "log_sha256": "c212970b1c3f035c2d3462396ea2b3e071be8f4855a9323647b674e5500ee147",
+      "exit_code": 1
+    },
+    "wrong-transform": {
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-26-preflight-wrong-transform.log",
+      "log_sha256": "bbe1caac9463489fc8958c6638e9000142b8a6b1eb0f202d3c78f0ae20caeb96",
+      "exit_code": 1
+    },
+    "private-geometry-unapproved": {
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-26-preflight-private-geometry-unapproved.log",
+      "log_sha256": "de48fb812ac921b287531548372ed8e5841012dd585ad824dbaec28f09a1dcdb",
+      "exit_code": 1
+    },
+    "unavailable-oil-card": {
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-26-preflight-unavailable-oil-card.log",
+      "log_sha256": "0b33c34f8aad1ce2cb7e17f8dde37c6c6c8d8271e1050abc120690acdc7d04ce",
+      "exit_code": 0
+    }
+  },
+  "verified_public_scan_correction": {
+    "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/verified-public-scan.log",
+    "actual_sha256": "f3c7682ed1e5f462ad141bf85bfc1b4fef45f51523eb74293838c137e2584087",
+    "archived_receipt_value": "f3c7682ed1e5f462ad141bf85fcb1b4fef45f51523eb74293838c137e2584087",
+    "archived_receipt_unchanged": true
+  },
+  "artifacts": [
+    {
+      "path": "crates/crucible-render/src/lib.rs",
+      "sha256": "a574cc201bb4f7e59feb953cd924ed81635c0a8dca4ea1c9fdb40305aeecefdb"
+    },
+    {
+      "path": "crates/crucible-render/src/bin/preflight.rs",
+      "sha256": "4fdd7247326d77c84667bd156bbc1f8ff43482619e35a43003f6b4d09f92e492"
+    },
+    {
+      "path": "render/blender/plate.py",
+      "sha256": "0532b08bdde81b77d094d3a3dd2ea528c8da9d2dae329b2bdbc0e5d8422005dd"
+    },
+    {
+      "path": "render/blender/render_job.py",
+      "sha256": "776d8795e2b362467fc193fff46798603fcc249f4ba2cd98d31d49e61c75ead6"
+    },
+    {
+      "path": "render/blender/test_plate.py",
+      "sha256": "73e6841806ae7b244568581162df57dd8f0052ffb7fd190b11c1cb5be4a6d36c"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/wrong-unit.json",
+      "sha256": "5a723d4777e509c1cc23ad12405235c69c58c6ed031ca4053eed75381e3f4c3d"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/wrong-subject.json",
+      "sha256": "e7b24c1cc75086111fc6ba353325b334efb8a03058ebb1b6d76e885fc0910b9e"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/wrong-time.json",
+      "sha256": "723c9381ba4f1456f419487b4d9ae972a2854c936960452db0ecc5c3df574fd0"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/wrong-transform.json",
+      "sha256": "26ef55de6a8579c515181d505096a3e6c5fe7fb6e43c74723968c3efc4fa1831"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/private-geometry-unapproved.json",
+      "sha256": "3225bb9da4e1a843ca4f1658834aea4eb5b2943fd385b59bc00b975e18d5090d"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/unavailable-oil-card.json",
+      "sha256": "b468c5925a6045266aea97214cd4ef16947a8c212ed487b9bfad02518c630e68"
+    }
+  ],
+  "positive_checks": [
+    "Rust semantic validation is invoked for adapter dry-run and real-render preflight.",
+    "Unavailable oil card remains accepted as an honest unavailable state.",
+    "Real rendering requires exact full Blender version output and source bytes; GLB digest and length are checked against the declared artifact.",
+    "Cache key binds Blender build, executable, profile, bundle and recipe; render outputs live under the cache key.",
+    "Resume accepts only existing frame files whose bytes match recorded digests; manifests publish atomically.",
+    "CPU Cycles rendering and fixed one-thread execution are enforced."
+  ],
+  "negative_checks": [
+    "wrong-unit, wrong-subject, wrong-time, wrong-transform and unapproved private geometry all rejected with exit 1.",
+    "Invalid real preflight did not invoke the fake renderer.",
+    "Tampered or missing frame files are discarded from resume state.",
+    "Red before fix accepted wrong-unit with exit 0; red log preserved."
+  ],
+  "resources": {
+    "cpus": [
+      110,
+      111
+    ],
+    "rss_gib_cap": 6,
+    "scratch_gib_cap": 2.5,
+    "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "cargo_incremental": 0,
+    "rayon_threads": 1,
+    "gpu": false,
+    "real_blender_render": false
+  },
+  "limitations": [
+    "No real Blender render was run.",
+    "No evidence qualification or physical validation is claimed.",
+    "Blender layout review remains unperformed."
+  ],
+  "next_dependency": "Integrator review of adapter contract and completion receipt; no physical qualification."
+}

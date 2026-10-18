@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "kind": "v5_primary_defect_control_receipt",
+  "task_ids": [
+    "V5-16-01",
+    "V5-16-02",
+    "V5-16-03",
+    "V5-16-04",
+    "V5-16-05"
+  ],
+  "owner": "codex-lane4",
+  "model": "gpt-6-luna medium (T1)",
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "changed_paths": [
+    "crates/crucible-particles/tests/transport.rs",
+    "docs/receipts/v5-16-02-d14-control-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "178ba2008cd58bb35f1ed01aaf7e143dbd6353abdd9214c61241f21471b48b6c",
+      "note": "Requested locked offline transport integration test passed (24 tests).",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/v5-16-transport-test.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-14",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d14-pos"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f5ac8c8f192c9f5b05aa7b2d12b73a68f7770253de1d8d886dd91ae129e5ccbf",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d14-positive.log",
+      "expected_result": "C006 frozen-source positive control completed with assertion_holds=true.",
+      "note": "Executed D-14 positive with tools/v5_baseline_source_controls.py.",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d14-positive.log"
+    }
+  ],
+  "positive_checks": [
+    "Frozen-source D-14 positive control passed: passive-tracer oracle preserved inlet concentration and the flux-share assertion held on the SYNTHETIC fixture."
+  ],
+  "negative_checks": [
+    "Frozen-source D-14 red control exited 1 with C006-RED D-14: seed_share_ignores_inward_flux for a SYNTHETIC tangent-jet counterexample."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/tests/transport.rs",
+      "sha256": "f7357ebbebd7acb2c7261c9e647a161ed303adf24582a612a27ea04b835a12b1"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Software fixture evidence only; no physical or native validation, measurement, qualification, or performance claim.",
+    "Requested source commit 82685334a9121a97a7161e9910e43ff0144bc42b is unavailable in this checkout, and the active gate freezes e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0. The validator requires the gate commit; source path, symbol and digest remain the assigned values.",
+    "D-14 frozen-source positive/red logs remain separately bound in defect_controls; the package test log_path binds the actual transport suite run."
+  ],
+  "next_dependency": "Independent review of the source-bound defect controls and native/physical evidence gates; no scientific admission.",
+  "defect_controls": [
+    {
+      "defect_id": "D-14",
+      "fixture": {
+        "path": "crates/crucible-particles/tests/transport.rs",
+        "sha256": "f7357ebbebd7acb2c7261c9e647a161ed303adf24582a612a27ea04b835a12b1"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "physics/openfoam/oil/oil_grade.py",
+        "symbol": "select_flux_weighted_inlet_seeds",
+        "sha256": "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-14",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d14-pos"
+        ],
+        "exit_code": 0,
+        "log_sha256": "f5ac8c8f192c9f5b05aa7b2d12b73a68f7770253de1d8d886dd91ae129e5ccbf",
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d14-positive.log",
+        "expected_result": "C006 frozen-source positive control: assertion_holds=true; passive tracer preserved concentration."
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-14",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d14-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "a55bbc16f7d0a5851ea535920d9e139e182a064980a5d6888b5cb3a2de463a1f",
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d14-red.log",
+        "expected_result": "C006-RED D-14: seed_share_ignores_inward_flux jet=0 seed_share=0.5000 inward_flux_share=0.0000."
+      }
+    }
+  ]
+}

@@ -5,50 +5,60 @@
     "V5-13-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-13-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
-      "evidence": []
+      "note": "D-07 remains kind:blocked: no frozen accepted-solid/integrated-volume seam. Assertion-inversion control is explicitly withdrawn; manufacturing tests provide integration-only support.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-13-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-13-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-13-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
         }
       ]
     }

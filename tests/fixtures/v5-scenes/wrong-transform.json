@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "subject": {
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "artifacts": [
+    {
+      "role": "unavailable_card",
+      "digest": {
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "bytes": 1,
+      "disclosure": "public_research"
+    }
+  ],
+  "observable": "oil_capture",
+  "unit": "kg/s",
+  "frame": "right_handed_si_z_downstream",
+  "transform": {
+    "from": "right_handed_si_z_up",
+    "to": "right_handed_si_z_downstream",
+    "translation_m": [
+      0,
+      0,
+      0
+    ],
+    "rotation": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "window": {
+    "start_s": 0,
+    "end_s": 1
+  },
+  "mapping": {
+    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "mask": {
+    "sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "scale": {
+    "minimum": 0,
+    "maximum": 1,
+    "unit": "kg/s",
+    "colormap": "viridis"
+  },
+  "exaggeration": 1,
+  "recipe": {
+    "sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  },
+  "evidence_class": "unavailable",
+  "private_export_approved": false,
+  "motion_is_simulated": false,
+  "source_subject": {
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "V5-17",
+  "owner": "61562.joil_v5_codex_lane2",
+  "created_utc": "2026-10-18T05:45:49.541614+00:00",
+  "input_head": "a6887024a2993de56c710d93dc94d84f7ce21c77",
+  "write_scope": [
+    "crates/crucible-particles/src/dispersion.rs",
+    "crates/crucible-particles/src/population.rs",
+    "crates/crucible-particles/src/transfer.rs",
+    "crates/crucible-particles/src/lib.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "docs/receipts/v5-17-lane-complete-*.json",
+    ".agent/CHANGELOG.md",
+    ".agent/handoffs/V5-17.md"
+  ],
+  "purpose": "Implement V5-17-01..05 software controls within the lane assignment; no native CFD.",
+  "resources": {
+    "cpus": [
+      38,
+      39
+    ],
+    "rss_cap_gib": 6,
+    "scratch_cap_gib": 2.5,
+    "gpu": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target"
+  },
+  "boundaries": [
+    "Do not alter criteria, shared root manifests, lockfiles, other packet paths, or native simulation inputs.",
+    "No native CFD launch.",
+    "Synthetic and numerical controls do not establish physical qualification."
+  ]
+}

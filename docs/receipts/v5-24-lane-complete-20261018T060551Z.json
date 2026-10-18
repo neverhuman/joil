@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "kind": "packet_completion_record",
+  "packet": "V5-24",
+  "task_ids": [
+    "V5-24-01",
+    "V5-24-02",
+    "V5-24-03",
+    "V5-24-04",
+    "V5-24-05"
+  ],
+  "owner": "61562.joil_v5_codex_lane2",
+  "branch": "codex/v5-lane2",
+  "tested_commit": "ad5f3d40d033a436fcc8f11e1b58dc80cb6f0f82",
+  "created_utc": "2026-10-18T06:05:51Z",
+  "changed_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "crates/crucible-gpu/Cargo.toml",
+    "crates/crucible-gpu/src/lib.rs",
+    "crates/crucible-lbm/Cargo.toml",
+    "crates/crucible-lbm/src/lib.rs",
+    "crates/crucible-fea/Cargo.toml",
+    "crates/crucible-fea/src/lib.rs",
+    "experiments/v5-accelerator-admission.toml",
+    "docs/receipts/v5-24-claim-20261018T060500Z.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-gpu",
+        "-p",
+        "crucible-lbm",
+        "-p",
+        "crucible-fea"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/v5-24-test.log",
+      "log_sha256": "ecd352d69b9fda08c64e9897383315a73ddabe28179e76b259de943991433579",
+      "environment": {
+        "taskset": "CPUs 38,39",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG": "line-tables-only"
+      }
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-gpu",
+        "-p",
+        "crucible-lbm",
+        "-p",
+        "crucible-fea",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/v5-24-clippy.log",
+      "log_sha256": "4c2c186e23524a732e3b570494833fe4ddb5517a42c55b87a158dfa8ddd23b72",
+      "environment": {
+        "taskset": "CPUs 38,39",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG": "line-tables-only"
+      }
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/v5-24-fmt.log",
+      "log_sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120",
+      "environment": {
+        "taskset": "CPUs 38,39",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG": "line-tables-only"
+      }
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/v5-24-public.log",
+      "log_sha256": "bec385fd409a72fbb702301fa95c01225fd9fb7e9da1545e2e9e469b80aa7651",
+      "environment": {
+        "taskset": "CPUs 38,39",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG": "line-tables-only"
+      }
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/v5-24-diff-check.log",
+      "log_sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120",
+      "environment": {
+        "taskset": "CPUs 38,39",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG": "line-tables-only"
+      }
+    }
+  ],
+  "positive_checks": [
+    "13 CPU-reference/admission unit tests passed: 5 admission/pool, 4 D2Q9 and 4 voxel-network/eigen tests.",
+    "D2Q9 periodic mass conservation and bounce-back conservation controls passed.",
+    "Voxel network finite operator, bounded construction, anchored conjugate-gradient residual and eigenpair residual controls passed.",
+    "Admission policy correctly forces reference fallback without a GPU lease, rejects absent/nonfinite speedup and failed ranking/omission agreement, and fingerprints architecture/precision/model/level/envelope/version.",
+    "All required format, publication and diff checks passed."
+  ],
+  "negative_checks": [
+    "Assumed or absent speedup cannot admit; a hypothetical speed value is not a campaign-sizing input.",
+    "No GPU lease always returns reference-only even if other capability-card fields look favorable.",
+    "Nonfinite paired evidence, insufficient omission agreement, invalid eigenpairs, invalid dimensions, nonfinite distributions, pool exhaustion, and unconverged solves/eigensweeps fail closed.",
+    "No physical fixture or performance claim is derived from synthetic CPU tests."
+  ],
+  "artifacts": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "7ce34ba420a42b2d132f42a4e9000976fed04f94452c7b2ff417b4761a4a2d90"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "bf408103bedf48dcd2b33315f2771d5e7a06223d871d7f57dadd76f06e016c5e"
+    },
+    {
+      "path": "crates/crucible-gpu/Cargo.toml",
+      "sha256": "00ba17cc6ea826f74e8f02b692698bb3990395330b85640ac6d066e4862b50ab"
+    },
+    {
+      "path": "crates/crucible-gpu/src/lib.rs",
+      "sha256": "8302dc31c1a7087a4d4b1411a028a8285915524fcc655b798009ad73a2b4c2e1"
+    },
+    {
+      "path": "crates/crucible-lbm/Cargo.toml",
+      "sha256": "91bcca3a28c1b247c392c849a237ed17de046a407d4a97ad58e0702aebc989c3"
+    },
+    {
+      "path": "crates/crucible-lbm/src/lib.rs",
+      "sha256": "b0c1258d1d575a275d57a440f94f9fca05114a4a53bcbec1325f818d44778bf7"
+    },
+    {
+      "path": "crates/crucible-fea/Cargo.toml",
+      "sha256": "e2c84e7c9328177e0d094951ea427bbc5e71a1d8e65c1907944cadd97af6243b"
+    },
+    {
+      "path": "crates/crucible-fea/src/lib.rs",
+      "sha256": "4b01f682cef4bda1353d938ee1eea59eb106f6bdab8d3109b261eaabaab4171a"
+    },
+    {
+      "path": "experiments/v5-accelerator-admission.toml",
+      "sha256": "1d5fc770d4044fd9d814811ce3b3186c82a59c70135cffb34cb8f36c71d54f36"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      38,
+      39
+    ],
+    "rss_cap_gib": 6,
+    "scratch_cap_gib": 2.5,
+    "gpu_execution": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+    "cargo_jobs": 2
+  },
+  "task_disposition": {
+    "V5-24-01": "decision recorded: no useful-cost benchmark or GPU capability measurement; custom solver not justified; reference fallback active",
+    "V5-24-02": "bounded CPU-reference D2Q9, admission/pool and voxel-network/CG/eigen software kernels implemented; no device kernels executed",
+    "V5-24-03": "software numerical controls only; Poiseuille/Taylor-Green/Couette, actual vortex/oil, and structural patch/beam/cylinder/buckling validation remain unimplemented",
+    "V5-24-04": "not run: no held-out matched-quality CPU/GPU subject pairs or GPU lease; accelerator not admitted",
+    "V5-24-05": "reference-only fallback and exploratory disposition recorded; no performance promise"
+  },
+  "packet_acceptance": false,
+  "scientific_admission": false,
+  "qualified_physics": false,
+  "limitations": [
+    "Foundation14 capability card explicitly says GPU, liquid droplets, turbulence, and hydrocyclone ranking are unqualified.",
+    "No GPU hardware, runtime, device lease, or accelerated execution was used.",
+    "No measured end-to-end useful cost or paired 1.3x speedup exists.",
+    "LBM is synthetic D2Q9 BGK reference code with periodic links and simple bounce-back; no Poiseuille forcing/profile, turbulent vortex, or oil model qualification.",
+    "FEA is a central-force voxel spring network, not a continuum elasticity, buckling, plasticity, fatigue, or structural qualification solver.",
+    "The required held-out physical flow and structural fixtures have not been implemented/run; acceptance gates were not loosened.",
+    "Cargo.toml/Cargo.lock entries are lane-only workspace scaffolding, offline, with no dependency upgrades."
+  ],
+  "next_dependency": "Integrator review/reconcile workspace registration; validated native flow/oil and structural reference fixtures; explicit GPU lease plus matched held-out paired evidence and approved policy before any accelerator admission."
+}

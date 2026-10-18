@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "kind": "v5_primary_defect_control_receipt",
+  "task_ids": [
+    "V5-23-01",
+    "V5-23-02",
+    "V5-23-03",
+    "V5-23-04",
+    "V5-23-05"
+  ],
+  "owner": "codex-lane4",
+  "model": "gpt-6-luna medium (T1)",
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "changed_paths": [
+    "crates/crucible-runtime/tests/workers.rs",
+    "docs/receipts/v5-23-04-d18-control-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "workers"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_sha256": "06ace6519d26d27cec9ea7546f607fbc026ffbd5dc118394b37187822fc58d5b",
+      "note": "Requested package integration test passed.",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/v5-23-04-workers-test.log"
+    }
+  ],
+  "positive_checks": [
+    "fake_evaluator_cannot_claim_qualified_throughput and the full crucible-runtime workers test target passed; synthetic software fixture only."
+  ],
+  "negative_checks": [
+    "D-18 frozen-source negative control is kind: blocked in tools/v5_baseline_source_controls.py because the frozen island loop has no fake-evaluator injection seam; no executed defect control is claimed."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-runtime/tests/workers.rs",
+      "sha256": "c513fe6f3543e98843504dacaeb59af439ee5b53e11e297a1cb7d6893dec532b"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Software fixture evidence only; no physical or native validation, measurement, qualification, or performance claim.",
+    "Requested source commit 82685334a9121a97a7161e9910e43ff0144bc42b is unavailable in this checkout, and the active gate freezes e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0. The validator requires the gate commit; source path, symbol and digest remain the assigned values.",
+    "The workers fixture covers worker protocol and synthetic benchmark controls; it does not directly exercise single-core leased scheduling or bounded evaluator concurrency.",
+    "Audit 027 disposition: D-18 is kind: blocked in tools/v5_baseline_source_controls.py because the frozen island loop has no fake-evaluator injection seam; host idleness and speedup are unmeasured and a search campaign is outside this lease. The assertion-inversion control is withdrawn. V5-23-04 remains blocked with integration_only support; packet_acceptance=false and scientific_admission=false."
+  ],
+  "next_dependency": "Independent review of the source-bound defect controls and native/physical evidence gates; no scientific admission.",
+  "packet_acceptance": false,
+  "scientific_admission": false
+}

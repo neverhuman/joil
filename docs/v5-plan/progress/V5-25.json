@@ -3,34 +3,64 @@
   "packet": "V5-25",
   "tasks": {
     "V5-25-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: No admitted measured cut-plane/full-liner interface dataset. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-25-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Training/held-out protocol has no qualified native dataset. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-25-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Coupled iteration controls are synthetic; held-out full-liner parity missing. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-25-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Random audit labels are synthetic; no admitted operator/model/observer scope. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-25-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Fallback planning abstains correctly but a qualified full-liner solver remains external. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

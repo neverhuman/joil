@@ -1,174 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import genome from '../../../baselines/ct35/genome.json';
-import reference from '../../../baselines/ct35/reference.json';
-import status from '../../../docs/STATUS.json';
-import work from '../../../docs/WORK_PACKETS.json';
-import catalog from '../../../docs/TEST_CATALOG.json';
-import hydraulicReport from '../../../docs/results/baseline-hydraulics-v1.json';
-import rustQualification from '../../../docs/results/rust-evolution-qualification-v1.json';
-import gciRsmReport from '../../../docs/results/elite-3grid-gci-and-rsm-verification-v2.json';
-import wave2Report from '../../../docs/results/wave2-multiseed-ablation-and-holdout-v1.json';
-import proposalPlate from '../../../docs/figures/chamber-sections.png';
-import topologyAtlasPlate from '../../../docs/figures/rust-3d-topology-atlas.png';
-import paretoConvergencePlate from '../../../docs/figures/pareto-map-elites-convergence.png';
-import gciRsmPlate from '../../../docs/figures/elite-gci-and-rsm-verification.png';
-import vortexPhysicsPlate from '../../../docs/figures/openfoam14-3d-vortex-physics-comparison.png';
-import wave2AtlasPlate from '../../../docs/figures/wave2-exotic-3d-genome-atlas.png';
-import wave2AblationPlate from '../../../docs/figures/wave2-multiseed-ablation-and-ci.png';
-import wave2GradeDsdPlate from '../../../docs/figures/wave2-grade-efficiency-and-dsd-shift.png';
-import wave2StructuralPlate from '../../../docs/figures/wave2-structural-lame-and-modal-qualification.png';
-import wave2Top8GalleryPlate from '../../../docs/figures/wave2-8-exotic-phenotypes-gallery.png';
-import wave2VortexQdGif from '../../../docs/figures/wave2-vortex-and-qd-illumination.gif';
-import wave2TopologyMorphGif from '../../../docs/figures/wave2-topology-morph-and-lineage.gif';
+import { applyRevocation, mergeRefreshedManifest, isManifest, resolveIdentity, type EvidenceValue, type Manifest, type Tier } from './contracts';
 import { Viewport3D } from './Viewport3D';
 import './style.css';
-
-function Section({ full }: { full: boolean }) {
-  const d = reference.derived_mm;
-  const scale = full ? 690 / d.z_end : 690 / d.z_head;
-  const x = (z: number) => 95 + z * scale;
-  const y = (r: number) => 185 - r * 2.4;
-  const stations = full
-    ? [[0, 35], [70, 35], [d.z_cone_end, 17.5], [d.z_taper_end, 8.75], [d.z_end, 8.75]]
-    : [[0, 35], [70, 35], [d.z_cone_end, 17.5], [d.z_head, 17.301136]];
-  const upper = stations.map(([z, r]) => `${x(z)},${y(r)}`).join(' ');
-  const lower = [...stations].reverse().map(([z, r]) => `${x(z)},${y(-r)}`).join(' ');
-  return <svg viewBox="0 0 880 380" role="img" aria-label={`${full ? 'Full liner' : 'Head'} analytic longitudinal schematic, dimensions in millimetres`}>
-    <defs><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#25333e" strokeWidth=".5" /></pattern></defs>
-    <rect x="0" y="0" width="880" height="380" fill="url(#grid)" />
-    <rect x={x(0)} y="65" width={x(d.z_cone_end) - x(0)} height="240" fill="#d4b06a" opacity=".06" />
-    <line x1="35" y1="185" x2="835" y2="185" stroke="#5b7080" strokeDasharray="7 5" />
-    <polygon points={`${upper} ${lower}`} fill="#193a45" stroke="#72c1c1" strokeWidth="2" />
-    <line x1={x(d.z_cone_end)} y1="63" x2={x(d.z_cone_end)} y2="307" stroke="#d4b06a" strokeDasharray="4 5" />
-    <line x1={x(0)} y1="49" x2={x(full ? d.z_end : d.z_head)} y2="49" stroke="#8b9ca9" />
-    <text x="95" y="34">{full ? '1,639.247 mm / full wetted liner' : '186.747 mm / printed head extent'}</text>
-    <text x="95" y="334">z = 0 / inner end wall</text>
-    <text x="95" y="355">D1 70 mm · D2 35 mm · reducing cone 10° half-angle</text>
-    <text x="650" y="334">+z downstream →</text>
-    {!full && <><text x="335" y="85">chamber</text><text x="585" y="105">reducing cone</text>
-      <text x="695" y="286" fill="#d4b06a">fixed collar</text></>}
-    {full && <><text x="430" y="145">770 mm fine taper</text><text x="690" y="145">700 mm tail</text></>}
-  </svg>;
+function EvidenceTable({ values }: { values: EvidenceValue[] }) {
+  if (!values.length) return <p className="placeholder">No observations are reported in this source. Software progress is available in Campaign &amp; budget.</p>;
+  return <div className="tablewrap"><table><thead><tr><th>Observation</th><th>Value</th><th>Unit</th><th>Uncertainty</th><th>Tier / state</th><th>Source</th></tr></thead><tbody>
+    {values.map(v => <tr key={v.id}><th scope="row">{v.label}</th><td>{v.status === 'available' && v.value !== null ? String(v.value) : <span className="placeholder">{v.status === 'failed' ? 'Failed' : v.status === 'revoked' ? 'Revoked' : 'Not reported'}</span>}</td><td>{v.unit ?? 'Not reported'}</td><td>{v.uncertainty ?? 'Not reported'}</td><td><span className={`badge ${v.status}`}>{v.tier.replaceAll('_', ' ')} · {v.status}</span></td><td>{v.source ? <a href={v.source} target="_blank" rel="noreferrer">Open source ↗</a> : 'No source attached'}</td></tr>)}
+  </tbody></table></div>;
 }
-
-function HydraulicResults() {
-  const [index, setIndex] = useState(hydraulicReport.points.length - 1);
-  const point = hydraulicReport.points[index];
-  const obs = point.observations;
-  const reverse = point.external_outlet_reverse_flow_m3_s.overflow;
-  return <section className="panel evidence">
-    <div className="panelhead"><div><h2>CT-35 / executed hydraulic diagnostics</h2><p>Steady SST initializer · full liner · unqualified for design ranking</p></div><span className="state">OIL FITNESS UNKNOWN</span></div>
-    <label className="runpicker">Saved run <select value={index} onChange={e => setIndex(Number(e.target.value))}>{hydraulicReport.points.map((p, i) => <option key={p.run_id} value={i}>{p.run_id}</option>)}</select></label>
-    <div className="metrics measured">
-      <div><small>Measured feed</small><strong>{obs.feed_m3_h.toFixed(3)} <b>m³/h</b></strong><span>Full 3D / two inlets</span></div>
-      <div><small>Reject fraction</small><strong>{(obs.reject_fraction * 100).toFixed(3)} <b>%</b></strong><span>Target 2.000 ± 0.020%</span></div>
-      <div><small>Static inlet → treated</small><strong>{(obs.static_tap_drop_pa / 1000).toFixed(2)} <b>kPa</b></strong><span>PDR {obs.pdr?.toFixed(3) ?? 'unknown'} / draft range 1.4–2.5</span></div>
-      <div><small>Full-domain energy loss</small><strong>{(point.full_domain_hydraulic_loss_j_per_treated_m3 / 1000).toFixed(2)} <b>kJ/m³</b></strong><span>Boundary mechanical flux / treated water</span></div>
-    </div>
-    <dl><dt>Water closure error</dt><dd>{(obs.water_closure_fraction * 100).toExponential(3)}%</dd><dt>Numerical outlet extension</dt><dd>{point.numerical_outlet_extension_m * 1000} mm</dd><dt>Reject-boundary reverse flow</dt><dd>{(reverse * 3600).toExponential(3)} m³/h</dd><dt>Saved pseudo-iteration</dt><dd>{obs.pseudo_iteration} / no physical averaging interval</dd><dt>Oil concentration / removal</dt><dd>Unknown / no measured full-liner cohort result</dd><dt>Qualified fitness / capacity gain</dt><dd>Unknown / campaign admission blocked</dd></dl>
-    <div className="note"><strong>What these numbers establish</strong><p>A reproducible flow calculation ran and its conserved fluxes were extracted. Mesh, transient statistics, outlet sensitivity, oil transport and independent validation remain unresolved. These values cannot establish oil-quality compliance or superiority.</p></div>
-    <details><summary>Qualification blockers and provenance</summary><ul>{point.fitness.remaining_qualification_reasons.map(reason => <li key={reason}>{reason.replaceAll('_', ' ')}</li>)}</ul><p>Snapshot SHA-256</p><code className="digest">{point.evidence.snapshot.sha256}</code><p>Native integral SHA-256</p><code className="digest">{point.evidence.native_integrals.sha256}</code></details>
-  </section>;
-}
-
 function App() {
-  const [tab, setTab] = useState('3D Explorer');
-  const [full, setFull] = useState(false);
-  const [slideIdx, setSlideIdx] = useState(0);
-  const [showAllSlides, setShowAllSlides] = useState(false);
-  const p = genome.parameters;
-  const rq = rustQualification;
-  const el = rq.promoted_3d_elite;
-  const cm = rq.campaign_metrics;
-  const p05 = rq.p05_population_and_pbm_qualification;
-  const p06 = rq.p06_experiment_and_metrology_qualification;
-  const p09 = rq.p09_ops_and_scene_qualification;
-  const gci = gciRsmReport.roache_gci_analysis;
-  const rsm = gciRsmReport.rsm_turbulence_closure_crosscheck;
-  const w2s = wave2Report.summary_statistics;
-  const w2t = wave2Report.pairwise_tests;
-  const wave2Slides = [
-    { title: 'Plate 5 · Exotic 3D Genome Atlas', src: wave2AtlasPlate, sha: 'c4656fea7153db8c…', caption: '4 Wave-2 Exotic 3D archetypes (Cylindrical-Gyroid TPMS, Schwarz-P Shear Buffer, Octa-Branch 8-Jet Helical Manifold, Counter-Fluted Cascade) + 11-family Cout,p95 screen ranking.' },
-    { title: 'Plate 6 · 10-Seed B0–B3 Ablation & CIs', src: wave2AblationPlate, sha: 'ef83db92f9658d5a…', caption: 'Pre-registered 10-seed equal-budget ablation (5,400 evals): B3 beats B1 & B2 on the reduced-order F1 screen (Mann–Whitney U=100, p_Holm=0.000314, Cliff δ=1.00) + D1–D4 held-out duties & 10% audit.' },
-    { title: 'Plate 7 · 10-Bin Grade Efficiency & DSD', src: wave2GradeDsdPlate, sha: 'cebfca5828bf295e…', caption: '10-bin reduced centrifugal efficiency E_red(d), stratified feed-to-treated DSD transfer, and Hinze d_max vs entry shear G_max.' },
-    { title: 'Plate 8 · P08 Analytic Structural Lamé & Modal Screen', src: wave2StructuralPlate, sha: '0b5456a046184f31…', caption: '64-station thick-wall Lamé hoop/radial/Von Mises stress screen under 2.5 MPa burst duty, Strouhal modal lock-in margin, and LPBF buildability across all 11 families.' },
-    { title: 'Plate 9 · Top-8 Exotic 3D Phenotypes Gallery', src: wave2Top8GalleryPlate, sha: '055a0e4ce88ab4d0…', caption: 'Top 8 most exotic valid 3D phenotypes (I_exotic up to 1.73), high-res labeled B3 elite architecture (2→6 helical manifold + Cylindrical-Gyroid TPMS r ≥ 0.70R), and 11-family sampling (220/220) + 20-step operator random walk (220/220, 85 family jumps).' },
-    { title: 'Anim 1 · 3D Vortex & QD Illumination', src: wave2VortexQdGif, sha: '1f9ea28fedba6587…', caption: 'SCHEMATIC: 36-frame 3D animation of authored oil-droplet paths (40/20/10 μm; not simulated or measured) shown with 10-seed B3 vs B2 vs B1 hypervolume illumination.' },
-    { title: 'Anim 2 · Phylogenetic 3D Topology Morph', src: wave2TopologyMorphGif, sha: 'dcfadcf06bdd7516…', caption: '36-frame continuous 3D B-rep wireframe morph across the 5-stage evolutionary lineage with live F0/P08/F1 screen telemetry.' },
-    { title: 'Plate 3 · 3-Grid Roache GCI (v2 Unclamped) & Dual RSM', src: gciRsmPlate, sha: 'dbce90bb3878dd86…', caption: 'OpenFOAM 14 3-grid spatial refinement (G0 140k, G1 306k, G2 553k cells; v2 unclamped GCI state: Oscillatory, R = −0.373, half-span = 5.92% of G2) + 7-equation LRR & SSG Reynolds-Stress closure verification.' },
-    { title: 'Plate 4 · OpenFOAM 14 3D Vortex Physics', src: vortexPhysicsPlate, sha: '5c0c4b1ee4d0a82f…', caption: 'Radial swirl U_θ(r), reverse-core axial velocity U_z(r), static pressure core depression, and 100% Lumley turbulence realizability.' },
-  ];
-  const activeSlide = wave2Slides[slideIdx];
-  return <><header><a className="brand" href="#">j<span>oil</span><i> / research</i></a><div className="project">EVOLUTIONARY FLUID SYSTEMS</div><span className="state">CFD EXECUTED · UNQUALIFIED</span></header>
-    <main><div className="eyebrow">DESIGN SUBJECT / CT-35</div><div className="title"><h1>Better separation.<br /><em>Evidence first.</em></h1><p>Explore internal geometry. Preserve interfaces.<br />Measure every claim against shared duty and uncertainty.</p></div>
-      <div className="metrics"><div><small>Reference diameter</small><strong>35 <b>mm</b></strong><span>Colman–Thew reconstruction</span></div><div><small>Reference feed</small><strong>4.0 <b>m³/h</b></strong><span>Provisional operating point</span></div><div><small>Oil reject split</small><strong>2.0 <b>%</b></strong><span>Matched across comparisons</span></div><div><small>Research water quality</small><strong>30 <b>mg/L</b></strong><span>20 mg/L separate stretch duty</span></div></div>
-      <nav aria-label="Research views">{['3D Explorer', 'GCI / RSM & Wave 2', 'Geometry', 'Baseline run', 'Proposals', 'Evidence', 'Work packets'].map(name => <button key={name} className={tab === name ? 'active' : ''} onClick={() => setTab(name)}>{name}</button>)}</nav>
-      {tab === '3D Explorer' && <><div className="note"><b>SCHEMATIC paths.</b> Droplet and carrier paths in this view are authored closed-form curves (capture shown by the rule diameter ≥ screen d50). No simulated or measured trajectory is supplied, so none is rendered.</div><Viewport3D /></>}
-      {tab === 'GCI / RSM & Wave 2' && <section className="panel evidence">
-        <h2>P04/P05 3-Grid Roache GCI (v2 Unclamped), 7-Equation LRR &amp; SSG RSM Cross-Check &amp; Wave-2 10-Seed Statistical Screen</h2>
-        <p>Unclamped Roache GCI v2 verification across G0 (139,981 cells), G1 (305,522 cells), and G2 (552,513 cells) OpenFOAM 14 meshes, dual 7-equation Reynolds-Stress closures (linear LRR + quadratic SSG), and the pre-registered Wave-2 10-seed equal-budget 4-arm screen ablation ({wave2Report.protocol_id}).</p>
-        <div className="metrics measured">
-          <div><small>3-Grid GCI v2 ({gci.dp_u_pa.gci_validity_state})</small><strong>±{gci.dp_u_pa.three_grid_half_span_pct_of_f2.toFixed(2)} <b>%</b></strong><span>R = {gci.dp_u_pa.convergence_ratio_R.toFixed(3)} · historical SNR {gci.signal_to_uncertainty_margin.saving_to_3grid_span_ratio.toFixed(2)}× vs a different-pipeline CT-35 point; corrected gate: not admitted</span></div>
-          <div><small>LRR / SSG 7-eq RSM Δp_u</small><strong>{(rsm[0].dp_u_pa / 1000).toFixed(2)} / {(rsm[1].dp_u_pa / 1000).toFixed(2)} <b>kPa</b></strong><span>Historical record {rsm[0].delta_dp_u_vs_ct35_baseline_pct.toFixed(1)}% / {rsm[1].delta_dp_u_vs_ct35_baseline_pct.toFixed(1)}% vs a different-pipeline CT-35 case: retracted comparison, not a reduction claim</span></div>
-          <div><small>Wave-2 B3 Screen C_out,p95 (10 seeds)</small><strong>{w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.mean.toFixed(2)} <b>mg/L</b></strong><span>95% CI [{w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.ci95_low.toFixed(2)}, {w2s.B3_Exotic3D_QD_CEI.cout_p95_mg_l.ci95_high.toFixed(2)}]</span></div>
-          <div><small>Holm–Bonferroni Wilcoxon</small><strong>p = {w2t[0].p_value_holm_bonferroni.toFixed(5)}</strong><span>Cliff&apos;s δ = {w2t[0].cliffs_delta.toFixed(2)} · 10% audit PASS</span></div>
-        </div>
-        <h3>Held-Out Operating Duties (D1..D4 F1 Screen) &amp; 11-Family Genome Expressiveness + 20-Step Operator Walk</h3>
-        <div className="metrics measured">
-          {wave2Report.promoted_wave2_top_elite_held_out_duties.map((d, i) => {
-            const b0Duty = wave2Report.baseline_b0_held_out_duties[i];
-            const b0Cout = b0Duty.cout_mg_l;
-            return (
-              <div key={d.duty_id}>
-                <small>{d.duty_id.replaceAll('_', ' ')} ({d.q_in_m3_h.toFixed(1)} m³/h, d50={d.d50_feed_um} μm)</small>
-                <strong>{d.cout_mg_l.toFixed(2)} <b>mg/L</b></strong>
-                <span>vs CT-35 {b0Cout.toFixed(2)} mg/L ({b0Duty.passes_30_mg_l ? 'PASS' : 'FAIL'}) · d50 cut {d.d50_cut_um.toFixed(2)} μm · {d.passes_30_mg_l ? 'B3 Screen PASS' : 'FAIL'}</span>
-              </div>
-            );
-          })}
-        </div>
-        <div className="metrics measured" style={{ marginTop: '12px' }}>
-          <div><small>11-Family Stratified Sampling</small><strong>220 / 220 <b>(100.0%)</b></strong><span>20 random genomes/family pass canonicalize_and_preflight (vs 0/30 neg. ctrl)</span></div>
-          <div><small>20-Step Operator Random Walk</small><strong>220 / 220 <b>(100.0%)</b></strong><span>20 steps × 11 families · 85 cross-family jumps · 0 open edges</span></div>
-          <div><small>Promoted B3 Elite Architecture</small><strong>I_exotic = 1.73 <b>[-]</b></strong><span>2→6 helical manifold + Cylindrical-Gyroid TPMS (r ≥ 0.70R) + 6-flute skimmer</span></div>
-          <div><small>Exoticness Index Formula</small><strong>0.157 – 1.732 <b>[-]</b></strong><span>I_branch + I_TPMS + I_ribbon + I_rifling + I_skim · min clearance ≥ 1.00 mm</span></div>
-        </div>
-        <div className="note">
-          <strong>Honest F2-Oil / F3 / F4 / CAD-09 / P06 Physical Validation Gate Status (Unwaived)</strong>
-          <p>All metrics above are hash-bound computational and numerical verification artifacts (F0 / F1 screen / F2-carrier) inside the declared DN35 dilute liquid-liquid applicability envelope (SCIENCE.md). In strict compliance with SCIENCE.md, qualified_fitness = {String(status.qualified_fitness)}, qualified_capacity_gain = {String(status.qualified_capacity_gain)}, and physical_validation = {String(status.physical_validation)} remain locked until: (1) F2-Oil full-residence (T ≥ 4.0 s, m_rem/m_in &lt; 0.1%) 10-bin coupled OpenFOAM droplet closure and F3 transient LES/PBM core-precession checks complete; (2) CAD-09 LPBF Ti-6Al-4V X-ray micro-CT metrology confirms throat tolerance ≤ ±50 μm and bore roughness R_a ≤ 12 μm (k_s ≤ 35 μm); and (3) P06 5-block blinded randomized A/B/A flow-loop rig crossover demonstrates LCB₉₅(ΔQ_treated) &gt; 0 at matched r = 2.00 ± 0.05%.</p>
-        </div>
-        <div className="panelhead" style={{ marginTop: '24px' }}>
-          <div>
-            <h3>Publication Figure &amp; Animation Carousel ({slideIdx + 1} / {wave2Slides.length}: {activeSlide.title})</h3>
-            <p>{activeSlide.caption} · SHA-256: <code>{activeSlide.sha}</code></p>
-          </div>
-          <div className="toggle">
-            <button onClick={() => setSlideIdx((slideIdx + wave2Slides.length - 1) % wave2Slides.length)}>← Prev</button>
-            <button onClick={() => setSlideIdx((slideIdx + 1) % wave2Slides.length)}>Next →</button>
-            <button className={showAllSlides ? 'selected' : ''} onClick={() => setShowAllSlides(!showAllSlides)}>{showAllSlides ? 'Carousel view' : `Show all ${wave2Slides.length}`}</button>
-          </div>
-        </div>
-        <div className="toggle" style={{ flexWrap: 'wrap', marginTop: '10px' }}>
-          {wave2Slides.map((s, idx) => (
-            <button key={s.title} className={!showAllSlides && slideIdx === idx ? 'selected' : ''} onClick={() => { setShowAllSlides(false); setSlideIdx(idx); }}>
-              {s.title}
-            </button>
-          ))}
-        </div>
-        {!showAllSlides ? (
-          <img className="proposalplate" src={activeSlide.src} alt={activeSlide.title} />
-        ) : (
-          wave2Slides.map(s => <img key={s.title} className="proposalplate" src={s.src} alt={s.title} />)
-        )}
-      </section>}
-      {tab === 'Geometry' && <div className="geometry"><section className="panel"><div className="panelhead"><div><h2>CT-35 / analytic section</h2><p>Schematic only · mm · no simulated field coloring</p></div><div className="toggle"><button className={!full ? 'selected' : ''} onClick={() => setFull(false)}>Head</button><button className={full ? 'selected' : ''} onClick={() => setFull(true)}>Full liner</button></div></div><Section full={full} /><div className="legend"><span><i className="dot gold" />Upstream design region</span><span><i className="dot cyan" />Fluid profile</span><span>Actual STEP, wall thickness and patch audit live in generated artifacts.</span></div></section><aside className="panel"><h2>Baseline contract</h2><dl><dt>Genome</dt><dd>{genome.family}</dd><dt>Chamber ID</dt><dd>70 mm</dd><dt>Oil bore</dt><dd>{(p.d2_mm * p.do_over_d2).toFixed(1)} mm</dd><dt>Twin feed area</dt><dd>2 × 120.264 mm²</dd><dt>Fluid inventory</dt><dd>1.1058 L / includes extensions</dd><dt>Nominal V/Q</dt><dd>0.995 s / not residence distribution</dd></dl><div className="note"><strong>Fit remains unresolved</strong><p>Assumed 45 mm radial envelope conflicts with inlet ports. Actual vessel drawing required before fit qualification.</p></div></aside></div>}
-      {tab === 'Baseline run' && <HydraulicResults />}
-      {tab === 'Proposals' && <section className="panel evidence"><h2>Flexible CAD &amp; Native Rust + CUDA 3D Topology Archive (11 Canonical Families)</h2><p>Exact baseline plus eight OpenCASCADE chamber proposals, a 7-family Wave-1 MAP-Elites archive ({cm.total_evaluations.toLocaleString()} candidates / {cm.monte_carlo_realizations.toLocaleString()} MC realizations, {cm.map_elites_occupied_cells} QD cells, {cm.pareto_front_size} Pareto elites), and the 11-family Wave-2 Exotic 3D expansion (Cylindrical-Gyroid TPMS, Schwarz-P Rectifier, Octa-Branch 8-Jet Manifold, Counter-Fluted Cascade). All promoted candidates pass the partial F0 sandbox screen (trapped powder, enclosed cavities and topology not measured), 5-patch watertight CFD surface (CAD-04/06), P08 analytic structural/LPBF screen checks, and P09 true-scale GLB scene export ({(el.glb_scene_bytes / 1024).toFixed(1)} KiB, scale {p09.glb_true_scale.toFixed(1)} {p09.glb_units}), with qualified fitness held null pending F2/F4 validation.</p><div className="metrics measured"><div><small>Promoted 3D elite</small><strong>{el.id}</strong><span>{el.topology_class}</span></div><div><small>P08 analytic yield margin</small><strong>{el.p08_yield_safety_factor.toFixed(2)}<b>×</b></strong><span>Ti-6Al-4V / 2.5 MPa Δp</span></div><div><small>Vane modal margin</small><strong>{el.p08_vane_modal_freq_ratio.toFixed(2)}<b>×</b></strong><span>f₁ / f_Strouhal ≥ 3.0</span></div><div><small>5-patch CFD surface</small><strong>{el.multi_patch_open_edges} <b>open edges</b></strong><span>{el.multi_patch_triangles.toLocaleString()} SI triangles · watertight</span></div></div><img className="proposalplate" src={wave2AtlasPlate} alt="True-scale 3D cutaway atlas of Wave-2 exotic topologies and 11-family ranking" /><img className="proposalplate" src={topologyAtlasPlate} alt="True-scale 3D cutaway atlas of 6 evolved hydrocyclone topology families with schematic authored droplet paths" /><img className="proposalplate" src={paretoConvergencePlate} alt="4D MAP-Elites archive Pareto front, 10-bin grade efficiency curves, entry shear mitigation, and P07 GP surrogate LOFO-CV calibration" /><img className="proposalplate" src={proposalPlate} alt="Actual CAD cross sections of the baseline and eight chamber wall proposals, on a common millimetre scale" /><div className="note">STEP, metre STL, 5-patch OpenFOAM case dictionaries ({el.cfd_case_dictionary_count} hash-bound files) and binary glTF 2.0 (.glb) scene bundles are archived per candidate. Sour-service qualification remains false ({String(el.p08_sour_service_qualified)}).</div></section>}
-      {tab === 'Evidence' && <section className="panel evidence"><h2>Confidence must be earned</h2><p>Current state: {status.phase.replaceAll('_', ' ')}. Arithmetic, CAD, structural and F1 screen checks cannot establish separation performance.</p><div className="tiers">{[['F0', 'Geometry, 5-patch surface & P08 analytic structural screen', `Baseline + 9 B-rep proposals + 11-family Wave-1/Wave-2 Rust 3D QD elites audited by a partial F0 screen (trapped powder, enclosed cavities and topology not measured); Lamé/modal/LPBF analytic screen & P09 GLB scene bundle passed (sour-service false)`], ['F1', 'Hydraulic initializer, GP surrogate & 10-seed screen ablation', `Executed SST diagnostics + RTX 3090 CUDA screen + 10-seed 4-arm ablation (B3 vs B1/B2 p_Holm=${w2t[0].p_value_holm_bonferroni.toFixed(5)}, Cliff's δ=${w2t[0].cliffs_delta.toFixed(2)}, 10% rejected-cohort audit 0% false omissions)`], ['F2', '3-Grid Roache GCI (v2 Unclamped) & LRR/SSG RSM + oil droplets', `3-grid G0/G1/G2 unclamped Roache GCI v2 (${gci.dp_u_pa.gci_validity_state}, R=${gci.dp_u_pa.convergence_ratio_R.toFixed(3)}, half-span=±${gci.dp_u_pa.three_grid_half_span_pct_of_f2.toFixed(2)}% of G2 Δp_u) + dual 7-eq LRR & SSG RSM cross-check (100% normal-stress realizability; the historical Δp_u comparison used a different-pipeline CT-35 case and is retracted, and the corrected elite gate admits no dossier) + 10-bin pilot executed; full residence-time qualification pending`], ['F3', 'LES & population challenge (P05)', `Rust OIL-04..15 added-mass (err ${p05.oil04_added_mass_rel_err.toExponential(2)}), substep order ${p05.oil07_substep_observed_order.toFixed(3)}, fixed-pivot PBM breakup/Smoluchowski coalescence (10/20/40-bin GCI ${(p05.oil12_pbm_grid_gci_rel * 100).toFixed(2)}%) & MPI rank invariance verified; coupled 3D LES pending`], ['F4', 'Paired physical trials (P06)', `Rust EXPERIMENT-01..06 LOQ censoring, blinded A/B/A power sizing (N ≥ ${p06.required_blocks_for_90pct_power} blocks, LCB95 ${(p06.aba_crossover_lcb95_gain_fraction * 100).toFixed(1)}%), holdout isolation & CT roughness (k_s=${p06.ct_metrology_ks_nominal_um} μm) gates verified; laboratory rig execution pending`]].map(([tier, title, text]) => <article key={tier}><span>{tier}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}</div><div className="note">{catalog.families.length} planned challenge families. Campaign digest: <code>{rq.evidence_digests_sha256.campaign_summary.slice(0, 16)}…</code> · P05 PBM: <code>{rq.evidence_digests_sha256.p05_population_qualification.slice(0, 16)}…</code> · P06 Rig: <code>{rq.evidence_digests_sha256.p06_experiment_qualification.slice(0, 16)}…</code></div></section>}
-      {tab === 'Work packets' && <section className="panel packets"><h2>Gated implementation</h2><p>Read MASTER_PLAN.md for ordered files, functions, acceptance and stop rules. P01–P09 native Rust verification and screen gates are wired; final physical/CFD claims require full F2/F4 campaign execution.</p>{work.packets.map(packet => <article key={packet.id}><span className="packetid">{packet.id}</span><div><h3>{packet.title}</h3><p>{packet.owner_role} · {packet.estimate}</p></div><code>{packet.dependencies.length ? packet.dependencies.join(' + ') : 'foundation'}</code></article>)}</section>}
-      <footer><span>FLEXIBLE GENES → EXACT GEOMETRY → QUALIFIED PHYSICS → PAIRED MEASUREMENTS</span><a href="https://github.com/neverhuman/joil/blob/main/docs/MASTER_PLAN.md">Read implementation plan ↗</a></footer>
-    </main></>;
-  }
-
-createRoot(document.getElementById('root')!).render(<React.StrictMode><App /></React.StrictMode>);
+  const params = useMemo(() => new URLSearchParams(location.search), []);
+  const source = params.get('manifest') ?? './evidence-manifest.json';
+  const requestedRevision = params.get('revision');
+  const requestedSubject = params.get('subject');
+  const [manifest, setManifest] = useState<Manifest | null>(null);
+  const [error, setError] = useState('');
+  const registryFrontier = useRef<{sequence: number; revoked_claim_ids: string[]} | null>(null);
+  const [tab, setTab] = useState('Evidence');
+  const [weight, setWeight] = useState([50, 50]);
+  useEffect(() => { let active = true; fetch(source, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(`Manifest request failed (${r.status})`); return r.json(); }).then(raw => { if (!isManifest(raw)) throw new Error('Manifest is malformed or uses an unsupported schema version'); if (active) setManifest(previous => mergeRefreshedManifest(previous, raw, registryFrontier.current)); }).catch(e => { if (active) setError(String(e)); }); return () => { active = false; }; }, [source]);
+  useEffect(() => {
+    const stream = new EventSource(`${source}${source.includes('?') ? '&' : '?'}events=1`);
+    stream.addEventListener('registry', event => {
+      try {
+        const payload = JSON.parse((event as MessageEvent<string>).data) as { sequence?: number; revoked_claim_ids?: unknown };
+        if (!Number.isSafeInteger(payload.sequence) || Number(payload.sequence) < 0 || !Array.isArray(payload.revoked_claim_ids) || !payload.revoked_claim_ids.every(x => typeof x === 'string')) throw new Error('Invalid registry event');
+        const prior = registryFrontier.current;
+        registryFrontier.current = {sequence: Math.max(prior?.sequence ?? 0, Number(payload.sequence)), revoked_claim_ids: [...new Set([...(prior?.revoked_claim_ids ?? []), ...payload.revoked_claim_ids])]};
+        const frontier = registryFrontier.current;
+        setManifest(previous => previous ? applyRevocation(previous, frontier.sequence, frontier.revoked_claim_ids) : previous);
+      } catch { setError('Invalid registry event. Reload a reviewed manifest before using current evidence.'); return; }
+      fetch(source, { cache: 'reload' }).then(r => { if (!r.ok) throw new Error(`Registry refresh failed (${r.status})`); return r.json(); }).then(raw => { if (isManifest(raw)) setManifest(previous => mergeRefreshedManifest(previous, raw, registryFrontier.current)); else setError('Registry refresh returned an invalid manifest. Cached data is marked stale.'); }).catch(e => setError(String(e)));
+    });
+    return () => stream.close();
+  }, [source]);
+  if (error) return <main><h1>Evidence unavailable</h1><p role="alert">{error}</p><p>No values have been substituted.</p></main>;
+  if (!manifest) return <main><h1>Loading reviewed evidence</h1><p role="status">Waiting for a versioned read-only manifest.</p></main>;
+  const revisionMatches = !!requestedRevision && requestedRevision === manifest.revision;
+  const selected = resolveIdentity(manifest, requestedRevision, requestedSubject);
+  const stale = !revisionMatches || (!!requestedSubject && !selected);
+  const values = selected ? selected.values : manifest.values;
+  const revoked = new Set([...(manifest.registry_event?.revoked_claim_ids ?? []), ...(manifest.offline_dossier?.revoked_claim_ids ?? [])]);
+  const visible = values.map(v => revoked.has(v.id) ? { ...v, status: 'revoked' as const } : v);
+  const completedPct = manifest.campaign.tasks_total && manifest.campaign.tasks_completed !== null ? Math.round(manifest.campaign.tasks_completed / manifest.campaign.tasks_total * 100) : null;
+  const subjects = manifest.subjects;
+  const chosenSubject = selected;
+  const overlays = chosenSubject?.overlays.filter(o => o.geometry_sha256 === chosenSubject.geometry_sha256) ?? [];
+  const offline = manifest.offline_dossier;
+  return <>
+    <header><a className="brand" href="?">JOIL <span>/ Evidence Explorer</span></a><span className="state">READ ONLY · {manifest.current ? 'CURRENT' : 'STALE'}</span></header>
+    <main>
+      <div className="title"><div><div className="eyebrow">DATASET REVISION {manifest.revision}</div><h1>Evidence, progress, provenance.</h1><p>Generated {manifest.generated_at}. Values are shown only with their declared source, unit, uncertainty, and evidence tier.</p></div></div>
+      {stale && <div className="alert" role="alert"><strong>Identity not resolved.</strong> This URL does not identify this exact dataset revision and subject. No replacement subject has been selected. <a href={`?manifest=${encodeURIComponent(source)}&revision=${encodeURIComponent(manifest.revision)}`}>Open this revision without a subject</a>.</div>}
+      {!manifest.current && <div className="alert" role="status">This manifest is stale; its observations are historical and have no current eligibility.</div>}
+      <nav aria-label="Evidence explorer views">{['Evidence','Campaign & budget','Subjects & lineage','Offline dossier','Weight scratch'].map(name => <button key={name} className={tab===name?'active':''} onClick={()=>setTab(name)}>{name}</button>)}</nav>
+      {tab === 'Evidence' && <><section className="panel"><h2>{selected ? `Subject ${selected.id}` : 'Registered observations'}</h2><EvidenceTable values={visible} /><p className="muted">A displayed value is descriptive evidence. Current claim eligibility must be resolved by the registered policy.</p><h3>Historical corrections</h3>{manifest.historical_corrections.length ? <ul>{manifest.historical_corrections.map(c=><li key={c.id}>{c.label}{c.source ? <> · <a href={c.source}>open source</a></> : ' · source not attached'}</li>)}</ul> : <p className="placeholder">No correction records attached.</p>}</section><Viewport3D subject={selected}/></>}
+      {tab === 'Campaign & budget' && <section className="panel"><h2>Campaign progress and admitted capability</h2><div className="metrics"><div><small>Software tasks</small><strong>{completedPct === null ? 'Not reported' : `${completedPct}%`}</strong><span>{manifest.campaign.tasks_completed ?? '—'} / {manifest.campaign.tasks_total ?? '—'} completed</span></div><div><small>Attempts</small><strong>{manifest.campaign.attempts ?? 'Not reported'}</strong><span>Missing remains unknown</span></div><div><small>Spend / reserved</small><strong>{manifest.campaign.spend ?? 'Not reported'}</strong><span>Reserved: {manifest.campaign.reservations ?? 'Not reported'}</span></div><div><small>Scientific release</small><strong>{manifest.campaign.scientific_release}</strong><span>Software: {manifest.campaign.software_status}</span></div></div><dl><dt>Checkpoint</dt><dd>{manifest.campaign.checkpoint ?? 'Not reported'}</dd><dt>Control arms</dt><dd>{manifest.campaign.control_arms.length ? manifest.campaign.control_arms.join(', ') : 'None recorded'}</dd><dt>Admitted capabilities</dt><dd>{manifest.campaign.admitted_capabilities.length ? manifest.campaign.admitted_capabilities.join(', ') : 'None admitted'}</dd><dt>Blockers</dt><dd>{manifest.campaign.blockers.length ? manifest.campaign.blockers.join('; ') : 'None recorded'}</dd></dl><p className="alert">Task completion describes software progress. It does not establish physical validation or scientific release.</p></section>}
+      {tab === 'Subjects & lineage' && <section className="panel"><h2>Exact subject inspection</h2><p>Selecting a subject updates both revision and subject identity in the URL. Only overlays recorded for the selected geometry may be opened.</p><label>Subject <select value={selected?.id ?? ''} onChange={e=>{const id=e.target.value; history.pushState({},'',`?manifest=${encodeURIComponent(source)}&revision=${encodeURIComponent(manifest.revision)}&subject=${encodeURIComponent(id)}`); location.reload();}}><option value="">Choose exact subject</option>{subjects.map(s=><option key={s.id} value={s.id}>{s.id} · {s.geometry_sha256.slice(0,12)}</option>)}</select></label>{chosenSubject && <><p>Geometry SHA-256: <code>{chosenSubject.geometry_sha256}</code></p><h3>Supported field overlays</h3>{overlays.length ? <ul>{overlays.map(o=><li key={o.id}>{o.field} at {o.time_s} s — <a href={o.source}>open artifact</a></li>)}</ul> : <p className="placeholder">No geometry-matched field overlays are available.</p>}<h3>Discrete recorded ancestry</h3>{chosenSubject.ancestry.length ? <ol>{chosenSubject.ancestry.map(id=><li key={id}>{id}</li>)}</ol> : <p className="placeholder">No recorded ancestry is attached.</p>}<p className="muted">No interpolated ancestors or reconstructed particle paths are generated.</p><h3>Archive points</h3><div className="tablewrap"><table><thead><tr><th>Point</th><th>X</th><th>Y</th><th>Tier</th></tr></thead><tbody>{manifest.archive.filter(p=>p.subject_id===chosenSubject.id).map(p=><tr key={p.id}><th>{p.id}</th><td>{p.x ?? 'Not reported'} {p.x===null?'':p.unit_x}</td><td>{p.y ?? 'Not reported'} {p.y===null?'':p.unit_y}</td><td>{p.tier}</td></tr>)}</tbody></table></div></>}</section>}
+      {tab === 'Offline dossier' && <section className="panel"><h2>Reviewed offline dossier</h2>{offline ? <><p>Reviewed: {offline.reviewed ? 'yes' : 'no'} · revision: {offline.revision} · metadata current: {offline.current ? 'yes' : 'no'}</p><p>Source: <a href={offline.source}>open dossier</a></p><p>Revoked claims: {offline.revoked_claim_ids.length ? offline.revoked_claim_ids.join(', ') : 'None recorded'}</p>{(offline.revoked_claim_ids.length || offline.revision!==manifest.revision || !offline.current) && <p className="alert">Offline dossier is stale or contains revoked claims; affected values are ineligible.</p>}</> : <p className="placeholder">No reviewed offline dossier is attached.</p>}{manifest.registry_event && <p>Registry event {manifest.registry_event.sequence}: cache invalidated and manifest reloaded.</p>}</section>}
+      {tab === 'Weight scratch' && <section className="panel"><h2>Unregistered preference scratch view</h2><p>This browser-only comparison cannot alter registered requirements, stored decisions, or scientific eligibility.</p><label>Objective A <input type="range" min="0" max="100" value={weight[0]} onChange={e=>setWeight([Number(e.target.value),100-Number(e.target.value)])}/></label><label>Objective B <input type="range" min="0" max="100" value={weight[1]} onChange={e=>setWeight([100-Number(e.target.value),Number(e.target.value)])}/></label><p>Scratch weights: {weight[0]}% / {weight[1]}%. Stored decision: unchanged.</p></section>}
+      <footer><span>Read-only manifest · schema 1 · {manifest.current ? 'current metadata' : 'historical metadata'}</span><a href={source}>Open manifest</a>{manifest.source_snapshot && <a href={manifest.source_snapshot.source}>Open exact software source snapshot</a>}</footer>
+    </main>
+  </>;
+}
+createRoot(document.getElementById('root')!).render(<App />);

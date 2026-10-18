@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "v5_15_02_anomaly_preregistration",
+  "study_id": "V5-15-ANOMALY-PREREG-1",
+  "status": "preregistered_not_executed",
+  "frozen_before_outcomes": true,
+  "outcomes_inspected": false,
+  "motivation": "Numerical PDR from the executed CT-35 baseline is 7.1083 (extended outlet run) and 4.48 (F1 initializer), both above the draft 1.4-2.5 range recorded in docs/BASELINE_RUN.md. The commercial 1.4-2.6 range in docs/REFERENCES.md (R02) is for other liners and is diagnostic context only.",
+  "frozen_items": {
+    "ct35_geometry": "CT-35 full liner as in docs/BASELINE_RUN.md; geometry digest unresolved until metrology admits it",
+    "taps": "numerical outlet taps as in docs/BASELINE_RUN.md; physical tap positions unresolved",
+    "duty": {"feed_m3_h": 4.0, "reject_split": 0.02, "source": "experiments/rig/protocol_v1.md section 2"},
+    "analysis": "Competing-explanation comparison on the observables in coverage_cards_v1.json; no pass threshold is set here"
+  },
+  "swept_factors": [
+    {"factor": "convection", "baseline": "kOmegaSST as in docs/results/baseline-hydraulics-v1.json", "arm_value": "unresolved: chosen before any outcome is inspected"},
+    {"factor": "wall_layers", "baseline": "unresolved", "arm_value": "unresolved"},
+    {"factor": "run_duration", "baseline": "unresolved: pseudo-iteration 500 and 600 runs exist", "arm_value": "unresolved"},
+    {"factor": "initialization", "baseline": "unresolved", "arm_value": "unresolved"},
+    {"factor": "outlet_orifice_treatment", "baseline": "unresolved: external reverse flow was observed in short-domain runs", "arm_value": "unresolved"}
+  ],
+  "one_factor_rule": "Each arm changes exactly one swept factor relative to the frozen baseline. A combined change is not a valid arm.",
+  "hypotheses": [
+    "H1: a stable reverse-core vortex exists at the CT-35 operating point and the high numerical PDR is physical",
+    "H2: the high numerical PDR is an artefact of wall-layer or outlet/orifice treatment",
+    "H3: the high numerical PDR is selected by the initialization branch and is not a general operating state"
+  ],
+  "no_assumed_absent_vortex": "Absence of a vortex is H2 or H3 only if the arm data support it. It is not a premise of this study.",
+  "pdr_gate": {"origin": "borrowed_commercial_context", "range": "1.4-2.6 (R02, other liners)", "use": "diagnostic only; cannot admit or pass a case"},
+  "sources": [
+    {"path": "docs/BASELINE_RUN.md", "sha256": "df22d9192f5538fcf774aa491255a02ac64630eb2fd565b5bbde0fa2b92f20d3"},
+    {"path": "experiments/rig/protocol_v1.md", "sha256": "8e46d07b16654ac4e59d1544effff987623b5e5802d57670877688e4ac3555cb"},
+    {"path": "docs/results/baseline-hydraulics-v1.json", "sha256": "2c53abe39be29a9ae9a160836773d35be761005a191ea3eaa093e58f5c5e4461"}
+  ],
+  "judge_check": "pack_hydrocyclone_judges::validation::judge_preregistration is structural only; it does not evaluate outcomes"
+}

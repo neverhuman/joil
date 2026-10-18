@@ -1,0 +1,35 @@
+policy_id = "reference-search/1"
+islands = 4
+population_per_island = 32
+attempted_offspring_per_island_epoch = 32
+migration_interval_epochs = 10
+protection_lifetime_epochs = 10
+initialization_attempt_limit_per_slot = 8
+refill_attempt_limit_per_epoch_slot = 2
+archive_capacity_per_pool = 256
+nondominated_capacity_per_descriptor_bin = 8
+
+[operator_shares]
+mutation = 40
+crossover = 20
+repair = 10
+novelty = 10
+local_search = 10
+restart = 10
+
+[parent_source_shares]
+qualified = 50
+screen = 30
+exploration = 20
+
+[controls]
+include_random = true
+include_cma_es_fixed_dimension = true
+include_bayesian_optimization_fixed_dimension = true
+shared_initialization_sampler = true
+shared_attempt_budget = true
+charge_initialization = true
+charge_failed_proposals = true
+charge_inference = true
+charge_audits = true
+charge_confirmation = true

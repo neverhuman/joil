@@ -3,39 +3,63 @@
   "packet": "V5-08",
   "tasks": {
     "V5-08-01": {
-      "status": "review",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Source18d reference/pinnedVM+JIT controls plus sourcec0d budget repair (additive receipt3da2cc66), observer integration15/15 pass. Full integrated gates/CI and independent D16 source-bound artifact closure remain pending; no packet or physical acceptance.",
+      "note": "Accepted only ADR diagnostic CPU prototype:17tests, four90point VM/JIT/reference cases with sampled error/compile times. Experimental and no global certification. V5-08 packet/CAD authority not accepted.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-08-geometry-kernel-20261018.json",
-          "sha256": "7ae9dbe56d404b9c75b52650a8174730cce5788b98deb1c41f546e8285732dc8"
+          "path": "docs/receipts/v5-08-01-integrator-acceptance-20261018.json",
+          "sha256": "26d56f1b123e467097133980c085c511b036dafff60615a0b7b1af0539c5ccef"
         }
       ]
     },
     "V5-08-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "D-16 frozen positive/red execution verified; accepted boundary corpus and third CAD authority remain unavailable. No partition-authority or physical repair closure.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-08-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-08-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-08-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "kind": "scoped_claim_before_test_migration",
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-18T10:29:39.299391+00:00",
+  "base_commit": "e9d8f8e949773525aac6c7bde39d1911d9f46842",
+  "task_ids": [
+    "V5-01-04",
+    "V5-27",
+    "V5-31-03"
+  ],
+  "paths": [
+    "tests/test_v5_truth.py",
+    "apps/explorer/tests/manifest.test.ts",
+    "docs/receipts/v5-r003-explorer-truth-repair-20261018.json"
+  ],
+  "authority": "Necessary repair of actual R003 full Python gate failure after G009 manifest-based explorer integration",
+  "boundary": "Only truth/contract tests; no application/evaluator/threshold/scientific-status changes. Retain legacy retraction and schematic-source tests where still applicable; require explicit current subject/artifact binding and reject legacy authored bundles or unbacked available pressure values.",
+  "observed_failure": {
+    "outer_log_sha256": "60de6a2bb3c24a53c8404a27bee877c87f802f3ffecc18ad604414805354a218",
+    "python_exit_code": 1,
+    "failures": 2,
+    "errors": 1,
+    "cause": "Three tests require removed legacy widgets/tab and authored-path renderer; new UI is manifest/subject/artifact-only."
+  }
+}

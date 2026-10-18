@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "kind": "v5_15_05_gvtx_admission",
+  "status": "not_admitted",
+  "evaluator_build_commit": "6ec58361b9359b0f1cd7188095b4010ed8abbede",
+  "requested_scope": "vortex-static (no scope is admitted)",
+  "admission": null,
+  "dataset": {"status": "none_accessed", "note": "no reference vortex dataset is accessible in the repository"},
+  "matching_evidence": null,
+  "flow_archives": {"enabled": false, "reason": "admission verdict is not Pass (judge: gvtx:not_admitted)"},
+  "revocation_rule": "Any change of evaluator build or withdrawal of the dataset revokes dependent ranking authority (judge_admission returns Unresolved).",
+  "judge": "pack_hydrocyclone_judges::validation::judge_admission(None, build, scope) -> Unresolved gvtx:not_admitted"
+}

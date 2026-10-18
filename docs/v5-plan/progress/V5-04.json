@@ -3,34 +3,59 @@
   "packet": "V5-04",
   "tasks": {
     "V5-04-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+          "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+        }
+      ]
     },
     "V5-04-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+          "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+        }
+      ]
     },
     "V5-04-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+          "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+        }
+      ]
     },
     "V5-04-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+          "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+        }
+      ]
     },
     "V5-04-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+          "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+        }
+      ]
     }
   }
 }

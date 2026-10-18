@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "kind": "v5_26_combined_completion_software_controls_only",
+  "task_ids": [
+    "V5-26-01",
+    "V5-26-02",
+    "V5-26-03",
+    "V5-26-04",
+    "V5-26-05"
+  ],
+  "owner": "61562.joil_v5_codex_lane2",
+  "state": "lane_complete",
+  "created_utc": "2026-10-18T09:28:00Z",
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "changed_paths": [
+    "crates/crucible-render/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "extract",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_result": "Frozen C006 source e1e9203 extracted to the existing lane target."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "build-frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "log_sha256": "560a68a7611ffe14f953565913a9e6df27229d3dbf13fc47e58d549d76920e14",
+      "expected_result": "Frozen joil-ir/core/cli artifacts built with the c006frozen profile."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-22",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
+      "expected_result": "Frozen C006 D-22 positive runtime control passed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-render"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2b94df2e8f18cb60b4935793667b960dc11735438d879499c921c5c8a657058d",
+      "expected_result": "12 crucible-render tests passed, 0 failed."
+    }
+  ],
+  "positive_checks": [
+    "The D-22 evidence-bound positive runtime control passed against frozen source e1e9203.",
+    "Locked offline crucible-render tests passed 12/12.",
+    "The tracked renderer source fixture is hash-bound to the executed defect control."
+  ],
+  "negative_checks": [
+    "Frozen-source red control returned the expected exit 1 when modal data were absent but a modal series was still plotted.",
+    "Renderer tests reject unsupported evidence and preserve unavailable states."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-render/src/lib.rs",
+      "sha256": "5738ec9164dcfca830b246848c14a12c786f1a7032c150167430352e686f1daf"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      38,
+      39
+    ],
+    "nice": 10,
+    "max_group_rss_gib": 6,
+    "max_scratch_gib": 2.5,
+    "cargo_build_jobs": 2,
+    "rayon_threads": 2,
+    "omp_openblas_mkl_threads": 1,
+    "rust_test_threads": 2,
+    "gpu": false,
+    "simulation": false,
+    "search_campaign": false,
+    "private_scratch_root": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls"
+  },
+  "limitations": [
+    "The positive modal perturbation is synthetic software evidence and does not establish structural modal frequencies or qualification.",
+    "The full workspace gate was not part of this scoped assignment."
+  ],
+  "next_dependency": "Integrator/validator acceptance; structural qualification and verified modal measurements remain external.",
+  "defect_controls": [
+    {
+      "defect_id": "D-22",
+      "fixture": {
+        "path": "crates/crucible-render/src/lib.rs",
+        "sha256": "5738ec9164dcfca830b246848c14a12c786f1a7032c150167430352e686f1daf"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "symbol": "modal plot",
+        "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos"
+        ],
+        "exit_code": 0,
+        "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
+        "expected_result": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed."
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8",
+        "expected_result": "C006-RED D-22 reports a modal series without evidence; exit 1."
+      }
+    }
+  ]
+}

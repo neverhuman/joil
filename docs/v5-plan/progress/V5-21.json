@@ -3,34 +3,64 @@
   "packet": "V5-21",
   "tasks": {
     "V5-21-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Fixed policy bookkeeping is not an end-to-end qualified grammar/evaluator search. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-21-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Qualified archive classes/descriptors still require admitted observer/evidence bindings. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-21-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Charged scheduling/operator interfaces have not driven a qualified native campaign. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-21-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Conventional controls are prototypes; competent tuning/fair useful-cost comparisons remain open. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-21-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Finite-front fixtures do not complete the full landscape/comparison programme. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

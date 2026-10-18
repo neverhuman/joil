@@ -1,0 +1,17 @@
+{
+  "protocol_id":"V5-28-mechanism-v1",
+  "status":"design-only; no accepted compiled candidate or flow field available",
+  "unit":"same compiled design subject under paired intervention cases",
+  "primary_hypothesis":"the nominated inlet-path module changes predeclared swirl and pressure observables through its geometry, rather than merely correlating with a design label",
+  "interventions":[
+    {"id":"intact","kind":"baseline","definition":"original compiled geometry"},
+    {"id":"knockout","kind":"compiled-geometry-knockout","definition":"remove nominated module and recompile; record all changed interfaces and repair magnitude"},
+    {"id":"sham","kind":"sham-edit","definition":"same compiler and edit path with geometry-preserving no-op"},
+    {"id":"rescue","kind":"rescue","definition":"restore removed module to knockout parent and require canonical geometry identity with intact"},
+    {"id":"matched-volume","kind":"control","definition":"remove equal fluid volume without removing the nominated module"},
+    {"id":"matched-area","kind":"control","definition":"remove equal wetted area while preserving module's nominated directional feature where feasible"}
+  ],
+  "outcomes":["mass-flow-weighted angular momentum flux at fixed planes", "swirl number using frozen definition", "pressure loss on each outlet", "water and oil inventory closure if an oil adapter is validated"],
+  "independent_unit":"independent mesh family and solver initialization; cells, frames and generations are not n",
+  "limitations":["knockout geometry may change several coupled variables", "matched controls may be infeasible and must be reported", "deletion improvement alone is not causal proof", "flow changes support a mechanism only within accepted model and validation envelope"]
+}

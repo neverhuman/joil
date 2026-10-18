@@ -1,0 +1,366 @@
+{
+  "schema_version": 1,
+  "kind": "additive_receipt_integration_review_not_blanket_completion",
+  "created_utc": "2026-10-18T10:58:48.704329+00:00",
+  "owner": "codex-v5-integrator",
+  "task_ids": [
+    "V5-04-01",
+    "V5-04-02",
+    "V5-04-03",
+    "V5-04-04",
+    "V5-04-05",
+    "V5-08-01",
+    "V5-08-02",
+    "V5-08-03",
+    "V5-08-04",
+    "V5-08-05",
+    "V5-09-01",
+    "V5-09-02",
+    "V5-09-03",
+    "V5-09-04",
+    "V5-09-05",
+    "V5-10-01",
+    "V5-10-02",
+    "V5-10-03",
+    "V5-10-04",
+    "V5-10-05",
+    "V5-11-01",
+    "V5-11-02",
+    "V5-11-03",
+    "V5-11-04",
+    "V5-11-05",
+    "V5-12-01",
+    "V5-12-02",
+    "V5-12-03",
+    "V5-12-04",
+    "V5-12-05",
+    "V5-13-01",
+    "V5-13-02",
+    "V5-13-03",
+    "V5-13-04",
+    "V5-13-05",
+    "V5-16-01",
+    "V5-16-02",
+    "V5-16-03",
+    "V5-16-04",
+    "V5-16-05",
+    "V5-17-01",
+    "V5-17-02",
+    "V5-17-03",
+    "V5-17-04",
+    "V5-17-05",
+    "V5-21-01",
+    "V5-21-02",
+    "V5-21-03",
+    "V5-21-04",
+    "V5-21-05",
+    "V5-22-01",
+    "V5-22-02",
+    "V5-22-03",
+    "V5-22-04",
+    "V5-22-05",
+    "V5-23-01",
+    "V5-23-02",
+    "V5-23-03",
+    "V5-23-04",
+    "V5-23-05",
+    "V5-24-01",
+    "V5-24-02",
+    "V5-24-03",
+    "V5-24-04",
+    "V5-24-05",
+    "V5-25-01",
+    "V5-25-02",
+    "V5-25-03",
+    "V5-25-04",
+    "V5-25-05",
+    "V5-26-01",
+    "V5-26-02",
+    "V5-26-03",
+    "V5-26-04",
+    "V5-26-05",
+    "V5-27-01",
+    "V5-27-02",
+    "V5-27-03",
+    "V5-27-04",
+    "V5-27-05",
+    "V5-28-01",
+    "V5-28-02",
+    "V5-28-03",
+    "V5-28-04",
+    "V5-28-05",
+    "V5-29-01",
+    "V5-29-02",
+    "V5-29-03",
+    "V5-29-04",
+    "V5-29-05",
+    "V5-30-01",
+    "V5-30-02",
+    "V5-30-03",
+    "V5-30-04",
+    "V5-30-05",
+    "V5-31-01",
+    "V5-31-02",
+    "V5-31-03",
+    "V5-31-04",
+    "V5-31-05"
+  ],
+  "tested_commit": "b8f436c322b2e000e1501f547a848afab40e241b",
+  "tested_tree": "dc7439f182a6e2c33de5dfec478cf34489076bfc",
+  "changed_paths": [
+    "docs/receipts/v5-04-combined-acceptance-20261018.json",
+    "docs/receipts/v5-08-02-d16-completion-20261018.json",
+    "docs/receipts/v5-09-d05-completion-20261018.json",
+    "docs/receipts/v5-26-d22-completion-20261018.json",
+    "docs/receipts/v5-28-d31-completion-20261018.json",
+    "docs/receipts/v5-10-completion-20261018.json",
+    "docs/receipts/v5-11-d25-completion-20261018.json",
+    "docs/receipts/v5-13-02-d07-control-20261018.json",
+    "docs/receipts/v5-16-02-d14-control-20261018.json",
+    "docs/receipts/v5-23-04-d18-control-20261018.json",
+    "docs/receipts/v5-31-d30-completion-20261018.json",
+    "docs/receipts/v5-remaining-packets-completion-20261018.json",
+    "docs/v5-plan/execution/V5-R003-WAVE34-SCOPE.md",
+    "docs/v5-plan/PR_HANDOFF.md",
+    "docs/release/v5/README.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "/home/ubuntu/joil/.private/v5-workers/codex/g009_r003_validate_imported_receipts.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.045687130012084,
+      "log_sha256": "146b355f92d23087f7c752e96a9b2ad8209e4ed34ce0ea1f0d7b9ab5ab525615",
+      "raw_log": "private:codex/g009-r003-imported-receipt-validation.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.3274988749762997,
+      "log_sha256": "4ada1f22efb7de575bda8e1fd6f6f16574be3e54b58479d3796f774b504a4a49",
+      "raw_log": "private:codex/g009-r003-wave34-import-public.log"
+    }
+  ],
+  "positive_checks": [
+    "All twelve imported receipt files match the exact original bytes in the five designated audited commits.",
+    "All 87 command-log digests resolve and match; 269 artifact references match their declared source/private bytes.",
+    "100 structural receipt-reference checks pass. This is source/control/reference validation, not original task acceptance.",
+    "Actual source statistics and kernel verification is recorded in separate task-acceptance receipts; broad schema normalizations are not accepted for completion."
+  ],
+  "negative_checks": [
+    "Four executed policy checks reject ordinary D-07/D-18 completion references without executed controls and reject promoting their integration-only references to done.",
+    "Independent artifact checks detect four exceptions: an older explorer snapshot and an absent release document, repeated in two lane4 normalizations.",
+    "D-16 reproduces a frozen wall-authority discrepancy; missing accepted boundary artifacts and the third CAD authority remain unresolved. No physical geometry repair closure is inferred."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/receipts/v5-04-combined-acceptance-20261018.json",
+      "sha256": "6d73dcd0450376d02c07da74de3186badfb57722f422a20a5d551dc966a085e1"
+    },
+    {
+      "path": "docs/receipts/v5-08-02-d16-completion-20261018.json",
+      "sha256": "5eb42f52d624c47b5ae97ca4db814a9aa65de23c6a28d941af3ca7593e6d6c53"
+    },
+    {
+      "path": "docs/receipts/v5-09-d05-completion-20261018.json",
+      "sha256": "a76567518f10c7ed3088e6e21ef28d3c3806f7eedad685cbaca32e94dd34c121"
+    },
+    {
+      "path": "docs/receipts/v5-26-d22-completion-20261018.json",
+      "sha256": "490d30ac6d5a7d4e5c1f361afbaa87411161bac6d26cdc46ab216a73630c4c9e"
+    },
+    {
+      "path": "docs/receipts/v5-28-d31-completion-20261018.json",
+      "sha256": "6a279fdd8faa88c8b247679d1f60e2eaa900af153be2f487e0e681c26ba970bd"
+    },
+    {
+      "path": "docs/receipts/v5-10-completion-20261018.json",
+      "sha256": "a00596b8b1cbf60b55c1a4503827724ac4b435e09e9612f5e4e9b4529c671c7c"
+    },
+    {
+      "path": "docs/receipts/v5-11-d25-completion-20261018.json",
+      "sha256": "e42fb8dcc7d5e7201b3ee136c0701d9d2d48aabfc722fcdb65245854b1f95fb1"
+    },
+    {
+      "path": "docs/receipts/v5-13-02-d07-control-20261018.json",
+      "sha256": "5a93f98db72521ddddce543c78b9977a742adf1831cd99a7b80ba8a0bb8425fe"
+    },
+    {
+      "path": "docs/receipts/v5-16-02-d14-control-20261018.json",
+      "sha256": "dceedbfe032a2d959f320ad39abf6655a95bd103cec19079830cd13b6f758e5e"
+    },
+    {
+      "path": "docs/receipts/v5-23-04-d18-control-20261018.json",
+      "sha256": "03b3205c6259900c800febbd19f66d49a827a63a63bfa8a70fd5ad83e4a8209e"
+    },
+    {
+      "path": "docs/receipts/v5-31-d30-completion-20261018.json",
+      "sha256": "4d8f6918583137817eb5b7acd194bc37e60827f56ea67582121709ce68da6214"
+    },
+    {
+      "path": "docs/receipts/v5-remaining-packets-completion-20261018.json",
+      "sha256": "1834371be59f6aa465672000bcf5c9295fb63ce8792d225a8d33851e77e5613e"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-R003-WAVE34-SCOPE.md",
+      "sha256": "add5d3076787a7ba9347256ed9270b09809a74a0f161d707ac7906f11edacf3c"
+    }
+  ],
+  "worker_receipt_sources": [
+    {
+      "path": "docs/receipts/v5-04-combined-acceptance-20261018.json",
+      "source_commit": "f388055bc06618c4320149a0c6a626527e2671c8",
+      "sha256": "6d73dcd0450376d02c07da74de3186badfb57722f422a20a5d551dc966a085e1"
+    },
+    {
+      "path": "docs/receipts/v5-08-02-d16-completion-20261018.json",
+      "source_commit": "c6d708df935f780f20221fbb99b88b514d46651c",
+      "sha256": "5eb42f52d624c47b5ae97ca4db814a9aa65de23c6a28d941af3ca7593e6d6c53"
+    },
+    {
+      "path": "docs/receipts/v5-09-d05-completion-20261018.json",
+      "source_commit": "3d205a76e1275745c85e09454c816ba68f5b0fa0",
+      "sha256": "a76567518f10c7ed3088e6e21ef28d3c3806f7eedad685cbaca32e94dd34c121"
+    },
+    {
+      "path": "docs/receipts/v5-26-d22-completion-20261018.json",
+      "source_commit": "3d205a76e1275745c85e09454c816ba68f5b0fa0",
+      "sha256": "490d30ac6d5a7d4e5c1f361afbaa87411161bac6d26cdc46ab216a73630c4c9e"
+    },
+    {
+      "path": "docs/receipts/v5-28-d31-completion-20261018.json",
+      "source_commit": "3d205a76e1275745c85e09454c816ba68f5b0fa0",
+      "sha256": "6a279fdd8faa88c8b247679d1f60e2eaa900af153be2f487e0e681c26ba970bd"
+    },
+    {
+      "path": "docs/receipts/v5-10-completion-20261018.json",
+      "source_commit": "ccab682e28f11424171cd3eee15970fff8d02db5",
+      "sha256": "a00596b8b1cbf60b55c1a4503827724ac4b435e09e9612f5e4e9b4529c671c7c"
+    },
+    {
+      "path": "docs/receipts/v5-11-d25-completion-20261018.json",
+      "source_commit": "ccab682e28f11424171cd3eee15970fff8d02db5",
+      "sha256": "e42fb8dcc7d5e7201b3ee136c0701d9d2d48aabfc722fcdb65245854b1f95fb1"
+    },
+    {
+      "path": "docs/receipts/v5-13-02-d07-control-20261018.json",
+      "source_commit": "c005bcc8fb2b6440c48bb5b2b7abc1e002473010",
+      "sha256": "5a93f98db72521ddddce543c78b9977a742adf1831cd99a7b80ba8a0bb8425fe"
+    },
+    {
+      "path": "docs/receipts/v5-16-02-d14-control-20261018.json",
+      "source_commit": "c005bcc8fb2b6440c48bb5b2b7abc1e002473010",
+      "sha256": "dceedbfe032a2d959f320ad39abf6655a95bd103cec19079830cd13b6f758e5e"
+    },
+    {
+      "path": "docs/receipts/v5-23-04-d18-control-20261018.json",
+      "source_commit": "c005bcc8fb2b6440c48bb5b2b7abc1e002473010",
+      "sha256": "03b3205c6259900c800febbd19f66d49a827a63a63bfa8a70fd5ad83e4a8209e"
+    },
+    {
+      "path": "docs/receipts/v5-31-d30-completion-20261018.json",
+      "source_commit": "c005bcc8fb2b6440c48bb5b2b7abc1e002473010",
+      "sha256": "4d8f6918583137817eb5b7acd194bc37e60827f56ea67582121709ce68da6214"
+    },
+    {
+      "path": "docs/receipts/v5-remaining-packets-completion-20261018.json",
+      "source_commit": "c005bcc8fb2b6440c48bb5b2b7abc1e002473010",
+      "sha256": "1834371be59f6aa465672000bcf5c9295fb63ce8792d225a8d33851e77e5613e"
+    }
+  ],
+  "artifact_source_exceptions": [
+    {
+      "receipt": "docs/receipts/v5-31-d30-completion-20261018.json",
+      "declared_tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+      "artifact": {
+        "path": "apps/explorer/public/evidence-manifest.json",
+        "expected": "562a55fe72e3ad192c3744d2800d5e2483717354ecf77fb1ffe841cfe8ed4751",
+        "actual": "b12f224c31b3cec309e5aa2df8dc8e0c0bcd36e6bfea5dce5db5628b6f7bf4a3",
+        "status": "MISSING_OR_MISMATCH_SOURCE"
+      }
+    },
+    {
+      "receipt": "docs/receipts/v5-31-d30-completion-20261018.json",
+      "declared_tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+      "artifact": {
+        "path": "docs/v5-plan/RELEASE_AND_RETENTION.md",
+        "expected": "f66231f8329034b37238871433dd87e2251db6e912133f867b564b66531a09da",
+        "actual": null,
+        "status": "MISSING_OR_MISMATCH_SOURCE"
+      }
+    },
+    {
+      "receipt": "docs/receipts/v5-remaining-packets-completion-20261018.json",
+      "declared_tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+      "artifact": {
+        "path": "apps/explorer/public/evidence-manifest.json",
+        "expected": "562a55fe72e3ad192c3744d2800d5e2483717354ecf77fb1ffe841cfe8ed4751",
+        "actual": "b12f224c31b3cec309e5aa2df8dc8e0c0bcd36e6bfea5dce5db5628b6f7bf4a3",
+        "status": "MISSING_OR_MISMATCH_SOURCE"
+      }
+    },
+    {
+      "receipt": "docs/receipts/v5-remaining-packets-completion-20261018.json",
+      "declared_tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+      "artifact": {
+        "path": "docs/v5-plan/RELEASE_AND_RETENTION.md",
+        "expected": "f66231f8329034b37238871433dd87e2251db6e912133f867b564b66531a09da",
+        "actual": null,
+        "status": "MISSING_OR_MISMATCH_SOURCE"
+      }
+    }
+  ],
+  "audit029_dispositions": {
+    "D07_D18_withdrawal_sentence": "Retain as explicit historical withdrawal, not evidence or defect closure. Both tasks remain blocked.",
+    "D30_duplicate_role_logs": "Different matching historical executions remain separately identified in immutable originals; do not rebind one run as another.",
+    "cross_lane_reads": "Original D30 references to integrator producer/test binary are read dependencies; retain original argv and producer provenance, do not claim lane-local execution.",
+    "exit_sidecars": "Previously missing lane1 kernel-requested exit101 and lane3 D25 positive0/red1 sidecars are present; this does not turn a failed or unexecuted command into success.",
+    "missing_release_document": "Absent from declared tested source, delivered branch, both worktrees and all available Git history for the path. Not reconstructed; current docs/release/v5 contracts are separate real artifacts."
+  },
+  "private_binding_reviews": [
+    {
+      "path": "private:codex/g009-r003-wave34-independent-binding-review.json",
+      "sha256": "a3944e9d78fd86d2ee2f63dce2c120e1740f24919956544049d24d43c026d87e"
+    },
+    {
+      "path": "private:codex/g009-r003-wave34-additional-log-bindings.json",
+      "sha256": "213531f971442bae11bbfeb44d4537bc334592db01cc7915dbbd8a6c25920751"
+    },
+    {
+      "path": "private:codex/g009-r003-imported-receipt-validation.json",
+      "sha256": "3d31bbe9d5a61bbba7fc3fc7bbd713af6303f5d5ddefa69657573fa8566f77ff"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpu_ids": [
+      32,
+      33
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 6.0,
+    "pre_gate_threshold_bytes": 5000000000,
+    "cargo_build_jobs": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "lease_sha256": "83a040ba8f61f6f7568e3d5618d3c29ad13290a8cb75b011fe768f9d3a8b9685"
+  },
+  "limitations": [
+    "Original acceptance criteria and dependency order remain in force. A completion-shaped task list does not prove them.",
+    "This supporting receipt can be referenced only by blocked tasks. D-07/D-18 and V5-00-03 audit holds are unchanged.",
+    "Geometry authority, native/physical evidence, optional accelerator/operator admission and the release programme remain limited as documented in the original G009 receipt and release contracts.",
+    "Full final successor-head suites, public/index review and exact-head CI remain required; only Jepson merges."
+  ],
+  "next_dependency": "Accept only demonstrably completed software tasks; resolve recorded authority/native/data dependencies for blocked tasks, run final exact-head gates, publish one draft successor and verify its CI.",
+  "packet_acceptance": false,
+  "scientific_admission": false
+}

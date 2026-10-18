@@ -1,40 +1,25 @@
-# Single-PR preparation and execution handoff
+# V5 single-PR integration handoff
 
-Base: public `main@cc86edc90d06f0eac69022f84354abc94bb453c4`. Branch: `codex/v5-engineering-plan`. This request prepares the complete engineering plan and tracker; it does not execute 160 future tasks. Keep one draft integration PR. The owner may continue implementation on that PR or direct a later branch strategy; do not open separate lane PRs automatically.
+The owner merged [PR #6](https://github.com/neverhuman/joil/pull/6) at `b9966a2740efdb346a026ce782e6f50487196799` on 2026-10-18 at 09:55:57Z, producing main commit `2ad079567bd1967ae7a93cab64249776157c65d3`. Remaining work uses one focused draft successor on `codex/v5-g009-post-pr6`; its exact URL, pushed SHA and check receipts are recorded in COORD and the publication receipt. Jepson alone merges. Preserve original main `cc86edc90d06f0eac69022f84354abc94bb453c4`, frozen plan `e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0`, historical journals and immutable receipts. The original integration branch is preserved at tested `24e7e29f4162d35ef48543fcfe086e2e55221f90`. No tag, force push, lane PR or update to remote main is part of this delivery.
 
-## Prepared content
+## Delivered software and its boundary
 
-- Master-plan addendum and work-packet pointer preserve P00–P10 and the original master snapshot.
-- Ten-source manifest, section coverage, substantive reconciliation, code-anchor audit and all-31-defect traceability.
-- Detailed engineering workplan, inputs/risks, validation/receipt protocol and 32 individual TODO files with 160 ordered tasks.
-- Machine-readable task/progress/catalogue data and deterministic standard-library build/check/update tool.
-- Standalone searchable offline HTML dashboard with canonical progress, dependencies, release boundaries and browser-local draft notes.
-- Scope claim and immutable preparation/handoff receipt(s), with checks and SHA-256 records.
+All selected lane software is integrated with original tested ancestry: statistics and geometry; program development/operators; material, structural and transport judges; validation/metrics; deterministic search/acquisition; worker protocol; CPU accelerator references; optional liner response logic; scenes/recipes; the evidence explorer; exact paper queries; bracket reuse; and physical-protocol reduction/dossier software. The integrator reproduced and repaired independent invalid-input, conservation, provenance, timer, restart and revocation cases. Shared Cargo roots/lockfiles, exports, CI and generated views are serialized by the integrator.
 
-## Existing work to preserve
+This remains partial R1 software support. R2 computational comparison, R3 discovery and R4 physical qualification are not admitted. See [release scope](../release/v5/README.md), [migration](../release/v5/MIGRATION.md), [verification](../release/v5/VERIFICATION.md) and [open inputs/owners](../release/v5/OPEN_INPUTS.md). Legacy reproduction paths remain because native parity is incomplete; no unavailable mesh, measurement, original log or governing input is reconstructed from a matching scalar.
 
-The xbabe2 primary checkout started on `feat/joil-v4-truth-evidence@fdff5bad9475277a9bed5e3a4612fd5e990580dc` with an unrelated modified `COMMS.md`. The Mac `~/joil` mirror started on older `codex/baseline-physics` with untracked prototype/review files. No reset, clean, stash, broad stage, forced pull, automatic branch deletion or modification of those prototypes is permitted. Use a separate branch/checkout and additive mirrors; preserve the pre-existing journal bytes. Root COORD remains primary.
+Canonical task records are `progress/*.json`, updated only with `tools/v5_plan.py`. Blocked integration-only evidence records software work without satisfying original defect closure or accepted dependencies. The generated dashboard and default explorer source snapshot derive from those same records. Attempts, spend, reservations, subjects and scientific observations stay absent when no source supplies them. Software progress does not establish a scientific release.
 
-If primary `~/joil` cannot safely switch because another owner is active, leave its branch unchanged and save the package additively there; use the isolated prepared checkout for Git operations. Record exact path/branch in the delivery receipt. Do not claim the primary tree is clean when its pre-existing journal remains dirty.
+V5-00-03 remains AUDIT-HELD on D-07/D-18/D-21. D-28/D-29 dispositions are alternatives, not executed controls. TR-16/EV-09/EV-12 remain deferred. Optional accelerators/operators are not admitted; reference fallback logic is not a qualified native solve. No simulation campaign, GPU execution, fabrication, spending, physical collection, outside message or installation authorization was performed.
 
-## Exact review and push procedure
+## Review and publication
 
-```sh
-rtk git status --short --branch
-rtk proxy python3 tools/v5_plan.py check
-rtk proxy python3 -m unittest discover -s tests -p test_v5_plan.py -v
-rtk proxy python3 tools/gen_status.py --check
-rtk proxy python3 tools/check_public.py
-rtk git diff --check
-rtk git diff --stat
-```
+Every selected integration is covered by original lane receipts plus an additive integrator receipt naming tested commit/tree identities, deliberate changed paths, actual command outcomes, private raw-log hashes, positive/negative controls, resources and remaining dependencies. Original receipts are never rewritten. In particular, the V5-17 merge deliberately preserves the integrator's first-parent force/injection/inventory repairs rather than restoring its lane's older V5-16 base; fresh transport/model controls and the final full gate must cover those exact bytes.
 
-Stage only the reviewed plan paths: `docs/v5-plan/`, `docs/WORKPLAN-2026-10-17.md`, master/work-packet pointers, `tools/v5_plan.py`, `tools/v5_dashboard.html`, `tests/test_v5_plan.py` and named `docs/receipts/P00-v5-plan-*`. Inspect the cached diff before committing. Source input copies stay under `.private/v5-plan-inputs/`; never stage them. Run the public scan before every push. Push this one branch without force, create one draft PR against main with `docs/v5-plan/PR_DESCRIPTION.md`, and attach its returned URL to the chat.
+The Wave 3/4 import retains twelve exact audited receipts. Their schema checks and frozen-source controls do not establish every task criterion. Two lane4 normalization receipts cite an older explorer snapshot and an absent release document; the additive review records those exceptions rather than reconstructing evidence. D-07 and D-18 retain the explicit withdrawal of assertion-inversion controls and remain blocked. See [the scoped integration record](execution/V5-R003-WAVE34-SCOPE.md).
 
-After push, inspect checks for the exact pushed SHA. The existing foundation workflow exercises Rust, Python, public checks, generated scientific status and explorer build. This planning PR does not change the workflow. If an unrelated baseline issue appears, document it rather than silently claiming all checks passed. A green software workflow does not establish scientific qualification. Leave merge to the owner.
+Run all eight official suites on the final frozen source, plus plan generation/checks, explorer generation/freshness, generated scientific status, public scan and whitespace/index review. Prelink and strip new executables within the provided worker target, preserving Cargo metadata, hardlinks, nanosecond mtimes and accepted artifacts. Retain failed/interrupted receipts honestly. A stopped run has no inferred result.
 
-## Worker continuation
+Before normal push, confirm an existing successor PR is open/draft and its source branch matches. If none exists, create exactly one focused draft after the reviewed branch is pushed. Review selected staged paths, run the public scan, push without force, and verify both remote and PR head. Never push to the merged PR #6 branch expecting a new review. The PR body and private publication receipt identify the exact final SHA and gate digest, avoiding a self-referential receipt. Assess GitHub Actions separately for that exact head; b9966a2 run 39109153451 certifies only the old checkpoint. The fresh eight-suite local gate at 24e7e29 also belongs to that exact SHA, even though successor merge 26afbcf preserves its tree. The final successor tip requires its own full gate and CI.
 
-Start V5-00-01 after reading root rules/coordination and claiming scope. Complete tasks in order; dependencies require accepted packet receipts. New workspace packages and shared types land through integrator commits before workers execute the planned commands. Keep packet progress files disjoint; integrator rebuilds shared views. Avoid a “complete all milestones” autonomous run before requirements, data and leases have been admitted.
-
-Every handoff names tested commit, changed files, exact commands/exit codes, log/artifact hashes, positive/negative checks, actual resource allocation, evidence eligibility, limitations and next dependency. Preserve unavailable/stale evidence and negative results. Do not create a self-referential receipt hash: a receipt can refer to the preceding tested source commit; its own final inclusion is verified by the later delivery/CI head and Git history.
+Primary COMMS and independently dirty files remain untouched. Only guarded known plan/receipt paths are mirrored, with prior hashes checked before replacement. Root COORD is the append-only live channel under the agreed locks. Raw evidence, process inventories and backup roots remain private. Stop an affected scientific claim on missing mandatory inputs; continue independent authorized software work under the lease. All remaining physical/native acceptance is assigned to the owners in OPEN_INPUTS.md.

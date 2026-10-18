@@ -1,0 +1,1014 @@
+{
+  "schema_version": 1,
+  "kind": "v5_packet_completion_receipt",
+  "owner": "codex_lane4",
+  "model": "gpt-6-luna medium (T0)",
+  "tested_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3eabeae2b2c819d52304339403628d5477753d11c267f893e75e1253f39dcf75",
+      "raw_log": "private:codex/g009-judges-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "cd2c46eaefcc711fa74137b26a31cb5aba3ea10f08cc29e3ea04170348030333",
+      "raw_log": "private:codex/g009-judges-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "-p",
+        "crucible-gpu",
+        "-p",
+        "crucible-fea",
+        "-p",
+        "crucible-lbm"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ce2d5f53849f51e0cd51fc1986d0f1ef9b7d6098e3cd731627130f981847d321",
+      "raw_log": "private:codex/g009-model-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "-p",
+        "crucible-gpu",
+        "-p",
+        "crucible-fea",
+        "-p",
+        "crucible-lbm",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "95eae9c0369481215092888ffdfb4ce99e96070b6fd6eefc17671db84d8da977",
+      "raw_log": "private:codex/g009-model-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-search"
+      ],
+      "exit_code": 0,
+      "log_sha256": "4f2091d687e401d50b96085cf7cb122688fafacaf772695ca1c1a693c9a24c04",
+      "raw_log": "private:codex/g009-search-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-search",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "7270f494e2009b9f2aaa007b47a3700b88ec97a3258ae20a7fad6e0ee59bb80f",
+      "raw_log": "private:codex/g009-search-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket"
+      ],
+      "exit_code": 0,
+      "log_sha256": "36231ce91015731256bedf573f7c83c49b5ae739c15b3e87fe35f52fd7ec99df",
+      "raw_log": "private:codex/g009-bracket-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "-u",
+        "CARGO_TARGET_DIR",
+        "/home/ubuntu/joil/.private/v5-workers/codex/target/debug/deps/reuse_proof-70c438eb2b728fa4",
+        "--exact",
+        "compatible_observation_reuses_exact_cache_and_bolt_change_misses"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f6b91efeea350344a6605a6133182ed741717187d817c4a45aafe33a1303783b",
+      "raw_log": "private:codex/g009-bracket-without-lane-env-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "577c3f51837dd7505896e79cdf45b84246a4f653a52debc2dc22ea2f42a1e461",
+      "raw_log": "private:codex/g009-bracket-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "analysis/validation/v5/tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e7952a4a7ca63324ae09c787578650c817e6be5506e23ac177cf815f341be405",
+      "raw_log": "private:codex/g009-protocol-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "JOIL_C006_FROZEN_RUST_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-render",
+        "-p",
+        "crucible-paper",
+        "-p",
+        "crucible-cli"
+      ],
+      "exit_code": 0,
+      "log_sha256": "407022cd683c6c47fb588fe7bd3cf76b8fe5db8c9e74aea6d6521e9615e3cf8a",
+      "raw_log": "private:codex/g009-render-paper-cli-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "render/blender/test_plate.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "eb156548b64cfc5c3db226cd36252a22062328b09722704017161af32312bfa1",
+      "raw_log": "private:codex/g009-render-python-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--lib"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c1f946d33ef8fdf1e9592c8848f089a0dc1a93a4745bb9c35f3b8ee5935766e8",
+      "raw_log": "private:codex/g009-cli-inspection-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-render",
+        "-p",
+        "crucible-paper",
+        "-p",
+        "crucible-cli",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "4605927fc7efde13660ced88b3b718ed8d78a8a8b5c8ec58dba7ce873f42895a",
+      "raw_log": "private:codex/g009-final-lane-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "ui"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ba330792294a513ffe2663c0d06991906422c18add294f72ce19487453b411e6",
+      "raw_log": "private:codex/g009-explorer-default-ui-build.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_integrated_fixtures.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "dd29775a91e93196da3cf91ce7b2e27f10474de927be24fa7f8afd43dd42559a",
+      "raw_log": "private:codex/g009-imported-python-integration.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_explorer_manifest.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8cd6d1220c5dd535b33af4b238988c4269b1baa84bb0aa10494c8bc7eb533c5a",
+      "raw_log": "private:codex/g009-explorer-generated-view-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3da5c107854a849d6498caa1e69c32d96935d597dafad1306ca5e3b4de59f62",
+      "raw_log": "private:codex/g009-supporting-evidence-positive.log"
+    },
+    {
+      "name": "operators_test",
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-genome",
+        "--test",
+        "operators"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b225acb32b55cf3ea4efa2af93affb7c718d4e535516269043462538a549cecc",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/operators.log"
+    },
+    {
+      "name": "crate_tests",
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-genome"
+      ],
+      "exit_code": 0,
+      "log_sha256": "bccc039b9bd60f7a95310b5461a5493eb0b0819268d657660cfc1ee9d3fd2bb8",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/crucible-genome.log"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "rtk",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-genome",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8241e649deb3f7ecbb7a92db99f1b1cc52df9ed9ea8cfd5a0fa0d466e4a1ff23",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/clippy.log"
+    },
+    {
+      "name": "fmt",
+      "argv": [
+        "rtk",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/fmt.log"
+    },
+    {
+      "name": "public_scan",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6d556b76f037e6708da11c2327030ff774b7be7a6c102d1fe4848ac14c09df80",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/check_public.log"
+    },
+    {
+      "name": "diff_check",
+      "argv": [
+        "rtk",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9fa3b6ead7afc298499f30c5b70014c78b6686a8269611537606fa5a7c02b6a2",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/diff-check.log"
+    },
+    {
+      "name": "frozen_source_extract",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "extract",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/extract.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "frozen_rust_build",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "build-frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/build-frozen-rust.log",
+      "log_sha256": "6f8bd8421708ca75353bf0bb2d759264c38065a5b873c797261638f8ce3748c9"
+    },
+    {
+      "name": "plan_check",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/plan-check.log",
+      "log_sha256": "96caf3d1aba32106af18eda5effe53ab06cdaa9fe5d9c74d19ea9fa610d7311c"
+    }
+  ],
+  "positive_checks": [
+    "Normalized all zero-exit commands and artifacts from the G009 integration receipt and V5-12 lane receipt.",
+    "The requested nine packets map to 45 task IDs; none is assigned a source_only_inventory defect gate."
+  ],
+  "negative_checks": [
+    "Source receipts retain explicit software-only limitations, non-admission states and open dependencies; no physical or scientific PASS is claimed."
+  ],
+  "artifacts": [
+    {
+      "path": ".github/workflows/foundation.yml",
+      "sha256": "ea9e8ec3c69b1271ceaf1512f424fb1ed713ef45bf7d92ccb97016b78fa2ac7f"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "125d5d2e835b4e2471aec54a601e5142932773875e3b2414309607991c1e824f"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "92707395f349e3cece92745a73e328ddfffc6fda62ca6ed1edee61d431b5577b"
+    },
+    {
+      "path": "analysis/validation/v5/__init__.py",
+      "sha256": "5b8257f37c314bb1367711019ffa842fe17b901e5f6dc4a202b2a02712ce7b75"
+    },
+    {
+      "path": "analysis/validation/v5/dossier.schema.json",
+      "sha256": "e6ee0ed68bb29a7f8f70576b335d18c5238f09fdfa11fce3004f04305d68e7fb"
+    },
+    {
+      "path": "analysis/validation/v5/protocol.py",
+      "sha256": "cb910dac1e589cef7d4501d4a2668b0dab90984b0eb317cf11fae77c19fff883"
+    },
+    {
+      "path": "analysis/validation/v5/public_export.schema.json",
+      "sha256": "3ea888082c88f8a5b001f5d7cca84068de5e4479ddb11aa1ab3f080ffe27568b"
+    },
+    {
+      "path": "analysis/validation/v5/tests/test_protocol.py",
+      "sha256": "a2029614364f79309a8476e1b3ef5aa20018c1f4139ec8ec8ffe34034b4acfe2"
+    },
+    {
+      "path": "apps/explorer/package.json",
+      "sha256": "5a0ca4849fbb3c459fe064b2b5c9eb8fd0419df425c79df427ffa007def88e7d"
+    },
+    {
+      "path": "apps/explorer/public/evidence-manifest.json",
+      "sha256": "562a55fe72e3ad192c3744d2800d5e2483717354ecf77fb1ffe841cfe8ed4751"
+    },
+    {
+      "path": "apps/explorer/public/v5/source-286846e11df7827f9a06e4c2e099ac936ef0ac11790edd25a97d6124c215dfcd.json",
+      "sha256": "286846e11df7827f9a06e4c2e099ac936ef0ac11790edd25a97d6124c215dfcd"
+    },
+    {
+      "path": "apps/explorer/src/Viewport3D.tsx",
+      "sha256": "ef07e4b4964195f8f252bf08be9d3d6472019163aed731039908d079cafe77ad"
+    },
+    {
+      "path": "apps/explorer/src/contracts.ts",
+      "sha256": "d47a65a0cb600cd05784c4b93143de09ebfb75818ef19585f5fc5312fec0270c"
+    },
+    {
+      "path": "apps/explorer/src/main.tsx",
+      "sha256": "dd30d3f0901f53453c86306c283b6a4354daecee98880c7f0aaa3335358e9f78"
+    },
+    {
+      "path": "apps/explorer/src/style.css",
+      "sha256": "97e677cc9c25daad325071330dcabce55c6478ea59a0920fe44fb6bbcc11bbf2"
+    },
+    {
+      "path": "apps/explorer/tests/manifest.test.ts",
+      "sha256": "2711914e7945e2b129c4ef9720b45f48345e67c8d8d819adb15309a89ad788ae"
+    },
+    {
+      "path": "campaigns/bracket-v5-fixture.toml",
+      "sha256": "c4988321974da00896dc6de278fb44545afcdda4c08af4ddbc94143811fdd988"
+    },
+    {
+      "path": "crates/crucible-adapters/Cargo.toml",
+      "sha256": "185b36823e29b7726e08971797885383521b649560b0c4e075cfe9b2c8981d43"
+    },
+    {
+      "path": "crates/crucible-cli/src/explore.rs",
+      "sha256": "d7fafc7728bf3ae0ae3dbb4f8c2cd03c0805361558429699884234bc0b366b0f"
+    },
+    {
+      "path": "crates/crucible-cli/src/lib.rs",
+      "sha256": "36f1fb96e442ed048fba61b8e8bb0296b03ec7c34ea6855c8e19f2195c4759a1"
+    },
+    {
+      "path": "crates/crucible-cli/src/main.rs",
+      "sha256": "5500e82d57c69cd0dc41d36eb86d1c0a6817447e65fde6b73fa4db1fe66bc4e4"
+    },
+    {
+      "path": "crates/crucible-fea/Cargo.toml",
+      "sha256": "e2c84e7c9328177e0d094951ea427bbc5e71a1d8e65c1907944cadd97af6243b"
+    },
+    {
+      "path": "crates/crucible-fea/src/lib.rs",
+      "sha256": "4b01f682cef4bda1353d938ee1eea59eb106f6bdab8d3109b261eaabaab4171a"
+    },
+    {
+      "path": "crates/crucible-gpu/Cargo.toml",
+      "sha256": "00ba17cc6ea826f74e8f02b692698bb3990395330b85640ac6d066e4862b50ab"
+    },
+    {
+      "path": "crates/crucible-gpu/src/lib.rs",
+      "sha256": "206bef50df95e41380c725f594e62c2272ed7c2747ba7dd75d4bcee2ea5dc492"
+    },
+    {
+      "path": "crates/crucible-lbm/Cargo.toml",
+      "sha256": "91bcca3a28c1b247c392c849a237ed17de046a407d4a97ad58e0702aebc989c3"
+    },
+    {
+      "path": "crates/crucible-lbm/src/lib.rs",
+      "sha256": "b0c1258d1d575a275d57a440f94f9fca05114a4a53bcbec1325f818d44778bf7"
+    },
+    {
+      "path": "crates/crucible-paper/Cargo.toml",
+      "sha256": "d054d7521a51fdb8c7567a27112483f4f50f40f68c2c55cb694b04a8c884d064"
+    },
+    {
+      "path": "crates/crucible-paper/src/bin/paper-build.rs",
+      "sha256": "1d23f81e89e561933175b548425ddde3e6af24e00dca4fc8c0584617f134a0e4"
+    },
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "0c6adb6763c2d8bbb8ac728fec2a73924ebf014b25e5872eb47c05d8324005ad"
+    },
+    {
+      "path": "crates/crucible-particles/src/dispersion.rs",
+      "sha256": "e56d9ea3fca334384cd949f4c4ebe3bced3e2136861892837726196d678dcf78"
+    },
+    {
+      "path": "crates/crucible-particles/src/lib.rs",
+      "sha256": "75b993f40d6d4d8caef31bb241c27582c8aa6a9ee5f43693b85153310af93dae"
+    },
+    {
+      "path": "crates/crucible-particles/src/population.rs",
+      "sha256": "9fd4a355505f6f1e358fad6ee6f7d053b330dfd02e44d404c4a250b89a91b344"
+    },
+    {
+      "path": "crates/crucible-particles/src/transfer.rs",
+      "sha256": "52d2677b43a1eb7ec9ec012c131d30fa236c04a19fbb158454540e3972fc4b28"
+    },
+    {
+      "path": "crates/crucible-particles/tests/models.rs",
+      "sha256": "fb369f9f80188072dda05915a58c1f3de7399de43107ecfe7c1f9d8e7829400c"
+    },
+    {
+      "path": "crates/crucible-render/Cargo.toml",
+      "sha256": "78e5f723404cfa4aa0a59a3a577635daedc3044b48b6565151c482679ea083ee"
+    },
+    {
+      "path": "crates/crucible-render/src/bin/preflight.rs",
+      "sha256": "d0dda9fa0ad73431dd07a3287daa8f72255124289b7da82daab15051f072095c"
+    },
+    {
+      "path": "crates/crucible-render/src/lib.rs",
+      "sha256": "5738ec9164dcfca830b246848c14a12c786f1a7032c150167430352e686f1daf"
+    },
+    {
+      "path": "crates/crucible-search/Cargo.toml",
+      "sha256": "1a348ac3fac0a1e552a1a8f0c168ac249fdf90a7093eeada349faee63910a15c"
+    },
+    {
+      "path": "crates/crucible-search/src/acquisition.rs",
+      "sha256": "7c0c73ef961f56896407da9f8b6e0495c5f916e64ca24148cfde9bab2ce9071a"
+    },
+    {
+      "path": "crates/crucible-search/src/archive.rs",
+      "sha256": "ac03295c5ff04074350630a05a42ee6ea1a9371a27765d32e7f9f1e498eb79cd"
+    },
+    {
+      "path": "crates/crucible-search/src/audit.rs",
+      "sha256": "37b96da72eb6b0ad2d06b0542269d1740a7fef358bb19e6b09c6de1f4b7daa5d"
+    },
+    {
+      "path": "crates/crucible-search/src/emitters.rs",
+      "sha256": "aec21f88eb1ab9b75951c10dce81ba035435710ab39bcf49e9eb40f90a846a0d"
+    },
+    {
+      "path": "crates/crucible-search/src/lib.rs",
+      "sha256": "1d14d4cb20608d31901217c9078568fc3bc3d0e88a6b6198a7f3d7a46c231d2f"
+    },
+    {
+      "path": "crates/crucible-search/src/reference.rs",
+      "sha256": "a9c3afa063a27c104d8305b020439a84bb57230af0e7ba899a71038f4d9d20a9"
+    },
+    {
+      "path": "crates/crucible-search/src/surrogate.rs",
+      "sha256": "4c1af0d66ccf80833aad2f11b7b4fe6cfe5f25b6ce22f1dc656834380446b39c"
+    },
+    {
+      "path": "crates/crucible-search/tests/acquisition.rs",
+      "sha256": "6ab15626303c5a63006369fa935e1b41037593785c2af36232d04696d811c7f7"
+    },
+    {
+      "path": "crates/crucible-search/tests/reference.rs",
+      "sha256": "2e9fab1c1926c18a31970d7b95ed7ad11c99a8f178f87b9459b6164fc0b3d68a"
+    },
+    {
+      "path": "docs/release/v5-reproduction.md",
+      "sha256": "0470bbf1e5dc122178a4dc02e8b2269d34610d2714f60bc65d8bf9f1634c2246"
+    },
+    {
+      "path": "docs/release/v5/MIGRATION.md",
+      "sha256": "7a0adb8286da33a150b2587423b0ef2521e051dd5477a3c778577ce3861e04bd"
+    },
+    {
+      "path": "docs/release/v5/OPEN_INPUTS.md",
+      "sha256": "ecdc2ea98af00773a77c0543f229ac5100fad31512d3a9d6b3dd5dc62249302c"
+    },
+    {
+      "path": "docs/release/v5/README.md",
+      "sha256": "e153e0af3de482516d46b15a8dd7d438a81a2923afc636a312c65f2f90a9bb30"
+    },
+    {
+      "path": "docs/release/v5/VERIFICATION.md",
+      "sha256": "270d09ce67b5302f0531f2cd65ee242daf240b6ce5084eb7630dd59f4804767c"
+    },
+    {
+      "path": "docs/rig/V5_CONFIRMATION.md",
+      "sha256": "e12f4834d96d40463425c4ff72aa5f66a0557b1a54a1991cc6b62c7f76f192d1"
+    },
+    {
+      "path": "docs/rig/VORTEX_VALIDATION.md",
+      "sha256": "4d88accf05dc6a9b7244884d9e1f45fd920ef32b06f7865bbe282f2f28186b24"
+    },
+    {
+      "path": "docs/v5-plan/PR_HANDOFF.md",
+      "sha256": "4c19272dc3722548f8ace0cfd437df41a56c42a81ee69bd3ba5087b031c95e18"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-G009-INTEGRATION-SCOPE.md",
+      "sha256": "74a38ac836f1cc1a058250b8392be79dad69b3ad545ad067fd415f3b1cbba7a7"
+    },
+    {
+      "path": "experiments/holdout/v5/manifest.json",
+      "sha256": "0aa0bce8f46a989018adfb3f288797ada9fa9699d7112ff5694223482748afde"
+    },
+    {
+      "path": "experiments/rig/v5/README.md",
+      "sha256": "3985cc611142fdeaa215607138f4b46d98d51f26931a496e14791e68f04ae294"
+    },
+    {
+      "path": "experiments/rig/v5/calibration_manifest.json",
+      "sha256": "8ae32c4305ae5e5f06508bd5a982ab5c8711301d36e266e13cd0295054fc9652"
+    },
+    {
+      "path": "experiments/rig/v5/protocol.json",
+      "sha256": "ff5ae3a0cb03418309ced085458f3fb5c2b172048be88fa0d71a4f22ba538edd"
+    },
+    {
+      "path": "experiments/v5-accelerator-admission.toml",
+      "sha256": "1d5fc770d4044fd9d814811ce3b3186c82a59c70135cffb34cb8f36c71d54f36"
+    },
+    {
+      "path": "experiments/v5-acquisition.toml",
+      "sha256": "90933eaed31d15e35725ca3b0b77e1f890d948fa72c10adc9737fd1a3aa0f455"
+    },
+    {
+      "path": "experiments/v5-liner-operator.toml",
+      "sha256": "59596cddd49d05e57ed152518a925cc97f53bd4ad9b0529c95454d8e75d647fb"
+    },
+    {
+      "path": "experiments/v5-study/mechanism-interventions-v1.json",
+      "sha256": "30aff84bf8ceadf70d7ed53bafdd7676b8933dc34c4245220f46a4ec138a5683"
+    },
+    {
+      "path": "experiments/v5-study/preregistration-v1.json",
+      "sha256": "2164ccf761b81e30314d1aa45562bf40aada59e81aee183c1e27e01bfe6bd070"
+    },
+    {
+      "path": "experiments/validation/v5/accession_register.json",
+      "sha256": "52178cfcd81c79b3f3e39a360be60a55df9fd16dc6b780194724736d0784aea7"
+    },
+    {
+      "path": "experiments/validation/v5/branch_study_plan_v1.json",
+      "sha256": "4bf7a2dfb794186ec0df4f6026b454b7c05ecbd8347570152556cbd5a78aef58"
+    },
+    {
+      "path": "experiments/validation/v5/coverage_cards_v1.json",
+      "sha256": "18eddaa7887f9d4d8d7cafc5d65df0d50207f744e8833ae4fc6c4414c45755ca"
+    },
+    {
+      "path": "experiments/validation/v5/ct35_protocol_v1.json",
+      "sha256": "ca7ca54107344275eb2ee3127cbadb69b4b03f12633fb9d0ee8c46636eecb60e"
+    },
+    {
+      "path": "experiments/validation/v5/gvtx_admission_v1.json",
+      "sha256": "4a9b39ad263b9ce3cad4c91dfb7b3230d18fac5dd3ac3d02f85d83af4b9f95d9"
+    },
+    {
+      "path": "experiments/validation/v5/preregistration_v1.json",
+      "sha256": "4c3497059c523e385bba008951695f80d1c69d569ca44cfdcd8ab04db3baf5af"
+    },
+    {
+      "path": "packs/bracket/Cargo.toml",
+      "sha256": "3b5923576c59131d2311eb862fca0fa99afd2f26dd94c98f62f4cd57c9d199e9"
+    },
+    {
+      "path": "packs/bracket/src/lib.rs",
+      "sha256": "4d17e2b011a976771be97b8db476863f8472739c0a7f88159e311b8ac51f7b39"
+    },
+    {
+      "path": "packs/bracket/tests/reuse_proof.rs",
+      "sha256": "6b0880118dd00a852518dcc98282bd4ee791087362952136cecbb1593e4a6757"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/capacity.rs",
+      "sha256": "745a9a54bb1f7a73521202ed6386f126c5849631896a20d825013029a2c39d71"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/lib.rs",
+      "sha256": "5fd0175090a806d85218467810a41f962445542c563c748c0e89f71b1826b2fe"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/liner_operator.rs",
+      "sha256": "ac1a18fd4b7c843aa8fa92126930846e627b867719377875d3797475b4d5f472"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/metrics.rs",
+      "sha256": "c373369eeeb60f07c6e2ee48a0075974d9adde3b2bf9f4e47504937652e38ffd"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/objectives.rs",
+      "sha256": "5118cd07d2a6bc4db3d2f9ef8c9a4ade93ae0bef80330cad1e861555f4a7e897"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/validation.rs",
+      "sha256": "09ac78f71c845049925c0e8d35bcb7dc5c57afeb0c82e1c0e4dbb28495c71df0"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/liner_operator.rs",
+      "sha256": "6123c04965827bb3a70d5e91f185afb3ef4b24486cbe1dde635d06769abe1746"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/metrics.rs",
+      "sha256": "39c193cf36a9ce8db1c7b7a03c5cf38bdb2d4c5519b8b8e6a71fb2cb2a9e2ca7"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "a11357fb27bad40a1867182339c7514a18ec61e8a6aba33c93313827d094c2c2"
+    },
+    {
+      "path": "paper/README.md",
+      "sha256": "94c6b3e458f568857408becef160c0fe3938347f938f89b1a1370c11ba1721fe"
+    },
+    {
+      "path": "paper/dependency-license-inventory.json",
+      "sha256": "9ef1aeade234b53d8665afb207eaa1e03b05161cfaa1c353359387dc1c985182"
+    },
+    {
+      "path": "paper/dependency-prior-design-inventory.json",
+      "sha256": "dc41b21a3ed3923b183c746652d3212ba5c01b3a625f02c4821466d76924ec12"
+    },
+    {
+      "path": "paper/fixtures/negative-result.json",
+      "sha256": "bd48aa7e6c1e92a768b0b7e1c423590f467195ccbb7c8e2ff69527ac434bd965"
+    },
+    {
+      "path": "policies/reference-search-v1.toml",
+      "sha256": "f53f3ab66a46d1e9b42774b1be9ce04814bf5b04b6b5f66e640408466d957986"
+    },
+    {
+      "path": "recipes/v5/registry.json",
+      "sha256": "fd52b24232f675cfd075b6dcd45e5006f9ee436f5ea2bd401135bcac5781d5ef"
+    },
+    {
+      "path": "render/blender/README.md",
+      "sha256": "e4a036bf52404ae76690bd93c126f51e7928702ad1509eb7f651fdfc78e2a51a"
+    },
+    {
+      "path": "render/blender/plate.py",
+      "sha256": "f183f83fdba59fa8a11cc9257977fe8c41f0c7902b45a9d456e923662bd3c910"
+    },
+    {
+      "path": "render/blender/profile.json",
+      "sha256": "244b9727d94dfef342c47f253097c9a981e7770e25f5e7dbc247858f1c5fd1be"
+    },
+    {
+      "path": "render/blender/render_job.py",
+      "sha256": "776d8795e2b362467fc193fff46798603fcc249f4ba2cd98d31d49e61c75ead6"
+    },
+    {
+      "path": "render/blender/test_plate.py",
+      "sha256": "1210bcd65d420e81f31a921c791745344496829a39c0d1288ccf48f47850ba1b"
+    },
+    {
+      "path": "tests/fixtures/v5-bracket/README.md",
+      "sha256": "f1773a891fbd27e1d112a3bbade0c7663a3f30370a48c13b3a64a5e25fa6df96"
+    },
+    {
+      "path": "tests/fixtures/v5-bracket/expected-card.svg",
+      "sha256": "c1b242e6d8cf522c32059c7f52887d69a7b2d6903dc99a7104b4223c077a34ca"
+    },
+    {
+      "path": "tests/fixtures/v5-bracket/input.json",
+      "sha256": "c9311c2a9dbc618fc68a243c038c3067cb2516ae67084d6395b8a3e349ce9a2a"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/private-geometry-unapproved.json",
+      "sha256": "3225bb9da4e1a843ca4f1658834aea4eb5b2943fd385b59bc00b975e18d5090d"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/unavailable-oil-card.json",
+      "sha256": "488bc1b19ab2578afe377c1c78d0f4c3ee3be066e2f680dc542164771d89c63e"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/wrong-subject.json",
+      "sha256": "e7b24c1cc75086111fc6ba353325b334efb8a03058ebb1b6d76e885fc0910b9e"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/wrong-time.json",
+      "sha256": "723c9381ba4f1456f419487b4d9ae972a2854c936960452db0ecc5c3df574fd0"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/wrong-transform.json",
+      "sha256": "26ef55de6a8579c515181d505096a3e6c5fe7fb6e43c74723968c3efc4fa1831"
+    },
+    {
+      "path": "tests/fixtures/v5-scenes/wrong-unit.json",
+      "sha256": "5a723d4777e509c1cc23ad12405235c69c58c6ed031ca4053eed75381e3f4c3d"
+    },
+    {
+      "path": "tests/test_v5_explorer_manifest.py",
+      "sha256": "ecf4bc482bd431425be3c998c262a7b8ea8db5bebbc2ade1431a553ce4f80ad9"
+    },
+    {
+      "path": "tests/test_v5_integrated_fixtures.py",
+      "sha256": "d4f9e57db0e20eb59d286608d0de8f9c510e977b2b7674754b5dcdc65df58da9"
+    },
+    {
+      "path": "tests/test_v5_plan.py",
+      "sha256": "ed44dec5a281d6db893d863f3e986611118b0396f82a35402bbfc6c4c2dbd290"
+    },
+    {
+      "path": "tools/v5_explorer_manifest.py",
+      "sha256": "640ffeda3a9a05c8765bdb1f9ee8d9d4a2c7eebc44ca35c851480a9eb9baaa7b"
+    },
+    {
+      "path": "tools/v5_plan.py",
+      "sha256": "19e5613aa84f19a02c7968228905565c2224791040d9dd68d185bcfaabcd6d18"
+    },
+    {
+      "path": "crates/crucible-genome/src/operators/mod.rs",
+      "sha256": "e9acbfe1a66d7f75cfd26c4e3314dea1ea44d492341ded4d28802900d0d5571d"
+    },
+    {
+      "path": "crates/crucible-genome/tests/operators.rs",
+      "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+    },
+    {
+      "path": "tests/fixtures/v5-expressiveness/cases.json",
+      "sha256": "0eb5ccff483d635d37ea99434ba26efb37888ebd20c7557e70614e7b50e315cf"
+    },
+    {
+      "path": "experiments/v5-operator-audit.toml",
+      "sha256": "f8bc543e5e5ba3679656c20ab57ec1a771d4ca1783e8c8e65d7f08f76f404560"
+    },
+    {
+      "path": "docs/v5-plan/RELEASE_AND_RETENTION.md",
+      "sha256": "f66231f8329034b37238871433dd87e2251db6e912133f867b564b66531a09da"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/extract.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/build-frozen-rust.log",
+      "sha256": "6f8bd8421708ca75353bf0bb2d759264c38065a5b873c797261638f8ce3748c9"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/d30-red.log",
+      "sha256": "a72506be8f83e5af0c0aebbe1fad2a0ad7d196f1b05e2b288d710c10b921afed"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/plan-check.log",
+      "sha256": "96caf3d1aba32106af18eda5effe53ab06cdaa9fe5d9c74d19ea9fa610d7311c"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/check-public.log",
+      "sha256": "21f7e0da9d26ba7a5303afa6784e755f232fce15f5967a9de134ebf7f3b35766"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": [
+      110,
+      111
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "CARGO_INCREMENTAL": 0,
+    "dev_debug": "line-tables-only",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target"
+  },
+  "limitations": [
+    "No native simulation, GPU work, physical qualification or scientific admission.",
+    "The release/retention document was absent in the assigned checkout and is introduced in this commit, sourced from existing docs/release/v5/ contracts.",
+    "The integrated software receipt reports final full-gate and exact-head CI as outstanding.",
+    "The imported lane receipts document software-only scope and open geometry/observer/physical dependencies.",
+    "Completion-schema normalization does not replace original lane receipts or prove integrator packet acceptance.",
+    "The private:codex/g009-*.log entries are pointer references to the integrator\u2019s verified G009 logs in /home/ubuntu/joil/.private/v5-workers/codex/."
+  ],
+  "next_dependency": "Integrator review and acceptance of packet evidence; complete exact-head full gate, source/public review, normal PR push and exact-head CI; resolve remaining independent native and physical inputs.",
+  "task_ids": [
+    "V5-12-01",
+    "V5-12-02",
+    "V5-12-03",
+    "V5-12-04",
+    "V5-12-05",
+    "V5-17-01",
+    "V5-17-02",
+    "V5-17-03",
+    "V5-17-04",
+    "V5-17-05",
+    "V5-21-01",
+    "V5-21-02",
+    "V5-21-03",
+    "V5-21-04",
+    "V5-21-05",
+    "V5-22-01",
+    "V5-22-02",
+    "V5-22-03",
+    "V5-22-04",
+    "V5-22-05",
+    "V5-24-01",
+    "V5-24-02",
+    "V5-24-03",
+    "V5-24-04",
+    "V5-24-05",
+    "V5-25-01",
+    "V5-25-02",
+    "V5-25-03",
+    "V5-25-04",
+    "V5-25-05",
+    "V5-27-01",
+    "V5-27-02",
+    "V5-27-03",
+    "V5-27-04",
+    "V5-27-05",
+    "V5-29-01",
+    "V5-29-02",
+    "V5-29-03",
+    "V5-29-04",
+    "V5-29-05",
+    "V5-30-01",
+    "V5-30-02",
+    "V5-30-03",
+    "V5-30-04",
+    "V5-30-05"
+  ],
+  "changed_paths": [
+    "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+    "docs/receipts/v5-12-lane-complete-20261018T054302Z.json",
+    "docs/receipts/v5-remaining-packets-completion-20261018.json"
+  ]
+}

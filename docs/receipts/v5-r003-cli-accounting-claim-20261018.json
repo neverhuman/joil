@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "scoped_claim_before_repair",
+  "owner": "codex-v5-integrator",
+  "task_ids": [
+    "V5-07-05",
+    "V5-31-03"
+  ],
+  "base_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+  "created_utc": "2026-10-18T10:11:05.905486+00:00",
+  "authority": "Direct G009-R003 task requires successful truthful full gate; necessary narrow repair of observed lifecycle assertion failure",
+  "write_paths": [
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "docs/receipts/v5-r003-cli-accounting-repair-20261018.json"
+  ],
+  "failure_log_sha256": "2b1eeff390ba95be34542ac55ccbb60aea6b014aab8a12d6de330682db6d397f",
+  "boundary": "Test oracle only. Keep product code/config and all timeout/lease thresholds unchanged. Independently reconcile actual attempt identities, fences and charges; preserve failed attempt cost and failed-test scratch.",
+  "stop_conditions": [
+    "Production scheduling or accounting defect found",
+    "Scoped path ownership conflict",
+    "Lease/resource failure"
+  ]
+}

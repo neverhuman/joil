@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "kind": "test_contract_migration_preserving_evidence_truth",
+  "created_utc": "2026-10-18T10:31:11.700347+00:00",
+  "owner": "codex-v5-integrator",
+  "task_ids": [
+    "V5-01-04",
+    "V5-27-01",
+    "V5-31-03"
+  ],
+  "tested_commit": "dbc67322d9f58bbaf66f45b165b224086797aa04",
+  "tested_tree": "74e9a767ee04cba4c63d30482645fa2cc38c0124",
+  "changed_paths": [
+    "tests/test_v5_truth.py",
+    "apps/explorer/tests/manifest.test.ts",
+    "docs/receipts/v5-r003-explorer-truth-claim-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_truth.py",
+        "-k",
+        "ExplorerClaimTruth",
+        "-v"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.09547474602004513,
+      "log_sha256": "6d009098c3eeb8a8526adba7b113a3902622b1555478fc949366da7f190c7b51",
+      "raw_log": "private:codex/g009-r003-explorer-truth-python.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "--prefix",
+        "apps/explorer",
+        "run",
+        "test"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.354371648048982,
+      "log_sha256": "85fa536b2d00a2a0098dfdf20865acde139455c8f1790de253d072feaa2029b7",
+      "raw_log": "private:codex/g009-r003-explorer-truth-node.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.5005810660077259,
+      "log_sha256": "ae63c965be44e1aeee262264eb00c21800ce0f493a450cc0aa2ea70b62f54648",
+      "raw_log": "private:codex/g009-r003-explorer-truth-public.log"
+    }
+  ],
+  "positive_checks": [
+    "Three focused ExplorerClaimTruth tests pass against the actual current sources and default manifest.",
+    "Eleven runtime Node manifest tests pass, including exact source snapshot bytes, exact revision/subject resolution, geometry identity, revocation and stale-refresh refusal.",
+    "Historical correction records remain descriptive source data; default observations/subjects/capabilities remain absent. Retained scene producer labels authored paths SCHEMATIC; historical raw bundles are unchanged and are not consumed by the current viewport."
+  ],
+  "negative_checks": [
+    "Actual legacy authored-trajectory JSON is rejected as a current manifest; copying authored trajectory arrays into a valid subject also fails strict schema validation.",
+    "Changing a missing pressure observation into an available negative percentage without uncertainty/source/admissible tier is rejected. Correction text does not supply a numerical observation.",
+    "Existing runtime controls reject wrong-geometry overlays, stale/missing subject revisions, duplicate identities and revoked observations."
+  ],
+  "artifacts": [
+    {
+      "path": "tests/test_v5_truth.py",
+      "sha256": "d8b7a82c5682cc8ac391460288360d039b506d4d6590a499495d0c7a915e73d3"
+    },
+    {
+      "path": "apps/explorer/tests/manifest.test.ts",
+      "sha256": "850f8313aceb21568a7848df27cbf4e34ef28f1df890a8a93dc6fdfb8cdbfcd1"
+    },
+    {
+      "path": "docs/receipts/v5-r003-explorer-truth-claim-20261018.json",
+      "sha256": "596f11b373665255505f6bf3a9eea621952acc52d9daec5fbb3c8bda4fba1e5a"
+    },
+    {
+      "path": "apps/explorer/src/main.tsx",
+      "sha256": "dd30d3f0901f53453c86306c283b6a4354daecee98880c7f0aaa3335358e9f78"
+    },
+    {
+      "path": "apps/explorer/src/Viewport3D.tsx",
+      "sha256": "ef07e4b4964195f8f252bf08be9d3d6472019163aed731039908d079cafe77ad"
+    },
+    {
+      "path": "apps/explorer/src/contracts.ts",
+      "sha256": "d47a65a0cb600cd05784c4b93143de09ebfb75818ef19585f5fc5312fec0270c"
+    },
+    {
+      "path": "crates/joil-core/src/scene.rs",
+      "sha256": "e87c96bdc371589179346526e4f8113126e88ce190294e4f35f201a0bf505d87"
+    },
+    {
+      "path": "docs/results/interactive-3d-archetypes-v1.json",
+      "sha256": "7e220d0cd466cfa5332b649b48cfea75505085a25d498e95d56dbc34948caa07"
+    }
+  ],
+  "observed_prior_failure": {
+    "tested_commit": "e9d8f8e949773525aac6c7bde39d1911d9f46842",
+    "raw_log": "private:codex/g009-r003-repaired-official-eight-suites.log",
+    "log_sha256": "60de6a2bb3c24a53c8404a27bee877c87f802f3ffecc18ad604414805354a218",
+    "python_exit_code": 1,
+    "python_failures": 2,
+    "python_errors": 1,
+    "passed_suites": [
+      "fmt",
+      "clippy",
+      "rust-tests",
+      "baseline"
+    ],
+    "all_eight_suites_pass": false
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpu_ids": [
+      32,
+      33
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 6.0,
+    "pre_gate_threshold_bytes": 5000000000,
+    "numerical_threads": 1,
+    "gpu": false,
+    "lease_sha256": "83a040ba8f61f6f7568e3d5618d3c29ad13290a8cb75b011fe768f9d3a8b9685"
+  },
+  "limitations": [
+    "Only tests and their scoped claim changed; application sources, dependency manifests, scientific status and all thresholds are unchanged.",
+    "No authored or reconstructed trajectories are rendered by the current artifact-link viewport; a future real geometry renderer needs its own evidence-bound coverage.",
+    "Focused checks do not replace the new full eight-suite gate or exact pushed-head CI; no scientific/physical admission."
+  ],
+  "next_dependency": "Fresh all8 suites on the receipt-bearing descendant, followed by normal publication to existing draftPR6 and exact-head CI; retain both prior failed gate records.",
+  "packet_acceptance": false,
+  "scientific_admission": false
+}

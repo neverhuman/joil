@@ -3,34 +3,64 @@
   "packet": "V5-17",
   "tasks": {
     "V5-17-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Toy tracer ensembles do not qualify the production native adapter. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-17-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: RSM/LES software inputs are not matched measured carrier-field evidence. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-17-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Breakup exposure/calibration data remain unavailable. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-17-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Transfer reuse has only synthetic held-out/noninteraction controls. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-17-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Caller cluster/time-block/critical-value metadata still needs independent statistical admission. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }
