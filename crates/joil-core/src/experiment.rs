@@ -8,9 +8,10 @@
 //! - `EXPERIMENT-02` (`analyze_blinded_aba_crossover`): Randomized blinded `A/B/A` block crossover
 //!   analysis on independent fluid/rig preparations, explicitly rejecting high-speed camera frames
 //!   or pseudo-time iterations disguised as independent replicates.
-//! - `EXPERIMENT-03` (`calculate_paired_endpoint_power`): Paired block-difference power and minimum
-//!   replicate ($N_{\text{blocks}}$) calculator at $\alpha = 0.025$ (one-sided) and $1-\beta = 0.90$,
-//!   rejecting underpowered $N=3$ claims when pilot variance demands $N > 3$.
+//! - `EXPERIMENT-03` (`analyze_prospective_aba_crossover`, `required_blocks_for_power`): paired
+//!   block qualification against a frozen prospective plan (independent pilot variance, declared
+//!   useful effect, alpha and power; pinned t quantiles). The unplanned legacy analysis reports
+//!   no power and never qualifies.
 //! - `EXPERIMENT-04` (`verify_holdout_isolation`): Cryptographic holdout geometry/operating-point
 //!   separation audit blocking surrogate training leakage or repeated holdout queries.
 //! - `EXPERIMENT-05` (`evaluate_as_built_ct_metrology`): X-ray CT dimensional metrology + $R_a \to k_s$
@@ -192,44 +193,58 @@ pub struct AbaCrossoverBlock {
     pub split_mismatch_abs: f64,
 }
 
-/// `EXPERIMENT-02` & `EXPERIMENT-03`: Paired `A/B/A` trial & statistical power qualification.
+/// `EXPERIMENT-02` & `EXPERIMENT-03`: descriptive paired `A/B/A` summary without a protocol.
+/// Power is never derived from the observed effect; qualification needs
+/// [`analyze_prospective_aba_crossover`] with a frozen prospective plan.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct PairedTrialPowerAudit {
     pub n_blocks: usize,
     pub mean_baseline_qmax_m3_h: f64,
     pub mean_candidate_qmax_m3_h: f64,
     pub mean_paired_gain_fraction: f64,
+    /// Actual sample SD; no artificial floor.
     pub paired_sd_gain_fraction: f64,
-    pub lcb95_paired_gain_fraction: f64,
-    pub required_blocks_for_90pct_power: usize,
+    /// Pinned-t one-sided 97.5% lower bound; `None` when the sample variance is zero.
+    pub lcb95_paired_gain_fraction: Option<f64>,
+    /// Always `None`: an unplanned analysis has no sample plan.
+    pub required_blocks_for_90pct_power: Option<usize>,
     pub frames_as_replicates_rejected: bool,
     pub underpowered_n3_rejected: bool,
+    /// Always `false` without a prospective design.
     pub passed_10pct_lcb95_gate: bool,
+    pub power_status: String,
 }
 
-/// Compute minimum number of paired `A/B/A` blocks required for one-sided $\alpha = 0.025$ and
-/// power $1 - \beta = 0.90$ to detect a margin $\Delta_{\text{effect}}$ above $0.10$ (`EXPERIMENT-03`).
+pub use crucible_stats::analysis::pilot::{ConfirmationResult, ProspectiveDesign, SamplePlan};
+
+/// Qualification of a blinded `A/B/A` trial against a frozen prospective plan.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct ProspectiveTrialAudit {
+    pub plan: SamplePlan,
+    pub confirmation: ConfirmationResult,
+    pub mean_baseline_qmax_m3_h: f64,
+    pub mean_candidate_qmax_m3_h: f64,
+    pub frames_as_replicates_rejected: bool,
+}
+
+/// Minimum paired `A/B/A` blocks for one-sided $\alpha = 0.025$ and power $0.90$ against a
+/// declared margin above the threshold (`EXPERIMENT-03`). Both inputs must be prospective
+/// design values, never estimates from the confirmation data. Uses the pinned t quantiles.
 pub fn required_blocks_for_power(
     sd_gain: f64,
     effect_margin_above_threshold: f64,
 ) -> Result<usize, String> {
-    if !sd_gain.is_finite()
-        || sd_gain <= 0.0
-        || !effect_margin_above_threshold.is_finite()
-        || effect_margin_above_threshold <= 0.0
-    {
-        return Err("sd_gain and effect_margin_above_threshold must be finite positive".into());
-    }
-    // z_{0.975} = 1.95996, z_{0.90} = 1.28155; add +2 degrees-of-freedom t-distribution correction
-    let z_sum: f64 = 1.95996398 + 1.28155157;
-    let n_normal = ((z_sum * sd_gain / effect_margin_above_threshold).powi(2)).ceil() as usize;
-    Ok((n_normal + 2).max(5))
+    crucible_stats::analysis::pilot::required_blocks(
+        sd_gain,
+        effect_margin_above_threshold,
+        0.025,
+        0.90,
+        5,
+    )
+    .map_err(|e| e.to_string())
 }
 
-/// Analyze a set of blinded `A/B/A` crossover blocks (`EXPERIMENT-02` & `EXPERIMENT-03`).
-pub fn analyze_blinded_aba_crossover(
-    blocks: &[AbaCrossoverBlock],
-) -> Result<PairedTrialPowerAudit, String> {
+fn aba_gains(blocks: &[AbaCrossoverBlock]) -> Result<(Vec<f64>, f64, f64), String> {
     if blocks.is_empty() {
         return Err("at least one ABA block required".into());
     }
@@ -253,9 +268,8 @@ pub fn analyze_blinded_aba_crossover(
                 .into(),
         );
     }
-
-    let n = blocks.len();
-    let mut gains = Vec::with_capacity(n);
+    let n = blocks.len() as f64;
+    let mut gains = Vec::with_capacity(blocks.len());
     let mut base_sum = 0.0;
     let mut cand_sum = 0.0;
     for b in blocks {
@@ -267,29 +281,75 @@ pub fn analyze_blinded_aba_crossover(
         cand_sum += b.candidate_b_qmax_m3_h;
         gains.push((b.candidate_b_qmax_m3_h - a_bar) / a_bar);
     }
+    Ok((gains, base_sum / n, cand_sum / n))
+}
 
-    let mean_gain = gains.iter().sum::<f64>() / (n as f64);
-    let var_gain = gains.iter().map(|g| (g - mean_gain).powi(2)).sum::<f64>() / ((n - 1) as f64);
-    let sd_gain = var_gain.sqrt().max(1e-6);
-
-    // Conservative one-sided 97.5% t-quantile approximation for df = n - 1
-    let df = (n - 1) as f64;
-    let t_975 = 1.95996398 + 2.37 / df + 2.8 / (df * df);
-    let lcb95 = mean_gain - t_975 * sd_gain / (n as f64).sqrt();
-    let effect_margin = (mean_gain - 0.10).max(0.02);
-    let req_n = required_blocks_for_power(sd_gain, effect_margin)?;
-
+/// Describe blinded `A/B/A` crossover blocks (`EXPERIMENT-02` & `EXPERIMENT-03`) without
+/// fabricating power: there is no prospective protocol, so the audit never qualifies.
+pub fn analyze_blinded_aba_crossover(
+    blocks: &[AbaCrossoverBlock],
+) -> Result<PairedTrialPowerAudit, String> {
+    let (gains, mean_baseline, mean_candidate) = aba_gains(blocks)?;
+    let n = gains.len();
+    let (mean_gain, var_gain) =
+        crucible_stats::analysis::sample_moments(&gains).map_err(|e| e.to_string())?;
+    let sd_gain = var_gain.sqrt();
+    let lcb95 = if var_gain > 0.0 {
+        let t_975 = crucible_stats::distribution::student_t_quantile(0.975, n - 1)
+            .map_err(|e| e.to_string())?;
+        Some(mean_gain - t_975 * sd_gain / (n as f64).sqrt())
+    } else {
+        None
+    };
     Ok(PairedTrialPowerAudit {
         n_blocks: n,
-        mean_baseline_qmax_m3_h: base_sum / (n as f64),
-        mean_candidate_qmax_m3_h: cand_sum / (n as f64),
+        mean_baseline_qmax_m3_h: mean_baseline,
+        mean_candidate_qmax_m3_h: mean_candidate,
         mean_paired_gain_fraction: mean_gain,
         paired_sd_gain_fraction: sd_gain,
         lcb95_paired_gain_fraction: lcb95,
-        required_blocks_for_90pct_power: req_n,
+        required_blocks_for_90pct_power: None,
         frames_as_replicates_rejected: true,
         underpowered_n3_rejected: true,
-        passed_10pct_lcb95_gate: n >= req_n && lcb95 >= 0.10,
+        passed_10pct_lcb95_gate: false,
+        power_status: "unplanned: no prospective design; use analyze_prospective_aba_crossover"
+            .into(),
+    })
+}
+
+/// Qualify blinded `A/B/A` blocks against a frozen prospective plan. The paired effect is
+/// `(B - mean(A1, A2)) / mean(A1, A2)`; existing independence, split, five-block and
+/// positive-baseline gates are kept, and the plan must not fall below five blocks.
+pub fn analyze_prospective_aba_crossover(
+    blocks: &[AbaCrossoverBlock],
+    plan: &SamplePlan,
+) -> Result<ProspectiveTrialAudit, String> {
+    if plan.required_blocks < 5 {
+        return Err(
+            "EXPERIMENT-03 negative control triggered: a plan below 5 independent ABA blocks cannot establish statistical power"
+                .into(),
+        );
+    }
+    let (gains, mean_baseline, mean_candidate) = aba_gains(blocks)?;
+    let confirmation_blocks: Vec<crucible_stats::analysis::pilot::ConfirmationBlock> = blocks
+        .iter()
+        .zip(gains)
+        .map(
+            |(b, paired_effect)| crucible_stats::analysis::pilot::ConfirmationBlock {
+                block_id: b.block_id.clone(),
+                independent_preparation: b.independent_preparation,
+                paired_effect,
+            },
+        )
+        .collect();
+    let confirmation = crucible_stats::analysis::pilot::confirm(plan, &confirmation_blocks)
+        .map_err(|e| e.to_string())?;
+    Ok(ProspectiveTrialAudit {
+        plan: plan.clone(),
+        confirmation,
+        mean_baseline_qmax_m3_h: mean_baseline,
+        mean_candidate_qmax_m3_h: mean_candidate,
+        frames_as_replicates_rejected: true,
     })
 }
 

@@ -594,9 +594,10 @@ fn p05_population_pbm_dsd_and_multiphase_regime_gates() {
 #[test]
 fn p06_experiment_calibration_crossover_holdout_ct_and_comparator_gates() {
     use joil_core::experiment::{
-        analyze_blinded_aba_crossover, evaluate_as_built_ct_metrology, required_blocks_for_power,
-        verify_holdout_isolation, verify_instrument_calibration, verify_shared_duty_comparator,
-        AbaCrossoverBlock,
+        analyze_blinded_aba_crossover, analyze_prospective_aba_crossover,
+        evaluate_as_built_ct_metrology, required_blocks_for_power, verify_holdout_isolation,
+        verify_instrument_calibration, verify_shared_duty_comparator, AbaCrossoverBlock,
+        ProspectiveDesign,
     };
 
     let cal = verify_instrument_calibration("oil-a", "oil-a", 0.998, 0.4, 1.2, 0.65).unwrap();
@@ -657,9 +658,35 @@ fn p06_experiment_calibration_crossover_holdout_ct_and_comparator_gates() {
             split_mismatch_abs: 0.00006,
         },
     ];
-    let aba = analyze_blinded_aba_crossover(&blocks).unwrap();
-    assert!(aba.passed_10pct_lcb95_gate);
-    assert!(aba.lcb95_paired_gain_fraction >= 0.10);
+    // Declared SYNTHETIC prospective design: independent pilot blocks P1-P3 (disjoint from
+    // B1-B6), threshold 0.10, useful effect 0.05, alpha 0.025, power 0.90, at least 6 blocks.
+    let design = ProspectiveDesign {
+        design_id: "synthetic-p06-design".into(),
+        pilot_block_ids: vec!["P1".into(), "P2".into(), "P3".into()],
+        pilot_paired_effects: vec![0.145, 0.155, 0.165],
+        claim_threshold: 0.10,
+        useful_effect: 0.05,
+        alpha_one_sided: 0.025,
+        power: 0.90,
+        minimum_blocks: 6,
+    };
+    let plan = crucible_stats::analysis::pilot::plan_replication(&design).unwrap();
+    assert_eq!(plan.required_blocks, 6);
+    let aba = analyze_prospective_aba_crossover(&blocks, &plan).unwrap();
+    assert!(aba.confirmation.qualified);
+    assert!(aba.confirmation.lower_confidence_bound >= 0.10);
+    // Independent Student t table value t(0.975, 5).
+    assert!((aba.confirmation.t_critical - 2.570_581_836_6).abs() < 1e-9);
+    assert!(analyze_prospective_aba_crossover(&blocks[0..5], &plan).is_err());
+    let mut nonpositive = blocks.clone();
+    nonpositive[2].baseline_a1_qmax_m3_h = 0.0;
+    nonpositive[2].baseline_a2_qmax_m3_h = 0.0;
+    assert!(analyze_prospective_aba_crossover(&nonpositive, &plan).is_err());
+    // Without a prospective protocol the legacy analysis never fabricates power or passes.
+    let legacy = analyze_blinded_aba_crossover(&blocks).unwrap();
+    assert!(!legacy.passed_10pct_lcb95_gate);
+    assert_eq!(legacy.required_blocks_for_90pct_power, None);
+    assert!(legacy.power_status.starts_with("unplanned"));
     assert!(analyze_blinded_aba_crossover(&blocks[0..3]).is_err());
 
     assert!(verify_holdout_isolation(&["t1".into()], &["h1".into()], 1).unwrap());
