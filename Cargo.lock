@@ -246,6 +246,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-search"
+version = "0.1.0"
+dependencies = [
+ "crucible-store",
+ "serde",
+ "serde_json",
+ "toml",
+]
+
+[[package]]
 name = "crucible-stats"
 version = "0.1.0"
 dependencies = [

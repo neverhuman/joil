@@ -1,0 +1,12 @@
+[package]
+name = "crucible-search"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+toml = "=0.8.23"
+crucible-store = { path = "../crucible-store" }
+
+[dev-dependencies]
