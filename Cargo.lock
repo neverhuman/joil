@@ -179,6 +179,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-genome"
+version = "0.1.0"
+dependencies = [
+ "joil-evidence",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "crucible-geom"
 version = "0.1.0"
 dependencies = [

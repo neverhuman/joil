@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "schema_vocabulary_only",
+  "geometry_capability": "unsupported_pending_v5_08_and_v5_09_coverage_receipts",
+  "enabled_for_physical_lowering": [],
+  "staged_order": [
+    "chambers",
+    "sweeps",
+    "junctions",
+    "inserts",
+    "vanes",
+    "shells_and_ribs",
+    "resolved_lattices"
+  ],
+  "delayed": {
+    "neural_fields": "disabled_pending_spectral_jacobian_and_resolution_proofs",
+    "high_frequency_fields": "reject_using_campaign_frequency_and_feature_resolution_limits",
+    "folding_warps": "not_in_schema_vocabulary"
+  },
+  "evidence_note": "The V5-08 contract supplied to this lane is a private, uncompiled, unaccepted preview. Schema vocabulary and synthetic software controls do not establish downstream geometry coverage, meshing support, or physical capability."
+}

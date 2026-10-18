@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "name": "ct35-tail-overflow",
+  "kind": "legacy_macro",
+  "source_schema": "ct35-parametric-v1",
+  "fields": ["d3_over_d2", "l3_over_d3", "do_over_d2", "orifice_length_over_do", "plenum_radius_mm", "plenum_length_mm"],
+  "interpretation": "Legacy vortex finder, overflow bore and CFD plenum."
+}

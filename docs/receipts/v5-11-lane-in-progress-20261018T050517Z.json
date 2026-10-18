@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "packet": "V5-11",
+  "state": "in_progress",
+  "tested_commit": "3db59e3fc736d659bd171e4f921172e2ec20abbc",
+  "base_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+  "changed_paths": [
+    "Cargo.toml",
+    "crates/crucible-genome/Cargo.toml",
+    "crates/crucible-genome/src/lib.rs",
+    "crates/crucible-genome/src/schema.rs",
+    "crates/crucible-genome/src/develop.rs",
+    "crates/crucible-genome/src/legacy.rs",
+    "crates/crucible-genome/tests/development.rs",
+    "packs/hydrocyclone/modules/coverage-staging.json",
+    "packs/hydrocyclone/modules/ct35-chamber-cone.json",
+    "packs/hydrocyclone/modules/ct35-inlet-pair.json",
+    "packs/hydrocyclone/modules/ct35-part-head.json",
+    "packs/hydrocyclone/modules/ct35-tail-overflow.json"
+  ],
+  "commands": [
+    {
+      "argv": ["taskset", "-c", "90,91", "nice", "-n", "10", "env", "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane3/target", "CARGO_BUILD_JOBS=2", "CARGO_INCREMENTAL=0", "CARGO_PROFILE_DEV_DEBUG=line-tables-only", "RAYON_NUM_THREADS=2", "OMP_NUM_THREADS=1", "OPENBLAS_NUM_THREADS=1", "MKL_NUM_THREADS=1", "cargo", "test", "--locked", "-p", "crucible-genome", "--test", "development"],
+      "exit_code": 101,
+      "log_sha256": "fc4ec921bd45238768fe19900b19ae8ee92a70506d8300d479a3bc8f529d05f8",
+      "result": "stopped before compilation: Cargo.lock needs the new local workspace package; lockfile is integrator-owned"
+    },
+    {
+      "argv": ["taskset", "-c", "90,91", "nice", "-n", "10", "env", "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane3/target", "CARGO_BUILD_JOBS=2", "CARGO_INCREMENTAL=0", "CARGO_PROFILE_DEV_DEBUG=line-tables-only", "RAYON_NUM_THREADS=2", "OMP_NUM_THREADS=1", "OPENBLAS_NUM_THREADS=1", "MKL_NUM_THREADS=1", "cargo", "clippy", "--locked", "-p", "crucible-genome", "--all-targets", "--", "-D", "warnings"],
+      "exit_code": 101,
+      "log_sha256": "fc4ec921bd45238768fe19900b19ae8ee92a70506d8300d479a3bc8f529d05f8",
+      "result": "stopped before compilation for the same lockfile reason"
+    },
+    {
+      "argv": ["python3", "tools/check_public.py"],
+      "exit_code": 0,
+      "log_sha256": "a6582182698aff61b3d1a6f0559ab2edada57d21171c7a542c6fbdfa77ee19d5"
+    },
+    {
+      "argv": ["git", "diff", "--check"],
+      "exit_code": 0,
+      "log_sha256": "a6582182698aff61b3d1a6f0559ab2edada57d21171c7a542c6fbdfa77ee19d5"
+    },
+    {
+      "argv": ["rustfmt", "--check", "--edition", "2021", "crates/crucible-genome/src/lib.rs", "crates/crucible-genome/src/schema.rs", "crates/crucible-genome/src/develop.rs", "crates/crucible-genome/src/legacy.rs", "crates/crucible-genome/tests/development.rs"],
+      "exit_code": 0,
+      "log_sha256": "a6582182698aff61b3d1a6f0559ab2edada57d21171c7a542c6fbdfa77ee19d5"
+    }
+  ],
+  "positive_checks": [
+    {"check": "strict canonical schema round-trip and fluid branch/rejoin fixtures are present", "execution": "not_run_cargo_blocked_before_compile"},
+    {"check": "deterministic partition/trace and sidecar-only mechanism label fixtures are present", "execution": "not_run_cargo_blocked_before_compile"},
+    {"check": "CT-35 source field preservation and contract identity fixtures are present", "execution": "not_run_cargo_blocked_before_compile"}
+  ],
+  "negative_checks": [
+    {"check": "forward construction references and cyclic field DAG are rejected", "execution": "not_run_cargo_blocked_before_compile"},
+    {"check": "budget exhaustion returns typed error without baseline substitution", "execution": "not_run_cargo_blocked_before_compile"},
+    {"check": "neural fields, high spatial frequency and unresolved features are rejected", "execution": "not_run_cargo_blocked_before_compile"},
+    {"check": "unsupported legacy exotic geometry remains Unsupported", "execution": "not_run_cargo_blocked_before_compile"}
+  ],
+  "draft_v5_08_assumptions": [
+    "Only the uncompiled private preview was available; it is not an accepted ABI or geometry capability.",
+    "Its immutable interface digest and earlier-node arithmetic DAG informed the MPG interface.",
+    "Module/primitive lowering remains schema-only pending V5-08/V5-09 accepted contracts and downstream coverage receipts."
+  ],
+  "resources": {"cpus": [90, 91], "rss_limit_gib": 6, "scratch_limit_gib": 2.5, "gpu": false, "simulation": false, "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target"},
+  "limitations": [
+    "The Rust package did not compile because the integrator-owned Cargo.lock was not updated for the explicitly authorized draft workspace crate.",
+    "The supplied CT-35 reference states it requires independent audit; certified baseline error bounds remain absent, not PASS.",
+    "No physical geometry, meshing, evaluator, manufacturing or scientific capability is established by this schema lane."
+  ],
+  "next_dependency": "Integrator reconciles Cargo.toml/lib.rs workspace scaffolding and Cargo.lock, then reruns the locked development test and clippy gates; resolve any compiler failures and issue accepted task receipts before lane_complete."
+}

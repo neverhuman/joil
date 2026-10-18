@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "name": "ct35-chamber-cone",
+  "kind": "legacy_macro",
+  "source_schema": "ct35-parametric-v1",
+  "fields": ["d1_over_d2", "l1_over_d1", "cone_half_angle_deg", "l2_over_d2"],
+  "interpretation": "Legacy chamber and reducing-cone dimensions."
+}
