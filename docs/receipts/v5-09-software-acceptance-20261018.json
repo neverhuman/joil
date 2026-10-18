@@ -70,7 +70,8 @@
       ],
       "exit_code": 0,
       "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
-      "expected_result": "Frozen C006 D-05 positive runtime control passed. Existing control, referenced from docs/receipts/v5-09-d05-completion-20261018.json; not re-run in this wave."
+      "expected_result": "Frozen C006 D-05 positive runtime control passed. Existing control, referenced from docs/receipts/v5-09-d05-completion-20261018.json; not re-run in this wave.",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos.log"
     },
     {
       "argv": [
@@ -192,7 +193,8 @@
         ],
         "exit_code": 0,
         "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
-        "expected_result": "Frozen open connected cavity is reachable; trapped powder is zero."
+        "expected_result": "Frozen open connected cavity is reachable; trapped powder is zero.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos.log"
       },
       "red": {
         "argv": [
@@ -210,7 +212,8 @@
         ],
         "exit_code": 1,
         "log_sha256": "41ea7191bc82a68554faf968bcd435b278dc13e918a5fe318a919f93cb8a72cb",
-        "expected_result": "C006-RED D-05 reports a sealed synthetic shell missed as powder; exit 1."
+        "expected_result": "C006-RED D-05 reports a sealed synthetic shell missed as powder; exit 1.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-red.log"
       }
     }
   ]
