@@ -240,7 +240,12 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     assert!(signal.elapsed() < Duration::from_secs(30));
     let stopped: Value = serde_json::from_slice(&out.stdout).unwrap();
     assert_eq!(stopped["stopped"], true);
-    assert_eq!(stopped["accounting"]["charges"], 6);
+    // One failed and one successful attempt per job in the drained batch; a
+    // single-worker host must leave the second job planned, without charging it.
+    assert_eq!(
+        stopped["accounting"]["charges"],
+        2 + 2 * retry.workers as u64
+    );
     let mut stopped_db = RuntimeDb::inspect_existing(&root_b).unwrap();
     assert_eq!(
         stopped_db.checkpoint_history().unwrap()[0].generation,
@@ -251,8 +256,11 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     let restored = stopped_db
         .restore_latest(&open_store(&root_b).unwrap(), &stopped_meta.experiment)
         .unwrap();
-    assert!(restored.checkpoint.state.in_flight.is_empty());
-    assert_eq!(restored.checkpoint.state.pending_results.len(), 2);
+    assert_eq!(restored.checkpoint.state.in_flight.len(), 2 - retry.workers);
+    assert_eq!(
+        restored.checkpoint.state.pending_results.len(),
+        retry.workers
+    );
     assert!(matches!(
         restored.checkpoint.state.stop,
         crucible_runtime::replay::StopState::Requested { .. }

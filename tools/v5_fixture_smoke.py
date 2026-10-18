@@ -93,6 +93,17 @@ def main():
     assert not whole['accounting']['exceeded'] and not resumed['accounting']['exceeded']
     assert whole['logical_digest'] == resumed['logical_digest'] == verified['logical_digest']
     assert verified['offline'] is True and verified['physical_eligibility'] == 'Unsupported'
+    # Keep the shipped two-worker file untouched; vary only the operational count
+    # in an explicit private config and compare complete two-epoch logical state.
+    text = (checkout / campaign).read_text()
+    assert text.count('workers = 2') == 1
+    one_config = evidence / 'one-worker.toml'
+    one_config.write_text(text.replace('workers = 2', 'workers = 1'))
+    one = cli('run', str(one_config))
+    assert one['epochs'] == 2 and one['accounting']['charges'] == 4
+    assert not one['accounting']['exceeded']
+    assert one['logical_digest'] == whole['logical_digest']
+    assert one['actual_cost_digest'] != whole['actual_cost_digest']
     bad = evidence / 'invalid-physical.toml'
     bad.write_text((checkout / campaign).read_text().replace(
         'synthetic_integer_fixture', 'physical_solver'))
@@ -103,6 +114,7 @@ def main():
     final_status = git('status', '--porcelain', '--untracked-files=all')
     assert not final_status
     report = {'source': initial, 'worker_capability': capability, 'whole': whole,
+              'one_worker_whole': one, 'worker_counts_actually_exercised': [1, 2],
               'partial': partial, 'resumed': resumed, 'verified': verified, 'status': status,
               'invalid_physical_input_refused_before_root_creation': True,
               'final_checkout_clean': True, 'physical_qualification': False,
@@ -116,6 +128,7 @@ def main():
     print(json.dumps({'source_commit': commit, 'commands': len(commands),
                       'charges_uninterrupted': 4, 'charges_partial': 2, 'charges_resumed': 4,
                       'logical_replay_equal': True, 'offline_verified': True,
+                      'whole_worker1_worker2_logical_equal_cost_digest_distinct': True,
                       'invalid_input_refused': True, 'physical_qualification': False,
                       'inventory_sha256': sha((evidence / 'inventory.json').read_bytes())}))
 
