@@ -207,17 +207,19 @@ fn bounded_wait_drains_small_pipes_before_child_exit() {
     const CHILD: &str = "JOIL_TEST_SMALL_PIPE_CHILD";
     const BYTES: usize = 128 * 1024;
     if std::env::var_os(CHILD).is_some() {
+        let _ = std::io::Read::read(&mut std::io::stdin(), &mut [0u8; 1]);
         std::io::stdout().write_all(&vec![b'x'; BYTES]).unwrap();
         std::io::stderr().write_all(&vec![b'y'; BYTES]).unwrap();
         return;
     }
-    let child = Command::new(std::env::current_exe().unwrap())
+    let mut child = Command::new(std::env::current_exe().unwrap())
         .args([
             "--exact",
             "bounded_wait_drains_small_pipes_before_child_exit",
             "--nocapture",
         ])
         .env(CHILD, "1")
+        .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
         .spawn()
@@ -231,6 +233,7 @@ fn bounded_wait_drains_small_pipes_before_child_exit() {
         // draining now deadlocks independently of host pipe-default policy.
         assert_eq!(unsafe { libc::fcntl(fd, libc::F_SETPIPE_SZ, 4096) }, 4096);
     }
+    drop(child.stdin.take());
     let out = wait(child, Duration::from_secs(2));
     assert!(out.status.success());
     assert!(out.stdout.iter().filter(|b| **b == b'x').count() >= BYTES);
