@@ -4,6 +4,7 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
+crucible-stats = { path = "../crucible-stats" }
 joil-evidence = { path = "../joil-evidence" }
 joil-ir = { path = "../joil-ir" }
 serde.workspace = true
