@@ -49,11 +49,11 @@
     "V5-07-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Accepted source96d: stop joins/charges active batch and publishes once within unchanged bound; current source full8 local suites/10 steps, fresh-source13-command1/2 witness and exact9CI pass. Scratch leak fixed with actual failing-child retention. Earlier d1 interrupted gate has NO RESULT; no physical admission.",
+      "note": "Current96d full two-core lifecycle passes, including active SIGINT130, exactly one drained-batch/stop publication and six retained charges; source-bound full gate and exact96d CI remain in immutable supporting receipts. Partial command snapshots are explicitly partial. Software only; later heads need their own publication gate.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-07-current-combined-acceptance-20261018.json",
-          "sha256": "047eceeb69c9c26166d6bb86299669fb6a109ec3213f17cf6af96a64a3b83998"
+          "path": "docs/receipts/v5-07-two-core-stop-verification-20261018.json",
+          "sha256": "4eb63d59039b054002c699a77d2e21e394de31be0382160d92eaa9f2f953022f"
         }
       ]
     }
