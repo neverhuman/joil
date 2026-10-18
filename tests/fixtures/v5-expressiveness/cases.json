@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "freeze": "v5-12-expressiveness-v1",
+  "campaign_seeds": false,
+  "execution_boundary": "MPG schema validation and deterministic development only; no geometry backend is registered",
+  "cases": [
+    {"id":"ct35-round-trip","source":"S09-CAD-10","witness":"full dimensions, port regions, partition, bounded volume and boundary deviation","geometry_status":"blocked_no_backend"},
+    {"id":"non-star-shaped-chamber","source":"S09-CAD-10","witness":"cross-section needs more than one radial wall value","geometry_status":"blocked_no_backend"},
+    {"id":"branch-rejoin-section-roll","source":"S09-CAD-10","witness":"distinct passages reconnect; connectivity stable under refinement","geometry_status":"blocked_no_backend"},
+    {"id":"three-station-staged-injection","source":"S09-CAD-10","witness":"branches enter at three measured axial stations with frozen feed ports","geometry_status":"blocked_no_backend"},
+    {"id":"involute-scroll-inlet","source":"S09-CAD-10","witness":"monotone radius along scroll spine","geometry_status":"blocked_no_backend"},
+    {"id":"axial-vane-swirl-generator","source":"S09-CAD-10","witness":"vane solids attached to shell; fluid exclusion and mass change","geometry_status":"blocked_no_backend"},
+    {"id":"coaxial-core-stabilizer","source":"S09-CAD-10","witness":"internal solid has measured load path; fluid region excludes it","geometry_status":"blocked_no_backend"},
+    {"id":"counter-rotating-twin-chamber","source":"S09-CAD-10","witness":"opposite signed angular-momentum flux; frozen feed ports unchanged","geometry_status":"blocked_no_backend"},
+    {"id":"graded-lattice-annulus","source":"S09-CAD-10","witness":"resolved solid/void sheets converge at feature scale","geometry_status":"blocked_no_backend"},
+    {"id":"lattice-stiffened-thin-shell","source":"S09-CAD-10","witness":"thickness, mass and load path change; installation faces remain fixed","geometry_status":"blocked_no_backend"},
+    {"id":"neutral-refinement-then-activation","source":"S09-CAD-10","witness":"zero coefficient preserves subject; later mutation changes observed subject","geometry_status":"mpg_smoke"},
+    {"id":"narrow-throat-hidden-cavity","source":"S09-CAD-10","witness":"connectivity and powder-path checks expose errors hidden by global volume","geometry_status":"blocked_no_backend"},
+    {"id":"asymmetric-guide-sheet","source":"V5-12-addendum","witness":"non-mirror guide sheet changes subject while interfaces stay fixed","geometry_status":"blocked_no_backend"},
+    {"id":"cavity-rib-alternative","source":"V5-12-addendum","witness":"cavity and rib alternatives have different internal topology under one shell","geometry_status":"blocked_no_backend"},
+    {"id":"nonaxisymmetric-chamber","source":"V5-12-addendum","witness":"nonaxisymmetric field changes wall geometry without changing terminal interfaces","geometry_status":"blocked_no_backend"},
+    {"id":"equal-shell-different-interior","source":"V5-12-addendum","witness":"same shell descriptor but distinct internal graph yields different subject identity","geometry_status":"mpg_smoke"}
+  ]
+}
