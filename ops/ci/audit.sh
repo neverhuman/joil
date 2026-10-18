@@ -33,13 +33,16 @@ fi
   --json "$TMP_OUT/repo-score.json" \
   --md "$TMP_OUT/repo-score.md" \
   --repair-queue-jsonl "$TMP_OUT/repair-queue.jsonl" \
-  --github-step-summary "${GITHUB_STEP_SUMMARY:-$TMP_OUT/summary.md}"
+  --github-step-summary "$TMP_OUT/summary.md"
 
 mkdir -p .jankurai
 cp "$TMP_OUT/repo-score.json" .jankurai/repo-score.json
 cp "$TMP_OUT/repo-score.md" .jankurai/repo-score.md
 if [[ -f "$TMP_OUT/repair-queue.jsonl" ]]; then
   cp "$TMP_OUT/repair-queue.jsonl" .jankurai/repair-queue.jsonl
+fi
+if [[ -n "${GITHUB_STEP_SUMMARY:-}" && -f "$TMP_OUT/summary.md" ]]; then
+  cat "$TMP_OUT/summary.md" >> "$GITHUB_STEP_SUMMARY"
 fi
 
 test -s .jankurai/repo-score.json
