@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "tested_commit": "96d3bd6796d20bae199eb482f815f555178a1d27",
+  "created_utc": "2026-10-18T02:11:17.811226+00:00",
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.4992389450198971,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c5e13f1b670b6b79d98b39e34917d25b62d9e67e50ee0dd39908a2450a7c9e2d",
+      "wall_seconds": 11.321515128947794,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3b6f89fee8a39494f12d80769db942242708dece2aac756153306aca5fc9160a",
+      "wall_seconds": 501.9901616499992,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e7f73e26dd77a6173f6cb737585ebe1d67682e0ee4f1cb19de224ddf8cb58aca",
+      "wall_seconds": 8.600085347017739,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.05017675901763141,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "be3f6f44c853e1f8fdbd7ea51088a1b770d884c60116587360772246157e513a",
+      "wall_seconds": 93.6292350529693,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ef1760e9d9f2c07fd2079e68c28673a4ed116854921126c13a97c01b83051ec5",
+      "wall_seconds": 0.16493459203047678,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "wall_seconds": 16.682387367996853,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920",
+      "wall_seconds": 1.6059425600105897,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b5c306029017c680a48a3e12f0eb99dd59a6b0389336f18436aec752042d28bb",
+      "wall_seconds": 2.5946690469863825,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    }
+  ],
+  "private_full_gate_receipt_sha256": "4ddca92bdf20ecba147a394cd277c9da6260b501bd5ee6da3e2c688db9e0f95f",
+  "private_full_gate_log_sha256": "dde05fa9c67e07c4daf22dba5a3b9dc201d3739ac884e9f494bb3817cd60a885",
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "physical_solver_campaign": false,
+    "measured_start_owned_scratch_bytes": 1934950139,
+    "sampled_peak_owned_scratch_bytes": 2036876735,
+    "sampling_note": "Private gate samples at ten-second intervals, not a continuous peak RSS/usage measurement; Rust suite used one permitted core, fresh witness used both leased physical cores."
+  },
+  "acceptance_state": "verification_supplement_not_task_acceptance",
+  "canonical_progress_updated": false,
+  "limitations": [
+    "Coding and independent software checks only; no physical qualification, GPU or solver campaign.",
+    "Exact-head CI run39088444745 is still pending at receipt creation; task acceptance remains held until its result and combined acceptance evidence.",
+    "Earlier d1e2827 official gate was interrupted and has NO RESULT; this receipt relies only on the completed96d gate.",
+    "Historical receipts and artifact inventories remain immutable. Archived historical bytes were verified through an additive retention map, not counted as new test execution.",
+    "V5-00-03 remains audit-held pending16 executed source-bound baseline controls. TR-16/EV-09/EV-12 remain deferred."
+  ],
+  "kind": "fail_closed_defect_receipt_gate_verification_not_baseline_acceptance",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-03"
+  ],
+  "changed_paths": [
+    "tools/v5_plan.py",
+    "tests/test_v5_defect_closure.py",
+    "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+    "docs/v5-plan/TASKS.json"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/v5_plan.py",
+      "sha256": "bf4ac2c64b3d3a82afc27b1c37717a1e2aef9a4bd7ab5d291a4b6dd0af8f353b"
+    },
+    {
+      "path": "tests/test_v5_defect_closure.py",
+      "sha256": "c2f40f6652acc0fb0dbfb2d2d83888b971f1ce6791f319bb02b98020c3e2c950"
+    },
+    {
+      "path": "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+      "sha256": "2bf1e4ae1c3766015d2151160b5af2e207c04580b9fc6cb6f04b1dba8decb96f"
+    },
+    {
+      "path": "docs/v5-plan/TASKS.json",
+      "sha256": "4d394df8f1c99d3d042cde97975e4cc79c8f62af2558be42721c957ed8cd247c"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-00-audit-inventory-20261018.json",
+      "sha256": "96e554401030e953cf9191e80a92acc39a9ccd5414a39bb0ce68fd72020136ca"
+    }
+  ],
+  "positive_checks": [
+    "All10 receipt-gate boundary tests pass and are included in the current full Python suite.",
+    "Deleting the gate file refuses both a future primary repair and an exact historical receipt reference; no cutover exception bypasses a missing gate file.",
+    "All18 plan integrity tests and generated views pass; the original baseline acceptance wording is preserved."
+  ],
+  "negative_checks": [
+    "New missing-file control actually failed1 against the prior fail-open implementation (ValueError not raised), then passed after is_file/refusal enforcement.",
+    "Synthetic metadata controls reject duplicate/missing controls, a zero-exit red, unrecorded positives, missing hashes, stale/untracked fixtures and frozen-source drift. These validate receipt structure and do not execute16 domain defect fixtures."
+  ],
+  "expected_negative_commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_defect_closure.py"
+      ],
+      "exit_code": 1,
+      "log_sha256": "8612fe684d44cea87d043ff94ca67a4d82b8868fe99f8ece11f25e718c2b98d3"
+    }
+  ],
+  "private_evidence": {
+    "focused_gate_green_command_receipt_sha256": "2299b14c9b418de5b0f393e5f59401e555ce67765237d4d166b1b7038ecda424",
+    "focused_gate_red_command_receipt_sha256": "6bfa1c0ebc02991271128d30aa7b065c565761efdd7781058422d651dc759391",
+    "interrupted_old_gate_retention_sha256": "4c0711bd20f261bd3388759eb1cc26e5d89433daf8c18aa505c8529018256936"
+  },
+  "next_dependency": "Existing Claude C006 must execute actual source-bound red and positive controls for16 baseline rows; integrator review and a new combined baseline receipt are required. No baseline completion is asserted here."
+}
