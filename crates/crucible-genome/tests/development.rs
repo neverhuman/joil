@@ -215,12 +215,10 @@ fn staged_fields_reject_neural_high_frequency_and_bad_resolution() {
 fn ct35_migration_preserves_all_genes_and_marks_reference_unqualified() {
     let bytes = include_bytes!("../../../baselines/ct35/genome.json");
     let migration = lower_ct35(bytes, iface()).unwrap();
+    let source: serde_json::Value = serde_json::from_slice(bytes).unwrap();
     assert_eq!(
-        migration.retained_fields["parameters"]
-            .as_object()
-            .unwrap()
-            .len(),
-        20
+        migration.retained_fields["parameters"], source["parameters"],
+        "all CT-35 parameter names and values must be retained"
     );
     assert_eq!(migration.certified_baseline_error_bounds, None);
     assert_eq!(

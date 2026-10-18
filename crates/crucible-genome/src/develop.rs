@@ -14,7 +14,7 @@ pub struct DevelopmentBudget {
     pub max_spatial_frequency_m_inv: f64,
     pub min_resolved_feature_m: f64,
 }
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum DevelopmentError {
     Schema(SchemaError),
     Budget {

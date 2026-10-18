@@ -75,7 +75,7 @@ pub struct ModuleEdge {
     pub to_module: u32,
     pub to_port: String,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum EdgeRelation {
     Construction,
