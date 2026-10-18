@@ -10,3 +10,4 @@ serde_json.workspace = true
 joil-evidence = { path = "../joil-evidence" }
 crucible-contract = { path = "../crucible-contract" }
 crucible-units = { path = "../crucible-units" }
+sha2.workspace = true
