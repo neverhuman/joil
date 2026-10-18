@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_19_reserve",
+  "packet": "V5-19",
+  "task_ids": ["V5-19-05"],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "Captain stage G-012 (v5-19-structure-C010); COORD 2026-10-18T04:56:37Z dispatch",
+  "input_head": "10d32c755d2849ab2c5731c94cbdbcb80df90cf1",
+  "tested_commit": "3969e6e896a9f3f0283845deed51a3996f7208fa",
+  "created_utc": "2026-10-18T05:05:48Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/structure.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/tests/structure.rs",
+    "physics/structure/v5/load-families.draft.json"
+  ],
+  "commands": [
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"], "cwd": ".", "exit_code": 0, "wall_seconds": 3.88, "log_sha256": "918421b2f4f272373c95f32e1fb3f0f0a9a7b5e9b6dba812cc849f48cae34ec6", "note": "17 tests, all passed at the tested commit"},
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges"], "cwd": ".", "exit_code": 0, "wall_seconds": 1.94, "log_sha256": "6fd54c7e956d346723989aa49628e417feaab4a72acfedfa4fe13d8e658b0eb9", "note": "manufacturing 18 + structure 17, all passed"},
+    {"argv": ["cargo", "clippy", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--all-targets", "--", "-D", "warnings"], "cwd": ".", "exit_code": 0, "wall_seconds": 1.97, "log_sha256": "2ac9c0f7fad15048abf831d2b72f4c78c1520c34c2c111ea22e0fe320ea67195"},
+    {"argv": ["cargo", "fmt", "--all", "--", "--check"], "cwd": ".", "exit_code": 0, "wall_seconds": 0.66, "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["python3", "tools/check_public.py"], "cwd": ".", "exit_code": 0, "wall_seconds": 0.18, "log_sha256": "52e62331cda5789a01cb6ef71e71efe6223ca1a1620e204464e0c66f0085a3b6"}
+  ],
+  "task_tests": [
+    "v5_19_05_reserve_is_allowable_over_required_per_family_with_a_common_governing_limit",
+    "v5_19_05_high_yield_margin_cannot_mask_untested_external_pressure_buckling",
+    "v5_19_05_frequency_ratio_and_fatigue_factor_are_not_min_combined_as_load_multipliers",
+    "v5_19_05_nonlinear_limits_need_resolves_and_every_limit_cites_the_frozen_demand"
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "M4",
+      "description": "structure.rs compute_reserve(): external-pressure-buckling-untested guard disabled with `false &&`",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_sha256": "2752a5574e4901f9376a2d39d7a94aaf5bbb75f09af4d6001f006daa3ab063a2",
+      "failed_tests": ["v5_19_05_high_yield_margin_cannot_mask_untested_external_pressure_buckling"],
+      "note": "exactly this test failed, 16 passed; source restored with git checkout before the next run"
+    },
+    {
+      "mutation": "M5",
+      "description": "structure.rs compute_reserve(): modal/fatigue multiplier-definition guard replaced by `false &&`",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_sha256": "8a9f993dfacf689e4feb4b572f4364cbba44cf7f1aa9a8575f5eb26397b7a9b9",
+      "failed_tests": ["v5_19_05_frequency_ratio_and_fatigue_factor_are_not_min_combined_as_load_multipliers"],
+      "note": "exactly this test failed, 16 passed; source restored with git checkout before the next run"
+    }
+  ],
+  "artifacts": [
+    {"path": "packs/hydrocyclone/judges/src/structure.rs", "sha256": "8afd79a62cc09483d9ef0cadd925d0b2f9d8deef17fafa6a57800ff3e661d229"},
+    {"path": "packs/hydrocyclone/judges/tests/structure.rs", "sha256": "37178d9cf36671f38f10abdbd9504f2e99ebba6cfcf4e32051bc6e4fa591a5d8"},
+    {"path": "packs/hydrocyclone/judges/src/lib.rs", "sha256": "518ede6d5cffbba34f0c76078b4653aa37beb96c0a20c76e55f9f14170a2eccd"},
+    {"path": "physics/structure/v5/load-families.draft.json", "sha256": "5d9ae7590e07f47c413ae9e750039cc26f291a964e8ab2272ef109d364418d7b"}
+  ],
+  "positive_checks": [
+    "Per-family reserve is allowable multiplier over required factor (yield 3.0/1.5 = 2.0; external buckling 1.8/1.5 = 1.2 governs) against the common frozen demand; nonlinear limits count only with explicit re-solves reaching the claimed multiplier",
+    "A frequency ratio and a fatigue safety factor are judged against their own admitted requirements and stay out of the governing minimum; an admitted multiplier definition makes a modal limit usable (reserve 1.1)"
+  ],
+  "negative_checks": [
+    "Ratios of 1.1 and 0.9 fail only their own requirements and leave the governing reserve at 1.2; modal/fatigue limits without a definition, nonlinear limits scaled from one solve, re-solves short of the claim, a missing buckling limit, a different load basis, a family with no usable limit, an unadmitted required factor and the draft load set never yield Pass; a reserve below 1 is Fail"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges and unresolved draft records only; SYNTHETIC test values; no physical qualification",
+  "limitations": [
+    "Every limit, required factor and requirement is SYNTHETIC; the draft load set has no admitted required factor, so no real reserve can be computed yet",
+    "Combining families by the minimum reserve is only meaningful because each reserve is already normalised by its own admitted required factor against the shared frozen demand; whether the project wants a different cross-family combination is a structures_owner decision",
+    "The judge trusts the caller's Response and Derivation labels; it checks that nonlinear limits cite explicit re-solves reaching the claim but does not read the solves",
+    "No native solver was run; crucible-adapters is not a workspace member and the judges live in pack-hydrocyclone-judges (no root Cargo.toml or Cargo.lock change in this task)",
+    "Task evidence, not acceptance and not scientific PASS"
+  ],
+  "next_dependency": "Real required factors, allowables and the V5-19-03/04 solver outputs; integrator review and super-merge of this lane"
+}

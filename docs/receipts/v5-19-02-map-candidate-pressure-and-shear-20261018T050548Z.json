@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_19_traction_transfer",
+  "packet": "V5-19",
+  "task_ids": ["V5-19-02"],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "Captain stage G-012 (v5-19-structure-C010); COORD 2026-10-18T04:56:37Z dispatch",
+  "input_head": "10d32c755d2849ab2c5731c94cbdbcb80df90cf1",
+  "tested_commit": "3969e6e896a9f3f0283845deed51a3996f7208fa",
+  "created_utc": "2026-10-18T05:05:48Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/structure.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/tests/structure.rs",
+    "physics/structure/v5/load-families.draft.json"
+  ],
+  "commands": [
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"], "cwd": ".", "exit_code": 0, "wall_seconds": 3.88, "log_sha256": "918421b2f4f272373c95f32e1fb3f0f0a9a7b5e9b6dba812cc849f48cae34ec6", "note": "17 tests, all passed at the tested commit"},
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges"], "cwd": ".", "exit_code": 0, "wall_seconds": 1.94, "log_sha256": "6fd54c7e956d346723989aa49628e417feaab4a72acfedfa4fe13d8e658b0eb9", "note": "manufacturing 18 + structure 17, all passed"},
+    {"argv": ["cargo", "clippy", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--all-targets", "--", "-D", "warnings"], "cwd": ".", "exit_code": 0, "wall_seconds": 1.97, "log_sha256": "2ac9c0f7fad15048abf831d2b72f4c78c1520c34c2c111ea22e0fe320ea67195"},
+    {"argv": ["cargo", "fmt", "--all", "--", "--check"], "cwd": ".", "exit_code": 0, "wall_seconds": 0.66, "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["python3", "tools/check_public.py"], "cwd": ".", "exit_code": 0, "wall_seconds": 0.18, "log_sha256": "52e62331cda5789a01cb6ef71e71efe6223ca1a1620e204464e0c66f0085a3b6"}
+  ],
+  "task_tests": [
+    "v5_19_02_conservative_transfer_fits_the_preallocated_budget",
+    "v5_19_02_copied_ct35_pressure_wrong_normals_and_missing_shear_or_patches_fail",
+    "v5_19_02_identity_budget_and_reactions_are_checked"
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "M2",
+      "description": "structure.rs judge_transfer(): copied-CT35-pressure test replaced by `.all(|_| false)`",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_sha256": "cf17d985b2148ad10f5b7449f6f11a9f422747018c6e266324e4d15b88cc1272",
+      "failed_tests": ["v5_19_02_copied_ct35_pressure_wrong_normals_and_missing_shear_or_patches_fail"],
+      "note": "exactly this test failed, 16 passed; source restored with git checkout before the next run"
+    }
+  ],
+  "artifacts": [
+    {"path": "packs/hydrocyclone/judges/src/structure.rs", "sha256": "8afd79a62cc09483d9ef0cadd925d0b2f9d8deef17fafa6a57800ff3e661d229"},
+    {"path": "packs/hydrocyclone/judges/tests/structure.rs", "sha256": "37178d9cf36671f38f10abdbd9504f2e99ebba6cfcf4e32051bc6e4fa591a5d8"},
+    {"path": "packs/hydrocyclone/judges/src/lib.rs", "sha256": "518ede6d5cffbba34f0c76078b4653aa37beb96c0a20c76e55f9f14170a2eccd"},
+    {"path": "physics/structure/v5/load-families.draft.json", "sha256": "5d9ae7590e07f47c413ae9e750039cc26f291a964e8ab2272ef109d364418d7b"}
+  ],
+  "positive_checks": [
+    "A 64-facet wall ring plus a 16-facet cap, remapped by splitting each facet in two, conserves patch force, shear, moment and area; the hand value F_x = -p1*pi*R*h = -31.416 N for the cos(theta) pressure part matches the integrated source to 1e-9 relative",
+    "Independently integrated reactions close the mapped load; a 1e-5 pressure drift passes the 1e-3 budget while a 1e-2 drift fails; the interpolation id and hash and the solid mesh hash are carried in the report"
+  ],
+  "negative_checks": [
+    "Mapped pressure set to the copied 29468.22 Pa, flipped normals, zeroed shear, a dropped patch, a pressure-only source field, a source field of another design, a different solid mesh and half the reactions each fail; an unadmitted budget or absent reactions are Unresolved; malformed facets are errors",
+    "Baseline row D-08 (copied CT-35 pressure) is the behaviour the copied-pressure refusal answers; this task does not by itself lift any audit hold"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges and unresolved draft records only; SYNTHETIC test values; no physical qualification",
+  "limitations": [
+    "Every fixture is SYNTHETIC; the mapping budget is a synthetic number, not a preallocated project budget, and no real CFD traction field was mapped",
+    "No native solver is installed and none was run; reactions in the fixtures are the negated mapped facet forces, not solver output",
+    "Facets, meshes and designs are packet-local caller-supplied records identified by SHA-256 because V5-09/V5-10 are not accepted; interpolation identity is carried and checked for presence, the interpolation itself is not performed here",
+    "crucible-adapters is not a workspace member; the judges live in pack-hydrocyclone-judges (no root Cargo.toml or Cargo.lock change in this task)",
+    "Task evidence, not acceptance and not scientific PASS"
+  ],
+  "next_dependency": "A real accepted CFD traction export and a preallocated mapping budget from structures_owner; V5-19-03 requires the transfer report and its solid mesh hash"
+}
