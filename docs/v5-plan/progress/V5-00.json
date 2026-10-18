@@ -27,22 +27,22 @@
     "V5-00-03": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "All31 source allegations dispositioned; production software probes and source-mutation controls passed; unresolved physical hypotheses and future regression designs retained.",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-00-03-completed-20261017.json",
-          "sha256": "512d931601fab719939ed7889774e22a32d6b64ec1204ccac4dadc2dcc8f347a"
+          "path": "docs/receipts/v5-00-audit-inventory-20261018.json",
+          "sha256": "96e554401030e953cf9191e80a92acc39a9ccd5414a39bb0ce68fd72020136ca"
         }
       ]
     },
     "V5-00-04": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "TR-16, threshold audit, EV-09/EV-12 exact dispositions and downstream owners retained; physical admission remains blocked.",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-00-04-completed-20261017.json",
-          "sha256": "ae2cc3ca0c2f361b3316a890fc148c6db62a929fcfe937dfc4763b041f2beda5"
+          "path": "docs/receipts/v5-00-audit-inventory-20261018.json",
+          "sha256": "96e554401030e953cf9191e80a92acc39a9ccd5414a39bb0ce68fd72020136ca"
         }
       ]
     },

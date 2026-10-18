@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "kind": "fresh_clone_shipped_fixture_acceptance_not_physical_admission",
+  "task_ids": [
+    "V5-07-05"
+  ],
+  "tested_commit": "706e47fafde19c87193959c12f9b34d567f82dd2",
+  "created_utc": "2026-10-18T00:30:19.391546+00:00",
+  "changed_paths": [
+    "campaigns/fixture-v5.toml",
+    "crates/crucible-cli/src/lib.rs",
+    "crates/crucible-cli/src/main.rs",
+    "crates/crucible-runtime/src/task.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_fixture_smoke.py",
+        "--checkout",
+        "/home/ubuntu/joil/.agent/worktrees/v5-fixture-verify-20261018",
+        "--evidence",
+        "/home/ubuntu/joil/.private/v5-workers/codex/fresh-fixture-evidence",
+        "--expected-commit",
+        "706e47fafde19c87193959c12f9b34d567f82dd2"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e38f3d61ac658fddff354238c1f334e6e00addaaafb638070e0c240e0acb12cb"
+    }
+  ],
+  "positive_checks": [
+    "Actual fresh bare clone from Joil origin has independent object store, no alternates, clean exact706 detached workingtree before/after; host-correct workingcopy in.agent/worktrees, existing per-worker toolchain/target reused",
+    "Exact shipped cargo run --locked -p crucible-cli -- run campaigns/fixture-v5.toml succeeds with two real grantedphysicalcores/workers; no edited config or1worker substitution",
+    "Actual checkpoint epoch1 charge2 resumes toepoch2 charge4; uninterrupted charge4 has identicallogicaldigest; offlineverify succeeds, nonemptyclosure and complete raw run artifacts retained",
+    "Exact706 remoteCI all9green, raw GitHubrun/jobs JSON hashes retained in replay/timer receipt"
+  ],
+  "negative_checks": [
+    "Physicaldomain mutant refuses64 with bounded_software_campaign_admission before root/jobs exist"
+  ],
+  "artifacts": [
+    {
+      "path": "campaigns/fixture-v5.toml",
+      "sha256": "60d69acafe70dc8006b0768cd3fbf0e0ec0b8516adb0cb61e2dc8d1f010993a8"
+    },
+    {
+      "path": "crates/crucible-cli/src/lib.rs",
+      "sha256": "e83c253644a406f766b497ad4958affd231661e66aa80c37edc6857dc462b669"
+    },
+    {
+      "path": "crates/crucible-cli/src/main.rs",
+      "sha256": "e0eba955680d13e836a59f8a490fa8dc662e3abce65dd7901ace672776ef77b7"
+    },
+    {
+      "path": "crates/crucible-runtime/src/task.rs",
+      "sha256": "735d255a2eabcde2ebd4e75bde935d9de306137e97a63147cdaeb875632ebefe"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-07-05-completed-20261017.json",
+      "sha256": "fcc2a4b1ab61a5b8cd6eb49e10131e2598094f1825871277c516c8ab472505ff"
+    },
+    {
+      "path": "docs/receipts/v5-07-ci-followup-20261018.json",
+      "sha256": "dd2d502c83a0c142e9d4fa4f9c17bbb257d1df5e5404f457672689d390c51fc2"
+    },
+    {
+      "path": "docs/receipts/v5-07-replay-current-20261018.json",
+      "sha256": "bbf30c805c2d79a8fc4931f79a7c78422e6465d2ebbb1225a2b1d8ad78d9affe"
+    }
+  ],
+  "witness_harness": {
+    "tested_code_commit": "f8025e64dda91ecf8d05b2f6a32bd9fa4958d62c",
+    "path": "tools/v5_fixture_smoke.py",
+    "sha256": "a2738efbd3ff877e871c433ca59e5844ec8902457dc0b7376f3e2c6740e101ac",
+    "scope": "External witness harness in integrator checkout executed target706; never claimed present in706"
+  },
+  "private_raw_run_inventory_sha256": "c60c842439a59986c2a121bc4d3e2b70305d88d514e8c433b3b2c241642e6ca2",
+  "private_smoke_inventory_sha256": "2fda7aef3a2e3107e57f3b0c9965059328c685e20ffb3a36a508055f128187e4",
+  "private_command_records_sha256": "8911319ed52f77a59a4ec0f3fd30196a468f6cb123f2c94b13e6f52f8323156f",
+  "private_source_identity_sha256": "ca162c250a430c5fa693e6a8c3e0eaa02ea2ebd3a66935f0d9ead3cb64445bbc",
+  "private_worker_capability_sha256": "fb7ca7c1f13d2a3b9e31f069e7ef74a96d82e681b2bfa6fecb30f521391b6aba",
+  "private_clone_preparation_observation_sha256": "ceaed7a7bc314bccae2591295a64764499572da219c2b3d8f8c6092ecc62de70",
+  "negative_command": {
+    "argv": [
+      "cargo",
+      "run",
+      "--locked",
+      "-p",
+      "crucible-cli",
+      "--",
+      "run",
+      "/home/ubuntu/joil/.private/v5-workers/codex/fresh-fixture-evidence/invalid-physical.toml",
+      "--root",
+      "/home/ubuntu/joil/.private/v5-workers/codex/fresh-fixture-evidence/must-not-exist"
+    ],
+    "exit_code": 64,
+    "expected_exit_code": 64,
+    "wall_seconds": 0.05793857201933861,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "c2e5797742548922bfb8d0104da675e72815442a08a8b12005f4bb20229e0760"
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "total_owned_storage_bytes_at_observation": 2433825927
+  },
+  "limitations": [
+    "Synthetic integer software fixture only; no physicalsolver/GPU/largecampaign or performancequalification",
+    "Existing toolchain/dependency/buildcache reused and declared; this is a fresh source clone, not a clean dependencyinstall",
+    "Native attempt measurement scope excludes sharedcoordinatorRAM/finalbookkeeping; storedrealcosts are not claimed identical across schedules",
+    "V5-04statistical release and fullv4 deferral registry remainopen",
+    "Milestone audit hold continues until bounded02 tests/integration and finalexactheadCI",
+    "Witness source/alternates guards are structural preconditions, not separately mutation-tested refusal claims. Hosts with one physicalcore require explicitworker2 refusal; this witness actuallyhad2 and exercised2."
+  ],
+  "next_dependency": "Review boundedClaude02handoff, final integrated requiredgate and exact-head CI"
+}

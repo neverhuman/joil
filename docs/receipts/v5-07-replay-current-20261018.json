@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "kind": "combined_acceptance_audit_supplement_not_physical_admission",
+  "task_ids": [
+    "V5-07-04"
+  ],
+  "tested_commit": "71f590512ffa887b598ae78a559e8d979fa89530",
+  "created_utc": "2026-10-18T00:29:54.329257+00:00",
+  "changed_paths": [
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "crates/crucible-runtime/tests/recovery.rs",
+    "crates/crucible-runtime/src/replay.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e90673f85ca16d2302c3b8127b8bbc26a1a386c30f5217b87a2be3ff54e25fcc",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log_sha256": "bc394238002c33410de7ae6c05a50be5d0c3da8e8c584e02abd04498510c8253",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6f0889a521ecc6d8dec1cd73692face9bad5537f9abd0bdea8a168aba1e3a2fc",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c0ed3b7c5a4969ef0c351541a84fe3525ba93d1f0804965a0d550b4da763321c",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5a27f984eef4d8adf706e28787a34021e4823f934a5fda61c776d54c66413817",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_sha256": "51ca4be4487c946b6af90622bb1261a4900cdf479083f29080e23f7dbb67431c",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    }
+  ],
+  "positive_checks": [
+    "Current source actually exercises1/2workers within2leasedphysicalcores, retained worker-capability artifact and raw commands",
+    "Uninterrupted4charge and actual-retry6charge executions have same logical state but distinct actual cost digests; all recorded costs retained",
+    "Full canonical71f gate and exact706 all9CI pass after native timer fix"
+  ],
+  "negative_checks": [
+    "Addressed RNG/dueepoch/ordinal controls reject arrival-dependent logical state; real timeout retry changes costs without zero-cost substitution",
+    "Hosts without2physicalcores explicitly refuse worker2; that CI branch does not claim2worker coverage. Actual localcapability retained and establishes1/2coverage",
+    "Missing ledger/family/pending/covariance, revoked output acceptance and unknown active-crash cost remain fail-closed"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/tests/lifecycle.rs",
+      "sha256": "73c0bd19f6e6fd370f25d4dbb4c663fbf63e4dcca06844d6f9c34011427b5a0b"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/recovery.rs",
+      "sha256": "e9a2b1fb720208ae3d18f38e61c02b4e854d561fc8f0cf4dc6965c4ec53998af"
+    },
+    {
+      "path": "crates/crucible-runtime/src/replay.rs",
+      "sha256": "2aa7d555a7bf6cc8b400a716fd5a2052fdc32f225dd6233c1010c37bf06ae115"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-07-04-completed-20261017.json",
+      "sha256": "56e50ea90ddd8e561f36a798e26df64aa1acdcaf208a28c15e4b104359b80841"
+    },
+    {
+      "path": "docs/receipts/v5-07-ci-followup-20261018.json",
+      "sha256": "dd2d502c83a0c142e9d4fa4f9c17bbb257d1df5e5404f457672689d390c51fc2"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "physical_simulation": false
+  },
+  "limitations": [
+    "Software verification only; no physical eligibility or performance claim",
+    "V5-04 statistics and domain physical release remain open; TR-16/threshold audit/EV-09/EV-12 and full v4 remainder registry retained",
+    "Historical receipts and source bytes remain immutable; supporting receipt references distinguish historical scope from current verification",
+    "Integrator implements and accepts its own slices; independent read-only auditor reviewed evidence, not a second implementation",
+    "Current integration branch has later audit-only changes; exact706 CI is not a claim of CI on those future heads"
+  ],
+  "next_dependency": "Close remaining bounded02 proof gaps and final integrated exact-head gate/CI before milestone acceptance",
+  "private_full_gate_receipt_sha256": "2cde5b529a4f5101dda58b4d10c3367050279892751efbe65d4d299c8f7a841d",
+  "private_combined_artifact_inventory_sha256": "1b45aa33f7ea5df3a9c87fdf4570e3e7d79ebd98dc728c29a24247a94c24031a",
+  "exact_head_ci": {
+    "head": "706e47fafde19c87193959c12f9b34d567f82dd2",
+    "run_id": 39081586853,
+    "url": "https://github.com/neverhuman/joil/actions/runs/39081586853",
+    "conclusion": "success",
+    "jobs": 9,
+    "raw_run_sha256": "8ef449d12cb9047e0e277cf59fec7c135b271c95ad26d9bbaebd4968d0f1cc2b",
+    "raw_jobs_sha256": "a5fbd3a6338025c9124b4f9d4cd67a08022a9a105a9519e696a736bc06d88fd3",
+    "qualification": "Exact706 head only; later integration heads require their own CI"
+  },
+  "private_worker_capability_sha256": "f6cc464eee5ec936ab1984d65e10647ff5cd960820ca6c41b86e3efc2bb9bd4a",
+  "private_lifecycle_commands_sha256": "8bba84a8251de030b161970f6947c00954a168e2a9f6f12bb35c9711ba52d0b4",
+  "worker_counts_actually_exercised": [
+    1,
+    2
+  ],
+  "charges_uninterrupted": 4,
+  "charges_with_real_retry": 6,
+  "logical_equal_cost_digest_distinct": true
+}

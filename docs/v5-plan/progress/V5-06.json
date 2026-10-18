@@ -49,11 +49,11 @@
     "V5-06-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-06-05-completed-20261017.json",
-          "sha256": "8df46ee2d07ac13d10648565052b810590d4dc06d0f0b5e153d2534d9cb9ce5b"
+          "path": "docs/receipts/v5-06-timer-current-20261018.json",
+          "sha256": "0def60803cacd4e96ccdb3ef21a3a4ea931111e03512860603d826e3e112bd48"
         }
       ]
     }

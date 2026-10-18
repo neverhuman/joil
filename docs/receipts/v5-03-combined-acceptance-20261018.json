@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "kind": "combined_acceptance_audit_supplement_not_physical_admission",
+  "task_ids": [
+    "V5-03-05"
+  ],
+  "tested_commit": "71f590512ffa887b598ae78a559e8d979fa89530",
+  "created_utc": "2026-10-18T00:29:54.329257+00:00",
+  "changed_paths": [
+    "crates/crucible-architecture/tests/blind_boundary.rs",
+    "crates/crucible-contract/tests/architecture.rs",
+    "crates/crucible-contract/tests/interchange.rs",
+    "schemas/v5/validate_fixtures.py",
+    "schemas/v5/check_portability.py",
+    ".github/workflows/foundation.yml"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e90673f85ca16d2302c3b8127b8bbc26a1a386c30f5217b87a2be3ff54e25fcc",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log_sha256": "bc394238002c33410de7ae6c05a50be5d0c3da8e8c584e02abd04498510c8253",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6f0889a521ecc6d8dec1cd73692face9bad5537f9abd0bdea8a168aba1e3a2fc",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c0ed3b7c5a4969ef0c351541a84fe3525ba93d1f0804965a0d550b4da763321c",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5a27f984eef4d8adf706e28787a34021e4823f934a5fda61c776d54c66413817",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_sha256": "51ca4be4487c946b6af90622bb1261a4900cdf479083f29080e23f7dbb67431c",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    }
+  ],
+  "positive_checks": [
+    "Full locked workspace gate passes architecture and interchange assertions on71f; renamed transitive normal/build/dev dependency bridges remain covered",
+    "Independent JSONSchema7valid/5structuralrefusals/3semanticcases and strictTypeScript typechecks pass against unchanged current source bytes",
+    "Complete locked fetch allows unchanged all-platform offline graph check; exact706 all9CI passes"
+  ],
+  "negative_checks": [
+    "Synthetic transitive/renamed bridge rejects; forged verdict, label leaks, unknown/duplicate keys, negativezero and dimensional mismatch refuse through strict semantic boundaries",
+    "Historical native-only cold-cache offline command failed101 on missing bumpalo; graph was not host-filtered or weakened",
+    "Original03-05 claimed validate_fixtures.py before it was committed at4a546fd; that historical source identity is qualified, not repaired by rewriting. Current tested71f contains the exact helper and new recorded independent run"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-architecture/tests/blind_boundary.rs",
+      "sha256": "328f398c49d9b4fb705aaa8b2f6e8387e64abbd81cb14b2f5b915bb2678d5b6c"
+    },
+    {
+      "path": "crates/crucible-contract/tests/architecture.rs",
+      "sha256": "328f398c49d9b4fb705aaa8b2f6e8387e64abbd81cb14b2f5b915bb2678d5b6c"
+    },
+    {
+      "path": "crates/crucible-contract/tests/interchange.rs",
+      "sha256": "076a22708f4d8a98b3731fb70ed0423204f1a9ad00755e2e09389da46c81b234"
+    },
+    {
+      "path": "schemas/v5/validate_fixtures.py",
+      "sha256": "698ba91f9de738efae89aa6987d323497b649e9757b8fe484ba563e15d73ed18"
+    },
+    {
+      "path": "schemas/v5/check_portability.py",
+      "sha256": "6b9ddbf8fd6aca80a525b0e636986a96e1ff21a2e28b2106d3bfb9637083652c"
+    },
+    {
+      "path": ".github/workflows/foundation.yml",
+      "sha256": "e1e6fe4d607a2f5a6f9e6cd5150191c692c4e4bcfc33e5d50a46e8f3377d5b6c"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-03-05-completed-20261017.json",
+      "sha256": "bd0be82a4d9e584f62844dcee75d12a74c64a27f76e5c599fc961ff5fc3fe79b"
+    },
+    {
+      "path": "docs/receipts/v5-03-prefetch-ci-followup-20261017.json",
+      "sha256": "2af8d48459ca15604c38bbb79dbecf3816aadfb51ef55eb1dc4d3fa3f7a549b3"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "physical_simulation": false
+  },
+  "limitations": [
+    "Software verification only; no physical eligibility or performance claim",
+    "V5-04 statistics and domain physical release remain open; TR-16/threshold audit/EV-09/EV-12 and full v4 remainder registry retained",
+    "Historical receipts and source bytes remain immutable; supporting receipt references distinguish historical scope from current verification",
+    "Integrator implements and accepts its own slices; independent read-only auditor reviewed evidence, not a second implementation",
+    "Current integration branch has later audit-only changes; exact706 CI is not a claim of CI on those future heads"
+  ],
+  "next_dependency": "Close remaining bounded02 proof gaps and final integrated exact-head gate/CI before milestone acceptance",
+  "private_full_gate_receipt_sha256": "2cde5b529a4f5101dda58b4d10c3367050279892751efbe65d4d299c8f7a841d",
+  "private_combined_artifact_inventory_sha256": "1b45aa33f7ea5df3a9c87fdf4570e3e7d79ebd98dc728c29a24247a94c24031a",
+  "exact_head_ci": {
+    "head": "706e47fafde19c87193959c12f9b34d567f82dd2",
+    "run_id": 39081586853,
+    "url": "https://github.com/neverhuman/joil/actions/runs/39081586853",
+    "conclusion": "success",
+    "jobs": 9,
+    "raw_run_sha256": "8ef449d12cb9047e0e277cf59fec7c135b271c95ad26d9bbaebd4968d0f1cc2b",
+    "raw_jobs_sha256": "a5fbd3a6338025c9124b4f9d4cd67a08022a9a105a9519e696a736bc06d88fd3",
+    "qualification": "Exact706 head only; later integration heads require their own CI"
+  },
+  "current_independent_commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "schemas/v5/validate_fixtures.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1b5ed505cb698a9a57736657241e11752af235f452e0f66bdc7582dc47745146"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "apps/explorer/node_modules/.bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--target",
+        "ES2020",
+        "schemas/v5/contracts.generated.ts",
+        "schemas/v5/render-origin.generated.ts",
+        "schemas/v5/contracts.typecheck.ts"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "independent_command_execution_commit": "f8025e64dda91ecf8d05b2f6a32bd9fa4958d62c",
+  "source_binding": "Schema/TS files byte-identical between71f and current f802 audit source; commands on f802 are declared separately"
+}

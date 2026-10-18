@@ -49,11 +49,11 @@
     "V5-03-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Full current-source gate and cold-cache controls pass; complete locked graph is prefetched in CI, offline/all-platform assertions retained; exact-head CI remains to observe.",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-03-prefetch-ci-followup-20261017.json",
-          "sha256": "2af8d48459ca15604c38bbb79dbecf3816aadfb51ef55eb1dc4d3fa3f7a549b3"
+          "path": "docs/receipts/v5-03-combined-acceptance-20261018.json",
+          "sha256": "92c43aab2b7d7ab955583ec5e1a473bf171dda3ecab29471bfd95594e9d0e49b"
         }
       ]
     }

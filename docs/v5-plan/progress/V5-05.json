@@ -49,11 +49,11 @@
     "V5-05-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Fresh reviewed export excludes unselected private history; canary counterfactual and CI private-root controls pass.",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-05-export-followup-20261017.json",
-          "sha256": "7edb88a7c90bc09dedd351aa48b22277bc16588cf5d01f2d407e59eddc83a5de"
+          "path": "docs/receipts/v5-05-combined-retention-export-20261018.json",
+          "sha256": "1c5b32b09dc53f52eac8bdbaeac8d0276ece7f3faf4cf9e8eaee537613255304"
         }
       ]
     }

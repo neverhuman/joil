@@ -38,22 +38,22 @@
     "V5-07-04": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-07-04-completed-20261017.json",
-          "sha256": "56e50ea90ddd8e561f36a798e26df64aa1acdcaf208a28c15e4b104359b80841"
+          "path": "docs/receipts/v5-07-replay-current-20261018.json",
+          "sha256": "bbf30c805c2d79a8fc4931f79a7c78422e6465d2ebbb1225a2b1d8ad78d9affe"
         }
       ]
     },
     "V5-07-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Reopened CI item reaccepted after old-timer red/new-timer positive+slow-child negative and complete combined source gate; exact-head CI remains pending.",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-07-ci-followup-20261018.json",
-          "sha256": "dd2d502c83a0c142e9d4fa4f9c17bbb257d1df5e5404f457672689d390c51fc2"
+          "path": "docs/receipts/v5-07-fresh-clone-20261018.json",
+          "sha256": "f693ddba0e500701976b2a74c48f0e2a39cecd080bc7bc5e064f7671547fe63f"
         }
       ]
     }
