@@ -1,0 +1,1332 @@
+{
+  "schema_version": 1,
+  "kind": "baseline_source_controls_partial_not_task_acceptance_or_physical_validation",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-03"
+  ],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "C006 via Gorkbot G-007: claude/next-assignment.json sha256 1a553e29c1b4c94e7e088c842394083328d123c0aea4b6f66d0658ed2039eb29, integration review rev 5, scope docs/v5-plan/execution/V5-00-SOURCE-CONTROLS-SCOPE.md (blob sha256 a1d31ceb05bdb3395912889cdcffbaf42f1f85cab7da0da8c036c244d1b0b20a)",
+  "status": "PARTIAL: 11 of 16 source-only rows have an executed red and a valid positive on frozen components (9 runtime, 2 static); 5 rows remain blocked. The original V5-00-03 criterion and its audit-hold are unchanged; this receipt neither completes V5-00-03 nor marks any primary repair done.",
+  "input_head": "96d3bd6796d20bae199eb482f815f555178a1d27",
+  "tested_commit": "7ecd079a1de72ac5c03abba1453a6ae283fc174a",
+  "frozen_source_commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "created_utc": "2026-10-18T02:38:10Z",
+  "changed_paths": [
+    "tools/v5_baseline_source_controls.py",
+    "tests/test_v5_baseline_source_controls.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 107.522,
+      "log_sha256": "4b71d878c050e820d29d71469a29c8a6c922f5a8174568eefeacaf1e00214a9e",
+      "note": "Canonical tools/check.py python-tests step at the tested commit without the Rust opt-in; the 5 C006 Rust tests skip with their stated reason (skips are not coverage; the opt-in run below and the per-row runs are)"
+    },
+    {
+      "argv": [
+        "env",
+        "JOIL_C006_FROZEN_RUST_DIR=<worker-target>/c006frozen",
+        "python3",
+        "-m",
+        "unittest",
+        "tests/test_v5_baseline_source_controls.py",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 8.711,
+      "log_sha256": "366455870a369b822f71f206df5318b68d7b2e9c462f232fb9a14ed0b7ebc51a",
+      "note": "All C006 tests including the Rust pairs, at the tested commit"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "96d3bd6796d20bae199eb482f815f555178a1d27",
+        "HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.004,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.165,
+      "log_sha256": "094a579f34402cea36a7384ca1d4bb08b9a23988c181e6300fd056a0a85bf7bf"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "decision",
+        "complete_source_bound_synthetic_profile_is_semantically_valid_without_physical_admission",
+        "--",
+        "--exact"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.162,
+      "log_sha256": "a1b99bf4ff713f6b892a6f95c3a209652f134b96db18155da01236ba5c7926e0",
+      "note": "D-10 original positive_control pinned as a current control at the tested commit",
+      "pinned_test": {
+        "path": "crates/joil-evidence/tests/decision.rs",
+        "test": "complete_source_bound_synthetic_profile_is_semantically_valid_without_physical_admission",
+        "sha256": "ee9ebee94f4917cab46e5598dc65a506e9f42240a171a4a6fe8e4c75ca85b52d"
+      },
+      "binary_freshness": "cargo reused the lane debug test binary built at b5b0eb28b1977d4396fed05c4cc2391721a33b5b; git diff b5b0eb2..HEAD over crates/joil-evidence, Cargo.lock, Cargo.toml and every include_bytes input is empty"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-05",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-05-positive",
+        "--frozen-rust",
+        "<worker-target>/c006frozen"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.486,
+      "log_sha256": "b4cfe89b1b44a914b684b29d211f859461e9c8dc72e1d55ad18cb93575c158c5",
+      "note": "D-05 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-10",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-10-positive"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.064,
+      "log_sha256": "6d1a105e27adae261356c53cc1d345e673e0b764119bf02ef1411785ff91b82e",
+      "note": "D-10 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-14",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-14-positive"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.175,
+      "log_sha256": "f5ac8c8f192c9f5b05aa7b2d12b73a68f7770253de1d8d886dd91ae129e5ccbf",
+      "note": "D-14 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-16",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-16-positive",
+        "--frozen-rust",
+        "<worker-target>/c006frozen"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.452,
+      "log_sha256": "51a0d3e445df72b9643c6a444b66ff01207cf79a612c10209492644e66216894",
+      "note": "D-16 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-17",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-17-positive",
+        "--frozen-rust",
+        "<worker-target>/c006frozen"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.596,
+      "log_sha256": "886e239c4ba5c284c33bfe6fd11fc9422686084622fad4c23f4cd7976b207b8a",
+      "note": "D-17 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-22",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-22-positive"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 1.493,
+      "log_sha256": "cf5f75b6a23bea5be4da602bb07cd6f228489dca1a73e0b2ed854e0cb626f865",
+      "note": "D-22 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-24",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-24-positive",
+        "--frozen-rust",
+        "<worker-target>/c006frozen"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.107,
+      "log_sha256": "005670db27a8c28be2a97eb517a8e64cda0a1e4bf37e6bb5dee5082e7cf2d28a",
+      "note": "D-24 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-25",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-25-positive"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.067,
+      "log_sha256": "2b5bac3ebcd3b8c7106d45fb6fa2ca2e1134543e90bcf02ef4057be8654f3abb",
+      "note": "D-25 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-27",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-27-positive"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.077,
+      "log_sha256": "b80ab84a423b6f742487d1361add7740c48ce793b1fcd2d2597f98f2aa8636e2",
+      "note": "D-27 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-30",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-30-positive",
+        "--frozen-rust",
+        "<worker-target>/c006frozen"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.916,
+      "log_sha256": "33d461a2555f96b609c3f4704ab132dfdac8c67b5ec96703ed793e7d6b0f68aa",
+      "note": "D-30 positive control"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-31",
+        "positive",
+        "--scratch",
+        "<private-scratch>/D-31-positive"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.096,
+      "log_sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138",
+      "note": "D-31 positive control"
+    }
+  ],
+  "frozen_rust_build": {
+    "argv": [
+      "cargo",
+      "build",
+      "--locked",
+      "--offline",
+      "--manifest-path",
+      "<private-frozen-e1-extract>/Cargo.toml",
+      "--config",
+      "profile.c006frozen.inherits=\"dev\"",
+      "--profile",
+      "c006frozen",
+      "-p",
+      "joil-core",
+      "-p",
+      "joil-ir",
+      "-p",
+      "joil-cli"
+    ],
+    "exit_code": 0,
+    "wall_seconds": 19.639,
+    "log_sha256": "286818fac803f8148ae61f05087a5d5430930a451b6c4336072b2c62c28747b9",
+    "note": "git archive of e1e9203 built inside the existing worker CARGO_TARGET_DIR under a separate cargo profile, so frozen artifacts cannot reuse or overwrite the lane target/debug artifacts (path-package metadata hashes ignore location); not a fresh target directory. Equivalent to tools/v5_baseline_source_controls.py build-frozen-rust."
+  },
+  "defect_controls": [
+    {
+      "defect_id": "D-05",
+      "primary_task": "V5-09-03",
+      "evidence_state": "source_fact_confirmed",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-ir/src/lib.rs",
+        "symbol": "VoxelSdfObserver::run_voxel_flood_fill",
+        "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "crates/joil-ir/src/lib.rs",
+          "recorded": true,
+          "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+          "symbol": "VoxelSdfObserver::run_voxel_flood_fill"
+        },
+        {
+          "path": "crates/joil-ir/src/lib.rs",
+          "recorded": true,
+          "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+          "symbol": "VoxelSdfObserver::run_voxel_flood_fill"
+        }
+      ],
+      "frozen_rust": {
+        "dep_info_sources_checked": 26,
+        "frozen_root": "<private-frozen-e1-extract>/"
+      },
+      "assertion": "An equal-IR mesh with k sealed closed shells beyond the open fluid shell reports trapped_powder_cavities >= k; with k = 0 nothing is trapped and terminals stay reachable.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-05",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-05-positive",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "b4cfe89b1b44a914b684b29d211f859461e9c8dc72e1d55ad18cb93575c158c5",
+        "expected_result": "exit 0; assertion holds on: Frozen compiled baseline mesh (open connected cavity, k = 0)."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-05",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-05-red",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "d12c97317bb957e8844fd3e2754275dd0fce392e45cd68a0faa256c07a78b1b6",
+        "expected_result": "exit 1 with C006-RED D-05: <exact code>; counterexample: Same IR and mesh plus one SYNTHETIC sealed tetrahedral shell inside the wall band (k = 1).",
+        "observed_reason": "C006-RED D-05: sealed_pocket_not_reported_as_powder trapped_powder=0 trapped_fluid=1 sealed_shells=1"
+      },
+      "positive_observation": {
+        "all_terminals_reachable_from_chamber": true,
+        "connected_fluid_components": 1,
+        "inner_wall_radius_m": 0.035,
+        "sealed_shells_added": 0,
+        "shell_radial_span_m": [
+          0.03560000000000001,
+          0.03590000000000001
+        ],
+        "trapped_cavities_total": 0,
+        "trapped_fluid_cavities": 0,
+        "trapped_powder_cavities": 0
+      }
+    },
+    {
+      "defect_id": "D-10",
+      "primary_task": "V5-02-01",
+      "evidence_state": "source_fact_confirmed",
+      "control_kind": "static",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "requirements/joil-hydrocyclone-v1.toml",
+        "symbol": "sandbox thresholds",
+        "sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "requirements/joil-hydrocyclone-v1.toml",
+          "recorded": true,
+          "sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+          "symbol": "sandbox thresholds"
+        },
+        {
+          "path": "requirements/RS-joil-research-v1.json",
+          "recorded": true,
+          "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+          "symbol": "limits"
+        }
+      ],
+      "frozen_rust": null,
+      "assertion": "STATIC: quantities declared by both frozen requirement sources admit a common value.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-10",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-10-positive"
+        ],
+        "exit_code": 0,
+        "log_sha256": "6d1a105e27adae261356c53cc1d345e673e0b764119bf02ef1411785ff91b82e",
+        "expected_result": "exit 0; assertion holds on: Quality and stretch limits (v1 thresholds vs RS-v1 quality)."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-10",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-10-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "a2ce232ec6f9c99b94f6d49823bfa7851fa34a8a98f913bd84cf8329895050c9",
+        "expected_result": "exit 1 with C006-RED D-10: <exact code>; counterexample: PDR: v1 sandbox_pdr_min vs RS-v1 limits.pdr_draft_range.",
+        "observed_reason": "C006-RED D-10: requirement_sources_disagree pdr v1_sandbox_pdr_min=4.5 outside rs_pdr_draft_range=[1.4, 2.5]"
+      },
+      "positive_observation": {
+        "pairs": {
+          "quality_limit_mg_l": [
+            30.0,
+            30.0
+          ],
+          "stretch_limit_mg_l": [
+            20.0,
+            20.0
+          ]
+        },
+        "static": true
+      },
+      "limits": "Original positive (explicit synthetic sandbox contract validates software without physical admission) is the current decision test complete_source_bound_synthetic_profile_is_semantically_valid_without_physical_admission, pinned in the receipt at the tested commit.",
+      "original_positive_control_current_pinned": {
+        "argv": [
+          "cargo",
+          "test",
+          "--locked",
+          "-p",
+          "joil-evidence",
+          "--test",
+          "decision",
+          "complete_source_bound_synthetic_profile_is_semantically_valid_without_physical_admission",
+          "--",
+          "--exact"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.162,
+        "log_sha256": "a1b99bf4ff713f6b892a6f95c3a209652f134b96db18155da01236ba5c7926e0",
+        "note": "D-10 original positive_control pinned as a current control at the tested commit",
+        "pinned_test": {
+          "path": "crates/joil-evidence/tests/decision.rs",
+          "test": "complete_source_bound_synthetic_profile_is_semantically_valid_without_physical_admission",
+          "sha256": "ee9ebee94f4917cab46e5598dc65a506e9f42240a171a4a6fe8e4c75ca85b52d"
+        },
+        "binary_freshness": "cargo reused the lane debug test binary built at b5b0eb28b1977d4396fed05c4cc2391721a33b5b; git diff b5b0eb2..HEAD over crates/joil-evidence, Cargo.lock, Cargo.toml and every include_bytes input is empty"
+      }
+    },
+    {
+      "defect_id": "D-14",
+      "primary_task": "V5-16-02",
+      "evidence_state": "source_fact_confirmed",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "physics/openfoam/oil/oil_grade.py",
+        "symbol": "select_flux_weighted_inlet_seeds",
+        "sha256": "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "physics/openfoam/oil/oil_grade.py",
+          "recorded": true,
+          "sha256": "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d",
+          "symbol": "select_flux_weighted_inlet_seeds"
+        },
+        {
+          "path": "physics/openfoam/oil/oil_grade.py",
+          "recorded": true,
+          "sha256": "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d",
+          "symbol": "run_full_liner_frozen_carrier_pilot"
+        },
+        {
+          "path": "physics/openfoam/oil/oil_grade.py",
+          "recorded": true,
+          "sha256": "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d",
+          "symbol": "evaluate_full_liner_pilot_case"
+        },
+        {
+          "path": "physics/openfoam/environment/runtime.py",
+          "recorded": false,
+          "sha256": "cfca965d5e9450f05420f6d3a696478be758728fff85a59c88f2b55a59e10bdb",
+          "symbol": null
+        },
+        {
+          "path": "analysis/kpi_fitness.py",
+          "recorded": false,
+          "sha256": "701c72e3dbd2c38a97c95ff8695deb040cb5daf90ad8f731bbfbbdebe889456e",
+          "symbol": null
+        }
+      ],
+      "frozen_rust": null,
+      "assertion": "Each jet's seed share of a cell group equals that group's inward-flux share (U . n_in per equal SYNTHETIC cell area) within one 1/16 stratum.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-14",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-14-positive"
+        ],
+        "exit_code": 0,
+        "log_sha256": "f5ac8c8f192c9f5b05aa7b2d12b73a68f7770253de1d8d886dd91ae129e5ccbf",
+        "expected_result": "exit 0; assertion holds on: Original positive: frozen verify_passive_tracer_split_oracle preserves inlet concentration; plus SYNTHETIC jets with all velocities parallel to the declared inlet normal (|U| equals inward flux)."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-14",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-14-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "6074309845fcc01e9d43eececb05bffeefa89eef2a35cd179a989ce8e4e994b4",
+        "expected_result": "exit 1 with C006-RED D-14: <exact code>; counterexample: SYNTHETIC jets, equal speed, one azimuth half tangent to the inlet face (zero inward flux).",
+        "observed_reason": "C006-RED D-14: seed_share_ignores_inward_flux jet=0 seed_share=0.5000 inward_flux_share=0.0000"
+      },
+      "positive_observation": {
+        "jets": [
+          {
+            "inward_flux_share_group_b": 0.6666666666666666,
+            "seed_share_group_b": 0.6875
+          },
+          {
+            "inward_flux_share_group_b": 0.6666666666666666,
+            "seed_share_group_b": 0.6875
+          }
+        ],
+        "passive_tracer_oracle": {
+          "cout_tracer_mg_l": 200.0,
+          "e_reduced_tracer": 0.0,
+          "max_abs_error": 0.0,
+          "passed": true
+        },
+        "seeds": 32,
+        "synthetic": true
+      }
+    },
+    {
+      "defect_id": "D-16",
+      "primary_task": "V5-08-02",
+      "evidence_state": "source_fact_confirmed_hypothesis_unresolved",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "cad/program/exotic_graph.py",
+        "symbol": "chamber_radius_mm",
+        "sha256": "ecd52016a7fe667c8c055e1bac26a66e6cf0ef4b3b8d3a6a94f5a934fa009120"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "cad/program/exotic_graph.py",
+          "recorded": true,
+          "sha256": "ecd52016a7fe667c8c055e1bac26a66e6cf0ef4b3b8d3a6a94f5a934fa009120",
+          "symbol": "chamber_radius_mm"
+        },
+        {
+          "path": "baselines/ct35/genome.json",
+          "recorded": false,
+          "sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+          "symbol": null
+        },
+        {
+          "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+          "recorded": false,
+          "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799",
+          "symbol": null
+        },
+        {
+          "path": "crates/joil-core/src/phenotype.rs",
+          "recorded": true,
+          "sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957",
+          "symbol": "Phenotype3D::inner_radius_mm"
+        }
+      ],
+      "frozen_rust": {
+        "dep_info_sources_checked": 26,
+        "frozen_root": "<private-frozen-e1-extract>/"
+      },
+      "assertion": "Two wall authorities evaluating the same accepted program agree on the chamber wall radius at common sample points within 1e-9 mm.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-16",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-16-positive",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "51a0d3e445df72b9643c6a444b66ff01207cf79a612c10209492644e66216894",
+        "expected_result": "exit 0; assertion holds on: Original positive: the exact inactive baseline of each implementation (Rust DesignProgram::baseline_ct35, Python default_exotic_program) agrees; plus frozen Rust Phenotype3D::inner_radius_mm vs Python exotic_graph.chamber_radius_mm on a recorded Wave-2 elite whose TPMS band lies inside [16, 66] mm."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-16",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-16-red",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "b61ed2b4bed6d044bb6dfed5e08a925ac036e2f837ecc047393100c044beba54",
+        "expected_result": "exit 1 with C006-RED D-16: <exact code>; counterexample: Same pair on a recorded Wave-2 elite whose TPMS band ends above 66 mm (valid for both normalizers).",
+        "observed_reason": "C006-RED D-16: wall_authorities_disagree recorded_program=/arm_b1_random_lhs_outcomes/1/best_candidate/program tpms_band_mm=[30.1525, 68.3397] max_abs_diff_mm=0.0254179 theta_z=[5.6, 60.0]"
+      },
+      "positive_observation": {
+        "inactive_baseline_max_abs_diff_mm": 0.0,
+        "max_abs_diff_mm": 0.0,
+        "points": 54,
+        "recorded_program": "/arm_b1_random_lhs_outcomes/0/best_candidate/program",
+        "tpms_band_mm": [
+          21.1824,
+          53.1146
+        ],
+        "tpms_basis": "Diamond",
+        "worst_point_theta_z": [
+          0.0,
+          12.0
+        ]
+      },
+      "limits": "cad/program/wall_field.compile_program (third authority) needs cadquery, absent here; accepted boundary artifacts are absent, so the full mismatch envelope stays unmeasured."
+    },
+    {
+      "defect_id": "D-17",
+      "primary_task": "V5-01-04",
+      "evidence_state": "source_fact_confirmed_no_gpu_execution",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/evolve.rs",
+        "symbol": "run evolution CUDA audit",
+        "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "crates/joil-core/src/evolve.rs",
+          "recorded": true,
+          "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab",
+          "symbol": "run evolution CUDA audit"
+        }
+      ],
+      "frozen_rust": {
+        "dep_info_sources_checked": 26,
+        "frozen_root": "<private-frozen-e1-extract>/"
+      },
+      "assertion": "The GPU audit boundary launches no child process without an explicit lease admission.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-17",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-17-positive",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "886e239c4ba5c284c33bfe6fd11fc9422686084622fad4c23f4cd7976b207b8a",
+        "expected_result": "exit 0; assertion holds on: Frozen attach_cuda_audit_with_vram with the CUDA binary absent (the frozen disabled path)."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-17",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-17-red",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "03ac88aa2362f036be79e893d8f7bb391c395367c108ff27cf35b983d2d21cab",
+        "expected_result": "exit 1 with C006-RED D-17: <exact code>; counterexample: Same call with a SYNTHETIC recording stand-in executable and the frozen 85.5% VRAM request; no lease object exists in the API.",
+        "observed_reason": "C006-RED D-17: gpu_child_launched_without_lease flags=['--candidate-json', '--vram-target-pct'] vram_target_pct=85.50"
+      },
+      "positive_observation": {
+        "child_launched": false,
+        "cuda_bin_path_configured_by_default": false,
+        "cuda_sdf_audit_attached": false
+      }
+    },
+    {
+      "defect_id": "D-22",
+      "primary_task": "V5-26-04",
+      "evidence_state": "source_fact_confirmed",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "symbol": "modal plot",
+        "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "tools/generate_wave2_figures_and_animations.py",
+          "recorded": true,
+          "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28",
+          "symbol": "modal plot"
+        },
+        {
+          "path": "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+          "recorded": false,
+          "sha256": "e2e5ef449391812072c5ea6478e5291ce2b215d38e6e56cf693e7af397a8d799",
+          "symbol": null
+        }
+      ],
+      "frozen_rust": null,
+      "assertion": "Every plotted series is bound to evidence in the input record: a series follows changes in its evidence, and a series with no evidence is not plotted.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-22-positive"
+        ],
+        "exit_code": 0,
+        "log_sha256": "cf5f75b6a23bea5be4da602bb07cd6f228489dca1a73e0b2ed854e0cb626f865",
+        "expected_result": "exit 0; assertion holds on: Frozen structural plate, actual Wave-2 record vs the same record with one family's TPMS amplitude raised by a SYNTHETIC 1 mm: only that family's Panel C bar changes."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-22-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "f6ce16d00a1fcc9105ff68fa43d8274da0e4d1c5ed2fdc45003b265c565d6023",
+        "expected_result": "exit 1 with C006-RED D-22: <exact code>; counterexample: Frozen structural plate with every modal key removed from the record: Panel B still plots a modal-frequency series.",
+        "observed_reason": "C006-RED D-22: modal_series_without_evidence label='1st Cantilever/Clamped Bending Mode f_1 ≈ 418 Hz' min_hz=418.0 max_hz=418.0 points=120"
+      },
+      "positive_observation": {
+        "changed_family_index": 0,
+        "families": 11,
+        "panel_c_bars_changed": [
+          0
+        ]
+      },
+      "limits": "Original positive (a verified modal table bound to subject, load/material and units) has no frozen or current component; the positive is a known-valid case on the same frozen plate."
+    },
+    {
+      "defect_id": "D-24",
+      "primary_task": "V5-01-05",
+      "evidence_state": "source_fact_confirmed",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-cli/src/main.rs",
+        "symbol": "CLI output defaults",
+        "sha256": "eba322816ff0ad357f4fa60f589e1a22aac910a7bc0b3cc8eeef22e82afcb710"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "crates/joil-cli/src/main.rs",
+          "recorded": true,
+          "sha256": "eba322816ff0ad357f4fa60f589e1a22aac910a7bc0b3cc8eeef22e82afcb710",
+          "symbol": "CLI output defaults"
+        },
+        {
+          "path": "crates/joil-cli/src/main.rs",
+          "recorded": true,
+          "sha256": "eba322816ff0ad357f4fa60f589e1a22aac910a7bc0b3cc8eeef22e82afcb710",
+          "symbol": "CLI output publication"
+        }
+      ],
+      "frozen_rust": {
+        "dep_info_sources_checked": 27,
+        "frozen_root": "<private-frozen-e1-extract>/"
+      },
+      "assertion": "An output command writes a fresh private destination, and refuses an existing destination while preserving its bytes.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-24",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-24-positive",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "005670db27a8c28be2a97eb517a8e64cda0a1e4bf37e6bb5dee5082e7cf2d28a",
+        "expected_result": "exit 0; assertion holds on: Frozen joil-cli verify-rotation --out <fresh private path>."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-24",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-24-red",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "8407d76023b15184e9a8890b23574b0575bf6ae3b94f45ffcd6a741e18d6cdad",
+        "expected_result": "exit 1 with C006-RED D-24: <exact code>; counterexample: Frozen joil-cli verify-rotation --out <existing SYNTHETIC private sentinel>.",
+        "observed_reason": "C006-RED D-24: existing_destination_overwritten exit=0 sha_before=dc5467e8ed580050e357aaad46772008ba9e5ccd55df645bdea36eebbf5c7bd7 sha_after=e572234bbd02f8c4ddaed1226fd496b078ff6d322d5ec6c0642efcb9b47bc209"
+      },
+      "positive_observation": {
+        "binary_sha256": "9c61b161e6fb4158079a5ebf8b5d2d8102c972cc2ba86f763ce774b6bb5779cb",
+        "exists": true,
+        "exit_code": 0
+      }
+    },
+    {
+      "defect_id": "D-25",
+      "primary_task": "V5-11-05",
+      "evidence_state": "source_policy_conflict_confirmed",
+      "control_kind": "static",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "docs/design/GENOME_V4.md",
+        "symbol": "review defaults",
+        "sha256": "7521d8334604130f8bfbe54ac9738fc41cca359151f47664890c8fcd50514095"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "docs/design/GENOME_V4.md",
+          "recorded": true,
+          "sha256": "7521d8334604130f8bfbe54ac9738fc41cca359151f47664890c8fcd50514095",
+          "symbol": "review defaults"
+        }
+      ],
+      "frozen_rust": null,
+      "assertion": "STATIC POLICY: the recorded v4 review default keeps LLMs out of judging and admits no agent/LLM proposal channel into the evolutionary search loop (current user authorization, as recorded in the V5-00 inventory).",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-25",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-25-positive"
+        ],
+        "exit_code": 0,
+        "log_sha256": "2b5bac3ebcd3b8c7106d45fb6fa2ca2e1134543e90bcf02ef4057be8654f3abb",
+        "expected_result": "exit 0; assertion holds on: Judge clause of the frozen GENOME_V4.md \"LLM proposals\" default."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-25",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-25-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "0270efcc06f1f5859c8418d7f62b5908bc12d8344a64fab49994b6545d65c004",
+        "expected_result": "exit 1 with C006-RED D-25: <exact code>; counterexample: Proposal clause of the same frozen default.",
+        "observed_reason": "C006-RED D-25: policy_admits_agent_proposals_in_search_loop default='allowed under those limits; judge is never an LLM'"
+      },
+      "positive_observation": {
+        "recorded_default": "allowed under those limits; judge is never an LLM",
+        "static": true
+      },
+      "limits": "Original runtime fixtures need an operator admission registry, absent at the frozen commit; this row is static policy only."
+    },
+    {
+      "defect_id": "D-27",
+      "primary_task": "V5-05-05",
+      "evidence_state": "policy_gap_confirmed_not_legal_advice",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "docs/v5-plan/INPUTS_AND_RISKS.md",
+        "symbol": "project owner input",
+        "sha256": "f99661ec0885b4bbc9016606c6bf941e4e98f71c79a19004728720f38a381710"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "docs/v5-plan/INPUTS_AND_RISKS.md",
+          "recorded": true,
+          "sha256": "f99661ec0885b4bbc9016606c6bf941e4e98f71c79a19004728720f38a381710",
+          "symbol": "project owner input"
+        },
+        {
+          "path": "tools/check_public.py",
+          "recorded": false,
+          "sha256": "fa59d3f923d2e2e88d0cc8602a6bb9a238c181776a57f316d2b7a8d33bae0e10",
+          "symbol": null
+        }
+      ],
+      "frozen_rust": null,
+      "assertion": "The publication gate admits reviewed public plan files and refuses a candidate artifact that carries no owner-admitted disclosure class.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-27",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-27-positive"
+        ],
+        "exit_code": 0,
+        "log_sha256": "b80ab84a423b6f742487d1361add7740c48ce793b1fcd2d2597f98f2aa8636e2",
+        "expected_result": "exit 0; assertion holds on: Frozen check_public.violations on the frozen docs/v5-plan/INPUTS_AND_RISKS.md bytes."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-27",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-27-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "a65c705c660b8c45cb3968218e3f5728045f9e2cc18c1dd1915c27646152083b",
+        "expected_result": "exit 1 with C006-RED D-27: <exact code>; counterexample: Frozen check_public.violations on a SYNTHETIC private candidate geometry export placed on a public path.",
+        "observed_reason": "C006-RED D-27: candidate_without_disclosure_class_admitted path=docs/results/synthetic-candidate-geometry.glb violations=[]"
+      },
+      "positive_observation": {
+        "frozen_root_license_files": [],
+        "private_path_control": [
+          "private/generated path"
+        ],
+        "violations": []
+      }
+    },
+    {
+      "defect_id": "D-30",
+      "primary_task": "V5-31-02",
+      "evidence_state": "source_fact_confirmed_parity_unresolved",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_gci_rsm_report_and_figures.py",
+        "symbol": "compute_roache_3grid_gci_v2",
+        "sha256": "ee090ae4396ff2d0dc43aaa6cf2282a78a6aa7e6a76b84cb79b8abe08672e77d"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "tools/generate_gci_rsm_report_and_figures.py",
+          "recorded": true,
+          "sha256": "ee090ae4396ff2d0dc43aaa6cf2282a78a6aa7e6a76b84cb79b8abe08672e77d",
+          "symbol": "compute_roache_3grid_gci_v2"
+        },
+        {
+          "path": "analysis/kpi_fitness.py",
+          "recorded": true,
+          "sha256": "701c72e3dbd2c38a97c95ff8695deb040cb5daf90ad8f731bbfbbdebe889456e",
+          "symbol": "concentration_mg_l"
+        },
+        {
+          "path": "crates/joil-core/src/structure.rs",
+          "recorded": true,
+          "sha256": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c",
+          "symbol": "Rust GCI helpers"
+        }
+      ],
+      "frozen_rust": {
+        "dep_info_sources_checked": 26,
+        "frozen_root": "<private-frozen-e1-extract>/"
+      },
+      "assertion": "Rust and Python GCI/KPI copies agree with independent equations on shared fixtures, including the same explicit state for an unrepresentable result.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-30",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-30-positive",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "33d461a2555f96b609c3f4704ab132dfdac8c67b5ec96703ed793e7d6b0f68aa",
+        "expected_result": "exit 0; assertion holds on: Analytic monotone f = 1 + 0.5 h^2 (h = 4, 2, 1; p = 2), a sign-changing triple, and the passive-tracer oracle Cu = Ci when E = r."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-30",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-30-red",
+          "--frozen-rust",
+          "<worker-target>/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "cf9ec1a1940503e4446aba4468507b58c19dfbaa90775637a99e07edaa8c8980",
+        "expected_result": "exit 1 with C006-RED D-30: <exact code>; counterexample: SYNTHETIC overflow fixture cin = 1e308 mg/L, capture 0, split 0.5 (Cu not finite).",
+        "observed_reason": "C006-RED D-30: explicit_state_disagrees rust={\"error\": \"concentration overflow\"} python={\"value\": \"inf\"}"
+      },
+      "positive_observation": {
+        "monotone": {
+          "python": {
+            "gci_validity_state": "Monotone",
+            "observed_order_p": 2.0
+          },
+          "rust": {
+            "order": 2.0,
+            "state": "Monotone"
+          }
+        },
+        "oscillatory": {
+          "python": {
+            "gci_validity_state": "Oscillatory",
+            "observed_order_p": null
+          },
+          "rust": {
+            "order": null,
+            "state": "Oscillatory"
+          }
+        },
+        "tracer": {
+          "python": 200.0,
+          "rust": {
+            "value": 200.0
+          }
+        }
+      }
+    },
+    {
+      "defect_id": "D-31",
+      "primary_task": "V5-28-04",
+      "evidence_state": "design_debt_source_fact",
+      "control_kind": "runtime (frozen component executed)",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/claims_audit.py",
+        "symbol": "claim audit pipeline",
+        "sha256": "45b3f5fd9d8362674f1f52b46d5aeefe0e4581ecb7d371fb84ce43d653c81b6c"
+      },
+      "all_frozen_bindings": [
+        {
+          "path": "tools/claims_audit.py",
+          "recorded": true,
+          "sha256": "45b3f5fd9d8362674f1f52b46d5aeefe0e4581ecb7d371fb84ce43d653c81b6c",
+          "symbol": "claim audit pipeline"
+        }
+      ],
+      "frozen_rust": null,
+      "assertion": "A displayed numeric claim is accepted only while a live source with the same subject and unit supports it; an unsupported or revoked claim is invalidated.",
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-31",
+          "positive",
+          "--scratch",
+          "<private-scratch>/D-31-positive"
+        ],
+        "exit_code": 0,
+        "log_sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138",
+        "expected_result": "exit 0; assertion holds on: Frozen claims-audit registry and scanner: a SYNTHETIC claim with its live same-subject kPa source is accepted, and an unbound numeral is refused."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-31",
+          "red",
+          "--scratch",
+          "<private-scratch>/D-31-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "40bc7a92ec3bac212d3ad2813290a1b3e35e9834620ff1eb9f257f3920b770c9",
+        "expected_result": "exit 1 with C006-RED D-31: <exact code>; counterexample: Same scanner after the claim's source is revoked, leaving only a SYNTHETIC different-subject wall thickness in mm with the same numeral.",
+        "observed_reason": "C006-RED D-31: revoked_claim_still_accepted numeral=12.3456 remaining_match=synthetic-subject-B wall_thickness mm"
+      },
+      "positive_observation": {
+        "bound_claim_errors": [],
+        "synthetic": true,
+        "unbound_claim_errors": 1
+      },
+      "limits": "Original positive (a live exact-query dependency chain reconstructible offline) has no frozen component; the positive is a known-valid case on the same frozen scanner."
+    }
+  ],
+  "blocked_rows": [
+    {
+      "defect_id": "D-07",
+      "primary_task": "V5-13-02",
+      "evidence_state": "source_fact_confirmed",
+      "blocker": "Needs one accepted solid artifact with independently integrated volume (V5-13 input); frozen Phenotype3D::from_program has no seam accepting an arbitrary solid, so neither the positive nor the red can run on the frozen component.",
+      "executed_refusal": "tool exits 3 with C006-BLOCKED and no stdout (test_blocked_rows_refuse_to_produce_evidence)"
+    },
+    {
+      "defect_id": "D-18",
+      "primary_task": "V5-23-04",
+      "evidence_state": "source_fact_confirmed_performance_unmeasured",
+      "blocker": "The frozen island loop has no injection seam for a recording fake evaluator; host idleness and speedup are unmeasured performance hypotheses, and running the loop would be a search campaign outside this lease.",
+      "executed_refusal": "tool exits 3 with C006-BLOCKED and no stdout (test_blocked_rows_refuse_to_produce_evidence)"
+    },
+    {
+      "defect_id": "D-21",
+      "primary_task": "V5-01-04",
+      "evidence_state": "source_fact_confirmed",
+      "blocker": "Runtime evidence needs a browser/DOM render of frozen apps/explorer/src/main.tsx (not provisioned here). The frozen scene has no subject/time/field-bound trajectory manifest, so no positive exists on the frozen component; a text match would only be static source search.",
+      "executed_refusal": "tool exits 3 with C006-BLOCKED and no stdout (test_blocked_rows_refuse_to_produce_evidence)"
+    },
+    {
+      "defect_id": "D-28",
+      "primary_task": "V5-00-05",
+      "evidence_state": "current_policy_resolved_for_workers",
+      "blocker": "No ownership/acknowledgement checker exists at the frozen commit or now. Frozen tools/v5_plan.update is status bookkeeping, and recording an owner name is not a permission grant (integrator review 2026-10-18T02:29:42Z), so treating it as one would invent an ack-admission contract. The documented protocol (COORDINATION.md: a notice is a proposal until acknowledged) is already resolved for workers; its original positive needs the current private acknowledgement records, which are not public test inputs.",
+      "executed_refusal": "tool exits 3 with C006-BLOCKED and no stdout (test_blocked_rows_refuse_to_produce_evidence)"
+    },
+    {
+      "defect_id": "D-29",
+      "primary_task": "V5-03-05",
+      "evidence_state": "design_debt_source_fact",
+      "blocker": "The negative fixture needs an architecture traversal checker, absent at the frozen commit; module size alone is not a measured defect, so there is no frozen component to run.",
+      "executed_refusal": "tool exits 3 with C006-BLOCKED and no stdout (test_blocked_rows_refuse_to_produce_evidence)"
+    }
+  ],
+  "disclosed_non_evidence_runs": [
+    {
+      "name": "c006-python-suite-precommit",
+      "exit_code": 1,
+      "log_sha256": "5407813d081532f7e0049447346345e16d98c33487462ee3c6a045bcbca272dd",
+      "reason": "Canonical suite started before D-31 moved to runtime; the already-loaded old test module disagreed with the edited tool (1 failure). Superseded by the run at the tested commit."
+    },
+    {
+      "name": "exploratory dev runs (private)",
+      "reason": "Early Rust rows exited 2 on unnormalised dep-info paths, the first D-22 red crashed in my own removal check and D-28 lacked a frozen file; all exit 2 or crash and are not evidence."
+    },
+    {
+      "name": "checkpoint 1c26d787faab44fcae34096c7b3559ba84c152c5 runs",
+      "reason": "Suite, opt-in and per-row runs at the first checkpoint passed but are superseded: its D-28 control counted frozen v5_plan owner bookkeeping as a permission grant, which the integrator review (2026-10-18T02:29:42Z) rejected. D-28 is blocked at the tested commit; no D-28 result is claimed."
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "tools/v5_baseline_source_controls.py",
+      "sha256": "f6c17a57c269a3793d119be3fd5f82aa8b045c42875f1c2198bdd13f371d502a"
+    },
+    {
+      "path": "tests/test_v5_baseline_source_controls.py",
+      "sha256": "9b4f8967e5e729bd90c2fcb3f13fb1ba916594ba71f44e564af753f5164ebd1e"
+    }
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2",
+    "RAYON_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "cpus": "34,35 (taskset)",
+    "python": "python3 -I for every control child"
+  },
+  "positive_checks": [
+    "Every runnable row has a positive control on the real frozen component: a known-valid case where the independent assertion holds (exit 0)",
+    "Recorded whole-file source hashes match the frozen e1e9203 bytes; for Rust rows every workspace source in the frozen artifacts dep-info equals its frozen blob",
+    "D-16: frozen Rust and Python wall authorities agree exactly on both inactive baselines and on a recorded in-band TPMS program; D-14: the frozen passive-tracer oracle passes; D-30: both copies match independent analytic, oscillatory and tracer oracles; D-10: the pinned current synthetic-sandbox decision test passes",
+    "The canonical python-tests step passes at the tested commit; the C006 test file passes in full with the Rust opt-in"
+  ],
+  "negative_checks": [
+    "Every runnable row has a red control: the same assertion fails on the same frozen component (exit 1) with the exact C006-RED code checked by the parent test",
+    "A tampered recorded source hash is refused as setup (exit 2), never as evidence",
+    "A Rust row without, or with a bogus, frozen build is setup (exit 2), never red; a crash inside a control is setup",
+    "Blocked rows exit 3 with their blocker and produce no observation",
+    "A reused scratch directory holding a frozen extract is refused"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "frozen_profile_bytes": 208570326,
+    "frozen_extract_bytes": 34263353,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Baseline reproduction only: these controls show the alleged behaviour on frozen components; they are not repair regressions for the primary tasks and do not close any of them",
+    "Static rows (D-10, D-25) check frozen repository contracts and show no physical behaviour; D-25 compares against the current no-agents-in-the-loop authorization as recorded in the V5-00 inventory, not a standalone repository contract",
+    "Synthetic fixtures (D-05 sealed shell, D-14 jets, D-17 stand-in executable, D-24 sentinel, D-27 candidate artifact, D-30 overflow input, D-31 receipts) are labelled synthetic; D-30 is a software parity edge case, not a physical KPI disagreement",
+    "D-16 is partial: cad/program/wall_field.py (third authority) needs cadquery, absent here, and accepted boundary artifacts are absent, so the full mismatch envelope stays unmeasured",
+    "D-27 binds its recorded policy source and additionally runs frozen tools/check_public.py, which the inventory did not record; its blob hash is listed in all_frozen_bindings",
+    "Positives follow the original positive_control where a component exists (D-05, D-14 tracer oracle, D-16 inactive baseline, D-17, D-24 fresh path, D-27, D-30, and D-10 via the pinned current decision test); D-22, D-25 and D-31 have no frozen or current component for the original positive, so their positive is a known-valid case on the same frozen component (see limits per row)",
+    "D-28 was moved to blocked after integrator review: frozen v5_plan owner bookkeeping is not a permission grant, and no ownership/acknowledgement checker exists to run",
+    "Rust controls run in the canonical suite only with the JOIL_C006_FROZEN_RUST_DIR opt-in, because the frozen build costs ~210 MB of the runner target",
+    "D-07, D-18, D-21, D-28 and D-29 remain blocked with the stated missing artifact, seam, harness or checker",
+    "Physical causation, efficacy and performance remain untested; nothing here admits a physical input"
+  ],
+  "next_dependency": "Integrator independent review of 7ecd079a1de72ac5c03abba1453a6ae283fc174a and this receipt. Remaining baseline rows need: an accepted solid artifact with material-solid correspondence (D-07), a fake-evaluator seam or performance lease (D-18), a DOM render harness plus a field-bound trajectory manifest (D-21), an actual ownership/acknowledgement checker or an integrator-reviewed static protocol check over current acknowledgement records (D-28), and the architecture checker baseline decision (D-29). The V5-00-03 audit-hold stays until every row has executed controls."
+}
