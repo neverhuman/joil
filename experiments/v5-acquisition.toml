@@ -1,0 +1,12 @@
+policy_id = "multi-fidelity-acquisition/1"
+warmup_direct_evaluations = 32
+calibrated_shares = [60, 20, 10, 10]
+calibrated_arms = ["improvement", "uncertainty", "diversity", "random"]
+uncalibrated_shares = [50, 50]
+uncalibrated_arms = ["rank_crowding", "eligible_random"]
+rounding = "largest_remainder_stable_arm_order"
+selection = "unique_ids_only"
+affordability = "skip_candidate_if_cost_exceeds_remaining_budget"
+audit_stream = "separately_randomized_low_rank_inclusive"
+audit_cost_charged = true
+adaptive_policies = "v2_frozen_epochs_and_crosswalks"
