@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "packet": "V5-28",
+  "owner": "484638.joil_v5_codex_lane4",
+  "branch": "codex/v5-lane4",
+  "base_commit": "94bc0c9b9cb2bdf7e5eba8cc1dede270fc79feba",
+  "state": "in_progress",
+  "tasks": ["V5-28-01", "V5-28-02", "V5-28-03", "V5-28-04", "V5-28-05"],
+  "write_scope": ["experiments/v5-study/", "paper/", "crates/crucible-paper/", "docs/release/v5-reproduction.md", "Cargo.toml", "Cargo.lock", "render/blender/plate.py", "render/blender/render_job.py", "render/blender/test_plate.py", "crates/crucible-render/src/lib.rs", "crates/crucible-render/src/bin/preflight.rs", "docs/receipts/"],
+  "resources": {"cpus": [110, 111], "rss_gib": 6, "scratch_gib": 2.5, "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target", "cargo_incremental": 0, "rayon_threads": 1, "gpu": false, "blender_render": false},
+  "created_utc": "2026-10-18T06:07:02Z"
+}

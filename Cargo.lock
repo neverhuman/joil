@@ -95,6 +95,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-paper"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "crucible-render"
 version = "0.1.0"
 dependencies = [
