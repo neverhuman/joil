@@ -552,11 +552,10 @@ pub fn run(
                     .map_err(RuntimeError::Wire)?;
             state.collect(&name, output, observed)?;
         }
-        // The joined batch already has durable, charged canonical results. Publish
-        // its complete pending state once, including a stop request, rather than
-        // serializing the same executable/backup closure once per arrival and again
-        // on the next loop. Recovery still reconciles every accepted result against
-        // its original current acceptance if publication is interrupted.
+        // The joined batch already has durable, charged canonical results. STOP
+        // needs its complete pending snapshot now. Normal complete epochs can use
+        // their next boundary; recovery still verifies each original acceptance
+        // when reconciling canonical results after interrupted publication.
         if STOP.load(Ordering::Relaxed) || root.join("stop.request").exists() {
             state.stop = StopState::Requested {
                 reason: "explicit signal or stop command; actual charged batch retained".into(),
@@ -564,7 +563,14 @@ pub fn run(
             pointer = cp(&mut db, &store, &meta.experiment, &state)?;
             break;
         }
-        cp(&mut db, &store, &meta.experiment, &state)?;
+        // A complete normal epoch is folded on the next iteration, which then
+        // publishes either the next prepared epoch or the terminal state. The
+        // canonical ledger already durably owns every accepted result/charge;
+        // reconciliation rehydrates them if we crash before that publication.
+        // Keep partial and STOP snapshots, including their nonempty pending state.
+        if !state.in_flight.is_empty() {
+            cp(&mut db, &store, &meta.experiment, &state)?;
+        }
     }
     let ledger = db.ledger_snapshot()?;
     Ok(RunResult {
