@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "task": "V5-28",
+  "task_ids": [
+    "V5-28-01",
+    "V5-28-03",
+    "V5-28-04",
+    "V5-28-05"
+  ],
+  "lane": "484638.joil_v5_codex_lane4",
+  "state": "lane_complete",
+  "packet_acceptance": "partial; V5-28-02 blocked pending qualified independent confirmation data",
+  "tested_commit": "1dbca1f99044fadadbc295df61da0545be1ecdf7",
+  "changed_paths": [
+    "Cargo.lock",
+    "Cargo.toml",
+    "crates/crucible-paper/Cargo.toml",
+    "crates/crucible-paper/src/bin/paper-build.rs",
+    "crates/crucible-paper/src/lib.rs",
+    "docs/receipts/v5-28-claim-20261018T061000Z.json",
+    "docs/release/v5-reproduction.md",
+    "experiments/v5-study/mechanism-interventions-v1.json",
+    "experiments/v5-study/preregistration-v1.json",
+    "paper/README.md",
+    "paper/dependency-license-inventory.json",
+    "paper/dependency-prior-design-inventory.json",
+    "paper/fixtures/negative-result.json"
+  ],
+  "commands": [
+    {
+      "command": "rtk cargo test --locked -p crucible-render -p crucible-paper",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-rust-test.log",
+      "log_sha256": "0aed6ef764088490b6d49fc2c7d9fb840cbd3f04180a71767650d6b2b5b9272a"
+    },
+    {
+      "command": "rtk cargo clippy --locked -p crucible-render -p crucible-paper --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-rust-clippy.log",
+      "log_sha256": "7d58f56455f28db717deae3fba9ec582d78e7a65c254061e726095dc9570ef8c"
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-rust-fmt.log",
+      "log_sha256": "4b4c240ee69a59cc4f7862d02c1750266ac60feb9b663824637817819b579fb2"
+    },
+    {
+      "command": "rtk proxy python3 -m unittest render/blender/test_plate.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-python-plate.log",
+      "log_sha256": "5e0a3c8da63cd9df90a5bdc8f81f37a3fcf4cbb6fd3d42bbf8417940b4cd88c0"
+    },
+    {
+      "command": "rtk proxy python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-public-scan.log",
+      "log_sha256": "4fc3ca1e0789d7dcd8b6dd04896f0dcfa2ea653d286751b73324067780967695"
+    },
+    {
+      "command": "rtk git diff --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-diff-check.log",
+      "log_sha256": "b05b1021a8b563106d4f69c53d6cd1b8b6f5ee86a04760767829aef9b9abf309"
+    },
+    {
+      "command": "rtk cargo run --offline --locked -p crucible-paper --bin paper-build",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-paper-build.log",
+      "log_sha256": "100f96c90dbc099433c917801f4f79669880f186234869baa8fe39b55dcf67d0"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "ec99a929b0a96df4bb6bb220dfd7de762255839e78ea3a0fdc66cb1316c6d839"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "6b0ffda12f1d401914d1403de8610c843108c95f84b2f1c2634edb3570dfa860"
+    },
+    {
+      "path": "crates/crucible-paper/Cargo.toml",
+      "sha256": "d054d7521a51fdb8c7567a27112483f4f50f40f68c2c55cb694b04a8c884d064"
+    },
+    {
+      "path": "crates/crucible-paper/src/bin/paper-build.rs",
+      "sha256": "1d23f81e89e561933175b548425ddde3e6af24e00dca4fc8c0584617f134a0e4"
+    },
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "3b465f4d7f2d1b91306cc077cd6bee02076a905da010981c6a6d87d065fc4c1f"
+    },
+    {
+      "path": "docs/receipts/v5-28-claim-20261018T061000Z.json",
+      "sha256": "757ff541e8bb3458c1ad8e670de7b2b97d165e37bcabc1c50464281ea74d903e"
+    },
+    {
+      "path": "docs/release/v5-reproduction.md",
+      "sha256": "0470bbf1e5dc122178a4dc02e8b2269d34610d2714f60bc65d8bf9f1634c2246"
+    },
+    {
+      "path": "experiments/v5-study/mechanism-interventions-v1.json",
+      "sha256": "30aff84bf8ceadf70d7ed53bafdd7676b8933dc34c4245220f46a4ec138a5683"
+    },
+    {
+      "path": "experiments/v5-study/preregistration-v1.json",
+      "sha256": "2164ccf761b81e30314d1aa45562bf40aada59e81aee183c1e27e01bfe6bd070"
+    },
+    {
+      "path": "paper/README.md",
+      "sha256": "94c6b3e458f568857408becef160c0fe3938347f938f89b1a1370c11ba1721fe"
+    },
+    {
+      "path": "paper/dependency-license-inventory.json",
+      "sha256": "9ef1aeade234b53d8665afb207eaa1e03b05161cfaa1c353359387dc1c985182"
+    },
+    {
+      "path": "paper/dependency-prior-design-inventory.json",
+      "sha256": "dc41b21a3ed3923b183c746652d3212ba5c01b3a625f02c4821466d76924ec12"
+    },
+    {
+      "path": "paper/fixtures/negative-result.json",
+      "sha256": "bd48aa7e6c1e92a768b0b7e1c423590f467195ccbb7c8e2ff69527ac434bd965"
+    }
+  ],
+  "task_results": {
+    "V5-28-01": {
+      "status": "done",
+      "evidence": "experiments/v5-study/preregistration-v1.json freezes arms, estimands, disjoint seeds, pilot-based power policy, resource normalization, family and L4 endpoint rules before generation zero."
+    },
+    "V5-28-02": {
+      "status": "blocked",
+      "evidence": "typed cost-quality report retains all attempted finalists, independent unit IDs, uncertainty and negative outcomes; only synthetic negative fixture exists. No fresh qualified confirmation dataset or scientific compute lease exists."
+    },
+    "V5-28-03": {
+      "status": "done",
+      "evidence": "mechanism intervention design includes compiled knockout, sham, rescue, volume and area matched controls and declared confounds/flow observables."
+    },
+    "V5-28-04": {
+      "status": "done",
+      "evidence": "exact typed query binds observation, subject, scenario, estimand, unit, denominator, current tier and interpretation; planted errors fail."
+    },
+    "V5-28-05": {
+      "status": "done",
+      "evidence": "offline negative-result paper builder, release instructions, dependency/license and prior-design inventories delivered; source allowlist and private evidence handling documented."
+    }
+  },
+  "positive_checks": [
+    "All seven recorded commands exit 0.",
+    "Six crucible-paper unit tests and nine crucible-render unit tests pass.",
+    "Four Blender adapter tests pass; invalid fixtures do not invoke fake renderer and frame resume checks exact bytes.",
+    "Offline paper build emits a negative result with cost-quality uncertainty and seed protocol reference.",
+    "Cargo metadata inventory covers 75 resolved packages; thirteen workspace crates declare no license and are flagged for review."
+  ],
+  "negative_checks": [
+    "wrong denominator, unit, subject and stale tier controls reject paper build evidence.",
+    "Parcel/frame denominators and duplicate independent-unit IDs cannot inflate independent n.",
+    "Every attempted finalist must be represented in cost-quality report; uncertainty intervals must contain the estimate.",
+    "V5-28-02 is explicitly blocked; synthetic fixture output is not qualified confirmation or physical evidence.",
+    "Descriptor-hull discovery is not evidence of legal novelty, commercial superiority or service qualification."
+  ],
+  "resource_allocation": {
+    "cpus": [
+      110,
+      111
+    ],
+    "rss_gib_cap": 6,
+    "scratch_gib_cap": 2.5,
+    "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "target_bytes": 415697144,
+    "cargo_incremental": 0,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "real_blender_render": false
+  },
+  "limitations": [
+    "No qualified physical or fresh independent confirmation data were present; V5-28-02 remains blocked.",
+    "No generation-zero study campaign, CFD, physical rig work or Blender rendering occurred.",
+    "License inventory is not a legal review; thirteen workspace crates have undeclared licenses.",
+    "Historical WHITEPAPER and correction records were left unchanged."
+  ],
+  "next_dependency": "Qualified fresh confirmation observations, frozen family-level admission policy and an explicitly authorized research-compute/data allocation; integrator review of draft workspace/lock registration."
+}
