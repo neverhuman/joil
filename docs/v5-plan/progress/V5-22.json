@@ -5,11 +5,11 @@
     "V5-22-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Independent qualified labels unavailable; EV-09/EV-12 remain deferred. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B and upstream V5-21 remain incomplete; independent measured model/training admission and uncertainty applicability are absent. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+          "sha256": "0cf58bd980a68f52ae1ccb4bf8c4aa89646d4688568d410dc968c55ebdc8d439",
           "purpose": "integration_only"
         }
       ]
@@ -17,11 +17,11 @@
     "V5-22-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Allocation arithmetic lacks a measured charged native campaign. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B and upstream V5-21 remain incomplete; independent measured model/training admission and uncertainty applicability are absent. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+          "sha256": "0cf58bd980a68f52ae1ccb4bf8c4aa89646d4688568d410dc968c55ebdc8d439",
           "purpose": "integration_only"
         }
       ]
@@ -29,11 +29,11 @@
     "V5-22-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Random audit ranking fixtures do not admit a physical pruning screen. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B and upstream V5-21 remain incomplete; independent measured model/training admission and uncertainty applicability are absent. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+          "sha256": "0cf58bd980a68f52ae1ccb4bf8c4aa89646d4688568d410dc968c55ebdc8d439",
           "purpose": "integration_only"
         }
       ]
@@ -41,11 +41,11 @@
     "V5-22-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Held-out/OOD controls are synthetic and registry admission remains open. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B and upstream V5-21 remain incomplete; independent measured model/training admission and uncertainty applicability are absent. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+          "sha256": "0cf58bd980a68f52ae1ccb4bf8c4aa89646d4688568d410dc968c55ebdc8d439",
           "purpose": "integration_only"
         }
       ]
@@ -53,11 +53,11 @@
     "V5-22-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Exploit challenge bookkeeping is not executed native geometry/resolution qualification. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B and upstream V5-21 remain incomplete; independent measured model/training admission and uncertainty applicability are absent. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+          "sha256": "0cf58bd980a68f52ae1ccb4bf8c4aa89646d4688568d410dc968c55ebdc8d439",
           "purpose": "integration_only"
         }
       ]

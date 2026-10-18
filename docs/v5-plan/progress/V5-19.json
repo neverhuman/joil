@@ -5,55 +5,60 @@
     "V5-19-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-19-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-19-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-19-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-19-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Upstream V5-13 material allowables and independent structural/application evidence remain incomplete; software checks and D17 synthetic child control do not qualify a structure. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+          "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9",
+          "purpose": "integration_only"
         }
       ]
     }

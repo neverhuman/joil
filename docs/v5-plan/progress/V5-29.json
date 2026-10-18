@@ -5,11 +5,11 @@
     "V5-29-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Independent bolt/material fixture contract is not admitted manufacturing/load evidence. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B independent bracket/material inputs and ordered reuse acceptance remain incomplete; synthetic reuse proof is not a physical bracket validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+          "sha256": "eeaa6147b9647bd28b69df4f95411ac1e41df0d76ef646d1e4b2e6f172a6a83b",
           "purpose": "integration_only"
         }
       ]
@@ -17,11 +17,11 @@
     "V5-29-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Elementary screen is not shared native development/observer/FEA evaluation. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B independent bracket/material inputs and ordered reuse acceptance remain incomplete; synthetic reuse proof is not a physical bracket validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+          "sha256": "eeaa6147b9647bd28b69df4f95411ac1e41df0d76ef646d1e4b2e6f172a6a83b",
           "purpose": "integration_only"
         }
       ]
@@ -29,11 +29,11 @@
     "V5-29-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Store/cache/nonempty checkpoint controls pass; full shared-runtime/native reuse acceptance open. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B independent bracket/material inputs and ordered reuse acceptance remain incomplete; synthetic reuse proof is not a physical bracket validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+          "sha256": "eeaa6147b9647bd28b69df4f95411ac1e41df0d76ef646d1e4b2e6f172a6a83b",
           "purpose": "integration_only"
         }
       ]
@@ -41,11 +41,11 @@
     "V5-29-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Pack SVG is a software data card, not a qualified common-scene physical render. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B independent bracket/material inputs and ordered reuse acceptance remain incomplete; synthetic reuse proof is not a physical bracket validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+          "sha256": "eeaa6147b9647bd28b69df4f95411ac1e41df0d76ef646d1e4b2e6f172a6a83b",
           "purpose": "integration_only"
         }
       ]
@@ -53,11 +53,11 @@
     "V5-29-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Generalization boundaries recorded; full engine/pack programme acceptance remains open. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause B independent bracket/material inputs and ordered reuse acceptance remain incomplete; synthetic reuse proof is not a physical bracket validation. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+          "sha256": "eeaa6147b9647bd28b69df4f95411ac1e41df0d76ef646d1e4b2e6f172a6a83b",
           "purpose": "integration_only"
         }
       ]

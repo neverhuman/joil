@@ -14,50 +14,46 @@
       ]
     },
     "V5-08-02": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "D-16 frozen positive/red execution verified; accepted boundary corpus and third CAD authority remain unavailable. No partition-authority or physical repair closure.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+          "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
         }
       ]
     },
     "V5-08-03": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+          "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
         }
       ]
     },
     "V5-08-04": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+          "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
         }
       ]
     },
     "V5-08-05": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+          "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
         }
       ]
     }

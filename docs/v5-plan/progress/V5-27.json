@@ -5,11 +5,11 @@
     "V5-27-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Strict manually authored view contracts and canonical progress source exist; generated shared schema remains incomplete. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
           "purpose": "integration_only"
         }
       ]
@@ -17,11 +17,11 @@
     "V5-27-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Software progress is real; live campaign exporter/event service remains absent. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
           "purpose": "integration_only"
         }
       ]
@@ -29,11 +29,11 @@
     "V5-27-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Inspection/link views do not complete shared-scale 3D/qualified archive integration. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
           "purpose": "integration_only"
         }
       ]
@@ -41,11 +41,11 @@
     "V5-27-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Revocation frontier tests pass; real registry service and reviewed offline dossiers still external. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
           "purpose": "integration_only"
         }
       ]
@@ -53,11 +53,11 @@
     "V5-27-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Build/contract controls pass; targeted browser/keyboard/reduced-motion acceptance not executed. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Upstream V5-26 remains incomplete at its owner-approval task; read-only evidence-explorer software is verified but dependency acceptance is pending. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add",
           "purpose": "integration_only"
         }
       ]

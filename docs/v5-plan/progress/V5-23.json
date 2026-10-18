@@ -3,62 +3,57 @@
   "packet": "V5-23",
   "tasks": {
     "V5-23-01": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+          "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
         }
       ]
     },
     "V5-23-02": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+          "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
         }
       ]
     },
     "V5-23-03": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+          "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
         }
       ]
     },
     "V5-23-04": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "D-18 remains kind:blocked: no frozen fake-evaluator injection seam or authorized performance evidence. Withdrawn assertion inversion supplies no closure; worker tests are integration-only support.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+          "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
         }
       ]
     },
     "V5-23-05": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+          "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
         }
       ]
     }

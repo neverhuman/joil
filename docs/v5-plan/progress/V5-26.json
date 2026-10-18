@@ -3,61 +3,57 @@
   "packet": "V5-26",
   "tasks": {
     "V5-26-01": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Exact scene/registry bytes checked; accepted observer/export pipeline remains incomplete. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
         }
       ]
     },
     "V5-26-02": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Catalogue mappings exist; evidence availability and actual render completion remain separate. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
         }
       ]
     },
     "V5-26-03": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Stand-in adapter tested; no Blender build/render admitted under this lease. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
         }
       ]
     },
     "V5-26-04": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Only explicit linear_blue_red scalar mapping supported; native field/tensor/human semantic review absent. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
         }
       ]
     },
     "V5-26-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Frame hash/resume controls tested; no actual Blender plate/layout approval. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "Cause E: irreversible owner/disclosure/budget authority remains unsigned; software render/cache evidence does not supply approval. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c",
           "purpose": "integration_only"
         }
       ]

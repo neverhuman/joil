@@ -47,9 +47,9 @@
       ]
     },
     "V5-07-05": {
-      "status": "review",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "New8f9 checkpoint source: real full2core lifecycle2/2 and recovery9/9 pass; new pipe/origin follow-up receipts preserve actual earlier reds. Held in review until combined integrated full gate and exact pushed-head CI; no physical claim.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
           "path": "docs/receipts/v5-07-complete-epoch-checkpoint-followup-20261018.json",

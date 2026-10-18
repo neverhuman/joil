@@ -1,6 +1,6 @@
 # V5 software integration scope
 
-This is a reviewable software checkpoint, with no scientific or industrial release. The owner merged PR #6 at b9966a2; remaining work uses the single focused draft successor on `codex/v5-g009-post-pr6`, identified by the [handoff](../../v5-plan/PR_HANDOFF.md) and publication record. All lane code is integrated through the integrator, with original tested commits and immutable receipts retained. Source-bound repairs add independent invalid-input, conservation, provenance, recovery and revocation controls.
+This is a reviewable software checkpoint, with no scientific or industrial release. The owner merged PR #7 at 8d8d67c; Wave 5/6 integration uses the single focused draft successor on `codex/v5-g010-wave56`, identified by the [handoff](../../v5-plan/PR_HANDOFF.md) and publication record. All lane code is integrated through the integrator, with original tested commits and immutable receipts retained. Source-bound repairs add independent invalid-input, conservation, provenance, recovery and revocation controls.
 
 | Level | Current disposition | What remains |
 | --- | --- | --- |

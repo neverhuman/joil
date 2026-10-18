@@ -5,11 +5,11 @@
     "V5-15-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Original benchmark data/license/accession inputs remain incomplete.",
+      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
           "purpose": "integration_only"
         }
       ]
@@ -17,11 +17,11 @@
     "V5-15-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Prospective study plan is not an executed anomaly study.",
+      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
           "purpose": "integration_only"
         }
       ]
@@ -29,11 +29,11 @@
     "V5-15-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Measured observable coverage and discrepancy inputs are absent.",
+      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
           "purpose": "integration_only"
         }
       ]
@@ -41,11 +41,11 @@
     "V5-15-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Native initialization/ramp branches have not run.",
+      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
           "purpose": "integration_only"
         }
       ]
@@ -53,11 +53,11 @@
     "V5-15-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Reference ranking admission remains disabled without matching validation evidence.",
+      "note": "Cause B: accessioned independent vortex/PDR measurements and their uncertainty remain absent; software validation harnesses do not admit the dataset. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+          "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c",
           "purpose": "integration_only"
         }
       ]

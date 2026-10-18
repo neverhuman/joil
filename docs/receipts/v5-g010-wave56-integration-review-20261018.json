@@ -1,0 +1,647 @@
+{
+  "schema_version": 1,
+  "kind": "G010_wave56_independent_integrator_review",
+  "created_utc": "2026-10-18T12:14:25.832441+00:00",
+  "task_ids": [
+    "V5-07-05",
+    "V5-08-02",
+    "V5-08-03",
+    "V5-08-04",
+    "V5-08-05",
+    "V5-09-01",
+    "V5-09-02",
+    "V5-09-03",
+    "V5-09-04",
+    "V5-09-05",
+    "V5-10-01",
+    "V5-10-02",
+    "V5-10-03",
+    "V5-10-04",
+    "V5-10-05",
+    "V5-11-01",
+    "V5-11-02",
+    "V5-11-03",
+    "V5-11-04",
+    "V5-11-05",
+    "V5-12-01",
+    "V5-12-02",
+    "V5-12-03",
+    "V5-12-04",
+    "V5-12-05",
+    "V5-13-01",
+    "V5-13-02",
+    "V5-13-03",
+    "V5-13-04",
+    "V5-13-05",
+    "V5-14-01",
+    "V5-14-02",
+    "V5-14-03",
+    "V5-14-04",
+    "V5-14-05",
+    "V5-15-01",
+    "V5-15-02",
+    "V5-15-03",
+    "V5-15-04",
+    "V5-15-05",
+    "V5-16-01",
+    "V5-16-02",
+    "V5-16-03",
+    "V5-16-04",
+    "V5-16-05",
+    "V5-17-01",
+    "V5-17-02",
+    "V5-17-03",
+    "V5-17-04",
+    "V5-17-05",
+    "V5-18-01",
+    "V5-18-02",
+    "V5-18-03",
+    "V5-18-04",
+    "V5-18-05",
+    "V5-19-01",
+    "V5-19-02",
+    "V5-19-03",
+    "V5-19-04",
+    "V5-19-05",
+    "V5-21-01",
+    "V5-21-02",
+    "V5-21-03",
+    "V5-21-04",
+    "V5-21-05",
+    "V5-22-01",
+    "V5-22-02",
+    "V5-22-03",
+    "V5-22-04",
+    "V5-22-05",
+    "V5-23-01",
+    "V5-23-02",
+    "V5-23-03",
+    "V5-23-04",
+    "V5-23-05",
+    "V5-24-01",
+    "V5-24-02",
+    "V5-24-03",
+    "V5-24-04",
+    "V5-24-05",
+    "V5-25-01",
+    "V5-25-02",
+    "V5-25-03",
+    "V5-25-04",
+    "V5-25-05",
+    "V5-26-01",
+    "V5-26-02",
+    "V5-26-03",
+    "V5-26-04",
+    "V5-26-05",
+    "V5-27-01",
+    "V5-27-02",
+    "V5-27-03",
+    "V5-27-04",
+    "V5-27-05",
+    "V5-28-01",
+    "V5-28-02",
+    "V5-28-03",
+    "V5-28-04",
+    "V5-28-05",
+    "V5-29-01",
+    "V5-29-02",
+    "V5-29-03",
+    "V5-29-04",
+    "V5-29-05",
+    "V5-30-01",
+    "V5-30-02",
+    "V5-30-03",
+    "V5-30-04",
+    "V5-30-05",
+    "V5-31-01",
+    "V5-31-02",
+    "V5-31-03",
+    "V5-31-04",
+    "V5-31-05"
+  ],
+  "tested_commit": "b2dc4e5f972577402838d20d7bd93dbeeed0478f",
+  "source_execution_note": "Runtime controls executed at4917c893; these exact code/fixture bytes remain unchanged in b2dc4e5. Metadata validation runs at b2dc4e5 with the explicit live progress diff. The final successor acceptance commit and fresh exact-head gate remain separate.",
+  "changed_paths": [
+    "apps/explorer/public/evidence-manifest.json",
+    "docs/STATUS.json",
+    "docs/receipts/v5-08-02-d16-control-20261018.json",
+    "docs/receipts/v5-08-software-acceptance-20261018.json",
+    "docs/receipts/v5-09-software-acceptance-20261018.json",
+    "docs/receipts/v5-10-software-acceptance-20261018.json",
+    "docs/receipts/v5-11-05-d25-control-20261018.json",
+    "docs/receipts/v5-11-software-acceptance-20261018.json",
+    "docs/receipts/v5-12-software-acceptance-20261018.json",
+    "docs/receipts/v5-13-02-d07-control-20261018.json",
+    "docs/receipts/v5-13-software-acceptance-20261018.json",
+    "docs/receipts/v5-14-software-acceptance-20261018.json",
+    "docs/receipts/v5-15-software-acceptance-20261018.json",
+    "docs/receipts/v5-16-02-d14-control-20261018.json",
+    "docs/receipts/v5-16-software-acceptance-20261018.json",
+    "docs/receipts/v5-17-software-acceptance-20261018.json",
+    "docs/receipts/v5-18-software-acceptance-20261018.json",
+    "docs/receipts/v5-19-software-acceptance-20261018.json",
+    "docs/receipts/v5-21-software-acceptance-20261018.json",
+    "docs/receipts/v5-22-software-acceptance-20261018.json",
+    "docs/receipts/v5-23-04-d18-control-20261018.json",
+    "docs/receipts/v5-23-software-acceptance-20261018.json",
+    "docs/receipts/v5-24-software-acceptance-20261018.json",
+    "docs/receipts/v5-25-software-acceptance-20261018.json",
+    "docs/receipts/v5-26-software-acceptance-20261018.json",
+    "docs/receipts/v5-27-software-acceptance-20261018.json",
+    "docs/receipts/v5-28-software-acceptance-20261018.json",
+    "docs/receipts/v5-29-software-acceptance-20261018.json",
+    "docs/receipts/v5-30-software-acceptance-20261018.json",
+    "docs/receipts/v5-31-software-acceptance-20261018.json",
+    "docs/receipts/v5-g010-wave56-integration-claim-20261018.json",
+    "docs/release/v5/EXTERNAL_DATA_REQUESTS.json",
+    "docs/release/v5/OWNER_APPROVAL_DOSSIERS.md",
+    "docs/release/v5/README.md",
+    "docs/v5-plan/PR_HANDOFF.md",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+    "docs/v5-plan/progress/V5-07.json",
+    "docs/v5-plan/progress/V5-08.json",
+    "docs/v5-plan/progress/V5-09.json",
+    "docs/v5-plan/progress/V5-10.json",
+    "docs/v5-plan/progress/V5-11.json",
+    "docs/v5-plan/progress/V5-12.json",
+    "docs/v5-plan/progress/V5-13.json",
+    "docs/v5-plan/progress/V5-14.json",
+    "docs/v5-plan/progress/V5-15.json",
+    "docs/v5-plan/progress/V5-16.json",
+    "docs/v5-plan/progress/V5-17.json",
+    "docs/v5-plan/progress/V5-18.json",
+    "docs/v5-plan/progress/V5-19.json",
+    "docs/v5-plan/progress/V5-21.json",
+    "docs/v5-plan/progress/V5-22.json",
+    "docs/v5-plan/progress/V5-23.json",
+    "docs/v5-plan/progress/V5-24.json",
+    "docs/v5-plan/progress/V5-25.json",
+    "docs/v5-plan/progress/V5-26.json",
+    "docs/v5-plan/progress/V5-27.json",
+    "docs/v5-plan/progress/V5-28.json",
+    "docs/v5-plan/progress/V5-29.json",
+    "docs/v5-plan/progress/V5-30.json",
+    "docs/v5-plan/progress/V5-31.json",
+    "docs/v5-plan/todos/V5-07.md",
+    "docs/v5-plan/todos/V5-08.md",
+    "docs/v5-plan/todos/V5-09.md",
+    "docs/v5-plan/todos/V5-10.md",
+    "docs/v5-plan/todos/V5-11.md",
+    "docs/v5-plan/todos/V5-12.md",
+    "docs/v5-plan/todos/V5-13.md",
+    "docs/v5-plan/todos/V5-14.md",
+    "docs/v5-plan/todos/V5-15.md",
+    "docs/v5-plan/todos/V5-16.md",
+    "docs/v5-plan/todos/V5-17.md",
+    "docs/v5-plan/todos/V5-18.md",
+    "docs/v5-plan/todos/V5-19.md",
+    "docs/v5-plan/todos/V5-21.md",
+    "docs/v5-plan/todos/V5-22.md",
+    "docs/v5-plan/todos/V5-23.md",
+    "docs/v5-plan/todos/V5-24.md",
+    "docs/v5-plan/todos/V5-25.md",
+    "docs/v5-plan/todos/V5-26.md",
+    "docs/v5-plan/todos/V5-27.md",
+    "docs/v5-plan/todos/V5-28.md",
+    "docs/v5-plan/todos/V5-29.md",
+    "docs/v5-plan/todos/V5-30.md",
+    "docs/v5-plan/todos/V5-31.md",
+    "tests/test_v5_baseline_source_controls.py",
+    "tools/v5_baseline_source_controls.py",
+    "tools/v5_d18_scheduler_control.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "JOIL_C006_FROZEN_RUST_DIR=/home/ubuntu/joil/.private/v5-workers/codex/target/c006frozen",
+        "python3",
+        "-m",
+        "unittest",
+        "tests/test_v5_baseline_source_controls.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-frozen-source-control-tests.log",
+      "log_sha256": "f4f9ceba7fd23a786fc1906246a1b135f9685798b110b558425545a61bed6e56",
+      "wall_seconds": 15.344924430013634,
+      "execution_head": "4917c8935b8af39fa3063b9af0bd201ca9a77abd"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_d18_scheduler_control.py",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex/g010-d18-positive-artifacts",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-d18-positive.log",
+      "log_sha256": "461b296892a93f15891367e8d0e7669de29c2e82056c643c9999f93e4447e56e",
+      "wall_seconds": 1.603268728009425,
+      "execution_head": "4917c8935b8af39fa3063b9af0bd201ca9a77abd"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "/home/ubuntu/joil/.private/v5-workers/codex/g010_verify_worker_evidence.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-worker-evidence-bindings.log",
+      "log_sha256": "2a34fbc51bbe20d41b7c08b78b40cc244ae815d8f9eda787cdf5196b581b9745",
+      "wall_seconds": 1.4661588669987395,
+      "execution_head": "4917c8935b8af39fa3063b9af0bd201ca9a77abd"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "/home/ubuntu/joil/.private/v5-workers/codex/g010_update_progress.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-topological-task-updates.log",
+      "log_sha256": "ee637f6e6179a930eb21e57c01af0427dc00ad169ee439092af437b8944aa124",
+      "wall_seconds": 113.98091851902427,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_plan.py",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-plan-build.log",
+      "log_sha256": "4b6d6de885391cdb42f0910ce8a1e7ead179d1b10ed17e0f351e019ddae2654f",
+      "wall_seconds": 0.3557882650056854,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-plan-check.log",
+      "log_sha256": "2038e4dc42515cc49c4c47f12aa1f842b6bc11aa5c4886d8aedce5e03c59d806",
+      "wall_seconds": 0.4854310699738562,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-explorer-build.log",
+      "log_sha256": "ae03a920acc7797fd7f2f8fa629e85f394a3a8d00d22e3cd5f97d143fa82ccac",
+      "wall_seconds": 0.3573090119753033,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-plan-tests-corrected.log",
+      "log_sha256": "d06990f2794eb198ab246caedd216639dba1003b74d17466db4988c4bb431052",
+      "wall_seconds": 5.854841234977357,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_explorer_manifest.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-explorer-tests.log",
+      "log_sha256": "976cdc07517a813047f9aa5ada64ea4e92f37faa8333a6f8ffe97f07a822a75b",
+      "wall_seconds": 0.5985137060051784,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "wall_seconds": 20.558099481044337,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-generated-status.log",
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.13141011097468436,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-public-check.log",
+      "log_sha256": "61f3be9159e79226f63001cbd7b6f088510ba18b224209b6cb854cfc77888d41",
+      "wall_seconds": 2.25282363104634,
+      "execution_head": "b2dc4e5f972577402838d20d7bd93dbeeed0478f"
+    }
+  ],
+  "positive_checks": [
+    "All ten deliveries applied in requested order with exact source-blob/index/path checks and contiguous integrator trailers.",
+    "All151 log bindings and82 artifact identities resolved, with four new fixtures explicitly bound to the delivered source rather than mislabelled as present in the worker pre-commit head.",
+    "24 real frozen-source controls,21 plan tests and3 generated-explorer tests passed. D18 positive observed3 evaluations and no unleased evaluator child.",
+    "All115 topological updates exited0:45 done promotions and70 new blocked support references; five V520 external-data tasks retain their existing holds/evidence. Actual counts85done/75blocked/0review/0todo,16packets5/5.",
+    "Scientific STATUS is byte-preserved;21 external-data requests remain unfulfilled and five owner approval dossiers remain unsigned."
+  ],
+  "negative_checks": [
+    "Frozen D07/D14/D16/D25 pairs retain real nonzero red observations; no assertion-inversion control is accepted.",
+    "D18 actual red exits1 after5 evaluations and observed fake evaluator invocation records on the frozen component. This proves the recorded defect boundary, not repair or physical qualification.",
+    "Partial/upstream-blocked packet receipts explicitly set packet_acceptance=false; integration_only refs cannot support completed states or imply science.",
+    "Audit031 D05 missing-path finding is closed by actual466fa3a log bindings, independently hash-verified."
+  ],
+  "negative_controls": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_d18_scheduler_control.py",
+        "red",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex/g010-d18-red-artifacts",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex/target/c006frozen"
+      ],
+      "exit_code": 1,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-d18-red.log",
+      "log_sha256": "c0376768bb2f56ea868a34258702adf7da902aae2e6d75f377449a797a753526",
+      "wall_seconds": 1.701179363008123
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "tools/v5_baseline_source_controls.py",
+      "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+    },
+    {
+      "path": "tests/test_v5_baseline_source_controls.py",
+      "sha256": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+    },
+    {
+      "path": "tools/v5_d18_scheduler_control.py",
+      "sha256": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd"
+    },
+    {
+      "path": "docs/STATUS.json",
+      "sha256": "23c0e59479eb00859df118dcaa44eebd4ed15dfbdde50d55bebda13bfbffe4a9"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      32,
+      33
+    ],
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 6.0,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "lease_sha256": "2ae6d6d0b2ea2684b2376a2a5d079eef42e1e7d0c98164555b1ec5f06c14344c"
+  },
+  "canonical_progress": {
+    "done": 85,
+    "blocked": 75,
+    "review": 0,
+    "todo": 0,
+    "packets_all_five_done": 16
+  },
+  "packet_acceptance": false,
+  "scientific_admission": false,
+  "reviewed_receipt_refs": [
+    {
+      "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+      "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
+    },
+    {
+      "path": "docs/receipts/v5-09-software-acceptance-20261018.json",
+      "sha256": "635bd7a636860a335be98857d74d69ec6499159a9271a30fce6f81cd59e348bf"
+    },
+    {
+      "path": "docs/receipts/v5-10-software-acceptance-20261018.json",
+      "sha256": "748e3384e2e9e3869d4ab4f91deb435812d78276137fb593ecc9e76cd52a7a1e"
+    },
+    {
+      "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+      "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
+    },
+    {
+      "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+      "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
+    },
+    {
+      "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+      "sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306"
+    },
+    {
+      "path": "docs/receipts/v5-14-software-acceptance-20261018.json",
+      "sha256": "d87a7efb92865616e59b11fdab5d7bd489ed96e6e75158cbef1ce94c260c66ec"
+    },
+    {
+      "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+      "sha256": "cba3485f34287d7038b838eed39960d0f000dc4625e2b4ab93ab5b8cb44b6c2c"
+    },
+    {
+      "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+      "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
+    },
+    {
+      "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+      "sha256": "18e820f3646733ca6210db7c51fd6935f9cf1affa7ceedb793df22f558f0de2c"
+    },
+    {
+      "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+      "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b"
+    },
+    {
+      "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+      "sha256": "b532e42f0cd434dd873a3f9acae9d185d0dded0c57b03940073898cdb3117ad9"
+    },
+    {
+      "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+      "sha256": "cf38fb60e8f961e35428c0b6cafb20003d6493e75ade70792b9d8e3f37ffeca1"
+    },
+    {
+      "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+      "sha256": "0cf58bd980a68f52ae1ccb4bf8c4aa89646d4688568d410dc968c55ebdc8d439"
+    },
+    {
+      "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+      "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
+    },
+    {
+      "path": "docs/receipts/v5-24-software-acceptance-20261018.json",
+      "sha256": "946af118cf2b8f5069cb18c86396bda69c6b3298a34d675e5280518f2a1d0e53"
+    },
+    {
+      "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
+      "sha256": "c9bade9dbe38d962b21a85010097df460d5d94cd3cca303a26a03a2c8effc3e8"
+    },
+    {
+      "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+      "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
+    },
+    {
+      "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+      "sha256": "cf9001683505de407467f0100f5cac3c4172be86f2a093e4289460754c435add"
+    },
+    {
+      "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
+      "sha256": "3115be83b5cefbfb1be1a00cf379f8868c009489af4b0cdbc679ee500ef2a998"
+    },
+    {
+      "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+      "sha256": "eeaa6147b9647bd28b69df4f95411ac1e41df0d76ef646d1e4b2e6f172a6a83b"
+    },
+    {
+      "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
+      "sha256": "d3c8c1e9750649bd1ae6db422f80c5149ef575ad8a135f64950cb2b65a456dd2"
+    },
+    {
+      "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
+      "sha256": "97374042f2cf3dfeb5b45761be936d3c2caac17c22abcd180e2bbad001861aad"
+    }
+  ],
+  "current_only_worker_artifacts": [
+    {
+      "receipt": "docs/receipts/v5-13-02-d07-control-20261018.json",
+      "path": "tests/test_v5_baseline_source_controls.py",
+      "expected": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174",
+      "tested_source_or_private_actual": "1eca3fecc5e0541717eec8a41139e16a87f8e75244234d63fac9343bab7a1dc3",
+      "current_actual": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174",
+      "tested_match": false,
+      "current_match": true
+    },
+    {
+      "receipt": "docs/receipts/v5-13-software-acceptance-20261018.json",
+      "path": "tests/test_v5_baseline_source_controls.py",
+      "expected": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174",
+      "tested_source_or_private_actual": "1eca3fecc5e0541717eec8a41139e16a87f8e75244234d63fac9343bab7a1dc3",
+      "current_actual": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174",
+      "tested_match": false,
+      "current_match": true
+    },
+    {
+      "receipt": "docs/receipts/v5-23-04-d18-control-20261018.json",
+      "path": "tools/v5_d18_scheduler_control.py",
+      "expected": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd",
+      "tested_source_or_private_actual": null,
+      "current_actual": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd",
+      "tested_match": false,
+      "current_match": true
+    },
+    {
+      "receipt": "docs/receipts/v5-23-software-acceptance-20261018.json",
+      "path": "tools/v5_d18_scheduler_control.py",
+      "expected": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd",
+      "tested_source_or_private_actual": null,
+      "current_actual": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd",
+      "tested_match": false,
+      "current_match": true
+    }
+  ],
+  "private_evidence": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-worker-evidence-verification.json",
+      "sha256": "300045bb574242b33cf9f606d55f3c26116c806a798ddf5cf18f2943853f5a08"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-authorized-receipt-amendments.json",
+      "sha256": "4d0d732a7eb7c40dcb4a1bbd08d51ec44fbd1ff94b5bb3e9b2c28f6ae747af8f"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-progress-updates/outcomes.jsonl",
+      "sha256": "cb5633795148840a0482bf54b50da06c3985610f15510a07c872d9107cb944e3"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex/g010-delivery-applications/commands.json",
+      "sha256": "7249a66c7629b42dbfe6add901b396b20da268790f7849e3de6531adfd67ee7d"
+    }
+  ],
+  "diagnostics": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/tests",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 1,
+      "log_sha256": "b3d0733d24f05006b9b1d8f39e8ddcc23e589d20b06a09dc3b05f1dd4957b73b",
+      "disposition": "Stale historical test directory is absent. Correct actual tests/test_v5_plan.py suite ran21tests exit0/d06990f2; no check bypass."
+    }
+  ],
+  "limitations": [
+    "Bounded software task acceptance only; no physical material/transport/CFD/FEA qualification, native accelerator admission, GPU execution or industrial performance claim.",
+    "Fourteen packet metadata amendments preserve their original versions at4917c893 and explicitly bind six resolved log paths; no historical execution is invented or relabelled.",
+    "The generic baseline runner still delegates no D18 implementation; the separately tracked v5_d18_scheduler_control.py provides the executed scheduler probe.",
+    "V5-00-03 AUDIT-HELD and D21 domain requirements remain unresolved. TR16/EV09/EV12 remain deferred.",
+    "Unsigned owner dossiers retain two assignment-label/registry differences for explicit owner reconciliation before signing.",
+    "PR7 was owner-merged at8d before this assignment. User host AGENTS requires one focused successor on merged main; no push to a merged branch or PR merge is performed.",
+    "New captain-only batch2/3 substitute plans are outside this direct85/75 assignment; all75 holds remain intact."
+  ],
+  "next_dependency": "Commit and review generated views; preserve exact source tree on merged-main successor, execute all8official suites/10steps freshly, public scan and index review, normal successor push/body update, guarded primary plan/receipt/release mirror; exact-head CI remains separate."
+}

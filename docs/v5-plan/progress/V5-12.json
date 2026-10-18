@@ -3,62 +3,57 @@
   "packet": "V5-12",
   "tasks": {
     "V5-12-01": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     },
     "V5-12-02": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     },
     "V5-12-03": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     },
     "V5-12-04": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     },
     "V5-12-05": {
-      "status": "blocked",
+      "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
-          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
-          "purpose": "integration_only"
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     }
