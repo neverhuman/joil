@@ -11,9 +11,9 @@
   "owner": "61562.joil_v5_codex_lane2",
   "model": "gpt-6-luna medium",
   "state": "lane_complete_software_controls_only",
-  "created_utc": "2026-10-18T05:50:53.407552+00:00",
+  "created_utc": "2026-10-18T05:53:06+00:00",
   "base_commit": "a6887024a2993de56c710d93dc94d84f7ce21c77",
-  "tested_commit": "669e283101dbca6776973045ec653fb598ec074d",
+  "tested_commit": "ecb1f034ce69d444c16fbffb51b02539d140242b",
   "branch": "codex/v5-lane2",
   "resources": {
     "cpus": [
@@ -40,7 +40,7 @@
   "source_sha256": [
     {
       "path": "crates/crucible-particles/src/dispersion.rs",
-      "sha256": "3e960016a91d0dd4855aa30abe3f91cefd2e03cd41a4ec8719d5a3990049cc75"
+      "sha256": "522deb52154f43c6fb89523b249d0abd44ee7df6f356c8362ef8a4112aeef04e"
     },
     {
       "path": "crates/crucible-particles/src/population.rs",
@@ -56,7 +56,7 @@
     },
     {
       "path": "crates/crucible-particles/tests/models.rs",
-      "sha256": "909dc71889fb5af491c58f76b619fbef354a90df500823a39c38a2ee8e34ab65"
+      "sha256": "2fa9de2e7e57d7a05cdc9a77dc0216e66a4d78d0434f92421769e04e8399461d"
     },
     {
       "path": "docs/receipts/v5-17-claim-20261018T060000Z.json",
@@ -213,6 +213,162 @@
       "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/13-public-receipt.log",
       "log_sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801",
       "summary": "post-receipt publication scan passed with 704 public candidates"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/14-models-rsm-final.log",
+      "log_sha256": "ec4512f612feaa6bcb711437093c607d294ebbc5105b48d5da41b83112e43e46"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-particles"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/15-particles-rsm-final.log",
+      "log_sha256": "0491388c4b00bdc858ef3f24414cc6daf9973780e0f24d49e193bddc5ff17415"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-particles",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/16-clippy-rsm-final.log",
+      "log_sha256": "02a8cb9ed92738f1ccd62ea2b20a38a8aeca993e69416f4e1a85db090bd9df50"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/17-fmt-rsm-final.log",
+      "log_sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/18-public-rsm-final.log",
+      "log_sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "rtk",
+        "proxy",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/19-diff-rsm-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/20-public-receipt-final.log",
+      "log_sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "rtk",
+        "proxy",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/21-diff-receipt-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],
   "all_raw_log_sha256": [
@@ -267,6 +423,38 @@
     {
       "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/13-public-receipt.log",
       "sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/14-models-rsm-final.log",
+      "sha256": "ec4512f612feaa6bcb711437093c607d294ebbc5105b48d5da41b83112e43e46"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/15-particles-rsm-final.log",
+      "sha256": "0491388c4b00bdc858ef3f24414cc6daf9973780e0f24d49e193bddc5ff17415"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/16-clippy-rsm-final.log",
+      "sha256": "02a8cb9ed92738f1ccd62ea2b20a38a8aeca993e69416f4e1a85db090bd9df50"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/17-fmt-rsm-final.log",
+      "sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/18-public-rsm-final.log",
+      "sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/19-diff-rsm-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/20-public-receipt-final.log",
+      "sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/21-diff-receipt-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     }
   ],
   "positive_checks": [
@@ -276,7 +464,8 @@
     "Exposure-dependent breakup returns bounded probabilities and daughter mass closes; Hinze clipping is rejected as calibration; constant-kernel Smoluchowski and size/velocity refinement controls pass.",
     "Mass-weighted DSD matrix conserves injected mass and matches direct held-out outcomes within budget only in declared linear noninteracting conditions.",
     "Grade interval aggregates by independent cluster and carries units, concentration basis, sampling design, critical-value source, separate numerical/model errors and applicability exclusions.",
-    "All 10 existing transport tests from V5-16 continue to pass."
+    "All 10 existing transport tests from V5-16 continue to pass.",
+    "RSM Reynolds-stress covariance in m\u00b2/s\u00b2 is converted with declared correlation time to anisotropic diffusivity in m\u00b2/s; conversion and repair metadata are tested."
   ],
   "negative_checks": [
     "Intentionally wrong drift fails the invariant-density criterion.",
