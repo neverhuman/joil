@@ -349,6 +349,7 @@ pub fn missing_catalogue_ids(
 mod tests {
     use super::*;
     use crucible_units::{CoordinateFrame, FrameTransform, Metres};
+    use joil_evidence::observation::Finite;
     fn hash() -> DigestRef {
         DigestRef::parse(&"a".repeat(64)).unwrap()
     }
@@ -370,9 +371,21 @@ mod tests {
                 to: CoordinateFrame::RightHandedSiZDownstream,
                 translation_m: [Metres::new(0.).unwrap(); 3],
                 rotation: [
-                    [1.0.into(), 0.0.into(), 0.0.into()],
-                    [0.0.into(), 1.0.into(), 0.0.into()],
-                    [0.0.into(), 0.0.into(), 1.0.into()],
+                    [
+                        Finite::new(1.0).unwrap(),
+                        Finite::new(0.0).unwrap(),
+                        Finite::new(0.0).unwrap(),
+                    ],
+                    [
+                        Finite::new(0.0).unwrap(),
+                        Finite::new(1.0).unwrap(),
+                        Finite::new(0.0).unwrap(),
+                    ],
+                    [
+                        Finite::new(0.0).unwrap(),
+                        Finite::new(0.0).unwrap(),
+                        Finite::new(1.0).unwrap(),
+                    ],
                 ],
             },
             window: Window {

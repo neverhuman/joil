@@ -95,6 +95,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "crucible-render"
+version = "0.1.0"
+dependencies = [
+ "crucible-units",
+ "joil-evidence",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
 name = "crucible-runtime"
 version = "0.1.0"
 dependencies = [
