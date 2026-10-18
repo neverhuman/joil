@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-28-02"
+  ],
+  "tested_commit": "59acb0831f406d511f2b3c3b70e185c91e351e29",
+  "tested_commit_semantics": "Implementation and test artifact bytes verified by the recorded commands are identical to this committed source; receipt-only successor adds no Rust or dataset changes.",
+  "decision_resolution": "substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies all six arms over two search seeds, fresh confirmation seeds/data, every attempted finalist and unchanged cost/quality intervals including null, negative, dominated and failed outcomes. Synthetic campaign ledger execution only.",
+  "changed_paths": [
+    "crates/crucible-paper/src/lib.rs",
+    "experiments/datasets/v5-28-02-confirmation-campaign.json",
+    "experiments/v5-study/preregistration-v1.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::v5_28_02_confirmation_campaign_enforces_fresh_confirmation_seeds_and_retains_negative_finalists",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.083,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-28-02.log",
+      "log_sha256": "bb0f8c55c6fabd1afa7f2e383f79242eac2b2964a09665ad4c3b676ef84080f0"
+    }
+  ],
+  "positive_checks": [
+    "substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies all six arms over two search seeds, fresh confirmation seeds/data, every attempted finalist and unchanged cost/quality intervals including null, negative, dominated and failed outcomes. Synthetic campaign ledger execution only.",
+    "Dedicated exact test tests::v5_28_02_confirmation_campaign_enforces_fresh_confirmation_seeds_and_retains_negative_finalists ran one test and passed; full four-crate regression output retained in the same raw log."
+  ],
+  "negative_checks": [
+    "Task-specific mutation/negative controls in tests::v5_28_02_confirmation_campaign_enforces_fresh_confirmation_seeds_and_retains_negative_finalists; see full source-bound test and raw log."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
+    },
+    {
+      "path": "experiments/datasets/v5-28-02-confirmation-campaign.json",
+      "sha256": "f6c5538c228be6e946aa41a26e6ae076d551e128b268d684f70c588228b2db61"
+    },
+    {
+      "path": "experiments/v5-study/preregistration-v1.json",
+      "sha256": "2164ccf761b81e30314d1aa45562bf40aada59e81aee183c1e27e01bfe6bd070"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software verification only; synthetic fixtures are not physical measurements or independent scientific validation.",
+    "No native solver, physical confirmation, or scientific admission was executed."
+  ],
+  "next_dependency": "Independent integrator review; V5-31 release tasks remain in_progress."
+}

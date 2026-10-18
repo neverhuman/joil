@@ -3,53 +3,75 @@
   "task_ids": [
     "V5-30-05"
   ],
-  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
-  "decision_resolution": "Resolved under SC-DEC-049 (governance_signoff): Delegate governance sign-off for private dossier storage and the allowlisted public export gate. Outside filing, publication and commercial licensing remain reserved to Jepson. Owner dossier 5 remains unsigned in the repo. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_private_dossier_storage_and_reviewed_export_gate.",
+  "tested_commit": "198f78364b6fb788cd4d49459f9aa7c9161c0baa",
+  "tested_commit_semantics": "Exact task tests ran against the implementation at this committed code revision.",
+  "decision_resolution": "Resolved under SC-DEC-049 (governance_signoff): added serializable private dossier and human-reviewed exact-seven-field public export gates in Rust and Python. This gate does not grant industrial installation, filing or publication authority.",
   "changed_paths": [
-    "experiments/rig/v5/",
-    "experiments/holdout/v5/",
-    "analysis/validation/v5/",
-    "docs/rig/V5_CONFIRMATION.md",
-    "experiments/rig/protocol_v1.md",
-    "docs/rig/MATERIAL_INPUTS.md"
+    "crates/crucible-stats/src/analysis.rs",
+    "tools/v5_private_dossier.py",
+    "tests/test_v5_private_dossier.py"
   ],
   "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "crucible-stats",
+        "analysis::v5_30_tests::v5_30_05_private_dossier_and_allowlisted_public_export_gate",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-05.log",
+      "log_sha256": "511d36662096561b619c8c84aae19fa23adee0787cd57505462aeb35870251e2"
+    },
     {
       "argv": [
         "python3",
         "-m",
         "unittest",
-        "-v",
-        "tests.test_v5_integrated_fixtures.ProtocolTests.test_private_dossier_storage_and_reviewed_export_gate"
+        "tests.test_v5_private_dossier",
+        "-v"
       ],
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-05.log",
-      "log_sha256": "94a62a5b386df9465d7b51b7a9cee405bf322ebf0121312b27c65e9345a11b34"
+      "log_sha256": "511d36662096561b619c8c84aae19fa23adee0787cd57505462aeb35870251e2"
     }
   ],
   "positive_checks": [
-    "V5-30-05 (Prepare private technical and disclosure dossiers): Public export contains only deliberately reviewed allowlisted material. \u2014 verified by python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_private_dossier_storage_and_reviewed_export_gate"
+    "Approved human review exports exactly the fixed seven-field allowlist; private records support serialization for private persistence."
   ],
   "negative_checks": [
-    "V5-30-05 negative control: Neither software novelty nor a research-quality threshold authorizes industrial installation."
+    "Rejects changed classification, installation authorization, unapproved/anonymous review, wrong field inventory and customer/facility/site/plant/account/address/contact/serial tokens."
   ],
   "artifacts": [
     {
-      "path": "docs/rig/V5_CONFIRMATION.md",
-      "sha256": "e12f4834d96d40463425c4ff72aa5f66a0557b1a54a1991cc6b62c7f76f192d1"
+      "path": "crates/crucible-stats/src/analysis.rs",
+      "sha256": "a3393f906d3449f381ce0a2de67573009583bfc66aa716543aa9d3cdca21e2fd"
+    },
+    {
+      "path": "tools/v5_private_dossier.py",
+      "sha256": "16f99da2f941f71a30e847b81f1e8a03333bbf5b61f4eb350cdf7e3de04512fd"
+    },
+    {
+      "path": "tests/test_v5_private_dossier.py",
+      "sha256": "68a4736e7bbbcf10e1b07f87208e28a82a5e568b1ff6d42a7d718f375f4c105a"
     }
   ],
   "resource_allocation": {
-    "lease_id": "renewal-004",
     "physical_cores": 2,
-    "ram_gib": 12,
-    "disk_gib": 6,
-    "gpu": false
+    "ram_gib": 6,
+    "disk_gib": 5,
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
   },
   "scientific_admission": false,
   "limitations": [
-    "Software and contract verification only; scientific_admission remains false.",
-    "Resolved under SC-DEC-049 (governance_signoff): Delegate governance sign-off for private dossier storage and the allowlisted public export gate. Outside filing, publication and commercial licensing remain reserved to Jepson. Owner dossier 5 remains unsigned in the repo. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_private_dossier_storage_and_reviewed_export_gate."
+    "Software and synthetic substitute-fixture verification only; scientific_admission remains false."
   ],
   "next_dependency": "V5-31-01"
 }

@@ -1,0 +1,781 @@
+{
+  "schema_version": 1,
+  "description": "Synthetic substitute fixture; no scientific admission.",
+  "rows": [
+    {
+      "id": "oracle-00",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000064",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c8"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.0,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-0"
+    },
+    {
+      "id": "oracle-01",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000002",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000065",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c9"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.1,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-1"
+    },
+    {
+      "id": "oracle-02",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000003",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000066",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000ca"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.2,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-2"
+    },
+    {
+      "id": "oracle-03",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000004",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000067",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000cb"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.3,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-3"
+    },
+    {
+      "id": "oracle-04",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000005",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000068",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000cc"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.4,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-1"
+      ],
+      "geometry_family_groups": [
+        "geometry-1"
+      ],
+      "preparation_id": "prep-4"
+    },
+    {
+      "id": "oracle-05",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000006",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000069",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000cd"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.5,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-1"
+      ],
+      "geometry_family_groups": [
+        "geometry-1"
+      ],
+      "preparation_id": "prep-5"
+    },
+    {
+      "id": "oracle-06",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000007",
+        "case_sha256": "000000000000000000000000000000000000000000000000000000000000006a",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000ce"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.6,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-1"
+      ],
+      "geometry_family_groups": [
+        "geometry-1"
+      ],
+      "preparation_id": "prep-6"
+    },
+    {
+      "id": "oracle-07",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000008",
+        "case_sha256": "000000000000000000000000000000000000000000000000000000000000006b",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000cf"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.7,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-1"
+      ],
+      "geometry_family_groups": [
+        "geometry-1"
+      ],
+      "preparation_id": "prep-7"
+    },
+    {
+      "id": "oracle-08",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000009",
+        "case_sha256": "000000000000000000000000000000000000000000000000000000000000006c",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d0"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.8,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-2"
+      ],
+      "geometry_family_groups": [
+        "geometry-2"
+      ],
+      "preparation_id": "prep-8"
+    },
+    {
+      "id": "oracle-09",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "000000000000000000000000000000000000000000000000000000000000000a",
+        "case_sha256": "000000000000000000000000000000000000000000000000000000000000006d",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d1"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.9,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-2"
+      ],
+      "geometry_family_groups": [
+        "geometry-2"
+      ],
+      "preparation_id": "prep-9"
+    },
+    {
+      "id": "oracle-10",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "000000000000000000000000000000000000000000000000000000000000000b",
+        "case_sha256": "000000000000000000000000000000000000000000000000000000000000006e",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d2"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.0,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-2"
+      ],
+      "geometry_family_groups": [
+        "geometry-2"
+      ],
+      "preparation_id": "prep-10"
+    },
+    {
+      "id": "oracle-11",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "000000000000000000000000000000000000000000000000000000000000000c",
+        "case_sha256": "000000000000000000000000000000000000000000000000000000000000006f",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d3"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.1,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-2"
+      ],
+      "geometry_family_groups": [
+        "geometry-2"
+      ],
+      "preparation_id": "prep-11"
+    },
+    {
+      "id": "oracle-12",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "000000000000000000000000000000000000000000000000000000000000000d",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000070",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d4"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.2,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-3"
+      ],
+      "geometry_family_groups": [
+        "geometry-3"
+      ],
+      "preparation_id": "prep-12"
+    },
+    {
+      "id": "oracle-13",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "000000000000000000000000000000000000000000000000000000000000000e",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000071",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d5"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.3,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-3"
+      ],
+      "geometry_family_groups": [
+        "geometry-3"
+      ],
+      "preparation_id": "prep-13"
+    },
+    {
+      "id": "oracle-14",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "000000000000000000000000000000000000000000000000000000000000000f",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000072",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d6"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.4,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-3"
+      ],
+      "geometry_family_groups": [
+        "geometry-3"
+      ],
+      "preparation_id": "prep-14"
+    },
+    {
+      "id": "oracle-15",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000010",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000073",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d7"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.5,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-3"
+      ],
+      "geometry_family_groups": [
+        "geometry-3"
+      ],
+      "preparation_id": "prep-15"
+    },
+    {
+      "id": "oracle-16",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000011",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000074",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d8"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.6,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-4"
+      ],
+      "geometry_family_groups": [
+        "geometry-4"
+      ],
+      "preparation_id": "prep-16"
+    },
+    {
+      "id": "oracle-17",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000012",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000075",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000d9"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.7,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-4"
+      ],
+      "geometry_family_groups": [
+        "geometry-4"
+      ],
+      "preparation_id": "prep-17"
+    },
+    {
+      "id": "oracle-18",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000013",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000076",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000da"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.8,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-4"
+      ],
+      "geometry_family_groups": [
+        "geometry-4"
+      ],
+      "preparation_id": "prep-18"
+    },
+    {
+      "id": "oracle-19",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000014",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000077",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000db"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 6.9,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-4"
+      ],
+      "geometry_family_groups": [
+        "geometry-4"
+      ],
+      "preparation_id": "prep-19"
+    },
+    {
+      "id": "oracle-20",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000015",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000078",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000dc"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 7.0,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-5"
+      ],
+      "geometry_family_groups": [
+        "geometry-5"
+      ],
+      "preparation_id": "prep-20"
+    },
+    {
+      "id": "oracle-21",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000016",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000079",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000dd"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 7.1,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-5"
+      ],
+      "geometry_family_groups": [
+        "geometry-5"
+      ],
+      "preparation_id": "prep-21"
+    },
+    {
+      "id": "oracle-22",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000017",
+        "case_sha256": "000000000000000000000000000000000000000000000000000000000000007a",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000de"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 7.2,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-5"
+      ],
+      "geometry_family_groups": [
+        "geometry-5"
+      ],
+      "preparation_id": "prep-22"
+    },
+    {
+      "id": "oracle-23",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000018",
+        "case_sha256": "000000000000000000000000000000000000000000000000000000000000007b",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000df"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 7.3,
+      "evidence_tier": "numerical_oracle",
+      "origin": "native_high_fidelity_oracle",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-5"
+      ],
+      "geometry_family_groups": [
+        "geometry-5"
+      ],
+      "preparation_id": "prep-23"
+    },
+    {
+      "id": "sandbox-prior",
+      "namespace": "sandbox_prior",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000064",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c8"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.0,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-0"
+    },
+    {
+      "id": "sandbox-pruned",
+      "namespace": "sandbox_pruned_input",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000064",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c8"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.0,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-0"
+    },
+    {
+      "id": "recipe-prior",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000064",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c8"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.0,
+      "evidence_tier": "qualified_independent",
+      "origin": "recipe_prior",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-0"
+    },
+    {
+      "id": "invalid-unit",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000064",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c8"
+      },
+      "quantity": "cout",
+      "unit": "mg/m3",
+      "value": 5.0,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-0"
+    },
+    {
+      "id": "missing-observer",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000064",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c8"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.0,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": null,
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-0"
+    },
+    {
+      "id": "missing-value",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000064",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c8"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": null,
+      "evidence_tier": "qualified_independent",
+      "origin": "measured_independent",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-0"
+    },
+    {
+      "id": "synthetic-control",
+      "namespace": "independent_qualified",
+      "subject": {
+        "requirement_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "geometry_sha256": "0000000000000000000000000000000000000000000000000000000000000001",
+        "case_sha256": "0000000000000000000000000000000000000000000000000000000000000064",
+        "model_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "solver_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scenario_sha256": "00000000000000000000000000000000000000000000000000000000000000c8"
+      },
+      "quantity": "cout",
+      "unit": "mg/L_dispersed_oil",
+      "value": 5.0,
+      "evidence_tier": "synthetic",
+      "origin": "synthetic",
+      "observer_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "lineage_groups": [
+        "lineage-0"
+      ],
+      "geometry_family_groups": [
+        "geometry-0"
+      ],
+      "preparation_id": "prep-0"
+    }
+  ]
+}

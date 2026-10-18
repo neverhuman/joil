@@ -715,3 +715,28 @@ fn candidate_precision_collapse_dead_arithmetic_and_budget_fail_closed() {
     .unwrap();
     assert!(x.evaluate(point([1e100, 0.0, 0.0])).is_err());
 }
+
+#[test]
+fn v5_08_02_partition_has_one_owner_including_interfaces_and_rejects_all_other_labels() {
+    let partition = MaterialPartition::new(
+        csg::sphere([0.0; 3], 2.0).unwrap().program().clone(),
+        csg::sphere([0.0; 3], 1.0).unwrap().program().clone(),
+        vec![],
+    )
+    .unwrap();
+    for (radius, expected) in [(0.0, 0), (1.0, 0), (1.5, 1), (2.0, 1), (2.1, 2)] {
+        for mask in 0..8 {
+            let labels = std::array::from_fn(|i| mask & (1 << i) != 0);
+            assert_eq!(
+                partition
+                    .verify_derived(point([radius, 0.0, 0.0]), labels, &mut budget())
+                    .is_ok(),
+                mask == 1 << expected,
+                "radius={radius}, labels={labels:?}"
+            );
+        }
+    }
+    assert!(partition
+        .ownership(point([0.0; 3]), &mut EvaluationBudget::new(0))
+        .is_err());
+}

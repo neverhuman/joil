@@ -1,0 +1,994 @@
+{
+  "synthetic": true,
+  "scientific_admission": false,
+  "frozen_before_search": true,
+  "estimand_id": "best-feasible-quality-at-fixed-cost",
+  "search_seed_ids": [
+    1301,
+    1302
+  ],
+  "confirmation_seed_ids": [
+    2301,
+    2302
+  ],
+  "search_runs": [
+    {
+      "arm": "R0",
+      "search_seed_id": 1301,
+      "search_data_id": "synthetic-search-R0-1301",
+      "attempted_finalist_ids": [
+        "synthetic-R0-1301"
+      ]
+    },
+    {
+      "arm": "R0",
+      "search_seed_id": 1302,
+      "search_data_id": "synthetic-search-R0-1302",
+      "attempted_finalist_ids": [
+        "synthetic-R0-1302"
+      ]
+    },
+    {
+      "arm": "R1",
+      "search_seed_id": 1301,
+      "search_data_id": "synthetic-search-R1-1301",
+      "attempted_finalist_ids": [
+        "synthetic-R1-1301"
+      ]
+    },
+    {
+      "arm": "R1",
+      "search_seed_id": 1302,
+      "search_data_id": "synthetic-search-R1-1302",
+      "attempted_finalist_ids": [
+        "synthetic-R1-1302"
+      ]
+    },
+    {
+      "arm": "E1",
+      "search_seed_id": 1301,
+      "search_data_id": "synthetic-search-E1-1301",
+      "attempted_finalist_ids": [
+        "synthetic-E1-1301"
+      ]
+    },
+    {
+      "arm": "E1",
+      "search_seed_id": 1302,
+      "search_data_id": "synthetic-search-E1-1302",
+      "attempted_finalist_ids": [
+        "synthetic-E1-1302"
+      ]
+    },
+    {
+      "arm": "E2",
+      "search_seed_id": 1301,
+      "search_data_id": "synthetic-search-E2-1301",
+      "attempted_finalist_ids": [
+        "synthetic-E2-1301"
+      ]
+    },
+    {
+      "arm": "E2",
+      "search_seed_id": 1302,
+      "search_data_id": "synthetic-search-E2-1302",
+      "attempted_finalist_ids": [
+        "synthetic-E2-1302"
+      ]
+    },
+    {
+      "arm": "A1",
+      "search_seed_id": 1301,
+      "search_data_id": "synthetic-search-A1-1301",
+      "attempted_finalist_ids": [
+        "synthetic-A1-1301"
+      ]
+    },
+    {
+      "arm": "A1",
+      "search_seed_id": 1302,
+      "search_data_id": "synthetic-search-A1-1302",
+      "attempted_finalist_ids": [
+        "synthetic-A1-1302"
+      ]
+    },
+    {
+      "arm": "A2",
+      "search_seed_id": 1301,
+      "search_data_id": "synthetic-search-A2-1301",
+      "attempted_finalist_ids": [
+        "synthetic-A2-1301"
+      ]
+    },
+    {
+      "arm": "A2",
+      "search_seed_id": 1302,
+      "search_data_id": "synthetic-search-A2-1302",
+      "attempted_finalist_ids": [
+        "synthetic-A2-1302"
+      ]
+    }
+  ],
+  "attempted_finalist_ids": [
+    "synthetic-R0-1301",
+    "synthetic-R0-1302",
+    "synthetic-R1-1301",
+    "synthetic-R1-1302",
+    "synthetic-E1-1301",
+    "synthetic-E1-1302",
+    "synthetic-E2-1301",
+    "synthetic-E2-1302",
+    "synthetic-A1-1301",
+    "synthetic-A1-1302",
+    "synthetic-A2-1301",
+    "synthetic-A2-1302"
+  ],
+  "confirmation_runs": [
+    {
+      "arm": "R0",
+      "finalist_id": "synthetic-R0-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-R0-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "null",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R0",
+      "finalist_id": "synthetic-R0-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-R0-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "null",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R0",
+      "finalist_id": "synthetic-R0-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-R0-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "null",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R0",
+      "finalist_id": "synthetic-R0-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-R0-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "null",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R1",
+      "finalist_id": "synthetic-R1-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-R1-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "feasible",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R1",
+      "finalist_id": "synthetic-R1-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-R1-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "feasible",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R1",
+      "finalist_id": "synthetic-R1-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-R1-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "feasible",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R1",
+      "finalist_id": "synthetic-R1-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-R1-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "feasible",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E1",
+      "finalist_id": "synthetic-E1-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-E1-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E1",
+      "finalist_id": "synthetic-E1-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-E1-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E1",
+      "finalist_id": "synthetic-E1-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-E1-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E1",
+      "finalist_id": "synthetic-E1-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-E1-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E2",
+      "finalist_id": "synthetic-E2-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-E2-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "dominated",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E2",
+      "finalist_id": "synthetic-E2-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-E2-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "dominated",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E2",
+      "finalist_id": "synthetic-E2-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-E2-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "dominated",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E2",
+      "finalist_id": "synthetic-E2-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-E2-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "dominated",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A1",
+      "finalist_id": "synthetic-A1-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-A1-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "failed",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A1",
+      "finalist_id": "synthetic-A1-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-A1-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "failed",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A1",
+      "finalist_id": "synthetic-A1-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-A1-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "failed",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A1",
+      "finalist_id": "synthetic-A1-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-A1-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "failed",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A2",
+      "finalist_id": "synthetic-A2-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-A2-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A2",
+      "finalist_id": "synthetic-A2-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-A2-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A2",
+      "finalist_id": "synthetic-A2-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-A2-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A2",
+      "finalist_id": "synthetic-A2-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-A2-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    }
+  ],
+  "reported_runs": [
+    {
+      "arm": "R0",
+      "finalist_id": "synthetic-R0-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-R0-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "null",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R0",
+      "finalist_id": "synthetic-R0-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-R0-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "null",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R0",
+      "finalist_id": "synthetic-R0-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-R0-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "null",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R0",
+      "finalist_id": "synthetic-R0-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-R0-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "null",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R1",
+      "finalist_id": "synthetic-R1-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-R1-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "feasible",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R1",
+      "finalist_id": "synthetic-R1-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-R1-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "feasible",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R1",
+      "finalist_id": "synthetic-R1-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-R1-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "feasible",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "R1",
+      "finalist_id": "synthetic-R1-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-R1-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "feasible",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E1",
+      "finalist_id": "synthetic-E1-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-E1-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E1",
+      "finalist_id": "synthetic-E1-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-E1-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E1",
+      "finalist_id": "synthetic-E1-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-E1-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E1",
+      "finalist_id": "synthetic-E1-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-E1-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E2",
+      "finalist_id": "synthetic-E2-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-E2-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "dominated",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E2",
+      "finalist_id": "synthetic-E2-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-E2-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "dominated",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E2",
+      "finalist_id": "synthetic-E2-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-E2-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "dominated",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "E2",
+      "finalist_id": "synthetic-E2-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-E2-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "dominated",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A1",
+      "finalist_id": "synthetic-A1-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-A1-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "failed",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A1",
+      "finalist_id": "synthetic-A1-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-A1-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "failed",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A1",
+      "finalist_id": "synthetic-A1-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-A1-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "failed",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A1",
+      "finalist_id": "synthetic-A1-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-A1-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "failed",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A2",
+      "finalist_id": "synthetic-A2-1301",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-A2-1301-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A2",
+      "finalist_id": "synthetic-A2-1301",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-A2-1301-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A2",
+      "finalist_id": "synthetic-A2-1302",
+      "confirmation_seed_id": 2301,
+      "confirmation_data_id": "synthetic-confirm-A2-1302-2301",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    },
+    {
+      "arm": "A2",
+      "finalist_id": "synthetic-A2-1302",
+      "confirmation_seed_id": 2302,
+      "confirmation_data_id": "synthetic-confirm-A2-1302-2302",
+      "estimand_id": "best-feasible-quality-at-fixed-cost",
+      "outcome": "negative",
+      "cost_interval": [
+        0.9,
+        1.0,
+        1.1
+      ],
+      "quality_interval": [
+        -0.1,
+        0.0,
+        0.1
+      ]
+    }
+  ]
+}

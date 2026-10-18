@@ -18,16 +18,26 @@
       ]
     },
     "V5-25-02": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex_lane4",
-      "note": "SC-DEC-071 red-team remediation (SC-DEC-040 substitute:native_full_liner_corpus+substitute:synthetic_fixture): moved back to in_progress; synthetic corpus and coverage gap checks exist in packs/hydrocyclone/judges, but native full-liner CFD corpus generation across family-separated holdouts remains open.",
-      "evidence": []
+      "note": "Resolved under SC-DEC-040 (substitute:native_full_liner_corpus+substitute:synthetic_fixture): 12-case corpus verified with distinct reference digests and separated training/calibration/held-out geometry families. wet_liner_surface_chemistry is a declared gap governed by V5-30 physical measurements; scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-25-02-verification-20261018.json",
+          "sha256": "fc567ca1395864e862a793780518832c8de880d36b1a6ffbb504c3991ed7fae0"
+        }
+      ]
     },
     "V5-25-03": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex_lane4",
-      "note": "SC-DEC-071 red-team remediation: moved back to in_progress; cut-plane coupling and fallback logic exist in packs/hydrocyclone/judges, but trained physics-informed neural/operator model fitting on a native full-liner corpus remains open.",
-      "evidence": []
+      "note": "Implemented coupled head/tail iteration with conservative per-bin oil partition, reverse-core feedback, a four-exchange minimum, reference comparison and separate numerical/physical/unclosed outcomes. Synthetic software fixture only; scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-25-03-verification-20261018.json",
+          "sha256": "c3497ab788bd4e4f56a9ea29e2e09c8c00a75c9470f4ba1ccc53679c5d20b99d"
+        }
+      ]
     },
     "V5-25-04": {
       "status": "done",

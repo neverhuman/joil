@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-15-01"
+  ],
+  "tested_commit": "59acb0831f406d511f2b3c3b70e185c91e351e29",
+  "tested_commit_semantics": "Implementation and test artifact bytes verified by the recorded commands are identical to this committed source; receipt-only successor adds no Rust or dataset changes.",
+  "decision_resolution": "SC-DEC-028 public_open_data+substitute:synthetic_fixture: validation::ingest_benchmark_accession_corpus verifies station hashes, units, uncertainty and all six identity tags plus source/license admission; synthetic/proxy and mismatched accessions stay LiteratureOnly. Canonical Bai/Young/Zhou/Hsieh fixture executed, no original literature measurements claimed.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/validation.rs",
+    "experiments/datasets/v5-15-01-benchmark-accessions.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--lib",
+        "--",
+        "--exact",
+        "validation::accession_branch_tests::v5_15_01_benchmark_accession_corpus_enforces_identity_tags_and_literature_only_separation",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 4.211,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-15-01.log",
+      "log_sha256": "d98396d61074b9ae0e9c9adcd3ef4d0ff32f345a2b7ce7d5469a6a8a8272f58e"
+    }
+  ],
+  "positive_checks": [
+    "SC-DEC-028 public_open_data+substitute:synthetic_fixture: validation::ingest_benchmark_accession_corpus verifies station hashes, units, uncertainty and all six identity tags plus source/license admission; synthetic/proxy and mismatched accessions stay LiteratureOnly. Canonical Bai/Young/Zhou/Hsieh fixture executed, no original literature measurements claimed.",
+    "Dedicated exact test validation::accession_branch_tests::v5_15_01_benchmark_accession_corpus_enforces_identity_tags_and_literature_only_separation ran one test and passed; full four-crate regression output retained in the same raw log."
+  ],
+  "negative_checks": [
+    "Task-specific mutation/negative controls in validation::accession_branch_tests::v5_15_01_benchmark_accession_corpus_enforces_identity_tags_and_literature_only_separation; see full source-bound test and raw log."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/validation.rs",
+      "sha256": "fa7145b188f8066533440cf1ab3e07b6e83afe283355e697443b51feed921c56"
+    },
+    {
+      "path": "experiments/datasets/v5-15-01-benchmark-accessions.json",
+      "sha256": "d2e333c4bc6ca87691e7721fa1dc90fea8de843bf33fbcb9b3c0e868f7eaf60b"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software verification only; synthetic fixtures are not physical measurements or independent scientific validation.",
+    "No native solver, physical confirmation, or scientific admission was executed."
+  ],
+  "next_dependency": "Independent integrator review; V5-31 release tasks remain in_progress."
+}

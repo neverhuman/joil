@@ -498,6 +498,96 @@ pub fn judge_preregistration(pre: &Preregistration) -> PreregistrationReport {
     }
 }
 
+/// Build a fixed 12-case substitute corpus with disjoint geometry families and evidence IDs.
+/// The corpus is a protocol fixture only; its synthetic labels do not admit physical science.
+pub fn build_preregistered_full_liner_corpus(
+    lease: Field<MeasuredLease>,
+    declared_gaps: Vec<DeclaredGap>,
+) -> Result<(Preregistration, PreregistrationReport), JudgeError> {
+    if lease.admitted().is_none() {
+        return Err(invalid("full_liner:measured_lease_required"));
+    }
+    let plan = [
+        ("cyl_conical_a", Split::Training, 4),
+        ("cyl_conical_b", Split::Training, 4),
+        ("tapered_swirl_c", Split::Calibration, 2),
+        ("helical_liner_d", Split::HeldOut, 1),
+        ("stepped_cone_e", Split::HeldOut, 1),
+    ];
+    let tags = [
+        "reverse_core",
+        "swirl",
+        "oil_grade",
+        "pressure_drop",
+        "low_flow",
+        "high_flow",
+    ];
+    let mut cases = Vec::new();
+    let mut index = 0usize;
+    for (family, split, count) in plan {
+        for member in 0..count {
+            let case_id = format!("full-liner-{family}-{member:02}");
+            let digest = |kind: &str| Sha256Hex::of_bytes(format!("{case_id}:{kind}").as_bytes());
+            let domain_tags = if split == Split::HeldOut {
+                if family == "helical_liner_d" {
+                    tags[..3].iter().map(|tag| tag.to_string()).collect()
+                } else {
+                    tags[3..].iter().map(|tag| tag.to_string()).collect()
+                }
+            } else {
+                vec![
+                    tags[index % tags.len()].to_string(),
+                    tags[(index + 1) % tags.len()].to_string(),
+                ]
+            };
+            cases.push(CaseRecord {
+                case_id: case_id.clone(),
+                split,
+                geometry_family: family.to_string(),
+                geometry_sha256: digest("geometry"),
+                carrier_evidence_sha256: digest("carrier"),
+                transport_evidence_sha256: digest("transport"),
+                domain_tags,
+                synthetic: true,
+            });
+            index += 1;
+        }
+    }
+    let pre = Preregistration {
+        required_domain_tags: tags
+            .iter()
+            .map(|x| x.to_string())
+            .chain(std::iter::once("wet_liner_surface_chemistry".to_string()))
+            .collect(),
+        declared_gaps,
+        cases,
+        lease,
+    };
+    let report = judge_preregistration(&pre);
+    if !report.verdict.is_pass() {
+        return Err(invalid(format!(
+            "full_liner:preregistration_rejected:{:?}",
+            report.verdict
+        )));
+    }
+    Ok((pre, report))
+}
+
+/// Parse and rejudge a persisted corpus before it is used by a consumer.
+pub fn verify_full_liner_corpus_json(raw_json: &str) -> Result<PreregistrationReport, JudgeError> {
+    let pre: Preregistration = serde_json::from_str(raw_json)
+        .map_err(|e| invalid(format!("full_liner:invalid_json:{e}")))?;
+    let report = judge_preregistration(&pre);
+    if report.verdict.is_pass() {
+        Ok(report)
+    } else {
+        Err(invalid(format!(
+            "full_liner:verification_failed:{:?}",
+            report.verdict
+        )))
+    }
+}
+
 // ---------------------------------------------------- V5-25-03 coupled head/tail iteration
 
 /// Interface exchanged each iteration: oil mass flow per size bin and reverse-core mass flow.
@@ -684,7 +774,7 @@ pub fn couple<H: HeadMap, T: TailMap>(
     initial: Interface,
     cfg: &CouplingConfig,
 ) -> CouplingOutcome {
-    let config_ok = cfg.max_exchanges >= 1
+    let config_ok = cfg.max_exchanges >= 4
         && cfg.relaxation > 0.0
         && cfg.relaxation <= 1.0
         && cfg.residual_tol > 0.0
@@ -723,7 +813,7 @@ pub fn couple<H: HeadMap, T: TailMap>(
         }
         let residual = interface_residual(&sent, &proposal);
         residuals.push(residual);
-        if residual <= cfg.residual_tol {
+        if exchange >= 4 && residual <= cfg.residual_tol {
             let reasons = closure_reasons(&sent, &tail_out, cfg.closure_tol);
             if !reasons.is_empty() {
                 return CouplingOutcome::UnclosedInterface {
@@ -796,6 +886,106 @@ pub struct DecisionBudget {
     pub reject_split_rel: f64,
     pub treated_oil_rel: f64,
     pub pressure_rel: f64,
+}
+
+/// Small reference fixture used to exercise the head/tail exchange contract with an explicit
+/// per-bin oil partition and reverse-core feedback. It is not a fitted physical model.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct ReferenceHeadTailCoupler {
+    pub oil_partition: Vec<f64>,
+    pub reverse_core_target_kg_s: f64,
+    pub feedback_fraction: f64,
+    pub observables: Observables,
+    pub omit_reverse_core_in_sent: bool,
+    pub oil_closure_scale: f64,
+}
+
+impl HeadMap for ReferenceHeadTailCoupler {
+    fn respond(&self, returned: &Interface) -> Interface {
+        let total: f64 = returned.oil_kg_s.iter().sum();
+        let mut oil: Vec<f64> = self
+            .oil_partition
+            .iter()
+            .enumerate()
+            .map(|(i, fraction)| {
+                let target = total * fraction;
+                target
+                    + self.feedback_fraction
+                        * (returned.oil_kg_s.get(i).copied().unwrap_or(0.0) - target)
+            })
+            .map(|v| v.max(0.0))
+            .collect();
+        let sum: f64 = oil.iter().sum();
+        if sum > 0.0 {
+            for value in &mut oil {
+                *value *= total / sum;
+            }
+        }
+        Interface {
+            oil_kg_s: oil,
+            reverse_core_kg_s: if self.omit_reverse_core_in_sent {
+                0.0
+            } else {
+                self.reverse_core_target_kg_s
+                    + self.feedback_fraction
+                        * (returned.reverse_core_kg_s - self.reverse_core_target_kg_s)
+            },
+        }
+    }
+}
+
+impl TailMap for ReferenceHeadTailCoupler {
+    fn respond(&self, sent: &Interface) -> TailResponse {
+        TailResponse {
+            returned: sent.clone(),
+            integrated_oil_kg_s: sent
+                .oil_kg_s
+                .iter()
+                .map(|v| v * self.oil_closure_scale)
+                .collect(),
+            integrated_reverse_kg_s: if self.omit_reverse_core_in_sent {
+                self.reverse_core_target_kg_s
+            } else {
+                sent.reverse_core_kg_s
+            },
+            observables: self.observables.clone(),
+            infeasible: Vec::new(),
+        }
+    }
+}
+
+/// Run the bounded exchange, preserve numerical versus physical outcomes, and compare only a
+/// closed solution against the held-out full-liner observables using the admitted error budget.
+pub fn evaluate_coupled_head_tail_against_reference(
+    coupler: &ReferenceHeadTailCoupler,
+    initial: Interface,
+    cfg: &CouplingConfig,
+    reference: &Observables,
+    budget: &Field<DecisionBudget>,
+) -> Result<(CouplingOutcome, Verdict), JudgeError> {
+    if coupler.oil_partition.is_empty()
+        || coupler
+            .oil_partition
+            .iter()
+            .any(|x| !x.is_finite() || *x < 0.0)
+        || (coupler.oil_partition.iter().sum::<f64>() - 1.0).abs() > 1e-10
+        || !coupler.reverse_core_target_kg_s.is_finite()
+        || !coupler.feedback_fraction.is_finite()
+        || !(0.0..1.0).contains(&coupler.feedback_fraction)
+        || !coupler.oil_closure_scale.is_finite()
+    {
+        return Err(invalid("coupling:reference_coupler_invalid"));
+    }
+    let outcome = couple(coupler, coupler, initial, cfg);
+    let verdict = match &outcome {
+        CouplingOutcome::Converged {
+            exchanges,
+            observables,
+            ..
+        } if *exchanges >= 4 => compare_to_reference(observables, reference, budget),
+        _ => Verdict::Unresolved(outcome.fallback_reasons()),
+    };
+    Ok((outcome, verdict))
 }
 
 // ------------------------------------------------- V5-25-01/05 operator, envelope and features
@@ -1397,4 +1587,149 @@ pub fn plan_campaign(
         budget_remaining: budget.units_remaining,
         verdict,
     })
+}
+
+#[cfg(test)]
+mod v5_25_remediation_tests {
+    use super::*;
+
+    #[test]
+    fn v5_25_02_full_liner_corpus_family_separation_and_head_reuse_guard() {
+        let raw = include_str!("../../../../experiments/datasets/v5-25-02-full-liner-corpus.json");
+        let report = verify_full_liner_corpus_json(raw).unwrap();
+        assert_eq!(report.held_out_cases, 2);
+        assert_eq!(report.synthetic_cases, 12);
+        assert!(report.held_out_tags.contains(&"oil_grade".to_string()));
+        assert_eq!(report.declared_gaps, vec!["wet_liner_surface_chemistry"]);
+        let lease = Field::Admitted {
+            value: MeasuredLease {
+                cpu_cores: 2,
+                memory_gib: 6.0,
+                output_gib: 1.0,
+                gpu: false,
+                lease_sha256: Sha256Hex::of_bytes(b"synthetic measured lease"),
+            },
+            source: Sha256Hex::of_bytes(b"synthetic lease source"),
+        };
+        let (_, built_report) = build_preregistered_full_liner_corpus(
+            lease,
+            vec![DeclaredGap {
+                tag: "wet_liner_surface_chemistry".into(),
+                reason: "physical wet-liner measurements are governed by V5-30".into(),
+            }],
+        )
+        .unwrap();
+        assert_eq!(
+            built_report.declared_gaps,
+            vec!["wet_liner_surface_chemistry"]
+        );
+        let mut pre: Preregistration = serde_json::from_str(raw).unwrap();
+        let held = pre
+            .cases
+            .iter()
+            .position(|c| c.split == Split::HeldOut)
+            .unwrap();
+        pre.cases[held].geometry_family = pre.cases[0].geometry_family.clone();
+        assert!(verify_full_liner_corpus_json(&serde_json::to_string(&pre).unwrap()).is_err());
+        pre.cases[held].geometry_family = "helical_liner_d".into();
+        pre.cases[held].geometry_sha256 = pre.cases[0].geometry_sha256.clone();
+        assert!(verify_full_liner_corpus_json(&serde_json::to_string(&pre).unwrap()).is_err());
+    }
+
+    #[test]
+    fn v5_25_03_coupled_head_tail_reference_agreement_and_unclosed_fallback() {
+        let reference = Observables {
+            reject_split: 0.08,
+            treated_oil_mg_l: 24.0,
+            pressure_drop_pa: 42_000.0,
+        };
+        let coupler = ReferenceHeadTailCoupler {
+            oil_partition: vec![0.65, 0.35],
+            reverse_core_target_kg_s: 0.1,
+            feedback_fraction: 0.3,
+            observables: reference.clone(),
+            omit_reverse_core_in_sent: false,
+            oil_closure_scale: 1.0,
+        };
+        let cfg = CouplingConfig {
+            max_exchanges: 20,
+            relaxation: 1.0,
+            residual_tol: 0.01,
+            closure_tol: 1e-9,
+        };
+        let budget = Field::Admitted {
+            value: DecisionBudget {
+                reject_split_rel: 0.01,
+                treated_oil_rel: 0.01,
+                pressure_rel: 0.01,
+            },
+            source: Sha256Hex::of_bytes(b"synthetic decision budget"),
+        };
+        let (outcome, verdict) = evaluate_coupled_head_tail_against_reference(
+            &coupler,
+            Interface {
+                oil_kg_s: vec![0.8, 0.2],
+                reverse_core_kg_s: 0.2,
+            },
+            &cfg,
+            &reference,
+            &budget,
+        )
+        .unwrap();
+        assert!(
+            matches!(&outcome, CouplingOutcome::Converged { exchanges, .. } if *exchanges >= 4)
+        );
+        assert_eq!(verdict, Verdict::Pass);
+        let mut omitted = coupler.clone();
+        omitted.omit_reverse_core_in_sent = true;
+        let (fallback, verdict) = evaluate_coupled_head_tail_against_reference(
+            &omitted,
+            Interface {
+                oil_kg_s: vec![0.8, 0.2],
+                reverse_core_kg_s: 0.2,
+            },
+            &cfg,
+            &reference,
+            &budget,
+        )
+        .unwrap();
+        assert!(matches!(
+            fallback,
+            CouplingOutcome::UnclosedInterface { .. }
+        ));
+        assert!(matches!(verdict, Verdict::Unresolved(_)));
+        let mut unclosed_oil = coupler.clone();
+        unclosed_oil.oil_closure_scale = 0.9;
+        let (fallback, _) = evaluate_coupled_head_tail_against_reference(
+            &unclosed_oil,
+            Interface {
+                oil_kg_s: vec![0.8, 0.2],
+                reverse_core_kg_s: 0.2,
+            },
+            &cfg,
+            &reference,
+            &budget,
+        )
+        .unwrap();
+        assert!(matches!(
+            fallback,
+            CouplingOutcome::UnclosedInterface { .. }
+        ));
+        let too_short = CouplingConfig {
+            max_exchanges: 3,
+            ..cfg
+        };
+        assert!(matches!(
+            couple(
+                &omitted,
+                &omitted,
+                Interface {
+                    oil_kg_s: vec![0.8, 0.2],
+                    reverse_core_kg_s: 0.2
+                },
+                &too_short
+            ),
+            CouplingOutcome::NumericalFailure { .. }
+        ));
+    }
 }

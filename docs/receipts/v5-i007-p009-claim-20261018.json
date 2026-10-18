@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "claim_id": "I007/P009 Items 3 and 4",
+  "owner": "1052075.joil_v5_codex",
+  "base_commit": "d6bd339e381eaf268a4c19ca33f4de0c283e0289",
+  "branch": "codex/v5-i007-p009-item3-item4-remediation",
+  "scope": [
+    "V5-15-01",
+    "V5-15-04",
+    "V5-28-02",
+    "V5-08-02",
+    "V5-10-03",
+    "V5-28-01"
+  ],
+  "write_paths": [
+    "packs/hydrocyclone/judges/src/validation.rs",
+    "crates/crucible-paper/src/lib.rs",
+    "crates/joil-geometry/",
+    "crates/crucible-geom/",
+    "experiments/datasets/v5-15-*",
+    "experiments/datasets/v5-28-02-confirmation-campaign.json",
+    "docs/receipts/",
+    "docs/v5-plan/progress/V5-08.json",
+    "docs/v5-plan/progress/V5-10.json",
+    "docs/v5-plan/progress/V5-15.json",
+    "docs/v5-plan/progress/V5-28.json",
+    "docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json",
+    "generated plan and explorer views"
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false
+}

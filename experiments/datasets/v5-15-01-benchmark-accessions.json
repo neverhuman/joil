@@ -1,0 +1,445 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "accession": {
+        "candidate": "Bai",
+        "source": {
+          "status": "proposed",
+          "value": "e0ad0ed73e3ae0b06088a88827c3b7bf611cf075a56789ea2a7ccd9c22a3b370",
+          "reason": "Synthetic software fixture; not accessed literature measurements"
+        },
+        "license": {
+          "status": "proposed",
+          "value": "CC0-1.0 synthetic fixture",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "geometry": {
+          "status": "proposed",
+          "value": "synthetic-geometry",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "fluids": {
+          "status": "proposed",
+          "value": "synthetic-fluids",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "boundary_conditions": {
+          "status": "proposed",
+          "value": "synthetic-boundary_conditions",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "stations": {
+          "status": "proposed",
+          "value": "synthetic-stations",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "methods": {
+          "status": "proposed",
+          "value": "synthetic-methods",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "uncertainty": {
+          "status": "proposed",
+          "value": "synthetic-uncertainty",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        }
+      },
+      "synthetic_or_proxy": true,
+      "scientific_admission": false,
+      "stations": [
+        {
+          "quantity": "axial_profile",
+          "unit": "m/s",
+          "values": [
+            -0.2,
+            0.0,
+            1.0
+          ],
+          "sha256": "898269a9810a7709bb7378eeba510035a47c599b7048e89379d43f4bacac89f9",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "tangential_profile",
+          "unit": "m/s",
+          "values": [
+            0.0,
+            1.0,
+            0.4
+          ],
+          "sha256": "bd3e03ace724a0975361920360e755f574fde90976fd6f68af12807db96ae141",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "patch_flux_balance",
+          "unit": "m3/s",
+          "values": [
+            -0.001,
+            0.0002,
+            0.0008
+          ],
+          "sha256": "141a4ca417d1288245aed3571ffd08118bf27e7c81a02b9d3a9e44c3e379ec4d",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "pressure_drop",
+          "unit": "Pa",
+          "values": [
+            15000.0
+          ],
+          "sha256": "91bfc0722b2c85dfce4912abaceda83a98898a7e923bca67df9e59c50601d2ba",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "split_ratio",
+          "unit": "1",
+          "values": [
+            0.2
+          ],
+          "sha256": "11b035bb86b60ef9ec2f4a58062bab8f7191fc110e6596f69fe97186ee1a90ea",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        }
+      ]
+    },
+    {
+      "accession": {
+        "candidate": "Young",
+        "source": {
+          "status": "proposed",
+          "value": "6de36e131a4436d13127789e42f0c1432e9c1dc2f21c28362960677877a706d7",
+          "reason": "Synthetic software fixture; not accessed literature measurements"
+        },
+        "license": {
+          "status": "proposed",
+          "value": "CC0-1.0 synthetic fixture",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "geometry": {
+          "status": "proposed",
+          "value": "synthetic-geometry",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "fluids": {
+          "status": "proposed",
+          "value": "synthetic-fluids",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "boundary_conditions": {
+          "status": "proposed",
+          "value": "synthetic-boundary_conditions",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "stations": {
+          "status": "proposed",
+          "value": "synthetic-stations",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "methods": {
+          "status": "proposed",
+          "value": "synthetic-methods",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "uncertainty": {
+          "status": "proposed",
+          "value": "synthetic-uncertainty",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        }
+      },
+      "synthetic_or_proxy": true,
+      "scientific_admission": false,
+      "stations": [
+        {
+          "quantity": "axial_profile",
+          "unit": "m/s",
+          "values": [
+            -0.2,
+            0.0,
+            1.0
+          ],
+          "sha256": "898269a9810a7709bb7378eeba510035a47c599b7048e89379d43f4bacac89f9",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "tangential_profile",
+          "unit": "m/s",
+          "values": [
+            0.0,
+            1.0,
+            0.4
+          ],
+          "sha256": "bd3e03ace724a0975361920360e755f574fde90976fd6f68af12807db96ae141",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "patch_flux_balance",
+          "unit": "m3/s",
+          "values": [
+            -0.001,
+            0.0002,
+            0.0008
+          ],
+          "sha256": "141a4ca417d1288245aed3571ffd08118bf27e7c81a02b9d3a9e44c3e379ec4d",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "pressure_drop",
+          "unit": "Pa",
+          "values": [
+            15000.0
+          ],
+          "sha256": "91bfc0722b2c85dfce4912abaceda83a98898a7e923bca67df9e59c50601d2ba",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "split_ratio",
+          "unit": "1",
+          "values": [
+            0.2
+          ],
+          "sha256": "11b035bb86b60ef9ec2f4a58062bab8f7191fc110e6596f69fe97186ee1a90ea",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        }
+      ]
+    },
+    {
+      "accession": {
+        "candidate": "Zhou",
+        "source": {
+          "status": "proposed",
+          "value": "018f973fda14bb0cf5a96a2c406702d59c091e1b33ff35a0da6670cf61821273",
+          "reason": "Synthetic software fixture; not accessed literature measurements"
+        },
+        "license": {
+          "status": "proposed",
+          "value": "CC0-1.0 synthetic fixture",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "geometry": {
+          "status": "proposed",
+          "value": "synthetic-geometry",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "fluids": {
+          "status": "proposed",
+          "value": "synthetic-fluids",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "boundary_conditions": {
+          "status": "proposed",
+          "value": "synthetic-boundary_conditions",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "stations": {
+          "status": "proposed",
+          "value": "synthetic-stations",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "methods": {
+          "status": "proposed",
+          "value": "synthetic-methods",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "uncertainty": {
+          "status": "proposed",
+          "value": "synthetic-uncertainty",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        }
+      },
+      "synthetic_or_proxy": true,
+      "scientific_admission": false,
+      "stations": [
+        {
+          "quantity": "axial_profile",
+          "unit": "m/s",
+          "values": [
+            -0.2,
+            0.0,
+            1.0
+          ],
+          "sha256": "898269a9810a7709bb7378eeba510035a47c599b7048e89379d43f4bacac89f9",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "tangential_profile",
+          "unit": "m/s",
+          "values": [
+            0.0,
+            1.0,
+            0.4
+          ],
+          "sha256": "bd3e03ace724a0975361920360e755f574fde90976fd6f68af12807db96ae141",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "patch_flux_balance",
+          "unit": "m3/s",
+          "values": [
+            -0.001,
+            0.0002,
+            0.0008
+          ],
+          "sha256": "141a4ca417d1288245aed3571ffd08118bf27e7c81a02b9d3a9e44c3e379ec4d",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "pressure_drop",
+          "unit": "Pa",
+          "values": [
+            15000.0
+          ],
+          "sha256": "91bfc0722b2c85dfce4912abaceda83a98898a7e923bca67df9e59c50601d2ba",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "split_ratio",
+          "unit": "1",
+          "values": [
+            0.2
+          ],
+          "sha256": "11b035bb86b60ef9ec2f4a58062bab8f7191fc110e6596f69fe97186ee1a90ea",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        }
+      ]
+    },
+    {
+      "accession": {
+        "candidate": "Hsieh",
+        "source": {
+          "status": "proposed",
+          "value": "a2388350932e4ad52cb22f071185aa88812eea02598f4779eefe9848a99f76cd",
+          "reason": "Synthetic software fixture; not accessed literature measurements"
+        },
+        "license": {
+          "status": "proposed",
+          "value": "CC0-1.0 synthetic fixture",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "geometry": {
+          "status": "proposed",
+          "value": "synthetic-geometry",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "fluids": {
+          "status": "proposed",
+          "value": "synthetic-fluids",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "boundary_conditions": {
+          "status": "proposed",
+          "value": "synthetic-boundary_conditions",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "stations": {
+          "status": "proposed",
+          "value": "synthetic-stations",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "methods": {
+          "status": "proposed",
+          "value": "synthetic-methods",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        },
+        "uncertainty": {
+          "status": "proposed",
+          "value": "synthetic-uncertainty",
+          "reason": "Synthetic fixture, not admitted benchmark evidence"
+        }
+      },
+      "synthetic_or_proxy": true,
+      "scientific_admission": false,
+      "stations": [
+        {
+          "quantity": "axial_profile",
+          "unit": "m/s",
+          "values": [
+            -0.2,
+            0.0,
+            1.0
+          ],
+          "sha256": "898269a9810a7709bb7378eeba510035a47c599b7048e89379d43f4bacac89f9",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "tangential_profile",
+          "unit": "m/s",
+          "values": [
+            0.0,
+            1.0,
+            0.4
+          ],
+          "sha256": "bd3e03ace724a0975361920360e755f574fde90976fd6f68af12807db96ae141",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "patch_flux_balance",
+          "unit": "m3/s",
+          "values": [
+            -0.001,
+            0.0002,
+            0.0008
+          ],
+          "sha256": "141a4ca417d1288245aed3571ffd08118bf27e7c81a02b9d3a9e44c3e379ec4d",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "pressure_drop",
+          "unit": "Pa",
+          "values": [
+            15000.0
+          ],
+          "sha256": "91bfc0722b2c85dfce4912abaceda83a98898a7e923bca67df9e59c50601d2ba",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        },
+        {
+          "quantity": "split_ratio",
+          "unit": "1",
+          "values": [
+            0.2
+          ],
+          "sha256": "11b035bb86b60ef9ec2f4a58062bab8f7191fc110e6596f69fe97186ee1a90ea",
+          "numerical_uncertainty": 0.01,
+          "input_uncertainty": 0.02,
+          "experimental_uncertainty": 0.03
+        }
+      ]
+    }
+  ]
+}

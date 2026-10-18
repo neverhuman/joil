@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-25-03"
+  ],
+  "tested_commit": "198f78364b6fb788cd4d49459f9aa7c9161c0baa",
+  "tested_commit_semantics": "Exact task tests ran against the implementation at this committed code revision.",
+  "decision_resolution": "Implemented bounded coupled head/tail iteration with conservative oil-bin partition, reverse-core feedback, four-or-more measured exchanges, held-out reference comparison, and distinct NumericalFailure, PhysicalInfeasible and UnclosedInterface outcomes.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/liner_operator.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "liner_operator::v5_25_remediation_tests::v5_25_03_coupled_head_tail_reference_agreement_and_unclosed_fallback",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-25-03.log",
+      "log_sha256": "e350ddd8665fc0d62654a8603c03ca181c01a020162fb929fd3ae8aa4221bf5c"
+    }
+  ],
+  "positive_checks": [
+    "Synthetic coupled observables agree with the held-out reference within the admitted DecisionBudget after measured convergence."
+  ],
+  "negative_checks": [
+    "Omitted reverse-core inflow, unclosed oil-bin flux and a cap below four exchanges fall back without conflating numerical failure with physical infeasibility."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/liner_operator.rs",
+      "sha256": "bf58e5d249ae8d4691398a840059fbab3c7a25b577642f96c6def8bfcb880ff0"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "ram_gib": 6,
+    "disk_gib": 5,
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and synthetic substitute-fixture verification only; scientific_admission remains false."
+  ],
+  "next_dependency": "V5-25-04"
+}

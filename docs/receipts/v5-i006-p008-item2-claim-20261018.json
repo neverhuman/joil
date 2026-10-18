@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "claim_id": "I006/P008 Item 2",
+  "owner": "codex",
+  "branch": "codex/v5-i006-p008-item2-remediation",
+  "base_commit": "3dceabdac0870e98f1b9f541e4174fb9b9405077",
+  "scope": ["V5-22-01", "V5-25-02", "V5-25-03", "V5-30-05"],
+  "write_paths": [
+    "crates/crucible-search/src/surrogate.rs",
+    "packs/hydrocyclone/judges/src/liner_operator.rs",
+    "crates/crucible-stats/src/analysis.rs",
+    "experiments/datasets/v5-22-01-oracle-labels.json",
+    "experiments/datasets/v5-25-02-full-liner-corpus.json",
+    "docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json",
+    "docs/v5-plan/progress/V5-22.json",
+    "docs/v5-plan/progress/V5-25.json",
+    "docs/v5-plan/progress/V5-30.json",
+    "docs/receipts/per-task/"
+  ],
+  "compute_lease": {"cpu_cores": 2, "ram_gib": 6, "disk_gib": 5, "gpu": false},
+  "scientific_admission": false
+}

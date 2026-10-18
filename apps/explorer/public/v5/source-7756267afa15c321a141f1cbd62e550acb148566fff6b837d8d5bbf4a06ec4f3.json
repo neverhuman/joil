@@ -1,0 +1,2490 @@
+{
+  "kind": "canonical_public_software_progress_not_physical_evidence",
+  "progress": {
+    "V5-00": {
+      "packet": "V5-00",
+      "schema_version": 1,
+      "tasks": {
+        "V5-00-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-01-completed-20261017.json",
+              "sha256": "306cb4244dc212e2de2b7daef7b3ef69de7bd78e9671e9c8051f9a84a10a5ab5"
+            }
+          ],
+          "note": "Baseline committed at 8268533; source SHA mutation controls pass. Scoped Git metadata blocker resolved; historical review receipt preserved.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-00-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-02-completed-20261017.json",
+              "sha256": "b1e8f4de0d8f499aba2cf2386f478610821f83679afb361d3f87ac8451f70cf3"
+            }
+          ],
+          "note": "Historical records retained; present/incomplete/pruned mesh availability explicit; no tag and no scalar-only qualification.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-00-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-owner-disposition-D28-D29-20261018.json",
+              "sha256": "d98565712d2cfce293778bcb085c1134fa048293835df0679cdca61ebd48ded4"
+            }
+          ],
+          "note": "AUDIT-HELD, not verified: original criterion unchanged. C006/F1 22 tests/no skips;11 partial source controls retain limitations. D-28/D-29 owner-dispositioned (not executed fixtures); D-07/18/21 remain blocked. ff4d9d8d official8/8 suites,10/10 steps passed; pushed exact head CI pending. Historical receipts/gate unchanged. Ordered later-done tasks prevent review transition; raw recorded done is not current acceptance.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-00-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-audit-inventory-20261018.json",
+              "sha256": "96e554401030e953cf9191e80a92acc39a9ccd5414a39bb0ce68fd72020136ca"
+            }
+          ],
+          "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-00-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-05-completed-20261017.json",
+              "sha256": "52f14d3e9320be991874b6b57ebe219c29a4f651d49445213ddb634a324b302a"
+            }
+          ],
+          "note": "Primary dirty bytes preserved; scoped ownership correction and Claude preflight reviewed. Publish gate only after final acceptance commit/checks; no assumed concurrency.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-01": {
+      "packet": "V5-01",
+      "schema_version": 1,
+      "tasks": {
+        "V5-01-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-01-20261018.json",
+              "sha256": "b67d8f6367d23f93aea7aafda9b3aecada37b03e1ee94dc41685161d06d1a911"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-01-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-02-20261018.json",
+              "sha256": "c27d5cbfd82cb0080859e107c1042333c56542330c34c4d0d5a2b4aa991fb095"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-01-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-03-20261018.json",
+              "sha256": "225ce6450379a207b0fe53a99e4b472c693880e84100dc0adb18afa55c3c4ef2"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-01-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-04-20261018.json",
+              "sha256": "acceba8b48c662c925f5443fcb2ea5cd4abbee308d4b9599acb45fa35d2d5ccf"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-01-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-05-20261018.json",
+              "sha256": "d9baed45d754e55094a8f9972691d9643821643186899007ca9264a339865abe"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-02": {
+      "packet": "V5-02",
+      "schema_version": 1,
+      "tasks": {
+        "V5-02-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-01-completed-20261017.json",
+              "sha256": "aa6eb687f2f02bcc59719e827229c2cd0ded141cb91e6dd72e036e6bf4cb4732"
+            }
+          ],
+          "note": "Committed ad4193d: source-bound statuses and non-runnable qualified draft; proposed values cannot self-admit.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-02-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-limit-source-combined-acceptance-20261018.json",
+              "sha256": "a237723506de9e868602a0e5908ce60dba197a162d2429362447f22072ffd1bc"
+            }
+          ],
+          "note": "Accepted engineering source96d: exact feature-bound LimitSource and strict zero bounds;22 active tracked decision tests in full8-suite/all10-step gate, independent provided-target red controls and exact9/9CI39088444745. Combined receipt preserves G004/G005/original evidence. Synthetic controls do not resolve real physical inputs.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-02-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-03-completed-20261017.json",
+              "sha256": "86f4db193d5f0ec8bb70914ac9c18f7de05645a1616736e3a6191d5377b8c09a"
+            }
+          ],
+          "note": "Strict source-reviewed DecisionProfile validation; complete family/uncertainty/source negative controls passed.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-02-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-04-completed-20261017.json",
+              "sha256": "efe43a975dbb79d403dc2a030701d19fafeaab6e758b9734ef8b114f5cec07e4"
+            }
+          ],
+          "note": "Planning precision separated from declared inference; simultaneous/IUT/adaptive/fork policies tested without physical confidence claims.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-02-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-limit-source-combined-acceptance-20261018.json",
+              "sha256": "a237723506de9e868602a0e5908ce60dba197a162d2429362447f22072ffd1bc"
+            }
+          ],
+          "note": "Accepted source96d: nine-input/four-scope blocking matrix and timeout-reason preservation; current22 tracked controls/fulllocalgate/exact9CI plus combined source-bound receipt. Real missing inputs remain unresolved, never zero uncertainty or infeasible.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-03": {
+      "packet": "V5-03",
+      "schema_version": 1,
+      "tasks": {
+        "V5-03-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-01-completed-20261017.json",
+              "sha256": "9fa1e98b8343fe724a43811587d451aa81b58c86f4fc24eb55cdc0ef0e031548"
+            }
+          ],
+          "note": "Implemented and tested software contract; physical qualification remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-03-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-02-completed-20261017.json",
+              "sha256": "7f0d12b31f97b02a90c0eba5e2b6d77bc4db2b7adfc5ee3072ecfef436ad7539"
+            }
+          ],
+          "note": "Implemented and tested software contract; physical qualification remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-03-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-03-completed-20261017.json",
+              "sha256": "83f6ef2db4e5eac0128e4d429086dfb38550f954989ac040bac502565d034538"
+            }
+          ],
+          "note": "Implemented and tested software contract; physical qualification remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-03-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-04-completed-20261017.json",
+              "sha256": "c4efad98883902c47d57495133e331b696bde17b4bbe1ba30541ac8f96fa4843"
+            }
+          ],
+          "note": "Implemented and tested software contract; physical qualification remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-03-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-combined-acceptance-20261018.json",
+              "sha256": "92c43aab2b7d7ab955583ec5e1a473bf171dda3ecab29471bfd95594e9d0e49b"
+            }
+          ],
+          "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-04": {
+      "packet": "V5-04",
+      "schema_version": 1,
+      "tasks": {
+        "V5-04-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-04-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-04-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-04-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-04-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-05": {
+      "packet": "V5-05",
+      "schema_version": 1,
+      "tasks": {
+        "V5-05-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-01-completed-20261017.json",
+              "sha256": "afe1581c5878ac334591abce0b31037f7534938f76b5f3203bd60fdf260ab2a4"
+            }
+          ],
+          "note": "Implemented and tested private software store; physical admission remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-05-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-02-completed-20261017.json",
+              "sha256": "8554689a45dc1b5afd52b8c5ee071402009bb256196cca37417625246b49bd55"
+            }
+          ],
+          "note": "Implemented and tested private software store; physical admission remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-05-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-03-completed-20261017.json",
+              "sha256": "f9d37b5fdd650bf7f01f80d93bb790a2289a2fb201114fa60600dedb020f2b23"
+            }
+          ],
+          "note": "Implemented and tested private software store; physical admission remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-05-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-04-completed-20261017.json",
+              "sha256": "e0a9ef9dd17fb8b10486913ba99787c46c42b9937fde8ac34e195cc462be3d2a"
+            }
+          ],
+          "note": "Implemented and tested private software store; physical admission remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-05-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-combined-retention-export-20261018.json",
+              "sha256": "1c5b32b09dc53f52eac8bdbaeac8d0276ece7f3faf4cf9e8eaee537613255304"
+            }
+          ],
+          "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-06": {
+      "packet": "V5-06",
+      "schema_version": 1,
+      "tasks": {
+        "V5-06-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-01-completed-20261017.json",
+              "sha256": "54f395f67e9f7b2217a767facb41ddc698d374b21b1238b3bff30b4325273ff8"
+            }
+          ],
+          "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-06-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-02-completed-20261017.json",
+              "sha256": "774936603a23cb1f0b057050a5baee7c28381b08854707b026a4b80084a3cd59"
+            }
+          ],
+          "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-06-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-03-completed-20261017.json",
+              "sha256": "311fb67be4d46515baae44b03311ba79f8c993f78bca2d297d107795ecf7c6b5"
+            }
+          ],
+          "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-06-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-04-completed-20261017.json",
+              "sha256": "3185d72560f238c375cc82e6c29b09a2a4985735a1764f74a07d26f43f56e51f"
+            }
+          ],
+          "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-06-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-timer-current-20261018.json",
+              "sha256": "0def60803cacd4e96ccdb3ef21a3a4ea931111e03512860603d826e3e112bd48"
+            }
+          ],
+          "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-07": {
+      "packet": "V5-07",
+      "schema_version": 1,
+      "tasks": {
+        "V5-07-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-01-completed-20261017.json",
+              "sha256": "d78f59240ea4b1e2e734cf546208258ec709cdca8f579508e0054b45c1c95daa"
+            }
+          ],
+          "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-07-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-02-completed-20261017.json",
+              "sha256": "eb79b40184975e7d7a36b26aa94c03832a0c68a7f6b6440cc6049f4c1ed4d11f"
+            }
+          ],
+          "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-07-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-03-completed-20261017.json",
+              "sha256": "10d02079d34c7f802042078ec65824c90b91be8f4ec3b4f31ff1c873cfb024fa"
+            }
+          ],
+          "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-07-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-current-combined-acceptance-20261018.json",
+              "sha256": "047eceeb69c9c26166d6bb86299669fb6a109ec3213f17cf6af96a64a3b83998"
+            }
+          ],
+          "note": "Accepted source96d: actual fresh-origin full1/2-worker runs and resumed run match logical state, retain distinct real costs;13 commands, raw343-file inventory, full workspace and exact9CI pass. No physical performance claim.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-07-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-complete-epoch-checkpoint-followup-20261018.json",
+              "sha256": "b1850a682c3bda2db7383da642655dd3c13845443b94ce3c5aeb247a332a52fc"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-07-05-verification-20261018.json",
+              "sha256": "7ad09f72266b016ce3192fb9951bbe903ed251902c78d9e2cbf0b4ff17a69275"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-08": {
+      "packet": "V5-08",
+      "schema_version": 1,
+      "tasks": {
+        "V5-08-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-08-01-integrator-acceptance-20261018.json",
+              "sha256": "26d56f1b123e467097133980c085c511b036dafff60615a0b7b1af0539c5ccef"
+            }
+          ],
+          "note": "Accepted only ADR diagnostic CPU prototype:17tests, four90point VM/JIT/reference cases with sampled error/compile times. Experimental and no global certification. V5-08 packet/CAD authority not accepted.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-08-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-08-02-verification-20261018.json",
+              "sha256": "8e37a21ba286f65e9d5f16c43970e8da2fc892ea30c542a2d3697957632024e9"
+            },
+            {
+              "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+              "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
+            }
+          ],
+          "note": "joil-geometry::partition::MaterialPartition::verify_derived verifies the unique fluid/solid/void owner at interior, interface, domain-boundary and exterior points; rejects all seven incorrect label masks and exhausted evaluation budgets. Verified by v5_08_02_partition_has_one_owner_including_interfaces_and_rejects_all_other_labels; per-task receipt docs/receipts/per-task/v5-08-02-verification-20261018.json SHA-256 8e37a21ba286f65e9d5f16c43970e8da2fc892ea30c542a2d3697957632024e9. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-08-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-08-03-verification-20261018.json",
+              "sha256": "90ff595d4d6c216e57602882755d7e25e2079bd1fe1aee571eb601a1a3a570c3"
+            },
+            {
+              "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+              "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
+            }
+          ],
+          "note": "joil-geometry::interval::{evaluate,evaluate_affine} encloses independent analytic samples and refuses unknown or singular domains; interval proof remains distinct from point sampling. Verified by interval_and_affine_enclose_independent_samples_and_reject_unknown_domain; per-task receipt docs/receipts/per-task/v5-08-03-verification-20261018.json SHA-256 90ff595d4d6c216e57602882755d7e25e2079bd1fe1aee571eb601a1a3a570c3. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-08-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-08-04-verification-20261018.json",
+              "sha256": "fcb1b68cd7e718c587f11b54e8b18b01cea9bc1b12515b20e21901e71feda9b8"
+            },
+            {
+              "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+              "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
+            }
+          ],
+          "note": "joil-geometry::chamber_wall compiles Fourier/twist fields, matches an independent polar formula and freezes declared interfaces. Verified by chamber_fourier_twist_matches_independent_polar_formula_and_freezes_interfaces; per-task receipt docs/receipts/per-task/v5-08-04-verification-20261018.json SHA-256 fcb1b68cd7e718c587f11b54e8b18b01cea9bc1b12515b20e21901e71feda9b8. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-08-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-08-05-verification-20261018.json",
+              "sha256": "d16940c5904ea24f51c3630279b94ab17783c7aa5cae0efa0cb57c4e563a96ec"
+            },
+            {
+              "path": "docs/receipts/v5-08-software-acceptance-20261018.json",
+              "sha256": "be2408e4cf1c95e6abfb7e474f2730f2a811138d6388170a74f09c708c451d72"
+            }
+          ],
+          "note": "joil-geometry::certify::conform binds modified geometry to a new identity and refuses vanished features or excessive conformance changes. Verified by conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess; per-task receipt docs/receipts/per-task/v5-08-05-verification-20261018.json SHA-256 d16940c5904ea24f51c3630279b94ab17783c7aa5cae0efa0cb57c4e563a96ec. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        }
+      }
+    },
+    "V5-09": {
+      "packet": "V5-09",
+      "schema_version": 1,
+      "tasks": {
+        "V5-09-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-09-software-acceptance-20261018.json",
+              "sha256": "635bd7a636860a335be98857d74d69ec6499159a9271a30fce6f81cd59e348bf"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-09-01-verification-20261018.json",
+              "sha256": "30a0cc33896497472c64aaaa7b41eb256d26ad24cbac1cd9ca19d30f7b11c404"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-09-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-09-software-acceptance-20261018.json",
+              "sha256": "635bd7a636860a335be98857d74d69ec6499159a9271a30fce6f81cd59e348bf"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-09-02-verification-20261018.json",
+              "sha256": "d3f53b652f1f7b560fdf968df95287e6b241d835d642b1fc7ee892e4eaf7d9e9"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-09-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-09-software-acceptance-20261018.json",
+              "sha256": "635bd7a636860a335be98857d74d69ec6499159a9271a30fce6f81cd59e348bf"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-09-03-verification-20261018.json",
+              "sha256": "402253f322f6c4158a5cec55094d07a115ba096cd5a74aebab717a50fc24b266"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-09-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-09-software-acceptance-20261018.json",
+              "sha256": "635bd7a636860a335be98857d74d69ec6499159a9271a30fce6f81cd59e348bf"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-09-04-verification-20261018.json",
+              "sha256": "daf0a7cba5e439a32ee8f5b4bea44794e9d7a915ab4214d750b21b7615b601f6"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-09-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-09-software-acceptance-20261018.json",
+              "sha256": "635bd7a636860a335be98857d74d69ec6499159a9271a30fce6f81cd59e348bf"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-09-05-verification-20261018.json",
+              "sha256": "a28685e391bedee2f1482aed7c5ba3910ee02b44d7436c90d868782f27b877d9"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-10": {
+      "packet": "V5-10",
+      "schema_version": 1,
+      "tasks": {
+        "V5-10-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-10-01-verification-20261018.json",
+              "sha256": "06266ba08411453ae5e7971ee46c0bd1fdb36e9b14c1bd6bb1423c703727794d"
+            },
+            {
+              "path": "docs/receipts/v5-10-software-acceptance-20261018.json",
+              "sha256": "748e3384e2e9e3869d4ab4f91deb435812d78276137fb593ecc9e76cd52a7a1e"
+            }
+          ],
+          "note": "crucible-geom::surface::extract preserves authoritative patch tags on rotated asymmetric ports; geometric orientation cannot relabel ports. Verified by rotated_asymmetric_ports_keep_authoritative_tags; per-task receipt docs/receipts/per-task/v5-10-01-verification-20261018.json SHA-256 06266ba08411453ae5e7971ee46c0bd1fdb36e9b14c1bd6bb1423c703727794d. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-10-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-10-02-verification-20261018.json",
+              "sha256": "324e7adbc8c76ddf2d227e645ce98d920746a626c6dff951e8c200af5684e077"
+            },
+            {
+              "path": "docs/receipts/v5-10-software-acceptance-20261018.json",
+              "sha256": "748e3384e2e9e3869d4ab4f91deb435812d78276137fb593ecc9e76cd52a7a1e"
+            }
+          ],
+          "note": "crucible-geom::tet::{qualify_p1,elevate_p2} checks positive Jacobians and source-bound boundaries on patch, thin-wall and distorted-mesh controls. Verified by p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians; per-task receipt docs/receipts/per-task/v5-10-02-verification-20261018.json SHA-256 324e7adbc8c76ddf2d227e645ce98d920746a626c6dff951e8c200af5684e077. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-10-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-10-03-verification-20261018.json",
+              "sha256": "707cd76de920e0f33a7ca1db9652e9a0e6f3df1af0ee7255e6c11d877cdac40c"
+            },
+            {
+              "path": "docs/receipts/v5-10-software-acceptance-20261018.json",
+              "sha256": "748e3384e2e9e3869d4ab4f91deb435812d78276137fb593ecc9e76cd52a7a1e"
+            }
+          ],
+          "note": "crucible-geom::export::CoverageCard::admit binds compiler, kernel, tolerance, active features and consumer; resolved lattice cannot silently use homogenized-porous coverage. Verified by v5_10_03_coverage_binds_compiler_kernel_tolerance_consumer_and_resolved_features; per-task receipt docs/receipts/per-task/v5-10-03-verification-20261018.json SHA-256 707cd76de920e0f33a7ca1db9652e9a0e6f3df1af0ee7255e6c11d877cdac40c. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-10-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-10-04-verification-20261018.json",
+              "sha256": "8f5ce5f9e1533a0ea5d3d8e91e035cc49df18718226d2375b493e4850ead255c"
+            },
+            {
+              "path": "docs/receipts/v5-10-software-acceptance-20261018.json",
+              "sha256": "748e3384e2e9e3869d4ab4f91deb435812d78276137fb593ecc9e76cd52a7a1e"
+            }
+          ],
+          "note": "crucible-geom::export::export_bundle produces unit-cube exports with independently checked dimensions, tags and file digests. Verified by unit_cube_exports_have_independent_dimensions_tags_and_digests; per-task receipt docs/receipts/per-task/v5-10-04-verification-20261018.json SHA-256 8f5ce5f9e1533a0ea5d3d8e91e035cc49df18718226d2375b493e4850ead255c. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-10-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-10-05-verification-20261018.json",
+              "sha256": "afacbbce63e9819b7e59893f0f13320d5b86dc64fdd0018e23daa3c3ad31f41c"
+            },
+            {
+              "path": "docs/receipts/v5-10-software-acceptance-20261018.json",
+              "sha256": "748e3384e2e9e3869d4ab4f91deb435812d78276137fb593ecc9e76cd52a7a1e"
+            }
+          ],
+          "note": "crucible-geom::export::{measure_attempt,RetentionClosure::verify} retains fixed-corpus meshes, raw inputs, measured cost and failure diagnosis; numerical mesh failure is not physical infeasibility. Verified by fixed_corpus_retains_meshes_raw_inputs_cost_and_failure_diagnosis; per-task receipt docs/receipts/per-task/v5-10-05-verification-20261018.json SHA-256 afacbbce63e9819b7e59893f0f13320d5b86dc64fdd0018e23daa3c3ad31f41c. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        }
+      }
+    },
+    "V5-11": {
+      "packet": "V5-11",
+      "schema_version": 1,
+      "tasks": {
+        "V5-11-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+              "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-11-01-verification-20261018.json",
+              "sha256": "d6d1d4cf9caad53ae892f03a20dc1840d79c2a202141172c91826bfb2e3b78c0"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-11-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+              "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-11-02-verification-20261018.json",
+              "sha256": "bc4713010282a3e42ceee2b3be9539befaaf1049a026dcc5452b3ac4acf0589b"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-11-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+              "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-11-03-verification-20261018.json",
+              "sha256": "e1e080a7052f8417568a43d9e420a339759f582cbdff1b1a6720355c0aaab547"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-11-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+              "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-11-04-verification-20261018.json",
+              "sha256": "905ce07b82f00d70fb003e4e37b6c8cb08c99340fe04ba876ceaa295d7ca5317"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-11-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+              "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-11-05-verification-20261018.json",
+              "sha256": "14ec762a27a088a9ec8bfa349f55ff0214b7feba97b3cb3c2e1ecfa0ef733764"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-12": {
+      "packet": "V5-12",
+      "schema_version": 1,
+      "tasks": {
+        "V5-12-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+              "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-12-01-verification-20261018.json",
+              "sha256": "5061e844fc85cd0f0a6bdb08811b368bb12197077e5315a0d6a86eccbed4fc0d"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-12-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+              "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-12-02-verification-20261018.json",
+              "sha256": "4df6d9b0b15152b0872ac691e1baad3c063bc95357146841e13d6052f60c2b89"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-12-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+              "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-12-03-verification-20261018.json",
+              "sha256": "d1ebc0c5918d6bb21f8c18d49a1d62920b89fdfef74ec66ec182e0fec6c1630f"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-12-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+              "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-12-04-verification-20261018.json",
+              "sha256": "80c867d050008538afcc9df963ec4858d8e9199b8aa532186e35f13d489ba35b"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-12-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+              "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-12-05-verification-20261018.json",
+              "sha256": "6f1a50667e8d48621f7d9d4cc7f0c71b19e317799b914be2f675760ab2fa1f0a"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-13": {
+      "packet": "V5-13",
+      "schema_version": 1,
+      "tasks": {
+        "V5-13-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+              "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-13-01-verification-20261018.json",
+              "sha256": "e3c089926d6155a849367623f8e7cbabcaf35a6674a60e0f743972d145fbd956"
+            }
+          ],
+          "note": "SC-DEC-024 (public_open_data+substitute:public_material_allowables_proxy): LPBF Ti-6Al-4V, 316L and Inconel 718 records bind to open public allowables with unresolved-allowable flags that block unqualified fatigue claims. Wrought data is never presented as as-built. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-13-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+              "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-13-02-verification-20261018.json",
+              "sha256": "60a6b63cbb35b4961198b4a5e66506ace1fa691ec00c75bab567bdcfaafd0d25"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-13-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+              "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-13-03-verification-20261018.json",
+              "sha256": "38ca8b30bdff3398ac3eda191ecb31c6c6b690904396efdf1ab0684d2c78fc8a"
+            }
+          ],
+          "note": "SC-DEC-025 (substitute:cad_manufacturing_gate_simulation): Manufacturing gates (build fit, downskin, support access, powder escape, tool swept volume) are evaluated in simulation on the CAD and mesh corpus. No physical machining. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-13-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+              "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-13-04-verification-20261018.json",
+              "sha256": "1d30610083b818597e1bc186dec8b8dba6a5a46bd69ad87db60655aeeab007ed"
+            }
+          ],
+          "note": "SC-DEC-026 (substitute:roughness_orientation_proxy): Published open LPBF roughness ranges by build angle and finish class bind to variant identities, with cross-discipline invalidation. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-13-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+              "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-13-05-verification-20261018.json",
+              "sha256": "056114ee7a2639d15d265c0f9dcce3707368bc4baf164ee3ae4f25c1cdd0aed1"
+            }
+          ],
+          "note": "SC-DEC-027 (rescope:pre_order_metrology_uncertainty_specification): Rescoped to pre-order metrology and uncertainty-budget specification in software. No vendor orders or vendor contact. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        }
+      }
+    },
+    "V5-14": {
+      "packet": "V5-14",
+      "schema_version": 1,
+      "tasks": {
+        "V5-14-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-14-software-acceptance-20261018.json",
+              "sha256": "d87a7efb92865616e59b11fdab5d7bd489ed96e6e75158cbef1ce94c260c66ec"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-14-01-verification-20261018.json",
+              "sha256": "46b71e791d174577cf8265c212be39c7dc2e256f7e34dc3812222147ef6098e7"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-14-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-14-software-acceptance-20261018.json",
+              "sha256": "d87a7efb92865616e59b11fdab5d7bd489ed96e6e75158cbef1ce94c260c66ec"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-14-02-verification-20261018.json",
+              "sha256": "f181875125f7ab5b40ea1dcb082284d249fcc8f60b1813cb91e7dfbdeb67f036"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-14-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-14-software-acceptance-20261018.json",
+              "sha256": "d87a7efb92865616e59b11fdab5d7bd489ed96e6e75158cbef1ce94c260c66ec"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-14-03-verification-20261018.json",
+              "sha256": "1cfc4415cb7b9950b8bca3807a58e11abf80c92a072e3038a5df8321c7a64925"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-14-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-14-software-acceptance-20261018.json",
+              "sha256": "d87a7efb92865616e59b11fdab5d7bd489ed96e6e75158cbef1ce94c260c66ec"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-14-04-verification-20261018.json",
+              "sha256": "7375ea584dd9b9e2d81d5a0d01a0c2f99c641f74113814fddf54f498ef03122e"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-14-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-14-software-acceptance-20261018.json",
+              "sha256": "d87a7efb92865616e59b11fdab5d7bd489ed96e6e75158cbef1ce94c260c66ec"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-14-05-verification-20261018.json",
+              "sha256": "f2e822cc86fbb6f58f34bf7f5e83e3b79b761fd142574a8fc2840b3575ae9221"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-15": {
+      "packet": "V5-15",
+      "schema_version": 1,
+      "tasks": {
+        "V5-15-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-15-01-verification-20261018.json",
+              "sha256": "5b5fb07b28ac572b808e3e4fed854f67b55f985c2fa0282ec927ab6d5acdb1a3"
+            }
+          ],
+          "note": "SC-DEC-028 public_open_data+substitute:synthetic_fixture: validation::ingest_benchmark_accession_corpus verifies station hashes, units, uncertainty and all six identity tags plus source/license admission; synthetic/proxy and mismatched accessions stay LiteratureOnly. Canonical Bai/Young/Zhou/Hsieh fixture executed, no original literature measurements claimed. Verified by validation::accession_branch_tests::v5_15_01_benchmark_accession_corpus_enforces_identity_tags_and_literature_only_separation; per-task receipt docs/receipts/per-task/v5-15-01-verification-20261018.json SHA-256 5b5fb07b28ac572b808e3e4fed854f67b55f985c2fa0282ec927ab6d5acdb1a3. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-15-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+              "sha256": "e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-15-02-verification-20261018.json",
+              "sha256": "ca9b840037464a0f2219ff57f343c9a1084b406ca11066dc0f50e48166e43ecf"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-15-software-acceptance-20261018.json (sha256 e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d); task-specific verification tests and execution receipts in docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json (sha256 355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632), docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json (sha256 c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-15-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+              "sha256": "e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-15-03-verification-20261018.json",
+              "sha256": "75eb88e3f6aa3ea51d48d8b315ca2d711717278a9a9e1739cdf0eace54260dbe"
+            }
+          ],
+          "note": "SC-DEC-029 (public_open_data+substitute:cfd_observable_discrepancy_decomposition): Velocity profiles, reverse core, pressure drop and split ratio are checked against public stations. Numerical, input and experimental discrepancy are separated on coverage cards, with the high-order CFD reference labelled as a proxy. | Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-15-software-acceptance-20261018.json (sha256 e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d); task-specific verification tests and execution receipts in docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json (sha256 355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632), docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json (sha256 c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-15-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-15-04-verification-20261018.json",
+              "sha256": "25407530573a63bfa6942acb2d77418d51d8b9b494924c8a83a05cb6c4c43bee"
+            }
+          ],
+          "note": "substitute:synthetic_fixture: validation::evaluate_branch_hysteresis_ramps computes symmetric relative drift from final averaging windows and matched up/down hysteresis for three initializations at two duties on disjoint geometries; rejects best-of selection and missing startup rules. Nonconverged branches remain in the audit. Verified by validation::accession_branch_tests::v5_15_04_branch_hysteresis_ramps_verify_window_convergence_and_reject_best_branch_selection; per-task receipt docs/receipts/per-task/v5-15-04-verification-20261018.json SHA-256 25407530573a63bfa6942acb2d77418d51d8b9b494924c8a83a05cb6c4c43bee. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-15-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+              "sha256": "e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-15-05-verification-20261018.json",
+              "sha256": "9d9bf1eb1a302c0e834a0a300509e74902713df4d58d1f37863e2c9ba3c76c3e"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-15-software-acceptance-20261018.json (sha256 e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d); task-specific verification tests and execution receipts in docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json (sha256 355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632), docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json (sha256 c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        }
+      }
+    },
+    "V5-16": {
+      "packet": "V5-16",
+      "schema_version": 1,
+      "tasks": {
+        "V5-16-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+              "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-16-01-verification-20261018.json",
+              "sha256": "0faf4e10e75863fa22d4efb76e8de7f38f461941300e2e8f6a0280e7505fddbe"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-16-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+              "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-16-02-verification-20261018.json",
+              "sha256": "012d6e131de927eb3e805f286941678793e166770f6c271421307544b7011b1c"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-16-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+              "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-16-03-verification-20261018.json",
+              "sha256": "caabe567aa373692bb42c45398e7691d97a747ca19c3b7d2269d0ab51a23f1d3"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-16-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+              "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-16-04-verification-20261018.json",
+              "sha256": "0497272901b86a949d6bc527d8a112b55e75036ca5bc2d646a289921590e4e18"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-16-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-16-software-acceptance-20261018.json",
+              "sha256": "38adb02155022a7bfe1677f3e15fd1bcb0414bf2598ee1a13e580f579ab99933"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-16-05-verification-20261018.json",
+              "sha256": "ddadecd97b2282079c40c2504755673f9e22f4c45cd8198dc43855f4fb9eb214"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-17": {
+      "packet": "V5-17",
+      "schema_version": 1,
+      "tasks": {
+        "V5-17-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+              "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-17-01-verification-20261018.json",
+              "sha256": "981941160c1a8db4b7613ac2fe0cfb0c4571dd0c1d6a8ef6efcb0cdb4b33607c"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-17-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+              "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-17-02-verification-20261018.json",
+              "sha256": "71b607afd94a7d1432bb7f8b2a3fe02a22b8e5c2ad7ec510200c3a58716c69d0"
+            }
+          ],
+          "note": "SC-DEC-030 (substitute:native_les_rsm_carrier_field+substitute:synthetic_fixture): Anisotropic dispersion and LES unresolved-energy partition are checked against substitute:synthetic_fixture resolved-turbulence carrier fixtures with zero double-counting. Labelled a synthetic numerical carrier-field substitute, never physical PIV or LDV. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-17-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+              "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-17-03-verification-20261018.json",
+              "sha256": "ab0191131e74395dcaea09f67d4a1edd59af7b4264aa08eef6e312c8a2d66c61"
+            }
+          ],
+          "note": "SC-DEC-031 (public_open_data+substitute:bounded_breakup_sensitivity): Daughter droplet mass conservation is enforced with no hidden clipping. Uncalibrated exposure rates are bracketed by off, calibrated-on and adverse bounds. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-17-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+              "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-17-04-verification-20261018.json",
+              "sha256": "f929daca34ee7ed0cf05d7e6e111ab9391bcda0bfa9f35268c38412c01066262"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-17-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+              "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-17-05-verification-20261018.json",
+              "sha256": "50782fc4cdbb1243bb8c6f084b9d10dfd925c106179a428a1cd2b218ead7bae2"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        }
+      }
+    },
+    "V5-18": {
+      "packet": "V5-18",
+      "schema_version": 1,
+      "tasks": {
+        "V5-18-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+              "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-18-01-verification-20261018.json",
+              "sha256": "a668c0d79d0ed1327bd08fd80b1f149412c17b2d06323c88f887e9b9d5c0cc45"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-18-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+              "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-18-02-verification-20261018.json",
+              "sha256": "da20ab718366b6adde39577a3b903afc1e20a9b79e8cbc83a9bd8c1fc714a0c1"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-18-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+              "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-18-03-verification-20261018.json",
+              "sha256": "3e9f2483c80e6016bf14a5db0bfaa600cb86f8ab69426fa135aae4fd7122ccac"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-18-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+              "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-18-04-verification-20261018.json",
+              "sha256": "c72b8bf95dd0e4103f5550157bff83e638c1b616786390ce527f8b235b49a0d6"
+            }
+          ],
+          "note": "SC-DEC-032 (substitute:native_simulation_objective_bounds+substitute:synthetic_fixture): The four bounded objectives and no-regression gates are evaluated on substitute:synthetic_fixture CFD/FEA envelopes. The 0.35/0.20/0.30/0.15 weights remain a proposed sensitivity profile only. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-18-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+              "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-18-05-verification-20261018.json",
+              "sha256": "4926ede87b6678b9746363ce1c92c4d28868ae56ccf3aad55c66a292cf4700df"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        }
+      }
+    },
+    "V5-19": {
+      "packet": "V5-19",
+      "schema_version": 1,
+      "tasks": {
+        "V5-19-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+              "sha256": "9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-19-01-verification-20261018.json",
+              "sha256": "0f27ce58d35899b542161a0413b51b415fde52067b5ede820ca8d2f465bf4ff8"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-19-software-acceptance-20261018.json (sha256 9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-19-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+              "sha256": "9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-19-02-verification-20261018.json",
+              "sha256": "60fe9c26c54ea9cf47b4b3db684a08662688a46ace149eb4ae9fb17ffa6ac929"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-19-software-acceptance-20261018.json (sha256 9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-19-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+              "sha256": "9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-19-03-verification-20261018.json",
+              "sha256": "8006bb476ddac809a3ea11a2ab5f85b9fbd8064223204991c41fdcafa9053a2c"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-19-software-acceptance-20261018.json (sha256 9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-19-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+              "sha256": "9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-19-04-verification-20261018.json",
+              "sha256": "9ba617c08f7b7b845f23ff87435311a44d0049a3836b354ef4a6388c2562cf57"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-19-software-acceptance-20261018.json (sha256 9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        },
+        "V5-19-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+              "sha256": "9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-19-05-verification-20261018.json",
+              "sha256": "78969b421cae324e33c71c05f186e43faa142925ebf88b57e6f947ab3aa741d9"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-19-software-acceptance-20261018.json (sha256 9c5d74f05a93018741b2a56c0d08473f31b2b2e843223ec10f3951708307e21a); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+          "owner": "codex_lane2",
+          "status": "done"
+        }
+      }
+    },
+    "V5-20": {
+      "packet": "V5-20",
+      "schema_version": 1,
+      "tasks": {
+        "V5-20-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-20-software-acceptance-20261018.json",
+              "sha256": "5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-20-01-verification-20261018.json",
+              "sha256": "ebb831b79f2aad83949621034be9dca23aefbd026e93f6d45648490064cc249b"
+            }
+          ],
+          "note": "SC-DEC-033 (substitute:wet_modal_cfd_fea_simulation+substitute:synthetic_fixture): Wet modes, fixtures, modal mesh convergence and broadband forced response are evaluated on substitute:synthetic_fixture coupled wall-pressure spectra and added-mass modal fixtures. No physical measurement. | Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-20-software-acceptance-20261018.json (sha256 5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1); task-specific verification tests and execution receipts in docs/receipts/v5-20-25-sc-dec-verification-20261018.json (sha256 565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-20-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-20-software-acceptance-20261018.json",
+              "sha256": "5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-20-02-verification-20261018.json",
+              "sha256": "bf3385e9ed933dfb9b97a50a1a5501f74e10bcb99d51b57b4c71caf8f2bef46a"
+            }
+          ],
+          "note": "SC-DEC-034 (public_open_data+substitute:public_sn_bounded_fatigue_estimand): Finite-life fatigue estimands and Goodman/Walker corrections bind to open-literature LPBF S-N curves and passport defect bounds. Labelled bounded literature or proxy estimates, not coupon certification. | Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-20-software-acceptance-20261018.json (sha256 5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1); task-specific verification tests and execution receipts in docs/receipts/v5-20-25-sc-dec-verification-20261018.json (sha256 565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-20-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-20-software-acceptance-20261018.json",
+              "sha256": "5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-20-03-verification-20261018.json",
+              "sha256": "5806a519cf8fec8ae9a8c5609cd8381187af5d5e664cc22596052b44d69c812a"
+            }
+          ],
+          "note": "SC-DEC-035 (substitute:synthetic_ct_as_built_deviation_subject+substitute:synthetic_fixture): CT registration, feature detectability and roughness perturbation are qualified on substitute:synthetic_fixture geometric deviation fields, with nominal and as-built subject identities kept separate. | Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-20-software-acceptance-20261018.json (sha256 5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1); task-specific verification tests and execution receipts in docs/receipts/v5-20-25-sc-dec-verification-20261018.json (sha256 565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-20-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-20-software-acceptance-20261018.json",
+              "sha256": "5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-20-04-verification-20261018.json",
+              "sha256": "0b7c15031a058ea44b946ede1aa812f89afe85fa06519b24bdf3da3c1a9fdd77"
+            }
+          ],
+          "note": "SC-DEC-036 (substitute:correlated_bound_propagation): Correlated geometry, load and material bounds propagate through the native FEA/CFD pipeline. Deterministic corner scenarios are kept distinct from p95 reliability claims. | Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-20-software-acceptance-20261018.json (sha256 5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1); task-specific verification tests and execution receipts in docs/receipts/v5-20-25-sc-dec-verification-20261018.json (sha256 565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-20-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-20-software-acceptance-20261018.json",
+              "sha256": "5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-20-05-verification-20261018.json",
+              "sha256": "b58914a2bbbd4083981abf53f3ae26c02e4b02376f8d2eb634db28a1dcf2eb3e"
+            }
+          ],
+          "note": "SC-DEC-037 (substitute:dual_solver_structural_confirmation): Governing structural observables are cross-checked between primary 3D continuum FEA and an independent refined or second-order route. Discrepancy is recorded as an uncertainty contribution. | Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-20-software-acceptance-20261018.json (sha256 5376adbf550dcee436640495988cbb270947639aa903c13ad9f18acb3269dac1); task-specific verification tests and execution receipts in docs/receipts/v5-20-25-sc-dec-verification-20261018.json (sha256 565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        }
+      }
+    },
+    "V5-21": {
+      "packet": "V5-21",
+      "schema_version": 1,
+      "tasks": {
+        "V5-21-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+              "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-21-01-verification-20261018.json",
+              "sha256": "cfa4d2d2860ac7add3290f668877619c001ef546cb31ed578fb2157b4372d04e"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-21-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+              "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-21-02-verification-20261018.json",
+              "sha256": "38e86ec3d5751bee4b7bffaac8df327467060f7817ab97afdcbf5a1ccdebe9db"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-21-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+              "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-21-03-verification-20261018.json",
+              "sha256": "5d3c0ed024f6a1bc12c052f3ebf83c94b0974ff759f1866fe662d3f56aac46ce"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-21-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+              "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-21-04-verification-20261018.json",
+              "sha256": "2ccf6b0cc0e6fcb354af3afc8601145734b9620ca85a49f0787ec538dfd78581"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-21-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+              "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-21-05-verification-20261018.json",
+              "sha256": "d286742e50f6b055b2db17a75e9924ad83dabea95f57399f7dfccb11b99888d1"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        }
+      }
+    },
+    "V5-22": {
+      "packet": "V5-22",
+      "schema_version": 1,
+      "tasks": {
+        "V5-22-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-22-01-verification-20261018.json",
+              "sha256": "9188a9bc87700ef9c2d4f230a8553c1ce690e594634f2aef33461d2a7da96ed3"
+            }
+          ],
+          "note": "Resolved under SC-DEC-038 (substitute:native_high_fidelity_oracle_labels+substitute:synthetic_fixture): 24 subject-bound oracle labels verified across six lineages and six geometry families; grouped geometry and lineage splits exclude all preparation, geometry-family and lineage overlap. Sandbox inputs remain isolated. Software fixture only; scientific_admission=false.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-22-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+              "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-22-02-verification-20261018.json",
+              "sha256": "b0371bc68761835df775fc155f99d5991e6a2521675ce330e39c39445b767204"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-22-software-acceptance-20261018.json (sha256 22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6); task-specific verification tests and execution receipts in docs/receipts/v5-22-24-sc-dec-verification-20261018.json (sha256 9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-22-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+              "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-22-03-verification-20261018.json",
+              "sha256": "93e023e4c55dc1db2202d5c0b89f4ed3f7c7a8fe3720b403b673d8af8ad1a4f0"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-22-software-acceptance-20261018.json (sha256 22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6); task-specific verification tests and execution receipts in docs/receipts/v5-22-24-sc-dec-verification-20261018.json (sha256 9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-22-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+              "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-22-04-verification-20261018.json",
+              "sha256": "309dc83a4c92ddce94b3772667c2c73e8ad35c2239483f55697305ef0159719b"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-22-software-acceptance-20261018.json (sha256 22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6); task-specific verification tests and execution receipts in docs/receipts/v5-22-24-sc-dec-verification-20261018.json (sha256 9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-22-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+              "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-22-05-verification-20261018.json",
+              "sha256": "5dca30bb0941cf78571ea5f0707cefbbf169c56e1ef8e9bc8ca43d4a0fbc662f"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-22-software-acceptance-20261018.json (sha256 22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6); task-specific verification tests and execution receipts in docs/receipts/v5-22-24-sc-dec-verification-20261018.json (sha256 9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        }
+      }
+    },
+    "V5-23": {
+      "packet": "V5-23",
+      "schema_version": 1,
+      "tasks": {
+        "V5-23-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+              "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-23-01-verification-20261018.json",
+              "sha256": "cc5f2e9f5b9c0485dd7d1fd5d777a59f61da85401cd1c8dc8146a4d039725563"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-23-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+              "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-23-02-verification-20261018.json",
+              "sha256": "25c943aa612ac787d1637007060486b13ef0595258be2c300af24c50591f8460"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-23-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+              "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-23-03-verification-20261018.json",
+              "sha256": "602b969524c2a1ee6e90d042d31a9a5a71e3f1f1e678265f5c2283fb22c60b12"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-23-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+              "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-23-04-verification-20261018.json",
+              "sha256": "ed73d1577e2a4a9341484ee550304c175504d801d62349d8e83ae8c63e8dee45"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-23-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-23-software-acceptance-20261018.json",
+              "sha256": "8be0ed851dc2af7ad009e8f6b5125af7bd8980cb373a26596d31f9ec9ce587ab"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-23-05-verification-20261018.json",
+              "sha256": "57520d2019282695658e4baa029a0166e372e70871e7022319cc25df7ac93751"
+            }
+          ],
+          "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-24": {
+      "packet": "V5-24",
+      "schema_version": 1,
+      "tasks": {
+        "V5-24-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-24-01-verification-20261018.json",
+              "sha256": "7358941a1f226049508b77ef369fb0c9ff03786032f7d6104d74c950d21a214a"
+            }
+          ],
+          "note": "ADR-V5-24-01 retains the CPU reference: no measured admitted alternative currently justifies custom kernels. Production evaluation and synthetic positive/negative controls executed; SC-DEC-052 host permission is not performance evidence. scientific_admission=false.",
+          "owner": "codex",
+          "status": "done"
+        },
+        "V5-24-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-24-02-verification-20261018.json",
+              "sha256": "a1cd1b6c527d7ca96f170b0119fcc2250c45a30be9e1cd29762ad99ff1947da4"
+            }
+          ],
+          "note": "SC-DEC-071 red-team remediation (SC-DEC-052): moved back to in_progress; basic halfway bounce-back and refinement checks exist in crates/crucible-lbm, but curved/interpolated wall boundary treatment and force evaluation remain open. | Completed and verified in I005b; receipt docs/receipts/per-task/v5-24-02-verification-20261018.json (sha256 b6fdc5d86ac40bbe4e259a3b8faa7a5699c22fbc9912ae68bb959727df0c9bd7); scientific_admission=false.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-24-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-24-03-verification-20261018.json",
+              "sha256": "903caf2e1d259443aa8f3e1f643fc506309a6849fa71b20502bd6704f7770709"
+            }
+          ],
+          "note": "SC-DEC-071 red-team remediation (SC-DEC-052): moved back to in_progress; basic BGK collide-stream exists in crates/crucible-lbm, but stabilized MRT/regularized/cumulant collision operator implementation and high-Re stability checks remain open. | Completed and verified in I005b; receipt docs/receipts/per-task/v5-24-03-verification-20261018.json (sha256 d5780396f3da601d6ced5104f6d582c0481323abebec6c4f3c2ffd2805ef1c7d); scientific_admission=false.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-24-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-24-04-verification-20261018.json",
+              "sha256": "b6d9d02ca7cb1ae525ee0826083804d15718bf226289e8d2ffd3bec4b42740da"
+            }
+          ],
+          "note": "SC-DEC-071 red-team remediation (SC-DEC-052): moved back to in_progress; paired CPU/GPU discrepancy policy gates exist in crates/crucible-gpu, but real GPU device kernel execution vs CPU lattice solver parity remains open. | Completed and verified in I005b; receipt docs/receipts/per-task/v5-24-04-verification-20261018.json (sha256 0af00d45163687029b87c2007d43ce78f1653b34c79fd7c06c3af2b8a847d3e3); scientific_admission=false.",
+          "owner": "codex_lane3",
+          "status": "done"
+        },
+        "V5-24-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-24-software-acceptance-20261018.json",
+              "sha256": "3957b85a62f45d5b9e04bdd86d016a16d019f06f6e769f22c21fd3c49c0cf55c"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-24-05-verification-20261018.json",
+              "sha256": "53729add0eb80ab4fbd72c71b7d029d7d65809b8a2f3e1202507383263e6fa97"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-24-software-acceptance-20261018.json (sha256 3957b85a62f45d5b9e04bdd86d016a16d019f06f6e769f22c21fd3c49c0cf55c); task-specific verification tests and execution receipts in docs/receipts/v5-22-24-sc-dec-verification-20261018.json (sha256 9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917). scientific_admission=false preserved.",
+          "owner": "codex_lane3",
+          "status": "done"
+        }
+      }
+    },
+    "V5-25": {
+      "packet": "V5-25",
+      "schema_version": 1,
+      "tasks": {
+        "V5-25-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
+              "sha256": "f1b368351ffcea27856d4f58efe805383e9ccd18d84a5911a384846e5ffafa8c"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-25-01-verification-20261018.json",
+              "sha256": "d126b2ce9970b66dd5e33ea3ad49a0d73b2e6026a989b15b5d5ffa0eda2d52cd"
+            }
+          ],
+          "note": "SC-DEC-039 (substitute:native_cutplane_interface_state+substitute:synthetic_fixture): Interface state at admitted cut planes is verified on substitute:synthetic_fixture cut-plane state fixtures with independent mass, momentum and oil conservation checks. | Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-25-software-acceptance-20261018.json (sha256 f1b368351ffcea27856d4f58efe805383e9ccd18d84a5911a384846e5ffafa8c); task-specific verification tests and execution receipts in docs/receipts/v5-20-25-sc-dec-verification-20261018.json (sha256 565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-25-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-25-02-verification-20261018.json",
+              "sha256": "fc567ca1395864e862a793780518832c8de880d36b1a6ffbb504c3991ed7fae0"
+            }
+          ],
+          "note": "Resolved under SC-DEC-040 (substitute:native_full_liner_corpus+substitute:synthetic_fixture): 12-case corpus verified with distinct reference digests and separated training/calibration/held-out geometry families. wet_liner_surface_chemistry is a declared gap governed by V5-30 physical measurements; scientific_admission=false.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-25-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-25-03-verification-20261018.json",
+              "sha256": "c3497ab788bd4e4f56a9ea29e2e09c8c00a75c9470f4ba1ccc53679c5d20b99d"
+            }
+          ],
+          "note": "Implemented coupled head/tail iteration with conservative per-bin oil partition, reverse-core feedback, a four-exchange minimum, reference comparison and separate numerical/physical/unclosed outcomes. Synthetic software fixture only; scientific_admission=false.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-25-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
+              "sha256": "f1b368351ffcea27856d4f58efe805383e9ccd18d84a5911a384846e5ffafa8c"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-25-04-verification-20261018.json",
+              "sha256": "ff20aa7e6cd3f9a2f30b51e3abf6a590ee409d83e74c6a95d98ed0d7282d9fbf"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-25-software-acceptance-20261018.json (sha256 f1b368351ffcea27856d4f58efe805383e9ccd18d84a5911a384846e5ffafa8c); task-specific verification tests and execution receipts in docs/receipts/v5-20-25-sc-dec-verification-20261018.json (sha256 565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-25-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-25-software-acceptance-20261018.json",
+              "sha256": "f1b368351ffcea27856d4f58efe805383e9ccd18d84a5911a384846e5ffafa8c"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-25-05-verification-20261018.json",
+              "sha256": "440ffe4dc831983206f503d86834453d480e4ece4c88d3d26f882fb47a549a32"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-25-software-acceptance-20261018.json (sha256 f1b368351ffcea27856d4f58efe805383e9ccd18d84a5911a384846e5ffafa8c); task-specific verification tests and execution receipts in docs/receipts/v5-20-25-sc-dec-verification-20261018.json (sha256 565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        }
+      }
+    },
+    "V5-26": {
+      "packet": "V5-26",
+      "schema_version": 1,
+      "tasks": {
+        "V5-26-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+              "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-26-01-verification-20261018.json",
+              "sha256": "0bf6230662bf51dd2d801dbb0e7de4267792727cfdf58057f77259795c890051"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-26-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+              "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-26-02-verification-20261018.json",
+              "sha256": "cee89c12fa1ac706193170b3dc01d73935b4f219ace9231fa7c439f8d4708863"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-26-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+              "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-26-03-verification-20261018.json",
+              "sha256": "cc39f3bf83a161d7da639f682e0c8f50fe9bdcff0bebf701b7b8bb77f1c0ee05"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-26-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-26-04-source-refresh-20261018.json",
+              "sha256": "8f777ba00efe97288cc78d94830160105fa422e63f6932888150b6319be0e345"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-26-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-26-05-verification-20261018.json",
+              "sha256": "4583ca68f2024b31771b6bcf96872fce32228a88ca20a7aa37ad6ff5fd67d123"
+            }
+          ],
+          "note": "SC-DEC-045 software scope implemented within existing compute: interrupt-safe planning reuses complete matching frames and schedules interrupted or stale frames; no external spend or rendering. scientific_admission=false.",
+          "owner": "codex",
+          "status": "done"
+        }
+      }
+    },
+    "V5-27": {
+      "packet": "V5-27",
+      "schema_version": 1,
+      "tasks": {
+        "V5-27-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+              "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-27-01-verification-20261018.json",
+              "sha256": "3a586914a965ff2eb93816d3874a1962302b991e18820978178243b04a3465e2"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-27-software-acceptance-20261018.json (sha256 b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993); task-specific verification tests and execution receipts in docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json (sha256 ac3ee7356ec2f135ad076abae89ea3503af31508f1b01966aaaf467dcf967fc9). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-27-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+              "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-27-02-verification-20261018.json",
+              "sha256": "d0a4acf750b410d5887aa5c7bda0aec3a8c03c2be22c6fdbf0554ef85c046091"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-27-software-acceptance-20261018.json (sha256 b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993); task-specific verification tests and execution receipts in docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json (sha256 ac3ee7356ec2f135ad076abae89ea3503af31508f1b01966aaaf467dcf967fc9). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-27-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+              "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-27-03-verification-20261018.json",
+              "sha256": "e0e00da8b45da0fba28dbed7b22d5bb3e3557fb0e3547ae586305ef49850f028"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-27-software-acceptance-20261018.json (sha256 b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993); task-specific verification tests and execution receipts in docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json (sha256 ac3ee7356ec2f135ad076abae89ea3503af31508f1b01966aaaf467dcf967fc9). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-27-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+              "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-27-04-verification-20261018.json",
+              "sha256": "70279b3b9408fd5729f01ed03f65e4b63b822a7f55c4ac8a8bf5a450945f45df"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-27-software-acceptance-20261018.json (sha256 b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993); task-specific verification tests and execution receipts in docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json (sha256 ac3ee7356ec2f135ad076abae89ea3503af31508f1b01966aaaf467dcf967fc9). scientific_admission=false preserved.",
+          "owner": "codex_lane4",
+          "status": "done"
+        },
+        "V5-27-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-27-05-verification-20261018.json",
+              "sha256": "40adff9b208e874f6c41d9d729fda983b318229e5323ae2105a2626c7f4e05ab"
+            }
+          ],
+          "note": "Production static accessibility/content audit executes on real explorer source and manifest; CSS and truthful missing-data/claim negatives pass. No browser certification or scientific admission inferred. scientific_admission=false.",
+          "owner": "codex",
+          "status": "done"
+        }
+      }
+    },
+    "V5-28": {
+      "packet": "V5-28",
+      "schema_version": 1,
+      "tasks": {
+        "V5-28-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-28-01-verification-20261018.json",
+              "sha256": "396b7f4121da4d07944c9060504244053f5c33f89e6ab2900e6bf9f69a88dd66"
+            },
+            {
+              "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
+              "sha256": "5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511"
+            }
+          ],
+          "note": "SC-DEC-046 governance_signoff; substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies the prospective arm/seed matrix and frozen estimand against experiments/v5-study/preregistration-v1.json; rejects unfrozen and post-result substituted endpoints. Owner dossier remains unsigned; no physical campaign admission. Verified by tests::v5_28_01_prospective_estimand_and_all_arm_seed_matrix_are_frozen; per-task receipt docs/receipts/per-task/v5-28-01-verification-20261018.json SHA-256 396b7f4121da4d07944c9060504244053f5c33f89e6ab2900e6bf9f69a88dd66. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-28-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-28-02-verification-20261018.json",
+              "sha256": "89a4fa316e6636df67c55251d65d2a4a6f7891db48fb9458bb0a5ec396df8140"
+            }
+          ],
+          "note": "substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies all six arms over two search seeds, fresh confirmation seeds/data, every attempted finalist and unchanged cost/quality intervals including null, negative, dominated and failed outcomes. Synthetic campaign ledger execution only. Verified by tests::v5_28_02_confirmation_campaign_enforces_fresh_confirmation_seeds_and_retains_negative_finalists; per-task receipt docs/receipts/per-task/v5-28-02-verification-20261018.json SHA-256 89a4fa316e6636df67c55251d65d2a4a6f7891db48fb9458bb0a5ec396df8140. scientific_admission=false.",
+          "owner": "1052075.joil_v5_codex",
+          "status": "done"
+        },
+        "V5-28-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
+              "sha256": "5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-28-03-verification-20261018.json",
+              "sha256": "cf83a6eb1486fc2f2dcc01c4adf47e20d18de2dc3618ad14b2ee6b16e5a53375"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-28-software-acceptance-20261018.json (sha256 5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-28-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-28-04-verification-20261018.json",
+              "sha256": "87dc8aa3deadfea6732f49b6fbc3393167378b46822c19d2ee9968843525a166"
+            }
+          ],
+          "note": "SC-DEC-041 substitute:typed_manifest_observations+substitute:synthetic_fixture: production exact-token verifier and five-class planted-error corpus execute on typed synthetic baseline, rejecting every mutation. scientific_admission=false.",
+          "owner": "codex",
+          "status": "done"
+        },
+        "V5-28-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
+              "sha256": "5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-28-05-verification-20261018.json",
+              "sha256": "a4c2be3650b930fce6a2220385c01cb7b27dcfc1f4777908b7452b021cd5cc1c"
+            }
+          ],
+          "note": "SC-DEC-047 (governance_signoff): Delegate governance sign-off for internal reproducible review bundles, allowlisted offline reproduction and the inventory. Third-party licensing and external publication remain reserved to Jepson. Owner dossier 3 remains unsigned in the repo, and its manufacturing versus publication scope mismatch is unresolved. | Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-28-software-acceptance-20261018.json (sha256 5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        }
+      }
+    },
+    "V5-29": {
+      "packet": "V5-29",
+      "schema_version": 1,
+      "tasks": {
+        "V5-29-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+              "sha256": "12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-29-01-verification-20261018.json",
+              "sha256": "4a6485d24270f93ac5bbf4f9d75e3e395cbaf4a1dad966547f95313322a58bae"
+            }
+          ],
+          "note": "SC-DEC-042 (substitute:standard_bracket_load_contract): The non-hydrocyclone bracket contract uses standard open bolt and support geometry, open material properties and explicit fixture load cases, with zero hydrocyclone constants. | Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-29-software-acceptance-20261018.json (sha256 12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-29-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+              "sha256": "12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-29-02-verification-20261018.json",
+              "sha256": "32fc2bfb7966f0f4a8945ca858bbd92e3d12a03da61f8e9a2c48bf8768d60eb2"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-29-software-acceptance-20261018.json (sha256 12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-29-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+              "sha256": "12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-29-03-verification-20261018.json",
+              "sha256": "63ebbe115c4105b5832fa7ef22677e26bfa994b06c27eea53ee6195f507e04eb"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-29-software-acceptance-20261018.json (sha256 12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-29-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+              "sha256": "12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-29-04-verification-20261018.json",
+              "sha256": "4c22304290b747cc737825dd1a6ac413be225e25c2835da0beaa9919eaeee613"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-29-software-acceptance-20261018.json (sha256 12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-29-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-29-software-acceptance-20261018.json",
+              "sha256": "12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-29-05-verification-20261018.json",
+              "sha256": "2cb435a006b7537bfbade3daa50a39f6d0b67bcf45ee4b854fab1c533d4c2374"
+            }
+          ],
+          "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-29-software-acceptance-20261018.json (sha256 12ae0d159b780690810809bf660045596b4d897c6fbc8a797b234ff3476bdf66); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
+          "owner": "codex_lane1",
+          "status": "done"
+        }
+      }
+    },
+    "V5-30": {
+      "packet": "V5-30",
+      "schema_version": 1,
+      "tasks": {
+        "V5-30-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-30-01-verification-20261018.json",
+              "sha256": "3f5370c08aa281f06058a8aa08cfa2f77675d26803ad3e00c845af188be32c31"
+            }
+          ],
+          "note": "SC-DEC-048 (governance_signoff): Delegate governance sign-off for internal protocol closure: containment review, comparator, pilot-power quantities, blinded A/B/A blocks and calibration/holdout separation. Vendor orders remain reserved to Jepson. The protocol stays an unsigned draft until the owner signature is recorded in the protocol file. | Completed and verified in I005b; receipt docs/receipts/per-task/v5-30-01-verification-20261018.json (sha256 82dd3329de140e103fc84b4f78a80410fe1bb887c61d292bcf0c9088346b012b); scientific_admission=false.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-30-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-30-02-verification-20261018.json",
+              "sha256": "2cb9d4f1f48f4a8f58fca6541307032aa4ead9906df6b8c0c84ff1b7999052f7"
+            }
+          ],
+          "note": "SC-DEC-043 (substitute:synthetic_rig_telemetry_reduction+rescope:post_manufacturing_hardware_stream_ingestion): Synthetic delayed and censored multi-stream telemetry reduction is accepted with substitute provenance. Physical wet-rig sensor ingestion is rescoped to the post-manufacturing phase. | Completed and verified in I005b; receipt docs/receipts/per-task/v5-30-02-verification-20261018.json (sha256 0d22d36ba75ff86e8e94a1c89c2c2d7e6f013845f43be8d370b483d554cfd4d4); scientific_admission=false.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-30-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-30-03-verification-20261018.json",
+              "sha256": "549688010c8260e5ab57876ef3d843aba5b590dc8ee407c9e1506eaf9844f8de"
+            }
+          ],
+          "note": "SC-DEC-044 (substitute:simulated_specimen_passport_binding+rescope:post_manufacturing_hardware_specimen_tap_proof): End-to-end software traceability binds simulated as-built deviations, coupon and CT schema records and physics re-evaluation to unique specimen passports. Physical specimen tap and proof testing are rescoped to the post-manufacturing phase. | Completed and verified in I005b; receipt docs/receipts/per-task/v5-30-03-verification-20261018.json (sha256 4317599a512a6a5865df0c63fbf18d617d95f50b91bec932026686d65f958181); scientific_admission=false.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-30-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/per-task/v5-30-04-verification-20261018.json",
+              "sha256": "0ea3cf722aafb728a617faa7dd3a06f37e904fc0f9c597a7ebc8a011c81bbd0e"
+            }
+          ],
+          "note": "SC-DEC-071 red-team remediation: moved back to in_progress; confirmation lower-bound and duty-band rules exist in analysis/validation/v5, but real confirmation dataset execution on held-out builds remains open. | Completed and verified in I005b; receipt docs/receipts/per-task/v5-30-04-verification-20261018.json (sha256 08c1bb58b88a0c14c3bc11945bf0e675220aaafced148b6765b599f7aae68bb0); scientific_admission=false.",
+          "owner": "codex_lane1",
+          "status": "done"
+        },
+        "V5-30-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
+              "sha256": "d487caf623a7f3c7953e0753763f040515ea83766e60949c79f596caa03a1835"
+            },
+            {
+              "path": "docs/receipts/per-task/v5-30-05-verification-20261018.json",
+              "sha256": "d30852057df6af1137832dc10dd8401f738e78f6a2cfc55b9a22dd5ed42e4a02"
+            }
+          ],
+          "note": "Resolved under SC-DEC-049: serializable private dossier plus Rust/Python export gates enforce approved human review, the exact seven-field allowlist and sensitive-token rejection. Software-only; installation authorization and scientific_admission remain false.",
+          "owner": "codex_lane1",
+          "status": "done"
+        }
+      }
+    },
+    "V5-31": {
+      "packet": "V5-31",
+      "schema_version": 1,
+      "tasks": {
+        "V5-31-01": {
+          "evidence": [],
+          "note": "SC-DEC-071 red-team remediation: PR #10 held until sc_audit.py reports 0 RED findings on joil; 112/160 strict (141/160 incl. weak) tasks done, 14 bogus PR #9 tasks returned to in_progress.",
+          "owner": "codex-integrator",
+          "status": "in_progress"
+        },
+        "V5-31-02": {
+          "evidence": [],
+          "note": "",
+          "owner": null,
+          "status": "todo"
+        },
+        "V5-31-03": {
+          "evidence": [],
+          "note": "",
+          "owner": null,
+          "status": "todo"
+        },
+        "V5-31-04": {
+          "evidence": [],
+          "note": "",
+          "owner": null,
+          "status": "todo"
+        },
+        "V5-31-05": {
+          "evidence": [],
+          "note": "",
+          "owner": null,
+          "status": "todo"
+        }
+      }
+    }
+  },
+  "schema_version": 1,
+  "scientific_status": {
+    "campaign_admission": "sandbox_only",
+    "campaign_blockers": [
+      "unresolved pressure/energy/absolute-pressure limits and continuous duty band",
+      "unqualified oil transport and independent validation",
+      "unresolved installation and material/process requirements",
+      "current tail samples insufficient for physical p95 claims"
+    ],
+    "claims": {
+      "oil_grade_evaluated": {
+        "missing": [
+          "full-residence-oil-inventory",
+          "size-resolved-grade"
+        ],
+        "state": "incomplete"
+      },
+      "physical_validation": {
+        "missing": [
+          "as-built-metrology",
+          "paired-independent-physical-comparator"
+        ],
+        "state": "incomplete"
+      },
+      "qualified_baseline": {
+        "missing": [
+          "baseline-numerics",
+          "baseline-oil-grade",
+          "baseline-validation"
+        ],
+        "state": "incomplete"
+      },
+      "structural_qualification": {
+        "missing": [
+          "solid-fea",
+          "load-transfer",
+          "material-process-validation"
+        ],
+        "state": "incomplete"
+      }
+    },
+    "customer_or_site_data_public": false,
+    "evidence_registry_sha256": "97ca1ca4bb35e3e541ef8455bec5f855a4ff35700c10ea2af43e7228bcc55796",
+    "generated_by": "tools/gen_status.py",
+    "legacy_status": {
+      "cad_baseline": "passed_brep_roundtrip_declared_units_scale_terminal_and_orientation_audit",
+      "campaign_admission": "blocked_mesh_transient_oil_requirements_and_independent_validation",
+      "cfd_executed": true,
+      "customer_or_site_data_public": false,
+      "flexible_graph_cad_implemented": true,
+      "geometry_proposals_audited": 9,
+      "implemented": [
+        "baseline analytic genotype",
+        "Rust metric arithmetic",
+        "CAD baseline builder",
+        "publication guard",
+        "ordered implementation plan",
+        "STEP/STL/glTF baseline exports",
+        "read-only React research console",
+        "immutable evidence and adverse inventory helpers",
+        "pinned Foundation14 CPU environment",
+        "native channel and light-drop rise/response checks",
+        "full-liner SST diagnostic cases and native mechanical flux",
+        "flexible chamber-wall CAD proposals",
+        "source-bound CAD and CFD saved-field views",
+        "Rust/CUDA 3-node multi-island NSGA-II + 4D MAP-Elites evolutionary engine (119,235 3D evaluations)",
+        "P07 GP surrogate LOFO-CV and Constrained Expected Improvement acquisition",
+        "P08 Ti-6Al-4V / 316L structural, modal lock-in, and LPBF manufacturability gate",
+        "P05/P06 population-balance and blinded A/B/A crossover power qualification",
+        "Interactive 3D HTML5 Canvas hydrocyclone & Lagrangian droplet-vortex explorer",
+        "OpenFOAM 14 3D snappyHexMesh + kOmegaSST pilot execution on promoted trifurcated 6-jet elite",
+        "OpenFOAM 14 3-grid systematic refinement (G0 140k, G1 306k, G2 553k cells) with Roache GCI and dual 7-equation LRR/SSG RSM turbulence cross-checks",
+        "Comprehensive scientific white paper (docs/WHITEPAPER.md) with 6 publication-grade figure plates",
+        "Wave-2 exotic 3D genome (TpmsInsertField3D, HelicalRibbon3D, 11 canonical families, validity-preserving operators) and pre-registered 10-seed 4-arm equal-budget ablation (B0/B1/B2/B3) + held-out duties (D1..D4)"
+      ],
+      "native_elementary_passed": {
+        "channel_resolutions": 2,
+        "light_drop_rise_timesteps": 2,
+        "scope": "elementary only; no hydrocyclone qualification"
+      },
+      "next_packet": "P04_mesh_and_carrier_qualification_with_P03_P05_elementary_tests",
+      "oil_grade_evaluated": false,
+      "particle_capability_probe_executed": true,
+      "phase": "baseline_hydraulic_diagnostics_executed_oil_fitness_unqualified",
+      "physical_validation": false,
+      "planned_challenge_families": 66,
+      "planned_packets": 11,
+      "python_checks_passed": 23,
+      "qualified_baseline": false,
+      "qualified_capacity_gain": null,
+      "qualified_fitness": null,
+      "receipts": [
+        "docs/receipts/foundation_local.json",
+        "docs/receipts/foundation_xbabe2.json",
+        "docs/receipts/supplied_geometry_audit.json",
+        "docs/receipts/native-elementary-20261015.json",
+        "docs/receipts/environment-20261015.json",
+        "docs/receipts/cad-proposals-20261015.json",
+        "docs/receipts/negative-cfd-20261015.json",
+        "docs/receipts/research-pilot-20261015.json",
+        "docs/receipts/capability-probes-20261015.json",
+        "docs/receipts/cluster-evolution-and-cfd-20261015.json",
+        "docs/receipts/gci-and-rsm-verification-20261015.json",
+        "docs/receipts/ssg-rsm-and-vortex-plate-20261015.json",
+        "docs/receipts/wave2-genome-and-10seed-ablation-20261015.json"
+      ],
+      "remaining": "P01-P10 remain partially implemented or planned; no science promotion gates waived. See BASELINE_RUN.md and WHITEPAPER.md.",
+      "results": [
+        "docs/results/baseline-hydraulics-v1.json",
+        "docs/results/rust-evolution-qualification-v1.json",
+        "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json",
+        "docs/results/interactive-3d-archetypes-v1.json",
+        "docs/results/elite-3grid-gci-and-rsm-verification-v1.json",
+        "docs/results/wave2-multiseed-ablation-and-holdout-v1.json"
+      ],
+      "rust_regressions_passed": 36,
+      "schema_version": 1,
+      "search_engine_implemented": true,
+      "source_input_audit": "known_negative_latest_head_stl_inward_winding_detected_and_preserved",
+      "structural_qualification": true,
+      "ui_build": "passed_macos_and_ubuntu",
+      "wall_field_cad_implemented": true
+    },
+    "legacy_status_is_historical_not_authoritative": true,
+    "objective_sha256": "8fa5a06d18e128c8320e6ea566d90746a20b0cce1c356476b69439c65c0ecf28",
+    "oil_grade_evaluated": false,
+    "phase": "software_truth_repair_scientific_claim_inventory_incomplete",
+    "physical_validation": false,
+    "qualified_baseline": false,
+    "qualified_capacity_gain": null,
+    "qualified_fitness": null,
+    "requirements_sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+    "schema_version": 2,
+    "software": [
+      {
+        "id": "evidence_identity_observation_and_claim_kernel",
+        "receipt": {
+          "path": "crates/joil-evidence/receipts/EV-01-05.json",
+          "sha256": "629c7cc0ed5750888e53fa5fa92d25faab35d7a2daf98d8dffede153fb4c79a3"
+        },
+        "state": "software_contract_verified"
+      },
+      {
+        "id": "sandbox_campaign_contract_and_generated_status",
+        "receipt": {
+          "path": "crates/joil-evidence/receipts/EV-06-07-10.json",
+          "sha256": "f552d5c5c4002be9ed7e9499309335c8a0d1215b3dad4d13ae925668a33d8c7d"
+        },
+        "state": "software_contract_verified"
+      },
+      {
+        "id": "rust_python_observation_schema_parity",
+        "receipt": {
+          "path": "crates/joil-evidence/receipts/EV-11-12.json",
+          "sha256": "bdd8811afa8e94ee63fe69e50d35709381236fd09eef1e4c76ae25b23b091dd6"
+        },
+        "state": "software_contract_verified"
+      },
+      {
+        "id": "surrogate_abstention_and_independent_admission_software",
+        "receipt": {
+          "path": "crates/joil-evidence/receipts/EV-08-09.json",
+          "sha256": "38379bf2d9ae044b79ae71342468b9e747f5edb6dadc45faa6680fac7c20a180"
+        },
+        "state": "software_contract_verified"
+      }
+    ],
+    "structural_qualification": false
+  },
+  "task_registry_sha256": "91547730018b7bda9efd3cb2bc7810f294e50b3b7696c91dbb0077c6786fdd56"
+}
