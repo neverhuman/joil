@@ -146,6 +146,53 @@ class PlanIntegrity(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'stale generated'):
             plan.build(self.root, check=True)
 
+    def supporting_receipt(self, task='V5-11-05'):
+        name = self.receipt(task)
+        path = self.root / name
+        data = json.loads(path.read_text())
+        data.update(packet_acceptance=False, scientific_admission=False)
+        path.write_text(json.dumps(data))
+        return name
+
+    def test_blocked_supporting_evidence_does_not_claim_defect_closure(self):
+        name = self.supporting_receipt()
+        plan.update(self.root, 'V5-11-05', 'blocked', 'tester',
+                    'Software integrated; original defect controls remain open', name, supporting=True)
+        data = plan.load(self.root)
+        row = data['packets'][11]['tasks'][4]
+        self.assertEqual(row['status'], 'blocked')
+        state = json.loads((self.root / 'docs/v5-plan/progress/V5-11.json').read_text())
+        ref = state['tasks']['V5-11-05']['evidence'][0]
+        self.assertEqual(ref['purpose'], 'integration_only')
+        # Ordinary receipt validation still requires executed primary controls.
+        with self.assertRaisesRegex(ValueError, 'defect controls'):
+            plan.validate_receipt(self.root, {k:v for k,v in ref.items() if k != 'purpose'}, 'V5-11-05')
+
+    def test_supporting_evidence_cannot_promote_or_forge_admission(self):
+        name = self.supporting_receipt()
+        for status in ('in_progress', 'review', 'done', 'todo'):
+            with self.subTest(status=status), self.assertRaisesRegex(ValueError, 'only blocked'):
+                plan.update(self.root, 'V5-11-05', status, 'tester', 'not accepted', name, supporting=True)
+        path = self.root / name
+        data = json.loads(path.read_text())
+        data['packet_acceptance'] = True
+        path.write_text(json.dumps(data))
+        with self.assertRaisesRegex(ValueError, 'admission'):
+            plan.update(self.root, 'V5-11-05', 'blocked', 'tester', 'open', name, supporting=True)
+
+    def test_supporting_evidence_still_fails_on_missing_gates_or_stale_bytes(self):
+        name = self.supporting_receipt()
+        plan.update(self.root, 'V5-11-05', 'blocked', 'tester', 'open', name, supporting=True)
+        gate = self.root / 'docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json'
+        saved = gate.read_bytes()
+        gate.unlink()
+        with self.assertRaisesRegex(ValueError, 'missing defect acceptance gates'):
+            plan.load(self.root)
+        gate.write_bytes(saved)
+        (self.root / name).write_text('{}')
+        with self.assertRaisesRegex(ValueError, 'stale receipt'):
+            plan.load(self.root)
+
     def test_script_embedding_cannot_end_data_tag(self):
         bad = '</script><script>alert("injected")</script>'
         self.mutate('TASKS.json', lambda d: d['packets'][0].update(title=bad))

@@ -47,11 +47,16 @@ def is_tracked(root, path):
                           capture_output=True).returncode == 0
 
 
-def validate_defect_controls(root, ref, task_id, receipt):
+def validate_defect_controls(root, ref, task_id, receipt, *, supporting=False):
     gate_path = root / PLAN / 'execution/DEFECT_ACCEPTANCE_GATES.json'
     if not gate_path.is_file():
         raise ValueError("missing defect acceptance gates")
     gates = read_json(gate_path)
+    # Integration support never closes a defect. The gate must still exist and decode.
+    if supporting:
+        if not isinstance(gates['records'], list):
+            raise ValueError('invalid defect acceptance gates')
+        return
     required = [r for r in gates['records'] if r['primary_task'] == task_id
                 and r['inventory_evidence_kind'] == 'source_only_inventory']
     prior = gates.get('accepted_prior_primary_receipts', [])
@@ -96,13 +101,20 @@ def validate_defect_controls(root, ref, task_id, receipt):
                 raise ValueError(f'{task_id}: positive defect command not executed in receipt')
 
 
-def validate_receipt(root, ref, task_id):
-    if set(ref) != {'path', 'sha256'} or not SHA.fullmatch(ref['sha256']):
+def validate_receipt(root, ref, task_id, *, status=None):
+    supporting = ref.get('purpose') == 'integration_only'
+    keys = {'path', 'sha256', 'purpose'} if supporting else {'path', 'sha256'}
+    if set(ref) != keys or not SHA.fullmatch(ref.get('sha256', '')):
         raise ValueError(f'{task_id}: invalid receipt reference')
     path = inside(root, ref['path'])
     if not path.is_file() or digest(path.read_bytes()) != ref['sha256']:
         raise ValueError(f'{task_id}: missing or stale receipt {path}')
     receipt = read_json(path)
+    if supporting:
+        if status != 'blocked':
+            raise ValueError(f'{task_id}: integration-only evidence is allowed only blocked')
+        if receipt.get('packet_acceptance') is not False or receipt.get('scientific_admission') is not False:
+            raise ValueError(f'{task_id}: supporting evidence must disclaim packet/scientific admission')
     fields = ('task_ids', 'tested_commit', 'changed_paths', 'commands', 'positive_checks',
               'negative_checks', 'artifacts', 'resource_allocation', 'limitations', 'next_dependency')
     if any(key not in receipt for key in fields) or task_id not in receipt['task_ids']:
@@ -120,7 +132,7 @@ def validate_receipt(root, ref, task_id):
             raise ValueError(f'{task_id}: missing log hash')
     if not receipt['artifacts'] or any(not SHA.fullmatch(a.get('sha256', '')) for a in receipt['artifacts']):
         raise ValueError(f'{task_id}: missing artifact hashes')
-    validate_defect_controls(root, ref, task_id, receipt)
+    validate_defect_controls(root, ref, task_id, receipt, supporting=supporting)
 
 
 def load(root=ROOT):
@@ -170,7 +182,7 @@ def load(root=ROOT):
             if s['status'] == 'done' and not s['evidence']:
                 raise ValueError(f'{task["id"]}: done needs a completion receipt')
             for ref in s['evidence']:
-                validate_receipt(root, ref, task['id'])
+                validate_receipt(root, ref, task['id'], status=s['status'])
             all_tasks.append(task['id'])
         progress[p['id']] = state
     if len(set(all_tasks)) != len(all_tasks) or len(all_tasks) != 160:
@@ -291,7 +303,7 @@ def build(root=ROOT, check=False):
     return data
 
 
-def update(root, task_id, status, owner, note, receipt):
+def update(root, task_id, status, owner, note, receipt, *, supporting=False):
     data = load(root)
     packet = next((p for p in data['packets'] if any(t['id'] == task_id for t in p['tasks'])), None)
     if packet is None:
@@ -308,7 +320,9 @@ def update(root, task_id, status, owner, note, receipt):
     if receipt:
         refpath = inside(root, receipt)
         ref = {'path': str(refpath.relative_to(root.resolve())), 'sha256': digest(refpath.read_bytes())}
-        validate_receipt(root, ref, task_id)
+        if supporting:
+            ref['purpose'] = 'integration_only'
+        validate_receipt(root, ref, task_id, status=status)
         row['evidence'] = [ref]
     path.write_text(json.dumps(state, indent=2, ensure_ascii=False) + '\n')
     try:
@@ -328,11 +342,14 @@ def main():
     ap.add_argument('--status', required=True, choices=STATES)
     ap.add_argument('--owner')
     ap.add_argument('--note')
-    ap.add_argument('--receipt')
+    receipts = ap.add_mutually_exclusive_group()
+    receipts.add_argument('--receipt')
+    receipts.add_argument('--supporting-receipt', help='Integration-only evidence for blocked tasks; never completion')
     args = parser.parse_args()
     try:
         if args.command == 'update':
-            update(ROOT, args.task, args.status, args.owner, args.note, args.receipt)
+            update(ROOT, args.task, args.status, args.owner, args.note,
+                   args.receipt or args.supporting_receipt, supporting=bool(args.supporting_receipt))
             print('Progress source updated; integrator must run build and review the generated diff.')
             return 0
         data = build(check=args.command == 'check')
