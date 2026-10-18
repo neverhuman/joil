@@ -250,10 +250,39 @@ Production binaries invoke no Python. Python files and legacy callers remain.
 output bytes/exits, status SHA-256 and frozen-source checks, plus tampered/missing
 inventory, stale/malformed evidence and attempted promotion controls. Error text
 for syntax, missing keys/files and Git failures remains implementation-specific;
-semantic status errors retain exact parity. Baseline Python CLI tracebacks are
-normalized by the test oracle to the Rust `FAIL:` diagnostic. No Python LOC
+semantic status errors retain exact parity. Baseline Python CLI tracebacks remain visible; parity asserts that they contain
+the Rust failure message after stripping its `FAIL:` prefix. No Python LOC
 reduction, consumer migration or physical qualification is claimed.
 
 The insertion-order codec is shared internally in `ordered_json.rs` with
 `v5-plan`; its extraction preserves existing plan wire behavior and is checked
 by `plan_parity` as well as the full Foundation gate.
+
+## I016 additive ports
+
+`v5-d21-trajectory-control --mode positive|red [--root ROOT]` binds the two
+frozen source digests, D-21 inventory and renderer contract. It runs the real
+locked offline renderer regression by default. `--skip-renderer-test` is only
+for isolated synthetic replay tests; it makes no renderer-test claim.
+Native manifest validation preserves the subject/time/field and scope boundary.
+
+`v5-d18-scheduler-control positive|red --scratch DIR --frozen-rust DIR
+[--root ROOT]` checks the frozen scheduler hash/anchors, compiles the original
+probe against the supplied frozen libraries and checks evaluator records.
+The red evaluator uses `/bin/sh`, `date +%s%N` and `sleep 0.001`; production
+Rust controls invoke no Python. Wall-clock timestamps must be strictly increasing;
+a clock step backwards fails closed. The supplied library build provenance remains
+the caller's responsibility, matching the original control.
+
+D18 parity builds the pinned Git sources in the lane target cache under a separate
+frozen profile. Positive/red outputs and exits match Python, as do missing-library,
+invalid-log and source-tamper rejections. D21 parity compares isolated contract
+mutations exactly and runs the actual renderer separately; Cargo's elapsed-time
+and build diagnostics are variable, while the control output is exact. Native
+usage, JSON parsing, OS and compiler/Git setup diagnostics can differ by language.
+Python scripts and callers remain for the later consumer migration. These are
+ports 11–12, not physical validation or resolution of the frozen defects.
+
+I016 uses the user-authorized targeted local gate set with two build jobs/test
+threads; the full Foundation matrix remains a PR CI dependency. Exact evidence
+is in `docs/receipts/i016-rust-ci-20261018.json`.

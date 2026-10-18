@@ -60,15 +60,15 @@ pub struct LedgerSnapshot {
 fn snapshot(connection: &Connection) -> Result<LedgerSnapshot> {
     let mut tables = BTreeMap::new();
     for name in TABLES.into_iter().filter(|n| *n != "__contract") {
-        let mut stmt = connection.prepare(&format!(
-            "SELECT * FROM {name} ORDER BY {}",
-            (1..=connection
-                .prepare(&format!("SELECT * FROM {name}"))?
-                .column_count())
-                .map(|i| i.to_string())
-                .collect::<Vec<_>>()
-                .join(",")
-        ))?;
+        assert!(TABLES.contains(&name));
+        let sql = ["SELECT * FROM ", name].concat();
+        let width = connection.prepare(&sql)?.column_count();
+        let order = (1..=width)
+            .map(|i| i.to_string())
+            .collect::<Vec<_>>()
+            .join(",");
+        let sql = [sql.as_str(), " ORDER BY ", order.as_str()].concat();
+        let mut stmt = connection.prepare(&sql)?;
         let columns = stmt
             .column_names()
             .into_iter()

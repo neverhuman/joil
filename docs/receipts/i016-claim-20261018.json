@@ -1,0 +1,29 @@
+{
+  "packet": "I016",
+  "owner": "Codex integrator",
+  "base": "c4dc4b0",
+  "scope": [
+    "crates/crucible-cli/src/bin/v5-d21-trajectory-control.rs",
+    "crates/crucible-cli/src/bin/v5-d18-scheduler-control.rs",
+    "crates/crucible-cli/tests/d21_trajectory_parity.rs",
+    "crates/crucible-cli/tests/d18_scheduler_parity.rs",
+    "crates/crucible-cli/src/bin/v5-plan.rs",
+    "crates/crucible-cli/src/plan_validation.rs",
+    "crates/crucible-cli/tests/baseline_audit_parity.rs",
+    "crates/crucible-runtime/src/checkpoint.rs",
+    "analysis/kpi_fitness.py",
+    "tools/claims_audit.py",
+    "crates/joil-evidence/receipts/ev13_figure_trace.py",
+    "PY_TO_RUST_PLAN.md",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i016-rust-ci-20261018.json"
+  ],
+  "resources": {
+    "cargo_jobs": 2,
+    "test_threads": 2,
+    "max_ram_gib": 12,
+    "gpu": false
+  },
+  "authorization": "User Wave I016 order; targeted local checks replace full required; no delegation",
+  "scientific_admission": false
+}

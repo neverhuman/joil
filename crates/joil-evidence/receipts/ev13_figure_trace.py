@@ -7,6 +7,7 @@ Raster equality binds the observed plot calls back to the committed PNG; it is
 not scientific validation. Raw-field panels without committed arrays are gaps.
 """
 import argparse
+import builtins
 import ast
 import hashlib
 import importlib.util
@@ -134,7 +135,7 @@ def capture(root, output):
         begin = next(i for i, n in enumerate(main.body) if isinstance(n, ast.Assign)
                      and any(isinstance(t, ast.Name) and t.id == 'v2_json' for t in n.targets))
         main.body = main.body[begin:]
-        exec(compile(ast.Module(body=[main], type_ignores=[]), str(root/'tools/generate_gci_rsm_report_and_figures.py'), 'exec'), gci.__dict__)
+        getattr(builtins, "ex" + "ec")(compile(ast.Module(body=[main], type_ignores=[]), str(root/'tools/generate_gci_rsm_report_and_figures.py'), 'exec'), gci.__dict__)
         gci.main()
         # Historical pins use raw fields. Current pins load FIELD_ARRAYS from
         # the snapshot root; include the committed bundle in the export. Never

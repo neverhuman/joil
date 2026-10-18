@@ -12,6 +12,8 @@ digest mismatch, or untraceable number.
 from __future__ import annotations
 
 import argparse
+import ast
+import operator
 import hashlib
 import json
 import math
@@ -1060,6 +1062,25 @@ def _declared_numbers(trace_md: str) -> dict[str, tuple[str, str, str]]:
     return declared
 
 
+def _arithmetic_value(node, env):
+    """Interpret only the declared arithmetic grammar; never execute code."""
+    if isinstance(node, ast.Expression):
+        return _arithmetic_value(node.body, env)
+    if isinstance(node, ast.Constant) and type(node.value) in (int, float):
+        return node.value
+    if isinstance(node, ast.Name):
+        return env[node.id]
+    binary = {ast.Add: operator.add, ast.Sub: operator.sub,
+              ast.Mult: operator.mul, ast.Div: operator.truediv}
+    if isinstance(node, ast.BinOp) and type(node.op) in binary:
+        return binary[type(node.op)](_arithmetic_value(node.left, env),
+                                     _arithmetic_value(node.right, env))
+    unary = {ast.UAdd: operator.pos, ast.USub: operator.neg}
+    if isinstance(node, ast.UnaryOp) and type(node.op) in unary:
+        return unary[type(node.op)](_arithmetic_value(node.operand, env))
+    raise ValueError("unsupported arithmetic expression")
+
+
 def _check_declared(numeral: str, kind: str, source: str, check: str, root: Path, values) -> str | None:
     if kind == "literal":
         cited = re.search(r"`([^`]+)`", source)
@@ -1080,7 +1101,7 @@ def _check_declared(numeral: str, kind: str, source: str, check: str, root: Path
             expr = expr.replace(f"{rel}#{ptr}", f"v{i}", 1)
         if not re.fullmatch(r"(?:v\d+|\d+(?:\.\d+)?(?:e[+-]?\d+)?|[\s+\-*/()])+", expr):
             return f"derived {numeral}: unsupported expression"
-        value = eval(expr, {"__builtins__": {}}, env)  # arithmetic over receipt values only
+        value = _arithmetic_value(ast.parse(expr, mode="eval"), env)
         if _matches_printed(numeral.split("@", 1)[0], value) is None:
             return f"derived {numeral}: expression evaluates to {value}"
         return None

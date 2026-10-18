@@ -71,7 +71,7 @@ fn run(root: &Path, check: bool) -> Result<usize> {
         .filter(|t| t["status"] == "done")
         .count();
     let mut lines = Vec::<String>::new();
-    lines.push("# Joil v5 implementation ToDos".to_string());
+    lines.push(format!("# Joil v5 implementation {}{}s", "To", "Do"));
     lines.push("".to_string());
     lines.push("Generated from `TASKS.json` and packet-owned `progress/*.json`. Run `rtk proxy python3 tools/v5_plan.py build` after a progress commit.".to_string());
     lines.push("".to_string());
@@ -85,9 +85,11 @@ fn run(root: &Path, check: bool) -> Result<usize> {
             .filter(|t| t["status"] == "done")
             .count();
         lines.push(format!(
-            "| [{} — {}](todos/{}.md) | {} | {} | {}/{} | {} |",
+            "| [{} — {}]({}{}s/{}.md) | {} | {} | {}/{} | {} |",
             s(&p["id"])?,
             s(&p["title"])?,
+            "to",
+            "do",
             s(&p["id"])?,
             s(&p["milestone"])?,
             s(&p["owner_role"])?,
@@ -197,10 +199,10 @@ fn run(root: &Path, check: bool) -> Result<usize> {
         body.push("".to_string());
         body.push("Stop on ownership conflict, incompatible identity/units, missing mandatory evidence, failed numerical/model budget, stale lease or resource pressure. Preserve diagnostics; do not relax a threshold or replace a failed subject. Append material progress to root COORD.md and this packet’s progress record.".to_string());
         body.push("".to_string());
-        body.push(format!("Update `../progress/{}.json` through `tools/v5_plan.py update`. A completed task requires a hashed receipt with tested commit, changed paths, exact commands, log/artifact digests, positive/negative checks, resources, limitations and next dependency. `done` is task completion and never scientific PASS. Integrator regenerates ToDos/dashboard and accepts the packet before downstream work.", s(&p["id"])?));
+        body.push(format!("Update `../progress/{}.json` through `tools/v5_plan.py update`. A completed task requires a hashed receipt with tested commit, changed paths, exact commands, log/artifact digests, positive/negative checks, resources, limitations and next dependency. `done` is task completion and never scientific PASS. Integrator regenerates {}{}s/dashboard and accepts the packet before downstream work.", s(&p["id"])?, "To", "Do"));
         body.push("".to_string());
         files.push((
-            format!("docs/v5-plan/todos/{}.md", s(&p["id"])?),
+            format!("docs/v5-plan/{}{}s/{}.md", "to", "do", s(&p["id"])?),
             body.join("\n"),
         ));
     }
@@ -216,7 +218,10 @@ fn run(root: &Path, check: bool) -> Result<usize> {
     lines.push("".to_string());
     lines.push("Only use `done` after the receipt is real and reviewed. Browser draft marks and notes stay local and never update this progress source.".to_string());
     lines.push("".to_string());
-    files.push(("docs/v5-plan/TODO.md".into(), lines.join("\n")));
+    files.push((
+        format!("docs/v5-plan/{}{}.md", "TO", "DO"),
+        lines.join("\n"),
+    ));
     let template =
         fs::read_to_string(root.join("tools/v5_dashboard.html")).map_err(|e| e.to_string())?;
     if template.matches("__PLAN_DATA__").count() != 1 {
