@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-12-03"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact bounded_operator_sequence_preserves_interface_process_and_graph_validity in packet V5-12 (Variation, expressiveness and operator-yield audit).",
+  "changed_paths": [
+    "crates/crucible-genome/src/operators/",
+    "crates/crucible-genome/tests/operators.rs",
+    "tests/fixtures/v5-expressiveness/",
+    "experiments/v5-operator-audit.toml",
+    "crates/crucible-genome/src/schema.rs",
+    "crates/crucible-genome/src/develop.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-genome",
+        "--test",
+        "operators",
+        "--",
+        "--exact",
+        "bounded_operator_sequence_preserves_interface_process_and_graph_validity"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-12-03.log",
+      "log_sha256": "6b349d03e5d41bda14fe29698ee9fce3690a63dcdcd80b0806378965150509c8"
+    }
+  ],
+  "positive_checks": [
+    "V5-12-03 (Verify invariants through operator sequences): Zero silent baseline substitution across the smoke corpus. \u2014 verified by cargo test --locked --offline -p crucible-genome --test operators -- --exact bounded_operator_sequence_preserves_interface_process_and_graph_validity"
+  ],
+  "negative_checks": [
+    "V5-12-03 negative control: An operator that crosses keepouts or exceeds conformance limits is a typed failure."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-genome/tests/operators.rs",
+      "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact bounded_operator_sequence_preserves_interface_process_and_graph_validity in packet V5-12 (Variation, expressiveness and operator-yield audit)."
+  ],
+  "next_dependency": "V5-12-04"
+}

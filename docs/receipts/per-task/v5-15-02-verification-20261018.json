@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-15-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_02_one_factor_arms_with_competing_explanations_pass in packet V5-15 (Validation accession and controlled vortex/PDR study).",
+  "changed_paths": [
+    "experiments/validation/v5/",
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "docs/rig/VORTEX_VALIDATION.md",
+    "docs/REFERENCES.md",
+    "docs/BASELINE_RUN.md",
+    "docs/SCIENCE.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation",
+        "--",
+        "--exact",
+        "v5_15_02_one_factor_arms_with_competing_explanations_pass"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-15-02.log",
+      "log_sha256": "c6c1c791d80d170c850d35901c5d183888f0253e880a974092ef28593dcc6ec8"
+    }
+  ],
+  "positive_checks": [
+    "V5-15-02 (Preregister the anomaly study): The study tests competing explanations rather than assuming an absent vortex. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_02_one_factor_arms_with_competing_explanations_pass"
+  ],
+  "negative_checks": [
+    "V5-15-02 negative control: Borrowed commercial PDR=1.4-2.6 cannot force a tuned passing case."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "43192d8b537db31de2f63a94e8c90718ca327cca18f2c94c1807d0eceda5cf32"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_02_one_factor_arms_with_competing_explanations_pass in packet V5-15 (Validation accession and controlled vortex/PDR study)."
+  ],
+  "next_dependency": "V5-15-03"
+}

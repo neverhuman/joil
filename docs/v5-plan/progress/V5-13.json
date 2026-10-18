@@ -5,11 +5,15 @@
     "V5-13-01": {
       "status": "done",
       "owner": "codex_lane2",
-      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "note": "SC-DEC-024 (public_open_data+substitute:public_material_allowables_proxy): LPBF Ti-6Al-4V, 316L and Inconel 718 records bind to open public allowables with unresolved-allowable flags that block unqualified fatigue claims. Wrought data is never presented as as-built. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
           "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-13-01-verification-20261018.json",
+          "sha256": "e3c089926d6155a849367623f8e7cbabcaf35a6674a60e0f743972d145fbd956"
         }
       ]
     },
@@ -21,39 +25,55 @@
         {
           "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
           "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-13-02-verification-20261018.json",
+          "sha256": "60a6b63cbb35b4961198b4a5e66506ace1fa691ec00c75bab567bdcfaafd0d25"
         }
       ]
     },
     "V5-13-03": {
       "status": "done",
       "owner": "codex_lane2",
-      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "note": "SC-DEC-025 (substitute:cad_manufacturing_gate_simulation): Manufacturing gates (build fit, downskin, support access, powder escape, tool swept volume) are evaluated in simulation on the CAD and mesh corpus. No physical machining. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
           "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-13-03-verification-20261018.json",
+          "sha256": "38ca8b30bdff3398ac3eda191ecb31c6c6b690904396efdf1ab0684d2c78fc8a"
         }
       ]
     },
     "V5-13-04": {
       "status": "done",
       "owner": "codex_lane2",
-      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "note": "SC-DEC-026 (substitute:roughness_orientation_proxy): Published open LPBF roughness ranges by build angle and finish class bind to variant identities, with cross-discipline invalidation. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
           "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-13-04-verification-20261018.json",
+          "sha256": "1d30610083b818597e1bc186dec8b8dba6a5a46bd69ad87db60655aeeab007ed"
         }
       ]
     },
     "V5-13-05": {
       "status": "done",
       "owner": "codex_lane2",
-      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "note": "SC-DEC-027 (rescope:pre_order_metrology_uncertainty_specification): Rescoped to pre-order metrology and uncertainty-budget specification in software. No vendor orders or vendor contact. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
           "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-13-05-verification-20261018.json",
+          "sha256": "056114ee7a2639d15d265c0f9dcce3707368bc4baf164ee3ae4f25c1cdd0aed1"
         }
       ]
     }

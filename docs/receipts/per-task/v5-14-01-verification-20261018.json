@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-14-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact capability_card_is_the_runtime_identity_source_and_digest_is_enforced in packet V5-14 (Corrected native carrier evaluator and control).",
+  "changed_paths": [
+    "crates/crucible-adapters/src/openfoam/",
+    "crates/crucible-adapters/tests/openfoam.rs",
+    "physics/openfoam/verification/v5/",
+    "docs/rig/PDR_STUDY.md",
+    "physics/openfoam/environment/lock.json",
+    "physics/openfoam/carrier/configure.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-adapters",
+        "--test",
+        "openfoam",
+        "--",
+        "--exact",
+        "capability_card_is_the_runtime_identity_source_and_digest_is_enforced"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-14-01.log",
+      "log_sha256": "0652c8d9c403ba85f1dd2eb5ba6f8f5e296d6621b3c5997b6e57855880e27c3d"
+    }
+  ],
+  "positive_checks": [
+    "V5-14-01 (Pin and disclose actual native capabilities): The card names exactly what ran, what is absent and native-restart support. \u2014 verified by cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact capability_card_is_the_runtime_identity_source_and_digest_is_enforced"
+  ],
+  "negative_checks": [
+    "V5-14-01 negative control: An executable found on PATH without matching build/model identity is refused."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-adapters/tests/openfoam.rs",
+      "sha256": "d24d5b8989d1f5ac90692aab6a035d5d00d9581ff4971d0650ce10130d1223c9"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact capability_card_is_the_runtime_identity_source_and_digest_is_enforced in packet V5-14 (Corrected native carrier evaluator and control)."
+  ],
+  "next_dependency": "V5-14-02"
+}

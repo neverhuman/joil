@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-16-03"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test transport -- --exact restart_identity_daughters_and_first_pass_recross_are_checked in packet V5-16 (Native light-drop forces, face injection and inventory).",
+  "changed_paths": [
+    "crates/crucible-particles/src/forces.rs",
+    "crates/crucible-particles/src/inject.rs",
+    "crates/crucible-particles/src/inventory.rs",
+    "crates/crucible-particles/tests/transport.rs",
+    "crates/crucible-adapters/src/openfoam/oil.rs",
+    "physics/openfoam/oil/oil_grade.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport",
+        "--",
+        "--exact",
+        "restart_identity_daughters_and_first_pass_recross_are_checked"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-16-03.log",
+      "log_sha256": "123a48a5cbfb787ce77af937f89d326003ce71143448e764140e0400962d3b6b"
+    },
+    {
+      "argv": [
+        "nice",
+        "-n",
+        "10",
+        "rtk",
+        "proxy",
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-14",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-pos"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-positive.log",
+      "log_sha256": "f5ac8c8f192c9f5b05aa7b2d12b73a68f7770253de1d8d886dd91ae129e5ccbf",
+      "note": "D-14 frozen-source positive control."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/crucible-particles-transport.log",
+      "log_sha256": "5a2a149e0879c7554e8165ec9665d682ec6f9a34032a98ce6e4a1a0452ceec7d",
+      "note": "Locked offline crucible-particles transport integration suite passed (24 tests).",
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+        "CARGO_BUILD_JOBS": "2"
+      }
+    },
+    {
+      "argv": [
+        "nice",
+        "-n",
+        "10",
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/check-public.log",
+      "log_sha256": "0f6aabe3690f63b7925dd740e2b46af7f690f999fddea434d83b5eff9d037b31",
+      "note": "Public-candidate scan passed."
+    }
+  ],
+  "positive_checks": [
+    "V5-16-03 (Persist full parcel/cohort identity): Restart reconstructs the same cohort and conservation state. \u2014 verified by cargo test --locked --offline -p crucible-particles --test transport -- --exact restart_identity_daughters_and_first_pass_recross_are_checked"
+  ],
+  "negative_checks": [
+    "V5-16-03 negative control: A daughter cannot count as new injected oil or independent replication."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/src/forces.rs",
+      "sha256": "06e27e591c9211b897657b0d7904bf6a19502cc1e67a9ebf6337ceee25cba836"
+    },
+    {
+      "path": "crates/crucible-particles/tests/transport.rs",
+      "sha256": "f7357ebbebd7acb2c7261c9e647a161ed303adf24582a612a27ea04b835a12b1"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test transport -- --exact restart_identity_daughters_and_first_pass_recross_are_checked in packet V5-16 (Native light-drop forces, face injection and inventory)."
+  ],
+  "next_dependency": "V5-16-04",
+  "defect_controls": [
+    {
+      "defect_id": "D-14",
+      "fixture": {
+        "path": "crates/crucible-particles/tests/transport.rs",
+        "sha256": "f7357ebbebd7acb2c7261c9e647a161ed303adf24582a612a27ea04b835a12b1"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "physics/openfoam/oil/oil_grade.py",
+        "symbol": "select_flux_weighted_inlet_seeds",
+        "sha256": "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d"
+      },
+      "positive": {
+        "argv": [
+          "nice",
+          "-n",
+          "10",
+          "rtk",
+          "proxy",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-14",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-pos"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-positive.log",
+        "log_sha256": "f5ac8c8f192c9f5b05aa7b2d12b73a68f7770253de1d8d886dd91ae129e5ccbf",
+        "expected_result": "C006 frozen-source positive control completed with assertion_holds=true."
+      },
+      "red": {
+        "argv": [
+          "nice",
+          "-n",
+          "10",
+          "rtk",
+          "proxy",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-14",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-red"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane3/d14-red.log",
+        "log_sha256": "a55bbc16f7d0a5851ea535920d9e139e182a064980a5d6888b5cb3a2de463a1f",
+        "expected_result": "C006-RED D-14: seed_share_ignores_inward_flux; inward-flux share rejects equal-speed seed weighting."
+      }
+    }
+  ]
+}

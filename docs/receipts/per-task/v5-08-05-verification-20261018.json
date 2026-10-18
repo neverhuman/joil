@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-08-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p joil-geometry --test kernel -- --exact shared::conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess in packet V5-08 (One material partition and bounded geometry kernel).",
+  "changed_paths": [
+    "crates/crucible-geom/tests/kernel.rs",
+    "docs/design/V5_GEOMETRY.md",
+    "crates/joil-geometry/Cargo.toml",
+    "crates/joil-geometry/src/lib.rs",
+    "crates/joil-geometry/src/field.rs",
+    "crates/joil-geometry/src/csg.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "joil-geometry",
+        "--test",
+        "kernel",
+        "--",
+        "--exact",
+        "shared::conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-08-05.log",
+      "log_sha256": "36febb93443a0c403bd385a271dfc2e57152823a6ec09512c0348490a1b551a0"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "kernel"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/crucible-geom-kernel.log",
+      "log_sha256": "7318f3eb607530063f61a9555d5f19448de84bc487fb3d744ad3783fc6be2ff6"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "joil-geometry",
+        "--test",
+        "kernel"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/joil-geometry-kernel.log",
+      "log_sha256": "941d928af4d275177a60203a94eb5d7b2e540060539a448bf718ab8bfc01b7c0"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-16",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-positive.log",
+      "log_sha256": "02c0c0ea4fffd21a67532b7cf980fdf008324838d881170df6af9637a075c000"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/check-public.log",
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4"
+    }
+  ],
+  "positive_checks": [
+    "V5-08-05 (Record conformance instead of silent repair): Every repaired geometry is traceable to its exact policy and original proposal. \u2014 verified by cargo test --locked --offline -p joil-geometry --test kernel -- --exact shared::conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess"
+  ],
+  "negative_checks": [
+    "V5-08-05 negative control: A vanished blade, disconnected passage or excessive repair cannot be silently accepted."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/kernel.rs",
+      "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
+    },
+    {
+      "path": "crates/joil-geometry/tests/kernel.rs",
+      "sha256": "5db76c16a85d33c04bfeee8b9fb03ace77131898f7d2515e48adb28b673f4dbc"
+    },
+    {
+      "path": "docs/receipts/v5-08-01-integrator-acceptance-20261018.json",
+      "sha256": "26d56f1b123e467097133980c085c511b036dafff60615a0b7b1af0539c5ccef"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p joil-geometry --test kernel -- --exact shared::conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess in packet V5-08 (One material partition and bounded geometry kernel)."
+  ],
+  "next_dependency": "V5-31-01",
+  "defect_controls": [
+    {
+      "defect_id": "D-16",
+      "fixture": {
+        "path": "crates/crucible-geom/tests/kernel.rs",
+        "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/phenotype.rs",
+        "symbol": "Phenotype3D::inner_radius_mm",
+        "sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-16",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-positive.log",
+        "log_sha256": "02c0c0ea4fffd21a67532b7cf980fdf008324838d881170df6af9637a075c000",
+        "expected_result": "Frozen D-16 positive: baseline and in-band recorded Wave-2 case agree."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-16",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-red.log",
+        "log_sha256": "19ea08d55723ef7f23bf4da45e02f4ed7b9a7ae30c8241741217535b2fe41433",
+        "expected_result": "C006-RED D-16: wall_authorities_disagree"
+      }
+    }
+  ]
+}

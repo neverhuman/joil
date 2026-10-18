@@ -10,6 +10,10 @@
         {
           "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
           "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-26-01-verification-20261018.json",
+          "sha256": "0bf6230662bf51dd2d801dbb0e7de4267792727cfdf58057f77259795c890051"
         }
       ]
     },
@@ -21,6 +25,10 @@
         {
           "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
           "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-26-02-verification-20261018.json",
+          "sha256": "cee89c12fa1ac706193170b3dc01d73935b4f219ace9231fa7c439f8d4708863"
         }
       ]
     },
@@ -32,6 +40,10 @@
         {
           "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
           "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-26-03-verification-20261018.json",
+          "sha256": "cc39f3bf83a161d7da639f682e0c8f50fe9bdcff0bebf701b7b8bb77f1c0ee05"
         }
       ]
     },
@@ -43,19 +55,18 @@
         {
           "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
           "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-26-04-verification-20261018.json",
+          "sha256": "ebba675fffda7e2fad318ee2ccf28b530573e9b97fdd5fa85dd92a9bab079139"
         }
       ]
     },
     "V5-26-05": {
-      "status": "done",
+      "status": "in_progress",
       "owner": "codex_lane4",
-      "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
-          "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
-        }
-      ]
+      "note": "SC-DEC-071 red-team remediation (SC-DEC-045 budget_approved_existing_compute): moved back to in_progress; cached plate manifest and dry-run stand-in checks exist in crates/crucible-render and render/blender, but real headless Blender plate rendering and human layout review remain open.",
+      "evidence": []
     }
   }
 }

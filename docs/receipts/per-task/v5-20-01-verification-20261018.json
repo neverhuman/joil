@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-20-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-033 (substitute:wet_modal_cfd_fea_simulation+substitute:synthetic_fixture): Wet modes, fixtures, modal mesh convergence and broadband forced response are evaluated on substitute:synthetic_fixture coupled wall-pressure spectra and added-mass modal fixtures. No physical measurement. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_01_added_mass_lowers_frequency_by_square_root_of_total_mass.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/dynamics.rs",
+    "crates/joil-core/src/structure.rs",
+    "crates/joil-core/src/experiment.rs",
+    "packs/hydrocyclone/materials/",
+    "physics/structure/v5/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics",
+        "--",
+        "--exact",
+        "v5_20_01_added_mass_lowers_frequency_by_square_root_of_total_mass"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-20-01.log",
+      "log_sha256": "d0227d5b496806d8e797a9184e520c1f278244c9f13963c2a29d3a6d04e57955"
+    }
+  ],
+  "positive_checks": [
+    "V5-20-01 (Qualify dynamic loads and wet modes): Cantilever/fluid-added-mass fixtures and modal mesh checks pass. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_01_added_mass_lowers_frequency_by_square_root_of_total_mass"
+  ],
+  "negative_checks": [
+    "V5-20-01 negative control: A copied 418 Hz field or nominal Strouhal ratio cannot authorize dynamics."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/dynamics.rs",
+      "sha256": "6d86e341945452e1dc5def0ebe434bac56b099c59c6d849c30d6f4bcc1080332"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-033 (substitute:wet_modal_cfd_fea_simulation+substitute:synthetic_fixture): Wet modes, fixtures, modal mesh convergence and broadband forced response are evaluated on substitute:synthetic_fixture coupled wall-pressure spectra and added-mass modal fixtures. No physical measurement. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_01_added_mass_lowers_frequency_by_square_root_of_total_mass."
+  ],
+  "next_dependency": "V5-20-02"
+}

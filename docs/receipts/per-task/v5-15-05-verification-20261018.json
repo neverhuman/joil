@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-15-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_05_matching_admission_passes_and_only_then_enables_flow_archives in packet V5-15 (Validation accession and controlled vortex/PDR study).",
+  "changed_paths": [
+    "experiments/validation/v5/",
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "docs/rig/VORTEX_VALIDATION.md",
+    "docs/REFERENCES.md",
+    "docs/BASELINE_RUN.md",
+    "docs/SCIENCE.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation",
+        "--",
+        "--exact",
+        "v5_15_05_matching_admission_passes_and_only_then_enables_flow_archives"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-15-05.log",
+      "log_sha256": "430360339682e15dc2f6be831ef7034500a3c7b693d2d38f39c23364df9d428f"
+    }
+  ],
+  "positive_checks": [
+    "V5-15-05 (Admit or narrow the reference comparison): Qualified flow archives remain disabled until the matching evidence exists. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_05_matching_admission_passes_and_only_then_enables_flow_archives"
+  ],
+  "negative_checks": [
+    "V5-15-05 negative control: A version change or withdrawn dataset revokes dependent ranking authority."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "43192d8b537db31de2f63a94e8c90718ca327cca18f2c94c1807d0eceda5cf32"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_05_matching_admission_passes_and_only_then_enables_flow_archives in packet V5-15 (Validation accession and controlled vortex/PDR study)."
+  ],
+  "next_dependency": "V5-31-01"
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-17-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact transfer_reuse_closes_mass_matches_heldout_and_rejects_coupling in packet V5-17 (Dispersion, breakup and transport uncertainty).",
+  "changed_paths": [
+    "crates/crucible-particles/src/dispersion.rs",
+    "crates/crucible-particles/src/population.rs",
+    "crates/crucible-particles/src/transfer.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "crates/joil-core/src/population.rs",
+    "crates/crucible-particles/src/inventory.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models",
+        "--",
+        "--exact",
+        "transfer_reuse_closes_mass_matches_heldout_and_rejects_coupling"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-17-04.log",
+      "log_sha256": "2c634cce008077feff90f8df4341457287185bf2a521a283d564a8de658aa90f"
+    }
+  ],
+  "positive_checks": [
+    "V5-17-04 (Qualify population and scenario reuse): Reweighted outcomes conserve injected mass and match the direct scenario within budget. \u2014 verified by cargo test --locked --offline -p crucible-particles --test models -- --exact transfer_reuse_closes_mass_matches_heldout_and_rejects_coupling"
+  ],
+  "negative_checks": [
+    "V5-17-04 negative control: Coalescence/concentration coupling invalidates shortcut reuse."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/src/dispersion.rs",
+      "sha256": "e56d9ea3fca334384cd949f4c4ebe3bced3e2136861892837726196d678dcf78"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact transfer_reuse_closes_mass_matches_heldout_and_rejects_coupling in packet V5-17 (Dispersion, breakup and transport uncertainty)."
+  ],
+  "next_dependency": "V5-17-05"
+}

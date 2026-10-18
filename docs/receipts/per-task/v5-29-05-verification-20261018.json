@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-29-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact absent_oil_judge_cannot_be_marked_not_applicable_by_caller_alone in packet V5-29 (Structural bracket reuse proof).",
+  "changed_paths": [
+    "packs/bracket/",
+    "campaigns/bracket-v5-fixture.toml",
+    "tests/fixtures/v5-bracket/",
+    "docs/design/V5_CONTRACTS.md",
+    "crates/crucible-contract/",
+    "crates/crucible-genome/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--",
+        "--exact",
+        "absent_oil_judge_cannot_be_marked_not_applicable_by_caller_alone"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-29-05.log",
+      "log_sha256": "976366f967e106543f34d30b18ce0690647c18753b18db05892050a179b5a653"
+    }
+  ],
+  "positive_checks": [
+    "V5-29-05 (Record generalization boundaries): The reuse proof is reviewable from this repository alone. \u2014 verified by cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact absent_oil_judge_cannot_be_marked_not_applicable_by_caller_alone"
+  ],
+  "negative_checks": [
+    "V5-29-05 negative control: A successful fixture cannot claim bracket manufacturing/service qualification."
+  ],
+  "artifacts": [
+    {
+      "path": "campaigns/bracket-v5-fixture.toml",
+      "sha256": "c4988321974da00896dc6de278fb44545afcdda4c08af4ddbc94143811fdd988"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact absent_oil_judge_cannot_be_marked_not_applicable_by_caller_alone in packet V5-29 (Structural bracket reuse proof)."
+  ],
+  "next_dependency": "V5-31-01"
+}

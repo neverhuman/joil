@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-10-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-geom --test artifacts -- --exact p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians in packet V5-10 (Derived surfaces, volume meshes and honest exports).",
+  "changed_paths": [
+    "crates/crucible-geom/src/surface.rs",
+    "crates/crucible-geom/src/tet.rs",
+    "crates/crucible-geom/src/export.rs",
+    "crates/crucible-geom/tests/artifacts.rs",
+    "crates/joil-core/src/phenotype.rs",
+    "crates/joil-core/src/cfd_case.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "artifacts",
+        "--",
+        "--exact",
+        "p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-10-02.log",
+      "log_sha256": "4e3ae64d415b619c23b0addababa4d748388d7aa9a1a5a73a52331020c387707"
+    }
+  ],
+  "positive_checks": [
+    "V5-10-02 (Generate qualified structural meshes): Patch, thin-shell and distorted-boundary fixtures retain positive element Jacobians. \u2014 verified by cargo test --locked --offline -p crucible-geom --test artifacts -- --exact p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians"
+  ],
+  "negative_checks": [
+    "V5-10-02 negative control: A P2 midpoint projection that inverts an element is rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/src/surface.rs",
+      "sha256": "65121ba9ca45ccf011f6b8d33461b7677283af9a082967961756dc2913d6447b"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-geom --test artifacts -- --exact p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians in packet V5-10 (Derived surfaces, volume meshes and honest exports)."
+  ],
+  "next_dependency": "V5-10-03"
+}

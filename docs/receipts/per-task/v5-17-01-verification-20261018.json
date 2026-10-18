@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-17-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact anisotropic_covariance_and_well_mixed_drift_have_independent_controls in packet V5-17 (Dispersion, breakup and transport uncertainty).",
+  "changed_paths": [
+    "crates/crucible-particles/src/dispersion.rs",
+    "crates/crucible-particles/src/population.rs",
+    "crates/crucible-particles/src/transfer.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "crates/joil-core/src/population.rs",
+    "crates/crucible-particles/src/inventory.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models",
+        "--",
+        "--exact",
+        "anisotropic_covariance_and_well_mixed_drift_have_independent_controls"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-17-01.log",
+      "log_sha256": "6eb5abc483802f01abbbf8e0396ebccbbc045ea74f3f2ee993f713c717fe2c48"
+    }
+  ],
+  "positive_checks": [
+    "V5-17-01 (Verify native well-mixed dispersion): Correct production adapter passes and wrong-drift adapter fails. \u2014 verified by cargo test --locked --offline -p crucible-particles --test models -- --exact anisotropic_covariance_and_well_mixed_drift_have_independent_controls"
+  ],
+  "negative_checks": [
+    "V5-17-01 negative control: A telescoping finite-difference identity cannot produce dispersion qualification."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/src/dispersion.rs",
+      "sha256": "e56d9ea3fca334384cd949f4c4ebe3bced3e2136861892837726196d678dcf78"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact anisotropic_covariance_and_well_mixed_drift_have_independent_controls in packet V5-17 (Dispersion, breakup and transport uncertainty)."
+  ],
+  "next_dependency": "V5-17-02"
+}

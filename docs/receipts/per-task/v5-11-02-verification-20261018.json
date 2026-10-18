@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-11-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test development -- --exact rejects_forward_construction_and_cyclic_evaluation in packet V5-11 (MPG schema, bounded development and legacy lowering).",
+  "changed_paths": [
+    "crates/crucible-genome/src/schema.rs",
+    "crates/crucible-genome/src/develop.rs",
+    "crates/crucible-genome/src/legacy.rs",
+    "crates/crucible-genome/tests/development.rs",
+    "packs/hydrocyclone/modules/",
+    "crates/joil-core/src/program.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-genome",
+        "--test",
+        "development",
+        "--",
+        "--exact",
+        "rejects_forward_construction_and_cyclic_evaluation"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-11-02.log",
+      "log_sha256": "31084f7e7996e2bb6cbbbffdbf6876f3811370c362536776d8095893e527b45f"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-genome",
+        "--test",
+        "development"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/crucible-genome-development.log",
+      "log_sha256": "449e67e99a12a5500fdef14f077bf933a9026c342494172ce26d15e930d9ecd6",
+      "note": "Correct existing packet test target; development suite passed 12/12."
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-25",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-pos"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-positive.log",
+      "log_sha256": "2b5bac3ebcd3b8c7106d45fb6fa2ca2e1134543e90bcf02ef4057be8654f3abb"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/check-public.log",
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4"
+    }
+  ],
+  "positive_checks": [
+    "V5-11-02 (Implement gas-metered deterministic development): Same genome/contract/compiler yields the same trace and partition identity. \u2014 verified by cargo test --locked --offline -p crucible-genome --test development -- --exact rejects_forward_construction_and_cyclic_evaluation"
+  ],
+  "negative_checks": [
+    "V5-11-02 negative control: Budget exhaustion cannot truncate into a valid baseline or silently resample."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-genome/src/schema.rs",
+      "sha256": "a52f60d062a6974e0eae2c9ccdff2625e1ab02fe358ac7022df0017337a25394"
+    },
+    {
+      "path": "crates/crucible-genome/tests/development.rs",
+      "sha256": "e39db65035323e5cae8ac64048daebc72f7671cfc06dac1cbeac52062672fad1"
+    },
+    {
+      "path": "crates/crucible-genome/tests/operators.rs",
+      "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test development -- --exact rejects_forward_construction_and_cyclic_evaluation in packet V5-11 (MPG schema, bounded development and legacy lowering)."
+  ],
+  "next_dependency": "V5-11-03",
+  "defect_controls": [
+    {
+      "defect_id": "D-25",
+      "fixture": {
+        "path": "crates/crucible-genome/tests/operators.rs",
+        "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "docs/design/GENOME_V4.md",
+        "symbol": "review defaults",
+        "sha256": "7521d8334604130f8bfbe54ac9738fc41cca359151f47664890c8fcd50514095"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-25",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-pos"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-positive.log",
+        "log_sha256": "2b5bac3ebcd3b8c7106d45fb6fa2ca2e1134543e90bcf02ef4057be8654f3abb",
+        "expected_result": "Frozen GENOME_V4 judge clause positive holds."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-25",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-red"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-red.log",
+        "log_sha256": "31426891a89d27e472265cdc0ec7a71a372c9ea534e8431e933f24917516cc08",
+        "expected_result": "C006-RED D-25: policy_admits_agent_proposals_in_search_loop"
+      }
+    }
+  ]
+}

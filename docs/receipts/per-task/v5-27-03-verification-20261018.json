@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-27-03"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-cli --lib -- --exact explore::tests::inspection_binds_exact_revision_and_subject_without_mutation in packet V5-27 (Read-only evidence explorer and live progress).",
+  "changed_paths": [
+    "apps/explorer/src/",
+    "apps/explorer/tests/",
+    "crates/crucible-cli/src/explore.rs",
+    "apps/explorer/src/main.tsx",
+    "apps/explorer/src/Viewport3D.tsx",
+    "apps/explorer/src/style.css"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--lib",
+        "--",
+        "--exact",
+        "explore::tests::inspection_binds_exact_revision_and_subject_without_mutation"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-27-03.log",
+      "log_sha256": "5f6948f83c4229209d6265be8329939087f428a6f9d6e1b26f10f94713f4afd7"
+    }
+  ],
+  "positive_checks": [
+    "V5-27-03 (Add subject, gate, archive and lineage inspection): Wrong geometry/field/time combinations cannot be selected. \u2014 verified by cargo test --locked --offline -p crucible-cli --lib -- --exact explore::tests::inspection_binds_exact_revision_and_subject_without_mutation"
+  ],
+  "negative_checks": [
+    "V5-27-03 negative control: Interpolated invented ancestors or reconstructed particle paths are rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/src/explore.rs",
+      "sha256": "ea8f78a9be743f7f7567ee4dabfbd96be8879ed5a1fe16faea77c1f6a8ae8223"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-cli --lib -- --exact explore::tests::inspection_binds_exact_revision_and_subject_without_mutation in packet V5-27 (Read-only evidence explorer and live progress)."
+  ],
+  "next_dependency": "V5-27-04"
+}

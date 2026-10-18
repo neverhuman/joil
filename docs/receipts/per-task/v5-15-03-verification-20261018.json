@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-15-03"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-029 (public_open_data+substitute:cfd_observable_discrepancy_decomposition): Velocity profiles, reverse core, pressure drop and split ratio are checked against public stations. Numerical, input and experimental discrepancy are separated on coverage cards, with the high-order CFD reference labelled as a proxy. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_03_discrepancy_components_are_quantified_separately.",
+  "changed_paths": [
+    "experiments/validation/v5/",
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "docs/rig/VORTEX_VALIDATION.md",
+    "docs/REFERENCES.md",
+    "docs/BASELINE_RUN.md",
+    "docs/SCIENCE.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation",
+        "--",
+        "--exact",
+        "v5_15_03_discrepancy_components_are_quantified_separately"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-15-03.log",
+      "log_sha256": "c4b290848baaafccb47ab5d218dfe03e2dcd00c17a2e915dcf83a905b02c2832"
+    }
+  ],
+  "positive_checks": [
+    "V5-15-03 (Validate observables independently): Coverage cards state which observable/mechanism/regime is supported. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_03_discrepancy_components_are_quantified_separately"
+  ],
+  "negative_checks": [
+    "V5-15-03 negative control: Good pressure agreement cannot qualify oil grade or a different geometry family."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "43192d8b537db31de2f63a94e8c90718ca327cca18f2c94c1807d0eceda5cf32"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-029 (public_open_data+substitute:cfd_observable_discrepancy_decomposition): Velocity profiles, reverse core, pressure drop and split ratio are checked against public stations. Numerical, input and experimental discrepancy are separated on coverage cards, with the high-order CFD reference labelled as a proxy. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test validation -- --exact v5_15_03_discrepancy_components_are_quantified_separately."
+  ],
+  "next_dependency": "V5-15-04"
+}

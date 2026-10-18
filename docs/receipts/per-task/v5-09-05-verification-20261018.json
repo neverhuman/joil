@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-09-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-geom --test observers -- --exact active_perturbations_distinguish_neutral_unsupported_and_failed_development in packet V5-09 (Independent artifact-only geometry and topology observation).",
+  "changed_paths": [
+    "crates/crucible-geom/src/observe/",
+    "crates/crucible-geom/tests/observers.rs",
+    "tests/fixtures/v5-geometry/",
+    "crates/joil-ir/src/lib.rs",
+    "tools/f0_voxel.py",
+    "tools/f0_enactment.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "observers",
+        "--",
+        "--exact",
+        "active_perturbations_distinguish_neutral_unsupported_and_failed_development"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-09-05.log",
+      "log_sha256": "e8088fc3dfa3ba6c2040a77de17510534a7653be31def3a86799bdc6bc461e1c"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "observers"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/v5-09-observers-test.log",
+      "log_sha256": "0d0dfbbe5039b02ba19a9a02931b75a5966959a0ee3af92115d1a5cefc23e993",
+      "expected_result": "15 observer tests passed, 0 failed.",
+      "observed_result": "test result: ok. 15 passed; 0 failed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-05",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
+      "expected_result": "Frozen C006 D-05 positive runtime control passed. Existing control, referenced from docs/receipts/v5-09-d05-completion-20261018.json; not re-run in this wave.",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "expected_result": "claims_audit OK."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/check-public.log",
+      "log_sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66",
+      "expected_result": "PASS public candidate files checked."
+    }
+  ],
+  "positive_checks": [
+    "V5-09-05 (Verify enactment and neutral behavior): An active TPMS credited in mass is visibly resolved in the same solid. \u2014 verified by cargo test --locked --offline -p crucible-geom --test observers -- --exact active_perturbations_distinguish_neutral_unsupported_and_failed_development"
+  ],
+  "negative_checks": [
+    "V5-09-05 negative control: A no-op radial_inner_fraction cannot change score or evade subject deduplication."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/observers.rs",
+      "sha256": "d044eda78e6a06d12cb76db7a600e7b3b42af93ce7cb41f28803ee5722295ffd"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/ball.json",
+      "sha256": "cfae6d87c26b16793dc6a26a3bae3f95eaf88652270a3242fdc405464158d166"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/disconnected.json",
+      "sha256": "687aba51c99144278ce460a1b2189ed0f62c5a98ec2ad438a51965909783cb94"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/hollow-ball.json",
+      "sha256": "c7cdcf061dbf8c99d824b8dec0f4be837e1097d3d035a5cbc774c3f9c93d3573"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/oracles.json",
+      "sha256": "006822918330abb6f75720e7a895d84d69bd7dd474f0e93fadd954ef28813442"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/solid-torus.json",
+      "sha256": "33f966858bd52173afe8fd3e6434278c20fda3734548498818d7476a67314cad"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/v5-09-observers-test.log",
+      "sha256": "0d0dfbbe5039b02ba19a9a02931b75a5966959a0ee3af92115d1a5cefc23e993"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-geom --test observers -- --exact active_perturbations_distinguish_neutral_unsupported_and_failed_development in packet V5-09 (Independent artifact-only geometry and topology observation)."
+  ],
+  "next_dependency": "V5-31-01",
+  "defect_controls": [
+    {
+      "defect_id": "D-05",
+      "fixture": {
+        "path": "crates/crucible-geom/tests/observers.rs",
+        "sha256": "d044eda78e6a06d12cb76db7a600e7b3b42af93ce7cb41f28803ee5722295ffd"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-ir/src/lib.rs",
+        "symbol": "VoxelSdfObserver::run_voxel_flood_fill",
+        "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-05",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
+        "expected_result": "Frozen open connected cavity is reachable; trapped powder is zero.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos.log"
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-05",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "41ea7191bc82a68554faf968bcd435b278dc13e918a5fe318a919f93cb8a72cb",
+        "expected_result": "C006-RED D-05 reports a sealed synthetic shell missed as powder; exit 1.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-red.log"
+      }
+    }
+  ]
+}

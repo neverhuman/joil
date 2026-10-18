@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-30-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-043 (substitute:synthetic_rig_telemetry_reduction+rescope:post_manufacturing_hardware_stream_ingestion): Synthetic delayed and censored multi-stream telemetry reduction is accepted with substitute provenance. Physical wet-rig sensor ingestion is rescoped to the post-manufacturing phase. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_lag_compensation_common_window_mass_and_uncertainty.",
+  "changed_paths": [
+    "experiments/rig/v5/",
+    "experiments/holdout/v5/",
+    "analysis/validation/v5/",
+    "docs/rig/V5_CONFIRMATION.md",
+    "experiments/rig/protocol_v1.md",
+    "docs/rig/MATERIAL_INPUTS.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "-v",
+        "tests.test_v5_integrated_fixtures.ProtocolTests.test_lag_compensation_common_window_mass_and_uncertainty"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-02.log",
+      "log_sha256": "c75a65ad8e5a2178858fd47c0ddd2e317e9c71db4f4f66d41d9a26aff394bcf3"
+    }
+  ],
+  "positive_checks": [
+    "V5-30-02 (Qualify synchronized measurement reduction): Mass/volume windows align with uncertainty and censoring treatment. \u2014 verified by python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_lag_compensation_common_window_mass_and_uncertainty"
+  ],
+  "negative_checks": [
+    "V5-30-02 negative control: Unsynchronized oil and flow records cannot establish treatment capacity."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/rig/V5_CONFIRMATION.md",
+      "sha256": "e12f4834d96d40463425c4ff72aa5f66a0557b1a54a1991cc6b62c7f76f192d1"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-043 (substitute:synthetic_rig_telemetry_reduction+rescope:post_manufacturing_hardware_stream_ingestion): Synthetic delayed and censored multi-stream telemetry reduction is accepted with substitute provenance. Physical wet-rig sensor ingestion is rescoped to the post-manufacturing phase. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_lag_compensation_common_window_mass_and_uncertainty."
+  ],
+  "next_dependency": "V5-30-03"
+}

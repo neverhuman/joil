@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-29-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact material_and_bolt_interface_changes_change_subject_and_evaluation_identity in packet V5-29 (Structural bracket reuse proof).",
+  "changed_paths": [
+    "packs/bracket/",
+    "campaigns/bracket-v5-fixture.toml",
+    "tests/fixtures/v5-bracket/",
+    "docs/design/V5_CONTRACTS.md",
+    "crates/crucible-contract/",
+    "crates/crucible-genome/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--",
+        "--exact",
+        "material_and_bolt_interface_changes_change_subject_and_evaluation_identity"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-29-02.log",
+      "log_sha256": "793899e9541e0e7375f405bf88553dcacae87f3b79a5ea6baedc296297e40162"
+    }
+  ],
+  "positive_checks": [
+    "V5-29-02 (Reuse development and structural evaluation): One bounded synthetic/elementary bracket campaign runs end to end. \u2014 verified by cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact material_and_bolt_interface_changes_change_subject_and_evaluation_identity"
+  ],
+  "negative_checks": [
+    "V5-29-02 negative control: An absent oil judge cannot be hidden by a caller-assigned NotApplicable flag."
+  ],
+  "artifacts": [
+    {
+      "path": "campaigns/bracket-v5-fixture.toml",
+      "sha256": "c4988321974da00896dc6de278fb44545afcdda4c08af4ddbc94143811fdd988"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact material_and_bolt_interface_changes_change_subject_and_evaluation_identity in packet V5-29 (Structural bracket reuse proof)."
+  ],
+  "next_dependency": "V5-29-03"
+}

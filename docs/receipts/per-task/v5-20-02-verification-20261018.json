@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-20-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-034 (public_open_data+substitute:public_sn_bounded_fatigue_estimand): Finite-life fatigue estimands and Goodman/Walker corrections bind to open-literature LPBF S-N curves and passport defect bounds. Labelled bounded literature or proxy estimates, not coupon certification. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_02_mean_stress_treatment_shortens_predicted_life_by_goodman_factor.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/dynamics.rs",
+    "crates/joil-core/src/structure.rs",
+    "crates/joil-core/src/experiment.rs",
+    "packs/hydrocyclone/materials/",
+    "physics/structure/v5/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics",
+        "--",
+        "--exact",
+        "v5_20_02_mean_stress_treatment_shortens_predicted_life_by_goodman_factor"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-20-02.log",
+      "log_sha256": "6a06e03309989027e1d4ae64785fe9616054c41aba6756bc17990187546cd5ae"
+    }
+  ],
+  "positive_checks": [
+    "V5-20-02 (Define finite-life fatigue estimands): Every fatigue statement names finite life and supporting passport. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_02_mean_stress_treatment_shortens_predicted_life_by_goodman_factor"
+  ],
+  "negative_checks": [
+    "V5-20-02 negative control: A 1e7-cycle screen cannot be described as infinite life or qualification for arbitrary chemistry."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/dynamics.rs",
+      "sha256": "6d86e341945452e1dc5def0ebe434bac56b099c59c6d849c30d6f4bcc1080332"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-034 (public_open_data+substitute:public_sn_bounded_fatigue_estimand): Finite-life fatigue estimands and Goodman/Walker corrections bind to open-literature LPBF S-N curves and passport defect bounds. Labelled bounded literature or proxy estimates, not coupon certification. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_02_mean_stress_treatment_shortens_predicted_life_by_goodman_factor."
+  ],
+  "next_dependency": "V5-20-03"
+}

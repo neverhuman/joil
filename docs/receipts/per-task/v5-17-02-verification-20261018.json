@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-17-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-030 (substitute:native_les_rsm_carrier_field+substitute:synthetic_fixture): Anisotropic dispersion and LES unresolved-energy partition are checked against substitute:synthetic_fixture resolved-turbulence carrier fixtures with zero double-counting. Labelled a synthetic numerical carrier-field substitute, never physical PIV or LDV. Verified by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact v5_17_02_sc_dec_030_resolved_turbulence_dispersion_matches_dns_benchmark_and_rejects_wrong_drift.",
+  "changed_paths": [
+    "crates/crucible-particles/src/dispersion.rs",
+    "crates/crucible-particles/src/population.rs",
+    "crates/crucible-particles/src/transfer.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "crates/joil-core/src/population.rs",
+    "crates/crucible-particles/src/inventory.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models",
+        "--",
+        "--exact",
+        "v5_17_02_sc_dec_030_resolved_turbulence_dispersion_matches_dns_benchmark_and_rejects_wrong_drift"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-17-02.log",
+      "log_sha256": "b6268b4ebb47b9364eafab72ac1045720c4549add621ffc396cdea9a41ef07ed"
+    }
+  ],
+  "positive_checks": [
+    "V5-17-02 (Match dispersion to resolved turbulence): No double counting of resolved and modeled turbulent fluctuations. \u2014 verified by cargo test --locked --offline -p crucible-particles --test models -- --exact v5_17_02_sc_dec_030_resolved_turbulence_dispersion_matches_dns_benchmark_and_rejects_wrong_drift"
+  ],
+  "negative_checks": [
+    "V5-17-02 negative control: Isotropic or full-energy LES noise is caught by covariance/energy controls."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/src/dispersion.rs",
+      "sha256": "e56d9ea3fca334384cd949f4c4ebe3bced3e2136861892837726196d678dcf78"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-030 (substitute:native_les_rsm_carrier_field+substitute:synthetic_fixture): Anisotropic dispersion and LES unresolved-energy partition are checked against substitute:synthetic_fixture resolved-turbulence carrier fixtures with zero double-counting. Labelled a synthetic numerical carrier-field substitute, never physical PIV or LDV. Verified by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact v5_17_02_sc_dec_030_resolved_turbulence_dispersion_matches_dns_benchmark_and_rejects_wrong_drift."
+  ],
+  "next_dependency": "V5-17-03"
+}

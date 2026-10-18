@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-14-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact executable_path_is_digest_bound_and_wall_limited in packet V5-14 (Corrected native carrier evaluator and control).",
+  "changed_paths": [
+    "crates/crucible-adapters/src/openfoam/",
+    "crates/crucible-adapters/tests/openfoam.rs",
+    "physics/openfoam/verification/v5/",
+    "docs/rig/PDR_STUDY.md",
+    "physics/openfoam/environment/lock.json",
+    "physics/openfoam/carrier/configure.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-adapters",
+        "--test",
+        "openfoam",
+        "--",
+        "--exact",
+        "executable_path_is_digest_bound_and_wall_limited"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-14-02.log",
+      "log_sha256": "4840a8eab10462649e8853d61057983d5f4de53339cb2d209e9bfc3c32e5b027"
+    }
+  ],
+  "positive_checks": [
+    "V5-14-02 (Implement dimensional pressure and energy extraction): Independent hydrostatic/control-volume fixtures include both outlets and elevation. \u2014 verified by cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact executable_path_is_digest_bound_and_wall_limited"
+  ],
+  "negative_checks": [
+    "V5-14-02 negative control: A 1000-fold unit error, wrong density or missing reference datum fails."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-adapters/tests/openfoam.rs",
+      "sha256": "d24d5b8989d1f5ac90692aab6a035d5d00d9581ff4971d0650ce10130d1223c9"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact executable_path_is_digest_bound_and_wall_limited in packet V5-14 (Corrected native carrier evaluator and control)."
+  ],
+  "next_dependency": "V5-14-03"
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-20-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-036 (substitute:correlated_bound_propagation): Correlated geometry, load and material bounds propagate through the native FEA/CFD pipeline. Deterministic corner scenarios are kept distinct from p95 reliability claims. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_04_correlated_groups_move_together_and_bound_the_response.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/dynamics.rs",
+    "crates/joil-core/src/structure.rs",
+    "crates/joil-core/src/experiment.rs",
+    "packs/hydrocyclone/materials/",
+    "physics/structure/v5/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics",
+        "--",
+        "--exact",
+        "v5_20_04_correlated_groups_move_together_and_bound_the_response"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-20-04.log",
+      "log_sha256": "d8be0f187934050a862b051ef08931880f332004396c2e85199fde15cc1b511c"
+    }
+  ],
+  "positive_checks": [
+    "V5-20-04 (Propagate correlated material/manufacturing bounds): Finite corner results remain bounded scenarios rather than p95 reliability. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_04_correlated_groups_move_together_and_bound_the_response"
+  ],
+  "negative_checks": [
+    "V5-20-04 negative control: Eight selected offsets cannot claim a distribution-free p95."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/dynamics.rs",
+      "sha256": "6d86e341945452e1dc5def0ebe434bac56b099c59c6d849c30d6f4bcc1080332"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-036 (substitute:correlated_bound_propagation): Correlated geometry, load and material bounds propagate through the native FEA/CFD pipeline. Deterministic corner scenarios are kept distinct from p95 reliability claims. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_04_correlated_groups_move_together_and_bound_the_response."
+  ],
+  "next_dependency": "V5-20-05"
+}

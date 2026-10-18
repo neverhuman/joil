@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-21-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-search --test reference -- --exact executable_policy_is_frozen_and_attempt_quotas_are_exact in packet V5-21 (Deterministic reference-search policy and fair controls).",
+  "changed_paths": [
+    "crates/crucible-search/src/reference.rs",
+    "crates/crucible-search/src/archive.rs",
+    "crates/crucible-search/src/emitters.rs",
+    "crates/crucible-search/tests/reference.rs",
+    "policies/reference-search-v1.toml",
+    "crates/joil-core/src/evolve.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-search",
+        "--test",
+        "reference",
+        "--",
+        "--exact",
+        "executable_policy_is_frozen_and_attempt_quotas_are_exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-21-01.log",
+      "log_sha256": "0f29a4485f98d4bc2b08a6b097bde6ced02fd43a26df5da548c53c74f3b57bfe"
+    }
+  ],
+  "positive_checks": [
+    "V5-21-01 (Freeze reference-search/1 as executable policy): Known constrained fronts and charged proposal counts reproduce exactly. \u2014 verified by cargo test --locked --offline -p crucible-search --test reference -- --exact executable_policy_is_frozen_and_attempt_quotas_are_exact"
+  ],
+  "negative_checks": [
+    "V5-21-01 negative control: Inapplicable operation cannot trigger hidden uncharged resampling."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-search/src/reference.rs",
+      "sha256": "a9c3afa063a27c104d8305b020439a84bb57230af0e7ba899a71038f4d9d20a9"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-search --test reference -- --exact executable_policy_is_frozen_and_attempt_quotas_are_exact in packet V5-21 (Deterministic reference-search policy and fair controls)."
+  ],
+  "next_dependency": "V5-21-02"
+}

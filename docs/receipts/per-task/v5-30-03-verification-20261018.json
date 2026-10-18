@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-30-03"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-044 (substitute:simulated_specimen_passport_binding+rescope:post_manufacturing_hardware_specimen_tap_proof): End-to-end software traceability binds simulated as-built deviations, coupon and CT schema records and physics re-evaluation to unique specimen passports. Physical specimen tap and proof testing are rescoped to the post-manufacturing phase. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_passport_geometry_change_requires_reevaluation.",
+  "changed_paths": [
+    "experiments/rig/v5/",
+    "experiments/holdout/v5/",
+    "analysis/validation/v5/",
+    "docs/rig/V5_CONFIRMATION.md",
+    "experiments/rig/protocol_v1.md",
+    "docs/rig/MATERIAL_INPUTS.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "-v",
+        "tests.test_v5_integrated_fixtures.ProtocolTests.test_passport_geometry_change_requires_reevaluation"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-03.log",
+      "log_sha256": "e1a8921d0658f35b7f889c6989f979194232efcd7453047276e51eace04c3bd6"
+    }
+  ],
+  "positive_checks": [
+    "V5-30-03 (Bind independent builds to metrology and passports): Each specimen has traceable physical and computational identity. \u2014 verified by python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_passport_geometry_change_requires_reevaluation"
+  ],
+  "negative_checks": [
+    "V5-30-03 negative control: Three nominal repeats are not independent builds or a power justification."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/rig/V5_CONFIRMATION.md",
+      "sha256": "e12f4834d96d40463425c4ff72aa5f66a0557b1a54a1991cc6b62c7f76f192d1"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-044 (substitute:simulated_specimen_passport_binding+rescope:post_manufacturing_hardware_specimen_tap_proof): End-to-end software traceability binds simulated as-built deviations, coupon and CT schema records and physics re-evaluation to unique specimen passports. Physical specimen tap and proof testing are rescoped to the post-manufacturing phase. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_passport_geometry_change_requires_reevaluation."
+  ],
+  "next_dependency": "V5-30-04"
+}

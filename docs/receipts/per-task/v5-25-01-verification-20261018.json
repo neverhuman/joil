@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-25-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-039 (substitute:native_cutplane_interface_state+substitute:synthetic_fixture): Interface state at admitted cut planes is verified on substitute:synthetic_fixture cut-plane state fixtures with independent mass, momentum and oil conservation checks. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact consistent_state_closes_every_balance_against_analytic_targets.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/liner_operator.rs",
+    "experiments/v5-liner-operator.toml",
+    "docs/SCIENCE.md",
+    "docs/design/V5_GEOMETRY.md",
+    "crates/crucible-search/src/audit.rs",
+    "experiments/validation/v5/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "liner_operator",
+        "--",
+        "--exact",
+        "consistent_state_closes_every_balance_against_analytic_targets"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-25-01.log",
+      "log_sha256": "295fd9ccbbd3d6ff3b64d6b3e983efb4cf923e243ae152be163346a1993e9159"
+    }
+  ],
+  "positive_checks": [
+    "V5-25-01 (Define complete interface state and conservation): Mass/momentum/oil interface balances are independently checked. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact consistent_state_closes_every_balance_against_analytic_targets"
+  ],
+  "negative_checks": [
+    "V5-25-01 negative control: A pressure-only tail relation cannot replace the full downstream physics."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/liner_operator.rs",
+      "sha256": "25c939d0dda8a4280dd2cb7cda9372fdb0ffc07daa0f7ba5ad70862123d2814d"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-039 (substitute:native_cutplane_interface_state+substitute:synthetic_fixture): Interface state at admitted cut planes is verified on substitute:synthetic_fixture cut-plane state fixtures with independent mass, momentum and oil conservation checks. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact consistent_state_closes_every_balance_against_analytic_targets."
+  ],
+  "next_dependency": "V5-25-02"
+}

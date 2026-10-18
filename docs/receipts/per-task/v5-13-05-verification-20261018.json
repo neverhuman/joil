@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-13-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-027 (rescope:pre_order_metrology_uncertainty_specification): Rescoped to pre-order metrology and uncertainty-budget specification in software. No vendor orders or vendor contact. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test manufacturing -- --exact v5_13_05_coupon_plan_lists_every_required_record_with_owned_dependencies_and_no_orders.",
+  "changed_paths": [
+    "packs/hydrocyclone/materials/",
+    "packs/hydrocyclone/judges/tests/manufacturing.rs",
+    "docs/rig/MATERIAL_INPUTS.md",
+    "crates/joil-core/src/phenotype.rs",
+    "crates/joil-core/src/structure.rs",
+    "requirements/RS-joil-research-v1.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing",
+        "--",
+        "--exact",
+        "v5_13_05_coupon_plan_lists_every_required_record_with_owned_dependencies_and_no_orders"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-13-05.log",
+      "log_sha256": "45ffe65519496f01fee44343037a9a53e17be644c7b85f1d1770f887a063f5f7"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-07",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-positive.log",
+      "log_sha256": "7169acdae3a1434df33cddc09f5d25f6ec5605f84db6814b2509ecad4d52b3d9",
+      "note": "Frozen D-07 baseline positive; assertion_holds=true."
+    },
+    {
+      "argv": [
+        "env",
+        "JOIL_C006_FROZEN_RUST_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen",
+        "python3",
+        "-m",
+        "unittest",
+        "tests/test_v5_baseline_source_controls.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/unittest-c006.log",
+      "log_sha256": "105a5d1626d2581bb649ee3b85dca9e95b7141293ce5613e4d50a26c94e122bd",
+      "note": "24 unittest cases passed, including the D-07 positive/red pair."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/manufacturing-test.log",
+      "log_sha256": "8de0788d34099b33ca726010c99a0a5082117e215f56545fc58f12913d0f7b9b",
+      "note": "18 manufacturing integration tests passed."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/check-public.log",
+      "log_sha256": "ef1e5dfca36c1586cebaeb65732dd919bdc1d334cae6ef1873856f700b1abb89",
+      "note": "977 public candidate files checked; private deny rules applied=False."
+    }
+  ],
+  "positive_checks": [
+    "V5-13-05 (Plan coupons and as-built metrology): Testable passport acceptance and uncertainty budgets exist. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test manufacturing -- --exact v5_13_05_coupon_plan_lists_every_required_record_with_owned_dependencies_and_no_orders"
+  ],
+  "negative_checks": [
+    "V5-13-05 negative control: CT voxel pitch alone cannot satisfy dimensional accuracy or wall-detectability requirements."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/manufacturing.rs",
+      "sha256": "887d9377c343499fa8bed9db68640d14e11f9df9f7ec8bd00db1dccd1c2aea0b"
+    },
+    {
+      "path": "tests/test_v5_baseline_source_controls.py",
+      "sha256": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+    },
+    {
+      "path": "docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json",
+      "sha256": "67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c"
+    },
+    {
+      "path": "docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json",
+      "sha256": "efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-027 (rescope:pre_order_metrology_uncertainty_specification): Rescoped to pre-order metrology and uncertainty-budget specification in software. No vendor orders or vendor contact. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test manufacturing -- --exact v5_13_05_coupon_plan_lists_every_required_record_with_owned_dependencies_and_no_orders."
+  ],
+  "next_dependency": "V5-31-01",
+  "defect_controls": [
+    {
+      "defect_id": "D-07",
+      "fixture": {
+        "path": "tests/test_v5_baseline_source_controls.py",
+        "sha256": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/phenotype.rs",
+        "symbol": "Phenotype3D::from_program",
+        "sha256": "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-07",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-positive.log",
+        "log_sha256": "7169acdae3a1434df33cddc09f5d25f6ec5605f84db6814b2509ecad4d52b3d9",
+        "expected_result": "C006 frozen-source positive completed with assertion_holds=true; baseline mesh watertight, volume=128835.217 mm3, density-derived mass within 1e-12 g."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-07",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane2/d07-red.log",
+        "log_sha256": "8bf32275cfd10e7da8aa8ce1cda3d3f2ebc7fd07d635014fb72fdedc8e393c69",
+        "expected_result": "C006-RED D-07: mass_change_unsupported_by_compiled_solid; identical signed mesh volume with a 39.42736202906883 g reported mass delta."
+      }
+    }
+  ]
+}

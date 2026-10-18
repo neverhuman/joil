@@ -4,32 +4,32 @@
   "tasks": {
     "V5-31-01": {
       "status": "in_progress",
-      "owner": "codex_lane1",
-      "note": "Active frontier task for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
+      "owner": "codex-integrator",
+      "note": "SC-DEC-071 red-team remediation: PR #10 held until sc_audit.py reports 0 RED findings on joil; 112/160 strict (141/160 incl. weak) tasks done, 14 bogus PR #9 tasks returned to in_progress.",
       "evidence": []
     },
     "V5-31-02": {
       "status": "todo",
-      "owner": "codex_lane1",
-      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
+      "owner": null,
+      "note": "",
       "evidence": []
     },
     "V5-31-03": {
       "status": "todo",
-      "owner": "codex_lane1",
-      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
+      "owner": null,
+      "note": "",
       "evidence": []
     },
     "V5-31-04": {
       "status": "todo",
-      "owner": "codex_lane1",
-      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
+      "owner": null,
+      "note": "",
       "evidence": []
     },
     "V5-31-05": {
       "status": "todo",
-      "owner": "codex_lane1",
-      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
+      "owner": null,
+      "note": "",
       "evidence": []
     }
   }

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-12-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact attempts_are_charged_local_and_replayable_with_stable_innovations in packet V5-12 (Variation, expressiveness and operator-yield audit).",
+  "changed_paths": [
+    "crates/crucible-genome/src/operators/",
+    "crates/crucible-genome/tests/operators.rs",
+    "tests/fixtures/v5-expressiveness/",
+    "experiments/v5-operator-audit.toml",
+    "crates/crucible-genome/src/schema.rs",
+    "crates/crucible-genome/src/develop.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-genome",
+        "--test",
+        "operators",
+        "--",
+        "--exact",
+        "attempts_are_charged_local_and_replayable_with_stable_innovations"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-12-01.log",
+      "log_sha256": "af761741bf996c807956da6051560e494aa4a447a38bcf1bc0599a43839556c4"
+    }
+  ],
+  "positive_checks": [
+    "V5-12-01 (Implement initial local and structural operators): Operator locality and changed artifact observables are recorded. \u2014 verified by cargo test --locked --offline -p crucible-genome --test operators -- --exact attempts_are_charged_local_and_replayable_with_stable_innovations"
+  ],
+  "negative_checks": [
+    "V5-12-01 negative control: No applicable operation means a charged rejection, not hidden retries until success."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-genome/tests/operators.rs",
+      "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact attempts_are_charged_local_and_replayable_with_stable_innovations in packet V5-12 (Variation, expressiveness and operator-yield audit)."
+  ],
+  "next_dependency": "V5-12-02"
+}
