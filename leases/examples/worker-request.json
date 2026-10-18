@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "attempt_id": "attempt-example",
+  "fence": 1,
+  "lease_id": "lease-example",
+  "operation": "read_artifact",
+  "relative_paths": ["results/summary.json"],
+  "arguments": []
+}

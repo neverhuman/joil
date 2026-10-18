@@ -1,10 +1,12 @@
 //! Fenced local software task execution. Physical/native capabilities are explicit.
+pub mod bench;
 pub mod checkpoint;
 pub mod db;
 pub mod lease;
 pub mod ledger;
 pub mod replay;
 pub mod task;
+pub mod worker;
 pub use crucible_contract::subject::{BlobDigest, SemanticId};
 
 #[derive(Debug)]
