@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "packet": "V5-00",
+  "tasks": {
+    "V5-00-01": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Baseline committed at 8268533; source SHA mutation controls pass. Scoped Git metadata blocker resolved; historical review receipt preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-01-completed-20261017.json",
+          "sha256": "306cb4244dc212e2de2b7daef7b3ef69de7bd78e9671e9c8051f9a84a10a5ab5"
+        }
+      ]
+    },
+    "V5-00-02": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Historical records retained; present/incomplete/pruned mesh availability explicit; no tag and no scalar-only qualification.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-02-completed-20261017.json",
+          "sha256": "b1e8f4de0d8f499aba2cf2386f478610821f83679afb361d3f87ac8451f70cf3"
+        }
+      ]
+    },
+    "V5-00-03": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "AUDIT-HELD, not verified: original criterion unchanged. C006/F1 22 tests/no skips;11 partial source controls retain limitations. D-28/D-29 owner-dispositioned (not executed fixtures); D-07/18/21 remain blocked. ff4d9d8d official8/8 suites,10/10 steps passed; pushed exact head CI pending. Historical receipts/gate unchanged. Ordered later-done tasks prevent review transition; raw recorded done is not current acceptance.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-owner-disposition-D28-D29-20261018.json",
+          "sha256": "d98565712d2cfce293778bcb085c1134fa048293835df0679cdca61ebd48ded4"
+        }
+      ]
+    },
+    "V5-00-04": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-audit-inventory-20261018.json",
+          "sha256": "96e554401030e953cf9191e80a92acc39a9ccd5414a39bb0ce68fd72020136ca"
+        }
+      ]
+    },
+    "V5-00-05": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Primary dirty bytes preserved; scoped ownership correction and Claude preflight reviewed. Publish gate only after final acceptance commit/checks; no assumed concurrency.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-00-05-completed-20261017.json",
+          "sha256": "52f14d3e9320be991874b6b57ebe219c29a4f651d49445213ddb634a324b302a"
+        }
+      ]
+    }
+  }
+}

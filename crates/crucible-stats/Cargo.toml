@@ -1,0 +1,14 @@
+[package]
+name = "crucible-stats"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+statrs = { version = "=0.18.0", default-features = false }
+serde.workspace = true
+serde_json.workspace = true
+joil-evidence = { path = "../joil-evidence" }
+
+[dev-dependencies]
+crucible-runtime = { path = "../crucible-runtime" }
+crucible-units = { path = "../crucible-units" }

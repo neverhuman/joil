@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "kind": "combined_acceptance_audit_supplement_not_physical_admission",
+  "task_ids": [
+    "V5-00-03",
+    "V5-00-04"
+  ],
+  "tested_commit": "f8025e64dda91ecf8d05b2f6a32bd9fa4958d62c",
+  "created_utc": "2026-10-18T00:29:54.329257+00:00",
+  "changed_paths": [
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+    "docs/v5-plan/execution/V4_DEFERRALS.json",
+    "docs/v5-plan/execution/V5-00-AUDIT-SCOPE.md",
+    "tools/v5_baseline_audit.py",
+    "tests/test_v5_baseline_audit.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_baseline_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "31cf1957eee9f44d5a7cbdf606d6f8fe532aa31259e4efd4e96d9318630d0a4b"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_audit.py",
+        "--source-check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "95a97e0ded711d2252aa7f6ec6ec0311ceafcd4c33bca53f6508c71ab747af41"
+    }
+  ],
+  "positive_checks": [
+    "All31 frozen allegations retain exact whole-source hashes/anchors, one primary repair and independently specified positive/negative challenge; actual historical Git source verification passes",
+    "15 rows have recorded bounded behavior probes;16 are explicitly source-only inventory. Full future independent repair regressions are not inferred from these counts",
+    "All12 named/programme v4 section5/6 remainders retain owner, target packets, scoped historical disposition and next dependency"
+  ],
+  "negative_checks": [
+    "For every one of16 source-only rows, a false runtime-promotion mutant is refused; missing/changed challenge, repair mapping/source identity and physical promotion refuse",
+    "Every one of12 deferrals is independently removed and refused; each falsePASS/done mutant and missingowner/dependency/unknownpacket refuse",
+    "Whole-source and line-shift mutation invalidates reuse despite otherwise unchanged anchor"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/v5-plan/TASKS.json",
+      "sha256": "69c971b6169f2186db9e7aac730e52a1357843aa4794573c3af7ba596582ff3f"
+    },
+    {
+      "path": "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+      "sha256": "945a8979f18570ca4f2d4320183007ad514e9bc4cfc51c76ad9f8345788554e8"
+    },
+    {
+      "path": "docs/v5-plan/execution/V4_DEFERRALS.json",
+      "sha256": "8ff86510e61a7aa5796458394597ed3b4b20757203333c9d02bde8dbd1e0eb14"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-00-AUDIT-SCOPE.md",
+      "sha256": "d5e4446ff4e62ce12e5742790cac3a4281b4fa4242105018cbcadd74c1b9b501"
+    },
+    {
+      "path": "tools/v5_baseline_audit.py",
+      "sha256": "d7867259557e6fec304174bb2f17f6eba72c01162d85dc8b92edbe9620f4b595"
+    },
+    {
+      "path": "tests/test_v5_baseline_audit.py",
+      "sha256": "926ca4aec5e7fcc53b0d177cb4ef3e7b88e1e788e07ac3972cb9be3cfa54d53e"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-00-03-completed-20261017.json",
+      "sha256": "512d931601fab719939ed7889774e22a32d6b64ec1204ccac4dadc2dcc8f347a"
+    },
+    {
+      "path": "docs/receipts/v5-00-04-completed-20261017.json",
+      "sha256": "ae2cc3ca0c2f361b3316a890fc148c6db62a929fcfe937dfc4763b041f2beda5"
+    },
+    {
+      "path": "docs/receipts/v5-00-02-completed-20261017.json",
+      "sha256": "b1e8f4de0d8f499aba2cf2386f478610821f83679afb361d3f87ac8451f70cf3"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "physical_simulation": false
+  },
+  "limitations": [
+    "Software verification only; no physical eligibility or performance claim",
+    "V5-04 statistics and domain physical release remain open; TR-16/threshold audit/EV-09/EV-12 and full v4 remainder registry retained",
+    "Historical receipts and source bytes remain immutable; supporting receipt references distinguish historical scope from current verification",
+    "Integrator implements and accepts its own slices; independent read-only auditor reviewed evidence, not a second implementation",
+    "Current integration branch has later audit-only changes; exact706 CI is not a claim of CI on those future heads"
+  ],
+  "next_dependency": "Close remaining bounded02 proof gaps and final integrated exact-head gate/CI before milestone acceptance",
+  "audit_disposition": "Baseline task03 acceptance narrowly clarified before controls: inventory is complete, future primary repair regression/physical claims are not. No 31-runtime-tests claim, threshold relaxation or input admission. Original DEFECTS/receipts unchanged.",
+  "private_historical_inventory_script_sha256": "d0d4080cc06a6d940f93cf6e5c621895ddad5d8199fe84d058fd5731aad9cb99",
+  "remaining_unexecuted_independent_challenges": [
+    "D-05",
+    "D-07",
+    "D-10",
+    "D-14",
+    "D-16",
+    "D-17",
+    "D-18",
+    "D-21",
+    "D-22",
+    "D-24",
+    "D-25",
+    "D-27",
+    "D-28",
+    "D-29",
+    "D-30",
+    "D-31"
+  ]
+}

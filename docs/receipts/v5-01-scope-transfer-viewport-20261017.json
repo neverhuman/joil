@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "scope_transfer_not_task_completion",
+  "packet": "V5-01",
+  "task_ids": [
+    "V5-01-04"
+  ],
+  "created_utc": "2026-10-17T22:37:35.303897+00:00",
+  "owner": "codex-v5-integrator",
+  "request": "SR-2",
+  "request_sha256": "98cf48e87f856916a0fd12a32d4d9aaf05e0a4207f2984e5edff060d11a8c805",
+  "transferred_paths": [
+    "apps/explorer/src/Viewport3D.tsx"
+  ],
+  "revision": "docs/v5-plan/execution/V5-01-SCOPE-REVISION-3.md",
+  "resolution": "Grant only missing-provenance-compatible schematic labels/types. No historical data rewrite or physical result.",
+  "lease": "unchanged current user-authorized lease"
+}

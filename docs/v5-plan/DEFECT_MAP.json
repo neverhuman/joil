@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "source": "S09 section 2.5",
+  "interpretation": "Source allegations; current code and physical causation require the assigned independent fixtures. No blanket inheritance of source verification claims.",
+  "defects": [
+    {
+      "id": "D-01",
+      "location_hint": "evolve.rs::evaluate_realization",
+      "primary_task": "V5-21-05",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-02",
+      "location_hint": "cfd_case.rs and carrier/configure.py",
+      "primary_task": "V5-14-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-03",
+      "location_hint": "run_elite_3grid_gci_and_rsm.py",
+      "primary_task": "V5-01-01",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-04",
+      "location_hint": "joil-ir::PhenotypeTaxon",
+      "primary_task": "V5-09-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-05",
+      "location_hint": "joil-ir::run_voxel_flood_fill",
+      "primary_task": "V5-09-03",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-06",
+      "location_hint": "tools/f0_enactment.py",
+      "primary_task": "V5-01-02",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-07",
+      "location_hint": "phenotype.rs mass calculation",
+      "primary_task": "V5-13-02",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-08",
+      "location_hint": "structure.rs::analytic_structural_screen",
+      "primary_task": "V5-19-02",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-09",
+      "location_hint": "surrogate.rs checkpoint check",
+      "primary_task": "V5-07-01",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-10",
+      "location_hint": "requirements and SCIENCE conflicts",
+      "primary_task": "V5-02-01",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-11",
+      "location_hint": "evolve.rs energy formula",
+      "primary_task": "V5-18-03",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-12",
+      "location_hint": "experiment.rs t and power",
+      "primary_task": "V5-04-01",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-13",
+      "location_hint": "population.rs dispersion helper",
+      "primary_task": "V5-17-01",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-14",
+      "location_hint": "oil_grade.py injection and duration",
+      "primary_task": "V5-16-02",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-15",
+      "location_hint": "joil-ir baseline constants",
+      "primary_task": "V5-08-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-16",
+      "location_hint": "multiple wall-field implementations",
+      "primary_task": "V5-08-02",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-17",
+      "location_hint": "evolve.rs implicit CUDA audit",
+      "primary_task": "V5-01-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-18",
+      "location_hint": "evolve.rs serial work loops",
+      "primary_task": "V5-23-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-19",
+      "location_hint": "scene.rs::verify_resource_lease",
+      "primary_task": "V5-06-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-20",
+      "location_hint": "scene.rs export/default paths",
+      "primary_task": "V5-26-01",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-21",
+      "location_hint": "explorer stale claims and schematic paths",
+      "primary_task": "V5-01-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-22",
+      "location_hint": "typed-value figure generators",
+      "primary_task": "V5-26-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-23",
+      "location_hint": "claims_audit.py fuzzy matching",
+      "primary_task": "V5-28-04",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-24",
+      "location_hint": "CLI output paths",
+      "primary_task": "V5-01-05",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-25",
+      "location_hint": "GENOME_V4.md proposal allowance",
+      "primary_task": "V5-11-05",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-26",
+      "location_hint": "joil-ir volume/boundary topology",
+      "primary_task": "V5-09-02",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-27",
+      "location_hint": "license/disclosure policy",
+      "primary_task": "V5-05-05",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-28",
+      "location_hint": "coordination channels",
+      "primary_task": "V5-00-05",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-29",
+      "location_hint": "legacy monolithic modules",
+      "primary_task": "V5-03-05",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-30",
+      "location_hint": "duplicate science implementations",
+      "primary_task": "V5-31-02",
+      "initial_state": "planned_repair_or_investigation"
+    },
+    {
+      "id": "D-31",
+      "location_hint": "manual claim-number audit workflow",
+      "primary_task": "V5-28-04",
+      "initial_state": "planned_repair_or_investigation"
+    }
+  ]
+}

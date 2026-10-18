@@ -1,0 +1,514 @@
+{
+  "schema": "joil.v5.lane-receipt.v1",
+  "packet": "V5-10",
+  "tasks": [
+    "V5-10-01",
+    "V5-10-02",
+    "V5-10-03",
+    "V5-10-04",
+    "V5-10-05"
+  ],
+  "state": "lane_complete",
+  "utc": "20261018T052118Z",
+  "tested_commit": "4992bfd99a1d5c562cc4b551e9714d889f442cc8",
+  "branch": "codex/v5-lane1",
+  "implementation_paths": [
+    "crates/crucible-geom/src/surface.rs",
+    "crates/crucible-geom/src/tet.rs",
+    "crates/crucible-geom/src/export.rs",
+    "crates/crucible-geom/tests/artifacts.rs"
+  ],
+  "draft_lane_scaffolding_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "crates/crucible-geom/Cargo.toml",
+    "crates/crucible-geom/src/lib.rs"
+  ],
+  "integration_rule": "Integrator drops/reconciles all four scaffold files; takes the owned modules/tests and append-only receipts. No task done until integrated exact-head full gate and independent review.",
+  "lock_scope_authority": "Root COORD.md DRAFT LOCK SCOPE CLARIFICATION at 2026-10-18T05:11Z explicitly authorizes lane-local crate/workspace lock reconciliation; exact diff adds crucible-geom 0.1.0 with serde/serde_json/sha2 only, no dependency upgrades/removals.",
+  "source_sha256": {
+    "crates/crucible-geom/src/surface.rs": "65121ba9ca45ccf011f6b8d33461b7677283af9a082967961756dc2913d6447b",
+    "crates/crucible-geom/src/tet.rs": "42ab6ca42d6fcae5e4859d8a077dea1c2d3b91b3bfb378f145326aafa6498054",
+    "crates/crucible-geom/src/export.rs": "8d62b235634f5ebe0363b0764daecd97ba566605b0c2a939c1d5189adf6d718b",
+    "crates/crucible-geom/tests/artifacts.rs": "2148c82744f07fca4bb970866cb103cf2b283a003928e936ecc6376829fed1f9",
+    "Cargo.toml": "4baf209e7eee1e9f54f4abf9dda811c4ccedafb8904a860caa94fcb53a37b5ee",
+    "Cargo.lock": "d087c65090bf45c3462428b60dd4bc312e6b85a203ad4cd77db9982082d6d7f3",
+    "crates/crucible-geom/Cargo.toml": "856f336c49bf5009ea77333e1a6ef8d96777fb4e9dcf76de6d621c07a2394d3d",
+    "crates/crucible-geom/src/lib.rs": "6174eb653e1f9bd7f6eb5d94e25db840999764d3830a96d404208bd5a8caae93"
+  },
+  "input_sha256": {
+    "baselines/ct35/genome.json": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+    "baselines/ct35/reference.json": "9db5bbef73005888ca42d2cfe8c2b7fab938b18fa174dc2c41e7a9c95563f994",
+    "docs/v5-plan/todos/V5-10.md": "52930ac1eed6d4cb1277f3592ecd6e5b41ad2ad13e080e3376cdc416d78c3da2",
+    "draft-v5-08/contract.rs": "489233bafaf46847529634e2b6427f704ae11b1dad89d8c98509a63fc1423a3f",
+    "draft-v5-08/reference.rs": "3035136d9fd9662f867cf5e732a2af6083e76a2c3a96764adc16884c4a7dc51a",
+    "draft-v5-08/coverage-plan.md": "f3443150bbd8bc55d5b302f1d1d552d527bb60dabfc03cce6c81a813112bfd41"
+  },
+  "commands": [
+    {
+      "name": "final-artifacts",
+      "source_commit": "4992bfd99a1d5c562cc4b551e9714d889f442cc8",
+      "maximum_child_peak_rss_kib": 252252,
+      "command": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "artifacts"
+      ],
+      "actual_command": [
+        "taskset",
+        "-c",
+        "36,37",
+        "nice",
+        "-n",
+        "10",
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "artifacts"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.3768155574798584,
+      "sha256": "7b33a1f98a96ab6c33b949d4e7a3049949aa8d50238c43eaac2d339ce66d27cc",
+      "launch_load": 23.9609375,
+      "launch_available_bytes": 100696829952,
+      "utc": "2026-10-18T05:18:53.248936+00:00",
+      "private_log": "v5-10/final-artifacts.log"
+    },
+    {
+      "name": "final-clippy",
+      "source_commit": "4992bfd99a1d5c562cc4b551e9714d889f442cc8",
+      "maximum_child_peak_rss_kib": 191488,
+      "command": [
+        "rtk",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "actual_command": [
+        "taskset",
+        "-c",
+        "36,37",
+        "nice",
+        "-n",
+        "10",
+        "rtk",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.1305649280548096,
+      "sha256": "caa636ec9c7cba2c4f265005f356629e3a1e8fe35395de581375a782de9931bc",
+      "launch_load": 25.115234375,
+      "launch_available_bytes": 101978091520,
+      "utc": "2026-10-18T05:19:11.601133+00:00",
+      "private_log": "v5-10/final-clippy.log"
+    },
+    {
+      "name": "final-raw-tests",
+      "source_commit": "4992bfd99a1d5c562cc4b551e9714d889f442cc8",
+      "maximum_child_peak_rss_kib": 199668,
+      "command": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--all-targets",
+        "--",
+        "--nocapture"
+      ],
+      "actual_command": [
+        "taskset",
+        "-c",
+        "36,37",
+        "nice",
+        "-n",
+        "10",
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--all-targets",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.7810144424438477,
+      "sha256": "b98cbf174a1270f7ee8e271c6cc24c7573c5db3ec58cbbac9164819f9696ae09",
+      "launch_load": 24.353515625,
+      "launch_available_bytes": 102011027456,
+      "utc": "2026-10-18T05:19:48.309418+00:00",
+      "private_log": "v5-10/final-raw-tests.log"
+    },
+    {
+      "name": "final-diff",
+      "source_commit": "4992bfd99a1d5c562cc4b551e9714d889f442cc8",
+      "maximum_child_peak_rss_kib": 15360,
+      "command": [
+        "rtk",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "actual_command": [
+        "taskset",
+        "-c",
+        "36,37",
+        "nice",
+        "-n",
+        "10",
+        "rtk",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.01999187469482422,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "launch_load": 22.51708984375,
+      "launch_available_bytes": 101266329600,
+      "utc": "2026-10-18T05:20:05.123159+00:00",
+      "private_log": "v5-10/final-diff.log"
+    },
+    {
+      "name": "final-fmt",
+      "source_commit": "4992bfd99a1d5c562cc4b551e9714d889f442cc8",
+      "maximum_child_peak_rss_kib": 43008,
+      "command": [
+        "rtk",
+        "cargo",
+        "fmt",
+        "-p",
+        "crucible-geom",
+        "--",
+        "--check"
+      ],
+      "actual_command": [
+        "taskset",
+        "-c",
+        "36,37",
+        "nice",
+        "-n",
+        "10",
+        "rtk",
+        "cargo",
+        "fmt",
+        "-p",
+        "crucible-geom",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.10483384132385254,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "launch_load": 22.51708984375,
+      "launch_available_bytes": 101197193216,
+      "utc": "2026-10-18T05:20:05.241307+00:00",
+      "private_log": "v5-10/final-fmt.log"
+    },
+    {
+      "name": "final-public",
+      "source_commit": "4992bfd99a1d5c562cc4b551e9714d889f442cc8",
+      "maximum_child_peak_rss_kib": 15360,
+      "command": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "actual_command": [
+        "taskset",
+        "-c",
+        "36,37",
+        "nice",
+        "-n",
+        "10",
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.16706490516662598,
+      "sha256": "033bda7cc52307a9b012f008ff7c39444c30b4fdfcc00565e344f407e18853f5",
+      "launch_load": 22.51708984375,
+      "launch_available_bytes": 101219061760,
+      "utc": "2026-10-18T05:20:05.248708+00:00",
+      "private_log": "v5-10/final-public.log"
+    }
+  ],
+  "attempt_history": {
+    "private_index": "v5-10/commands.jsonl",
+    "sha256": "b5e5340be8d1ed35dd5f6c01deb954821a555ed0b8c1709fcab66f038aab29f1",
+    "all_attempt_count": 28,
+    "note": "Retains early lock-registration, fixture and overlap-roundoff failures; final source checks above supersede earlier snapshots."
+  },
+  "test_counts": {
+    "artifact_tests_passed": 14,
+    "predicate_unit_tests_passed": 2,
+    "failed": 0
+  },
+  "checks": {
+    "V5-10-01": {
+      "positive": [
+        "rotated three-axis asymmetric port fixture retains authoritative patch/material/roughness tags",
+        "closed cube/tetra/CT35 axial fixture union and polygon-frustum volume oracle"
+      ],
+      "negative": [
+        "open/reversed/duplicate/nonfinite/sliver/volume/deviation/semantic conflicts",
+        "intersecting and disconnected shells",
+        "axis-plane classifier cannot identify the rotated feed"
+      ]
+    },
+    "V5-10-02": {
+      "positive": [
+        "patch, thin-wall, distorted affine P1 and P2 elements",
+        "tangential midpoint projection retains positive Jacobian enclosure",
+        "seed-generated closed cube complexes",
+        "near-cancellation determinant and touching-versus-positive-overlap controls"
+      ],
+      "negative": [
+        "inverted P1 and midpoint-projected P2",
+        "duplicate/tampered/incomplete tet complexes",
+        "outside interior seed and unknown projection edges"
+      ]
+    },
+    "V5-10-03": {
+      "positive": [
+        "artifact compiler/kernel/tolerance/consumer provenance",
+        "matching frozen-interface identity with conservative area mapping"
+      ],
+      "negative": [
+        "resolved lattice cannot become supported via homogenized porous coverage",
+        "unknown consumer/kernel",
+        "changed interface, nonconservative weights, area mismatch and NaN"
+      ]
+    },
+    "V5-10-04": {
+      "positive": [
+        "unit-cube SI STL/GLB dimensions and hashes",
+        "independent Python ZIP CRC/XML parsing of 3MF millimetres and metres",
+        "CT35 source-bound axial dimension control"
+      ],
+      "negative": [
+        "1000x scaling transform",
+        "exact STEP with no sewn B-rep backend",
+        "existing directory/file remains byte-identical"
+      ]
+    },
+    "V5-10-05": {
+      "positive": [
+        "3/4 fixed synthetic corpus inputs yield retained actual structural P1 meshes",
+        "raw geometry/reference/policies/seed, governing bytes, provenance and stage costs retained"
+      ],
+      "negative": [
+        "open-shell failure remains NumericalArtifactFailure with diagnosis and zero skipped mesh-stage cost",
+        "scalar-only receipt, unrelated expected governing hash and tampered mesh fail retention verification"
+      ]
+    }
+  },
+  "artifact_inventory": {
+    "private_path": "v5-10/final-artifact-inventory.json",
+    "sha256": "78502d0693b8b7f0563db68406c71c49b27c17837fb5f35882961e89bd08a885",
+    "files": 33,
+    "bytes": 125356
+  },
+  "fixed_corpus": {
+    "synthetic": true,
+    "attempted": 4,
+    "accepted_software_artifacts": 3,
+    "physical_infeasibility_labels": 0,
+    "records": [
+      {
+        "compile_ns": 558329,
+        "elapsed_ns": 107311769,
+        "fixture": "tetra-patch",
+        "input_sha256": "14042e6ba9b5c79af498ad86861ce6a0b7c49bb67309a5ae9aa72c13cd1a2cf6",
+        "mesh_ns": 798779,
+        "outcome": "AcceptedArtifact",
+        "physical_infeasibility": false,
+        "retention": {
+          "objects": [
+            {
+              "bytes": 1410,
+              "path": "raw-input.json",
+              "role": "RawInput",
+              "sha256": "14042e6ba9b5c79af498ad86861ce6a0b7c49bb67309a5ae9aa72c13cd1a2cf6"
+            },
+            {
+              "bytes": 1101,
+              "path": "governing-mesh.json",
+              "role": "GoverningFeaMesh",
+              "sha256": "e31be94bc28b314cfad52bf48c40cb8d5313c05b597c84e31d6d37bbdfd1b4dc"
+            },
+            {
+              "bytes": 229,
+              "path": "provenance.json",
+              "role": "Provenance",
+              "sha256": "66751d09e05f6991eb3a8a0b3fce0a23f038eb298947e6e52d59504faa1e9a86"
+            }
+          ]
+        }
+      },
+      {
+        "compile_ns": 3353602,
+        "elapsed_ns": 113211147,
+        "fixture": "thin-wall",
+        "input_sha256": "9726f52e96c9524a08dfd0c56d6b07effa95db6882f5a1d973bcd028411268bb",
+        "mesh_ns": 12127324,
+        "outcome": "AcceptedArtifact",
+        "physical_infeasibility": false,
+        "retention": {
+          "objects": [
+            {
+              "bytes": 2463,
+              "path": "raw-input.json",
+              "role": "RawInput",
+              "sha256": "9726f52e96c9524a08dfd0c56d6b07effa95db6882f5a1d973bcd028411268bb"
+            },
+            {
+              "bytes": 1269,
+              "path": "governing-mesh.json",
+              "role": "GoverningFeaMesh",
+              "sha256": "a864ea81a9553f1e8bb7c36991348943aac647f993d02b79582d8052d53595e7"
+            },
+            {
+              "bytes": 230,
+              "path": "provenance.json",
+              "role": "Provenance",
+              "sha256": "95367ed1eb65b5d376e29eed3b0b79e107fe92cd8318b49c30935fbf59ca8976"
+            }
+          ]
+        }
+      },
+      {
+        "compile_ns": 48562366,
+        "elapsed_ns": 490950298,
+        "fixture": "ct35-axial-body-only",
+        "input_sha256": "63fa773ffdf4a9a348999da94046178d75640aca9e2f41d27825349fbc8f82ab",
+        "mesh_ns": 414737203,
+        "outcome": "AcceptedArtifact",
+        "physical_infeasibility": false,
+        "retention": {
+          "objects": [
+            {
+              "bytes": 27034,
+              "path": "raw-input.json",
+              "role": "RawInput",
+              "sha256": "63fa773ffdf4a9a348999da94046178d75640aca9e2f41d27825349fbc8f82ab"
+            },
+            {
+              "bytes": 7499,
+              "path": "governing-mesh.json",
+              "role": "GoverningFeaMesh",
+              "sha256": "51ad58e74a2c4c54837bd45bccb0f932b9f7b66e5767a971f235348fb43ad627"
+            },
+            {
+              "bytes": 243,
+              "path": "provenance.json",
+              "role": "Provenance",
+              "sha256": "ab7cf9701be112259e062afab05a5517ad3db77bf6e2b87f1e38444009cec9f3"
+            }
+          ]
+        }
+      },
+      {
+        "compile_ns": 271350,
+        "elapsed_ns": 14814449,
+        "fixture": "open-negative",
+        "input_sha256": "f5365d3415105a26ba9ff9c364a0a634a0c9d22380b23f8595930f2f661e3d98",
+        "mesh_ns": 0,
+        "outcome": {
+          "NumericalArtifactFailure": "open/nonmanifold/inconsistently oriented boundary edge"
+        },
+        "physical_infeasibility": false,
+        "retention": {
+          "objects": [
+            {
+              "bytes": 2319,
+              "path": "raw-input.json",
+              "role": "RawInput",
+              "sha256": "f5365d3415105a26ba9ff9c364a0a634a0c9d22380b23f8595930f2f661e3d98"
+            },
+            {
+              "bytes": 302,
+              "path": "provenance.json",
+              "role": "Provenance",
+              "sha256": "b0868a26fed0c6fad42ad7be0b81fa9aa64cf92b411c25604da6f668d320f65e"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "resource_allocation": {
+    "cpus": [
+      36,
+      37
+    ],
+    "nice": 10,
+    "build_jobs": 2,
+    "rayon_threads": 2,
+    "omp_openblas_mkl_threads": 1,
+    "memory_cap_gib": 6,
+    "scratch_cap_gib": 2.5,
+    "observed_scratch_bytes_worker_plus_worktree": 330596953,
+    "maximum_reported_child_peak_rss_kib": 252252,
+    "rss_measurement_limit": "child ru_maxrss, not an aggregate process-tree peak",
+    "renewal": "renewal-002",
+    "supplied_renewal_lease_sha256": "8a319194e0152ec8368f3fac2012ac5a9d818126d4076e7994997afb5eafbf08",
+    "observed_current_lease_sha256": "75b547301b70967a979a6eeae92c22dff37e65184ef6c8371f91e6bdcf825f7b",
+    "lease_note": "Current lease routing metadata differs from original receipt digest; lane resource boundaries and expiry match the user-authorized allocation.",
+    "gpu": false,
+    "simulation": false,
+    "search": false
+  },
+  "scientific_admission": false,
+  "dependency_acceptance": false,
+  "packet_acceptance": false,
+  "limitations": [
+    "Draft PartitionBoundary adapter consumes the upstream tagged triangulated boundary and source-bound volume/deviation enclosure; it is not a second implicit fluid/solid authority. V5-08 accepted ABI/receipt-registry binding must be reconciled by integrator.",
+    "Upstream acceptance receipt digest names an external dependency; its presence does not authenticate or scientifically admit a partition. All fixtures use explicitly synthetic authority records.",
+    "One connected manifold shell, <=2048 facets and <=4096 vertices; multiple/nested shells and general implicit extraction remain Unsupported. Surface f64 predicates are numerical checks, not a continuous/exact geometry certificate.",
+    "P1 supports supplied conforming complexes or a star-shaped interior seed, <=1024 elements. Invalid/non-star-shaped or low-quality attempts fail with diagnosis; no quality theorem from another algorithm is inherited.",
+    "P2 uses cubic Bernstein determinant bounds after shared-edge projection. Arithmetic is f64, not a directed-rounding interval certificate. Independent boundary projection/conformance and native solver admission remain required.",
+    "Coverage/mapping cards check active-feature sets, identities, tolerances, conservative columns and uniform-field area compatibility. They do not validate a frozen-liner physical response operator or authenticate a production coverage registry.",
+    "The CT-35 control uses source-bound full axial body dimensions but intentionally omits inlet ducts, overflow and full B-rep/partition conformance. It cannot stand in for accepted full-baseline CT-35 geometry.",
+    "STL patches form a closed union; individual port/wall patch STLs need not be closed solids. Their explicit semantic mapping is in the export manifest.",
+    "Optional STEP is Unsupported for both labels until a qualified sewn B-rep/AP242 backend exists. Unsewn triangulations cannot be called Exact.",
+    "Transform/build-unit bounds are explicit numerical roundoff budgets; glTF also records measured float32 vertex conversion error and rejects collapsed/reversed facets. No formal standards conformance certification is claimed.",
+    "Corpus timings/yield are measured software-route diagnostics on a shared two-CPU lane, not production mesher throughput, physical feasibility or solver performance.",
+    "No simulation, search, GPU use, physical validation, native CFD/FEA qualification, full repository integration gate or packet/task done promotion was performed."
+  ],
+  "next_dependency": [
+    "Integrator reconciles draft partition-boundary adapter with accepted V5-08 authority and exposes surface/tet/export modules in canonical crate root.",
+    "Re-run combined full gates and independent artifact observer controls on exact integrated head; acquire full CT35 B-rep/interface and native CFD/FEA evidence before physical/solver eligibility."
+  ]
+}

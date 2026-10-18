@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "kind": "software_store_export_and_ci_followup",
+  "packet": "V5-05",
+  "task_ids": [
+    "V5-05-05"
+  ],
+  "tested_commit": "f771e25cc6b7c5c4293366fec201a2e1e1f3bf10",
+  "created_utc": "2026-10-17T22:53:39.859205+00:00",
+  "changed_paths": [
+    "crates/crucible-store/src/store.rs",
+    "crates/crucible-store/tests/store.rs",
+    "docs/design/V5_STORE.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-store"
+      ],
+      "exit_code": 0,
+      "log_sha256": "7f45be7704bc9753836765a35c6b3a28f091c8a41c1d06a97177e3617213603d",
+      "wall_seconds": 3.8462888340000063
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-store",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "be8539d22c58f74dc72fbc972133e10a078d84ce0e74c3455044d69b733cb487",
+      "wall_seconds": 3.552280834992416
+    }
+  ],
+  "positive_checks": [
+    "Reviewed fresh export copies only exact approved public-candidate immutable closure; private backups still preserve coordinator history",
+    "Store13 regressions and permit compile-fail pass; default private test-root branch passes when CARGO_TARGET_DIR is absent at test execution"
+  ],
+  "negative_checks": [
+    "Unselected private invalidation-reason canary fails on prior implementation and passes after separating export copy from backup history",
+    "Existing export destination with unrelated private file is refused without publishing selected objects",
+    "Private ancestry, incomplete allowlist and stale/revoked review still refuse"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-store/src/store.rs",
+      "sha256": "453bae730124d8873f87a6e3f35dff8496b15e08e6b66b7dfc8a5bf62f0a02c4"
+    },
+    {
+      "path": "crates/crucible-store/tests/store.rs",
+      "sha256": "7e30787f7241e6be266976dee6dd3279e96e87072c0df47f673ec580d88ab28f"
+    },
+    {
+      "path": "docs/design/V5_STORE.md",
+      "sha256": "b8258d8d77ccc9adff025efc8cfbddc76650e153af3802fbd886f4014b35ebef"
+    }
+  ],
+  "counterfactual": {
+    "argv": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--locked",
+      "-p",
+      "crucible-store",
+      "--test",
+      "store",
+      "reviewed_export_cannot_copy_an_unselected_private_invalidation_journal"
+    ],
+    "exit_code": 101,
+    "log_sha256": "d94bafd7ef7e0eeb9aece0ee78b2935f1001d7edfc62b87e908f2f98e00d0b96",
+    "wall_seconds": 1.1157697190064937
+  },
+  "private_fallback_control": {
+    "exit_code": 0,
+    "log_sha256": "08b76dc51728cd9d49962489171e63bf2180237359f1516d68e945c5df60e61a",
+    "exact_command_record_sha256": "8ca064004ac7e5d2280694e0172d8ac663d22ddfccbd1e96cf417bd19d409006"
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false
+  },
+  "limitations": [
+    "All canaries/data synthetic; no customer/private external disclosure occurred",
+    "Export is local and still requires explicit current reviewed selection; no external publication performed",
+    "Full publication gate and new exact-head CI remain pending",
+    "Historical receipts unchanged; physical qualification and TR-16/EV-09/EV-12 deferrals unchanged"
+  ],
+  "next_dependency": "V5-06 integration/full required gate; V5-07 real nonempty recovery fixture"
+}

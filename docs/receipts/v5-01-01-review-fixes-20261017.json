@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "kind": "task_followup_review_fix_not_scientific_validation",
+  "packet": "V5-01",
+  "task_ids": [
+    "V5-01-01"
+  ],
+  "owner": "claude-v5-truth-worker",
+  "review": "integrator review of fec9c91 (private claude/integration-review.json, 2026-10-17T21:54:45Z) and coordinator assignment G-002",
+  "supersedes_nothing": "docs/receipts/v5-01-01-completed-20261017.json is unchanged; this receipt records follow-up fixes",
+  "input_head": "6b2c848",
+  "tested_commit": "e537966ddc3eed95af5bb6f6c8d1118e2c7bb9bc",
+  "created_utc": "2026-10-17T22:59:00Z",
+  "changed_paths": [
+    "tools/run_elite_3grid_gci_and_rsm.py",
+    "tests/test_v5_truth.py"
+  ],
+  "commands": [
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_v5_truth.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.681,
+      "log_sha256": "59ebd5ee3e099b2e3da889af15aef917269af839d73461e0081ece061c31ff5d",
+      "note": "32 tests at the tested commit (6 new review-fix tests)"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_[!v]*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 70.206,
+      "log_sha256": "29294fd351bcdc222000c1a0f66260d0ef2cc3affdf247b977cc5f0f68b6f5c4",
+      "note": "includes tests/test_evidence.py legacy gate consumers; tree byte-identical to the tested commit"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_v5_t*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 12.474,
+      "log_sha256": "5bbd8ec1fd78e14216fe863f3098d3fb5eaca570bfc3e85931c23dc2d44c3ecb"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/claims_audit.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 16.137,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.149,
+      "log_sha256": "3a34ec045f111301cfcd92f0f83201f2dd2ae9702b529e073ad4e9195c310c58"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-I", "<private>/review_probe_rerun.py", "<checkout>", "WORKTREE", "<private report>"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.055,
+      "log_sha256": "502dfcdac7cb8a7679661491ce591f2b43b6e189ff2f4920d744ec7d1c1049db",
+      "note": "integrator probe mutants verbatim against the fixed gate and current fixture: positive admitted; missing_both_background_ladders, wrong_RSM_subject_grid_pipeline, impossible_fractions and finite_inputs_derived_ratio_overflows all not_admitted"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/run_elite_3grid_gci_and_rsm.py", "--interpret-existing", "--out", "<private report>"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.055,
+      "log_sha256": "0443d763947a404e45aa978151125db05538519bdea63e5ed5356bebcb620daf"
+    }
+  ],
+  "pre_change_failing_evidence": {
+    "source": "integrator independent reproduction codex/slice01-review-results.json at fec9c91",
+    "report_sha256": "da8b05741107bb2901f1ded01127fe6a239211db194af6db0f173c46b37ba35d",
+    "log_sha256": "56cc3780e3a5dc011c62c86ccf197d73c9b0c989a90f16c619746914a66578a9",
+    "result": "positive fixture and all four invalid controls admitted"
+  },
+  "pinned_fixture_rerun": {
+    "log_sha256": "5f5c8b789048a888408b8acb8e3f8abe0a74a09fce9c5d88a3b9c51dcbb25e50",
+    "result": "with the fec9c91 fixture the positive is now not admitted, solely because that fixture lacks comparator cells/cell sizes and RSM identity bindings, which this fix requires; the four mutants stay not admitted"
+  },
+  "positive_checks": [
+    "SYNTHETIC same-pipeline positive control with complete ladders and bound RSM runs is admitted with no failures; grid cells recorded as integers",
+    "All earlier V5-01-01 positives (signal-to-span boundary, opposite-sign difference, reproducing recorded ratio, control argument) still pass",
+    "Historical dossiers stay readable and not admitted; recorded values unchanged"
+  ],
+  "negative_checks": [
+    "Background descriptors removed from both candidate and comparator grids: refused for missing descriptors (no None == None equality)",
+    "Comparator background [24,-16,282], [24,16], [24.0,16,282], [24,true,282] or a string: refused as invalid descriptor; comparator cells 305522.5 or 0 and missing cell size: refused",
+    "Comparator ladder reversed: refused as not a refinement and non-monotonic cells; ladder reversed consistently on both sides: refused as not a refinement",
+    "Water closure -0.1 and realizability 1.5 (probe mutant): refused outside [0, 1]; reject fraction 1.2 refused; negative grid and RSM losses refused",
+    "Candidate dp 1e-308..2e-308 with comparator 1.79e308 (probe mutant): refused for non-finite ratio; span overflow and inter-RSM mean overflow refused",
+    "RSM runs with wrong subject, G0 grid and partial pipeline (probe mutant), with all identity fields absent, with the G2 background, or with one differing pipeline digest: refused with the specific binding reason; every historical dossier is refused for unbound RSM identity"
+  ],
+  "artifacts": [
+    {"path": "tools/run_elite_3grid_gci_and_rsm.py", "sha256": "c547ae68c0d61622387d8753f276c09c1c9b4c127632c4b93d3b62e92d962acc"},
+    {"path": "tests/test_v5_truth.py", "sha256": "eb06fa858903eb39aa88c0d8365cf4bfd43445922904a7b67b004d309d3c96a9"},
+    {"path": "private: v5-01-01-review-probe-worktree.json (not published)", "sha256": "af06875fbb5a374dd32dffc8d02269ebd82a8ccbd14c97e3f0bbd2b8461c2cd6"},
+    {"path": "private: v5-01-01-review-probe-pinned-fixture.json (not published)", "sha256": "9ae3ea61e0b4f9f2527438e38e159efcbbdd566874dad95c1b24d51e88a0d039"},
+    {"path": "private: v5-01-01-fix-interpretation-report.json (not published)", "sha256": "9ce2e2adb15d5e578df62ae6ec9641752e6e9deaca73b54f209454ca3a69e3ff"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "not_executed": [
+    "Rust stages: no Rust input changed in this follow-up (last full Rust gate at 52ed7fc, log 167e64df6d492d3d73a1b13a786ceafafffb7e812ab0696d80f3b05cf21bd8ba)"
+  ],
+  "limitations": [
+    "Software admission-semantics repair only; no physical claim",
+    "The RSM binding uses the approved tool-local fields (subject_design_sha256, grid_id, background_hex_grid, pipeline_identity, openfoam_version) until V5-03 contracts replace them",
+    "Background ladder refinement requires non-decreasing axes and a strictly larger product per level; it encodes ladder ordering only, not mesh quality"
+  ],
+  "next_dependency": "Integrator re-review of the four probe cases and acceptance of V5-01-01"
+}

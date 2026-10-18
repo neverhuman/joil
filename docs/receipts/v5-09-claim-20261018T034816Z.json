@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "V5-09",
+  "tasks": [
+    "V5-09-01",
+    "V5-09-02",
+    "V5-09-03",
+    "V5-09-04",
+    "V5-09-05"
+  ],
+  "owner": "codex_lane2",
+  "state": "in_progress",
+  "created_utc": "2026-10-18T03:48:16.223330+00:00",
+  "tested_base": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+  "write_scope": [
+    "crates/crucible-geom/src/observe/**",
+    "crates/crucible-geom/tests/observers.rs",
+    "tests/fixtures/v5-geometry/**",
+    "docs/receipts/v5-09-*"
+  ],
+  "draft_scaffolding": [
+    "Cargo.toml",
+    "Cargo.lock (only local package registration if required by locked Cargo)",
+    "crates/crucible-geom/Cargo.toml",
+    "crates/crucible-geom/src/lib.rs"
+  ],
+  "draft_dependency": "V5-08 unaccepted private preview; no geometry/kernel admission",
+  "resources": {
+    "cpus": [
+      38,
+      39
+    ],
+    "rss_gib": 6,
+    "scratch_gib": 2.5,
+    "jobs": 2,
+    "gpu": false,
+    "simulation": false
+  },
+  "lease": "renewal-002",
+  "lease_sha256": "8a319194e0152ec8368f3fac2012ac5a9d818126d4076e7994997afb5eafbf08",
+  "stop_conditions": [
+    "ownership conflict",
+    "incompatible identity/units",
+    "lease expiry",
+    "resource pressure",
+    "mandatory evidence failure"
+  ],
+  "instructions": "ADDENDUM 2: lane_complete only; no task/progress done edits; no PR6 push/merge"
+}

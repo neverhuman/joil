@@ -1,0 +1,521 @@
+{
+  "schema_version": 1,
+  "kind": "v5_16_lane_complete_receipt",
+  "task_ids": [
+    "V5-16-01",
+    "V5-16-02",
+    "V5-16-03",
+    "V5-16-04",
+    "V5-16-05"
+  ],
+  "owner": "61562.joil_v5_codex_lane2",
+  "model": "gpt-6-luna medium",
+  "state": "lane_complete_software_controls_only",
+  "created_utc": "2026-10-18T05:27:59Z",
+  "base_commit": "503f033be52ec2391a2cfe910ab65fd99e501f66",
+  "tested_commit": "cf7a512edfa1d1477925598de510f126c61fc2ee",
+  "branch": "codex/v5-lane2",
+  "resources": {
+    "cpus": [
+      38,
+      39
+    ],
+    "rss_cap_gib": 6,
+    "scratch_cap_gib": 2.5,
+    "gpu": false,
+    "native_cfd_launched": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target"
+  },
+  "changed_paths": [
+    "Cargo.lock",
+    "Cargo.toml",
+    "crates/crucible-adapters/Cargo.toml",
+    "crates/crucible-adapters/src/openfoam/mod.rs",
+    "crates/crucible-adapters/src/openfoam/oil.rs",
+    "crates/crucible-adapters/tests/openfoam.rs",
+    "crates/crucible-particles/Cargo.toml",
+    "crates/crucible-particles/src/forces.rs",
+    "crates/crucible-particles/src/inject.rs",
+    "crates/crucible-particles/src/inventory.rs",
+    "crates/crucible-particles/src/lib.rs",
+    "crates/crucible-particles/tests/transport.rs"
+  ],
+  "source_sha256": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "ec4e61e6d98e652b5cc39728b60a3db166892334596cc4db88b6382ea8aac969"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "0cbaf44f989784328a88fb153c9f99ed22f5086dcb82bc829367721f4dd36350"
+    },
+    {
+      "path": "crates/crucible-adapters/Cargo.toml",
+      "sha256": "f5a4180cf6ae4e01e439d2b8dfd39b2d9b09a81130fed7b5b647379173a83563"
+    },
+    {
+      "path": "crates/crucible-adapters/src/openfoam/mod.rs",
+      "sha256": "acaee5e0c08db7a5b3f1e85d3a3ed566d464d213c8f35dbcc7d2e57a62d84293"
+    },
+    {
+      "path": "crates/crucible-adapters/src/openfoam/oil.rs",
+      "sha256": "7726ebc840f0f5fc0f061813ea2e0ec184cfba16c6de0774a1ce7797af614a58"
+    },
+    {
+      "path": "crates/crucible-adapters/tests/openfoam.rs",
+      "sha256": "d24d5b8989d1f5ac90692aab6a035d5d00d9581ff4971d0650ce10130d1223c9"
+    },
+    {
+      "path": "crates/crucible-particles/Cargo.toml",
+      "sha256": "3b96fdfbec6e1570286cfa82ac9ece7b57386ab99e9011358fbe9d890e963352"
+    },
+    {
+      "path": "crates/crucible-particles/src/forces.rs",
+      "sha256": "2b8f08bafaa936f500c495e43ae481d37ab405a00d733c844b14f35f96cec35c"
+    },
+    {
+      "path": "crates/crucible-particles/src/inject.rs",
+      "sha256": "99cecffb3524ad280d1cc7e1c64daaeab2791f8dd29f62be02d87070f9a00aed"
+    },
+    {
+      "path": "crates/crucible-particles/src/inventory.rs",
+      "sha256": "9676af79b8864ac5e36971c175e26cabc6c6f4133431a2c27175d400f915c4f2"
+    },
+    {
+      "path": "crates/crucible-particles/src/lib.rs",
+      "sha256": "c0be2adf921fa760d0b9dc2f2de2bf90de0d6248ffd70fa7be9361096c1a58af"
+    },
+    {
+      "path": "crates/crucible-particles/tests/transport.rs",
+      "sha256": "f97eb0874c03a8c2de1d0cb4f6bf59db3a5747a6037a79f178a7d525a986548e"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport"
+      ],
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+      },
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/57-particles-transport-tested-commit.log",
+      "log_sha256": "0c51de56ad7160929645bd4bb7b3041b9996f7c354ce8cc8874b7502657138f2",
+      "summary": "10 transport tests passed"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-particles"
+      ],
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+      },
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/58-particles-all-tested-commit.log",
+      "log_sha256": "ab2ea812e190233c782fe1694e3d26c3ee92c4568bb3f8a7a76ce20290b5f4f0",
+      "summary": "all crate tests passed"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-adapters",
+        "--test",
+        "openfoam"
+      ],
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+      },
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/59-adapters-openfoam-tested-commit.log",
+      "log_sha256": "8b104210a6e3edec2b13af68341f4afb3a475286db2cc7c5333cfc5448d5d197",
+      "summary": "OpenFOAM adapter tests passed"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-particles",
+        "-p",
+        "crucible-adapters",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+      },
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/60-clippy-tested-commit.log",
+      "log_sha256": "f99aa343554f36bf60d7c5211fac40f5ecc3ea24276d47f25d2c376f57121e63",
+      "summary": "no warnings"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+      },
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/61-fmt-tested-commit.log",
+      "log_sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f",
+      "summary": "format check passed; nonempty exit-code log"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+      },
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/62-public-tested-commit.log",
+      "log_sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb",
+      "summary": "public scan passed"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "environment": {
+        "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+      },
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/63-diff-check-tested-commit.log",
+      "log_sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f",
+      "summary": "clean diff"
+    }
+  ],
+  "all_raw_log_sha256": [
+    {
+      "path": "01-particles-transport.log",
+      "sha256": "b252b0b294fe42690ee723863fd75cf8a9f26865d7fff515b69d56d6e49adc6d"
+    },
+    {
+      "path": "02-particles-all.log",
+      "sha256": "1844802ac226752ce5df0ac596d3bddcfc50244941e1b2c802f29974d0ade6cc"
+    },
+    {
+      "path": "03-adapters-openfoam.log",
+      "sha256": "0fe26819a0227b31f1161e58c1b4e0e5504de768d2ae4a75cdc04d14947e5a41"
+    },
+    {
+      "path": "04-clippy.log",
+      "sha256": "085a276e235ce3f3a3332d227ae805beef1ffad7f11bd501719fd39572862e53"
+    },
+    {
+      "path": "05-fmt.log",
+      "sha256": "3a7d4d712819850f47f52a0f39aefe78452df68f13278aae12b741dadd2ff0ff"
+    },
+    {
+      "path": "06-public.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "07-diff-check.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "08-particles-transport-final.log",
+      "sha256": "5a66914d6e528ed0afbc5a0759d0a91bd48932bd11db41f2f0de7e672aa46cf8"
+    },
+    {
+      "path": "09-particles-all-final.log",
+      "sha256": "6c92f91854b358fb3687d97605840364e5d314e734dc44ef369f19f7451b25c2"
+    },
+    {
+      "path": "10-adapters-openfoam-final.log",
+      "sha256": "a6b9ba67e52023aabbf331ab4ddda92dc9297ae692b31135981ed8a799628a0b"
+    },
+    {
+      "path": "11-clippy-final.log",
+      "sha256": "ec2df5956717d989ea25393d7bec3775d02b133776d92d5c9ded76782dbb86b1"
+    },
+    {
+      "path": "12-fmt-final.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "13-public-final.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "14-diff-check-final.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "15-particles-transport-pass.log",
+      "sha256": "6c394b07d9a88c9337b13017ee59368b1a68a70836443d79d0bcfc851592cbfb"
+    },
+    {
+      "path": "16-particles-all-pass.log",
+      "sha256": "a3005f0e3d6ee041e41d089529a444e0b4cd25e5cb843ada14ac241455088317"
+    },
+    {
+      "path": "17-adapters-openfoam-pass.log",
+      "sha256": "af7036ab516208dbcc31fce31316330b5cb412e2529b4bc61b79cafc4dfc94f7"
+    },
+    {
+      "path": "18-clippy-pass.log",
+      "sha256": "d7020866648a38416ff942fcdeb4b5e86d04cb722f211e338b96739ddb0b9408"
+    },
+    {
+      "path": "19-fmt-pass.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "20-public-pass.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "21-diff-check-pass.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "22-particles-transport-pass.log",
+      "sha256": "d393dfcfa72e95248a4d4f43859659c14d551ad05838db40e33b91b7b79f250a"
+    },
+    {
+      "path": "23-particles-all-pass.log",
+      "sha256": "d393dfcfa72e95248a4d4f43859659c14d551ad05838db40e33b91b7b79f250a"
+    },
+    {
+      "path": "24-adapters-openfoam-pass.log",
+      "sha256": "99f27dcb3ca2ac196c45b634871610e2e85dec9a67dd8a9ec0c197dbc7f99753"
+    },
+    {
+      "path": "25-clippy-pass.log",
+      "sha256": "952a86017604c6eb9b2c02d597b4f9a11ec8d0c6dc2a9501ef15e6e7c4a95c2f"
+    },
+    {
+      "path": "26-fmt-pass.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "27-public-pass.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "28-diff-check-pass.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "29-particles-transport-pass.log",
+      "sha256": "2761ce99b91bd5d2745d9683e46fa817e1bd2cef17f652f623891e428e072119"
+    },
+    {
+      "path": "30-particles-all-pass.log",
+      "sha256": "512f53da3585dcabf08a4d0940ed9aea9a3a91289825d5513e8c21ea612a6127"
+    },
+    {
+      "path": "31-adapters-openfoam-pass.log",
+      "sha256": "2fa2dadd565c5a6c0be14d68d120a2f4f81fb3bf5b094f583b6f7a11c2c2f878"
+    },
+    {
+      "path": "32-clippy-pass.log",
+      "sha256": "23e9ca44d26bcd97a522b7fd717f7f32d50099209de5e73d1a16227c21446720"
+    },
+    {
+      "path": "33-fmt-pass.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "34-public-pass.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "35-diff-check-pass.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "36-particles-transport-final.log",
+      "sha256": "8bc12572c071248fdef7f7c4f7fe1ea65751a4d79c5d9c84289ac9256a14ff48"
+    },
+    {
+      "path": "37-particles-all-final.log",
+      "sha256": "c12bf9cfa2758d6f5e036c465e5fdd2574483c70146e3931ad45f54922553220"
+    },
+    {
+      "path": "38-adapters-openfoam-final.log",
+      "sha256": "c01f7827ca867a12de6e2a85f4ebc138891167daaa6c7121d020b36fbea552c2"
+    },
+    {
+      "path": "39-clippy-final.log",
+      "sha256": "671c4c159f17d2b9f6a2b9c2c8963133035930616798813f41ec633acb5824a9"
+    },
+    {
+      "path": "40-fmt-final.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "41-public-final.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "42-diff-check-final.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "43-particles-transport-final.log",
+      "sha256": "849f440b26aeff2ece152ee3e5e71f46078b0fef4cf688a38efc7a3322b060a3"
+    },
+    {
+      "path": "44-particles-all-final.log",
+      "sha256": "85c0412798c7011c8bdeb105972a29dcdd8182f56a19a72f34a991d508071b58"
+    },
+    {
+      "path": "45-adapters-openfoam-final.log",
+      "sha256": "d485461dfa35de8086cd46b13be20be56a567f079c7bdfeac97f68c79ef656a4"
+    },
+    {
+      "path": "46-clippy-final.log",
+      "sha256": "23e9ca44d26bcd97a522b7fd717f7f32d50099209de5e73d1a16227c21446720"
+    },
+    {
+      "path": "47-fmt-final.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "48-public-final.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "49-diff-check-final.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "50-particles-transport-final.log",
+      "sha256": "830562a4ed07428e600c8373641448ea1c61d9f17c4d61337370a2125e95df70"
+    },
+    {
+      "path": "51-particles-all-final.log",
+      "sha256": "99c8cd781deff7890167cab8e0f77ffac739d088761584ec9305e8968d833ac8"
+    },
+    {
+      "path": "52-adapters-openfoam-final.log",
+      "sha256": "5a0173e1dfee6d6444a0896ecb1c8acb502a2f27a27845b672474fb911f7ac10"
+    },
+    {
+      "path": "53-clippy-final.log",
+      "sha256": "0961a482168268b7d5da47e1aa04b9cbb80e16a3a5258da80320981029e86862"
+    },
+    {
+      "path": "54-fmt-final.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "55-public-final.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "56-diff-check-final.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "57-particles-transport-tested-commit.log",
+      "sha256": "0c51de56ad7160929645bd4bb7b3041b9996f7c354ce8cc8874b7502657138f2"
+    },
+    {
+      "path": "58-particles-all-tested-commit.log",
+      "sha256": "ab2ea812e190233c782fe1694e3d26c3ee92c4568bb3f8a7a76ce20290b5f4f0"
+    },
+    {
+      "path": "59-adapters-openfoam-tested-commit.log",
+      "sha256": "8b104210a6e3edec2b13af68341f4afb3a475286db2cc7c5333cfc5448d5d197"
+    },
+    {
+      "path": "60-clippy-tested-commit.log",
+      "sha256": "f99aa343554f36bf60d7c5211fac40f5ecc3ea24276d47f25d2c376f57121e63"
+    },
+    {
+      "path": "61-fmt-tested-commit.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    },
+    {
+      "path": "62-public-tested-commit.log",
+      "sha256": "785d8736653676560175dd85bcdff7092e551681bce6304685e3ee770fe45cfb"
+    },
+    {
+      "path": "63-diff-check-tested-commit.log",
+      "sha256": "ae83a3ae13d7b3bd00ee127bc7bdb3a9fa0a2ca71b3490011b0c284069ed243f"
+    }
+  ],
+  "positive_checks": [
+    "Force adapter matches stationary-frame light-drop pressure-gradient, virtual-mass, gravity and Schiller\u2013Naumann conventions in synthetic tracer, terminal-rise, acceleration, solid-body rotation and substep controls.",
+    "Face injection conserves independent normal-flux mass and momentum for unequal branches; marker velocity magnitude and backflow controls do not become injection.",
+    "Restart preserves parcel/cohort/RNG/size/terminal identity; conservative breakup transfers represented mass to daughters while immutable injected mass counts once.",
+    "First-passage duplicate crossing is rejected; size-stratified inventory reconciles synchronized terminal/retained/unresolved/discrepancy masses and places unresolved oil in adverse concentration bounds.",
+    "A completed synthetic case with 97% oil retained cannot qualify; sampling refuses fixed parcel defaults without complete residence-tail evidence."
+  ],
+  "negative_checks": [
+    "A separate centrifugal term would fail the solid-body rotation tracer oracle.",
+    "Nonuniform face velocity magnitude, unequal branches, and inlet backflow controls reject incorrect injection quadrature.",
+    "Duplicate terminal recross, inconsistent daughter lineage/mass, size-class unresolved mismatch, and missing residence-tail evidence are rejected.",
+    "No task criterion was relaxed; native evidence is absent and therefore not PASS."
+  ],
+  "limitations": [
+    "Software and synthetic fixtures only; no native OpenFOAM case or physical measurement was run.",
+    "Native adapter parity, source-bound native field extraction, wall interaction evidence, process-completion data, and measured residence-tail quantile remain unverified.",
+    "Workspace and lane-local Cargo.lock registration are draft scaffolding for integrator reconciliation; no dependency upgrades.",
+    "The numerical sampler uses a normal-approximation parcel budget and three independent replicates as a bounded software heuristic; applicability must be reviewed against the actual decision/error model."
+  ],
+  "next_dependency": "Integrator reconcile draft workspace/lock registration and oil API; native source-bound field extraction plus measured residence-tail/physical validation evidence."
+}

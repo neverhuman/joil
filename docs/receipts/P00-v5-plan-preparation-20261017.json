@@ -1,0 +1,284 @@
+{
+  "schema_version": 1,
+  "kind": "planning_preparation_not_engineering_qualification",
+  "packet": "P00-V5-PLAN",
+  "created_utc": "2026-10-17T20:13:29.218711+00:00",
+  "tested_commit": "1df2eda842e2d6c7fee74061e08f03158a30e530",
+  "baseline_commit": "cc86edc90d06f0eac69022f84354abc94bb453c4",
+  "changed_paths": [
+    "docs/MASTER_PLAN.md",
+    "docs/WORKPLAN-2026-10-17.md",
+    "docs/WORK_PACKETS.json",
+    "docs/receipts/P00-v5-plan-claim-20261017.json",
+    "docs/v5-plan/CATALOGUE_MAP.json",
+    "docs/v5-plan/CODE_AUDIT.json",
+    "docs/v5-plan/DEFECT_MAP.json",
+    "docs/v5-plan/ENGINEERING_WORKPLAN.md",
+    "docs/v5-plan/INPUTS_AND_RISKS.md",
+    "docs/v5-plan/PR_DESCRIPTION.md",
+    "docs/v5-plan/PR_HANDOFF.md",
+    "docs/v5-plan/SOURCE_COVERAGE.json",
+    "docs/v5-plan/SOURCE_MANIFEST.json",
+    "docs/v5-plan/SOURCE_REVIEW.md",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/VALIDATION.md",
+    "docs/v5-plan/archive/MASTER_PLAN-v1-20261016.md",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/progress/V5-00.json",
+    "docs/v5-plan/progress/V5-01.json",
+    "docs/v5-plan/progress/V5-02.json",
+    "docs/v5-plan/progress/V5-03.json",
+    "docs/v5-plan/progress/V5-04.json",
+    "docs/v5-plan/progress/V5-05.json",
+    "docs/v5-plan/progress/V5-06.json",
+    "docs/v5-plan/progress/V5-07.json",
+    "docs/v5-plan/progress/V5-08.json",
+    "docs/v5-plan/progress/V5-09.json",
+    "docs/v5-plan/progress/V5-10.json",
+    "docs/v5-plan/progress/V5-11.json",
+    "docs/v5-plan/progress/V5-12.json",
+    "docs/v5-plan/progress/V5-13.json",
+    "docs/v5-plan/progress/V5-14.json",
+    "docs/v5-plan/progress/V5-15.json",
+    "docs/v5-plan/progress/V5-16.json",
+    "docs/v5-plan/progress/V5-17.json",
+    "docs/v5-plan/progress/V5-18.json",
+    "docs/v5-plan/progress/V5-19.json",
+    "docs/v5-plan/progress/V5-20.json",
+    "docs/v5-plan/progress/V5-21.json",
+    "docs/v5-plan/progress/V5-22.json",
+    "docs/v5-plan/progress/V5-23.json",
+    "docs/v5-plan/progress/V5-24.json",
+    "docs/v5-plan/progress/V5-25.json",
+    "docs/v5-plan/progress/V5-26.json",
+    "docs/v5-plan/progress/V5-27.json",
+    "docs/v5-plan/progress/V5-28.json",
+    "docs/v5-plan/progress/V5-29.json",
+    "docs/v5-plan/progress/V5-30.json",
+    "docs/v5-plan/progress/V5-31.json",
+    "docs/v5-plan/receipts/README.md",
+    "docs/v5-plan/todos/V5-00.md",
+    "docs/v5-plan/todos/V5-01.md",
+    "docs/v5-plan/todos/V5-02.md",
+    "docs/v5-plan/todos/V5-03.md",
+    "docs/v5-plan/todos/V5-04.md",
+    "docs/v5-plan/todos/V5-05.md",
+    "docs/v5-plan/todos/V5-06.md",
+    "docs/v5-plan/todos/V5-07.md",
+    "docs/v5-plan/todos/V5-08.md",
+    "docs/v5-plan/todos/V5-09.md",
+    "docs/v5-plan/todos/V5-10.md",
+    "docs/v5-plan/todos/V5-11.md",
+    "docs/v5-plan/todos/V5-12.md",
+    "docs/v5-plan/todos/V5-13.md",
+    "docs/v5-plan/todos/V5-14.md",
+    "docs/v5-plan/todos/V5-15.md",
+    "docs/v5-plan/todos/V5-16.md",
+    "docs/v5-plan/todos/V5-17.md",
+    "docs/v5-plan/todos/V5-18.md",
+    "docs/v5-plan/todos/V5-19.md",
+    "docs/v5-plan/todos/V5-20.md",
+    "docs/v5-plan/todos/V5-21.md",
+    "docs/v5-plan/todos/V5-22.md",
+    "docs/v5-plan/todos/V5-23.md",
+    "docs/v5-plan/todos/V5-24.md",
+    "docs/v5-plan/todos/V5-25.md",
+    "docs/v5-plan/todos/V5-26.md",
+    "docs/v5-plan/todos/V5-27.md",
+    "docs/v5-plan/todos/V5-28.md",
+    "docs/v5-plan/todos/V5-29.md",
+    "docs/v5-plan/todos/V5-30.md",
+    "docs/v5-plan/todos/V5-31.md",
+    "tests/test_v5_plan.py",
+    "tools/v5_dashboard.html",
+    "tools/v5_plan.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "32751570a1b6f3480eb1a73e740e21bdb9281ef228c7324d6e54af2db7db77cc",
+      "wall_seconds": 0.066
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "59183a8b7305962abfa8c6e0c97b8acb6226a97ed23a95f9a065664c96d49482",
+      "wall_seconds": 0.691
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.05
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "0b335f003a7297ee845ac7b458d404e0545110066dd385661171aa6bcbe4c6fc",
+      "wall_seconds": 0.182
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "wall_seconds": 5.011
+    },
+    {
+      "argv": [
+        "rtk",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "wall_seconds": 0.025
+    }
+  ],
+  "source_verification": [
+    {
+      "path": "final/JOIL v5 Engineering Specification.md",
+      "sha256": "7d2ad7b66d7346767e6d5478eaea018eed69ed76bd19c63e2b6eb789c6cf495d",
+      "match": true
+    },
+    {
+      "path": "final/JOIL_Final_Engineering_Specification.md",
+      "sha256": "0adbb8444b3c5bc331be14de0a764224d0f8afc86a25a35c98debe8bfa0adecd",
+      "match": true
+    },
+    {
+      "path": "final/JOIL_Final_Engineering_Specification_Synthesis.md",
+      "sha256": "bca37c15e8ef3062657598dc356fa35558b8ca3d1474e11c9415dbdef81f0245",
+      "match": true
+    },
+    {
+      "path": "final/JOIL_v5_Final_Engineering_Specification.md",
+      "sha256": "00f0d4c70dc72805d7402725697552ef70ef079f0de5b7e37cdd330f8a225e81",
+      "match": true
+    },
+    {
+      "path": "final/Joil_Engineering_Specification.pdf",
+      "sha256": "9561cc4f19651a4f07da22cc4ca8f41c271b4d380c55862a8eee69ae0d3a8b74",
+      "match": true
+    },
+    {
+      "path": "final/joil v5 Engineering Spec — Open-Ended Evolutionary Design with Hard Engineering Gates.md",
+      "sha256": "04fe7afc655aa19aa4040f9ebff38825205e34cc5c809a4c9301686f4c1c7ebf",
+      "match": true
+    },
+    {
+      "path": "final/joil1.md",
+      "sha256": "e5e99e23dd9cfce04c93564240fbfdeb8e679ebecae8f9ae481f4f3b85a203e9",
+      "match": true
+    },
+    {
+      "path": "final/joil2.md",
+      "sha256": "b6bd88c1cbce643ec13343ace3d77e3efb1540a247ee14db6050e44941d9c663",
+      "match": true
+    },
+    {
+      "path": "xfinal/JOIL_FINAL_ENGINEERING_SPEC.md",
+      "sha256": "952dc4564866ce6dd1161d9259cf0d714b6398707756419eee6a9ce9c2c4993d",
+      "match": true
+    },
+    {
+      "path": "xfinal/JOIL_v5_Final_Engineering_Specification.md",
+      "sha256": "838214f30e31396e9e8588160155a14f7a69a9a86c7ce5484b1034aab2d63d94",
+      "match": true
+    }
+  ],
+  "positive_checks": [
+    "32 packets and 160 tasks; 0 engineering tasks complete",
+    "10 source identities match originals",
+    "31 source defects and all 66 catalogue families mapped",
+    "18 plan-integrity tests pass",
+    "18 browser checks pass at desktop/mobile; no page errors or external requests",
+    "Existing generated scientific status and historical claim audit unchanged and passing"
+  ],
+  "negative_checks": [
+    "Cycles/unknown dependencies/duplicate tasks and premature activation rejected",
+    "Missing/stale/incomplete receipts and path/symlink escape rejected",
+    "Duplicate/nonfinite JSON and stale generated views rejected",
+    "Script-ending source text safely embedded",
+    "Browser local draft cannot change official task count"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/v5-plan/ENGINEERING_WORKPLAN.md",
+      "sha256": "d4a0bb94d5bfae46f259eeddba433dac6ea9afd577e81aea3221cb67d60807a5"
+    },
+    {
+      "path": "docs/v5-plan/TASKS.json",
+      "sha256": "172f6d66bb0be8efbeb66ab66eacb60a3f1d40ee29e36de7e5d91c860e37958d"
+    },
+    {
+      "path": "docs/v5-plan/dashboard.html",
+      "sha256": "8117ec634c3b6b86ab76ac90baf47ed13d88fbc36c9bdfa285217b6287acb347"
+    },
+    {
+      "path": ".private/checks/v5-plan-20261017/browser-check.cjs",
+      "sha256": "5d2c3d9aa98e137d9dddcfd21b0dcadb290184374fd0980b8c18ca722432b7d9"
+    },
+    {
+      "path": ".private/checks/v5-plan-20261017/browser-check.json",
+      "sha256": "ab349dda3e46036abda1b80f8256ead58e3ba40cd7b248f3b8a3eb9bc43c8dae"
+    },
+    {
+      "path": ".private/checks/v5-plan-20261017/dashboard-desktop.png",
+      "sha256": "0a6b5ec8c42bd79c7fe052378ebcaf78068c9355fae61f5bec84444cae32ef60"
+    },
+    {
+      "path": ".private/checks/v5-plan-20261017/dashboard-mobile.png",
+      "sha256": "72b6c457c3cc338cf21792db2838bf3d6a299e91ff4c0d9b2c4a964dfb6c5e1c"
+    }
+  ],
+  "resource_allocation": {
+    "scope": "Small planning, static/browser and unit checks only",
+    "gpu": false,
+    "simulation": false,
+    "subagents": false
+  },
+  "limitations": [
+    "No engineering implementation or science qualification is asserted",
+    "Source benchmark data and physical/model hypotheses still require future accession/experiments",
+    "CI on final pushed head will be tracked separately",
+    "Browser working notes are local scratch, not authoritative progress"
+  ],
+  "next_dependency": "Owner review; V5-00-01 begins only when implementation is requested and scope is claimed"
+}

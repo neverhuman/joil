@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "kind": "additive_tested_source_followup_pending_combined_exact_head_acceptance",
+  "packet": "V5-07",
+  "task_ids": [
+    "V5-07-05"
+  ],
+  "tested_commit": "8f9f5e0ef82a3d3557e9d4e2404ee6c62485ecdd",
+  "created_utc": "2026-10-18T05:11:47.518129+00:00",
+  "changed_paths": [
+    "crates/crucible-cli/src/lib.rs",
+    "docs/design/V5_RECOVERY.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "recovery"
+      ],
+      "exit_code": 0,
+      "log_sha256": "24ab14955010fa18d41aa334e790b0971c482514a139d0dc5e21ca5137dbcb81",
+      "wall_seconds": 45.397013896959834
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6b391d221aeed2748e704f689138f87ab1265e43f3cee30115230f65543bfa21",
+      "wall_seconds": 230.1718062449945
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "dcc951096bb805b5868f923f2f93a38b71f2b972717909d24e4a39516c3e3819",
+      "wall_seconds": 14.43869038001867
+    }
+  ],
+  "positive_checks": [
+    "Full real two-core lifecycle2/2 passes in230.17s including compile; four actual SIGKILL controls, replay/cost/fork/seed checks, and two-worker SIGINT with six charges remain active.",
+    "All9 runtime recovery controls pass, including crash reconciliation, fallback, revoked acceptance, accounting and execution clocks.",
+    "Only redundant fully-complete normal batch checkpoint publication is deferred to the next prepared/completion boundary. Initial, in-flight, partial and STOP publications are retained."
+  ],
+  "negative_checks": [
+    "Before this change the same full lifecycle failed exit101 at the unchanged60s boundary after all four attempts had committed.",
+    "Existing actual SIGKILL/current-acceptance/fallback and refusal controls pass without relaxing timeouts, thresholds, worker defaults or resource limits."
+  ],
+  "negative_controls": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "log_sha256": "d0ce266ff98585d95b6602cdf15922afabdd9605ef792406beb2d0fdb0e4cc4f",
+      "wall_seconds": 96.02449957298813
+    }
+  ],
+  "diagnostics": [],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/src/lib.rs",
+      "sha256": "a677ee30847a818f0f6c26dd7626c2d012bf2bd11d6b072437dac72a4f81a32d"
+    },
+    {
+      "path": "docs/design/V5_RECOVERY.md",
+      "sha256": "da02d18da0606c95643e5be0861807063b80fc1a5ee6d414ef858413ac125846"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      32,
+      33
+    ],
+    "ram_bytes": 6442450944,
+    "scratch_bytes": 2684354560,
+    "cargo_build_jobs": 2,
+    "numeric_threads": 1,
+    "gpu": false
+  },
+  "limitations": [
+    "This is a software serialization change; it makes no physical or host performance claim. The full official gate and exact pushed-head CI must still run after integration.",
+    "No historical receipts rewritten and no task completion or physical validation inferred from this supplement."
+  ],
+  "next_dependency": "Combined official eight-suite gate on integrated exact source head, public scan, cached-diff review and exact pushed-head CI."
+}

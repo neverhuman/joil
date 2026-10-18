@@ -1,0 +1,10 @@
+[package]
+name = "crucible-genome"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+joil-evidence = { path = "../joil-evidence" }

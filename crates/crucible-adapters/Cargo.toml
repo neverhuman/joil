@@ -1,0 +1,11 @@
+# DRAFT LANE SCAFFOLD: integrator owns final workspace registration.
+[package]
+name = "crucible-adapters"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+crucible-particles = { path = "../crucible-particles" }

@@ -1,0 +1,564 @@
+{
+  "schema_version": 1,
+  "frozen_source_commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "inventory_path": "docs/v5-plan/execution/DEFECTS.json",
+  "inventory_sha256": "5dea8125c1bb94e929504bae709b1e0eb7f9da7b144cc6bd947248b0837b27d3",
+  "scope": "Baseline source/disposition inventory.16source-only rows are not runtime/physical PASS. Future primary repairs need actual independent executed controls; unsupported physical inputs stay blocked.",
+  "records": [
+    {
+      "id": "D-01",
+      "primary_task": "V5-21-05",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      ],
+      "positive_fixture": "Same program and same descriptors reproduce the same metric.",
+      "negative_fixture": "Hold physical program fixed; change hydraulic_resistance_factor only and demand evaluator invariance.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-02",
+      "primary_task": "V5-14-04",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced_configuration_only",
+      "source_finding_sha256": [
+        "f0e7dfe812334c49c0c7b37bca1b266ff3272ab66e7f1cfdd1f5a635d9ead1dd",
+        "7041f2930235191bb6953a51c7ef112d92dd37aaa58629cc388d06de8cd861b1"
+      ],
+      "positive_fixture": "Fresh-case generator succeeds; overwrite attempt rejects.",
+      "negative_fixture": "Generate dictionaries for the same frozen subject with challenged schemes/layers/startup and independently compare admitted vortex observables; no physical run in this packet.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-03",
+      "primary_task": "V5-01-01",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "27ef494bafda0337233bf4226e8a74a542314d16f61471ffb79cfcf1a23ca601",
+        "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4"
+      ],
+      "positive_fixture": "Same stricter threshold under the consumed legacy key rejects, isolating key selection.",
+      "negative_fixture": "Alter only the canonical preregistered SNR threshold from 3 to 100; unchanged synthetic evidence must cease passing.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-python-probes.py",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-04",
+      "primary_task": "V5-09-04",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec"
+      ],
+      "positive_fixture": "Move only the cap point off-axis; current false protrusion disappears.",
+      "negative_fixture": "Supply a cap point near the axis with no sleeve; require zero protrusion.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-05",
+      "primary_task": "V5-09-03",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed",
+      "source_finding_sha256": [
+        "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+        "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+        "4c464106185364be7b6acfa9dd01e666f5ca4c6a6cc575cc48727c5a98ac6ca5"
+      ],
+      "positive_fixture": "Open connected cavity with a sufficiently wide escape path must remain accessible.",
+      "negative_fixture": "Use equal-IR artifact pairs with a sealed powder pocket versus an escape channel at a declared tool radius; require independently different powder outcomes.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-06",
+      "primary_task": "V5-01-02",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "2809c7750565dcce47cf0572b2b275e3506349f54277512ff004d4fa800da079"
+      ],
+      "positive_fixture": "Explicitly declared dropped feature raises EnactmentVerificationError.",
+      "negative_fixture": "Keep accepted artifact unchanged but alter authored expected ramp; measured delta must remain artifact-derived.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-python-probes.py",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-07",
+      "primary_task": "V5-13-02",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed",
+      "source_finding_sha256": [
+        "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957",
+        "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957"
+      ],
+      "positive_fixture": "An analytic closed solid with known volume must give density times volume in declared units.",
+      "negative_fixture": "Compare integrated volume of independently accepted solid artifacts while varying TPMS radial extent; reject a mass change unsupported by the solid.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-08",
+      "primary_task": "V5-19-02",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced_narrowed",
+      "source_finding_sha256": [
+        "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c",
+        "f0e7dfe812334c49c0c7b37bca1b266ff3272ab66e7f1cfdd1f5a635d9ead1dd"
+      ],
+      "positive_fixture": "Negative hydraulic load rejects; unchanged external demand may legitimately keep the wall stress unchanged.",
+      "negative_fixture": "Change accepted hydraulic loads and external demand independently; require the correct load descendants to change and absent allowables to block qualification.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-09",
+      "primary_task": "V5-07-01",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905"
+      ],
+      "positive_fixture": "Changed evaluator identity rejects compatibility.",
+      "negative_fixture": "Kill a nonempty fixture at every durable boundary; resumed committed logical stream and remaining budget must match uninterrupted execution.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-10",
+      "primary_task": "V5-02-01",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed",
+      "source_finding_sha256": [
+        "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+        "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+        "2e00afad5a2a3f153ac0cf2994d2c59fdabc5909713880a23e2eefddb690445f"
+      ],
+      "positive_fixture": "Explicit synthetic sandbox contract can validate software without physical admission.",
+      "negative_fixture": "Attempt qualified admission with a proposed load/PDR/passage or missing pressure limit; require an explicit unresolved dependency list.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-11",
+      "primary_task": "V5-18-03",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      ],
+      "positive_fixture": "At zero reject, feed and treated denominators coincide; nonzero reject isolates missing division.",
+      "negative_fixture": "Use nonzero reject fraction and unequal outlet pressure work; independently divide loss power by treated flow.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-12",
+      "primary_task": "V5-04-01",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "d2b565cb16e2f94ff32a1dbde0b228c1f8d117fb74cb3f21a8709f99ed668b67"
+      ],
+      "positive_fixture": "Nonindependent preparation flag rejects; a declared prospective power design is separate.",
+      "negative_fixture": "At n=5 compare the returned lower bound with the independently integrated t4 density; reject anti-conservative critical value.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-13",
+      "primary_task": "V5-17-01",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "25c919457542dcb6532798d2adf7c43782ebda3a7b899cf90b6b5d032bc731e0"
+      ],
+      "positive_fixture": "Excess LES dispersion energy rejects; a constant valid covariance has an independently uniform invariant distribution.",
+      "negative_fixture": "Run a uniform tracer ensemble through independently prescribed inhomogeneous covariance with drift removed; require detection of biased stationary density.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-14",
+      "primary_task": "V5-16-02",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed",
+      "source_finding_sha256": [
+        "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d",
+        "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d",
+        "d864df7c0c31d51211711a3f87b0d1f4543bb7c5ea2e98fcf30edc46fabcc51d"
+      ],
+      "positive_fixture": "Passive-tracer split oracle must preserve inlet concentration; wall/in-domain inventory never counts as capture.",
+      "negative_fixture": "Use two inlet faces with equal speed and unequal inward normals/areas; represented mass must follow inward flux, and retained oil must block complete-cohort Cout.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-15",
+      "primary_task": "V5-08-04",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "contract_mismatch_reproduced",
+      "source_finding_sha256": [
+        "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+        "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5"
+      ],
+      "positive_fixture": "Check units explicitly and verify unchanged total length cannot mask moved taper/tail transition.",
+      "negative_fixture": "Compare each region/terminal dimension independently with frozen genome arithmetic, not only total length.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-python-probes.py",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-16",
+      "primary_task": "V5-08-02",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed_hypothesis_unresolved",
+      "source_finding_sha256": [
+        "ebd876e6c5d890c930f045e54a7583fb1ae8253ce7040af5cfcbb2328271b957",
+        "98efa48597f6e5edb00abf3810359d9b826d30ecac21342c2b244631cca28460",
+        "ecd52016a7fe667c8c055e1bac26a66e6cf0ef4b3b8d3a6a94f5a934fa009120"
+      ],
+      "positive_fixture": "Exact inactive baseline and a simple analytic cylindrical section must agree across implementations.",
+      "negative_fixture": "Evaluate a declared ramp/ribbon/TPMS corpus on common SI sample points and accepted boundary artifacts; reject disagreement beyond approximation bounds.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-17",
+      "primary_task": "V5-01-04",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed_no_gpu_execution",
+      "source_finding_sha256": [
+        "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab",
+        "589ff6b5a1fa64fcbd71e6312b2e449263d53f23427bee2f20cef93a4f6fb60c"
+      ],
+      "positive_fixture": "Explicitly disabled GPU path produces no audit side effects.",
+      "negative_fixture": "Place a recording fake executable at the optional CUDA boundary; absent explicit leased opt-in must create no child process, while an explicit bounded request records exact arguments.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-18",
+      "primary_task": "V5-23-04",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed_performance_unmeasured",
+      "source_finding_sha256": [
+        "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      ],
+      "positive_fixture": "Single-core lease limits active tasks to one and never overcommits memory.",
+      "negative_fixture": "Bounded fake evaluator with a concurrency counter must show leased scheduling rather than unbounded fanout or hidden serial work.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-19",
+      "primary_task": "V5-06-04",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced_synthetic_topology",
+      "source_finding_sha256": [
+        "614952d72ea54ce4ddca16bbc5f0ab7c450b094da3eff7acfe333f00d8b48159"
+      ],
+      "positive_fixture": "Distinct package/core IDs are admitted only inside the active lease.",
+      "negative_fixture": "Supply explicit package/core sibling mapping and request both threads as two cores; require rejection.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-20",
+      "primary_task": "V5-26-01",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "614952d72ea54ce4ddca16bbc5f0ab7c450b094da3eff7acfe333f00d8b48159",
+        "eba322816ff0ad357f4fa60f589e1a22aac910a7bc0b3cc8eeef22e82afcb710"
+      ],
+      "positive_fixture": "Matching surface/manifest digest succeeds; empty, changed and cross-subject digests reject.",
+      "negative_fixture": "Swap governing STL identity while retaining surface; verify exact accepted artifact dependency rather than nonempty text.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-21",
+      "primary_task": "V5-01-04",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed",
+      "source_finding_sha256": [
+        "77d32c1c3474d06e0fe90af5f9a4ef808f5874f8d4c5c6a834b5d446a25373db",
+        "614952d72ea54ce4ddca16bbc5f0ab7c450b094da3eff7acfe333f00d8b48159"
+      ],
+      "positive_fixture": "A real subject/time/field-bound trajectory manifest can display its measured scope.",
+      "negative_fixture": "Feed a scene with no native trajectory evidence; UI must label unavailable/schematic and refuse coupled transport wording.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-22",
+      "primary_task": "V5-26-04",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed",
+      "source_finding_sha256": [
+        "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      ],
+      "positive_fixture": "A verified modal table binds frequency, subject, load/material and units before plotting.",
+      "negative_fixture": "Remove modal evidence and rerender recipe; demand an unavailable card rather than a fabricated 418Hz result.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-23",
+      "primary_task": "V5-28-04",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced",
+      "source_finding_sha256": [
+        "45b3f5fd9d8362674f1f52b46d5aeefe0e4581ecb7d371fb84ce43d653c81b6c",
+        "45b3f5fd9d8362674f1f52b46d5aeefe0e4581ecb7d371fb84ce43d653c81b6c"
+      ],
+      "positive_fixture": "A correct exact query with declared unit conversion and rounding can pass.",
+      "negative_fixture": "Change observable/unit/source while retaining a near-equal scalar; exact-query provenance must reject it.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-python-probes.py",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-24",
+      "primary_task": "V5-01-05",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed",
+      "source_finding_sha256": [
+        "eba322816ff0ad357f4fa60f589e1a22aac910a7bc0b3cc8eeef22e82afcb710",
+        "eba322816ff0ad357f4fa60f589e1a22aac910a7bc0b3cc8eeef22e82afcb710"
+      ],
+      "positive_fixture": "Fresh private output path succeeds; existing historical destination is rejected before evaluation.",
+      "negative_fixture": "Invoke a minimal output command against an existing sentinel in a private directory; require failure and byte-preserved sentinel.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-25",
+      "primary_task": "V5-11-05",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_policy_conflict_confirmed",
+      "source_finding_sha256": [
+        "7521d8334604130f8bfbe54ac9738fc41cca359151f47664890c8fcd50514095"
+      ],
+      "positive_fixture": "Deterministic bounded software operators remain eligible for software testing.",
+      "negative_fixture": "Attempt to register an agent-backed evolutionary operator; policy admission must reject before proposals are generated.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-26",
+      "primary_task": "V5-09-02",
+      "inventory_evidence_kind": "behavior_probe_recorded",
+      "baseline_disposition": "runtime_reproduced_contract_ambiguity",
+      "source_finding_sha256": [
+        "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+        "4c464106185364be7b6acfa9dd01e666f5ca4c6a6cc575cc48727c5a98ac6ca5"
+      ],
+      "positive_fixture": "Boundary sphere (1,0,1) and volume ball (1,0,0) are both correct within their declared domain.",
+      "negative_fixture": "Use independently constructed ball and solid torus volume complexes and their separate boundaries; never compare unlike Betti tuples.",
+      "behavior_probe_recorded_at_baseline": true,
+      "runtime_probe": "docs/receipts/v5-00-rust-probes.rs",
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-27",
+      "primary_task": "V5-05-05",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "policy_gap_confirmed_not_legal_advice",
+      "source_finding_sha256": [
+        "f99661ec0885b4bbc9016606c6bf941e4e98f71c79a19004728720f38a381710"
+      ],
+      "positive_fixture": "Explicitly reviewed public source/plan files may pass the existing publication scan.",
+      "negative_fixture": "Attempt public export of a private candidate artifact without an owner-admitted disclosure class; require refusal.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-28",
+      "primary_task": "V5-00-05",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "current_policy_resolved_for_workers",
+      "source_finding_sha256": [
+        "08b88ff8ea3853745fac524fa387f6dc90ed65b441e49b24f228b2d40ca72b0a",
+        "f64dd4d8a716ac65b2c10c21f79147eda749560dc8d9ec73fbf7674d24a6af0b"
+      ],
+      "positive_fixture": "Current private acknowledgements name exact disjoint scopes and active lease; V5-01 stays gated.",
+      "negative_fixture": "Treat a proposed path allocation without the target worker acknowledgement as a grant; ownership check must reject.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-29",
+      "primary_task": "V5-03-05",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "design_debt_source_fact",
+      "source_finding_sha256": [
+        "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab",
+        "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec"
+      ],
+      "positive_fixture": "Allowed units/contract/artifact-only dependency graph remains valid.",
+      "negative_fixture": "Add a deliberately indirect normal/build/dev dependency from a blind judge to genome metadata; architecture traversal must reject.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-30",
+      "primary_task": "V5-31-02",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "source_fact_confirmed_parity_unresolved",
+      "source_finding_sha256": [
+        "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c",
+        "ee090ae4396ff2d0dc43aaa6cf2282a78a6aa7e6a76b84cb79b8abe08672e77d",
+        "701c72e3dbd2c38a97c95ff8695deb040cb5daf90ad8f731bbfbbdebe889456e"
+      ],
+      "positive_fixture": "Analytic monotone refinement and tracer concentration supply independent positive oracles.",
+      "negative_fixture": "Inject oscillatory/nonasymptotic sequences and unit/basis drift into each consumer; require consistent explicit uncertainty states, without making one implementation the oracle.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    },
+    {
+      "id": "D-31",
+      "primary_task": "V5-28-04",
+      "inventory_evidence_kind": "source_only_inventory",
+      "baseline_disposition": "design_debt_source_fact",
+      "source_finding_sha256": [
+        "d9fbb2611a3f3c429b8abbbcff639d1b9558edadabeee3fd2ab9be6e32beadb0",
+        "45b3f5fd9d8362674f1f52b46d5aeefe0e4581ecb7d371fb84ce43d653c81b6c"
+      ],
+      "positive_fixture": "A live exact-query dependency chain remains reconstructible offline.",
+      "negative_fixture": "Revoke a claim source or change its unit/subject while retaining a numeric match; exact query consumer must invalidate the displayed claim.",
+      "behavior_probe_recorded_at_baseline": false,
+      "runtime_probe": null,
+      "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
+      "physical_qualification": false
+    }
+  ],
+  "accepted_prior_primary_receipts": [
+    {
+      "defect_id": "D-10",
+      "task_id": "V5-02-01",
+      "receipt": {
+        "path": "docs/receipts/v5-02-01-completed-20261017.json",
+        "sha256": "aa6eb687f2f02bcc59719e827229c2cd0ded141cb91e6dd72e036e6bf4cb4732"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-17",
+      "task_id": "V5-01-04",
+      "receipt": {
+        "path": "docs/receipts/v5-01-integrator-04-20261018.json",
+        "sha256": "acceba8b48c662c925f5443fcb2ea5cd4abbee308d4b9599acb45fa35d2d5ccf"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-21",
+      "task_id": "V5-01-04",
+      "receipt": {
+        "path": "docs/receipts/v5-01-integrator-04-20261018.json",
+        "sha256": "acceba8b48c662c925f5443fcb2ea5cd4abbee308d4b9599acb45fa35d2d5ccf"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-24",
+      "task_id": "V5-01-05",
+      "receipt": {
+        "path": "docs/receipts/v5-01-integrator-05-20261018.json",
+        "sha256": "d9baed45d754e55094a8f9972691d9643821643186899007ca9264a339865abe"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-27",
+      "task_id": "V5-05-05",
+      "receipt": {
+        "path": "docs/receipts/v5-05-combined-retention-export-20261018.json",
+        "sha256": "1c5b32b09dc53f52eac8bdbaeac8d0276ece7f3faf4cf9e8eaee537613255304"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-28",
+      "task_id": "V5-00-05",
+      "receipt": {
+        "path": "docs/receipts/v5-00-05-completed-20261017.json",
+        "sha256": "52f14d3e9320be991874b6b57ebe219c29a4f651d49445213ddb634a324b302a"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-29",
+      "task_id": "V5-03-05",
+      "receipt": {
+        "path": "docs/receipts/v5-03-combined-acceptance-20261018.json",
+        "sha256": "92c43aab2b7d7ab955583ec5e1a473bf171dda3ecab29471bfd95594e9d0e49b"
+      },
+      "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    }
+  ],
+  "closure_gate": "Every new source-only primary repair receipt requires tracked/hash-bound independent fixture, frozen source binding, executed positive and nonzero red-control command/log identities. Seven exact already accepted primary software row/receipt references are retained at cutover; nine remaining source-only primary tasks are open."
+}

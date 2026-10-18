@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "kind": "v5_09_lane_completion_not_integration_or_scientific_acceptance",
+  "task_ids": [
+    "V5-09-01",
+    "V5-09-02",
+    "V5-09-03",
+    "V5-09-04",
+    "V5-09-05"
+  ],
+  "owner": "codex_lane2",
+  "state": "lane_complete",
+  "created_utc": "2026-10-18T04:21:27.523774+00:00",
+  "tested_commit": "ae428ec0374c5a247875a52f92737f1e0300300f",
+  "base_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+  "changed_paths": [
+    "Cargo.lock",
+    "Cargo.toml",
+    "crates/crucible-geom/Cargo.toml",
+    "crates/crucible-geom/src/lib.rs",
+    "crates/crucible-geom/src/observe/README.md",
+    "crates/crucible-geom/src/observe/clearance.rs",
+    "crates/crucible-geom/src/observe/distance.rs",
+    "crates/crucible-geom/src/observe/enactment.rs",
+    "crates/crucible-geom/src/observe/mesh.rs",
+    "crates/crucible-geom/src/observe/mod.rs",
+    "crates/crucible-geom/src/observe/topology.rs",
+    "crates/crucible-geom/src/observe/volume.rs",
+    "crates/crucible-geom/tests/observers.rs",
+    "docs/receipts/v5-09-claim-20261018T034816Z.json",
+    "tests/fixtures/v5-geometry/ball.json",
+    "tests/fixtures/v5-geometry/disconnected.json",
+    "tests/fixtures/v5-geometry/hollow-ball.json",
+    "tests/fixtures/v5-geometry/oracles.json",
+    "tests/fixtures/v5-geometry/solid-torus.json"
+  ],
+  "source_sha256": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "9cd1694118d49593dc0ddeafffd406662f6913a2fe4086e4e7889686a949f584"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "4baf209e7eee1e9f54f4abf9dda811c4ccedafb8904a860caa94fcb53a37b5ee"
+    },
+    {
+      "path": "crates/crucible-geom/Cargo.toml",
+      "sha256": "e28b658dab0a7e3bd6f3b622bedc87911741837f5b05ba112d58ded09839400b"
+    },
+    {
+      "path": "crates/crucible-geom/src/lib.rs",
+      "sha256": "c5bb0e13355767d0cbd141173d34313475b6f840bb90b5d68d71bc997ee15d8e"
+    },
+    {
+      "path": "crates/crucible-geom/src/observe/README.md",
+      "sha256": "ead784a4f2a1d7e9d1a6e27b19b3a12b087031dfe556ccf68226bcfaedbffa53"
+    },
+    {
+      "path": "crates/crucible-geom/src/observe/clearance.rs",
+      "sha256": "4ff1a7847361b829c7d163f04a3f00cc65f8c1e22739c1f387e7d7be7dcf7264"
+    },
+    {
+      "path": "crates/crucible-geom/src/observe/distance.rs",
+      "sha256": "f866a9e5ccaec17eb5693bef353b5a69eec98e682b5b30335235ba675294b0bb"
+    },
+    {
+      "path": "crates/crucible-geom/src/observe/enactment.rs",
+      "sha256": "a719a19dd55304956c65a2d7b67ab5b1d669dd0d07e06f80b3f72c737f6aea29"
+    },
+    {
+      "path": "crates/crucible-geom/src/observe/mesh.rs",
+      "sha256": "48ed68eaa6fabc375be1fe777b364db0d5d17edd01a722b0d763f86912f2123a"
+    },
+    {
+      "path": "crates/crucible-geom/src/observe/mod.rs",
+      "sha256": "3a5cdabe2b85bc2d2212fbda98a1bc250bd800f5b7a4ae279ae8792b452b1d97"
+    },
+    {
+      "path": "crates/crucible-geom/src/observe/topology.rs",
+      "sha256": "b51d6542a992bec18c8a13eb044af8ecb50a6fdebd219643c393751acd08e252"
+    },
+    {
+      "path": "crates/crucible-geom/src/observe/volume.rs",
+      "sha256": "75f6fdeb5fad6325f1f7b6ae49731baa11b3213ebf7c0c04d27c99945df1eac4"
+    },
+    {
+      "path": "crates/crucible-geom/tests/observers.rs",
+      "sha256": "d044eda78e6a06d12cb76db7a600e7b3b42af93ce7cb41f28803ee5722295ffd"
+    },
+    {
+      "path": "docs/receipts/v5-09-claim-20261018T034816Z.json",
+      "sha256": "a1abae7498bfd72ae270988a76a3d5733ec73705ebe8195f4f90b733bf51d9a4"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/ball.json",
+      "sha256": "cfae6d87c26b16793dc6a26a3bae3f95eaf88652270a3242fdc405464158d166"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/disconnected.json",
+      "sha256": "687aba51c99144278ce460a1b2189ed0f62c5a98ec2ad438a51965909783cb94"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/hollow-ball.json",
+      "sha256": "c7cdcf061dbf8c99d824b8dec0f4be837e1097d3d035a5cbc774c3f9c93d3573"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/oracles.json",
+      "sha256": "006822918330abb6f75720e7a895d84d69bd7dd474f0e93fadd954ef28813442"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/solid-torus.json",
+      "sha256": "33f966858bd52173afe8fd3e6434278c20fda3734548498818d7476a67314cad"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "observers"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 5.168419623048976,
+      "log_identifier": "private:codex_lane2/logs/observers-final.log",
+      "log_sha256": "01be7fa0828edb27ea7a58893c2fc7c9e19944a82d2654f8a305eb2467b327b1",
+      "peak_group_rss_bytes_sampled": 45744128,
+      "peak_scratch_bytes_sampled": 255125919
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "observers"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 5.473591638030484,
+      "log_identifier": "private:codex_lane2/logs/observers-raw.log",
+      "log_sha256": "b885c17cb494e7f53a7ef4e4bce2a1782e7c22c1504b35da7ce8d13a9daa2e07",
+      "peak_group_rss_bytes_sampled": 46362624,
+      "peak_scratch_bytes_sampled": 1545815193
+    },
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-geom",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.040126756997779,
+      "log_identifier": "private:codex_lane2/logs/clippy-final.log",
+      "log_sha256": "caa636ec9c7cba2c4f265005f356629e3a1e8fe35395de581375a782de9931bc",
+      "peak_group_rss_bytes_sampled": 2088960,
+      "peak_scratch_bytes_sampled": 255126645
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.1318172499886714,
+      "log_identifier": "private:codex_lane2/logs/public-source-final.log",
+      "log_sha256": "ed70a78ca445eb3dbe4a46bc12ddd42943eb50b8f828121df724ed43b2ec89df",
+      "peak_group_rss_bytes_sampled": 1658880,
+      "peak_scratch_bytes_sampled": 1545815193
+    },
+    {
+      "argv": [
+        "rtk",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.1285014820168726,
+      "log_identifier": "private:codex_lane2/logs/diff-source-final.log",
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "peak_group_rss_bytes_sampled": 9527296,
+      "peak_scratch_bytes_sampled": 1545815193
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 154.44407543900888,
+      "log_identifier": "private:codex_lane2/logs/foundation-source.log",
+      "log_sha256": "b759221446be7b1bd2711595b8c75bfa74bef3e010545a9ecdc51c76a906e256",
+      "peak_group_rss_bytes_sampled": 925171712,
+      "peak_scratch_bytes_sampled": 1516545250
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle"
+      ],
+      "exit_code": 101,
+      "elapsed_seconds": 61.943273434008006,
+      "log_identifier": "private:codex_lane2/logs/lifecycle-recheck.log",
+      "log_sha256": "af277ffb64b35f12501b7bf700ebceb7cdf0d76567a7439c3962c8a07403c7a2",
+      "peak_group_rss_bytes_sampled": 114548736,
+      "peak_scratch_bytes_sampled": 1545812330
+    }
+  ],
+  "positive_checks": [
+    "15 observer integration tests passed with zero ignored tests; raw test names retained",
+    "Mutation of independently accepted mesh bytes changes observed volume; stale binding rejects before measurement",
+    "Two GF2 volume complexes agree on digital ball (1,0,0), annular solid torus (1,1,0), hollow ball (1,0,1) and disconnected bodies (2,0,0)",
+    "All 256 subsets of a 2x2x2 closed-cube block match their independent contractibility/empty oracle",
+    "Boundary homology is separately measured and typed; sphere boundary is (1,0,1)",
+    "Generic tagged port reachability and solid support attachment use actual partition cells",
+    "Wider powder throat yields a retained finite-clearance witness path and bottleneck",
+    "Analytic tube wall, asymmetric box volume/area/moments, rotated port planes and whole-patch gap bounds meet fixed fixture tolerances",
+    "Both signs of each declared active parameter develop actual bound artifacts; TPMS mass equals density times the same accepted solid-cell volume"
+  ],
+  "negative_checks": [
+    "Mesh-ignoring observer fails the mutation oracle; wrong subject, digest, changed bytes, duplicate/unknown JSON fields and nonfinite values reject",
+    "Open, reversed, duplicate and point-touch nonmanifold surfaces reject; point contact does not conduct fluid",
+    "Connected but finite-radius-inaccessible powder pocket fails; sealed pocket is isolated; unresolved/subvoxel throat cannot pass; zero powder escape diameter is invalid",
+    "Non-star enclosed cavity, rotation and narrow breakthrough defeat synthetic radial/envelope proxies; floating point gap estimate cannot upgrade conservative lower bound",
+    "No-op radial_inner_fraction is Neutral with identical physical deduplication ID and measured mass; Unsupported and failed development remain separate",
+    "Underrepresented parameter steps reject before development; unresolved geometry and changes within input error cannot earn Changed or mass credit",
+    "Budget/overflow failures return typed errors, never physical infeasibility",
+    "Broader repository gate FAILED on unchanged CLI lifecycle child60second bound, then the exact test failed again; no timeout or unowned source was changed"
+  ],
+  "artifacts": [
+    {
+      "identifier": "private:codex_lane2/source-inventory.json",
+      "sha256": "901a1be74583d01e9723af1f6e28b7ac8e83d6d7d06e1da6de7570da1bec568d"
+    },
+    {
+      "identifier": "private:codex_lane2/lifecycle-unchanged-source.json",
+      "sha256": "2bc59cd38f30e69a916b24572f16817f76852e87f35b0d208785477a8aae2c5b"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/ball.json",
+      "sha256": "cfae6d87c26b16793dc6a26a3bae3f95eaf88652270a3242fdc405464158d166"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/disconnected.json",
+      "sha256": "687aba51c99144278ce460a1b2189ed0f62c5a98ec2ad438a51965909783cb94"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/hollow-ball.json",
+      "sha256": "c7cdcf061dbf8c99d824b8dec0f4be837e1097d3d035a5cbc774c3f9c93d3573"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/oracles.json",
+      "sha256": "006822918330abb6f75720e7a895d84d69bd7dd474f0e93fadd954ef28813442"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/solid-torus.json",
+      "sha256": "33f966858bd52173afe8fd3e6434278c20fda3734548498818d7476a67314cad"
+    }
+  ],
+  "draft_scaffolding_to_drop_at_integration": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "crates/crucible-geom/Cargo.toml",
+    "crates/crucible-geom/src/lib.rs"
+  ],
+  "draft_v5_08_assumptions": {
+    "preview_sha256": "9e29d2ec02d840979e60f342e376906564a21804aa5d62513e474572fed873df",
+    "preview_contract_sha256": "489233bafaf46847529634e2b6427f704ae11b1dad89d8c98509a63fc1423a3f",
+    "preview_reference_sha256": "3035136d9fd9662f867cf5e732a2af6083e76a2c3a96764adc16884c4a7dc51a",
+    "preview_coverage_sha256": "f3443150bbd8bc55d5b302f1d1d552d527bb60dabfc03cce6c81a813112bfd41",
+    "interface": [
+      "Finite SI coordinates; field values are not automatically exact distances",
+      "One complementary material partition; no independent solid/fluid authorities",
+      "Existing crucible-contract VerifiedSubject/ArtifactRef is the accepted entry boundary; no kernel or genotype import",
+      "Observer-owned draft observer-cubical-volume/1 JSON under NativeVolumeMesh needs explicit V5-08/10 negotiation; arbitrary native formats are Unsupported",
+      "Artifact acceptance owns correspondence/coverage of contract-tagged ports and governing patches",
+      "Root crate name and final observe export are integrator-owned; current V5-08 joil-geometry work may require relocating/re-exporting these owned leaf modules"
+    ],
+    "missing_planned_read": "docs/design/V5_GEOMETRY.md absent"
+  },
+  "resource_allocation": {
+    "cpus": [
+      38,
+      39
+    ],
+    "nice": 10,
+    "max_group_rss_gib": 6,
+    "max_scratch_gib": 2.5,
+    "cargo_build_jobs": 2,
+    "rayon_threads": 2,
+    "omp_openblas_mkl_threads": 1,
+    "rust_test_threads": 2,
+    "gpu": false,
+    "simulation": false,
+    "search_campaign": false,
+    "lease_at_assignment_sha256": "8a319194e0152ec8368f3fac2012ac5a9d818126d4076e7994997afb5eafbf08",
+    "lease_reread_sha256": "7cfd77fdee9585c3d8536d3839872d708c255f499202ac147f736bd7fabea7ac",
+    "lease_change": "routing metadata only; allocation/expiry unchanged",
+    "guard_scope": "Captain clarified existing workers use runtime limits; 70load/40GiB guard applies to new lane launches"
+  },
+  "scientific_eligibility": "synthetic software fixtures only; no geometry/physics/manufacturing qualification",
+  "canonical_tasks_done": false,
+  "integration_accepted": false,
+  "publication": {
+    "branch_push": "withheld because repository required gate failed",
+    "integration_pr_changed": false
+  },
+  "limitations": [
+    "Full repository gate did not pass; later baseline/Python/claims/UI steps were not executed by the failing gate",
+    "CLI/runtime source and all existing locked packages are unchanged from the lane base; no claim of an unchanged-main execution",
+    "Volume format is a draft ABI; bounded to 4096 cells and 512 occupied cells for homology, with explicit reduction budget",
+    "Finite-complex topology does not certify nominal-CAD or subcell topology; unresolved cells remain unresolved",
+    "Surface integrals do not establish self-intersection absence or nested-shell material orientation; accepted review remains necessary",
+    "Gap bounds apply to all supplied corresponding patches only; loose bounds remain unresolved for downstream gates",
+    "Powder escape is conservative cell-centre accessibility, not measured residual powder mass or calibrated manufacturing eligibility",
+    "Frozen differences require complete registered masks on aligned grids; cross-grid nominal equivalence is Unsupported",
+    "Active parameter enumeration and representation scales must be supplied by development; observers cannot inspect genotype",
+    "Mass density source qualification and actual process/material applicability remain external; deduplication proves representation equality only"
+  ],
+  "next_dependency": "Integrator accepts V5-08 partition/artifact ABI and V5-10 readers, adopts only owned leaf files, resolves repository CLI lifecycle gate in its owned scope, then reruns full gates and exact-head CI before accepting tasks."
+}

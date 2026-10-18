@@ -1,0 +1,63 @@
+{
+  "kind": "synthetic_finite_geometry_oracles",
+  "units": "metres",
+  "not_physical_validation": true,
+  "fixtures": [
+    {
+      "file": "ball.json",
+      "volume_betti": [
+        1,
+        0,
+        0
+      ],
+      "boundary_betti": [
+        1,
+        0,
+        1
+      ],
+      "oracle": "Contractible digital ball; square annular prism; closed 3x3x3 shell minus centre; two separated cubes, respectively. Homeomorphism types, not sampled genus guesses."
+    },
+    {
+      "file": "solid-torus.json",
+      "volume_betti": [
+        1,
+        1,
+        0
+      ],
+      "boundary_betti": [
+        1,
+        2,
+        1
+      ],
+      "oracle": "Contractible digital ball; square annular prism; closed 3x3x3 shell minus centre; two separated cubes, respectively. Homeomorphism types, not sampled genus guesses."
+    },
+    {
+      "file": "hollow-ball.json",
+      "volume_betti": [
+        1,
+        0,
+        1
+      ],
+      "boundary_betti": [
+        2,
+        0,
+        2
+      ],
+      "oracle": "Contractible digital ball; square annular prism; closed 3x3x3 shell minus centre; two separated cubes, respectively. Homeomorphism types, not sampled genus guesses."
+    },
+    {
+      "file": "disconnected.json",
+      "volume_betti": [
+        2,
+        0,
+        0
+      ],
+      "boundary_betti": [
+        2,
+        0,
+        2
+      ],
+      "oracle": "Contractible digital ball; square annular prism; closed 3x3x3 shell minus centre; two separated cubes, respectively. Homeomorphism types, not sampled genus guesses."
+    }
+  ]
+}

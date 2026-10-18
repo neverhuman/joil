@@ -1,0 +1,17 @@
+{
+  "mechanical_loss": {
+    "op": "constant",
+    "quantity": {
+      "unit": "mechanical_loss_watt",
+      "value": 10.0
+    }
+  },
+  "op": "energy_per_treated_volume",
+  "treated_flow": {
+    "op": "constant",
+    "quantity": {
+      "unit": "treated_cubic_metre_per_second",
+      "value": 0.002
+    }
+  }
+}

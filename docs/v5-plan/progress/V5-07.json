@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "packet": "V5-07",
+  "tasks": {
+    "V5-07-01": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-07-01-completed-20261017.json",
+          "sha256": "d78f59240ea4b1e2e734cf546208258ec709cdca8f579508e0054b45c1c95daa"
+        }
+      ]
+    },
+    "V5-07-02": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-07-02-completed-20261017.json",
+          "sha256": "eb79b40184975e7d7a36b26aa94c03832a0c68a7f6b6440cc6049f4c1ed4d11f"
+        }
+      ]
+    },
+    "V5-07-03": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-07-03-completed-20261017.json",
+          "sha256": "10d02079d34c7f802042078ec65824c90b91be8f4ec3b4f31ff1c873cfb024fa"
+        }
+      ]
+    },
+    "V5-07-04": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Accepted source96d: actual fresh-origin full1/2-worker runs and resumed run match logical state, retain distinct real costs;13 commands, raw343-file inventory, full workspace and exact9CI pass. No physical performance claim.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-07-current-combined-acceptance-20261018.json",
+          "sha256": "047eceeb69c9c26166d6bb86299669fb6a109ec3213f17cf6af96a64a3b83998"
+        }
+      ]
+    },
+    "V5-07-05": {
+      "status": "review",
+      "owner": "codex-v5-integrator",
+      "note": "New8f9 checkpoint source: real full2core lifecycle2/2 and recovery9/9 pass; new pipe/origin follow-up receipts preserve actual earlier reds. Held in review until combined integrated full gate and exact pushed-head CI; no physical claim.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-07-complete-epoch-checkpoint-followup-20261018.json",
+          "sha256": "b1850a682c3bda2db7383da642655dd3c13845443b94ce3c5aeb247a332a52fc"
+        }
+      ]
+    }
+  }
+}

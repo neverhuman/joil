@@ -1,7 +1,10 @@
-//! Hard F0 Red-Team Geometry, Interface, and Manufacturing Gate (`redteam.rs`).
+//! Partial F0 red-team geometry, interface and manufacturing sandbox screen (`redteam.rs`).
 //!
 //! Modeled after `~/jarambit/crates/redteam`: every candidate and every Monte Carlo perturbation
-//! must pass this deterministic gate before receiving any performance score.
+//! must pass this deterministic screen before receiving any sandbox score. The screen is
+//! incomplete (`V5-01-02`): trapped powder, enclosed fluid cavities and topology are not measured,
+//! so a pass is never complete F0/geometry qualification. `unevaluated_geometry_facts` lists what
+//! was not evaluated; those facts block qualification.
 
 use crate::geometry::baseline;
 use crate::phenotype::{Phenotype3D, SolidMesh};
@@ -87,6 +90,8 @@ pub fn check(
         rejects.push(RedTeamReject::NonManifoldOrInwardMesh);
     }
 
+    // A nonzero legacy count (extra mesh shells or disconnected IR occupancy) rejects; zero is not
+    // evidence that no powder or enclosed cavity exists (see `unevaluated_geometry_facts`).
     if pheno.trapped_cavities != 0 {
         rejects.push(RedTeamReject::TrappedPowderOrFluidCavity);
     }
@@ -109,4 +114,29 @@ pub fn check(
     } else {
         Err(rejects)
     }
+}
+
+/// Cavity and topology facts the screen did not evaluate for `pheno` (`V5-01-02`).
+/// A passing `check` with a non-empty list is an incomplete sandbox screen. Records without
+/// observation status, including legacy defaults, are reported as unevaluated.
+pub fn unevaluated_geometry_facts(pheno: &Phenotype3D) -> Vec<String> {
+    let mut facts = Vec::new();
+    if let joil_ir::GeometryCountObservation::NotMeasured { reason } =
+        &pheno.trapped_powder_cavity_observation
+    {
+        facts.push(if reason.starts_with("trapped_powder_cavities") {
+            reason.clone()
+        } else {
+            format!("trapped_powder_cavities: {reason}")
+        });
+    }
+    match &pheno.observed_geometry {
+        Some(g) => facts.extend(g.unmeasured_facts.iter().cloned()),
+        None => {
+            facts.push("observed_geometry missing: cavity and topology facts not evaluated".into())
+        }
+    }
+    facts.sort();
+    facts.dedup();
+    facts
 }

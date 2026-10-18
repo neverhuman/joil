@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-01"
+  ],
+  "kind": "baseline_inventory_review_receipt",
+  "status": "review_git_metadata_blocked",
+  "created_utc": "2026-10-17T20:56:59.780091+00:00",
+  "tested_commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "tested_commit_meaning": "Frozen source snapshot checked by this receipt; new inventory/checker are not committed because git metadata writes are denied. No packet acceptance claimed.",
+  "changed_paths": [
+    "docs/v5-plan/execution/BASELINE.json",
+    "docs/receipts/v5-00-checks.py",
+    "docs/receipts/v5-00-claim-20261017.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "docs/receipts/v5-00-checks.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "766aaf0064c981e5ede99f1139d7cf1c43bd5f24e8f841f3d9b5383d3b896cc1",
+      "wall_seconds": 0.13442053500330076
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b51570b24a97a72570611d2e81bffff2cb748d7a9b6c69c8e1b2c349ff7f376f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "rev-parse",
+        "main"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fe029a3468e5803fb84181f2d8e2b9df0c427f7803fda1838ef81f72ccd283c5"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "rev-parse",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log_sha256": "715af71e259dcfa2207ad2be724232fb4dda3b0226d7af570ab7d369f9f4c5cc"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "diff",
+        "--name-status",
+        "cc86edc90d06f0eac69022f84354abc94bb453c4",
+        "main"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3e739abda6b4833479bbbbdb9413c4e6be45803f8887090a2a4127a1ddc2e983"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "diff",
+        "--name-status",
+        "cc86edc90d06f0eac69022f84354abc94bb453c4",
+        "origin/main"
+      ],
+      "exit_code": 0,
+      "log_sha256": "07a1b4ca722a1a204cde527a10f1ecfed17fe5241987f4567c40e0da9606d570"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "diff",
+        "--name-only",
+        "cc86edc90d06f0eac69022f84354abc94bb453c4",
+        "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b59ef63f1c7c2b5720513661114e09f66977a1f1bc23832adbc95dc72e7aca38"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all"
+      ],
+      "exit_code": 0,
+      "log_sha256": "63f899cefecbe9e9da0596a56843d01ee41f9175a8b8c98e1e3b4f9197bbfab7"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3de09dc1d53ded3ccc63d943baf69c86560561ad5302c01c0668f046af2289ae"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "rustc",
+        "-Vv"
+      ],
+      "exit_code": 0,
+      "log_sha256": "4fdff2578428e9c5c08ddd7a0d3079c1a106b1cdaa46e73e46f7cd32b0fb9cad"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "-V"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c10ec31b8c6e6e2693cf65fc1971b41edbc3da1ae7db6f9f3f36c4823f8dcab5"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "--version"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5b3e43dc38ca01e3f5a7854ba50d4330864b0c1e0f646650b2c78cf072acc366"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2ca995cc259b7733f154600fc48973f1dcd71a53749f37176548c8516beeda94"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "--version"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3dbc807e13de125e909bea5877613d5d67989a43fb8e982fd79ba0efa46ac952"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "--version"
+      ],
+      "exit_code": 0,
+      "log_sha256": "25f3602b5caaf92437be1e76b53698e8d73f14a6c71c2e91c8d5875f923ab29f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "rtk",
+        "--version"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2e209881302a5cff43cd752ee0e1bebf188bd9b6012f9b46a9b0d935f9cb2d14"
+    }
+  ],
+  "positive_checks": [
+    "Original main and plan head pinned explicitly; reference drift classified and not adopted",
+    "18 exact tracked-file hashes verified against frozen source commit",
+    "Ten original private inputs match prepared SOURCE_MANIFEST.json",
+    "Primary dirty-file inventory captured by byte hashes; COMMS unchanged at capture"
+  ],
+  "negative_checks": [
+    "Appending a byte to each of 18 frozen files rejects source reuse even when symbol or old line number is unchanged",
+    "Local and cached main references differ from reviewed main: recorded as drift, never silently substituted"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/v5-plan/execution/BASELINE.json",
+      "sha256": "5469811a26e96b20b9e368737e85e12efa85059e9d36a324a0a1e26ea82bdec1"
+    },
+    {
+      "path": "docs/receipts/v5-00-checks.py",
+      "sha256": "eb49630352521eb538841e77184e36b5eb5622b16b63a29a65f3e051c74a717c"
+    },
+    {
+      "path": "docs/receipts/v5-00-claim-20261017.json",
+      "sha256": "5e560f08da59a5c9ef8f8d54929d3407fce15f457519183bf6ec164b73cd5e02"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "generated_build_scratch_gib": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1
+  },
+  "limitations": [
+    "git add and git commit exit128: .git/worktrees/v5-engineering-plan/index.lock read-only filesystem; no accepted commit or gate possible in current sandbox",
+    "Version probes establish available toolchain only; no solver capability or physical validation inferred",
+    "Task kept in review; downstream packet admission remains closed"
+  ],
+  "next_dependency": "Authorized Git metadata writes / dispatcher review-and-commit, followed by accepted V5-00 inventory. Independent historical/defect preparation may continue without changing engineering consumers."
+}

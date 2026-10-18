@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "packet": "V5-10",
+  "tasks": {
+    "V5-10-01": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    },
+    "V5-10-02": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    },
+    "V5-10-03": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    },
+    "V5-10-04": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    },
+    "V5-10-05": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    }
+  }
+}

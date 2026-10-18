@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "packet": "V5-03",
+  "tasks": {
+    "V5-03-01": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Implemented and tested software contract; physical qualification remains separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-03-01-completed-20261017.json",
+          "sha256": "9fa1e98b8343fe724a43811587d451aa81b58c86f4fc24eb55cdc0ef0e031548"
+        }
+      ]
+    },
+    "V5-03-02": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Implemented and tested software contract; physical qualification remains separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-03-02-completed-20261017.json",
+          "sha256": "7f0d12b31f97b02a90c0eba5e2b6d77bc4db2b7adfc5ee3072ecfef436ad7539"
+        }
+      ]
+    },
+    "V5-03-03": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Implemented and tested software contract; physical qualification remains separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-03-03-completed-20261017.json",
+          "sha256": "83f6ef2db4e5eac0128e4d429086dfb38550f954989ac040bac502565d034538"
+        }
+      ]
+    },
+    "V5-03-04": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Implemented and tested software contract; physical qualification remains separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-03-04-completed-20261017.json",
+          "sha256": "c4efad98883902c47d57495133e331b696bde17b4bbe1ba30541ac8f96fa4843"
+        }
+      ]
+    },
+    "V5-03-05": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-03-combined-acceptance-20261018.json",
+          "sha256": "92c43aab2b7d7ab955583ec5e1a473bf171dda3ecab29471bfd95594e9d0e49b"
+        }
+      ]
+    }
+  }
+}

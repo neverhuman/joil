@@ -847,8 +847,10 @@ TRACE_SECTIONS = (
     ("docs/PR3-DESCRIPTION.md", "PR3-DESCRIPTION", "# PR #3", ""),
 )
 TRACE_SOURCES = ("docs/results", "docs/receipts", "experiments", "baselines/ct35")
-# Lane receipts: searched only when a sentence cites them, never in the uncited fallback.
-TRACE_CITE_ONLY = ("crates/joil-evidence/receipts", "crates/joil-core/tests")
+# Lane and operational receipts require an explicit citation. Worker allocations,
+# command timings and task counts cannot supply uncited scientific numerals.
+TRACE_CITE_ONLY = ("crates/joil-evidence/receipts", "crates/joil-core/tests",
+                   "docs/receipts/v5-", "docs/receipts/P00-v5-")
 _TRACE_IDENT_RE = re.compile(
     r"\b(?:P0-\d{2}|CAD-\d{2}|[GFBDRPAEUNCS]\d{1,2}|H\d{1,2}|DN\d+|CT-\d+|E20|d50|d32|p95|p05|P90|P95|P99|LCB95|ci95|sm_\d+|"
     r"RTX\s*\d+|Inconel\s*\d+|Ti-6Al-4V|xbabe\d|isl\d+|gen\d+|ind\d+|s\d{8}-g\d+-i\d+|v\d+|"

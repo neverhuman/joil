@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "kind": "additive_owner_disposition_supplement_not_baseline_acceptance",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-03"
+  ],
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-18T04:03:07.028263+00:00",
+  "tested_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+  "changed_paths": [
+    "docs/receipts/v5-00-owner-disposition-D28-D29-20261018.json",
+    "docs/v5-plan/progress/V5-00.json"
+  ],
+  "status": "AUDIT-HELD: D-07, D-18 and D-21 remain blocked; criterion unchanged",
+  "follow_up_to": {
+    "path": "docs/receipts/v5-00-source-controls-integrated-partial-20261018.json",
+    "sha256": "4b61064a9df52105a15c54c3238f05429a6213d64e246837092cd74e28e04dbe"
+  },
+  "owner_disposition": {
+    "source_sha256": "afc4755c3c2d3ee2de07837f4b1debe2552847708b141414c1524be3eb981dd3",
+    "proposal_sha256": "cd1774549a0760784b6718dea5c772d75ffad8012be8be0f8c9f595532647415",
+    "authority": "Non-implementer project owner decision relayed through dispatcher; no signature artifact exists",
+    "accepted_rows": {
+      "D-28": {
+        "primary_task": "V5-00-05",
+        "disposition": "Operational policy gap. Private acknowledgements and locked coordination evidence stand. Separately reviewed ownership verifier remains future follow-up."
+      },
+      "D-29": {
+        "primary_task": "V5-03-05",
+        "disposition": "Frozen module-size design debt. Current architecture traversal controls and frozen graph evidence stand."
+      }
+    },
+    "meaning": "Owner disposition of alternative evidence; neither row becomes an executed failing fixture. No historical defect classification changes."
+  },
+  "criterion_unchanged": "Every defect maps to one primary repair task and an independent failing fixture.",
+  "remaining_blockers": {
+    "D-07": "V5-13-02 requires accepted solid-volume and density seam; fluid volume cannot substitute for material mass.",
+    "D-18": "V5-23-04 bounded fake evaluator/counters remain absent; no speedup claim or search campaign.",
+    "D-21": "V5-01-04 measured subject/time/field trajectory manifest remains absent; synthetic rendering is not measured evidence."
+  },
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "fmt"
+      ],
+      "exit_code": 0,
+      "log_sha256": "53089f2eda24018fd383447ee0e0b0cab8481ff6201b2826ee1aa243641ab8a7",
+      "executed_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+      "step_logs": [
+        {
+          "name": "fmt",
+          "exit_code": 0,
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "clippy"
+      ],
+      "exit_code": 0,
+      "log_sha256": "629b5d12597dc50ed47e36d155083a97900ed657d39479312db66bff924ad51f",
+      "executed_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+      "step_logs": [
+        {
+          "name": "clippy",
+          "exit_code": 0,
+          "log_sha256": "aad7ce42e0107828a4caebe2d8883a17263270f8341d119140a1c5a7e9079f9a"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "taskset",
+        "--cpu-list",
+        "32",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "rust-tests"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2767cbb126b9a04c73ae22abba561b49d2462dad42a71f383be9537079b28773",
+      "executed_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+      "step_logs": [
+        {
+          "name": "rust-tests",
+          "exit_code": 0,
+          "log_sha256": "ed2134bb90b8fa7f38839c06520d196343bdc527dc58960d5d635c6d8635f660"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "655bd5bdc0cd6954faf6116dbbf943148d9f36457fd0ea568597220b88fc1eb7",
+      "executed_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+      "step_logs": [
+        {
+          "name": "baseline",
+          "exit_code": 0,
+          "log_sha256": "97454b4933a14421ed8331f1e1c83a4b186da057c64a1a7fcb5b19acee8e57da"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "python-tests"
+      ],
+      "exit_code": 0,
+      "log_sha256": "7e9f1d352fdd93b886444436c823fe3e97fe94591f53495ccf9f03dbc75f01db",
+      "executed_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+      "step_logs": [
+        {
+          "name": "generated-status",
+          "exit_code": 0,
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "python-tests",
+          "exit_code": 0,
+          "log_sha256": "233ba74d9f93b9eee47f6d62159f3548be933a462a4b634ba3606f81018365d0"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "public-check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a47838405d56a50d32862e7090d63fa6c912b3c4b4929c074dcbc8c5b37600e9",
+      "executed_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+      "step_logs": [
+        {
+          "name": "public-check",
+          "exit_code": 0,
+          "log_sha256": "ae235d979f6109615a490327dc41297e6e64f5ba58efc58d5c9a63b4b557037c"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "claims-audit"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6c01f4ff90be0fca16265d6a6c6bbd3e55f3c9d4fb4e5c9c1266fb41b5426388",
+      "executed_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+      "step_logs": [
+        {
+          "name": "claims-audit",
+          "exit_code": 0,
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check.py",
+        "--suite",
+        "ui"
+      ],
+      "exit_code": 0,
+      "log_sha256": "60ce67673bb5343b05508adacf1c3349d3fe13fc6e51aef778340dabd9bf5b84",
+      "executed_commit": "ff4d9d8d19e2113710a776cbb9c1d3fb8d6a9716",
+      "step_logs": [
+        {
+          "name": "npm-ci",
+          "exit_code": 0,
+          "log_sha256": "487a6ce4e32f21da63cfcb1a273ac2236cce8afb79ddc611692888ab20af3261"
+        },
+        {
+          "name": "ui-build",
+          "exit_code": 0,
+          "log_sha256": "6bcdec50a31899f41a2c63ce5aab737204a6082108322ab8a2ee607eb2513cc7"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "<private-control>/codex/verify_owner_disposition.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f40c6c3403a5a8ab9d42c003cbda39bee15f6a0395f4a2684692457893a346cc",
+      "note": "Private verifier path redacted; exact private command record retained by SHA below. This checks custody, never defect behavior."
+    }
+  ],
+  "positive_checks": [
+    "Owner decision source, exact proposals and frozen coordination-line identities verified by actual custody command.",
+    "Exact ff4d9d8d official gate completed all8 suites/all10 unique steps with zero failed steps before later scratch-cap stop.",
+    "Previously integrated 22 C006/F1 tests executed with no skips; original partial limitations remain explicit."
+  ],
+  "negative_checks": [
+    "Tampered owner-decision bytes rejected by SHA control.",
+    "Decision names exactly two accepted rows and preserves three blocking rows; no full baseline release inferred.",
+    "No signature, domain control or physical result inferred from owner authorization."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/receipts/v5-00-source-controls-integrated-partial-20261018.json",
+      "sha256": "4b61064a9df52105a15c54c3238f05429a6213d64e246837092cd74e28e04dbe"
+    },
+    {
+      "path": "private retained owner decision",
+      "sha256": "afc4755c3c2d3ee2de07837f4b1debe2552847708b141414c1524be3eb981dd3"
+    },
+    {
+      "path": "private retained exact custody command record",
+      "sha256": "8ed83b4d314fffe0a053a1d0bf35d3cc2e4ecced386caa8272b2788abdf3c864"
+    },
+    {
+      "path": "private retained all-eight-suite receipt",
+      "sha256": "a33f1b8dcac7a94d64d63b48bd000a0a0346fc286f66a8fdcfc5df1de51d1765"
+    },
+    {
+      "path": "private retained all-eight-suite outer log",
+      "sha256": "00ea0b9de2d33468674254be074e2fd175f849d3a1529fc24496b8a5a2c8de8e"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "ram_gib": 6,
+    "scratch_gib": 2.5,
+    "cargo_jobs": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Not task completion or baseline acceptance. Three independent blocked rows remain.",
+    "Original eleven source controls remain partial; D-22,D-25,D-31 positive limits are not repaired by this decision.",
+    "Recorded status may remain done with explicit AUDIT-HELD note if ordered-task validation prevents review transition; that is not current acceptance.",
+    "Exact pushed ff4d9d8d CI is pending. TR-16, EV-09 and EV-12 physical deferrals remain."
+  ],
+  "next_dependency": "D-07 primary V5-13-02, D-18 primary V5-23-04 and D-21 primary V5-01-04 with real manifest; separately reviewed D-28 ownership verifier follow-up."
+}

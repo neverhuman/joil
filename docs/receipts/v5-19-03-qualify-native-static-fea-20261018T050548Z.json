@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_19_static_fea_qualification",
+  "packet": "V5-19",
+  "task_ids": ["V5-19-03"],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "Captain stage G-012 (v5-19-structure-C010); COORD 2026-10-18T04:56:37Z dispatch",
+  "input_head": "10d32c755d2849ab2c5731c94cbdbcb80df90cf1",
+  "tested_commit": "3969e6e896a9f3f0283845deed51a3996f7208fa",
+  "created_utc": "2026-10-18T05:05:48Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/structure.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/tests/structure.rs",
+    "physics/structure/v5/load-families.draft.json"
+  ],
+  "commands": [
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"], "cwd": ".", "exit_code": 0, "wall_seconds": 3.88, "log_sha256": "918421b2f4f272373c95f32e1fb3f0f0a9a7b5e9b6dba812cc849f48cae34ec6", "note": "17 tests, all passed at the tested commit"},
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges"], "cwd": ".", "exit_code": 0, "wall_seconds": 1.94, "log_sha256": "6fd54c7e956d346723989aa49628e417feaab4a72acfedfa4fe13d8e658b0eb9", "note": "manufacturing 18 + structure 17, all passed"},
+    {"argv": ["cargo", "clippy", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--all-targets", "--", "-D", "warnings"], "cwd": ".", "exit_code": 0, "wall_seconds": 1.97, "log_sha256": "2ac9c0f7fad15048abf831d2b72f4c78c1520c34c2c111ea22e0fe320ea67195"},
+    {"argv": ["cargo", "fmt", "--all", "--", "--check"], "cwd": ".", "exit_code": 0, "wall_seconds": 0.66, "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["python3", "tools/check_public.py"], "cwd": ".", "exit_code": 0, "wall_seconds": 0.18, "log_sha256": "52e62331cda5789a01cb6ef71e71efe6223ca1a1620e204464e0c66f0085a3b6"}
+  ],
+  "task_tests": [
+    "v5_19_03_oracles_match_hand_derived_values",
+    "v5_19_03_solver_qualifies_only_when_every_oracle_fixture_passes",
+    "v5_19_03_process_adapter_is_pinned_and_isolated",
+    "v5_19_03_static_run_is_qualified_only_on_a_native_solid_solve_with_evidence",
+    "v5_19_03_fixed_load_formula_and_singular_point_stress_cannot_qualify"
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "M3",
+      "description": "structure.rs qualify_static_run(): AnalyticFixedLoad refusal disabled with `false &&`",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_sha256": "31ed714e091c968188152316faf74af04090fdf66955f0a0821c7f8abedab7c1",
+      "failed_tests": ["v5_19_03_fixed_load_formula_and_singular_point_stress_cannot_qualify"],
+      "note": "exactly this test failed, 16 passed; source restored with git checkout before the next run"
+    }
+  ],
+  "artifacts": [
+    {"path": "packs/hydrocyclone/judges/src/structure.rs", "sha256": "8afd79a62cc09483d9ef0cadd925d0b2f9d8deef17fafa6a57800ff3e661d229"},
+    {"path": "packs/hydrocyclone/judges/tests/structure.rs", "sha256": "37178d9cf36671f38f10abdbd9504f2e99ebba6cfcf4e32051bc6e4fa591a5d8"},
+    {"path": "packs/hydrocyclone/judges/src/lib.rs", "sha256": "518ede6d5cffbba34f0c76078b4653aa37beb96c0a20c76e55f9f14170a2eccd"},
+    {"path": "physics/structure/v5/load-families.draft.json", "sha256": "5d9ae7590e07f47c413ae9e750039cc26f291a964e8ab2272ef109d364418d7b"}
+  ],
+  "positive_checks": [
+    "Lame oracle equals -2 b^2 p_o/(b^2-a^2) for the bore hoop stress, sigma_r(a)=0 and sigma_r(b)=-p_o; the cantilever bending deflection P L^3/(3 E I) = 3.5149e-4 m for the 100 N, 0.1 m, 10x10 mm case, with a shear term of about 2.8e-6 m",
+    "Patch, rigid-body, Lame, cantilever, reaction/energy-balance and mesh-convergence fixtures within tolerance qualify the solver; the process spec is pinned, absolute-path, cleared-environment, private-directory and resource-limited; a run on the mapped mesh with an admitted V5-13 static-strength passport, support evidence and patch-averaged observables passes"
+  ],
+  "negative_checks": [
+    "A fixed-load analytic basis is Fail, a nodal peak stress observable is Fail, and a run on another mesh, design, load set or passport fails; 5% and -10% Lame errors, a 2% cantilever error, spurious rigid-body stress, an energy imbalance and a non-monotone or non-converged mesh series each fail",
+    "Missing fixtures, NaN solver output, an unadmitted tolerance, a short non-slender beam, an unadmitted solver binary, a missing support record, an unqualified material passport and the unresolved draft load set are Unresolved, never Pass"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges and unresolved draft records only; SYNTHETIC test values; no physical qualification",
+  "limitations": [
+    "No native solver is installed (no ccx on PATH) and none was run: the process adapter is a pinned-command contract that is judged and built into a std::process::Command but never spawned, and the six fixture results are caller-supplied numbers compared with analytic oracles",
+    "Every fixture value is SYNTHETIC; solver outputs are the oracle scaled by small synthetic perturbations; no physical tolerance, allowable or support evidence is admitted",
+    "The analytic Lame and cantilever expressions are used only as oracles; the cantilever oracle is Timoshenko beam theory and is refused below L/h = 8",
+    "crucible-adapters is not a workspace member, so no crates/crucible-adapters/src/calculix/ scaffold was created; the judges live in pack-hydrocyclone-judges (no root Cargo.toml or Cargo.lock change in this task)",
+    "Task evidence, not acceptance and not scientific PASS; `crucible-cli verify --suite native-structure` does not exist yet and was not run"
+  ],
+  "next_dependency": "A pinned native solver binary hash and real fixture runs on the leased host; V5-19-04 and V5-19-05 consume the qualification report"
+}

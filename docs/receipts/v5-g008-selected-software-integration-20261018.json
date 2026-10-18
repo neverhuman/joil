@@ -1,0 +1,864 @@
+{
+  "schema_version": 1,
+  "kind": "selected_software_integration_checkpoint_acceptance_open",
+  "created_utc": "2026-10-18T07:14:44.108189+00:00",
+  "owner": "codex-v5-integrator",
+  "packets": [
+    "V5-11",
+    "V5-12",
+    "V5-23",
+    "V5-13",
+    "V5-19",
+    "V5-20",
+    "V5-14",
+    "V5-16"
+  ],
+  "task_ids": [
+    "V5-11-01",
+    "V5-11-02",
+    "V5-11-03",
+    "V5-11-04",
+    "V5-11-05",
+    "V5-12-01",
+    "V5-12-02",
+    "V5-12-03",
+    "V5-12-04",
+    "V5-12-05",
+    "V5-23-01",
+    "V5-23-02",
+    "V5-23-03",
+    "V5-23-04",
+    "V5-23-05",
+    "V5-13-01",
+    "V5-13-02",
+    "V5-13-03",
+    "V5-13-04",
+    "V5-13-05",
+    "V5-19-01",
+    "V5-19-02",
+    "V5-19-03",
+    "V5-19-04",
+    "V5-19-05",
+    "V5-20-01",
+    "V5-20-02",
+    "V5-20-03",
+    "V5-20-04",
+    "V5-20-05",
+    "V5-14-01",
+    "V5-14-02",
+    "V5-14-03",
+    "V5-14-04",
+    "V5-14-05",
+    "V5-16-01",
+    "V5-16-02",
+    "V5-16-03",
+    "V5-16-04",
+    "V5-16-05"
+  ],
+  "tested_commit": "be2c46eb457343f9da5707d90fd7381edc63c991",
+  "changed_paths": [
+    "Cargo.lock",
+    "Cargo.toml",
+    "crates/crucible-adapters/Cargo.toml",
+    "crates/crucible-adapters/src/lib.rs",
+    "crates/crucible-adapters/src/openfoam/mod.rs",
+    "crates/crucible-adapters/src/openfoam/oil.rs",
+    "crates/crucible-adapters/tests/openfoam.rs",
+    "crates/crucible-genome/Cargo.toml",
+    "crates/crucible-genome/src/develop.rs",
+    "crates/crucible-genome/src/legacy.rs",
+    "crates/crucible-genome/src/lib.rs",
+    "crates/crucible-genome/src/operators/mod.rs",
+    "crates/crucible-genome/src/schema.rs",
+    "crates/crucible-genome/tests/development.rs",
+    "crates/crucible-genome/tests/operators.rs",
+    "crates/crucible-particles/Cargo.toml",
+    "crates/crucible-particles/src/forces.rs",
+    "crates/crucible-particles/src/inject.rs",
+    "crates/crucible-particles/src/inventory.rs",
+    "crates/crucible-particles/src/lib.rs",
+    "crates/crucible-particles/tests/transport.rs",
+    "crates/crucible-runtime/src/bench.rs",
+    "crates/crucible-runtime/src/lib.rs",
+    "crates/crucible-runtime/src/worker.rs",
+    "crates/crucible-runtime/tests/recovery.rs",
+    "crates/crucible-runtime/tests/workers.rs",
+    "docs/bench/V5_PROTOCOL.md",
+    "docs/receipts/v5-11-lane-complete-20261018T052533Z.json",
+    "docs/receipts/v5-11-lane-in-progress-20261018T050517Z.json",
+    "docs/receipts/v5-12-lane-complete-20261018T054101Z.json",
+    "docs/receipts/v5-12-lane-complete-20261018T054302Z.json",
+    "docs/receipts/v5-13-01-process-qualified-material-records-20261018T043258Z.json",
+    "docs/receipts/v5-13-02-mass-from-accepted-solid-20261018T043258Z.json",
+    "docs/receipts/v5-13-03-geometric-manufacturing-gates-20261018T043258Z.json",
+    "docs/receipts/v5-13-04-finish-orientation-variants-20261018T043258Z.json",
+    "docs/receipts/v5-13-05-coupon-and-metrology-plan-20261018T043258Z.json",
+    "docs/receipts/v5-14-lane-complete-20261018T051003Z.json",
+    "docs/receipts/v5-14-lane-complete-followup-20261018T051121Z.json",
+    "docs/receipts/v5-16-lane-complete-20261018T052759Z.json",
+    "docs/receipts/v5-19-01-freeze-installation-load-families-20261018T050548Z.json",
+    "docs/receipts/v5-19-02-map-candidate-pressure-and-shear-20261018T050548Z.json",
+    "docs/receipts/v5-19-03-qualify-native-static-fea-20261018T050548Z.json",
+    "docs/receipts/v5-19-04-stability-and-imperfection-challenges-20261018T050548Z.json",
+    "docs/receipts/v5-19-05-reserve-without-mixing-ratios-20261018T050548Z.json",
+    "docs/receipts/v5-19-log-retention-followup-20261018T054521Z.json",
+    "docs/receipts/v5-20-01-wet-mode-screen-20261018T052752Z.json",
+    "docs/receipts/v5-20-02-finite-life-fatigue-20261018T052752Z.json",
+    "docs/receipts/v5-20-03-as-built-partition-20261018T052752Z.json",
+    "docs/receipts/v5-20-04-correlated-corner-bounds-20261018T052752Z.json",
+    "docs/receipts/v5-20-05-independent-cross-check-20261018T052752Z.json",
+    "docs/receipts/v5-20-finite-arithmetic-followup-20261018T065340Z.json",
+    "docs/receipts/v5-23-lane-complete-20261018T053139Z.json",
+    "docs/receipts/v5-g008-integration-claim-20261018.json",
+    "docs/rig/MATERIAL_INPUTS.md",
+    "docs/rig/PDR_STUDY.md",
+    "docs/v5-plan/execution/V5-07-G008-CI-TIMER-SCOPE.md",
+    "docs/v5-plan/execution/V5-G008-INTEGRATION-SCOPE.md",
+    "experiments/v5-operator-audit.toml",
+    "leases/examples/worker-request.json",
+    "packs/hydrocyclone/judges/Cargo.toml",
+    "packs/hydrocyclone/judges/src/as_built.rs",
+    "packs/hydrocyclone/judges/src/dynamics.rs",
+    "packs/hydrocyclone/judges/src/fatigue.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/src/manufacturing.rs",
+    "packs/hydrocyclone/judges/src/mass.rs",
+    "packs/hydrocyclone/judges/src/material.rs",
+    "packs/hydrocyclone/judges/src/metrology.rs",
+    "packs/hydrocyclone/judges/src/structure.rs",
+    "packs/hydrocyclone/judges/src/surface.rs",
+    "packs/hydrocyclone/judges/tests/dynamics.rs",
+    "packs/hydrocyclone/judges/tests/manufacturing.rs",
+    "packs/hydrocyclone/judges/tests/structure.rs",
+    "packs/hydrocyclone/materials/coupon-plan.json",
+    "packs/hydrocyclone/materials/ti64-lpbf-as-built.passport.json",
+    "packs/hydrocyclone/materials/ti64-lpbf-as-built.process-thresholds.json",
+    "packs/hydrocyclone/modules/coverage-staging.json",
+    "packs/hydrocyclone/modules/ct35-chamber-cone.json",
+    "packs/hydrocyclone/modules/ct35-inlet-pair.json",
+    "packs/hydrocyclone/modules/ct35-part-head.json",
+    "packs/hydrocyclone/modules/ct35-tail-overflow.json",
+    "physics/openfoam/verification/v5/capability-card.json",
+    "physics/openfoam/verification/v5/control-volume-fixtures.json",
+    "physics/structure/v5/load-families.draft.json",
+    "tests/fixtures/v5-expressiveness/README.md",
+    "tests/fixtures/v5-expressiveness/cases.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-genome"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 3.1475679469876923,
+      "log_sha256": "a25c2d5ea014a5df9ed42c845d8836a9eef28af6d78a6b1d34e1016443de15df",
+      "raw_log": "private:codex/g008-integrated-genome-operators.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-genome",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 9.414672173035797,
+      "log_sha256": "5a17bbbbb66942428a1141429c503e6c189d800c4abbe90603f60af89a35420c",
+      "raw_log": "private:codex/g008-genome-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "workers"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 3.796067036979366,
+      "log_sha256": "032082b4804fbeddc904260e162480aa18be918f99af6a836b7e48f34a134f76",
+      "raw_log": "private:codex/g008-integrated-worker-controls.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 10.4369366709725,
+      "log_sha256": "3d64563400906c83466d981883f7af60878c383f5b9bc1def441b9871f31faf1",
+      "raw_log": "private:codex/g008-worker-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 5.648745960963424,
+      "log_sha256": "466a7c05aba640c5a02b1ec82aac764dc299409b1714d32b3566460e75cc53bd",
+      "raw_log": "private:codex/g008-integrated-hydrocyclone-judges.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.9872324700118043,
+      "log_sha256": "be7409d0db2ce7e3d020e857c2fc98e2e3bfa9ca526de5b303a0d692cac39ced",
+      "raw_log": "private:codex/g008-judges-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "-p",
+        "crucible-adapters"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.681005036982242,
+      "log_sha256": "28b34de6d87feb0d53cee2ba04e324a6f7960b29ea2d50a2eebcd5adeed74f08",
+      "raw_log": "private:codex/g008-transport-final-controls.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "-p",
+        "crucible-adapters",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.278138748020865,
+      "log_sha256": "734a066927f6ccf635835690d794f1b6e2007e6858c0127bdab2548a50931ff1",
+      "raw_log": "private:codex/g008-transport-clippy-corrected.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "diff",
+        "--check",
+        "483b4eb"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.017507607000879943,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_log": "private:codex/g008-transport-diff-corrected.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.942122948996257,
+      "log_sha256": "4b1d64c49df1dd034c123a46b4e75c4fc5e05f0e6cf00efe3fb3580ed992387c",
+      "raw_log": "private:codex/g008-integrated-claude20-followup.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "recovery"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 21.752288290997967,
+      "log_sha256": "2120f98388abb860d7fb158514b0acfc25a68308c024c9069f05ecbba7c4886a",
+      "raw_log": "private:codex/g008-ci-timer-full-recovery-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 7.185291551984847,
+      "log_sha256": "3f0cd9b2f7d931c21e780d45e66b64fb26421fc397927033b2571a9831d43c30",
+      "raw_log": "private:codex/g008-runtime-ci-followup-clippy.log"
+    }
+  ],
+  "executed_negative_controls": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-genome",
+        "--test",
+        "development",
+        "rewritten_"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 1.9549995299894363,
+      "log_sha256": "1470655bb39c236e9070bcc693aeb8b2bbb6d2f2376203272a978f4e7a217a1b",
+      "raw_log": "private:codex/g008-genome-rewrite-old-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "workers",
+        "benchmark_"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 17.783303577045444,
+      "log_sha256": "06e7ab8c783dbc748b93648ab0086e67da93ce1ec7644e1dff1265436dbf3d5d",
+      "raw_log": "private:codex/g008-benchmark-old-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport",
+        "full_static_pressure"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 0.9362342419917695,
+      "log_sha256": "a50e75dd03ba74c4521953e0143d95b5de6c1aa53d00a64b36fae8513abbc618",
+      "raw_log": "private:codex/g008-full-pressure-old-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport",
+        "unrepresentable_"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 0.3822319569881074,
+      "log_sha256": "a23ed996776b162f4c58091dedd9ac00cd68719ff3eed4c87591ffb4a8ef6aca",
+      "raw_log": "private:codex/g008-force-arithmetic-old-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport",
+        "inventory_guard"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 0.36488115502288565,
+      "log_sha256": "7ff7a622c6355998f67bc9187f9741cf57840d8f4e635b84927d6acf1d095b58",
+      "raw_log": "private:codex/g008-inventory-old-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport",
+        "restart_guard"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 0.39011027198284864,
+      "log_sha256": "31a200b0e437d74cad11fecca234a9fc4e192b996ceae86c7d81da07fd05fbe5",
+      "raw_log": "private:codex/g008-inventory-lineage-old-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport",
+        "derived_injection"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 0.41093752696178854,
+      "log_sha256": "a16e4bc0c2366f46a509368628632ee83d3f233a626626c6305136e5f5c500dd",
+      "raw_log": "private:codex/g008-injection-arithmetic-old-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "transport",
+        "inventory_guard_size_classes_cannot_drop"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 0.08102325204527006,
+      "log_sha256": "93bf7b296311246bca6b656ef3c1f1425bf216a454ee1e3db3186e27e04aa032",
+      "raw_log": "private:codex/g008-unresolved-strata-old-red.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "recovery",
+        "charged_preparation_does_not_consume_native_deadline_and_real_slow_child_still_times_out",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 7.217934113985393,
+      "log_sha256": "a285377341a299244f6020d84ceefbef2eb5c438bb8ff0aca03df7c9b196a4de",
+      "raw_log": "private:codex/g008-ci-timer-early-clock-red.log"
+    }
+  ],
+  "positive_checks": [
+    "Twenty integrated genome tests retain deterministic development, canonical wire checks, charging, valid rewrites and graph invariants.",
+    "Eight worker tests keep failed attempts in benchmark denominators, compute hand-numbered nearest-rank quantiles and refuse fake quality.",
+    "Hydrostatic neutral tracer, displaced-fluid force balance, all-axis carrier acceleration and terminal rise agree with independent analytic controls.",
+    "Thirty-three transport/adapter tests cover valid mass/injection accounting and explicit numeric, lineage, atomicity and unresolved-stratum refusals.",
+    "Sixty-eight original synthetic judge checks and thirty-eight updated dynamics checks pass; the latter includes the reviewed Claude follow-up.",
+    "All nine recovery tests pass after producer verification moves to charged preparation; real early-clock mutation fails with every timing bound unchanged."
+  ],
+  "negative_checks": [
+    "Actual pre-repair invalid rewrite panics, wrong benchmark quantile/overflow, hydrostatic tracer drift, invalid force/mass outputs and unsafe oil-accounting admissions were observed and logged.",
+    "Temporary early-clock mutation failed and production task.rs was restored byte-for-byte before committing; CI latency cause remains an inference, not a measurement.",
+    "No native scientific qualification, packet acceptance, baseline defect closure or performance claim follows from these software controls."
+  ],
+  "artifacts": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "5add3632b5125977261f77f5f0e96a1379fca4a08065fdf1546361aa81c78eda"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "d1c8e3a3a1f0993fddd1ec2e984ae9319c6d74cfaf1d6dbb13cf9caa3e182415"
+    },
+    {
+      "path": "crates/crucible-adapters/Cargo.toml",
+      "sha256": "b52f641a7fa4927beabdd4bed6b70592a2eca25560de77465c26afd206e604fc"
+    },
+    {
+      "path": "crates/crucible-adapters/src/lib.rs",
+      "sha256": "dab5800a75bb3aae80e2a924c55e1971c4898a21a6d4915dc16ea7e31a02586b"
+    },
+    {
+      "path": "crates/crucible-adapters/src/openfoam/mod.rs",
+      "sha256": "acaee5e0c08db7a5b3f1e85d3a3ed566d464d213c8f35dbcc7d2e57a62d84293"
+    },
+    {
+      "path": "crates/crucible-adapters/src/openfoam/oil.rs",
+      "sha256": "32d65b20c4c96567bb291f82c583feb2bfce3c73a343ea3ccfbee02b6413a052"
+    },
+    {
+      "path": "crates/crucible-adapters/tests/openfoam.rs",
+      "sha256": "d24d5b8989d1f5ac90692aab6a035d5d00d9581ff4971d0650ce10130d1223c9"
+    },
+    {
+      "path": "crates/crucible-genome/Cargo.toml",
+      "sha256": "cbe4308ace86cd086e3a7de453cfa2395e0bfbcd36d8638f13045dcd70e10cfb"
+    },
+    {
+      "path": "crates/crucible-genome/src/develop.rs",
+      "sha256": "9c36c2659534025a75b976e552892de6e3e0a9fe55bc4df16210a0cdb80b0523"
+    },
+    {
+      "path": "crates/crucible-genome/src/legacy.rs",
+      "sha256": "156eddeeb98f4c737dc9b6936d44f2e7019f13c1d6a7b7101a4c27f0adabc093"
+    },
+    {
+      "path": "crates/crucible-genome/src/lib.rs",
+      "sha256": "6009202f3c0c10a18cecd1b12b13c2cf46dbfeee5016a17760dfc467a7d410cf"
+    },
+    {
+      "path": "crates/crucible-genome/src/operators/mod.rs",
+      "sha256": "e9acbfe1a66d7f75cfd26c4e3314dea1ea44d492341ded4d28802900d0d5571d"
+    },
+    {
+      "path": "crates/crucible-genome/src/schema.rs",
+      "sha256": "a52f60d062a6974e0eae2c9ccdff2625e1ab02fe358ac7022df0017337a25394"
+    },
+    {
+      "path": "crates/crucible-genome/tests/development.rs",
+      "sha256": "e39db65035323e5cae8ac64048daebc72f7671cfc06dac1cbeac52062672fad1"
+    },
+    {
+      "path": "crates/crucible-genome/tests/operators.rs",
+      "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+    },
+    {
+      "path": "crates/crucible-particles/Cargo.toml",
+      "sha256": "3b96fdfbec6e1570286cfa82ac9ece7b57386ab99e9011358fbe9d890e963352"
+    },
+    {
+      "path": "crates/crucible-particles/src/forces.rs",
+      "sha256": "06e27e591c9211b897657b0d7904bf6a19502cc1e67a9ebf6337ceee25cba836"
+    },
+    {
+      "path": "crates/crucible-particles/src/inject.rs",
+      "sha256": "3e3a54c8a9b0ef87006864c52dbb53c4f0133b672227a0d0fd5367742fcd62cf"
+    },
+    {
+      "path": "crates/crucible-particles/src/inventory.rs",
+      "sha256": "8fd9d3ef9a3547f2cbf02e3b8b4d88ad5c895b0d4fd983208d22e56639791098"
+    },
+    {
+      "path": "crates/crucible-particles/src/lib.rs",
+      "sha256": "c0be2adf921fa760d0b9dc2f2de2bf90de0d6248ffd70fa7be9361096c1a58af"
+    },
+    {
+      "path": "crates/crucible-particles/tests/transport.rs",
+      "sha256": "f7357ebbebd7acb2c7261c9e647a161ed303adf24582a612a27ea04b835a12b1"
+    },
+    {
+      "path": "crates/crucible-runtime/src/bench.rs",
+      "sha256": "1022f88ba868c9241d7799e937d7e94bd48f46ed21a2f3066824640426d62187"
+    },
+    {
+      "path": "crates/crucible-runtime/src/lib.rs",
+      "sha256": "d67a3a06182a97f5e76e27ace88f0e0f91fc4fc249bc3d7a94c3f0a7ca82a1f2"
+    },
+    {
+      "path": "crates/crucible-runtime/src/worker.rs",
+      "sha256": "d48b6b5637756bd76f6c15cc16a185796d96510b3c79cd741ec89cee9b0dfe39"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/recovery.rs",
+      "sha256": "7531f360aaaed44b86aab6dd6f982b3590c3c0068bafe0f8c6e6e6400f757e4d"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/workers.rs",
+      "sha256": "c513fe6f3543e98843504dacaeb59af439ee5b53e11e297a1cb7d6893dec532b"
+    },
+    {
+      "path": "docs/bench/V5_PROTOCOL.md",
+      "sha256": "262534f3f62833dbd52d9370e7a41572400c63088d61d8a2036d1ef18c061785"
+    },
+    {
+      "path": "docs/rig/MATERIAL_INPUTS.md",
+      "sha256": "f2a65466615188266a3b7cb0314ccd81b4ef61eb345c27f4863e00e91a643960"
+    },
+    {
+      "path": "docs/rig/PDR_STUDY.md",
+      "sha256": "63121ceb12c51849988d6e381a8d5a3b8d14bf705994836ffe1f78daf86b132f"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-07-G008-CI-TIMER-SCOPE.md",
+      "sha256": "2cefa73a400ff38c8451a6e2913f66c49f5c21d89785f11142d53b8d9201e3b1"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-G008-INTEGRATION-SCOPE.md",
+      "sha256": "e79a2891131c2af0eab3f636dd66db6e13c2540e900964be3b7afed1b2b43a62"
+    },
+    {
+      "path": "experiments/v5-operator-audit.toml",
+      "sha256": "f8bc543e5e5ba3679656c20ab57ec1a771d4ca1783e8c8e65d7f08f76f404560"
+    },
+    {
+      "path": "leases/examples/worker-request.json",
+      "sha256": "ccb77d7718f7f477eca65b3b75d41b8eea96722a9865dd60aa2c0cd52b716a61"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/Cargo.toml",
+      "sha256": "bc10df92d605e237c91df6831979415a4d3232a801652e561476660071f13378"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/as_built.rs",
+      "sha256": "33316c09a73ecfa8d1ef0d24dc8e91e859c8c555ef5643632d9a747184cef0bc"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/dynamics.rs",
+      "sha256": "f06603ce3a03e494480477b37d0cf7bee440e4ed3cdac10fdc79362aedfbb39b"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/fatigue.rs",
+      "sha256": "e8ea9c5b663410578e916fd974d3444766c21608f5f32085fa1ed2c775b8f966"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/lib.rs",
+      "sha256": "29a3382b2a9834e7a60918fb584c9d27813baa84e28393480cc89d44df5ba5b5"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/manufacturing.rs",
+      "sha256": "0d54c6cc19f49e2d3b70ac480f8eefe0f07126809a95c24798c34d5af8897506"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/mass.rs",
+      "sha256": "6166b1fa2de0e1cfa171fa5124665dc3e2f92382baedb38a5acb7c5bd84be980"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/material.rs",
+      "sha256": "a8becf0ae92171b168092761d0930066ff2285b8e3e744e00e1f29845ac431e4"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/metrology.rs",
+      "sha256": "30d153fefb1289bf1e9cf8a7546f1680d24b1bd648a26f9a392a346c6f3e7e47"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/structure.rs",
+      "sha256": "8afd79a62cc09483d9ef0cadd925d0b2f9d8deef17fafa6a57800ff3e661d229"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/surface.rs",
+      "sha256": "2bb5c19f4f746738e3068021cf7f50f4f3f6f19d54251df21e64c74cd67a736d"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/dynamics.rs",
+      "sha256": "2dd685880eb595db820d07e08742a87f317c5999fc192b71801bc7094924eba6"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/manufacturing.rs",
+      "sha256": "643b5c0c670c3d9a6ef3e4a57627221e49b0179f00329cbdbf824294cff8f3a7"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/structure.rs",
+      "sha256": "37178d9cf36671f38f10abdbd9504f2e99ebba6cfcf4e32051bc6e4fa591a5d8"
+    },
+    {
+      "path": "packs/hydrocyclone/materials/coupon-plan.json",
+      "sha256": "9ffe86d0989b1e0521efc1b76123f34eaa25a62dc4ed95fb092d1fb8fc2349b8"
+    },
+    {
+      "path": "packs/hydrocyclone/materials/ti64-lpbf-as-built.passport.json",
+      "sha256": "d96ea454b03e091e68a5772860941d110887978fea03b8e27b37a60e4a86caa3"
+    },
+    {
+      "path": "packs/hydrocyclone/materials/ti64-lpbf-as-built.process-thresholds.json",
+      "sha256": "84b97d9586328c67b759360d038332a3ce29634bfd48d90b27471d679e4383bf"
+    },
+    {
+      "path": "packs/hydrocyclone/modules/coverage-staging.json",
+      "sha256": "b148399c29fbb31e1b39bb37538877ccd39db274439338ad31ecfda8e855a7cc"
+    },
+    {
+      "path": "packs/hydrocyclone/modules/ct35-chamber-cone.json",
+      "sha256": "679c7d56a1e2f9954aea27464ea99a40e49bd33c2dfe5c0eb69edc822846d773"
+    },
+    {
+      "path": "packs/hydrocyclone/modules/ct35-inlet-pair.json",
+      "sha256": "d146bb787674f67f98ef30040eca38fe250bdfd912fb9d0dff2109a29f353c32"
+    },
+    {
+      "path": "packs/hydrocyclone/modules/ct35-part-head.json",
+      "sha256": "5d8093dfef1a5978717eb277bce91e67575c178a048a42318c7dd7965cf8c53a"
+    },
+    {
+      "path": "packs/hydrocyclone/modules/ct35-tail-overflow.json",
+      "sha256": "e2b8503b665e69dfcd20f309952fb50035f687f4a119c6f6bef133bd96f3fc4d"
+    },
+    {
+      "path": "physics/openfoam/verification/v5/capability-card.json",
+      "sha256": "d83fd2c26af097f3d800fbe24776327fa32f98da2aabefee40b4ec9bd4ee26ce"
+    },
+    {
+      "path": "physics/openfoam/verification/v5/control-volume-fixtures.json",
+      "sha256": "ca8fbe60486877ccc39b4d46741fe149070e1b3438cc9966eac7579138d81768"
+    },
+    {
+      "path": "physics/structure/v5/load-families.draft.json",
+      "sha256": "5d9ae7590e07f47c413ae9e750039cc26f291a964e8ab2272ef109d364418d7b"
+    },
+    {
+      "path": "tests/fixtures/v5-expressiveness/README.md",
+      "sha256": "88e83bcc1504b0d2c4a2c26ab6e55df748139701dfbae9068e238b13de06a3cd"
+    },
+    {
+      "path": "tests/fixtures/v5-expressiveness/cases.json",
+      "sha256": "0eb5ccff483d635d37ea99434ba26efb37888ebd20c7557e70614e7b50e315cf"
+    }
+  ],
+  "root_contract_serialization": {
+    "authority": "Direct G008 integrator assignment and scoped claim e9e4b68",
+    "base_commit": "05d185550543d43ff245535b6d7b770866abf525",
+    "all_existing_locked_package_entries_unchanged": true,
+    "all_existing_workspace_dependencies_and_members_preserved": true,
+    "added_local_packages_only": [
+      "crucible-adapters",
+      "crucible-genome",
+      "crucible-particles",
+      "pack-hydrocyclone-judges"
+    ],
+    "root_manifest_merges": [
+      "2b36553",
+      "483b4eb",
+      "f29e5a6"
+    ],
+    "reconciliation": "Integrator retained its root manifests, then registered only reviewed local crates; no lane scaffold replaced the shared contracts or upgraded dependencies."
+  },
+  "packet_commit_attribution": {
+    "V5-11": "2b36553",
+    "V5-12": "9706899",
+    "V5-23": "605f26b",
+    "V5-13": "483b4eb",
+    "V5-19": "483b4eb (plus unchanged additive 8832e34 receipt)",
+    "V5-20": "483b4eb and db286ff",
+    "V5-14": "f29e5a6 and 1605fc0",
+    "V5-16": "f29e5a6 and 1605fc0"
+  },
+  "source_authorship": {
+    "V5-20_followup": {
+      "producer": "existing Claude worker, claude-haiku-5-5 medium",
+      "source_commit": "e165b8b45136a98f58864e1c22a40c5ddaa5daf4",
+      "receipt_commit": "af2784f",
+      "integrator_import": "db286ff",
+      "three_source_files_and_receipt_byte_identical": true
+    },
+    "integrator": "gpt-6.1-sol xhigh, session 01a14ba4-827a-7243-a7b1-78a1716982bf"
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "cargo_jobs": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "scope": "Bounded software checks; supervisor enforces lease. Individual command peaks are not independently instrumented."
+  },
+  "limitations": [
+    "Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open.",
+    "Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run.",
+    "Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration.",
+    "Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held.",
+    "Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed.",
+    "Synthetic software checks only; wet loads, material fatigue data, metrology and upstream physical admissions remain missing.",
+    "Pinned capability/pressure/controller software and harmless process stand-ins only; no native CFD, numerical qualification or native restart.",
+    "Analytic/synthetic force, injection, inventory and restart controls only; native parity, production-field extraction and measured residence evidence remain missing.",
+    "Fresh combined eight-suite gate and exact pushed-head CI are still required. Prior 05d1855 CI was RED in recovery; seven other suites passed.",
+    "V5-00-03 stays AUDIT-HELD on D-07/D-18/D-21. This checkpoint is not a source-only defect closure receipt. TR-16/EV-09/EV-12 remain deferred.",
+    "Three original V5-11 fixed-name logs now contain later V5-12 bytes; original receipts stay unchanged. V5-14 stale original hashes are supplemented, never rewritten.",
+    "The initial f29e5a6 checkpoint preceded inspection of a test clone lint and imported blank-line failure; both are corrected in 1605fc0 with actual passing checks.",
+    "Local Rust gate uses one leased core for worker2 refusal; current exact-head CI and accepted geometry/physics evidence remain separate requirements."
+  ],
+  "next_dependency": "Fresh exact-head integration gate, publication scan and CI; independent task/packet acceptance with original criteria and required external inputs.",
+  "packet_acceptance": false,
+  "scientific_admission": false
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "packet": "V5-08",
+  "tasks": {
+    "V5-08-01": {
+      "status": "review",
+      "owner": "codex-v5-integrator",
+      "note": "Source18d reference/pinnedVM+JIT controls plus sourcec0d budget repair (additive receipt3da2cc66), observer integration15/15 pass. Full integrated gates/CI and independent D16 source-bound artifact closure remain pending; no packet or physical acceptance.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-08-geometry-kernel-20261018.json",
+          "sha256": "7ae9dbe56d404b9c75b52650a8174730cce5788b98deb1c41f546e8285732dc8"
+        }
+      ]
+    },
+    "V5-08-02": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    },
+    "V5-08-03": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    },
+    "V5-08-04": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    },
+    "V5-08-05": {
+      "status": "todo",
+      "owner": null,
+      "note": "",
+      "evidence": []
+    }
+  }
+}

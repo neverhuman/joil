@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "kind": "exclusive_packet_claim_not_completion",
+  "packet": "V5-05",
+  "created_utc": "2026-10-17T22:02:25.576319+00:00",
+  "owner": "codex-v5-integrator",
+  "dependency_commit": "bafa87e5dae493a17be65a09e551fad14c7ffd40",
+  "write_paths": [
+    "crates/crucible-store/",
+    "tests/fixtures/v5-store/",
+    "docs/design/V5_STORE.md",
+    "Cargo.toml",
+    "Cargo.lock",
+    "docs/v5-plan/progress/V5-05.json",
+    "docs/receipts/v5-05-*"
+  ],
+  "resources": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false
+  },
+  "boundaries": "No V5-01 edit, native solver or physical campaign; root registration serialized by integrator"
+}

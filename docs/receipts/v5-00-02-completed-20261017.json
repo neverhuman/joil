@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-02"
+  ],
+  "tested_commit": "6b09a009c67bcf4ad789852ba932a89413b67f30",
+  "created_utc": "2026-10-17T21:08:22.488289+00:00",
+  "changed_paths": [
+    "docs/receipts/v5-00-history-20261017.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "/home/ubuntu/joil/.private/v5-workers/codex/inventory_history.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "727862cea02c73931ae7543f75bb87251f9a7bfcdf8b6d455603e65b908ed4a4",
+      "wall_seconds": 0.31966420402750373
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "docs/receipts/v5-00-checks.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "800128604bda64554a114357edef3a0c75ab1a0dcbb2f0d2995e32da631b3887",
+      "wall_seconds": 0.618236288020853
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "campaign",
+        "--test",
+        "subject"
+      ],
+      "exit_code": 0,
+      "log_sha256": "edf3bdaa6358dddfe89721cb4b6cbee2bf766591d44ee1488a2fccfdd623fbab",
+      "wall_seconds": 0.8082599790068343
+    }
+  ],
+  "positive_checks": [
+    "17 frozen historical requirement/preregistration/result records retained with original hashes",
+    "42 case directories inspected without modification:22 complete mesh file sets present and20 incomplete; present does not establish original executed identity"
+  ],
+  "negative_checks": [
+    "10 unavailable run references remain explicit; no scalar-only record promotes a missing original mesh",
+    "Production CaseManifest tests reject changed case bytes and missing stages; no regenerated mesh is substituted"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/receipts/v5-00-history-20261017.json",
+      "sha256": "3166f97688d55e30feeb47350455594c9e663ad9a1686468bcf18a29e7dea6f1"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_mib": 733.4,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Mesh source/case/build attribution remains unverified; availability inventory is not physical qualification",
+    "Original historical-head tag decision is still pending owner; no tag created"
+  ],
+  "next_dependency": "V5-00-03 defect reproduction"
+}

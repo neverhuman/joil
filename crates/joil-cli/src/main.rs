@@ -8,6 +8,226 @@ fn parse_arg(args: &[String], flag: &str) -> Option<String> {
     args.windows(2).find(|w| w[0] == flag).map(|w| w[1].clone())
 }
 
+/// GPU use is explicit opt-in (`V5-01-04`). Without `--cuda-bin` no GPU is requested.
+/// `--cuda-bin` needs an existing binary and `--gpu-lease <json>` with `"gpu": true` and an
+/// `expires_utc` that parses strictly as UTC (see `parse_utc_expiry_seconds`) and lies after
+/// `now_unix_seconds`. `--gpu-vram-target-pct` is passed only when given. Anything incomplete or
+/// malformed is an error, never a silent CPU or GPU fallback.
+fn explicit_gpu_opt_in(
+    args: &[String],
+    now_unix_seconds: i64,
+) -> Result<(Option<PathBuf>, Option<f64>), String> {
+    let lease_arg = parse_arg(args, "--gpu-lease");
+    let vram_arg = parse_arg(args, "--gpu-vram-target-pct");
+    let Some(bin) = parse_arg(args, "--cuda-bin") else {
+        if lease_arg.is_some() || vram_arg.is_some() {
+            return Err("--gpu-lease and --gpu-vram-target-pct require --cuda-bin".into());
+        }
+        return Ok((None, None));
+    };
+    let bin = PathBuf::from(bin);
+    if !bin.is_file() {
+        return Err(format!("--cuda-bin {} is not a file", bin.display()));
+    }
+    let lease_path =
+        lease_arg.ok_or("--cuda-bin requires --gpu-lease <lease.json> granting gpu")?;
+    let raw = std::fs::read_to_string(&lease_path)
+        .map_err(|e| format!("cannot read GPU lease {lease_path}: {e}"))?;
+    let lease: serde_json::Value =
+        serde_json::from_str(&raw).map_err(|e| format!("invalid GPU lease {lease_path}: {e}"))?;
+    if lease.get("gpu") != Some(&serde_json::Value::Bool(true)) {
+        return Err(format!(
+            "GPU lease {lease_path} does not grant \"gpu\": true"
+        ));
+    }
+    let expires = lease
+        .get("expires_utc")
+        .and_then(|v| v.as_str())
+        .ok_or(format!("GPU lease {lease_path} lacks expires_utc"))?;
+    let expires_at = parse_utc_expiry_seconds(expires).map_err(|reason| {
+        format!("GPU lease {lease_path} has invalid expires_utc {expires:?}: {reason}")
+    })?;
+    if expires_at <= now_unix_seconds {
+        return Err(format!("GPU lease {lease_path} expired at {expires}"));
+    }
+    let vram = match vram_arg {
+        None => None,
+        Some(s) => match s.parse::<f64>() {
+            Ok(v) if v.is_finite() && v > 0.0 && v <= 100.0 => Some(v),
+            _ => return Err(format!("--gpu-vram-target-pct must be in (0, 100]: {s}")),
+        },
+    };
+    Ok((Some(bin), vram))
+}
+
+/// Output policy (`V5-01-05`): a default is a unique ignored path under `runs/`; an explicit path
+/// must not exist yet. Commands call this before evaluating, so committed receipts and earlier runs
+/// are never replaced. `None` default means the output is written only when the flag is given.
+fn fresh_output(
+    args: &[String],
+    flag: &str,
+    default_stem: Option<&str>,
+    extension: &str,
+) -> Result<Option<PathBuf>, String> {
+    let path = match (parse_arg(args, flag), default_stem) {
+        (Some(p), _) => PathBuf::from(p),
+        (None, Some(stem)) => PathBuf::from(format!("runs/{stem}-{}{extension}", run_stamp()?)),
+        (None, None) => return Ok(None),
+    };
+    if path.exists() || path.is_symlink() {
+        return Err(format!(
+            "refusing to replace existing output {}",
+            path.display()
+        ));
+    }
+    Ok(Some(path))
+}
+
+/// Same policy for a required output path.
+fn fresh_required_output(
+    args: &[String],
+    flag: &str,
+    default_stem: &str,
+    extension: &str,
+) -> Result<PathBuf, String> {
+    fresh_output(args, flag, Some(default_stem), extension)
+        .map(|p| p.expect("default stem always yields a path"))
+}
+
+fn run_stamp() -> Result<String, String> {
+    Ok(format!(
+        "{}Z-{}",
+        utc_now_seconds()?.replace(['-', ':'], ""),
+        std::process::id()
+    ))
+}
+
+/// Create `path` (and parent directories) and write `text`; an existing file is an error.
+fn write_new(path: &std::path::Path, text: &str) -> Result<(), String> {
+    use std::io::Write;
+    if let Some(parent) = path.parent().filter(|p| !p.as_os_str().is_empty()) {
+        std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    std::fs::OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(path)
+        .and_then(|mut f| f.write_all(text.as_bytes()))
+        .map_err(|e| format!("cannot create new output {}: {e}", path.display()))
+}
+
+fn write_optional_new(path: &Option<PathBuf>, text: &str) -> Result<(), String> {
+    match path {
+        Some(p) => write_new(p, text),
+        None => Ok(()),
+    }
+}
+
+/// Parse a GPU lease expiry as Unix seconds (`V5-01-04`). Accepted form, ASCII only:
+/// `YYYY-MM-DDTHH:MM:SS` with an optional `.fraction` of 1-9 digits, then `Z` or `+00:00`.
+/// The calendar date (including leap years) and time of day are validated; any other offset,
+/// a missing zone, trailing characters or out-of-range fields are rejected. A fraction is
+/// truncated, which can only make the expiry earlier.
+fn parse_utc_expiry_seconds(text: &str) -> Result<i64, String> {
+    if !text.is_ascii() {
+        return Err("not ASCII".into());
+    }
+    let syntax = || {
+        "malformed timestamp syntax (expected YYYY-MM-DDTHH:MM:SS[.fraction] then Z or +00:00)"
+            .to_string()
+    };
+    let b = text.as_bytes();
+    if b.len() < 19
+        || b[4] != b'-'
+        || b[7] != b'-'
+        || b[10] != b'T'
+        || b[13] != b':'
+        || b[16] != b':'
+    {
+        return Err(syntax());
+    }
+    let field = |lo: usize, hi: usize| -> Result<i64, String> {
+        let digits = &b[lo..hi];
+        if !digits.iter().all(u8::is_ascii_digit) {
+            return Err(syntax());
+        }
+        Ok(digits
+            .iter()
+            .fold(0_i64, |acc, d| acc * 10 + i64::from(d - b'0')))
+    };
+    let (year, month, day) = (field(0, 4)?, field(5, 7)?, field(8, 10)?);
+    let (hour, minute, second) = (field(11, 13)?, field(14, 16)?, field(17, 19)?);
+    let mut zone = &b[19..];
+    if let Some(fraction) = zone.strip_prefix(b".") {
+        let n = fraction.iter().take_while(|c| c.is_ascii_digit()).count();
+        if n == 0 || n > 9 {
+            return Err(syntax());
+        }
+        zone = &fraction[n..];
+    }
+    match zone {
+        b"Z" | b"+00:00" => {}
+        b"" => return Err("missing time zone designator (Z or +00:00 required)".into()),
+        [b'+' | b'-', _, _, b':', _, _] => {
+            return Err("offset is not UTC (Z or +00:00 required)".into())
+        }
+        _ => return Err(syntax()),
+    }
+    let leap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+    let days_in_month = match month {
+        1 | 3 | 5 | 7 | 8 | 10 | 12 => 31,
+        4 | 6 | 9 | 11 => 30,
+        2 if leap => 29,
+        2 => 28,
+        _ => 0,
+    };
+    if year < 1 || !(1..=days_in_month).contains(&day) {
+        return Err(format!(
+            "invalid calendar date {year:04}-{month:02}-{day:02}"
+        ));
+    }
+    if hour > 23 || minute > 59 || second > 59 {
+        return Err(format!(
+            "invalid time of day {hour:02}:{minute:02}:{second:02}"
+        ));
+    }
+    // Days from civil date (proleptic Gregorian), inverse of `utc_now_seconds`.
+    let y = if month <= 2 { year - 1 } else { year };
+    let era = y.div_euclid(400);
+    let yoe = y - era * 400;
+    let doy = (153 * ((month + 9) % 12) + 2) / 5 + day - 1;
+    let days = era * 146_097 + yoe * 365 + yoe / 4 - yoe / 100 + doy - 719_468;
+    Ok(days * 86_400 + hour * 3_600 + minute * 60 + second)
+}
+
+fn utc_now_unix_seconds() -> Result<i64, String> {
+    Ok(std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_err(|e| e.to_string())?
+        .as_secs() as i64)
+}
+
+/// Current UTC time as `YYYY-MM-DDTHH:MM:SS` (civil-from-days, proleptic Gregorian).
+fn utc_now_seconds() -> Result<String, String> {
+    let secs = utc_now_unix_seconds()?;
+    let (days, rem) = (secs.div_euclid(86_400), secs.rem_euclid(86_400));
+    let z = days + 719_468;
+    let era = z.div_euclid(146_097);
+    let doe = z - era * 146_097;
+    let yoe = (doe - doe / 1_460 + doe / 36_524 - doe / 146_096) / 365;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let day = doy - (153 * mp + 2) / 5 + 1;
+    let month = if mp < 10 { mp + 3 } else { mp - 9 };
+    let year = yoe + era * 400 + i64::from(month <= 2);
+    Ok(format!(
+        "{year:04}-{month:02}-{day:02}T{:02}:{:02}:{:02}",
+        rem / 3_600,
+        rem % 3_600 / 60,
+        rem % 60
+    ))
+}
+
 /// Import a historical Wave-2 genome without upgrading its archived evidence.
 ///
 /// Report/Individual evaluation schemas have changed since the committed v1
@@ -51,6 +271,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             );
         }
         "kpi" => {
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let root = PathBuf::from(parse_arg(&args, "--root").unwrap_or_else(|| ".".into()));
             let cases = [
                 (
@@ -77,12 +298,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "evaluator": "joil-core::openfoam::read_cfd_kpi_observation",
                 "cases": results,
             }))?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "verify-rotation" => {
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let ode_20 = openfoam::integrate_coupled_rotation_ode(20.0, 0.01, 200.0, 2e-6, 0.002);
             let ode_40 = openfoam::integrate_coupled_rotation_ode(40.0, 0.01, 200.0, 2e-6, 0.002);
             let ratio_d2 =
@@ -97,12 +317,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     && ode_20.u_r_end_m_s < 0.0
                     && ode_40.u_r_end_m_s < 0.0,
             }))?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "screen-structure" | "qualify-structure" => {
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let mut rng = program::Rng::new(20261015);
             let archetypes = program::DesignProgram::seed_wave2_archetypes(&mut rng);
             let lame_inner =
@@ -129,21 +348,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 },
                 "archetype_analytic_screens": reports,
             }))?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "audit-probe" => {
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let root = PathBuf::from(parse_arg(&args, "--root").unwrap_or_else(|| ".".into()));
             let summary_path = PathBuf::from(parse_arg(&args, "--summary").unwrap_or_else(|| {
                 "runs/gemini-ct35-full-liner-oil-pilot-summary-r4.json".into()
             }));
             let audit = openfoam::audit_lagrangian_probe_summary(&summary_path, &root)?;
             let out_json = serde_json::to_string_pretty(&audit)?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
             if !audit.audit_passed {
                 return Err(format!("probe audit failed: {:?}", audit.failure_reasons).into());
@@ -154,10 +370,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 parse_arg(&args, "--summary")
                     .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
             );
-            let out_path = PathBuf::from(
-                parse_arg(&args, "--out")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/promotion-dossier.json".into()),
-            );
+            let out_path = fresh_required_output(&args, "--out", "promotion-dossier", ".json")?;
             let raw = std::fs::read_to_string(&summary_path)?;
             let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
             let elite = campaign
@@ -169,6 +382,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let (pheno, mesh) = phenotype::Phenotype3D::from_program(&elite.program)?;
             redteam::check(&elite.program, &pheno, &mesh)
                 .map_err(|e| format!("top elite failed redteam gate: {e:?}"))?;
+            let f0_unevaluated = redteam::unevaluated_geometry_facts(&pheno);
+            let claim_state = if f0_unevaluated.is_empty() {
+                "f0_geometry_screen_and_p08_analytic_structural_estimate_passed_ready_for_f2_cfd_promotion_not_yet_f2_or_f4_validated"
+            } else {
+                "f0_partial_sandbox_screen_and_p08_analytic_structural_estimate_passed_with_unevaluated_geometry_facts_not_qualified"
+            };
             let struct_qual = structure::analytic_structural_screen(
                 &elite.program,
                 &pheno,
@@ -202,9 +421,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
 
             let dossier = serde_json::json!({
-                "schema_version": "0.2.0",
+                "schema_version": "0.3.0",
                 "kind": "multi_fidelity_3d_elite_promotion_dossier",
-                "claim_state": "f0_geometry_and_p08_structural_screen_passed_ready_for_f2_cfd_promotion_not_yet_f2_or_f4_validated",
+                "claim_state": claim_state,
+                "f0_unevaluated_geometry_facts": f0_unevaluated,
                 "qualified_multiobjective_vector": null,
                 "qualified_capacity_gain": null,
                 "campaign_summary_sha256": openfoam::file_sha256(&summary_path)?,
@@ -246,13 +466,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 ]
             });
             let out_str = serde_json::to_string_pretty(&dossier)?;
-            std::fs::write(&out_path, &out_str)?;
+            write_new(&out_path, &out_str)?;
             println!("{out_str}");
         }
         "prepare-cfd-case" => {
-            let case_dir = PathBuf::from(parse_arg(&args, "--case").unwrap_or_else(|| {
-                "runs/rust-cfd-elite-gen024-isl2-ind014".into()
-            }));
+            let case_dir = fresh_required_output(&args, "--case", "cfd-case", "")?;
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let prog = if args.iter().any(|a| a == "--baseline-ct35") {
                 program::DesignProgram::baseline_ct35()
             } else if let Some(prog_path) = parse_arg(&args, "--program-json") {
@@ -296,9 +515,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             let manifest = cfd_case::build_openfoam_candidate_case(&prog, &case_dir, &cfg)?;
             let out_json = serde_json::to_string_pretty(&manifest)?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "qualify-surrogate" => {
@@ -306,32 +523,29 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 parse_arg(&args, "--summary")
                     .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
             );
-            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
-                "runs/rust-cuda-evolution-v1/surrogate-cv-report.json".into()
-            }));
+            let out_path = fresh_required_output(&args, "--out", "surrogate-cv-report", ".json")?;
             let raw = std::fs::read_to_string(&summary_path)?;
             let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
             let mut candidates = vec![campaign.baseline_reference.clone()];
             candidates.extend(campaign.top_pareto_elites.clone());
             let report = surrogate::run_surrogate_and_engine_qualification(&candidates)?;
             let out_json = serde_json::to_string_pretty(&report)?;
-            std::fs::write(&out_path, &out_json)?;
+            write_new(&out_path, &out_json)?;
             println!("{out_json}");
         }
         "qualify-population" => {
-            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
-                "runs/rust-p05-population-qualification.json".into()
-            }));
+            let out_path =
+                fresh_required_output(&args, "--out", "p05-population-checks", ".json")?;
             let oil04 =
                 population::verify_added_mass_and_pressure_gradient(30.0, 50.0, 2.0e-7, 0.002)?;
-            let oil05_06 = population::verify_dispersion_and_les_partition(
+            let oil05_06 = population::dispersion_partition_arithmetic(
                 &[0.12, 0.28, 0.54, 0.88, 1.32],
                 0.004,
                 1.45,
                 0.18,
                 0.18,
             )?;
-            let oil06_neg = population::verify_dispersion_and_les_partition(
+            let oil06_neg = population::dispersion_partition_arithmetic(
                 &[0.12, 0.28, 0.54, 0.88, 1.32],
                 0.004,
                 1.45,
@@ -360,12 +574,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 population::check_multiphase_regime_envelope(0.00059, 0.0, 0.0032, 0.024);
             let oil15_violation =
                 population::check_multiphase_regime_envelope(0.035, 0.012, 0.22, 0.002);
+            let well_mixed_transport = oil05_06.well_mixed_transport.clone();
             let report = serde_json::json!({
-                "schema_version": "0.2.0",
+                "schema_version": "0.3.0",
                 "packet": "P05",
                 "evaluator": "joil-core::population",
+                "kind": "software_arithmetic_oracles_not_transport_or_restart_qualification",
                 "oil04_added_mass_and_pressure_gradient": oil04,
-                "oil05_06_dispersion_and_les_partition": oil05_06,
+                "oil05_06_dispersion_partition_arithmetic": oil05_06,
+                "well_mixed_turbulent_transport": well_mixed_transport,
                 "oil07_parcel_substep_halving": oil07,
                 "oil08_stratified_dsd_weights": {
                     "bins": oil08_weights,
@@ -382,8 +599,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "nominal_operating_point": oil15_valid,
                     "dense_core_and_gas_rejection_test": oil15_violation,
                 },
-                "all_p05_gates_passed": oil04.passed
-                    && oil05_06.passed
+                "all_p05_software_checks_passed": oil04.passed
+                    && oil05_06.arithmetic_checks_passed
                     && oil06_neg
                     && oil07.passed
                     && (mass_sum - 1.0).abs() < 1e-12
@@ -397,13 +614,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     && !oil15_violation.within_dilute_lagrangian_envelope,
             });
             let out_json = serde_json::to_string_pretty(&report)?;
-            std::fs::write(&out_path, &out_json)?;
+            write_new(&out_path, &out_json)?;
             println!("{out_json}");
         }
         "qualify-experiment" => {
-            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
-                "runs/rust-p06-experiment-qualification.json".into()
-            }));
+            let out_path =
+                fresh_required_output(&args, "--out", "p06-experiment-checks", ".json")?;
             let exp01 = experiment::verify_instrument_calibration(
                 "batch-ct35-oil-20261015-sha256",
                 "batch-ct35-oil-20261015-sha256",
@@ -539,7 +755,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     && exp06_unmatched_rejected,
             });
             let out_json = serde_json::to_string_pretty(&report)?;
-            std::fs::write(&out_path, &out_json)?;
+            write_new(&out_path, &out_json)?;
             println!("{out_json}");
         }
         "export-glb-scene" => {
@@ -547,9 +763,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 parse_arg(&args, "--summary")
                     .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
             );
-            let glb_path = PathBuf::from(parse_arg(&args, "--glb").unwrap_or_else(|| {
-                "runs/rust-cuda-evolution-v1/meshes/top_elite_scene_m.glb".into()
-            }));
+            let glb_path = fresh_required_output(&args, "--glb", "glb-scene", ".glb")?;
+            let out = fresh_output(&args, "--out", None, ".json")?;
             let raw = std::fs::read_to_string(&summary_path)?;
             let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
             let elite = campaign
@@ -557,9 +772,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .first()
                 .ok_or("no top_pareto_elites in campaign summary")?;
             let surface = phenotype::MultiPatchSurface::from_program(&elite.program, 0.0)?;
-            let stl_sha = openfoam::file_sha256(std::path::Path::new(
-                "runs/rust-cfd-elite-gen024-isl2-ind014/constant/triSurface/ct35.stl",
-            ))?;
+            // V5-01-05: bind the scene to the STL of this exact surface, not a historical run file.
+            let stl_path = glb_path.with_extension("governing.stl");
+            if stl_path.exists() {
+                return Err(format!("refusing to replace existing output {}", stl_path.display()).into());
+            }
+            surface.write_openfoam_ascii_stl(&stl_path)?;
+            let stl_sha = openfoam::file_sha256(&stl_path)?;
             let scene_manifest =
                 scene::export_glb_scene_bundle(&surface, &stl_sha, 1.0, &glb_path)?;
             let lease_valid = scene::verify_resource_lease(
@@ -580,24 +799,21 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             )
             .is_err();
             let out_json = serde_json::to_string_pretty(&serde_json::json!({
-                "schema_version": "0.2.0",
+                "schema_version": "0.3.0",
                 "packet": "P09",
                 "evaluator": "joil-core::scene",
-                "ops_view01_resource_lease": {
+                "ops_view01_lease_arithmetic_selftest_synthetic_cpu_lists_not_this_run": {
                     "valid_lease": lease_valid,
                     "smt_sibling_mistake_rejected": lease_smt_rejected,
                 },
+                "governing_surface_stl": stl_path,
                 "ops_view02_03_glb_scene_manifest": scene_manifest,
             }))?;
-            if let Some(out_path) = parse_arg(&args, "--out") {
-                std::fs::write(out_path, &out_json)?;
-            }
+            write_optional_new(&out, &out_json)?;
             println!("{out_json}");
         }
         "compile-3d" => {
-            let out_dir = PathBuf::from(
-                parse_arg(&args, "--out").unwrap_or_else(|| "runs/rust-3d-archetypes".into()),
-            );
+            let out_dir = fresh_required_output(&args, "--out", "rust-3d-archetypes", "")?;
             std::fs::create_dir_all(&out_dir)?;
             let mut rng = program::Rng::new(20261015);
             let archetypes = program::DesignProgram::seed_archetypes(&mut rng);
@@ -622,9 +838,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("{}", serde_json::to_string_pretty(&reports)?);
         }
         "evolve" => {
-            let out_dir = PathBuf::from(
-                parse_arg(&args, "--out").unwrap_or_else(|| "runs/rust-cuda-evolution-v1".into()),
-            );
+            let out_dir = fresh_required_output(&args, "--out", "rust-cuda-evolution", "")?;
             let mut cfg = evolve::EvolutionConfig::default();
             if let Some(g) = parse_arg(&args, "--generations").and_then(|s| s.parse().ok()) {
                 cfg.generations = g;
@@ -641,12 +855,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             if let Some(seed) = parse_arg(&args, "--seed").and_then(|s| s.parse().ok()) {
                 cfg.seed = seed;
             }
-            let cuda_bin = parse_arg(&args, "--cuda-bin")
-                .map(PathBuf::from)
-                .unwrap_or_else(|| PathBuf::from("runs/bin/joil_cuda_eval"));
-            if cuda_bin.is_file() {
-                cfg.cuda_bin_path = Some(cuda_bin);
-            }
+            let (cuda_bin, vram_target) = explicit_gpu_opt_in(&args, utc_now_unix_seconds()?)?;
+            cfg.cuda_bin_path = cuda_bin;
+            cfg.gpu_vram_target_pct = vram_target;
             let summary = evolve::run_campaign(&cfg, &out_dir)?;
             println!(
                 "{}",
@@ -672,10 +883,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 parse_arg(&args, "--archive")
                     .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/map-elites-archive.json".into()),
             );
-            let out_path = PathBuf::from(
-                parse_arg(&args, "--out")
-                    .unwrap_or_else(|| "docs/results/interactive-3d-archetypes-v1.json".into()),
-            );
+            let out_path =
+                fresh_required_output(&args, "--out", "interactive-3d-preview", ".json")?;
             let bundle = scene::export_interactive_3d_preview_bundle(
                 &summary_path,
                 &archive_path,
@@ -704,9 +913,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .filter(|s| !s.trim().is_empty())
                 .map(|s| s.trim().to_string())
                 .collect();
-            let out_dir = PathBuf::from(
-                parse_arg(&args, "--out").unwrap_or_else(|| "runs/rust-cuda-evolution-v1".into()),
-            );
+            let out_dir = fresh_required_output(&args, "--out", "rust-cuda-evolution-merged", "")?;
             let (summary, gates) = evolve::merge_cluster_shards(&shard_dirs, &node_labels, &out_dir)?;
             println!(
                 "{}",
@@ -726,10 +933,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             );
         }
         "wave2-benchmark" => {
-            let out_path = PathBuf::from(parse_arg(&args, "--out").unwrap_or_else(|| {
-                "docs/results/wave2-multiseed-ablation-and-holdout-v1.json".into()
-            }));
-            let stl_dir = parse_arg(&args, "--stl-dir").map(PathBuf::from);
+            let out_path = fresh_required_output(&args, "--out", "wave2-benchmark", ".json")?;
+            let stl_dir = fresh_output(&args, "--stl-dir", None, "")?;
             let seeds: Vec<u64> = if let Some(s) = parse_arg(&args, "--seeds") {
                 s.split(',')
                     .filter_map(|tok| tok.trim().parse::<u64>().ok())
@@ -760,7 +965,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 std::fs::create_dir_all(parent)?;
             }
             let out_json = serde_json::to_string_pretty(&report)?;
-            std::fs::write(&out_path, &out_json)?;
+            write_new(&out_path, &out_json)?;
 
             if let Some(dir) = stl_dir {
                 std::fs::create_dir_all(&dir)?;
@@ -788,10 +993,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             );
         }
         "wave3-proof" => {
-            let out_path = PathBuf::from(
-                parse_arg(&args, "--out")
-                    .unwrap_or_else(|| "docs/results/wave3-evolution-proof-v1.json".into()),
-            );
+            let out_path = fresh_required_output(&args, "--out", "wave3-proof", ".json")?;
             let seeds: Vec<u64> = if let Some(s) = parse_arg(&args, "--seeds") {
                 s.split(',')
                     .filter_map(|tok| tok.trim().parse::<u64>().ok())
@@ -818,9 +1020,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 ..evolve::EvolutionConfig::default()
             };
             let report = if let Some(raw_dir) = parse_arg(&args, "--raw-dir") {
-                if out_path.exists() {
-                    return Err("raw capture requires a new --out summary path".into());
-                }
                 evolve::run_wave3_evolution_proof_with_raw_capture(&seeds, &cfg, std::path::Path::new(&raw_dir))?
             } else {
                 evolve::run_wave3_evolution_proof(&seeds, &cfg)?
@@ -830,13 +1029,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             let pretty = serde_json::to_string_pretty(&report)?;
             let out_json = pretty.lines().map(str::trim_start).collect::<Vec<_>>().join("\n") + "\n";
-            if parse_arg(&args, "--raw-dir").is_some() {
-                use std::io::Write;
-                std::fs::OpenOptions::new().write(true).create_new(true)
-                    .open(&out_path)?.write_all(out_json.as_bytes())?;
-            } else {
-                std::fs::write(&out_path, &out_json)?;
-            }
+            write_new(&out_path, &out_json)?;
             println!(
                 "{}",
                 serde_json::to_string_pretty(&serde_json::json!({
@@ -873,6 +1066,381 @@ mod tests {
 
     const COMMITTED_WAVE2: &str =
         include_str!("../../../docs/results/wave2-multiseed-ablation-and-holdout-v1.json");
+
+    fn argv(items: &[&str]) -> Vec<String> {
+        items.iter().map(|s| s.to_string()).collect()
+    }
+
+    /// SYNTHETIC files in a fresh temp directory; nothing is executed.
+    fn gpu_fixture(name: &str, lease: Option<&str>) -> (PathBuf, String, String) {
+        let dir = std::env::temp_dir().join(format!("joil-v5-01-04-{name}-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let bin = dir.join("joil_cuda_eval");
+        std::fs::write(&bin, b"SYNTHETIC placeholder, never executed").unwrap();
+        let lease_path = dir.join("lease.json");
+        if let Some(text) = lease {
+            std::fs::write(&lease_path, text).unwrap();
+        }
+        (
+            dir,
+            bin.display().to_string(),
+            lease_path.display().to_string(),
+        )
+    }
+
+    /// 2026-10-17T22:00:00Z, independently computed with Python datetime.
+    const NOW_2026_10_17T22: i64 = 1_792_274_400;
+
+    #[test]
+    fn v5_01_04_ordinary_runs_request_no_gpu() {
+        let now = NOW_2026_10_17T22;
+        assert_eq!(
+            explicit_gpu_opt_in(&argv(&["evolve", "--out", "x"]), now).unwrap(),
+            (None, None)
+        );
+        // A present default binary path no longer activates anything implicitly.
+        let (dir, _bin, lease) = gpu_fixture("ordinary", Some(r#"{"gpu": true}"#));
+        assert!(explicit_gpu_opt_in(&argv(&["evolve", "--gpu-lease", &lease]), now).is_err());
+        assert!(
+            explicit_gpu_opt_in(&argv(&["evolve", "--gpu-vram-target-pct", "85.5"]), now).is_err()
+        );
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn v5_01_04_missing_or_invalid_gpu_lease_cannot_execute() {
+        let now = NOW_2026_10_17T22;
+        let good = r#"{"gpu": true, "expires_utc": "2026-10-18T08:52:43+00:00"}"#;
+        let cases = [
+            ("no-lease-file", None, "cannot read GPU lease"),
+            (
+                "gpu-false",
+                Some(r#"{"gpu": false, "expires_utc": "2026-10-18T08:52:43Z"}"#),
+                "does not grant",
+            ),
+            (
+                "gpu-string",
+                Some(r#"{"gpu": "true", "expires_utc": "2026-10-18T08:52:43Z"}"#),
+                "does not grant",
+            ),
+            ("no-expiry", Some(r#"{"gpu": true}"#), "lacks expires_utc"),
+            (
+                "expired",
+                Some(r#"{"gpu": true, "expires_utc": "2026-10-17T21:59:59Z"}"#),
+                "expired",
+            ),
+            ("not-json", Some("gpu: true"), "invalid GPU lease"),
+        ];
+        for (name, lease, needle) in cases {
+            let (dir, bin, lease_path) = gpu_fixture(name, lease);
+            let err = explicit_gpu_opt_in(
+                &argv(&["evolve", "--cuda-bin", &bin, "--gpu-lease", &lease_path]),
+                now,
+            )
+            .unwrap_err();
+            assert!(err.contains(needle), "{name}: {err}");
+            std::fs::remove_dir_all(dir).unwrap();
+        }
+        let (dir, bin, lease_path) = gpu_fixture("no-lease-arg", Some(good));
+        let err = explicit_gpu_opt_in(&argv(&["evolve", "--cuda-bin", &bin]), now).unwrap_err();
+        assert!(err.contains("requires --gpu-lease"), "{err}");
+        let missing_bin = format!("{}.missing", bin);
+        assert!(explicit_gpu_opt_in(
+            &argv(&[
+                "evolve",
+                "--cuda-bin",
+                &missing_bin,
+                "--gpu-lease",
+                &lease_path
+            ]),
+            now
+        )
+        .unwrap_err()
+        .contains("not a file"));
+        for bad in ["0", "-5", "100.5", "NaN", "inf", "x"] {
+            assert!(explicit_gpu_opt_in(
+                &argv(&[
+                    "evolve",
+                    "--cuda-bin",
+                    &bin,
+                    "--gpu-lease",
+                    &lease_path,
+                    "--gpu-vram-target-pct",
+                    bad,
+                ]),
+                now
+            )
+            .is_err());
+        }
+        // Positive control: explicit binary, current lease and explicit VRAM target.
+        let (got_bin, vram) = explicit_gpu_opt_in(
+            &argv(&[
+                "evolve",
+                "--cuda-bin",
+                &bin,
+                "--gpu-lease",
+                &lease_path,
+                "--gpu-vram-target-pct",
+                "50",
+            ]),
+            now,
+        )
+        .unwrap();
+        assert_eq!(got_bin, Some(PathBuf::from(&bin)));
+        assert_eq!(vram, Some(50.0));
+        assert_eq!(
+            explicit_gpu_opt_in(
+                &argv(&["evolve", "--cuda-bin", &bin, "--gpu-lease", &lease_path]),
+                now
+            )
+            .unwrap()
+            .1,
+            None
+        );
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn v5_01_05_existing_outputs_and_committed_receipts_are_refused() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        for rel in [
+            "docs/results/wave2-multiseed-ablation-and-holdout-v1.json",
+            "docs/results/wave3-evolution-proof-v1.json",
+            "docs/results/interactive-3d-archetypes-v1.json",
+        ] {
+            let committed = root.join(rel);
+            let before = std::fs::read(&committed).unwrap();
+            let arg = committed.display().to_string();
+            let err = fresh_output(&argv(&["x", "--out", &arg]), "--out", Some("x"), ".json")
+                .unwrap_err();
+            assert!(err.contains("refusing to replace existing output"), "{err}");
+            assert!(write_new(&committed, "SYNTHETIC").is_err());
+            assert_eq!(std::fs::read(&committed).unwrap(), before);
+        }
+        let (dir, _bin, _lease) = gpu_fixture("sentinel", None);
+        let sentinel = dir.join("sentinel.json");
+        std::fs::write(&sentinel, b"keep").unwrap();
+        let arg = sentinel.display().to_string();
+        assert!(fresh_output(&argv(&["x", "--glb", &arg]), "--glb", None, ".glb").is_err());
+        assert!(write_optional_new(&Some(sentinel.clone()), "SYNTHETIC").is_err());
+        assert_eq!(std::fs::read(&sentinel).unwrap(), b"keep");
+        // A fresh explicit path is created exactly once.
+        let fresh = dir.join("nested/fresh.json");
+        let got = fresh_output(
+            &argv(&["x", "--out", &fresh.display().to_string()]),
+            "--out",
+            None,
+            ".json",
+        )
+        .unwrap()
+        .unwrap();
+        write_new(&got, "{}").unwrap();
+        assert!(write_new(&got, "{}").is_err());
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn v5_01_05_defaults_are_unique_ignored_run_paths() {
+        let no_out = argv(&["wave3-proof"]);
+        let file = fresh_required_output(&no_out, "--out", "wave3-proof", ".json").unwrap();
+        let text = file.display().to_string();
+        assert!(
+            text.starts_with("runs/wave3-proof-") && text.ends_with(".json"),
+            "{text}"
+        );
+        assert!(
+            text.contains(&format!("-{}.json", std::process::id())),
+            "{text}"
+        );
+        let dir = fresh_required_output(&no_out, "--case", "cfd-case", "").unwrap();
+        assert!(dir.display().to_string().starts_with("runs/cfd-case-"));
+        assert_eq!(fresh_output(&no_out, "--out", None, ".json").unwrap(), None);
+    }
+
+    #[test]
+    fn v5_01_04_utc_clock_format() {
+        let now = utc_now_seconds().unwrap();
+        assert_eq!(now.len(), 19);
+        assert_eq!(&now[10..11], "T");
+        assert!(now.as_str() > "2026-01-01T00:00:00");
+        // The clock formatter and the expiry parser are inverses (within a second boundary).
+        let parsed = parse_utc_expiry_seconds(&format!("{now}Z")).unwrap();
+        assert!((utc_now_unix_seconds().unwrap() - parsed).abs() <= 2);
+    }
+
+    #[test]
+    fn v5_01_04_expiry_parser_matches_independent_epoch_oracles() {
+        // Expected values computed independently with Python datetime (UTC).
+        for (text, want) in [
+            ("1970-01-01T00:00:00Z", 0_i64),
+            ("2000-02-29T12:00:00Z", 951_825_600),
+            ("2026-10-17T22:00:00+00:00", NOW_2026_10_17T22),
+            ("2026-10-18T08:52:43Z", 1_792_313_563),
+            ("2026-10-18T08:52:43.818175+00:00", 1_792_313_563),
+            ("1900-03-01T00:00:00Z", -2_203_891_200),
+            ("9999-12-31T23:59:59Z", 253_402_300_799),
+            ("0001-01-01T00:00:00Z", -62_135_596_800),
+        ] {
+            assert_eq!(parse_utc_expiry_seconds(text), Ok(want), "{text}");
+        }
+    }
+
+    /// Review 2 controls through the production `explicit_gpu_opt_in` path; nothing is executed.
+    #[test]
+    fn v5_01_04_malformed_or_non_utc_expiry_never_authorizes_gpu() {
+        let now = NOW_2026_10_17T22;
+        let run = |name: &str, expires: &str| {
+            let lease = serde_json::json!({"gpu": true, "expires_utc": expires}).to_string();
+            let (dir, bin, lease_path) = gpu_fixture(name, Some(&lease));
+            let result = explicit_gpu_opt_in(
+                &argv(&["evolve", "--cuda-bin", &bin, "--gpu-lease", &lease_path]),
+                now,
+            );
+            std::fs::remove_dir_all(dir).unwrap();
+            result
+        };
+        // Positive: valid future UTC expiry, with Z, +00:00 and a fraction.
+        for (i, ok) in [
+            "2026-10-18T08:52:43Z",
+            "2026-10-18T08:52:43+00:00",
+            "2026-10-18T08:52:43.818175+00:00",
+        ]
+        .into_iter()
+        .enumerate()
+        {
+            let (bin, vram) = run(&format!("valid-{i}"), ok).unwrap();
+            assert!(bin.is_some(), "{ok}");
+            assert_eq!(vram, None);
+        }
+        let cases = [
+            (
+                "feb-30",
+                "2026-02-30T00:00:00Z",
+                "invalid calendar date 2026-02-30",
+            ),
+            (
+                "non-leap-feb-29",
+                "2027-02-29T00:00:00Z",
+                "invalid calendar date 2027-02-29",
+            ),
+            (
+                "century-feb-29",
+                "2100-02-29T00:00:00Z",
+                "invalid calendar date 2100-02-29",
+            ),
+            (
+                "all-nines",
+                "9999-99-99T99:99:99Z",
+                "invalid calendar date 9999-99-99",
+            ),
+            (
+                "all-nines-no-zone",
+                "9999-99-99T99:99:99",
+                "missing time zone designator",
+            ),
+            (
+                "month-13",
+                "2026-13-01T00:00:00Z",
+                "invalid calendar date 2026-13-01",
+            ),
+            (
+                "year-zero",
+                "0000-01-01T00:00:00Z",
+                "invalid calendar date 0000-01-01",
+            ),
+            (
+                "hour-24",
+                "2026-10-18T24:00:00Z",
+                "invalid time of day 24:00:00",
+            ),
+            (
+                "minute-60",
+                "2026-10-18T08:60:00Z",
+                "invalid time of day 08:60:00",
+            ),
+            (
+                "leap-second",
+                "2026-10-18T08:52:60Z",
+                "invalid time of day 08:52:60",
+            ),
+            ("plus-two", "2026-10-18T08:52:43+02:00", "offset is not UTC"),
+            (
+                "minus-five",
+                "2026-10-18T08:52:43-05:00",
+                "offset is not UTC",
+            ),
+            (
+                "minus-zero",
+                "2026-10-18T08:52:43-00:00",
+                "offset is not UTC",
+            ),
+            (
+                "no-zone",
+                "2026-10-18T08:52:43",
+                "missing time zone designator",
+            ),
+            (
+                "trailing",
+                "2026-10-18T08:52:43Zjunk",
+                "malformed timestamp syntax",
+            ),
+            (
+                "lower-z",
+                "2026-10-18T08:52:43z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "space-sep",
+                "2026-10-18 08:52:43Z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "five-digit-year",
+                "20261-10-18T08:52:43Z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "long-fraction",
+                "2026-10-18T08:52:43.1234567890Z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "empty-fraction",
+                "2026-10-18T08:52:43.Z",
+                "malformed timestamp syntax",
+            ),
+            (
+                "signed-field",
+                "2026-10-+8T08:52:43Z",
+                "malformed timestamp syntax",
+            ),
+            ("short", "2026-10-18", "malformed timestamp syntax"),
+            // Byte 18-19 is a two-byte character: the old slice at [..19] panicked here.
+            ("utf8-split", "2026-10-18T08:52:4\u{e9}Z", "not ASCII"),
+            ("utf8-fullwidth", "2026-10-18T08:52:4\u{ff13}Z", "not ASCII"),
+            ("past", "2026-10-17T21:59:59Z", "expired at"),
+            ("equal-now", "2026-10-17T22:00:00Z", "expired at"),
+        ];
+        for (name, expires, needle) in cases {
+            let err = run(name, expires).unwrap_err();
+            assert!(err.contains(needle), "{name}: {err}");
+            if needle != "expired at" {
+                assert!(err.contains("invalid expires_utc"), "{name}: {err}");
+            }
+        }
+        // A non-string expiry is still refused.
+        let (dir, bin, lease_path) = gpu_fixture(
+            "numeric-expiry",
+            Some(r#"{"gpu": true, "expires_utc": 1792313563}"#),
+        );
+        let err = explicit_gpu_opt_in(
+            &argv(&["evolve", "--cuda-bin", &bin, "--gpu-lease", &lease_path]),
+            now,
+        )
+        .unwrap_err();
+        assert!(err.contains("lacks expires_utc"), "{err}");
+        std::fs::remove_dir_all(dir).unwrap();
+    }
 
     #[test]
     fn historical_wave2_receipt_loads_all_promoted_genomes() {

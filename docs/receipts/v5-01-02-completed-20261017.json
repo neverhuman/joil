@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-01",
+  "task_ids": [
+    "V5-01-02"
+  ],
+  "owner": "claude-v5-truth-worker",
+  "input_head": "a0baf325e44499125efbedd76ce1ec798f22ea4a",
+  "tested_commit": "c400ccab277d468da7fcde85a020aa6086ae33de",
+  "commits": [
+    "7ebb12697932fdef3dd8f18fa57e01b0c4962444",
+    "c400ccab277d468da7fcde85a020aa6086ae33de"
+  ],
+  "scope_basis": "V5-01 write_scope plus crates/joil-core/src/redteam.rs transferred by V5-01-SCOPE-REVISION-2.md (integrator commit eb3f01c075d3910ae8910d645c7355766a6dffae, option B)",
+  "created_utc": "2026-10-17T22:03:00Z",
+  "changed_paths": [
+    "crates/joil-ir/src/lib.rs",
+    "crates/joil-ir/tests/ir_suite.rs",
+    "crates/joil-core/src/phenotype.rs",
+    "crates/joil-core/src/redteam.rs",
+    "crates/joil-core/src/evolve.rs",
+    "crates/joil-cli/src/main.rs",
+    "crates/joil-core/tests/v5_truth.rs",
+    "tools/f0_enactment.py",
+    "tools/f0_voxel.py",
+    "tests/test_v5_truth.py"
+  ],
+  "commands": [
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--locked", "-p", "joil-core", "--test", "v5_truth"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.446,
+      "log_sha256": "a8b6eac1883d5852ca0a0c8992d201c08c3fffb0be046a49c533c9634cb659ee",
+      "note": "7 tests at the tested commit"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "fmt", "--all", "--", "--check"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.352,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "clippy", "--workspace", "--locked", "--all-targets", "--", "-D", "warnings"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 6.794,
+      "log_sha256": "9af185f453f90e273cc354489de0b206ab77456d9c5130d7d721fe1c22920fbf"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--workspace", "--locked"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 168.012,
+      "log_sha256": "0b32d8c92fdbdb4da8abb32b8f249ea39c0708c0eb0f034584ddfc746c2854b7",
+      "note": "tree byte-identical to the tested commit (git diff HEAD empty after commit)"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "run", "--locked", "-p", "joil-cli", "--", "baseline"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.801,
+      "log_sha256": "2117d302dbf4c2518cf4e0d6e5c0f4d6a0636b5c527eaea6b16be9c1ddb18a8c"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_[!v]*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 84.597,
+      "log_sha256": "69fcfa85b43f0f544522575462d6e5cf3748381f191fd2b0376dba1eaac23c30",
+      "note": "every non-v5 Python module at the tested commit, 3 pre-existing optional skips"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_v5_t*.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 14.125,
+      "log_sha256": "dad9ac6fdf15ff7c6b8df01c4674f46a45b9c0404a78ad1fe74a334b8bd20794",
+      "note": "test_v5_truth.py and test_v5_trace_boundary.py"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/claims_audit.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 16.262,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.16,
+      "log_sha256": "e0ccf4d8d34c9dba76e74d1fd4e493401cff6841813b2b1bd5328be3ef4f8d4e"
+    }
+  ],
+  "known_failure_not_caused_by_code": {
+    "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-v"],
+    "exit_code": 1,
+    "log_sha256": "87670f9249b79d6b993ecd31cdea5ee1a1422fd52ea8214fa3a003f3a17defc6",
+    "result": "145 tests; the only error is test_v5_plan test_current_package_is_consistent: generated views stale after the worker-owned V5-01 progress update; the integrator rebuilds views"
+  },
+  "pre_change_failing_evidence": [
+    {
+      "argv": ["rtk", "proxy", "python3", "-I", "<private>/run_pre_change_class.py", "<checkout>", "a0baf325e44499125efbedd76ce1ec798f22ea4a", "<private scratch>", "GeometryMeasurementTruth", "f0_enactment.py", "f0_voxel.py"],
+      "exit_code": 1,
+      "result": "3/3 tests fail on the a0baf325 tool bytes: copied 4.0 mm delta reported as measured; missing, string and NaN facts pass the fixture audit",
+      "log_sha256": "f52b87c7d0ddd3d1743633e46fed0ae516c56d879b7822ec463d6ba72ee1f9b5"
+    },
+    {
+      "result": "Rust negatives use observation fields and unevaluated_geometry_facts that did not exist before the change; at a0baf325 the observer returned trapped_powder_cavities 0 with no status and the qualification gate accepted observer descriptors (ir_suite ir_07 asserted acceptance)"
+    }
+  ],
+  "positive_checks": [
+    "Measured mesh-shell component count is reported as Measured with its method; a separate closed shell increments it",
+    "SYNTHETIC GeometryObservedDescriptors with every fact measured still pass the qualification gate; a SYNTHETIC fully measured phenotype has no unevaluated facts",
+    "Baseline CT-35 still passes every measured red-team check (no threshold relaxed); a nonzero legacy cavity count still rejects",
+    "Complete declared negative-corpus fixtures still audit to the same reasons; all 22 negative fixtures rejected as expected",
+    "Legacy records stay readable: VoxelSdfAuditReport, GeometryObservedDescriptors, Phenotype3D and Individual without the new fields deserialize, with status read as unmeasured/unevaluated",
+    "Historical values remain available under legacy_proxy in the Python tools"
+  ],
+  "negative_checks": [
+    "SYNTHETIC enclosed tetrahedral void in internal_feature_triangles (ignored by the legacy observer): legacy counts stay 0, but trapped powder and enclosed fluid observations are NotMeasured and qualification is refused; no measured zero is returned",
+    "Baseline observer descriptors cannot qualify: unmeasured facts listed (trapped powder, enclosed fluid cavities, Betti numbers)",
+    "Legacy descriptor JSON without unmeasured_facts reads as unmeasured and is refused",
+    "Partial red-team pass reports unevaluated trapped-powder and enclosed-cavity facts; missing observed geometry and legacy powder status are reported as unevaluated",
+    "Individual serializes red_team_unevaluated_facts beside red_team_passed; legacy Individual JSON reads as unevaluated",
+    "Python enactment receipt: authored 4 mm and 6 mm ramp deltas are no longer reported as measured; assigned faces/areas and inlet paths are None; dropped feature still raises",
+    "Python program observer: cavity counts, frozen difference, terminal values, taxon, volume and area are None with reasons",
+    "Fixture audit: missing, None, bool or string trapped_powder_cavities gives geometry_fact_not_measured; NaN shell thickness gives its own reject; the program observer output fed to the audit is rejected"
+  ],
+  "artifacts": [
+    {"path": "crates/joil-ir/src/lib.rs", "sha256": "ec85f42425eb7a465080c8f706bef381bc5bd54ec7fc7d1f64a19f9ca2c2ad32"},
+    {"path": "crates/joil-ir/tests/ir_suite.rs", "sha256": "527e350ac3028151ed20276d240acf55ca1939aeaf6cc1e903b3662447d1ccd5"},
+    {"path": "crates/joil-core/src/phenotype.rs", "sha256": "ee8573fc9a6eaf350fafdc897a8935927840e7ea66381b9d7275e619e4b4e08e"},
+    {"path": "crates/joil-core/src/redteam.rs", "sha256": "ffeadf928cd1ec8922b58f987f0c872ce596cb088448548dea94231d7d2db46c"},
+    {"path": "crates/joil-core/src/evolve.rs", "sha256": "ff03abe6a0ca029db4d97c8aba4eecd48724c28f4cde354d89958b74a18624d1"},
+    {"path": "crates/joil-cli/src/main.rs", "sha256": "2d0a57c8accc5868ecb3fcc67bfe882484e7d7694c35f86223a79ec6e34e710e"},
+    {"path": "crates/joil-core/tests/v5_truth.rs", "sha256": "db723126a2159ff96f655fa3edd546106ccd1670079f3584629b0f6d5d2203d4"},
+    {"path": "tools/f0_enactment.py", "sha256": "a5dd61f75acb83dd3337bdb3c47543e6f8d89d1d3582b46056e2e89519665a59"},
+    {"path": "tools/f0_voxel.py", "sha256": "423e5237efd1d6140a50f353e61766dc55f2cd62a110a143feb6eb3470a2cec5"},
+    {"path": "tests/test_v5_truth.py", "sha256": "5ecf7aeb4ce060b6cc7f8ab563b0ff9cbc1c942e085e56a22a596c857f167cd6"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_bytes": 729647781,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "not_executed": [
+    "UI build: no UI input changed in this task",
+    "tools/check.py entry point (forces four Cargo jobs); its required steps were run individually under the two-job lease"
+  ],
+  "limitations": [
+    "Software claim-semantics repair only. No artifact-level cavity, powder-escape or topology observer exists; those facts remain unmeasured until an independent observer (V5-09) measures them",
+    "The red-team screen keeps its historical numeric condition on the legacy cavity count for compatibility and no relaxation; it now reports the facts it cannot evaluate instead of implying they passed",
+    "Campaign summary counters named valid_f0_evaluations keep their historical name and count partial-screen passes; each Individual carries red_team_unevaluated_facts",
+    "The promotion dossier keeps its P08 structural wording; structural estimate relabelling belongs to V5-01-05",
+    "Rerunning docs/receipts/v5-00-python-probes.py now fails at its D-03/D-06 assertions by design; historical receipts were not edited"
+  ],
+  "next_dependency": "Integrator review/integration into PR #6 and view rebuild; V5-01-03 next in this lane"
+}

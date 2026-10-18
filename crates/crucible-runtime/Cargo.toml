@@ -1,0 +1,19 @@
+[package]
+name = "crucible-runtime"
+version.workspace = true
+edition.workspace = true
+
+[package.metadata.crucible]
+role = "search_state"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+libc = "=0.2.190"
+rusqlite = { version = "=0.40.2", features = ["bundled", "backup", "fallible_uint"] }
+crucible-store = { path = "../crucible-store" }
+crucible-contract = { path = "../crucible-contract" }
+joil-evidence = { path = "../joil-evidence" }
+
+[dev-dependencies]
+crucible-units = { path = "../crucible-units" }

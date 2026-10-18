@@ -1,5 +1,6 @@
 """Check selection and receipts must preserve coverage and fail closed."""
 import importlib.util
+import os
 import json
 from pathlib import Path
 import tempfile
@@ -35,6 +36,11 @@ class CheckRunnerTests(unittest.TestCase):
             def run(command, **kwargs):
                 if command[0] == 'git':
                     return subprocess.CompletedProcess(command, 0, stdout='f' * 40, stderr='')
+                self.assertEqual(kwargs['env']['CARGO_BUILD_JOBS'], '2')
+                self.assertEqual(kwargs['env']['CARGO_INCREMENTAL'], os.environ.get('CARGO_INCREMENTAL', '0'))
+                self.assertEqual(kwargs['env']['CARGO_PROFILE_DEV_DEBUG'], os.environ.get('CARGO_PROFILE_DEV_DEBUG', 'line-tables-only'))
+                for key in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'RAYON_NUM_THREADS'):
+                    self.assertEqual(kwargs['env'][key], '1')
                 return subprocess.CompletedProcess(command, 1 if fail else 0, stdout=b'fixture output', stderr=b'')
 
             with patch.object(check, 'ROOT', root), patch('sys.argv', ['check.py', '--suite', suite]), \
@@ -57,6 +63,38 @@ class CheckRunnerTests(unittest.TestCase):
         self.assertEqual(status, 1)
         self.assertFalse(receipt['all_requested_pass'])
         self.assertEqual([step['name'] for step in receipt['steps']], ['npm-ci'])
+
+    def test_clean_ci_build_defaults_and_explicit_profile_override(self):
+        from contextlib import redirect_stdout
+        import io
+        for override, expected in (({}, 'line-tables-only'), ({'CARGO_PROFILE_DEV_DEBUG': '0'}, '0')):
+            with tempfile.TemporaryDirectory() as directory:
+                def run(command, **kwargs):
+                    if command[0] == 'git':
+                        return subprocess.CompletedProcess(command, 0, stdout='f' * 40, stderr='')
+                    self.assertEqual(kwargs['env']['CARGO_PROFILE_DEV_DEBUG'], expected)
+                    self.assertEqual(kwargs['env']['CARGO_INCREMENTAL'], '0')
+                    return subprocess.CompletedProcess(command, 0, stdout=b'', stderr=b'')
+                with patch.dict(check.os.environ, {'PATH': os.defpath, **override}, clear=True), \
+                        patch.object(check, 'ROOT', Path(directory)), patch('sys.argv', ['check.py', '--suite', 'fmt']), \
+                        patch.object(check.subprocess, 'run', side_effect=run), \
+                        patch.object(check.subprocess, 'check_output', return_value=b''), redirect_stdout(io.StringIO()):
+                    self.assertEqual(check.main(), 0)
+
+    def test_failure_stdout_is_visible_despite_long_compiler_stderr(self):
+        import io
+        from contextlib import redirect_stdout
+        with tempfile.TemporaryDirectory() as directory:
+            def run(command, **kwargs):
+                if command[0] == 'git':
+                    return subprocess.CompletedProcess(command, 0, stdout='f' * 40, stderr='')
+                return subprocess.CompletedProcess(command, 101, stdout=b'SPECIFIC_FIXTURE_FAILURE', stderr=b'compiler noise\n' * 1000)
+            captured = io.StringIO()
+            with patch.object(check, 'ROOT', Path(directory)), patch('sys.argv', ['check.py', '--suite', 'rust-tests']), \
+                    patch.object(check.subprocess, 'run', side_effect=run), \
+                    patch.object(check.subprocess, 'check_output', return_value=b''), redirect_stdout(captured):
+                self.assertEqual(check.main(), 1)
+            self.assertIn('SPECIFIC_FIXTURE_FAILURE', captured.getvalue())
 
     def test_partial_success_is_identified_as_one_suite(self):
         status, receipt = self.run_fake_suite('fmt', fail=False)

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "packet": "V5-06",
+  "tasks": {
+    "V5-06-01": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-01-completed-20261017.json",
+          "sha256": "54f395f67e9f7b2217a767facb41ddc698d374b21b1238b3bff30b4325273ff8"
+        }
+      ]
+    },
+    "V5-06-02": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-02-completed-20261017.json",
+          "sha256": "774936603a23cb1f0b057050a5baee7c28381b08854707b026a4b80084a3cd59"
+        }
+      ]
+    },
+    "V5-06-03": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-03-completed-20261017.json",
+          "sha256": "311fb67be4d46515baae44b03311ba79f8c993f78bca2d297d107795ecf7c6b5"
+        }
+      ]
+    },
+    "V5-06-04": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-04-completed-20261017.json",
+          "sha256": "3185d72560f238c375cc82e6c29b09a2a4985735a1764f74a07d26f43f56e51f"
+        }
+      ]
+    },
+    "V5-06-05": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-06-timer-current-20261018.json",
+          "sha256": "0def60803cacd4e96ccdb3ef21a3a4ea931111e03512860603d826e3e112bd48"
+        }
+      ]
+    }
+  }
+}

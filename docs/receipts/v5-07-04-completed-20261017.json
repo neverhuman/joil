@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "kind": "software_fixture_recovery_task_completion_not_physical_admission",
+  "packet": "V5-07",
+  "task_ids": [
+    "V5-07-04"
+  ],
+  "title": "Addressed deterministic logical replay with separate actual costs",
+  "tested_commit": "e7d7293a3bc1f76c16742ebe38f8de5b3ef01090",
+  "created_utc": "2026-10-17T23:38:46.335242+00:00",
+  "changed_paths": [
+    "crates/crucible-runtime/src/replay.rs",
+    "crates/crucible-runtime/tests/recovery.rs",
+    "crates/crucible-cli/tests/lifecycle.rs"
+  ],
+  "commands": [
+    {
+      "name": "generated-status",
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.04706631600856781,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+    },
+    {
+      "name": "fmt",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.43507291295100003,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 2.0460569839924574,
+      "log_sha256": "4e3e6460aa17f5ea5a7ab609ad103537d1fc04806a1b56969e87e568d50275a6"
+    },
+    {
+      "name": "rust-tests",
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 341.9649271889939,
+      "log_sha256": "ea7cfb34fc23b2e61e57d23539158e903a6800fbcf9a8ab1c560de9254fa20cf"
+    },
+    {
+      "name": "baseline",
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 7.762957522005308,
+      "log_sha256": "feae12e9487d92c59bc217412c778ab0243ede1e9aa3f388b6e95f17f33e1aa0"
+    },
+    {
+      "name": "python-tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 95.78732712904457,
+      "log_sha256": "650da2f300ecaaa97d516b3735604c4c3fcb58fb5df0f41e56ec3d4734284ea9"
+    },
+    {
+      "name": "public-check",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.16753622301621363,
+      "log_sha256": "1b6bd9004681f330b0a3fea68a72a46891f05cd8e04e70fcdcaf9cc82ebd53f2"
+    },
+    {
+      "name": "claims-audit",
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 18.05491977900965,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "name": "npm-ci",
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 3.431929473998025,
+      "log_sha256": "c15d2eea10ab9adb153027237f2955463a5cee84dadd2721bb517c3a2f4251fe"
+    },
+    {
+      "name": "ui-build",
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 1.7562534880125895,
+      "log_sha256": "ccbb7821c8f869f5a6593909aa9d9a33f735f5afab8421844e058234175a6693"
+    }
+  ],
+  "positive_checks": [
+    "Campaign/island/epoch/proposal/operator/draw addressing and frozen due-epoch/ordinal application reproduce logical state under shuffled arrival",
+    "Actual one-worker versus two-worker CLI runs have identical logical digest; a real injected timeout/retry changes charged attempts4to6 and actual cost digest"
+  ],
+  "negative_checks": [
+    "Changed real cost/wall charge data cannot be normalized by logical replay",
+    "Operator covariance affects produced mutations; arrival trace remains separate and order differences do not authorize altered logical state"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-runtime/src/replay.rs",
+      "sha256": "2aa7d555a7bf6cc8b400a716fd5a2052fdc32f225dd6233c1010c37bf06ae115"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/recovery.rs",
+      "sha256": "22a4e82095dcf8e83c666b2b8c3f203217d6b24bb86b08d9498b3175559442bf"
+    },
+    {
+      "path": "crates/crucible-cli/tests/lifecycle.rs",
+      "sha256": "ed90247a3188ed73675ae1fa7ab0ae6b05c0da80ce418012ede7e25cae8b5447"
+    }
+  ],
+  "private_artifact_inventory_sha256": "f675e614132e403dababfb35a08f2f6941b64f8943c4bb4a4c0c91cdfc58ab07",
+  "private_full_gate_receipt_sha256": "d9ccd1a0816cb7ddbc8b0f62367eec599092a1c1a37643441e9a168606a8a226",
+  "private_exact_runner_log_sha256": "ffd6c1e7e60c4a50a73f13154d97a16e22fcb63f26a800e1d53d74ec522f6095",
+  "producer_executables_sha256": {
+    "crucible": "369b53afb28256f399d17c6c1defae000056acdfd866a45550c4900090d18583",
+    "runtime-fixture": "72609dc673c88cb2c81c429a49418587b899e7519b0da7d5cff07e3f009ebcc2"
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "RAYON_NUM_THREADS": 1,
+    "gpu": false,
+    "simulation": false,
+    "supervisor_observed_scratch_bytes": 2521094680,
+    "per_command_peak_rss": "not separately retained by canonical runner; worker guard and declared child address-space limits apply"
+  },
+  "limitations": [
+    "Synthetic bounded integer software fixture only; no physical solver, campaign, GPU, general genome implementation or physical performance claim",
+    "A crash losing native wait4/coordinator cost keeps the reservation and blocks automatic redispatch until explicit operator reconciliation. Known-cost/planned/committed-result and checkpoint-boundary recovery are supported",
+    "Attempt-cost digest retains the V5-06 declared child wait4 and coordinator-thread verification scope; checkpoint/admission CPU and shared coordinator RAM are excluded. Outer worker lease bounds all work",
+    "Only existing strict schema1 initialization/inspection supported; no automatic missing-ledger reset or unknown-schema migration",
+    "No hardware power-loss experiment, cloud-provider readiness, general native process-tree isolation or fleet operation claimed",
+    "V5-04 statistics remains unassigned; this completes the selected bounded fixture slice, not all M1 or broader physical release",
+    "TR-16/EV-09/EV-12 and unresolved physical requirements remain; scientific STATUS is unchanged",
+    "Old remote CI at a897 is red; complete locked-graph prefetch is included and exact-head CI must be observed after push"
+  ],
+  "next_dependency": "V5-07-05"
+}

@@ -225,6 +225,19 @@ impl Registry {
         self.resolve_inner(reference, &mut BTreeSet::new())
     }
 
+    /// Resolve a claim only under the caller's admitted requirements. The
+    /// legacy resolver intentionally uses the inventory's own requirement scope.
+    pub fn resolve_in_scope(&self, reference: &ContentRef, requirements: &[ContentRef]) -> Verdict {
+        if self
+            .claims
+            .get(&reference.id)
+            .is_some_and(|approved| approved.inventory.identity.requirements != requirements)
+        {
+            return Verdict::Invalid;
+        }
+        self.resolve(reference)
+    }
+
     fn resolve_inner(&self, reference: &ContentRef, visiting: &mut BTreeSet<String>) -> Verdict {
         if reference.check().is_err() || !visiting.insert(reference.id.clone()) {
             return Verdict::Invalid;

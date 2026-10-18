@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "kind": "task_followup_review_fix_not_scientific_validation",
+  "packet": "V5-01",
+  "task_ids": [
+    "V5-01-04"
+  ],
+  "owner": "claude-v5-truth-worker",
+  "review": "integrator review 2 of 0b3e6123d1ef75d7ca8ab1308d8c2e42aed36055 (private claude/integration-review.json, 2026-10-17T23:10:30Z) and coordinator assignment G-003",
+  "supersedes_nothing": "docs/receipts/v5-01-04-completed-20261017.json and all earlier receipts are unchanged; this receipt records the follow-up fix",
+  "input_head": "0b3e6123d1ef75d7ca8ab1308d8c2e42aed36055",
+  "tested_commit": "18f577d83852092bfb48bcf6842b7c48212eca96",
+  "created_utc": "2026-10-17T23:42:00Z",
+  "changed_paths": [
+    "crates/joil-cli/src/main.rs"
+  ],
+  "commands": [
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--locked", "-p", "joil-cli"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.186,
+      "log_sha256": "31f5412eaa791cad9b0acfcb2db4c2a09635474d19a8569b4db2966947b268d7",
+      "note": "10 tests at the tested commit, including the new expiry oracle and review-2 control tests"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "fmt", "--all", "--", "--check"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.371,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "note": "tree byte-identical to the tested commit (git diff HEAD empty after commit)"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "clippy", "--locked", "-p", "joil-cli", "--all-targets", "--", "-D", "warnings"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.58,
+      "log_sha256": "58eca8fba901039daabea558977f32256359c5acdc4abb3402713992c05a625e",
+      "note": "log shows joil-cli re-checked"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "run", "--locked", "-p", "joil-cli", "--", "baseline"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.921,
+      "log_sha256": "d016d6da29484ccd9a36c485c2b8abdf3bbd7dbd745277d843f898ac122815ad"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_doc_numbers_trace.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 50.452,
+      "log_sha256": "3e5ca8c2097e7ca1d49c86b78d9877329385408c542da8522a8e4a75e82a9148",
+      "note": "copies crates/joil-cli/src/main.rs and checks its declared literals"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.241,
+      "log_sha256": "df521ec815a61bac38142481b6d12d0170bc388161a0ba4d949e01cd11489973"
+    }
+  ],
+  "environment": {
+    "CARGO_BUILD_JOBS": "2",
+    "RAYON_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "pre_change_failing_evidence": {
+    "source": "integrator independent proof codex/gpu-expiry-review-red.json at 0b3e6123d1ef75d7ca8ab1308d8c2e42aed36055",
+    "file_sha256": "18a61588a926968a849741c1cd003fd8eea1176cd25cd0f64236bb78f41c8e03",
+    "log_sha256": "7a92d5e2d9f9ee0e8e8fde9301d275cf93122385762108315b53c2eec603d79e",
+    "result": "valid UTC accepted; malformed calendar, malformed time and non-UTC offset accepted; multibyte UTF-8 panicked; parser only, no GPU or fake binary executed"
+  },
+  "positive_checks": [
+    "Valid future UTC expiries 2026-10-18T08:52:43Z, 2026-10-18T08:52:43+00:00 and the real lease format 2026-10-18T08:52:43.818175+00:00 authorize the explicit --cuda-bin path; no VRAM target is passed unless given",
+    "The parser matches eight Unix-second oracles computed independently with Python datetime, from 0001-01-01 to 9999-12-31, including 2000-02-29 and 1900-03-01",
+    "The clock formatter and the parser are inverses within two seconds of the current time",
+    "Without --cuda-bin no GPU is requested (unchanged ordinary-run test)"
+  ],
+  "negative_checks": [
+    "Malformed calendar: 2026-02-30, 2027-02-29, 2100-02-29, 9999-99-99T99:99:99Z, month 13 and year 0000 are refused with 'invalid calendar date <date>'",
+    "Malformed time: 24:00:00, 08:60:00 and leap second 08:52:60 are refused with 'invalid time of day <time>'",
+    "Non-UTC offsets +02:00, -05:00 and -00:00 are refused with 'offset is not UTC'",
+    "Missing zone (2026-10-18T08:52:43 and 9999-99-99T99:99:99) is refused with 'missing time zone designator'",
+    "Trailing characters, lowercase z, space separator, five-digit year, 10-digit or empty fraction, a signed field and a truncated date are refused with 'malformed timestamp syntax'",
+    "Multibyte UTF-8 (a two-byte character spanning byte 19, and a fullwidth digit) is refused with 'not ASCII' and does not panic",
+    "Past expiry and expiry equal to now are refused with 'expired at'; a numeric expires_utc is refused as missing",
+    "Every malformed-expiry error is reported as 'invalid expires_utc', so no malformed lease can authorize the GPU path"
+  ],
+  "artifacts": [
+    {"path": "crates/joil-cli/src/main.rs", "sha256": "0ce7f40ea55f70bf49eaf114535cb5be7e18fab1b4318c00466281d00f7923d6"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "gpu_or_fake_binary_executed": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "not_executed": [
+    "cargo test --workspace and the Python suites: only crates/joil-cli/src/main.rs changed since the full green check set at 004a40a (cargo test --workspace log ed19d3770d0229f9eb5361c7740bab66b5a22bca5f5d3ebbaec244386e473673); the joil-cli tests, clippy, fmt, baseline and the doc-trace test that copies main.rs were rerun"
+  ],
+  "limitations": [
+    "Accepted zones are only Z and +00:00; leases written with other offsets must be rewritten in UTC",
+    "Fractional seconds are truncated, never rounded up; leap seconds (:60) are refused",
+    "The lease check still reads only gpu and expires_utc from a JSON file; it does not verify device ownership or the shared-host scheduler",
+    "Software admission fix only; no GPU process was started"
+  ],
+  "next_dependency": "Integrator re-review of review-2 controls, then V5-01 acceptance and integration into PR #6"
+}

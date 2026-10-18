@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "kind": "software_runtime_task_completion_not_physical_admission",
+  "packet": "V5-06",
+  "tested_commit": "423f80b0754eafdeb4efb6f3b1293631aed1b003",
+  "created_utc": "2026-10-17T23:04:24.497492+00:00",
+  "commands": [
+    {
+      "name": "generated-status",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.05427106603747234,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+    },
+    {
+      "name": "fmt",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.4067926470306702,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 10.312038199976087,
+      "log_sha256": "808cb3570519e3a62a619f9584b8d357e0a5fb40df3516f5ca4b489e8bd854b4"
+    },
+    {
+      "name": "rust-tests",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 198.8907932919683,
+      "log_sha256": "94f558909014a3b70216c980218e784aea81bc79066f8459ebe3095b3a9c6bb9"
+    },
+    {
+      "name": "baseline",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 7.817563091986813,
+      "log_sha256": "cf9f76666f425896f085d163b96c65d651752266bb1901a8f2a98814c8ace6b2"
+    },
+    {
+      "name": "python-tests",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 101.7910021530115,
+      "log_sha256": "5e461edf951a8e7d4b6e8a0d156b64e2b47b267fd58e519d3eb4b2f108cd14ae"
+    },
+    {
+      "name": "public-check",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.17237612302415073,
+      "log_sha256": "bb3b5875de3fac8d0f12b8fdcedd62bbf42baf4b197488d7c2ebf02ed15552dc"
+    },
+    {
+      "name": "claims-audit",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 19.370613426028285,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "name": "npm-ci",
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 1.3013143329881132,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920"
+    },
+    {
+      "name": "ui-build",
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 2.31385436700657,
+      "log_sha256": "fbd935a0f443fc04ad216e034f42c677bfed2338c7d7f5a6adf8a5837991ab29"
+    }
+  ],
+  "private_artifact_inventory_sha256": "efafbc7942296c1a7d34117f8a1503ffcceb84beb27e4e14eeb0c64f8200bc69",
+  "producer_executable_sha256": "0d37dc1199b97c6f3896d59d29c4e86e72d9247900ad8fea003245f188cb4191",
+  "private_full_gate_receipt_sha256": "ab4e63eb103c29b28498ddd2a90910e535f6a3112b4669ec5d1d885a5874fe30",
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "RAYON_NUM_THREADS": 1,
+    "children_peak_rss_kib": 595380,
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Bounded software fixture/runtime correctness only; no physical solver, simulation campaign, GPU or physical performance claim",
+    "Only trusted single-process synthetic executable supported; arbitrary native trees, MPI/GPU and adversarial cgroup/filesystem isolation remain Unsupported",
+    "Per-attempt measurement scope includes child wait4 CPU/RSS/block IO plus coordinator thread CPU through verification; shared coordinator memory/final bookkeeping excluded and declared",
+    "CPU hard-time rounding/headroom and wall/scratch polling are not hard realtime guarantees; overruns are retained and halt admission",
+    "Version1 new-empty initialization and strict unknown-version rejection only; future nonempty migrations need explicit backup/migration",
+    "Family alpha grid is conservative trillionths; unsupported precision rejects. Same canonical coordinator database required across forks; complete campaign recovery is V5-07",
+    "TR-16/EV-09/EV-12 and unresolved physical requirements retained; no scientific STATUS promotion",
+    "Published PR remains older red head until new push/exact-head CI; local full gate passed on this exact source commit"
+  ],
+  "task_ids": [
+    "V5-06-04"
+  ],
+  "changed_paths": [
+    "crates/crucible-runtime/src/lease.rs",
+    "crates/crucible-runtime/src/task.rs",
+    "crates/crucible-runtime/tests/attempts.rs"
+  ],
+  "positive_checks": [
+    "Synthetic sysfs counterexamples and actual process-affinity topology checked without modulo",
+    "Native child OS audit confirms affinity, address-space/file/CPU limits, private group, numeric threads1 and GPU visibility empty",
+    "PID/start/boot/group persisted; recovery cancellation uses pidfds and proves exit"
+  ],
+  "negative_checks": [
+    "SMT sibling double-count/overlap, expired/historical GPU authority, excessive ranks/threads and changed PID start refuse",
+    "Owned cancellation leaves another owned sentinel group running; child self-deadline survives missing coordinator polling"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-runtime/src/lease.rs",
+      "sha256": "892eec46057e5ef096152675a4ba074dfb7e630134c1cb61f769a1291a846454"
+    },
+    {
+      "path": "crates/crucible-runtime/src/task.rs",
+      "sha256": "6d9915231e01ea2ace45734e459b87bfb365d8247d7bcdfa515c239695a5e701"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/attempts.rs",
+      "sha256": "3b5211e591faf0885de7fc23c24b80e56c47972e7ea860b8e14bab97014d5c46"
+    }
+  ],
+  "next_dependency": "V5-06-05"
+}

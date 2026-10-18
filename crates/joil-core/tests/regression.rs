@@ -509,7 +509,12 @@ fn openfoam_candidate_case_builder_and_surrogate_engine_qualification() {
     let sq = run_surrogate_and_engine_qualification(&individuals).unwrap();
     assert!(sq.failure_quarantine_verified);
     assert_eq!(sq.quarantined_failure_records, 2);
-    assert!(sq.checkpoint_determinism_verified);
+    // V5-01-03: compatibility self-test only; campaign replay stays unsupported.
+    assert!(sq.checkpoint_compatibility_selftest_passed);
+    assert!(matches!(
+        sq.campaign_replay,
+        joil_evidence::observation::Observation::Insufficient { .. }
+    ));
     assert!(sq.evaluator_drift_rejection_verified);
     assert!(sq.budget_conservation_verified);
     assert!(sq.ood_std_exceeds_in_dist_std);
@@ -520,8 +525,8 @@ fn openfoam_candidate_case_builder_and_surrogate_engine_qualification() {
 fn p05_population_pbm_dsd_and_multiphase_regime_gates() {
     use joil_core::population::{
         build_stratified_dsd_weights, check_multiphase_regime_envelope,
-        generate_mpi_rank_invariant_cohort, verify_added_mass_and_pressure_gradient,
-        verify_dispersion_and_les_partition, verify_parcel_substep_halving,
+        dispersion_partition_arithmetic, generate_mpi_rank_invariant_cohort,
+        verify_added_mass_and_pressure_gradient, verify_parcel_substep_halving,
         verify_pbm_breakup_coalescence_and_resolution,
     };
 
@@ -531,17 +536,17 @@ fn p05_population_pbm_dsd_and_multiphase_regime_gates() {
     assert!(oil04.exact_initial_accel_ratio_ap_over_af > 1.05);
     assert!(oil04.wrong_omitted_pressure_accel_ratio < 0.5);
 
-    let oil05_06 = verify_dispersion_and_les_partition(
-        &[0.12, 0.28, 0.54, 0.88, 1.32],
-        0.004,
-        1.45,
-        0.18,
-        0.18,
-    )
-    .unwrap();
-    assert!(oil05_06.passed);
-    assert!(oil05_06.negative_control_rans_on_les_rejected);
-    assert!(verify_dispersion_and_les_partition(
+    let oil05_06 =
+        dispersion_partition_arithmetic(&[0.12, 0.28, 0.54, 0.88, 1.32], 0.004, 1.45, 0.18, 0.18)
+            .unwrap();
+    // V5-01-03: arithmetic only; no well-mixed transport qualification.
+    assert!(oil05_06.arithmetic_checks_passed);
+    assert!(oil05_06.claimed_les_dispersion_within_sgs_bound);
+    assert!(matches!(
+        oil05_06.well_mixed_transport,
+        joil_evidence::observation::Observation::Insufficient { .. }
+    ));
+    assert!(dispersion_partition_arithmetic(
         &[0.12, 0.28, 0.54, 0.88, 1.32],
         0.004,
         1.45,
@@ -589,9 +594,10 @@ fn p05_population_pbm_dsd_and_multiphase_regime_gates() {
 #[test]
 fn p06_experiment_calibration_crossover_holdout_ct_and_comparator_gates() {
     use joil_core::experiment::{
-        analyze_blinded_aba_crossover, evaluate_as_built_ct_metrology, required_blocks_for_power,
-        verify_holdout_isolation, verify_instrument_calibration, verify_shared_duty_comparator,
-        AbaCrossoverBlock,
+        analyze_blinded_aba_crossover, analyze_prospective_aba_crossover,
+        evaluate_as_built_ct_metrology, required_blocks_for_power, verify_holdout_isolation,
+        verify_instrument_calibration, verify_shared_duty_comparator, AbaCrossoverBlock,
+        ProspectiveDesign,
     };
 
     let cal = verify_instrument_calibration("oil-a", "oil-a", 0.998, 0.4, 1.2, 0.65).unwrap();
@@ -652,9 +658,35 @@ fn p06_experiment_calibration_crossover_holdout_ct_and_comparator_gates() {
             split_mismatch_abs: 0.00006,
         },
     ];
-    let aba = analyze_blinded_aba_crossover(&blocks).unwrap();
-    assert!(aba.passed_10pct_lcb95_gate);
-    assert!(aba.lcb95_paired_gain_fraction >= 0.10);
+    // Declared SYNTHETIC prospective design: independent pilot blocks P1-P3 (disjoint from
+    // B1-B6), threshold 0.10, useful effect 0.05, alpha 0.025, power 0.90, at least 6 blocks.
+    let design = ProspectiveDesign {
+        design_id: "synthetic-p06-design".into(),
+        pilot_block_ids: vec!["P1".into(), "P2".into(), "P3".into()],
+        pilot_paired_effects: vec![0.145, 0.155, 0.165],
+        claim_threshold: 0.10,
+        useful_effect: 0.05,
+        alpha_one_sided: 0.025,
+        power: 0.90,
+        minimum_blocks: 6,
+    };
+    let plan = crucible_stats::analysis::pilot::plan_replication(&design).unwrap();
+    assert_eq!(plan.required_blocks, 6);
+    let aba = analyze_prospective_aba_crossover(&blocks, &plan).unwrap();
+    assert!(aba.confirmation.qualified);
+    assert!(aba.confirmation.lower_confidence_bound >= 0.10);
+    // Independent Student t table value t(0.975, 5).
+    assert!((aba.confirmation.t_critical - 2.570_581_836_6).abs() < 1e-9);
+    assert!(analyze_prospective_aba_crossover(&blocks[0..5], &plan).is_err());
+    let mut nonpositive = blocks.clone();
+    nonpositive[2].baseline_a1_qmax_m3_h = 0.0;
+    nonpositive[2].baseline_a2_qmax_m3_h = 0.0;
+    assert!(analyze_prospective_aba_crossover(&nonpositive, &plan).is_err());
+    // Without a prospective protocol the legacy analysis never fabricates power or passes.
+    let legacy = analyze_blinded_aba_crossover(&blocks).unwrap();
+    assert!(!legacy.passed_10pct_lcb95_gate);
+    assert_eq!(legacy.required_blocks_for_90pct_power, None);
+    assert!(legacy.power_status.starts_with("unplanned"));
     assert!(analyze_blinded_aba_crossover(&blocks[0..3]).is_err());
 
     assert!(verify_holdout_isolation(&["t1".into()], &["h1".into()], 1).unwrap());
@@ -695,14 +727,26 @@ fn p09_ops_view_resource_lease_and_glb_scene_bundle_gates() {
     let mut rng = Rng::new(20261015);
     let archetypes = DesignProgram::seed_archetypes(&mut rng);
     let surf = MultiPatchSurface::from_program(&archetypes[3], 0.0).unwrap();
-    let manifest = export_glb_scene_bundle(&surf, "stl-sha-test", 1.0, &glb_path).unwrap();
+    // V5-01-05: the governing digest must come from this surface's own STL.
+    let own_stl = tmp_dir.join("governing.stl");
+    surf.write_openfoam_ascii_stl(&own_stl).unwrap();
+    let own_sha = joil_core::openfoam::file_sha256(&own_stl).unwrap();
+    let manifest = export_glb_scene_bundle(&surf, &own_sha, 1.0, &glb_path).unwrap();
     assert_eq!(manifest.units, "m");
     assert!((manifest.true_deformation_scale - 1.0).abs() < 1e-12);
     assert!(glb_path.is_file());
     assert!(glb_path.with_extension("scene-manifest.json").is_file());
     let bytes = std::fs::read(&glb_path).unwrap();
     assert_eq!(&bytes[0..4], &0x46546C67u32.to_le_bytes()); // 'glTF' magic
-    assert!(export_glb_scene_bundle(&surf, "stl-sha-test", 2.5, &glb_path).is_err());
+    assert!(export_glb_scene_bundle(&surf, &own_sha, 2.5, &glb_path).is_err());
+    // Unknown subject equivalence: a label or another subject's STL digest is rejected.
+    assert!(export_glb_scene_bundle(&surf, "stl-sha-test", 1.0, &glb_path).is_err());
+    let other = MultiPatchSurface::from_program(&archetypes[4], 0.0).unwrap();
+    let other_stl = tmp_dir.join("other.stl");
+    other.write_openfoam_ascii_stl(&other_stl).unwrap();
+    let other_sha = joil_core::openfoam::file_sha256(&other_stl).unwrap();
+    let err = export_glb_scene_bundle(&surf, &other_sha, 1.0, &glb_path).unwrap_err();
+    assert!(err.contains("subject equivalence unknown"), "{err}");
     let _ = std::fs::remove_dir_all(&tmp_dir);
 }
 

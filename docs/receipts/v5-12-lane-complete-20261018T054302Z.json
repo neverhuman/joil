@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "packet": "V5-12",
+  "tasks": ["V5-12-01", "V5-12-02", "V5-12-03", "V5-12-04", "V5-12-05"],
+  "state": "lane_complete_software_only",
+  "packet_acceptance": "open_geometry_realization_and_physical_neutrality",
+  "tested_commit": "055d8effa64e6e60f4b4825bd8c652b4e0f493f6",
+  "base_commit": "d99ab78288c1c0461fb645572dc63ecb88b22c31",
+  "changed_paths": [
+    "crates/crucible-genome/src/lib.rs",
+    "crates/crucible-genome/src/operators/mod.rs",
+    "crates/crucible-genome/tests/operators.rs",
+    "tests/fixtures/v5-expressiveness/README.md",
+    "tests/fixtures/v5-expressiveness/cases.json",
+    "experiments/v5-operator-audit.toml"
+  ],
+  "commands": [
+    {
+      "name": "operators_test",
+      "argv": ["rtk", "cargo", "test", "--locked", "-p", "crucible-genome", "--test", "operators"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/operators.log",
+      "log_sha256": "b225acb32b55cf3ea4efa2af93affb7c718d4e535516269043462538a549cecc"
+    },
+    {
+      "name": "crate_tests",
+      "argv": ["rtk", "cargo", "test", "--locked", "-p", "crucible-genome"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/crucible-genome.log",
+      "log_sha256": "bccc039b9bd60f7a95310b5461a5493eb0b0819268d657660cfc1ee9d3fd2bb8"
+    },
+    {
+      "name": "clippy",
+      "argv": ["rtk", "cargo", "clippy", "--locked", "-p", "crucible-genome", "--all-targets", "--", "-D", "warnings"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/clippy.log",
+      "log_sha256": "8241e649deb3f7ecbb7a92db99f1b1cc52df9ed9ea8cfd5a0fa0d466e4a1ff23"
+    },
+    {
+      "name": "fmt",
+      "argv": ["rtk", "cargo", "fmt", "--all", "--", "--check"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/fmt.log",
+      "log_sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120",
+      "nonempty_log": true
+    },
+    {
+      "name": "public_scan",
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/check_public.log",
+      "log_sha256": "6d556b76f037e6708da11c2327030ff774b7be7a6c102d1fe4848ac14c09df80"
+    },
+    {
+      "name": "diff_check",
+      "argv": ["rtk", "git", "diff", "--check"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/diff-check.log",
+      "log_sha256": "9fa3b6ead7afc298499f30c5b70014c78b6686a8269611537606fa5a7c02b6a2"
+    }
+  ],
+  "positive_checks": [
+    "Operator suite: 8 tests passed; full crate: 16 tests passed across 4 suites, including all V5-11 regressions.",
+    "Single-attempt deterministic operators retain the exact proposal, parent/child identities, locality, observable labels and cost; generated innovations are stable max-plus-one IDs.",
+    "Split, merge, add/remove/duplicate, reconnect, graph-symmetry edit and homologous innovation crossover smoke paths execute through the MPG validator.",
+    "Bounded sequence preserves interface reference and frozen process choice; accepted children validate graph references and typed ports.",
+    "Equal-shell/different-interior control produces different semantic subject identities.",
+    "Bounded smoke audit: 5 attempts in the 0-4 module bin reconcile to 1 accepted, 1 failed, 1 duplicate, 1 neutral and 1 budget-exceeded.",
+    "Preregistered 100000-trial policy is separate from frozen fixtures; no broad campaign launched; adaptive novelty components disabled."
+  ],
+  "negative_checks": [
+    "Inapplicable removal, incompatible reconnect and budget exceedance return typed failures with attempt cost 1 and preserve the sampled proposal.",
+    "No hidden retries or baseline substitution; neutral, duplicate, failed and budget-exceeded proposals remain in the denominator.",
+    "Merge with incident fluid-flow references is a charged rejection and cannot leave stale graph indices.",
+    "Strict Clippy, formatting, publication scan and diff whitespace gates pass."
+  ],
+  "artifacts": [
+    {"path": "crates/crucible-genome/src/operators/mod.rs", "sha256": "e9acbfe1a66d7f75cfd26c4e3314dea1ea44d492341ded4d28802900d0d5571d"},
+    {"path": "crates/crucible-genome/tests/operators.rs", "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"},
+    {"path": "tests/fixtures/v5-expressiveness/cases.json", "sha256": "0eb5ccff483d635d37ea99434ba26efb37888ebd20c7557e70614e7b50e315cf"},
+    {"path": "experiments/v5-operator-audit.toml", "sha256": "f8bc543e5e5ba3679656c20ab57ec1a771d4ca1783e8c8e65d7f08f76f404560"}
+  ],
+  "smoke_yield": {
+    "complexity_bin": "0-4 modules",
+    "attempted": 5,
+    "accepted": 1,
+    "failed": 1,
+    "duplicate": 1,
+    "neutral": 1,
+    "budget_exceeded": 1,
+    "reconciled": true,
+    "physical_neutrality": "unmeasured"
+  },
+  "resource_allocation": {
+    "cpus": [90, 91],
+    "rss_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "gpu": false,
+    "heavy_campaign": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+    "incremental": false
+  },
+  "limitations": [
+    "The current crate supports MPG validation/development only; no geometry backend is registered. Fourteen of the 16 registry witnesses remain blocked at geometry realization; the two MPG smoke cases do not establish shape realization.",
+    "Physical neutrality cannot be measured from MPG identity alone because no independent physical-observable extractor is registered.",
+    "Geometric keepout crossing and geometric conformance limits are outside the current genome compiler; only typed-port and development-budget failures are tested here.",
+    "The reference species/protection value is recorded as none at this software layer; fixed search protection requires its own admitted, versioned search policy. Motif mining, neural mutation and learned novelty remain disabled.",
+    "Lane completion covers software implementation and bounded gates. Integrator packet acceptance and V5-08/V5-09 geometry/backend dependencies remain open; no physical or scientific PASS is claimed."
+  ],
+  "next_dependency": "Integrator acceptance of geometry compiler and independent observer contracts, then realize the 16 frozen corpus cases and measure physical neutrality under a separate bounded lease."
+}

@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "tested_commit": "96d3bd6796d20bae199eb482f815f555178a1d27",
+  "created_utc": "2026-10-18T02:11:17.811226+00:00",
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.4992389450198971,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c5e13f1b670b6b79d98b39e34917d25b62d9e67e50ee0dd39908a2450a7c9e2d",
+      "wall_seconds": 11.321515128947794,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3b6f89fee8a39494f12d80769db942242708dece2aac756153306aca5fc9160a",
+      "wall_seconds": 501.9901616499992,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e7f73e26dd77a6173f6cb737585ebe1d67682e0ee4f1cb19de224ddf8cb58aca",
+      "wall_seconds": 8.600085347017739,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.05017675901763141,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "be3f6f44c853e1f8fdbd7ea51088a1b770d884c60116587360772246157e513a",
+      "wall_seconds": 93.6292350529693,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ef1760e9d9f2c07fd2079e68c28673a4ed116854921126c13a97c01b83051ec5",
+      "wall_seconds": 0.16493459203047678,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "wall_seconds": 16.682387367996853,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920",
+      "wall_seconds": 1.6059425600105897,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b5c306029017c680a48a3e12f0eb99dd59a6b0389336f18436aec752042d28bb",
+      "wall_seconds": 2.5946690469863825,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    }
+  ],
+  "private_full_gate_receipt_sha256": "4ddca92bdf20ecba147a394cd277c9da6260b501bd5ee6da3e2c688db9e0f95f",
+  "private_full_gate_log_sha256": "dde05fa9c67e07c4daf22dba5a3b9dc201d3739ac884e9f494bb3817cd60a885",
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "physical_solver_campaign": false,
+    "measured_start_owned_scratch_bytes": 1934950139,
+    "sampled_peak_owned_scratch_bytes": 2036876735,
+    "sampling_note": "Private gate samples at ten-second intervals, not a continuous peak RSS/usage measurement; Rust suite used one permitted core, fresh witness used both leased physical cores."
+  },
+  "acceptance_state": "verification_supplement_not_task_acceptance",
+  "canonical_progress_updated": false,
+  "limitations": [
+    "Coding and independent software checks only; no physical qualification, GPU or solver campaign.",
+    "Exact-head CI run39088444745 is still pending at receipt creation; task acceptance remains held until its result and combined acceptance evidence.",
+    "Earlier d1e2827 official gate was interrupted and has NO RESULT; this receipt relies only on the completed96d gate.",
+    "Historical receipts and artifact inventories remain immutable. Archived historical bytes were verified through an additive retention map, not counted as new test execution.",
+    "V5-00-03 remains audit-held pending16 executed source-bound baseline controls. TR-16/EV-09/EV-12 remain deferred.",
+    "The old Store red used a retained pre-repair test image and byte-bound Store test source; it was not a fresh whole-d1 rebuild or full-gate result.",
+    "Successful synthetic test temp directories are deliberately ephemeral. Failure diagnostics, immutable raw witness artifacts and gate logs are retained; no physical measurements are inferred."
+  ],
+  "kind": "stop_publication_and_test_scratch_verification_not_physical_admission",
+  "packet": "V5-07",
+  "task_ids": [
+    "V5-07-04",
+    "V5-07-05"
+  ],
+  "changed_paths": [
+    "crates/crucible-cli/src/lib.rs",
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "crates/crucible-runtime/tests/attempts.rs",
+    "crates/crucible-runtime/tests/recovery.rs",
+    "crates/crucible-store/tests/store.rs",
+    "crates/crucible-contract/tests/common/scratch.rs",
+    "crates/crucible-contract/tests/scratch.rs",
+    "tools/v5_fixture_smoke.py",
+    "docs/design/V5_RECOVERY.md"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/src/lib.rs",
+      "sha256": "24a09c7ece2dd592e2c43f3dad79bc990a386254c19541968a24368b60c989e5"
+    },
+    {
+      "path": "crates/crucible-cli/tests/lifecycle.rs",
+      "sha256": "c5d28cbe356d3c7536105bf995fd10309d73b1b0f4d96df6e785373110b72b02"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/attempts.rs",
+      "sha256": "df463276fba675bc27074f35c86c5a891a1824fa76a10d2cc6c7ccf9f8414a7f"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/recovery.rs",
+      "sha256": "15213b67d8df944def0887245083a8eea07ea5c375adab5538068b95d5aefb62"
+    },
+    {
+      "path": "crates/crucible-store/tests/store.rs",
+      "sha256": "89cf8c2f4162596abe18e983324accc70e5111c85e8e25928287c03a82ca97f3"
+    },
+    {
+      "path": "crates/crucible-contract/tests/common/scratch.rs",
+      "sha256": "8e04c755085770e4f68ada7768f75553220f8134525914566c89e6510314bd79"
+    },
+    {
+      "path": "crates/crucible-contract/tests/scratch.rs",
+      "sha256": "44999c34a11a9894ad0d3bc7643a1286e81786d6383eaf280068ed2806a3daf1"
+    },
+    {
+      "path": "tools/v5_fixture_smoke.py",
+      "sha256": "565af1509ed1a93faa3acd1171bf1854e2bad0ec70fc5b1ba4a6c678dc4705cc"
+    },
+    {
+      "path": "docs/design/V5_RECOVERY.md",
+      "sha256": "0238d05032bc642fe36a7d3a325edeb69ab939383319724a9783b89ac11dfe13"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-07-replay-current-20261018.json",
+      "sha256": "bbf30c805c2d79a8fc4931f79a7c78422e6465d2ebbb1225a2b1d8ad78d9affe"
+    },
+    {
+      "path": "docs/receipts/v5-07-fresh-clone-20261018.json",
+      "sha256": "f693ddba0e500701976b2a74c48f0e2a39cecd080bc7bc5e064f7671547fe63f"
+    }
+  ],
+  "positive_checks": [
+    "Current full Rust workspace passes, including unchanged30-second stop bound and exactly one joined-batch/stop checkpoint publication.",
+    "One-core run drains/charges its running job and preserves the still-planned sibling; resume completes the actual six-charge retry case without resetting spend.",
+    "New test scope guards cover36 store/runtime/CLI tests; external post-suite filesystem check found zero newly leaked registered test directories.",
+    "Actual failed-test child exits101 and retains exact diagnostic bytes until its parent verifies them; successful scopes remove only registered unique paths.",
+    "Independent fresh-origin96d source with own objects/no alternates completed whole worker2, partial/resume/offline verification and whole worker1. All13 commands meet expected exits; whole logical digests agree and actual cost digests differ."
+  ],
+  "negative_checks": [
+    "Retained pre-repair Store test passes its functional assertion but an independent no-leftovers assertion fails1 with one actual leaked directory; the new actual Store test passes and leaves none.",
+    "The deliberate failed-test child preserves its directory and diagnostic; failure outputs are not silently cleaned.",
+    "Actual invalid physical input exits64 before run-root creation in the fresh witness.",
+    "Retained71f executed stop history has three post-running checkpoint publications against the new required one; byte-identical71f/d8 CLI source binds that retrospective control. Actual d8 stop wait failure101 is separately retained, and is not called an interrupted-gate result."
+  ],
+  "private_evidence": {
+    "scratch_child_control_log_sha256": "3ff39d3f0a83c3f84d1cdf82cbdbe1ee0d6fa5952efeb9c8c1e3d4bb1c039ea1",
+    "store_no_leftovers_positive_log_sha256": "46e116f216364c6f266dd34d69343c3ed165e9de4a198dd79b2878f09a6b9421",
+    "old_store_leak_red_log_sha256": "af4c47ac92e4a1ea649863a403258527e141351999c2a290028bcdffcccddeac",
+    "old_store_red_binding_sha256": "b31f01a62f81109cbe4989308f1b2a597a6e6bde56460efe3fa88ed225829dbd",
+    "old_store_binary_retention_sha256": "ae6308865113d3751eb1139e08e8e79e51ad7998a63c6326a23a8923289dc9ad",
+    "stop_batch_retrospective_control_sha256": "0b2b53e2d8939a5445d82fd1fb94943baa49a85eb8e0d797c157043f180e6758",
+    "fresh_witness_log_sha256": "15ec6f9d3faaf2534d3c62b6cd2b5e76064d92ce03a4eb22c4f1cbd8a1b8ce90",
+    "fresh_witness_command_inventory_sha256": "09d864584476e963aff7d373bcd720c2dbfa8644d7e94c12b6bdb7efb8315328",
+    "fresh_witness_evidence_inventory_sha256": "7b6edeef2318b48751d0f2daa49cbebdda90ef6cddb1b242fe03a75a4b0ef688",
+    "fresh_witness_raw_artifact_inventory_sha256": "e3d7d6c56242fb71eb1fb2260d0948d274c42f987925636ef62375ae5939061b",
+    "historical_archive_retention_index_sha256": "e2016be551892130fa18c9119a59f1e04ede463e6df885c94048b296ab5e6290"
+  },
+  "next_dependency": "Observe exact96d CI; combined integrator acceptance receipt and canonical progress update are still required."
+}

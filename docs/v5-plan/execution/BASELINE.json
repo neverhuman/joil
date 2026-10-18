@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "packet": "V5-00",
+  "created_utc": "2026-10-17T20:55:29.897729+00:00",
+  "original_main": "cc86edc90d06f0eac69022f84354abc94bb453c4",
+  "plan_head": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "execution_start_head": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "drift_disposition": {
+    "references": {
+      "main": {
+        "sha": "59f50095cf132e4451fc6cca4ea470ec3d6404c0",
+        "matches_original": false,
+        "changed_path_count": 286,
+        "changed_paths_log_sha256": "3e739abda6b4833479bbbbdb9413c4e6be45803f8887090a2a4127a1ddc2e983",
+        "disposition": "Different local/cached reference; not adopted. No fetch, merge or history modification. Original reviewed main remains pinned."
+      },
+      "origin/main": {
+        "sha": "a6c3b61107caeae7334a8ac642ec4e6b2e45a800",
+        "matches_original": false,
+        "changed_path_count": 54,
+        "changed_paths_log_sha256": "07a1b4ca722a1a204cde527a10f1ecfed17fe5241987f4567c40e0da9606d570",
+        "disposition": "Different local/cached reference; not adopted. No fetch, merge or history modification. Original reviewed main remains pinned."
+      }
+    },
+    "plan_delta_only": true,
+    "science_files_changed_since_original_main": false
+  },
+  "tracked_files": [
+    {
+      "path": "Cargo.lock",
+      "sha256": "0e50aa619e8bb91debb74f5961a28989b40143d57ca9d7d799a353d20ed4e618",
+      "bytes": 7749
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "b29d3ecfb826c0680d20d4559ee818805932a8e6950ff4f7383bc93aba6c52a8",
+      "bytes": 281
+    },
+    {
+      "path": "apps/explorer/src/main.tsx",
+      "sha256": "77d32c1c3474d06e0fe90af5f9a4ef808f5874f8d4c5c6a834b5d446a25373db",
+      "bytes": 24605
+    },
+    {
+      "path": "baselines/ct35/genome.json",
+      "sha256": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5",
+      "bytes": 606
+    },
+    {
+      "path": "baselines/ct35/reference.json",
+      "sha256": "9db5bbef73005888ca42d2cfe8c2b7fab938b18fa174dc2c41e7a9c95563f994",
+      "bytes": 2557
+    },
+    {
+      "path": "crates/joil-core/src/evolve.rs",
+      "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab",
+      "bytes": 158943
+    },
+    {
+      "path": "crates/joil-core/src/population.rs",
+      "sha256": "25c919457542dcb6532798d2adf7c43782ebda3a7b899cf90b6b5d032bc731e0",
+      "bytes": 20292
+    },
+    {
+      "path": "crates/joil-core/src/structure.rs",
+      "sha256": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c",
+      "bytes": 26488
+    },
+    {
+      "path": "crates/joil-core/src/surrogate.rs",
+      "sha256": "eda7883859d6f1741bfd21fc53090cf606a7aed33fa063cd18b03e5ebfea2905",
+      "bytes": 44405
+    },
+    {
+      "path": "crates/joil-ir/src/lib.rs",
+      "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec",
+      "bytes": 161344
+    },
+    {
+      "path": "docs/SCIENCE.md",
+      "sha256": "2e00afad5a2a3f153ac0cf2994d2c59fdabc5909713880a23e2eefddb690445f",
+      "bytes": 16623
+    },
+    {
+      "path": "docs/STATUS.json",
+      "sha256": "23c0e59479eb00859df118dcaa44eebd4ed15dfbdde50d55bebda13bfbffe4a9",
+      "bytes": 7214
+    },
+    {
+      "path": "docs/v5-plan/DEFECT_MAP.json",
+      "sha256": "4fa4ffe30fb6e7be63a560f0d37619d6f138a888017d0c99cd029c393d036423",
+      "bytes": 5844
+    },
+    {
+      "path": "experiments/wave2-preregistration-v1.json",
+      "sha256": "405e27d9f4730d1ee730cf66372c2993c43bb7de2e0be1c43b903da4dd18b0e4",
+      "bytes": 5724
+    },
+    {
+      "path": "requirements/RS-joil-research-v1.json",
+      "sha256": "0c45be99765c019db041b84df346aa9d29959397bf7d7a9602a4d5fd90f1cb4b",
+      "bytes": 2266
+    },
+    {
+      "path": "requirements/joil-hydrocyclone-v1.toml",
+      "sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+      "bytes": 2977
+    },
+    {
+      "path": "tools/f0_enactment.py",
+      "sha256": "2809c7750565dcce47cf0572b2b275e3506349f54277512ff004d4fa800da079",
+      "bytes": 15026
+    },
+    {
+      "path": "tools/run_elite_3grid_gci_and_rsm.py",
+      "sha256": "27ef494bafda0337233bf4226e8a74a542314d16f61471ffb79cfcf1a23ca601",
+      "bytes": 18499
+    }
+  ],
+  "private_supplied_sources": [
+    {
+      "id": "S01",
+      "path": "final/JOIL v5 Engineering Specification.md",
+      "sha256": "7d2ad7b66d7346767e6d5478eaea018eed69ed76bd19c63e2b6eb789c6cf495d",
+      "bytes": 84587
+    },
+    {
+      "id": "S02",
+      "path": "final/JOIL_Final_Engineering_Specification.md",
+      "sha256": "0adbb8444b3c5bc331be14de0a764224d0f8afc86a25a35c98debe8bfa0adecd",
+      "bytes": 213038
+    },
+    {
+      "id": "S03",
+      "path": "final/JOIL_Final_Engineering_Specification_Synthesis.md",
+      "sha256": "bca37c15e8ef3062657598dc356fa35558b8ca3d1474e11c9415dbdef81f0245",
+      "bytes": 209635
+    },
+    {
+      "id": "S04",
+      "path": "final/JOIL_v5_Final_Engineering_Specification.md",
+      "sha256": "00f0d4c70dc72805d7402725697552ef70ef079f0de5b7e37cdd330f8a225e81",
+      "bytes": 11443
+    },
+    {
+      "id": "S05",
+      "path": "final/Joil_Engineering_Specification.pdf",
+      "sha256": "9561cc4f19651a4f07da22cc4ca8f41c271b4d380c55862a8eee69ae0d3a8b74",
+      "bytes": 252039
+    },
+    {
+      "id": "S06",
+      "path": "final/joil v5 Engineering Spec \u2014 Open-Ended Evolutionary Design with Hard Engineering Gates.md",
+      "sha256": "04fe7afc655aa19aa4040f9ebff38825205e34cc5c809a4c9301686f4c1c7ebf",
+      "bytes": 74373
+    },
+    {
+      "id": "S07",
+      "path": "final/joil1.md",
+      "sha256": "e5e99e23dd9cfce04c93564240fbfdeb8e679ebecae8f9ae481f4f3b85a203e9",
+      "bytes": 16445
+    },
+    {
+      "id": "S08",
+      "path": "final/joil2.md",
+      "sha256": "b6bd88c1cbce643ec13343ace3d77e3efb1540a247ee14db6050e44941d9c663",
+      "bytes": 11553
+    },
+    {
+      "id": "S09",
+      "path": "xfinal/JOIL_FINAL_ENGINEERING_SPEC.md",
+      "sha256": "952dc4564866ce6dd1161d9259cf0d714b6398707756419eee6a9ce9c2c4993d",
+      "bytes": 226802
+    },
+    {
+      "id": "S10",
+      "path": "xfinal/JOIL_v5_Final_Engineering_Specification.md",
+      "sha256": "838214f30e31396e9e8588160155a14f7a69a9a86c7ce5484b1034aab2d63d94",
+      "bytes": 142626
+    }
+  ],
+  "primary_preservation": {
+    "head": "fdff5bad9475277a9bed5e3a4612fd5e990580dc",
+    "dirty_count": 91,
+    "private_inventory_sha256": "20f1f8e3fcf23d4c64dbca5898b707f0398215e5b1aae73375b6f097a6526289",
+    "COMMS_sha256": "753fef45c075c02afa87a3e16999aea45dda134784d74d4cf68e5d5709f04659",
+    "preserved": true
+  },
+  "toolchain": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "rustc",
+        "-Vv"
+      ],
+      "exit_code": 0,
+      "output": "rustc 1.95.0 (59807616e 2026-04-14)\nbinary: rustc\ncommit-hash: 59807616e1fa2540724bfbac14d7976d7e4a3860\ncommit-date: 2026-04-14\nhost: x86_64-unknown-linux-gnu\nrelease: 1.95.0\nLLVM version: 22.1.2",
+      "log_sha256": "4fdff2578428e9c5c08ddd7a0d3079c1a106b1cdaa46e73e46f7cd32b0fb9cad"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "-V"
+      ],
+      "exit_code": 0,
+      "output": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+      "log_sha256": "c10ec31b8c6e6e2693cf65fc1971b41edbc3da1ae7db6f9f3f36c4823f8dcab5"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "Python 3.12.3",
+      "log_sha256": "5b3e43dc38ca01e3f5a7854ba50d4330864b0c1e0f646650b2c78cf072acc366"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "v26.1.0",
+      "log_sha256": "2ca995cc259b7733f154600fc48973f1dcd71a53749f37176548c8516beeda94"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "11.13.0",
+      "log_sha256": "3dbc807e13de125e909bea5877613d5d67989a43fb8e982fd79ba0efa46ac952"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "git version 2.43.0",
+      "log_sha256": "25f3602b5caaf92437be1e76b53698e8d73f14a6c71c2e91c8d5875f923ab29f"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "rtk",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "rtk 0.40.0",
+      "log_sha256": "2e209881302a5cff43cd752ee0e1bebf188bd9b6012f9b46a9b0d935f9cb2d14"
+    }
+  ],
+  "capabilities": {
+    "python_stdlib": "executed",
+    "rust": "compiler version probe executed; compilation not yet established",
+    "node": "version probe executed; UI build not yet established",
+    "native_solver": "not probed or launched",
+    "gpu": "not used"
+  },
+  "historical_head_decision": "No new tag. Preserve historical identities pending owner decision.",
+  "scientific_qualification": "Unchanged; no physical PASS or simulation evidence.",
+  "source_reuse_rule": "Require whole-file SHA and current symbol/behavior; line number alone is insufficient."
+}

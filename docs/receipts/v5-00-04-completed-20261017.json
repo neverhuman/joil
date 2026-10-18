@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-04"
+  ],
+  "tested_commit": "6b09a009c67bcf4ad789852ba932a89413b67f30",
+  "created_utc": "2026-10-17T21:08:22.490195+00:00",
+  "changed_paths": [
+    "docs/receipts/v5-00-history-20261017.json",
+    "docs/v5-plan/execution/DEFECTS.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "docs/receipts/v5-00-checks.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "800128604bda64554a114357edef3a0c75ab1a0dcbb2f0d2995e32da631b3887",
+      "wall_seconds": 0.618236288020853
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "campaign",
+        "--test",
+        "subject"
+      ],
+      "exit_code": 0,
+      "log_sha256": "edf3bdaa6358dddfe89721cb4b6cbee2bf766591d44ee1488a2fccfdd623fbab",
+      "wall_seconds": 0.8082599790068343
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.10854331502923742
+    }
+  ],
+  "positive_checks": [
+    "TR-16 physical and threshold-audit remainders retain exact source hashes and map to requirements/evidence/admission packets",
+    "EV-09 independent labels/geometry-mechanism holdouts and EV-12 historical/FEA identity remainders map to acquisition/validation/manifest consumers"
+  ],
+  "negative_checks": [
+    "Every carried deferral retains physical_pass=false and blocked scoped remainder state",
+    "Production sandbox admission refuses claim-bearing campaigns and every missing/nonpassing mandatory gate; generated STATUS remains unchanged"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/receipts/v5-00-history-20261017.json",
+      "sha256": "3166f97688d55e30feeb47350455594c9e663ad9a1686468bcf18a29e7dea6f1"
+    },
+    {
+      "path": "docs/v5-plan/execution/DEFECTS.json",
+      "sha256": "5dea8125c1bb94e929504bae709b1e0eb7f9da7b144cc6bd947248b0837b27d3"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_mib": 733.4,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "No independently admitted oil labels, physical limits, historical original identity recovery or FEA qualification supplied",
+    "Scoped historical closure remains historical software closure only"
+  ],
+  "next_dependency": "V5-00-05 ownership and accepted-commit handoff"
+}

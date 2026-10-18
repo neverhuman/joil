@@ -1,0 +1,12 @@
+{
+  "packet": "V5-01",
+  "kind": "scope_correction",
+  "created_utc": "2026-10-17T21:49:09.776345+00:00",
+  "owner": "codex-v5-integrator",
+  "requested_path": "crates/joil-core/src/redteam.rs",
+  "resolution": "Option B: explicit incomplete sandbox screen; unknown cavities block qualification; fail closed if distinction cannot be preserved",
+  "request_sha256": "24b297fa7778330f3d64065c0b156f62888f3bdc744389ce16151f378a1b98d1",
+  "revision": "docs/v5-plan/execution/V5-01-SCOPE-REVISION-2.md",
+  "physical_claim": "none",
+  "lease": "unchanged existing 12-hour two-core per-worker lease"
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "kind": "integrator_scope_revision_claim",
+  "packet": "V5-00",
+  "created_utc": "2026-10-17T21:04:41.031089+00:00",
+  "owner": "codex-v5-integrator",
+  "reason": "Claude preflight exposed omitted CLI/structural/compatibility paths needed for the already authorized five V5-01 tasks. Transfer only those repairs and their consumer tests/documentation; no new packet delegation.",
+  "integrator_write_paths": [
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/execution/V5-01-SCOPE-REVISION.md",
+    "docs/receipts/v5-00-scope-revision-20261017.json"
+  ],
+  "V5-01_additions_after_gate": [
+    "crates/joil-cli/src/main.rs",
+    "crates/joil-core/src/structure.rs",
+    "crates/joil-core/src/phenotype.rs",
+    "crates/joil-core/src/scene.rs",
+    "tools/f0_voxel.py",
+    "crates/joil-ir/tests/ir_suite.rs",
+    "crates/joil-core/tests/regression.rs",
+    "tests/test_evidence.py",
+    "README.md",
+    "docs/WHITEPAPER.md",
+    "docs/v5-plan/progress/V5-01.json",
+    "docs/receipts/v5-01-*"
+  ],
+  "boundaries": "Existing historical receipt bytes and science STATUS remain unchanged. New v5 contracts remain Codex-owned. Claude may update packet progress with tool but never generated views."
+}

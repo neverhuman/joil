@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "P00-V5-WORKERS",
+  "created_utc": "2026-10-17T20:52:43.818175+00:00",
+  "input_head": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "owner": "current user-authorized worker dispatcher",
+  "purpose": "Activate Codex integration/baseline and Claude truth-repair work in separate screen sessions and worktrees, feeding only PR #6.",
+  "write_scope": [
+    "docs/v5-plan/execution/BASELINE.json",
+    "docs/v5-plan/execution/DEFECTS.json",
+    "docs/v5-plan/progress/V5-00.json",
+    "docs/receipts/v5-00-*",
+    "docs/receipts/P00-v5-workers-*"
+  ],
+  "delegation": "User explicitly requested Codex and Claude workers. Codex alone owns shared integration/progress rendering; Claude has read-only/private preflight until the accepted V5-00 gate, then only V5-01 named paths. Each worker must acknowledge its exact scope before editing.",
+  "boundaries": [
+    "Preserve primary checkout, COMMS and previous screens",
+    "No other project access or changes",
+    "No GPU, CFD or physical campaigns",
+    "No automatic PR/main merge, force push or new lane PR",
+    "No science-status promotion"
+  ]
+}

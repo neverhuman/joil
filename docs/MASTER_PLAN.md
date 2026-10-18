@@ -1,5 +1,9 @@
 # Joil master implementation plan
 
+## Planning revision — 17 October 2026
+
+The next-revision engineering preparation is [WORKPLAN-2026-10-17.md](WORKPLAN-2026-10-17.md), with its [detailed execution annex](v5-plan/ENGINEERING_WORKPLAN.md), 32 worker packets, 160 future tasks and [HTML tracker](v5-plan/dashboard.html). Read it after this master and current scientific contracts. It reconciles all ten final/xfinal inputs; preserves P00–P10 ownership and historical qualification; and proposes new contracts/objectives without activating requirements or compute. The original master bytes are retained in [the planning archive](v5-plan/archive/MASTER_PLAN-v1-20261016.md). Future v5 implementation follows that annex through this master; older duties and evidence keep their original identity.
+
 Version 1, 14 October 2026, America/Los_Angeles. Status: final planning baseline, with a small executable foundation. This is a gated research programme, not a claim that the simulator already works. `STATUS.json` distinguishes executed work from planned work. Revisions require a reason and new content identity; retain the old plan and requirement record.
 
 Execution update, 15 October 2026: the user activated baseline implementation and coordination with Gemini. P01–P05/P09 now have partial implementations and source-bound research diagnostics; none is fully qualified. Read `STATUS.json`, `BASELINE_RUN.md`, `PILOT_RUNBOOK.md` and live ignored root `COORD.md`. The original plan/dependency gates and frozen requirement remain in force. In particular, geometry proposals and synthetic search-software tests do not authorize a performance-selected campaign.

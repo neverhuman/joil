@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "kind": "additive_tested_source_followup_pending_combined_exact_head_acceptance",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-03"
+  ],
+  "tested_commit": "fd89cc18e625f39415430e2860fb98128be58087",
+  "created_utc": "2026-10-18T05:11:47.497938+00:00",
+  "changed_paths": [
+    "tools/v5_baseline_source_controls.py",
+    "tests/test_v5_baseline_source_controls.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_baseline_source_controls.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "52158e339a4b774ad6c266c35c570feefde5b391583205d2e78380ef7d788df0",
+      "wall_seconds": 44.83910286996979
+    }
+  ],
+  "positive_checks": [
+    "All23 source controls pass with no skips, including an actual checkout-local interpreter environment and its site-package dependency."
+  ],
+  "negative_checks": [
+    "Genuine current-source import and a source-target symlink inside site-packages both remain rejected.",
+    "Old guard rejects the legitimate environment dependency; actual red exit1 retained."
+  ],
+  "negative_controls": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_baseline_source_controls.py",
+        "-k",
+        "interpreter_library",
+        "-v"
+      ],
+      "exit_code": 1,
+      "log_sha256": "4a983eedefab27dfcf874be4e6bf53e2b9dae449507c64dd5917fe4ca807201e",
+      "wall_seconds": 0.5064629049738869
+    }
+  ],
+  "diagnostics": [],
+  "artifacts": [
+    {
+      "path": "tools/v5_baseline_source_controls.py",
+      "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
+    },
+    {
+      "path": "tests/test_v5_baseline_source_controls.py",
+      "sha256": "1eca3fecc5e0541717eec8a41139e16a87f8e75244234d63fac9343bab7a1dc3"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      32,
+      33
+    ],
+    "ram_bytes": 6442450944,
+    "scratch_bytes": 2684354560,
+    "cargo_build_jobs": 2,
+    "numeric_threads": 1,
+    "gpu": false
+  },
+  "limitations": [
+    "Interpreter library roots are resolved from sysconfig; repository-wide exclusions and sys.prefix exemptions are not introduced. Frozen Rust control profile is a read-only preexisting input; exact-head CI remains pending.",
+    "No historical receipts rewritten and no task completion or physical validation inferred from this supplement."
+  ],
+  "next_dependency": "Combined official eight-suite gate on integrated exact source head, public scan, cached-diff review and exact pushed-head CI."
+}

@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "kind": "required_software_publication_gate_not_physical_validation",
+  "packet": "V5-03",
+  "task_ids": [
+    "V5-03-01",
+    "V5-03-02",
+    "V5-03-03",
+    "V5-03-04",
+    "V5-03-05"
+  ],
+  "tested_commit": "bafa87e5dae493a17be65a09e551fad14c7ffd40",
+  "created_utc": "2026-10-17T22:00:20.832867+00:00",
+  "changed_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "crates/crucible-units/",
+    "crates/crucible-contract/",
+    "crates/crucible-architecture/",
+    "crates/joil-evidence/src/claims.rs",
+    "schemas/v5/"
+  ],
+  "commands": [
+    {
+      "name": "generated-status",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.05598493799334392,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+    },
+    {
+      "name": "fmt",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.3777096120174974,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 9.230697385035455,
+      "log_sha256": "44f78cc266e6f0782ef8439424dc3eeea81bf56f32efe64e9d53b6504ede7b32"
+    },
+    {
+      "name": "rust-tests",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 174.78051354002673,
+      "log_sha256": "4250df14341496ef21181c2fb95808dcc1ff5c3356815c444a80bdce7d77f742"
+    },
+    {
+      "name": "baseline",
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.9272494530305266,
+      "log_sha256": "5d0cdb727ab26f1fb162c1748486d34520fb0ba2b9b939beab7d7125eaf5b5eb"
+    },
+    {
+      "name": "python-tests",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 103.16749862401048,
+      "log_sha256": "a69d99d3208af19c59a6bf15d1c8221a524e4e87c75ef906ce1f1a8e3f483b52"
+    },
+    {
+      "name": "public-check",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.2972156640025787,
+      "log_sha256": "c26718fc2bafe96b5adc07c054df7d2b2dbf01d06d85c311dc30844c23cfc175"
+    },
+    {
+      "name": "claims-audit",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 20.07342351099942,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "name": "npm-ci",
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 1.6404252349748276,
+      "log_sha256": "42655418c228288a9dba4735657fb971df86f631b04c4ca47178142ac98df7fb"
+    },
+    {
+      "name": "ui-build",
+      "argv": [
+        "rtk",
+        "proxy",
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "apps/explorer",
+      "exit_code": 0,
+      "wall_seconds": 3.2708336809882894,
+      "log_sha256": "9b53400d3822132a517d93cbb7055bdcd588f40fb3101936e50956f8b50b79bd"
+    }
+  ],
+  "positive_checks": [
+    "All10 required steps pass on stable committed tree; individual task acceptance controls recorded in immutable task receipts"
+  ],
+  "negative_checks": [
+    "Source-bound dimensional, leaked-label, stale/revoked evidence, old-requirement, forged-verdict, missing-output and indirect build/dev bridge controls pass in workspace tests"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/check.py",
+      "sha256": "47b143bb81deab31ff04dc9eb612ce24113b18db08a3c5e4541e58a57c7568b9"
+    }
+  ],
+  "private_receipt_sha256": "14f39a8a01c0f22ad055c8b45635160a07f2b7b8609b8466e2a26165c0bddc08",
+  "resources": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "children_peak_rss_kib": 579832,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Software verification only; no physical qualification",
+    "Independent JSON Schema and generated TS tests separately recorded in task receipts; structural schema alone is insufficient",
+    "Claude slice01 held for independent review findings; no unreviewed Claude code included"
+  ],
+  "next_dependency": "V5-05 immutable content store"
+}

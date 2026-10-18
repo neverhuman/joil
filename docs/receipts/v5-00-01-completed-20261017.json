@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-01"
+  ],
+  "kind": "task_completion",
+  "status": "baseline_capture_accepted",
+  "created_utc": "2026-10-17T21:00:43.781777+00:00",
+  "tested_commit": "826853315a35e5760cda6f579cdb435d37a15e83",
+  "tested_commit_meaning": "Committed baseline inventory and checker; checked frozen scientific source from plan head.",
+  "changed_paths": [
+    "docs/v5-plan/execution/BASELINE.json",
+    "docs/receipts/v5-00-checks.py",
+    "docs/receipts/v5-00-claim-20261017.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "docs/receipts/v5-00-checks.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "766aaf0064c981e5ede99f1139d7cf1c43bd5f24e8f841f3d9b5383d3b896cc1",
+      "wall_seconds": 0.16947938600787893
+    }
+  ],
+  "positive_checks": [
+    "Original main and plan head pinned explicitly; reference drift classified and not adopted",
+    "18 exact tracked-file hashes verified against frozen source commit",
+    "Ten original private inputs match prepared SOURCE_MANIFEST.json",
+    "Primary dirty-file inventory captured by byte hashes; COMMS unchanged at capture"
+  ],
+  "negative_checks": [
+    "Appending a byte to each of 18 frozen files rejects source reuse even when symbol or old line number is unchanged",
+    "Local and cached main references differ from reviewed main: recorded as drift, never silently substituted"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/v5-plan/execution/BASELINE.json",
+      "sha256": "5469811a26e96b20b9e368737e85e12efa85059e9d36a324a0a1e26ea82bdec1"
+    },
+    {
+      "path": "docs/receipts/v5-00-checks.py",
+      "sha256": "eb49630352521eb538841e77184e36b5eb5622b16b63a29a65f3e051c74a717c"
+    },
+    {
+      "path": "docs/receipts/v5-00-claim-20261017.json",
+      "sha256": "5e560f08da59a5c9ef8f8d54929d3407fce15f457519183bf6ec164b73cd5e02"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "generated_build_scratch_gib": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1
+  },
+  "limitations": [
+    "Historical read-only Git blocker is resolved by scoped sandbox repair; its immutable review receipt is preserved",
+    "Toolchain capability beyond version/build checks remains unqualified; no native solver or physical performance claim"
+  ],
+  "next_dependency": "V5-00-02 historical semantics inventory"
+}

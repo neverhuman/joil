@@ -1,0 +1,20 @@
+{
+  "schema": "joil.hydrocyclone.material-passport.v1",
+  "passport_id": "ti64-lpbf-as-built-draft-1",
+  "synthetic": false,
+  "context": {
+    "alloy_product_form": {"status": "unresolved", "reason": "alloy grade, powder lot and product form not yet bound to a source record", "owner": "materials_engineer", "blocks": ["physical_candidate", "commercial_claim"]},
+    "lpbf_parameters": {"status": "unresolved", "reason": "machine, laser power, scan strategy and layer thickness are not recorded", "owner": "manufacturing_lead", "blocks": ["physical_candidate", "commercial_claim"]},
+    "orientation": {"status": "unresolved", "reason": "build orientation of the qualified part is not fixed", "owner": "manufacturing_lead", "blocks": ["physical_candidate", "commercial_claim"]},
+    "heat_treatment_hip": {"status": "unresolved", "reason": "stress relief and HIP schedule not recorded", "owner": "manufacturing_lead", "blocks": ["physical_candidate", "commercial_claim"]},
+    "finish": {"status": "unresolved", "reason": "per-face surface finish classes not recorded", "owner": "manufacturing_lead", "blocks": ["physical_candidate", "commercial_claim"]},
+    "temperature_environment": {"status": "unresolved", "reason": "service temperature, fluid chemistry and absolute pressure environment are not provided", "owner": "process_owner", "blocks": ["physical_candidate", "commercial_claim"]},
+    "defect_assumptions": {"status": "unresolved", "reason": "porosity and lack-of-fusion defect assumptions not supplied", "owner": "materials_engineer", "blocks": ["physical_candidate", "commercial_claim"]}
+  },
+  "density_kg_m3": {"status": "proposed", "value": {"lower": 4430.0, "upper": 4430.0}, "reason": "legacy constant TI64_DENSITY_KG_M3 in structure.rs; handbook-style value for the alloy name, not measured on this process condition"},
+  "allowables": {
+    "yield": {"status": "unresolved", "reason": "no process-qualified as-built yield data for this orientation and heat treatment", "owner": "materials_engineer", "blocks": ["physical_candidate", "commercial_claim"]},
+    "fatigue_endurance": {"status": "unresolved", "reason": "no as-built fatigue data with the stated surface finish and environment", "owner": "materials_engineer", "blocks": ["physical_candidate", "commercial_claim"]},
+    "sour_service_eligibility": {"status": "unresolved", "reason": "no sour-service qualification evidence for this material and process", "owner": "materials_engineer", "blocks": ["physical_candidate", "commercial_claim"]}
+  }
+}

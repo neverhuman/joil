@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "packet": "V5-04",
+  "task_ids": ["V5-04-04"],
+  "kind": "task_receipt_signed_zero_followup",
+  "owner": "claude-haiku-5-5 medium worker (1052087.joil_v5_claude)",
+  "assignment": "C007-F2 bounded signed-zero rank-statistic follow-up; Stage G-011 c007-f2-f3-stats-fix-C009; review request c007-f2-review-request.json",
+  "input_head": "b30d7eb1cc22a4f930037b9e8b94e5b5298b1769",
+  "tested_commit": "1842b3c4ae809488ee18c3caf9894872cf83bad2",
+  "created_utc": "2026-10-18T04:51:26Z",
+  "original_c007_receipts_rewritten": false,
+  "resource_allocation": {
+    "cpus": "34,35",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "simulation_executed": false
+  },
+  "scientific_eligibility": "software statistics only; SYNTHETIC fixtures; no threshold, requirement or physical qualification change",
+  "changed_paths": [
+    "crates/crucible-stats/src/analysis/order.rs",
+    "crates/crucible-stats/tests/order.rs"
+  ],
+  "source_sha256_at_tested_commit": {
+    "crates/crucible-stats/src/analysis/order.rs": "cdda3483503dcd06bdc68eace5186054f0dc7407d3d48a8428c6495b2a7bc346",
+    "crates/crucible-stats/tests/order.rs": "3eaa7a460ac69781ae66d343da4881d5972a3093d15fdbb8bc5bbbc0fb523566"
+  },
+  "fix": "cliffs_delta compares with numeric > and < after the existing finite-sample check, replacing f64::total_cmp, so -0.0 and +0.0 tie. cliffs_delta_permutation calls cliffs_delta and inherits the fix.",
+  "red_control": {
+    "commit": "b30d7eb1cc22a4f930037b9e8b94e5b5298b1769",
+    "command": "cargo test --locked --offline -p crucible-stats --test order",
+    "exit_code": 101,
+    "result": "signed_zero_ties_are_ties_in_cliffs_delta_and_exact_permutation FAILED; cliffs_delta(&[-0.0], &[0.0]) = -1.0 (expected 0.0) at tests/order.rs:86",
+    "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-04-red-b30d7eb.log",
+    "log_sha256": "46665ff3aaec0280a04722ae421f38feda56fd2007141584c6daae6cc2db84e4"
+  },
+  "positive_controls": [
+    {
+      "command": "cargo test --locked --offline -p crucible-stats --test order",
+      "exit_code": 0,
+      "result": "7 passed; 0 failed",
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-04-positive-order.log",
+      "log_sha256": "e406f68b6e92aa54d43b1df0a81f0242a4226edc1fbe8c6b370aa6fee3c31b9d"
+    },
+    {
+      "command": "cargo test --locked --offline -p crucible-stats",
+      "exit_code": 0,
+      "result": "all suites ok; 5+7+3+9+7+6 passed, 0 failed",
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-positive-test-crucible-stats.log",
+      "log_sha256": "0aef094133d12278dc93666fa0eb929ed6b44dca2063b6d5b0ff094e60e899fc"
+    },
+    {
+      "command": "cargo clippy --locked --offline -p crucible-stats --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-positive-clippy.log",
+      "log_sha256": "5767ea84ed67796d881420e0dcfa22f135d14903a734d06a5c709ff0a2b10df0"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-positive-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/V5-04-positive-check-public.log",
+      "log_sha256": "a75664b4ba036cb7eaf86411366483db51149d6bd73ec779029cc7b133f9174b"
+    }
+  ],
+  "negative_checks": [
+    "red control fails on b30d7eb before the fix (exit 101), so the regression is real and not a stale green"
+  ],
+  "remaining_limitations": [
+    "Only cliffs_delta and its exact permutation test are changed. Other total_cmp uses (holm_adjusted ordering, measured sort) do not affect tie semantics for their validated inputs and were not altered."
+  ],
+  "status_claim": "software regression fixed and gated at the tested commit; not a physical validation; integrator acceptance pending",
+  "next_dependency": "integrator review of the V5-04 joint and signed-zero follow-ups, then super-merge"
+}

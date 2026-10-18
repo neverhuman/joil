@@ -1,6 +1,7 @@
 //! Content-bound research evidence. Software execution never grants physical validation.
 pub mod campaign;
 pub mod claims;
+pub mod decision;
 pub mod identity;
 pub mod observation;
 pub mod subject;

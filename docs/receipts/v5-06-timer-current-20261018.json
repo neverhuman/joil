@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "kind": "combined_acceptance_audit_supplement_not_physical_admission",
+  "task_ids": [
+    "V5-06-05"
+  ],
+  "tested_commit": "71f590512ffa887b598ae78a559e8d979fa89530",
+  "created_utc": "2026-10-18T00:29:54.329257+00:00",
+  "changed_paths": [
+    "crates/crucible-runtime/src/task.rs",
+    "crates/crucible-runtime/tests/recovery.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e90673f85ca16d2302c3b8127b8bbc26a1a386c30f5217b87a2be3ff54e25fcc",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log_sha256": "bc394238002c33410de7ae6c05a50be5d0c3da8e8c584e02abd04498510c8253",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6f0889a521ecc6d8dec1cd73692face9bad5537f9abd0bdea8a168aba1e3a2fc",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c0ed3b7c5a4969ef0c351541a84fe3525ba93d1f0804965a0d550b4da763321c",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5a27f984eef4d8adf706e28787a34021e4823f934a5fda61c776d54c66413817",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_sha256": "51ca4be4487c946b6af90622bb1261a4900cdf479083f29080e23f7dbb67431c",
+      "executed_commit": "71f590512ffa887b598ae78a559e8d979fa89530"
+    }
+  ],
+  "positive_checks": [
+    "Native timer starts after preparation/spawn; independently delayed700ms preparation stays fully charged and healthy80msproducer score25 succeeds inside300ms native deadline",
+    "Actual600ms slow producer still times out at300ms; absolutelease, wait4/threadCPU/wall accounting remain bounded",
+    "Full current workspace gate and exact706 all9CI pass after the runtime clock fix"
+  ],
+  "negative_checks": [
+    "Old timer counterfactual fails101 on the same healthy delayed-preparation fixture; new positive and actual slow-child negative pass",
+    "Unsupported physical solver, unknown cost, stale/incomplete acceptance, measured overrun retain fail-closed outcomes; none become physical infeasibility"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-runtime/src/task.rs",
+      "sha256": "735d255a2eabcde2ebd4e75bde935d9de306137e97a63147cdaeb875632ebefe"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/recovery.rs",
+      "sha256": "e9a2b1fb720208ae3d18f38e61c02b4e854d561fc8f0cf4dc6965c4ec53998af"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-06-05-completed-20261017.json",
+      "sha256": "8df46ee2d07ac13d10648565052b810590d4dc06d0f0b5e153d2534d9cb9ce5b"
+    },
+    {
+      "path": "docs/receipts/v5-07-ci-followup-20261018.json",
+      "sha256": "dd2d502c83a0c142e9d4fa4f9c17bbb257d1df5e5404f457672689d390c51fc2"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "physical_simulation": false
+  },
+  "limitations": [
+    "Software verification only; no physical eligibility or performance claim",
+    "V5-04 statistics and domain physical release remain open; TR-16/threshold audit/EV-09/EV-12 and full v4 remainder registry retained",
+    "Historical receipts and source bytes remain immutable; supporting receipt references distinguish historical scope from current verification",
+    "Integrator implements and accepts its own slices; independent read-only auditor reviewed evidence, not a second implementation",
+    "Current integration branch has later audit-only changes; exact706 CI is not a claim of CI on those future heads"
+  ],
+  "next_dependency": "Close remaining bounded02 proof gaps and final integrated exact-head gate/CI before milestone acceptance",
+  "private_full_gate_receipt_sha256": "2cde5b529a4f5101dda58b4d10c3367050279892751efbe65d4d299c8f7a841d",
+  "private_combined_artifact_inventory_sha256": "1b45aa33f7ea5df3a9c87fdf4570e3e7d79ebd98dc728c29a24247a94c24031a",
+  "exact_head_ci": {
+    "head": "706e47fafde19c87193959c12f9b34d567f82dd2",
+    "run_id": 39081586853,
+    "url": "https://github.com/neverhuman/joil/actions/runs/39081586853",
+    "conclusion": "success",
+    "jobs": 9,
+    "raw_run_sha256": "8ef449d12cb9047e0e277cf59fec7c135b271c95ad26d9bbaebd4968d0f1cc2b",
+    "raw_jobs_sha256": "a5fbd3a6338025c9124b4f9d4cd67a08022a9a105a9519e696a736bc06d88fd3",
+    "qualification": "Exact706 head only; later integration heads require their own CI"
+  },
+  "counterfactual_red_control": {
+    "argv": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "-p",
+      "crucible-runtime",
+      "--test",
+      "recovery",
+      "charged_preparation_does_not_consume_native_deadline_and_real_slow_child_still_times_out",
+      "--",
+      "--exact"
+    ],
+    "exit_code": 101,
+    "log_sha256": "f2bb2d1c6e053c365d10a7ff307bc72c89eb0ee853742913965d53fb04e4e030"
+  },
+  "controlled_green": {
+    "argv": [
+      "rtk",
+      "proxy",
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "-p",
+      "crucible-runtime",
+      "--test",
+      "recovery",
+      "charged_preparation_does_not_consume_native_deadline_and_real_slow_child_still_times_out",
+      "--",
+      "--exact"
+    ],
+    "exit_code": 0,
+    "log_sha256": "6a8161a2eafe2dbb340d51e4f9ff226a3cabce810b54eee1da724984ffbc81bc"
+  }
+}

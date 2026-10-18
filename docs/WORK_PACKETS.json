@@ -494,5 +494,18 @@
       ],
       "execution_status": "planned"
     }
-  ]
+  ],
+  "planning_revision": {
+    "id": "joil-v5-plan-20261017",
+    "workplan": "docs/WORKPLAN-2026-10-17.md",
+    "annex": "docs/v5-plan/ENGINEERING_WORKPLAN.md",
+    "task_registry": "docs/v5-plan/TASKS.json",
+    "todo_index": "docs/v5-plan/TODO.md",
+    "dashboard": "docs/v5-plan/dashboard.html",
+    "packet_count": 32,
+    "task_count": 160,
+    "status": "prepared_not_implemented",
+    "changes_scientific_status": false,
+    "parent_packet_ids_preserved": true
+  }
 }

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "packet": "V5-00",
+  "kind": "necessary_integration_scope_revision",
+  "created_utc": "2026-10-17T21:11:28.315454+00:00",
+  "owner": "codex-v5-integrator",
+  "write_paths": [
+    "tools/claims_audit.py",
+    "tests/test_v5_trace_boundary.py"
+  ],
+  "trigger": "Required Python checks fail because v5 task receipts enter uncited scientific numeric fallback and change a paper numeral2 provenance to an operational CPU allocation.",
+  "change": "Treat v5 operational and planning receipts as cite-only. Preserve original trace/scientific receipt bytes; test planted operational numeric matches cannot support uncited science. No broad claims-audit replacement; D-23 full exact-query repair remains V5-28.",
+  "failed_required_receipt_sha256": "a5a9d607c126a180902f8e8067a0b398cf6824a67449af138d234a8346a699c5",
+  "limitations": [
+    "Full initial required run failed2/119 Python tests; not reported as PASS",
+    "No scientific STATUS promotion; gate still absent"
+  ]
+}

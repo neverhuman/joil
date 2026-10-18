@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "packet": "V5-05",
+  "tasks": {
+    "V5-05-01": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Implemented and tested private software store; physical admission remains separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-05-01-completed-20261017.json",
+          "sha256": "afe1581c5878ac334591abce0b31037f7534938f76b5f3203bd60fdf260ab2a4"
+        }
+      ]
+    },
+    "V5-05-02": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Implemented and tested private software store; physical admission remains separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-05-02-completed-20261017.json",
+          "sha256": "8554689a45dc1b5afd52b8c5ee071402009bb256196cca37417625246b49bd55"
+        }
+      ]
+    },
+    "V5-05-03": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Implemented and tested private software store; physical admission remains separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-05-03-completed-20261017.json",
+          "sha256": "f9d37b5fdd650bf7f01f80d93bb790a2289a2fb201114fa60600dedb020f2b23"
+        }
+      ]
+    },
+    "V5-05-04": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Implemented and tested private software store; physical admission remains separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-05-04-completed-20261017.json",
+          "sha256": "e0a9ef9dd17fb8b10486913ba99787c46c42b9937fde8ac34e195cc462be3d2a"
+        }
+      ]
+    },
+    "V5-05-05": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-05-combined-retention-export-20261018.json",
+          "sha256": "1c5b32b09dc53f52eac8bdbaeac8d0276ece7f3faf4cf9e8eaee537613255304"
+        }
+      ]
+    }
+  }
+}

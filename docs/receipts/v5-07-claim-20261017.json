@@ -1,0 +1,30 @@
+{
+  "packet": "V5-07",
+  "owner": "codex-v5-integrator",
+  "claimed_utc": "2026-10-17T23:09:33.266685+00:00",
+  "write_paths": [
+    "crates/crucible-runtime/src/checkpoint.rs",
+    "crates/crucible-runtime/src/replay.rs",
+    "crates/crucible-runtime/src/lib.rs",
+    "crates/crucible-runtime/src/db.rs",
+    "crates/crucible-runtime/src/ledger.rs",
+    "crates/crucible-runtime/tests/recovery.rs",
+    "crates/crucible-cli/",
+    "joil",
+    "campaigns/fixture-v5.toml",
+    "Cargo.toml",
+    "Cargo.lock",
+    "docs/design/V5_RECOVERY.md",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/progress/V5-07.json",
+    "docs/receipts/v5-07-*",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/todos/V5-07.md",
+    "docs/v5-plan/dashboard.html",
+    "crates/crucible-architecture/tests/blind_boundary.rs",
+    "crates/crucible-contract/tests/architecture.rs",
+    "tools/check.py"
+  ],
+  "dependency": "a8975aefb9d12277aaad366a1994ebd30f3c7fe5",
+  "lease_expires": "2026-10-18T08:52:43.818175+00:00"
+}

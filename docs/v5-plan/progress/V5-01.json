@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "packet": "V5-01",
+  "tasks": {
+    "V5-01-01": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-integrator-01-20261018.json",
+          "sha256": "b67d8f6367d23f93aea7aafda9b3aecada37b03e1ee94dc41685161d06d1a911"
+        }
+      ]
+    },
+    "V5-01-02": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-integrator-02-20261018.json",
+          "sha256": "c27d5cbfd82cb0080859e107c1042333c56542330c34c4d0d5a2b4aa991fb095"
+        }
+      ]
+    },
+    "V5-01-03": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-integrator-03-20261018.json",
+          "sha256": "225ce6450379a207b0fe53a99e4b472c693880e84100dc0adb18afa55c3c4ef2"
+        }
+      ]
+    },
+    "V5-01-04": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-integrator-04-20261018.json",
+          "sha256": "acceba8b48c662c925f5443fcb2ea5cd4abbee308d4b9599acb45fa35d2d5ccf"
+        }
+      ]
+    },
+    "V5-01-05": {
+      "status": "done",
+      "owner": "codex-v5-integrator",
+      "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-01-integrator-05-20261018.json",
+          "sha256": "d9baed45d754e55094a8f9972691d9643821643186899007ca9264a339865abe"
+        }
+      ]
+    }
+  }
+}

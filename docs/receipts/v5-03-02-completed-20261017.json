@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "kind": "software_contract_task_completion_not_physical_admission",
+  "packet": "V5-03",
+  "task_ids": [
+    "V5-03-02"
+  ],
+  "tested_commit": "4a546fd9d69d2e3872d3f929d10e27acc7f8b5a1",
+  "verifier_commit": "ee45bf4a2f3f51dc007c8beda23a1a671afdfde9",
+  "created_utc": "2026-10-17T21:53:58.232925+00:00",
+  "changed_paths": [
+    "crates/crucible-contract/src/subject.rs",
+    "crates/crucible-contract/tests/subject_keys.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-units",
+        "-p",
+        "crucible-contract",
+        "-p",
+        "crucible-architecture",
+        "-p",
+        "joil-evidence"
+      ],
+      "exit_code": 0,
+      "log_sha256": "2bc7aee5e544186b04d0656dabf26bdd9b12bd31074705418c6b96e9dad7e52d",
+      "wall_seconds": 1.2715524979867041
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-units",
+        "-p",
+        "crucible-contract",
+        "-p",
+        "crucible-architecture",
+        "-p",
+        "joil-evidence",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "886fde50ceef5d8a01836e8b050ec10e8f88583505998cc475ecda9641ff65e0",
+      "wall_seconds": 4.1274069040082395
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-contract",
+        "--test",
+        "interchange"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9216b49eeb25eae89c532f025a7c6f713108a823ee87cc1fd31b2f5d7e5d65db",
+      "wall_seconds": 0.12766275997273624
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "apps/explorer/node_modules/.bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--target",
+        "ES2020",
+        "schemas/v5/contracts.generated.ts",
+        "schemas/v5/render-origin.generated.ts",
+        "schemas/v5/contracts.typecheck.ts"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.370147225970868
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "schemas/v5/validate_fixtures.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1b5ed505cb698a9a57736657241e11752af235f452e0f66bdc7582dc47745146",
+      "wall_seconds": 0.17024140700232238
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "0164bf72e25e62a631c48ae7f63a9326cee7d3552ccb023578956cac0cbc74c0",
+      "wall_seconds": 1.805989678017795
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "5600da2e8b913ee394ae1f90239d1ff1b1835d86a6b74e0716721231c49fcbf6",
+      "wall_seconds": 0.33220330701442435
+    }
+  ],
+  "positive_checks": [
+    "Artifact-only tetrahedron judge computes volume1/6 without genotype",
+    "Byte/interface/acceptance/frozen closure checked under current authenticated reviews"
+  ],
+  "negative_checks": [
+    "Changed tail, missing boundary bytes, changed units, excessive approximation bounds, revoked acceptance refuse",
+    "Expected score/family bonus/nested module labels rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-contract/src/subject.rs",
+      "sha256": "79dbfed751dc0a484048cd7eee41426d0754bd58ce2eb6e020e0a4f6693b4faa"
+    },
+    {
+      "path": "crates/crucible-contract/tests/subject_keys.rs",
+      "sha256": "11d7a495815893f433deeedbea7a4347f83c1e003b86463925997386451b4367"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Software contracts and byte/review closure only; no native physical measurement, material qualification, mesh-quality or performance claim",
+    "Authenticated reviewer is an explicit application trust boundary; synthetic approvals supply software fixtures only",
+    "Static dependency graph does not establish native process isolation; runtime boundary is V5-06; native artifact observer is V5-09",
+    "Finite JSON and semantic checks exceed structural schema; TS describes shape only; independent jsonschema/tsc checks recorded locally",
+    "TR-16/EV-09/EV-12 deferrals retained; v1 requirements/preregistration/scientific STATUS untouched",
+    "Required full workspace gate remains mandatory before push"
+  ],
+  "next_dependency": "V5-03-03"
+}

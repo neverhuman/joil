@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "kind": "preflight_review_addendum",
+  "packet": "V5-00",
+  "source_commit": "6b09a009c67bcf4ad789852ba932a89413b67f30",
+  "reviewer": "codex-v5-integrator",
+  "reviewed_utc": "2026-10-17T21:07:28.653078+00:00",
+  "private_preflight_sha256": "50554e099896050f620e4ee6088c69911a911fc08dae625f6d0a6a2192b96b23",
+  "private_reproducer_sha256": "fc9184682ff6e14126367c75afe3da5a836e2744c7eb016cdff27b3346532936",
+  "private_log_sha256": "f15d449bb808555791dcee9b4e3364cbd07cc4df3c9a5266cd3c773e86e7b304",
+  "scope_revision": "docs/v5-plan/execution/V5-01-SCOPE-REVISION.md",
+  "ownership_grant": "Conditional on accepted full-commit gate and Claude revised acknowledgement; no grant inferred from proposal alone.",
+  "limitations": [
+    "No scientific validation supplied; same-pipeline unknowns fail closed",
+    "TR-16/EV-09/EV-12 deferrals remain blocking for physical claims"
+  ]
+}

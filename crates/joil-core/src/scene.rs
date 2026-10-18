@@ -138,11 +138,30 @@ pub fn export_glb_scene_bundle(
                 .into(),
         );
     }
-    if governing_stl_sha256.is_empty() {
-        return Err("OPS_VIEW-02: governing_stl_sha256 required for artifact binding".into());
+    if governing_stl_sha256.len() != 64
+        || !governing_stl_sha256
+            .bytes()
+            .all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
+    {
+        return Err("OPS_VIEW-02: governing_stl_sha256 must be a SHA-256 hex digest".into());
     }
     if surface.vertices_m.is_empty() || surface.triangles.is_empty() {
         return Err("cannot export empty surface to GLB".into());
+    }
+    // V5-01-05: the governing STL must be this surface's own serialization. A digest of another
+    // subject (for example a historical run's STL) is not evidence of equivalence.
+    let check_path = glb_path.with_extension(format!("subject-check-{}.stl", std::process::id()));
+    if check_path.exists() {
+        return Err(format!("refusing to replace {}", check_path.display()));
+    }
+    surface.write_openfoam_ascii_stl(&check_path)?;
+    let own_sha = crate::openfoam::file_sha256(&check_path);
+    let _ = fs::remove_file(&check_path);
+    if own_sha? != governing_stl_sha256 {
+        return Err(
+            "OPS_VIEW-02: governing STL digest does not match the exported surface; subject equivalence unknown"
+                .into(),
+        );
     }
 
     let n_verts = surface.vertices_m.len();
@@ -315,13 +334,26 @@ pub fn build_cuda_subject_bundle_ref(
     ))
 }
 
-/// 3D trajectory for interactive scientific visualization in `apps/explorer` (`P09`).
+/// Provenance of every trajectory this module writes (`V5-01-04`).
+pub const SCHEMATIC_TRAJECTORY_PROVENANCE: &str =
+    "SCHEMATIC_AUTHORED_CURVE_NOT_SIMULATED_OR_MEASURED";
+
+fn schematic_trajectory_provenance() -> String {
+    SCHEMATIC_TRAJECTORY_PROVENANCE.to_string()
+}
+
+/// Authored 3D path for visualization in `apps/explorer` (`P09`). The points come from a closed-form
+/// curve with an authored inward-migration law, not from integrated particles or measurements;
+/// `captured_to_overflow` is the authored rule `diameter >= screen d50` (`V5-01-04`). Records
+/// without provenance are historical exports of the same authored curves and read as SCHEMATIC.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct DropletTrajectory3D {
     pub label: String,
     pub diameter_um: f64,
     pub captured_to_overflow: bool,
     pub points_mm: Vec<[f64; 3]>,
+    #[serde(default = "schematic_trajectory_provenance")]
+    pub provenance: String,
 }
 
 /// Interactive 3D geometry, internal swirl hardware, droplet trajectories, and metrics for one candidate.
@@ -516,14 +548,19 @@ fn build_3d_candidate_preview(
         ]);
     }
 
-    // 5. Coupled 3D droplet & carrier trajectories (10 um, 20 um, 40 um oil droplets + carrier water)
+    // 5. SCHEMATIC authored droplet and carrier paths (10, 20, 40 um oil + carrier water); no particle
+    // is integrated (`V5-01-04`).
     let swirl_boost = ind.descriptors.swirl_flux_index;
     let mut droplet_trajectories_3d_mm = Vec::new();
     for &(label, d_um, is_water) in &[
-        ("40 μm oil droplet (core capture)", 40.0, false),
-        ("20 μm oil droplet (cut-size regime)", 20.0, false),
-        ("10 μm fine oil droplet", 10.0, false),
-        ("Treated water outer vortex", 0.0, true),
+        ("SCHEMATIC 40 μm oil droplet path (authored)", 40.0, false),
+        ("SCHEMATIC 20 μm oil droplet path (authored)", 20.0, false),
+        ("SCHEMATIC 10 μm oil droplet path (authored)", 10.0, false),
+        (
+            "SCHEMATIC treated-water outer vortex path (authored)",
+            0.0,
+            true,
+        ),
     ] {
         let mut pts = Vec::with_capacity(48);
         for k in 0..48 {
@@ -560,6 +597,7 @@ fn build_3d_candidate_preview(
             diameter_um: d_um,
             captured_to_overflow: !is_water && d_um >= ind.nominal_metrics.d50_um,
             points_mm: pts,
+            provenance: schematic_trajectory_provenance(),
         });
     }
 
@@ -706,4 +744,55 @@ pub fn export_interactive_3d_preview_bundle(
     let json_str = serde_json::to_string(&bundle).map_err(|e| e.to_string())?;
     fs::write(out_path, format!("{json_str}\n")).map_err(|e| e.to_string())?;
     Ok(bundle)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn v5_01_04_new_trajectories_are_schematic() {
+        let cfg = crate::evolve::EvolutionConfig {
+            mc_samples: 4,
+            ..crate::evolve::EvolutionConfig::default()
+        };
+        let (ind, _) = crate::evolve::evaluate_individual(
+            "base".into(),
+            crate::program::DesignProgram::baseline_ct35(),
+            0,
+            0,
+            &cfg,
+        )
+        .unwrap();
+        let preview = build_3d_candidate_preview(&ind).unwrap();
+        assert_eq!(preview.droplet_trajectories_3d_mm.len(), 4);
+        for traj in &preview.droplet_trajectories_3d_mm {
+            assert_eq!(traj.provenance, SCHEMATIC_TRAJECTORY_PROVENANCE);
+            assert!(traj.label.starts_with("SCHEMATIC "), "{}", traj.label);
+        }
+    }
+
+    #[test]
+    fn v5_01_04_historical_bundle_reads_as_schematic_not_measured() {
+        // Read-only path: a missing campaign summary returns the existing bundle without writing.
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let bundle_path = root.join("docs/results/interactive-3d-archetypes-v1.json");
+        let before = fs::read(&bundle_path).unwrap();
+        let bundle = export_interactive_3d_preview_bundle(
+            &root.join("runs/v5-01-04-missing-campaign-summary.json"),
+            &root.join("runs/v5-01-04-missing-archive.json"),
+            &bundle_path,
+        )
+        .unwrap();
+        assert!(!before.windows(10).any(|w| w == b"provenance"));
+        let mut count = 0;
+        for cand in &bundle.candidates_3d {
+            for traj in &cand.droplet_trajectories_3d_mm {
+                assert_eq!(traj.provenance, SCHEMATIC_TRAJECTORY_PROVENANCE);
+                count += 1;
+            }
+        }
+        assert!(count > 0);
+        assert_eq!(fs::read(&bundle_path).unwrap(), before);
+    }
 }

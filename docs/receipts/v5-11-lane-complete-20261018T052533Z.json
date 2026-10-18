@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "packet": "V5-11",
+  "tasks": [
+    "V5-11-01",
+    "V5-11-02",
+    "V5-11-03",
+    "V5-11-04",
+    "V5-11-05"
+  ],
+  "state": "lane_complete",
+  "tested_commit": "1995e6ff672fe794567e68c68d4249dad0749d91",
+  "base_commit": "f799bfb5120551bb9744e4b9c2ee3914cd8332b7",
+  "changed_paths": [
+    "Cargo.lock",
+    "crates/crucible-genome/src/develop.rs",
+    "crates/crucible-genome/src/schema.rs",
+    "crates/crucible-genome/tests/development.rs"
+  ],
+  "commands": [
+    {
+      "name": "metadata_offline",
+      "command": "cargo metadata --offline",
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/metadata-offline.log",
+      "log_sha256": "b7be832167b09d41b0650490a5dcc95f82b395bc20bf3b453cd6f5424a98daae"
+    },
+    {
+      "name": "lock_reconciliation",
+      "command": "python3 lock package comparison",
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/lock-reconciliation.log",
+      "log_sha256": "2753a63da00e34aee431ac71008c17354ff8f916e429e59801d46cd0224d4809"
+    },
+    {
+      "name": "development_test",
+      "command": "rtk cargo test --locked -p crucible-genome --test development (taskset CPUs 90,91; pinned local target)",
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/test-development.log",
+      "log_sha256": "226d382aed7a81339dcb31701b3010aca10a30db6572109a10198747f3debeeb"
+    },
+    {
+      "name": "crate_tests",
+      "command": "rtk cargo test --locked -p crucible-genome (taskset CPUs 90,91; pinned local target)",
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/test-crate.log",
+      "log_sha256": "84242fdddb73c1801fe8b280673b21d36317e776c4f3ec7ca0b715e7584c5fa2"
+    },
+    {
+      "name": "clippy",
+      "command": "rtk cargo clippy --locked -p crucible-genome --all-targets -- -D warnings (taskset CPUs 90,91)",
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/clippy.log",
+      "log_sha256": "9bdb8830342a5c977bdee01a2df5c49783f003b6540182b0210c6a2b5dd43e70"
+    },
+    {
+      "name": "fmt",
+      "command": "rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/fmt.log",
+      "log_sha256": "a74432b9f0e82aeb11a620037a0a9a4e873071cf959b8820e3149e1e1637b77a"
+    },
+    {
+      "name": "public_scan",
+      "command": "rtk proxy python3 tools/check_public.py",
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/check-public.log",
+      "log_sha256": "5cce3bec1d3d212fe86f64a30d61deb84e84912e91012810fd70614180a2e0c7"
+    },
+    {
+      "name": "diff_check",
+      "command": "rtk git diff --check",
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/diff-check.log",
+      "log_sha256": "3ae07570e92e0222c054e99f1803ed49e126a25291c1eba5fdbd2e6f10160bf1"
+    }
+  ],
+  "positive_checks": [
+    "Development integration suite: 8 passed.",
+    "Crate tests: 8 passed across 3 suites.",
+    "Strict canonical round-trip and fluid branch/rejoin accepted.",
+    "Fluid recirculation accepted independently of construction-cycle checks.",
+    "Deterministic development identity held; mechanism labels remained sidecar-only.",
+    "CT-35 migration retained the exact source parameter object; certified baseline error bounds remain absent.",
+    "Offline lock reconciliation added only crucible-genome 0.1.0; existing package versions and sources unchanged."
+  ],
+  "negative_checks": [
+    "Forward construction reference and cyclic field evaluation rejected.",
+    "Budget exhaustion failed closed without baseline substitution.",
+    "Neural/high-frequency and unresolved staged fields rejected.",
+    "Unsupported legacy exotic remained Unsupported rather than using a radial proxy.",
+    "Clippy -D warnings, public scan, formatting, and diff whitespace gates passed."
+  ],
+  "draft_scaffolding_disclosure": [
+    "Existing draft Cargo.toml workspace/crate registration and source scaffold were present before this stage.",
+    "Lane-local Cargo.lock adds exactly crucible-genome 0.1.0 with joil-evidence, serde, serde_json, sha2; no dependency upgrade or existing package version/source change.",
+    "Authorized by G007 draft lock clarification; not canonical integrator lock acceptance and may be reconciled/discarded during integration."
+  ],
+  "code_fixes": [
+    "Removed invalid Eq derive from DevelopmentError containing f64.",
+    "Derived ordering for EdgeRelation used in deterministic duplicate-edge set.",
+    "Changed CT-35 test to compare the full original parameter object rather than incorrect hard-coded count."
+  ],
+  "resource_allocation": {
+    "cpus": [
+      90,
+      91
+    ],
+    "rss_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+    "incremental": false
+  },
+  "limitations": [
+    "V5-08 preview and geometry contract remain draft/unaccepted; no geometry or backend capability established.",
+    "CT-35 certified baseline error bounds absent; no physical/scientific qualification is claimed.",
+    "Receipt records lane completion for integrator review; status acceptance and shared manifest updates remain integrator-owned."
+  ],
+  "next_dependency": "Integrator reconciliation of draft workspace/lock scaffolding and accepted V5-08/V5-09 contracts and downstream coverage before geometry capability claims."
+}

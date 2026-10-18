@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "packet": "V5-04",
+  "owner": "existing-claude-v5-worker",
+  "assignment": "C007 via Captain G-009: claude/next-assignment.json sha256 5f7957f1cf91418090e664d22572c6bc1631de5abe940c63a2cf74f254b4e412, integration review rev 7, contract 908b7e6c00dfe208ab79da23dfc7e17c846876cd, scope b05a38bc07cb6d1689f34128882785ba72f889ac",
+  "input_head": "b05a38bc07cb6d1689f34128882785ba72f889ac",
+  "tested_commit": "800be739b0a51b3f45e8b51b5ca5dc59d6323e8b",
+  "created_utc": "2026-10-18T04:12:29Z",
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software statistics only; SYNTHETIC fixtures; no physical qualification, admission or threshold change",
+  "kind": "task_receipt_joint_decision_bounds",
+  "task_ids": [
+    "V5-04-03"
+  ],
+  "checkpoints": [
+    "5890ff9cf641249ff62192d5a4283304b93a0731"
+  ],
+  "changed_paths": [
+    "crates/crucible-stats/src/analysis/joint.rs",
+    "crates/crucible-stats/tests/joint.rs",
+    "crates/crucible-stats/tests/common/mod.rs",
+    "tests/fixtures/v5-statistics/joint.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-stats"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 50.177,
+      "log_sha256": "efa78ed0e38254900584079c6a3ed94ce7e3aafe605f7bf43aa39121717e30c9",
+      "note": "33 tests: calibration 5, capture 7, distribution_contract 3, joint 6, order 6, pilot 6 (includes deterministic reproduction of the registered trials)"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-core",
+        "--test",
+        "truth_quantiles"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 17.835,
+      "log_sha256": "18f4594fa7a2d9ae5b13c3bcf5f6ffb03600cf7c39f262e863ed20f3a828dab5",
+      "note": "read-only legacy tail test, untouched, 2 passed"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-core",
+        "--test",
+        "regression",
+        "p06_experiment_calibration_crossover_holdout_ct_and_comparator_gates",
+        "--",
+        "--exact"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 1.195,
+      "log_sha256": "55b6adad1995b6f21986065c08ee8d9fe865481b23b40c2c67954a6f4e0f7921"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-stats",
+        "-p",
+        "joil-core",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 27.459,
+      "log_sha256": "4ca88e89b3dc7603b67a39d8577e5c7abb11989501c37e318e393dca470a8376"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 2.129,
+      "log_sha256": "3d226433666bb2e7bc43624ba071375686257eb2dd4b31a0835cde9b77da2404"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "b05a38bc07cb6d1689f34128882785ba72f889ac",
+        "HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.291,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.758,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-core",
+        "--test",
+        "regression"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 91.971,
+      "log_sha256": "5d0903f3da456b895c062137279925988a195b8e4153bb60afdc7681cb6368b2",
+      "note": "all regression functions; only p06 changed"
+    }
+  ],
+  "validated_contract": "joil_evidence::decision::DecisionProfile::qualified_admission over a reviewed SYNTHETIC v2 RequirementSet and Registry (four gates, one scenario, admitted limit, reviewed estimand/bound/policy artifacts)",
+  "artifacts": [
+    {
+      "path": "crates/crucible-stats/src/analysis/joint.rs",
+      "sha256": "a762255eaac8124a01b789e9c39ae0e23a566023ab276c265dbce6075a1ba527"
+    },
+    {
+      "path": "crates/crucible-stats/tests/joint.rs",
+      "sha256": "aae4eaf1298877dbd11cf7e72f3dcf89d8c470950003cf9e6347c3cc44de59c5"
+    },
+    {
+      "path": "crates/crucible-stats/tests/common/mod.rs",
+      "sha256": "aa9db5bee9ab5416c6e64fb9c263c675bafda6bca50c39cf5341b9c7581e4a10"
+    },
+    {
+      "path": "tests/fixtures/v5-statistics/joint.json",
+      "sha256": "98143016b54b3904861fcd1710e3fc0fae234ebea3cfedb30d5d9c4e746648c4"
+    }
+  ],
+  "positive_checks": [
+    "frozen SYNTHETIC S02 table (section 7.11): n=20, t(0.9875,19)=2.4334402114, lower bounds 2.912, 1.640, 573.520 and 0.06117 reproduced in original units (capacity L/s via exact 3.6 m3/h)",
+    "Bonferroni simultaneous display and fixed-candidate intersection-union conjunction are reported as different claims; IU bounds are tighter and labelled not simultaneous",
+    "paired blocks keep cross-margin correlations and give the same bounds as their summaries"
+  ],
+  "negative_checks": [
+    "one failed margin blocks the family",
+    "an unresolved discrepancy bound abstains; a revoked bias source is an invalid profile",
+    "an unresolved requirement limit abstains with its blocker named",
+    "missing, wrong-scenario or duplicate members, a unit differing from its estimand, zero sd and a nonpositive ratio baseline block",
+    "an incomplete declared family is refused by joil-evidence before any bound; adaptive winner qualification is refused pending ledger charges"
+  ],
+  "limitations": [
+    "normal margins with unknown variance assumed; deterministic bias bounds subtract, they add no statistical coverage",
+    "mean requirements only; no operating reliability, pointwise quality or physical qualification",
+    "receipt is task evidence, not acceptance; V5-00-03 remains AUDIT-HELD and all physical deferrals remain"
+  ],
+  "next_dependency": "Integrator review/integration of 800be739 (and its checkpoints) into PR #6 and the packet acceptance gate; V5-04 progress promotion remains integrator-owned via tools/v5_plan.py"
+}

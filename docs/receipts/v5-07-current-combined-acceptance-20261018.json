@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "kind": "combined_integrator_acceptance_not_physical_admission",
+  "tested_commit": "96d3bd6796d20bae199eb482f815f555178a1d27",
+  "created_utc": "2026-10-18T02:40:49.671223+00:00",
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.4992389450198971,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c5e13f1b670b6b79d98b39e34917d25b62d9e67e50ee0dd39908a2450a7c9e2d",
+      "wall_seconds": 11.321515128947794,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log_sha256": "3b6f89fee8a39494f12d80769db942242708dece2aac756153306aca5fc9160a",
+      "wall_seconds": 501.9901616499992,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "cargo",
+        "run",
+        "--locked",
+        "-p",
+        "joil-cli",
+        "--",
+        "baseline"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e7f73e26dd77a6173f6cb737585ebe1d67682e0ee4f1cb19de224ddf8cb58aca",
+      "wall_seconds": 8.600085347017739,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.05017675901763141,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "be3f6f44c853e1f8fdbd7ea51088a1b770d884c60116587360772246157e513a",
+      "wall_seconds": 93.6292350529693,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ef1760e9d9f2c07fd2079e68c28673a4ed116854921126c13a97c01b83051ec5",
+      "wall_seconds": 0.16493459203047678,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "wall_seconds": 16.682387367996853,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "npm",
+        "ci",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6a7de75b54c9614bfa040966983635014d77fce2fdc3dc6204da61b1c0031920",
+      "wall_seconds": 1.6059425600105897,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    },
+    {
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b5c306029017c680a48a3e12f0eb99dd59a6b0389336f18436aec752042d28bb",
+      "wall_seconds": 2.5946690469863825,
+      "executed_commit": "96d3bd6796d20bae199eb482f815f555178a1d27"
+    }
+  ],
+  "private_full_gate_receipt_sha256": "4ddca92bdf20ecba147a394cd277c9da6260b501bd5ee6da3e2c688db9e0f95f",
+  "exact_source_ci": {
+    "run_id": 39088444745,
+    "url": "https://github.com/neverhuman/joil/actions/runs/39088444745",
+    "head_sha": "96d3bd6796d20bae199eb482f815f555178a1d27",
+    "status": "completed",
+    "conclusion": "success",
+    "successful_jobs": 9,
+    "private_verified_snapshot_sha256": "e811f118a3ff81680ff0825f0765a3229ce45fb3e1a64873422bc35fdc46971b"
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "physical_solver_campaign": false,
+    "local_Rust_affinity": "one permitted core; separate fresh witness uses both leased cores"
+  },
+  "limitations": [
+    "Software contract/runtime acceptance only; no physical qualification or scientific STATUS promotion.",
+    "Synthetic source and native integer fixtures are not owner-approved physical measurements or resolved installation/material requirements.",
+    "TR-16/EV-09/EV-12 and unresolved requirements remain deferred. V5-00-03 stays audit-held for its missing source-bound controls.",
+    "All source/test artifacts below are bound to tested/pushed96d; later receipt/progress metadata and future heads need their own publication gates.",
+    "The interrupted earlier d1 gate has NO RESULT; current source acceptance uses the completed96d gate and exact96d CI."
+  ],
+  "packet": "V5-07",
+  "task_ids": [
+    "V5-07-04",
+    "V5-07-05"
+  ],
+  "changed_paths": [
+    "crates/crucible-cli/src/lib.rs",
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "crates/crucible-runtime/src/task.rs",
+    "crates/crucible-runtime/src/replay.rs",
+    "crates/crucible-runtime/src/checkpoint.rs",
+    "crates/crucible-runtime/tests/recovery.rs",
+    "crates/crucible-contract/tests/common/scratch.rs",
+    "crates/crucible-contract/tests/scratch.rs",
+    "tools/v5_fixture_smoke.py",
+    "docs/design/V5_RECOVERY.md"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/src/lib.rs",
+      "sha256": "24a09c7ece2dd592e2c43f3dad79bc990a386254c19541968a24368b60c989e5"
+    },
+    {
+      "path": "crates/crucible-cli/tests/lifecycle.rs",
+      "sha256": "c5d28cbe356d3c7536105bf995fd10309d73b1b0f4d96df6e785373110b72b02"
+    },
+    {
+      "path": "crates/crucible-runtime/src/task.rs",
+      "sha256": "735d255a2eabcde2ebd4e75bde935d9de306137e97a63147cdaeb875632ebefe"
+    },
+    {
+      "path": "crates/crucible-runtime/src/replay.rs",
+      "sha256": "2aa7d555a7bf6cc8b400a716fd5a2052fdc32f225dd6233c1010c37bf06ae115"
+    },
+    {
+      "path": "crates/crucible-runtime/src/checkpoint.rs",
+      "sha256": "c01f8655111e933ad10e873818e13610a3363ea9ae8a297c71c74a7fb5c4ff52"
+    },
+    {
+      "path": "crates/crucible-runtime/tests/recovery.rs",
+      "sha256": "15213b67d8df944def0887245083a8eea07ea5c375adab5538068b95d5aefb62"
+    },
+    {
+      "path": "crates/crucible-contract/tests/common/scratch.rs",
+      "sha256": "8e04c755085770e4f68ada7768f75553220f8134525914566c89e6510314bd79"
+    },
+    {
+      "path": "crates/crucible-contract/tests/scratch.rs",
+      "sha256": "44999c34a11a9894ad0d3bc7643a1286e81786d6383eaf280068ed2806a3daf1"
+    },
+    {
+      "path": "tools/v5_fixture_smoke.py",
+      "sha256": "565af1509ed1a93faa3acd1171bf1854e2bad0ec70fc5b1ba4a6c678dc4705cc"
+    },
+    {
+      "path": "docs/design/V5_RECOVERY.md",
+      "sha256": "0238d05032bc642fe36a7d3a325edeb69ab939383319724a9783b89ac11dfe13"
+    }
+  ],
+  "supporting_receipts": [
+    {
+      "path": "docs/receipts/v5-07-replay-current-20261018.json",
+      "sha256": "bbf30c805c2d79a8fc4931f79a7c78422e6465d2ebbb1225a2b1d8ad78d9affe"
+    },
+    {
+      "path": "docs/receipts/v5-07-stop-scratch-verification-20261018.json",
+      "sha256": "5093271d60be8cfd10eca7e7f0bfeca20985315f9ca67ef71e7ca98844c8b4a7"
+    },
+    {
+      "path": "docs/receipts/v5-07-05-completed-20261017.json",
+      "sha256": "fcc2a4b1ab61a5b8cd6eb49e10131e2598094f1825871277c516c8ab472505ff"
+    },
+    {
+      "path": "docs/receipts/v5-07-ci-followup-20261018.json",
+      "sha256": "dd2d502c83a0c142e9d4fa4f9c17bbb257d1df5e5404f457672689d390c51fc2"
+    },
+    {
+      "path": "docs/receipts/v5-07-fresh-clone-20261018.json",
+      "sha256": "f693ddba0e500701976b2a74c48f0e2a39cecd080bc7bc5e064f7671547fe63f"
+    }
+  ],
+  "positive_checks": [
+    "Current full workspace and exact96d CI pass the actual bounded CLI lifecycle, four kill boundaries, current acceptance recheck, recovery and cost/family-ledger controls.",
+    "Stop drains the owned active batch and publishes its pending results plus stop exactly once; the existing30-second bound is unchanged. One-core partial drain preserves the unstarted sibling and actual retry spend.",
+    "Independent origin-fetched96d source with own object storage/no alternates executes the shipped workers2 command unchanged, partial resume and offline verification, plus a complete private workers1 case. All13 recorded commands meet exact expected exits.",
+    "Whole worker1/worker2 and resumed logical digests match; whole1/2 actual-cost digests differ and charges4/2/4/4 remain actual.",
+    "Registered successful test roots leave no residue; actual failing-test child101 retains diagnostic bytes until verified. Historical raw artifacts remain retrievable through a verified additive archive mapping."
+  ],
+  "negative_checks": [
+    "Invalid physical input exits64 before run-root creation; missing canonical ledger, identity drift, revoked acceptance, corrupt latest and unaccounted active-crash cost remain fail-closed.",
+    "Old successful Store test leaked a real directory; current test plus independent filesystem assertion leaves none.",
+    "Old retained stop history violates the one-publication invariant; separate actual d8 deadline failure is historical, and the new current tests pass.",
+    "Changing real retries must not reset charges or force actual-cost equality; current full lifecycle records the six-charge retry case separately from four-charge uninterrupted replay."
+  ],
+  "private_evidence": {
+    "fresh_witness_command_inventory_sha256": "09d864584476e963aff7d373bcd720c2dbfa8644d7e94c12b6bdb7efb8315328",
+    "fresh_witness_evidence_inventory_sha256": "7b6edeef2318b48751d0f2daa49cbebdda90ef6cddb1b242fe03a75a4b0ef688",
+    "fresh_witness_raw_artifact_inventory_sha256": "e3d7d6c56242fb71eb1fb2260d0948d274c42f987925636ef62375ae5939061b",
+    "fresh_witness_outer_log_sha256": "15ec6f9d3faaf2534d3c62b6cd2b5e76064d92ce03a4eb22c4f1cbd8a1b8ce90",
+    "historical_archive_retention_index_sha256": "e2016be551892130fa18c9119a59f1e04ede463e6df885c94048b296ab5e6290",
+    "stop_scratch_verification_receipt_sha256": "5093271d60be8cfd10eca7e7f0bfeca20985315f9ca67ef71e7ca98844c8b4a7"
+  },
+  "next_dependency": "Baseline follow-up remains held; broader geometry/statistics/physical/HPC packets require their own accepted evidence. No physical campaign is enabled."
+}

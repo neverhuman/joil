@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "kind": "accepted_software_policy_contract_not_physical_admission",
+  "packet": "V5-02",
+  "task_ids": [
+    "V5-02-01",
+    "V5-02-02",
+    "V5-02-03",
+    "V5-02-04",
+    "V5-02-05"
+  ],
+  "tested_commit": "ad4193d3eca61b2ebbac820c853e8f5685faae6c",
+  "accepted_by": "codex-v5-integrator",
+  "created_utc": "2026-10-17T21:31:55.767021+00:00",
+  "changed_paths": [
+    "requirements/joil-hydrocyclone-v2.toml",
+    "crates/joil-evidence/src/decision.rs",
+    "crates/joil-evidence/tests/decision.rs",
+    "schemas/v5/decision-profile.schema.json",
+    "docs/v5-plan/execution/DECISIONS.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "decision"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9670999a3387cfc7a304be2cf610a73db4cb660cdf10f03cd73f5bca1e115979",
+      "wall_seconds": 0.3315996060264297
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence"
+      ],
+      "exit_code": 0,
+      "log_sha256": "7a36f9068dde2d876d6fe58d02bbf81cabf0aa5aedec22114ab6126db533d978",
+      "wall_seconds": 4.164022377051879
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b510200e6862227c8b2fe6999a877e401810a84d0ee566ebe5022d5673f1974c",
+      "wall_seconds": 0.2998470449820161
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949",
+      "wall_seconds": 0.09752129198750481
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "df521ec815a61bac38142481b6d12d0170bc388161a0ba4d949e01cd11489973",
+      "wall_seconds": 0.628557504969649
+    }
+  ],
+  "positive_checks": [
+    "All14 decision tests and existing evidence compatibility tests pass; clippy and generated scientific status pass",
+    "Source-bound draft and strict semantic/wire contract implemented; canonical task receipts close in order"
+  ],
+  "negative_checks": [
+    "Proposed/admitted source forgery, missing cold scenario, empty uncertainty, units/basis/source/revocation drift refuse",
+    "Simultaneous/IUT/adaptive and continuation policies are distinguished; finite envelope cannot become IID tails",
+    "Actual qualified template remains non-runnable; historical v1 and scientific STATUS unchanged"
+  ],
+  "artifacts": [
+    {
+      "path": "requirements/joil-hydrocyclone-v2.toml",
+      "sha256": "5940f16bf8fcdbd86afc46e914f56c863d8a736118e578d33c356877ea818a05"
+    },
+    {
+      "path": "crates/joil-evidence/src/decision.rs",
+      "sha256": "ac08f7c4caf941d1946664beea7ef78691e88fa7d511845a605e20ac12297660"
+    },
+    {
+      "path": "crates/joil-evidence/tests/decision.rs",
+      "sha256": "d93334610391c61092c6001cc86c74a01baa35e8fe67a2f743ba4674de700502"
+    },
+    {
+      "path": "schemas/v5/decision-profile.schema.json",
+      "sha256": "68b5f6cc3818f3746145a1ddb953c71a4834950458e3d5c0a791a049147d1b37"
+    },
+    {
+      "path": "docs/v5-plan/execution/DECISIONS.md",
+      "sha256": "dbd6c2097f9619ca7034e574e84ada0695f42b674bdfbcb30cfe72ef33b555b9"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1
+  },
+  "limitations": [
+    "Policy/source integrity only, no statistical coverage or physical qualification",
+    "Durable alpha spending awaits V5-06; estimator validation awaits V5-04",
+    "Full required gate before next push remains required; no new source is described as pushed"
+  ],
+  "next_dependency": "V5-03 units/expression/restricted subject/outcomes/cache keys/architecture"
+}

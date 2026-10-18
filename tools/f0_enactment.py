@@ -3,10 +3,11 @@
 
 Provides:
 1. `build_enactment_receipt(program, dropped_features=())`:
-   Compiles a `DesignProgram` (v2/v3) into its semantic boundary/internal mesh representation
-   and emits a per-candidate `FeatureEnactmentReceipt` mapping every active mechanism to concrete
-   face/volume IDs, enacted surface area (`m^2`), and geometric delta (`mm`).
-   Raises `EnactmentVerificationError` if any active feature has 0 enacted faces or 0 geometric delta (`IR-04`).
+   Lists every active mechanism of an authored `DesignProgram` (v2/v3) and raises
+   `EnactmentVerificationError` when an active feature is dropped (`IR-04`). It compiles and
+   observes no geometry (V5-01-02): measured faces, areas, deltas and inlet paths are `None`
+   with `measurement_status: not_measured`. The historical assigned face IDs, constant areas and
+   authored expected deltas are kept under `legacy_proxy` for reproduction only.
 2. `audit_stl_inlet_enactment(stl_path, program)`:
    Forensically audits an ASCII/binary OpenFOAM `triSurface/hydrocyclone.stl` against its authored
    `DesignProgram`, counting actual disjoint inlet sub-channels at `|x| = 0.030 m` and internal
@@ -149,61 +150,73 @@ def build_enactment_receipt(
     for spec in expected_mechanisms:
         gname = spec['gene_name']
         sem_id = spec['semantic_id']
-        if gname in dropped_features or sem_id in dropped_features:
+        dropped = gname in dropped_features or sem_id in dropped_features
+        is_internal = gname in ('inlet_split', 'skimmer')
+        face_ids: list[int] = []
+        area_m2 = 0.0
+        if dropped:
             unenacted.append(f"{gname}:{spec['node_id']}")
-            records.append({
-                'gene_name': gname,
-                'node_id': spec['node_id'],
-                'semantic_id': sem_id,
-                'boundary_face_ids': [],
-                'internal_face_ids': [],
-                'volume_region_id': spec['volume_region_id'],
-                'enacted_triangle_count': 0,
-                'enacted_surface_area_m2': 0.0,
-                'measured_geometric_delta_mm': 0.0,
-            })
         else:
-            is_internal = gname in ('inlet_split', 'skimmer')
             face_ids = list(range(face_cursor, face_cursor + (4 if is_internal else 32)))
             face_cursor += len(face_ids)
             area_m2 = 0.000279 if gname == 'inlet_split' else (0.000112 if gname == 'skimmer' else 0.001850)
-            records.append({
-                'gene_name': gname,
-                'node_id': spec['node_id'],
-                'semantic_id': sem_id,
+        records.append({
+            'gene_name': gname,
+            'node_id': spec['node_id'],
+            'semantic_id': sem_id,
+            'boundary_face_ids': [],
+            'internal_face_ids': [],
+            'volume_region_id': spec['volume_region_id'],
+            'enacted_triangle_count': None,
+            'enacted_surface_area_m2': None,
+            'measured_geometric_delta_mm': None,
+            'measurement_status': 'not_measured',
+            'legacy_proxy': {
+                'basis': 'assigned face IDs, constant areas and the authored expected delta; not observed',
                 'boundary_face_ids': [] if is_internal else face_ids,
                 'internal_face_ids': face_ids if is_internal else [],
-                'volume_region_id': spec['volume_region_id'],
                 'enacted_triangle_count': len(face_ids),
                 'enacted_surface_area_m2': round(area_m2, 9),
-                'measured_geometric_delta_mm': spec['expected_delta_mm'],
-            })
+                'geometric_delta_mm': 0.0 if dropped else spec['expected_delta_mm'],
+            },
+        })
 
-    measured_inlet_paths = 2 if ('inlet_split' in dropped_features) else expected_inlet_paths
-    if measured_inlet_paths != expected_inlet_paths and 'inlet_split:disjoint_inlet_path_count' not in unenacted:
+    proxy_inlet_paths = 2 if ('inlet_split' in dropped_features) else expected_inlet_paths
+    if proxy_inlet_paths != expected_inlet_paths and 'inlet_split:disjoint_inlet_path_count' not in unenacted:
         unenacted.append('inlet_split:disjoint_inlet_path_count')
 
-    actual_label = (
-        f'{measured_inlet_paths}jet-split-manifold'
-        if measured_inlet_paths > 2
+    proxy_label = (
+        f'{proxy_inlet_paths}jet-split-manifold'
+        if proxy_inlet_paths > 2
         else '2port-unsplit-wall-modulated'
     )
 
     receipt = {
         'ir_sha256': ir_sha256,
-        'backend': 'RustMultiPatchCfdSurface',
-        'all_active_features_enacted': len(unenacted) == 0,
-        'measured_disjoint_inlet_paths': measured_inlet_paths,
+        'kind': 'authored_enactment_manifest_not_geometry_measurement',
+        'backend': None,
+        'all_active_features_enacted': None,
+        'measured_disjoint_inlet_paths': None,
         'expected_disjoint_inlet_paths': expected_inlet_paths,
-        'actual_simulated_geometry_label': actual_label,
+        'actual_simulated_geometry_label': None,
         'active_mechanisms': records,
         'unenacted_features': unenacted,
+        'measurement_note': (
+            'no geometry compiled or observed here; measure the meshed artifact with '
+            'audit_stl_inlet_enactment or the compiled-mesh observer'
+        ),
+        'legacy_proxy': {
+            'backend': 'RustMultiPatchCfdSurface',
+            'all_active_features_enacted': len(unenacted) == 0,
+            'measured_disjoint_inlet_paths': proxy_inlet_paths,
+            'actual_simulated_geometry_label': proxy_label,
+        },
     }
 
     if unenacted:
         raise EnactmentVerificationError(
             f'FeatureEnactmentAuditFailed: unenacted active mechanisms={unenacted}, '
-            f'measured_inlet_paths={measured_inlet_paths}, expected_inlet_paths={expected_inlet_paths}'
+            f'authored_inlet_paths={proxy_inlet_paths}, expected_inlet_paths={expected_inlet_paths}'
         )
     return receipt
 

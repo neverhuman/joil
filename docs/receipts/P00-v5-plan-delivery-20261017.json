@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "kind": "planning_delivery_verification_not_scientific_qualification",
+  "tested_commit": "a674035bbe84077e8a1ee6b8c7c1de73ccff69e9",
+  "created_utc": "2026-10-17T20:14:49.928894+00:00",
+  "branch": "codex/v5-engineering-plan",
+  "remote_destination": "xbabe2:~/joil/docs/v5-plan/",
+  "local_destination": "~/joil/docs/v5-plan/",
+  "copied_reviewed_files": 88,
+  "original_sources_verified": 10,
+  "remote_checks": [
+    {
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "32751570a1b6f3480eb1a73e740e21bdb9281ef228c7324d6e54af2db7db77cc"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_plan.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9d0ca24e23dd35364679a97361a971949481023df4bbb4708075ab5ac8a4180f"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "66319e3f1d7c4d8fcf6f65d68a09cd7ee6b09cb5d16fda5b62b40e08c5228173"
+    }
+  ],
+  "remote_receipt_sha256": "cc10e9125dd46d019568630a8e40c2d3c2fbfc3a2e7aee9b44386abd500fae48",
+  "local_mirror_sha_verified": true,
+  "preexisting_remote_COMMS_unchanged": true,
+  "primary_branch_preserved": true,
+  "engineering_tasks_done": 0,
+  "engineering_tasks_total": 160,
+  "qualification": "unchanged; no engineering/science implementation or simulation",
+  "limitations": [
+    "Browser notes remain local drafts",
+    "The final PR head receives its separate CI run",
+    "Primary mirrors preserve existing branch/journal and contain the planning changes; Git integration uses the isolated prepared branch"
+  ]
+}

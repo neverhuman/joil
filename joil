@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+# Uses the existing project toolchain; never installs or changes host settings.
+set -eu
+cd "$(dirname "$0")"
+export CARGO_BUILD_JOBS=2
+export CARGO_INCREMENTAL="${CARGO_INCREMENTAL:-0}"
+export CARGO_PROFILE_DEV_DEBUG="${CARGO_PROFILE_DEV_DEBUG:-line-tables-only}"
+export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 RAYON_NUM_THREADS=1
+exec cargo run --locked -p crucible-cli --bin crucible -- "$@"

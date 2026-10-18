@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "packet": "V5-23",
+  "tasks": {
+    "V5-23-01": {
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+        }
+      ]
+    },
+    "V5-23-02": {
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+        }
+      ]
+    },
+    "V5-23-03": {
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+        }
+      ]
+    },
+    "V5-23-04": {
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "evidence": []
+    },
+    "V5-23-05": {
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+        }
+      ]
+    }
+  }
+}
