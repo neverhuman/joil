@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "kind": "software_harness_acceptance",
+  "packet": "V5-14",
+  "task_ids": [
+    "V5-14-01",
+    "V5-14-02",
+    "V5-14-03",
+    "V5-14-04",
+    "V5-14-05"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "tested_commit": "7cb44104c011082457263d36fe8e8fa1c6de1764",
+  "created_utc": "2026-10-18T11:47:33.120350+00:00",
+  "changed_paths": [
+    "docs/receipts/v5-14-software-acceptance-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-adapters",
+        "--test",
+        "openfoam"
+      ],
+      "exit_code": 0,
+      "log_sha256": "264d0152eb552ce5a01c6f39326d22c46da679719885ac098d19bfbfe69f300b",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/crucible-adapters-openfoam.log",
+      "wall_seconds": null
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "structure"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fc75fa06652d2afa62f93f5d7c2a24ccb25341471ddf5ba71c0e2499022cad27",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-structure.log",
+      "wall_seconds": null
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "joil-core",
+        "--test",
+        "truth_structure",
+        "--test",
+        "truth_solver_failure"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e729f991873cdbffbe4b4cababb338d6a7bee0181c5877a1d0d593c9361f6bfc",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/joil-core-structure-solver.log",
+      "wall_seconds": null
+    }
+  ],
+  "log_bindings": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-adapters",
+        "--test",
+        "openfoam"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/crucible-adapters-openfoam.log",
+      "log_sha256": "264d0152eb552ce5a01c6f39326d22c46da679719885ac098d19bfbfe69f300b",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/crucible-adapters-openfoam.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane1"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "structure"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-structure.log",
+      "log_sha256": "fc75fa06652d2afa62f93f5d7c2a24ccb25341471ddf5ba71c0e2499022cad27",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-structure.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane1"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "joil-core",
+        "--test",
+        "truth_structure",
+        "--test",
+        "truth_solver_failure"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/joil-core-structure-solver.log",
+      "log_sha256": "e729f991873cdbffbe4b4cababb338d6a7bee0181c5877a1d0d593c9361f6bfc",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/joil-core-structure-solver.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane1"
+    }
+  ],
+  "positive_checks": [
+    "OpenFOAM adapter suite passed all 9 capability identity, pressure/datum, split-controller, mechanical-flux and restart-guard tests.",
+    "Structure suite passed all 17 numerical/structural guard tests; joil-core structure and solver-failure suites passed all 4 tests.",
+    "All bound commands exited 0; all logs and companion .exit records are SHA-256 bound."
+  ],
+  "negative_checks": [
+    "Tests reject executable identity mismatch, pressure unit/density errors, oscillatory refinement, incomplete restart, wrong pressure/normal inputs, unqualified solver outcomes and solver failure becoming performance.",
+    "No native CFD computation, physical mesh qualification, or interrupted actual-native restart was performed by these harness suites."
+  ],
+  "artifacts": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/crucible-adapters-openfoam.log",
+      "sha256": "264d0152eb552ce5a01c6f39326d22c46da679719885ac098d19bfbfe69f300b",
+      "kind": "private_log"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/crucible-adapters-openfoam.log.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "kind": "private_exit_record"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-structure.log",
+      "sha256": "fc75fa06652d2afa62f93f5d7c2a24ccb25341471ddf5ba71c0e2499022cad27",
+      "kind": "private_log"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-structure.log.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "kind": "private_exit_record"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/joil-core-structure-solver.log",
+      "sha256": "e729f991873cdbffbe4b4cababb338d6a7bee0181c5877a1d0d593c9361f6bfc",
+      "kind": "private_log"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/joil-core-structure-solver.log.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "kind": "private_exit_record"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      36,
+      37
+    ],
+    "ram_bytes": 6442450944,
+    "scratch_bytes": 2684354560,
+    "cargo_build_jobs": 2,
+    "numeric_threads": 1,
+    "gpu": false,
+    "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target"
+  },
+  "limitations": [
+    "Packet acceptance is software/harness acceptance only. No physical carrier result, multi-grid numerical certificate, or actual native restart is admitted; scientific_admission is false."
+  ],
+  "next_dependency": "Complete the explicitly scoped native carrier multi-grid/model and actual native restart studies with independent numerical budgets and source-bound evidence."
+}

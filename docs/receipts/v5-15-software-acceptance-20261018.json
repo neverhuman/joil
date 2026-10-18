@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "kind": "software_harness_acceptance",
+  "packet": "V5-15",
+  "task_ids": [
+    "V5-15-01",
+    "V5-15-02",
+    "V5-15-03",
+    "V5-15-04",
+    "V5-15-05"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "tested_commit": "7cb44104c011082457263d36fe8e8fa1c6de1764",
+  "created_utc": "2026-10-18T11:47:33.137189+00:00",
+  "changed_paths": [
+    "docs/receipts/v5-15-software-acceptance-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics"
+      ],
+      "exit_code": 0,
+      "log_sha256": "235f2315b7e2eac4873862e8fb500be54e45c01844fd42b1d51364124ffd223c",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-dynamics.log",
+      "wall_seconds": null
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/check-public.log",
+      "wall_seconds": null
+    }
+  ],
+  "log_bindings": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-dynamics.log",
+      "log_sha256": "235f2315b7e2eac4873862e8fb500be54e45c01844fd42b1d51364124ffd223c",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-dynamics.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane1"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/check-public.log",
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/check-public.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane1"
+    }
+  ],
+  "positive_checks": [
+    "`pack-hydrocyclone-judges --test dynamics` passed all 38 wet dynamics, finite-life fatigue and as-built uncertainty software controls.",
+    "`tools/check_public.py` passed and checked 981 public candidate files with private deny rules applied.",
+    "All bound commands exited 0; all logs and companion .exit records are SHA-256 bound."
+  ],
+  "negative_checks": [
+    "The dynamics suite rejects unsupported wet/modal/fatigue evidence, transferred chemistry/material inputs, inadequate sampling, unadmitted thresholds and solver disagreement; these are software negative controls, not evidence accession.",
+    "The requested `docs/release/v5/EXTERNAL_DATA_REQUESTS.json` was absent and untracked at this tested head, so the receipt does not claim that external wet-modal/fatigue datasets are tracked or accessioned there."
+  ],
+  "artifacts": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-dynamics.log",
+      "sha256": "235f2315b7e2eac4873862e8fb500be54e45c01844fd42b1d51364124ffd223c",
+      "kind": "private_log"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/pack-judges-dynamics.log.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "kind": "private_exit_record"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/check-public.log",
+      "sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "kind": "private_log"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/check-public.log.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "kind": "private_exit_record"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      36,
+      37
+    ],
+    "ram_bytes": 6442450944,
+    "scratch_bytes": 2684354560,
+    "cargo_build_jobs": 2,
+    "numeric_threads": 1,
+    "gpu": false,
+    "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target"
+  },
+  "limitations": [
+    "Packet acceptance is software/harness acceptance only. Original wet/modal/fatigue datasets and independently measured validation evidence are not admitted; scientific_admission is false.",
+    "Requested tracking path `docs/release/v5/EXTERNAL_DATA_REQUESTS.json` does not exist at tested commit 7cb44104c011082457263d36fe8e8fa1c6de1764. This receipt records the discrepancy without creating files outside the authorized scope."
+  ],
+  "next_dependency": "Restore or identify the authoritative external-data request manifest, then accession source/license/digest and unresolved measurement metadata for wet/modal/fatigue datasets before scientific validation.",
+  "external_dataset_note": "Wet-modal/fatigue accession remains unresolved; requested external data request manifest path was absent at tested head."
+}
