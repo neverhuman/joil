@@ -14,6 +14,7 @@ pub mod material;
 pub mod metrology;
 pub mod structure;
 pub mod surface;
+pub mod validation;
 
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
