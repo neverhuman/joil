@@ -10,7 +10,10 @@
   ],
   "tested_commit": "5e3cd22a6a17d75890d03299521e37faf2b50162",
   "changed_paths": [
-    "docs/receipts/v5-22-software-acceptance-20261018.json"
+    "docs/receipts/v5-22-software-acceptance-20261018.json",
+    "docs/receipts/v5-22-24-sc-dec-verification-20261018.json",
+    "crates/crucible-search/tests/acquisition.rs",
+    "crates/crucible-fea/src/lib.rs"
   ],
   "commands": [
     {
@@ -69,6 +72,10 @@
     {
       "path": "tools/generate_wave2_figures_and_animations.py",
       "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+    },
+    {
+      "path": "docs/receipts/v5-22-24-sc-dec-verification-20261018.json",
+      "sha256": "9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917"
     }
   ],
   "resource_allocation": {
@@ -82,7 +89,7 @@
     "Software/harness verification only; scientific admission remains false."
   ],
   "next_dependency": "Integrator acceptance and scientific evidence gates remain separate.",
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "scientific_admission": false,
   "agent_trailers": {
     "Agent-Session": "lane3-wave6-v5-21-22-24",
@@ -136,15 +143,18 @@
       }
     }
   ],
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
-      "sha256": "319b0da49ccce4a52766aa6fbc8dd63b5764a9048e846a8efd6b32904b96fa1e"
-    },
-    "resolved_log_paths": [],
-    "commands_reexecuted_by_this_metadata_amendment": false
-  }
+  "fleet_admiral_dispositions": [
+    {
+      "decision_id": "SC-DEC-038",
+      "task_id": "V5-22-01",
+      "provenance": "substitute:native_high_fidelity_oracle_labels",
+      "disposition": "Populate the admitted independent-label dataset from native high-fidelity CFD/FEA evaluations, family/lineage split, separately namespaced and tagged as numerical oracle labels; EV-09/EV-12 physical limitations remain."
+    }
+  ],
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-22-24-sc-dec-verification-20261018.json",
+      "sha256": "9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917"
+    }
+  ]
 }

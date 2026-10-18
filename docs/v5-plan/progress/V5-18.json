@@ -3,34 +3,59 @@
   "packet": "V5-18",
   "tasks": {
     "V5-18-01": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        }
+      ]
     },
     "V5-18-02": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        }
+      ]
     },
     "V5-18-03": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        }
+      ]
     },
     "V5-18-04": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        }
+      ]
     },
     "V5-18-05": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-031; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-18-software-acceptance-20261018.json (sha256 c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        }
+      ]
     }
   }
 }

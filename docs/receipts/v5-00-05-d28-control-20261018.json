@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "kind": "task_completion_not_scientific_validation",
+  "packet": "V5-00",
+  "task_ids": [
+    "V5-00-05"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "tested_commit": "20955633ac30eaf4eab0349628a06e35fafdc291",
+  "created_utc": "2026-10-18T12:00:00+00:00",
+  "changed_paths": [
+    "tools/v5_d28_ownership_control.py",
+    "docs/receipts/v5-00-05-d28-control-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/v5_d28_ownership_control.py",
+        "--mode",
+        "positive"
+      ],
+      "exit_code": 0,
+      "log_sha256": "37c9118986596b82bc70ae68a8bad5c49822c869adf5601aeca7428bbfb507c4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d28-pos.log",
+      "expected_result": "Synthetic acknowledged, actively leased, disjoint allocation accepted."
+    }
+  ],
+  "positive_checks": [
+    "The frozen baseline commit exists and both D-28 source files match their inventory SHA-256 digests using git show.",
+    "Synthetic path allocation passes only when target acknowledgement, active lease, and disjoint write scope are all present."
+  ],
+  "negative_checks": [
+    "Synthetic proposed allocation without target worker acknowledgement is rejected and red mode exits 1.",
+    "Coordination control is software-only; no real worker acknowledgement, active lease, or physical evidence is asserted."
+  ],
+  "artifacts": [
+    {
+      "path": "tools/v5_d28_ownership_control.py",
+      "sha256": "5a0b8ad55eba32a6609da45673ccc1f47c75806033e200fe57a9edc47b9d099b"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d28-pos.log",
+      "sha256": "37c9118986596b82bc70ae68a8bad5c49822c869adf5601aeca7428bbfb507c4"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d28-red.log",
+      "sha256": "d3207f4e04e9aea8e40611d8e69256881846076c6924995cd1a474091f4ec9ab"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 0,
+    "memory_gib": null,
+    "scratch_gib": 0,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "This control validates the coordination rule with synthetic allocations only. It does not establish that a real lane has an acknowledged allocation or active compute lease. Scientific admission remains false."
+  ],
+  "next_dependency": "Use fresh live coordination evidence before granting any actual worker scope or compute allocation; all physical/scientific work remains separately gated.",
+  "defect_controls": [
+    {
+      "defect_id": "D-28",
+      "fixture": {
+        "path": "tools/v5_d28_ownership_control.py",
+        "sha256": "5a0b8ad55eba32a6609da45673ccc1f47c75806033e200fe57a9edc47b9d099b"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "docs/COORDINATION.md",
+        "symbol": "authoritative channel",
+        "sha256": "08b88ff8ea3853745fac524fa387f6dc90ed65b441e49b24f228b2d40ca72b0a"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "tools/v5_d28_ownership_control.py",
+          "--mode",
+          "positive"
+        ],
+        "exit_code": 0,
+        "log_sha256": "37c9118986596b82bc70ae68a8bad5c49822c869adf5601aeca7428bbfb507c4",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d28-pos.log",
+        "expected_result": "Synthetic acknowledged, actively leased, disjoint allocation accepted."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "tools/v5_d28_ownership_control.py",
+          "--mode",
+          "red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "d3207f4e04e9aea8e40611d8e69256881846076c6924995cd1a474091f4ec9ab",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d28-red.log",
+        "expected_result": "Synthetic proposal without target acknowledgement rejected; program exits 1."
+      }
+    }
+  ]
+}

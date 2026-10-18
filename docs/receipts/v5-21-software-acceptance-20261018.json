@@ -10,7 +10,9 @@
   ],
   "tested_commit": "5e3cd22a6a17d75890d03299521e37faf2b50162",
   "changed_paths": [
-    "docs/receipts/v5-21-software-acceptance-20261018.json"
+    "docs/receipts/v5-21-software-acceptance-20261018.json",
+    "docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json",
+    "crates/crucible-search/tests/reference_search.rs"
   ],
   "commands": [
     {
@@ -55,6 +57,10 @@
     {
       "path": "crates/crucible-search/tests/acquisition.rs",
       "sha256": "6ab15626303c5a63006369fa935e1b41037593785c2af36232d04696d811c7f7"
+    },
+    {
+      "path": "docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json",
+      "sha256": "9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b"
     }
   ],
   "resource_allocation": {
@@ -68,22 +74,33 @@
     "Software/harness verification only; scientific admission remains false."
   ],
   "next_dependency": "Integrator acceptance and scientific evidence gates remain separate.",
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "scientific_admission": false,
   "agent_trailers": {
     "Agent-Session": "lane3-wave6-v5-21-22-24",
     "Agent-Model": "gpt-6-luna medium",
     "Agent-Task": "V5-21-01 V5-21-02 V5-21-03 V5-21-04 V5-21-05 V5-22-01 V5-22-02 V5-22-03 V5-22-04 V5-22-05 V5-24-01 V5-24-02 V5-24-03 V5-24-04 V5-24-05"
   },
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-      "sha256": "067cab733a43efe469f983c4ac0d5f46ee76cf8b04bbd79d765580fc8d6f1415"
+  "fleet_admiral_dispositions": [
+    {
+      "decision_id": "SC-DEC-032",
+      "task_id": "V5-18-04",
+      "relationship": "upstream_unblock",
+      "provenance": "substitute:native_simulation_objective_bounds",
+      "disposition": "Use accepted native CFD/FEA simulation envelopes to bound four objectives and apply hard no-regression gates; proposed sensitivity profile remains a sensitivity profile."
     },
-    "resolved_log_paths": [],
-    "commands_reexecuted_by_this_metadata_amendment": false
-  }
+    {
+      "decision_id": "SC-DEC-037",
+      "task_id": "V5-20-05",
+      "relationship": "upstream_unblock",
+      "provenance": "substitute:dual_solver_structural_confirmation",
+      "disposition": "Cross-check structural observables through primary 3D continuum FEA and an independent refined/second-order route; record discrepancy as uncertainty."
+    }
+  ],
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json",
+      "sha256": "9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b"
+    }
+  ]
 }

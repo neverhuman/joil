@@ -322,4 +322,93 @@ mod tests {
             Err(PaperError::InvalidFigure(_))
         ));
     }
+
+    #[test]
+    fn v5_28_29_30_sc_dec_041_to_052_prospective_study_arms_winner_leakage_typed_queries_and_public_bundle(
+    ) {
+        use serde_json::Value;
+
+        let preregistration: Value = serde_json::from_str(include_str!(
+            "../../../experiments/v5-study/preregistration-v1.json"
+        ))
+        .expect("prospective study protocol is valid JSON");
+        assert!(preregistration["status"]
+            .as_str()
+            .unwrap()
+            .contains("frozen-prospective"));
+        assert_eq!(preregistration["family_policy"], "all-attempts-retained; no post-result endpoint substitution; any endpoint change creates a new protocol identity");
+        let arms = preregistration["arms"].as_array().unwrap();
+        for required_arm in ["R0", "R1", "E1", "E2", "A1", "A2"] {
+            assert!(arms.iter().any(|arm| arm["id"] == required_arm));
+        }
+        assert_eq!(preregistration["independent_seeds"]["disjoint"], true);
+        assert_eq!(preregistration["confirmation"]["fresh_data"], true);
+        assert_eq!(
+            preregistration["unavailable_l4_negative_control"]["forbidden"],
+            "replace endpoint after inspecting winners"
+        );
+
+        let interventions: Value = serde_json::from_str(include_str!(
+            "../../../experiments/v5-study/mechanism-interventions-v1.json"
+        ))
+        .expect("mechanistic intervention plan is valid JSON");
+        for required_intervention in [
+            "intact",
+            "knockout",
+            "sham",
+            "rescue",
+            "matched-volume",
+            "matched-area",
+        ] {
+            assert!(interventions["interventions"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|row| row["id"] == required_intervention));
+        }
+
+        let fixture_bytes = include_bytes!("../../../paper/fixtures/negative-result.json");
+        let report: PaperBundle =
+            serde_json::from_slice(fixture_bytes).expect("synthetic review bundle deserializes");
+        report
+            .validate()
+            .expect("exactly bound typed queries and all attempted outcomes validate");
+        assert!(report
+            .cost_quality
+            .iter()
+            .any(|point| point.outcome == "negative"));
+        assert_eq!(
+            report.attempted_finalist_ids.len(),
+            report
+                .cost_quality
+                .iter()
+                .map(|point| point.finalist_id.as_str())
+                .collect::<std::collections::BTreeSet<_>>()
+                .len()
+        );
+
+        let mut fuzzy = report.clone();
+        fuzzy.queries[0].observation_id = "obs-synthetic-search-001-with-suffix".into();
+        assert!(matches!(
+            fuzzy.validate(),
+            Err(PaperError::MissingObservation(_))
+        ));
+        let mut winner_leakage = report.clone();
+        winner_leakage.cost_quality[0].confirmation_data_id = "".into();
+        assert!(winner_leakage.validate().is_err());
+        let mut inflated_n = report.clone();
+        inflated_n.cost_quality[0].independent_unit_ids = vec!["frame-1"; 1000]
+            .into_iter()
+            .map(str::to_owned)
+            .collect();
+        assert!(inflated_n.validate().is_err());
+
+        let public_bundle = serde_json::to_string(&report).expect("bundle serializes");
+        for private_marker in ["/home/", "/Users/", ".private/", "customer", "facility"] {
+            assert!(
+                !public_bundle.contains(private_marker),
+                "public bundle leaked private marker {private_marker}"
+            );
+        }
+    }
 }

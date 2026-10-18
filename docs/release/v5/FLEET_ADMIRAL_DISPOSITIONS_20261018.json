@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "kind": "fleet_admiral_joil_dispositions",
+  "decided_utc": "2026-10-18T12:06:00Z",
+  "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+  "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+  "issued_by": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+  "source_decisions": "/home/ubuntu/xbabe2_kicker/captains-20261017/fleet_admiral_decisions_20261018T1158Z.md",
+  "scientific_admission": false,
+  "decision_count": 28,
+  "decisions": [
+    {
+      "decision_id": "SC-DEC-024",
+      "task_id": "V5-13-01",
+      "disposition_mode": "public_open_data+substitute:public_material_allowables_proxy",
+      "summary": "LPBF Ti-6Al-4V, 316L and Inconel 718 records bind to open public allowables with unresolved-allowable flags that block unqualified fatigue claims. Wrought data is never presented as as-built.",
+      "tasks_unblocked": ["V5-13-02", "V5-20-02", "V5-20-04"]
+    },
+    {
+      "decision_id": "SC-DEC-025",
+      "task_id": "V5-13-03",
+      "disposition_mode": "substitute:cad_manufacturing_gate_simulation",
+      "summary": "Manufacturing gates (build fit, downskin, support access, powder escape, tool swept volume) are evaluated in simulation on the CAD and mesh corpus. No physical machining.",
+      "tasks_unblocked": ["V5-13-02", "V5-18-04"]
+    },
+    {
+      "decision_id": "SC-DEC-026",
+      "task_id": "V5-13-04",
+      "disposition_mode": "substitute:roughness_orientation_proxy",
+      "summary": "Published open LPBF roughness ranges by build angle and finish class bind to variant identities, with cross-discipline invalidation.",
+      "tasks_unblocked": ["V5-13-02", "V5-20-02"]
+    },
+    {
+      "decision_id": "SC-DEC-027",
+      "task_id": "V5-13-05",
+      "disposition_mode": "rescope:pre_order_metrology_uncertainty_specification",
+      "summary": "Rescoped to pre-order metrology and uncertainty-budget specification in software. No vendor orders or vendor contact.",
+      "tasks_unblocked": ["V5-20-03", "V5-30-03"]
+    },
+    {
+      "decision_id": "SC-DEC-028",
+      "task_id": "V5-15-01",
+      "disposition_mode": "public_open_data",
+      "summary": "Open published hydrocyclone and swirl benchmark tables and curves (Hsieh 1988, Bai, Young, Zhou) are ingested with provenance digests, station coordinates, boundary conditions and matched or unresolved input declarations. Cost $0.",
+      "tasks_unblocked": ["V5-15-02", "V5-15-03", "V5-15-04", "V5-15-05", "V5-16-01", "V5-16-02", "V5-16-03", "V5-16-04", "V5-16-05"]
+    },
+    {
+      "decision_id": "SC-DEC-029",
+      "task_id": "V5-15-03",
+      "disposition_mode": "public_open_data+substitute:cfd_observable_discrepancy_decomposition",
+      "summary": "Velocity profiles, reverse core, pressure drop and split ratio are checked against public stations. Numerical, input and experimental discrepancy are separated on coverage cards, with the high-order CFD reference labelled as a proxy.",
+      "tasks_unblocked": ["V5-15-05", "V5-16-01", "V5-16-02", "V5-16-03", "V5-16-04", "V5-16-05"]
+    },
+    {
+      "decision_id": "SC-DEC-030",
+      "task_id": "V5-17-02",
+      "disposition_mode": "substitute:native_les_rsm_carrier_field",
+      "summary": "Anisotropic dispersion and LES unresolved-energy partition are checked against native resolved-turbulence runs on xbabe1/xbabe2, with zero double-counting. Labelled a numerical carrier-field substitute, never physical PIV or LDV.",
+      "tasks_unblocked": ["V5-17-01", "V5-17-04", "V5-17-05", "V5-18-01", "V5-18-02", "V5-18-03", "V5-18-04", "V5-18-05"]
+    },
+    {
+      "decision_id": "SC-DEC-031",
+      "task_id": "V5-17-03",
+      "disposition_mode": "public_open_data+substitute:bounded_breakup_sensitivity",
+      "summary": "Daughter droplet mass conservation is enforced with no hidden clipping. Uncalibrated exposure rates are bracketed by off, calibrated-on and adverse bounds.",
+      "tasks_unblocked": ["V5-17-04", "V5-17-05", "V5-18-01", "V5-18-02", "V5-18-03", "V5-18-04", "V5-18-05"]
+    },
+    {
+      "decision_id": "SC-DEC-032",
+      "task_id": "V5-18-04",
+      "disposition_mode": "substitute:native_simulation_objective_bounds",
+      "summary": "The four bounded objectives and no-regression gates are evaluated on accepted native CFD/FEA envelopes. The 0.35/0.20/0.30/0.15 weights remain a proposed sensitivity profile only.",
+      "tasks_unblocked": ["V5-18-05", "V5-21-01", "V5-21-02", "V5-21-03", "V5-21-04", "V5-21-05"]
+    },
+    {
+      "decision_id": "SC-DEC-033",
+      "task_id": "V5-20-01",
+      "disposition_mode": "substitute:wet_modal_cfd_fea_simulation",
+      "summary": "Wet modes, fixtures, modal mesh convergence and broadband forced response come from coupled CFD wall-pressure spectra and acoustic/added-mass FEA on xbabe1/xbabe2. No physical measurement.",
+      "tasks_unblocked": ["V5-19-01", "V5-19-02", "V5-19-03", "V5-19-04", "V5-19-05", "V5-20-04", "V5-20-05"]
+    },
+    {
+      "decision_id": "SC-DEC-034",
+      "task_id": "V5-20-02",
+      "disposition_mode": "public_open_data+substitute:public_sn_bounded_fatigue_estimand",
+      "summary": "Finite-life fatigue estimands and Goodman/Walker corrections bind to open-literature LPBF S-N curves and passport defect bounds. Labelled bounded literature or proxy estimates, not coupon certification.",
+      "tasks_unblocked": ["V5-20-04", "V5-20-05"]
+    },
+    {
+      "decision_id": "SC-DEC-035",
+      "task_id": "V5-20-03",
+      "disposition_mode": "substitute:synthetic_ct_as_built_deviation_subject",
+      "summary": "CT registration, feature detectability and roughness perturbation are qualified on synthetic geometric deviation fields, with nominal and as-built subject identities kept separate. Affected physics is re-run on xbabe1/xbabe2.",
+      "tasks_unblocked": ["V5-20-04", "V5-20-05"]
+    },
+    {
+      "decision_id": "SC-DEC-036",
+      "task_id": "V5-20-04",
+      "disposition_mode": "substitute:correlated_bound_propagation",
+      "summary": "Correlated geometry, load and material bounds propagate through the native FEA/CFD pipeline. Deterministic corner scenarios are kept distinct from p95 reliability claims.",
+      "tasks_unblocked": ["V5-20-05"]
+    },
+    {
+      "decision_id": "SC-DEC-037",
+      "task_id": "V5-20-05",
+      "disposition_mode": "substitute:dual_solver_structural_confirmation",
+      "summary": "Governing structural observables are cross-checked between primary 3D continuum FEA and an independent refined or second-order route. Discrepancy is recorded as an uncertainty contribution.",
+      "tasks_unblocked": ["V5-21-01", "V5-21-02", "V5-21-03", "V5-21-04", "V5-21-05"]
+    },
+    {
+      "decision_id": "SC-DEC-038",
+      "task_id": "V5-22-01",
+      "disposition_mode": "substitute:native_high_fidelity_oracle_labels",
+      "summary": "The independent-label dataset comes from native high-fidelity CFD/FEA evaluations, grouped by family and lineage split. It is kept separate from sandbox descriptors and tagged as numerical oracle labels.",
+      "tasks_unblocked": ["V5-22-02", "V5-22-03", "V5-22-04", "V5-22-05"]
+    },
+    {
+      "decision_id": "SC-DEC-039",
+      "task_id": "V5-25-01",
+      "disposition_mode": "substitute:native_cutplane_interface_state",
+      "summary": "Interface state at admitted cut planes is extracted from native full-geometry simulations, with independent mass, momentum and oil conservation checks.",
+      "tasks_unblocked": ["V5-25-03", "V5-25-04", "V5-25-05"]
+    },
+    {
+      "decision_id": "SC-DEC-040",
+      "task_id": "V5-25-02",
+      "disposition_mode": "substitute:native_full_liner_corpus",
+      "summary": "A preregistered, diverse full-liner corpus with family-separated held-out cases is generated under Lease renewal-004 on xbabe1/xbabe2, with coverage and gap metadata.",
+      "tasks_unblocked": ["V5-25-03", "V5-25-04", "V5-25-05"]
+    },
+    {
+      "decision_id": "SC-DEC-041",
+      "task_id": "V5-28-04",
+      "disposition_mode": "substitute:typed_manifest_observations",
+      "summary": "Paper and report claims bind to typed observation, subject, scenario, estimand, unit and tier manifests (simulation, proxy, public_benchmark). The planted-error negatives are not yet executed, so V5-28-04 verification remains open.",
+      "tasks_unblocked": ["V5-28-05", "V5-31-02", "V5-31-04"]
+    },
+    {
+      "decision_id": "SC-DEC-042",
+      "task_id": "V5-29-01",
+      "disposition_mode": "substitute:standard_bracket_load_contract",
+      "summary": "The non-hydrocyclone bracket contract uses standard open bolt and support geometry, open material properties and explicit fixture load cases, with zero hydrocyclone constants.",
+      "tasks_unblocked": ["V5-29-02", "V5-29-03", "V5-29-04", "V5-29-05"]
+    },
+    {
+      "decision_id": "SC-DEC-043",
+      "task_id": "V5-30-02",
+      "disposition_mode": "substitute:synthetic_rig_telemetry_reduction+rescope:post_manufacturing_hardware_stream_ingestion",
+      "summary": "Synthetic delayed and censored multi-stream telemetry reduction is accepted with substitute provenance. Physical wet-rig sensor ingestion is rescoped to the post-manufacturing phase.",
+      "tasks_unblocked": ["V5-30-04"]
+    },
+    {
+      "decision_id": "SC-DEC-044",
+      "task_id": "V5-30-03",
+      "disposition_mode": "substitute:simulated_specimen_passport_binding+rescope:post_manufacturing_hardware_specimen_tap_proof",
+      "summary": "End-to-end software traceability binds simulated as-built deviations, coupon and CT schema records and physics re-evaluation to unique specimen passports. Physical specimen tap and proof testing are rescoped to the post-manufacturing phase.",
+      "tasks_unblocked": ["V5-30-04"]
+    },
+    {
+      "decision_id": "SC-DEC-045",
+      "task_id": "V5-26-05",
+      "disposition_mode": "budget_approved_existing_compute",
+      "summary": "Approved within existing compute only. External spend is $0. Estimated internal compute is about 1.5 GPU-hours and 12 CPU-core-hours on xbabe1/xbabe2/xbabe4 under Lease renewal-004. The separate owner budget record in OWNER_APPROVAL_DOSSIERS dossier 1 is not written here.",
+      "tasks_unblocked": ["V5-26-01", "V5-26-02", "V5-26-03", "V5-26-04"]
+    },
+    {
+      "decision_id": "SC-DEC-046",
+      "task_id": "V5-28-01",
+      "disposition_mode": "governance_signoff",
+      "summary": "Delegate governance sign-off for the frozen study arms, estimands, seeds, power, normalization, confirmation budget and hashed policy. Reviewed against the R003 integration receipt (sha256 70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d). Owner dossier 2 remains unsigned in the repo.",
+      "tasks_unblocked": ["V5-28-02", "V5-28-03"]
+    },
+    {
+      "decision_id": "SC-DEC-047",
+      "task_id": "V5-28-05",
+      "disposition_mode": "governance_signoff",
+      "summary": "Delegate governance sign-off for internal reproducible review bundles, allowlisted offline reproduction and the inventory. Third-party licensing and external publication remain reserved to Jepson. Owner dossier 3 remains unsigned in the repo, and its manufacturing versus publication scope mismatch is unresolved.",
+      "tasks_unblocked": ["V5-31-02", "V5-31-04"]
+    },
+    {
+      "decision_id": "SC-DEC-048",
+      "task_id": "V5-30-01",
+      "disposition_mode": "governance_signoff",
+      "summary": "Delegate governance sign-off for internal protocol closure: containment review, comparator, pilot-power quantities, blinded A/B/A blocks and calibration/holdout separation. Vendor orders remain reserved to Jepson. The protocol stays an unsigned draft until the owner signature is recorded in the protocol file.",
+      "tasks_unblocked": ["V5-30-04"]
+    },
+    {
+      "decision_id": "SC-DEC-049",
+      "task_id": "V5-30-05",
+      "disposition_mode": "governance_signoff",
+      "summary": "Delegate governance sign-off for private dossier storage and the allowlisted public export gate. Outside filing, publication and commercial licensing remain reserved to Jepson. Owner dossier 5 remains unsigned in the repo.",
+      "tasks_unblocked": ["V5-31-02", "V5-31-04"]
+    },
+    {
+      "decision_id": "SC-DEC-052",
+      "task_id": "V5-24-01..05",
+      "disposition_mode": "host_action_approved",
+      "summary": "Approved at $0 to stage open-source CUDA runtime and library components on xbabe1 (RTX 4090, lambda-stack-cuda 12.8), without a reboot and without disturbing running services. JopeDime I65 and I66 are also covered but are not Joil tasks.",
+      "tasks_unblocked": ["V5-24-01", "V5-24-02", "V5-24-03", "V5-24-04", "V5-24-05"]
+    },
+    {
+      "decision_id": "SC-DEC-053",
+      "task_id": "all Joil PR merges",
+      "disposition_mode": "pr_merge_authority",
+      "summary": "super_captain may merge Joil PRs directly via the standard flow: green CI, neverhumanbot exact-head APPROVED, then gh pr merge --rebase --match-head-commit. No squash and no force-push to main. The prior rule that only Jepson merges Joil PRs is superseded.",
+      "tasks_unblocked": ["119 previously blocked Joil tasks, as counted in the decision record; not recounted here"]
+    }
+  ],
+  "limitations": [
+    "Recorded dispositions are not evidence. Substitute, proxy and synthetic dispositions label the data source and do not establish physical validity. scientific_admission is false for every Joil item.",
+    "tasks_unblocked is copied from the decision record. It states what the decision claims to unblock, and no task was verified complete in this file.",
+    "authority_sha256 and the R003 receipt hash are copied from the decision record and were not recomputed in the session that wrote this file.",
+    "The owner signatures in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md remain pending in the repository. The delegate sign-offs here are not written into that register.",
+    "Physical measured-data tasks (V5-30-02, V5-30-03 and the other rescoped items) remain without physical inputs. Physical work is rescoped to the post-manufacturing phase."
+  ]
+}

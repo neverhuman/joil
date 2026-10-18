@@ -109,6 +109,81 @@ fn anisotropic_covariance_and_well_mixed_drift_have_independent_controls() {
     // The former telescoping arithmetic has no path to this ensemble acceptance.
 }
 
+#[test]
+fn v5_17_02_sc_dec_030_resolved_turbulence_dispersion_matches_dns_benchmark_and_rejects_wrong_drift(
+) {
+    // The periodic invariant-density oracle is a deterministic numerical benchmark
+    // surrogate; it does not claim a physical DNS dataset or CFD validation.
+    let rsm = rsm_covariance_to_dispersion(
+        Matrix3([[4.0, 0.6, 0.0], [0.6, 2.0, 0.0], [0.0, 0.0, 0.5]]),
+        0.5,
+    )
+    .unwrap();
+    assert_eq!(rsm.realizability_repair_m2_s, 0.0);
+    let d = rsm.diffusivity_m2_s;
+    assert!((d.0[0][0] - 2.0).abs() < 1e-12);
+    assert!((d.0[1][1] - 1.0).abs() < 1e-12);
+    assert!((d.0[0][1] - 0.3).abs() < 1e-12);
+    let partition = LesPartition {
+        total_tke_m2_s2: 6.5,
+        resolved_tke_m2_s2: 6.0,
+        unresolved_tke_m2_s2: 0.5,
+    };
+    assert!(partition.validate(0.4).is_ok());
+    assert!(partition.validate(0.6).is_err());
+
+    // Empirical increments recover the tensor covariance 2 D dt, including cross terms.
+    let mut state = 23030_u64;
+    let mut sums = [0.0; 3];
+    let mut products = [[0.0; 3]; 3];
+    let n = 20_000;
+    for _ in 0..n {
+        state = state
+            .wrapping_mul(6364136223846793005)
+            .wrapping_add(1442695040888963407);
+        let dz = d
+            .sample_increment(
+                [normal(&mut state), normal(&mut state), normal(&mut state)],
+                0.5,
+            )
+            .unwrap();
+        for i in 0..3 {
+            sums[i] += dz[i];
+            for j in 0..3 {
+                products[i][j] += dz[i] * dz[j];
+            }
+        }
+    }
+    let observed = std::array::from_fn::<_, 3, _>(|i| {
+        std::array::from_fn::<_, 3, _>(|j| {
+            products[i][j] / n as f64 - (sums[i] / n as f64) * (sums[j] / n as f64)
+        })
+    });
+    assert!((observed[0][0] - 2.0).abs() < 0.07);
+    assert!((observed[1][1] - 1.0).abs() < 0.05);
+    assert!((observed[0][1] - 0.3).abs() < 0.04);
+
+    let fixture = PeriodicFixture {
+        tracer_count: 24_000,
+        steps: 1800,
+        dt_s: 0.0025,
+        length_m: 1.0,
+        base_diffusivity_m2_s: 0.02,
+        modulation: 0.72,
+        seed: 881,
+    };
+    let production_drift = fixture.evolve(true, 0.0).unwrap();
+    let wrong_drift = fixture.evolve(false, 0.0).unwrap();
+    let production_tv = periodic_density_deviation(&production_drift, 1.0, 20).unwrap();
+    let wrong_tv = periodic_density_deviation(&wrong_drift, 1.0, 20).unwrap();
+    assert!(production_tv < 0.045, "production-drift TV={production_tv}");
+    assert!(
+        wrong_tv > 0.08,
+        "wrong-drift negative control TV={wrong_tv}"
+    );
+    assert!(production_drift.iter().all(|x| (0.0..1.0).contains(x)));
+}
+
 fn normal(state: &mut u64) -> f64 {
     fn uni(s: &mut u64) -> f64 {
         *s = s.wrapping_mul(2862933555777941757).wrapping_add(3037000493);
@@ -335,4 +410,92 @@ fn g009_guard_same_ancestry_cannot_be_relabelled_independent() {
 #[test]
 fn g009_guard_hinze_diagnostic_cannot_return_infinity() {
     assert!(crucible_particles::population::hinze_diameter(1e-300, 1e-300, 1e300).is_err());
+}
+
+#[test]
+fn v5_17_03_to_05_sc_dec_030_mass_conserving_breakup_population_reuse_and_weighted_uncertainty() {
+    // Synthetic uncalibrated exposure model: bounded probability, closed daughter mass,
+    // and Hinze retained only as a diagnostic.
+    let model = BreakupModel {
+        data_status: DataStatus::Uncalibrated,
+        rate_per_s: 0.8,
+        relative_rate_uncertainty: 0.4,
+        model_id: "synthetic-wave10-breakup".into(),
+        daughters: vec![
+            DaughterClass {
+                diameter_m: 20e-6,
+                mass_fraction: 0.4,
+            },
+            DaughterClass {
+                diameter_m: 35e-6,
+                mass_fraction: 0.6,
+            },
+        ],
+    };
+    let result = model.evaluate(1.0, 1e-9, 0.01, 998.0, 0.03).unwrap();
+    assert!(result.probability_lower <= result.probability_nominal);
+    assert!(result.probability_nominal <= result.probability_upper);
+    assert_eq!(result.daughter_mass_fraction, 1.0);
+    assert_eq!(result.mass_closure_relative_error, 0.0);
+    assert!(!result.calibrated && result.hinze_diagnostic_diameter_m.is_finite());
+    assert!(BreakupModel::from_hinze_clipping(result.hinze_diagnostic_diameter_m).is_err());
+
+    // Linear noninteracting transfer reuse conserves injected mass and matches a direct holdout.
+    let matrix = DsdTransferMatrix {
+        condition_id: "synthetic-linear-noninteracting".into(),
+        outcome_labels: vec!["treated".into(), "reject".into()],
+        entries: vec![vec![0.8, 0.2], vec![0.5, 0.5]],
+    };
+    let conditions = LinearConditions {
+        noninteracting: true,
+        coalescence_enabled: false,
+        breakup_concentration_coupled: false,
+        two_way_coupling: false,
+        concentration_fraction: 0.005,
+    };
+    let transferred = matrix.reweight(&[2.0, 1.0], &conditions).unwrap();
+    assert_eq!(transferred, vec![2.1, 0.9]);
+    assert!((transferred.iter().sum::<f64>() - 3.0).abs() < 1e-12);
+    assert!(matrix
+        .compare_held_out(&[2.0, 1.0], &[2.1, 0.9], 1e-12, &conditions)
+        .is_ok());
+    let coupled = LinearConditions {
+        coalescence_enabled: true,
+        ..conditions.clone()
+    };
+    assert!(matrix.reweight(&[2.0, 1.0], &coupled).is_err());
+
+    // Correlated daughter rows retain two independent clusters and the same interval.
+    let sample = |cluster: &str, ancestry: &str, value| WeightedGradeSample {
+        cluster_id: cluster.into(),
+        ancestry_id: ancestry.into(),
+        time_block_id: "block-1".into(),
+        value,
+        sampling_weight: 1.0,
+        units: "mg/L".into(),
+        basis: "treated_water_volume".into(),
+    };
+    let base = vec![sample("c1", "p1", 1.0), sample("c2", "p2", 3.0)];
+    let descendants = vec![
+        sample("c1", "p1", 1.0),
+        sample("c1", "daughter-a", 1.0),
+        sample("c1", "daughter-b", 1.0),
+        sample("c2", "p2", 3.0),
+    ];
+    let interval = |xs: &[WeightedGradeSample]| {
+        cluster_weighted_interval(xs, 12.706, "synthetic t(0.975,1)").unwrap()
+    };
+    let original = interval(&base);
+    let expanded = interval(&descendants);
+    assert_eq!(original.independent_cluster_count, 2);
+    assert_eq!(expanded.independent_cluster_count, 2);
+    assert_eq!(original.standard_error, expanded.standard_error);
+    assert_eq!(original.interval_lower, expanded.interval_lower);
+    assert_eq!(original.interval_upper, expanded.interval_upper);
+    assert!(cluster_weighted_interval(
+        &[sample("c1", "parent", 1.0), sample("c2", "parent", 3.0)],
+        2.0,
+        "synthetic quantile"
+    )
+    .is_err());
 }

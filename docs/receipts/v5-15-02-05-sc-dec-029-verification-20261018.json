@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_15_02_05_sc_dec_029_verification",
+  "task_ids": [
+    "V5-15-02",
+    "V5-15-03",
+    "V5-15-04",
+    "V5-15-05"
+  ],
+  "packet": "V5-15",
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "fleet_admiral_decisions": [
+    "SC-DEC-028",
+    "SC-DEC-029",
+    "SC-DEC-062"
+  ],
+  "base_commit": "a6ef9ff351e3de538443f628e42e1c4f78f06af2",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation",
+        "v5_15_02_to_05_sc_dec_029"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-15-02-05-sc-dec-029-test.log",
+      "log_sha256": "a1202d0ba64f90cbf9a6eda174fa45199bacb1e4d4639d3174c575aac8962f0e"
+    },
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-15-02-05-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-15-02-05-public.log",
+      "log_sha256": "f0acbce8a9ee1c2ae7c1fc8666d950132e62e4e0805056f0177cf89f14115a83"
+    }
+  ],
+  "positive_checks": [
+    "The dedicated combined validation test passed: 1 passed, 0 failed; it exercises the preregistered one-factor anomaly study and rejects post-hoc PDR tuning.",
+    "Coverage checks support tangential velocity, axial velocity, reverse core and pressure/split only for matching synthetic family-A observations; the separate discrepancy components are individually quantified.",
+    "Converged up/down branches and multiple initializations pass the synthetic branch challenge; formatting and public safety checks pass."
+  ],
+  "negative_checks": [
+    "Missing input discrepancy remains unresolved; unsupported oil-grade coverage remains unsupported despite pressure/velocity coverage.",
+    "Best-of-branch selection is rejected and inaccessible dataset admission disables the flow archive.",
+    "All fixture values and identities are synthetic software controls; no task status was changed or promoted on decision authority alone."
+  ],
+  "resource_allocation": {
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "scratch_cleanup": "After the passing targeted test, debug/deps and debug/incremental were removed; target occupied 31 MiB."
+  },
+  "scientific_eligibility": "Software judge verification only. This test does not establish physical validation, benchmark accession, discrepancy agreement, or scientific admission.",
+  "limitations": [
+    "No measured CT-35 or published-station profiles, reverse-core observations, pressure/split measurements, or quantified experimental uncertainties were added; fixture support is synthetic only.",
+    "Numerical, input and experimental discrepancy classes are checked for separate presence/validity, not physically estimated.",
+    "No physical multi-branch ramp was run; this test verifies the software gate only. Unresolved inputs keep admission and flow archives narrowed/disabled."
+  ],
+  "next_dependency": "Accession source-bound benchmark observations and quantify each discrepancy class on the matched geometry/regime before scientific admission."
+}

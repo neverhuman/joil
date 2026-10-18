@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "kind": "v5_01_04_d21_runtime_software_control",
+  "task_ids": [
+    "V5-01-04"
+  ],
+  "owner": "61562.joil_v5_codex_lane2",
+  "state": "lane_complete_software_control",
+  "created_utc": "2026-10-18T12:30:00Z",
+  "tested_commit": "c75ec565a2c2a34243d386b72097ae3816431c42",
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "changed_paths": [
+    "tools/v5_d21_trajectory_control.py",
+    "docs/receipts/v5-01-04-d21-control-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/v5_d21_trajectory_control.py",
+        "--mode",
+        "positive"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d21-pos.log",
+      "log_sha256": "5df03eae64a675750e7356c0226a5df4dd8641a04b8fd1ba074edc7a0758f15a",
+      "expected_result": "D-21 software positive control and crucible-render unavailable-evidence regression passed; fixture explicitly synthetic."
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-17",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log",
+      "log_sha256": "9e1725594b686c942a7828b65cc497bad24f91a94c33e1c3d9604934e369f514",
+      "expected_result": "Existing D-17 frozen CUDA-disabled positive control passed; durable lane2 log reused to satisfy the V5-01-04 gate."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d21-v5-plan-check.log",
+      "log_sha256": "90e6ab78cf6701350c8d6fa3617bc8c360371d30f87e449d29978ccdac4dff38",
+      "expected_result": "32 packets and 160 tasks checked; plan views passed."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d21-claims-audit.log",
+      "log_sha256": "ef4dd18779ba7c202bc77529000fb57d6ae1797a039bf4e0a956bce7b0319d82",
+      "expected_result": "Claims audit passed."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d21-check-public.log",
+      "log_sha256": "ae1b58a021cd47ef9e7709945ea027ad1bac21ff15be278977fc86bcb7dafc2f",
+      "expected_result": "Public content scan passed."
+    }
+  ],
+  "positive_checks": [
+    "Frozen source bytes at acceptance-gate commit e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0 match the exact D-21 source inventory digests.",
+    "Subject/time/field-bound software fixture reports only its declared scope, and an authored/unvalidated path remains schematic.",
+    "crucible-render unavailable-evidence regression passed (1 test).",
+    "Existing durable D-17 positive control passed against the same frozen-source gate; reused because V5-01-04 requires both D-17 and D-21 controls."
+  ],
+  "negative_checks": [
+    "Scene without native trajectory evidence rejects the coupled-transport/cross-pipeline -38.5% wording; expected red control exit 1.",
+    "Authored trajectories remain prohibited by the renderer policy and are labeled schematic in scene provenance.",
+    "Existing durable D-17 red control recorded the expected synthetic child launch without lease; its log is reused to satisfy the V5-01-04 gate."
+  ],
+  "artifacts": [
+    {
+      "path": "tools/v5_d21_trajectory_control.py",
+      "sha256": "5e5d9ece3b5a5700841823df2c9b5ff5b907b67dc196284172de059845e9f777"
+    },
+    {
+      "path": "tools/v5_baseline_source_controls.py",
+      "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      38,
+      39
+    ],
+    "cargo_jobs": 2,
+    "simulation": false,
+    "gpu": false,
+    "private_logs_root": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls"
+  },
+  "limitations": [
+    "The positive trajectory manifest fixture is synthetic software test data, not a real native trajectory observation or physical evidence; no native subject/time/field-bound trajectory manifest exists in the checkout.",
+    "There is no separate crates/crucible-web crate in this checkout; the renderer contract was inspected and its existing unavailable-evidence regression executed.",
+    "The assignment named frozen commit 029e20e75b56bc4108aa38c9a806cb695f2db76b, which is absent from this repository. The acceptance gate instead freezes e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0; both required source files at that gate commit match the requested digests.",
+    "The D-21 check is software provenance/presentation scope only; scientific admission remains false."
+  ],
+  "next_dependency": "Supply an actual native trajectory manifest for the positive control and reconcile the assignment's unavailable baseline commit with the repository acceptance gate before claiming real-evidence presentation coverage.",
+  "defect_controls": [
+    {
+      "defect_id": "D-17",
+      "fixture": {
+        "path": "tools/v5_baseline_source_controls.py",
+        "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/evolve.rs",
+        "symbol": "run evolution CUDA audit",
+        "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      },
+      "positive": {
+        "argv": [
+          "taskset",
+          "-c",
+          "38,39",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-17",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log",
+        "log_sha256": "9e1725594b686c942a7828b65cc497bad24f91a94c33e1c3d9604934e369f514",
+        "expected_result": "Frozen CUDA-disabled path; child_launched=false.",
+        "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log.exit",
+        "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      "red": {
+        "argv": [
+          "taskset",
+          "-c",
+          "38,39",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-17",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red.log",
+        "log_sha256": "12149bba6e244122a77c5500258e5c29b74aab62d4fb3f20e90252fdd7c70182",
+        "expected_result": "C006-RED D-17: gpu_child_launched_without_lease; synthetic stand-in child launched absent an explicit lease.",
+        "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red.log.exit",
+        "exit_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+      }
+    },
+    {
+      "defect_id": "D-21",
+      "fixture": {
+        "path": "tools/v5_d21_trajectory_control.py",
+        "sha256": "5e5d9ece3b5a5700841823df2c9b5ff5b907b67dc196284172de059845e9f777"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "apps/explorer/src/main.tsx",
+        "symbol": "Evidence and Proposals panels",
+        "sha256": "77d32c1c3474d06e0fe90af5f9a4ef808f5874f8d4c5c6a834b5d446a25373db"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "tools/v5_d21_trajectory_control.py",
+          "--mode",
+          "positive"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d21-pos.log",
+        "log_sha256": "5df03eae64a675750e7356c0226a5df4dd8641a04b8fd1ba074edc7a0758f15a",
+        "expected_result": "Bound subject/time/field software fixture accepted and authored path labeled schematic; the fixture is synthetic and not a real native trajectory."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "tools/v5_d21_trajectory_control.py",
+          "--mode",
+          "red"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d21-red.log",
+        "log_sha256": "16f4a94c361d6abcb3ea5414bdad2584b55f5a0f74d2d0c025d257c30634f853",
+        "expected_result": "Scene without native trajectory evidence rejected coupled-transport/cross-pipeline -38.5% claim; expected exit 1."
+      }
+    }
+  ]
+}

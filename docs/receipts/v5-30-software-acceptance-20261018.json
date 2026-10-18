@@ -11,7 +11,7 @@
   ],
   "owner": "1052087.joil_v5_claude",
   "state": "software_acceptance_recorded",
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "packet_acceptance_scope": "Software verification at tested_commit only. Scientific admission is false. No physical build, rig run, metrology or confirmation data exists in this receipt.",
   "scientific_admission": false,
   "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
@@ -23,7 +23,9 @@
     "analysis/validation/v5/protocol.py",
     "analysis/validation/v5/dossier.schema.json",
     "analysis/validation/v5/public_export.schema.json",
-    "docs/rig/V5_CONFIRMATION.md"
+    "docs/rig/V5_CONFIRMATION.md",
+    "docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json",
+    "crates/crucible-paper/src/lib.rs"
   ],
   "commands": [
     {
@@ -102,6 +104,10 @@
     {
       "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
       "sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66"
+    },
+    {
+      "path": "docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json",
+      "sha256": "f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744"
     }
   ],
   "resource_allocation": {
@@ -119,22 +125,53 @@
   "limitations": [
     "Software acceptance only. No physical build, rig run, metrology, calibration or confirmation data exists; this receipt does not establish physical validity or scientific qualification.",
     "scientific_admission is false.",
-    "V5-30-01 (rig protocol and release governance) and V5-30-05 (legal, disclosure and licence review) require human sign-off in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md (dossiers 4 and 5). This receipt does not sign them.",
+    "V5-30-01 (rig protocol and release governance) and V5-30-05 (legal, disclosure and licence review) require owner sign-off in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md (dossiers 4 and 5). Those dossiers remain unsigned in the repository. The delegate sign-offs in fleet_admiral_dispositions are not owner signatures in that register, and the protocol file status stays an unsigned draft.",
     "V5-30-02 and V5-30-03 physical measurement, metrology and passport inputs are missing; see docs/release/v5/EXTERNAL_DATA_REQUESTS.json.",
     "The assigned command set does not run analysis/validation/v5/tests/test_protocol.py or any rig/holdout validator; those validators were NOT executed in this wave and are not cited as evidence.",
     "changed_paths lists the V5-30 write-scope files verified at tested_commit (integrated at 1b150c2 and 1d7f2e2). No file in those paths changed in this receipt-only wave.",
     "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
   ],
+  "fleet_admiral_dispositions": {
+    "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+    "signed_by": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "scientific_admission": false,
+    "decisions": [
+      {
+        "decision_id": "SC-DEC-048",
+        "task_id": "V5-30-01",
+        "disposition_mode": "governance_signoff",
+        "status": "signed_by_delegate",
+        "scope": "Internal protocol governance: containment and responsible review, comparator choice, pilot-power build quantities, randomized blinded A/B/A blocks and calibration/holdout separation. $0 external spend. Vendor manufacturing or purchase orders remain reserved to Jepson. Protocol status stays an unsigned draft until the owner signature is recorded in the protocol file."
+      },
+      {
+        "decision_id": "SC-DEC-043",
+        "task_id": "V5-30-02",
+        "disposition_mode": "substitute:synthetic_rig_telemetry_reduction",
+        "status": "decided",
+        "scope": "Synthetic delayed and censored multi-stream telemetry reduction, labelled as substitute provenance. Physical wet-rig sensor stream ingestion is rescoped to the post-manufacturing hardware phase. No measured rig data is claimed."
+      },
+      {
+        "decision_id": "SC-DEC-044",
+        "task_id": "V5-30-03",
+        "disposition_mode": "substitute:simulated_specimen_passport_binding",
+        "status": "decided",
+        "scope": "End-to-end software traceability binding simulated as-built deviations, coupon/CT schema records and physics re-evaluation to unique specimen passports. Physical hardware specimen tap and proof testing are rescoped to the post-manufacturing phase."
+      },
+      {
+        "decision_id": "SC-DEC-049",
+        "task_id": "V5-30-05",
+        "disposition_mode": "governance_signoff",
+        "status": "signed_by_delegate",
+        "scope": "Internal dossier and allowlist export governance: private technical and disclosure dossiers and the reviewed allowlisted public export gate. External patent filing, publication or commercial licensing with outside parties remains reserved to Jepson."
+      }
+    ]
+  },
   "next_dependency": "Owner approval of the rig protocol and disclosure scope (dossiers 4 and 5), then physical measurement inputs from EXTERNAL_DATA_REQUESTS.json before any V5-30-02..04 claim.",
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
-      "sha256": "a2fc0a60d914561ba9dd0000e8388f864b3d94771fabd218a89297bd99d4301d"
-    },
-    "resolved_log_paths": [],
-    "commands_reexecuted_by_this_metadata_amendment": false
-  }
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json",
+      "sha256": "f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744"
+    }
+  ]
 }

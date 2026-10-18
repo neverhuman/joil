@@ -653,3 +653,32 @@ fn g009_guard_nonfinite_or_negative_objective_is_unresolved() {
         assert!(decision.winner.is_none());
     }
 }
+
+#[test]
+fn v5_18_02_to_05_sc_dec_031_common_flow_maps_treated_volume_energy_bounded_objectives_and_ratios()
+{
+    // Common-flow maps retain scenario intersections, failure islands and missing evaluations.
+    common_capacity_is_min_over_scenarios_at_the_same_feed();
+    admitted_regular_band_is_claimed_only_without_gaps();
+    disjoint_feasible_scenario_maps_produce_no_common_duty();
+    negative_control_crossing_a_failure_island_is_not_a_band();
+    missing_scenario_is_a_gap_never_a_pass();
+
+    // Energy is integrated over all ports and normalized by treated volume; per-feed energy
+    // cannot be relabelled. Objective gates/floors precede bounded preference utility.
+    energy_per_treated_m3_from_integrated_port_fluxes();
+    negative_control_per_feed_energy_mislabelled_as_treated_is_rejected();
+    energy_rejects_unbalanced_ports_and_unphysical_negative_loss();
+    feasible_candidate_has_expected_utility_and_wins();
+    negative_control_missing_buckling_gate_cannot_be_compensated();
+    baseline_floors_precede_preference();
+    unresolved_objective_is_not_a_pass();
+
+    // Ratios have no epsilon denominator; unresolved baselines and incompatible decision
+    // policies cannot become a finite gain or inherit an earlier decision identity.
+    changed_weights_create_a_new_decision_over_the_same_observations();
+    undefined_baseline_capacity_cannot_win();
+    negative_control_equal_aspiration_and_reservation_has_no_finite_utility();
+    gain_requires_a_positive_admitted_baseline_and_no_epsilon();
+    multiplicity_splits_significance_and_weights_must_normalise();
+}

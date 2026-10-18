@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_31_01_05_release_scope_verification",
+  "owner": "3128818.joil_v5_codex_lane1",
+  "model": "gpt-6-luna medium",
+  "task_ids": [
+    "V5-31-01",
+    "V5-31-02",
+    "V5-31-03",
+    "V5-31-04",
+    "V5-31-05"
+  ],
+  "packet": "V5-31",
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "fleet_admiral_decisions": [
+    "SC-DEC-050",
+    "SC-DEC-051",
+    "SC-DEC-052",
+    "SC-DEC-053"
+  ],
+  "sc_decisions": [
+    "SC-DEC-050",
+    "SC-DEC-051",
+    "SC-DEC-052",
+    "SC-DEC-053",
+    "SC-DEC-062"
+  ],
+  "base_commit": "7a4bfca170a0ec39bb26653a3b7c6963d978dfe5",
+  "tested_source_head": "7a4bfca170a0ec39bb26653a3b7c6963d978dfe5",
+  "changed_paths": [
+    "tests/test_v5_release_scope.py",
+    "docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_v5_release_scope.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-31-01-05-test.log",
+      "log_sha256": "d529d755ac2755ac3df254ebbe8359a077bb8d79740e84c36687b04d87a5b432"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-31-01-05-status.log",
+      "log_sha256": "fd530b680b742c329ba0bbdba9b76ac46939f9ba2df048e0ca4a20af5f736f4c"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-31-01-05-public.log",
+      "log_sha256": "c6c213d4afcfafbed30f23361835bf51fd798ea48cf0c75ce5ff9dc528455842"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "tests/test_v5_release_scope.py",
+      "sha256": "9f34fd574679357ba96120712a239f2e2ab81b74b3ef03c463d6258eb8b3f93f"
+    }
+  ],
+  "positive_checks": [
+    "The dedicated unittest suite passed both tests; it checks all eight required foundation CI suites and generated status consistency.",
+    "The generated scientific claims remain incomplete, qualification booleans remain false, and qualified fitness/capacity gain remain null.",
+    "The public scan passed; the unit test positively confirms private publication deny terms trigger rejection when provided."
+  ],
+  "negative_checks": [
+    "Private/generated paths are rejected by the publication guard.",
+    "A matching private deny term is rejected, while ordinary public text without a deny-term match is allowed.",
+    "No test or command promotes physical validation or scientific admission; this checkout has no configured private deny list, and the staged-candidate production scan reports private deny rules applied=false."
+  ],
+  "scientific_eligibility": "Software release-contract verification only; no physical evidence was added and scientific admission remains false.",
+  "limitations": [
+    "This verifies the declared CI matrix and current generated status, not execution of all eight CI suites.",
+    "The deny-list behavior is tested with synthetic deny terms through the production violations() function; no private source archive or publication-deny file exists in this checkout.",
+    "The initial development test run exposed a string-versus-bytes fixture mismatch; the test was corrected and the exact requested final command passed. The initial log is retained privately as v5-31-01-05-test-initial-failure.log.",
+    "No release level, computational comparator, discovery method, or physical candidate is scientifically qualified by this packet."
+  ],
+  "next_dependency": "Integrator reviews the exact-head packet commit and reconciles release-scope dispositions; physical qualification remains dependent on source-bound numerical and independent experimental evidence."
+}

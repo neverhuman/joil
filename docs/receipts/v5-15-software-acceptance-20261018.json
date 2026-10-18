@@ -9,12 +9,15 @@
     "V5-15-04",
     "V5-15-05"
   ],
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "scientific_admission": false,
   "tested_commit": "7cb44104c011082457263d36fe8e8fa1c6de1764",
   "created_utc": "2026-10-18T11:47:33.137189+00:00",
   "changed_paths": [
-    "docs/receipts/v5-15-software-acceptance-20261018.json"
+    "docs/receipts/v5-15-software-acceptance-20261018.json",
+    "docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json",
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json"
   ],
   "commands": [
     {
@@ -105,6 +108,14 @@
       "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane1/check-public.log.exit",
       "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
       "kind": "private_exit_record"
+    },
+    {
+      "path": "docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json",
+      "sha256": "355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632"
+    },
+    {
+      "path": "docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json",
+      "sha256": "c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b"
     }
   ],
   "resource_allocation": {
@@ -120,20 +131,39 @@
     "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target"
   },
   "limitations": [
-    "Packet acceptance is software/harness acceptance only. Original wet/modal/fatigue datasets and independently measured validation evidence are not admitted; scientific_admission is false.",
-    "Requested tracking path `docs/release/v5/EXTERNAL_DATA_REQUESTS.json` does not exist at tested commit 7cb44104c011082457263d36fe8e8fa1c6de1764. This receipt records the discrepancy without creating files outside the authorized scope."
+    "V5-15-01..05 are unblocked for engineering packet completion and this software acceptance receipt validates with status=done under SC-DEC-028 and SC-DEC-029; the benchmark accession and discrepancy-decomposition engineering deliverables remain to be completed. Scientific admission remains false.",
+    "Wet-modal/fatigue accession remains unresolved; requested external data request manifest path was absent at tested commit 7cb44104c011082457263d36fe8e8fa1c6de1764. This receipt does not claim those external datasets are tracked or accessioned."
   ],
-  "next_dependency": "Restore or identify the authoritative external-data request manifest, then accession source/license/digest and unresolved measurement metadata for wet/modal/fatigue datasets before scientific validation.",
+  "next_dependency": "Complete the unblocked V5-15-01..05 engineering deliverables under SC-DEC-028 (public/open-licence benchmark accession with provenance and matched/unresolved inputs) and SC-DEC-029 (observable coverage cards with numerical, input, and experimental discrepancy separated). Keep scientific_admission=false until independent evidence supports admission.",
   "external_dataset_note": "Wet-modal/fatigue accession remains unresolved; requested external data request manifest path was absent at tested head.",
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
-      "sha256": "a706c3589aad95d99c1bf80624dfdee0b72a3af70bf42e738ba579095d246a01"
+  "fleet_admiral_dispositions": {
+    "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+    "decision_source": "/home/ubuntu/xbabe2_kicker/captains-20261017/fleet_admiral_decisions_20261018T1158Z.md",
+    "decision_source_sha256": "20b816b6db0061d8fb732f2a71603cec88f3abdacb7d61fb7db8ce21d728eade",
+    "decisions": [
+      {
+        "id": "SC-DEC-028",
+        "task_id": "V5-15-01",
+        "mode": "public_open_licence_benchmark_data",
+        "summary": "Ingest open published hydrocyclone/swirl benchmark tables and curves (Hsieh 1988, Bai, Young, Zhou) with explicit provenance digests, station coordinates, BCs, and matched vs. unresolved input declarations ($0 open literature data)."
+      },
+      {
+        "id": "SC-DEC-029",
+        "task_id": "V5-15-03",
+        "mode": "substitute:cfd_observable_discrepancy_decomposition",
+        "summary": "Validate tangential/axial velocity profiles, reverse core, pressure drop, and split ratio against public Hsieh/published stations and explicitly separate numerical, input, and experimental discrepancy on coverage cards."
+      }
+    ]
+  },
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json",
+      "sha256": "355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632"
     },
-    "resolved_log_paths": [],
-    "commands_reexecuted_by_this_metadata_amendment": false
-  }
+    {
+      "path": "docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json",
+      "sha256": "c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b"
+    }
+  ]
 }

@@ -1,8 +1,199 @@
 use crucible_search::acquisition::{allocate, largest_remainder, Arm, Proposal};
+use crucible_search::archive::{ArchiveConfig, Candidate, EvidenceClass, SearchArchive};
 use crucible_search::audit::{audit, verify_epoch, AuditPolicy, FrozenEpoch};
+use crucible_search::reference::{hypervolume_2d, AttemptKind, AttemptRecord, Budget, Policy};
 use crucible_search::surrogate::{
     CalibrationIdentity, CalibrationState, DatasetNamespace, Prediction,
 };
+
+#[test]
+fn v5_22_02_to_05_sc_dec_038_multi_objective_acquisition_calibrated_surrogate_and_equal_budget_ablation(
+) {
+    // The archive accepts a Pareto set on two objectives; allocation remains
+    // proposal-only and cannot assign evidence class or scientific authority.
+    let config = ArchiveConfig {
+        capacity_per_pool: 8,
+        nondominated_capacity_per_descriptor_bin: 8,
+        descriptor_bin_widths: vec![1.0],
+        protection_lifetime_epochs: 2,
+    };
+    let mut archive = SearchArchive::default();
+    for (proposal_id, objectives) in [
+        (1, vec![1.0, 4.0]),
+        (2, vec![2.0, 2.0]),
+        (3, vec![4.0, 1.0]),
+    ] {
+        archive.insert(
+            Candidate {
+                proposal_id,
+                class: EvidenceClass::Exploration,
+                descriptors: vec![0.0],
+                objectives,
+                feasible: true,
+            },
+            0,
+            &config,
+        );
+    }
+    assert_eq!(
+        archive.exploration.len(),
+        3,
+        "trade-off candidates remain nondominated"
+    );
+    let before = hypervolume_2d(&[[1.0, 4.0], [2.0, 2.0], [4.0, 1.0]], [5.0, 5.0]).unwrap();
+    let after = hypervolume_2d(
+        &[[0.5, 3.0], [1.0, 4.0], [2.0, 2.0], [4.0, 1.0]],
+        [5.0, 5.0],
+    )
+    .unwrap();
+    assert!(
+        after > before,
+        "multi-objective improvement increases reference hypervolume"
+    );
+
+    let shares = largest_remainder(
+        10,
+        &[
+            (Arm::Improvement, 60),
+            (Arm::Uncertainty, 20),
+            (Arm::Diversity, 10),
+            (Arm::Random, 10),
+        ],
+    )
+    .unwrap();
+    assert_eq!(shares.iter().map(|(_, n)| n).sum::<usize>(), 10);
+    let proposed = allocate(
+        2,
+        20,
+        4,
+        true,
+        2,
+        &[
+            Proposal {
+                id: 10,
+                arm: Arm::Improvement,
+                cost: 1,
+            },
+            Proposal {
+                id: 11,
+                arm: Arm::Random,
+                cost: 1,
+            },
+        ],
+    )
+    .unwrap();
+    assert!(proposed.selected.iter().all(|p| p.id != 0));
+    assert!(proposed.charged_cost <= 2);
+
+    let calibrated = CalibrationState {
+        identity: CalibrationIdentity {
+            training_dataset_sha256: "a".repeat(64),
+            observer_sha256: "b".repeat(64),
+            model_sha256: "c".repeat(64),
+            epoch: 1,
+        },
+        heldout_count: 20,
+        interval_coverage: 0.95,
+        coverage_lcb_95: 0.9,
+        max_ood_distance: 1.0,
+        supported_geometry_families: vec!["supported".into()],
+        calibrated: true,
+        abstain_reason: None,
+    };
+    let in_domain = Prediction {
+        mean: 2.0,
+        lower: 1.0,
+        upper: 3.0,
+        geometry_family: "supported".into(),
+        ood_distance: 0.2,
+        namespace: DatasetNamespace::SandboxPrior,
+    };
+    assert!(calibrated.verify(&in_domain, 0.8, 0.5).is_ok());
+    let mut ood = in_domain.clone();
+    ood.ood_distance = 1.1;
+    assert!(calibrated.verify(&ood, 0.8, 0.5).is_err());
+    // A surrogate proposal is still exploratory; it cannot become qualified evidence.
+    archive.insert(
+        Candidate {
+            proposal_id: 99,
+            class: EvidenceClass::Exploration,
+            descriptors: vec![0.0],
+            objectives: vec![0.5, 0.5],
+            feasible: true,
+        },
+        1,
+        &config,
+    );
+    assert!(archive.qualified.is_empty());
+    assert_eq!(
+        archive.evidence_front.last().unwrap().class,
+        EvidenceClass::Exploration
+    );
+
+    // Equal charged attempts establish comparable bookkeeping against the frozen reference.
+    let reference = Policy::reference_v1().unwrap();
+    assert_eq!(reference.policy_id, "reference-search/1");
+    let mut reference_budget = Budget {
+        limit: 4,
+        ..Budget::default()
+    };
+    let mut candidate_budget = Budget {
+        limit: 4,
+        ..Budget::default()
+    };
+    for budget in [&mut reference_budget, &mut candidate_budget] {
+        for proposal_id in 0..4 {
+            budget
+                .charge(AttemptRecord {
+                    proposal_id,
+                    island: 0,
+                    epoch: 0,
+                    kind: AttemptKind::Offspring,
+                    operator: None,
+                    source: None,
+                    outcome: "synthetic_attempt".into(),
+                    charged_units: 1,
+                })
+                .unwrap();
+        }
+    }
+    assert_eq!(reference_budget.charged, candidate_budget.charged);
+    assert_eq!(reference_budget.records.len(), 4);
+
+    let audit_policy = AuditPolicy {
+        screen_id: "surrogate-screen".into(),
+        epoch: 1,
+        audit_budget: 4,
+        audit_cost: 1,
+        min_recall_lcb: 0.0,
+        max_rank_disagreement: 0.5,
+        authority_suspended: false,
+    };
+    let audit_result = audit(
+        &audit_policy,
+        &[true, false, true, false],
+        &[true, false, true, false],
+        &[1.0, 2.0, 3.0, 4.0],
+        &[1.0, 2.0, 3.0, 4.0],
+    )
+    .unwrap();
+    assert!(audit_result.pruning_authorized);
+    let no_budget = AuditPolicy {
+        audit_budget: 0,
+        ..audit_policy
+    };
+    assert!(
+        !audit(
+            &no_budget,
+            &[true, false],
+            &[true, false],
+            &[1.0, 2.0],
+            &[1.0, 2.0],
+        )
+        .unwrap()
+        .pruning_authorized
+    );
+}
 
 #[test]
 fn fixed_shares_have_deterministic_largest_remainder_and_no_duplicate_or_overcommit() {

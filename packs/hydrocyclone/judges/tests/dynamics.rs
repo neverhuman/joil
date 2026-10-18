@@ -828,3 +828,95 @@ fn v5_20_05_unadmitted_tolerance_or_mismatched_observable_is_not_supported() {
     );
     assert!(matches!(mismatched.verdict, Verdict::Unresolved(_)));
 }
+
+/// Aggregate acceptance check for the Wave 11 decision set. All values are synthetic software
+/// fixtures; the test verifies bounded judge behavior and does not qualify a physical part.
+#[test]
+fn v5_20_01_to_05_sc_dec_033_to_037_wet_modal_fatigue_as_built_correlated_bounds_and_dual_solver() {
+    // SC-DEC-033: added mass changes the mode by the square root of total line mass.
+    let dry_hz = beam_frequency(admitted(0.0, "dry-line-mass"));
+    let wet_hz = beam_frequency(admitted(3.0, "synthetic-water-added-mass"));
+    assert!((wet_hz / dry_hz - 0.5).abs() < 1e-12);
+    let wet_screen = screen_wet_mode(&wet_input(
+        unit_beam(admitted(3.0, "synthetic-water-added-mass"), clamped()),
+        admitted(broadband_around(wet_hz, 1.0), "synthetic-pressure-psd"),
+    ));
+    assert_eq!(wet_screen.verdict, Verdict::Pass);
+
+    // SC-DEC-034: finite public S-N calculation passes below run-out; run-out is not infinity.
+    let fatigue = judge_finite_life(
+        &passport("synthetic-alloy-A", true),
+        &fatigue_input("synthetic-alloy-A", single_bin(3.0e8, 0.0), 3.0e4),
+    );
+    assert_eq!(fatigue.verdict, Verdict::Pass);
+    assert!(fatigue
+        .statement
+        .as_deref()
+        .is_some_and(|s| s.contains("not infinite life")));
+    let runout = judge_finite_life(
+        &passport("synthetic-alloy-A", true),
+        &fatigue_input("synthetic-alloy-A", single_bin(3.0e8, 0.0), 1.0e7),
+    );
+    assert!(matches!(runout.verdict, Verdict::Unresolved(_)));
+    assert!(runout.statement.is_none());
+
+    // SC-DEC-035: synthetic CT partition keeps nominal/as-built identities and deviations apart.
+    let part = build_partition(
+        &identity(),
+        &Masses {
+            nominal_kg: 0.52,
+            as_built_kg: 0.524,
+        },
+        &[feature(
+            "wall",
+            1.0,
+            0.7,
+            admitted(0.2, "synthetic-ct-rerun-threshold"),
+        )],
+    )
+    .expect("synthetic as-built partition");
+    assert_ne!(part.identity.nominal_sha256, part.identity.as_built_sha256);
+    assert_eq!(part.physics_reruns, vec!["wall"]);
+    assert!((part.mass_deviation_kg - 0.004).abs() < 1e-12);
+
+    // SC-DEC-036: grouped deterministic factors enumerate bounded corners, not a distribution.
+    let bounds = corner_bounds(
+        &[
+            factor("wall", "geometry", 1.0, 2.0),
+            factor("load", "geometry", 10.0, 20.0),
+            factor("modulus", "material", 0.0, 1.0),
+        ],
+        |x| x[0] * x[1] + 100.0 * x[2],
+    )
+    .expect("correlated corners");
+    assert_eq!((bounds.groups, bounds.corners), (2, 4));
+    assert_eq!((bounds.lower, bounds.upper), (10.0, 140.0));
+    assert!(matches!(
+        p95_claim(SampleBasis::Corners(8)),
+        Verdict::Unresolved(_)
+    ));
+
+    // SC-DEC-037: different input identities permit a bounded cross-check; shared inputs do not.
+    let independent = cross_check(
+        &route("solver-a", "load-map-a", "tip_deflection_m", 100.0),
+        &route("solver-b", "load-map-b", "tip_deflection_m", 101.0),
+        &admitted(0.02, "cross-check-tolerance"),
+    );
+    assert_eq!(independent.verdict, Verdict::Pass);
+    assert_eq!(
+        independent.effect,
+        ClaimEffect::Supported {
+            discrepancy_uncertainty: 1.0
+        }
+    );
+    let shared = cross_check(
+        &route("solver-a", "same-input", "tip_deflection_m", 100.0),
+        &route("solver-b", "same-input", "tip_deflection_m", 100.0),
+        &admitted(0.02, "cross-check-tolerance"),
+    );
+    assert_eq!(shared.effect, ClaimEffect::NotSupported);
+    assert!(mentions(
+        &shared.verdict,
+        "shared_boundary_load_input_not_independent"
+    ));
+}

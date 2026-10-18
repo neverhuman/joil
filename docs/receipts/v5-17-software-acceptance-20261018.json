@@ -5,7 +5,11 @@
   "model": "gpt-6-luna medium",
   "tested_commit": "06417e982272c46bc6df88b57f2c67484ceb9ef9",
   "changed_paths": [
-    "docs/receipts/v5-17-software-acceptance-20261018.json"
+    "docs/receipts/v5-17-software-acceptance-20261018.json",
+    "docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json",
+    "packs/hydrocyclone/judges/tests/manufacturing.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json"
   ],
   "artifacts": [
     {
@@ -23,6 +27,14 @@
     {
       "path": "tools/v5_baseline_source_controls.py",
       "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+    },
+    {
+      "path": "docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json",
+      "sha256": "67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c"
+    },
+    {
+      "path": "docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json",
+      "sha256": "efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9"
     }
   ],
   "resource_allocation": {
@@ -55,7 +67,7 @@
     "V5-17-04",
     "V5-17-05"
   ],
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "scientific_admission": false,
   "commands": [
     {
@@ -135,15 +147,38 @@
     "The suites do not admit physical dispersion or breakup calibration.",
     "No physical carrier data or independent physical validation was exercised."
   ],
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
-      "sha256": "e77f43d9fbe731a7e8d210dafdf8fe9e94c3cb7551b853beff44e0407d5601f0"
+  "fleet_admiral_dispositions": {
+    "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+    "decisions": [
+      {
+        "decision_id": "SC-DEC-030",
+        "task_ids": [
+          "V5-17-02"
+        ],
+        "disposition": "substitute:native_les_rsm_carrier_field",
+        "kind": "numerical_carrier_field_substitute",
+        "rationale": "Qualify covariance-consistent anisotropic dispersion and LES unresolved-energy partition against native resolved turbulence without double-counting; this is not physical PIV/LDV."
+      },
+      {
+        "decision_id": "SC-DEC-031",
+        "task_ids": [
+          "V5-17-03"
+        ],
+        "disposition": "substitute:bounded_breakup_sensitivity",
+        "kind": "public_correlations_and_bounded_sensitivity_proxy",
+        "rationale": "Enforce daughter-droplet mass conservation and bracket uncalibrated breakup exposure with explicit off, calibrated-on, and adverse bounds without hidden clipping."
+      }
+    ]
+  },
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json",
+      "sha256": "67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c"
     },
-    "resolved_log_paths": [],
-    "commands_reexecuted_by_this_metadata_amendment": false
-  }
+    {
+      "path": "docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json",
+      "sha256": "efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9"
+    }
+  ]
 }

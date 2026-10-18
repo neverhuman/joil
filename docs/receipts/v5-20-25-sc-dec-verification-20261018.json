@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "owner": "484638.joil_v5_codex_lane4",
+  "model": "gpt-6-luna medium",
+  "kind": "v5_sc_dec_software_verification_receipt",
+  "tested_commit": "bbe62cd418fcdac50b1c91da120dcc61863f1b92",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/dynamics.rs",
+    "packs/hydrocyclone/judges/tests/liner_operator.rs",
+    "docs/receipts/v5-20-25-sc-dec-verification-20261018.json"
+  ],
+  "task_ids": [
+    "V5-20-01",
+    "V5-20-02",
+    "V5-20-03",
+    "V5-20-04",
+    "V5-20-05",
+    "V5-25-02",
+    "V5-25-03",
+    "V5-25-04",
+    "V5-25-05"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "fleet_admiral_decisions": [
+    "SC-DEC-033",
+    "SC-DEC-034",
+    "SC-DEC-035",
+    "SC-DEC-036",
+    "SC-DEC-037",
+    "SC-DEC-039",
+    "SC-DEC-040"
+  ],
+  "commands": [
+    {
+      "command": "rtk cargo test --locked -p pack-hydrocyclone-judges --test dynamics v5_20_01_to_05_sc_dec_033_to_037",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-20-01-05-test.log",
+      "log_sha256": "5c95d1df68c52c9f7ba0ad2b2dcee7eb4d605cebda229979db635d5759e4bca8",
+      "exit_code": 0
+    },
+    {
+      "command": "rtk cargo test --locked -p pack-hydrocyclone-judges --test liner_operator v5_25_02_to_05_sc_dec_039_040",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-25-02-05-test.log",
+      "log_sha256": "2f7db92f709edb6f70f097488b586443392de98dfa3535972bd256660ea68242",
+      "exit_code": 0
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-20-25-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-20-25-public.log",
+      "log_sha256": "3c959c166315ba2dd077dbbc593d40a2ae74cb68438fbf465780a1c994d070ec",
+      "exit_code": 0
+    }
+  ],
+  "positive_checks": [
+    "Wet added-mass mode ratio follows inverse square-root mass scaling; broadband synthetic spectrum is screened.",
+    "Finite-life result names its passport and remains finite; run-out target is unresolved with no life statement.",
+    "Synthetic nominal/as-built identities, masses and feature deviation remain separate; deterministic grouped corners bound the response.",
+    "Independent structural route inputs pass with discrepancy retained; shared load identity is rejected.",
+    "Synthetic liner corpus retains family-separated held-out cases and declares its synthetic status.",
+    "Admitted cutplane mass/momentum/oil balance passes; full-liner fallback is charged while source identities are retained.",
+    "Both requested targeted cargo tests passed; formatting and public-content checks passed."
+  ],
+  "negative_checks": [
+    "Run-out is not treated as infinite life.",
+    "Eight deterministic corners do not support a distribution-free p95.",
+    "Dual solvers sharing an input are not independent evidence.",
+    "Reused held-out evidence and out-of-envelope states are refused; OOD routes to full-liner evaluation.",
+    "A 10% axial mass target mismatch fails the conservation residual gate; an exhausted fallback budget remains unresolved."
+  ],
+  "limitations": [
+    "All fixtures are synthetic software checks; no admitted physical measurements, native full-liner corpus, structural validation, or scientific admission.",
+    "The conservation residual is enforced as a judge failure gate in this scope; no standalone differentiable surrogate training-loss implementation exists in these test APIs.",
+    "The reduced operator and solver fallback have no physical qualification; no performance claim is made.",
+    "Cargo debug/deps and debug/incremental were removed after both tests passed; target directory measured 31 MiB."
+  ],
+  "next_dependency": "Independent review and admitted physical/native evidence for each applicable claim."
+}

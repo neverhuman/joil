@@ -1084,3 +1084,35 @@ fn v5_19_05_nonlinear_limits_need_resolves_and_every_limit_cites_the_frozen_dema
     )
     .is_err());
 }
+
+#[test]
+fn v5_19_01_to_05_sc_dec_031_032_installation_loads_cfd_pressure_shear_native_fea_buckling_and_reserve(
+) {
+    // Frozen installation demands are design-independent and cannot be eased by a candidate.
+    v5_19_01_draft_set_keeps_2_5_mpa_provisional_and_everything_else_unresolved();
+    v5_19_01_multiplier_one_is_the_same_external_demand_for_every_design();
+    v5_19_01_a_weaker_design_cannot_choose_an_easier_reference_load();
+
+    // Candidate-bound pressure and shear mapping preserves patch coverage, normals, mesh and
+    // independent force/moment reactions; copied pressure and missing loads are rejected.
+    v5_19_02_conservative_transfer_fits_the_preallocated_budget();
+    v5_19_02_copied_ct35_pressure_wrong_normals_and_missing_shear_or_patches_fail();
+    v5_19_02_identity_budget_and_reactions_are_checked();
+
+    // Native static FEA qualification requires pinned solver evidence and all oracle fixtures;
+    // analytic formulas remain checks, not qualification evidence.
+    v5_19_03_oracles_match_hand_derived_values();
+    v5_19_03_solver_qualifies_only_when_every_oracle_fixture_passes();
+    v5_19_03_process_adapter_is_pinned_and_isolated();
+    v5_19_03_static_run_is_qualified_only_on_a_native_solid_solve_with_evidence();
+    v5_19_03_fixed_load_formula_and_singular_point_stress_cannot_qualify();
+
+    // Eigenvalue screening does not replace imperfection/contact collapse challenges; reserve
+    // combines compatible load multipliers only and keeps modal/fatigue metrics separate.
+    v5_19_04_governing_multiplier_is_reported_with_method_and_validity();
+    v5_19_04_eigen_screen_alone_failed_solves_and_thin_evidence_never_pass();
+    v5_19_05_reserve_is_allowable_over_required_per_family_with_a_common_governing_limit();
+    v5_19_05_high_yield_margin_cannot_mask_untested_external_pressure_buckling();
+    v5_19_05_frequency_ratio_and_fatigue_factor_are_not_min_combined_as_load_multipliers();
+    v5_19_05_nonlinear_limits_need_resolves_and_every_limit_cites_the_frozen_demand();
+}

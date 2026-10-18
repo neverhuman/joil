@@ -1,0 +1,96 @@
+{
+  "schema": "joil.v5.software-acceptance.v1",
+  "packet": "V5-03",
+  "task_ids": [
+    "V5-03-05"
+  ],
+  "tested_commit": "358c2bb6cdaa970be4c5cd93b4d6868266ad6a27",
+  "changed_paths": [
+    "tools/v5_d29_blind_judge_control.py",
+    "docs/receipts/v5-03-05-d29-control-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/v5_d29_blind_judge_control.py",
+        "--mode",
+        "positive"
+      ],
+      "exit_code": 0,
+      "log_sha256": "77b96e2d769a289afc98544701b7715efdfaca5087ddc01cdf6387a8538b78e6",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/controls/d29-pos.log"
+    }
+  ],
+  "positive_checks": [
+    "Frozen commit e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0 and both D-29 source digests verified from git show.",
+    "Resolved Cargo workspace graph has no transitive crucible-genome or crucible-search path from pack-hydrocyclone-judges."
+  ],
+  "negative_checks": [
+    "Synthetic indirect path pack-hydrocyclone-judges -> synthetic-d29-bridge -> crucible-genome is rejected; red mode exited 1.",
+    "Software dependency-boundary evidence only; D-29 remains design-debt evidence and establishes no physical qualification."
+  ],
+  "artifacts": [
+    {
+      "path": "tools/v5_d29_blind_judge_control.py",
+      "sha256": "115336ccd96d8686392ab7eda686b901e1dbb5e22137e7163219f3cf86c31dd8"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 1,
+    "execution": "serial",
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Cargo metadata dependency graph and synthetic edge exercise software boundary behavior only.",
+    "D-29 source facts identify module coupling risk; no measured speed or correctness defect is claimed."
+  ],
+  "next_dependency": "Independent receipt review; scientific admission remains governed by separate evidence gates.",
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "agent_trailers": {
+    "Agent-Session": "lane3-wave8-d29-v5-21-22-24-sc-dec",
+    "Agent-Model": "gpt-6-luna medium",
+    "Agent-Task": "V5-03-05,D-29,V5-21-01..05,V5-22-01..05,V5-24-01..05,SC-DEC-038,SC-DEC-052"
+  },
+  "defect_controls": [
+    {
+      "defect_id": "D-29",
+      "fixture": {
+        "path": "tools/v5_d29_blind_judge_control.py",
+        "sha256": "115336ccd96d8686392ab7eda686b901e1dbb5e22137e7163219f3cf86c31dd8"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/evolve.rs",
+        "symbol": "legacy monolith",
+        "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "tools/v5_d29_blind_judge_control.py",
+          "--mode",
+          "positive"
+        ],
+        "exit_code": 0,
+        "log_sha256": "77b96e2d769a289afc98544701b7715efdfaca5087ddc01cdf6387a8538b78e6",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/controls/d29-pos.log",
+        "expected_result": "Frozen source bindings verify and the actual blind-judge dependency graph has no forbidden transitive path."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "tools/v5_d29_blind_judge_control.py",
+          "--mode",
+          "red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "e3515e0e7a52d8976bc5cb4bc5d0369fe3739f34da322d961b1af8cea0fb1fc8",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/controls/d29-red.log",
+        "expected_result": "Synthetic indirect dependency from the blind judge to crucible-genome is rejected."
+      }
+    }
+  ]
+}

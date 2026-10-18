@@ -15,7 +15,11 @@
     "tools/v5_baseline_source_controls.py",
     "tests/test_v5_baseline_source_controls.py",
     "docs/receipts/v5-13-02-d07-control-20261018.json",
-    "docs/receipts/v5-13-software-acceptance-20261018.json"
+    "docs/receipts/v5-13-software-acceptance-20261018.json",
+    "docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json",
+    "packs/hydrocyclone/judges/tests/manufacturing.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json"
   ],
   "commands": [
     {
@@ -92,6 +96,14 @@
     {
       "path": "tests/test_v5_baseline_source_controls.py",
       "sha256": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+    },
+    {
+      "path": "docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json",
+      "sha256": "67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c"
+    },
+    {
+      "path": "docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json",
+      "sha256": "efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9"
     }
   ],
   "resource_allocation": {
@@ -160,7 +172,59 @@
       }
     }
   ],
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "scientific_admission": false,
-  "kind": "v5_13_software_acceptance"
+  "kind": "v5_13_software_acceptance",
+  "fleet_admiral_dispositions": {
+    "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+    "decisions": [
+      {
+        "decision_id": "SC-DEC-024",
+        "task_ids": [
+          "V5-13-01"
+        ],
+        "disposition": "substitute:public_material_allowables_proxy",
+        "kind": "public_open_licence_data_and_bounded_proxy",
+        "rationale": "Use open published LPBF material allowables with explicit unresolved-allowable flags; do not imply wrought data are as-built or support unqualified sour-service/as-built fatigue claims."
+      },
+      {
+        "decision_id": "SC-DEC-025",
+        "task_ids": [
+          "V5-13-03"
+        ],
+        "disposition": "substitute:cad_manufacturing_gate_simulation",
+        "kind": "bounded_software_substitute",
+        "rationale": "Evaluate build fit, internal downskin/spans, support access, powder escape, and tool swept-volume access against explicit passport thresholds on the parametric CAD/mesh corpus."
+      },
+      {
+        "decision_id": "SC-DEC-026",
+        "task_ids": [
+          "V5-13-04"
+        ],
+        "disposition": "substitute:roughness_orientation_proxy",
+        "kind": "open_literature_proxy",
+        "rationale": "Bind published open LPBF roughness ranges by build angle and finish class to variant identities; invalidate affected flow, structural, and export evaluations when inputs change."
+      },
+      {
+        "decision_id": "SC-DEC-027",
+        "task_ids": [
+          "V5-13-05"
+        ],
+        "disposition": "formal_rescope:pre_order_metrology_and_uncertainty_budget_specification",
+        "kind": "pre_order_software_rescope",
+        "rationale": "Specify testable passport acceptance criteria, CT/roughness/tensile/porosity coupon plans, and uncertainty budgets in software; no physical vendor order or vendor contact."
+      }
+    ]
+  },
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json",
+      "sha256": "67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c"
+    },
+    {
+      "path": "docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json",
+      "sha256": "efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9"
+    }
+  ]
 }

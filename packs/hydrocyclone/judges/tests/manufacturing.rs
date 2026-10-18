@@ -208,6 +208,97 @@ fn v5_13_01_wrought_data_or_an_alloy_name_match_cannot_qualify_as_built_fatigue(
 }
 
 #[test]
+fn v5_13_01_sc_dec_024_public_handbook_ti64_passport_enforces_lpbf_knockdown_and_blocks_wrought_substitution(
+) {
+    // Synthetic handbook-style values exercise the binding rules; they are not allowables.
+    let mut lpbf = synthetic_passport();
+    let lpbf_context = context_values();
+    lpbf.allowables.insert(
+        AllowableKind::FatigueEndurance,
+        adm(
+            Allowable {
+                value: 80.0,
+                unit: "MPa-endurance (synthetic)".into(),
+                evidence_context: lpbf_context.clone(),
+            },
+            "synthetic-lpbf-as-built-fatigue",
+        ),
+    );
+    assert_eq!(lpbf.qualify(ClaimKind::AsBuiltFatigue), Verdict::Pass);
+    assert_eq!(lpbf.qualify(ClaimKind::SourService), Verdict::Pass);
+
+    // All seven process dimensions are explicit and bound to evidence sources.
+    for key in ALL_CONTEXT {
+        let Field::Admitted { value, source } = lpbf.context.get(&key).unwrap() else {
+            panic!("{} must be admitted", key.name());
+        };
+        assert!(!value.trim().is_empty());
+        assert_eq!(*source, sha(key.name()));
+        assert_eq!(lpbf_context.get(&key), Some(value));
+    }
+    // The substituted wrought handbook value is higher but has the wrong process form.
+    let mut wrought_context = lpbf_context;
+    wrought_context.insert(
+        ContextKey::AlloyProductForm,
+        "synthetic Ti-6Al-4V wrought bar".into(),
+    );
+    wrought_context.insert(
+        ContextKey::LpbfParameters,
+        "not applicable (wrought)".into(),
+    );
+    let wrought_allowable = adm(
+        Allowable {
+            value: 120.0,
+            unit: "MPa-endurance (synthetic)".into(),
+            evidence_context: wrought_context,
+        },
+        "synthetic-wrought-fatigue",
+    );
+    assert!(wrought_allowable.admitted().unwrap().value > 80.0);
+    lpbf.allowables
+        .insert(AllowableKind::FatigueEndurance, wrought_allowable);
+    let fatigue_reasons = reasons(&lpbf.qualify(ClaimKind::AsBuiltFatigue));
+    assert!(fatigue_reasons
+        .contains(&"allowable:fatigue_endurance:context_mismatch:alloy_product_form".into()));
+    assert!(fatigue_reasons
+        .contains(&"allowable:fatigue_endurance:context_mismatch:lpbf_parameters".into()));
+
+    // A material-name-only record cannot support either process-sensitive claim.
+    let mut name_only = BTreeMap::new();
+    name_only.insert(ContextKey::AlloyProductForm, "Ti-6Al-4V".to_string());
+    lpbf.allowables.insert(
+        AllowableKind::FatigueEndurance,
+        adm(
+            Allowable {
+                value: 120.0,
+                unit: "MPa-endurance (synthetic)".into(),
+                evidence_context: name_only.clone(),
+            },
+            "synthetic-name-only-fatigue",
+        ),
+    );
+    lpbf.allowables.insert(
+        AllowableKind::SourServiceEligibility,
+        adm(
+            Allowable {
+                value: 1.0,
+                unit: "eligibility-index".into(),
+                evidence_context: name_only,
+            },
+            "synthetic-name-only-sour-service",
+        ),
+    );
+    assert!(matches!(
+        lpbf.qualify(ClaimKind::AsBuiltFatigue),
+        Verdict::Unresolved(_)
+    ));
+    assert!(matches!(
+        lpbf.qualify(ClaimKind::SourService),
+        Verdict::Unresolved(_)
+    ));
+}
+
+#[test]
 fn v5_13_01_malformed_passports_are_refused() {
     let mut value: serde_json::Value = serde_json::from_slice(PASSPORT).unwrap();
     let mut with_unknown = value.clone();
@@ -975,5 +1066,94 @@ fn v5_13_05_wall_detectability_needs_voxels_and_a_wall_larger_than_the_expanded_
     assert!(matches!(
         verify_wall_detectable(&full, 2.0, f64::NAN, &voxels),
         Verdict::Fail(_)
+    ));
+}
+
+#[test]
+fn v5_13_02_to_05_sc_dec_025_027_cad_mass_manufacturing_gates_roughness_and_ct_metrology() {
+    // Synthetic accepted CAD solid: density bounds propagate through integrated volume.
+    let mass =
+        integrate_nominal_printed_mass(&accepted_solid(), &synthetic_passport().density_kg_m3)
+            .unwrap();
+    assert!(mass.nominal_printed_kg.lower < mass.nominal_printed_kg.upper);
+    assert_eq!(
+        mass.basis,
+        "admitted_density_times_integrated_accepted_solid_volume"
+    );
+
+    // Passport thresholds admit the nominal wall/bore/orientation; a thin wall fails.
+    let good = good_measurements();
+    let report = run(&thresholds(), &good);
+    assert_eq!(report.overall, Verdict::Pass);
+    let mut thin_wall = good.clone();
+    thin_wall.min_wall_m = Some(0.0009);
+    assert!(matches!(
+        gate(&run(&thresholds(), &thin_wall), "min_wall"),
+        Verdict::Fail(_)
+    ));
+    let mut steep_downskin = good.clone();
+    steep_downskin.max_overhang_deg_from_vertical = Some(50.0);
+    assert!(matches!(
+        gate(&run(&thresholds(), &steep_downskin), "internal_downskin"),
+        Verdict::Fail(_)
+    ));
+    let mut undersized_bore = good;
+    undersized_bore.printed_channels[0].min_diameter_m = Some(0.002);
+    assert!(matches!(
+        gate(&run(&thresholds(), &undersized_bore), "printed_channels"),
+        Verdict::Fail(_)
+    ));
+
+    // Finish class maps measured Ra to a calibrated equivalent-sand ks interval.
+    let face = FaceFinish {
+        face_id: "bore".into(),
+        finish_class: "as_printed".into(),
+        ra_um: Some(6.5),
+    };
+    let ks = equivalent_sand_roughness(
+        &face,
+        &BTreeMap::from([(
+            "as_printed".into(),
+            adm(calibration("as_printed", 5), "ks-cal"),
+        )]),
+    );
+    assert!(
+        matches!(ks, Roughness::Ks { lower_um, upper_um, .. } if (lower_um - 15.6).abs() < 1e-12 && (upper_um - 23.4).abs() < 1e-12)
+    );
+    assert!(matches!(
+        equivalent_sand_roughness(&face, &BTreeMap::new()),
+        Roughness::Unresolved(_)
+    ));
+    let original_variant = variant("z-up", "as_printed", Some(6.5));
+    let orientation_change = variant("z-45", "as_printed", Some(6.5));
+    assert_ne!(
+        original_variant.variant_id().unwrap(),
+        orientation_change.variant_id().unwrap()
+    );
+
+    // Coupon preparation and CT uncertainty are distinct from voxel pitch.
+    let plan = CouponPlan::from_json(COUPONS).unwrap();
+    assert!(
+        !plan.orders_placed && !plan.vendor_contacted && plan.records.len() == ALL_COUPONS.len()
+    );
+    let budget = ct(20.0);
+    assert!(matches!(
+        verify_dimensional_accuracy(&budget, 2.0, &adm(25.0, "req")),
+        Verdict::Pass
+    ));
+    assert!(matches!(
+        verify_dimensional_accuracy(&ct(1.0), 2.0, &adm(25.0, "req")),
+        Verdict::Pass
+    ));
+    let pitch_only = CtBudget {
+        voxel_pitch_um: 1.0,
+        calibration_artifact_uncertainty_um: None,
+        edge_localization_um: None,
+        repeatability_um: None,
+        calibration_artifact_source: None,
+    };
+    assert!(matches!(
+        verify_dimensional_accuracy(&pitch_only, 2.0, &adm(25.0, "req")),
+        Verdict::Unresolved(_)
     ));
 }

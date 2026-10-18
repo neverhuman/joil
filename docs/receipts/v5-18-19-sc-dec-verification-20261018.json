@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_18_19_sc_dec_verification",
+  "task_ids": [
+    "V5-18-02",
+    "V5-18-03",
+    "V5-18-04",
+    "V5-18-05",
+    "V5-19-01",
+    "V5-19-02",
+    "V5-19-03",
+    "V5-19-04",
+    "V5-19-05"
+  ],
+  "packet": "V5-18,V5-19",
+  "created_utc": "2026-10-18T00:00:00Z",
+  "owner": "61562.joil_v5_codex_lane2 (gpt-6-luna medium)",
+  "assignment": "Lane 2 Wave 11; SC-DEC-031..032 and SC-DEC-062 software verification",
+  "source_base": "89057f8",
+  "tested_commit": "cd026396ef2399e45109a05768fb77ce4a448464",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/metrics.rs",
+    "packs/hydrocyclone/judges/tests/structure.rs",
+    "docs/receipts/v5-18-19-sc-dec-verification-20261018.json"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "fleet_admiral_decisions": ["SC-DEC-031", "SC-DEC-032"],
+  "decision_context": ["SC-DEC-062"],
+  "commands": [
+    {
+      "argv": ["rtk", "cargo", "test", "--locked", "-p", "pack-hydrocyclone-judges", "--test", "metrics", "v5_18_02_to_05_sc_dec_031"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-18-02-05-test.log",
+      "log_sha256": "f13a3ccca8fe0f1c42fccae9cf0ad8675c505da87d0200f2581ca0e0fbe93fd4"
+    },
+    {
+      "argv": ["rtk", "cargo", "test", "--locked", "-p", "pack-hydrocyclone-judges", "--test", "structure", "v5_19_01_to_05_sc_dec_031_032"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-19-01-05-test.log",
+      "log_sha256": "068f347e2fb78a831fb9a9c90108381b510ef51dc7a3f5605b5b039c3d1ebb5d"
+    },
+    {
+      "argv": ["rtk", "cargo", "fmt", "--all", "--", "--check"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-18-19-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": ["python3", "tools/check_public.py"],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-18-19-public.log",
+      "log_sha256": "cea42eea358894ea6e05b370370ad20ed97c6d043476e49d351bac3efcab9b4b"
+    }
+  ],
+  "positive_checks": [
+    "Requested V5-18 aggregate entry point passed and exercises common-flow intersection, treated-volume port-flux energy, gated bounded objective decisions, exact baseline gain ratio and multiplicity-adjusted decision policy controls.",
+    "Requested V5-19 aggregate entry point passed and exercises installation load-family identity, candidate-bound pressure/shear remapping with force/moment reactions, static FEA oracle/qualification guards, eigenbuckling and imperfection controls, and reserve computation.",
+    "cargo fmt --all -- --check passed.",
+    "tools/check_public.py passed: 985 public candidate files checked; private deny rules applied."
+  ],
+  "negative_checks": [
+    "Synthetic controls reject disjoint feasible maps, failure islands crossed as bands, missing scenario data, per-feed energy relabelled as treated-volume energy, missing mandatory gates, baseline regressions, undefined baseline capacity and invalid decision scales.",
+    "Synthetic controls reject easier candidate-specific frozen loads, copied CT-35 pressure, wrong normals, missing shear/patches, failed or unpinned static solver evidence, analytic-only structural claims, inadequate buckling evidence and mixing modal/fatigue ratios into load-multiplier reserve.",
+    "The test command outcomes are software test passes only; synthetic fixture values are not physical evidence."
+  ],
+  "resource_allocation": {
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "native_solver_or_campaign_executed": false,
+    "post_test_cleanup": ["target/debug/deps", "target/debug/incremental"],
+    "remaining_target_scratch": "31 MiB"
+  },
+  "limitations": [
+    "Fixtures and admitted test values are synthetic; no installation demand, material/process allowable, CFD traction field, native solver run, nonlinear collapse result, physical measurement or service applicability is established.",
+    "The 2.5 MPa external differential remains proposed/unresolved and cannot be used as admitted demand.",
+    "No continuous operating band is inferred without admitted regularity evidence; the tests verify sampled-map software behavior only.",
+    "No uncertainty-bearing physical observations or qualified baseline exist; the ratio/decision policy controls do not substantiate a candidate gain or release decision.",
+    "Existing synthetic FEA fixtures qualify test logic, not an installed native FEA solver or structural design."
+  ],
+  "next_dependency": "V5-18/V5-19 upstream evidence and acceptance remain dependent on admitted operating requirements, real installation loads/material/process evidence, accepted CFD-to-solid loads, native solver qualification, and physical validation."
+}

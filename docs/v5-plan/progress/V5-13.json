@@ -3,34 +3,59 @@
   "packet": "V5-13",
   "tasks": {
     "V5-13-01": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062). Active worker lane codex_lane2 executing implementation and verification receipt for origin/main. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+          "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        }
+      ]
     },
     "V5-13-02": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+          "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        }
+      ]
     },
     "V5-13-03": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+          "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        }
+      ]
     },
     "V5-13-04": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+          "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        }
+      ]
     },
     "V5-13-05": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane2",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-024..027, SC-DEC-035, SC-DEC-042; SC-DEC-062); queued on active lane codex_lane2 behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-13-software-acceptance-20261018.json (sha256 832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-13-software-acceptance-20261018.json (sha256 49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
+          "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161"
+        }
+      ]
     }
   }
 }
