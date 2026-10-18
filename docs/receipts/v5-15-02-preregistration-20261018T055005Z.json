@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_15_02_preregistration",
+  "packet": "V5-15",
+  "task_ids": [
+    "V5-15-02"
+  ],
+  "status_claimed": "blocked",
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "assignment": "Captain stage G-014 (v5-15-validation-C012)",
+  "input_head": "1cbcd7149c8e97f999c75f30010b59f70a23c178",
+  "tested_commit": "6ec58361b9359b0f1cd7188095b4010ed8abbede",
+  "created_utc": "2026-10-18T05:50:05Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/src/validation.rs",
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "experiments/validation/v5/preregistration_v1.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-test-validation.log",
+      "log_sha256": "a16f44ece8e5e5aad25d8696a88593d05faa78d661787171995a69c64b4b416c"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-test-crate.log",
+      "log_sha256": "01b1030dc37b032838565b4046c37a864e388c7dc92ed6be747757f9addbf164"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-clippy.log",
+      "log_sha256": "5bee8d5e54ec9a77998cc34f616f58405e7aaf5d5bc5e66a828207d9206dd9fd"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-fmt.log",
+      "log_sha256": "1ca4a13146b2891c0e462123ac0cb848f92e6221f18b870a1b78c232d1956c35"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-check-public.log",
+      "log_sha256": "e93bb65cbefb03e2d9fb12370509e1e0fc112fbf9f71b9fdd08fe3e710e33428"
+    }
+  ],
+  "task_tests": [
+    "v5_15_02_one_factor_arms_with_competing_explanations_pass",
+    "v5_15_02_outcomes_inspected_before_freeze_fail",
+    "v5_15_02_changing_a_frozen_item_fails",
+    "v5_15_02_unregistered_factor_fails",
+    "v5_15_02_single_explanation_cannot_assume_an_absent_vortex",
+    "v5_15_02_borrowed_commercial_pdr_cannot_force_a_passing_case",
+    "v5_15_02_measured_pdr_range_passes_inside_fails_outside_and_refuses_tuning"
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "M2",
+      "description": "validation.rs judge_pdr(): borrowed-commercial guard retargeted to MeasuredCt35, so a borrowed range can pass",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-mutation-M2-red.log",
+      "log_sha256": "bcebf0f01846c40012b2cd7c8a25d9ffc860da5157b36348195bf777c6c9008a",
+      "failed_tests": [
+        "v5_15_02_borrowed_commercial_pdr_cannot_force_a_passing_case",
+        "v5_15_02_measured_pdr_range_passes_inside_fails_outside_and_refuses_tuning"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/lib.rs",
+      "sha256": "d16b6484bf7a51cefe76e5b55e52197f8ffc345112b2ccba42bd7a7fdfe14f40"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/validation.rs",
+      "sha256": "deefcb7a46eae8187113a01c546fc8b83b56acc6d814fa3c978f34250d6adfe5"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "e5e7583bf13967d2f7341e9a49ad969e66ff3138f6dd470789ae545da364cfab"
+    },
+    {
+      "path": "experiments/validation/v5/preregistration_v1.json",
+      "sha256": "4c3497059c523e385bba008951695f80d1c69d569ca44cfdcd8ab04db3baf5af"
+    }
+  ],
+  "positive_checks": [
+    "Preregistration with frozen items and one-factor arms over the five swept factors passes structurally with two competing hypotheses (v5_15_02_one_factor_arms_with_competing_explanations_pass)",
+    "The preregistration is marked frozen_before_outcomes with no outcomes inspected"
+  ],
+  "negative_checks": [
+    "Outcomes inspected before freeze fail (v5_15_02_outcomes_inspected_before_freeze_fail)",
+    "Changing a frozen item fails (v5_15_02_changing_a_frozen_item_fails)",
+    "An unregistered factor fails (v5_15_02_unregistered_factor_fails)",
+    "A single explanation cannot assume an absent vortex (v5_15_02_single_explanation_cannot_assume_an_absent_vortex)",
+    "Borrowed commercial PDR 1.4-2.6 cannot force a passing case (v5_15_02_borrowed_commercial_pdr_cannot_force_a_passing_case)"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_INCREMENTAL": 0,
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target (shared worker target, not cleaned)",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges on SYNTHETIC fixtures only; no literature, CT-35 or physical validation; task is blocked, not done, and not a scientific PASS",
+  "limitations": [
+    "The study is preregistered but not executable: CT-35 geometry digest, tap positions and arm values are unresolved.",
+    "The judge is structural and does not evaluate outcomes.",
+    "Numerical PDR 7.1083 and 4.48 from the baseline are above the draft range. This is an open question, not a result.",
+    "Only the M2 mutation was executed for this task."
+  ],
+  "next_dependency": "Admit the frozen CT-35 geometry and tap digests, then freeze the arm values before any outcome is inspected."
+}

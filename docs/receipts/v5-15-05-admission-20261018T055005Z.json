@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_15_05_admission",
+  "packet": "V5-15",
+  "task_ids": [
+    "V5-15-05"
+  ],
+  "status_claimed": "blocked",
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "assignment": "Captain stage G-014 (v5-15-validation-C012)",
+  "input_head": "1cbcd7149c8e97f999c75f30010b59f70a23c178",
+  "tested_commit": "6ec58361b9359b0f1cd7188095b4010ed8abbede",
+  "created_utc": "2026-10-18T05:50:05Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/src/validation.rs",
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "experiments/validation/v5/gvtx_admission_v1.json",
+    "experiments/validation/v5/ct35_protocol_v1.json",
+    "docs/rig/VORTEX_VALIDATION.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-test-validation.log",
+      "log_sha256": "a16f44ece8e5e5aad25d8696a88593d05faa78d661787171995a69c64b4b416c"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-test-crate.log",
+      "log_sha256": "01b1030dc37b032838565b4046c37a864e388c7dc92ed6be747757f9addbf164"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-clippy.log",
+      "log_sha256": "5bee8d5e54ec9a77998cc34f616f58405e7aaf5d5bc5e66a828207d9206dd9fd"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-fmt.log",
+      "log_sha256": "1ca4a13146b2891c0e462123ac0cb848f92e6221f18b870a1b78c232d1956c35"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-check-public.log",
+      "log_sha256": "e93bb65cbefb03e2d9fb12370509e1e0fc112fbf9f71b9fdd08fe3e710e33428"
+    }
+  ],
+  "task_tests": [
+    "v5_15_05_matching_admission_passes_and_only_then_enables_flow_archives",
+    "v5_15_05_evaluator_version_change_revokes_ranking_authority",
+    "v5_15_05_withdrawn_or_inaccessible_dataset_revokes_ranking",
+    "v5_15_05_scope_outside_admission_missing_evidence_or_no_admission_stay_open",
+    "v5_15_05_ct35_protocol_is_defined_but_not_launched",
+    "v5_15_05_ct35_protocol_refuses_launch_loosened_gates_and_thin_replication"
+  ],
+  "executed_mutation_reds": [],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/lib.rs",
+      "sha256": "d16b6484bf7a51cefe76e5b55e52197f8ffc345112b2ccba42bd7a7fdfe14f40"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/validation.rs",
+      "sha256": "deefcb7a46eae8187113a01c546fc8b83b56acc6d814fa3c978f34250d6adfe5"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "e5e7583bf13967d2f7341e9a49ad969e66ff3138f6dd470789ae545da364cfab"
+    },
+    {
+      "path": "experiments/validation/v5/gvtx_admission_v1.json",
+      "sha256": "4a9b39ad263b9ce3cad4c91dfb7b3230d18fac5dd3ac3d02f85d83af4b9f95d9"
+    },
+    {
+      "path": "experiments/validation/v5/ct35_protocol_v1.json",
+      "sha256": "ca7ca54107344275eb2ee3127cbadb69b4b03f12633fb9d0ee8c46636eecb60e"
+    },
+    {
+      "path": "docs/rig/VORTEX_VALIDATION.md",
+      "sha256": "4d88accf05dc6a9b7244884d9e1f45fd920ef32b06f7865bbe282f2f28186b24"
+    }
+  ],
+  "positive_checks": [
+    "A matching admission (build, scope, available dataset, evidence) passes and only then enables flow archives (v5_15_05_matching_admission_passes_and_only_then_enables_flow_archives)",
+    "The CT-35 protocol is well formed when defined and not launched (v5_15_05_ct35_protocol_is_defined_but_not_launched)"
+  ],
+  "negative_checks": [
+    "An evaluator build change revokes ranking authority (v5_15_05_evaluator_version_change_revokes_ranking_authority)",
+    "A withdrawn or inaccessible dataset revokes ranking (v5_15_05_withdrawn_or_inaccessible_dataset_revokes_ranking)",
+    "Scope outside admission, missing evidence, or no admission stays open with archives disabled (v5_15_05_scope_outside_admission_missing_evidence_or_no_admission_stay_open)",
+    "Launch, loosened drift gates or thin replication are refused (v5_15_05_ct35_protocol_refuses_launch_loosened_gates_and_thin_replication)"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_INCREMENTAL": 0,
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target (shared worker target, not cleaned)",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges on SYNTHETIC fixtures only; no literature, CT-35 or physical validation; task is blocked, not done, and not a scientific PASS",
+  "limitations": [
+    "G-VTX is not admitted. Flow archives stay disabled.",
+    "The CT-35 protocol is defined but not launched. Its taps are not frozen, so it judges Unresolved.",
+    "No mutation red was executed for this task; it is covered only by the full suite."
+  ],
+  "next_dependency": "Admission bound to a named evaluator build with matching evidence. Freeze CT-35 taps before any protocol run."
+}

@@ -6,14 +6,19 @@
 //! one accepted subject (V5-09/V5-10 observers are not accepted yet and are not depended on).
 //! Nothing in this crate is a physical qualification.
 pub mod as_built;
+pub mod capacity;
 pub mod dynamics;
 pub mod fatigue;
+pub mod liner_operator;
 pub mod manufacturing;
 pub mod mass;
 pub mod material;
+pub mod metrics;
 pub mod metrology;
+pub mod objectives;
 pub mod structure;
 pub mod surface;
+pub mod validation;
 
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};

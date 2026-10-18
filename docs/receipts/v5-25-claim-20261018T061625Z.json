@@ -1,0 +1,32 @@
+{
+  "packet": "V5-25",
+  "tasks": ["V5-25-01", "V5-25-02", "V5-25-03", "V5-25-04", "V5-25-05"],
+  "title": "Optional frozen-liner response operator",
+  "owner": "1052087.joil_v5_claude",
+  "branch": "codex/v5-claude-truth",
+  "tier": "C0 claude-haiku-5-5 medium",
+  "written_after_utc": "2026-10-18T06:16:25Z",
+  "claim_note": "This claim was written after the first source edits (liner_operator.rs, lib.rs registration, tests and TOML). The contract asks for the claim before editing; that ordering was not kept and is disclosed in .agent/handoffs/V5-25.md.",
+  "write_paths": [
+    "packs/hydrocyclone/judges/src/liner_operator.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/tests/liner_operator.rs",
+    "experiments/v5-liner-operator.toml",
+    "docs/receipts/v5-25-*",
+    ".agent/handoffs/V5-25.md"
+  ],
+  "not_touched": [
+    "docs/v5-plan/progress/",
+    "docs/v5-plan/TASKS.json",
+    "PR #6"
+  ],
+  "dependencies": ["V5-15", "V5-17", "V5-22"],
+  "resource_allocation": {
+    "cpus": [34, 35],
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "source": "claude worker allocation in the v5 coding lease"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_15_01_accession",
+  "packet": "V5-15",
+  "task_ids": [
+    "V5-15-01"
+  ],
+  "status_claimed": "blocked",
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "assignment": "Captain stage G-014 (v5-15-validation-C012)",
+  "input_head": "1cbcd7149c8e97f999c75f30010b59f70a23c178",
+  "tested_commit": "6ec58361b9359b0f1cd7188095b4010ed8abbede",
+  "created_utc": "2026-10-18T05:50:05Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/src/validation.rs",
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "experiments/validation/v5/accession_register.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-test-validation.log",
+      "log_sha256": "a16f44ece8e5e5aad25d8696a88593d05faa78d661787171995a69c64b4b416c"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-test-crate.log",
+      "log_sha256": "01b1030dc37b032838565b4046c37a864e388c7dc92ed6be747757f9addbf164"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-clippy.log",
+      "log_sha256": "5bee8d5e54ec9a77998cc34f616f58405e7aaf5d5bc5e66a828207d9206dd9fd"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-fmt.log",
+      "log_sha256": "1ca4a13146b2891c0e462123ac0cb848f92e6221f18b870a1b78c232d1956c35"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-check-public.log",
+      "log_sha256": "e93bb65cbefb03e2d9fb12370509e1e0fc112fbf9f71b9fdd08fe3e710e33428"
+    }
+  ],
+  "task_tests": [
+    "v5_15_01_fully_admitted_matching_accession_is_quantitative",
+    "v5_15_01_overlay_without_geometry_and_uncertainty_stays_literature",
+    "v5_15_01_different_published_geometry_is_literature_not_quantitative",
+    "v5_15_01_proposed_recalled_value_is_not_an_accession",
+    "v5_15_01_zhou_and_hsieh_without_sources_stay_unresolved"
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "M1",
+      "description": "validation.rs compare(): level guard weakened from unresolved.is_empty() to unresolved.len() < 99, so any overlay becomes quantitative",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-mutation-M1-red.log",
+      "log_sha256": "1b21cf0eab369e197dcddcb1e95ed965cd8dd9b4e66e0775c094d772a41b3590",
+      "failed_tests": [
+        "v5_15_01_different_published_geometry_is_literature_not_quantitative",
+        "v5_15_01_overlay_without_geometry_and_uncertainty_stays_literature",
+        "v5_15_01_zhou_and_hsieh_without_sources_stay_unresolved",
+        "v5_15_01_proposed_recalled_value_is_not_an_accession"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/lib.rs",
+      "sha256": "d16b6484bf7a51cefe76e5b55e52197f8ffc345112b2ccba42bd7a7fdfe14f40"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/validation.rs",
+      "sha256": "deefcb7a46eae8187113a01c546fc8b83b56acc6d814fa3c978f34250d6adfe5"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "e5e7583bf13967d2f7341e9a49ad969e66ff3138f6dd470789ae545da364cfab"
+    },
+    {
+      "path": "experiments/validation/v5/accession_register.json",
+      "sha256": "52178cfcd81c79b3f3e39a360be60a55df9fd16dc6b780194724736d0784aea7"
+    }
+  ],
+  "positive_checks": [
+    "A fully admitted accession matching all six evaluator identity tags is quantitative with six matched tags (v5_15_01_fully_admitted_matching_accession_is_quantitative)",
+    "The register states matched and unresolved inputs for every candidate (accession_register.json)"
+  ],
+  "negative_checks": [
+    "An attractive overlay without geometry and uncertainty stays LiteratureOnly and its accession is Unresolved (v5_15_01_overlay_without_geometry_and_uncertainty_stays_literature)",
+    "A different published geometry stays LiteratureOnly (v5_15_01_different_published_geometry_is_literature_not_quantitative)",
+    "A Proposed (recalled) value is not an accession (v5_15_01_proposed_recalled_value_is_not_an_accession)",
+    "Zhou and Hsieh with no source stay Unresolved (v5_15_01_zhou_and_hsieh_without_sources_stay_unresolved)"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_INCREMENTAL": 0,
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target (shared worker target, not cleaned)",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges on SYNTHETIC fixtures only; no literature, CT-35 or physical validation; task is blocked, not done, and not a scientific PASS",
+  "limitations": [
+    "Original Bai 2009 and Young 1994 sources were not accessed. No digest, licence or accession is admitted for any candidate.",
+    "Zhou and Hsieh have no registry entry and no source identified in the repository.",
+    "Only the M1 mutation was executed for this task."
+  ],
+  "next_dependency": "Acquire and digest the original Bai and Young sources through the owned private path (P03/P06). Register Zhou and Hsieh in docs/REFERENCES.md before any accession."
+}

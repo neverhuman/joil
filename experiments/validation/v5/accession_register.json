@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "kind": "v5_15_01_accession_register",
+  "status": "candidates_recorded_sources_not_accessed",
+  "registry_ref": {"path": "docs/REFERENCES.md", "sha256": "8e34b4063f26e8848986b597d12b391bda89db77691ad2cddfcf262d43ba8459"},
+  "evaluator_identity": {
+    "geometry": "CT-35 full liner, see docs/BASELINE_RUN.md",
+    "fluids": "unresolved: measured fluid properties and oil/water identity not admitted",
+    "boundary_conditions": "unresolved: absolute pressure unknown per docs/BASELINE_RUN.md",
+    "stations": "numerical outlet taps only (docs/BASELINE_RUN.md); physical taps unresolved",
+    "methods": "kOmegaSST steady initializer (docs/results/baseline-hydraulics-v1.json)",
+    "uncertainty": "unresolved: no experimental or solution uncertainty admitted"
+  },
+  "candidates": [
+    {
+      "candidate": "Bai",
+      "registry_entry": "R02/R03 context only: Bai velocity measurements as compared in R03 (Maddahian et al., Petroleum Science 9, 2012)",
+      "source": {"digest": "unresolved", "license": "unresolved", "note": "original Bai 2009 article/data not accessed; no raw copy in repo"},
+      "geometry": "unresolved",
+      "fluids": "unresolved",
+      "boundary_conditions": "unresolved",
+      "stations": "unresolved",
+      "methods": "unresolved",
+      "uncertainty": "unresolved",
+      "matched_inputs": [],
+      "unresolved_inputs": ["source_digest", "license", "geometry", "fluids", "boundary_conditions", "stations", "methods", "uncertainty"],
+      "comparison_level": "literature_only",
+      "judge": "Unresolved: accession:source_digest_not_admitted, accession:license_not_admitted, accession:geometry_not_admitted and others"
+    },
+    {
+      "candidate": "Young",
+      "registry_entry": "R03 context only: Young separation measurements as compared in R03 (Maddahian et al., 2012)",
+      "source": {"digest": "unresolved", "license": "unresolved", "note": "original Young 1994 apparatus/data, uncertainty and diameter definitions not accessed (REFERENCES outstanding list)"},
+      "geometry": "unresolved",
+      "fluids": "unresolved",
+      "boundary_conditions": "unresolved",
+      "stations": "unresolved",
+      "methods": "unresolved",
+      "uncertainty": "unresolved",
+      "matched_inputs": [],
+      "unresolved_inputs": ["source_digest", "license", "geometry", "fluids", "boundary_conditions", "stations", "methods", "uncertainty"],
+      "comparison_level": "literature_only",
+      "judge": "Unresolved: accession:source_digest_not_admitted, accession:license_not_admitted, accession:geometry_not_admitted and others"
+    },
+    {
+      "candidate": "Zhou",
+      "registry_entry": "none in docs/REFERENCES.md; no source identified in the repository",
+      "source": {"digest": "unresolved", "license": "unresolved", "note": "no entry; not searched in this packet"},
+      "geometry": "unresolved",
+      "fluids": "unresolved",
+      "boundary_conditions": "unresolved",
+      "stations": "unresolved",
+      "methods": "unresolved",
+      "uncertainty": "unresolved",
+      "matched_inputs": [],
+      "unresolved_inputs": ["source_digest", "license", "geometry", "fluids", "boundary_conditions", "stations", "methods", "uncertainty"],
+      "comparison_level": "literature_only",
+      "judge": "Unresolved: no source"
+    },
+    {
+      "candidate": "Hsieh",
+      "registry_entry": "none in docs/REFERENCES.md; no source identified in the repository",
+      "source": {"digest": "unresolved", "license": "unresolved", "note": "no entry; not searched in this packet"},
+      "geometry": "unresolved",
+      "fluids": "unresolved",
+      "boundary_conditions": "unresolved",
+      "stations": "unresolved",
+      "methods": "unresolved",
+      "uncertainty": "unresolved",
+      "matched_inputs": [],
+      "unresolved_inputs": ["source_digest", "license", "geometry", "fluids", "boundary_conditions", "stations", "methods", "uncertainty"],
+      "comparison_level": "literature_only",
+      "judge": "Unresolved: no source"
+    }
+  ],
+  "negative_control": "R03 Figure 6 is not automatically a droplet-grade curve for the CT-35 CAD (docs/REFERENCES.md). Any overlay with a missing geometry or uncertainty stays comparison_level literature_only.",
+  "statement": "No candidate has a matched quantitative comparison. No literature value is used as a pass threshold."
+}

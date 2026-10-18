@@ -1,0 +1,107 @@
+# V5-25 optional frozen-liner response operator: preregistration of the case protocol.
+#
+# SYNTHETIC FIXTURE. The case identifiers below are labels for generated software fixtures. No
+# accepted full-liner geometry, no raw carrier/transport evidence and no full-liner reference run
+# exists for them, so this file closes no gate and admits no scientific claim. The judge in
+# packs/hydrocyclone/judges/src/liner_operator.rs enforces the same rules this file records.
+
+[protocol]
+packet = "V5-25"
+status = "preregistered_synthetic_fixture"
+scientific_admission = false
+full_liner_reference_run = false
+synthetic = true
+# Validation may never reuse a calibration or training head, and held-out geometry families stay
+# disjoint from training. A violation fails the gate; it is not a warning.
+held_out_reuse_policy = "forbidden"
+geometry_family_separation = "required"
+
+[lease]
+# Measured allocation for this packet's case generation and tests. It is within the initial joil
+# caps (4 cores, 12 GiB, 5 GiB output, no GPU) and has no GPU and no large simulation.
+cpu_cores = 2
+memory_gib = 6.0
+output_gib = 2.5
+gpu = false
+lease_id = "claude-v5-25-c0"
+
+[coverage]
+# Mechanism and state-domain tags the dataset must cover, held-out or declared as a gap.
+required_domain_tags = [
+  "reverse_core_present",
+  "reverse_core_absent",
+  "high_swirl",
+  "low_swirl",
+]
+
+[[declared_gaps]]
+tag = "low_swirl"
+reason = "no held-out low-swirl geometry family is generated yet; states in this band fall back to the full-liner reference"
+
+[held_out]
+# Held-out cases are judged only after the training and calibration heads are frozen.
+status = "synthetic_fixture_labels"
+geometry_family_separation = "required"
+reuse_as_validation = "forbidden"
+
+[[held_out_cases]]
+case_id = "h1"
+geometry_family = "C"
+geometry_label = "gC"
+domain_tags = ["reverse_core_present", "reverse_core_absent"]
+synthetic = true
+
+[[held_out_cases]]
+case_id = "h2"
+geometry_family = "D"
+geometry_label = "gD"
+domain_tags = ["high_swirl"]
+synthetic = true
+
+[[training_cases]]
+case_id = "t1"
+geometry_family = "A"
+geometry_label = "gA"
+domain_tags = ["reverse_core_absent", "low_swirl"]
+synthetic = true
+
+[[calibration_cases]]
+case_id = "c1"
+geometry_family = "B"
+geometry_label = "gB"
+domain_tags = ["reverse_core_absent", "high_swirl"]
+synthetic = true
+
+[balance_tolerances]
+mass_rel = 1e-9
+momentum_rel = 1e-9
+oil_rel = 1e-9
+reverse_core_rel = 1e-9
+
+[coupling]
+max_exchanges = 500
+relaxation = 0.5
+residual_tol = 1e-6
+closure_tol = 1e-4
+
+[envelope]
+# Feature box in (reverse fraction, swirl ratio, turbulence ratio). A box is an abstention
+# heuristic, not a proof of domain membership.
+lower = [0.0, 0.0, 0.0]
+upper = [0.1, 0.5, 0.05]
+max_relative_uncertainty = 0.05
+
+[audit]
+# Fixed acceptance criteria, admitted before any random audit is drawn.
+max_false_omission_upper95 = 0.10
+max_pressure_rel_error = 0.05
+max_oil_grade_rel_error = 0.05
+min_audited_per_stratum = 1
+audit_rate_promoted = 1.0
+audit_rate_low_ranked = 0.5
+audit_rate_out_of_domain = 0.5
+
+[budget]
+# Full-liner evaluation cost is accounted in units; a depleted budget abstains, never passes.
+full_cost_units = 1.0
+campaign_budget_units = 4.0
