@@ -9,7 +9,7 @@
   ],
   "lane": "484638.joil_v5_codex_lane4",
   "state": "lane_complete",
-  "packet_acceptance": "partial; V5-28-02 blocked pending qualified independent confirmation data",
+  "packet_acceptance": "blocked_pending_dependency_and_confirmation_evidence_review",
   "tested_commit": "1dbca1f99044fadadbc295df61da0545be1ecdf7",
   "changed_paths": [
     "Cargo.lock",
@@ -189,24 +189,24 @@
   ],
   "task_results": {
     "V5-28-01": {
-      "status": "done",
-      "evidence": "experiments/v5-study/preregistration-v1.json freezes arms, estimands, disjoint seeds, pilot-based power policy, resource normalization, family and L4 endpoint rules before generation zero."
+      "status": "blocked_pending_upstream_acceptance",
+      "evidence": "Prospective preregistration delivered, but required packets V5-04, V5-18, V5-21, V5-22 and V5-26 remain todo in local progress registry."
     },
     "V5-28-02": {
       "status": "blocked",
-      "evidence": "typed cost-quality report retains all attempted finalists, independent unit IDs, uncertainty and negative outcomes; only synthetic negative fixture exists. No fresh qualified confirmation dataset or scientific compute lease exists."
+      "evidence": "No fresh qualified independent confirmation dataset or scientific compute lease exists. Synthetic negative fixture only; upstream prerequisite receipts remain unaccepted in local progress registry."
     },
     "V5-28-03": {
-      "status": "done",
-      "evidence": "mechanism intervention design includes compiled knockout, sham, rescue, volume and area matched controls and declared confounds/flow observables."
+      "status": "blocked_pending_ordered_acceptance",
+      "evidence": "Mechanism intervention design delivered; earlier ordered task and upstream dependency gates remain open."
     },
     "V5-28-04": {
-      "status": "done",
-      "evidence": "exact typed query binds observation, subject, scenario, estimand, unit, denominator, current tier and interpretation; planted errors fail."
+      "status": "blocked_pending_ordered_acceptance",
+      "evidence": "Typed query implementation and mutation controls delivered; earlier ordered task and upstream dependency gates remain open."
     },
     "V5-28-05": {
-      "status": "done",
-      "evidence": "offline negative-result paper builder, release instructions, dependency/license and prior-design inventories delivered; source allowlist and private evidence handling documented."
+      "status": "blocked_pending_ordered_acceptance",
+      "evidence": "Reproduction and review bundle delivered; earlier ordered task and upstream dependency gates remain open."
     }
   },
   "positive_checks": [
@@ -242,7 +242,8 @@
     "No qualified physical or fresh independent confirmation data were present; V5-28-02 remains blocked.",
     "No generation-zero study campaign, CFD, physical rig work or Blender rendering occurred.",
     "License inventory is not a legal review; thirteen workspace crates have undeclared licenses.",
-    "Historical WHITEPAPER and correction records were left unchanged."
+    "Historical WHITEPAPER and correction records were left unchanged.",
+    "tools/v5_plan.py correctly prevents marking V5-28 tasks done because all named prerequisite packets remain todo in this checkout progress registry; no progress task is self-declared done."
   ],
   "next_dependency": "Qualified fresh confirmation observations, frozen family-level admission policy and an explicitly authorized research-compute/data allocation; integrator review of draft workspace/lock registration."
 }
