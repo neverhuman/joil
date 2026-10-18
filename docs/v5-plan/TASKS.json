@@ -69,7 +69,8 @@
         "docs/v5-plan/execution/V5-00-CLOSURE-GATE-SCOPE.md",
         "tools/v5_baseline_source_controls.py",
         "tests/test_v5_baseline_source_controls.py",
-        "docs/v5-plan/execution/V5-00-SOURCE-CONTROLS-SCOPE.md"
+        "docs/v5-plan/execution/V5-00-SOURCE-CONTROLS-SCOPE.md",
+        ".github/workflows/foundation.yml"
       ],
       "edge_cases": [
         "A merged repair may already address part of a source allegation",
