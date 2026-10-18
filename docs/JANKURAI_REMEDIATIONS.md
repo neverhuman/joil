@@ -197,3 +197,27 @@ canonical checks. An earlier standalone CLI lifecycle run timed out; its failed
 scratch and log remain archived. The same lifecycle tests, including the new
 lock cleanup check, passed in the full workspace run. No timeouts or acceptance
 thresholds were relaxed. This is software verification only.
+
+
+## I014 runtime safety review (I010-J034–J054)
+
+All 19 `lease.rs` unsafe blocks and both `task.rs` blocks now have local
+`// SAFETY:` arguments. Runtime behavior and acceptance thresholds are unchanged.
+
+| Historical IDs | Operation and precondition / failure handling |
+| --- | --- |
+| J034–J036 | `current_affinity`: zeroed integer bitset, exact writable buffer size, checked syscall return, CPU index strictly below CPU_SETSIZE. |
+| J037 | `still_matches`: pointer-free getpgid query; boot/start/group comparisons reject replacement and syscall failure. |
+| J038–J041 | Recorded cancellation: range-checked PID, fresh pidfd transferred once to File, live pidfd for signal/poll, null siginfo and zero flags. Identity mismatch exits before signaling; RAII closes the descriptor on every error. ESRCH means already exited; EINTR retries only within the poll deadline. |
+| J042–J044 | Spawn: valid zeroed affinity mask, checked CPU_SET index, stack-owned affinity/rlimit buffers in the pre-exec closure. No allocation or locks after fork; failed native setup aborts exec. Output files and Command-owned handles close on errors. |
+| J045–J046 | Poll: initialized status/rusage output buffers and an owned unreaped child PID. WNOHANG/EINTR do not decode output; successful wait sets reaped before fallible usage conversion, preventing later signaling after a decode error. |
+| J047–J049 | Cancel/Drop: verify the live owned group before signaling; reap polling has a deadline. Drop uses a nonblocking best-effort wait only: it does not certify reaping or release a durable reservation. An unresolved child remains an explicit recovery limitation. |
+| J050–J052 | Process audit: initialized integer rlimit output, checked getrlimit return, pointer-free getpgrp/getpid queries. |
+| J053–J054 | Thread accounting: valid zeroed rusage output, exclusive mutable pointer and RUSAGE_THREAD; syscall failure precedes arithmetic, negative/overflow totals fail conversion. |
+
+Existing runtime integration controls exercise bounded affinity/resources, expiry,
+GPU/rank/SMT rejection, successful/numerical/unsupported/timeout accounting,
+cancellation that leaves a second process group alive, pidfd rejection of a changed
+start time without signaling, crash reservations, and actual checkpoint kills.
+These tests and local arguments are software evidence, not proof of arbitrary
+process-tree containment: recovery supports the single-process fixture only.
