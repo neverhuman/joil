@@ -13,7 +13,7 @@ fn repo() -> PathBuf {
 fn run(root: &Path, source: bool, python: bool) -> Output {
     let mut c = if python {
         let mut c = Command::new("python3");
-        c.args(["-c","import sys,json;from pathlib import Path;sys.path.insert(0,'tools');import v5_baseline_audit as m\ntry: print(json.dumps(m.load(Path(sys.argv[1]),sys.argv[2]=='true'),sort_keys=True))\nexcept Exception as e: print('FAIL: '+str(e),file=sys.stderr);sys.exit(1)"]);
+        c.args(["-c","import sys,json,subprocess;from pathlib import Path;sys.path.insert(0,'tools');import v5_baseline_audit as m\ntry: print(json.dumps(m.load(Path(sys.argv[1]),sys.argv[2]=='true'),sort_keys=True))\nexcept (ValueError,KeyError,OSError,subprocess.CalledProcessError) as e: print('FAIL: '+str(e),file=sys.stderr);sys.exit(1)"]);
         c.arg(root).arg(source.to_string());
         c
     } else {
