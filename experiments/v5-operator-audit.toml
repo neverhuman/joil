@@ -1,0 +1,74 @@
+schema_version = 1
+policy_id = "v5-operator-audit-reference-1"
+status = "preregistered_not_launched"
+scope = "software operator yield and physical-neutrality accounting"
+trials = 100000
+heavy_campaign_launched = false
+adaptive_novelty = false
+fixed_species_protection = "none in this bounded software smoke; fixed protection must be a separately versioned search policy"
+motif_mining = "disabled; requires separate policy version and held-out usefulness tests"
+neural_mutation = "disabled; unsupported by MPG admission"
+learned_novelty = "disabled; requires separate policy version and held-out usefulness tests"
+
+[attempt_accounting]
+denominator = "all sampled proposals, including rejected, duplicate, neutral, and budget-exceeded"
+required_outcomes = ["accepted", "failed", "duplicate", "neutral", "budget_exceeded"]
+reconciliation = "sum(outcome_counts_by_operator_complexity) == attempted_proposals"
+artifact_binding = "every accepted child binds parent subject, proposal identity, operator version, charged cost, and canonical child subject; failures retain proposal and reason"
+
+[sampling]
+seed_source = "independent frozen audit seed file, separate from tests/fixtures/v5-expressiveness"
+seed_file = "not_created_before campaign lease and seed freeze"
+operator_sampling = "uniform among enabled preregistered operators; inapplicable draws count once"
+complexity_bins = ["0-4 modules", "5-8 modules", "9+ modules"]
+neutrality_definition = "accepted canonical subject equals parent canonical subject or declared physical observables are unchanged under the qualified observer"
+physical_neutrality = "not measurable until the geometry compiler and independent observable extractor are registered; never inferred from MPG hash alone"
+
+[resource_gate]
+required_before_full_run = true
+lease_cores = 2
+lease_memory_gib = 6
+lease_scratch_gib = 2.5
+gpu = false
+smoke_max_attempts = 1000
+stop_on = ["stale lease", "resource cap exceeded", "identity or unit mismatch", "accounting reconciliation failure", "artifact digest mismatch"]
+
+[[bounded_smoke_results]]
+test = "operator_smoke_yield_denominator_reconciles_every_proposal"
+complexity_bin = "0-4 modules"
+attempted = 5
+accepted = 1
+failed = 1
+duplicate = 1
+neutral = 1
+budget_exceeded = 1
+reconciled = true
+physical_neutrality_assessed = false
+physical_neutrality_reason = "no geometry compiler or independent physical observable extractor registered"
+
+[[bounded_smoke_results.by_operator]]
+operator = "parameter_perturb"
+attempted = 3
+accepted = 1
+failed = 0
+duplicate = 1
+neutral = 1
+budget_exceeded = 0
+
+[[bounded_smoke_results.by_operator]]
+operator = "remove_module"
+attempted = 1
+accepted = 0
+failed = 1
+duplicate = 0
+neutral = 0
+budget_exceeded = 0
+
+[[bounded_smoke_results.by_operator]]
+operator = "duplicate_module"
+attempted = 1
+accepted = 0
+failed = 0
+duplicate = 0
+neutral = 0
+budget_exceeded = 1
