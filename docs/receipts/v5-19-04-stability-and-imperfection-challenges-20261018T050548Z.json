@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_19_buckling",
+  "packet": "V5-19",
+  "task_ids": ["V5-19-04"],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "Captain stage G-012 (v5-19-structure-C010); COORD 2026-10-18T04:56:37Z dispatch",
+  "input_head": "10d32c755d2849ab2c5731c94cbdbcb80df90cf1",
+  "tested_commit": "3969e6e896a9f3f0283845deed51a3996f7208fa",
+  "created_utc": "2026-10-18T05:05:48Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/structure.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/tests/structure.rs",
+    "physics/structure/v5/load-families.draft.json"
+  ],
+  "commands": [
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"], "cwd": ".", "exit_code": 0, "wall_seconds": 3.88, "log_sha256": "918421b2f4f272373c95f32e1fb3f0f0a9a7b5e9b6dba812cc849f48cae34ec6", "note": "17 tests, all passed at the tested commit"},
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges"], "cwd": ".", "exit_code": 0, "wall_seconds": 1.94, "log_sha256": "6fd54c7e956d346723989aa49628e417feaab4a72acfedfa4fe13d8e658b0eb9", "note": "manufacturing 18 + structure 17, all passed"},
+    {"argv": ["cargo", "clippy", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--all-targets", "--", "-D", "warnings"], "cwd": ".", "exit_code": 0, "wall_seconds": 1.97, "log_sha256": "2ac9c0f7fad15048abf831d2b72f4c78c1520c34c2c111ea22e0fe320ea67195"},
+    {"argv": ["cargo", "fmt", "--all", "--", "--check"], "cwd": ".", "exit_code": 0, "wall_seconds": 0.66, "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["python3", "tools/check_public.py"], "cwd": ".", "exit_code": 0, "wall_seconds": 0.18, "log_sha256": "52e62331cda5789a01cb6ef71e71efe6223ca1a1620e204464e0c66f0085a3b6"}
+  ],
+  "task_tests": [
+    "v5_19_04_governing_multiplier_is_reported_with_method_and_validity",
+    "v5_19_04_eigen_screen_alone_failed_solves_and_thin_evidence_never_pass",
+    "v5_19_05_high_yield_margin_cannot_mask_untested_external_pressure_buckling"
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "M6",
+      "description": "structure.rs judge_buckling(): the finalist-without-nonlinear-collapse Unresolved push replaced by `{}`",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_sha256": "18da80dab93795d6b0aded54330a5f5d545e1398444363b6b8af34c353339d03",
+      "failed_tests": ["v5_19_04_eigen_screen_alone_failed_solves_and_thin_evidence_never_pass"],
+      "note": "exactly this test failed, 16 passed; source restored with git checkout before the next run"
+    },
+    {
+      "mutation": "M4",
+      "description": "structure.rs compute_reserve(): external-pressure-buckling-untested guard disabled with `false &&`",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_sha256": "2752a5574e4901f9376a2d39d7a94aaf5bbb75f09af4d6001f006daa3ab063a2",
+      "failed_tests": ["v5_19_05_high_yield_margin_cannot_mask_untested_external_pressure_buckling"],
+      "note": "exactly this test failed, 16 passed; source restored with git checkout before the next run"
+    }
+  ],
+  "artifacts": [
+    {"path": "packs/hydrocyclone/judges/src/structure.rs", "sha256": "8afd79a62cc09483d9ef0cadd925d0b2f9d8deef17fafa6a57800ff3e661d229"},
+    {"path": "packs/hydrocyclone/judges/tests/structure.rs", "sha256": "37178d9cf36671f38f10abdbd9504f2e99ebba6cfcf4e32051bc6e4fa591a5d8"},
+    {"path": "packs/hydrocyclone/judges/src/lib.rs", "sha256": "518ede6d5cffbba34f0c76078b4653aa37beb96c0a20c76e55f9f14170a2eccd"},
+    {"path": "physics/structure/v5/load-families.draft.json", "sha256": "5d9ae7590e07f47c413ae9e750039cc26f291a964e8ab2272ef109d364418d7b"}
+  ],
+  "positive_checks": [
+    "Long-tube reference E/(4(1-nu^2))(t/R)^3 = 2.062e6 Pa for t/R = 0.04 inside its envelope (t/R <= 0.1, L >= 1.11 D sqrt(D/t)); the governing multiplier is the minimum over mesh eigenvalues and converged imperfect collapse limits, reported with its method and validity strings and the ratio to the reference; outside the envelope the ratio is withheld and the reason stated",
+    "Three-mesh eigen spread within an admitted budget is recorded; a collapse above the eigenvalue never raises the governing multiplier"
+  ],
+  "negative_checks": [
+    "An eigen screen alone, a non-finalist screen, a non-converged collapse, a collapse with zero imperfection, an unmodelled applicable contact, fewer than three meshes, an eigen spread above budget, an unadmitted budget and no eigen solve are Unresolved; a governing multiplier below 1 is Fail; non-finite multipliers are errors",
+    "A 50x yield margin on the external-pressure family stays Unresolved (external_pressure_buckling:untested) in the reserve judge (mutation M4 red)"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges and unresolved draft records only; SYNTHETIC test values; no physical qualification",
+  "limitations": [
+    "No eigenbuckling or nonlinear collapse solve was run: all multipliers are SYNTHETIC caller-supplied numbers and the judge only classifies them",
+    "The long-tube reference is an ideal-cylinder elastic formula; it does not apply to corrugated, lobed or tapered candidates and is reported as outside its envelope for short cylinders; imperfection sensitivity and knockdown are not modelled here",
+    "The mesh-spread tolerance, imperfection amplitudes and contact definitions are not admitted project values",
+    "crucible-adapters is not a workspace member; the judges live in pack-hydrocyclone-judges (no root Cargo.toml or Cargo.lock change in this task)",
+    "Task evidence, not acceptance and not scientific PASS"
+  ],
+  "next_dependency": "Native eigen and nonlinear collapse runs with declared defects and contact for finalists; V5-19-05 consumes the governing multiplier as a Buckling limit"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_19_log_retention_followup",
+  "packet": "V5-19",
+  "task_ids": [],
+  "purpose": "Audit 018 follow-up: persist raw V5-19 command evidence on disk. Re-run of the structure suite and one structure.rs mutation red; does not replace the four unpersisted original command logs.",
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "assignment": "Captain stage G-014 (v5-15-validation-C012), Part A; Audit 018 report .private/v5-workers/gorkbot/validator/audit-20261018T052800Z.md",
+  "created_utc": "2026-10-18T05:45:21Z",
+  "tested_source": {
+    "head_commit": "1cbcd7149c8e97f999c75f30010b59f70a23c178",
+    "v5_19_commit": "3969e6e896a9f3f0283845deed51a3996f7208fa",
+    "structure_rs_blob": "99fae56f8119c44538ba064df203bdf2b8ea23f5",
+    "structure_rs_blob_identical_to_3969e6e": true,
+    "tests_structure_rs_sha256": "37178d9cf36671f38f10abdbd9504f2e99ebba6cfcf4e32051bc6e4fa591a5d8",
+    "src_structure_rs_sha256": "8afd79a62cc09483d9ef0cadd925d0b2f9d8deef17fafa6a57800ff3e661d229"
+  },
+  "unrecoverable_original_logs": {
+    "note": "Cited by the V5-19 receipts at 3969e6e and 6b4b787 but never persisted under logs/claude/. Not reconstructed and not claimed as on-disk evidence.",
+    "cited_command_logs": ["918421b2", "6fd54c7e", "2ac9c0f7", "52e62331"],
+    "cited_mutation_log": "128f29a2"
+  },
+  "commands": [
+    {
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"],
+      "cwd": ".",
+      "env": {"CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/claude/target", "CARGO_INCREMENTAL": "0", "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"},
+      "wrapper": "taskset -c 34,35",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-19-structure-test.log",
+      "log_sha256": "19432de88cd91ed672c4c3175f098d0470e7f68c92a8217053f7209a67861e03",
+      "note": "17 passed; 0 failed"
+    }
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "M1",
+      "description": "structure.rs copied_ct35_reference_pressure guard (line 456): threshold 0.005 weakened to -1.0 so the copied-CT35-pressure refusal can never fire",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "structure"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-19-mutation-M1-red.log",
+      "log_sha256": "1d31dceee5f51634ea50130c4c1b0eeea91877d77c09aaf031050d1dde31b2b7",
+      "failed_tests": ["v5_19_02_copied_ct35_pressure_wrong_normals_and_missing_shear_or_patches_fail"],
+      "note": "16 passed, 1 failed. Source restored with git checkout -- packs/hydrocyclone/judges/src/structure.rs; post-restore git status clean; blob equals 99fae56f8119c44538ba064df203bdf2b8ea23f5"
+    }
+  ],
+  "positive_checks": [
+    "The structure suite passes 17/17 at the unmodified tested source (exit 0)",
+    "Weakening the copied-CT35-pressure guard turns exactly the test that asserts it red (exit 101), so the guard is actually exercised"
+  ],
+  "negative_checks": [
+    "No original V5-19 log is claimed as recovered: the four original command logs and mutation log 128f29a2 remain absent and are listed above as unrecoverable",
+    "The mutated file was restored from git before any further work; no source change is committed by this follow-up"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_INCREMENTAL": 0,
+    "gpu": false
+  },
+  "scientific_eligibility": "software judge test evidence only with SYNTHETIC fixtures; no physical or scientific PASS",
+  "limitations": [
+    "The new logs are fresh runs at the same source blobs, not copies of the originally cited logs; they establish persistence, not the original run history",
+    "The mutation tested one guard only, not all V5-19 mutations cited by the original receipts",
+    "The V5-19 progress file docs/v5-plan/progress/V5-19.json remains todo; this receipt does not change it"
+  ],
+  "next_dependency": "Integrator acceptance of V5-19 in docs/v5-plan/progress/V5-19.json, and an explicit decision whether the unrecoverable original logs are waived or re-run"
+}

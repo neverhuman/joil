@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_20_as_built_partition_metrology",
+  "packet": "V5-20",
+  "task_ids": ["V5-20-03"],
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "assignment": "Captain stage G-013 (v5-20-dynamics-C011); COORD 2026-10-18T05:22:01Z claim",
+  "input_head": "6b4b787df1e73cb0d6522cc88696957102465e86",
+  "tested_commit": "7efca107e163373ec3526527aeda3b96c48c889e",
+  "created_utc": "2026-10-18T05:27:52Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/as_built.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/tests/dynamics.rs"
+  ],
+  "commands": [
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "dynamics"], "cwd": ".", "exit_code": 0, "log_sha256": "16d00d219eca003bd5a9d809da8d875555468437456455fd5b50a2b1856e7f12", "note": "33 passed at the tested commit"},
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges"], "cwd": ".", "exit_code": 0, "log_sha256": "580275adad9b5f0925becee30d17d4e0ef39a934f02e9fbd04e4bfa91bfc499d", "note": "dynamics 33, manufacturing 18, structure 17; all passed"},
+    {"argv": ["cargo", "clippy", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--all-targets", "--", "-D", "warnings"], "cwd": ".", "exit_code": 0, "log_sha256": "63dff585bb1ffbd7a3b31a31f237c62ce6815802e4757c9c385607233db2d7c6", "note": "clean with -D warnings"},
+    {"argv": ["cargo", "fmt", "--all", "--", "--check"], "cwd": ".", "exit_code": 0, "log_sha256": "1a1873eea12bc49e4c371dcd9c90f53eb429da6c4500e67d2e4c468f32609617", "note": "exit 0; log holds the exit marker line so it is non-empty"},
+    {"argv": ["python3", "tools/check_public.py"], "cwd": ".", "exit_code": 0, "log_sha256": "a049566bc563fe7bee7f48610b1f87e02ea39c9d63834dc02c425fa2547debff", "note": "PASS: 714 public candidate files checked"}
+  ],
+  "task_tests": [
+    "v5_20_03_identities_masses_and_deviations_stay_separate",
+    "v5_20_03_as_built_subject_cannot_reuse_the_nominal_identity",
+    "v5_20_03_unadmitted_rerun_threshold_is_unresolved_not_pass",
+    "v5_20_03_ct_voxel_pitch_alone_is_not_dimensional_accuracy",
+    "v5_20_03_declared_ct_components_give_accuracy_and_bound_the_claim",
+    "v5_20_03_measured_ra_never_becomes_ks_without_admitted_calibration",
+    "v5_20_03_registration_residual_is_judged_against_admitted_limit"
+  ],
+  "executed_mutation_reds": [],
+  "artifacts": [
+    {"path": "packs/hydrocyclone/judges/src/as_built.rs", "sha256": "acfc0bee2c6de431beddfaab1fa92b9be747ba0a98f4814b1c81ac4f04b82b56"},
+    {"path": "packs/hydrocyclone/judges/src/lib.rs", "sha256": "29a3382b2a9834e7a60918fb584c9d27813baa84e28393480cc89d44df5ba5b5"},
+    {"path": "packs/hydrocyclone/judges/tests/dynamics.rs", "sha256": "a6dcd05d809e0e171d2b9338aa69811503c342b701191102d35bf6a58a101a20"}
+  ],
+  "positive_checks": [
+    "Nominal (0.520 kg) and as-built (0.524 kg) masses stay separate; their deviation 0.004 kg is recorded in its own field and the identities differ",
+    "A 0.3 mm shape change on feature wall exceeds its admitted 0.2 mm threshold and is flagged for physics rerun; the 0.05 mm bore change is not flagged",
+    "CT budget with declared components (pitch 50 um, calibration 5 um, edge 10 um, repeatability 3 um, k = 2) gives 37.0 um and passes a 100 um admitted requirement",
+    "A 0.02 mm registration residual passes an admitted 0.05 mm limit",
+    "An admitted finish calibration (ks/Ra in [2, 4], Ra in [3, 12] um) turns Ra 6.3 um into equivalent sand roughness 12.6 to 25.2 um for its own finish class"
+  ],
+  "negative_checks": [
+    "A partition whose as-built identity equals the nominal identity is refused",
+    "An unadmitted rerun threshold is Unresolved, never Pass",
+    "A CT voxel pitch with no declared components is Unresolved as dimensional accuracy",
+    "Measured Ra with no calibration, or with a proposed calibration, stays Unresolved and never becomes ks",
+    "A 0.08 mm registration residual against a 0.05 mm admitted limit Fails; an unadmitted limit is Unresolved"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "CARGO_INCREMENTAL": 0,
+    "numerical_threads": 1,
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target (shared worker target, not cleaned)",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judge over caller-supplied SYNTHETIC measurements; no CT scan, registration or roughness measurement of a physical part was made",
+  "limitations": [
+    "No CT scan, calibration artifact measurement or profilometer reading is performed; every budget and Ra value in the tests is SYNTHETIC",
+    "detectability_claim() is a compiled wrapper around the existing wall-detectability rule and has no dedicated test in this receipt",
+    "Rerun flags are threshold flags only; no physics rerun was executed for any flagged feature",
+    "surface::equivalent_sand_roughness is reused unchanged; no finish calibration is admitted for any real LPBF finish class",
+    "Progress was not recorded through tools/v5_plan.py because dependency V5-19 is still todo; task completion is not accepted and is not a scientific PASS"
+  ],
+  "next_dependency": "Measured CT calibration artifact and registration records for a scanned as-built part, with admitted rerun thresholds from V5-19 physics; then the V5-20-04 correlated bounds use these as-built tolerances"
+}

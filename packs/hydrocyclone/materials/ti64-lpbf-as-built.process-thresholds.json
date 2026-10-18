@@ -1,0 +1,10 @@
+{
+  "build_volume_m": {"status": "unresolved", "reason": "printer build envelope is not recorded for the selected machine", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+  "min_wall_m": {"status": "unresolved", "reason": "process-qualified minimum wall not yet supplied by the manufacturing passport", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+  "max_overhang_deg_from_vertical": {"status": "unresolved", "reason": "internal downskin limit for this process and orientation is not supplied", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+  "max_unsupported_span_m": {"status": "unresolved", "reason": "bridge span limit for this process is not supplied", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+  "min_support_access_m": {"status": "unresolved", "reason": "support-removal tool access diameter is not supplied", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+  "min_printed_passage_m": {"status": "unresolved", "reason": "printed passage minimum is an unresolved requirement limit; the 1.4 mm machined value and the 3 mm draft are not admitted for printed channels", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+  "min_powder_escape_clearance_m": {"status": "unresolved", "reason": "powder escape clearance for the selected powder is not supplied", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]},
+  "tool_clearance_margin_m": {"status": "unresolved", "reason": "tool swept-volume margin is not supplied", "owner": "manufacturing_lead", "blocks": ["physical_candidate"]}
+}

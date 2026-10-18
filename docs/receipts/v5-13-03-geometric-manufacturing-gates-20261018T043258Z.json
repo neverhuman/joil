@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_13_material_process_mass",
+  "packet": "V5-13",
+  "task_ids": [
+    "V5-13-03"
+  ],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "C008 via Captain G-010 (stage v5-13-materials-C008); COORD 2026-10-18T04:19:30Z dispatch",
+  "input_head": "6f5f178d3ac1cd62ddfb0168469f26b9ec3e0d73",
+  "tested_commit": "76cc1b7b5c492f75714a2abdf07c575ab2a326ac",
+  "created_utc": "2026-10-18T04:32:58Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/manufacturing.rs",
+    "packs/hydrocyclone/materials/ti64-lpbf-as-built.process-thresholds.json",
+    "Cargo.toml",
+    "Cargo.lock",
+    "packs/hydrocyclone/judges/Cargo.toml",
+    "packs/hydrocyclone/judges/tests/manufacturing.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 3.27,
+      "log_sha256": "bca690569fe08e72f99bc4cef154169830d48ca3e41ea65c63e92ad5109d9a01",
+      "note": "18 tests, all passed, at the tested commit"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 2.043,
+      "log_sha256": "09943d4d945e016029b3c2c2c612ff79953052427959520ef88cabdd0c739fc4"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.877,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.644,
+      "log_sha256": "3ebe841af34accfc43496fbb1c4dbc5a81775d8ca7743b171b96b239a0e1b637"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "6f5f178d3ac1cd62ddfb0168469f26b9ec3e0d73",
+        "HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.012,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-architecture"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.574,
+      "log_sha256": "eedcbe6e44384fa7089a74d3dd45757c393e45d4cfb5b71e2f89d3a4d576dea7",
+      "note": "workspace architecture checks still pass with the new member"
+    }
+  ],
+  "task_tests": [
+    "v5_13_03_good_subject_passes_every_gate_against_admitted_passport_thresholds",
+    "v5_13_03_committed_draft_thresholds_are_all_unresolved_never_defaulted",
+    "v5_13_03_connected_cavity_without_finite_escape_or_reamer_access_fails",
+    "v5_13_03_machined_orifice_needs_its_own_plan_and_its_exception_never_qualifies_printed_channels",
+    "v5_13_03_each_geometric_limit_fails_unmeasured_is_unresolved_and_wrong_subject_is_refused"
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "C",
+      "description": "manufacturing.rs cavity(): the gate condition gained `|| true`, so a cavity with neither escape nor reamer passed; v5_13_03_connected_cavity_without_finite_escape_or_reamer_access_fails and v5_13_03_committed_draft_thresholds_are_all_unresolved_never_defaulted failed, 16 passed",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing"
+      ],
+      "cwd": ".",
+      "exit_code": 101,
+      "wall_seconds": 3.439,
+      "log_sha256": "d46f742ae8d2c99bab4bd98d148b36afe44229ae4e0e61af5e9e59f46a7a02eb"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/manufacturing.rs",
+      "sha256": "0d54c6cc19f49e2d3b70ac480f8eefe0f07126809a95c24798c34d5af8897506"
+    },
+    {
+      "path": "packs/hydrocyclone/materials/ti64-lpbf-as-built.process-thresholds.json",
+      "sha256": "84b97d9586328c67b759360d038332a3ce29634bfd48d90b27471d679e4383bf"
+    },
+    {
+      "path": "Cargo.toml",
+      "sha256": "00b92ba18c91ff95a90cbb8c0b867fc2d8fdf55d229b825b5e5033241150bb2a"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "0b33b711b30086c1d6129477c8d4310360fea57c0e5e291b5a9a2fc7e642b52a"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/Cargo.toml",
+      "sha256": "bc10df92d605e237c91df6831979415a4d3232a801652e561476660071f13378"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/manufacturing.rs",
+      "sha256": "643b5c0c670c3d9a6ef3e4a57627221e49b0179f00329cbdbf824294cff8f3a7"
+    }
+  ],
+  "positive_checks": [
+    "A SYNTHETIC subject passes all eight gates against SYNTHETIC admitted passport thresholds (build fit, wall, downskin, span, support access, printed channels, powder escape, machined access)",
+    "A narrow cavity is rescued by a clear reamer path; a machined orifice with an explicit access plan passes"
+  ],
+  "negative_checks": [
+    "A connected cavity without a finite-clearance escape path or reamer access fails; a too-narrow escape or a blocked reamer fails; an observer-unresolved cavity is Unresolved",
+    "A machined orifice without a plan fails; a 1.4 mm printed channel fails the admitted printed minimum even while a 1.4 mm machined orifice with a plan passes",
+    "The committed draft thresholds are all unresolved, so every gate is Unresolved and nothing is defaulted; unmeasured quantities are Unresolved",
+    "Each geometric limit fails when exceeded; a wrong-subject measurement set, duplicate ids and NaN are refused"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges and unresolved draft records only; SYNTHETIC test values; no physical qualification",
+  "limitations": [
+    "Measurements are caller-supplied for one accepted subject; the V5-09 observers that would produce them are not accepted yet",
+    "Threshold values in the tests are SYNTHETIC; the committed thresholds are all unresolved, so real gates cannot pass until the manufacturing lead supplies sourced values",
+    "Draft lane scaffold disclosed for super-merge: root Cargo.toml workspace member and the minimal Cargo.lock entry for pack-hydrocyclone-judges (existing locked dependencies only); the integrator reconciles them",
+    "Synthetic fixtures are labelled synthetic; no physical allowable, density, threshold or tolerance is admitted",
+    "Task evidence, not acceptance: V5-13 depends on V5-09/V5-10 which are not yet accepted, and V5-00-03 stays AUDIT-HELD"
+  ],
+  "disclosed_non_evidence_runs": [
+    {
+      "name": "c008-mutation1-context-mismatch-disabled",
+      "exit_code": 0,
+      "log_sha256": "3d1cf1fcd67467c158baa1f875dbc957b3253641548dda7f47025cf30370d07f",
+      "reason": "NOT evidence: the intended mutation did not apply (rustfmt had changed indentation), so this run is an unmutated green run despite its name; mutation A was redone and is the cited red"
+    }
+  ],
+  "next_dependency": "Integrator review and super-merge of 76cc1b7 with its receipts; V5-13 progress promotion stays integrator-owned via tools/v5_plan.py; real passport, threshold and coupon values need the named owners"
+}

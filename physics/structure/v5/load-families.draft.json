@@ -1,0 +1,86 @@
+{
+  "schema": "joil.hydrocyclone.load-family-set.v1",
+  "set_id": "draft-load-families-v5-19-01",
+  "synthetic": false,
+  "families": {
+    "operating_flow": {
+      "unit": "Pa",
+      "description": "Wall pressure and shear from the candidate's own accepted CFD traction field at the installation operating flow",
+      "reference": {
+        "status": "unresolved",
+        "reason": "operating flow and backpressure of the installation are not admitted; CT-35 29468.22 Pa is a single-design figure and must not be copied to other candidates",
+        "owner": "installation_owner",
+        "blocks": ["structural_qualification", "reserve"]
+      },
+      "required_factor": {
+        "status": "unresolved",
+        "reason": "required factor is not set by an admitted requirement",
+        "owner": "structures_owner",
+        "blocks": ["reserve"]
+      }
+    },
+    "external_differential_upset": {
+      "unit": "Pa",
+      "description": "External differential or upset pressure across the wall, one value for every design",
+      "reference": {
+        "status": "proposed",
+        "value": 2500000.0,
+        "reason": "draft vessel overpressure carried from joil-core DESIGN_VESSEL_DELTA_P_PA; provisional until installation evidence is admitted"
+      },
+      "required_factor": {
+        "status": "unresolved",
+        "reason": "the legacy 2.5 yield safety factor is a draft screen number, not an admitted requirement",
+        "owner": "structures_owner",
+        "blocks": ["reserve"]
+      }
+    },
+    "support_preload_contact": {
+      "unit": "N",
+      "description": "Support reaction, bolt or clamp preload and contact loads from the installation interface",
+      "reference": {
+        "status": "unresolved",
+        "reason": "installation interface drawings and preloads are not admitted",
+        "owner": "installation_owner",
+        "blocks": ["structural_qualification", "reserve"]
+      },
+      "required_factor": {
+        "status": "unresolved",
+        "reason": "required factor is not set by an admitted requirement",
+        "owner": "structures_owner",
+        "blocks": ["reserve"]
+      }
+    },
+    "handling": {
+      "unit": "N",
+      "description": "Handling and drop-free lifting load of the printed head",
+      "reference": {
+        "status": "unresolved",
+        "reason": "handling procedure and acceleration are not admitted",
+        "owner": "manufacturing_lead",
+        "blocks": ["reserve"]
+      },
+      "required_factor": {
+        "status": "unresolved",
+        "reason": "required factor is not set by an admitted requirement",
+        "owner": "structures_owner",
+        "blocks": ["reserve"]
+      }
+    },
+    "thermal": {
+      "unit": "K",
+      "description": "Temperature change between assembly and operation",
+      "reference": {
+        "status": "unresolved",
+        "reason": "operating and assembly temperatures are not admitted",
+        "owner": "installation_owner",
+        "blocks": ["reserve"]
+      },
+      "required_factor": {
+        "status": "unresolved",
+        "reason": "required factor is not set by an admitted requirement",
+        "owner": "structures_owner",
+        "blocks": ["reserve"]
+      }
+    }
+  }
+}
