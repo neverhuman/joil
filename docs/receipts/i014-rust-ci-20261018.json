@@ -1,0 +1,429 @@
+{
+  "schema_version": 1,
+  "kind": "software_ci_and_parity_not_physical_validation",
+  "packet": "I014",
+  "base_commit": "b8c16091932a4c75aeaff211b0a00d7f400bc6d9",
+  "tested_commit": "ac6cbe3bc44174c39fbefc3a080f6510fb56dfb8",
+  "changed_paths": [
+    "PY_TO_RUST_PLAN.md",
+    "crates/crucible-cli/src/bin/v5-d29-blind-judge-control.rs",
+    "crates/crucible-cli/src/bin/v5-plan.rs",
+    "crates/crucible-cli/tests/d29_blind_judge_parity.rs",
+    "crates/crucible-cli/tests/plan_parity.rs",
+    "crates/crucible-runtime/src/lease.rs",
+    "crates/crucible-runtime/src/task.rs",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i014-claim-20261018.json",
+    "docs/receipts/i014-rust-ci-20261018.json"
+  ],
+  "source_files_sha256": {
+    "PY_TO_RUST_PLAN.md": "03d4ee82df6f537a3b04cbe208bb5acd1c000dc6157a580a443486c27b315e68",
+    "crates/crucible-cli/src/bin/v5-d29-blind-judge-control.rs": "a32b093353ca981f69d12462503c0d76be50dcae61118e524963573d0630ec49",
+    "crates/crucible-cli/src/bin/v5-plan.rs": "4bfcb8d96b62703fbb4a263d75f5919ef26e6a209c965e20672b12201dc61ad3",
+    "crates/crucible-cli/tests/d29_blind_judge_parity.rs": "f7d612079f836cba3f7c5a72aa0539c0717d27b9cd49ce0630bef5ee6e2fc735",
+    "crates/crucible-cli/tests/plan_parity.rs": "7443848b4d68a88e9d47f67b3beb9b41eb9fafb34f79b883a52c397855f03648",
+    "crates/crucible-runtime/src/lease.rs": "12a146a187a901d39e9d83b46d0cf74177021e78f3c4896492e1733c406815eb",
+    "crates/crucible-runtime/src/task.rs": "40b905f1dab1c6a6d2eb6e6379d9f2a1816b21a5aa67d4ff8d2d6feb6257b6b7",
+    "docs/JANKURAI_REMEDIATIONS.md": "197bd0dab52b3a08b739e30bf8eb38a1f6ce30750373a6ba5fbde0eabcb7b2b4",
+    "docs/receipts/i014-claim-20261018.json": "0cf4eeab294575c6143464a4a09d9256d784fc9b0c135383cdfeca167da66046"
+  },
+  "commands": [
+    {
+      "name": "fmt",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.371,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 4.817,
+      "log_sha256": "e8cd561e0285260753ca4e977c91e2b6cfb329b1671b31a66d992a66051fca30"
+    },
+    {
+      "name": "parity",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "plan_parity",
+        "--test",
+        "d29_blind_judge_parity"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 34.618,
+      "log_sha256": "c26064e407cf48438bb488366fd99eb9d1bad4e7802c1cd3a0d7656a93e31d9f"
+    },
+    {
+      "name": "runtime",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-runtime"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 44.683,
+      "log_sha256": "edb13d0db98eebde19b2cd2e74eb4496a133cb4f57ba441fab900b2b8e0b8739"
+    },
+    {
+      "name": "public",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.702,
+      "log_sha256": "b8677ed1e35bea55f63dc34859ef05a82bee114f5e42e49b4765d47adf2c22a3"
+    },
+    {
+      "name": "plan",
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.479,
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+    },
+    {
+      "name": "manifest",
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.55,
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+    },
+    {
+      "name": "claims",
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 21.598,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "name": "security",
+      "argv": [
+        "bash",
+        "ops/ci/security.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 22.346,
+      "log_sha256": "e2228002f8e323e5c974a405348103ab210aa04029e86c77ed179e46ff957776"
+    },
+    {
+      "name": "audit",
+      "argv": [
+        "bash",
+        "ops/ci/audit.sh"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 37.024,
+      "log_sha256": "1570642e112a496fc7f4e1671e5950c212cb9b51af9314addff7f0f22ad46b37"
+    },
+    {
+      "name": "required",
+      "argv": [
+        "just",
+        "required"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 652.435,
+      "log_sha256": "6f7b7c9943cdb39bcaea6e909938f0a77661981afc916b040bec5ada092fad9b"
+    }
+  ],
+  "earlier_checks": [
+    {
+      "name": "clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 101,
+      "elapsed_seconds": 6.379,
+      "log_sha256": "7f2fd4602381cf2fd22ec1a4426090235272b311a9c6852b414a8caa3cd6eda6"
+    }
+  ],
+  "positive_checks": [
+    "Python/Rust exact bytes for all 34 generated Markdown/dashboard views, including snapshot SHA-256",
+    "Plan update output/progress byte parity",
+    "D29 actual frozen source bindings and resolved dependency graph",
+    "Runtime owned cancellation leaves unrelated process group alive; pidfd controls reject changed start time"
+  ],
+  "negative_checks": [
+    "Registry schema/IDs/dependencies/path escape/private scope/missing fields/cycles",
+    "Progress owner/status/evidence/hash/schema/notes; receipt commands/commit/defect/source/red-control bindings",
+    "Missing template marker or multiple markers; stale views; duplicate/nonfinite/malformed JSON",
+    "Plan invalid owner/blocked reason/unknown task; rollback restores exact original bytes",
+    "D29 missing frozen commit/digest drift/direct and indirect forbidden dependencies/cycles/missing judge/missing package/Cargo failure"
+  ],
+  "audit": {
+    "auditor_version": "1.7.5",
+    "score": 55,
+    "raw_score": 55,
+    "caps_applied": [
+      "python-direct-product-truth-or-db-ownership",
+      "no-jankurai-audit-lane-in-ci",
+      "non-optimal-product-language-found",
+      "vibe-placeholders-in-product-code",
+      "fallback-soup-in-product-code",
+      "future-hostile-dead-language-in-product-code",
+      "missing-rendered-ux-qa-lane",
+      "false-green-test-risk",
+      "input-boundary-gap",
+      "release-readiness-gap",
+      "no-agent-friendly-exception-pattern",
+      "rust-bad-behavior",
+      "python-bad-behavior",
+      "ci-bad-behavior",
+      "repo-rot-bad-behavior"
+    ],
+    "findings_count": 42,
+    "conformance_blockers": [
+      "HLT-000-SCORE-DIMENSION:audit on .github/workflows",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/foundation.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/jankurai.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/security.yml",
+      "HLT-000-SCORE-DIMENSION:stack on analysis/__init__.py",
+      "HLT-001-DEAD-MARKER on analysis/kpi_fitness.py",
+      "HLT-013-RENDERED-UX-GAP on apps/web",
+      "HLT-001-DEAD-MARKER on crates/crucible-cli/src/bin/v5-plan.rs",
+      "HLT-001-DEAD-MARKER on crates/crucible-cli/src/plan_validation.rs",
+      "HLT-008-FALSE-GREEN-RISK on crates/crucible-cli/tests/dossier_parity.rs",
+      "HLT-023-INPUT-BOUNDARY-GAP on crates/crucible-runtime/src/checkpoint.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/lease.rs",
+      "HLT-029-RUST-BAD-BEHAVIOR on crates/crucible-runtime/src/task.rs",
+      "HLT-017-OPAQUE-OBSERVABILITY on crates/domain",
+      "HLT-033-PYTHON-BAD-BEHAVIOR on crates/joil-evidence/receipts/ev13_figure_trace.py",
+      "HLT-025-RELEASE-READINESS-GAP on docs/testing.md",
+      "HLT-005-PYTHON-PRODUCT-TRUTH on python/",
+      "HLT-033-PYTHON-BAD-BEHAVIOR on tools/claims_audit.py"
+    ],
+    "report_sha256": "f10a9d98b9409cdffcf209dbd26656e81499f34d2a1e9f911387c4a7db521c4f",
+    "historical_target_fingerprints_absent": 21,
+    "remaining_new_findings": "Five rust.unsafe.zeroed buffer findings and required TODO.md filename marker; no suppression or broad conformance claim"
+  },
+  "artifacts": [
+    {
+      "name": "jankurai/repo-score.json",
+      "sha256": "f10a9d98b9409cdffcf209dbd26656e81499f34d2a1e9f911387c4a7db521c4f"
+    },
+    {
+      "name": "initial-parity.log",
+      "sha256": "79e7b512fe1e48df89f269d8eb80e895c306eec0bd645bd34c0e4cee192cd77c"
+    },
+    {
+      "name": "foundation/receipt.json",
+      "sha256": "c19ba67480a954d8d68a9afcc319c502f0b1d9c164cae5cc60fe2211763218e9"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "physical_cores_max": 4,
+    "ram_gib_max": 12,
+    "output_gib_max": 5,
+    "gpu": false,
+    "simulation": false,
+    "subagents": false,
+    "cache": "existing lane target/"
+  },
+  "limitations": [
+    "Software verification only; no scientific or physical admission",
+    "Python files and legacy consumer entrypoints retained; no Python LOC reduction",
+    "Malformed JSON, OS errors and CLI usage diagnostics remain language-specific; arbitrary noncanonical numeric/Unicode JSON edge parity is not claimed",
+    "Drop remains best-effort nonblocking reap; unresolved children retain durable reservations; recovery supports single-process fixture only",
+    "Jankurai advisory gate passing does not establish conformance; 21 blockers remain",
+    "Initial Clippy failure (redundant string conversion) preserved; fixed before successful final checks"
+  ],
+  "next_dependency": "PR review/CI and integrator acceptance; P1b/P2 legacy consumer migration and remaining Jankurai findings",
+  "foundation": {
+    "all_requested_pass": true,
+    "input_head": "ac6cbe3bc44174c39fbefc3a080f6510fb56dfb8",
+    "steps": [
+      {
+        "name": "generated-status",
+        "command": [
+          "python3",
+          "tools/gen_status.py",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.07340018509421498,
+        "log_bytes": 68,
+        "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+      },
+      {
+        "name": "fmt",
+        "command": [
+          "cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 1.0164257900323719,
+        "log_bytes": 0,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "clippy",
+        "command": [
+          "cargo",
+          "clippy",
+          "--workspace",
+          "--locked",
+          "--all-targets",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.7581645590253174,
+        "log_bytes": 72,
+        "log_sha256": "3bb679965f0a12982e07be2b1c71ba457c15ceb768859fabb10911106022ba16"
+      },
+      {
+        "name": "rust-tests",
+        "command": [
+          "cargo",
+          "test",
+          "--workspace",
+          "--locked"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 484.85530452395324,
+        "log_bytes": 77413,
+        "log_sha256": "de6ce811c920123b9667de15193e5e591ef01ba71d9a3e733b040aee358623c0"
+      },
+      {
+        "name": "baseline",
+        "command": [
+          "cargo",
+          "run",
+          "--locked",
+          "-p",
+          "joil-cli",
+          "--",
+          "baseline"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.31903640006203204,
+        "log_bytes": 1019,
+        "log_sha256": "cfdf119220a59e40c1ee22136432b38dce1949553bbb7769af6a3c73c76ad46b"
+      },
+      {
+        "name": "python-tests",
+        "command": [
+          "python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 129.80452852102462,
+        "log_bytes": 35590,
+        "log_sha256": "bbccc70793e14de1f8d0b0178c0426ab560130b4c9bb20bc9e05532017320f2a"
+      },
+      {
+        "name": "public-check",
+        "command": [
+          "python3",
+          "tools/check_public.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 0.38029295101296157,
+        "log_bytes": 75,
+        "log_sha256": "b8677ed1e35bea55f63dc34859ef05a82bee114f5e42e49b4765d47adf2c22a3"
+      },
+      {
+        "name": "claims-audit",
+        "command": [
+          "python3",
+          "tools/claims_audit.py"
+        ],
+        "cwd": ".",
+        "exit_code": 0,
+        "wall_seconds": 20.014951921068132,
+        "log_bytes": 256,
+        "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+      },
+      {
+        "name": "npm-ci",
+        "command": [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 6.547203068970703,
+        "log_bytes": 25,
+        "log_sha256": "ed4845406d1ef85ce0024b19e75032220a11a28f484228d222891235b654118a"
+      },
+      {
+        "name": "ui-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "apps/explorer",
+        "exit_code": 0,
+        "wall_seconds": 2.2711878899717703,
+        "log_bytes": 1715,
+        "log_sha256": "dd5e772cccd2a5b1b303dd0cf9887a6e17b5efbb759e48622aa59054b1560c35"
+      }
+    ],
+    "receipt_sha256": "c19ba67480a954d8d68a9afcc319c502f0b1d9c164cae5cc60fe2211763218e9"
+  }
+}
