@@ -327,3 +327,120 @@ fn paired_blocks_keep_correlations_and_match_their_summaries() {
         Err(JointError::Input("invalid or duplicate block identity"))
     );
 }
+
+#[test]
+fn every_paired_ratio_baseline_block_must_be_strictly_positive() {
+    let fx = fixture("joint.json");
+    let x = JointFixture::new(&fx, true);
+    let block_ids: Vec<String> = (0..20).map(|i| format!("synthetic-block-{i}")).collect();
+    // Positive per-block baseline mean with one non-positive block: the mean check alone would pass.
+    for bad_block in [-2.0, 0.0] {
+        let mut blocks = vec![2.0; 20];
+        blocks[5] = bad_block;
+        let margins: Vec<PairedMargin> = summaries(&fx, &x)
+            .into_iter()
+            .enumerate()
+            .map(|(k, s)| PairedMargin {
+                member: s.member,
+                unit: s.unit,
+                values: (0..20)
+                    .map(|i| s.mean + s.sd * ((i + k) % 5) as f64)
+                    .collect(),
+                ratio_baseline: s.ratio_baseline_mean.map(|_| blocks.clone()),
+            })
+            .collect();
+        assert_eq!(
+            joint_lower_bounds(
+                &x.profile,
+                &x.requirements,
+                &x.registry,
+                &MarginData::PairedBlocks {
+                    block_ids: block_ids.clone(),
+                    margins
+                }
+            ),
+            Err(JointError::Input(
+                "every ratio baseline block must be finite and strictly positive"
+            )),
+            "bad block {bad_block}"
+        );
+    }
+}
+
+#[test]
+fn pearson_is_stable_under_huge_scale_and_offset_in_paired_blocks() {
+    let fx = fixture("joint.json");
+    let x = JointFixture::new(&fx, true);
+    let block_ids: Vec<String> = (0..20).map(|i| format!("synthetic-block-{i}")).collect();
+    // Products of variances near 1e300 overflow; the correlation must still match the small-scale value.
+    let big = 1e150;
+    let pattern = |i: usize, k: usize| ((i * (2 * k + 3)) % 7) as f64 + (i * (k + 1)) as f64;
+    let margins: Vec<PairedMargin> = summaries(&fx, &x)
+        .into_iter()
+        .enumerate()
+        .map(|(k, s)| PairedMargin {
+            member: s.member,
+            unit: s.unit,
+            values: (0..20).map(|i| big * pattern(i, k)).collect(),
+            ratio_baseline: s.ratio_baseline_mean.map(|_| vec![big; 20]),
+        })
+        .collect();
+    let paired = joint_lower_bounds(
+        &x.profile,
+        &x.requirements,
+        &x.registry,
+        &MarginData::PairedBlocks {
+            block_ids: block_ids.clone(),
+            margins: margins.clone(),
+        },
+    )
+    .unwrap();
+    // Independent small-scale reference (no overflow at these magnitudes).
+    let reference = |u: &[f64], v: &[f64]| -> f64 {
+        let n = u.len() as f64;
+        let (mu, mv) = (u.iter().sum::<f64>() / n, v.iter().sum::<f64>() / n);
+        let cov: f64 = u.iter().zip(v).map(|(p, q)| (p - mu) * (q - mv)).sum();
+        let vu: f64 = u.iter().map(|p| (p - mu).powi(2)).sum();
+        let vv: f64 = v.iter().map(|q| (q - mv).powi(2)).sum();
+        cov / (vu.sqrt() * vv.sqrt())
+    };
+    let small: Vec<Vec<f64>> = (0..margins.len())
+        .map(|k| (0..20).map(|i| pattern(i, k)).collect())
+        .collect();
+    let correlations = paired.correlations.unwrap();
+    for (k, row) in correlations.iter().enumerate() {
+        for (l, c) in row.iter().enumerate() {
+            assert!(
+                (c - reference(&small[k], &small[l])).abs() < 1e-9,
+                "({k},{l}) = {c}"
+            );
+        }
+    }
+}
+
+#[test]
+fn constant_paired_margin_never_yields_a_nonfinite_pass() {
+    let fx = fixture("joint.json");
+    let x = JointFixture::new(&fx, true);
+    let block_ids: Vec<String> = (0..20).map(|i| format!("synthetic-block-{i}")).collect();
+    let mut margins: Vec<PairedMargin> = summaries(&fx, &x)
+        .into_iter()
+        .map(|s| PairedMargin {
+            member: s.member,
+            unit: s.unit,
+            values: (0..20).map(|i| s.mean + s.sd * i as f64).collect(),
+            ratio_baseline: s.ratio_baseline_mean.map(|_| vec![2.0; 20]),
+        })
+        .collect();
+    margins[1].values = vec![0.5; 20];
+    let result = joint_lower_bounds(
+        &x.profile,
+        &x.requirements,
+        &x.registry,
+        &MarginData::PairedBlocks { block_ids, margins },
+    );
+    assert!(
+        !matches!(result, Ok(ref d) if d.outcome == JointOutcome::Pass),
+        "{result:?}"
+    );
+}

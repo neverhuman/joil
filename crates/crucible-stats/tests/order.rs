@@ -81,6 +81,46 @@ fn cliff_counts_ties_as_zero_and_is_permutation_and_swap_consistent() {
 }
 
 #[test]
+fn signed_zero_ties_are_ties_in_cliffs_delta_and_exact_permutation() {
+    // -0.0 and +0.0 are numerically equal, so they must tie rather than order by sign bit.
+    assert_eq!(cliffs_delta(&[-0.0], &[0.0]).unwrap(), 0.0);
+    assert_eq!(cliffs_delta(&[0.0], &[-0.0]).unwrap(), 0.0);
+
+    let a = [-0.0, 1.0, 0.0, -2.0];
+    let b = [0.0, -0.0, 2.0, -1.0];
+    // Independent pair-count oracle using only numeric comparisons.
+    let oracle: i64 = a
+        .iter()
+        .flat_map(|x| {
+            b.iter().map(move |y| {
+                if x < y {
+                    -1
+                } else if x > y {
+                    1
+                } else {
+                    0
+                }
+            })
+        })
+        .sum();
+    let d = cliffs_delta(&a, &b).unwrap();
+    assert!((d - oracle as f64 / 16.0).abs() < 1e-15);
+
+    // Flipping every zero sign, or canonicalizing every zero to +0.0, must not change the exact test.
+    let flip =
+        |v: &[f64]| -> Vec<f64> { v.iter().map(|x| if *x == 0.0 { -*x } else { *x }).collect() };
+    let canon =
+        |v: &[f64]| -> Vec<f64> { v.iter().map(|x| if *x == 0.0 { 0.0 } else { *x }).collect() };
+    let original = cliffs_delta_permutation(&a, &b).unwrap();
+    let flipped = cliffs_delta_permutation(&flip(&a), &flip(&b)).unwrap();
+    let canonical = cliffs_delta_permutation(&canon(&a), &canon(&b)).unwrap();
+    assert_eq!(original.p_greater, flipped.p_greater);
+    assert_eq!(original.p_greater, canonical.p_greater);
+    assert_eq!(original.delta, flipped.delta);
+    assert_eq!(original.delta, canonical.delta);
+}
+
+#[test]
 fn exact_order_statistic_ranks_and_tail_thresholds_match_independent_derivation() {
     let fx = fixture("order.json");
     let r = &fx["order_statistic_ranks"];

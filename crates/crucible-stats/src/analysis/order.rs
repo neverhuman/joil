@@ -55,15 +55,18 @@ fn finite_samples(a: &[f64], b: &[f64]) -> Result<(), StatsError> {
 }
 
 /// Cliff's delta P(A > B) - P(A < B) over all pairs; ties contribute zero.
+/// Numeric comparison, not `total_cmp`: `-0.0` and `+0.0` are equal and must tie.
 pub fn cliffs_delta(a: &[f64], b: &[f64]) -> Result<f64, StatsError> {
     finite_samples(a, b)?;
     let mut dominance = 0i64;
     for x in a {
         for y in b {
-            dominance += match x.total_cmp(y) {
-                std::cmp::Ordering::Greater => 1,
-                std::cmp::Ordering::Less => -1,
-                std::cmp::Ordering::Equal => 0,
+            dominance += if x > y {
+                1
+            } else if x < y {
+                -1
+            } else {
+                0
             };
         }
     }
