@@ -1,10 +1,13 @@
 # Foundation CI on the general runner pool
 
 `Foundation` uses the existing `neverhuman-lan` organization runner group with
-`self-hosted`, `Linux`, `X64`, and `lan-ci` labels. Repository access must also be
+`self-hosted`, `Linux`, and `lan-ci` labels. Repository access must also be
 enabled in that group's selected-repository list. All labels are cumulative; a
 hostname or Ubuntu-version label would unnecessarily narrow the shared pool.
-Both qualified Ubuntu VM images can run these portable checks. Physical host
+X64 and ARM64 Ubuntu VM images can run these portable checks. An architecture
+label would exclude compatible hosts from the general pool. Every job, including
+the aggregate `foundation` gate, must use this group and these labels; do not add
+GitHub-hosted runner labels or a hosted fallback to new workflows. Physical host
 inventory and controller credentials stay outside this repository.
 
 Eight independent suites become schedulable together: `fmt`, `clippy`,
@@ -17,7 +20,9 @@ Retain `foundation` when configuring required branch checks.
 PR updates run once through `pull_request`; pushes to `main` and manual dispatch
 also run checks. New commits cancel obsolete runs for that PR/ref. Different PRs
 retain separate concurrency groups. Jobs use whichever matching VM becomes free;
-the workflow does not reserve hosts or change controller lane counts.
+the workflow does not reserve hosts or change controller lane counts. ARM64
+workers run inside disposable Linux VMs, including when their physical host runs
+macOS. Host files, SSH agents and controller credentials are not available to jobs.
 
 Rust suites install pinned Rust 1.95.0, bootstrapping rustup when absent. Only the
 UI suite installs pinned Node 22.22.0. Rust caches are separated by OS release,

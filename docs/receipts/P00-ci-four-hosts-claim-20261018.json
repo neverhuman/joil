@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "P00-CI-FOUR-HOSTS",
+  "owner": "Codex general CI integration",
+  "created_utc": "2026-10-18T16:41:14.298572+00:00",
+  "scope": [
+    ".github/workflows/foundation.yml",
+    "docs/CI.md",
+    "docs/receipts/P00-ci-four-hosts-*"
+  ],
+  "purpose": "User requests all joil CI on general self-hosted runners across the four designated local hosts. Extend the existing Linux pool to ARM64; no hosted fallback.",
+  "boundaries": "Separate checkout; no scientific sources, generated progress, requirements or other project changes; no simulation or GPU. New runner uses an isolated disposable Linux VM with no host mounts or agent forwarding."
+}

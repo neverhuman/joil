@@ -18,8 +18,8 @@ jobs:
     name: check (${{ matrix.suite }})
     runs-on:
       group: neverhuman-lan
-      # Both qualified Ubuntu images belong to this general Linux pool.
-      labels: [self-hosted, Linux, X64, lan-ci]
+      # General Linux pool supports both X64 and ARM64; no hosted fallback.
+      labels: [self-hosted, Linux, lan-ci]
     timeout-minutes: 20
     strategy:
       fail-fast: false
@@ -98,7 +98,7 @@ jobs:
     if: always()
     runs-on:
       group: neverhuman-lan
-      labels: [self-hosted, Linux, X64, lan-ci]
+      labels: [self-hosted, Linux, lan-ci]
     timeout-minutes: 5
     steps:
       - name: Require every foundation suite
