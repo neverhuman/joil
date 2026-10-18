@@ -31,43 +31,106 @@
       "command": "rtk cargo test --locked -p crucible-render -p crucible-paper",
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-rust-test.log",
-      "log_sha256": "0aed6ef764088490b6d49fc2c7d9fb840cbd3f04180a71767650d6b2b5b9272a"
+      "log_sha256": "0aed6ef764088490b6d49fc2c7d9fb840cbd3f04180a71767650d6b2b5b9272a",
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-render",
+        "-p",
+        "crucible-paper"
+      ]
     },
     {
       "command": "rtk cargo clippy --locked -p crucible-render -p crucible-paper --all-targets -- -D warnings",
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-rust-clippy.log",
-      "log_sha256": "7d58f56455f28db717deae3fba9ec582d78e7a65c254061e726095dc9570ef8c"
+      "log_sha256": "7d58f56455f28db717deae3fba9ec582d78e7a65c254061e726095dc9570ef8c",
+      "argv": [
+        "rtk",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-render",
+        "-p",
+        "crucible-paper",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ]
     },
     {
       "command": "rtk cargo fmt --all -- --check",
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-rust-fmt.log",
-      "log_sha256": "4b4c240ee69a59cc4f7862d02c1750266ac60feb9b663824637817819b579fb2"
+      "log_sha256": "4b4c240ee69a59cc4f7862d02c1750266ac60feb9b663824637817819b579fb2",
+      "argv": [
+        "rtk",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ]
     },
     {
       "command": "rtk proxy python3 -m unittest render/blender/test_plate.py",
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-python-plate.log",
-      "log_sha256": "5e0a3c8da63cd9df90a5bdc8f81f37a3fcf4cbb6fd3d42bbf8417940b4cd88c0"
+      "log_sha256": "5e0a3c8da63cd9df90a5bdc8f81f37a3fcf4cbb6fd3d42bbf8417940b4cd88c0",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "render/blender/test_plate.py"
+      ]
     },
     {
       "command": "rtk proxy python3 tools/check_public.py",
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-public-scan.log",
-      "log_sha256": "4fc3ca1e0789d7dcd8b6dd04896f0dcfa2ea653d286751b73324067780967695"
+      "log_sha256": "4fc3ca1e0789d7dcd8b6dd04896f0dcfa2ea653d286751b73324067780967695",
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ]
     },
     {
       "command": "rtk git diff --check",
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-diff-check.log",
-      "log_sha256": "b05b1021a8b563106d4f69c53d6cd1b8b6f5ee86a04760767829aef9b9abf309"
+      "log_sha256": "b05b1021a8b563106d4f69c53d6cd1b8b6f5ee86a04760767829aef9b9abf309",
+      "argv": [
+        "rtk",
+        "git",
+        "diff",
+        "--check"
+      ]
     },
     {
       "command": "rtk cargo run --offline --locked -p crucible-paper --bin paper-build",
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-28-final-paper-build.log",
-      "log_sha256": "100f96c90dbc099433c917801f4f79669880f186234869baa8fe39b55dcf67d0"
+      "log_sha256": "100f96c90dbc099433c917801f4f79669880f186234869baa8fe39b55dcf67d0",
+      "argv": [
+        "rtk",
+        "cargo",
+        "run",
+        "--offline",
+        "--locked",
+        "-p",
+        "crucible-paper",
+        "--bin",
+        "paper-build"
+      ]
     }
   ],
   "artifacts": [
