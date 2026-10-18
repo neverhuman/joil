@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "kind": "executed_frozen_source_defect_control",
+  "packet": "V5-11",
+  "task_ids": [
+    "V5-11-05"
+  ],
+  "owner": "3128818.joil_v5_codex_lane1",
+  "created_utc": "2026-10-18T11:38:15.095954+00:00",
+  "tested_commit": "8d8d67c44658e615ea588666edba60a704acb78b",
+  "changed_paths": [
+    "docs/receipts/v5-11-05-d25-control-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-25",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-pos"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-positive.log",
+      "log_sha256": "2b5bac3ebcd3b8c7106d45fb6fa2ca2e1134543e90bcf02ef4057be8654f3abb",
+      "note": "Fresh frozen source positive; recorded default judge clause holds."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/check-public.log",
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4"
+    }
+  ],
+  "positive_checks": [
+    "D-25 positive control returned exit 0 on the frozen GENOME_V4 review default.",
+    "Public candidate scan passed (977 files)."
+  ],
+  "negative_checks": [
+    "D-25 red returned exit 1 with C006-RED D-25: policy_admits_agent_proposals_in_search_loop; the frozen proposal clause conflicts with the asserted policy."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-genome/tests/development.rs",
+      "sha256": "e39db65035323e5cae8ac64048daebc72f7671cfc06dac1cbeac52062672fad1"
+    },
+    {
+      "path": "crates/crucible-genome/tests/operators.rs",
+      "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+    }
+  ],
+  "resource_allocation": {
+    "logical_cpus": [
+      36,
+      37
+    ],
+    "memory_gib_cap": 6,
+    "scratch_gib_cap": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target"
+  },
+  "limitations": [
+    "D-25 is frozen-source static policy evidence, not repair or scientific admission.",
+    "The positive control confirms the judge clause; red exposes the distinct proposal clause."
+  ],
+  "next_dependency": "Resolve the frozen policy distinction with separately reviewed software contract work; physical admissions remain independent.",
+  "defect_controls": [
+    {
+      "defect_id": "D-25",
+      "fixture": {
+        "path": "crates/crucible-genome/tests/operators.rs",
+        "sha256": "a794b65e42afce78fc6c0169b36b411ff079f1dec041db993eb6d841fd41ee03"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "docs/design/GENOME_V4.md",
+        "symbol": "review defaults",
+        "sha256": "7521d8334604130f8bfbe54ac9738fc41cca359151f47664890c8fcd50514095"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-25",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-pos"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-positive.log",
+        "log_sha256": "2b5bac3ebcd3b8c7106d45fb6fa2ca2e1134543e90bcf02ef4057be8654f3abb",
+        "expected_result": "Frozen GENOME_V4 judge clause positive holds."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-25",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-red"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-red.log",
+        "log_sha256": "31426891a89d27e472265cdc0ec7a71a372c9ea534e8431e933f24917516cc08",
+        "expected_result": "C006-RED D-25: policy_admits_agent_proposals_in_search_loop"
+      }
+    }
+  ],
+  "control_log_bindings": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-positive.log",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-positive.log",
+      "log_sha256": "2b5bac3ebcd3b8c7106d45fb6fa2ca2e1134543e90bcf02ef4057be8654f3abb",
+      "exit_code": 0
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-red.log",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d25-red.log",
+      "log_sha256": "31426891a89d27e472265cdc0ec7a71a372c9ea534e8431e933f24917516cc08",
+      "exit_code": 1
+    }
+  ],
+  "task_completion": true,
+  "scientific_admission": false
+}

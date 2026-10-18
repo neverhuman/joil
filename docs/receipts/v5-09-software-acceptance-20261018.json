@@ -1,0 +1,220 @@
+{
+  "schema_version": 1,
+  "kind": "v5_09_software_acceptance_receipt",
+  "packet": "V5-09",
+  "task_ids": [
+    "V5-09-01",
+    "V5-09-02",
+    "V5-09-03",
+    "V5-09-04",
+    "V5-09-05"
+  ],
+  "owner": "1052087.joil_v5_claude",
+  "state": "software_acceptance_recorded",
+  "packet_acceptance": true,
+  "packet_acceptance_scope": "Software tests at tested_commit only. Registry progress for V5-09 is unchanged and still reads blocked, because the packet depends on V5-08 and V5-08-02..05 are blocked.",
+  "scientific_admission": false,
+  "tested_commit": "8d8d67c44658e615ea588666edba60a704acb78b",
+  "changed_paths": [
+    "crates/crucible-geom/src/observe/README.md",
+    "crates/crucible-geom/src/observe/clearance.rs",
+    "crates/crucible-geom/src/observe/distance.rs",
+    "crates/crucible-geom/src/observe/enactment.rs",
+    "crates/crucible-geom/src/observe/mesh.rs",
+    "crates/crucible-geom/src/observe/mod.rs",
+    "crates/crucible-geom/src/observe/topology.rs",
+    "crates/crucible-geom/src/observe/volume.rs",
+    "crates/crucible-geom/tests/observers.rs",
+    "tests/fixtures/v5-geometry/ball.json",
+    "tests/fixtures/v5-geometry/disconnected.json",
+    "tests/fixtures/v5-geometry/hollow-ball.json",
+    "tests/fixtures/v5-geometry/oracles.json",
+    "tests/fixtures/v5-geometry/solid-torus.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "observers"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/v5-09-observers-test.log",
+      "log_sha256": "0d0dfbbe5039b02ba19a9a02931b75a5966959a0ee3af92115d1a5cefc23e993",
+      "expected_result": "15 observer tests passed, 0 failed.",
+      "observed_result": "test result: ok. 15 passed; 0 failed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-05",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
+      "expected_result": "Frozen C006 D-05 positive runtime control passed. Existing control, referenced from docs/receipts/v5-09-d05-completion-20261018.json; not re-run in this wave.",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "expected_result": "claims_audit OK."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/check-public.log",
+      "log_sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66",
+      "expected_result": "PASS public candidate files checked."
+    }
+  ],
+  "positive_checks": [
+    "V5-09-01: exact_byte_subject_binding_and_mutation_of_the_mesh_input and volume_binding_observes_only_the_changed_partition_bytes passed.",
+    "V5-09-02: port_reachability_solid_attachment_and_point_contact_are_different and two_volume_complexes_and_independent_boundary_conventions passed; all_two_by_two_closed_cube_unions_are_contractible_or_empty passed.",
+    "V5-09-03: connected_powder_pocket_fails_clearance_and_wider_throat_has_a_path passed.",
+    "V5-09-04: complete_patch_distances_rays_rotation_and_narrow_breakthrough, analytic_tube_wall_error_is_bounded_by_the_actual_facets and asymmetric_integrals_moments_and_semantic_port_planes_survive_rotation passed.",
+    "V5-09-05: active_perturbations_distinguish_neutral_unsupported_and_failed_development and tpms_mass_is_resolved_in_the_same_solid_and_no_op_gets_no_credit passed.",
+    "D-05 positive runtime control passed against frozen source e1e9203 (existing control, see defect_controls)."
+  ],
+  "negative_checks": [
+    "V5-09-01: mesh-input mutation is detected by exact_byte_subject_binding_and_mutation_of_the_mesh_input; strict_wire_rejects_genotype_side_channels_and_malformed_meshes passed.",
+    "V5-09-03: isolated_void_and_subvoxel_throat_remain_failed_or_unresolved and connected_powder_pocket_fails_clearance passed.",
+    "V5-09-04: frozen_region_difference_and_non_star_cavity_are_measured_from_cells passed.",
+    "V5-09-05: a no-op perturbation receives no credit (tpms_mass_is_resolved_in_the_same_solid_and_no_op_gets_no_credit); numerical_and_representation_budgets_refuse_instead_of_fabricating_success passed.",
+    "D-05 red control returned exit 1 for a synthetic sealed shell missed as powder (existing control, see defect_controls)."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/observers.rs",
+      "sha256": "d044eda78e6a06d12cb76db7a600e7b3b42af93ce7cb41f28803ee5722295ffd"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/ball.json",
+      "sha256": "cfae6d87c26b16793dc6a26a3bae3f95eaf88652270a3242fdc405464158d166"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/disconnected.json",
+      "sha256": "687aba51c99144278ce460a1b2189ed0f62c5a98ec2ad438a51965909783cb94"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/hollow-ball.json",
+      "sha256": "c7cdcf061dbf8c99d824b8dec0f4be837e1097d3d035a5cbc774c3f9c93d3573"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/oracles.json",
+      "sha256": "006822918330abb6f75720e7a895d84d69bd7dd474f0e93fadd954ef28813442"
+    },
+    {
+      "path": "tests/fixtures/v5-geometry/solid-torus.json",
+      "sha256": "33f966858bd52173afe8fd3e6434278c20fda3734548498818d7476a67314cad"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/v5-09-observers-test.log",
+      "sha256": "0d0dfbbe5039b02ba19a9a02931b75a5966959a0ee3af92115d1a5cefc23e993"
+    }
+  ],
+  "resource_allocation": {
+    "host": "xbabe2 (shared)",
+    "cpus": "unpinned; no taskset or cgroup lease applied to this wave",
+    "cargo_build_jobs": "cargo default; CARGO_BUILD_JOBS not set",
+    "cargo_target_dir": "/home/ubuntu/joil/.private/worktrees/v5-claude-truth/target (lane default, not a per-task target)",
+    "incremental": false,
+    "debug_info": "line-tables-only",
+    "gpu": false,
+    "simulation": false,
+    "search_campaign": false,
+    "private_log_root": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e"
+  },
+  "limitations": [
+    "Software acceptance only. The observer fixtures are synthetic; no physical powder escape, residual powder mass, or manufacturing qualification is established.",
+    "Scientific admission is false. Physical observations depend on the datasets listed in docs/release/v5/EXTERNAL_DATA_REQUESTS.json.",
+    "The registry dependency V5-08 is not accepted: V5-08-02..05 are blocked at tested_commit. This receipt does not mark any V5-09 task done and does not change docs/v5-plan/progress/V5-09.json.",
+    "The assignment named crucible-geom --test mesh. That target does not exist at tested_commit; the packet command is --test observers, which was run. The attempt exited 101 (log: mesh-target-attempt.log, sha256 c12f0314cf92fec052a92966d64c02ca5d66f7ca17a0ee69a83254e47943def0).",
+    "The D-05 positive and red controls are existing records from docs/receipts/v5-09-d05-completion-20261018.json. They were not re-executed in this wave; their logs live in codex_lane2 private controls.",
+    "The gate command is for one package. No full workspace gate was run."
+  ],
+  "next_dependency": "V5-08-02..05 must be accepted before the integrator marks V5-09 done. Physical observation claims wait on the external datasets in docs/release/v5/EXTERNAL_DATA_REQUESTS.json.",
+  "defect_controls": [
+    {
+      "defect_id": "D-05",
+      "fixture": {
+        "path": "crates/crucible-geom/tests/observers.rs",
+        "sha256": "d044eda78e6a06d12cb76db7a600e7b3b42af93ce7cb41f28803ee5722295ffd"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-ir/src/lib.rs",
+        "symbol": "VoxelSdfObserver::run_voxel_flood_fill",
+        "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-05",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
+        "expected_result": "Frozen open connected cavity is reachable; trapped powder is zero.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos.log"
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-05",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "41ea7191bc82a68554faf968bcd435b278dc13e918a5fe318a919f93cb8a72cb",
+        "expected_result": "C006-RED D-05 reports a sealed synthetic shell missed as powder; exit 1.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-red.log"
+      }
+    }
+  ]
+}

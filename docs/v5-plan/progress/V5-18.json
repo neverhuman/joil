@@ -5,11 +5,11 @@
     "V5-18-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Exact concentration fixtures pass; native cohort/DSD evidence is not admitted.",
+      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
           "purpose": "integration_only"
         }
       ]
@@ -17,11 +17,11 @@
     "V5-18-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Operating-map intersections are software; required native scenarios remain open.",
+      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
           "purpose": "integration_only"
         }
       ]
@@ -29,11 +29,11 @@
     "V5-18-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Port-flux arithmetic is synthetic; integrated native flux measurements are absent.",
+      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
           "purpose": "integration_only"
         }
       ]
@@ -41,11 +41,11 @@
     "V5-18-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Objective bounds and mandatory physical gates lack accepted measurements.",
+      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
           "purpose": "integration_only"
         }
       ]
@@ -53,11 +53,11 @@
     "V5-18-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Canonical statistical DecisionProfile integration and qualified baseline inputs remain open.",
+      "note": "Upstream V5-15/V5-17 and Cause B common-duty measured evidence remain incomplete; software metrics tests do not supply physical operating maps. G010 software support is bound with integration_only; packet_acceptance=false and scientific_admission=false.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
+          "sha256": "c19b147cbe3dd438e1e6fe9c9d8d1bc4c2297c088211a5bd0f128a11a10f8a1b",
           "purpose": "integration_only"
         }
       ]

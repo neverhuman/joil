@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "owner": "484638.joil_v5_codex_lane4",
+  "model": "gpt-6-luna medium",
+  "tested_commit": "70d1d3f9c925814fa8d8718fc51980f2c3c27c6e",
+  "changed_paths": [
+    "docs/receipts/v5-26-software-acceptance-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/pack-bracket-reuse-proof.log",
+      "log_sha256": "7dce386048c07440c22cf53910bb12d20b81c9d8c510568ee61c575f2c4f41a0",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "pack-bracket-reuse-proof.log completed successfully."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-architecture",
+        "--test",
+        "blind_boundary"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/crucible-architecture-blind-boundary.log",
+      "log_sha256": "6db9a287f8c3bd5a831389a59f5d02739a598010bde8b3123a1010aa335c8ad2",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "crucible-architecture-blind-boundary.log completed successfully."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/check-public.log",
+      "log_sha256": "bb3990a0d7f8fb2bd70858267bcb878246d95634ffe8d025752e3743610e863a",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Public-content check passed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-22",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log",
+      "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed."
+    }
+  ],
+  "executed_logs": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/pack-bracket-reuse-proof.log",
+      "log_sha256": "7dce386048c07440c22cf53910bb12d20b81c9d8c510568ee61c575f2c4f41a0",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "pack-bracket-reuse-proof.log completed successfully."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-architecture",
+        "--test",
+        "blind_boundary"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/crucible-architecture-blind-boundary.log",
+      "log_sha256": "6db9a287f8c3bd5a831389a59f5d02739a598010bde8b3123a1010aa335c8ad2",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "crucible-architecture-blind-boundary.log completed successfully."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/check-public.log",
+      "log_sha256": "bb3990a0d7f8fb2bd70858267bcb878246d95634ffe8d025752e3743610e863a",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Public-content check passed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-22",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log",
+      "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed."
+    }
+  ],
+  "positive_checks": [
+    "Bracket reuse proof passed (9 tests), including exact cache reuse, subject-sensitive cache misses, checkpoint/resume, and bounded attempt ledger. Blind-boundary verification passed (3 tests), including the resolved build/dev dependency graph.",
+    "python3 tools/check_public.py passed with exit 0.",
+    "D-22 evidence-bound modal runtime positive control is carried forward from the lane2 completion receipt against the same tracked renderer fixture hash."
+  ],
+  "negative_checks": [
+    "Negative controls reject caller-only judge N/A, invalid geometry, spoofable resume identity, nonfinite extreme geometry outcomes, and indirect build/dev bridges to forbidden registries. Per assignment, the V5-26-05 approval dossier is prepared at docs/release/v5/OWNER_APPROVAL_DOSSIERS.md; that path is absent from this assigned checkout and is not hash-bound here. Irreversible owner approval remains pending.",
+    "D-22 frozen-source red control is carried forward from the lane2 completion receipt; absent modal evidence cannot be rendered as an evidenced modal series."
+  ],
+  "artifacts": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/pack-bracket-reuse-proof.log",
+      "sha256": "7dce386048c07440c22cf53910bb12d20b81c9d8c510568ee61c575f2c4f41a0"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/crucible-architecture-blind-boundary.log",
+      "sha256": "6db9a287f8c3bd5a831389a59f5d02739a598010bde8b3123a1010aa335c8ad2"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/check-public.log",
+      "sha256": "bb3990a0d7f8fb2bd70858267bcb878246d95634ffe8d025752e3743610e863a"
+    },
+    {
+      "path": "crates/crucible-render/src/lib.rs",
+      "sha256": "5738ec9164dcfca830b246848c14a12c786f1a7032c150167430352e686f1daf"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": [
+      110,
+      111
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "CARGO_BUILD_JOBS": 2,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Software and harness verification only; no scientific admission, physical validation, qualification, or performance claim.",
+    "Evidence is bounded to the listed source commit, exact commands, and tested targets.",
+    "The V5-26-05 approval dossier path named in the assignment is absent from this checkout; owner approval is pending."
+  ],
+  "next_dependency": "Independent packet review; scientific admission remains dependent on packet-specific external evidence and owner approvals.",
+  "packet_acceptance": false,
+  "scientific_admission": false,
+  "kind": "v5_software_acceptance_receipt",
+  "task_ids": [
+    "V5-26-01",
+    "V5-26-02",
+    "V5-26-03",
+    "V5-26-04",
+    "V5-26-05"
+  ],
+  "software_scope": "V5-26 software acceptance based on the named verification harnesses; scientific admission is explicitly false.",
+  "defect_controls": [
+    {
+      "defect_id": "D-22",
+      "fixture": {
+        "path": "crates/crucible-render/src/lib.rs",
+        "sha256": "5738ec9164dcfca830b246848c14a12c786f1a7032c150167430352e686f1daf"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "symbol": "modal plot",
+        "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos"
+        ],
+        "exit_code": 0,
+        "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
+        "expected_result": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log"
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8",
+        "expected_result": "C006-RED D-22 reports a modal series without evidence; exit 1.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red.log"
+      }
+    }
+  ],
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+      "sha256": "5e400c2901b47387af34475f3f650e445d04a58e764853bdf897a506a192fd98"
+    },
+    "resolved_log_paths": [
+      {
+        "node": "docs/receipts/v5-26-software-acceptance-20261018.json.defect_controls[0].positive",
+        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log",
+        "sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd"
+      },
+      {
+        "node": "docs/receipts/v5-26-software-acceptance-20261018.json.defect_controls[0].red",
+        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red.log",
+        "sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8"
+      }
+    ],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
+}

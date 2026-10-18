@@ -1,0 +1,150 @@
+{
+  "schema": "joil.v5.software-acceptance.v1",
+  "packet": "V5-22",
+  "task_ids": [
+    "V5-22-01",
+    "V5-22-02",
+    "V5-22-03",
+    "V5-22-04",
+    "V5-22-05"
+  ],
+  "tested_commit": "5e3cd22a6a17d75890d03299521e37faf2b50162",
+  "changed_paths": [
+    "docs/receipts/v5-22-software-acceptance-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b849e9d3b37e33dd9989c955d42b27ea33523d725ae047efa4aca23e88acc4dc",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/pack-judges-validation.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-22",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-pos"
+      ],
+      "exit_code": 0,
+      "log_sha256": "02427ee85e103dd6478f774b752c9f9a3b52e55ca71185b9407daeb7d8f17699",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-positive.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/check-public.log"
+    }
+  ],
+  "positive_checks": [
+    "pack-hydrocyclone-judges validation suite passed 28 tests.",
+    "D-22 positive control exited 0; its synthetic plot responded only to bound evidence."
+  ],
+  "negative_checks": [
+    "D-22 negative control intentionally exited 1 and reproduced C006-RED D-22: modal_series_without_evidence.",
+    "Synthetic controls do not qualify physical/modal results."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "a11357fb27bad40a1867182339c7514a18ec61e8a6aba33c93313827d094c2c2"
+    },
+    {
+      "path": "tools/generate_wave2_figures_and_animations.py",
+      "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+    }
+  ],
+  "resource_allocation": {
+    "cpus_available": 1,
+    "execution": "serial",
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target"
+  },
+  "limitations": [
+    "Software/harness verification only; scientific admission remains false."
+  ],
+  "next_dependency": "Integrator acceptance and scientific evidence gates remain separate.",
+  "packet_acceptance": false,
+  "scientific_admission": false,
+  "agent_trailers": {
+    "Agent-Session": "lane3-wave6-v5-21-22-24",
+    "Agent-Model": "gpt-6-luna medium",
+    "Agent-Task": "V5-21-01 V5-21-02 V5-21-03 V5-21-04 V5-21-05 V5-22-01 V5-22-02 V5-22-03 V5-22-04 V5-22-05 V5-24-01 V5-24-02 V5-24-03 V5-24-04 V5-24-05"
+  },
+  "defect_controls": [
+    {
+      "defect_id": "D-22",
+      "fixture": {
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "symbol": "modal plot",
+        "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-pos"
+        ],
+        "exit_code": 0,
+        "log_sha256": "02427ee85e103dd6478f774b752c9f9a3b52e55ca71185b9407daeb7d8f17699",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-positive.log",
+        "expected_result": "C006 D-22 positive passes: plotted series follows bound synthetic evidence."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "ae09d990ac5a019f4a45426437ee59ab01db5a85b4550a51da54d869cadb2c40",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-red.log",
+        "expected_result": "C006-RED D-22: modal_series_without_evidence."
+      }
+    }
+  ],
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+      "sha256": "319b0da49ccce4a52766aa6fbc8dd63b5764a9048e846a8efd6b32904b96fa1e"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
+}
