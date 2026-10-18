@@ -9,7 +9,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-30-01-verification-20261018.json",
-          "sha256": "e121fe5ea223434c5cb9e2508757608f18038711c0ce95a3e81b8debc582aaed"
+          "sha256": "3f5370c08aa281f06058a8aa08cfa2f77675d26803ad3e00c845af188be32c31"
         }
       ]
     },
@@ -20,7 +20,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-30-02-verification-20261018.json",
-          "sha256": "25b74731a81a8691c2aa310899620fd6a2cf7738533d9b4f85459b040da3f2c4"
+          "sha256": "2cb9d4f1f48f4a8f58fca6541307032aa4ead9906df6b8c0c84ff1b7999052f7"
         }
       ]
     },
@@ -31,7 +31,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-30-03-verification-20261018.json",
-          "sha256": "28ae458bdfee3d80e39657820f3f77f27980cb45ff30a2462a4695c74f6f8243"
+          "sha256": "549688010c8260e5ab57876ef3d843aba5b590dc8ee407c9e1506eaf9844f8de"
         }
       ]
     },
@@ -42,14 +42,14 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-30-04-verification-20261018.json",
-          "sha256": "18ad63b585ec5e74a83895d976f0580deb32ac85eb2c73e9e4fb4861c84a6c63"
+          "sha256": "0ea3cf722aafb728a617faa7dd3a06f37e904fc0f9c597a7ebc8a011c81bbd0e"
         }
       ]
     },
     "V5-30-05": {
       "status": "done",
       "owner": "codex_lane1",
-      "note": "SC-DEC-049 (governance_signoff): Delegate governance sign-off for private dossier storage and the allowlisted public export gate. Outside filing, publication and commercial licensing remain reserved to Jepson. Owner dossier 5 remains unsigned in the repo. | Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-30-software-acceptance-20261018.json (sha256 d487caf623a7f3c7953e0753763f040515ea83766e60949c79f596caa03a1835); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
+      "note": "Resolved under SC-DEC-049: serializable private dossier plus Rust/Python export gates enforce approved human review, the exact seven-field allowlist and sensitive-token rejection. Software-only; installation authorization and scientific_admission remain false.",
       "evidence": [
         {
           "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
@@ -57,7 +57,7 @@
         },
         {
           "path": "docs/receipts/per-task/v5-30-05-verification-20261018.json",
-          "sha256": "a2136ce3ad48809eab317f6dd641a43034b46bd808522172ff7f1126e9fd8905"
+          "sha256": "d30852057df6af1137832dc10dd8401f738e78f6a2cfc55b9a22dd5ed42e4a02"
         }
       ]
     }

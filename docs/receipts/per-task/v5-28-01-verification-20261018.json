@@ -3,15 +3,13 @@
   "task_ids": [
     "V5-28-01"
   ],
-  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
-  "decision_resolution": "Resolved under SC-DEC-046 (governance_signoff): Delegate governance sign-off for the frozen study arms, estimands, seeds, power, normalization, confirmation budget and hashed policy. Reviewed against the R003 integration receipt (sha256 70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d). Owner dossier 2 remains unsigned in the repo. Verified by exact domain test cargo test --locked --offline -p crucible-paper --lib -- --exact tests::v5_28_29_30_sc_dec_041_to_052_prospective_study_arms_winner_leakage_typed_queries_and_public_bundle.",
+  "tested_commit": "59acb0831f406d511f2b3c3b70e185c91e351e29",
+  "tested_commit_semantics": "Implementation and test artifact bytes verified by the recorded commands are identical to this committed source; receipt-only successor adds no Rust or dataset changes.",
+  "decision_resolution": "SC-DEC-046 governance_signoff; substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies the prospective arm/seed matrix and frozen estimand against experiments/v5-study/preregistration-v1.json; rejects unfrozen and post-result substituted endpoints. Owner dossier remains unsigned; no physical campaign admission.",
   "changed_paths": [
-    "experiments/v5-study/",
-    "paper/",
-    "crates/crucible-paper/",
-    "docs/release/v5-reproduction.md",
-    "docs/WHITEPAPER.md",
-    "docs/NUMBERS_TRACE.md"
+    "crates/crucible-paper/src/lib.rs",
+    "experiments/datasets/v5-28-02-confirmation-campaign.json",
+    "experiments/v5-study/preregistration-v1.json"
   ],
   "commands": [
     {
@@ -25,34 +23,13 @@
         "--lib",
         "--",
         "--exact",
-        "tests::v5_28_29_30_sc_dec_041_to_052_prospective_study_arms_winner_leakage_typed_queries_and_public_bundle"
+        "tests::v5_28_01_prospective_estimand_and_all_arm_seed_matrix_are_frozen",
+        "--nocapture"
       ],
       "exit_code": 0,
+      "elapsed_s": 0.23,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-28-01.log",
-      "log_sha256": "948ca3ce79fdeeb64a19e4bd80d3a3ccdfb3136f092b46ef8cb825d204558b10"
-    },
-    {
-      "argv": [
-        "rtk",
-        "proxy",
-        "cargo",
-        "test",
-        "--locked",
-        "--offline",
-        "-p",
-        "joil-evidence",
-        "--test",
-        "claims",
-        "--test",
-        "campaign",
-        "--test",
-        "decision"
-      ],
-      "exit_code": 0,
-      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/joil-evidence-tests.log",
-      "log_sha256": "a6ec05f31e5f8dfe2cb1e30001e9b06ea9f008731a12f644fc298dee478614d3",
-      "expected_result": "claims, campaign and decision test binaries pass with 0 failures.",
-      "observed_result": "claims: 2 passed, 0 failed; campaign: 4 passed, 0 failed; decision: 23 passed, 0 failed."
+      "log_sha256": "031128f52f1b5445b6fd267eb24b786e5250199cc84a0cb45f03675196c7ce14"
     },
     {
       "argv": [
@@ -68,76 +45,35 @@
         "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-pos"
       ],
       "exit_code": 0,
-      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-positive.log",
       "log_sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138",
-      "expected_result": "C006 frozen-source positive control: assertion_holds=true; a SYNTHETIC claim with a live same-subject kPa source is accepted and an unbound numeral is refused.",
-      "observed_result": "assertion_holds=true; bound_claim_errors=[]; unbound_claim_errors=1; synthetic=true."
-    },
-    {
-      "argv": [
-        "rtk",
-        "proxy",
-        "python3",
-        "tools/claims_audit.py"
-      ],
-      "exit_code": 0,
-      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/claims-audit.log",
-      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
-      "expected_result": "claims_audit OK.",
-      "observed_result": "claims_audit: OK (152 structured receipt claims + 1462 markdown numeric tokens verified; 135 review findings traced; 23 strong-wording claims checked)."
-    },
-    {
-      "argv": [
-        "rtk",
-        "proxy",
-        "python3",
-        "tools/check_public.py"
-      ],
-      "exit_code": 0,
-      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
-      "log_sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66",
-      "expected_result": "PASS public candidate files checked.",
-      "observed_result": "PASS: 981 public candidate files checked; private deny rules applied=True."
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-positive.log",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-positive.log",
+      "expected_result": "C006 frozen-source positive control: assertion_holds=true."
     }
   ],
   "positive_checks": [
-    "V5-28-01 (Freeze study arms and estimands prospectively): Analysis/stop/exclusion/holdout policy is hashed in the experiment family. \u2014 verified by cargo test --locked --offline -p crucible-paper --lib -- --exact tests::v5_28_29_30_sc_dec_041_to_052_prospective_study_arms_winner_leakage_typed_queries_and_public_bundle"
+    "SC-DEC-046 governance_signoff; substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies the prospective arm/seed matrix and frozen estimand against experiments/v5-study/preregistration-v1.json; rejects unfrozen and post-result substituted endpoints. Owner dossier remains unsigned; no physical campaign admission.",
+    "Dedicated exact test tests::v5_28_01_prospective_estimand_and_all_arm_seed_matrix_are_frozen ran one test and passed; full four-crate regression output retained in the same raw log."
   ],
   "negative_checks": [
-    "V5-28-01 negative control: An unavailable L4 budget cannot trigger a post-hoc endpoint swap after winners are known."
+    "Task-specific mutation/negative controls in tests::v5_28_01_prospective_estimand_and_all_arm_seed_matrix_are_frozen; see full source-bound test and raw log."
   ],
   "artifacts": [
     {
-      "path": "docs/release/v5-reproduction.md",
-      "sha256": "0470bbf1e5dc122178a4dc02e8b2269d34610d2714f60bc65d8bf9f1634c2246"
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
+    },
+    {
+      "path": "experiments/datasets/v5-28-02-confirmation-campaign.json",
+      "sha256": "f6c5538c228be6e946aa41a26e6ae076d551e128b268d684f70c588228b2db61"
+    },
+    {
+      "path": "experiments/v5-study/preregistration-v1.json",
+      "sha256": "2164ccf761b81e30314d1aa45562bf40aada59e81aee183c1e27e01bfe6bd070"
     },
     {
       "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
       "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
-    },
-    {
-      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/joil-evidence-tests.log",
-      "sha256": "a6ec05f31e5f8dfe2cb1e30001e9b06ea9f008731a12f644fc298dee478614d3"
-    },
-    {
-      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-positive.log",
-      "sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138"
-    },
-    {
-      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-red.log",
-      "sha256": "368a1dfcc7fe38c951b68d7708f399821f05306e4ecb0d370170137fa5c09414"
-    },
-    {
-      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/claims-audit.log",
-      "sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
-    },
-    {
-      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
-      "sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66"
-    },
-    {
-      "path": "docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json",
-      "sha256": "f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744"
     }
   ],
   "resource_allocation": {
@@ -145,14 +81,20 @@
     "physical_cores": 2,
     "ram_gib": 12,
     "disk_gib": 6,
-    "gpu": false
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
   },
   "scientific_admission": false,
   "limitations": [
-    "Software and contract verification only; scientific_admission remains false.",
-    "Resolved under SC-DEC-046 (governance_signoff): Delegate governance sign-off for the frozen study arms, estimands, seeds, power, normalization, confirmation budget and hashed policy. Reviewed against the R003 integration receipt (sha256 70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d). Owner dossier 2 remains unsigned in the repo. Verified by exact domain test cargo test --locked --offline -p crucible-paper --lib -- --exact tests::v5_28_29_30_sc_dec_041_to_052_prospective_study_arms_winner_leakage_typed_queries_and_public_bundle."
+    "Software verification only; synthetic fixtures are not physical measurements or independent scientific validation.",
+    "No native solver, physical confirmation, or scientific admission was executed."
   ],
-  "next_dependency": "V5-28-02",
+  "next_dependency": "Independent integrator review; V5-31 release tasks remain in_progress.",
   "defect_controls": [
     {
       "defect_id": "D-31",
@@ -205,5 +147,6 @@
         "expected_result": "C006-RED D-31: revoked_claim_still_accepted (frozen claim pipeline accepts a revoked same-subject claim)."
       }
     }
-  ]
+  ],
+  "historical_defect_control_note": "Frozen-source controls inherited from prior receipt; not rerun by I007. New exact task test and complete regression suite are current."
 }

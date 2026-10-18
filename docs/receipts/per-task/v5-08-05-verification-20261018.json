@@ -3,15 +3,15 @@
   "task_ids": [
     "V5-08-05"
   ],
-  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
-  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p joil-geometry --test kernel -- --exact shared::conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess in packet V5-08 (One material partition and bounded geometry kernel).",
+  "tested_commit": "59acb0831f406d511f2b3c3b70e185c91e351e29",
+  "tested_commit_semantics": "Implementation and test artifact bytes verified by the recorded commands are identical to this committed source; receipt-only successor adds no Rust or dataset changes.",
+  "decision_resolution": "joil-geometry::certify::conform binds modified geometry to a new identity and refuses vanished features or excessive conformance changes.",
   "changed_paths": [
-    "crates/crucible-geom/tests/kernel.rs",
-    "docs/design/V5_GEOMETRY.md",
-    "crates/joil-geometry/Cargo.toml",
-    "crates/joil-geometry/src/lib.rs",
-    "crates/joil-geometry/src/field.rs",
-    "crates/joil-geometry/src/csg.rs"
+    "crates/joil-geometry/tests/kernel.rs",
+    "crates/joil-geometry/src/partition.rs",
+    "crates/joil-geometry/src/interval.rs",
+    "crates/joil-geometry/src/chamber_wall.rs",
+    "crates/joil-geometry/src/certify.rs"
   ],
   "commands": [
     {
@@ -26,41 +26,13 @@
         "kernel",
         "--",
         "--exact",
-        "shared::conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess"
+        "conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess",
+        "--nocapture"
       ],
       "exit_code": 0,
+      "elapsed_s": 0.907,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-08-05.log",
-      "log_sha256": "36febb93443a0c403bd385a271dfc2e57152823a6ec09512c0348490a1b551a0"
-    },
-    {
-      "argv": [
-        "cargo",
-        "test",
-        "--locked",
-        "--offline",
-        "-p",
-        "crucible-geom",
-        "--test",
-        "kernel"
-      ],
-      "exit_code": 0,
-      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/crucible-geom-kernel.log",
-      "log_sha256": "7318f3eb607530063f61a9555d5f19448de84bc487fb3d744ad3783fc6be2ff6"
-    },
-    {
-      "argv": [
-        "cargo",
-        "test",
-        "--locked",
-        "--offline",
-        "-p",
-        "joil-geometry",
-        "--test",
-        "kernel"
-      ],
-      "exit_code": 0,
-      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/joil-geometry-kernel.log",
-      "log_sha256": "941d928af4d275177a60203a94eb5d7b2e540060539a448bf718ab8bfc01b7c0"
+      "log_sha256": "f68e1d21ea4aff06048435326db43269b3d15a46188f2303564fd9e0fd2485e4"
     },
     {
       "argv": [
@@ -77,36 +49,41 @@
       ],
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/d16-positive.log",
-      "log_sha256": "02c0c0ea4fffd21a67532b7cf980fdf008324838d881170df6af9637a075c000"
-    },
-    {
-      "argv": [
-        "python3",
-        "tools/check_public.py"
-      ],
-      "exit_code": 0,
-      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane1/check-public.log",
-      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4"
+      "log_sha256": "02c0c0ea4fffd21a67532b7cf980fdf008324838d881170df6af9637a075c000",
+      "expected_result": "Frozen D-16 positive: baseline and in-band recorded Wave-2 case agree."
     }
   ],
   "positive_checks": [
-    "V5-08-05 (Record conformance instead of silent repair): Every repaired geometry is traceable to its exact policy and original proposal. \u2014 verified by cargo test --locked --offline -p joil-geometry --test kernel -- --exact shared::conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess"
+    "joil-geometry::certify::conform binds modified geometry to a new identity and refuses vanished features or excessive conformance changes.",
+    "Dedicated exact test conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess ran one test and passed; full four-crate regression output retained in the same raw log."
   ],
   "negative_checks": [
-    "V5-08-05 negative control: A vanished blade, disconnected passage or excessive repair cannot be silently accepted."
+    "Task-specific mutation/negative controls in conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess; see full source-bound test and raw log."
   ],
   "artifacts": [
     {
+      "path": "crates/joil-geometry/tests/kernel.rs",
+      "sha256": "b3cbd776e0063a9c9defb68d77cc12404e633bec42f20213a75c078ac8708dfe"
+    },
+    {
+      "path": "crates/joil-geometry/src/partition.rs",
+      "sha256": "c2049ae1867983560f7556e2b345ffedecb013c924089f817ff32eb0eb50714a"
+    },
+    {
+      "path": "crates/joil-geometry/src/interval.rs",
+      "sha256": "76b089b050c71750f2a31f3605dc4bf757a0b8fc45c8675f5e53f03540b95fd3"
+    },
+    {
+      "path": "crates/joil-geometry/src/chamber_wall.rs",
+      "sha256": "8d8d7e9d23cc66d6a5a5023b27f5ed1cb29e26ab1264e69225db467b164d64a4"
+    },
+    {
+      "path": "crates/joil-geometry/src/certify.rs",
+      "sha256": "9e95e3f35bd8e9fe48107f36c7adf89e76ccf787aa509ec6f0afc9dfffd24598"
+    },
+    {
       "path": "crates/crucible-geom/tests/kernel.rs",
       "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
-    },
-    {
-      "path": "crates/joil-geometry/tests/kernel.rs",
-      "sha256": "5db76c16a85d33c04bfeee8b9fb03ace77131898f7d2515e48adb28b673f4dbc"
-    },
-    {
-      "path": "docs/receipts/v5-08-01-integrator-acceptance-20261018.json",
-      "sha256": "26d56f1b123e467097133980c085c511b036dafff60615a0b7b1af0539c5ccef"
     }
   ],
   "resource_allocation": {
@@ -114,14 +91,20 @@
     "physical_cores": 2,
     "ram_gib": 12,
     "disk_gib": 6,
-    "gpu": false
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
   },
   "scientific_admission": false,
   "limitations": [
-    "Software and contract verification only; scientific_admission remains false.",
-    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p joil-geometry --test kernel -- --exact shared::conformance_computes_changes_new_identity_and_refuses_vanished_feature_or_excess in packet V5-08 (One material partition and bounded geometry kernel)."
+    "Software verification only; synthetic fixtures are not physical measurements or independent scientific validation.",
+    "No native solver, physical confirmation, or scientific admission was executed."
   ],
-  "next_dependency": "V5-31-01",
+  "next_dependency": "Independent integrator review; V5-31 release tasks remain in_progress.",
   "defect_controls": [
     {
       "defect_id": "D-16",
@@ -172,5 +155,6 @@
         "expected_result": "C006-RED D-16: wall_authorities_disagree"
       }
     }
-  ]
+  ],
+  "historical_defect_control_note": "Frozen-source controls inherited from prior receipt; not rerun by I007. New exact task test and complete regression suite are current."
 }

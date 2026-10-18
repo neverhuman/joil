@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-25-02"
+  ],
+  "tested_commit": "198f78364b6fb788cd4d49459f9aa7c9161c0baa",
+  "tested_commit_semantics": "Exact task tests ran against the implementation at this committed code revision.",
+  "decision_resolution": "Resolved under SC-DEC-040 (substitute:native_full_liner_corpus+substitute:synthetic_fixture): built and verified the 12-case corpus, split family independence, digest uniqueness, resource lease and held-out domain-tag coverage. The wet_liner_surface_chemistry domain is explicitly declared as a V5-30 physical measurement gap.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/liner_operator.rs",
+    "experiments/datasets/v5-25-02-full-liner-corpus.json",
+    "docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "liner_operator::v5_25_remediation_tests::v5_25_02_full_liner_corpus_family_separation_and_head_reuse_guard",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-25-02.log",
+      "log_sha256": "0f7abac8968032326c16c8f507c5bd86364e05843d4892665f4ca3ed2b49cc2e"
+    }
+  ],
+  "positive_checks": [
+    "Two held-out families are disjoint from training/calibration and carry distinct geometry, carrier and transport evidence digests."
+  ],
+  "negative_checks": [
+    "Mutating a held-out geometry family or reusing a training geometry digest is rejected; physical wet-liner measurement remains governed by V5-30."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/liner_operator.rs",
+      "sha256": "bf58e5d249ae8d4691398a840059fbab3c7a25b577642f96c6def8bfcb880ff0"
+    },
+    {
+      "path": "experiments/datasets/v5-25-02-full-liner-corpus.json",
+      "sha256": "c7d3dd30226b51f50ac1e750e0d15623723399e2b5123fde9088cd6d33ba026d"
+    },
+    {
+      "path": "docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json",
+      "sha256": "2dabbca6973edbae297f52b3623e9f5ba040d5cff344214c533b514c46c10108"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "ram_gib": 6,
+    "disk_gib": 5,
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and synthetic substitute-fixture verification only; scientific_admission remains false."
+  ],
+  "next_dependency": "V5-25-03"
+}

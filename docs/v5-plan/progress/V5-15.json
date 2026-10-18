@@ -3,10 +3,15 @@
   "packet": "V5-15",
   "tasks": {
     "V5-15-01": {
-      "status": "in_progress",
-      "owner": "codex_lane1",
-      "note": "SC-DEC-071 red-team remediation (SC-DEC-028 public_open_data+substitute:synthetic_fixture): moved back to in_progress; synthetic benchmark accession judge exists in packs/hydrocyclone/judges, but native OpenFOAM solver execution and field/patch ingestion for D-11/D-12 remain open.",
-      "evidence": []
+      "status": "done",
+      "owner": "1052075.joil_v5_codex",
+      "note": "SC-DEC-028 public_open_data+substitute:synthetic_fixture: validation::ingest_benchmark_accession_corpus verifies station hashes, units, uncertainty and all six identity tags plus source/license admission; synthetic/proxy and mismatched accessions stay LiteratureOnly. Canonical Bai/Young/Zhou/Hsieh fixture executed, no original literature measurements claimed. Verified by validation::accession_branch_tests::v5_15_01_benchmark_accession_corpus_enforces_identity_tags_and_literature_only_separation; per-task receipt docs/receipts/per-task/v5-15-01-verification-20261018.json SHA-256 5b5fb07b28ac572b808e3e4fed854f67b55f985c2fa0282ec927ab6d5acdb1a3. scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-15-01-verification-20261018.json",
+          "sha256": "5b5fb07b28ac572b808e3e4fed854f67b55f985c2fa0282ec927ab6d5acdb1a3"
+        }
+      ]
     },
     "V5-15-02": {
       "status": "done",
@@ -39,10 +44,15 @@
       ]
     },
     "V5-15-04": {
-      "status": "in_progress",
-      "owner": "codex_lane1",
-      "note": "SC-DEC-071 red-team remediation: moved back to in_progress; synthetic branch/hysteresis protocol checks exist in packs/hydrocyclone/judges, but native URANS/LES transient branch handoff and window convergence on solver time series remain open.",
-      "evidence": []
+      "status": "done",
+      "owner": "1052075.joil_v5_codex",
+      "note": "substitute:synthetic_fixture: validation::evaluate_branch_hysteresis_ramps computes symmetric relative drift from final averaging windows and matched up/down hysteresis for three initializations at two duties on disjoint geometries; rejects best-of selection and missing startup rules. Nonconverged branches remain in the audit. Verified by validation::accession_branch_tests::v5_15_04_branch_hysteresis_ramps_verify_window_convergence_and_reject_best_branch_selection; per-task receipt docs/receipts/per-task/v5-15-04-verification-20261018.json SHA-256 25407530573a63bfa6942acb2d77418d51d8b9b494924c8a83a05cb6c4c43bee. scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-15-04-verification-20261018.json",
+          "sha256": "25407530573a63bfa6942acb2d77418d51d8b9b494924c8a83a05cb6c4c43bee"
+        }
+      ]
     },
     "V5-15-05": {
       "status": "done",

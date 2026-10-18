@@ -109,7 +109,7 @@
   "artifacts": [
     {
       "path": "crates/crucible-paper/src/lib.rs",
-      "sha256": "cd61f4f21f89987d201890bbb30422068c97bce03a12dd3b65e9e63beede5ef9"
+      "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
     },
     {
       "path": "render/blender/test_plate.py",
@@ -135,7 +135,7 @@
   "next_dependency": "Independent integrator review; scientific admission still requires qualified source evidence.",
   "inherited_evidence": {
     "receipt": "docs/receipts/v5-28-d31-completion-20261018.json",
-    "sha256": "6a279fdd8faa88c8b247679d1f60e2eaa900af153be2f487e0e681c26ba970bd",
+    "sha256": "badfbe26486f9fe5a62070f0a1862c162d14e0f0f7e57bb87b1e745f1205f6c8",
     "note": "Historical commands/defect controls copied as provenance, not rerun in this remediation. Fixture/artifact hashes refreshed to current production source; original hashes retained in source receipt."
   },
   "defect_controls": [
@@ -143,7 +143,7 @@
       "defect_id": "D-31",
       "fixture": {
         "path": "crates/crucible-paper/src/lib.rs",
-        "sha256": "cd61f4f21f89987d201890bbb30422068c97bce03a12dd3b65e9e63beede5ef9"
+        "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
       },
       "source": {
         "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",

@@ -225,6 +225,128 @@ pub fn grouped_folds(
     }
     Ok(folds)
 }
+
+/// Reproducible independent-label admission result. Sandbox sources stay addressable but never
+/// enter the independent training namespace.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct OracleDatasetManifest {
+    pub admitted: Vec<AdmittedLabel>,
+    pub sandbox_priors: Vec<String>,
+    pub sandbox_pruned_inputs: Vec<String>,
+    pub excluded: Vec<(String, ExclusionReason)>,
+    pub geometry_family_folds: Vec<GroupFold>,
+    pub lineage_folds: Vec<GroupFold>,
+    pub ev09_ready: bool,
+    pub ev09_reasons: Vec<String>,
+    pub ev12_complete: bool,
+    pub ev12_reasons: Vec<String>,
+}
+
+/// Admit only subject-bound, independently sourced oracle labels, then build two auditable
+/// grouped holdout plans. Every fold is checked across preparation, geometry and lineage identity.
+pub fn build_numerical_oracle_dataset_with_splits(
+    rows: &[LabelCandidate],
+    readiness: &DatasetReadiness,
+) -> Result<OracleDatasetManifest, &'static str> {
+    let mut admitted = Vec::new();
+    let (mut sandbox_priors, mut sandbox_pruned_inputs, mut excluded) =
+        (Vec::new(), Vec::new(), Vec::new());
+    for row in rows {
+        if row.namespace == DatasetNamespace::SandboxPrior {
+            sandbox_priors.push(row.id.clone());
+            continue;
+        }
+        if row.namespace == DatasetNamespace::SandboxPrunedInput {
+            sandbox_pruned_inputs.push(row.id.clone());
+            excluded.push((row.id.clone(), ExclusionReason::PrunedRawInput));
+            continue;
+        }
+        let reason = if row.value.is_none() {
+            Some(ExclusionReason::Missing)
+        } else if row.value.is_some_and(|v| !v.is_finite() || v < 0.0) {
+            Some(ExclusionReason::Invalid)
+        } else if row.quantity != "cout" || row.unit != "mg/L_dispersed_oil" {
+            Some(ExclusionReason::OutOfScope)
+        } else if row.origin == "synthetic" {
+            Some(ExclusionReason::Synthetic)
+        } else if row.origin == "recipe_prior" || row.origin == "surrogate_prior" {
+            Some(ExclusionReason::PriorDerived)
+        } else if !matches!(
+            (row.origin.as_str(), row.evidence_tier.as_str()),
+            ("measured_independent", "qualified_independent")
+                | ("native_high_fidelity_oracle", "numerical_oracle")
+        ) {
+            Some(ExclusionReason::UnqualifiedTier)
+        } else if row.subject.is_none() {
+            Some(ExclusionReason::Missing)
+        } else if !row.subject.as_ref().is_some_and(SubjectIdentity::valid) {
+            Some(ExclusionReason::Ev12IdentityIncomplete)
+        } else if row
+            .observer_sha256
+            .as_ref()
+            .is_none_or(|s| s.len() != 64 || !s.bytes().all(|b| b.is_ascii_hexdigit()))
+        {
+            Some(ExclusionReason::MissingObserver)
+        } else if row.lineage_groups.is_empty()
+            || row.geometry_family_groups.is_empty()
+            || row.preparation_id.as_deref().is_none_or(str::is_empty)
+        {
+            Some(ExclusionReason::Missing)
+        } else if !readiness.ev09_ready {
+            Some(ExclusionReason::Ev09NotReady)
+        } else if !readiness.ev12_complete {
+            Some(ExclusionReason::Ev12IdentityIncomplete)
+        } else {
+            None
+        };
+        if let Some(reason) = reason {
+            excluded.push((row.id.clone(), reason));
+        } else {
+            admitted.push(AdmittedLabel {
+                id: row.id.clone(),
+                subject: row.subject.clone().expect("validated subject"),
+                cout_mg_per_litre_dispersed_oil: row.value.expect("validated value"),
+                lineage_groups: row.lineage_groups.clone(),
+                geometry_family_groups: row.geometry_family_groups.clone(),
+                preparation_id: row.preparation_id.clone().expect("validated preparation"),
+            });
+        }
+    }
+    let geometry_family_folds = grouped_folds(&admitted, true)?;
+    let lineage_folds = grouped_folds(&admitted, false)?;
+    for fold in geometry_family_folds.iter().chain(&lineage_folds) {
+        for &test_i in &fold.test {
+            let test = &admitted[test_i];
+            for &train_i in &fold.train {
+                let train = &admitted[train_i];
+                if test.preparation_id == train.preparation_id
+                    || test
+                        .geometry_family_groups
+                        .iter()
+                        .any(|g| train.geometry_family_groups.contains(g))
+                    || test
+                        .lineage_groups
+                        .iter()
+                        .any(|g| train.lineage_groups.contains(g))
+                {
+                    return Err("grouped_fold_identity_overlap");
+                }
+            }
+        }
+    }
+    Ok(OracleDatasetManifest {
+        admitted,
+        sandbox_priors,
+        sandbox_pruned_inputs,
+        excluded,
+        geometry_family_folds,
+        lineage_folds,
+        ev09_ready: readiness.ev09_ready,
+        ev09_reasons: readiness.ev09_reasons.clone(),
+        ev12_complete: readiness.ev12_complete,
+        ev12_reasons: readiness.ev12_reasons.clone(),
+    })
+}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CalibrationIdentity {
     pub training_dataset_sha256: String,
@@ -454,5 +576,89 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn v5_22_01_oracle_label_dataset_grouped_splits_and_sandbox_separation() {
+        #[derive(Deserialize)]
+        struct Fixture {
+            rows: Vec<LabelCandidate>,
+        }
+        let fixture: Fixture = serde_json::from_str(include_str!(
+            "../../../experiments/datasets/v5-22-01-oracle-labels.json"
+        ))
+        .unwrap();
+        let readiness = DatasetReadiness {
+            ev09_ready: true,
+            ev09_reasons: vec!["substitute fixture only".into()],
+            ev12_complete: true,
+            ev12_reasons: vec![],
+        };
+        let manifest =
+            build_numerical_oracle_dataset_with_splits(&fixture.rows, &readiness).unwrap();
+        assert_eq!(manifest.admitted.len(), 24);
+        assert_eq!(manifest.geometry_family_folds.len(), 6);
+        assert_eq!(manifest.lineage_folds.len(), 6);
+        assert!(manifest.ev09_ready && manifest.ev12_complete);
+        assert_eq!(manifest.sandbox_priors, vec!["sandbox-prior"]);
+        assert_eq!(manifest.sandbox_pruned_inputs, vec!["sandbox-pruned"]);
+        for fold in manifest
+            .geometry_family_folds
+            .iter()
+            .chain(&manifest.lineage_folds)
+        {
+            for &test in &fold.test {
+                for &train in &fold.train {
+                    assert_ne!(
+                        manifest.admitted[test].preparation_id,
+                        manifest.admitted[train].preparation_id
+                    );
+                    assert!(manifest.admitted[test]
+                        .geometry_family_groups
+                        .iter()
+                        .all(|g| !manifest.admitted[train].geometry_family_groups.contains(g)));
+                    assert!(manifest.admitted[test]
+                        .lineage_groups
+                        .iter()
+                        .all(|g| !manifest.admitted[train].lineage_groups.contains(g)));
+                }
+            }
+        }
+        for id in [
+            "recipe-prior",
+            "invalid-unit",
+            "missing-observer",
+            "missing-value",
+            "synthetic-control",
+        ] {
+            assert!(manifest.excluded.iter().any(|(excluded, _)| excluded == id));
+        }
+        assert_eq!(
+            manifest
+                .excluded
+                .iter()
+                .find(|(id, _)| id == "recipe-prior")
+                .unwrap()
+                .1,
+            ExclusionReason::PriorDerived
+        );
+        assert_eq!(
+            manifest
+                .excluded
+                .iter()
+                .find(|(id, _)| id == "invalid-unit")
+                .unwrap()
+                .1,
+            ExclusionReason::OutOfScope
+        );
+        assert_eq!(
+            manifest
+                .excluded
+                .iter()
+                .find(|(id, _)| id == "missing-observer")
+                .unwrap()
+                .1,
+            ExclusionReason::MissingObserver
+        );
     }
 }

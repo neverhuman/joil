@@ -1,0 +1,188 @@
+{
+  "required_domain_tags": [
+    "reverse_core",
+    "swirl",
+    "oil_grade",
+    "pressure_drop",
+    "low_flow",
+    "high_flow",
+    "wet_liner_surface_chemistry"
+  ],
+  "declared_gaps": [
+    {
+      "tag": "wet_liner_surface_chemistry",
+      "reason": "Physical wet-liner surface chemistry measurements are governed by V5-30 and are outside the synthetic corpus."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "full-liner-cyl_conical_a-00",
+      "split": "training",
+      "geometry_family": "cyl_conical_a",
+      "geometry_sha256": "87deb7ebb72b6419d564ee07122e95c4c44146f7f6486d36f0a86f90902efafd",
+      "carrier_evidence_sha256": "eeb76ab373deb1bb299a81ef3711b75c1104e531acf4428d1a1e69ce7b227025",
+      "transport_evidence_sha256": "ff1e88036c332fbb6de2ad71c5d0f741fd13e9f75bffebc2292fae00267888d5",
+      "domain_tags": [
+        "reverse_core",
+        "swirl"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-cyl_conical_a-01",
+      "split": "training",
+      "geometry_family": "cyl_conical_a",
+      "geometry_sha256": "0cfcebe21e17107c5a7fc3d713c735321ab80a18e420d40f3931107b87c24f1c",
+      "carrier_evidence_sha256": "620c04e7f8b4e97d864606dad6b635c6dd343562b7979772701a42b085320a61",
+      "transport_evidence_sha256": "5de6e95aaa01b7c8c18ffbdb805c8de2b293463b83f530e36a419a17510934f2",
+      "domain_tags": [
+        "swirl",
+        "oil_grade"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-cyl_conical_a-02",
+      "split": "training",
+      "geometry_family": "cyl_conical_a",
+      "geometry_sha256": "8d7d5404e5397492ce8c63043cfd6ce86845c11a3386021be5c2573a60cfee82",
+      "carrier_evidence_sha256": "e9765ab789af37b72e845b8dae67580b214e13177ddcec9f4ee2597368b1fa7a",
+      "transport_evidence_sha256": "a0ba6b1003f72a69a8df8b7f18e2327b20a525d3d5d1e2bf10374579779cfc1f",
+      "domain_tags": [
+        "oil_grade",
+        "pressure_drop"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-cyl_conical_a-03",
+      "split": "training",
+      "geometry_family": "cyl_conical_a",
+      "geometry_sha256": "653fdd13df794cc4b03260d0226a8389f45cc74adb4c65fa75d70152846a0016",
+      "carrier_evidence_sha256": "ed03ad4c5cd5e2591db5cb920f4847ed12627975fca64f2513ca0a62568cebfb",
+      "transport_evidence_sha256": "92d7ccc5fee86e13c9ec6ed8167d2150c3450e617d871d9f6317b12a29b46760",
+      "domain_tags": [
+        "pressure_drop",
+        "low_flow"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-cyl_conical_b-00",
+      "split": "training",
+      "geometry_family": "cyl_conical_b",
+      "geometry_sha256": "d1f4c7de6ecfa57d0a2ab9c21ab31bb77d6481aec6bdeb6f1b75c67962bbc17e",
+      "carrier_evidence_sha256": "09818c2bcfa46e8f28968d3d0b4225d90c899b4a751a2450592cfa8dc680bb8c",
+      "transport_evidence_sha256": "55a276f2a0a7dd3bb8134a9b5f1522783866a19ca4891a3a0cd230130d5a7026",
+      "domain_tags": [
+        "low_flow",
+        "high_flow"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-cyl_conical_b-01",
+      "split": "training",
+      "geometry_family": "cyl_conical_b",
+      "geometry_sha256": "ff300b1ad25b78d3a366064f8e88d9fb66831fb2f844b5a6e4b4dc717b077390",
+      "carrier_evidence_sha256": "eea2abb67fb3811ea40e04ebb94d06c1847e39baeb5688bf5a206a928539fcf8",
+      "transport_evidence_sha256": "b335b42cb9de65080afe9fcb06d5a06da7262380f7ecf2e4291bd45fcd5e6b68",
+      "domain_tags": [
+        "high_flow",
+        "reverse_core"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-cyl_conical_b-02",
+      "split": "training",
+      "geometry_family": "cyl_conical_b",
+      "geometry_sha256": "0235d20482fb895dbab420d749275820be7ea9b092417b064e5f9e4cf7ca4531",
+      "carrier_evidence_sha256": "c81d38ec569f0980ba6f45aad29e2d9a949329badcb84232ca790e3496a0fed5",
+      "transport_evidence_sha256": "d8ff02a9eff5fa521d51f3000cea8a788f27804ceede4d6602e1d283c3a2858c",
+      "domain_tags": [
+        "reverse_core",
+        "swirl"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-cyl_conical_b-03",
+      "split": "training",
+      "geometry_family": "cyl_conical_b",
+      "geometry_sha256": "9c1a2037765fc9ece8abb8a3ff1d9067e5fdbb2c5d5944e23cdfe090391351c8",
+      "carrier_evidence_sha256": "8aebb8edd7bcca6c00e81579393deda7c62188b30c4c163fff3972fb21edd4df",
+      "transport_evidence_sha256": "66e5b4a5d641e014ca2c8dd368e1bc25257cb185134f00b1bcf53d8f342c8d5d",
+      "domain_tags": [
+        "swirl",
+        "oil_grade"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-tapered_swirl_c-00",
+      "split": "calibration",
+      "geometry_family": "tapered_swirl_c",
+      "geometry_sha256": "ec08782c5312e80b7a9b8e8eda00019e1cc357a2177458ab5298a9c918ff0475",
+      "carrier_evidence_sha256": "d34ae2356a3351cbd5608b481967feddde418bdf2bdbd8a92f92cf1c826a43c2",
+      "transport_evidence_sha256": "b2f518023ee6331fa180f9030ff1da31192e8d714296a19986791883943898ae",
+      "domain_tags": [
+        "oil_grade",
+        "pressure_drop"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-tapered_swirl_c-01",
+      "split": "calibration",
+      "geometry_family": "tapered_swirl_c",
+      "geometry_sha256": "62f56bb2da00444cd7d843219c20d218ec981b3f9ce4516f17d31ecb6adc17dd",
+      "carrier_evidence_sha256": "9eced16a78b6bcc662c80bf4f887789c85e21cc8f9e0a89d4b6620830736dda1",
+      "transport_evidence_sha256": "bbb16a5ee06018cc16bfd1def8222e2aeb0bb1ae972b9fe4479662cc07fdfd16",
+      "domain_tags": [
+        "pressure_drop",
+        "low_flow"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-helical_liner_d-00",
+      "split": "held_out",
+      "geometry_family": "helical_liner_d",
+      "geometry_sha256": "f7c6cd6009c4ae4b5bfa6372d2f8f2c4b769c75504f0be59ddbfa7003cb7f580",
+      "carrier_evidence_sha256": "52464d7a38fafb7e29f6cb708c958cbdbc4156b273d777d9176efa54f9b5dfa4",
+      "transport_evidence_sha256": "119a2304854bf36f8caec37a1da40cfbb6c5252ad9a478b7e16279477906abdb",
+      "domain_tags": [
+        "reverse_core",
+        "swirl",
+        "oil_grade"
+      ],
+      "synthetic": true
+    },
+    {
+      "case_id": "full-liner-stepped_cone_e-00",
+      "split": "held_out",
+      "geometry_family": "stepped_cone_e",
+      "geometry_sha256": "c74b4c17c632e973f6fa386f2edc0bb410697f7dc0a4c2e1d2a81990e18a1150",
+      "carrier_evidence_sha256": "ad6adf2bf7df6e4d935dbcc1fca4f13da12d7d8fb64ba3e7fe1a5da7dfd958ab",
+      "transport_evidence_sha256": "4b0fd7d86d2460cdb0dd2d4114522bb18bac55c0542a0c0ccf72db9727584cf2",
+      "domain_tags": [
+        "pressure_drop",
+        "low_flow",
+        "high_flow"
+      ],
+      "synthetic": true
+    }
+  ],
+  "lease": {
+    "status": "admitted",
+    "value": {
+      "cpu_cores": 2,
+      "memory_gib": 6.0,
+      "output_gib": 1.0,
+      "gpu": false,
+      "lease_sha256": "4fbec9123732f5a3baab80cba2558dd24c27ff59b6a6bd6b4336e12e51b20e1a"
+    },
+    "source": "f8f6690397c05069a19e1a6844e089a3ebb8d830ca186e36418db63a2fbdf564"
+  }
+}

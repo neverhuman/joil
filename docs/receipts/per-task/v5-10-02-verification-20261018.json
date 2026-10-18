@@ -3,15 +3,14 @@
   "task_ids": [
     "V5-10-02"
   ],
-  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
-  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-geom --test artifacts -- --exact p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians in packet V5-10 (Derived surfaces, volume meshes and honest exports).",
+  "tested_commit": "59acb0831f406d511f2b3c3b70e185c91e351e29",
+  "tested_commit_semantics": "Implementation and test artifact bytes verified by the recorded commands are identical to this committed source; receipt-only successor adds no Rust or dataset changes.",
+  "decision_resolution": "crucible-geom::tet::{qualify_p1,elevate_p2} checks positive Jacobians and source-bound boundaries on patch, thin-wall and distorted-mesh controls.",
   "changed_paths": [
-    "crates/crucible-geom/src/surface.rs",
-    "crates/crucible-geom/src/tet.rs",
-    "crates/crucible-geom/src/export.rs",
     "crates/crucible-geom/tests/artifacts.rs",
-    "crates/joil-core/src/phenotype.rs",
-    "crates/joil-core/src/cfd_case.rs"
+    "crates/crucible-geom/src/export.rs",
+    "crates/crucible-geom/src/tet.rs",
+    "crates/crucible-geom/src/surface.rs"
   ],
   "commands": [
     {
@@ -26,20 +25,35 @@
         "artifacts",
         "--",
         "--exact",
-        "p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians"
+        "p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians",
+        "--nocapture"
       ],
       "exit_code": 0,
+      "elapsed_s": 0.147,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-10-02.log",
-      "log_sha256": "4e3ae64d415b619c23b0addababa4d748388d7aa9a1a5a73a52331020c387707"
+      "log_sha256": "14032fa9543f7044a6a9458c90f99fa77b02874f0ae5fe724ac4e4b6e3228f82"
     }
   ],
   "positive_checks": [
-    "V5-10-02 (Generate qualified structural meshes): Patch, thin-shell and distorted-boundary fixtures retain positive element Jacobians. \u2014 verified by cargo test --locked --offline -p crucible-geom --test artifacts -- --exact p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians"
+    "crucible-geom::tet::{qualify_p1,elevate_p2} checks positive Jacobians and source-bound boundaries on patch, thin-wall and distorted-mesh controls.",
+    "Dedicated exact test p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians ran one test and passed; full four-crate regression output retained in the same raw log."
   ],
   "negative_checks": [
-    "V5-10-02 negative control: A P2 midpoint projection that inverts an element is rejected."
+    "Task-specific mutation/negative controls in p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians; see full source-bound test and raw log."
   ],
   "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/artifacts.rs",
+      "sha256": "8c7fa3c0dc646948865f8798614ffde0c3b14835cbd1732d6ef4f0c3654b2b90"
+    },
+    {
+      "path": "crates/crucible-geom/src/export.rs",
+      "sha256": "8d62b235634f5ebe0363b0764daecd97ba566605b0c2a939c1d5189adf6d718b"
+    },
+    {
+      "path": "crates/crucible-geom/src/tet.rs",
+      "sha256": "42ab6ca42d6fcae5e4859d8a077dea1c2d3b91b3bfb378f145326aafa6498054"
+    },
     {
       "path": "crates/crucible-geom/src/surface.rs",
       "sha256": "65121ba9ca45ccf011f6b8d33461b7677283af9a082967961756dc2913d6447b"
@@ -50,12 +64,18 @@
     "physical_cores": 2,
     "ram_gib": 12,
     "disk_gib": 6,
-    "gpu": false
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
   },
   "scientific_admission": false,
   "limitations": [
-    "Software and contract verification only; scientific_admission remains false.",
-    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-geom --test artifacts -- --exact p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians in packet V5-10 (Derived surfaces, volume meshes and honest exports)."
+    "Software verification only; synthetic fixtures are not physical measurements or independent scientific validation.",
+    "No native solver, physical confirmation, or scientific admission was executed."
   ],
-  "next_dependency": "V5-10-03"
+  "next_dependency": "Independent integrator review; V5-31 release tasks remain in_progress."
 }

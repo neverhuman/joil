@@ -777,3 +777,32 @@ fn interior_seed_generator_retains_boundary_and_rejects_bad_seed() {
         assert!(mesh_from_interior_seed(&surface, [-1.0; 3], tet_policy()).is_err());
     }
 }
+
+#[test]
+fn v5_10_03_coverage_binds_compiler_kernel_tolerance_consumer_and_resolved_features() {
+    let surface = extract(tetra(), policy()).unwrap();
+    assert!(card().admit(&surface, "fixture-fea").is_ok());
+    for mutation in 0..6 {
+        let mut c = card();
+        match mutation {
+            0 => c.compiler = "other".into(),
+            1 => c.kernel = "other".into(),
+            2 => c.input_tolerance_m = f64::NAN,
+            3 => c.admissible_consumers.clear(),
+            4 => c.supported_features.clear(),
+            _ => c.input_tolerance_m = -1.0,
+        }
+        assert!(
+            c.admit(&surface, "fixture-fea").is_err(),
+            "mutation {mutation}"
+        );
+    }
+    let mut boundary = tetra();
+    boundary.active_features.insert(Feature::ResolvedLattice);
+    let surface = extract(boundary, policy()).unwrap();
+    let mut c = card();
+    c.supported_features.insert(Feature::HomogenizedPorous);
+    assert!(c.admit(&surface, "fixture-fea").is_err());
+    c.supported_features.insert(Feature::ResolvedLattice);
+    assert!(c.admit(&surface, "fixture-fea").is_ok());
+}

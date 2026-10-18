@@ -101,7 +101,7 @@
   "artifacts": [
     {
       "path": "crates/crucible-paper/src/lib.rs",
-      "sha256": "0c6adb6763c2d8bbb8ac728fec2a73924ebf014b25e5872eb47c05d8324005ad"
+      "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
     },
     {
       "path": "render/blender/test_plate.py",
@@ -136,7 +136,7 @@
       "defect_id": "D-31",
       "fixture": {
         "path": "crates/crucible-paper/src/lib.rs",
-        "sha256": "0c6adb6763c2d8bbb8ac728fec2a73924ebf014b25e5872eb47c05d8324005ad"
+        "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
       },
       "source": {
         "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",

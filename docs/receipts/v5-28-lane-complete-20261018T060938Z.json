@@ -152,7 +152,7 @@
     },
     {
       "path": "crates/crucible-paper/src/lib.rs",
-      "sha256": "3b465f4d7f2d1b91306cc077cd6bee02076a905da010981c6a6d87d065fc4c1f"
+      "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
     },
     {
       "path": "docs/receipts/v5-28-claim-20261018T061000Z.json",

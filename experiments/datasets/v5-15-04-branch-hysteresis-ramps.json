@@ -1,0 +1,826 @@
+{
+  "trajectories": [
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "zero_swirl",
+      "ramp": "Up",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "zero_swirl",
+      "ramp": "Down",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "potential_core",
+      "ramp": "Up",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "potential_core",
+      "ramp": "Down",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "steady_rans_handoff",
+      "ramp": "Up",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "steady_rans_handoff",
+      "ramp": "Down",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "zero_swirl",
+      "ramp": "Up",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "zero_swirl",
+      "ramp": "Down",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "potential_core",
+      "ramp": "Up",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "potential_core",
+      "ramp": "Down",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "steady_rans_handoff",
+      "ramp": "Up",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-calibration",
+      "initialization": "steady_rans_handoff",
+      "ramp": "Down",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "zero_swirl",
+      "ramp": "Up",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "zero_swirl",
+      "ramp": "Down",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "potential_core",
+      "ramp": "Up",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "potential_core",
+      "ramp": "Down",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "steady_rans_handoff",
+      "ramp": "Up",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "steady_rans_handoff",
+      "ramp": "Down",
+      "duty_m3_s": 0.001,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "zero_swirl",
+      "ramp": "Up",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "zero_swirl",
+      "ramp": "Down",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "potential_core",
+      "ramp": "Up",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "potential_core",
+      "ramp": "Down",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "steady_rans_handoff",
+      "ramp": "Up",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.23,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.201,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.2,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    },
+    {
+      "geometry": "synthetic-held-out",
+      "initialization": "steady_rans_handoff",
+      "ramp": "Down",
+      "duty_m3_s": 0.002,
+      "windows": [
+        {
+          "start_s": 0.0,
+          "end_s": 1.0,
+          "core_reversal_fraction": 0.28,
+          "split_ratio": 0.23,
+          "euler_number": 2.03
+        },
+        {
+          "start_s": 1.0,
+          "end_s": 2.0,
+          "core_reversal_fraction": 0.251,
+          "split_ratio": 0.201,
+          "euler_number": 2.001
+        },
+        {
+          "start_s": 2.0,
+          "end_s": 3.0,
+          "core_reversal_fraction": 0.25,
+          "split_ratio": 0.2,
+          "euler_number": 2.0
+        }
+      ],
+      "max_allowed_drift": 0.01,
+      "startup_control_rule": "Fixed initialization then prescribed monotonic duty ramp; retain every branch",
+      "best_of_selection": false,
+      "synthetic": true,
+      "scientific_admission": false
+    }
+  ],
+  "held_out_geometries": [
+    "synthetic-held-out"
+  ],
+  "calibration_geometries": [
+    "synthetic-calibration"
+  ]
+}

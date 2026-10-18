@@ -1,6 +1,7 @@
 //! Finite sample summaries and packet-local inference. A summary by itself does not
 //! assert independence, coverage or power; each submodule states its applicability.
 use crate::StatsError;
+use serde::{Deserialize, Serialize};
 use statrs::distribution::ContinuousCDF;
 
 pub mod calibration;
@@ -302,6 +303,99 @@ pub fn analyze_preregistered_confirmation_units(
     })
 }
 
+/// Private technical dossier data retained inside the project boundary.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PrivateDossierRecord {
+    pub classification: String,
+    pub industrial_installation_authorized: bool,
+    pub private_fields: std::collections::BTreeMap<String, String>,
+}
+
+/// Human review binds approval to an exact proposed public projection.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PublicExportReview {
+    pub approved: bool,
+    pub reviewer: String,
+    pub reviewed_fields: std::collections::BTreeMap<String, String>,
+}
+
+/// Public dossier content contains only the fixed allowlist.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PublicDossierExport {
+    pub fields: std::collections::BTreeMap<String, String>,
+}
+
+pub const PUBLIC_DOSSIER_ALLOWLIST: [&str; 7] = [
+    "subject_sha256",
+    "duty_summary",
+    "method_summary",
+    "software_version",
+    "uncertainty_summary",
+    "result_summary",
+    "limitations",
+];
+
+/// Verify private classification, installation authorization, human approval, exact public
+/// field inventory, and the absence of identifying tokens before constructing an export.
+pub fn verify_private_dossier_and_public_export_gate(
+    private: &PrivateDossierRecord,
+    review: &PublicExportReview,
+) -> Result<PublicDossierExport, &'static str> {
+    if private.classification != "private" {
+        return Err("dossier_classification_must_be_private");
+    }
+    if private.industrial_installation_authorized {
+        return Err("software_export_gate_cannot_authorize_installation");
+    }
+    if private.private_fields.is_empty() {
+        return Err("private_dossier_content_required");
+    }
+    if !review.approved || review.reviewer.trim().is_empty() {
+        return Err("approved_human_review_required");
+    }
+    let expected: std::collections::BTreeSet<&str> = PUBLIC_DOSSIER_ALLOWLIST.into_iter().collect();
+    let actual: std::collections::BTreeSet<&str> =
+        review.reviewed_fields.keys().map(String::as_str).collect();
+    if actual != expected || review.reviewed_fields.len() != PUBLIC_DOSSIER_ALLOWLIST.len() {
+        return Err("public_export_fields_must_match_exact_allowlist");
+    }
+    let sensitive = [
+        "customer",
+        "facility",
+        "site_id",
+        "plant_id",
+        "account_id",
+        "address",
+        "contact",
+        "serial_number",
+    ];
+    for (key, value) in &review.reviewed_fields {
+        if value.trim().is_empty() {
+            return Err("public_export_values_must_be_nonempty");
+        }
+        let normalized = format!("{key}{value}")
+            .to_ascii_lowercase()
+            .chars()
+            .filter(|c| c.is_ascii_alphanumeric())
+            .collect::<String>();
+        if sensitive.iter().any(|token| {
+            let normalized_token: String = token
+                .chars()
+                .filter(|c| c.is_ascii_alphanumeric())
+                .collect();
+            normalized.contains(&normalized_token)
+        }) {
+            return Err("public_export_contains_sensitive_identity_token");
+        }
+    }
+    Ok(PublicDossierExport {
+        fields: review.reviewed_fields.clone(),
+    })
+}
+
 /// Return the arithmetic mean and unbiased sample variance. No artificial
 /// variance floor converts zero variation into observed information.
 pub fn sample_moments(values: &[f64]) -> Result<(f64, f64), StatsError> {
@@ -480,5 +574,62 @@ mod v5_30_tests {
             "mat-model"
         )
         .is_err());
+    }
+
+    #[test]
+    fn v5_30_05_private_dossier_and_allowlisted_public_export_gate() {
+        let private = PrivateDossierRecord {
+            classification: "private".into(),
+            industrial_installation_authorized: false,
+            private_fields: [("technical_record".into(), "held privately".into())].into(),
+        };
+        let stored = serde_json::to_string(&private).unwrap();
+        assert_eq!(
+            serde_json::from_str::<PrivateDossierRecord>(&stored).unwrap(),
+            private
+        );
+        let mut fields: std::collections::BTreeMap<String, String> = PUBLIC_DOSSIER_ALLOWLIST
+            .iter()
+            .map(|name| {
+                (
+                    (*name).to_string(),
+                    "reviewed synthetic summary".to_string(),
+                )
+            })
+            .collect();
+        fields.insert("subject_sha256".into(), digest('a'));
+        let review = PublicExportReview {
+            approved: true,
+            reviewer: "human reviewer".into(),
+            reviewed_fields: fields,
+        };
+        let export = verify_private_dossier_and_public_export_gate(&private, &review).unwrap();
+        assert_eq!(export.fields.len(), 7);
+        let mut rejected = review.clone();
+        rejected
+            .reviewed_fields
+            .insert("duty_summary".into(), "customer site_id 7".into());
+        assert_eq!(
+            verify_private_dossier_and_public_export_gate(&private, &rejected),
+            Err("public_export_contains_sensitive_identity_token")
+        );
+        let mut rejected = review.clone();
+        rejected.reviewed_fields.remove("limitations");
+        assert_eq!(
+            verify_private_dossier_and_public_export_gate(&private, &rejected),
+            Err("public_export_fields_must_match_exact_allowlist")
+        );
+        let mut rejected = review.clone();
+        rejected.approved = false;
+        assert_eq!(
+            verify_private_dossier_and_public_export_gate(&private, &rejected),
+            Err("approved_human_review_required")
+        );
+        let mut rejected = private;
+        rejected.industrial_installation_authorized = true;
+        assert_eq!(
+            verify_private_dossier_and_public_export_gate(&rejected, &review),
+            Err("software_export_gate_cannot_authorize_installation")
+        );
     }
 }

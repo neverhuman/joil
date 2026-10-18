@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-15-01",
+    "V5-15-04",
+    "V5-28-02",
+    "V5-08-02",
+    "V5-10-03",
+    "V5-28-01"
+  ],
+  "tested_commit": "59acb0831f406d511f2b3c3b70e185c91e351e29",
+  "implementation_commit": "59acb0831f406d511f2b3c3b70e185c91e351e29",
+  "kind": "I007 Items 3 and 4 completion handoff",
+  "decision_resolution": "User-authorized synthetic software evaluators and tracked corpora executed with dedicated per-task positives/negatives. No original benchmark measurements, native transient solver run, or physical confirmation campaign claimed.",
+  "changed_paths": [
+    "apps/explorer/public/evidence-manifest.json",
+    "apps/explorer/public/v5/source-528741ee35e7941e1e679096df2087c650dd892c07ed083c0b423198d10e8d7f.json",
+    "crates/crucible-geom/tests/artifacts.rs",
+    "crates/crucible-paper/src/lib.rs",
+    "crates/joil-geometry/tests/kernel.rs",
+    "docs/receipts/per-task/v5-08-02-verification-20261018.json",
+    "docs/receipts/per-task/v5-08-03-verification-20261018.json",
+    "docs/receipts/per-task/v5-08-04-verification-20261018.json",
+    "docs/receipts/per-task/v5-08-05-verification-20261018.json",
+    "docs/receipts/per-task/v5-10-01-verification-20261018.json",
+    "docs/receipts/per-task/v5-10-02-verification-20261018.json",
+    "docs/receipts/per-task/v5-10-03-verification-20261018.json",
+    "docs/receipts/per-task/v5-10-04-verification-20261018.json",
+    "docs/receipts/per-task/v5-10-05-verification-20261018.json",
+    "docs/receipts/per-task/v5-15-01-verification-20261018.json",
+    "docs/receipts/per-task/v5-15-04-verification-20261018.json",
+    "docs/receipts/per-task/v5-28-01-verification-20261018.json",
+    "docs/receipts/per-task/v5-28-02-verification-20261018.json",
+    "docs/receipts/per-task/v5-28-04-verification-20261018.json",
+    "docs/receipts/v5-28-d31-completion-20261018.json",
+    "docs/receipts/v5-28-lane-complete-20261018T060938Z.json",
+    "docs/receipts/v5-i007-p009-claim-20261018.json",
+    "docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/progress/V5-08.json",
+    "docs/v5-plan/progress/V5-10.json",
+    "docs/v5-plan/progress/V5-15.json",
+    "docs/v5-plan/progress/V5-28.json",
+    "docs/v5-plan/todos/V5-08.md",
+    "docs/v5-plan/todos/V5-10.md",
+    "docs/v5-plan/todos/V5-15.md",
+    "docs/v5-plan/todos/V5-28.md",
+    "experiments/datasets/v5-15-01-benchmark-accessions.json",
+    "experiments/datasets/v5-15-04-branch-hysteresis-ramps.json",
+    "experiments/datasets/v5-28-02-confirmation-campaign.json",
+    "packs/hydrocyclone/judges/src/validation.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "-p",
+        "crucible-paper",
+        "-p",
+        "joil-geometry",
+        "-p",
+        "crucible-geom"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/full-tests.log",
+      "log_sha256": "ad8c5eee89ea3db42eb84c417b3909920ba3089fc9eb63744172f6aeb221e506"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "-p",
+        "crucible-paper",
+        "-p",
+        "joil-geometry",
+        "-p",
+        "crucible-geom",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/clippy.log",
+      "log_sha256": "743081b2f9ad8d74baafaeed37070fe7f1bffc644214df2a29336fa235d57aed"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "build"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.445,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/gate-0.log",
+      "log_sha256": "8c66141a872b37b95532a93fe46a7cf98e865ecac71cae77d9fb63a0d3562471"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.433,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/gate-1.log",
+      "log_sha256": "06d94343f041587f62c25675f86acf5ecd4ba134669a015e6d33db8053eed320"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "build"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.453,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/gate-2.log",
+      "log_sha256": "ae03a920acc7797fd7f2f8fa629e85f394a3a8d00d22e3cd5f97d143fa82ccac"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.452,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/gate-3.log",
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 22.445,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/gate-4.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.239,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/gate-5.log",
+      "log_sha256": "957f67b3a8bd215366c05e5053c3f6943c7d41665df9aebb59c6ca0b06783582"
+    }
+  ],
+  "positive_checks": [
+    "266 regression tests pass across four crates; all 13 refreshed per-task exact filters execute one test, not zero.",
+    "Station digest/unit/identity ingestion; multi-initialization window convergence and matched-duty hysteresis; all-arm fresh-seed/data confirmation with complete retained reporting.",
+    "155 of 160 tasks done; 31 of 32 packets fully done; V5-31-01..05 remain in_progress."
+  ],
+  "negative_checks": [
+    "Synthetic scientific admission, nonfinite or tampered stations, mismatched identity, overlap of calibration/holdout, best-branch selection, missing startup rules and missing branch coverage rejected.",
+    "Search/confirmation seed or data reuse, dropped finalist attempts, substituted endpoints or intervals, nonfinite cost/quality and omitted arm/seed runs rejected.",
+    "Material overlap/gap/incorrect owner masks, exhausted evaluation budget, unsupported compiler/kernel/consumer and resolved-to-homogenized feature substitution rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/receipts/per-task/v5-15-01-verification-20261018.json",
+      "sha256": "5b5fb07b28ac572b808e3e4fed854f67b55f985c2fa0282ec927ab6d5acdb1a3"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-15-04-verification-20261018.json",
+      "sha256": "25407530573a63bfa6942acb2d77418d51d8b9b494924c8a83a05cb6c4c43bee"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-28-02-verification-20261018.json",
+      "sha256": "89a4fa316e6636df67c55251d65d2a4a6f7891db48fb9458bb0a5ec396df8140"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-08-02-verification-20261018.json",
+      "sha256": "8e37a21ba286f65e9d5f16c43970e8da2fc892ea30c542a2d3697957632024e9"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-10-03-verification-20261018.json",
+      "sha256": "707cd76de920e0f33a7ca1db9652e9a0e6f3df1af0ee7255e6c11d877cdac40c"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-28-01-verification-20261018.json",
+      "sha256": "396b7f4121da4d07944c9060504244053f5c33f89e6ab2900e6bf9f69a88dd66"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/validation.rs",
+      "sha256": "fa7145b188f8066533440cf1ab3e07b6e83afe283355e697443b51feed921c56"
+    },
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
+    },
+    {
+      "path": "experiments/datasets/v5-15-01-benchmark-accessions.json",
+      "sha256": "d2e333c4bc6ca87691e7721fa1dc90fea8de843bf33fbcb9b3c0e868f7eaf60b"
+    },
+    {
+      "path": "experiments/datasets/v5-15-04-branch-hysteresis-ramps.json",
+      "sha256": "0a3dd778829d496af7d1d32cd5aa7b41e675f55e5fbb5b94e8e731e827fb4f76"
+    },
+    {
+      "path": "experiments/datasets/v5-28-02-confirmation-campaign.json",
+      "sha256": "f6c5538c228be6e946aa41a26e6ae076d551e128b268d684f70c588228b2db61"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cpu_affinity": [
+      32,
+      33
+    ],
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "observed_target_disk": "1.1 GiB"
+  },
+  "scientific_admission": false,
+  "native_solver_or_campaign_executed": false,
+  "limitations": [
+    "Software-only synthetic fixtures; no literature data accession or physical validation.",
+    "Public-open-data disposition implemented as clearly labelled synthetic fixture corpus; original source accessions require independent evidence.",
+    "Historical D-16/D-31 frozen-source controls retained as provenance; dedicated tests and full four-crate regressions are refreshed.",
+    "No push or merge performed by this worker."
+  ],
+  "next_dependency": "Integrator reviews committed I007 source/evidence and performs required publication gates; release packet remains in_progress.",
+  "sc_audit": {
+    "ref": "59acb0831f406d511f2b3c3b70e185c91e351e29",
+    "result": {
+      "done_on_main": 155,
+      "done_red_flagged": 0,
+      "done_unflagged_on_main": 155,
+      "red_flagged_tasks": [],
+      "flags": {}
+    },
+    "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i007/source-head-audit.json",
+    "log_sha256": "4a7ebdc76bf1bd291a428ac947a1ab86fa07dcd86a3e67a3275ae45ca083b41c"
+  }
+}

@@ -54,7 +54,7 @@
       "decision_id": "SC-DEC-028",
       "task_id": "V5-15-01",
       "disposition_mode": "public_open_data+substitute:synthetic_fixture",
-      "summary": "Open published hydrocyclone and swirl benchmark tables and curves (Hsieh 1988, Bai, Young, Zhou) are represented via substitute:synthetic_fixture accession records with provenance digests, station coordinates, boundary conditions and unresolved input declarations; raw benchmark table ingestion and native solver execution remain open. Cost $0.",
+      "summary": "public_open_data+substitute:synthetic_fixture benchmark accession corpus and field/patch station ingestor are implemented in packs/hydrocyclone/judges/src/validation.rs and verified against experiments/datasets/v5-15-01-benchmark-accessions.json. Candidate support includes Bai/Wang/Xu/Delgadillo/Hsieh plus Young/Zhou; the tracked canonical Bai/Young/Zhou/Hsieh records are explicitly synthetic, with scientific_admission=false preserved.",
       "tasks_unblocked": [
         "V5-15-02",
         "V5-15-03",
@@ -65,7 +65,8 @@
         "V5-16-03",
         "V5-16-04",
         "V5-16-05"
-      ]
+      ],
+      "rationale": "Dedicated positive/negative tests verify station value digests, SI units, separate uncertainty components, source/license and six identity admission tags, and literature-only separation for synthetic/proxy or mismatched records. This is software verification of a synthetic accession corpus, not accession of original published measurements or a native solver campaign; physical validation requires independent source-bound evidence."
     },
     {
       "decision_id": "SC-DEC-029",
@@ -210,7 +211,7 @@
       "decision_id": "SC-DEC-040",
       "task_id": "V5-25-02",
       "disposition_mode": "substitute:native_full_liner_corpus+substitute:synthetic_fixture",
-      "summary": "Full-liner corpus hygiene and family-separated holdout gates are checked on substitute:synthetic_fixture protocol records; native full-liner corpus generation remains open.",
+      "summary": "Full-liner corpus hygiene, family-separated holdout splits, and reference carrier/transport digests are verified on substitute:native_full_liner_corpus+substitute:synthetic_fixture protocol records; physical wet-liner measurements are governed by V5-30.",
       "tasks_unblocked": [
         "V5-25-03",
         "V5-25-04",

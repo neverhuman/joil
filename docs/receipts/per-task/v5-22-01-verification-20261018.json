@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-22-01"
+  ],
+  "tested_commit": "198f78364b6fb788cd4d49459f9aa7c9161c0baa",
+  "tested_commit_semantics": "Exact task tests ran against the implementation at this committed code revision.",
+  "decision_resolution": "Resolved under SC-DEC-038 (substitute:native_high_fidelity_oracle_labels+substitute:synthetic_fixture): implemented strict subject-bound admission, six-family geometry and lineage holdout folds, and separate sandbox namespaces.",
+  "changed_paths": [
+    "crates/crucible-search/src/surrogate.rs",
+    "experiments/datasets/v5-22-01-oracle-labels.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "crucible-search",
+        "surrogate::tests::v5_22_01_oracle_label_dataset_grouped_splits_and_sandbox_separation",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-22-01.log",
+      "log_sha256": "91acd09349620e9a4367a395d9957609f442cab5e22edfbd12ef9a6e1a135227"
+    }
+  ],
+  "positive_checks": [
+    "24 qualified subject-bound fixture labels admitted across six lineages and six geometry families; both grouped fold sets verified with zero preparation, family and lineage overlap."
+  ],
+  "negative_checks": [
+    "SandboxPrior and SandboxPrunedInput stay out of independent labels; recipe prior, invalid unit, missing observer/value and synthetic controls are excluded."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-search/src/surrogate.rs",
+      "sha256": "253a6ac9fa0dfb3d624f9e57a256f689ed8ced5f04061adcce9d8b946b7eb0c4"
+    },
+    {
+      "path": "experiments/datasets/v5-22-01-oracle-labels.json",
+      "sha256": "949b5228e71ae95890cb16bdd529e751382faa70fccf656b4d74962b28faafa3"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "ram_gib": 6,
+    "disk_gib": 5,
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and synthetic substitute-fixture verification only; scientific_admission remains false."
+  ],
+  "next_dependency": "V5-22-02"
+}

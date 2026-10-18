@@ -2,7 +2,7 @@
 
 Generated from `TASKS.json` and packet-owned `progress/*.json`. Run `rtk proxy python3 tools/v5_plan.py build` after a progress commit.
 
-**Planning is prepared; engineering implementation progress is 149/160. Scientific qualification remains governed by `docs/STATUS.json`.**
+**Planning is prepared; engineering implementation progress is 155/160. Scientific qualification remains governed by `docs/STATUS.json`.**
 
 | Packet | Milestone | Owner role | Complete | Dependencies |
 | --- | --- | --- | ---: | --- |
@@ -21,20 +21,20 @@ Generated from `TASKS.json` and packet-owned `progress/*.json`. Run `rtk proxy p
 | [V5-12 — Variation, expressiveness and operator-yield audit](todos/V5-12.md) | M2 | operators owner | 5/5 | V5-09, V5-10, V5-11 |
 | [V5-13 — Material/process passports and actual mass](todos/V5-13.md) | M2 | manufacturing owner | 5/5 | V5-02, V5-09, V5-10 |
 | [V5-14 — Corrected native carrier evaluator and control](todos/V5-14.md) | M3 | reference CFD owner | 5/5 | V5-02, V5-03, V5-10 |
-| [V5-15 — Validation accession and controlled vortex/PDR study](todos/V5-15.md) | M3 | validation owner | 3/5 | V5-14 |
+| [V5-15 — Validation accession and controlled vortex/PDR study](todos/V5-15.md) | M3 | validation owner | 5/5 | V5-14 |
 | [V5-16 — Native light-drop forces, face injection and inventory](todos/V5-16.md) | M3 | oil transport owner | 5/5 | V5-04, V5-14 |
 | [V5-17 — Dispersion, breakup and transport uncertainty](todos/V5-17.md) | M3 | multiphase model owner | 5/5 | V5-16 |
 | [V5-18 — Common-flow capacity, energy, mass-reserve decisions](todos/V5-18.md) | M4 | metrics integrator | 5/5 | V5-04, V5-13, V5-15, V5-17, V5-20 |
 | [V5-19 — Candidate-specific structural loads, static FEA and buckling](todos/V5-19.md) | M3 | structures owner | 5/5 | V5-02, V5-10, V5-13, V5-14 |
 | [V5-20 — Wet dynamics, finite-life fatigue and as-built uncertainty](todos/V5-20.md) | M3 | dynamics/material owner | 5/5 | V5-04, V5-19 |
 | [V5-21 — Deterministic reference-search policy and fair controls](todos/V5-21.md) | M4 | search owner | 5/5 | V5-07, V5-12, V5-18 |
-| [V5-22 — Multi-fidelity acquisition, surrogate calibration and audits](todos/V5-22.md) | M4 | acquisition owner | 4/5 | V5-04, V5-15, V5-17, V5-21 |
+| [V5-22 — Multi-fidelity acquisition, surrogate calibration and audits](todos/V5-22.md) | M4 | acquisition owner | 5/5 | V5-04, V5-15, V5-17, V5-21 |
 | [V5-23 — Leased workers, measured benchmarks and scaling](todos/V5-23.md) | M4 | HPC owner | 5/5 | V5-06, V5-07, V5-14 |
 | [V5-24 — Optional GPU flow and voxel-FEA admission track](todos/V5-24.md) | M5 | accelerator research owner | 5/5 | V5-15, V5-17, V5-19, V5-23 |
-| [V5-25 — Optional frozen-liner response operator](todos/V5-25.md) | M5 | reduced-model owner | 3/5 | V5-15, V5-17, V5-22 |
+| [V5-25 — Optional frozen-liner response operator](todos/V5-25.md) | M5 | reduced-model owner | 5/5 | V5-15, V5-17, V5-22 |
 | [V5-26 — Evidence-bound scenes and complete Blender recipe registry](todos/V5-26.md) | M5 | render owner | 5/5 | V5-03, V5-05, V5-10 |
 | [V5-27 — Read-only evidence explorer and live progress](todos/V5-27.md) | M5 | explorer owner | 5/5 | V5-07, V5-26 |
-| [V5-28 — Preregistered research, mechanism study and query-built paper](todos/V5-28.md) | M6 | research owner | 4/5 | V5-04, V5-18, V5-21, V5-22, V5-26 |
+| [V5-28 — Preregistered research, mechanism study and query-built paper](todos/V5-28.md) | M6 | research owner | 5/5 | V5-04, V5-18, V5-21, V5-22, V5-26 |
 | [V5-29 — Structural bracket reuse proof](todos/V5-29.md) | M6 | second-pack owner | 5/5 | V5-07, V5-12, V5-19, V5-21, V5-26 |
 | [V5-30 — Physical protocol, as-built confirmation and private dossiers](todos/V5-30.md) | M7 | experimental lead | 5/5 | V5-15, V5-17, V5-20, V5-28 |
 | [V5-31 — Single-PR integration, migration and final release evidence](todos/V5-31.md) | M7 | integrator | 0/5 | V5-01, V5-02, V5-03, V5-04, V5-05, V5-06, V5-07, V5-08, V5-09, V5-10, V5-11, V5-12, V5-13, V5-14, V5-15, V5-16, V5-17, V5-18, V5-19, V5-20, V5-21, V5-22, V5-23, V5-26, V5-27, V5-28, V5-29, V5-30 |

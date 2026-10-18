@@ -49,7 +49,7 @@
   "artifacts": [
     {
       "path": "crates/crucible-stats/src/analysis.rs",
-      "sha256": "39655b89c37a31de6900ac5134b0e7d242c936cf266c2a7ea79727a1543bd119"
+      "sha256": "a3393f906d3449f381ce0a2de67573009583bfc66aa716543aa9d3cdca21e2fd"
     },
     {
       "path": "analysis/validation/v5/protocol.py",
