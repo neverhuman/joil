@@ -253,10 +253,10 @@ pub fn qualify_numerical_and_physical_fixtures(
             return Err("required_fixture_missing");
         }
     }
-    if ["turbulent_deoiling", "nonlinear_collapse"].contains(&target_application) {
-        if fixtures.iter().any(|f| f.regime == "laminar") {
-            return Err("laminar_fixture_cannot_qualify_target");
-        }
+    if ["turbulent_deoiling", "nonlinear_collapse"].contains(&target_application)
+        && fixtures.iter().any(|f| f.regime == "laminar")
+    {
+        return Err("laminar_fixture_cannot_qualify_target");
     }
     if fixtures.iter().any(|f| {
         !f.observed_order.is_finite() || !f.max_rel_error.is_finite() || f.max_rel_error < 0.0

@@ -38,7 +38,7 @@
   "artifacts": [
     {
       "path": "crates/crucible-gpu/src/lib.rs",
-      "sha256": "f63c9655620c506568ef0b9a9ff7726510996b6130b83ed65bdd36dd5368eee7"
+      "sha256": "d844a1ca54a1e33484483a2898be31102a86acf42e78e6438917188f2f064e0f"
     },
     {
       "path": "experiments/v5-accelerator-admission.toml",

@@ -61,11 +61,11 @@
   "artifacts": [
     {
       "path": "crates/crucible-fea/src/lib.rs",
-      "sha256": "53b5fd797e33e146157f0f8d6fb4aa0c0d89b093daf3fbb0474c100821534944"
+      "sha256": "173f8a56e1ede0b3019c7a142c9c23437debf0d034ca7b0b7c88bb5dd9b516f3"
     },
     {
       "path": "crates/crucible-lbm/src/lib.rs",
-      "sha256": "f1bb3ec664cf753c4a18cc61a7f8afce6232fd4a18db7911484663ea76d1d6dd"
+      "sha256": "17f2a446ceee30cfe93e070c71ff1059f5401bd53cd7d08681ea54c9b4bf571a"
     }
   ],
   "resource_allocation": {
