@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-28-04"
+  ],
+  "tested_commit": "b09319febf4afd93a110787b5a18829a8864a4ee",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by current artifact SHA-256; not a claim that new tests exist at the base commit.",
+  "decision_resolution": "SC-DEC-041 substitute:typed_manifest_observations+substitute:synthetic_fixture: production exact-token verifier and five-class planted-error corpus execute on typed synthetic baseline, rejecting every mutation.",
+  "changed_paths": [
+    "crates/crucible-paper/src/lib.rs",
+    "docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "extract",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_result": "Frozen C006 source e1e9203 extracted to the existing lane target."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "build-frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/frozen-source"
+      ],
+      "exit_code": 0,
+      "log_sha256": "560a68a7611ffe14f953565913a9e6df27229d3dbf13fc47e58d549d76920e14",
+      "expected_result": "Frozen joil-ir/core/cli artifacts built with the c006frozen profile."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-31",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-pos"
+      ],
+      "exit_code": 0,
+      "log_sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138",
+      "expected_result": "Frozen C006 D-31 positive runtime control passed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper"
+      ],
+      "exit_code": 0,
+      "log_sha256": "72d4e78cec50190476948ce63dad01bf9b8b8b38a98296f20e135e069c6c0e2d",
+      "expected_result": "7 crucible-paper tests passed, 0 failed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-m",
+        "unittest",
+        "render/blender/test_plate.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "59a0abe37928ae79016aafb94b01358078bd9c23b941c313c264c3517cc73cae",
+      "expected_result": "6 Blender plate adapter unit tests passed."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::v5_28_04_planted_error_negative_corpus_rejects_denominator_unit_subject_stale_tier_and_fuzzy_numeric_matches"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.172,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-28-04.log",
+      "log_sha256": "5c097fffd1a57ec3bd2af02ced366d45b4de798124ebf23465c1d3dad07c24f5"
+    }
+  ],
+  "positive_checks": [
+    "Valid exact typed claim accepted; five planted classes executed and rejected; original baseline unchanged."
+  ],
+  "negative_checks": [
+    "Wrong denominator, unit, subject, stale tier, 1000x/0.15% near matches and missing typed bindings rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "cd61f4f21f89987d201890bbb30422068c97bce03a12dd3b65e9e63beede5ef9"
+    },
+    {
+      "path": "render/blender/test_plate.py",
+      "sha256": "1210bcd65d420e81f31a921c791745344496829a39c0d1288ccf48f47850ba1b"
+    },
+    {
+      "path": "docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json",
+      "sha256": "1fe6ee82511d6d1fb43da2616ff0621501373cf9dee02a5bfa32b40ca9c667c6"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "ram_limit_gib": 12,
+    "output_limit_gib": 5,
+    "gpu": false,
+    "simulation": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software verification with synthetic controls only; no physical qualification.",
+    "Numeric planted corpus requires a nonzero finite numeric baseline and a unit different from the planted mg/L unit; inapplicable baselines return an error."
+  ],
+  "next_dependency": "Independent integrator review; scientific admission still requires qualified source evidence.",
+  "inherited_evidence": {
+    "receipt": "docs/receipts/v5-28-d31-completion-20261018.json",
+    "sha256": "6a279fdd8faa88c8b247679d1f60e2eaa900af153be2f487e0e681c26ba970bd",
+    "note": "Historical commands/defect controls copied as provenance, not rerun in this remediation. Fixture/artifact hashes refreshed to current production source; original hashes retained in source receipt."
+  },
+  "defect_controls": [
+    {
+      "defect_id": "D-31",
+      "fixture": {
+        "path": "crates/crucible-paper/src/lib.rs",
+        "sha256": "cd61f4f21f89987d201890bbb30422068c97bce03a12dd3b65e9e63beede5ef9"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/claims_audit.py",
+        "symbol": "claim audit pipeline",
+        "sha256": "45b3f5fd9d8362674f1f52b46d5aeefe0e4581ecb7d371fb84ce43d653c81b6c"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-31",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-pos"
+        ],
+        "exit_code": 0,
+        "log_sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138",
+        "expected_result": "Synthetic same-subject, same-unit supported claim accepted and unbound numeral refused."
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-31",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "368a1dfcc7fe38c951b68d7708f399821f05306e4ecb0d370170137fa5c09414",
+        "expected_result": "C006-RED D-31 reports acceptance after source revocation using an unrelated matching numeral; exit 1."
+      }
+    }
+  ]
+}

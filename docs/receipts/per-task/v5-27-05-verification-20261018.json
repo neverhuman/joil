@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-27-05"
+  ],
+  "tested_commit": "b09319febf4afd93a110787b5a18829a8864a4ee",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by current artifact SHA-256; not a claim that new tests exist at the base commit.",
+  "decision_resolution": "Production static accessibility/content audit executes on real explorer source and manifest; CSS and truthful missing-data/claim negatives pass. No browser certification or scientific admission inferred.",
+  "changed_paths": [
+    "crates/crucible-cli/src/explore.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--lib",
+        "--",
+        "--exact",
+        "explore::tests::v5_27_05_accessibility_and_truthful_content_audits_real_explorer_assets_and_blocks_fake_zero_or_retracted_claims"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.152,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-27-05.log",
+      "log_sha256": "64ac6362aa15229c829461333e0ea5e6b50f7f552137656ec0bf42c89bf4e6b5"
+    }
+  ],
+  "positive_checks": [
+    "Real explorer CSS/main source and canonical manifest pass static audit; null missing observation retained."
+  ],
+  "negative_checks": [
+    "Fake zero/0.0/PASS values and source fallbacks, pressure gain/coupled trajectory without admission and missing CSS controls rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/src/explore.rs",
+      "sha256": "e2831e8308219c87d4a07b8d78b95e55b2861e45a351a5c8c793d3cb651511da"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "ram_limit_gib": 12,
+    "output_limit_gib": 5,
+    "gpu": false,
+    "simulation": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software verification with synthetic controls only; no physical qualification.",
+    "Static JSX/CSS contract checks are not execution of JavaScript or browser accessibility certification."
+  ],
+  "next_dependency": "Independent integrator review; scientific admission still requires qualified source evidence."
+}

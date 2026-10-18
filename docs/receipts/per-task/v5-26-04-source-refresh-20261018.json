@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-26-04"
+  ],
+  "tested_commit": "b09319febf4afd93a110787b5a18829a8864a4ee",
+  "decision_resolution": "Source refresh after additive interrupt-safe plate planner: existing quantitative scalar/mask production test rerun; historical D-22 controls retained as provenance, not rerun.",
+  "changed_paths": [
+    "crates/crucible-render/",
+    "render/blender/",
+    "recipes/v5/",
+    "tests/fixtures/v5-scenes/",
+    "crates/joil-core/src/scene.rs",
+    "visualization/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-render",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::scalar_mapping_saturates_and_mask_is_preserved"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-26-04.log",
+      "log_sha256": "d1d211d3bedb77510be18a887daa1eda9c6d20f2e82715267836154f91f28cda"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/pack-bracket-reuse-proof.log",
+      "log_sha256": "7dce386048c07440c22cf53910bb12d20b81c9d8c510568ee61c575f2c4f41a0",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "pack-bracket-reuse-proof.log completed successfully."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-architecture",
+        "--test",
+        "blind_boundary"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/crucible-architecture-blind-boundary.log",
+      "log_sha256": "6db9a287f8c3bd5a831389a59f5d02739a598010bde8b3123a1010aa335c8ad2",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "crucible-architecture-blind-boundary.log completed successfully."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/check-public.log",
+      "log_sha256": "bb3990a0d7f8fb2bd70858267bcb878246d95634ffe8d025752e3743610e863a",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Public-content check passed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-22",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log",
+      "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-render",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::scalar_mapping_saturates_and_mask_is_preserved"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/I004-V5-26-04-source-refresh.log",
+      "log_sha256": "7de6a9d5193333d4196ce000fed13d7300b17f0714bd11e159e20319e0180b71"
+    }
+  ],
+  "positive_checks": [
+    "V5-26-04 (Verify quantitative visual semantics): Unit cubes/mirrored frames and saturation/mask tests pass independently of pixels. \u2014 verified by cargo test --locked --offline -p crucible-render --lib -- --exact tests::scalar_mapping_saturates_and_mask_is_preserved"
+  ],
+  "negative_checks": [
+    "V5-26-04 negative control: Denoising or an artistic transform cannot alter the quantitative scalar-to-color layer."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/joil-core/src/scene.rs",
+      "sha256": "e87c96bdc371589179346526e4f8113126e88ce190294e4f35f201a0bf505d87"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/pack-bracket-reuse-proof.log",
+      "sha256": "7dce386048c07440c22cf53910bb12d20b81c9d8c510568ee61c575f2c4f41a0"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/crucible-architecture-blind-boundary.log",
+      "sha256": "6db9a287f8c3bd5a831389a59f5d02739a598010bde8b3123a1010aa335c8ad2"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane4/check-public.log",
+      "sha256": "bb3990a0d7f8fb2bd70858267bcb878246d95634ffe8d025752e3743610e863a"
+    },
+    {
+      "path": "crates/crucible-render/src/lib.rs",
+      "sha256": "988999abf0ef8b32625d37a33d645eb85ca3a183bd7f2a3031d48f2dddb37971"
+    },
+    {
+      "path": "docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json",
+      "sha256": "2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-render --lib -- --exact tests::scalar_mapping_saturates_and_mask_is_preserved in packet V5-26 (Evidence-bound scenes and complete Blender recipe registry)."
+  ],
+  "next_dependency": "V5-26-05",
+  "defect_controls": [
+    {
+      "defect_id": "D-22",
+      "fixture": {
+        "path": "crates/crucible-render/src/lib.rs",
+        "sha256": "988999abf0ef8b32625d37a33d645eb85ca3a183bd7f2a3031d48f2dddb37971"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "symbol": "modal plot",
+        "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos"
+        ],
+        "exit_code": 0,
+        "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
+        "expected_result": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed."
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8",
+        "expected_result": "C006-RED D-22 reports a modal series without evidence; exit 1."
+      }
+    }
+  ],
+  "supersedes": {
+    "path": "docs/receipts/per-task/v5-26-04-verification-20261018.json",
+    "sha256": "ebba675fffda7e2fad318ee2ccf28b530573e9b97fdd5fa85dd92a9bab079139"
+  },
+  "tested_commit_semantics": "Base commit plus source artifacts hash-bound below."
+}

@@ -63,10 +63,15 @@
       ]
     },
     "V5-27-05": {
-      "status": "in_progress",
-      "owner": "codex_lane4",
-      "note": "SC-DEC-071 red-team remediation: moved back to in_progress; read-only explorer API and manifest truth checks exist in crates/crucible-cli and apps/explorer, but browser DOM accessibility/keyboard navigation verification remains open.",
-      "evidence": []
+      "status": "done",
+      "owner": "codex",
+      "note": "Production static accessibility/content audit executes on real explorer source and manifest; CSS and truthful missing-data/claim negatives pass. No browser certification or scientific admission inferred. scientific_admission=false.",
+      "evidence": [
+        {
+          "path": "docs/receipts/per-task/v5-27-05-verification-20261018.json",
+          "sha256": "40adff9b208e874f6c41d9d729fda983b318229e5323ae2105a2626c7f4e05ab"
+        }
+      ]
     }
   }
 }
