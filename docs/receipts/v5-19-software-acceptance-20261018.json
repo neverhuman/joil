@@ -55,7 +55,7 @@
     "V5-19-04",
     "V5-19-05"
   ],
-  "packet_acceptance": true,
+  "packet_acceptance": false,
   "scientific_admission": false,
   "commands": [
     {
@@ -192,5 +192,16 @@
         "exit_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
       }
     }
-  ]
+  ],
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
+      "sha256": "7620defc10afd6e6e8032e59c90c1b284a5625249045f4243e558d9e67c85f9f"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
 }

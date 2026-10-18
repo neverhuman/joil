@@ -9,7 +9,7 @@
     "V5-15-04",
     "V5-15-05"
   ],
-  "packet_acceptance": true,
+  "packet_acceptance": false,
   "scientific_admission": false,
   "tested_commit": "7cb44104c011082457263d36fe8e8fa1c6de1764",
   "created_utc": "2026-10-18T11:47:33.137189+00:00",
@@ -124,5 +124,16 @@
     "Requested tracking path `docs/release/v5/EXTERNAL_DATA_REQUESTS.json` does not exist at tested commit 7cb44104c011082457263d36fe8e8fa1c6de1764. This receipt records the discrepancy without creating files outside the authorized scope."
   ],
   "next_dependency": "Restore or identify the authoritative external-data request manifest, then accession source/license/digest and unresolved measurement metadata for wet/modal/fatigue datasets before scientific validation.",
-  "external_dataset_note": "Wet-modal/fatigue accession remains unresolved; requested external data request manifest path was absent at tested head."
+  "external_dataset_note": "Wet-modal/fatigue accession remains unresolved; requested external data request manifest path was absent at tested head.",
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
+      "sha256": "a706c3589aad95d99c1bf80624dfdee0b72a3af70bf42e738ba579095d246a01"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
 }

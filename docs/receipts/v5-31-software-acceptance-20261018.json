@@ -11,7 +11,7 @@
   ],
   "owner": "1052087.joil_v5_claude",
   "state": "software_acceptance_recorded",
-  "packet_acceptance": true,
+  "packet_acceptance": false,
   "packet_acceptance_scope": "Software verification at tested_commit only, including the executed D-30 primary defect control for V5-31-02. Scientific admission is false. Clean source/head CI, the single draft PR and the owner merge are not claimed here.",
   "scientific_admission": false,
   "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
@@ -135,7 +135,8 @@
         "exit_code": 0,
         "log_sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82",
         "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
-        "expected_result": "C006 frozen-source positive control: assertion_holds=true."
+        "expected_result": "C006 frozen-source positive control: assertion_holds=true.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log"
       },
       "red": {
         "argv": [
@@ -155,7 +156,8 @@
         "exit_code": 1,
         "log_sha256": "4baf2b89ee51fededa04a471f5a4f65e3bb4f2d6df0e33f225fe5a54ad0241c9",
         "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
-        "expected_result": "C006-RED D-30: explicit_state_disagrees (Rust and Python disagree on an overflow concentration)."
+        "expected_result": "C006-RED D-30: explicit_state_disagrees (Rust and Python disagree on an overflow concentration).",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log"
       }
     }
   ],
@@ -209,5 +211,27 @@
     "changed_paths lists V5-31 write-scope files verified at tested_commit. No file in those paths changed in this receipt-only wave.",
     "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
   ],
-  "next_dependency": "Open the single draft PR from the tested head, obtain clean CI at its exact head, reconcile the D-30 parity repair, and leave the merge to the owner."
+  "next_dependency": "Open the single draft PR from the tested head, obtain clean CI at its exact head, reconcile the D-30 parity repair, and leave the merge to the owner.",
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
+      "sha256": "0dcb5fb56055ce4141bc0b7a6abcd2cb2c2d2ee8035a2a3e00d22f518345eede"
+    },
+    "resolved_log_paths": [
+      {
+        "node": "docs/receipts/v5-31-software-acceptance-20261018.json.defect_controls[0].positive",
+        "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+        "sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82"
+      },
+      {
+        "node": "docs/receipts/v5-31-software-acceptance-20261018.json.defect_controls[0].red",
+        "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
+        "sha256": "4baf2b89ee51fededa04a471f5a4f65e3bb4f2d6df0e33f225fe5a54ad0241c9"
+      }
+    ],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
 }

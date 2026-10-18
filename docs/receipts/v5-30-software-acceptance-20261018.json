@@ -11,7 +11,7 @@
   ],
   "owner": "1052087.joil_v5_claude",
   "state": "software_acceptance_recorded",
-  "packet_acceptance": true,
+  "packet_acceptance": false,
   "packet_acceptance_scope": "Software verification at tested_commit only. Scientific admission is false. No physical build, rig run, metrology or confirmation data exists in this receipt.",
   "scientific_admission": false,
   "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
@@ -125,5 +125,16 @@
     "changed_paths lists the V5-30 write-scope files verified at tested_commit (integrated at 1b150c2 and 1d7f2e2). No file in those paths changed in this receipt-only wave.",
     "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
   ],
-  "next_dependency": "Owner approval of the rig protocol and disclosure scope (dossiers 4 and 5), then physical measurement inputs from EXTERNAL_DATA_REQUESTS.json before any V5-30-02..04 claim."
+  "next_dependency": "Owner approval of the rig protocol and disclosure scope (dossiers 4 and 5), then physical measurement inputs from EXTERNAL_DATA_REQUESTS.json before any V5-30-02..04 claim.",
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-30-software-acceptance-20261018.json",
+      "sha256": "a2fc0a60d914561ba9dd0000e8388f864b3d94771fabd218a89297bd99d4301d"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
 }

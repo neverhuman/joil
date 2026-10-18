@@ -82,7 +82,7 @@
     "Software/harness verification only; scientific admission remains false."
   ],
   "next_dependency": "Integrator acceptance and scientific evidence gates remain separate.",
-  "packet_acceptance": true,
+  "packet_acceptance": false,
   "scientific_admission": false,
   "agent_trailers": {
     "Agent-Session": "lane3-wave6-v5-21-22-24",
@@ -135,5 +135,16 @@
         "expected_result": "C006-RED D-22: modal_series_without_evidence."
       }
     }
-  ]
+  ],
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
+      "sha256": "319b0da49ccce4a52766aa6fbc8dd63b5764a9048e846a8efd6b32904b96fa1e"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
 }

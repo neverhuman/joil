@@ -11,7 +11,7 @@
   ],
   "owner": "1052087.joil_v5_claude",
   "state": "software_acceptance_recorded",
-  "packet_acceptance": true,
+  "packet_acceptance": false,
   "packet_acceptance_scope": "Software verification at tested_commit only, including the executed D-31 primary defect control for V5-28-04. Scientific admission is false. The V5-28-01 and V5-28-05 human sign-offs are not given here; they are open in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md. V5-28-04 external physical labels are open in docs/release/v5/EXTERNAL_DATA_REQUESTS.json.",
   "scientific_admission": false,
   "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
@@ -137,7 +137,8 @@
         "exit_code": 0,
         "log_sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138",
         "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-positive.log",
-        "expected_result": "C006 frozen-source positive control: assertion_holds=true."
+        "expected_result": "C006 frozen-source positive control: assertion_holds=true.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-pos.log"
       },
       "red": {
         "argv": [
@@ -155,7 +156,8 @@
         "exit_code": 1,
         "log_sha256": "368a1dfcc7fe38c951b68d7708f399821f05306e4ecb0d370170137fa5c09414",
         "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-red.log",
-        "expected_result": "C006-RED D-31: revoked_claim_still_accepted (frozen claim pipeline accepts a revoked same-subject claim)."
+        "expected_result": "C006-RED D-31: revoked_claim_still_accepted (frozen claim pipeline accepts a revoked same-subject claim).",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/d31-red.log"
       }
     }
   ],
@@ -208,5 +210,27 @@
     "The D-31 fixture is the control driver tools/v5_baseline_source_controls.py, not a claims-audit test file; the source binding is the frozen e1e9203 claims_audit source recorded in DEFECTS.json.",
     "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
   ],
-  "next_dependency": "V5-28-01 and V5-28-05 owner sign-offs, V5-28-04 external labels, and a crucible-paper build with planted negatives before any scientific or publication claim."
+  "next_dependency": "V5-28-01 and V5-28-05 owner sign-offs, V5-28-04 external labels, and a crucible-paper build with planted negatives before any scientific or publication claim.",
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
+      "sha256": "6770f1ecbcb8c778fe38a7d64acf06637d2924bbcec3ec1d19d5de96071571f7"
+    },
+    "resolved_log_paths": [
+      {
+        "node": "docs/receipts/v5-28-software-acceptance-20261018.json.defect_controls[0].positive",
+        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-pos.log",
+        "sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138"
+      },
+      {
+        "node": "docs/receipts/v5-28-software-acceptance-20261018.json.defect_controls[0].red",
+        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/d31-red.log",
+        "sha256": "368a1dfcc7fe38c951b68d7708f399821f05306e4ecb0d370170137fa5c09414"
+      }
+    ],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
 }

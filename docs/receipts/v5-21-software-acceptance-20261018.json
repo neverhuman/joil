@@ -68,11 +68,22 @@
     "Software/harness verification only; scientific admission remains false."
   ],
   "next_dependency": "Integrator acceptance and scientific evidence gates remain separate.",
-  "packet_acceptance": true,
+  "packet_acceptance": false,
   "scientific_admission": false,
   "agent_trailers": {
     "Agent-Session": "lane3-wave6-v5-21-22-24",
     "Agent-Model": "gpt-6-luna medium",
     "Agent-Task": "V5-21-01 V5-21-02 V5-21-03 V5-21-04 V5-21-05 V5-22-01 V5-22-02 V5-22-03 V5-22-04 V5-22-05 V5-24-01 V5-24-02 V5-24-03 V5-24-04 V5-24-05"
+  },
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+      "sha256": "067cab733a43efe469f983c4ac0d5f46ee76cf8b04bbd79d765580fc8d6f1415"
+    },
+    "resolved_log_paths": [],
+    "commands_reexecuted_by_this_metadata_amendment": false
   }
 }

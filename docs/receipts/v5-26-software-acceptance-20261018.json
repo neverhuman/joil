@@ -192,7 +192,7 @@
     "The V5-26-05 approval dossier path named in the assignment is absent from this checkout; owner approval is pending."
   ],
   "next_dependency": "Independent packet review; scientific admission remains dependent on packet-specific external evidence and owner approvals.",
-  "packet_acceptance": true,
+  "packet_acceptance": false,
   "scientific_admission": false,
   "kind": "v5_software_acceptance_receipt",
   "task_ids": [
@@ -230,7 +230,8 @@
         ],
         "exit_code": 0,
         "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
-        "expected_result": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed."
+        "expected_result": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log"
       },
       "red": {
         "argv": [
@@ -246,8 +247,31 @@
         ],
         "exit_code": 1,
         "log_sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8",
-        "expected_result": "C006-RED D-22 reports a modal series without evidence; exit 1."
+        "expected_result": "C006-RED D-22 reports a modal series without evidence; exit 1.",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red.log"
       }
     }
-  ]
+  ],
+  "integrator_disposition": {
+    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
+    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
+    "original_receipt": {
+      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+      "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+      "sha256": "5e400c2901b47387af34475f3f650e445d04a58e764853bdf897a506a192fd98"
+    },
+    "resolved_log_paths": [
+      {
+        "node": "docs/receipts/v5-26-software-acceptance-20261018.json.defect_controls[0].positive",
+        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log",
+        "sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd"
+      },
+      {
+        "node": "docs/receipts/v5-26-software-acceptance-20261018.json.defect_controls[0].red",
+        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red.log",
+        "sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8"
+      }
+    ],
+    "commands_reexecuted_by_this_metadata_amendment": false
+  }
 }
