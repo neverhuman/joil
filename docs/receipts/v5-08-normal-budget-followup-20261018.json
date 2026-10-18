@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "packet": "V5-08",
+  "task_ids": [
+    "V5-08-01",
+    "V5-08-03",
+    "V5-08-05"
+  ],
+  "kind": "additive_tested_budget_repair_pending_packet_acceptance",
+  "tested_commit": "c0dafe0cdda5dd23378bcfd17f27b8193ff0277e",
+  "created_utc": "2026-10-18T05:16:41.189802+00:00",
+  "changed_paths": [
+    "crates/crucible-geom/src/lib.rs",
+    "crates/joil-geometry/src/field.rs",
+    "crates/joil-geometry/src/field/fidget.rs",
+    "crates/joil-geometry/src/interval.rs",
+    "crates/joil-geometry/tests/kernel.rs",
+    "docs/design/V5_GEOMETRY.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-geometry",
+        "-p",
+        "crucible-geom",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 15.115122874965891,
+      "log_sha256": "a2b0b6e771437fb6bf0007f7d6ca1374cd2e4556326bb84a264a05a160753a89"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 30.9318917139899,
+      "log_sha256": "da1c9e381e6fca958304cf762ae696bc610b978b2a248134726f79c71e19aeb7"
+    }
+  ],
+  "negative_controls": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-geometry",
+        "--test",
+        "kernel",
+        "normal_budget_counts_source_nodes_across_all_six_samples",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 1.4334567550104111,
+      "log_sha256": "706104f38daca8876a5aad5962013f77d0f8fd1e561df8779a50f9bcef3f7de1"
+    }
+  ],
+  "positive_checks": [
+    "Analytic three-node plane normal is [1,0,0] and consumes exactly eighteen shared source operations for six samples.",
+    "All geometry/compatibility/observer controls pass, with actual VM/JIT comparison controls and no ignored tests.",
+    "Workspace clippy all targets passes with warnings denied."
+  ],
+  "negative_checks": [
+    "Same tracked plane control fails on the old normal estimator, exit101: six credits incorrectly permitted eighteen DAG operations.",
+    "A six-operation allowance now refuses the three-node normal and is exhausted; unsupported backend accounting cannot silently reset the shared allowance."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/src/lib.rs",
+      "sha256": "98371364725ced378b9c63288d9549b5e4a1b6d0c162ecbaee26803d5a98f7d8"
+    },
+    {
+      "path": "crates/joil-geometry/src/field.rs",
+      "sha256": "188126e0ac879059ef3f1e4385e227decdf7c46f56de285a91bd27f618cb0725"
+    },
+    {
+      "path": "crates/joil-geometry/src/field/fidget.rs",
+      "sha256": "f736a9b624376e02d6b7ff698126c6f22930afbeb50c1e5ec5810ae40e1d01d4"
+    },
+    {
+      "path": "crates/joil-geometry/src/interval.rs",
+      "sha256": "76b089b050c71750f2a31f3605dc4bf757a0b8fc45c8675f5e53f03540b95fd3"
+    },
+    {
+      "path": "crates/joil-geometry/tests/kernel.rs",
+      "sha256": "5db76c16a85d33c04bfeee8b9fb03ace77131898f7d2515e48adb28b673f4dbc"
+    },
+    {
+      "path": "docs/design/V5_GEOMETRY.md",
+      "sha256": "a8def5c1a7ee5f4d26ac263d43953fcd753db723f52aca6bfed0eb7fa18d6f4a"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      32,
+      33
+    ],
+    "ram_bytes": 6442450944,
+    "scratch_bytes": 2684354560,
+    "cargo_build_jobs": 2,
+    "numeric_threads": 1,
+    "gpu": false
+  },
+  "limitations": [
+    "Source operations are logical DAG passes, not CPU instructions or a wall-clock guarantee.",
+    "Fidget remains experimental; normal sampling is not a global distance certificate.",
+    "This checkpoint does not close D-16 or mark all five V5-08 tasks accepted."
+  ],
+  "next_dependency": "Independent D-16 source-bound corpus/artifact controls, completed adjacent lane reconciliation, combined official suites and exact pushed-head CI."
+}

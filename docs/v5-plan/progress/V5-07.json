@@ -47,13 +47,13 @@
       ]
     },
     "V5-07-05": {
-      "status": "done",
+      "status": "review",
       "owner": "codex-v5-integrator",
-      "note": "Current96d full two-core lifecycle passes, including active SIGINT130, exactly one drained-batch/stop publication and six retained charges; source-bound full gate and exact96d CI remain in immutable supporting receipts. Partial command snapshots are explicitly partial. Software only; later heads need their own publication gate.",
+      "note": "New8f9 checkpoint source: real full2core lifecycle2/2 and recovery9/9 pass; new pipe/origin follow-up receipts preserve actual earlier reds. Held in review until combined integrated full gate and exact pushed-head CI; no physical claim.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-07-two-core-stop-verification-20261018.json",
-          "sha256": "4eb63d59039b054002c699a77d2e21e394de31be0382160d92eaa9f2f953022f"
+          "path": "docs/receipts/v5-07-complete-epoch-checkpoint-followup-20261018.json",
+          "sha256": "b1850a682c3bda2db7383da642655dd3c13845443b94ce3c5aeb247a332a52fc"
         }
       ]
     }

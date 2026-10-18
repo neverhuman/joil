@@ -5,7 +5,7 @@
     "V5-08-01": {
       "status": "review",
       "owner": "codex-v5-integrator",
-      "note": "Tested implementation18d48c5: reference/pinnedVM+JIT,32executed/17unique controls,workspaceclippy0. Full integrated gates/CI and D-16 primary closure pending; no packet or physical acceptance.",
+      "note": "Source18d reference/pinnedVM+JIT controls plus sourcec0d budget repair (additive receipt3da2cc66), observer integration15/15 pass. Full integrated gates/CI and independent D16 source-bound artifact closure remain pending; no packet or physical acceptance.",
       "evidence": [
         {
           "path": "docs/receipts/v5-08-geometry-kernel-20261018.json",

@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "packet": "V5-04",
+  "task_ids": [
+    "V5-04-03"
+  ],
+  "kind": "additive_tested_shared_contract_and_serialized_caller_migration_pending_combined_acceptance",
+  "tested_commit": "d80718ca947a93f423173d080c616ddc7b51bd03",
+  "created_utc": "2026-10-18T05:19:23.062222+00:00",
+  "changed_paths": [
+    "crates/crucible-stats/src/analysis/joint.rs",
+    "crates/crucible-stats/tests/common/mod.rs",
+    "crates/crucible-stats/tests/joint.rs",
+    "crates/joil-evidence/src/decision.rs",
+    "crates/joil-evidence/tests/decision.rs",
+    "docs/v5-plan/execution/V5-04-INPUT-DOMAIN-SCOPE.md",
+    "schemas/v5/decision-profile.schema.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.6004016369697638
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-evidence",
+        "--test",
+        "decision",
+        "-p",
+        "crucible-stats",
+        "--test",
+        "joint"
+      ],
+      "exit_code": 0,
+      "log_sha256": "9afbc61a8a0ca180caa55f7d36fa223a555f6ad53ac6edfc9328e29d15fe967f",
+      "wall_seconds": 9.927256183000281
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-stats"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6e1f2a1df20c53c6093c79efb30ddd26474f1ef5f4960efce68d90ffa34430d9",
+      "wall_seconds": 15.488415403990075
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "c66fce2242133ae959911fafb03f2f9c7058df832db145d0823c7f8a298c5103",
+      "wall_seconds": 19.873380600998644
+    }
+  ],
+  "negative_controls": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-stats",
+        "--test",
+        "joint",
+        "reviewed_ratio_margin_cannot_omit_its_baseline",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 101,
+      "log_sha256": "38a164d868ac28209416ffa9023d6764e2471c7622942e7f57adf88f19be53e9",
+      "wall_seconds": 4.697599537030328
+    }
+  ],
+  "positive_checks": [
+    "Synthetic S02 original numerical lower bounds and all statistics suites remain green.",
+    "23 decision and12 joint controls pass; legacy omitted input domain decodes unspecified and preserves canonical identity.",
+    "Reviewed positive-baseline domain accepts complete valid baseline data in both summary and paired-block paths."
+  ],
+  "negative_checks": [
+    "Old joint implementation actually returned Pass after removing the ratio baseline; tracked control failed101 before repair.",
+    "Missing summary or paired ratio baseline, unknown legacy domain, borrowed formula with restated domain, and nonpositive individual paired baselines all refuse inference.",
+    "Unknown domain enum values reject; the current-source and schema defaults agree."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-stats/src/analysis/joint.rs",
+      "sha256": "27e257162ab8ea6d8d8ca0137b0d65dcac321c13729c7559e80fe5b811705efe"
+    },
+    {
+      "path": "crates/crucible-stats/tests/common/mod.rs",
+      "sha256": "a884f261c3125b1ab75ec3556c550519abbb42ba60f6fb3269f435e172ef433a"
+    },
+    {
+      "path": "crates/crucible-stats/tests/joint.rs",
+      "sha256": "39bee95538d6614ec08edd89c4bf4f9557c985181891509f186228124f335144"
+    },
+    {
+      "path": "crates/joil-evidence/src/decision.rs",
+      "sha256": "492ff0bfacdacbc18c2217ab4fc999bfbef0f538eaebf5a3cc9f4f0bad8999ce"
+    },
+    {
+      "path": "crates/joil-evidence/tests/decision.rs",
+      "sha256": "f941e5b7d6daff31faffef09aeb56524653a9a63fab482a3f51c331fdd605ac8"
+    },
+    {
+      "path": "docs/v5-plan/execution/V5-04-INPUT-DOMAIN-SCOPE.md",
+      "sha256": "9459da06923e2e56bdd458c7bb045a3f9c8c20b18143a79afccca4dc10c0fa27"
+    },
+    {
+      "path": "schemas/v5/decision-profile.schema.json",
+      "sha256": "c707f806525d9238547bf237bd99dd889b79b54d271492b2bb8e286f011956f9"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      32,
+      33
+    ],
+    "ram_bytes": 6442450944,
+    "scratch_bytes": 2684354560,
+    "cargo_build_jobs": 2,
+    "numeric_threads": 1,
+    "gpu": false
+  },
+  "limitations": [
+    "No physical requirement, threshold, calibration registration or scientific STATUS changed.",
+    "Omitted legacy domains are compatible wire input, not permission for joint inference.",
+    "Summary-only input can verify its baseline mean; individual baseline blocks require paired-block input.",
+    "Clean cargo fmt emits zero stdout bytes; its non-empty command receipt records actual argv, exit0 and SHA-256 of the empty raw log, rather than manufacturing output.",
+    "Combined official suites and exact pushed-head CI are pending."
+  ],
+  "next_dependency": "Integrator combined gate and exact-head CI; independent review of remaining lane-complete geometry/genome/render artifacts."
+}
