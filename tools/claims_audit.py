@@ -1071,7 +1071,8 @@ def _arithmetic_value(node, env):
     if isinstance(node, ast.Name):
         return env[node.id]
     binary = {ast.Add: operator.add, ast.Sub: operator.sub,
-              ast.Mult: operator.mul, ast.Div: operator.truediv}
+              ast.Mult: operator.mul, ast.Div: operator.truediv,
+              ast.Pow: operator.pow}
     if isinstance(node, ast.BinOp) and type(node.op) in binary:
         return binary[type(node.op)](_arithmetic_value(node.left, env),
                                      _arithmetic_value(node.right, env))

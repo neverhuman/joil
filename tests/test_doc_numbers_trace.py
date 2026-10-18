@@ -121,9 +121,9 @@ class NumbersTraceTests(unittest.TestCase):
         import ast
         from tools.claims_audit import _arithmetic_value
         for expression, expected in [('1+2*3', 7), ('(1+2)*3', 9),
-                                     ('-v0/+2', -3), ('1e-3+2', 2.001)]:
+                                     ('-v0/+2', -3), ('1e-3+2', 2.001), ('2**3', 8)]:
             self.assertEqual(_arithmetic_value(ast.parse(expression, mode='eval'), {'v0': 6}), expected)
-        for expression in ['2**3', '1//2', 'abs(1)', 'v0.real', '[1]', 'True']:
+        for expression in ['1//2', 'abs(1)', 'v0.real', '[1]', 'True']:
             with self.assertRaises(ValueError):
                 _arithmetic_value(ast.parse(expression, mode='eval'), {'v0': 6})
         with self.assertRaises(ZeroDivisionError):
