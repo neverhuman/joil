@@ -3,34 +3,59 @@
   "packet": "V5-31",
   "tasks": {
     "V5-31-01": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex_lane1",
-      "note": "Active frontier task for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 release handoff after PR #9 merged at 8d6c768a67fb7931678e8f09c230dadb6250d68a: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-31-software-acceptance-20261018.json (sha256 8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7); release-scope verification tests and execution receipt in docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
+          "sha256": "8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7"
+        }
+      ]
     },
     "V5-31-02": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane1",
-      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 release handoff after PR #9 merged at 8d6c768a67fb7931678e8f09c230dadb6250d68a: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-31-software-acceptance-20261018.json (sha256 8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7); release-scope verification tests and execution receipt in docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
+          "sha256": "8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7"
+        }
+      ]
     },
     "V5-31-03": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane1",
-      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 release handoff after PR #9 merged at 8d6c768a67fb7931678e8f09c230dadb6250d68a: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-31-software-acceptance-20261018.json (sha256 8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7); release-scope verification tests and execution receipt in docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
+          "sha256": "8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7"
+        }
+      ]
     },
     "V5-31-04": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane1",
-      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 release handoff after PR #9 merged at 8d6c768a67fb7931678e8f09c230dadb6250d68a: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-31-software-acceptance-20261018.json (sha256 8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7); release-scope verification tests and execution receipt in docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
+          "sha256": "8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7"
+        }
+      ]
     },
     "V5-31-05": {
-      "status": "todo",
+      "status": "done",
       "owner": "codex_lane1",
-      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 release handoff after PR #9 merged at 8d6c768a67fb7931678e8f09c230dadb6250d68a: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-31-software-acceptance-20261018.json (sha256 8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7); release-scope verification tests and execution receipt in docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
+          "sha256": "8404eefac4d173f61df5b1bf996264ec9efca7327eb4483d3a8621ea2a0ae2a7"
+        }
+      ]
     }
   }
 }

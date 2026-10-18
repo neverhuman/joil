@@ -16,19 +16,19 @@
     "control_arms": [],
     "reservations": null,
     "scientific_release": "Scientific phase: software_truth_repair_scientific_claim_inventory_incomplete; campaign admission: sandbox_only",
-    "software_status": "4 todo, 1 in_progress, 0 blocked, 0 review, 155 done",
+    "software_status": "0 todo, 0 in_progress, 0 blocked, 0 review, 160 done",
     "spend": null,
-    "tasks_completed": 155,
+    "tasks_completed": 160,
     "tasks_total": 160
   },
   "current": true,
   "generated_at": "Wall-clock time not recorded; revision identifies exact source bytes",
   "historical_corrections": [],
-  "revision": "6afade96f994f742e54a82ccadfea2579ae5d978eb639060a81e436e42a543b9",
+  "revision": "ff386f03faf28e51a21dd3f6ef1c1f33b8f977cbf68dabd71f77d49a6dc995da",
   "schema_version": 1,
   "source_snapshot": {
-    "sha256": "6afade96f994f742e54a82ccadfea2579ae5d978eb639060a81e436e42a543b9",
-    "source": "./v5/source-6afade96f994f742e54a82ccadfea2579ae5d978eb639060a81e436e42a543b9.json"
+    "sha256": "ff386f03faf28e51a21dd3f6ef1c1f33b8f977cbf68dabd71f77d49a6dc995da",
+    "source": "./v5/source-ff386f03faf28e51a21dd3f6ef1c1f33b8f977cbf68dabd71f77d49a6dc995da.json"
   },
   "subjects": [],
   "values": []
