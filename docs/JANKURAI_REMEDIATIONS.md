@@ -298,3 +298,31 @@ receipts. The scan below determines detector closure; remaining findings stay op
 | I010-J066 | Two additive native binaries now exist; Python remains in active legacy callers. No rare-ML exception or Python LOC reduction is asserted. P1b/P2 consumer migration and later ports remain required. |
 | I010-J067 | `python/ai-service` is a detector dimension label, not a newly created service. Python containment remains incomplete while product-truth consumers use the legacy tools. Retain the migration blocker. |
 | I010-J068 | `tools/claims_audit.py::_check_declared` evaluates arithmetic after a restrictive token regex and empty builtins. That limits accepted input but does not remove dynamic evaluation. Replacing it requires a bounded expression evaluator plus precedence, numerical-failure and receipt parity tests in the claims-audit migration packet. No active source or frozen hash is changed here. |
+
+### I015 exact audit evidence
+
+Jankurai 1.7.5: score **55**, raw **55**, **15 caps**, **42 findings**, **21 conformance blockers**.
+Report SHA-256: `123da0a21376ba175bc691892ad7d795aef7473b91f2df55403d4347164b0cea`. Advisory command exits 0; this is not full conformance. Raw reports are retained privately with the I015 evidence.
+
+| ID | Historical fingerprint | Current disposition |
+| --- | --- | --- |
+| I010-J055 | `sha256:c8dc4ad5d637d83bb4bf706a7400a3d4e7b5342b0603b7a3be5d8ffc6b52c9f8` | Present; technical dependency above remains. |
+| I010-J056 | `sha256:74dcad6c80b0b3434ffb9175d2a341388f968697f4b0a1fa0cb4a77320431a52` | Present; technical dependency above remains. |
+| I010-J057 | `sha256:538667a01e35d8e91eae100627364816dd225911862fa2fa1578642af63d4af8` | Present; technical dependency above remains. |
+| I010-J058 | `sha256:ae5e7dbf512c24e79a848bb257e29b6e0b23edf6c1b5445f2985b68222d28ef0` | Present; technical dependency above remains. |
+| I010-J059 | `sha256:5aed6448da5acd015ce0672c37538cd7b9cd1d84c4abd5ad1824ac75878eade2` | Present; technical dependency above remains. |
+| I010-J060 | `sha256:9e590a70e56e77620d38492e45a010615b522a082637aff257b0cf40fa116e30` | Present; technical dependency above remains. |
+| I010-J061 | `sha256:26495967e2fc6e0e0fce4e23daac8cbeea514c7091bc12c8c0209b812635248f` | Present; technical dependency above remains. |
+| I010-J062 | `sha256:6dc277f838aa42b508c136f6ba666d602ecefe226bc4c238b24388640ee21f82` | Present; technical dependency above remains. |
+| I010-J063 | `sha256:a4c75d4a3f2dc344afc5d7ea9151e9a554622634368dd8d11b858b8a110e05b4` | Absent before I015 as well; no new closure claimed. |
+| I010-J064 | `sha256:fdb3a84a21c55960774c72b44aa6af4228427d0ba1a9eeb7d25802508b687411` | Absent before I015 as well; no new closure claimed. |
+| I010-J065 | `sha256:edd248b7afc24b644107205fa5b84a88103ac4b622009ff9f19b779de8798f59` | Present; technical dependency above remains. |
+| I010-J066 | `sha256:a9ed62b36b036c9cc50ca8f42844065f4bb44a12c1b6a715d99db7453617b019` | Present; technical dependency above remains. |
+| I010-J067 | `sha256:eae71529c913c75e7e72af20256e5ec033b133306819383269593fa630421803` | Absent before I015 as well; no new closure claimed. |
+| I010-J068 | `sha256:e03218560ae46e56df7d6d93c96650a260e8b2955f8361382bdc6f71e3dbe494` | Present; technical dependency above remains. |
+
+J064 still has the current observability-56 fingerprint `sha256:dca91d28f08cf11b7117d5e796a0dee64c9c35685ca23e874564dca7cf74f5b2`. J065 remains despite the expanded budget procedure. The separate launch-artifact blocker `sha256:0f21fe749a193e4585d996dc6d063b41115e23a172c09ba76bba9b549301861b` also remains. No runtime monitoring, backup restoration or paid-service kill-switch proof was fabricated.
+
+The first source scan identified duplicated ordered JSON decoding; that implementation is now shared with v5-plan and its duplicate fingerprint is absent. The new baseline parity test retains scanner fingerprint `sha256:e357121f6a62701b66a18006ccf25be731f5a8f4ca552c4e3dbdbcfa152a5c9e`: its cited inline Python oracle executes the unchanged validator; Rust assertions compare exit/output and require explicit rejection of tampered/missing evidence. This is retained for detector review, not suppressed or described as closed. No target fingerprint newly closed in I015.
+
+The first audit invocation failed because read-only reporting forbids scratch outputs inside the checkout. Its log is retained; rerun with private scratch outside the checkout succeeded. Initial status byte parity exposed sorted JSON keys and was repaired before passing checks. Full commands, exits, evidence hashes and remaining limitations are in `docs/receipts/i015-rust-ci-20261018.json`.
