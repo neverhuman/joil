@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "packet": "V5-08",
+  "task_ids": [
+    "V5-08-01",
+    "V5-08-02",
+    "V5-08-03",
+    "V5-08-04",
+    "V5-08-05"
+  ],
+  "kind": "tested_implementation_checkpoint_pending_independent_defect_closure_and_full_integration",
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-18T04:27:50.860113+00:00",
+  "tested_commit": "18d48c5a934d669f81bb080afe18789d2b8d63d8",
+  "source_binding": "Checks ran immediately before this commit on the identical source/manifest tree. All exact SHA-256 bindings retained in the artifact inventory. No later code claimed tested.",
+  "changed_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "docs/v5-plan/TASKS.json",
+    "docs/v5-plan/progress/V5-08.json",
+    "docs/v5-plan/todos/V5-08.md",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/execution/V5-08-G007-SCOPE.md",
+    "docs/design/V5_GEOMETRY.md",
+    "docs/design/decisions/V5_KERNEL.md",
+    "crates/joil-geometry/src/certify.rs",
+    "crates/joil-geometry/src/chamber_wall/ct35.rs",
+    "crates/joil-geometry/src/chamber_wall.rs",
+    "crates/joil-geometry/src/csg.rs",
+    "crates/joil-geometry/src/field/fidget.rs",
+    "crates/joil-geometry/src/field.rs",
+    "crates/joil-geometry/src/interval.rs",
+    "crates/joil-geometry/src/lib.rs",
+    "crates/joil-geometry/src/partition.rs",
+    "crates/joil-geometry/tests/kernel.rs",
+    "crates/joil-geometry/Cargo.toml",
+    "crates/crucible-geom/Cargo.toml",
+    "crates/crucible-geom/src/lib.rs",
+    "crates/crucible-geom/tests/kernel.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "wall_seconds": 0.5597983569605276
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--locked",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "543fad91796c282eda6e68ee1b35f6b6361ba38adfdbfecce1bef10f4e9b242f",
+      "wall_seconds": 23.18850792601006
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-geometry",
+        "-p",
+        "crucible-geom",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a0818aaf4c7b154853ff229bbd5b49a077c503cbe786d00eca231778475e1a4c",
+      "wall_seconds": 19.80133017100161
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "a3fb9c5694bc75b59a593ba041551400ed0dddb95fd39f28282723690b42878e",
+      "wall_seconds": 0.20473779801977798
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "91afe4669f377781215d1dd8d8d2497901ac827448fc2675dee7eff1089ec998",
+      "wall_seconds": 2.241564814990852
+    }
+  ],
+  "positive_checks": [
+    "32 executed tests across primary and compatibility packages,17 unique test controls; no ignored tests.",
+    "Independent sphere/box/capped-cylinder values and set membership; exact field-type aliases across package entry points.",
+    "Pinned experimental Fidget VM/JIT and reference agree at90points each for CT35,branch/rejoin,internal lattice,thin shell under the declared2e-6 scalar tolerance; measured compile time/error recorded in raw log.",
+    "Affine linear dependence tightened a natural interval while enclosing the independent analytic value; sampled primitive values enclosed.",
+    "One material authority and frozen fluid/port/wall/keepout tags agree with independent derived labels and cell bounds.",
+    "Nonzero Fourier/twist wall matches independent polar calculations; frozen terminal/dimension/source contracts and exact zero branch retained.",
+    "Actual one-voxel conformance changes produce computed volume/displacement bounds, exact policy identity and new subject identity."
+  ],
+  "negative_checks": [
+    "Invalid or oversized/forward/cyclic DAG, unknown/duplicate JSON keys, nonfinite coordinates/constants and hidden unused sqrt failure rejected.",
+    "Repeated depleted budget cannot refill; overflowing arithmetic and unproven square-root domain refused.",
+    "Actual f32 precision collapse/underflow/overflow and injected JIT/VM disagreement refuse candidate admission.",
+    "Independent fluid/solid overlap,gap,wrong owner and point/cell frozen material drift rejected.",
+    "Degenerate gradients,unresolvable normal steps and exhausted normal budget refused; unresolved cells cannot be exact distance/volume proof.",
+    "Wrong20mm tail,1070/400mm lengths,shifted collar,source-byte mutation,bad Fourier mode/twist/amplitude/budget refused.",
+    "Stale artifact labels,protected blade disappearance,material-component disappearance,excessive repair and exhausted filter budget refused."
+  ],
+  "artifacts": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "d3d02aedac7f3bf09cf31c999fbf2c561626ad5d1dbef47045e4b5cfa70744b8"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "40e936f688bdc5a44ad95033e30f096a4d43aa9aeb537d6443408f06beaf3072"
+    },
+    {
+      "path": "docs/design/V5_GEOMETRY.md",
+      "sha256": "504bca659ddbaa59f7c69dfa856a419ab775e3675881533ca393fcf5760e9042"
+    },
+    {
+      "path": "docs/design/decisions/V5_KERNEL.md",
+      "sha256": "93e5dac187fb410d175c684f0a2ad1a1afa14b08e3b9b54c6ac39b4a36c48106"
+    },
+    {
+      "path": "crates/joil-geometry/src/certify.rs",
+      "sha256": "9e95e3f35bd8e9fe48107f36c7adf89e76ccf787aa509ec6f0afc9dfffd24598"
+    },
+    {
+      "path": "crates/joil-geometry/src/chamber_wall/ct35.rs",
+      "sha256": "179466b868b442cf2156dd602a012b96120296cafa5a46031ba4f666dc40085d"
+    },
+    {
+      "path": "crates/joil-geometry/src/chamber_wall.rs",
+      "sha256": "8d8d7e9d23cc66d6a5a5023b27f5ed1cb29e26ab1264e69225db467b164d64a4"
+    },
+    {
+      "path": "crates/joil-geometry/src/csg.rs",
+      "sha256": "97daa25fc57dc8dca3401fc796ea1324550bcfc6891c86e36ad1d790e4a5829f"
+    },
+    {
+      "path": "crates/joil-geometry/src/field/fidget.rs",
+      "sha256": "068e2724777169b2115c5359118adc34c7853d7f33b182a6e1f17707d19ef60a"
+    },
+    {
+      "path": "crates/joil-geometry/src/field.rs",
+      "sha256": "7ea1339b1613017e9e08e3bb5389406b0fcaa35cb26d03ea82ef8ee5187192fc"
+    },
+    {
+      "path": "crates/joil-geometry/src/interval.rs",
+      "sha256": "243daed60b83e97fceedcbdf9ab748a1f2f69a4d1857a00c48df8666d3dda0fd"
+    },
+    {
+      "path": "crates/joil-geometry/src/lib.rs",
+      "sha256": "f1d670969d2f16882b0132c496707e577ee0e45607340edd74d32f89d65abc23"
+    },
+    {
+      "path": "crates/joil-geometry/src/partition.rs",
+      "sha256": "c2049ae1867983560f7556e2b345ffedecb013c924089f817ff32eb0eb50714a"
+    },
+    {
+      "path": "crates/joil-geometry/tests/kernel.rs",
+      "sha256": "b84d91eee970e57178063e2399748076d0a5cd0f6b1e4e6d88ed282cf00ae49c"
+    },
+    {
+      "path": "crates/joil-geometry/Cargo.toml",
+      "sha256": "6c805341a084c929a24762c6dba3c9c80190b1ab1b1406a9eeefa9531615b012"
+    },
+    {
+      "path": "crates/crucible-geom/Cargo.toml",
+      "sha256": "7276d9a52478a6e5640db64bb5e225fb2629eea8ec53feec48b861fc46d9fc3e"
+    },
+    {
+      "path": "crates/crucible-geom/src/lib.rs",
+      "sha256": "29c6e5bf4c35af8cdbbeeec5e9d47ebd514f0ef63f5d6c0c42138bdae37cd025"
+    },
+    {
+      "path": "crates/crucible-geom/tests/kernel.rs",
+      "sha256": "e7304646a377d727b0963d02a9c8a7f87e869b2f92871f0953f9be20b0ccbdbb"
+    },
+    {
+      "path": "private retained geometry command/source inventory",
+      "sha256": "f1bfbfa2cc5cb934fb8ec5b3253caeab43e37ece0ad429507f0889a96f82329d"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "ram_gib": 6,
+    "scratch_gib": 2.5,
+    "cargo_jobs": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "sampled_scratch_bytes_after_clippy": 2226645777,
+    "sample_is_not_peak_measurement": true
+  },
+  "task_disposition": {
+    "V5-08-01": "Tested prototype/ADR; final integrated gate and exact-head CI pending.",
+    "V5-08-02": "Implementation and synthetic partition controls tested. D-16 original ramp/ribbon/TPMS and accepted-artifact source-bound repair closure remains pending; no task done asserted.",
+    "V5-08-03": "Computed clipped interval/affine/ambiguous-volume bounds tested; no re-distance certificate or global candidate bound admitted.",
+    "V5-08-04": "Source-bound exact analytic baseline/frozen interface controls tested; CAD loft equivalence remains unverified.",
+    "V5-08-05": "Computed finite cubical artifact conformance tested; unobserved continuous feature/CAD conformance remains unresolved."
+  },
+  "limitations": [
+    "Implementation evidence, not packet acceptance: full official integrated8-suite gate and exact-head CI remain required.",
+    "D-16 primary closure still requires an independently executed source-bound corpus/artifact control; existing C006 historical control is not relabeled as complete repair.",
+    "Fidget remains experimental and diagnostic on Linuxx86_64 only; finite-point agreement is not a whole-domain bound or physical claim.",
+    "Fourier analytic field is not a certificate of the old sampled CAD loft. No manufactured solid material credit.",
+    "Cubical conformance protects reviewed witness cells and finite component connectivity; it does not reveal continuous features missed by sampling.",
+    "TR-16/EV-09/EV-12 remain deferred; V5-00-03 remains AUDIT-HELD on D-07/D-18/D-21."
+  ],
+  "next_dependency": "Review and reconcile lane-complete observers/mesh/genome contracts, close D-16 software controls, then exact-head integrated8-suite/public/CI acceptance."
+}
