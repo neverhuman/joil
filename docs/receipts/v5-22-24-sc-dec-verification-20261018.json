@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "receipt_id": "v5-22-24-sc-dec-verification-20261018",
+  "task_ids": [
+    "V5-22-02",
+    "V5-22-03",
+    "V5-22-04",
+    "V5-22-05",
+    "V5-24-02",
+    "V5-24-03",
+    "V5-24-04",
+    "V5-24-05"
+  ],
+  "decisions": [
+    "SC-DEC-038",
+    "SC-DEC-062"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "changed_paths": [
+    "crates/crucible-search/tests/acquisition.rs",
+    "crates/crucible-fea/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only rtk cargo test --locked -p crucible-search --test acquisition v5_22_02_to_05_sc_dec_038",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/logs/v5-22-02-05-test.log",
+      "log_sha256": "51a361305784ad6915dfd21e5625d5fde2b0c08a906dec5f17332f4aa21dd0d4"
+    },
+    {
+      "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only rtk cargo test --locked -p crucible-fea v5_24_02_to_05_sc_dec_038",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/logs/v5-24-02-05-test.log",
+      "log_sha256": "ca7c1cb64d725993d5090eaa1f0e5b50ae73d5d5c114f26dd9b887855b159128"
+    },
+    {
+      "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/logs/v5-22-24-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/logs/v5-22-24-public.log",
+      "log_sha256": "cea42eea358894ea6e05b370370ad20ed97c6d043476e49d351bac3efcab9b4b"
+    }
+  ],
+  "positive_checks": [
+    "Two-objective exploration archive retains three mutually nondominated trade-off candidates; exact 2D reference hypervolume increases after a dominating improvement candidate is added.",
+    "Calibrated in-domain prediction is accepted; out-of-distribution prediction abstains.",
+    "Reference policy identity is reference-search/1 and equal synthetic charged-attempt budgets remain bounded and equal.",
+    "Random audit fixture meets its permissive synthetic threshold and reports pruning authority; acquisition allocation stays within its declared budget.",
+    "CPU FEA reference solve repeats deterministically within 1e-12; operator residual is below 1e-8."
+  ],
+  "negative_checks": [
+    "Audit with zero audit budget cannot authorize pruning.",
+    "Surrogate proposal remains in exploration evidence and qualified archive remains empty.",
+    "CPU FEA reference rejects an oversized network; promotion guard remains false without accelerator verification and GPU lease."
+  ],
+  "remaining_limitations": [
+    "No EHVI or Chebyshev acquisition implementation exists in this checkout; the test covers available Pareto archive and exact 2D hypervolume behavior, not EHVI/Chebyshev acquisition.",
+    "The equal-budget comparison is synthetic accounting against reference-search/1 identity; no optimizer campaigns or measured ablation were run.",
+    "crucible-fea exposes only a CPU reference operator. Repeated CPU results do not establish CPU/accelerator parity, accelerator resource-lease behavior, held-out admission, or physical FEA qualification.",
+    "Calibration and audit inputs are synthetic software fixtures; no independent qualified labels, physical validation, scientific promotion, or campaign admission is established."
+  ],
+  "scratch": {
+    "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+    "size_after_cleanup": "36M",
+    "debug_deps_removed": true,
+    "debug_incremental_removed": true
+  },
+  "resource_allocation": {
+    "host": "xbabe2",
+    "cpus": [
+      90,
+      91
+    ],
+    "gpu": "none",
+    "output_scope": "private test logs only"
+  }
+}

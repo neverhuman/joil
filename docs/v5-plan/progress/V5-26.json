@@ -4,53 +4,58 @@
   "tasks": {
     "V5-26-01": {
       "status": "done",
-      "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "owner": "codex_lane4",
+      "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
-          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
+          "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
         }
       ]
     },
     "V5-26-02": {
       "status": "done",
-      "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "owner": "codex_lane4",
+      "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
-          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
+          "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
         }
       ]
     },
     "V5-26-03": {
       "status": "done",
-      "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "owner": "codex_lane4",
+      "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
-          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
+          "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
         }
       ]
     },
     "V5-26-04": {
       "status": "done",
-      "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "owner": "codex_lane4",
+      "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
-          "sha256": "29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c"
+          "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
         }
       ]
     },
     "V5-26-05": {
-      "status": "in_progress",
+      "status": "done",
       "owner": "codex_lane4",
-      "note": "Unblocked by Fleet Admiral decisions (SC-DEC-045 (budget/provider cap signed); SC-DEC-062). Active worker lane codex_lane4 executing implementation and verification receipt for origin/main. Prior integration receipt: docs/receipts/v5-26-software-acceptance-20261018.json (sha256 29499bbba23ab36d1160f83857fc69d85fb7fe33b8af36ca567cd0a51dcf7a3c).",
-      "evidence": []
+      "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-26-software-acceptance-20261018.json (sha256 fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87); task-specific verification tests and execution receipts in docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json (sha256 2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6). scientific_admission=false preserved.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
+          "sha256": "fb0fa8fe8b99f3726e8d3bf721c9dc36393effe6573942ae08fff417d2d41d87"
+        }
+      ]
     }
   }
 }

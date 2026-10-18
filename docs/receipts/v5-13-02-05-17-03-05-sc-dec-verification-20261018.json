@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "kind": "sc_dec_software_verification_receipt",
+  "owner": "61562.joil_v5_codex_lane2",
+  "model": "gpt-6-luna medium",
+  "created_utc": "2026-10-18T13:45:00Z",
+  "base_commit": "658cf39b664d2984f193616378c5f6b4c62f5dd6",
+  "task_ids": [
+    "V5-13-02",
+    "V5-13-03",
+    "V5-13-04",
+    "V5-13-05",
+    "V5-17-03",
+    "V5-17-04",
+    "V5-17-05"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "fleet_admiral_decisions": [
+    "SC-DEC-024",
+    "SC-DEC-025",
+    "SC-DEC-026",
+    "SC-DEC-027",
+    "SC-DEC-030"
+  ],
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/manufacturing.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json"
+  ],
+  "resources": {
+    "cpus": [
+      38,
+      39
+    ],
+    "gpu": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+    "target_scratch_after_cleanup": "31 MiB",
+    "removed_after_tests": [
+      "target/debug/deps",
+      "target/debug/incremental"
+    ]
+  },
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "manufacturing",
+        "v5_13_02_to_05_sc_dec_025_027"
+      ],
+      "execution_prefix": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-13-02-05-test.log",
+      "log_sha256": "3fa53d44996e1cb45c02c21b3fd5bd7a5165fa24de03b90d0a0dec0025efdaea"
+    },
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models",
+        "v5_17_03_to_05_sc_dec_030"
+      ],
+      "execution_prefix": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-17-03-05-test.log",
+      "log_sha256": "4e5962ad2f8862d0a1ae7c65ae786d1e7145c3335e691ace408f9918d5ff6ade"
+    },
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "execution_prefix": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-13-17-wave10-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "execution_prefix": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-13-17-wave10-public.log",
+      "log_sha256": "3c959c166315ba2dd077dbbc593d40a2ae74cb68438fbf465780a1c994d070ec"
+    }
+  ],
+  "positive_checks": [
+    "Accepted synthetic CAD-solid volume with admitted density bounds yields a finite mass interval with the accepted-solid basis.",
+    "Manufacturing gates pass the nominal fixture and reject sub-threshold wall thickness, over-limit internal downskin, and undersized bore.",
+    "A calibrated finish-class Ra conversion yields the declared equivalent-sand ks interval; missing calibration remains unresolved and orientation changes the variant identity.",
+    "Coupon plan requires all records without orders or vendor contact; CT accuracy includes calibration, edge-localization and repeatability uncertainty rather than voxel pitch alone.",
+    "Breakup probability bounds bracket the nominal probability, daughter fractions close exactly, and the uncalibrated status and Hinze diagnostic remain explicit.",
+    "Linear noninteracting DSD reuse conserves injected mass and matches direct held-out outcomes within tolerance.",
+    "Adding correlated daughter observations leaves independent cluster count and interval unchanged."
+  ],
+  "negative_checks": [
+    "A minimum-wall, overhang or bore threshold violation fails its named geometric gate.",
+    "Roughness conversion without a calibration is unresolved; a pitch-only CT budget is unresolved despite fine voxels.",
+    "Universal Hinze clipping is rejected as a breakup model; breakup mass nonclosure is rejected by existing controls.",
+    "Coalescence-coupled population reuse is rejected; ancestry assigned to different clusters is rejected."
+  ],
+  "limitations": [
+    "All values and observations are synthetic software fixtures; this receipt does not admit physical or scientific claims.",
+    "Equivalent-sand ks conversion is tested, but no Moody/Colebrook friction-factor solver or calibrated device roughness evaluation is established here.",
+    "Coupon and CT plans contain no independent specimen measurements, calibration artifacts, or physical metrology results.",
+    "Breakup rates/daughter law remain uncalibrated; native turbulence adapter execution and validation remain outstanding."
+  ],
+  "next_dependency": "Integrate native source-bound turbulence and calibrated material/roughness/metrology evidence before scientific admission; retain SC-DEC-062 task-state rules until implementation receipts reach origin/main."
+}

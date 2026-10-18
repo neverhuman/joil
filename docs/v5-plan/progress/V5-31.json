@@ -3,33 +3,33 @@
   "packet": "V5-31",
   "tasks": {
     "V5-31-01": {
-      "status": "todo",
-      "owner": "claude",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-050..053; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-31-software-acceptance-20261018.json (sha256 97374042f2cf3dfeb5b45761be936d3c2caac17c22abcd180e2bbad001861aad).",
+      "status": "in_progress",
+      "owner": "codex_lane1",
+      "note": "Active frontier task for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
       "evidence": []
     },
     "V5-31-02": {
       "status": "todo",
-      "owner": "claude",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-050..053; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-31-software-acceptance-20261018.json (sha256 97374042f2cf3dfeb5b45761be936d3c2caac17c22abcd180e2bbad001861aad).",
+      "owner": "codex_lane1",
+      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
       "evidence": []
     },
     "V5-31-03": {
       "status": "todo",
-      "owner": "claude",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-050..053; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-31-software-acceptance-20261018.json (sha256 97374042f2cf3dfeb5b45761be936d3c2caac17c22abcd180e2bbad001861aad).",
+      "owner": "codex_lane1",
+      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
       "evidence": []
     },
     "V5-31-04": {
       "status": "todo",
-      "owner": "claude",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-050..053; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-31-software-acceptance-20261018.json (sha256 97374042f2cf3dfeb5b45761be936d3c2caac17c22abcd180e2bbad001861aad).",
+      "owner": "codex_lane1",
+      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
       "evidence": []
     },
     "V5-31-05": {
       "status": "todo",
-      "owner": "claude",
-      "note": "Ready / unblocked by Fleet Admiral decisions (SC-DEC-050..053; SC-DEC-062); queued on active lane claude behind ordered upstream tasks. Prior integration receipt: docs/receipts/v5-31-software-acceptance-20261018.json (sha256 97374042f2cf3dfeb5b45761be936d3c2caac17c22abcd180e2bbad001861aad).",
+      "owner": "codex_lane1",
+      "note": "Queued behind V5-31-01 for final release handoff after V5-13..30 integration PR merges to origin/main. Release scope verification receipt ready at docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json (sha256 c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46); software acceptance receipt at docs/receipts/v5-31-software-acceptance-20261018.json (sha256 53fd05c614fb16e5662454856e515766a160910c32470b0f19a0afb1cba120db).",
       "evidence": []
     }
   }

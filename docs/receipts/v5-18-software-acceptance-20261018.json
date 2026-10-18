@@ -5,7 +5,10 @@
   "model": "gpt-6-luna medium",
   "tested_commit": "06417e982272c46bc6df88b57f2c67484ceb9ef9",
   "changed_paths": [
-    "docs/receipts/v5-18-software-acceptance-20261018.json"
+    "docs/receipts/v5-18-software-acceptance-20261018.json",
+    "docs/receipts/v5-18-19-sc-dec-verification-20261018.json",
+    "packs/hydrocyclone/judges/tests/metrics.rs",
+    "packs/hydrocyclone/judges/tests/structure.rs"
   ],
   "artifacts": [
     {
@@ -23,6 +26,10 @@
     {
       "path": "tools/v5_baseline_source_controls.py",
       "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+    },
+    {
+      "path": "docs/receipts/v5-18-19-sc-dec-verification-20261018.json",
+      "sha256": "4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932"
     }
   ],
   "resource_allocation": {
@@ -55,7 +62,7 @@
     "V5-18-04",
     "V5-18-05"
   ],
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "scientific_admission": false,
   "commands": [
     {
@@ -135,15 +142,43 @@
     "No physical operating map, energy measurement, or capacity decision was admitted.",
     "No physical fluid, load, or validation data were exercised."
   ],
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
-      "sha256": "4fa20c6fe12fd631eea2b1a97dbdcd3c1e2ee278d9aa7f0b569cbd66aad105bc"
-    },
-    "resolved_log_paths": [],
-    "commands_reexecuted_by_this_metadata_amendment": false
-  }
+  "fleet_admiral_dispositions": {
+    "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+    "decisions": [
+      {
+        "decision_id": "SC-DEC-032",
+        "task_ids": [
+          "V5-18-04"
+        ],
+        "disposition": "substitute:native_simulation_objective_bounds",
+        "kind": "native_simulation_substitute",
+        "rationale": "Evaluate four bounded objectives and hard no-regression gates over accepted native CFD/FEA simulation envelopes; retain 0.35/0.20/0.30/0.15 only as a proposed sensitivity profile."
+      }
+    ],
+    "upstream_unblocks": [
+      {
+        "decision_id": "SC-DEC-028",
+        "status": "upstream_unblock"
+      },
+      {
+        "decision_id": "SC-DEC-029",
+        "status": "upstream_unblock"
+      },
+      {
+        "decision_id": "SC-DEC-030",
+        "status": "upstream_unblock"
+      },
+      {
+        "decision_id": "SC-DEC-031",
+        "status": "upstream_unblock"
+      }
+    ]
+  },
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-18-19-sc-dec-verification-20261018.json",
+      "sha256": "4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932"
+    }
+  ]
 }

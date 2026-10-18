@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "kind": "packet_verification",
+  "task_ids": [
+    "V5-27-02",
+    "V5-27-03",
+    "V5-27-04",
+    "V5-27-05"
+  ],
+  "packet": "V5-27",
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "fleet_admiral_decision": "SC-DEC-045",
+  "additional_decision": "SC-DEC-062",
+  "tested_base": "a8f40ac",
+  "changed_paths": [
+    "crates/crucible-cli/src/explore.rs",
+    "docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json"
+  ],
+  "source_sha256": "ea8f78a9be743f7f7567ee4dabfbd96be8879ed5a1fe16faea77c1f6a8ae8223",
+  "commands": [
+    {
+      "command": "rtk cargo test --locked -p crucible-cli v5_27_02_to_05_sc_dec_045",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-27-02-05-test.log",
+      "log_sha256": "8f222772aa2240cac7a95eaae39a68d63ae21452487054ac53ef994825d0eefe"
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-27-02-05-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-27-02-05-public.log",
+      "log_sha256": "cea42eea358894ea6e05b370370ad20ed97c6d043476e49d351bac3efcab9b4b"
+    }
+  ],
+  "positive_checks": [
+    "Focused unit test passed and verifies campaign, budget, funnel, attempts, checkpoint, control arms, blockers, capability status, gate, archive and recorded lineage metadata are surfaced.",
+    "Offline dossier verified/current metadata is visible; accessibility fixture confirms keyboard-focus, reduced-motion and responsive flags are preserved.",
+    "Read-only inspection leaves manifest bytes unchanged; current unrevoked subject remains marked as requiring registered claim resolution, not admitted.",
+    "Target cleanup removed debug/deps and debug/incremental; lane target usage was 124072710 bytes (<0.2 GiB).",
+    "Rust formatting and public-content scan passed."
+  ],
+  "negative_checks": [
+    "Revoked manifest returns revoked_ineligible; offline dossier current=false remains visible.",
+    "Absent budget is omitted rather than rendered as zero; absent physical claims remain explicit null and scientific_admission=false.",
+    "Unknown gate remains unknown and failed task attempt remains failed; missing physical validation remains a visible blocker.",
+    "Tested fixture labels the campaign synthetic_only; no scientific admission or physical validation is inferred."
+  ],
+  "remaining_limitations": [
+    "This is a CLI manifest projection contract test; a live campaign exporter/event service and explorer UI are not implemented or browser-tested here.",
+    "Offline dossier metadata is fixture-verified only; no external registry service or reviewed real dossier was available.",
+    "Accessibility behavior is asserted from fixture metadata; keyboard navigation, reduced-motion rendering and responsive UI behavior require browser validation.",
+    "Software verification does not resolve physical requirements, qualification, or scientific admission."
+  ],
+  "next_dependency": "Integrate with the live exporter and explorer UI, then run browser accessibility and offline-registry checks."
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-18T13:30:00Z",
+  "owner": "61562.joil_v5_codex_lane2",
+  "model": "gpt-6-luna medium",
+  "tested_base_commit": "faf1c0f2abbc24b05e49f24ba0ef36043371686b",
+  "task_ids": [
+    "V5-13-01",
+    "V5-17-02"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "fleet_admiral_decisions": [
+    "SC-DEC-024",
+    "SC-DEC-030"
+  ],
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/manufacturing.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpu_ids": [
+      38,
+      39
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+    "cargo_incremental": 0,
+    "cargo_profile_dev_debug": "line-tables-only",
+    "gpu": false
+  },
+  "commands": [
+    {
+      "command": "rtk cargo test --locked -p pack-hydrocyclone-judges --test manufacturing v5_13_01_sc_dec_024",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-13-01-sc-dec-024-test.log",
+      "log_sha256": "604836f4cdaada3a3e5a3769ee612943f41e0b71696cb0ac8f4a2fa28db6a6e3",
+      "note": "1 requested test passed; 18 other manufacturing tests filtered out. Executed with taskset CPUs 38,39 and the lane-private target directory."
+    },
+    {
+      "command": "rtk cargo test --locked -p crucible-particles --test models v5_17_02_sc_dec_030",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-17-02-sc-dec-030-test.log",
+      "log_sha256": "53633ef82505f81c46160287dad1068558061f4cc63a808a92338b063cd148ec",
+      "note": "1 requested test passed; 9 other model tests filtered out. Executed with taskset CPUs 38,39 and the lane-private target directory."
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-13-17-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/logs/v5-13-17-public.log",
+      "log_sha256": "d2f63920d0abf6792388a100a18f96d5aadd50a4ecc8d30c8bbbd7b9772bd117",
+      "note": "984 public candidate files checked; private deny rules applied=False."
+    }
+  ],
+  "positive_checks": [
+    "Synthetic Ti-6Al-4V LPBF passport binds alloy/product form, LPBF parameters, orientation, heat treatment/HIP, finish, temperature/environment, and defect assumptions to admitted source digests.",
+    "Synthetic as-built fatigue value is lower than the synthetic wrought value; process-mismatched wrought evidence and alloy-name-only evidence remain unresolved for fatigue and sour-service claims.",
+    "Reynolds-stress-derived anisotropic diffusivity reproduces diagonal and cross covariance within stated tolerances, with no realizability repair; LES resolved/unresolved energy partition accepts a valid split and rejects excess modeled dispersion.",
+    "Correct Ito production drift passes the periodic invariant-density threshold and domain bounds; the intentionally omitted drift fails the negative-control threshold.",
+    "Focused tests, workspace formatting check, and public-content scan passed."
+  ],
+  "negative_checks": [
+    "A higher wrought fatigue allowable cannot substitute for LPBF as-built evidence when product form and LPBF parameter context differ.",
+    "A bare alloy-name match without process qualification does not support fatigue or sour-service claims.",
+    "The wrong-drift ensemble exceeds the declared total-variation threshold; LES modeled dispersion exceeding unresolved energy is rejected."
+  ],
+  "limitations": [
+    "Material values and source digests in these tests are synthetic decision-logic fixtures, not handbook allowables or physical material evidence.",
+    "The dispersion oracle is an analytic periodic invariant-density benchmark surrogate, not a DNS dataset or native resolved-turbulence carrier-field comparison; no physical validation or dispersion admission is claimed.",
+    "No fatigue, sour-service, structural, CFD, or manufacturing qualification is established by these software tests."
+  ],
+  "cleanup": {
+    "removed": [
+      "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/debug/deps",
+      "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/debug/incremental"
+    ],
+    "remaining_target_size": "31 MiB"
+  },
+  "next_dependency": "Obtain source-bound LPBF material allowables and an independently sourced DNS or native resolved-turbulence benchmark before scientific admission."
+}

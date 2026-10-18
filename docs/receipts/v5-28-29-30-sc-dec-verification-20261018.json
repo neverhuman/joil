@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_28_29_30_sc_dec_verification",
+  "task_ids": [
+    "V5-28-01", "V5-28-02", "V5-28-03", "V5-28-04", "V5-28-05",
+    "V5-29-01", "V5-29-02", "V5-29-03", "V5-29-04", "V5-29-05",
+    "V5-30-01", "V5-30-02", "V5-30-03", "V5-30-04", "V5-30-05"
+  ],
+  "decision_ids": [
+    "SC-DEC-041", "SC-DEC-042", "SC-DEC-043", "SC-DEC-044",
+    "SC-DEC-046", "SC-DEC-047", "SC-DEC-048", "SC-DEC-049",
+    "SC-DEC-050", "SC-DEC-051", "SC-DEC-052", "SC-DEC-062"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "changed_paths": [
+    "crates/crucible-paper/src/lib.rs",
+    "docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json"
+  ],
+  "commands": [
+    {
+      "command": "rtk cargo test --locked -p crucible-paper v5_28_29_30_sc_dec_041_to_052",
+      "argv": ["rtk", "cargo", "test", "--locked", "-p", "crucible-paper", "v5_28_29_30_sc_dec_041_to_052"],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-28-29-30-test.log",
+      "log_sha256": "1a6ef2e4bdd87c9988505cd6ac9e950418f872e9462d622fa56036f204bb2c8a"
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "argv": ["rtk", "cargo", "fmt", "--all", "--", "--check"],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-28-29-30-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "argv": ["python3", "tools/check_public.py"],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-28-29-30-public.log",
+      "log_sha256": "fa24a03ec0a95c37ff6883671ff6ef8647734dca24f6c257163c4da340115e3c"
+    }
+  ],
+  "positive_checks": [
+    "Frozen prospective preregistration contains the R0/R1/E1/E2/A1/A2 arms, disjoint pilot and confirmation seeds, fresh confirmation data, and a no-post-winner endpoint substitution rule.",
+    "Mechanistic intervention plan contains intact, knockout, sham, rescue, matched-volume, and matched-area controls.",
+    "Synthetic review bundle validates exact typed observation bindings and reports each attempted finalist including its negative outcome.",
+    "Private/public bundle serialization contains no absolute home paths, .private paths, customer marker, or facility marker.",
+    "Focused Rust test passed; formatting and publication-safety checks passed; target scratch after cleanup was 31 MiB."
+  ],
+  "negative_checks": [
+    "Fuzzy observation ID with an appended suffix is rejected as missing rather than substring-matched.",
+    "Confirmation row with missing confirmation data identity is rejected.",
+    "One thousand repeated frame IDs cannot inflate independent n and are rejected.",
+    "Scientific admission remains false; the software fixture does not establish physical confirmation or qualification."
+  ],
+  "remaining_limitations": [
+    "This is a software regression test over synthetic fixture data and frozen protocol documents; no physical confirmation, validated solver campaign, or independent physical units were run.",
+    "The JSON preregistration and intervention artifacts are checked for required frozen fields and controls here, but the Rust paper bundle schema does not itself ingest or hash those protocol documents.",
+    "This receipt records acceptance of the requested bounded verification packet only and does not update canonical task progress or admit scientific claims."
+  ],
+  "next_dependency": "Physical and scientific claims remain gated on their own accepted model, experimental evidence, and integrator review."
+}

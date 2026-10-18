@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_15_01_sc_dec_028_verification",
+  "task_ids": ["V5-15-01"],
+  "packet": "V5-15",
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "fleet_admiral_decision": "SC-DEC-028",
+  "base_commit": "bdb4d7f595f5de4cb1d19fa1987e20e10571e0ad",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk", "cargo", "test", "--locked", "-p", "pack-hydrocyclone-judges",
+        "--test", "validation", "v5_15_01_sc_dec_028"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-15-01-sc-dec-028-test.log",
+      "log_sha256": "4ae23037cf431231b2db06d83158defe81e2ddbc4482e47f59c7002f16be9a03"
+    },
+    {
+      "argv": ["rtk", "cargo", "fmt", "--all", "--", "--check"],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-15-01-fmt.log",
+      "log_sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120"
+    },
+    {
+      "argv": ["python3", "tools/check_public.py"],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/logs/v5-15-01-public.log",
+      "log_sha256": "ffc696b560b0b35aa8bf93fec17ffada1b92e587e16dcbb6782afe4347892319"
+    }
+  ],
+  "positive_checks": [
+    "Complete synthetic accession fixtures for Hsieh, Bai, Young and Zhou each match all six model identity tags and compare as Quantitative.",
+    "The targeted validation test passed: 1 passed, 0 failed."
+  ],
+  "negative_checks": [
+    "Unresolved station locations alone degrade the comparison to LiteratureOnly.",
+    "Unresolved uncertainty alone degrades the comparison to LiteratureOnly.",
+    "Unresolved geometry alone degrades the comparison to LiteratureOnly."
+  ],
+  "resource_allocation": {
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "scratch_cleanup": "After the passing test, debug/deps and debug/incremental were removed; target occupied 31 MiB."
+  },
+  "scientific_eligibility": "Software judge verification only. The four candidate fixtures contain synthetic admitted fields and do not represent accessed or licensed benchmark evidence.",
+  "limitations": [
+    "No original Hsieh, Bai, Young or Zhou source, license, data digest, geometry, fluid condition, boundary condition, station location, method or uncertainty record was accessioned by this change.",
+    "No physical validation or scientific admission is established."
+  ],
+  "next_dependency": "Accession and independently review the original benchmark source and metadata before using any literature data for quantitative scientific comparison."
+}

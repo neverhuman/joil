@@ -5,7 +5,10 @@
   "model": "gpt-6-luna medium",
   "tested_commit": "06417e982272c46bc6df88b57f2c67484ceb9ef9",
   "changed_paths": [
-    "docs/receipts/v5-19-software-acceptance-20261018.json"
+    "docs/receipts/v5-19-software-acceptance-20261018.json",
+    "docs/receipts/v5-18-19-sc-dec-verification-20261018.json",
+    "packs/hydrocyclone/judges/tests/metrics.rs",
+    "packs/hydrocyclone/judges/tests/structure.rs"
   ],
   "artifacts": [
     {
@@ -23,6 +26,10 @@
     {
       "path": "tools/v5_baseline_source_controls.py",
       "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+    },
+    {
+      "path": "docs/receipts/v5-18-19-sc-dec-verification-20261018.json",
+      "sha256": "4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932"
     }
   ],
   "resource_allocation": {
@@ -55,7 +62,7 @@
     "V5-19-04",
     "V5-19-05"
   ],
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "scientific_admission": false,
   "commands": [
     {
@@ -162,7 +169,7 @@
           "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
         ],
         "exit_code": 0,
-        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d17-pos.log",
         "log_sha256": "9e1725594b686c942a7828b65cc497bad24f91a94c33e1c3d9604934e369f514",
         "expected_result": "Frozen CUDA-disabled path; child_launched=false.",
         "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log.exit",
@@ -185,7 +192,7 @@
           "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
         ],
         "exit_code": 1,
-        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red.log",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d17-red.log",
         "log_sha256": "12149bba6e244122a77c5500258e5c29b74aab62d4fb3f20e90252fdd7c70182",
         "expected_result": "C006-RED D-17: gpu_child_launched_without_lease; synthetic stand-in child launched absent an explicit lease.",
         "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red.log.exit",
@@ -193,15 +200,47 @@
       }
     }
   ],
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-19-software-acceptance-20261018.json",
-      "sha256": "7620defc10afd6e6e8032e59c90c1b284a5625249045f4243e558d9e67c85f9f"
-    },
-    "resolved_log_paths": [],
-    "commands_reexecuted_by_this_metadata_amendment": false
-  }
+  "fleet_admiral_dispositions": {
+    "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+    "decisions": [
+      {
+        "decision_id": "SC-DEC-033",
+        "task_ids": [
+          "V5-19-01",
+          "V5-19-02",
+          "V5-19-03",
+          "V5-19-04",
+          "V5-19-05"
+        ],
+        "disposition": "substitute:wet_modal_cfd_fea_simulation",
+        "kind": "native_simulation_substitute",
+        "rationale": "Qualify wet modes, support fixtures, modal mesh convergence, and broadband forced response using native coupled CFD wall-pressure spectra and acoustic/added-mass FEA."
+      }
+    ],
+    "upstream_unblocks": [
+      {
+        "decision_id": "SC-DEC-024",
+        "status": "upstream_unblock"
+      },
+      {
+        "decision_id": "SC-DEC-025",
+        "status": "upstream_unblock"
+      },
+      {
+        "decision_id": "SC-DEC-026",
+        "status": "upstream_unblock"
+      },
+      {
+        "decision_id": "SC-DEC-027",
+        "status": "upstream_unblock"
+      }
+    ]
+  },
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-18-19-sc-dec-verification-20261018.json",
+      "sha256": "4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932"
+    }
+  ]
 }

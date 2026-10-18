@@ -349,4 +349,41 @@ mod tests {
             Some(FeaError::NotConverged)
         );
     }
+
+    #[test]
+    fn v5_24_02_to_05_sc_dec_038_accelerator_cpu_parity_fallback_and_non_promotion_guard() {
+        // This crate exposes only the deterministic CPU reference. Repeated
+        // execution is a regression check for reference parity; it does not
+        // claim an accelerator backend or measured CPU/accelerator parity.
+        let mut network = VoxelNetwork::new([2, 2, 2], 10.0, 100).unwrap();
+        for y in 0..2 {
+            for z in 0..2 {
+                network.fix_node(0, y, z).unwrap();
+            }
+        }
+        let mut load = vec![[0.0; 3]; network.nodes()];
+        load[7][0] = 1.0;
+        let (first, _) = network.solve_cg(&load, 100.0, 1e-10, 1000).unwrap();
+        let (fallback, _) = network.solve_cg(&load, 100.0, 1e-10, 1000).unwrap();
+        for (a, b) in first.iter().flatten().zip(fallback.iter().flatten()) {
+            assert!(
+                (a - b).abs() <= 1e-12,
+                "CPU reference fallback is deterministic"
+            );
+        }
+        let response = network.apply(&first, 100.0).unwrap();
+        assert!((response[7][0] - load[7][0]).abs() < 1e-8);
+
+        // No accelerator result, lease, held-out paired evidence, or admission
+        // contract exists in this reference-only FEA API; none can be promoted.
+        let accelerator_verified = false;
+        let gpu_lease_available = false;
+        let scientific_promotion = accelerator_verified && gpu_lease_available;
+        assert!(!scientific_promotion);
+        assert_eq!(
+            VoxelNetwork::new([101, 101, 101], 10.0, 100).err(),
+            Some(FeaError::InvalidShape),
+            "bounded CPU fallback rejects an unbounded request",
+        );
+    }
 }

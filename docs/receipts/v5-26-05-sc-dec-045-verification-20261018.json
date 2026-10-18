@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "owner": "484638.joil_v5_codex_lane4",
+  "model": "gpt-6-luna medium",
+  "task_ids": [
+    "V5-26-05"
+  ],
+  "packet": "V5-26",
+  "tested_source_sha256": "3ee002b4a447c301521a5d5085fc4b178280b9ebe3c0091c778d4ff2191a652b",
+  "changed_paths": [
+    "crates/crucible-render/src/lib.rs",
+    "crates/crucible-render/tests/sc_dec_045_plate_cache.rs",
+    "docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json"
+  ],
+  "fleet_admiral_decision": "SC-DEC-045",
+  "related_decisions": [
+    "SC-DEC-062"
+  ],
+  "incremental_external_spend_usd": 0.0,
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-render",
+        "--test",
+        "sc_dec_045_plate_cache"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-26-05-sc-dec-045-test.log",
+      "log_sha256": "2cbef20b5db17fffd63a965183f8111c2224873547163b4162b8032a4727e25c",
+      "exit_code": 0,
+      "note": "Passed on the integration test target; debug/deps and debug/incremental were removed immediately afterward."
+    },
+    {
+      "argv": [
+        "rtk",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-26-05-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exit_code": 0,
+      "note": "Initial check found formatting differences; rustfmt was applied and the final check passed."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/v5-26-05-public.log",
+      "log_sha256": "4dfc4d05f9e908e1108c1ad708158e81abd5cab52b3b0397513644cf9e7bae46",
+      "exit_code": 0,
+      "note": "PASS: 987 public candidate files checked; private deny rules applied=False."
+    }
+  ],
+  "positive_checks": [
+    "The standalone integration test builds a cache identity from bundle, recipe, build, and configuration identities; after an interrupted first invocation, resume reuses the intact overview bytes without recomputation.",
+    "A cache entry whose payload digest does not match is rejected and regenerated; the render counter confirms only that plate is recomputed, and a second resume hits both valid entries deterministically.",
+    "The serialized bundle manifest bytes remain unchanged through corruption recovery. Each cached plate entry records EvidenceClass::Synthetic and explicit limitations, and entries lacking those fields are not accepted as hits.",
+    "After the passing integration test, target/debug/deps and target/debug/incremental were removed; the lane target directory measured less than 0.2 GiB."
+  ],
+  "negative_checks": [
+    "Corrupted-cache negative control uses a mismatched payload digest; it is not accepted as a cache hit.",
+    "This test uses synthetic plate payloads and does not validate Blender rendering, visual layout, or physical/scientific evidence."
+  ],
+  "resource_allocation": {
+    "host": "xbabe2",
+    "physical_cores_leased": 2,
+    "cpus": [
+      110,
+      111
+    ],
+    "memory_gib_leased": 6,
+    "scratch_gib_leased": 2.5,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "CARGO_BUILD_JOBS": 2,
+    "gpu": false,
+    "external_spend_usd": 0.0
+  },
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "limitations": [
+    "Verification is a synthetic unit-test harness, not an end-to-end Blender plate-generation run.",
+    "No visual-layout review, independent rendering implementation, external evidence, physical validation, or scientific admission was performed.",
+    "The test-local cache behavior does not yet provide a production cache/resume API."
+  ],
+  "next_dependency": "A production render pipeline can consume the tested cache identity and integrity/resume requirements; human layout review and source qualification remain separate gates.",
+  "fixture_binding": {
+    "path": "crates/crucible-render/src/lib.rs",
+    "sha256": "5738ec9164dcfca830b246848c14a12c786f1a7032c150167430352e686f1daf",
+    "purpose": "D-22 defect_controls fixture preserved at commit 2b5690e"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "joil.v5.worker-verification.v1",
+  "packet": "V5-21",
+  "task_ids": [
+    "V5-21-01",
+    "V5-21-02",
+    "V5-21-03",
+    "V5-21-04",
+    "V5-21-05"
+  ],
+  "tested_commit": "f58c01936e49b2f0e633ad6bb5a60e1b8a5a5612",
+  "changed_paths": [
+    "crates/crucible-search/tests/reference_search.rs",
+    "docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json"
+  ],
+  "fleet_admiral_decision": "SC-DEC-038",
+  "related_decisions": ["SC-DEC-062"],
+  "commands": [
+    {
+      "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only rtk cargo test --locked -p crucible-search --test reference_search v5_21_01_to_05_sc_dec_038",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/logs/v5-21-01-05-test.log",
+      "log_sha256": "7a8a0a6f91514d36569de5de9ef064ca3ca2269079a83a4a4f68d47915cf4b51"
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/logs/v5-21-01-05-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/logs/v5-21-01-05-public.log",
+      "log_sha256": "3c959c166315ba2dd077dbbc593d40a2ae74cb68438fbf465780a1c994d070ec"
+    }
+  ],
+  "positive_checks": [
+    "Frozen reference-search/1 constants, operator/source shares, epoch quota and bounded failed refill accounting are asserted.",
+    "Exploration, screen, qualified and adverse/unknown evidence remain separated; durable evidence history retains adverse records and measured descriptors define qualified bins.",
+    "Deterministic source fallback, migration interval, protection expiration, CMA-ES/BO bounded inputs, shared grammar cost curves, and charged initialization/inference/audit/confirmation stages are covered.",
+    "Synthetic ZDT-style independent fixture values and exact 2D hypervolume oracle pass; final targeted Rust test passed 1 test.",
+    "Cargo formatting and public publication checks passed. Cargo scratch debug/deps and debug/incremental directories were removed after the passing test; target tree was 36 MiB."
+  ],
+  "negative_checks": [
+    "Modified operator shares fail policy validation; failed refill consumes exactly the bounded attempts without hidden resampling.",
+    "Unavailable parent sources return no fallback; unknown/failure/unsupported outcomes do not enter the qualified pool or dominate qualified evidence.",
+    "Random-versus-reference comparison is representation-matched and cost-accounted; no assertion requires the optimizer to beat random.",
+    "Invalid hypervolume reference points, nonfinite oracle inputs, and nonfinite objective dominance inputs are rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-search/tests/reference_search.rs",
+      "sha256": "fbf820fd222e6c052345d82ab357b4a3ba676c61790b6dbc9784061358e6619d"
+    }
+  ],
+  "resource_allocation": {
+    "cpu_cores": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+    "scratch_after_cleanup": "36 MiB"
+  },
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "limitations": [
+    "Verification is software-only and uses synthetic fixtures; it establishes no physical search performance, evaluator validity, or engineering discovery.",
+    "The equal-budget controls are tested for contract and accounting behavior; this test is not a multi-seed optimizer benchmark or empirical cost-quality campaign."
+  ],
+  "next_dependency": "Independent scientific admission gates and multi-seed equal-budget algorithm evaluation remain separate."
+}

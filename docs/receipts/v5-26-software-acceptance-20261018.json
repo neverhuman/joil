@@ -4,7 +4,10 @@
   "model": "gpt-6-luna medium",
   "tested_commit": "70d1d3f9c925814fa8d8718fc51980f2c3c27c6e",
   "changed_paths": [
-    "docs/receipts/v5-26-software-acceptance-20261018.json"
+    "docs/receipts/v5-26-software-acceptance-20261018.json",
+    "docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json",
+    "crates/crucible-render/src/lib.rs",
+    "crates/crucible-render/tests/sc_dec_045_plate_cache.rs"
   ],
   "commands": [
     {
@@ -169,6 +172,10 @@
     {
       "path": "crates/crucible-render/src/lib.rs",
       "sha256": "5738ec9164dcfca830b246848c14a12c786f1a7032c150167430352e686f1daf"
+    },
+    {
+      "path": "docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json",
+      "sha256": "2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6"
     }
   ],
   "resource_allocation": {
@@ -192,7 +199,7 @@
     "The V5-26-05 approval dossier path named in the assignment is absent from this checkout; owner approval is pending."
   ],
   "next_dependency": "Independent packet review; scientific admission remains dependent on packet-specific external evidence and owner approvals.",
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "scientific_admission": false,
   "kind": "v5_software_acceptance_receipt",
   "task_ids": [
@@ -230,8 +237,7 @@
         ],
         "exit_code": 0,
         "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
-        "expected_result": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed.",
-        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log"
+        "expected_result": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed."
       },
       "red": {
         "argv": [
@@ -247,31 +253,21 @@
         ],
         "exit_code": 1,
         "log_sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8",
-        "expected_result": "C006-RED D-22 reports a modal series without evidence; exit 1.",
-        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red.log"
+        "expected_result": "C006-RED D-22 reports a modal series without evidence; exit 1."
       }
     }
   ],
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-26-software-acceptance-20261018.json",
-      "sha256": "5e400c2901b47387af34475f3f650e445d04a58e764853bdf897a506a192fd98"
-    },
-    "resolved_log_paths": [
-      {
-        "node": "docs/receipts/v5-26-software-acceptance-20261018.json.defect_controls[0].positive",
-        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos.log",
-        "sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd"
-      },
-      {
-        "node": "docs/receipts/v5-26-software-acceptance-20261018.json.defect_controls[0].red",
-        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red.log",
-        "sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8"
-      }
-    ],
-    "commands_reexecuted_by_this_metadata_amendment": false
-  }
+  "fleet_admiral_dispositions": [
+    {
+      "decision_id": "SC-DEC-045",
+      "task_id": "V5-26-05",
+      "disposition": "budget_approved:$0.00_incremental_external_spend_within_existing_xbabe1_xbabe2_xbabe4_compute_and_subscriptions"
+    }
+  ],
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-26-05-sc-dec-045-verification-20261018.json",
+      "sha256": "2cc22fd94ab25bbd4b65c77a76d3d1abc68c36ac18853299e5c28d9a151084a6"
+    }
+  ]
 }

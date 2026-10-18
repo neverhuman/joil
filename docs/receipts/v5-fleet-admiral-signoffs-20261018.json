@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "kind": "fleet_admiral_owner_dispositions_and_signoffs",
+  "created_utc": "2026-10-18T12:06:00Z",
+  "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+  "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+  "signer": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+  "reviewed_integration_receipt": {
+    "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+    "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+  },
+  "governance_signoffs": {
+    "V5-28-01": {
+      "decision_id": "SC-DEC-046",
+      "status": "approved_and_signed",
+      "signature": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+      "scope": "Internal project governance: frozen study arms, prospective estimands, independent seeds, pilot power, resource-vector normalization, confirmation budget, and hashed analysis/stop/exclusion/holdout policy."
+    },
+    "V5-28-05": {
+      "decision_id": "SC-DEC-047",
+      "status": "approved_and_signed",
+      "signature": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+      "scope": "Internal project governance: reproducible private/public review bundles, allowlisted offline reproduction, and dependency/license/prior-design inventory. External third-party legal licensing/publication remains reserved to Jepson per guardrails."
+    },
+    "V5-30-01": {
+      "decision_id": "SC-DEC-048",
+      "status": "approved_and_signed",
+      "signature": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+      "scope": "Internal protocol governance: concrete containment, responsible review, comparator choice, pilot-power build quantities, randomized blinded A/B/A blocks, and calibration/holdout separation ($0 external spend; vendor manufacturing orders reserved to Jepson)."
+    },
+    "V5-30-05": {
+      "decision_id": "SC-DEC-049",
+      "status": "approved_and_signed",
+      "signature": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+      "scope": "Internal dossier & allowlist export governance: private technical/disclosure dossiers and reviewed allowlisted public export gate. External patent/commercial filing with outside parties reserved to Jepson."
+    }
+  },
+  "budget_approvals": {
+    "V5-26-05": {
+      "decision_id": "SC-DEC-045",
+      "status": "approved_existing_compute_only",
+      "external_spend_usd": 0.0,
+      "estimated_internal_compute": "~1.5 GPU-hours / ~12 CPU-core-hours on xbabe1/xbabe2/xbabe4 under Lease renewal-004"
+    }
+  },
+  "measured_data_dispositions_summary_path": "/home/ubuntu/xbabe2_kicker/captains-20261017/fleet_admiral_decisions_20261018T1158Z.md",
+  "pr_merge_authority": {
+    "decision_id": "SC-DEC-053",
+    "merger": "super_captain",
+    "flow": "neverhumanbot approves exact head via gh-role reviewer + green CI + gh pr merge --rebase --match-head-commit (no squash, no force-push main)"
+  }
+}

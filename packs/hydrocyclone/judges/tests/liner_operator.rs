@@ -1151,3 +1151,74 @@ fn g009_guard_invalid_tolerances_never_admit_comparison_or_operator_route() {
         assert!(matches!(route(Some(&e), bad), Route::FullLiner { .. }));
     }
 }
+
+/// Aggregate Wave 11 acceptance check. Fixtures are synthetic cutplane states, not native solver
+/// cases; passing these checks never admits the reduced operator for physical use.
+#[test]
+fn v5_25_02_to_05_sc_dec_039_040_cutplane_corpus_physics_informed_loss_ood_and_fallback() {
+    // SC-DEC-039/040: only a family-separated, explicitly synthetic corpus with declared gaps is
+    // accepted as a preregistration; calibration evidence cannot be reused as held-out evidence.
+    let corpus = judge_preregistration(&protocol(true));
+    assert!(corpus.verdict.is_pass(), "{:?}", corpus.verdict);
+    assert_eq!(corpus.held_out_cases, 2);
+    assert_eq!(corpus.synthetic_cases, 4);
+    assert!(!corpus.science_admissible);
+    let mut contaminated = protocol(true);
+    contaminated.cases[2].carrier_evidence_sha256 =
+        contaminated.cases[0].carrier_evidence_sha256.clone();
+    assert!(matches!(
+        judge_preregistration(&contaminated).verdict,
+        Verdict::Fail(_)
+    ));
+
+    // The physics-informed residual gate closes mass, momentum, angular momentum and oil flux.
+    let balanced = check_balances(&state(1.0), &targets_for(1.0), &tolerances());
+    assert!(balanced.verdict.is_pass());
+    let mut incorrect_targets = targets_for(1.0).admitted().cloned().expect("targets");
+    incorrect_targets.axial_mass_kg_s *= 1.1;
+    let residual_penalty = check_balances(
+        &state(1.0),
+        &admitted(incorrect_targets, "deliberately-imbalanced-targets"),
+        &tolerances(),
+    );
+    assert!(matches!(residual_penalty.verdict, Verdict::Fail(_)));
+    assert!(mentions(&residual_penalty.verdict, "axial_mass"));
+
+    // Out-of-domain states abstain to the exact full-liner route.
+    let op = operator(0.001);
+    let candidate = state(1.0);
+    let evidence = op
+        .assess(
+            &Identity,
+            frozen_interface(&candidate),
+            &cfg(20, 1.0, 1e-9, 1e-6),
+            &candidate,
+        )
+        .expect("synthetic candidate assessment");
+    let reasons = reasons_of(route(Some(&evidence), 0.05));
+    assert!(reasons.iter().any(|r| r == "ood:outside_envelope"));
+
+    // Fallback cost is charged and source identity is preserved; depleted budget stays unresolved.
+    let cases = vec![
+        op_case("aggregate-operator"),
+        full("aggregate-ood", &["ood:outside_envelope"]),
+    ];
+    let mut budget = EvaluationBudget {
+        units_remaining: 10.0,
+    };
+    let plan = plan_campaign(&cases, 2.0, &mut budget).expect("fallback campaign");
+    assert!(plan.verdict.is_pass());
+    assert_eq!(plan.fallback_units_spent, 2.0);
+    assert_eq!(plan.records[1].sources, cases[1].sources);
+    let mut exhausted = EvaluationBudget {
+        units_remaining: 1.0,
+    };
+    let refused = plan_campaign(
+        &[full("aggregate-ood", &["ood:outside_envelope"])],
+        2.0,
+        &mut exhausted,
+    )
+    .expect("budget refusal is represented");
+    assert!(matches!(refused.verdict, Verdict::Unresolved(_)));
+    assert_eq!(refused.fallback_units_spent, 0.0);
+}

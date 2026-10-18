@@ -1,0 +1,426 @@
+{
+  "schema_version": 1,
+  "owner": "484638.joil_v5_codex_lane4",
+  "model": "gpt-6-luna medium",
+  "kind": "v5_software_acceptance_receipt",
+  "task_ids": [
+    "V5-20-01",
+    "V5-20-02",
+    "V5-20-03",
+    "V5-20-04",
+    "V5-20-05"
+  ],
+  "tested_commit": "d90e52423be0f586a072d8bc96eb186a29ccf5dd",
+  "changed_paths": [
+    "crates/crucible-fea/src/lib.rs",
+    "docs/receipts/v5-20-finite-arithmetic-followup-20261018T065340Z.json",
+    "docs/receipts/v5-20-software-acceptance-20261018.json",
+    "docs/receipts/v5-20-25-sc-dec-verification-20261018.json",
+    "packs/hydrocyclone/judges/tests/dynamics.rs",
+    "packs/hydrocyclone/judges/tests/liner_operator.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-plan-check.log",
+      "log_sha256": "de0e56b31e39501a2f9a423b5e8cede90441a312215ac95b2b9f074fd2871b96",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "wave8-v5-20-plan-check.log completed successfully at d90e52423be0f586a072d8bc96eb186a29ccf5dd."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-claims-audit.log",
+      "log_sha256": "ca21364174e3da0b229f93496df206b532bc1a69b01bc5dff075fbf5c54fb5ac",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "wave8-v5-20-claims-audit.log completed successfully at d90e52423be0f586a072d8bc96eb186a29ccf5dd."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-check-public.log",
+      "log_sha256": "e818d5ea1fba81e787ec1ef07afdc52d669dbe6e98d56664716a420827eff248",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "wave8-v5-20-check-public.log completed successfully at d90e52423be0f586a072d8bc96eb186a29ccf5dd."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-dynamics-green-2.log",
+      "log_sha256": "87a8edaf702c3c313c27eaf6fc1ebdfc646a60b98f24e16a6b643853d59dfbb8",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "38 passed at e165b8b"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-crate-green-2.log",
+      "log_sha256": "db030e456ceee83b89063e79967531ee5447e48ebdfa3355e0df0f30ed32e9b1",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "all targets passed: 38 dynamics, 45, 18, 26, 17, 27; no failures"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-clippy-2.log",
+      "log_sha256": "e1e58ae53384756f6dd81e902ce7773b70bc46c26fefe9e5c26677be54b99bf7",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "clean with -D warnings; the first run (clippy.log, exit 101) flagged map_or(true, ..) in the new tests and was fixed to is_none_or"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-fmt-check-2.log",
+      "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "exit 0; log contains only the exit marker (7 bytes), same digest as the diff-check log. The first run (fmt-check.log, exit 1) was fixed by cargo fmt --all on the three changed files"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-check-public-2.log",
+      "log_sha256": "1df562f150654761625924df4566c5648169a9da71eb006970d2b5f6fa6fea48",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "exit 0"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-diff-check-2.log",
+      "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "exit 0; log contains only the exit marker (7 bytes)"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-final-check-public.log",
+      "log_sha256": "41d2cab3b4e3ee0a481c41a78953c8dca05c56575f3a1c6f0fb40c595f5f6c43",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Post-edit public-content check passed (983 public candidate files)."
+    }
+  ],
+  "executed_logs": [
+    {
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-plan-check.log",
+      "log_sha256": "de0e56b31e39501a2f9a423b5e8cede90441a312215ac95b2b9f074fd2871b96",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "wave8-v5-20-plan-check.log completed successfully at d90e52423be0f586a072d8bc96eb186a29ccf5dd."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-claims-audit.log",
+      "log_sha256": "ca21364174e3da0b229f93496df206b532bc1a69b01bc5dff075fbf5c54fb5ac",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "wave8-v5-20-claims-audit.log completed successfully at d90e52423be0f586a072d8bc96eb186a29ccf5dd."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-check-public.log",
+      "log_sha256": "e818d5ea1fba81e787ec1ef07afdc52d669dbe6e98d56664716a420827eff248",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "wave8-v5-20-check-public.log completed successfully at d90e52423be0f586a072d8bc96eb186a29ccf5dd."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-dynamics-green-2.log",
+      "log_sha256": "87a8edaf702c3c313c27eaf6fc1ebdfc646a60b98f24e16a6b643853d59dfbb8",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "38 passed at e165b8b"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-crate-green-2.log",
+      "log_sha256": "db030e456ceee83b89063e79967531ee5447e48ebdfa3355e0df0f30ed32e9b1",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "all targets passed: 38 dynamics, 45, 18, 26, 17, 27; no failures"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-clippy-2.log",
+      "log_sha256": "e1e58ae53384756f6dd81e902ce7773b70bc46c26fefe9e5c26677be54b99bf7",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "clean with -D warnings; the first run (clippy.log, exit 101) flagged map_or(true, ..) in the new tests and was fixed to is_none_or"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-fmt-check-2.log",
+      "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "exit 0; log contains only the exit marker (7 bytes), same digest as the diff-check log. The first run (fmt-check.log, exit 1) was fixed by cargo fmt --all on the three changed files"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-check-public-2.log",
+      "log_sha256": "1df562f150654761625924df4566c5648169a9da71eb006970d2b5f6fa6fea48",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "exit 0"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": ".",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-diff-check-2.log",
+      "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "exit 0; log contains only the exit marker (7 bytes)"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-final-check-public.log",
+      "log_sha256": "41d2cab3b4e3ee0a481c41a78953c8dca05c56575f3a1c6f0fb40c595f5f6c43",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Post-edit public-content check passed (983 public candidate files)."
+    }
+  ],
+  "positive_checks": [
+    "python3 tools/v5_plan.py check passed (32 packets, 160 tasks; exit 0).",
+    "python3 tools/claims_audit.py passed (152 structured receipt claims and 1462 markdown numeric tokens verified; exit 0).",
+    "python3 tools/check_public.py passed (982 public candidate files checked; exit 0).",
+    "Follow-up verified dynamics and full-crate test suites, Clippy with warnings denied, formatting check, public-content check, and diff check all have exit code 0 in the cited follow-up receipt."
+  ],
+  "negative_checks": [
+    "The finite-arithmetic follow-up recorded pre-fix negative controls for finite-life overflow and invalid as-built thresholds; the repaired green checks are carried forward from the same follow-up evidence.",
+    "Substitutions bind software/numerical proxy work only and do not establish physical qualification, material allowables, or scientific admission."
+  ],
+  "artifacts": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-plan-check.log",
+      "sha256": "de0e56b31e39501a2f9a423b5e8cede90441a312215ac95b2b9f074fd2871b96"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-claims-audit.log",
+      "sha256": "ca21364174e3da0b229f93496df206b532bc1a69b01bc5dff075fbf5c54fb5ac"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-v5-20-check-public.log",
+      "sha256": "e818d5ea1fba81e787ec1ef07afdc52d669dbe6e98d56664716a420827eff248"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-dynamics-green-2.log",
+      "sha256": "87a8edaf702c3c313c27eaf6fc1ebdfc646a60b98f24e16a6b643853d59dfbb8"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-crate-green-2.log",
+      "sha256": "db030e456ceee83b89063e79967531ee5447e48ebdfa3355e0df0f30ed32e9b1"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-clippy-2.log",
+      "sha256": "e1e58ae53384756f6dd81e902ce7773b70bc46c26fefe9e5c26677be54b99bf7"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-fmt-check-2.log",
+      "sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-check-public-2.log",
+      "sha256": "1df562f150654761625924df4566c5648169a9da71eb006970d2b5f6fa6fea48"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-20-followup-diff-check-2.log",
+      "sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b"
+    },
+    {
+      "path": "crates/crucible-fea/src/lib.rs",
+      "sha256": "4b01f682cef4bda1353d938ee1eea59eb106f6bdab8d3109b261eaabaab4171a"
+    },
+    {
+      "path": "docs/receipts/v5-20-finite-arithmetic-followup-20261018T065340Z.json",
+      "sha256": "d0776158df093d8c95ccd880b0e5ae7cf42de98adebd430502f4799541898daa"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/logs/wave8-final-check-public.log",
+      "sha256": "41d2cab3b4e3ee0a481c41a78953c8dca05c56575f3a1c6f0fb40c595f5f6c43"
+    },
+    {
+      "path": "docs/receipts/v5-20-25-sc-dec-verification-20261018.json",
+      "sha256": "565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 0,
+    "memory_gib": 0,
+    "scratch_bytes": 0,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false,
+    "note": "No cargo test or solver campaign run for this receipt; only the listed lightweight Python checks were run at tested_commit."
+  },
+  "limitations": [
+    "Software acceptance and disposition binding only; scientific admission, physical validation, structural qualification, and performance claims remain false.",
+    "Follow-up green tests were executed at e165b8b45136a98f58864e1c22a40c5ddaa5daf4 and are carried forward as prior evidence; they were not rerun at this receipt commit.",
+    "Decision substitutions retain their named applicability limits and do not supersede project science gates."
+  ],
+  "next_dependency": "Independent packet review and future packet-specific scientific evidence; no scientific admission is made.",
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "software_scope": "V5-20 software acceptance and Fleet Admiral substitute dispositions; scientific admission explicitly false.",
+  "fleet_admiral_dispositions": [
+    {
+      "decision_id": "SC-DEC-33",
+      "task_id": "V5-20-01",
+      "disposition": "substitute:wet_modal_cfd_fea_simulation"
+    },
+    {
+      "decision_id": "SC-DEC-34",
+      "task_id": "V5-20-02",
+      "disposition": "substitute:public_sn_bounded_fatigue_estimand"
+    },
+    {
+      "decision_id": "SC-DEC-35",
+      "task_id": "V5-20-03",
+      "disposition": "substitute:synthetic_ct_as_built_deviation_subject"
+    },
+    {
+      "decision_id": "SC-DEC-36",
+      "task_id": "V5-20-04",
+      "disposition": "substitute:correlated_bound_propagation"
+    },
+    {
+      "decision_id": "SC-DEC-37",
+      "task_id": "V5-20-05",
+      "disposition": "substitute:dual_solver_structural_confirmation"
+    }
+  ],
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-20-25-sc-dec-verification-20261018.json",
+      "sha256": "565598332e3f00be0de2b25952246cfbbc39a3c2528649dfd674607607ee4a17"
+    }
+  ]
+}

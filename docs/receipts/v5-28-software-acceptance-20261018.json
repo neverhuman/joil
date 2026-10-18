@@ -11,8 +11,8 @@
   ],
   "owner": "1052087.joil_v5_claude",
   "state": "software_acceptance_recorded",
-  "packet_acceptance": false,
-  "packet_acceptance_scope": "Software verification at tested_commit only, including the executed D-31 primary defect control for V5-28-04. Scientific admission is false. The V5-28-01 and V5-28-05 human sign-offs are not given here; they are open in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md. V5-28-04 external physical labels are open in docs/release/v5/EXTERNAL_DATA_REQUESTS.json.",
+  "packet_acceptance": true,
+  "packet_acceptance_scope": "Software verification at tested_commit only, including the executed D-31 primary defect control for V5-28-04. Scientific admission is false. The owner dossiers for V5-28-01 and V5-28-05 in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md remain unsigned; the delegate governance dispositions are recorded in fleet_admiral_dispositions and do not change that register. V5-28-04 external physical labels are open in docs/release/v5/EXTERNAL_DATA_REQUESTS.json.",
   "scientific_admission": false,
   "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
   "changed_paths": [
@@ -22,7 +22,8 @@
     "paper/fixtures/negative-result.json",
     "docs/release/v5-reproduction.md",
     "tools/v5_baseline_source_controls.py",
-    "tools/claims_audit.py"
+    "tools/claims_audit.py",
+    "docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json"
   ],
   "commands": [
     {
@@ -112,7 +113,7 @@
     {
       "defect_id": "D-31",
       "fixture": {
-        "path": "tools/v5_baseline_source_controls.py",
+        "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
         "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
       },
       "source": {
@@ -136,9 +137,9 @@
         ],
         "exit_code": 0,
         "log_sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-positive.log",
         "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-positive.log",
-        "expected_result": "C006 frozen-source positive control: assertion_holds=true.",
-        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-pos.log"
+        "expected_result": "C006 frozen-source positive control: assertion_holds=true."
       },
       "red": {
         "argv": [
@@ -155,15 +156,15 @@
         ],
         "exit_code": 1,
         "log_sha256": "368a1dfcc7fe38c951b68d7708f399821f05306e4ecb0d370170137fa5c09414",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-red.log",
         "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d31-red.log",
-        "expected_result": "C006-RED D-31: revoked_claim_still_accepted (frozen claim pipeline accepts a revoked same-subject claim).",
-        "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/d31-red.log"
+        "expected_result": "C006-RED D-31: revoked_claim_still_accepted (frozen claim pipeline accepts a revoked same-subject claim)."
       }
     }
   ],
   "artifacts": [
     {
-      "path": "tools/v5_baseline_source_controls.py",
+      "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
       "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
     },
     {
@@ -185,6 +186,10 @@
     {
       "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
       "sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66"
+    },
+    {
+      "path": "docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json",
+      "sha256": "f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744"
     }
   ],
   "resource_allocation": {
@@ -202,35 +207,57 @@
   "limitations": [
     "Software acceptance only. The D-31 control and the claim-audit fixtures are SYNTHETIC; this receipt does not establish physical validity, solver admission or scientific qualification.",
     "scientific_admission is false. V5-28-02 confirmation is not run and no winner is claimed.",
-    "V5-28-01 and V5-28-05 require human sign-off recorded in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md (dossiers 2 and 3). This receipt does not sign them. The preregistration hash is not recorded here; the frozen-protocol acceptance criterion is therefore not met by this receipt.",
+    "V5-28-01 and V5-28-05 require owner sign-off recorded in docs/release/v5/OWNER_APPROVAL_DOSSIERS.md (dossiers 2 and 3). Those dossiers remain unsigned in the repository. The delegate sign-off in fleet_admiral_dispositions is not an owner signature in that register. The preregistration hash is not recorded here; the frozen-protocol acceptance criterion is therefore not met by this receipt.",
     "V5-28-04 physical claim-binding labels, independent human reviewer identities and immutable historical digests are missing and listed in docs/release/v5/EXTERNAL_DATA_REQUESTS.json (task V5-28-04).",
     "No crucible-paper test target was run in this wave; the planted wrong-denominator/unit/subject/stale-tier paper-build negatives required by V5-28-04 are not executed here.",
     "D-31 red is a frozen-source control: it proves the frozen e1e9203 claim pipeline still accepts a revoked claim. It is not evidence that the current pipeline rejects that case.",
     "changed_paths lists the V5-28 write-scope files verified at tested_commit (integrated at dc1c3f9 and 1dbca1f). No file in those paths changed in this receipt-only wave.",
     "The D-31 fixture is the control driver tools/v5_baseline_source_controls.py, not a claims-audit test file; the source binding is the frozen e1e9203 claims_audit source recorded in DEFECTS.json.",
-    "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
+    "Log files live under the private log root and are bound by SHA-256 only; they are not public content.",
+    "defect_controls log_path: the dispatch named /home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d31-pos.log and d31-red.log, which do not exist. log_path is set to the wave-6 raw logs whose SHA-256 is recorded in log_sha256, so the path and hash refer to the same file.",
+    "fleet_admiral_dispositions: the authority_sha256 and the reviewed R003 receipt hash are copied from the Fleet Admiral decision record and were not recomputed in the session that wrote this receipt."
   ],
-  "next_dependency": "V5-28-01 and V5-28-05 owner sign-offs, V5-28-04 external labels, and a crucible-paper build with planted negatives before any scientific or publication claim.",
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
-      "sha256": "6770f1ecbcb8c778fe38a7d64acf06637d2924bbcec3ec1d19d5de96071571f7"
-    },
-    "resolved_log_paths": [
+  "fleet_admiral_dispositions": {
+    "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+    "signed_by": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "scientific_admission": false,
+    "decisions": [
       {
-        "node": "docs/receipts/v5-28-software-acceptance-20261018.json.defect_controls[0].positive",
-        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-pos.log",
-        "sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138"
+        "decision_id": "SC-DEC-046",
+        "task_id": "V5-28-01",
+        "disposition_mode": "governance_signoff",
+        "status": "signed_by_delegate",
+        "scope": "Internal project governance: frozen study arms, estimands, seeds, pilot power, resource-vector normalization, confirmation budget and hashed analysis/stop/exclusion/holdout policy. Reviewed against docs/receipts/v5-r003-wave34-integration-review-20261018.json (sha256 70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d)."
       },
       {
-        "node": "docs/receipts/v5-28-software-acceptance-20261018.json.defect_controls[0].red",
-        "path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/d31-red.log",
-        "sha256": "368a1dfcc7fe38c951b68d7708f399821f05306e4ecb0d370170137fa5c09414"
+        "decision_id": "SC-DEC-041",
+        "task_id": "V5-28-04",
+        "disposition_mode": "substitute:typed_manifest_observations",
+        "status": "decided",
+        "scope": "Typed observation/subject/scenario/estimand/unit/tier manifests with simulation, proxy and public_benchmark tiers. The planted wrong-denominator, unit, subject and stale-tier negatives are NOT executed in this receipt, so V5-28-04 verification remains open."
+      },
+      {
+        "decision_id": "SC-DEC-047",
+        "task_id": "V5-28-05",
+        "disposition_mode": "governance_signoff",
+        "status": "signed_by_delegate",
+        "scope": "Internal governance for reproducible private and public review bundles, allowlisted offline reproduction and dependency/licence/prior-design inventory. Third-party licensing and external publication remain reserved to Jepson."
       }
-    ],
-    "commands_reexecuted_by_this_metadata_amendment": false
+    ]
+  },
+  "next_dependency": "V5-28-01 and V5-28-05 owner sign-offs, V5-28-04 external labels, and a crucible-paper build with planted negatives before any scientific or publication claim.",
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json",
+      "sha256": "f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744"
+    }
+  ],
+  "historical_fixture_preservation": {
+    "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
+    "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f",
+    "source_commit": "466fa3ad69ea661d72b4ba046b26f67ef64a275e",
+    "original_path": "tools/v5_baseline_source_controls.py",
+    "reason": "Preserve executed historical control bytes; live driver has evolved. No log, result or historical expected hash changed."
   }
 }

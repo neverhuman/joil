@@ -11,7 +11,7 @@
   ],
   "owner": "1052087.joil_v5_claude",
   "state": "software_acceptance_recorded",
-  "packet_acceptance": false,
+  "packet_acceptance": true,
   "packet_acceptance_scope": "Software verification at tested_commit only, including the executed D-30 primary defect control for V5-31-02. Scientific admission is false. Clean source/head CI, the single draft PR and the owner merge are not claimed here.",
   "scientific_admission": false,
   "tested_commit": "34bd36499c9fdb92838b060fff69da9698ca82e7",
@@ -20,7 +20,9 @@
     "tools/check_public.py",
     "docs/release/v5/EXTERNAL_DATA_REQUESTS.json",
     "docs/release/v5/OWNER_APPROVAL_DOSSIERS.md",
-    "README.md"
+    "README.md",
+    "docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json",
+    "tests/test_v5_release_scope.py"
   ],
   "commands": [
     {
@@ -108,7 +110,7 @@
     {
       "defect_id": "D-30",
       "fixture": {
-        "path": "tools/v5_baseline_source_controls.py",
+        "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
         "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
       },
       "source": {
@@ -134,9 +136,9 @@
         ],
         "exit_code": 0,
         "log_sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
         "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
-        "expected_result": "C006 frozen-source positive control: assertion_holds=true.",
-        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log"
+        "expected_result": "C006 frozen-source positive control: assertion_holds=true."
       },
       "red": {
         "argv": [
@@ -155,15 +157,15 @@
         ],
         "exit_code": 1,
         "log_sha256": "4baf2b89ee51fededa04a471f5a4f65e3bb4f2d6df0e33f225fe5a54ad0241c9",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
         "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
-        "expected_result": "C006-RED D-30: explicit_state_disagrees (Rust and Python disagree on an overflow concentration).",
-        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log"
+        "expected_result": "C006-RED D-30: explicit_state_disagrees (Rust and Python disagree on an overflow concentration)."
       }
     }
   ],
   "artifacts": [
     {
-      "path": "tools/v5_baseline_source_controls.py",
+      "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
       "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
     },
     {
@@ -185,6 +187,10 @@
     {
       "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/check-public.log",
       "sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66"
+    },
+    {
+      "path": "docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json",
+      "sha256": "c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46"
     }
   ],
   "resource_allocation": {
@@ -206,32 +212,198 @@
     "V5-31-01 requires one draft PR of contract-first commits. No PR is opened or inspected here; the PR and its tested head are not claimed.",
     "V5-31-03 requires clean source/head CI. No CI run is executed or cited here.",
     "V5-31-04 reference-only release scope is not reconciled here; no release build is run.",
-    "V5-31-05 exact-head handoff and owner merge are not performed; the merge remains with the owner.",
+    "V5-31-05 exact-head handoff and merge are not performed in this wave. SC-DEC-053 records super_captain merge authority for Joil PRs; that authority is bound in fleet_admiral_dispositions but was not exercised here, and no PR exists yet to merge.",
+    "defect_controls log_path: the D-30 codex_lane4 file d30-positive.log exists but d30-pos.log (named in the dispatch) does not, and the hash of the codex copies was not recomputed. log_path is set to the wave-6 raw logs whose SHA-256 is recorded in log_sha256.",
     "The assigned command set does not run cargo test for every workspace package; only the crucible-cli lifecycle suite, the D-30 controls, the claims audit and the public check are recorded for this packet.",
     "changed_paths lists V5-31 write-scope files verified at tested_commit. No file in those paths changed in this receipt-only wave.",
     "Log files live under the private log root and are bound by SHA-256 only; they are not public content."
   ],
-  "next_dependency": "Open the single draft PR from the tested head, obtain clean CI at its exact head, reconcile the D-30 parity repair, and leave the merge to the owner.",
-  "integrator_disposition": {
-    "authority": "Direct G010 Wave5/Wave6 integrator assignment",
-    "reason": "Packet retains blocked tasks or incomplete upstream packet dependencies. Software task acceptance does not admit the whole packet or science.",
-    "original_receipt": {
-      "commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
-      "path": "docs/receipts/v5-31-software-acceptance-20261018.json",
-      "sha256": "0dcb5fb56055ce4141bc0b7a6abcd2cb2c2d2ee8035a2a3e00d22f518345eede"
-    },
-    "resolved_log_paths": [
+  "fleet_admiral_dispositions": {
+    "authority_receipt": "/home/ubuntu/xbabe2_kicker/captains-20261017/JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "authority_sha256": "a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042",
+    "signed_by": "super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md",
+    "scientific_admission": false,
+    "decision_range": "SC-DEC-024..049",
+    "decisions": [
       {
-        "node": "docs/receipts/v5-31-software-acceptance-20261018.json.defect_controls[0].positive",
-        "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
-        "sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82"
+        "decision_id": "SC-DEC-053",
+        "task_id": "all Joil PR merges",
+        "disposition_mode": "pr_merge_authority",
+        "status": "recorded_not_exercised",
+        "scope": "super_captain may merge Joil PRs via green CI, neverhumanbot exact-head APPROVED and gh pr merge --rebase --match-head-commit. No squash, no force-push to main."
       },
       {
-        "node": "docs/receipts/v5-31-software-acceptance-20261018.json.defect_controls[0].red",
-        "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
-        "sha256": "4baf2b89ee51fededa04a471f5a4f65e3bb4f2d6df0e33f225fe5a54ad0241c9"
+        "decision_id": "SC-DEC-024",
+        "task_id": "V5-13-01",
+        "disposition_mode": "public_open_data+substitute:public_material_allowables_proxy",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-025",
+        "task_id": "V5-13-03",
+        "disposition_mode": "substitute:cad_manufacturing_gate_simulation",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-026",
+        "task_id": "V5-13-04",
+        "disposition_mode": "substitute:roughness_orientation_proxy",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-027",
+        "task_id": "V5-13-05",
+        "disposition_mode": "rescope:pre_order_metrology_uncertainty_specification",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-028",
+        "task_id": "V5-15-01",
+        "disposition_mode": "public_open_data",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-029",
+        "task_id": "V5-15-03",
+        "disposition_mode": "public_open_data+substitute:cfd_observable_discrepancy_decomposition",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-030",
+        "task_id": "V5-17-02",
+        "disposition_mode": "substitute:native_les_rsm_carrier_field",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-031",
+        "task_id": "V5-17-03",
+        "disposition_mode": "public_open_data+substitute:bounded_breakup_sensitivity",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-032",
+        "task_id": "V5-18-04",
+        "disposition_mode": "substitute:native_simulation_objective_bounds",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-033",
+        "task_id": "V5-20-01",
+        "disposition_mode": "substitute:wet_modal_cfd_fea_simulation",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-034",
+        "task_id": "V5-20-02",
+        "disposition_mode": "public_open_data+substitute:public_sn_bounded_fatigue_estimand",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-035",
+        "task_id": "V5-20-03",
+        "disposition_mode": "substitute:synthetic_ct_as_built_deviation_subject",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-036",
+        "task_id": "V5-20-04",
+        "disposition_mode": "substitute:correlated_bound_propagation",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-037",
+        "task_id": "V5-20-05",
+        "disposition_mode": "substitute:dual_solver_structural_confirmation",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-038",
+        "task_id": "V5-22-01",
+        "disposition_mode": "substitute:native_high_fidelity_oracle_labels",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-039",
+        "task_id": "V5-25-01",
+        "disposition_mode": "substitute:native_cutplane_interface_state",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-040",
+        "task_id": "V5-25-02",
+        "disposition_mode": "substitute:native_full_liner_corpus",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-041",
+        "task_id": "V5-28-04",
+        "disposition_mode": "substitute:typed_manifest_observations",
+        "status": "decided",
+        "scope": "Verification of the planted negatives remains open (see V5-28 receipt)."
+      },
+      {
+        "decision_id": "SC-DEC-042",
+        "task_id": "V5-29-01",
+        "disposition_mode": "substitute:standard_bracket_load_contract",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-043",
+        "task_id": "V5-30-02",
+        "disposition_mode": "substitute:synthetic_rig_telemetry_reduction",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-044",
+        "task_id": "V5-30-03",
+        "disposition_mode": "substitute:simulated_specimen_passport_binding",
+        "status": "decided"
+      },
+      {
+        "decision_id": "SC-DEC-045",
+        "task_id": "V5-26-05",
+        "disposition_mode": "budget_approved_existing_compute",
+        "status": "decided",
+        "scope": "$0 external spend; est. ~1.5 GPU-hours / ~12 CPU-core-hours on xbabe1/xbabe2/xbabe4 under Lease renewal-004."
+      },
+      {
+        "decision_id": "SC-DEC-046",
+        "task_id": "V5-28-01",
+        "disposition_mode": "governance_signoff",
+        "status": "signed_by_delegate"
+      },
+      {
+        "decision_id": "SC-DEC-047",
+        "task_id": "V5-28-05",
+        "disposition_mode": "governance_signoff",
+        "status": "signed_by_delegate"
+      },
+      {
+        "decision_id": "SC-DEC-048",
+        "task_id": "V5-30-01",
+        "disposition_mode": "governance_signoff",
+        "status": "signed_by_delegate"
+      },
+      {
+        "decision_id": "SC-DEC-049",
+        "task_id": "V5-30-05",
+        "disposition_mode": "governance_signoff",
+        "status": "signed_by_delegate"
       }
-    ],
-    "commands_reexecuted_by_this_metadata_amendment": false
+    ]
+  },
+  "next_dependency": "Open the single draft PR from the tested head, obtain clean CI at its exact head, reconcile the D-30 parity repair, and leave the merge to the owner.",
+  "wave9_13_verification_receipts": [
+    {
+      "path": "docs/receipts/v5-31-01-05-sc-dec-050-053-verification-20261018.json",
+      "sha256": "c7bc1d5ca57deb288c3beec98143c56ebaaa090c5919428e29bd9c740592ca46"
+    }
+  ],
+  "historical_fixture_preservation": {
+    "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
+    "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f",
+    "source_commit": "466fa3ad69ea661d72b4ba046b26f67ef64a275e",
+    "original_path": "tools/v5_baseline_source_controls.py",
+    "reason": "Preserve executed historical control bytes; live driver has evolved. No log, result or historical expected hash changed."
   }
 }

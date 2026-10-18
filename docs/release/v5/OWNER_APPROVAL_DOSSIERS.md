@@ -1,6 +1,6 @@
 # V5 Owner Approval Dossiers (Cause E)
 
-Status: all five dossiers are **unsigned and pending owner decision**. No approval in this file has been given, and no approval is implied by software acceptance, by a test pass, or by the presence of a dossier.
+Status: all five dossiers remain **unsigned by the owner**. On 2026-10-18T12:06:00Z the Fleet Admiral delegate (`super_captain`, delegate of Jepson Taylor per `JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md`, sha256 `a41b5cf1081c460e2b0f79aa5992c968de2c8c15a56efed125e166ab40b5a042`) recorded the decisions SC-DEC-045 to SC-DEC-049 against the dossiers below. Each delegate block is a separate record and does not fill the `[pending owner]` signature line. No approval in this file is implied by software acceptance, by a test pass, or by the presence of a dossier. The decisions record is `docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json`.
 
 Scope: five irreversible human sign-offs (V5-26-05, V5-28-01, V5-28-05, V5-30-01, V5-30-05). Each dossier states the decision requested, the prerequisites, the evidence that exists, what the signature does not authorize, and what remains open. Software evidence in the repository supports the review; it does not replace it.
 
@@ -39,6 +39,8 @@ Scientific admission for every packet covered here is false. Software acceptance
 
 **Signature:** `[pending owner]`   **Date:** `[pending]`
 
+**Fleet Admiral delegate sign-off (SC-DEC-045, recorded 2026-10-18T12:06:00Z):** approved as budget authority for existing compute only. External spend is `$0.00`. Estimated internal compute is about 1.5 GPU-hours and 12 CPU-core-hours on `xbabe1`/`xbabe2`/`xbabe4` under Lease `renewal-004`. Signed by `super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md`. The separate owner budget record (ceiling, currency, period) is not written by this sign-off and stays open. This sign-off does not authorize any purchase order, vendor contact, paywalled source access, data collection or cloud resource outside the existing compute.
+
 ---
 
 ## Dossier 2 — V5-28-01: frozen preregistration protocol signature
@@ -60,6 +62,8 @@ Scientific admission for every packet covered here is false. Software acceptance
 **Open items:** whether the pilot record exists and is accepted; whether the high-fidelity budget is available; signer identity.
 
 **Signature:** `[pending owner]`   **Date:** `[pending]`
+
+**Fleet Admiral delegate sign-off (SC-DEC-046, recorded 2026-10-18T12:06:00Z):** governance sign-off for the frozen study arms, estimands, seeds, pilot power, resource-vector normalization, confirmation budget and hashed analysis/stop/exclusion/holdout policy. Reviewed against `docs/receipts/v5-r003-wave34-integration-review-20261018.json` (sha256 `70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d`). Signed by `super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md`. Digests bound by this sign-off: `experiments/v5-study/preregistration-v1.json` sha256 `2164ccf761b81e30314d1aa45562bf40aada59e81aee183c1e27e01bfe6bd070`; `experiments/v5-study/mechanism-interventions-v1.json` sha256 `30aff84bf8ceadf70d7ed53bafdd7676b8933dc34c4245220f46a4ec138a5683`. The open items above (pilot record acceptance, high-fidelity budget availability) are not closed by this block. Experiment runs, endpoint changes and scientific claims remain outside this sign-off.
 
 ---
 
@@ -87,6 +91,8 @@ Scientific admission for every packet covered here is false. Software acceptance
 
 **Signature:** `[pending owner]`   **Date:** `[pending]`
 
+**Fleet Admiral delegate sign-off (SC-DEC-047, recorded 2026-10-18T12:06:00Z):** governance sign-off for internal reproducible private and public review bundles, the allowlisted offline reproduction and the dependency, licence and prior-design inventory, within the internal project. Signed by `super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md`. The sign-off does not resolve the manufacturing versus publication scope mismatch above, which stays open. External publication, disclosure and third-party licensing remain reserved to Jepson Taylor.
+
 ---
 
 ## Dossier 4 — V5-30-01: rig protocol and release governance signature
@@ -109,6 +115,8 @@ Scientific admission for every packet covered here is false. Software acceptance
 **Open items:** containment review; pilot power record; comparator freeze; holdout separation check; signer identity. The current status must stay "unsigned draft" until this dossier is signed and the signature is recorded in the protocol file.
 
 **Signature:** `[pending owner]`   **Date:** `[pending]`
+
+**Fleet Admiral delegate sign-off (SC-DEC-048, recorded 2026-10-18T12:06:00Z):** governance sign-off for internal protocol closure, covering containment review, responsible review, comparator choice, pilot-power build quantities, randomized blinded A/B/A blocks and calibration/holdout separation, at `$0` external spend. Signed by `super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md`. Protocol digest at the time of this sign-off: `experiments/rig/v5/protocol.json` sha256 `ff5ae3a0cb03418309ced085458f3fb5c2b172048be88fa0d71a4f22ba538edd`. The protocol file was not edited, so its status remains "unsigned draft". The containment review, pilot power record and holdout separation check above remain open. Vendor manufacturing and purchase orders remain reserved to Jepson Taylor.
 
 ---
 
@@ -134,16 +142,18 @@ Scientific admission for every packet covered here is false. Software acceptance
 
 **Signature:** `[pending owner]`   **Date:** `[pending]`
 
+**Fleet Admiral delegate sign-off (SC-DEC-049, recorded 2026-10-18T12:06:00Z):** governance sign-off for internal private storage of the technical and disclosure dossier and for the allowlisted public export gate. Signed by `super_captain, delegate of Jepson Taylor per JEPSON_DELEGATION_20261018T1158Z_fleet_admiral.md`. The legal review outcome, licence inventory completeness and item-by-item allowlist review above remain open. Outside filing, publication, commercial licensing and industrial installation remain reserved to Jepson Taylor.
+
 ---
 
 ## Register summary
 
-| Dossier | Task | Decision | Signed |
-| --- | --- | --- | --- |
-| 1 | V5-26-05 | External benchmark and collection budget authority (scope to reconcile) | No |
-| 2 | V5-28-01 | Frozen preregistration protocol | No |
-| 3 | V5-28-05 | Publication and disclosure release (scope to reconcile) | No |
-| 4 | V5-30-01 | Rig protocol and release governance | No |
-| 5 | V5-30-05 | Legal, disclosure and licence review | No |
+| Dossier | Task | Decision | Fleet Admiral delegate sign-off | Owner signed |
+| --- | --- | --- | --- | --- |
+| 1 | V5-26-05 | External benchmark and collection budget authority (scope to reconcile) | SC-DEC-045, existing compute only, `$0` external | No |
+| 2 | V5-28-01 | Frozen preregistration protocol | SC-DEC-046 | No |
+| 3 | V5-28-05 | Publication and disclosure release (scope to reconcile) | SC-DEC-047, internal governance only | No |
+| 4 | V5-30-01 | Rig protocol and release governance | SC-DEC-048, protocol file stays unsigned draft | No |
+| 5 | V5-30-05 | Legal, disclosure and licence review | SC-DEC-049, internal governance only | No |
 
-No dossier in this file is signed. Each remains open until the owner signs it, and the signature is recorded in the protocol or register named in that dossier.
+No dossier in this file carries an owner signature. The delegate sign-offs above are recorded under the authority of the Fleet Admiral delegation and are separate from the owner signature. Each owner signature remains open until the owner signs it, and that signature is recorded in the protocol or register named in its dossier.

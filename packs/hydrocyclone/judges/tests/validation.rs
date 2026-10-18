@@ -77,30 +77,37 @@ fn accession(candidate: Candidate) -> Accession {
 // V5-15-01: accession of original benchmark evidence.
 
 #[test]
-fn v5_15_01_fully_admitted_matching_accession_is_quantitative() {
-    let a = accession(Candidate::Bai);
-    assert!(judge_accession(&a).is_pass());
-    let card = compare(&a, &model());
-    assert_eq!(card.level, ComparisonLevel::Quantitative);
-    assert_eq!(card.matched.len(), 6);
-    assert!(card.unresolved.is_empty());
-}
+fn v5_15_01_sc_dec_028_public_benchmark_accession_requires_provenance_and_station_metadata() {
+    // These complete accessions are synthetic judge fixtures, not accessed benchmark evidence.
+    for candidate in [
+        Candidate::Hsieh,
+        Candidate::Bai,
+        Candidate::Young,
+        Candidate::Zhou,
+    ] {
+        let a = accession(candidate);
+        assert!(judge_accession(&a).is_pass(), "{candidate:?}");
+        let card = compare(&a, &model());
+        assert_eq!(card.level, ComparisonLevel::Quantitative, "{candidate:?}");
+        assert_eq!(card.matched.len(), 6, "{candidate:?}");
+        assert!(card.unresolved.is_empty(), "{candidate:?}");
+    }
 
-#[test]
-fn v5_15_01_overlay_without_geometry_and_uncertainty_stays_literature() {
-    // Attractive overlay: the fluid and station labels agree, but no geometry or uncertainty is known.
-    let mut a = accession(Candidate::Young);
-    a.geometry = unresolved("geometry");
-    a.uncertainty = unresolved("uncertainty");
-    let card = compare(&a, &model());
-    assert_eq!(card.level, ComparisonLevel::LiteratureOnly);
-    assert!(card
-        .unresolved
-        .contains(&"geometry:not_admitted".to_string()));
-    assert!(card
-        .unresolved
-        .contains(&"uncertainty:not_admitted".to_string()));
-    assert!(is_open(&judge_accession(&a)));
+    // Each missing identity component independently degrades an attractive overlay.
+    for missing in ["stations", "uncertainty", "geometry"] {
+        let mut a = accession(Candidate::Young);
+        match missing {
+            "stations" => a.stations = unresolved("stations"),
+            "uncertainty" => a.uncertainty = unresolved("uncertainty"),
+            "geometry" => a.geometry = unresolved("geometry"),
+            _ => unreachable!(),
+        }
+        assert_eq!(
+            compare(&a, &model()).level,
+            ComparisonLevel::LiteratureOnly,
+            "missing {missing}"
+        );
+    }
 }
 
 #[test]
@@ -462,6 +469,83 @@ fn v5_15_05_ct35_protocol_refuses_launch_loosened_gates_and_thin_replication() {
         ..protocol()
     };
     assert!(has(&judge_protocol(&thin), "replicates_below_minimum"));
+}
+
+#[test]
+fn v5_15_02_to_05_sc_dec_029_observable_discrepancy_decomposition_and_branch_admission() {
+    // Synthetic contract fixture joining the preregistration, observable, branch, and admission
+    // gates. Passing these software checks does not admit physical evidence or a flow archive.
+    let preregistration = study(
+        &[
+            "convection",
+            "wall_layers",
+            "run_duration",
+            "initialization",
+            "outlet_orifice_treatment",
+        ],
+        &["vortex_present", "vortex_absent_numerical"],
+    );
+    assert!(judge_preregistration(&preregistration).is_pass());
+    let post_hoc = PdrGate {
+        origin: PdrOrigin::MeasuredCt35,
+        range: admitted((1.5, 2.2), "synthetic-ct35-range"),
+        tuned_after_pdr: true,
+    };
+    assert!(has(&judge_pdr(1.8, &post_hoc), "tuned_after_inspection"));
+
+    let measured = MeasuredCoverage {
+        observables: BTreeSet::from([
+            Observable::TangentialProfile,
+            Observable::AxialProfile,
+            Observable::ReverseCore,
+            Observable::PressureSplit,
+        ]),
+        geometry_family: "family-A".into(),
+    };
+    for observable in [
+        Observable::TangentialProfile,
+        Observable::AxialProfile,
+        Observable::ReverseCore,
+        Observable::PressureSplit,
+    ] {
+        assert!(coverage(&measured, "family-A", observable, "steady").supported);
+    }
+    let unsupported_grade = coverage(&measured, "family-A", Observable::OilGrade, "steady");
+    assert!(!unsupported_grade.supported);
+    assert_eq!(
+        unsupported_grade.reason,
+        "no_measurement_of_this_observable"
+    );
+    assert!(judge_discrepancy(&Discrepancy {
+        numerical: Some(0.10),
+        input: Some(0.02),
+        experimental: Some(0.05),
+    })
+    .is_pass());
+    let unresolved_input = judge_discrepancy(&Discrepancy {
+        numerical: Some(0.10),
+        input: None,
+        experimental: Some(0.05),
+    });
+    assert!(is_open(&unresolved_input));
+    assert!(has(&unresolved_input, "discrepancy_unquantified:input"));
+
+    let branches = complete_study();
+    assert!(judge_branches(&branches).is_pass());
+    let mut best_only = branches;
+    best_only.best_of_selection = true;
+    assert!(has(
+        &judge_branches(&best_only),
+        "best_branch_selection_cannot_represent_operation"
+    ));
+
+    let unavailable = VortexAdmission {
+        dataset: DatasetStatus::Inaccessible,
+        ..admission()
+    };
+    let narrowed = judge_admission(Some(&unavailable), &build(), "vortex-static-synthetic");
+    assert!(has(&narrowed, "dataset_inaccessible"));
+    assert!(!flow_archive_enabled(&narrowed));
 }
 
 #[test]
