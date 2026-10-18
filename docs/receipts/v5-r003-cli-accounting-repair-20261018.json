@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "kind": "software_test_oracle_repair_not_runtime_threshold_relaxation",
+  "created_utc": "2026-10-18T10:16:16.983911+00:00",
+  "owner": "codex-v5-integrator",
+  "task_ids": [
+    "V5-07-05",
+    "V5-31-03"
+  ],
+  "tested_commit": "e30a5356659105921db2ed7a6140696d8664566c",
+  "tested_tree": "1f3317cad92b137ff69848448546bd04d45e5fcd",
+  "changed_paths": [
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "docs/receipts/v5-r003-cli-accounting-claim-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "taskset",
+        "--cpu-list",
+        "32",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 71.88655970897526,
+      "log_sha256": "93128c0781039f7f2dc19e961b7ca10307979cef66463e9c1fbefa5001f421dd",
+      "raw_log": "private:codex/g009-r003-cli-oracle-positive.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.5178738679969683,
+      "log_sha256": "6b389cf5993db50671f06bcc195afc9a806adcc302a1afc469a4f13bc80e7812",
+      "raw_log": "private:codex/g009-r003-cli-oracle-clippy.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.2778845289722085,
+      "log_sha256": "96d5ef1532bc20772206faafe677a7142874a70c9a3db090143e9657883af0f0",
+      "raw_log": "private:codex/g009-r003-cli-oracle-public-scan.log"
+    }
+  ],
+  "positive_checks": [
+    "All three lifecycle tests pass on one leased physical core, including actual CLI checkpoint SIGKILL/restart, SIGINT batch drain, retry charges, logical replay, fork accounting and untrusted seed import.",
+    "Synthetic ledger oracle accepts three charged attempts for two committed tasks when the first failed attempt is followed by a contiguous committed retry.",
+    "Complete CLI accounting must equal the canonical ledger; unique charge identities cover exactly every terminal attempt, each task history has contiguous fences and one final committed attempt. Exact forced timeout/retry deltas and no-new-cost replay checks remain."
+  ],
+  "negative_checks": [
+    "Six explicit oracle counterfactuals reject an understated reported charge count, wrong committed task count, missing charge, duplicate charge, erased failed attempt, and erased failed attempt plus its charge.",
+    "Observed prior exactc007 gate failed on its false two-charge expectation despite a real timed-out attempt and three correctly charged attempts; the failure remains retained and is not relabelled a pass."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/tests/lifecycle.rs",
+      "sha256": "ca70fbcdd1a9dad5c5f6e91a100f27cbe074305a24312fcb9db975b009c7214d"
+    },
+    {
+      "path": "docs/receipts/v5-r003-cli-accounting-claim-20261018.json",
+      "sha256": "30877118ea139cda20a3a84a1e04895dc4f4b02280da374ed4c3ebf9f31a60a5"
+    }
+  ],
+  "observed_prior_failure": {
+    "source_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+    "official_suite": "rust-tests",
+    "suite_exit_code": 1,
+    "cargo_exit_code": 101,
+    "outer_log_sha256": "2b1eeff390ba95be34542ac55ccbb60aea6b014aab8a12d6de330682db6d397f",
+    "raw_log": "private:codex/g009-r003-c007-official-eight-suites.log",
+    "failed_artifacts_inventory": "private:codex/g009-r003-c007-failed-artifact-inventory.json",
+    "failed_artifacts_inventory_sha256": "3fc861e09d16af3678309e6cfdd78b5f319fb5a1b25ae8f2c205beb9a339afc3"
+  },
+  "independent_source_binding": {
+    "path": "private:codex/g009-r003-cli-oracle-tested-source-binding.json",
+    "sha256": "77dd64b6c8408c435aff93fbce9bbbb72124e776bba48699f417d6412e18e118"
+  },
+  "resource_allocation": {
+    "physical_cores": 2,
+    "test_physical_cores": 1,
+    "cpu_ids": [
+      32,
+      33
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 6.0,
+    "pre_gate_threshold_bytes": 5000000000,
+    "cargo_build_jobs": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "lease_sha256": "83a040ba8f61f6f7568e3d5618d3c29ad13290a8cb75b011fe768f9d3a8b9685"
+  },
+  "limitations": [
+    "Only test code and the scoped claim changed. Production/configuration, 1000ms fixture timeout and all runtime timeout/lease bounds are unchanged.",
+    "The focused tests do not substitute for all eight fresh official suites or exact pushed-head CI.",
+    "No physical, industrial, native solver or campaign admission. Historical receipts/logs/failure scratch and original runner remain retained."
+  ],
+  "next_dependency": "Fresh all8 suites and public/index review on receipt-bearing descendant, then normal push to existing draftPR6 and exact-head CI; c007 itself remains a recorded red checkpoint.",
+  "packet_acceptance": false,
+  "scientific_admission": false
+}
