@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "worker_packet_claim",
+  "packet": "I005/P007 Item 1",
+  "owner": "Codex",
+  "created_utc": "2026-10-18T16:36:00Z",
+  "input_head": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
+  "worktree": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan",
+  "branch": "codex/v5-i005-p007-domain-remediation",
+  "write_scope": ["crates/crucible-lbm/", "crates/crucible-fea/", "crates/crucible-gpu/", "crates/crucible-stats/", "analysis/validation/v5/", "experiments/rig/v5/confirmation_campaign_v1.json", "docs/receipts/per-task/", "docs/v5-plan/progress/V5-24.json", "docs/v5-plan/progress/V5-30.json"],
+  "purpose": "User-directed remediation for V5-24-02..04 and V5-30-01..04 per Worker Brief I005/P007 Item 1.",
+  "resources": {"cpus": 2, "memory_gib": 6, "gpu": false, "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target", "cargo_build_jobs": 2, "rayon_threads": 1},
+  "boundaries": ["No scientific admission", "No subagents", "No push or merge", "Preserve substitute/rescope labels", "No edits to another project"]
+}

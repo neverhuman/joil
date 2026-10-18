@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-30-04"
+  ],
+  "tested_commit": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by source SHA-256; implementation is not present in the base commit.",
+  "decision_resolution": "Implemented preregistered paired A/B/A capacity analysis with 95% t bounds, mandatory duty/policy/scenario and material-model identity, uniqueness, and lower-bound threshold enforcement.",
+  "changed_paths": [
+    "crates/crucible-stats/src/analysis.rs",
+    "analysis/validation/v5/protocol.py",
+    "analysis/validation/v5/tests/test_protocol.py",
+    "experiments/rig/v5/confirmation_campaign_v1.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "crucible-stats",
+        "--lib",
+        "analysis::v5_30_tests::v5_30_04_preregistered_confirmation_bound_and_negatives",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-04.log",
+      "log_sha256": "9dc72e4da25ba32fd64a2aaf9d3fa421e884b35645b82a15f5f7c9bcd291204b"
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "-v",
+        "analysis.validation.v5.tests.test_protocol.ProtocolTests.test_v5_30_04_preregistered_confirmation_campaign_and_negatives"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-04.log",
+      "log_sha256": "9dc72e4da25ba32fd64a2aaf9d3fa421e884b35645b82a15f5f7c9bcd291204b"
+    }
+  ],
+  "positive_checks": [
+    "Paired effects and 95% bounds are returned; >=10% claim requires lower bound >=10%; sealed campaign evidence is admitted for software analysis only."
+  ],
+  "negative_checks": [
+    "Favorable mean with lower bound below 10%, repeated builds/batches, failed scenario, opened/forged holdout, or missing material evidence cannot support the claim."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-stats/src/analysis.rs",
+      "sha256": "6200e57503840e5e33a4aa00ce777496f71e0ccdbc98ff7493f6656c0fe2f6e2"
+    },
+    {
+      "path": "analysis/validation/v5/protocol.py",
+      "sha256": "29000bbc57874af2337909b5a79dd66b8d3cb161c78957932b10505d1b0c6ed6"
+    },
+    {
+      "path": "experiments/rig/v5/confirmation_campaign_v1.json",
+      "sha256": "2570201dd7ef1c51133afcc8713b6c62666fc42ad5fe50a76aba536c76bae9d4"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and synthetic fixture verification only; no physical admission or installation authority."
+  ],
+  "next_dependency": "V5-30-05"
+}

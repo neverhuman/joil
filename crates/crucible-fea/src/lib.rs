@@ -195,6 +195,132 @@ impl VoxelNetwork {
         }
         Err(FeaError::NotConverged)
     }
+
+    /// Jacobi diagonal for the anchored spring operator, in node/component order.
+    pub fn diagonal_preconditioner(&self, anchor_penalty: f64) -> Result<Vec<[f64; 3]>, FeaError> {
+        if !anchor_penalty.is_finite() || anchor_penalty <= 0.0 {
+            return Err(FeaError::InvalidState);
+        }
+        let mut d = vec![[0.0; 3]; self.nodes()];
+        for e in &self.edges {
+            for c in 0..3 {
+                let v = e.k * e.n[c] * e.n[c];
+                d[e.a][c] += v;
+                d[e.b][c] += v;
+            }
+        }
+        for (i, row) in d.iter_mut().enumerate() {
+            for v in row {
+                if self.fixed[i] {
+                    *v += anchor_penalty;
+                }
+                if !v.is_finite() || *v <= 0.0 {
+                    return Err(FeaError::InvalidMatrix);
+                }
+            }
+        }
+        Ok(d)
+    }
+
+    /// Preconditioned conjugate gradient for the same anchored CPU reference operator.
+    pub fn solve_pcg(
+        &self,
+        load: &[[f64; 3]],
+        anchor_penalty: f64,
+        tol: f64,
+        max_iter: usize,
+    ) -> Result<(Vec<[f64; 3]>, usize), FeaError> {
+        if load.len() != self.nodes()
+            || load.iter().flatten().any(|v| !v.is_finite())
+            || !tol.is_finite()
+            || tol <= 0.0
+            || max_iter == 0
+        {
+            return Err(FeaError::InvalidState);
+        }
+        let diag = flatten(&self.diagonal_preconditioner(anchor_penalty)?);
+        let b = flatten(load);
+        let n = b.len();
+        let mut x = vec![0.0; n];
+        let mut r = b.clone();
+        let mut z: Vec<f64> = r.iter().zip(&diag).map(|(a, d)| a / d).collect();
+        let mut p = z.clone();
+        let mut rz = dotn(&r, &z);
+        if dotn(&r, &r).sqrt() <= tol {
+            return Ok((vec![[0.0; 3]; self.nodes()], 0));
+        }
+        for it in 0..max_iter {
+            let ap = flatten(&self.apply(&unflatten(&p), anchor_penalty)?);
+            let pap = dotn(&p, &ap);
+            if !pap.is_finite() || pap <= 0.0 {
+                return Err(FeaError::InvalidMatrix);
+            }
+            let alpha = rz / pap;
+            for i in 0..n {
+                x[i] += alpha * p[i];
+                r[i] -= alpha * ap[i];
+            }
+            if dotn(&r, &r).sqrt() <= tol {
+                return Ok((unflatten(&x), it + 1));
+            }
+            z = r.iter().zip(&diag).map(|(a, d)| a / d).collect();
+            let next = dotn(&r, &z);
+            if !next.is_finite() || rz <= 0.0 {
+                return Err(FeaError::InvalidMatrix);
+            }
+            let beta = next / rz;
+            for i in 0..n {
+                p[i] = z[i] + beta * p[i];
+            }
+            rz = next;
+        }
+        Err(FeaError::NotConverged)
+    }
+}
+
+/// Check column eigenvectors against a finite symmetric matrix and orthonormality.
+pub fn verify_eigenpairs(
+    matrix: &[Vec<f64>],
+    eigenvalues: &[f64],
+    eigenvectors: &[Vec<f64>],
+    tol: f64,
+) -> Result<f64, FeaError> {
+    let n = matrix.len();
+    let k = eigenvalues.len();
+    if n == 0
+        || matrix.iter().any(|r| r.len() != n)
+        || eigenvectors.len() != n
+        || eigenvectors.iter().any(|r| r.len() != k)
+        || k == 0
+        || !tol.is_finite()
+        || tol <= 0.0
+        || matrix
+            .iter()
+            .flatten()
+            .chain(eigenvalues)
+            .chain(eigenvectors.iter().flatten())
+            .any(|x| !x.is_finite())
+    {
+        return Err(FeaError::InvalidMatrix);
+    }
+    let mut worst = 0.0_f64;
+    for a in 0..k {
+        for i in 0..n {
+            let av: f64 = (0..n).map(|j| matrix[i][j] * eigenvectors[j][a]).sum();
+            worst = worst.max((av - eigenvalues[a] * eigenvectors[i][a]).abs());
+        }
+        for b in 0..k {
+            let dot: f64 = (0..n)
+                .map(|i| eigenvectors[i][a] * eigenvectors[i][b])
+                .sum();
+            worst = worst.max((dot - if a == b { 1.0 } else { 0.0 }).abs());
+        }
+    }
+    if worst > tol {
+        Err(FeaError::InvalidMatrix)
+    } else {
+        Ok(worst)
+    }
 }
 fn dot(a: [f64; 3], b: [f64; 3]) -> f64 {
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
@@ -347,6 +473,32 @@ mod tests {
         assert_eq!(
             g.solve_cg(&f, 1.0, 1e-14, 1).err(),
             Some(FeaError::NotConverged)
+        );
+    }
+
+    #[test]
+    fn v5_24_02_pcg_parities_and_invalid_eigenpairs_fail() {
+        let mut g = VoxelNetwork::new([2, 2, 2], 10.0, 100).unwrap();
+        for y in 0..2 {
+            for z in 0..2 {
+                g.fix_node(0, y, z).unwrap();
+            }
+        }
+        let mut load = vec![[0.0; 3]; g.nodes()];
+        load[7][0] = 1.0;
+        let (a, _) = g.solve_cg(&load, 100.0, 1e-10, 1000).unwrap();
+        let (b, _) = g.solve_pcg(&load, 100.0, 1e-10, 1000).unwrap();
+        assert!(a
+            .iter()
+            .flatten()
+            .zip(b.iter().flatten())
+            .all(|(x, y)| (x - y).abs() < 1e-9));
+        let m = vec![vec![2.0, 1.0], vec![1.0, 2.0]];
+        let (d, v) = symmetric_eigen(&m, 1e-12, 100).unwrap();
+        assert!(verify_eigenpairs(&m, &d, &v, 1e-9).unwrap() < 1e-9);
+        assert_eq!(
+            verify_eigenpairs(&m, &[1.0, 3.0], &[vec![1.0, 1.0], vec![1.0, 1.0]], 1e-9),
+            Err(FeaError::InvalidMatrix)
         );
     }
 

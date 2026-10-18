@@ -3,53 +3,69 @@
   "task_ids": [
     "V5-30-03"
   ],
-  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
-  "decision_resolution": "Resolved under SC-DEC-044 (substitute:simulated_specimen_passport_binding+rescope:post_manufacturing_hardware_specimen_tap_proof): End-to-end software traceability binds simulated as-built deviations, coupon and CT schema records and physics re-evaluation to unique specimen passports. Physical specimen tap and proof testing are rescoped to the post-manufacturing phase. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_passport_geometry_change_requires_reevaluation.",
+  "tested_commit": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by source SHA-256; implementation is not present in the base commit.",
+  "decision_resolution": "Resolved under SC-DEC-044: simulated passport binding is accepted; physical coupon, proof, tap and CT evidence remains post-manufacturing.",
   "changed_paths": [
-    "experiments/rig/v5/",
-    "experiments/holdout/v5/",
-    "analysis/validation/v5/",
-    "docs/rig/V5_CONFIRMATION.md",
-    "experiments/rig/protocol_v1.md",
-    "docs/rig/MATERIAL_INPUTS.md"
+    "crates/crucible-stats/src/analysis.rs",
+    "analysis/validation/v5/protocol.py",
+    "analysis/validation/v5/tests/test_protocol.py"
   ],
   "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "crucible-stats",
+        "--lib",
+        "analysis::v5_30_tests::v5_30_03_specimen_passport_deviation_reevaluation",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-03.log",
+      "log_sha256": "43eff848afebae4471daa1c195c1883bace7e5537d793b2c5ac8361c39ddaeca"
+    },
     {
       "argv": [
         "python3",
         "-m",
         "unittest",
         "-v",
-        "tests.test_v5_integrated_fixtures.ProtocolTests.test_passport_geometry_change_requires_reevaluation"
+        "analysis.validation.v5.tests.test_protocol.ProtocolTests.test_passport_geometry_change_requires_reevaluation"
       ],
       "exit_code": 0,
       "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-03.log",
-      "log_sha256": "e1a8921d0658f35b7f889c6989f979194232efcd7453047276e51eace04c3bd6"
+      "log_sha256": "43eff848afebae4471daa1c195c1883bace7e5537d793b2c5ac8361c39ddaeca"
     }
   ],
   "positive_checks": [
-    "V5-30-03 (Bind independent builds to metrology and passports): Each specimen has traceable physical and computational identity. \u2014 verified by python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_passport_geometry_change_requires_reevaluation"
+    "Coupon, CT, roughness, orifice, proof, tap, and subject hashes are checked; subject mismatch requests reevaluation."
   ],
   "negative_checks": [
-    "V5-30-03 negative control: Three nominal repeats are not independent builds or a power justification."
+    "Malformed CT hash and missing required evidence are rejected."
   ],
   "artifacts": [
     {
-      "path": "docs/rig/V5_CONFIRMATION.md",
-      "sha256": "e12f4834d96d40463425c4ff72aa5f66a0557b1a54a1991cc6b62c7f76f192d1"
+      "path": "crates/crucible-stats/src/analysis.rs",
+      "sha256": "6200e57503840e5e33a4aa00ce777496f71e0ccdbc98ff7493f6656c0fe2f6e2"
+    },
+    {
+      "path": "analysis/validation/v5/protocol.py",
+      "sha256": "29000bbc57874af2337909b5a79dd66b8d3cb161c78957932b10505d1b0c6ed6"
     }
   ],
   "resource_allocation": {
-    "lease_id": "renewal-004",
-    "physical_cores": 2,
-    "ram_gib": 12,
-    "disk_gib": 6,
-    "gpu": false
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
   },
   "scientific_admission": false,
   "limitations": [
-    "Software and contract verification only; scientific_admission remains false.",
-    "Resolved under SC-DEC-044 (substitute:simulated_specimen_passport_binding+rescope:post_manufacturing_hardware_specimen_tap_proof): End-to-end software traceability binds simulated as-built deviations, coupon and CT schema records and physics re-evaluation to unique specimen passports. Physical specimen tap and proof testing are rescoped to the post-manufacturing phase. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_passport_geometry_change_requires_reevaluation."
+    "Software and synthetic fixture verification only; no physical admission or installation authority."
   ],
   "next_dependency": "V5-30-04"
 }

@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-24-03"
+  ],
+  "tested_commit": "d0cfcd59cfa4cc10181652cb5705b613599b1ce0",
+  "tested_commit_semantics": "Base commit plus working-tree changes identified by source SHA-256; implementation is not present in the base commit.",
+  "decision_resolution": "Added numerical fixture-order checks and target-domain guardrails. Laminar examples remain explicitly insufficient for turbulent deoiling and nonlinear-collapse claims.",
+  "changed_paths": [
+    "crates/crucible-gpu/src/lib.rs",
+    "crates/crucible-lbm/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "crucible-lbm",
+        "--lib",
+        "tests::v5_24_03_poiseuille_couette_and_taylor_green_order_verifies",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-24-03.log",
+      "log_sha256": "2ecff9b8e2b49f5842e3f6254e5e990b023422fdfe315a19db4ba04ebabaf583"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "crucible-gpu",
+        "--lib",
+        "tests::v5_24_03_mrt_benchmarks_and_laminar_cannot_qualify_turbulent_or_collapse",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-24-03.log",
+      "log_sha256": "2ecff9b8e2b49f5842e3f6254e5e990b023422fdfe315a19db4ba04ebabaf583"
+    }
+  ],
+  "positive_checks": [
+    "Poiseuille, Couette and Taylor\u2013Green synthetic refinement orders match their expected slopes.",
+    "Laminar fixture set passes the bounded reference target."
+  ],
+  "negative_checks": [
+    "Laminar fixture set is rejected for turbulent deoiling and nonlinear collapse.",
+    "Nonfinite fixture error is rejected."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-gpu/src/lib.rs",
+      "sha256": "8637fb7775ca9a54066670e48c74520e6225bf092be202897a90792ac9c69b46"
+    },
+    {
+      "path": "crates/crucible-lbm/src/lib.rs",
+      "sha256": "a523c3ecb37f3465baa06b40e8a587aaf88f242001bb857dddb7a768a546fd90"
+    }
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rayon_threads": 1,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex/target"
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and synthetic fixture verification only; no physical admission or installation authority."
+  ],
+  "next_dependency": "V5-24-04"
+}
