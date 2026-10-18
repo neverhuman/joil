@@ -236,7 +236,9 @@
         "crates/joil-evidence/tests/decision.rs",
         "schemas/v5/decision-profile.schema.json",
         "docs/v5-plan/execution/DECISIONS.md",
-        "crates/joil-evidence/src/lib.rs"
+        "crates/joil-evidence/src/lib.rs",
+        "docs/v5-plan/execution/V5-02-LIMIT-SOURCE-SCOPE.md",
+        "docs/receipts/v5-02-limit-source-*"
       ],
       "edge_cases": [
         "No source proposal silently admits a load or pressure limit",

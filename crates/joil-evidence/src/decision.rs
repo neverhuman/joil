@@ -141,6 +141,17 @@ pub struct SourceValue {
     pub applicability: ContentRef,
 }
 
+/// A reviewed limit is bound to its exact feature/quantity as well as its value.
+/// Generic uncertainty records cannot be reused as process or geometry limits.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct LimitSource {
+    pub limit_id: String,
+    pub value: BoundedValue,
+    pub comparison: Comparison,
+    pub applicability: ContentRef,
+}
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Scenario {
@@ -868,8 +879,9 @@ impl DecisionProfile {
                 applicability,
             } = &l.value
             {
-                let stored: SourceValue = decode_reviewed(registry, source, &self.requirements)?;
-                if stored.value != *value
+                let stored: LimitSource = decode_reviewed(registry, source, &self.requirements)?;
+                if stored.limit_id != l.id
+                    || stored.value != *value
                     || stored.comparison != l.comparison
                     || stored.applicability != *applicability
                     || applicability != &self.applicability

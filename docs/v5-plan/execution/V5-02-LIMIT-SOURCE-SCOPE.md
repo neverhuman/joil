@@ -1,0 +1,7 @@
+# V5-02 limit-source identity correction
+
+G-004's independently written failing control shows that the generic `SourceValue` record binds a numeric range, relation and set-wide applicability but cannot identify the feature/limit. Restating the machined1.4mm record with the printed relation can therefore satisfy the wrong requirement. An accepted numeric value alone is insufficient.
+
+The integrator adds `LimitSource { limit_id, value, comparison, applicability }` with strict required fields to `crates/joil-evidence/src/decision.rs`, and qualified admission must match `limit_id` to the exact `LimitSpec.id`. The existing `SourceValue` remains the uncertainty-bound record. There is no numeric1.4 ban, new physical allowable, default migration or automatic acceptance of old limit-source bytes. Review readiness still depends on current source-bound trusted reviews and complete input/conflict closure; it is not a physical verdict.
+
+This is within the existing V5-02 library scope. The integrator alone writes the shared public type and this contract. Claude retains exclusive ownership of `crates/joil-evidence/tests/decision.rs`; after the small contract commit is published privately, it may update its complete bound synthetic fixtures to emit `LimitSource`, make the formerly ignored cross-feature regression active, verify a properly bound1.4 positive and run the entire nine-input/scope/timeout controls. New receipts supplement the G-004 historical red control; none is rewritten. No manifests, dependencies, requirement defaults or physical thresholds change.
