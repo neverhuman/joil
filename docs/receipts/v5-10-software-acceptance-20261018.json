@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "kind": "v5_10_software_acceptance_receipt",
+  "packet": "V5-10",
+  "task_ids": [
+    "V5-10-01",
+    "V5-10-02",
+    "V5-10-03",
+    "V5-10-04",
+    "V5-10-05"
+  ],
+  "owner": "1052087.joil_v5_claude",
+  "state": "software_acceptance_recorded",
+  "packet_acceptance": true,
+  "packet_acceptance_scope": "Software tests at tested_commit only. Registry progress for V5-10 is unchanged and still reads blocked, because the packet depends on V5-08 and V5-08-02..05 are blocked.",
+  "scientific_admission": false,
+  "tested_commit": "8d8d67c44658e615ea588666edba60a704acb78b",
+  "changed_paths": [
+    "crates/crucible-geom/src/export.rs",
+    "crates/crucible-geom/src/surface.rs",
+    "crates/crucible-geom/src/tet.rs",
+    "crates/crucible-geom/tests/artifacts.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "artifacts"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/v5-10-artifacts-test.log",
+      "log_sha256": "80620ed68c0d6cccacc642a469f6dd787c9508063c5a29241e84742e02f8d456",
+      "expected_result": "14 artifact and export tests passed, 0 failed.",
+      "observed_result": "test result: ok. 14 passed; 0 failed."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "expected_result": "claims_audit OK."
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/check-public.log",
+      "log_sha256": "06635ae5b51887bfa4e01324ce648fbbcbadd9dc96e231791866a51145a49a66",
+      "expected_result": "PASS public candidate files checked."
+    }
+  ],
+  "positive_checks": [
+    "V5-10-01: rotated_asymmetric_ports_keep_authoritative_tags and tetrahedral_complex_requires_same_complete_oriented_boundary passed.",
+    "V5-10-02: p1_patch_thin_wall_and_distorted_boundaries_have_positive_jacobians passed.",
+    "V5-10-03: frozen_liner_reuse_demands_interface_and_conservative_mapping passed.",
+    "V5-10-04: unit_cube_exports_have_independent_dimensions_tags_and_digests and ct35_source_bound_axial_dimension_export_control passed.",
+    "V5-10-05: fixed_corpus_retains_meshes_raw_inputs_cost_and_failure_diagnosis passed."
+  ],
+  "negative_checks": [
+    "V5-10-01: surface_negative_corpus and intersecting_and_disconnected_shells_do_not_pass_volume_checks passed (invalid surfaces rejected).",
+    "V5-10-02: p2_midpoint_projection_inverts_valid_p1_and_is_rejected passed.",
+    "V5-10-03: unsupported_active_features_and_fidelity_block_exports passed (unsupported active geometry blocks the served fidelity).",
+    "V5-10-04: export_rejects_scaling_false_exact_step_and_existing_evidence passed.",
+    "V5-10-05: scalar_only_receipt_never_authorizes_mesh_deletion passed; interior_seed_generator_retains_boundary_and_rejects_bad_seed passed."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/tests/artifacts.rs",
+      "sha256": "2148c82744f07fca4bb970866cb103cf2b283a003928e936ecc6376829fed1f9"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e/v5-10-artifacts-test.log",
+      "sha256": "80620ed68c0d6cccacc642a469f6dd787c9508063c5a29241e84742e02f8d456"
+    }
+  ],
+  "resource_allocation": {
+    "host": "xbabe2 (shared)",
+    "cpus": "unpinned; no taskset or cgroup lease applied to this wave",
+    "cargo_build_jobs": "cargo default; CARGO_BUILD_JOBS not set",
+    "cargo_target_dir": "/home/ubuntu/joil/.private/worktrees/v5-claude-truth/target (lane default, not a per-task target)",
+    "incremental": false,
+    "debug_info": "line-tables-only",
+    "gpu": false,
+    "simulation": false,
+    "search_campaign": false,
+    "private_log_root": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave5-c1-b-e"
+  },
+  "limitations": [
+    "Software acceptance only. The artifact fixtures are synthetic; this receipt does not establish geometry authority, solver admission, physical validation or scientific qualification.",
+    "Scientific admission is false. Same-subject mesh, coverage and export admission for physical subjects depends on the datasets listed in docs/release/v5/EXTERNAL_DATA_REQUESTS.json.",
+    "The registry dependency V5-08 is not accepted: V5-08-02..05 are blocked at tested_commit. This receipt does not mark any V5-10 task done and does not change docs/v5-plan/progress/V5-10.json.",
+    "The assignment named crucible-mesh or crucible-geom --test mesh and joil-geometry --test mesh/artifacts. crucible-geom --test mesh does not exist at tested_commit (exit 101). joil-geometry has only a kernel test target. The packet command, crucible-geom --test artifacts, was run.",
+    "The registry lists D-24 with primary_task V5-01-05. No V5-10 defect gate exists in docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json, so this receipt carries no V5-10 defect control. D-24 is not closed by this receipt.",
+    "The gate command is for one package. No full workspace gate was run."
+  ],
+  "next_dependency": "V5-08-02..05 must be accepted before the integrator marks V5-10 done. Physical mesh and export claims depend on the external datasets in docs/release/v5/EXTERNAL_DATA_REQUESTS.json where applicable.",
+  "defect_controls": []
+}

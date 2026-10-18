@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "kind": "v5_cause_b_external_data_request_manifest",
+  "as_of_commit": "8d8d67c44658e615ea588666edba60a704acb78b",
+  "scope": "21 Cause-B tasks whose acceptance needs external measured, physical or independently labelled data. Software harnesses exist; the physical datasets do not.",
+  "scientific_admission_policy": "Every entry is false. No physical value, label, benchmark or measurement is synthesized, estimated or copied from a planning document. An absent dataset keeps its dependent claim blocked; it does not block unrelated software work.",
+  "common_provenance_requirements": [
+    "Every raw file is recorded with its SHA-256 digest, source identifier, retrieval or measurement date in UTC, and access or licence status.",
+    "Every numeric value carries an explicit unit. SI base units are preferred; any other unit is declared with its conversion source.",
+    "Every value carries an uncertainty statement with its components, or the word unresolved.",
+    "Concentration values declare their basis (mass fraction, volume fraction or mass per volume) and the measurement method.",
+    "Physical subjects are identified by the SHA-256 digest of the exact accepted geometry or artifact, not by name or description.",
+    "Raw files that cannot enter public Git stay in private storage; only their digests and metadata are referenced here."
+  ],
+  "status_values": {
+    "software_harness_verified_awaiting_external_physical_dataset": "Harness path exists at the as_of_commit. Its software tests are cited by the packet receipts; no physical dataset is admitted."
+  },
+  "requests": [
+    {
+      "task_id": "V5-13-01",
+      "packet": "V5-13",
+      "category": "calibration_benchmark_accession",
+      "software_harness_path": "packs/hydrocyclone/judges/src/material.rs",
+      "required_physical_inputs": [
+        "Process-qualified material passport: alloy grade, powder lot identifier and product form, each with source record digest.",
+        "LPBF parameters with units: machine identifier, laser power in W, scan strategy, layer thickness in m.",
+        "Build orientation as angle in degrees relative to the build plate, with reference frame.",
+        "Heat treatment and HIP schedule: temperature in K or degrees C with time in s, with furnace calibration record digest.",
+        "Per-face finish classes and service temperature in degrees C with environment description.",
+        "Defect assumptions: porosity stated as volume fraction or area fraction with measurement method.",
+        "Each allowable: value with unit, test standard identifier, specimen count, uncertainty and source document SHA-256. Unresolved allowables stay status unresolved."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-13-03",
+      "packet": "V5-13",
+      "category": "metrology_ct",
+      "software_harness_path": "packs/hydrocyclone/judges/src/manufacturing.rs",
+      "required_physical_inputs": [
+        "Build-volume envelope of the named machine in mm, with machine calibration record digest.",
+        "Measured minimum wall and feature dimensions on the coupon set in mm, with CT or caliper method and uncertainty.",
+        "Overhang angle in degrees and support accessibility records for each internal downskin face.",
+        "Powder-removal channel minimum cross-section in mm, measured on a physical or CT reference.",
+        "Tool swept-volume access geometry as STEP or STL, with declared unit and SHA-256 of the file.",
+        "Process-threshold sheet digest and the passport identifier it applies to. Thresholds are not copied from source constants."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-13-04",
+      "packet": "V5-13",
+      "category": "metrology_ct",
+      "software_harness_path": "packs/hydrocyclone/judges/src/surface.rs",
+      "required_physical_inputs": [
+        "Per-face areal roughness parameters Sa and Sz in micrometres, with instrument identifier, instrument calibration certificate digest, sampling area in mm2 and filter cutoff in mm.",
+        "Face orientation in degrees relative to the build direction for each measured face.",
+        "Finish class label per face, with the measurement that assigned it.",
+        "Variant identity: SHA-256 digest binding the orientation set and the finish-class set to one physical subject."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-13-05",
+      "packet": "V5-13",
+      "category": "metrology_ct",
+      "software_harness_path": "packs/hydrocyclone/judges/src/metrology.rs",
+      "required_physical_inputs": [
+        "Coupon plan records for tensile, fatigue, density, porosity, roughness and CT calibration, each with specimen identifier, build position and passport identifier.",
+        "Instrument calibration record digest and uncertainty budget components for each measurement type.",
+        "CT voxel size in micrometres, scan parameters, and calibration phantom SHA-256 digest.",
+        "Accountable external dependency entries: laboratory or vendor name, scope and status. No order is placed and no vendor is contacted by this manifest."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-15-01",
+      "packet": "V5-15",
+      "category": "calibration_benchmark_accession",
+      "software_harness_path": "packs/hydrocyclone/judges/src/validation.rs",
+      "required_physical_inputs": [
+        "For each candidate source (Bai, Young, Zhou, Hsieh): citation, retrieval date in UTC, licence statement, and SHA-256 digest of the retained file, which stays private.",
+        "Geometry as dimensioned drawing values in mm with reference frame and SHA-256 of the geometry used.",
+        "Fluid properties with units: density in kg/m3, dynamic viscosity in Pa s, and oil and water identity.",
+        "Boundary conditions with units: absolute pressure in Pa, flow rate in m3/s, and wall treatment description.",
+        "Measurement station coordinates in mm and the measurement method for each station.",
+        "Uncertainty statement with units for each observable. Unresolved inputs are listed as unresolved, never filled."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-15-03",
+      "packet": "V5-15",
+      "category": "calibration_benchmark_accession",
+      "software_harness_path": "packs/hydrocyclone/judges/src/validation.rs",
+      "required_physical_inputs": [
+        "Tangential and axial velocity profiles in m/s, sampled at radial coordinates in mm, with station identifier and measurement uncertainty per point.",
+        "Reverse-core indicator with extent in mm and the criterion used to define it.",
+        "Pressure drop in Pa and split as mass fraction or volume fraction, with the basis declared.",
+        "Grade observation with declared size basis and unit, only where a corresponding measurement exists.",
+        "Mechanism and regime descriptor for each observable, with the source that assigned it."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-17-02",
+      "packet": "V5-17",
+      "category": "wet_hydraulic_modal_fatigue",
+      "software_harness_path": "crates/crucible-particles/src/dispersion.rs",
+      "required_physical_inputs": [
+        "Measured or reference Reynolds-stress covariance components in m2/s2 at declared stations and times.",
+        "LES resolved and modelled energy fractions, each with unit and derivation.",
+        "Inlet turbulence intensity with declared basis (dimensionless or percent) and its measurement method.",
+        "Realizability repair record: the applied change, its magnitude in the same unit, and the component affected.",
+        "Inlet sensitivity dataset with SHA-256 digest."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-17-03",
+      "packet": "V5-17",
+      "category": "wet_hydraulic_modal_fatigue",
+      "software_harness_path": "crates/crucible-particles/src/population.rs",
+      "required_physical_inputs": [
+        "Droplet or particle size distribution at declared stations in micrometres, with number or volume basis declared.",
+        "Exposure history: shear rate in s-1 and residence time in s, per station.",
+        "Daughter mass closure record with its tolerance and unit.",
+        "Measured breakup-rate data with uncertainty, and the calibration status of the breakup model (valid or invalid, with reason).",
+        "Diagnostic Hinze diameter reported separately; it is not a calibration input."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-18-04",
+      "packet": "V5-18",
+      "category": "calibration_benchmark_accession",
+      "software_harness_path": "packs/hydrocyclone/judges/src/objectives.rs",
+      "required_physical_inputs": [
+        "Printed mass upper bound in kg with the weighing or CT method and its uncertainty.",
+        "Structural reserve lower bound under common demand, as a dimensionless reserve with its load case reference in Pa.",
+        "Compliant treated capacity lower bound in m3/h with duty definition and metering record.",
+        "Common-duty energy upper bound in kWh with metering record digest.",
+        "Owner-frozen objective weight profile record. The weight profile is not accepted until frozen; no default profile is admitted by this manifest."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-20-01",
+      "packet": "V5-20",
+      "category": "wet_hydraulic_modal_fatigue",
+      "software_harness_path": "packs/hydrocyclone/judges/src/dynamics.rs",
+      "required_physical_inputs": [
+        "Accepted wall-pressure spectra: power spectral density in Pa2/Hz on a frequency axis in Hz, with measurement location coordinates in mm, sampling rate in Hz and window description.",
+        "Fluid added-mass measurement or validated estimate in kg with method and uncertainty.",
+        "As-built modal test frequency response data in Hz with damping ratio (dimensionless) on the actual supports.",
+        "Support stiffness in N/m for each support, with measurement method."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-20-02",
+      "packet": "V5-20",
+      "category": "wet_hydraulic_modal_fatigue",
+      "software_harness_path": "packs/hydrocyclone/judges/src/fatigue.rs",
+      "required_physical_inputs": [
+        "S-N test data: stress amplitude in Pa, cycles to failure as a count, stress ratio R (dimensionless) and mean stress in Pa.",
+        "Process, orientation, finish and defect tags on every curve, each referencing its passport identifier.",
+        "Run-out target declared as a cycle count, with the specimen survival record.",
+        "Measured cycle-count spectrum from loads, binned by amplitude in Pa with counts per bin.",
+        "Test standard identifier and SHA-256 digest of each test record."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-20-03",
+      "packet": "V5-20",
+      "category": "metrology_ct",
+      "software_harness_path": "packs/hydrocyclone/judges/src/as_built.rs",
+      "required_physical_inputs": [
+        "CT calibration phantom records and scan parameters: voxel size in micrometres, tube voltage in kV, filter identifier.",
+        "Registration fiducial coordinates in mm and the registration residual in mm.",
+        "Feature detectability threshold record with the test feature size in mm.",
+        "Surface and roughness measurements per face (see V5-13-04 units).",
+        "As-built geometry file SHA-256 with declared unit, and the nominal-to-as-built deviation field in mm.",
+        "Nominal and as-built identities recorded as separate digests."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-20-04",
+      "packet": "V5-20",
+      "category": "wet_hydraulic_modal_fatigue",
+      "software_harness_path": "packs/hydrocyclone/judges/src/fatigue.rs",
+      "required_physical_inputs": [
+        "Deterministic manufacturing tolerance bands per dimension in mm, kept distinct from any probabilistic distribution.",
+        "Load envelope bounds in N or Pa with source test or load record digest.",
+        "Material property bounds taken from the passport with declared units (Pa, kg/m3).",
+        "Declared distribution type for any probabilistic input, with the source of its parameters. Probabilistic inputs are not used to report reliability percentiles."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-20-05",
+      "packet": "V5-20",
+      "category": "wet_hydraulic_modal_fatigue",
+      "software_harness_path": "packs/hydrocyclone/judges/src/structure.rs",
+      "required_physical_inputs": [
+        "Second-route solver or reference results: modal frequencies in Hz and displacement or strain observables with units, plus the mesh identity SHA-256.",
+        "Measured load-case strain or pressure references in microstrain or Pa, with gauge or transducer calibration certificate digest.",
+        "Nonlinear stability reference measurement with its test conditions.",
+        "Discrepancy statement between routes with units, kept as an uncertainty contribution."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-22-01",
+      "packet": "V5-22",
+      "category": "independent_human_labels",
+      "software_harness_path": "crates/crucible-search/src/surrogate.rs",
+      "required_physical_inputs": [
+        "Admitted independent-label records: subject identifier as SHA-256 of the accepted artifact, observation value with SI unit and uncertainty.",
+        "Labeller identity and qualification status, recorded per label.",
+        "Lineage or family identifier for grouped train and held-out splits.",
+        "Reason code for every missing, invalid or out-of-scope label.",
+        "EV-09 readiness and EV-12 disposition references carried with each dataset version."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-25-01",
+      "packet": "V5-25",
+      "category": "calibration_benchmark_accession",
+      "software_harness_path": "packs/hydrocyclone/judges/src/liner_operator.rs",
+      "required_physical_inputs": [
+        "Cut-plane state values with units: radial and azimuthal velocity in m/s, turbulence quantity in m2/s2, reverse-core radius in mm.",
+        "Size-dependent oil mass flux in kg/s at declared cut-plane coordinates in mm.",
+        "Boundary pressure in Pa at the admitted cut plane, with its measurement or derivation record.",
+        "Conservation balance closure tolerances declared with units before the check is run.",
+        "Uncertainty component per state variable."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-25-02",
+      "packet": "V5-25",
+      "category": "rig_loop_daq",
+      "software_harness_path": "packs/hydrocyclone/judges/tests/liner_operator.rs",
+      "required_physical_inputs": [
+        "Full-liner accepted geometry SHA-256 digest, with the geometry unit declared.",
+        "Flow rate in m3/h, pressure in Pa, concentration in mg/L or mass fraction with declared basis, and drop size distribution in micrometres on a number basis.",
+        "Station coordinates in mm for every measurement.",
+        "Family and lease identifiers that separate training and held-out cases.",
+        "Raw DAQ file SHA-256 digests, sampling rate in Hz, and sensor calibration certificate digests."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-28-04",
+      "packet": "V5-28",
+      "category": "independent_human_labels",
+      "software_harness_path": "crates/crucible-paper/src/lib.rs",
+      "required_physical_inputs": [
+        "Claim-binding labels: each paper claim mapped to an observation identifier, subject SHA-256, scenario, estimand, unit with declared SI basis, evidence tier and allowed interpretation.",
+        "Independent human reviewer identity and review record for each binding.",
+        "Reference to the immutable historical paper digest and any correction record.",
+        "No numeric value is entered from memory or from a planning document; every value is taken from a referenced manifest."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-29-01",
+      "packet": "V5-29",
+      "category": "calibration_benchmark_accession",
+      "software_harness_path": "packs/bracket/src/lib.rs",
+      "required_physical_inputs": [
+        "Bolt and support interface dimensions in mm, with drawing digest.",
+        "Bolt preload in N with bolt grade and source document digest.",
+        "Admitted fixture load cases in N and N m, each with source digest.",
+        "Bracket material properties in Pa and kg/m3, referencing a material passport identifier.",
+        "Geometric bounds in mm, with the source of each bound.",
+        "Review record confirming that no hydrocyclone constant is used by the bracket pack."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-30-02",
+      "packet": "V5-30",
+      "category": "rig_loop_daq",
+      "software_harness_path": "analysis/validation/v5/protocol.py",
+      "required_physical_inputs": [
+        "Synchronized DAQ records with timestamps in UTC: inlet and outlet concentration with declared basis, drop size distribution in micrometres.",
+        "Every flow stream in m3/h and every pressure in Pa, each with sensor serial number and calibration certificate SHA-256.",
+        "Temperature in degrees C or K, and tank inventory in kg or L.",
+        "Sample-line and sensor lag in s, measured by a step or tracer test with its digest.",
+        "Censored and delayed record flags, with the recovery-control logs that test them."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    },
+    {
+      "task_id": "V5-30-03",
+      "packet": "V5-30",
+      "category": "metrology_ct",
+      "software_harness_path": "analysis/validation/v5/protocol.py",
+      "required_physical_inputs": [
+        "Specimen process record and passport identifier for each independently built specimen.",
+        "Coupon data: tensile, fatigue, density and porosity records with units and SHA-256 digests.",
+        "CT, roughness and orifice measurement records in mm or micrometres, with calibration digests.",
+        "Proof and tap test results in Pa and s, with the test record digest.",
+        "As-built subject SHA-256 (STL or STEP) with declared unit.",
+        "Re-evaluation record for each specimen whose physical geometry changed from the nominal."
+      ],
+      "status": "software_harness_verified_awaiting_external_physical_dataset",
+      "scientific_admission": false
+    }
+  ]
+}
