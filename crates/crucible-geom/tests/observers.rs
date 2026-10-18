@@ -308,11 +308,25 @@ fn exact_byte_subject_binding_and_mutation_of_the_mesh_input() {
     )
     .unwrap();
     near(changed.measure().unwrap().volume_m3, 2., 1e-12);
-    let faces_at = |value:&observe::BoundSurface,x:f64| value.mesh().triangles.iter().enumerate().filter_map(|(i,t)|t.iter().all(|&v|value.mesh().vertices_m[v][0]==x).then_some(i)).collect::<Vec<_>>();
-    let x0=faces_at(&read,0.);let x1=faces_at(&read,1.);
-    let gap=read.patch_gap(&x0,&x1).unwrap();assert!(gap.lower_m<1.&&gap.upper_m>1.);
-    near(gap.input_error_m,1e-7,0.);
-    assert!(read.patch_gap(&x0,&x0).is_err());
+    let faces_at = |value: &observe::BoundSurface, x: f64| {
+        value
+            .mesh()
+            .triangles
+            .iter()
+            .enumerate()
+            .filter_map(|(i, t)| {
+                t.iter()
+                    .all(|&v| value.mesh().vertices_m[v][0] == x)
+                    .then_some(i)
+            })
+            .collect::<Vec<_>>()
+    };
+    let x0 = faces_at(&read, 0.);
+    let x1 = faces_at(&read, 1.);
+    let gap = read.patch_gap(&x0, &x1).unwrap();
+    assert!(gap.lower_m < 1. && gap.upper_m > 1.);
+    near(gap.input_error_m, 1e-7, 0.);
+    assert!(read.patch_gap(&x0, &x0).is_err());
     let detects_mutation = |observer: &dyn Fn(&Mesh) -> f64| {
         (observer(read.mesh()) - observer(changed.mesh())).abs() > 0.5
     };
@@ -438,10 +452,18 @@ fn all_two_by_two_closed_cube_unions_are_contractible_or_empty() {
     // Every nonempty subset of these eight cubes contains the common central
     // vertex and is star-shaped about it. This oracle needs no rank algorithm.
     for mask in 0_u16..256 {
-        let mut g=grid([2;3],|_|Cell::Outside);
-        for (i,c) in g.cells.iter_mut().enumerate() {if mask&(1<<i)!=0 {*c=Cell::Solid;}}
-        let observed=topology::volume(&g,Cell::Solid).unwrap();
-        assert_eq!(observed.cubical.0,if mask==0 {[0,0,0]}else{[1,0,0]},"mask {mask}");
+        let mut g = grid([2; 3], |_| Cell::Outside);
+        for (i, c) in g.cells.iter_mut().enumerate() {
+            if mask & (1 << i) != 0 {
+                *c = Cell::Solid;
+            }
+        }
+        let observed = topology::volume(&g, Cell::Solid).unwrap();
+        assert_eq!(
+            observed.cubical.0,
+            if mask == 0 { [0, 0, 0] } else { [1, 0, 0] },
+            "mask {mask}"
+        );
         assert!(observed.agrees());
     }
 }
@@ -631,7 +653,7 @@ fn complete_patch_distances_rays_rotation_and_narrow_breakthrough() {
     let crossing = [[[0.2, 0.2, -0.001], [0.4, 0.2, 0.001], [0.3, 0.4, 0.001]]];
     let pierced = distance::patch_gap(&a, &crossing, 0.).unwrap();
     assert!(pierced.estimate_m < 1e-12);
-    assert_eq!(pierced.lower_m,0.);
+    assert_eq!(pierced.lower_m, 0.);
     assert!(distance::patch_gap(&[], &b, 0.).is_err());
 }
 
@@ -725,9 +747,18 @@ fn frozen_region_difference_and_non_star_cavity_are_measured_from_cells() {
     );
     // A deliberately wrong star/column-envelope proxy fills the enclosed cell.
     // It has the same outer envelope, yet fails the independent volume oracle.
-    let mut radial_proxy=a.clone();radial_proxy.cells.fill(Cell::Solid);
-    assert_ne!(volume::measure(&a).unwrap().solid_volume_m3,volume::measure(&radial_proxy).unwrap().solid_volume_m3);
-    assert_ne!(topology::volume(&a,Cell::Solid).unwrap().cubical,topology::volume(&radial_proxy,Cell::Solid).unwrap().cubical);
+    let mut radial_proxy = a.clone();
+    radial_proxy.cells.fill(Cell::Solid);
+    assert_ne!(
+        volume::measure(&a).unwrap().solid_volume_m3,
+        volume::measure(&radial_proxy).unwrap().solid_volume_m3
+    );
+    assert_ne!(
+        topology::volume(&a, Cell::Solid).unwrap().cubical,
+        topology::volume(&radial_proxy, Cell::Solid)
+            .unwrap()
+            .cubical
+    );
     let other = a.index([0, 0, 0]);
     near(
         volume::frozen_difference(&a, &b, &[other])
@@ -737,7 +768,7 @@ fn frozen_region_difference_and_non_star_cavity_are_measured_from_cells() {
         0.,
     );
     let mut breakthrough = b.clone();
-    let outer_hole = breakthrough.index([2,2,0]);
+    let outer_hole = breakthrough.index([2, 2, 0]);
     breakthrough.cells[outer_hole] = Cell::Fluid;
     assert_eq!(
         topology::volume(&breakthrough, Cell::Solid)

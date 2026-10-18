@@ -45,7 +45,8 @@ pub fn validate(m: &Mesh) -> Result<(), ObserveError> {
         used.extend(t);
         for axis in 0..3 {
             let link = &mut links[t[axis]];
-            let a = t[(axis+1)%3]; let b = t[(axis+2)%3];
+            let a = t[(axis + 1) % 3];
+            let b = t[(axis + 2) % 3];
             link.entry(a).or_default().push(b);
             link.entry(b).or_default().push(a);
         }

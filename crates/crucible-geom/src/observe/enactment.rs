@@ -75,7 +75,7 @@ fn phase_clearance(g: &Volume, i: usize) -> f64 {
             d = d.min(distance);
         }
     }
-    (d-64.0*f64::EPSILON*g.pitch_m*(*g.dimensions.iter().max().unwrap() as f64)).max(0.0)
+    (d - 64.0 * f64::EPSILON * g.pitch_m * (*g.dimensions.iter().max().unwrap() as f64)).max(0.0)
 }
 fn compare(
     a: &BoundVolume,
@@ -83,7 +83,11 @@ fn compare(
 ) -> Result<(Enactment, usize, usize, f64), ObserveError> {
     let x = a.volume();
     let y = b.volume();
-    if x.dimensions != y.dimensions || x.origin_m != y.origin_m || x.pitch_m != y.pitch_m || a.provenance().frame_transform != b.provenance().frame_transform {
+    if x.dimensions != y.dimensions
+        || x.origin_m != y.origin_m
+        || x.pitch_m != y.pitch_m
+        || a.provenance().frame_transform != b.provenance().frame_transform
+    {
         return Ok((Enactment::Unsupported, 0, 0, 0.0));
     }
     if !x.unresolved_cells().is_empty() || !y.unresolved_cells().is_empty() {

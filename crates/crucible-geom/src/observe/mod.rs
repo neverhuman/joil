@@ -60,13 +60,21 @@ impl BoundSurface {
     }
     /// Patch indices refer to this exact bound artifact. The manifest error is
     /// applied automatically; callers cannot silently pass zero input error.
-    pub fn patch_gap(&self, a:&[usize], b:&[usize])->Result<distance::Gap,ObserveError> {
-        if a.is_empty()||b.is_empty()||a.iter().chain(b).any(|&i|i>=self.mesh.triangles.len())
-            || a.iter().any(|i|b.contains(i)) {
+    pub fn patch_gap(&self, a: &[usize], b: &[usize]) -> Result<distance::Gap, ObserveError> {
+        if a.is_empty()
+            || b.is_empty()
+            || a.iter().chain(b).any(|&i| i >= self.mesh.triangles.len())
+            || a.iter().any(|i| b.contains(i))
+        {
             return Err(ObserveError::Invalid("opposing patch indices"));
         }
-        let patch=|indices:&[usize]|indices.iter().map(|&i|self.mesh.triangles[i].map(|v|self.mesh.vertices_m[v])).collect::<Vec<_>>();
-        distance::patch_gap(&patch(a),&patch(b),self.provenance.approximation_m)
+        let patch = |indices: &[usize]| {
+            indices
+                .iter()
+                .map(|&i| self.mesh.triangles[i].map(|v| self.mesh.vertices_m[v]))
+                .collect::<Vec<_>>()
+        };
+        distance::patch_gap(&patch(a), &patch(b), self.provenance.approximation_m)
     }
 }
 
@@ -135,7 +143,8 @@ pub fn read_surface(
         provenance: Provenance {
             subject: expected.clone(),
             artifact: digest.clone(),
-            frame_transform: SemanticId::of(&subject.bundle().transform).map_err(|_| ObserveError::Binding)?,
+            frame_transform: SemanticId::of(&subject.bundle().transform)
+                .map_err(|_| ObserveError::Binding)?,
             approximation_m: a.approximation_bound_m.get(),
         },
     })
@@ -178,7 +187,10 @@ pub fn read_volume(
             let transform = &subject.bundle().transform;
             let local = volume.centre(i);
             let global = std::array::from_fn(|a| {
-                transform.translation_m[a].get() + (0..3).map(|b| transform.rotation[a][b].get()*local[b]).sum::<f64>()
+                transform.translation_m[a].get()
+                    + (0..3)
+                        .map(|b| transform.rotation[a][b].get() * local[b])
+                        .sum::<f64>()
             });
             let distance = dot(sub(global, centre), normal).abs();
             if distance > 3_f64.sqrt() * volume.pitch_m / 2.0 + a.approximation_bound_m.get() {
@@ -199,7 +211,8 @@ pub fn read_volume(
         provenance: Provenance {
             subject: expected.clone(),
             artifact: digest.clone(),
-            frame_transform: SemanticId::of(&subject.bundle().transform).map_err(|_| ObserveError::Binding)?,
+            frame_transform: SemanticId::of(&subject.bundle().transform)
+                .map_err(|_| ObserveError::Binding)?,
             approximation_m: a.approximation_bound_m.get(),
         },
     })

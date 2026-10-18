@@ -55,7 +55,7 @@ fn check(patch: &[[[f64; 3]; 3]]) -> Result<(), ObserveError> {
         || patch.len() > 4096
         || patch.iter().flatten().flatten().any(|x| !x.is_finite())
         || patch.iter().any(|t| {
-            let area = norm(cross(sub(t[1],t[0]),sub(t[2],t[0])));
+            let area = norm(cross(sub(t[1], t[0]), sub(t[2], t[0])));
             !area.is_finite() || area <= 1e-24
         })
     {
@@ -131,46 +131,114 @@ fn triangle_distance(a: [[f64; 3]; 3], b: [[f64; 3]; 3]) -> f64 {
 // Directed-rounding enclosures for projections. Any direction supplies a lower
 // separation bound, even if its construction was rounded. Normal and edge-cross
 // directions tighten that bound without trusting a closest-feature predicate.
-#[derive(Clone,Copy)]
-struct Interval { lo:f64, hi:f64 }
+#[derive(Clone, Copy)]
+struct Interval {
+    lo: f64,
+    hi: f64,
+}
 impl Interval {
-    fn exact(x:f64)->Self {Self {lo:x,hi:x}}
-    fn add(self,b:Self)->Self {Self {lo:(self.lo+b.lo).next_down(),hi:(self.hi+b.hi).next_up()}}
-    fn subtract(self,b:Self)->Self {Self {lo:(self.lo-b.hi).next_down(),hi:(self.hi-b.lo).next_up()}}
-    fn multiply(self,b:Self)->Self {
-        let products=[self.lo*b.lo,self.lo*b.hi,self.hi*b.lo,self.hi*b.hi];
-        Self {lo:products.iter().copied().fold(f64::INFINITY,f64::min).next_down(),hi:products.iter().copied().fold(f64::NEG_INFINITY,f64::max).next_up()}
+    fn exact(x: f64) -> Self {
+        Self { lo: x, hi: x }
+    }
+    fn add(self, b: Self) -> Self {
+        Self {
+            lo: (self.lo + b.lo).next_down(),
+            hi: (self.hi + b.hi).next_up(),
+        }
+    }
+    fn subtract(self, b: Self) -> Self {
+        Self {
+            lo: (self.lo - b.hi).next_down(),
+            hi: (self.hi - b.lo).next_up(),
+        }
+    }
+    fn multiply(self, b: Self) -> Self {
+        let products = [
+            self.lo * b.lo,
+            self.lo * b.hi,
+            self.hi * b.lo,
+            self.hi * b.hi,
+        ];
+        Self {
+            lo: products
+                .iter()
+                .copied()
+                .fold(f64::INFINITY, f64::min)
+                .next_down(),
+            hi: products
+                .iter()
+                .copied()
+                .fold(f64::NEG_INFINITY, f64::max)
+                .next_up(),
+        }
     }
 }
-fn projection(p:[f64;3],axis:[f64;3])->Interval {
-    (0..3).map(|a|Interval::exact(p[a]).multiply(Interval::exact(axis[a]))).fold(Interval::exact(0.),Interval::add)
+fn projection(p: [f64; 3], axis: [f64; 3]) -> Interval {
+    (0..3)
+        .map(|a| Interval::exact(p[a]).multiply(Interval::exact(axis[a])))
+        .fold(Interval::exact(0.), Interval::add)
 }
-fn norm_upper(v:[Interval;3])->f64 {
-    v.iter().map(|v| {
-        let x=v.lo.abs().max(v.hi.abs());Interval {lo:0.,hi:(x*x).next_up()}
-    }).fold(Interval::exact(0.),Interval::add).hi.sqrt().next_up()
+fn norm_upper(v: [Interval; 3]) -> f64 {
+    v.iter()
+        .map(|v| {
+            let x = v.lo.abs().max(v.hi.abs());
+            Interval {
+                lo: 0.,
+                hi: (x * x).next_up(),
+            }
+        })
+        .fold(Interval::exact(0.), Interval::add)
+        .hi
+        .sqrt()
+        .next_up()
 }
-fn pair_bounds(a:[[f64;3];3],b:[[f64;3];3])->(f64,f64) {
-    let mut axes=vec![[1.,0.,0.],[0.,1.,0.],[0.,0.,1.],cross(sub(a[1],a[0]),sub(a[2],a[0])),cross(sub(b[1],b[0]),sub(b[2],b[0]))];
-    for i in 0..3 {for j in 0..3 {axes.push(cross(sub(a[(i+1)%3],a[i]),sub(b[(j+1)%3],b[j])));}}
-    let mut lower:f64=0.;let mut upper=f64::INFINITY;
+fn pair_bounds(a: [[f64; 3]; 3], b: [[f64; 3]; 3]) -> (f64, f64) {
+    let mut axes = vec![
+        [1., 0., 0.],
+        [0., 1., 0.],
+        [0., 0., 1.],
+        cross(sub(a[1], a[0]), sub(a[2], a[0])),
+        cross(sub(b[1], b[0]), sub(b[2], b[0])),
+    ];
+    for i in 0..3 {
+        for j in 0..3 {
+            axes.push(cross(sub(a[(i + 1) % 3], a[i]), sub(b[(j + 1) % 3], b[j])));
+        }
+    }
+    let mut lower: f64 = 0.;
+    let mut upper = f64::INFINITY;
     for axis in axes {
-        let scale=axis.iter().map(|x|x.abs()).fold(0.,f64::max);
-        if !scale.is_finite()||scale==0. {continue;}
-        let axis=axis.map(|x|x/scale);
-        let length=norm_upper(axis.map(Interval::exact));
-        let range=|t:[[f64;3];3]| {
-            let p=t.map(|p|projection(p,axis));
-            Interval {lo:p.iter().map(|p|p.lo).fold(f64::INFINITY,f64::min),hi:p.iter().map(|p|p.hi).fold(f64::NEG_INFINITY,f64::max)}
+        let scale = axis.iter().map(|x| x.abs()).fold(0., f64::max);
+        if !scale.is_finite() || scale == 0. {
+            continue;
+        }
+        let axis = axis.map(|x| x / scale);
+        let length = norm_upper(axis.map(Interval::exact));
+        let range = |t: [[f64; 3]; 3]| {
+            let p = t.map(|p| projection(p, axis));
+            Interval {
+                lo: p.iter().map(|p| p.lo).fold(f64::INFINITY, f64::min),
+                hi: p.iter().map(|p| p.hi).fold(f64::NEG_INFINITY, f64::max),
+            }
         };
-        let x=range(a);let y=range(b);
-        let gap=(y.lo-x.hi).next_down().max((x.lo-y.hi).next_down()).max(0.);
-        if length.is_finite() {lower=lower.max((gap/length).next_down().max(0.));}
+        let x = range(a);
+        let y = range(b);
+        let gap = (y.lo - x.hi)
+            .next_down()
+            .max((x.lo - y.hi).next_down())
+            .max(0.);
+        if length.is_finite() {
+            lower = lower.max((gap / length).next_down().max(0.));
+        }
     }
-    for x in a {for y in b {
-        upper=upper.min(norm_upper(std::array::from_fn(|i|Interval::exact(x[i]).subtract(Interval::exact(y[i])))));
-    }}
-    (lower,upper)
+    for x in a {
+        for y in b {
+            upper = upper.min(norm_upper(std::array::from_fn(|i| {
+                Interval::exact(x[i]).subtract(Interval::exact(y[i]))
+            })));
+        }
+    }
+    (lower, upper)
 }
 /// The estimate considers edge/edge and piercing intersections. The conservative
 /// interval uses outward-rounded separating projections and feasible vertex
@@ -200,20 +268,22 @@ pub fn patch_gap(
         let n = cross(sub(t[1], t[0]), sub(t[2], t[0]));
         let dir = n.map(|x| x / norm(n));
         for q in b {
-            let (lo,hi)=pair_bounds(*t,*q);lower=lower.min(lo);upper=upper.min(hi);
+            let (lo, hi) = pair_bounds(*t, *q);
+            lower = lower.min(lo);
+            upper = upper.min(hi);
             minimum = minimum.min(triangle_distance(*t, *q));
             if let Some(d) = line_hit(origin, dir, *q) {
                 ray_min = ray_min.min(d.abs());
             }
         }
     }
-    let input_error=(2.0*error_m).next_up();
-    if !minimum.is_finite() || !(upper+input_error).is_finite() {
+    let input_error = (2.0 * error_m).next_up();
+    if !minimum.is_finite() || !(upper + input_error).is_finite() {
         return Err(ObserveError::Numerical("gap overflow"));
     }
     Ok(Gap {
-        lower_m: (lower-input_error).next_down().max(0.0),
-        upper_m: (upper+input_error).next_up(),
+        lower_m: (lower - input_error).next_down().max(0.0),
+        upper_m: (upper + input_error).next_up(),
         estimate_m: minimum,
         input_error_m: error_m,
         independent_ray_min_m: ray_min.is_finite().then_some(ray_min),

@@ -68,7 +68,8 @@ pub fn radii(g: &Volume, error_m: f64) -> Result<Vec<f64>, ObserveError> {
                 d = d.min(dist);
             }
         }
-        let arithmetic_allowance = 64.0*f64::EPSILON*g.pitch_m*(*g.dimensions.iter().max().unwrap() as f64);
+        let arithmetic_allowance =
+            64.0 * f64::EPSILON * g.pitch_m * (*g.dimensions.iter().max().unwrap() as f64);
         *r = (d - g.pitch_m / 2.0 - error_m - arithmetic_allowance).max(0.0);
     }
     Ok(radii)
