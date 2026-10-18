@@ -3,33 +3,33 @@
   "packet": "V5-28",
   "tasks": {
     "V5-28-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "blocked",
+      "owner": "484638.joil_v5_codex_lane4",
+      "note": "Implementation delivered; local prerequisite packets V5-04, V5-18, V5-21, V5-22 and V5-26 remain todo in the progress registry, so acceptance is gated.",
       "evidence": []
     },
     "V5-28-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "blocked",
+      "owner": "484638.joil_v5_codex_lane4",
+      "note": "No fresh qualified independent confirmation data or scientific compute lease; synthetic report is software-only. Upstream prerequisite receipts also remain unaccepted here.",
       "evidence": []
     },
     "V5-28-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "blocked",
+      "owner": "484638.joil_v5_codex_lane4",
+      "note": "Mechanism intervention design delivered; ordered task and upstream dependency gates remain open in the local progress registry.",
       "evidence": []
     },
     "V5-28-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "blocked",
+      "owner": "484638.joil_v5_codex_lane4",
+      "note": "Typed query implementation and mutation controls delivered; ordered task and upstream dependency gates remain open in the local progress registry.",
       "evidence": []
     },
     "V5-28-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
+      "status": "blocked",
+      "owner": "484638.joil_v5_codex_lane4",
+      "note": "Reproduction and review bundle delivered; ordered task and upstream dependency gates remain open in the local progress registry.",
       "evidence": []
     }
   }
