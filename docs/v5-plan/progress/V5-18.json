@@ -10,6 +10,10 @@
         {
           "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
           "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-18-01-verification-20261018.json",
+          "sha256": "a668c0d79d0ed1327bd08fd80b1f149412c17b2d06323c88f887e9b9d5c0cc45"
         }
       ]
     },
@@ -21,6 +25,10 @@
         {
           "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
           "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-18-02-verification-20261018.json",
+          "sha256": "da20ab718366b6adde39577a3b903afc1e20a9b79e8cbc83a9bd8c1fc714a0c1"
         }
       ]
     },
@@ -32,17 +40,25 @@
         {
           "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
           "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-18-03-verification-20261018.json",
+          "sha256": "3e9f2483c80e6016bf14a5db0bfaa600cb86f8ab69426fa135aae4fd7122ccac"
         }
       ]
     },
     "V5-18-04": {
       "status": "done",
       "owner": "codex_lane2",
-      "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
+      "note": "SC-DEC-032 (substitute:native_simulation_objective_bounds+substitute:synthetic_fixture): The four bounded objectives and no-regression gates are evaluated on substitute:synthetic_fixture CFD/FEA envelopes. The 0.35/0.20/0.30/0.15 weights remain a proposed sensitivity profile only. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-18-software-acceptance-20261018.json (sha256 3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d); task-specific verification tests and execution receipts in docs/receipts/v5-18-19-sc-dec-verification-20261018.json (sha256 4a3e0724d2d50765d1193d94fac1ae86af0b939dd18cad02dc2b2997ec071932). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
           "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-18-04-verification-20261018.json",
+          "sha256": "c72b8bf95dd0e4103f5550157bff83e638c1b616786390ce527f8b235b49a0d6"
         }
       ]
     },
@@ -54,6 +70,10 @@
         {
           "path": "docs/receipts/v5-18-software-acceptance-20261018.json",
           "sha256": "3f3ae3423c30c7cdd7b5993b3afe75e31cc4450a603cf3bccabd04dce2da368d"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-18-05-verification-20261018.json",
+          "sha256": "4926ede87b6678b9746363ce1c92c4d28868ae56ccf3aad55c66a292cf4700df"
         }
       ]
     }

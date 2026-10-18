@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-07-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-cli --test lifecycle -- --exact bounded_wait_drains_small_pipes_before_child_exit in packet V5-07 (Checkpoint, resume, fork and one-command fixture run).",
+  "changed_paths": [
+    "crates/crucible-runtime/src/checkpoint.rs",
+    "crates/crucible-runtime/src/replay.rs",
+    "crates/crucible-runtime/tests/recovery.rs",
+    "crates/crucible-cli/",
+    "joil",
+    "campaigns/fixture-v5.toml"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle",
+        "--",
+        "--exact",
+        "bounded_wait_drains_small_pipes_before_child_exit"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-07-05.log",
+      "log_sha256": "398118d9b753b154f48e1dc480c001016e772e2e0506b7acd06dcd2c1d4ec554"
+    }
+  ],
+  "positive_checks": [
+    "V5-07-05 (Ship explicit CLI lifecycle and stop codes): Fresh clone fixture creates a real checkpoint, resumes and verifies offline. \u2014 verified by cargo test --locked --offline -p crucible-cli --test lifecycle -- --exact bounded_wait_drains_small_pipes_before_child_exit"
+  ],
+  "negative_checks": [
+    "V5-07-05 negative control: Invalid campaign returns usage/admission status before any resource is spent."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-runtime/src/checkpoint.rs",
+      "sha256": "c01f8655111e933ad10e873818e13610a3363ea9ae8a297c71c74a7fb5c4ff52"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-cli --test lifecycle -- --exact bounded_wait_drains_small_pipes_before_child_exit in packet V5-07 (Checkpoint, resume, fork and one-command fixture run)."
+  ],
+  "next_dependency": "V5-31-01"
+}

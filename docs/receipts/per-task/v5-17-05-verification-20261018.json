@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-17-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact correlated_daughters_do_not_shrink_cluster_interval_and_grade_basis_is_bound in packet V5-17 (Dispersion, breakup and transport uncertainty).",
+  "changed_paths": [
+    "crates/crucible-particles/src/dispersion.rs",
+    "crates/crucible-particles/src/population.rs",
+    "crates/crucible-particles/src/transfer.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "crates/joil-core/src/population.rs",
+    "crates/crucible-particles/src/inventory.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models",
+        "--",
+        "--exact",
+        "correlated_daughters_do_not_shrink_cluster_interval_and_grade_basis_is_bound"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-17-05.log",
+      "log_sha256": "d718e06432850e0d192a4275acb77d094de74a7598cc76e9e91ed710fc52a63f"
+    }
+  ],
+  "positive_checks": [
+    "V5-17-05 (Bind weighted uncertainty and limitations): Every grade observation has units, basis, sampling design and applicability. \u2014 verified by cargo test --locked --offline -p crucible-particles --test models -- --exact correlated_daughters_do_not_shrink_cluster_interval_and_grade_basis_is_bound"
+  ],
+  "negative_checks": [
+    "V5-17-05 negative control: More correlated daughter parcels cannot shrink the interval as if IID."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/src/dispersion.rs",
+      "sha256": "e56d9ea3fca334384cd949f4c4ebe3bced3e2136861892837726196d678dcf78"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact correlated_daughters_do_not_shrink_cluster_interval_and_grade_basis_is_bound in packet V5-17 (Dispersion, breakup and transport uncertainty)."
+  ],
+  "next_dependency": "V5-31-01"
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-18-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact gain_requires_a_positive_admitted_baseline_and_no_epsilon in packet V5-18 (Common-flow capacity, energy, mass-reserve decisions).",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/metrics.rs",
+    "crates/joil-core/src/metrics.rs",
+    "docs/SCIENCE.md",
+    "requirements/joil-hydrocyclone-v2.toml"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "metrics",
+        "--",
+        "--exact",
+        "gain_requires_a_positive_admitted_baseline_and_no_epsilon"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-18-05.log",
+      "log_sha256": "883019fffc668fc03e294ff894ee4f285a751ccdebcca219c7cc49c2b0b769fc"
+    }
+  ],
+  "positive_checks": [
+    "V5-18-05 (Handle ratios, uncertainty and policy changes): Changed weights create a new decision over compatible observations. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact gain_requires_a_positive_admitted_baseline_and_no_epsilon"
+  ],
+  "negative_checks": [
+    "V5-18-05 negative control: Undefined baseline capacity or equal aspiration/reservation cannot become a finite winning utility."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/metrics.rs",
+      "sha256": "e78684b5674c1bc1244978e9af71b33ec4db937a654dacad074841dfe7ec87b6"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact gain_requires_a_positive_admitted_baseline_and_no_epsilon in packet V5-18 (Common-flow capacity, energy, mass-reserve decisions)."
+  ],
+  "next_dependency": "V5-31-01"
+}

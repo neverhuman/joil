@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-29-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-042 (substitute:standard_bracket_load_contract): The non-hydrocyclone bracket contract uses standard open bolt and support geometry, open material properties and explicit fixture load cases, with zero hydrocyclone constants. Verified by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact invalid_geometry_and_hydrocyclone_shaped_fields_are_rejected.",
+  "changed_paths": [
+    "packs/bracket/",
+    "campaigns/bracket-v5-fixture.toml",
+    "tests/fixtures/v5-bracket/",
+    "docs/design/V5_CONTRACTS.md",
+    "crates/crucible-contract/",
+    "crates/crucible-genome/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--",
+        "--exact",
+        "invalid_geometry_and_hydrocyclone_shaped_fields_are_rejected"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-29-01.log",
+      "log_sha256": "f860114d6220b8357be0f35d922f961981e37bf6f2746220261d9fdc6f8325e9"
+    }
+  ],
+  "positive_checks": [
+    "V5-29-01 (Define independent bracket contract): Bracket owns only its domain data and pack implementations. \u2014 verified by cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact invalid_geometry_and_hydrocyclone_shaped_fields_are_rejected"
+  ],
+  "negative_checks": [
+    "V5-29-01 negative control: A required hydrocyclone port or DSD constant in engine code fails architecture acceptance."
+  ],
+  "artifacts": [
+    {
+      "path": "campaigns/bracket-v5-fixture.toml",
+      "sha256": "c4988321974da00896dc6de278fb44545afcdda4c08af4ddbc94143811fdd988"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-042 (substitute:standard_bracket_load_contract): The non-hydrocyclone bracket contract uses standard open bolt and support geometry, open material properties and explicit fixture load cases, with zero hydrocyclone constants. Verified by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact invalid_geometry_and_hydrocyclone_shaped_fields_are_rejected."
+  ],
+  "next_dependency": "V5-29-02"
+}

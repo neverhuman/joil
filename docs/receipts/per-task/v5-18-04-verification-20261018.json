@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-18-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-032 (substitute:native_simulation_objective_bounds+substitute:synthetic_fixture): The four bounded objectives and no-regression gates are evaluated on substitute:synthetic_fixture CFD/FEA envelopes. The 0.35/0.20/0.30/0.15 weights remain a proposed sensitivity profile only. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact feasible_candidate_has_expected_utility_and_wins.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/metrics.rs",
+    "crates/joil-core/src/metrics.rs",
+    "docs/SCIENCE.md",
+    "requirements/joil-hydrocyclone-v2.toml"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "metrics",
+        "--",
+        "--exact",
+        "feasible_candidate_has_expected_utility_and_wins"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-18-04.log",
+      "log_sha256": "3e2f66f6e59929531a809bbaa52d31711fa24d8151df6715b2be17397d29042c"
+    }
+  ],
+  "positive_checks": [
+    "V5-18-04 (Define four bounded objectives behind gates): Hard constraints and baseline no-regression floors precede preference. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact feasible_candidate_has_expected_utility_and_wins"
+  ],
+  "negative_checks": [
+    "V5-18-04 negative control: A missing buckling/material gate cannot be compensated by light mass or high utility."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/metrics.rs",
+      "sha256": "e78684b5674c1bc1244978e9af71b33ec4db937a654dacad074841dfe7ec87b6"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-032 (substitute:native_simulation_objective_bounds+substitute:synthetic_fixture): The four bounded objectives and no-regression gates are evaluated on substitute:synthetic_fixture CFD/FEA envelopes. The 0.35/0.20/0.30/0.15 weights remain a proposed sensitivity profile only. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact feasible_candidate_has_expected_utility_and_wins."
+  ],
+  "next_dependency": "V5-18-05"
+}

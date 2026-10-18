@@ -3,15 +3,10 @@
   "packet": "V5-22",
   "tasks": {
     "V5-22-01": {
-      "status": "done",
+      "status": "in_progress",
       "owner": "codex_lane3",
-      "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-22-software-acceptance-20261018.json (sha256 22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6); task-specific verification tests and execution receipts in docs/receipts/v5-22-24-sc-dec-verification-20261018.json (sha256 9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917). scientific_admission=false preserved.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
-          "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
-        }
-      ]
+      "note": "SC-DEC-071 red-team remediation (SC-DEC-038 substitute:native_high_fidelity_oracle_labels+substitute:synthetic_fixture): moved back to in_progress; synthetic oracle dataset hygiene checks exist in crates/crucible-search, but live native high-fidelity CFD/FEA oracle label generation remains open.",
+      "evidence": []
     },
     "V5-22-02": {
       "status": "done",
@@ -21,6 +16,10 @@
         {
           "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
           "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-22-02-verification-20261018.json",
+          "sha256": "b0371bc68761835df775fc155f99d5991e6a2521675ce330e39c39445b767204"
         }
       ]
     },
@@ -32,6 +31,10 @@
         {
           "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
           "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-22-03-verification-20261018.json",
+          "sha256": "93e023e4c55dc1db2202d5c0b89f4ed3f7c7a8fe3720b403b673d8af8ad1a4f0"
         }
       ]
     },
@@ -43,6 +46,10 @@
         {
           "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
           "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-22-04-verification-20261018.json",
+          "sha256": "309dc83a4c92ddce94b3772667c2c73e8ad35c2239483f55697305ef0159719b"
         }
       ]
     },
@@ -54,6 +61,10 @@
         {
           "path": "docs/receipts/v5-22-software-acceptance-20261018.json",
           "sha256": "22fa8de783fc63c65fc393f15a7062bc0fa5a8094b36ff951ed4b76adf47a8e6"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-22-05-verification-20261018.json",
+          "sha256": "5dca30bb0941cf78571ea5f0707cefbbf169c56e1ef8e9bc8ca43d4a0fbc662f"
         }
       ]
     }

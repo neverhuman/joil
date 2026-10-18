@@ -54,6 +54,10 @@
         {
           "path": "docs/receipts/v5-07-complete-epoch-checkpoint-followup-20261018.json",
           "sha256": "b1850a682c3bda2db7383da642655dd3c13845443b94ce3c5aeb247a332a52fc"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-07-05-verification-20261018.json",
+          "sha256": "7ad09f72266b016ce3192fb9951bbe903ed251902c78d9e2cbf0b4ff17a69275"
         }
       ]
     }

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-10-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-geom --test artifacts -- --exact rotated_asymmetric_ports_keep_authoritative_tags in packet V5-10 (Derived surfaces, volume meshes and honest exports).",
+  "changed_paths": [
+    "crates/crucible-geom/src/surface.rs",
+    "crates/crucible-geom/src/tet.rs",
+    "crates/crucible-geom/src/export.rs",
+    "crates/crucible-geom/tests/artifacts.rs",
+    "crates/joil-core/src/phenotype.rs",
+    "crates/joil-core/src/cfd_case.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-geom",
+        "--test",
+        "artifacts",
+        "--",
+        "--exact",
+        "rotated_asymmetric_ports_keep_authoritative_tags"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-10-01.log",
+      "log_sha256": "0ae48715d677c9cac0870f15927aa0644352718141a6278e44b9ab6512bfa157"
+    }
+  ],
+  "positive_checks": [
+    "V5-10-01 (Extract tagged watertight surfaces): All patches close and reproduce the same accepted physical subject. \u2014 verified by cargo test --locked --offline -p crucible-geom --test artifacts -- --exact rotated_asymmetric_ports_keep_authoritative_tags"
+  ],
+  "negative_checks": [
+    "V5-10-01 negative control: Coordinate-plane patch guessing fails rotated and asymmetric port fixtures."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-geom/src/surface.rs",
+      "sha256": "65121ba9ca45ccf011f6b8d33461b7677283af9a082967961756dc2913d6447b"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-geom --test artifacts -- --exact rotated_asymmetric_ports_keep_authoritative_tags in packet V5-10 (Derived surfaces, volume meshes and honest exports)."
+  ],
+  "next_dependency": "V5-10-02"
+}

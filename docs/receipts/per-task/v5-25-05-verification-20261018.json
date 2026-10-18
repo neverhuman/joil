@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-25-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact full_audit_counts_false_omissions_and_abstentions in packet V5-25 (Optional frozen-liner response operator).",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/liner_operator.rs",
+    "experiments/v5-liner-operator.toml",
+    "docs/SCIENCE.md",
+    "docs/design/V5_GEOMETRY.md",
+    "crates/crucible-search/src/audit.rs",
+    "experiments/validation/v5/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "liner_operator",
+        "--",
+        "--exact",
+        "full_audit_counts_false_omissions_and_abstentions"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-25-05.log",
+      "log_sha256": "9148f54687c3fb608ed9933643f9a509ee7cc9bf307e9f0a4e8e176e73f560fd"
+    }
+  ],
+  "positive_checks": [
+    "V5-25-05 (Enforce automatic full-liner fallback): Optional operator absence does not block a correct smaller campaign. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact full_audit_counts_false_omissions_and_abstentions"
+  ],
+  "negative_checks": [
+    "V5-25-05 negative control: A depleted budget cannot convert operator abstention into an assumed pass."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/liner_operator.rs",
+      "sha256": "25c939d0dda8a4280dd2cb7cda9372fdb0ffc07daa0f7ba5ad70862123d2814d"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact full_audit_counts_false_omissions_and_abstentions in packet V5-25 (Optional frozen-liner response operator)."
+  ],
+  "next_dependency": "V5-31-01"
+}

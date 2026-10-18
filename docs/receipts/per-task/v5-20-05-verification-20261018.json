@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-20-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-037 (substitute:dual_solver_structural_confirmation): Governing structural observables are cross-checked between primary 3D continuum FEA and an independent refined or second-order route. Discrepancy is recorded as an uncertainty contribution. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_05_agreement_within_tolerance_supports_claim_with_discrepancy_uncertainty.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/dynamics.rs",
+    "crates/joil-core/src/structure.rs",
+    "crates/joil-core/src/experiment.rs",
+    "packs/hydrocyclone/materials/",
+    "physics/structure/v5/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics",
+        "--",
+        "--exact",
+        "v5_20_05_agreement_within_tolerance_supports_claim_with_discrepancy_uncertainty"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-20-05.log",
+      "log_sha256": "2a1d1e6d5b4842dc526d7ab54a4071f38c3e41ca5935dec89d1663ab4eb486ce"
+    }
+  ],
+  "positive_checks": [
+    "V5-20-05 (Apply independent structural confirmation): Agreement and disagreement have explicit envelope/claim effects. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_05_agreement_within_tolerance_supports_claim_with_discrepancy_uncertainty"
+  ],
+  "negative_checks": [
+    "V5-20-05 negative control: Two solvers sharing the same wrong boundary/load file cannot qualify the missing physical input."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/dynamics.rs",
+      "sha256": "6d86e341945452e1dc5def0ebe434bac56b099c59c6d849c30d6f4bcc1080332"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-037 (substitute:dual_solver_structural_confirmation): Governing structural observables are cross-checked between primary 3D continuum FEA and an independent refined or second-order route. Discrepancy is recorded as an uncertainty contribution. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_05_agreement_within_tolerance_supports_claim_with_discrepancy_uncertainty."
+  ],
+  "next_dependency": "V5-31-01"
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-21-05"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-search --test reference -- --exact fixed_dimension_controls_are_deterministic_bounded_and_budget_visible in packet V5-21 (Deterministic reference-search policy and fair controls).",
+  "changed_paths": [
+    "crates/crucible-search/src/reference.rs",
+    "crates/crucible-search/src/archive.rs",
+    "crates/crucible-search/src/emitters.rs",
+    "crates/crucible-search/tests/reference.rs",
+    "policies/reference-search-v1.toml",
+    "crates/joil-core/src/evolve.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-search",
+        "--test",
+        "reference",
+        "--",
+        "--exact",
+        "fixed_dimension_controls_are_deterministic_bounded_and_budget_visible"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-21-05.log",
+      "log_sha256": "83020f9d88d86f0c6f5f7800d555c00ef7e5fdac446dd9bddc217ef65c803cc3"
+    }
+  ],
+  "positive_checks": [
+    "V5-21-05 (Prove reference search on independent fixtures): The optimizer can lose to random without changing thresholds or endpoint. \u2014 verified by cargo test --locked --offline -p crucible-search --test reference -- --exact fixed_dimension_controls_are_deterministic_bounded_and_budget_visible"
+  ],
+  "negative_checks": [
+    "V5-21-05 negative control: A smooth gene-formula optimum cannot become an engineering discovery claim."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-search/src/reference.rs",
+      "sha256": "a9c3afa063a27c104d8305b020439a84bb57230af0e7ba899a71038f4d9d20a9"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-search --test reference -- --exact fixed_dimension_controls_are_deterministic_bounded_and_budget_visible in packet V5-21 (Deterministic reference-search policy and fair controls)."
+  ],
+  "next_dependency": "V5-31-01"
+}

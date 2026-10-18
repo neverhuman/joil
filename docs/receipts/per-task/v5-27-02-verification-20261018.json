@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-27-02"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-cli --lib -- --exact explore::tests::v5_27_02_to_05_sc_dec_045_campaign_budget_lineage_revocation_and_truthful_accessibility in packet V5-27 (Read-only evidence explorer and live progress).",
+  "changed_paths": [
+    "apps/explorer/src/",
+    "apps/explorer/tests/",
+    "crates/crucible-cli/src/explore.rs",
+    "apps/explorer/src/main.tsx",
+    "apps/explorer/src/Viewport3D.tsx",
+    "apps/explorer/src/style.css"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--lib",
+        "--",
+        "--exact",
+        "explore::tests::v5_27_02_to_05_sc_dec_045_campaign_budget_lineage_revocation_and_truthful_accessibility"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-27-02.log",
+      "log_sha256": "04bc2bc3a5a13e7c36a9a9a66cda24c11d0aded4c5906d0199d43a58bc548f57"
+    }
+  ],
+  "positive_checks": [
+    "V5-27-02 (Add campaign and budget views): Missing and failed states are visible and accessible. \u2014 verified by cargo test --locked --offline -p crucible-cli --lib -- --exact explore::tests::v5_27_02_to_05_sc_dec_045_campaign_budget_lineage_revocation_and_truthful_accessibility"
+  ],
+  "negative_checks": [
+    "V5-27-02 negative control: A high completed-task percentage cannot imply physical validation."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/src/explore.rs",
+      "sha256": "ea8f78a9be743f7f7567ee4dabfbd96be8879ed5a1fe16faea77c1f6a8ae8223"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-cli --lib -- --exact explore::tests::v5_27_02_to_05_sc_dec_045_campaign_budget_lineage_revocation_and_truthful_accessibility in packet V5-27 (Read-only evidence explorer and live progress)."
+  ],
+  "next_dependency": "V5-27-03"
+}

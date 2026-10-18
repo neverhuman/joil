@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-27-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test python3 -m unittest -v tests.test_v5_explorer_manifest.ExplorerManifestTests.test_changed_state_changes_revision_and_stale_output_is_rejected in packet V5-27 (Read-only evidence explorer and live progress).",
+  "changed_paths": [
+    "apps/explorer/src/",
+    "apps/explorer/tests/",
+    "crates/crucible-cli/src/explore.rs",
+    "apps/explorer/src/main.tsx",
+    "apps/explorer/src/Viewport3D.tsx",
+    "apps/explorer/src/style.css"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "-v",
+        "tests.test_v5_explorer_manifest.ExplorerManifestTests.test_changed_state_changes_revision_and_stale_output_is_rejected"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-27-04.log",
+      "log_sha256": "e5625e2c57ded96e1efe99f5c48af8a2d4a41a33b2091a83f4c19122de566f79"
+    }
+  ],
+  "positive_checks": [
+    "V5-27-04 (Expose revocation and offline dossiers): Revoked claims lose current eligibility in both live and offline metadata. \u2014 verified by python3 -m unittest -v tests.test_v5_explorer_manifest.ExplorerManifestTests.test_changed_state_changes_revision_and_stale_output_is_rejected"
+  ],
+  "negative_checks": [
+    "V5-27-04 negative control: A browser weight slider cannot rewrite registered decisions or requirements."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/src/explore.rs",
+      "sha256": "ea8f78a9be743f7f7567ee4dabfbd96be8879ed5a1fe16faea77c1f6a8ae8223"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test python3 -m unittest -v tests.test_v5_explorer_manifest.ExplorerManifestTests.test_changed_state_changes_revision_and_stale_output_is_rejected in packet V5-27 (Read-only evidence explorer and live progress)."
+  ],
+  "next_dependency": "V5-27-05"
+}

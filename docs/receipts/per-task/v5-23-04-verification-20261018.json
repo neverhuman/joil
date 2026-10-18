@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-23-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-runtime --test recovery -- --exact unaccounted_crashed_attempt_holds_resources_and_blocks_redispatch in packet V5-23 (Leased workers, measured benchmarks and scaling).",
+  "changed_paths": [
+    "crates/crucible-runtime/src/worker.rs",
+    "crates/crucible-runtime/src/bench.rs",
+    "crates/crucible-runtime/tests/workers.rs",
+    "leases/examples/",
+    "docs/bench/V5_PROTOCOL.md",
+    "docs/COMPUTE.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "recovery",
+        "--",
+        "--exact",
+        "unaccounted_crashed_attempt_holds_resources_and_blocks_redispatch"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-23-04.log",
+      "log_sha256": "ae81024f06ba02fc6d69a446bf3eb703106e320e8e2be9a99d8f5ad64bc22b2a"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_d18_scheduler_control.py",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+      "log_sha256": "461b296892a93f15891367e8d0e7669de29c2e82056c643c9999f93e4447e56e",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "D-18 positive passed: assertion_holds=true, three evaluations, one active synchronous evaluator task, zero child evaluator processes."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "workers"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/crucible-runtime-workers.log",
+      "log_sha256": "75dd0e8fb4b51cf952d12382a01ca99997bff863a7447dfe58c6ecfc1e903f0d",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Locked offline crucible-runtime workers test passed (8 tests)."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "recovery"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/crucible-runtime-recovery.log",
+      "log_sha256": "a8fe093c1e61a942ceb2b3965efa7dc62a232fca7f85df35aba9dea8df8c6e52",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Locked offline crucible-runtime recovery test passed (9 tests)."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/check-public.log",
+      "log_sha256": "fec65d5deedd7b65edc60e17b1420a89c3d4de41c6b04d6ceed0fc3fbd8ca188",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Public-content check passed."
+    }
+  ],
+  "positive_checks": [
+    "V5-23-04 (Choose packing and optimize in measured order): Selected configuration improves complete qualified workflow cost. \u2014 verified by cargo test --locked --offline -p crucible-runtime --test recovery -- --exact unaccounted_crashed_attempt_holds_resources_and_blocks_redispatch"
+  ],
+  "negative_checks": [
+    "V5-23-04 negative control: A warm-start bias or output-pruning loss invalidates the apparent speedup."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-runtime/src/worker.rs",
+      "sha256": "d48b6b5637756bd76f6c15cc16a185796d96510b3c79cd741ec89cee9b0dfe39"
+    },
+    {
+      "path": "tools/v5_d18_scheduler_control.py",
+      "sha256": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-runtime --test recovery -- --exact unaccounted_crashed_attempt_holds_resources_and_blocks_redispatch in packet V5-23 (Leased workers, measured benchmarks and scaling)."
+  ],
+  "next_dependency": "V5-23-05",
+  "defect_controls": [
+    {
+      "defect_id": "D-18",
+      "fixture": {
+        "path": "tools/v5_d18_scheduler_control.py",
+        "sha256": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/evolve.rs",
+        "symbol": "island offspring loop",
+        "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_d18_scheduler_control.py",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+        ],
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+        "log_sha256": "461b296892a93f15891367e8d0e7669de29c2e82056c643c9999f93e4447e56e",
+        "exit_code": 0,
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+        "expected_result": "assertion_holds=true; total_evaluations=3; active_concurrent_evaluator_tasks=1; unleased_child_evaluator_processes=0"
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_d18_scheduler_control.py",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+        ],
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red.log",
+        "log_sha256": "4314becba7d61bd485cd39c43e6436122aa473acf0a2c19f2a78cc5e198e25c1",
+        "exit_code": 1,
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red.log",
+        "expected_result": "C006-RED D-18: unleased_serial_island_loop; fake evaluator invocations recorded with monotonic timestamps"
+      }
+    }
+  ]
+}

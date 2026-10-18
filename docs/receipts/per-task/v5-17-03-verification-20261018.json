@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-17-03"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-031 (public_open_data+substitute:bounded_breakup_sensitivity): Daughter droplet mass conservation is enforced with no hidden clipping. Uncalibrated exposure rates are bracketed by off, calibrated-on and adverse bounds. Verified by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact breakup_is_exposure_dependent_mass_closed_and_never_promoted_by_hinze_clip.",
+  "changed_paths": [
+    "crates/crucible-particles/src/dispersion.rs",
+    "crates/crucible-particles/src/population.rs",
+    "crates/crucible-particles/src/transfer.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "crates/joil-core/src/population.rs",
+    "crates/crucible-particles/src/inventory.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models",
+        "--",
+        "--exact",
+        "breakup_is_exposure_dependent_mass_closed_and_never_promoted_by_hinze_clip"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-17-03.log",
+      "log_sha256": "2c8fd93817b0cec60d2107ceb63707039ac32ba0ab73c5440b82ba6bd77cafce"
+    }
+  ],
+  "positive_checks": [
+    "V5-17-03 (Implement mass-conserving breakup bounds): Daughter mass closes and model uncertainty cannot be hidden by clipping. \u2014 verified by cargo test --locked --offline -p crucible-particles --test models -- --exact breakup_is_exposure_dependent_mass_closed_and_never_promoted_by_hinze_clip"
+  ],
+  "negative_checks": [
+    "V5-17-03 negative control: Instantaneous universal Hinze clipping cannot become calibrated breakup."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/src/dispersion.rs",
+      "sha256": "e56d9ea3fca334384cd949f4c4ebe3bced3e2136861892837726196d678dcf78"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-031 (public_open_data+substitute:bounded_breakup_sensitivity): Daughter droplet mass conservation is enforced with no hidden clipping. Uncalibrated exposure rates are bracketed by off, calibrated-on and adverse bounds. Verified by exact domain test cargo test --locked --offline -p crucible-particles --test models -- --exact breakup_is_exposure_dependent_mass_closed_and_never_promoted_by_hinze_clip."
+  ],
+  "next_dependency": "V5-17-04"
+}

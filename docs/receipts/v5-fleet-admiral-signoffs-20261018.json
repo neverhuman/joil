@@ -48,5 +48,6 @@
     "decision_id": "SC-DEC-053",
     "merger": "super_captain",
     "flow": "neverhumanbot approves exact head via gh-role reviewer + green CI + gh pr merge --rebase --match-head-commit (no squash, no force-push main)"
-  }
+  },
+  "redteam_remediation_note": "Amended under SC-DEC-071 (2026-10-18T15:00Z): SC-DEC-028, 030, 032, 033, 035, 038, 039, 040, 041 explicitly record substitute:synthetic_fixture in docs/release/v5/FLEET_ADMIRAL_DISPOSITIONS_20261018.json; 14 tasks without domain solver/campaign implementation moved back to in_progress."
 }

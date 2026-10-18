@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-18-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact cohort_concentration_needs_oil_basis_and_normalised_bins in packet V5-18 (Common-flow capacity, energy, mass-reserve decisions).",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/metrics.rs",
+    "crates/joil-core/src/metrics.rs",
+    "docs/SCIENCE.md",
+    "requirements/joil-hydrocyclone-v2.toml"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "metrics",
+        "--",
+        "--exact",
+        "cohort_concentration_needs_oil_basis_and_normalised_bins"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-18-01.log",
+      "log_sha256": "ebe3ff36a6f46815249b6502a389c3d9889ba07d4471b6d35c906194ba68a23e"
+    }
+  ],
+  "positive_checks": [
+    "V5-18-01 (Preserve exact concentration oracles): 500 mg/L, E=.94, r=.02 gives 30.6122449 and fails 30; minimum capture .9412. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact cohort_concentration_needs_oil_basis_and_normalised_bins"
+  ],
+  "negative_checks": [
+    "V5-18-01 negative control: Missing split denominator, clipped negative reduced efficiency and daughter double count fail."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/metrics.rs",
+      "sha256": "e78684b5674c1bc1244978e9af71b33ec4db937a654dacad074841dfe7ec87b6"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test metrics -- --exact cohort_concentration_needs_oil_basis_and_normalised_bins in packet V5-18 (Common-flow capacity, energy, mass-reserve decisions)."
+  ],
+  "next_dependency": "V5-18-02"
+}

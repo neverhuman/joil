@@ -3,15 +3,10 @@
   "packet": "V5-15",
   "tasks": {
     "V5-15-01": {
-      "status": "done",
+      "status": "in_progress",
       "owner": "codex_lane1",
-      "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-15-software-acceptance-20261018.json (sha256 e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d); task-specific verification tests and execution receipts in docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json (sha256 355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632), docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json (sha256 c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b). scientific_admission=false preserved.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
-          "sha256": "e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d"
-        }
-      ]
+      "note": "SC-DEC-071 red-team remediation (SC-DEC-028 public_open_data+substitute:synthetic_fixture): moved back to in_progress; synthetic benchmark accession judge exists in packs/hydrocyclone/judges, but native OpenFOAM solver execution and field/patch ingestion for D-11/D-12 remain open.",
+      "evidence": []
     },
     "V5-15-02": {
       "status": "done",
@@ -21,30 +16,33 @@
         {
           "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
           "sha256": "e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-15-02-verification-20261018.json",
+          "sha256": "ca9b840037464a0f2219ff57f343c9a1084b406ca11066dc0f50e48166e43ecf"
         }
       ]
     },
     "V5-15-03": {
       "status": "done",
       "owner": "codex_lane1",
-      "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-15-software-acceptance-20261018.json (sha256 e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d); task-specific verification tests and execution receipts in docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json (sha256 355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632), docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json (sha256 c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b). scientific_admission=false preserved.",
+      "note": "SC-DEC-029 (public_open_data+substitute:cfd_observable_discrepancy_decomposition): Velocity profiles, reverse core, pressure drop and split ratio are checked against public stations. Numerical, input and experimental discrepancy are separated on coverage cards, with the high-order CFD reference labelled as a proxy. | Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-15-software-acceptance-20261018.json (sha256 e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d); task-specific verification tests and execution receipts in docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json (sha256 355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632), docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json (sha256 c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b). scientific_admission=false preserved.",
       "evidence": [
         {
           "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
           "sha256": "e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-15-03-verification-20261018.json",
+          "sha256": "75eb88e3f6aa3ea51d48d8b315ca2d711717278a9a9e1739cdf0eace54260dbe"
         }
       ]
     },
     "V5-15-04": {
-      "status": "done",
+      "status": "in_progress",
       "owner": "codex_lane1",
-      "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-15-software-acceptance-20261018.json (sha256 e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d); task-specific verification tests and execution receipts in docs/receipts/v5-15-01-sc-dec-028-verification-20261018.json (sha256 355fc3f1b68cd4404e6374ffe9257ab8133c8f690fae8dfb1e9845052136a632), docs/receipts/v5-15-02-05-sc-dec-029-verification-20261018.json (sha256 c8f3f27250c47a4aca05cea27c2e8892e6fca220958cedab4848987001f8234b). scientific_admission=false preserved.",
-      "evidence": [
-        {
-          "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
-          "sha256": "e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d"
-        }
-      ]
+      "note": "SC-DEC-071 red-team remediation: moved back to in_progress; synthetic branch/hysteresis protocol checks exist in packs/hydrocyclone/judges, but native URANS/LES transient branch handoff and window convergence on solver time series remain open.",
+      "evidence": []
     },
     "V5-15-05": {
       "status": "done",
@@ -54,6 +52,10 @@
         {
           "path": "docs/receipts/v5-15-software-acceptance-20261018.json",
           "sha256": "e3d47fd776c8d0a4145f2288b9703786e4841051670f02e73682013fd2b0a50d"
+        },
+        {
+          "path": "docs/receipts/per-task/v5-15-05-verification-20261018.json",
+          "sha256": "9d9bf1eb1a302c0e834a0a300509e74902713df4d58d1f37863e2c9ba3c76c3e"
         }
       ]
     }

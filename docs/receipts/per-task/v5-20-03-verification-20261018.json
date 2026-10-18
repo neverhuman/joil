@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-20-03"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-035 (substitute:synthetic_ct_as_built_deviation_subject+substitute:synthetic_fixture): CT registration, feature detectability and roughness perturbation are qualified on substitute:synthetic_fixture geometric deviation fields, with nominal and as-built subject identities kept separate. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_03_identities_masses_and_deviations_stay_separate.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/dynamics.rs",
+    "crates/joil-core/src/structure.rs",
+    "crates/joil-core/src/experiment.rs",
+    "packs/hydrocyclone/materials/",
+    "physics/structure/v5/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "dynamics",
+        "--",
+        "--exact",
+        "v5_20_03_identities_masses_and_deviations_stay_separate"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-20-03.log",
+      "log_sha256": "0b03444ec67d3a2026469bf3f7ec20595417057af91e047f9a33449c8f359be3"
+    }
+  ],
+  "positive_checks": [
+    "V5-20-03 (Bind metrology to a new physical subject): Nominal and as-built identities, masses and deviations remain separate. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_03_identities_masses_and_deviations_stay_separate"
+  ],
+  "negative_checks": [
+    "V5-20-03 negative control: CT voxel pitch or measured Ra cannot silently become dimensional accuracy or ks."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/dynamics.rs",
+      "sha256": "6d86e341945452e1dc5def0ebe434bac56b099c59c6d849c30d6f4bcc1080332"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-035 (substitute:synthetic_ct_as_built_deviation_subject+substitute:synthetic_fixture): CT registration, feature detectability and roughness perturbation are qualified on substitute:synthetic_fixture geometric deviation fields, with nominal and as-built subject identities kept separate. Verified by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test dynamics -- --exact v5_20_03_identities_masses_and_deviations_stay_separate."
+  ],
+  "next_dependency": "V5-20-04"
+}

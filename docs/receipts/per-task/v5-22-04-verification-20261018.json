@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-22-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-search --test acquisition -- --exact audit_budget_failure_suspends_pruning_even_with_elite_correlation in packet V5-22 (Multi-fidelity acquisition, surrogate calibration and audits).",
+  "changed_paths": [
+    "crates/crucible-search/src/acquisition.rs",
+    "crates/crucible-search/src/audit.rs",
+    "crates/crucible-search/src/surrogate.rs",
+    "crates/crucible-search/tests/acquisition.rs",
+    "experiments/v5-acquisition.toml",
+    "crates/joil-core/src/surrogate.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-search",
+        "--test",
+        "acquisition",
+        "--",
+        "--exact",
+        "audit_budget_failure_suspends_pruning_even_with_elite_correlation"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-22-04.log",
+      "log_sha256": "474ba65ec334c54bc19ee1792bed86808d0e9db1f4780c958eaad32e34b39168"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "exit_code": 0,
+      "log_sha256": "b849e9d3b37e33dd9989c955d42b27ea33523d725ae047efa4aca23e88acc4dc",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/pack-judges-validation.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-22",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-pos"
+      ],
+      "exit_code": 0,
+      "log_sha256": "02427ee85e103dd6478f774b752c9f9a3b52e55ca71185b9407daeb7d8f17699",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-positive.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/check-public.log"
+    }
+  ],
+  "positive_checks": [
+    "V5-22-04 (Calibrate and abstain honestly): Out-of-scope or miscalibrated predictions defer to direct evaluation. \u2014 verified by cargo test --locked --offline -p crucible-search --test acquisition -- --exact audit_budget_failure_suspends_pruning_even_with_elite_correlation"
+  ],
+  "negative_checks": [
+    "V5-22-04 negative control: Predicted metric cannot enter qualified archive, claim or physical gate."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-search/src/acquisition.rs",
+      "sha256": "7c0c73ef961f56896407da9f8b6e0495c5f916e64ca24148cfde9bab2ce9071a"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "a11357fb27bad40a1867182339c7514a18ec61e8a6aba33c93313827d094c2c2"
+    },
+    {
+      "path": "tools/generate_wave2_figures_and_animations.py",
+      "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+    },
+    {
+      "path": "docs/receipts/v5-22-24-sc-dec-verification-20261018.json",
+      "sha256": "9504cfadee2f00d5f36498c134f0dcf5d50a9dec3414d00669ba4be51eef1917"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-search --test acquisition -- --exact audit_budget_failure_suspends_pruning_even_with_elite_correlation in packet V5-22 (Multi-fidelity acquisition, surrogate calibration and audits)."
+  ],
+  "next_dependency": "V5-22-05",
+  "defect_controls": [
+    {
+      "defect_id": "D-22",
+      "fixture": {
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_wave2_figures_and_animations.py",
+        "symbol": "modal plot",
+        "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-pos"
+        ],
+        "exit_code": 0,
+        "log_sha256": "02427ee85e103dd6478f774b752c9f9a3b52e55ca71185b9407daeb7d8f17699",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-positive.log",
+        "expected_result": "C006 D-22 positive passes: plotted series follows bound synthetic evidence."
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-22",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-red"
+        ],
+        "exit_code": 1,
+        "log_sha256": "ae09d990ac5a019f4a45426437ee59ab01db5a85b4550a51da54d869cadb2c40",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane3/d22-red.log",
+        "expected_result": "C006-RED D-22: modal_series_without_evidence."
+      }
+    }
+  ]
+}

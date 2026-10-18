@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-29-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact bounded_campaign_runs_with_exact_attempt_ledger_and_pack_card in packet V5-29 (Structural bracket reuse proof).",
+  "changed_paths": [
+    "packs/bracket/",
+    "campaigns/bracket-v5-fixture.toml",
+    "tests/fixtures/v5-bracket/",
+    "docs/design/V5_CONTRACTS.md",
+    "crates/crucible-contract/",
+    "crates/crucible-genome/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--",
+        "--exact",
+        "bounded_campaign_runs_with_exact_attempt_ledger_and_pack_card"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-29-04.log",
+      "log_sha256": "0debb94715de31233803e5529f461f098a9f53eb9c5eca8db0f6415f9156ff1d"
+    }
+  ],
+  "positive_checks": [
+    "V5-29-04 (Render and inspect the independent domain): Offline dossier exposes source-bound evidence and blocked physical claims. \u2014 verified by cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact bounded_campaign_runs_with_exact_attempt_ledger_and_pack_card"
+  ],
+  "negative_checks": [
+    "V5-29-04 negative control: A hydrocyclone template cannot fabricate nonexistent bracket flow fields."
+  ],
+  "artifacts": [
+    {
+      "path": "campaigns/bracket-v5-fixture.toml",
+      "sha256": "c4988321974da00896dc6de278fb44545afcdda4c08af4ddbc94143811fdd988"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact bounded_campaign_runs_with_exact_attempt_ledger_and_pack_card in packet V5-29 (Structural bracket reuse proof)."
+  ],
+  "next_dependency": "V5-29-05"
+}

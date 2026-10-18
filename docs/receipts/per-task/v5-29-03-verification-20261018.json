@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-29-03"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts in packet V5-29 (Structural bracket reuse proof).",
+  "changed_paths": [
+    "packs/bracket/",
+    "campaigns/bracket-v5-fixture.toml",
+    "tests/fixtures/v5-bracket/",
+    "docs/design/V5_CONTRACTS.md",
+    "crates/crucible-contract/",
+    "crates/crucible-genome/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-bracket",
+        "--test",
+        "reuse_proof",
+        "--",
+        "--exact",
+        "nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-29-03.log",
+      "log_sha256": "d67344d705bba33199ac4e5d487f884090ee897a586daa67f477cb4bb29b5117"
+    }
+  ],
+  "positive_checks": [
+    "V5-29-03 (Prove restart, cache and negative behavior): Reuse works without core engine edits in this packet. \u2014 verified by cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts"
+  ],
+  "negative_checks": [
+    "V5-29-03 negative control: Changing bolt locations cannot inherit an earlier structural PASS."
+  ],
+  "artifacts": [
+    {
+      "path": "campaigns/bracket-v5-fixture.toml",
+      "sha256": "c4988321974da00896dc6de278fb44545afcdda4c08af4ddbc94143811fdd988"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-bracket --test reuse_proof -- --exact nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts in packet V5-29 (Structural bracket reuse proof)."
+  ],
+  "next_dependency": "V5-29-04"
+}

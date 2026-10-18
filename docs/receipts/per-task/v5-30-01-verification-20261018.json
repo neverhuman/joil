@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-30-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Resolved under SC-DEC-048 (governance_signoff): Delegate governance sign-off for internal protocol closure: containment review, comparator, pilot-power quantities, blinded A/B/A blocks and calibration/holdout separation. Vendor orders remain reserved to Jepson. The protocol stays an unsigned draft until the owner signature is recorded in the protocol file. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_power_uses_pilot_variability_and_independent_units.",
+  "changed_paths": [
+    "experiments/rig/v5/",
+    "experiments/holdout/v5/",
+    "analysis/validation/v5/",
+    "docs/rig/V5_CONFIRMATION.md",
+    "experiments/rig/protocol_v1.md",
+    "docs/rig/MATERIAL_INPUTS.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "-v",
+        "tests.test_v5_integrated_fixtures.ProtocolTests.test_power_uses_pilot_variability_and_independent_units"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-30-01.log",
+      "log_sha256": "e258f627dcc8d2bd471c0a895e9f519bdf3eda725fe3b7fbe32e2fd751e267b6"
+    }
+  ],
+  "positive_checks": [
+    "V5-30-01 (Finalize a reviewable build and rig protocol): The protocol is concrete before external approval or spending. \u2014 verified by python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_power_uses_pilot_variability_and_independent_units"
+  ],
+  "negative_checks": [
+    "V5-30-01 negative control: An unsigned draft cannot be described as a registered/approved experiment."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/rig/V5_CONFIRMATION.md",
+      "sha256": "e12f4834d96d40463425c4ff72aa5f66a0557b1a54a1991cc6b62c7f76f192d1"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Resolved under SC-DEC-048 (governance_signoff): Delegate governance sign-off for internal protocol closure: containment review, comparator, pilot-power quantities, blinded A/B/A blocks and calibration/holdout separation. Vendor orders remain reserved to Jepson. The protocol stays an unsigned draft until the owner signature is recorded in the protocol file. Verified by exact domain test python3 -m unittest -v tests.test_v5_integrated_fixtures.ProtocolTests.test_power_uses_pilot_variability_and_independent_units."
+  ],
+  "next_dependency": "V5-30-02"
+}

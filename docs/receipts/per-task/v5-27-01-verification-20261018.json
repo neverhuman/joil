@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-27-01"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test python3 -m unittest -v tests.test_v5_explorer_manifest.ExplorerManifestTests.test_exact_source_counts_do_not_invent_campaigns_or_observations in packet V5-27 (Read-only evidence explorer and live progress).",
+  "changed_paths": [
+    "apps/explorer/src/",
+    "apps/explorer/tests/",
+    "crates/crucible-cli/src/explore.rs",
+    "apps/explorer/src/main.tsx",
+    "apps/explorer/src/Viewport3D.tsx",
+    "apps/explorer/src/style.css"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "-v",
+        "tests.test_v5_explorer_manifest.ExplorerManifestTests.test_exact_source_counts_do_not_invent_campaigns_or_observations"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-27-01.log",
+      "log_sha256": "06bd69750006809b2b510d35c4d567225c0e7a12f42f11d274871d1a7176d7cb"
+    }
+  ],
+  "positive_checks": [
+    "V5-27-01 (Replace static imported claims with a typed view): Every value opens its source, unit, uncertainty and tier. \u2014 verified by python3 -m unittest -v tests.test_v5_explorer_manifest.ExplorerManifestTests.test_exact_source_counts_do_not_invent_campaigns_or_observations"
+  ],
+  "negative_checks": [
+    "V5-27-01 negative control: A stale URL cannot silently show a new champion under the old identity."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/src/explore.rs",
+      "sha256": "ea8f78a9be743f7f7567ee4dabfbd96be8879ed5a1fe16faea77c1f6a8ae8223"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test python3 -m unittest -v tests.test_v5_explorer_manifest.ExplorerManifestTests.test_exact_source_counts_do_not_invent_campaigns_or_observations in packet V5-27 (Read-only evidence explorer and live progress)."
+  ],
+  "next_dependency": "V5-27-02"
+}

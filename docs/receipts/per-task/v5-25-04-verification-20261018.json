@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-25-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact in_envelope_candidate_with_closed_interface_uses_the_operator in packet V5-25 (Optional frozen-liner response operator).",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/tests/liner_operator.rs",
+    "experiments/v5-liner-operator.toml",
+    "docs/SCIENCE.md",
+    "docs/design/V5_GEOMETRY.md",
+    "crates/crucible-search/src/audit.rs",
+    "experiments/validation/v5/"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "liner_operator",
+        "--",
+        "--exact",
+        "in_envelope_candidate_with_closed_interface_uses_the_operator"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-25-04.log",
+      "log_sha256": "a2f6ecc5f4eada9c5afdeb4fe73d7cbf3329437295080bb50e238c1a7cdc8c63"
+    }
+  ],
+  "positive_checks": [
+    "V5-25-04 (Measure ranking and omission under random audits): False omission and abstention rates appear in the benchmark. \u2014 verified by cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact in_envelope_candidate_with_closed_interface_uses_the_operator"
+  ],
+  "negative_checks": [
+    "V5-25-04 negative control: Scalar pressure agreement cannot qualify downstream oil grade."
+  ],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/tests/liner_operator.rs",
+      "sha256": "25c939d0dda8a4280dd2cb7cda9372fdb0ffc07daa0f7ba5ad70862123d2814d"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p pack-hydrocyclone-judges --test liner_operator -- --exact in_envelope_candidate_with_closed_interface_uses_the_operator in packet V5-25 (Optional frozen-liner response operator)."
+  ],
+  "next_dependency": "V5-25-05"
+}

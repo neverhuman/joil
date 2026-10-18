@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-14-04"
+  ],
+  "tested_commit": "8d6c768a67fb7931678e8f09c230dadb6250d68a",
+  "decision_resolution": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact controller_enforces_reachability_settling_saturation_and_frozen_sampling in packet V5-14 (Corrected native carrier evaluator and control).",
+  "changed_paths": [
+    "crates/crucible-adapters/src/openfoam/",
+    "crates/crucible-adapters/tests/openfoam.rs",
+    "physics/openfoam/verification/v5/",
+    "docs/rig/PDR_STUDY.md",
+    "physics/openfoam/environment/lock.json",
+    "physics/openfoam/carrier/configure.py"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-adapters",
+        "--test",
+        "openfoam",
+        "--",
+        "--exact",
+        "controller_enforces_reachability_settling_saturation_and_frozen_sampling"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-14-04.log",
+      "log_sha256": "9568d081e159f0a3b1d44a22abdde90446081380dbafdb563a20af8b71cf16ce"
+    }
+  ],
+  "positive_checks": [
+    "V5-14-04 (Qualify numerics and the full geometry): Mesh/time/model errors meet preallocated observable-specific budgets. \u2014 verified by cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact controller_enforces_reachability_settling_saturation_and_frozen_sampling"
+  ],
+  "negative_checks": [
+    "V5-14-04 negative control: An oscillatory sequence cannot receive a Richardson certificate; short RSM continuation is not independent validation."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-adapters/tests/openfoam.rs",
+      "sha256": "d24d5b8989d1f5ac90692aab6a035d5d00d9581ff4971d0650ce10130d1223c9"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software and contract verification only; scientific_admission remains false.",
+    "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-adapters --test openfoam -- --exact controller_enforces_reachability_settling_saturation_and_frozen_sampling in packet V5-14 (Corrected native carrier evaluator and control)."
+  ],
+  "next_dependency": "V5-14-05"
+}
