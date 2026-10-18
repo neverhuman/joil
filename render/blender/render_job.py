@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 import bpy
@@ -15,7 +16,12 @@ def main():
     args,_=parser.parse_known_args(sys.argv[sys.argv.index('--')+1:])
     out=Path(args.output); out.mkdir(parents=True,exist_ok=True)
     manifest_path=Path(args.manifest); manifest=json.loads(manifest_path.read_text())
-    completed=set(manifest.get('completed_frames',[]))
+    completed=set()
+    frame_hashes=manifest.get('frame_sha256',{})
+    for frame in manifest.get('completed_frames',[]):
+        path=out/f'frame-{frame:06d}.png'
+        if path.is_file() and frame_hashes.get(str(frame)) == hashlib.sha256(path.read_bytes()).hexdigest():
+            completed.add(frame)
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.gltf(filepath=args.glb)
     # Keep source scientific meshes as imported: no subdivision, smoothing, or denoising.
@@ -26,6 +32,8 @@ def main():
     bpy.ops.object.light_add(type='AREA', location=(0.25,-0.2,0.3)); bpy.context.object.data.energy=800
     scene=bpy.context.scene; scene.render.resolution_x=1200; scene.render.resolution_y=900
     scene.render.resolution_percentage=100; scene.render.image_settings.file_format='PNG'
+    scene.render.engine='CYCLES'; scene.cycles.device='CPU'
+    scene.render.threads_mode='FIXED'; scene.render.threads=1
     scene.render.use_file_extension=True
     scene.cycles.use_denoising=False
     # Keep text in camera space so labels and legend never change the scientific mesh.
@@ -43,6 +51,12 @@ def main():
         bpy.ops.render.render(write_still=True)
         manifest.setdefault('completed_frames',[]).append(frame)
         manifest.setdefault('frame_sha256',{})[str(frame)]=hashlib.sha256(target.read_bytes()).hexdigest()
-        manifest['status']='rendering'; manifest_path.write_text(json.dumps(manifest,indent=2)+'\n')
-    manifest['status']='rendered'; manifest_path.write_text(json.dumps(manifest,indent=2)+'\n')
+        manifest['status']='rendering'; atomic_json(manifest_path,manifest)
+    manifest['status']='rendered'; atomic_json(manifest_path,manifest)
+
+def atomic_json(path,value):
+    tmp=path.with_suffix(path.suffix+'.tmp')
+    with tmp.open('w',encoding='utf-8') as stream:
+        json.dump(value,stream,indent=2); stream.write('\n'); stream.flush(); os.fsync(stream.fileno())
+    os.replace(tmp,path)
 main()

@@ -2,6 +2,7 @@
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
+use std::path::Path;
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -73,6 +74,7 @@ pub struct ScalarScale {
 pub struct SceneBundle {
     pub schema_version: u32,
     pub subject: DigestRef,
+    pub source_subject: DigestRef,
     pub artifacts: Vec<Artifact>,
     pub observable: String,
     pub unit: String,
@@ -115,6 +117,8 @@ impl SceneBundle {
     pub fn validate(&self) -> Result<(), RenderError> {
         if self.schema_version != 1
             || !self.subject.is_valid()
+            || !self.source_subject.is_valid()
+            || self.subject != self.source_subject
             || !self.mapping.is_valid()
             || !self.mask.is_valid()
             || !self.recipe.is_valid()
@@ -145,7 +149,7 @@ impl SceneBundle {
         self.transform
             .check()
             .map_err(|_| RenderError::InvalidFrame)?;
-        if self.transform.to != self.frame {
+        if self.transform.from != self.frame || self.transform.to != self.frame {
             return Err(RenderError::InvalidFrame);
         }
         if self.artifacts.iter().any(|a| a.bytes == 0) {
@@ -176,6 +180,42 @@ impl SceneBundle {
         }
         Ok(())
     }
+}
+
+/// Validate an adapter input against bytes observed at the adapter boundary.
+/// A data card has no geometry; a rendered scene must declare the exact GLB bytes.
+pub fn validate_adapter_input(
+    bundle_bytes: &[u8],
+    glb_path: Option<&Path>,
+    source_subject_path: Option<&Path>,
+) -> Result<SceneBundle, RenderError> {
+    let bundle: SceneBundle = serde_json::from_slice(bundle_bytes)
+        .map_err(|_| RenderError::InvalidBundle("bundle_json"))?;
+    bundle.validate()?;
+    match glb_path {
+        Some(path) => {
+            let bytes =
+                std::fs::read(path).map_err(|_| RenderError::InvalidBundle("glb_unreadable"))?;
+            let declared = bundle.artifacts.iter().any(|artifact| {
+                artifact.role == "glb"
+                    && artifact.digest == DigestRef::of(&bytes)
+                    && artifact.bytes == bytes.len() as u64
+            });
+            if !declared {
+                return Err(RenderError::InvalidBundle("glb_artifact_mismatch"));
+            }
+            let source_path =
+                source_subject_path.ok_or(RenderError::InvalidBundle("source_subject_required"))?;
+            let source = std::fs::read(source_path)
+                .map_err(|_| RenderError::InvalidBundle("source_subject_unreadable"))?;
+            bundle.validate_verified_subject(&VerifiedSubject::from_observed_bytes(&source))?;
+        }
+        None if bundle.evidence_class != EvidenceClass::Unavailable => {
+            return Err(RenderError::InvalidBundle("glb_required"));
+        }
+        None => {}
+    }
+    Ok(bundle)
 }
 /// Capability produced only after hashing the observed subject bytes. A digest string alone
 /// cannot be passed where this token is required. This proves byte identity only, not qualification.
@@ -357,6 +397,7 @@ mod tests {
         SceneBundle {
             schema_version: 1,
             subject: hash(),
+            source_subject: hash(),
             artifacts: vec![Artifact {
                 role: "surface".into(),
                 digest: hash(),
@@ -481,6 +522,28 @@ mod tests {
         let a = cache_key(&hash(), &hash(), "blender-test-build-a", &hash()).unwrap();
         let b = cache_key(&hash(), &hash(), "blender-test-build-b", &hash()).unwrap();
         assert_ne!(a, b);
+    }
+    #[test]
+    fn adapter_binds_observed_glb_length_digest_and_source_subject() {
+        let dir = std::env::temp_dir().join(format!("crucible-render-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let glb_path = dir.join("scene.glb");
+        let subject_path = dir.join("subject.bin");
+        let glb = b"synthetic GLB bytes";
+        let subject = b"synthetic source subject";
+        std::fs::write(&glb_path, glb).unwrap();
+        std::fs::write(&subject_path, subject).unwrap();
+        let mut scene = scene();
+        scene.subject = DigestRef::of(subject);
+        scene.source_subject = scene.subject.clone();
+        scene.artifacts[0].role = "glb".into();
+        scene.artifacts[0].digest = DigestRef::of(glb);
+        scene.artifacts[0].bytes = glb.len() as u64;
+        let bundle = serde_json::to_vec(&scene).unwrap();
+        assert!(validate_adapter_input(&bundle, Some(&glb_path), Some(&subject_path)).is_ok());
+        std::fs::write(&glb_path, b"changed bytes").unwrap();
+        assert!(validate_adapter_input(&bundle, Some(&glb_path), Some(&subject_path)).is_err());
+        let _ = std::fs::remove_dir_all(dir);
     }
     #[test]
     fn complete_registry_covers_catalogue_and_rejects_a_removed_mapping() {

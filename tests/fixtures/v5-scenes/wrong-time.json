@@ -64,5 +64,8 @@
   },
   "evidence_class": "unavailable",
   "private_export_approved": false,
-  "motion_is_simulated": false
+  "motion_is_simulated": false,
+  "source_subject": {
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  }
 }
