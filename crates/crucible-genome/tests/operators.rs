@@ -214,6 +214,20 @@ fn structural_merge_and_graph_symmetry_are_explicit_topology_changes() {
     );
     assert_eq!(unsym.kind, OutcomeKind::Accepted);
     assert_eq!(unsym.child.unwrap().modules.len(), g.modules.len());
+
+    let mut fluid_linked = g.clone();
+    fluid_linked.edges.push(ModuleEdge {
+        relation: EdgeRelation::FluidFlow,
+        from_module: 2,
+        from_port: "in".into(),
+        to_module: 1,
+        to_port: "in_b".into(),
+    });
+    fluid_linked.validate().unwrap();
+    let refused = attempt(&fluid_linked, Proposal::MergeModule { module: 1 }, budget());
+    assert_eq!(refused.kind, OutcomeKind::Rejected);
+    assert_eq!(refused.cost.attempts, 1);
+    assert!(refused.reason.unwrap().contains("fluid-flow"));
 }
 
 #[test]

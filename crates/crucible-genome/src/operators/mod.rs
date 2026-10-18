@@ -347,6 +347,17 @@ fn attempt_inner(parent: &Genome, proposal: Proposal, budget: OperatorBudget) ->
                     OutcomeKind::Rejected,
                 );
             }
+            if child.edges.iter().any(|e| {
+                e.relation == EdgeRelation::FluidFlow
+                    && (e.from_module as usize == module || e.to_module as usize == module)
+            }) {
+                return reject(
+                    parent_id,
+                    cost,
+                    "merge cannot remap incident fluid-flow references",
+                    OutcomeKind::Rejected,
+                );
+            }
             let incoming: Vec<usize> = child
                 .edges
                 .iter()
