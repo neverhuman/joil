@@ -158,11 +158,11 @@ fn benchmark_retains_failures_and_counts_only_qualified_unique_decisions() {
     let rows = [
         row("d1", AttemptOutcome::Qualified, false),
         row("d1-retry", AttemptOutcome::NumericalFailure, false),
-        row("d2", AttemptOutcome::Qualified, true),
+        row("d2", AttemptOutcome::Rejected, true),
     ];
     let s = summarize(&rows).unwrap();
     assert_eq!(s.attempts, 3);
-    assert_eq!(s.failed_attempts, 1);
+    assert_eq!(s.failed_attempts, 2);
     assert_eq!(s.qualified_unique_decisions, 1);
     assert_eq!(s.wall_ms.p50, 100);
     assert_eq!(s.wall_ms.p95, 100);
@@ -172,10 +172,18 @@ fn benchmark_retains_failures_and_counts_only_qualified_unique_decisions() {
 fn fake_evaluator_cannot_claim_qualified_throughput() {
     let mut synthetic = row("fake", AttemptOutcome::Qualified, true);
     assert!(!synthetic.is_qualified());
-    synthetic.physical_evidence = None;
+    assert!(synthetic.check().is_err());
+    synthetic.outcome = AttemptOutcome::Rejected;
     let s = summarize(&[synthetic]).unwrap();
     assert_eq!(s.qualified_unique_decisions, 0);
     assert_eq!(s.eligible_throughput_per_wall_second, None);
+}
+#[test]
+fn warm_and_cold_cache_records_cannot_be_mixed() {
+    let cold = row("cold", AttemptOutcome::Qualified, false);
+    let mut warm = row("warm", AttemptOutcome::Qualified, false);
+    warm.cache = CacheState::Warm;
+    assert!(summarize(&[cold, warm]).is_err());
 }
 #[test]
 fn process_arguments_are_bounded_and_never_parsed_as_shell() {

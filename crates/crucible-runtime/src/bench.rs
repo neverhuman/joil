@@ -61,8 +61,10 @@ impl BenchmarkAttempt {
         {
             return Err(RuntimeError::Invalid("benchmark_attempt_identity_or_range"));
         }
-        if self.synthetic_evaluator && self.is_qualified() {
-            return Err(RuntimeError::Invalid("synthetic_evaluator_not_qualified"));
+        if self.outcome == AttemptOutcome::Qualified && !self.is_qualified() {
+            return Err(RuntimeError::Invalid(
+                "unqualified_attempt_claimed_qualified",
+            ));
         }
         Ok(())
     }
@@ -79,6 +81,7 @@ pub struct Distribution {
 pub struct BenchmarkSummary {
     pub benchmark: String,
     pub corpus: BlobDigest,
+    pub cache: CacheState,
     pub attempts: u64,
     pub failed_attempts: u64,
     pub qualified_unique_decisions: u64,
@@ -111,6 +114,7 @@ pub fn summarize(rows: &[BenchmarkAttempt]) -> Result<BenchmarkSummary> {
         r.benchmark != first.benchmark
             || r.corpus != first.corpus
             || r.resource_class != first.resource_class
+            || r.cache != first.cache
     }) {
         return Err(RuntimeError::Invalid("mixed_benchmark_cohort"));
     }
@@ -129,11 +133,9 @@ pub fn summarize(rows: &[BenchmarkAttempt]) -> Result<BenchmarkSummary> {
     Ok(BenchmarkSummary {
         benchmark: first.benchmark.clone(),
         corpus: first.corpus.clone(),
+        cache: first.cache,
         attempts: rows.len() as u64,
-        failed_attempts: rows
-            .iter()
-            .filter(|r| !matches!(r.outcome, AttemptOutcome::Qualified))
-            .count() as u64,
+        failed_attempts: rows.iter().filter(|r| !r.is_qualified()).count() as u64,
         qualified_unique_decisions: unique.len() as u64,
         wall_ms: wall,
         rss_bytes: distribution(rows.iter().map(|r| r.peak_rss_bytes).collect())?,
