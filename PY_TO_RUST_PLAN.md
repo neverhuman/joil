@@ -168,3 +168,27 @@ PYTHON_EXCEPTIONS.md. Test rows migrate alongside their implementation.
 | `visualization/render_baseline.py` | 66 | Render actual baseline B-rep geometry, with no synthetic physics fields. | port-to-Rust | `joil-geometry` | Wave P3 |
 | `visualization/render_carrier.py` | 83 | Render actual saved OpenFOAM p/U fields; no invented flow or averaging. | port-to-Rust | `joil-geometry` | Wave P3 |
 | `visualization/render_proposals.py` | 57 | Plot sections through the actual exported CAD surfaces, with no performance coloring. | port-to-Rust | `joil-geometry` | Wave P3 |
+
+## I012 additive port handoff
+
+`crates/crucible-cli/src/bin/check-foundation.rs` ports `tools/check.py` suite
+selection and execution, schema-v1 receipts, raw stdout-then-stderr log SHA-256,
+Git-selected source hashes, child failures/signals and the 600-second timeout.
+Run from the repository root. `foundation_parity.rs` compares all eight suites
+on synthetic success/failure commands, receipt fields and bound log bytes;
+volatile run IDs and durations are excluded from equality. Invalid suite/flag
+combinations must retain exit 2. Infrastructure failures fail closed; their
+platform-specific diagnostic text is not a byte-parity promise.
+
+`crates/crucible-cli/src/bin/v5-private-dossier.rs PRIVATE.json REVIEW.json`
+ports the private dossier projection gate. `dossier_parity.rs` invokes the
+unchanged Python function as oracle for a positive projection and nine negative
+classification, authorization, review, allowlist, type and identity-token cases.
+This is a software disclosure gate, not installation authority.
+
+Both original Python files remain intact. Shared local/CI shell entrypoints still
+use the compatibility runner because publication/claims/UI CI lanes do not yet
+provision Rust. P1b remains open for that provisioning/consumer migration, CAD,
+timeout/platform diagnostics and broader Unicode edge parity. No Python file or
+LOC reduction is claimed by adding these binaries. P2 plan/explorer ports remain
+separate work; this packet chose the authorized dossier alternative.

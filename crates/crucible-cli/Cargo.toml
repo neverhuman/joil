@@ -7,6 +7,7 @@ edition.workspace = true
 [dependencies]
 serde.workspace = true
 serde_json.workspace = true
+sha2.workspace = true
 toml = "=0.8.23"
 libc = "=0.2.190"
 crucible-runtime = { path = "../crucible-runtime" }

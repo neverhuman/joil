@@ -1,0 +1,165 @@
+{
+  "workspace": "joil",
+  "tests": {
+    ".agent/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    ".cargo/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    ".github/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    ".gitignore": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "AGENTS.md": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "COMMS.md": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "Cargo.lock": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "Cargo.toml": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "GEMINI.md": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "Justfile": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "PYTHON_EXCEPTIONS.md": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "PY_TO_RUST_PLAN.md": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "README.md": {
+      "command": "bash scripts/ci-local.sh --suite claims-audit",
+      "purpose": "Verify source-bound claims and frozen receipts"
+    },
+    "agent/": {
+      "command": "just score",
+      "purpose": "Parse ownership, proof and boundary manifests"
+    },
+    "analysis/": {
+      "command": "bash scripts/ci-local.sh --suite python-tests",
+      "purpose": "Legacy compatibility controls pending Rust migration"
+    },
+    "apps/": {
+      "command": "bash scripts/ci-local.sh --suite ui",
+      "purpose": "Compile read-only explorer"
+    },
+    "baselines/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "cad/": {
+      "command": "bash scripts/ci-local.sh --suite python-tests",
+      "purpose": "Legacy compatibility controls pending Rust migration"
+    },
+    "campaigns/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "crates/": {
+      "command": "bash scripts/ci-local.sh --suite rust-tests",
+      "purpose": "Rust contracts and integration tests"
+    },
+    "docs/": {
+      "command": "bash scripts/ci-local.sh --suite claims-audit",
+      "purpose": "Verify source-bound claims and frozen receipts"
+    },
+    "experiments/": {
+      "command": "bash scripts/ci-local.sh --suite python-tests",
+      "purpose": "Legacy compatibility controls pending Rust migration"
+    },
+    "joil": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "leases/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "ops/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "packs/": {
+      "command": "bash scripts/ci-local.sh --suite rust-tests",
+      "purpose": "Rust contracts and integration tests"
+    },
+    "paper/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "physics/": {
+      "command": "bash scripts/ci-local.sh --suite python-tests",
+      "purpose": "Legacy compatibility controls pending Rust migration"
+    },
+    "policies/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "recipes/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "render/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "requirements-cad-lock.txt": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "requirements-cad.txt": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "requirements/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "rust-toolchain.toml": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "schemas/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "scripts/": {
+      "command": "just required",
+      "purpose": "Complete Foundation checks for shared configuration and contracts"
+    },
+    "tests/": {
+      "command": "bash scripts/ci-local.sh --suite python-tests",
+      "purpose": "Legacy compatibility controls pending Rust migration"
+    },
+    "tools/": {
+      "command": "bash scripts/ci-local.sh --suite python-tests",
+      "purpose": "Legacy compatibility controls pending Rust migration"
+    },
+    "visualization/": {
+      "command": "bash scripts/ci-local.sh --suite python-tests",
+      "purpose": "Legacy compatibility controls pending Rust migration"
+    }
+  }
+}

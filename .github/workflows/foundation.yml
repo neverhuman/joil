@@ -15,6 +15,7 @@ concurrency:
 
 jobs:
   checks:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     name: check (${{ matrix.suite }})
     runs-on:
       group: neverhuman-lan
@@ -79,7 +80,7 @@ jobs:
       - name: Run suite with exact logs and receipt
         env:
           CHECK_SUITE: ${{ matrix.suite }}
-        run: python3 tools/check.py --suite "$CHECK_SUITE"
+        run: bash ops/ci/foundation.sh --suite "$CHECK_SUITE"
       - name: Retain reviewed check receipts
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -95,7 +96,7 @@ jobs:
   foundation:
     name: foundation
     needs: checks
-    if: always()
+    if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on:
       group: neverhuman-lan
       labels: [self-hosted, Linux, lan-ci]
