@@ -126,13 +126,36 @@ struct Summary {
     ratio_baseline_mean: Option<f64>,
 }
 
-fn pearson(a: &[f64], b: &[f64]) -> f64 {
-    let n = a.len() as f64;
-    let (ma, mb) = (a.iter().sum::<f64>() / n, b.iter().sum::<f64>() / n);
-    let cov: f64 = a.iter().zip(b).map(|(x, y)| (x - ma) * (y - mb)).sum();
-    let va: f64 = a.iter().map(|x| (x - ma).powi(2)).sum();
-    let vb: f64 = b.iter().map(|y| (y - mb).powi(2)).sum();
-    cov / (va * vb).sqrt()
+/// Centre each vector, scale its deviations into [-1, 1], then correlate: no variance product can overflow.
+fn pearson(a: &[f64], b: &[f64]) -> Result<f64, JointError> {
+    let deviations = |v: &[f64]| -> Result<Vec<f64>, JointError> {
+        let first = v[0];
+        let mean = first + v.iter().map(|x| x - first).sum::<f64>() / v.len() as f64;
+        let dev: Vec<f64> = v.iter().map(|x| x - mean).collect();
+        if !mean.is_finite() || dev.iter().any(|d| !d.is_finite()) {
+            return Err(JointError::Stats(StatsError::NumericalFailure(
+                "nonfinite centred margin",
+            )));
+        }
+        let scale = dev.iter().fold(0.0_f64, |m, d| m.max(d.abs()));
+        if scale == 0.0 {
+            return Err(JointError::Stats(StatsError::NumericalFailure(
+                "zero-variance margin has undefined correlation",
+            )));
+        }
+        Ok(dev.iter().map(|d| d / scale).collect())
+    };
+    let (u, v) = (deviations(a)?, deviations(b)?);
+    let cov: f64 = u.iter().zip(&v).map(|(p, q)| p * q).sum();
+    let vu: f64 = u.iter().map(|p| p * p).sum();
+    let vv: f64 = v.iter().map(|q| q * q).sum();
+    let r = cov / (vu.sqrt() * vv.sqrt());
+    if !r.is_finite() {
+        return Err(JointError::Stats(StatsError::NumericalFailure(
+            "nonfinite correlation",
+        )));
+    }
+    Ok(r.clamp(-1.0, 1.0))
 }
 
 type CorrelationMatrix = Vec<Vec<f64>>;
@@ -170,6 +193,14 @@ fn summaries(data: &MarginData) -> Result<(Vec<Summary>, Option<CorrelationMatri
                         "every margin must be observed on every paired block",
                     ));
                 }
+                if m.ratio_baseline
+                    .as_ref()
+                    .is_some_and(|b| b.iter().any(|v| !v.is_finite() || *v <= 0.0))
+                {
+                    return Err(JointError::Input(
+                        "every ratio baseline block must be finite and strictly positive",
+                    ));
+                }
                 let (mean, variance) = sample_moments(&m.values)?;
                 let ratio_baseline_mean = match &m.ratio_baseline {
                     Some(b) => Some(sample_moments(b)?.0),
@@ -190,9 +221,9 @@ fn summaries(data: &MarginData) -> Result<(Vec<Summary>, Option<CorrelationMatri
                     margins
                         .iter()
                         .map(|b| pearson(&a.values, &b.values))
-                        .collect()
+                        .collect::<Result<Vec<f64>, JointError>>()
                 })
-                .collect();
+                .collect::<Result<CorrelationMatrix, JointError>>()?;
             Ok((out, Some(correlations)))
         }
     }
