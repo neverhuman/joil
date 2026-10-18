@@ -1,0 +1,62 @@
+schema = "v5-accelerator-admission/1"
+decision = "reference_only"
+decision_date_utc = "2026-10-18"
+
+[purpose]
+statement = "Optional accelerator research track. The release remains complete with mature native CPU solvers and bounded preregistered budgets."
+performance_promise = false
+campaign_sizing_from_assumed_updates_per_second = false
+custom_solver_justified = false
+
+[native_capability]
+source = "physics/openfoam/environment/lock.json"
+family = "OpenFOAM Foundation"
+release = 14
+build = "14-a4867fc914c1"
+architecture = "linux/amd64"
+precision = "double"
+container_network = "none during runs"
+capability_status = "pinned CPU reference; GPU and hydrocyclone ranking explicitly unqualified"
+measured_gpu_speedup = "absent"
+measured_useful_end_to_end_cost = "absent"
+
+[proposed_sparse_lbm]
+status = "CPU-reference software kernels only"
+useful_cost_measurement = "absent"
+physical_model_qualification = "absent"
+required_decision = "compare held-out baseline, conventional, and novel interior subjects after validated common profiles, pressure, grade, ranking, omission, and uncertainty are available"
+
+[proposed_voxel_fea]
+status = "CPU-reference voxel spring-network software controls only"
+useful_cost_measurement = "absent"
+physical_model_qualification = "absent"
+required_decision = "compare matched structural patch, beam, cylinder, and buckling fixtures against an independently validated structural reference and applicable loads/materials"
+
+[admission_policy]
+minimum_end_to_end_speedup = 1.3
+requires_policy_approval = true
+requires_explicit_gpu_lease = true
+requires_held_out_pairs = true
+requires_matching_decision_quality = true
+requires_profiles_grade_pressure_loads_ranking_omission_uncertainty = true
+scope = "per model, level, and applicability envelope"
+version_change_action = "revoke admission when model, kernel, architecture, precision, compiler/runtime, or governing requirement fingerprint changes"
+
+[fallback]
+without_gpu_lease = "run mature native CPU reference with smaller preregistered budget; accelerated results remain exploratory"
+on_failed_gate = "retain reference-only path; do not alter accuracy limits or promote fast-lane outputs"
+numerical_or_physical_failure = "unresolved evidence, never physical infeasibility"
+
+[negative_controls]
+assumed_2_5_gupdates_per_second = "not evidence and cannot size campaign"
+hypothetical_gpu_fleet = "not evidence and cannot size campaign"
+selected_winner_agreement_only = "insufficient; compare full held-out ranking and omissions"
+fast_laminar_fixture = "cannot qualify turbulent deoiling or nonlinear structural collapse"
+fp16 = "not admitted without precision-specific parity and decision-quality evidence"
+nonconservative_block_coupling = "fail"
+invalid_eigenpairs = "fail"
+
+[fixture_scope]
+lbm = ["periodic uniform state conservation", "bounce-back mass conservation", "bounded refinement", "Poiseuille, Taylor-Green, and Couette convergence fixtures remain unimplemented and unqualified"]
+fea = ["synthetic network operator symmetry and finite checks", "anchored linear solve residual", "symmetric matrix eigenpair residual", "patch/beam/cylinder/buckling physical validation absent"]
+oil_and_vortex = "No native oil or actual vortex validation in this packet; ranking prohibited."
