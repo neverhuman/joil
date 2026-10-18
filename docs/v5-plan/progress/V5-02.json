@@ -16,7 +16,7 @@
     "V5-02-02": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Exact frozen D1-D4,7 conflicts and explicit concentration/weighting basis retained; source drift refuses.",
+      "note": "AUDIT-HELD / NOT CURRENTLY VERIFIED. Historical done retained only because ordered dependency validation prevents review (02-03 / 03-01). G004 actual cross-feature red and G005 active22 controls are disclosed. Interrupted d1 official gate has NO RESULT. New full gate at exact pushed head, exact CI and combined updated evidence are required before acceptance.",
       "evidence": [
         {
           "path": "docs/receipts/v5-02-02-completed-20261017.json",
@@ -49,7 +49,7 @@
     "V5-02-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "Nine accountable external inputs block named dependent claims; synthetic sandbox remains allowed, missing data never infeasible.",
+      "note": "AUDIT-HELD / NOT CURRENTLY VERIFIED. Historical done retained only because ordered dependency validation prevents review (02-03 / 03-01). G004 actual cross-feature red and G005 active22 controls are disclosed. Interrupted d1 official gate has NO RESULT. New full gate at exact pushed head, exact CI and combined updated evidence are required before acceptance.",
       "evidence": [
         {
           "path": "docs/receipts/v5-02-05-completed-20261017.json",

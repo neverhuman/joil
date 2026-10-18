@@ -1,3 +1,6 @@
+#[path = "../../crucible-contract/tests/common/scratch.rs"]
+mod scratch;
+use scratch::TestScratch;
 #[path = "../../crucible-contract/tests/common/mod.rs"]
 mod review_fixture;
 use crucible_runtime::{db::RuntimeDb, lease::*, ledger::*, task::*, *};
@@ -9,31 +12,10 @@ use joil_evidence::{claims::ReviewAction, decision::*, identity::ContentRef, obs
 use std::{
     collections::BTreeSet,
     path::{Path, PathBuf},
-    sync::atomic::{AtomicU64, Ordering},
-    time::{Duration, SystemTime, UNIX_EPOCH},
+    time::Duration,
 };
-static SERIAL: AtomicU64 = AtomicU64::new(0);
 fn path(label: &str) -> PathBuf {
-    let base = std::env::var_os("CARGO_TARGET_DIR")
-        .map(PathBuf::from)
-        .filter(|p| p.is_absolute() && p.components().any(|c| c.as_os_str() == ".private"))
-        .unwrap_or_else(|| {
-            Path::new(env!("CARGO_MANIFEST_DIR"))
-                .parent()
-                .unwrap()
-                .parent()
-                .unwrap()
-                .join(".private/test-evidence")
-        });
-    base.join(format!(
-        "v5-runtime-{label}-{}-{}-{}",
-        std::process::id(),
-        SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_nanos(),
-        SERIAL.fetch_add(1, Ordering::Relaxed)
-    ))
+    TestScratch::path(&format!("v5-runtime-{label}"))
 }
 fn experiment() -> SemanticId {
     SemanticId::of(&"synthetic runtime software fixture").unwrap()
@@ -170,6 +152,7 @@ fn synthetic_charge(ms: u64) -> Charge {
 
 #[test]
 fn real_sqlite_transitions_require_verified_closure_charge_and_exact_duplicate_identity() {
+    let _scratch = TestScratch::new();
     let (mut db, s) = context("states");
     let spec = spec(FixtureMode::Succeed);
     db.enqueue("task", &spec).unwrap();
@@ -208,6 +191,7 @@ fn real_sqlite_transitions_require_verified_closure_charge_and_exact_duplicate_i
 }
 #[test]
 fn absent_corrupt_or_wrong_value_outputs_never_commit_from_a_successful_process_claim() {
+    let _scratch = TestScratch::new();
     let (mut db, s) = context("invalid-output");
     let topo = fake_topology();
     for (i, kind) in ["missing", "wrong-value", "corrupt"]
@@ -246,6 +230,7 @@ fn absent_corrupt_or_wrong_value_outputs_never_commit_from_a_successful_process_
 }
 #[test]
 fn late_stale_worker_is_quarantined_and_both_attempts_are_charged() {
+    let _scratch = TestScratch::new();
     let (mut db, s) = context("fences");
     let spec = spec(FixtureMode::Succeed);
     db.enqueue("task", &spec).unwrap();
@@ -284,6 +269,7 @@ fn late_stale_worker_is_quarantined_and_both_attempts_are_charged() {
 }
 #[test]
 fn resource_vector_reservations_and_every_work_class_survive_reopen_without_free_failures() {
+    let _scratch = TestScratch::new();
     let (mut db, s) = context("resources");
     let topo = fake_topology();
     for (i, class) in [
@@ -330,6 +316,7 @@ fn resource_vector_reservations_and_every_work_class_survive_reopen_without_free
 }
 #[test]
 fn real_sysfs_shape_and_explicit_expiry_gpu_sibling_and_rank_negatives() {
+    let _scratch = TestScratch::new();
     let topo = fake_topology();
     assert!(topo.physical_set(&[0, 7]).is_err());
     assert_eq!(topo.physical_set(&[0, 2]).unwrap().len(), 2);
@@ -368,6 +355,7 @@ fn real_sysfs_shape_and_explicit_expiry_gpu_sibling_and_rank_negatives() {
 }
 #[test]
 fn strict_schema_versions_and_online_backup_preserve_rows_and_spend() {
+    let _scratch = TestScratch::new();
     let (mut db, s) = context("backup");
     let spec = spec(FixtureMode::Unsupported);
     db.enqueue("task", &spec).unwrap();
@@ -449,6 +437,7 @@ fn family(
 }
 #[test]
 fn alpha_attempt_spend_is_exact_source_bound_nonresetting_and_durable() {
+    let _scratch = TestScratch::new();
     let (mut db, s) = context("family");
     let mut review = review_fixture::ReviewFixture::new();
     let (policy, source) = family(&mut review, "synthetic-family", 0.05);
@@ -500,6 +489,7 @@ fn alpha_attempt_spend_is_exact_source_bound_nonresetting_and_durable() {
 }
 #[test]
 fn native_artifact_executor_charges_success_timeout_numerical_failure_and_unsupported_distinctly() {
+    let _scratch = TestScratch::new();
     let (mut db, s) = context("native-executor");
     let topology = Topology::system().unwrap();
     let cpu = *topology.allowed.iter().next().unwrap();
@@ -588,6 +578,7 @@ fn native_artifact_executor_charges_success_timeout_numerical_failure_and_unsupp
 }
 #[test]
 fn cancellation_is_owned_and_does_not_signal_another_fixture_process_group() {
+    let _scratch = TestScratch::new();
     let (_, s) = context("owned-cancel");
     let topology = Topology::system().unwrap();
     let cpu = *topology.allowed.iter().next().unwrap();
@@ -623,6 +614,7 @@ fn cancellation_is_owned_and_does_not_signal_another_fixture_process_group() {
 
 #[test]
 fn recorded_process_identity_uses_pidfds_and_rejects_a_changed_start_without_signaling() {
+    let _scratch = TestScratch::new();
     let (_, s) = context("recorded-cancel");
     let topology = Topology::system().unwrap();
     let cpu = *topology.allowed.iter().next().unwrap();
@@ -670,6 +662,7 @@ fn recorded_process_identity_uses_pidfds_and_rejects_a_changed_start_without_sig
 }
 #[test]
 fn an_actual_accounted_overrun_is_retained_and_halts_further_admission() {
+    let _scratch = TestScratch::new();
     let (mut db, _) = context("overrun");
     let topology = fake_topology();
     let task = spec(FixtureMode::NumericalFailure);
@@ -692,6 +685,7 @@ fn an_actual_accounted_overrun_is_retained_and_halts_further_admission() {
 
 #[test]
 fn a_physical_request_remains_unsupported_and_cannot_spawn_a_fixture_as_a_solver() {
+    let _scratch = TestScratch::new();
     let (mut db, s) = context("unsupported-physical");
     let topology = Topology::system().unwrap();
     let cpu = *topology.allowed.iter().next().unwrap();
@@ -740,6 +734,7 @@ fn a_physical_request_remains_unsupported_and_cannot_spawn_a_fixture_as_a_solver
 #[test]
 fn fixture_self_deadline_survives_a_missing_coordinator_poll_and_faults_do_not_change_observation_identity(
 ) {
+    let _scratch = TestScratch::new();
     let (_, s) = context("self-deadline");
     let topology = Topology::system().unwrap();
     let cpu = *topology.allowed.iter().next().unwrap();

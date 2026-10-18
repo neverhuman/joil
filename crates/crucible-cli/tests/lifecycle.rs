@@ -1,5 +1,8 @@
+#[path = "../../crucible-contract/tests/common/scratch.rs"]
+mod scratch;
 use crucible_cli::*;
 use crucible_runtime::{checkpoint::*, db::RuntimeDb, task::Phase};
+use scratch::TestScratch;
 use serde_json::Value;
 use std::{
     fs::OpenOptions,
@@ -9,22 +12,7 @@ use std::{
     time::{Duration, Instant},
 };
 fn base() -> PathBuf {
-    let p = std::env::var_os("CARGO_TARGET_DIR")
-        .map(PathBuf::from)
-        .filter(|p| p.is_absolute() && p.components().any(|c| c.as_os_str() == ".private"))
-        .unwrap_or_else(|| {
-            Path::new(env!("CARGO_MANIFEST_DIR"))
-                .parent()
-                .unwrap()
-                .parent()
-                .unwrap()
-                .join(".private/test-evidence")
-        })
-        .join(format!(
-            "v5-cli-lifecycle-{}-{}",
-            std::process::id(),
-            crucible_runtime::utc_millis().unwrap()
-        ));
+    let p = TestScratch::path("cli-lifecycle");
     open_store(&p).unwrap();
     p
 }
@@ -82,6 +70,7 @@ fn call(base: &Path, args: &[&str], code: i32) -> Value {
 }
 #[test]
 fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import() {
+    let _scratch = TestScratch::new();
     let base = base();
     let root_a = base.join("one-worker");
     let root_b = base.join("two-workers");

@@ -1,3 +1,6 @@
+#[path = "../../crucible-contract/tests/common/scratch.rs"]
+mod scratch;
+use scratch::TestScratch;
 #[path = "../../crucible-contract/tests/common/mod.rs"]
 mod physical_fixture;
 use crucible_contract::keys::*;
@@ -7,35 +10,11 @@ use crucible_store::{
 use joil_evidence::{claims::*, identity::ContentRef};
 use std::{
     collections::{BTreeMap, BTreeSet},
-    path::{Path, PathBuf},
-    sync::{
-        atomic::{AtomicU64, Ordering},
-        Mutex,
-    },
-    time::{SystemTime, UNIX_EPOCH},
+    path::PathBuf,
+    sync::{atomic::Ordering, Mutex},
 };
-static SEQ: AtomicU64 = AtomicU64::new(0);
 fn root(label: &str) -> PathBuf {
-    let base = std::env::var_os("CARGO_TARGET_DIR")
-        .map(PathBuf::from)
-        .filter(|p| p.is_absolute() && p.components().any(|p| p.as_os_str() == ".private"))
-        .unwrap_or_else(|| {
-            Path::new(env!("CARGO_MANIFEST_DIR"))
-                .parent()
-                .unwrap()
-                .parent()
-                .unwrap()
-                .join(".private/test-evidence")
-        });
-    base.join(format!(
-        "v5-store-{label}-{}-{}-{}",
-        std::process::id(),
-        SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_nanos(),
-        SEQ.fetch_add(1, Ordering::Relaxed)
-    ))
+    TestScratch::path(&format!("v5-store-{label}"))
 }
 fn store(label: &str) -> Store {
     Store::open(&root(label)).unwrap()
@@ -63,6 +42,7 @@ fn expected(bytes: &[u8], metadata: Metadata) -> BlobDigest {
 
 #[test]
 fn actual_sigkill_at_every_publication_boundary_never_accepts_partial_bytes() {
+    let _scratch = TestScratch::new();
     use std::os::unix::process::ExitStatusExt;
     for phase in [
         PublishPhase::StagingCreated,
@@ -119,6 +99,7 @@ fn actual_sigkill_at_every_publication_boundary_never_accepts_partial_bytes() {
 }
 #[test]
 fn digest_mismatch_corruption_truncation_traversal_and_symlinks_refuse() {
+    let _scratch = TestScratch::new();
     use std::os::unix::fs::symlink;
     let s = store("paths");
     let bad = BlobDigest::of_bytes(b"wrong expected digest");
@@ -164,6 +145,7 @@ fn digest_mismatch_corruption_truncation_traversal_and_symlinks_refuse() {
 }
 #[test]
 fn concurrent_identical_publication_is_idempotent_and_array_layout_has_independent_oracle() {
+    let _scratch = TestScratch::new();
     let path = root("concurrent");
     Store::open(&path).unwrap();
     let threads: Vec<_> = (0..4)
@@ -297,6 +279,7 @@ fn cache_fixture(s: &Store) -> (EvaluationKey, BlobDigest, BlobDigest) {
 }
 #[test]
 fn exact_cache_requires_all_bytes_and_identities_and_near_duplicates_never_authorize_reuse() {
+    let _scratch = TestScratch::new();
     let s = store("cache");
     let (key, result, _) = cache_fixture(&s);
     s.bind_exact_cache(&key, &result).unwrap();
@@ -357,6 +340,7 @@ fn exact_cache_requires_all_bytes_and_identities_and_near_duplicates_never_autho
 }
 #[test]
 fn revocation_propagates_to_decisions_archives_scenes_and_paper_claims_without_erasing_history() {
+    let _scratch = TestScratch::new();
     let s = store("revocation");
     let (key, result, calibration) = cache_fixture(&s);
     s.bind_exact_cache(&key, &result).unwrap();
@@ -414,6 +398,7 @@ fn revocation_propagates_to_decisions_archives_scenes_and_paper_claims_without_e
 }
 #[test]
 fn closure_cycle_missing_edges_persistent_retention_and_private_image_inheritance() {
+    let _scratch = TestScratch::new();
     let s = store("retention");
     let mesh = s
         .publish(
@@ -545,6 +530,7 @@ impl ObjectBackend for MemoryBackend {
 }
 #[test]
 fn conditional_remote_pointer_backup_restore_and_corrupt_latest_fallback_are_real() {
+    let _scratch = TestScratch::new();
     let source = store("remote-source");
     let backend = MemoryBackend::default();
     let first = source
@@ -633,6 +619,7 @@ fn permit(
 }
 #[test]
 fn export_requires_current_exact_review_and_never_declassifies_private_geometry_images() {
+    let _scratch = TestScratch::new();
     let s = store("export");
     let mut review = physical_fixture::ReviewFixture::new();
     let private = s
@@ -676,6 +663,7 @@ fn export_requires_current_exact_review_and_never_declassifies_private_geometry_
 
 #[test]
 fn explicit_object_and_closure_limits_refuse_before_publication() {
+    let _scratch = TestScratch::new();
     let path = root("limits");
     let s = Store::with_limits(
         &path,
@@ -707,6 +695,7 @@ fn explicit_object_and_closure_limits_refuse_before_publication() {
 
 #[test]
 fn incomplete_reviewed_export_allowlist_cannot_drop_a_governing_public_parent() {
+    let _scratch = TestScratch::new();
     let s = store("incomplete-export");
     let public = Metadata {
         disclosure: Disclosure::PublicCandidate,
@@ -742,6 +731,7 @@ fn incomplete_reviewed_export_allowlist_cannot_drop_a_governing_public_parent() 
 
 #[test]
 fn remote_upload_corruption_lost_cas_and_permission_denial_remain_explicit() {
+    let _scratch = TestScratch::new();
     let s = store("remote-faults");
     let id = s
         .publish(
@@ -770,6 +760,7 @@ fn remote_upload_corruption_lost_cas_and_permission_denial_remain_explicit() {
 
 #[test]
 fn reviewed_export_cannot_copy_an_unselected_private_invalidation_journal() {
+    let _scratch = TestScratch::new();
     let source = store("export-canary");
     let private = source
         .publish(
@@ -812,6 +803,7 @@ fn reviewed_export_cannot_copy_an_unselected_private_invalidation_journal() {
 
 #[test]
 fn reviewed_export_refuses_an_existing_destination_with_unselected_private_files() {
+    let _scratch = TestScratch::new();
     let source = store("fresh-export-source");
     let public = source
         .publish(

@@ -44,6 +44,15 @@ class DefectClosure(unittest.TestCase):
     def check(self):
         plan.validate_defect_controls(self.root, self.ref, self.task, self.receipt)
 
+    def test_missing_gate_file_refuses_even_for_historical_receipts(self):
+        gates = self.root / 'docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json'
+        prior = plan.read_json(gates)['accepted_prior_primary_receipts'][0]
+        gates.unlink()
+        for task, ref in ((self.task, self.ref), (prior['task_id'], prior['receipt'])):
+            self.task, self.ref = task, ref
+            with self.assertRaisesRegex(ValueError, 'missing defect acceptance gates'):
+                self.check()
+
     def test_complete_metadata_is_accepted_without_claiming_execution(self):
         self.check()
 

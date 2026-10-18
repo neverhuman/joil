@@ -66,7 +66,10 @@
         "tests/test_v5_baseline_audit.py",
         "tools/v5_plan.py",
         "tests/test_v5_defect_closure.py",
-        "docs/v5-plan/execution/V5-00-CLOSURE-GATE-SCOPE.md"
+        "docs/v5-plan/execution/V5-00-CLOSURE-GATE-SCOPE.md",
+        "tools/v5_baseline_source_controls.py",
+        "tests/test_v5_baseline_source_controls.py",
+        "docs/v5-plan/execution/V5-00-SOURCE-CONTROLS-SCOPE.md"
       ],
       "edge_cases": [
         "A merged repair may already address part of a source allegation",
@@ -629,7 +632,12 @@
         "tests/test_check.py",
         ".github/workflows/foundation.yml",
         "crates/crucible-runtime/src/task.rs",
-        "tools/v5_fixture_smoke.py"
+        "tools/v5_fixture_smoke.py",
+        "crates/crucible-contract/tests/common/scratch.rs",
+        "crates/crucible-contract/tests/scratch.rs",
+        "crates/crucible-runtime/tests/attempts.rs",
+        "crates/crucible-store/tests/store.rs",
+        "docs/v5-plan/execution/V5-07-SCRATCH-SCOPE.md"
       ],
       "edge_cases": [
         "Logical replay and native solver rerun are separate claims",

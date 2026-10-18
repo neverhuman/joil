@@ -1,3 +1,6 @@
+#[path = "../../crucible-contract/tests/common/scratch.rs"]
+mod scratch;
+use scratch::TestScratch;
 #[path = "../../crucible-contract/tests/common/mod.rs"]
 mod review_fixture;
 use crucible_runtime::{checkpoint::*, db::RuntimeDb, lease::*, ledger::*, replay::*, task::*, *};
@@ -11,32 +14,12 @@ use std::{
     collections::BTreeSet,
     path::{Path, PathBuf},
     process::Command,
-    sync::{
-        atomic::{AtomicU64, Ordering},
-        Mutex,
-    },
+    sync::Mutex,
     time::Duration,
 };
-static SERIAL: AtomicU64 = AtomicU64::new(0);
 static NATIVE: Mutex<()> = Mutex::new(());
 fn path(label: &str) -> PathBuf {
-    let base = std::env::var_os("CARGO_TARGET_DIR")
-        .map(PathBuf::from)
-        .filter(|p| p.is_absolute() && p.components().any(|c| c.as_os_str() == ".private"))
-        .unwrap_or_else(|| {
-            Path::new(env!("CARGO_MANIFEST_DIR"))
-                .parent()
-                .unwrap()
-                .parent()
-                .unwrap()
-                .join(".private/test-evidence")
-        });
-    base.join(format!(
-        "v5-recovery-{label}-{}-{}-{}",
-        std::process::id(),
-        utc_millis().unwrap(),
-        SERIAL.fetch_add(1, Ordering::Relaxed)
-    ))
+    TestScratch::path(&format!("v5-recovery-{label}"))
 }
 fn budget() -> Resources {
     Resources {
@@ -186,6 +169,7 @@ fn reserve_family(db: &mut RuntimeDb) {
 }
 #[test]
 fn complete_nonempty_checkpoint_restores_real_results_and_detects_missing_state() {
+    let _scratch = TestScratch::new();
     let _native = NATIVE.lock().unwrap();
     let (db, s, mut e, _) = context("complete");
     // Freeze the actual producer, not a claimed executable label.
@@ -314,6 +298,7 @@ fn complete_nonempty_checkpoint_restores_real_results_and_detects_missing_state(
 }
 #[test]
 fn checkpoint_kill_child() {
+    let _scratch = TestScratch::new();
     let Ok(root) = std::env::var("JOIL_RECOVERY_TEST_ROOT") else {
         return;
     };
@@ -349,6 +334,7 @@ fn checkpoint_kill_child() {
 }
 #[test]
 fn actual_kills_on_both_sides_of_rename_and_pointer_commit_preserve_verified_history() {
+    let _scratch = TestScratch::new();
     use std::os::unix::process::ExitStatusExt;
     let (mut db, s, e, state) = context("kills");
     db.publish_checkpoint(&s, &e, &state).unwrap();
@@ -389,6 +375,7 @@ fn actual_kills_on_both_sides_of_rename_and_pointer_commit_preserve_verified_his
 }
 #[test]
 fn corrupt_latest_falls_back_with_reason_then_can_publish_without_referencing_bad_root() {
+    let _scratch = TestScratch::new();
     let (mut db, s, e, mut state) = context("corrupt");
     let old = db.publish_checkpoint(&s, &e, &state).unwrap();
     state.archives.audit.push("new generation".into());
@@ -440,6 +427,7 @@ fn synthetic_epoch(state: &mut SearchState, exe: &BlobDigest, reverse: bool) {
 }
 #[test]
 fn addressed_rng_covariance_and_due_order_survive_shuffled_completion() {
+    let _scratch = TestScratch::new();
     let (_, _, e, state) = context("logical");
     let exe =
         BlobDigest::of_bytes(b"explicit synthetic producer identity, no process run in this test");
@@ -491,6 +479,7 @@ fn addressed_rng_covariance_and_due_order_survive_shuffled_completion() {
 }
 #[test]
 fn immutable_drift_refuses_resume_fork_reuses_observations_seed_import_discards_pass() {
+    let _scratch = TestScratch::new();
     let (_, _, e, mut state) = context("identity");
     let exe = BlobDigest::of_bytes(b"synthetic only");
     synthetic_epoch(&mut state, &exe, false);
@@ -525,6 +514,7 @@ fn immutable_drift_refuses_resume_fork_reuses_observations_seed_import_discards_
 }
 #[test]
 fn unaccounted_crashed_attempt_holds_resources_and_blocks_redispatch() {
+    let _scratch = TestScratch::new();
     let (mut db, s, e, mut state) = context("unknown-cost");
     state
         .prepare_epoch(
@@ -557,6 +547,7 @@ fn unaccounted_crashed_attempt_holds_resources_and_blocks_redispatch() {
 }
 #[test]
 fn cost_digest_preserves_charge_data_and_family_ledger_reset_is_refused() {
+    let _scratch = TestScratch::new();
     let (mut db, _, _, _) = context("cost");
     reserve_family(&mut db);
     let a = db.ledger_snapshot().unwrap();
@@ -597,6 +588,7 @@ fn cost_digest_preserves_charge_data_and_family_ledger_reset_is_refused() {
 
 #[test]
 fn charged_preparation_does_not_consume_native_deadline_and_real_slow_child_still_times_out() {
+    let _scratch = TestScratch::new();
     use std::os::unix::fs::PermissionsExt;
     let _native = NATIVE.lock().unwrap();
     let (mut db, s, _, state) = context("execution-clock");

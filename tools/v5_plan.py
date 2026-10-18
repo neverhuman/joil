@@ -49,8 +49,8 @@ def is_tracked(root, path):
 
 def validate_defect_controls(root, ref, task_id, receipt):
     gate_path = root / PLAN / 'execution/DEFECT_ACCEPTANCE_GATES.json'
-    if not gate_path.exists():
-        return
+    if not gate_path.is_file():
+        raise ValueError("missing defect acceptance gates")
     gates = read_json(gate_path)
     required = [r for r in gates['records'] if r['primary_task'] == task_id
                 and r['inventory_evidence_kind'] == 'source_only_inventory']
