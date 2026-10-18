@@ -11,10 +11,12 @@ Blocked rows refuse to produce evidence and name the missing contract, input or 
   v5_baseline_source_controls.py build-frozen-rust FROZEN_ROOT   (needs CARGO_TARGET_DIR)
   v5_baseline_source_controls.py run ROW {positive,red} --scratch DIR [--frozen-rust DIR]
 
-`run` exits 0 when the assertion holds, 1 with `C006-RED <row>: <code> ...` when it fails,
-2 with `C006-SETUP` on any binding/compile/import error (never evidence) and 3 with
-`C006-BLOCKED` for blocked rows. Synthetic fixtures are labelled synthetic; nothing here is a
-physical result, a repair or a V5-00 acceptance.
+`run` owns a fresh or empty scratch directory and refuses anything else, so it can never reuse a
+probe or overwrite earlier evidence. It exits 0 when the assertion holds, 1 with
+`C006-RED <row>: <code> ...` when it fails, 2 with `C006-SETUP` on any scratch, inventory,
+extraction, binding, compile or import error (never evidence) and 3 with `C006-BLOCKED` for
+blocked rows. Synthetic fixtures are labelled synthetic; nothing here is a physical result, a
+repair or a V5-00 acceptance.
 """
 import argparse
 import hashlib
@@ -24,6 +26,7 @@ import json
 import math
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -119,6 +122,11 @@ PYTHON_SOURCES = {
 }
 RUST_ARTIFACTS = {'D-05': ['libjoil_core', 'libjoil_ir'], 'D-16': ['libjoil_core', 'libjoil_ir'], 'D-17': ['libjoil_core', 'libjoil_ir'],
                   'D-24': ['joil-cli'], 'D-30': ['libjoil_core', 'libjoil_ir']}
+ARTIFACT_FILES = {'libjoil_core': 'libjoil_core.rlib', 'libjoil_ir': 'libjoil_ir.rlib', 'joil-cli': 'joil-cli'}
+BUILD_ARGV = ['cargo', 'build', '--locked', '--offline', '--manifest-path', '<frozen-e1-extract>/Cargo.toml',
+              '--config', f'profile.{PROFILE}.inherits="dev"', '--profile', PROFILE, '-p', 'joil-core', '-p', 'joil-ir', '-p', 'joil-cli']
+COMPILED_PROBES = {}  # probe path -> sha256, only for probes compiled by this invocation
+PROBE_PROVENANCE = {}
 
 
 def sha(data):
@@ -126,15 +134,48 @@ def sha(data):
 
 
 def git(*args, binary=False):
-    out = subprocess.run(['git', '-C', str(ROOT), *args], check=True, capture_output=True).stdout
-    return out if binary else out.decode()
+    proc = subprocess.run(['git', '-C', str(ROOT), *args], capture_output=True)
+    if proc.returncode != 0:
+        raise Setup(f'git {args[0]} failed with exit {proc.returncode} (frozen {FROZEN[:7]} needs full history): '
+                    f'{proc.stderr.decode(errors="replace").strip()[-500:]}')
+    return proc.stdout if binary else proc.stdout.decode()
+
+
+def load_inventory(defects=DEFECTS):
+    try:
+        inventory = json.loads(Path(defects).read_text())
+    except (OSError, ValueError) as err:
+        raise Setup(f'defects inventory unreadable: {type(err).__name__}: {err}') from err
+    rows = inventory.get('defects') if isinstance(inventory, dict) else None
+    if not isinstance(rows, list) or not all(isinstance(r, dict) and isinstance(r.get('id'), str) for r in rows):
+        raise Setup('malformed defects inventory: expected a "defects" list of rows with string ids')
+    return rows
 
 
 def recorded(row, defects=DEFECTS):
-    rows = {r['id']: r for r in json.loads(Path(defects).read_text())['defects']}
-    if rows[row]['evidence_state'].startswith('runtime_reproduced'):
+    match = [r for r in load_inventory(defects) if r['id'] == row]
+    if len(match) != 1:
+        raise Setup(f'{row} appears {len(match)} times in the defects inventory')
+    state, sources = match[0].get('evidence_state'), match[0].get('sources')
+    if not isinstance(state, str) or state.startswith('runtime_reproduced'):
         raise Setup(f'{row} is not a source-only row')
-    return rows[row]['sources']
+    if not isinstance(sources, list) or not sources or any(
+            not isinstance(s, dict) or not isinstance(s.get('path'), str) or not isinstance(s.get('symbol'), str)
+            or not re.fullmatch(r'[0-9a-f]{64}', str(s.get('source_sha256', ''))) for s in sources):
+        raise Setup(f'malformed recorded sources for {row}')
+    return sources
+
+
+def prepare_scratch(scratch):
+    """A run owns a fresh or empty directory, so it can never reuse a probe or overwrite evidence."""
+    scratch = Path(scratch)
+    if scratch.is_symlink() or (scratch.exists() and not scratch.is_dir()):
+        raise Setup(f'scratch is not a directory: {scratch}')
+    if scratch.exists() and any(scratch.iterdir()):
+        held = sorted(p.name for p in scratch.iterdir())
+        raise Setup(f'scratch is not empty; refusing to reuse a probe or overwrite evidence: {scratch} holds {held[:5]}')
+    scratch.mkdir(parents=True, exist_ok=True)
+    return scratch.resolve()
 
 
 def extract(paths, dest):
@@ -194,7 +235,25 @@ def bind_rust(row, rust_dir, defects):
             out.append({'path': source['path'], 'symbol': source['symbol'], 'sha256': source['source_sha256'], 'recorded': True})
     if not out:
         raise Setup(f'{row}: no recorded source among frozen artifact inputs')
-    return out, {'frozen_root': frozen_root, 'dep_info_sources_checked': len(rels)}
+    artifacts = {}
+    for artifact in RUST_ARTIFACTS[row]:
+        path = rust_dir / ARTIFACT_FILES[artifact]
+        if not path.is_file():
+            raise Setup(f'missing frozen artifact {path}')
+        artifacts[ARTIFACT_FILES[artifact]] = sha(path.read_bytes())
+    return out, {'frozen_root': frozen_root, 'dep_info_sources_checked': len(rels), 'artifact_sha256': artifacts,
+                 'profile': PROFILE, 'build_argv': BUILD_ARGV, 'toolchain': toolchain()}
+
+
+def rustc_path():
+    return shutil.which('rustc') or str(Path.home() / '.cargo/bin/rustc')
+
+
+def toolchain():
+    proc = subprocess.run([rustc_path(), '-vV'], capture_output=True, text=True)
+    if proc.returncode != 0:
+        raise Setup(f'rustc -vV failed: {proc.stderr.strip()[-300:]}')
+    return dict(line.split(': ', 1) for line in proc.stdout.splitlines()[1:] if ': ' in line)
 
 
 def load_module(name, path, dest):
@@ -280,22 +339,33 @@ fn main() {
 
 
 def rust_probe(rust_dir, scratch):
-    exe = scratch / 'c006-probe'
-    if exe.exists():
+    """Compile the probe once per invocation; never run a probe this invocation did not compile."""
+    exe = Path(scratch) / 'c006-probe'
+    if exe in COMPILED_PROBES:
+        if not exe.is_file() or sha(exe.read_bytes()) != COMPILED_PROBES[exe]:
+            raise Setup(f'probe changed after compilation; refusing to execute {exe}')
         return exe
-    src = scratch / 'c006-probe.rs'
+    src = Path(scratch) / 'c006-probe.rs'
+    if exe.exists() or exe.is_symlink() or src.exists():
+        raise Setup(f'pre-existing probe refused and never executed: {exe}')
     src.write_text(RUST_PROBE)
-    rustc = shutil.which('rustc') or str(Path.home() / '.cargo/bin/rustc')
     d = Path(rust_dir)
     serde_json = sorted((d / 'deps').glob('libserde_json-*.rlib'))
     if len(serde_json) != 1:
         raise Setup(f'expected one frozen serde_json rlib, found {len(serde_json)}')
-    proc = subprocess.run([rustc, '--edition=2021', str(src), '--extern', f'joil_core={d}/libjoil_core.rlib',
-                           '--extern', f'joil_ir={d}/libjoil_ir.rlib', '--extern', f'serde_json={serde_json[0]}',
-                           '-L', f'dependency={d}/deps', '-o', str(exe)],
-                          capture_output=True, text=True)
+    argv = [rustc_path(), '--edition=2021', str(src), '--extern', f'joil_core={d}/libjoil_core.rlib',
+            '--extern', f'joil_ir={d}/libjoil_ir.rlib', '--extern', f'serde_json={serde_json[0]}',
+            '-L', f'dependency={d}/deps', '-o', str(exe)]
+    proc = subprocess.run(argv, capture_output=True, text=True, env={**os.environ, 'TMPDIR': str(scratch)})
     if proc.returncode != 0:
         raise Setup(f'probe compilation failed (not evidence): {proc.stderr[-2000:]}')
+    COMPILED_PROBES[exe] = sha(exe.read_bytes())
+    PROBE_PROVENANCE.update({
+        'sha256': COMPILED_PROBES[exe], 'source_sha256': sha(RUST_PROBE.encode()),
+        'serde_json_rlib': {'name': serde_json[0].name, 'sha256': sha(serde_json[0].read_bytes())},
+        'compile_argv': ['rustc', '--edition=2021', 'c006-probe.rs', '--extern', 'joil_core=<profile>/libjoil_core.rlib',
+                         '--extern', 'joil_ir=<profile>/libjoil_ir.rlib', '--extern', f'serde_json=<profile>/deps/{serde_json[0].name}',
+                         '-L', 'dependency=<profile>/deps', '-o', 'c006-probe']})
     return exe
 
 
@@ -607,16 +677,14 @@ def run(row, mode, scratch, rust_dir, defects):
     if spec['kind'] == 'blocked':
         print(f'C006-BLOCKED {row}: {spec["blocker"]}', file=sys.stderr)
         return 3
-    scratch = Path(scratch).resolve()
-    dest = scratch / 'frozen'
     result = {'row': row, 'mode': mode, 'kind': spec['kind'], 'frozen_commit': FROZEN,
               'assertion': spec['assertion'], 'case': spec[mode]}
     try:
-        scratch.mkdir(parents=True, exist_ok=True)
+        scratch = prepare_scratch(scratch)
+        dest = scratch / 'frozen'
+        recorded(row, defects)
         bindings = []
         if row in PYTHON_SOURCES:
-            if dest.exists():
-                raise Setup(f'scratch already holds a frozen extract: {dest}')
             extract(PYTHON_SOURCES[row], dest)
             bindings += bind_python(row, dest, defects)
         if spec.get('rust'):
@@ -639,8 +707,13 @@ def run(row, mode, scratch, rust_dir, defects):
             raise
         except Exception as err:  # a crash is never a reproduced defect
             raise Setup(f'control crashed (not evidence): {type(err).__name__}: {err}') from err
+        if PROBE_PROVENANCE:
+            result['frozen_rust']['probe'] = dict(PROBE_PROVENANCE)
     except Setup as err:
         print(f'C006-SETUP {row} {mode}: {err}', file=sys.stderr)
+        return 2
+    except Exception as err:  # extraction, filesystem or input failure outside a control
+        print(f'C006-SETUP {row} {mode}: {type(err).__name__}: {err} (not evidence)', file=sys.stderr)
         return 2
     print(json.dumps(result, sort_keys=True))
     if not result['assertion_holds']:
@@ -672,20 +745,24 @@ def main():
     rp.add_argument('--frozen-rust')
     rp.add_argument('--defects', default=str(DEFECTS))
     args = parser.parse_args()
-    if args.command == 'matrix':
-        inventory = {r['id']: r for r in json.loads(DEFECTS.read_text())['defects']}
-        rows = {row: {**spec, 'primary_task': inventory[row]['primary_task'],
-                      'evidence_state': inventory[row]['evidence_state']} for row, spec in ROWS.items()}
-        print(json.dumps({'frozen_commit': FROZEN, 'rows': rows}, indent=2, sort_keys=True))
-        return 0
-    if args.command == 'extract':
-        if Path(args.dest).exists():
-            raise SystemExit(f'refusing to extract into existing {args.dest}')
-        extract(['.'], Path(args.dest))
-        return 0
-    if args.command == 'build-frozen-rust':
+    if args.command == 'run':
+        return run(args.row, args.mode, args.scratch, args.frozen_rust, args.defects)
+    try:
+        if args.command == 'matrix':
+            inventory = {r['id']: r for r in load_inventory()}
+            rows = {row: {**spec, 'primary_task': inventory[row]['primary_task'],
+                          'evidence_state': inventory[row]['evidence_state']} for row, spec in ROWS.items()}
+            print(json.dumps({'frozen_commit': FROZEN, 'rows': rows}, indent=2, sort_keys=True))
+            return 0
+        if args.command == 'extract':
+            if Path(args.dest).exists():
+                raise Setup(f'refusing to extract into existing {args.dest}')
+            extract(['.'], Path(args.dest))
+            return 0
         return build_frozen_rust(args.frozen_root)
-    return run(args.row, args.mode, args.scratch, args.frozen_rust, args.defects)
+    except (Setup, KeyError) as err:
+        print(f'C006-SETUP {args.command}: {type(err).__name__}: {err}', file=sys.stderr)
+        return 2
 
 
 if __name__ == '__main__':
