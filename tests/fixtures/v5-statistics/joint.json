@@ -1,0 +1,27 @@
+{
+  "schema": "joil.v5-04-03.joint-fixture.v1",
+  "synthetic": true,
+  "purpose": "SYNTHETIC fixture - arithmetic and decision behaviour only (final engineering specification section 7.11). Thresholds are example policies, not service requirements.",
+  "family_alpha": 0.05,
+  "n_paired_blocks": 20,
+  "t_09875_df19": 2.4334402114,
+  "litre_per_second_to_cubic_metre_per_hour": 3.6,
+  "requirements": {
+    "id": "synthetic-s02-requirements",
+    "revision": "1",
+    "claim_scope": "synthetic_s02_family",
+    "scenario": {"id": "S02_synthetic_duty", "q_in_m3_h": 4.0, "cin_mg_l": 500.0, "d50_feed_um": 15.0, "viscosity_factor": 1.0},
+    "limit": {"id": "synthetic_quality_limit_mg_l", "value_mg_l": 30.0}
+  },
+  "margins": [
+    {"gate": "quality_condition_a", "estimand": "margin_cout_condition_a", "unit": "mg_per_litre_dispersed_oil", "table_unit": "mg/L", "definition": "30 - C_A",
+     "mean": 5.0, "sd": 2.0, "adverse_bound": 1.0, "expected_lower": 2.912, "tolerance": 0.0005, "ratio_margin": false},
+    {"gate": "quality_condition_b", "estimand": "margin_cout_condition_b", "unit": "mg_per_litre_dispersed_oil", "table_unit": "mg/L", "definition": "30 - C_B",
+     "mean": 4.0, "sd": 2.5, "adverse_bound": 1.0, "expected_lower": 1.640, "tolerance": 0.0005, "ratio_margin": false},
+    {"gate": "energy_common_duty", "estimand": "margin_energy_common_duty", "unit": "joule_per_treated_cubic_metre", "table_unit": "J/m3 treated", "definition": "10000 - e",
+     "mean": 1000.0, "sd": 600.0, "adverse_bound": 100.0, "expected_lower": 573.520, "tolerance": 0.0005, "ratio_margin": false},
+    {"gate": "capacity_ten_percent", "estimand": "margin_capacity_ratio_1p10", "unit": "cubic_metre_per_hour", "table_unit": "L/s", "definition": "Q_candidate - 1.10 Q_baseline",
+     "mean": 0.20, "sd": 0.20, "adverse_bound": 0.03, "expected_lower": 0.06117, "tolerance": 0.000005, "ratio_margin": true, "baseline_mean_l_s": 1.1}
+  ],
+  "failed_margin_variant": {"estimand": "margin_cout_condition_b", "mean": 2.0}
+}

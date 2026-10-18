@@ -1,0 +1,32 @@
+{
+  "schema": "joil.v5-04-04.order-fixture.v1",
+  "synthetic": true,
+  "purpose": "SYNTHETIC multiplicity, rank and tail fixtures; values derived by hand or by an independent exact-rational script, not by the code under test",
+  "holm": [
+    {"p": [0.01, 0.04, 0.03, 0.005], "adjusted": [0.03, 0.06, 0.06, 0.02],
+     "derivation": "sorted 0.005,0.01,0.03,0.04 -> 4x0.005=0.02, 3x0.01=0.03, 2x0.03=0.06, max(0.06,1x0.04)=0.06"},
+    {"p": [0.02, 0.02, 0.02], "adjusted": [0.06, 0.06, 0.06], "reject_at_0_05": [false, false, false], "reject_at_0_10": [true, true, true],
+     "derivation": "ties: 3x0.02=0.06, max(0.06,2x0.02), max(0.06,0.02)"}
+  ],
+  "cliff": [
+    {"a": [1, 2, 3], "b": [2, 3, 4], "delta_fraction": [-5, 9], "derivation": "9 pairs: a>b once (3>2), a<b six times, two ties"},
+    {"a": [5, 5], "b": [5, 5, 5], "delta_fraction": [0, 1], "derivation": "all ties"},
+    {"a": [7, 8], "b": [1, 2, 3], "delta_fraction": [1, 1], "derivation": "complete dominance"}
+  ],
+  "cliff_permutation": {"a": [3, 4, 5], "b": [1, 2, 3], "delta_fraction": [8, 9], "p_greater_fraction": [2, 20],
+    "derivation": "20 relabellings of {1,2,3,3,4,5}; only {3,4,5} with either copy of 3 reaches delta 8/9"},
+  "order_statistic_ranks": {
+    "source": "c007/derive_order_fixture.py exact rationals (math.comb, fractions), log 702bbd45d2b9c4c86fdf5d7e0a06602cfade241fada133e0d89c830a873dc8a2",
+    "cases": [
+      {"n": 10, "quantile": 0.5, "confidence": 0.95, "lower_rank": 2, "upper_rank": 9, "exact_coverage": 0.978515625},
+      {"n": 20, "quantile": 0.9, "confidence": 0.9, "lower_rank": 16, "upper_rank": null},
+      {"n": 72, "quantile": 0.95, "confidence": 0.95, "lower_rank": 64, "upper_rank": 72, "exact_coverage": 0.9654900479083739},
+      {"n": 71, "quantile": 0.95, "confidence": 0.95, "lower_rank": 63, "upper_rank": null},
+      {"n": 368, "quantile": 0.99, "confidence": 0.95, "lower_rank": 360, "upper_rank": 368, "exact_coverage": 0.9624158204108587},
+      {"n": 367, "quantile": 0.99, "confidence": 0.95, "lower_rank": 359, "upper_rank": null}
+    ],
+    "minimal_n": {"p95_conf95": 72, "p99_conf95": 368},
+    "policy_source": "requirements/joil-hydrocyclone-v1.toml quantile_policy min_n_p05_p95=72, min_n_p01_p99=368"
+  },
+  "censoring": {"loq": 1.0, "n": 72, "quantile": 0.95, "confidence": 0.95}
+}

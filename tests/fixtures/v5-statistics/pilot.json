@@ -1,0 +1,56 @@
+{
+  "schema": "joil.v5-04-01.pilot-fixture.v1",
+  "synthetic": true,
+  "purpose": "SYNTHETIC arithmetic and decision-behaviour fixture for prospective replication planning; not physical evidence",
+  "independent_critical_values": {
+    "t_0975_df4": 2.7764451052,
+    "source": "Student t table value frozen in the v5 S02/S03 plan fixtures, independent of the distribution implementation"
+  },
+  "legacy_observation": {
+    "implied_t_df4": 2.72746398,
+    "meaning": "critical value the legacy experiment.rs actually used at df=4, recovered from its compiled output",
+    "source_commit": "b05a38bc07cb6d1689f34128882785ba72f889ac",
+    "source_blob_sha256": "d2b565cb16e2f94ff32a1dbde0b228c1f8d117fb74cb3f21a8709f99ed668b67",
+    "observed_effect_planning": {"required_blocks_original": 61, "required_blocks_after_mean_shift": 11, "paired_sd": 0.0707106781}
+  },
+  "regression_tolerance": 1e-9,
+  "df4_design": {
+    "design_id": "synthetic-df4-design",
+    "pilot_block_ids": ["pilot-a", "pilot-b", "pilot-c"],
+    "pilot_paired_effects": [0.10, 0.125, 0.15],
+    "claim_threshold": 0.10,
+    "useful_effect": 0.05,
+    "alpha_one_sided": 0.025,
+    "power": 0.90,
+    "minimum_blocks": 2
+  },
+  "df4_expected_plan_blocks": 5,
+  "df4_confirmation": {
+    "block_ids": ["confirm-1", "confirm-2", "confirm-3", "confirm-4", "confirm-5"],
+    "paired_effects": [0.14, 0.16, 0.15, 0.17, 0.13],
+    "hand_derived": {"mean": 0.15, "sd": 0.0158113883, "lower_bound": 0.1303674}
+  },
+  "mean_shift": 0.05,
+  "cauchy_design": {
+    "design_id": "synthetic-cauchy-design",
+    "pilot_block_ids": ["pilot-x", "pilot-y", "pilot-z"],
+    "pilot_paired_effects": [0.9, 1.0, 1.1],
+    "claim_threshold": 0.0,
+    "useful_effect": 1.0,
+    "alpha_one_sided": 0.25,
+    "power": 0.60,
+    "minimum_blocks": 2
+  },
+  "cauchy_confirmation": {
+    "block_ids": ["confirm-x", "confirm-y"],
+    "paired_effects": [2.0, 3.0],
+    "hand_derived": {"t_critical": 1.0, "lower_bound": 2.0}
+  },
+  "adequacy_cases": [
+    {"pilot_sd": 1.0, "useful_effect": 0.5, "alpha_one_sided": 0.025, "power": 0.90},
+    {"pilot_sd": 1.0, "useful_effect": 1.0, "alpha_one_sided": 0.025, "power": 0.90},
+    {"pilot_sd": 0.025, "useful_effect": 0.05, "alpha_one_sided": 0.025, "power": 0.90},
+    {"pilot_sd": 1.0, "useful_effect": 0.3, "alpha_one_sided": 0.05, "power": 0.80},
+    {"pilot_sd": 2.0, "useful_effect": 1.0, "alpha_one_sided": 0.01, "power": 0.95}
+  ]
+}

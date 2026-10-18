@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "packet": "V5-04",
+  "owner": "existing-claude-v5-worker",
+  "assignment": "C007 via Captain G-009: claude/next-assignment.json sha256 5f7957f1cf91418090e664d22572c6bc1631de5abe940c63a2cf74f254b4e412, integration review rev 7, contract 908b7e6c00dfe208ab79da23dfc7e17c846876cd, scope b05a38bc07cb6d1689f34128882785ba72f889ac",
+  "input_head": "b05a38bc07cb6d1689f34128882785ba72f889ac",
+  "tested_commit": "800be739b0a51b3f45e8b51b5ca5dc59d6323e8b",
+  "created_utc": "2026-10-18T04:12:29Z",
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "cargo_target": "existing provided claude worker target",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software statistics only; SYNTHETIC fixtures; no physical qualification, admission or threshold change",
+  "kind": "task_receipt_preregistered_calibration_and_family_ledger",
+  "task_ids": [
+    "V5-04-05"
+  ],
+  "checkpoints": [
+    "5332306ed7c5a8286437b386b1162b6c754128fe (registration committed before any calibration trial)"
+  ],
+  "changed_paths": [
+    "crates/crucible-stats/src/analysis/calibration.rs",
+    "crates/crucible-stats/tests/calibration.rs",
+    "tests/fixtures/v5-statistics/calibration-preregistration.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-stats"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 50.177,
+      "log_sha256": "efa78ed0e38254900584079c6a3ed94ce7e3aafe605f7bf43aa39121717e30c9",
+      "note": "33 tests: calibration 5, capture 7, distribution_contract 3, joint 6, order 6, pilot 6 (includes deterministic reproduction of the registered trials)"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-core",
+        "--test",
+        "truth_quantiles"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 17.835,
+      "log_sha256": "18f4594fa7a2d9ae5b13c3bcf5f6ffb03600cf7c39f262e863ed20f3a828dab5",
+      "note": "read-only legacy tail test, untouched, 2 passed"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-core",
+        "--test",
+        "regression",
+        "p06_experiment_calibration_crossover_holdout_ct_and_comparator_gates",
+        "--",
+        "--exact"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 1.195,
+      "log_sha256": "55b6adad1995b6f21986065c08ee8d9fe865481b23b40c2c67954a6f4e0f7921"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-stats",
+        "-p",
+        "joil-core",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 27.459,
+      "log_sha256": "4ca88e89b3dc7603b67a39d8577e5c7abb11989501c37e318e393dca470a8376"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 2.129,
+      "log_sha256": "3d226433666bb2e7bc43624ba071375686257eb2dd4b31a0835cde9b77da2404"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "b05a38bc07cb6d1689f34128882785ba72f889ac",
+        "HEAD"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.291,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 0.758,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-core",
+        "--test",
+        "regression"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 91.971,
+      "log_sha256": "5d0903f3da456b895c062137279925988a195b8e4153bb60afdc7681cb6368b2",
+      "note": "all regression functions; only p06 changed"
+    }
+  ],
+  "preregistration": {
+    "registration_commit": "5332306ed7c5a8286437b386b1162b6c754128fe",
+    "registration_identity": "61a126ff2dfbfa34754f5b5f75dd6525b24000fa6a0e1ebc383a0b030ea5bde1",
+    "registered_bytes": {
+      "tests/fixtures/v5-statistics/calibration-preregistration.json": "a6889700107cdb9cceb8f338b268c9e967991ec89eeb80c683fa60d51c620099",
+      "crates/crucible-stats/tests/calibration.rs": "e2c6398fddccb653dd78bbaa79a6320a260fcec94993f309613cb9b314041e63",
+      "crates/crucible-stats/tests/common/mod.rs": "aa9db5bee9ab5416c6e64fb9c263c675bafda6bca50c39cf5341b9c7581e4a10"
+    },
+    "first_execution": {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-stats",
+        "--test",
+        "calibration",
+        "preregistered_calibration",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 15.085,
+      "log_sha256": "55139a4fc3246b900527bcde6195de17345586adb7977068bcabda286f9f661e"
+    },
+    "reproduction_at_tested_commit": {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-stats",
+        "preregistered",
+        "--",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "wall_seconds": 21.458,
+      "log_sha256": "9a62d51a3db6d0ea2a612df4f66d8cf9451ce715fd8abf2736aed7cbaa4080fa",
+      "note": "all 8 registered outputs byte-identical to their first executions (deterministic seeds)"
+    },
+    "trials": {
+      "this_task": 6000,
+      "packet_total_including_v5_04_02": 8000,
+      "bound": 10000,
+      "max_units_per_trial": 128,
+      "max_clusters_per_trial": 5,
+      "wall_seconds_first_execution": 15.085
+    },
+    "results": [
+      {
+        "case": "joint-simultaneous-coverage-normal",
+        "metric": "coverage",
+        "rate": 0.961,
+        "mc_se": 0.0061,
+        "bound": ">= 0.9322",
+        "passed": true
+      },
+      {
+        "case": "joint-iu-false-qualification-boundary",
+        "metric": "false_qualification",
+        "rate": 0.058,
+        "mc_se": 0.0074,
+        "bound": "<= 0.0678",
+        "passed": true
+      },
+      {
+        "case": "joint-clustered-skewed-cluster-level-coverage",
+        "metric": "coverage",
+        "rate": 1.0,
+        "mc_se": 0.0,
+        "bound": ">= 0.9322",
+        "passed": true
+      },
+      {
+        "case": "joint-clustered-skewed-naive-block-level",
+        "metric": "assumption_violation_demonstration",
+        "rate": 0.902,
+        "mc_se": 0.0094,
+        "bound": "<= 0.9286",
+        "passed": true
+      },
+      {
+        "case": "pilot-plan-power-alternative",
+        "metric": "power",
+        "rate": 0.881,
+        "mc_se": 0.0102,
+        "bound": ">= 0.8756",
+        "passed": true,
+        "planned_blocks": 21
+      },
+      {
+        "case": "pilot-plan-false-qualification-null",
+        "metric": "false_qualification",
+        "rate": 0.034,
+        "mc_se": 0.0057,
+        "bound": "<= 0.0377",
+        "passed": true
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "crates/crucible-stats/src/analysis/calibration.rs",
+      "sha256": "0f69e98fe73ecdef157bdffbf94ee7e1a9762e8e5c3f4e152837b575a29ed44a"
+    },
+    {
+      "path": "crates/crucible-stats/tests/calibration.rs",
+      "sha256": "e2c6398fddccb653dd78bbaa79a6320a260fcec94993f309613cb9b314041e63"
+    },
+    {
+      "path": "tests/fixtures/v5-statistics/calibration-preregistration.json",
+      "sha256": "a6889700107cdb9cceb8f338b268c9e967991ec89eeb80c683fa60d51c620099"
+    }
+  ],
+  "positive_checks": [
+    "coverage, false qualification, power and an assumption-violation demonstration are separately named, each with binomial Monte Carlo SE, and all six registered cases pass their registered bounds",
+    "registration is bounded (total trials, units, clusters), canonically identified and executed exactly as registered; a tuned rerun changes its identity",
+    "the real crucible-runtime RuntimeDb reserves each attempt's alpha (0.025 of 0.05) before work; identical re-reservation is idempotent; a genuine second attempt accumulates to 0.05"
+  ],
+  "negative_checks": [
+    "selecting a new winner at a used attempt ordinal is refused (family_ordinal_reused)",
+    "a fork that restarts the attempt counter fails DecisionProfile continuation",
+    "forking the family policy (larger alpha) cannot reset spend (family_reset_refused); a third attempt exceeds the family budget",
+    "over-bound, duplicate, unscoped or short-run registrations and unregistered cases are refused",
+    "ignoring cluster dependence (naive block level) undercovers at 0.902, as registered"
+  ],
+  "limitations": [
+    "power 0.881 and null false qualification 0.034 sit about 1.9 and 1.6 MC SE on the unfavourable side of nominal while passing their registered tolerance; IU boundary false qualification 0.058 likewise; cluster-level coverage 1.000 is conservative",
+    "planning variance error is not exercised (pilot sd equals true sd); generators are SYNTHETIC normal or standardized-lognormal clustered cases only",
+    "ledger charging is exercised through tests (crucible-runtime is a dev-dependency); joint_lower_bounds itself refuses adaptive winners",
+    "receipt is task evidence, not acceptance; V5-00-03 remains AUDIT-HELD and all physical deferrals remain"
+  ],
+  "next_dependency": "Integrator review/integration of 800be739 (and its checkpoints) into PR #6 and the packet acceptance gate; V5-04 progress promotion remains integrator-owned via tools/v5_plan.py"
+}

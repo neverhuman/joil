@@ -1,5 +1,12 @@
-//! Finite sample summaries. These do not assert independence, coverage or power.
+//! Finite sample summaries and packet-local inference. A summary by itself does not
+//! assert independence, coverage or power; each submodule states its applicability.
 use crate::StatsError;
+
+pub mod calibration;
+pub mod capture;
+pub mod joint;
+pub mod order;
+pub mod pilot;
 
 /// Return the arithmetic mean and unbiased sample variance. No artificial
 /// variance floor converts zero variation into observed information.
