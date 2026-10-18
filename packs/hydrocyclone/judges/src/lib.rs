@@ -9,6 +9,7 @@ pub mod as_built;
 pub mod capacity;
 pub mod dynamics;
 pub mod fatigue;
+pub mod liner_operator;
 pub mod manufacturing;
 pub mod mass;
 pub mod material;
