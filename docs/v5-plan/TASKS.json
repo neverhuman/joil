@@ -58,7 +58,12 @@
       "write_scope": [
         "docs/v5-plan/execution/BASELINE.json",
         "docs/v5-plan/execution/DEFECTS.json",
-        "docs/receipts/v5-00-*"
+        "docs/receipts/v5-00-*",
+        "docs/v5-plan/execution/V4_DEFERRALS.json",
+        "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+        "docs/v5-plan/execution/V5-00-AUDIT-SCOPE.md",
+        "tools/v5_baseline_audit.py",
+        "tests/test_v5_baseline_audit.py"
       ],
       "edge_cases": [
         "A merged repair may already address part of a source allegation",
@@ -88,8 +93,8 @@
         {
           "id": "V5-00-03",
           "title": "Reproduce the defect register",
-          "instructions": "For D-01 through D-31, bind file, symbol, current line, source SHA, observed behavior and minimal reproducer. Separate code-confirmed defects from untested physical hypotheses.",
-          "acceptance": "Every defect maps to one primary repair task and an independent failing fixture.",
+          "instructions": "For D-01 through D-31, bind file, symbol, current line, source SHA, observed behavior and minimal reproducer. Separate code-confirmed defects from untested physical hypotheses. Inventory closure distinguishes executed code behavior, static source/policy/design facts and untested physical hypotheses. A source-only check never closes the corresponding runtime/physical repair; its executable independent red/positive evidence is mandatory when that primary task closes.",
+          "acceptance": "Every allegation maps to one primary repair task and an independently specified failing fixture; source-bound positive/negative inventory checks distinguish executed behavior from source-only facts and blocked hypotheses. No unexecuted regression is reported as executed.",
           "negative_control": "A changed line number alone cannot prove a defect remains present."
         },
         {
@@ -618,7 +623,8 @@
         "tools/check.py",
         "tests/test_check.py",
         ".github/workflows/foundation.yml",
-        "crates/crucible-runtime/src/task.rs"
+        "crates/crucible-runtime/src/task.rs",
+        "tools/v5_fixture_smoke.py"
       ],
       "edge_cases": [
         "Logical replay and native solver rerun are separate claims",
@@ -1509,7 +1515,7 @@
         {
           "id": "V5-19-03",
           "title": "Qualify native static FEA first",
-          "instructions": "Use a pinned mature solver through isolated process adapter. Run patch, rigid body, Lam\u00e9, cantilever, reaction/energy balance and mesh-convergence fixtures; preserve analytic screens only as oracles.",
+          "instructions": "Use a pinned mature solver through isolated process adapter. Run patch, rigid body, Lamé, cantilever, reaction/energy balance and mesh-convergence fixtures; preserve analytic screens only as oracles.",
           "acceptance": "Finite declared stress/deflection outputs are tied to material/process and support evidence.",
           "negative_control": "A fixed-load formula cannot produce structural qualification."
         },

@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "frozen_source_commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+  "source_path": "docs/WORKPLAN-2026-10-15.md",
+  "source_sha256": "e607d355c159ac74a71502320f0ade23e6f70046f074173a41bc496deb1827eb",
+  "scope": "Carry-forward inventory only, never completion of deferred work or permission to compute/contact/fabricate",
+  "deferrals": [
+    {
+      "id": "TR-12",
+      "source_location": "\u00a75 decision8; \u00a76 follow-ons",
+      "title": "homologous typed-subgraph crossover",
+      "historical_scoped_disposition": "legacy operator was renamed/labeled; homologous graph crossover remains deferred",
+      "owner": "genome/search owner",
+      "target_packets": [
+        "V5-11",
+        "V5-12"
+      ],
+      "next_dependency": "innovation-ID graph semantics and independent homologous-crossover controls",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "G-01",
+      "source_location": "\u00a75 decision10; \u00a76 follow-ons",
+      "title": "physical DSD basis",
+      "historical_scoped_disposition": "F1 is a documented prior, not physical DSD transport",
+      "owner": "fluid/transport owner",
+      "target_packets": [
+        "V5-02",
+        "V5-16",
+        "V5-17"
+      ],
+      "next_dependency": "source-bound measured DSD basis and full-residence transport validation",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "G-04",
+      "source_location": "\u00a75 decision10; \u00a76 follow-ons",
+      "title": "machine-readable round4 numeric contract",
+      "historical_scoped_disposition": "round4 documented; machine-readable developmental numeric contract deferred",
+      "owner": "genome/units owner",
+      "target_packets": [
+        "V5-03",
+        "V5-11"
+      ],
+      "next_dependency": "typed quantization/units/domain schema and boundary controls",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "G-05",
+      "source_location": "\u00a75 decision10; \u00a76 follow-ons",
+      "title": "exoticness_index code rename",
+      "historical_scoped_disposition": "docs relabel the gene-activation score; code migration/rename remains scoped debt",
+      "owner": "genome/evidence owner",
+      "target_packets": [
+        "V5-11",
+        "V5-28",
+        "V5-31"
+      ],
+      "next_dependency": "versioned rename/read migration and provenance-preserving consumers",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "INT-06",
+      "source_location": "\u00a75 decision5; \u00a76 continuation",
+      "title": "30-winner sweep",
+      "historical_scoped_disposition": "top6 attempted with incomplete solve/convergence;30-winner sweep not run",
+      "owner": "execution/validation owner",
+      "target_packets": [
+        "V5-14",
+        "V5-15",
+        "V5-28"
+      ],
+      "next_dependency": "ready numerical/physics gates and a separately authorized physical-compute lease",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "F2-Oil",
+      "source_location": "\u00a75 decision6",
+      "title": "4s full-residence oil closure",
+      "historical_scoped_disposition": "deferred and not run",
+      "owner": "oil transport/validation owner",
+      "target_packets": [
+        "V5-16",
+        "V5-17",
+        "V5-18"
+      ],
+      "next_dependency": "closed-inventory full-residence oil transport, numerical/model validation and explicit compute authorization",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "F4",
+      "source_location": "\u00a75 decision7",
+      "title": "physical fabrication and tests",
+      "historical_scoped_disposition": "not started; no fabricated specimen/CT/flow-loop evidence supplied",
+      "owner": "physical validation owner",
+      "target_packets": [
+        "V5-30"
+      ],
+      "next_dependency": "admitted protocol, fabrication/specimen/metrology/flow-loop inputs and explicit external authorization",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "TR-16",
+      "source_location": "\u00a76 physical-requirement deferral",
+      "title": "physical requirement binding/admission",
+      "historical_scoped_disposition": "sandbox binding delivered; physical requirements remain unadmitted",
+      "owner": "requirements/validation owner",
+      "target_packets": [
+        "V5-02",
+        "V5-18",
+        "V5-19"
+      ],
+      "next_dependency": "source-bound pressure/energy/absolute-pressure/duty and installation/material/validation applicability",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "TR-16-threshold-audit",
+      "source_location": "\u00a76 threshold audit refresh",
+      "title": "complete scientific threshold inventory",
+      "historical_scoped_disposition": "sandbox thresholds partly bound; physical/statistical/metrology literals not all admitted",
+      "owner": "requirements/statistics owner",
+      "target_packets": [
+        "V5-02",
+        "V5-04",
+        "V5-21",
+        "V5-31"
+      ],
+      "next_dependency": "enumerated comparison sites, reviewed unit/relation/inference policies and boundary/drift controls",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "EV-09",
+      "source_location": "\u00a76 EV-09 remainder",
+      "title": "independent labels and geometry/mechanism holdouts",
+      "historical_scoped_disposition": "sandbox diagnostics delivered; independent dataset/validation not collected or admitted",
+      "owner": "data/validation owner",
+      "target_packets": [
+        "V5-09",
+        "V5-15",
+        "V5-22"
+      ],
+      "next_dependency": "reviewed independent observations, grouping and holdouts; no prior-label substitution",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "EV-12",
+      "source_location": "\u00a76 EV-12 remainder",
+      "title": "historical/FEA identity manifests",
+      "historical_scoped_disposition": "Wave4 scoped software chain retained; original historical and futureFEA chains incomplete",
+      "owner": "identity/case writer owner",
+      "target_packets": [
+        "V5-10",
+        "V5-14",
+        "V5-19",
+        "V5-31"
+      ],
+      "next_dependency": "exact retained original artifacts or explicit absence; FEA writer/load/material identities",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    },
+    {
+      "id": "V4-follow-on-program",
+      "source_location": "\u00a76 final paragraph",
+      "title": "broader v4 follow-on programme",
+      "historical_scoped_disposition": "genome/fields,QD,surrogate,mechanism/digital-thread,F3/F4,crate split and challenge work remain scope-dependent",
+      "owner": "domain/integration owners",
+      "target_packets": [
+        "V5-08",
+        "V5-09",
+        "V5-10",
+        "V5-11",
+        "V5-12",
+        "V5-13",
+        "V5-14",
+        "V5-15",
+        "V5-16",
+        "V5-17",
+        "V5-18",
+        "V5-19",
+        "V5-20",
+        "V5-21",
+        "V5-22",
+        "V5-23",
+        "V5-24",
+        "V5-25",
+        "V5-26",
+        "V5-27",
+        "V5-28",
+        "V5-29",
+        "V5-30",
+        "V5-31"
+      ],
+      "next_dependency": "each new packet own prerequisites, software/physical evidence and authorized resources",
+      "current_state": "blocked_scoped_remainder_retained",
+      "physical_pass": false
+    }
+  ]
+}
