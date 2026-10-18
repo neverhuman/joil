@@ -4,6 +4,7 @@ use crate::StatsError;
 
 pub mod capture;
 pub mod joint;
+pub mod order;
 pub mod pilot;
 
 /// Return the arithmetic mean and unbiased sample variance. No artificial
