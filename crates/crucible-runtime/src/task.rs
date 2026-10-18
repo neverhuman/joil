@@ -191,7 +191,9 @@ pub struct Execution {
     pub diagnostic: Option<BlobDigest>,
 }
 fn cpu_thread_us() -> Result<u64> {
+    // SAFETY: rusage consists of C integer/timeval fields; zero is a valid initialized output buffer.
     let mut usage: libc::rusage = unsafe { std::mem::zeroed() };
+    // SAFETY: RUSAGE_THREAD queries this thread and usage is a live exclusive output pointer; failure returns before reading its fields.
     if unsafe { libc::getrusage(libc::RUSAGE_THREAD, &mut usage) } != 0 {
         return Err(std::io::Error::last_os_error().into());
     }

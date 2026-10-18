@@ -118,11 +118,14 @@ impl Topology {
     }
 }
 pub fn current_affinity() -> Result<BTreeSet<u32>> {
+    // SAFETY: cpu_set_t is an integer bitset; zero is a valid empty set.
     let mut set: libc::cpu_set_t = unsafe { std::mem::zeroed() };
+    // SAFETY: set is a live writable cpu_set_t and its exact byte size is supplied; PID 0 selects this thread. Errors are checked before reading the mask.
     if unsafe { libc::sched_getaffinity(0, std::mem::size_of_val(&set), &mut set) } != 0 {
         return Err(std::io::Error::last_os_error().into());
     }
     Ok((0..libc::CPU_SETSIZE)
+        // SAFETY: cpu is bounded by CPU_SETSIZE and set is initialized by successful sched_getaffinity.
         .filter(|cpu| unsafe { libc::CPU_ISSET(*cpu as usize, &set) })
         .map(|cpu| cpu as u32)
         .collect())
@@ -306,6 +309,7 @@ impl ProcessIdentity {
     pub fn still_matches(&self) -> Result<bool> {
         Ok(boot_identity()? == self.boot
             && process_start(self.pid)? == Some(self.start_ticks)
+            // SAFETY: getpgid takes only an integer PID and no pointers; failure returns -1 and fails the identity comparison.
             && unsafe { libc::getpgid(self.pid as i32) } == self.group as i32)
     }
     /// Recovery supports the single-process fixture capability only. pidfds
@@ -321,6 +325,7 @@ impl ProcessIdentity {
         if self.pid != self.group || self.pid > i32::MAX as u32 {
             return Err(RuntimeError::Conflict("recorded_process_group_identity"));
         }
+        // SAFETY: pidfd_open receives a range-checked process identity and zero flags, no pointers. Negative returns are rejected before ownership transfer.
         let fd = unsafe { libc::syscall(libc::SYS_pidfd_open, self.pid, 0) };
         if fd < 0 {
             let e = std::io::Error::last_os_error();
@@ -330,6 +335,7 @@ impl ProcessIdentity {
             return Err(e.into());
         }
         use std::os::fd::{AsRawFd, FromRawFd};
+        // SAFETY: successful pidfd_open returned a fresh owned descriptor, representable as a Linux int; File takes sole ownership and closes it on every return path.
         let handle = unsafe { std::fs::File::from_raw_fd(fd as i32) };
         if !self.still_matches()? {
             return Err(RuntimeError::Conflict(
@@ -337,6 +343,7 @@ impl ProcessIdentity {
             ));
         }
         let signal = |number: i32| -> Result<()> {
+            // SAFETY: handle keeps the pidfd live; null siginfo and zero flags request a standard signal. Only SIGTERM/SIGKILL are passed; errors except already-exited ESRCH propagate.
             let result = unsafe {
                 libc::syscall(
                     libc::SYS_pidfd_send_signal,
@@ -366,6 +373,7 @@ impl ProcessIdentity {
                     .saturating_sub(start.elapsed())
                     .as_millis()
                     .min(i32::MAX as u128) as i32;
+                // SAFETY: descriptor is a live writable pollfd, count is exactly one and timeout is bounded to i32. The owned pidfd remains open; EINTR retries within the deadline.
                 let result = unsafe { libc::poll(&mut descriptor, 1, left) };
                 if result > 0 {
                     return Ok(descriptor.revents & libc::POLLIN != 0);
@@ -436,6 +444,7 @@ impl OwnedProcess {
             .mode(0o600)
             .custom_flags(libc::O_NOFOLLOW)
             .open(directory.join("stderr.log"))?;
+        // SAFETY: cpu_set_t is an integer bitset whose all-zero representation is a valid empty affinity mask.
         let mut affinity: libc::cpu_set_t = unsafe { std::mem::zeroed() };
         for cpu in &lease.record.cpus {
             if *cpu >= libc::CPU_SETSIZE as u32 {
@@ -443,6 +452,7 @@ impl OwnedProcess {
                     "cpu_exceeds_native_affinity_mask",
                 ));
             }
+            // SAFETY: cpu was checked below CPU_SETSIZE and affinity is a live initialized, exclusively borrowed mask.
             unsafe { libc::CPU_SET(*cpu as usize, &mut affinity) };
         }
         let cpu_seconds = reserve
@@ -480,6 +490,7 @@ impl OwnedProcess {
                 .min(lease.record.expires_ms)
                 .to_string(),
         );
+        // SAFETY: the closure captures initialized values and uses only stack data and async-signal-safe libc calls after fork; no allocation, locks or panics. Affinity/rlimit pointers live through each call; failures abort exec via io::Error.
         unsafe {
             command.pre_exec(move || {
                 if libc::sched_setaffinity(0, std::mem::size_of_val(&affinity), &affinity) != 0 {
@@ -540,7 +551,9 @@ impl OwnedProcess {
             ));
         }
         let mut status = 0;
+        // SAFETY: rusage contains only C integer/timeval fields; zero initializes a valid writable output buffer.
         let mut usage: libc::rusage = unsafe { std::mem::zeroed() };
+        // SAFETY: group is the owned unreaped child PID; status and usage are live exclusive output buffers. WNOHANG returns are checked before decoding, and reaped is set before fallible decoding.
         let waited = unsafe { libc::wait4(self.group, &mut status, libc::WNOHANG, &mut usage) };
         if waited == 0 {
             return Ok(None);
@@ -624,11 +637,13 @@ impl OwnedProcess {
         if self.reaped {
             return Ok(());
         }
+        // SAFETY: group is the owned child PID and getpgid accepts an integer without pointers; -1 or a changed group fails closed.
         if unsafe { libc::getpgid(self.group) } != self.group {
             return Err(RuntimeError::Conflict(
                 "owned_process_group_identity_changed",
             ));
         }
+        // SAFETY: this child is unreaped and its group identity was checked. Negating its positive PID targets only the group created by process_group(0); callers pass SIGTERM/SIGKILL.
         if unsafe { libc::kill(-self.group, signal) } != 0 {
             let e = std::io::Error::last_os_error();
             if e.raw_os_error() != Some(libc::ESRCH) {
@@ -642,6 +657,7 @@ impl Drop for OwnedProcess {
     fn drop(&mut self) {
         if !self.reaped && self.signal_owned(libc::SIGKILL).is_ok() {
             let mut status = 0;
+            // SAFETY: group identifies our unreaped child and status is a live writable int. WNOHANG avoids blocking Drop; this is best-effort cleanup, not proof of reaping.
             unsafe { libc::waitpid(self.group, &mut status, libc::WNOHANG) };
         }
     }
@@ -688,7 +704,9 @@ pub struct ProcessAudit {
 }
 pub fn current_process_audit() -> Result<ProcessAudit> {
     let limit = |resource| -> Result<u64> {
+        // SAFETY: rlimit contains integer fields and zero is a valid initialized output buffer.
         let mut limits: libc::rlimit = unsafe { std::mem::zeroed() };
+        // SAFETY: resource is a supported RLIMIT constant and limits is a live exclusive output pointer. Failure returns before the output is read.
         if unsafe { libc::getrlimit(resource, &mut limits) } != 0 {
             return Err(std::io::Error::last_os_error().into());
         }
@@ -713,6 +731,7 @@ pub fn current_process_audit() -> Result<ProcessAudit> {
         address_space_limit: limit(libc::RLIMIT_AS)?,
         file_size_limit: limit(libc::RLIMIT_FSIZE)?,
         cpu_seconds_limit: limit(libc::RLIMIT_CPU)?,
+        // SAFETY: getpgrp/getpid have no pointer arguments and only query the calling process identity.
         owns_process_group: unsafe { libc::getpgrp() == libc::getpid() },
         numerical_threads,
         cuda_visible_devices: std::env::var("CUDA_VISIBLE_DEVICES").unwrap_or_default(),

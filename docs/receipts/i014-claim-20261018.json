@@ -1,0 +1,25 @@
+{
+  "packet": "I014",
+  "worker": "1052075.joil_v5_codex",
+  "base_commit": "b8c16091932a4c75aeaff211b0a00d7f400bc6d9",
+  "exclusive_paths": [
+    "crates/crucible-cli/src/bin/v5-plan.rs",
+    "crates/crucible-cli/src/bin/v5-d29-blind-judge-control.rs",
+    "crates/crucible-cli/tests/plan_parity.rs",
+    "crates/crucible-cli/tests/d29_blind_judge_parity.rs",
+    "crates/crucible-runtime/src/lease.rs",
+    "crates/crucible-runtime/src/task.rs",
+    "PY_TO_RUST_PLAN.md",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i014-rust-ci-20261018.json"
+  ],
+  "resources": {
+    "cargo_jobs": 2,
+    "test_threads": 2,
+    "physical_cores_max": 4,
+    "ram_gib": 12,
+    "outputs_gib": 5,
+    "gpu": false
+  },
+  "authorization": "User I014 dispatch; no delegation"
+}
