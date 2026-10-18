@@ -3,34 +3,64 @@
   "packet": "V5-17",
   "tasks": {
     "V5-17-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Toy tracer ensembles do not qualify the production native adapter.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-17-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: RSM/LES software inputs are not matched measured carrier-field evidence.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-17-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Breakup exposure/calibration data remain unavailable.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-17-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Transfer reuse has only synthetic held-out/noninteraction controls.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-17-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Caller cluster/time-block/critical-value metadata still needs independent statistical admission.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

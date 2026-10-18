@@ -1,0 +1,51 @@
+{
+  "schema": "joil.v5.lane-receipt.v1",
+  "packet": "V5-22",
+  "tasks": ["V5-22-01", "V5-22-02", "V5-22-03", "V5-22-04", "V5-22-05"],
+  "state": "software_controls_complete_scientific_admission_open",
+  "utc": "2026-10-18T06:05:46Z",
+  "worker": "3128818.joil_v5_codex_lane1",
+  "branch": "codex/v5-lane1",
+  "tested_commit": "08fccf8569805306181a6c77f13a129498581634",
+  "source_commits": ["08fccf8569805306181a6c77f13a129498581634"],
+  "claim_receipt": "docs/receipts/v5-22-claim-20261018T060205Z.json",
+  "implementation_paths": [
+    "crates/crucible-search/src/acquisition.rs",
+    "crates/crucible-search/src/audit.rs",
+    "crates/crucible-search/src/surrogate.rs",
+    "crates/crucible-search/src/lib.rs",
+    "crates/crucible-search/tests/acquisition.rs",
+    "experiments/v5-acquisition.toml"
+  ],
+  "commands": [
+    {"argv": ["taskset", "-c", "36,37", "rtk", "cargo", "test", "--locked", "-p", "crucible-search", "--test", "acquisition"], "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-22-acquisition-test.log", "sha256": "e3ac33d281504cc4882ef7cd68eb8a44912e3f077899fa1364d5d4970a3d13c3"},
+    {"argv": ["taskset", "-c", "36,37", "rtk", "cargo", "test", "--locked", "-p", "crucible-search"], "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-22-crate-test.log", "sha256": "3dca6a5ddf39c57f011167cee45bab0fbbece074f2e145b9747aa9225a6c0490"},
+    {"argv": ["taskset", "-c", "36,37", "rtk", "cargo", "clippy", "--locked", "-p", "crucible-search", "--all-targets", "--", "-D", "warnings"], "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-22-clippy.log", "sha256": "caa636ec9c7cba2c4f265005f356629e3a1e8fe35395de581375a782de9931bc"},
+    {"argv": ["taskset", "-c", "36,37", "rtk", "cargo", "fmt", "--all", "--", "--check"], "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-22-fmt.log", "sha256": "d1a4bce096fc3d3e889cbde36193bd130482481516c1b49f20483c1ac1fb1bbf"},
+    {"argv": ["taskset", "-c", "36,37", "rtk", "proxy", "python3", "tools/check_public.py"], "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-22-public.log", "sha256": "befc753e17d3149d308739cb37d6b32bd7e44c9626c5094694979728439b8b7d"},
+    {"argv": ["taskset", "-c", "36,37", "rtk", "git", "diff", "--check"], "exit_code": 0, "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-22-diff.log", "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"}
+  ],
+  "resources": {"cpus": [36, 37], "max_rss_gib": 6, "max_scratch_gib": 2.5, "target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target", "incremental": false, "gpu": false, "target_size_bytes_at_gate": 458227712},
+  "positive_checks": [
+    "3 acquisition integration tests passed; whole crucible-search crate reported 19 tests passed across 4 suites, including existing V5-21 reference controls.",
+    "Largest-remainder allocation is deterministic for odd batches; proposal IDs are unique and accepted cost never exceeds the supplied budget.",
+    "Audit draws cover low-ranked strata, estimate recall/rank disagreement with Wilson intervals, charge audit cost in the result, and deny pruning when audit budget fails.",
+    "Failed resolution/rotation/gap challenges quarantine dependent claims and pin a regression ID; frozen epoch coordinate/crosswalk/policy changes are rejected.",
+    "Independent and sandbox prior/pruned-input namespaces remain separate; grouped holdouts exclude shared geometry and preparation; held-out calibration and prediction checks abstain for insufficient coverage, OOD and unsupported geometry."
+  ],
+  "negative_controls": [
+    "Recipe-prior origin and pruned raw input cannot enter the independent-label dataset; sandbox prior remains separately named.",
+    "Duplicate proposals do not duplicate selection; unaffordable proposals do not overcommit budget.",
+    "High elite correlation cannot override a failed audit budget or low recall lower bound.",
+    "Unsupported geometry and changed policy epoch/crosswalk are rejected; predicted metrics are not inserted into qualified archive by these APIs."
+  ],
+  "limitations": [
+    "Software controls only; no physical or scientific PASS and no admitted independent labels are supplied.",
+    "crucible-search has no joil-evidence dependency. EV-09/EV-12 readiness, live evidence references, revocation dependencies and reviewer decisions must be verified upstream; dataset intake flags alone are not evidence authority.",
+    "Audit cost is exposed in AuditResult but integration must charge it to every experiment-arm ledger.",
+    "The exploit challenge evaluates supplied resolution/rotation/gap outcomes; native geometry or solver challenge execution is outside this packet.",
+    "V5-04, V5-15, V5-17 and V5-21 dependency acceptance remains an integrator decision."
+  ],
+  "next_dependency": "Integrate with upstream joil-evidence admission and per-arm audit ledger, then use source-bound independently qualified labels for calibration; retain direct evaluation until then.",
+  "agent_trailers": {"Agent-Session": "3128818.joil_v5_codex_lane1", "Agent-Model": "gpt-6-luna medium", "Agent-Task": "V5-22"}
+}

@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "task": "V5-26",
+  "lane": "codex_lane4",
+  "state": "in_progress",
+  "tested_commit": "aea2b5738e00401f3afc8888c78a534e04cfc946",
+  "changed_paths": [
+    "Cargo.toml",
+    "crates/crucible-render/Cargo.toml",
+    "crates/crucible-render/src/lib.rs",
+    "recipes/v5/registry.json",
+    "render/blender/README.md",
+    "render/blender/plate.py",
+    "render/blender/profile.json",
+    "render/blender/render_job.py",
+    "tests/fixtures/v5-scenes/private-geometry-unapproved.json",
+    "tests/fixtures/v5-scenes/unavailable-oil-card.json",
+    "tests/fixtures/v5-scenes/wrong-subject.json",
+    "tests/fixtures/v5-scenes/wrong-time.json",
+    "tests/fixtures/v5-scenes/wrong-transform.json",
+    "tests/fixtures/v5-scenes/wrong-unit.json"
+  ],
+  "draft_interface_assumptions": {
+    "V5-10": "Future surface/export bundle supplies exact artifact digest, SI unit/frame and canonical GLB path; no V5-10 concrete API was available in this lane.",
+    "crucible-cli": "Render subcommand remains integrator-owned and is not wired here.",
+    "workspace": "Cargo.toml registration is draft lane scaffolding; Cargo.lock reconciliation is integrator-owned."
+  },
+  "commands": [
+    {
+      "command": "taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target rtk cargo test --locked -p crucible-render",
+      "exit_code": 101,
+      "log_sha256": "95fa0a9378a161ff1490fc1fe33bb4132cf00a4656d4629adb368d76149c33b9",
+      "result": "blocked before compilation: lockfile update required"
+    },
+    {
+      "command": "taskset -c 110,111 nice -n 10 env CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 RAYON_NUM_THREADS=2 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target rtk cargo clippy --locked -p crucible-render --all-targets -- -D warnings",
+      "exit_code": 101,
+      "log_sha256": "0ad27a54302daffbc9fba9f676251e9e3008181d90618a7bb83a0015273d4992",
+      "result": "blocked before compilation: lockfile update required"
+    },
+    {
+      "command": "rtk proxy cargo fmt --check -- crates/crucible-render/src/lib.rs",
+      "exit_code": 0,
+      "log_sha256": "01725952b7c197b70768eff2b9f73d6298db69236e0b6ed9a97f7f3b2e731ab9"
+    },
+    {
+      "command": "rtk proxy python3 -m py_compile render/blender/plate.py render/blender/render_job.py",
+      "exit_code": 0,
+      "log_sha256": "0013a1b6d985882f2bb6c28439f98f7be24c0bb2366e163bfdebe42a9d50506b"
+    },
+    {
+      "command": "rtk proxy python3 render/blender/plate.py --probe",
+      "exit_code": 0,
+      "log_sha256": "e651e1aae809b20b02ccf2dfd840fb3e03d6484662ca6d70d1eb6025e2a33b98"
+    },
+    {
+      "command": "rtk proxy python3 render/blender/plate.py --dry-run --bundle tests/fixtures/v5-scenes/unavailable-oil-card.json --recipe recipes/v5/registry.json --output /home/ubuntu/joil/.private/v5-workers/codex_lane4/dry-run --frames 2",
+      "exit_code": 0,
+      "log_sha256": "3257e3ddc97b893dce76f76243337543bc4bf6182fcdd6aec2c172aee2ea120e"
+    },
+    {
+      "command": "rtk proxy git diff --check",
+      "exit_code": 0,
+      "log_sha256": "5c73584b6b4c8c8d68e57a4240e2b8bc3aa0e794989dd68a013b1c1409e38661"
+    },
+    {
+      "command": "rtk proxy python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_sha256": "8ca18bc22ce8d8b406d2daaaa23cb70878dace9c0a9144b83bede332adb98ca7"
+    }
+  ],
+  "positive_checks": [
+    "Registry contains all 66 existing catalogue family IDs and all 8 additional v5 gates (74 total).",
+    "Blender availability probe reports installed Blender 4.0.2; no Blender 5.2 dependency assumed.",
+    "Dry-run emits deterministic cache key and resumes from completed-frame list.",
+    "Public scan passed; no private artifacts staged."
+  ],
+  "negative_checks": [
+    "Fixture corpus covers wrong subject, time, unit, transform and unapproved private geometry; Rust tests are authored but unexecuted because of lockfile block.",
+    "Registry oil policy expressly requires unavailable data cards and prohibits authored trajectories; registry has zero evidence-available and zero rendered entries.",
+    "Rust unit controls cover wrong subject/time/unit/transform, unapproved private geometry, invalid scalar/mask, mirrored basis, build-specific cache key and missing catalogue mapping; unexecuted pending lock integration."
+  ],
+  "artifact_sha256": {
+    "recipes/v5/registry.json": "fd52b24232f675cfd075b6dcd45e5006f9ee436f5ea2bd401135bcac5781d5ef",
+    "tests/fixtures/v5-scenes/unavailable-oil-card.json": "240f8f54d7ece29355c0d24e9f245bc866b9c58efb7a26e1b71b8f805a3843f7",
+    "tests/fixtures/v5-scenes/wrong-subject.json": "d9d1e1210ebd2b5b6967d43c90fb02d89cb1d39c9a682697f53da3cb6ca74873",
+    "tests/fixtures/v5-scenes/wrong-time.json": "ed0cc889640131730b62823ce1cec76537a6c502297a2c5b5e84e762b39bfed1",
+    "tests/fixtures/v5-scenes/wrong-unit.json": "85c10f7d980f82fdf0e8cedb32908d332d436922ad0c60df47a5720418a2f1f2",
+    "tests/fixtures/v5-scenes/wrong-transform.json": "2be8933ccd762202cbcced33cdb6893ac63653cdf5685e5927025d86595acf41",
+    "tests/fixtures/v5-scenes/private-geometry-unapproved.json": "685de7cf123fedd85681a3fa6a47559da8e52a7c94eb06ee85a3228f9293ab0c"
+  },
+  "evidence_limits": [
+    "No scene is scientifically qualified by this software or by rendering.",
+    "No oil dataset was available; no trajectories or evidence were authored.",
+    "Real Blender frame rendering, profile parity and human layout review were not run.",
+    "Rust tests and clippy remain unverified until integrator reconciles Cargo.lock."
+  ],
+  "resources": {
+    "cpus": [
+      110,
+      111
+    ],
+    "rss_gib_cap": 6,
+    "scratch_gib_cap": 2.5,
+    "gpu": false,
+    "simulation": false
+  },
+  "next_dependency": "Integrator adds the crucible-render workspace package and local dependencies to Cargo.lock, then rerun the exact locked test and clippy commands. Only after gates pass can lane status advance to lane_complete."
+}

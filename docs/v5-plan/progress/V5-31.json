@@ -3,34 +3,64 @@
   "packet": "V5-31",
   "tasks": {
     "V5-31-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Selected integrations reviewed and tested; upstream packet acceptance and final gate still open.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-31-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Legacy paths retained because real native parity/provenance is incomplete.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-31-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Eight-suite CI includes new controls; final source/head CI still required.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-31-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Partial R1 scope and optional-track fallback recorded; no R2/R3/R4 qualification.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-31-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Final exact-head gate/publication/CI and owner acceptance remain required.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

@@ -3,34 +3,64 @@
   "packet": "V5-30",
   "tasks": {
     "V5-30-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Concrete protocol remains unsigned/unapproved; no spending/collection authority.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-30-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Exact synchronized reduction verified on fixtures; real calibration/recovery/covariance evidence absent.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-30-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Passport validators have no independent as-built specimens/metrology.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-30-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Software bounds never grant canonical DecisionProfile/physical qualification.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-30-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Private storage/allowlist controls tested; owner review/disclosure decisions not supplied.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-18-01"
+  ],
+  "packet": "V5-18",
+  "created_utc": "2026-10-18T06:08:14Z",
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "source_base": "8832e348897777ce21c046c208d3b1074ec4294c",
+  "tested_commit": "7635854be143b94d8e03d9f31fefa0113cf5ed54",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/metrics.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/tests/metrics.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "metrics"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-metrics-final.log",
+      "log_sha256": "41c1035e6015613a851dc012dbe19f49216d4d7ec0d1321b1d1fdfd9371bc3db"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-judges-final.log",
+      "log_sha256": "8b83afc87f4f21f0b42b5af88a6a75f4e798c1ce9010f8b0f25e30a40454e77f"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-clippy-final.log",
+      "log_sha256": "60f929235fdb5b66ad02704997fd3856a8f12a0dcf080805c4ad34f9fd0492eb"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-fmt-check.log",
+      "log_sha256": "860dd05b1665b159c7c70d6f275d755a59a49c9b1bfe3c01909c903a89b3a179"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-check-public.log",
+      "log_sha256": "c1a596c9618a751fa4f71b09b0362e045a9eeb16105b2fabc1972f44866fe6cd"
+    }
+  ],
+  "positive_checks": [
+    "oracle_500_mg_l_at_94_percent_fails_30_mg_l",
+    "oracle_95_percent_and_required_capture_for_limits",
+    "reduced_efficiency_path_equals_raw_capture_path",
+    "inventory_bounds_assign_unresolved_mass_adversely",
+    "transient_concentration_uses_one_synchronised_window",
+    "cohort_concentration_needs_oil_basis_and_normalised_bins"
+  ],
+  "negative_checks": [
+    {
+      "test": "negative_control_missing_split_denominator_is_caught_by_oracle",
+      "kind": "mutation_M1"
+    },
+    {
+      "test": "negative_control_negative_reduced_efficiency_is_not_clipped",
+      "kind": "mutation_M2"
+    },
+    {
+      "test": "negative_control_daughter_double_count_is_refused",
+      "kind": "test_only"
+    },
+    {
+      "mutation": "M1",
+      "kind": "mutation_red",
+      "exit_code": 101,
+      "log_sha256": "afc98026322c0c46c609ae5a6eca0c9f71a30a029f7ac3f8edb98f9590507652",
+      "failed_tests": [
+        "inventory_bounds_assign_unresolved_mass_adversely",
+        "negative_control_missing_split_denominator_is_caught_by_oracle",
+        "negative_control_negative_reduced_efficiency_is_not_clipped",
+        "oracle_500_mg_l_at_94_percent_fails_30_mg_l",
+        "oracle_95_percent_and_required_capture_for_limits",
+        "reduced_efficiency_path_equals_raw_capture_path"
+      ]
+    },
+    {
+      "mutation": "M2",
+      "kind": "mutation_red",
+      "exit_code": 101,
+      "log_sha256": "f572ad05cf22ff1927ed2a1a97158c404f6add721104bdc2bcedadff9165ed7b",
+      "failed_tests": [
+        "negative_control_negative_reduced_efficiency_is_not_clipped"
+      ]
+    }
+  ],
+  "mutation_runs": [
+    {
+      "mutation": "M1",
+      "description": "remove split denominator (1 - r) from outlet_concentration_mg_l",
+      "file": "packs/hydrocyclone/judges/src/metrics.rs",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "metrics"
+      ],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-mutation-M1-red.log",
+      "log_sha256": "afc98026322c0c46c609ae5a6eca0c9f71a30a029f7ac3f8edb98f9590507652",
+      "failed_tests": [
+        "inventory_bounds_assign_unresolved_mass_adversely",
+        "negative_control_missing_split_denominator_is_caught_by_oracle",
+        "negative_control_negative_reduced_efficiency_is_not_clipped",
+        "oracle_500_mg_l_at_94_percent_fails_30_mg_l",
+        "oracle_95_percent_and_required_capture_for_limits",
+        "reduced_efficiency_path_equals_raw_capture_path"
+      ]
+    },
+    {
+      "mutation": "M2",
+      "description": "clip reduced efficiency at zero",
+      "file": "packs/hydrocyclone/judges/src/metrics.rs",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "metrics"
+      ],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-mutation-M2-red.log",
+      "log_sha256": "f572ad05cf22ff1927ed2a1a97158c404f6add721104bdc2bcedadff9165ed7b",
+      "failed_tests": [
+        "negative_control_negative_reduced_efficiency_is_not_clipped"
+      ]
+    }
+  ],
+  "tests_cited": [
+    "oracle_500_mg_l_at_94_percent_fails_30_mg_l",
+    "oracle_95_percent_and_required_capture_for_limits",
+    "reduced_efficiency_path_equals_raw_capture_path",
+    "inventory_bounds_assign_unresolved_mass_adversely",
+    "transient_concentration_uses_one_synchronised_window",
+    "cohort_concentration_needs_oil_basis_and_normalised_bins",
+    "negative_control_missing_split_denominator_is_caught_by_oracle",
+    "negative_control_negative_reduced_efficiency_is_not_clipped",
+    "negative_control_daughter_double_count_is_refused"
+  ],
+  "artifacts": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-metrics-final.log",
+      "sha256": "41c1035e6015613a851dc012dbe19f49216d4d7ec0d1321b1d1fdfd9371bc3db"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-judges-final.log",
+      "sha256": "8b83afc87f4f21f0b42b5af88a6a75f4e798c1ce9010f8b0f25e30a40454e77f"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-clippy-final.log",
+      "sha256": "60f929235fdb5b66ad02704997fd3856a8f12a0dcf080805c4ad34f9fd0492eb"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-fmt-check.log",
+      "sha256": "860dd05b1665b159c7c70d6f275d755a59a49c9b1bfe3c01909c903a89b3a179"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-check-public.log",
+      "sha256": "c1a596c9618a751fa4f71b09b0362e045a9eeb16105b2fabc1972f44866fe6cd"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-mutation-M1-red.log",
+      "sha256": "afc98026322c0c46c609ae5a6eca0c9f71a30a029f7ac3f8edb98f9590507652"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-mutation-M2-red.log",
+      "sha256": "f572ad05cf22ff1927ed2a1a97158c404f6add721104bdc2bcedadff9165ed7b"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-mutation-M3-red.log",
+      "sha256": "ce566c427341c7256ebd1f88ef496334055f884405b8f7f420ecb2c3eedb0510"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-18-mutation-M4-red.log",
+      "sha256": "c99ff958ce064424fedc8af4bda9284c96df267ed755e9d81eeed2e109afe32b"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target (worker target, not cleaned)",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Synthetic fixtures and arithmetic only: no physical, CFD or rig result; scientific admission is not claimed.",
+    "Packet dependencies V5-04, V5-13, V5-15, V5-17 and V5-20 are todo or blocked, so tools/v5_plan.py accepts only status blocked for V5-18 tasks.",
+    "TASKS.json names packs/hydrocyclone/judges/{metrics,capacity,objectives}.rs; the lane wrote under packs/hydrocyclone/judges/src/ as the stage scope specifies.",
+    "analysis/operating_map.py named in the ordered reads is absent from this checkout and was not used.",
+    "The judge crate does not depend on joil-core; crates/joil-core/src/metrics.rs was read but not linked.",
+    "Historical static_pressure_work_per_feed_m3 has no symbol in this repository; it is represented as a labelled basis only.",
+    "D-11 location hint (evolve.rs energy formula) is not in this repository and is not closed by this packet.",
+    "Transient concentration and DSD integral are arithmetic checks on supplied values; no measured oil or treated-volume data is admitted.",
+    "Minimum capture 0.9412 and 0.9608 are oracle values for the nominal 500 mg/L fixture only."
+  ],
+  "next_dependency": "V5-18-02 after the dependencies above are accepted",
+  "status_claim": "software_tests_passing_packet_blocked_by_dependencies",
+  "scientific_admission": false
+}

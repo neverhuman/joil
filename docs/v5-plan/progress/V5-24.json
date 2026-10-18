@@ -3,34 +3,64 @@
   "packet": "V5-24",
   "tasks": {
     "V5-24-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: No measured native acceleration capability comparison or GPU lease.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-24-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Bounded CPU spring/LBM references exist; GPU kernels and production parity absent.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-24-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Elementary fixtures do not qualify turbulent deoiling or continuum collapse.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-24-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: No held-out paired decision-quality/speedup admission evidence.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-24-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Reference fallback software exists; mature native reference qualification still required.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

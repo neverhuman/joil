@@ -100,6 +100,108 @@ fn call(base: &Path, args: &[&str], code: i32) -> Value {
     }
 }
 
+fn checked_attempt_charges(
+    attempts: &TableSnapshot,
+    charges: &TableSnapshot,
+    committed_tasks: usize,
+    reported: u64,
+) -> Result<u64, &'static str> {
+    let column = |table: &TableSnapshot, name: &str| {
+        table.columns.iter().position(|c| c == name).ok_or("column")
+    };
+    let id = column(attempts, "id")?;
+    let task = column(attempts, "task")?;
+    let fence = column(attempts, "fence")?;
+    let phase = column(attempts, "phase")?;
+    let charged_attempt = column(charges, "attempt")?;
+    let mut identities = std::collections::BTreeSet::new();
+    let mut histories = std::collections::BTreeMap::<_, Vec<_>>::new();
+    for row in &attempts.rows {
+        let identity = row[id].as_str().ok_or("attempt identity")?;
+        let task = row[task].as_str().ok_or("task identity")?;
+        let fence = row[fence].as_u64().ok_or("fence")?;
+        let phase = row[phase].as_str().ok_or("phase")?;
+        if !identities.insert(identity)
+            || !matches!(
+                phase,
+                "committed" | "timed_out" | "numerical_failure" | "infrastructure_failure"
+            )
+        {
+            return Err("duplicate or unfinished attempt");
+        }
+        histories.entry(task).or_default().push((fence, phase));
+    }
+    if histories.len() != committed_tasks {
+        return Err("wrong committed task count");
+    }
+    for history in histories.values_mut() {
+        history.sort_unstable();
+        for (index, (fence, phase)) in history.iter().enumerate() {
+            if *fence != index as u64 + 1 || (*phase == "committed") != (index + 1 == history.len())
+            {
+                return Err("missing fence or noncanonical completion");
+            }
+        }
+    }
+    let mut charged = std::collections::BTreeSet::new();
+    for row in &charges.rows {
+        if !charged.insert(row[charged_attempt].as_str().ok_or("charge identity")?) {
+            return Err("duplicate charge");
+        }
+    }
+    if charged != identities || reported != charged.len() as u64 {
+        return Err("missing, orphaned or unreported charge");
+    }
+    Ok(reported)
+}
+
+fn assert_run_accounting(root: &Path, report: &Value, committed_tasks: usize) -> u64 {
+    let ledger = RuntimeDb::inspect_existing(root)
+        .unwrap()
+        .ledger_snapshot()
+        .unwrap();
+    let count = checked_attempt_charges(
+        &ledger.tables["attempts"],
+        &ledger.tables["charges"],
+        committed_tasks,
+        report["accounting"]["charges"].as_u64().unwrap(),
+    )
+    .unwrap();
+    assert_eq!(ledger.accounting.charges, count);
+    assert_eq!(
+        report["accounting"],
+        serde_json::to_value(ledger.accounting).unwrap()
+    );
+    count
+}
+
+#[test]
+fn quiescent_charge_oracle_preserves_retries_and_rejects_unaccounted_attempts() {
+    let attempts: TableSnapshot = serde_json::from_value(serde_json::json!({
+        "columns": ["id", "task", "fence", "phase"],
+        "rows": [["a1", "a", 1, "timed_out"], ["a2", "a", 2, "committed"],
+                 ["b1", "b", 1, "committed"]]
+    }))
+    .unwrap();
+    let charges: TableSnapshot = serde_json::from_value(serde_json::json!({
+        "columns": ["attempt"], "rows": [["a1"], ["a2"], ["b1"]]
+    }))
+    .unwrap();
+    assert_eq!(checked_attempt_charges(&attempts, &charges, 2, 3), Ok(3));
+    assert!(checked_attempt_charges(&attempts, &charges, 2, 2).is_err());
+    assert!(checked_attempt_charges(&attempts, &charges, 3, 3).is_err());
+    let mut missing = charges.clone();
+    missing.rows.remove(0);
+    assert!(checked_attempt_charges(&attempts, &missing, 2, 2).is_err());
+    let mut duplicate = charges.clone();
+    duplicate.rows.push(charges.rows[0].clone());
+    assert!(checked_attempt_charges(&attempts, &duplicate, 2, 4).is_err());
+    let mut erased_failure = attempts.clone();
+    erased_failure.rows.remove(0);
+    assert!(checked_attempt_charges(&erased_failure, &charges, 2, 3).is_err());
+    assert!(checked_attempt_charges(&erased_failure, &missing, 2, 2).is_err());
+}
+
 #[test]
 fn bounded_wait_drains_small_pipes_before_child_exit() {
     const CHILD: &str = "JOIL_TEST_SMALL_PIPE_CHILD";
@@ -187,10 +289,12 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     assert_eq!(call(&base, &["admit", a], 0)["admitted"], true);
     let first = call(&base, &["run", a, "--root", ra], 0);
     assert_eq!(first["epochs"], 2);
-    assert_eq!(first["accounting"]["charges"], 4);
+    assert_run_accounting(&root_a, &first, 4);
     assert_eq!(first["accounting"]["exceeded"], false);
     let initial = call(&base, &["run", b, "--root", rb, "--until", "1"], 0);
-    assert_eq!(initial["accounting"]["charges"], 2);
+    // A bounded Succeed child can time out under host contention. Every actual
+    // failed attempt must stay charged; logical task count is not attempt count.
+    let initial_charges = assert_run_accounting(&root_b, &initial, 2);
     let initial_meta = std::fs::read(root_b.join("run.json")).unwrap();
     call(&base, &["run", b, "--root", rb], 78);
     assert_eq!(
@@ -243,7 +347,7 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     }
     call(&base, &["stop", rb], 0);
     let stopped = call(&base, &["run", b, "--resume", rb, "--until", "1"], 130);
-    assert_eq!(stopped["accounting"]["charges"], 2);
+    assert_eq!(assert_run_accounting(&root_b, &stopped, 2), initial_charges);
     call(
         &base,
         &["run", b, "--resume", rb, "--until", "1", "--continue"],
@@ -299,8 +403,9 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     // single-worker host must leave the second job planned, without charging it.
     assert_eq!(
         stopped["accounting"]["charges"],
-        2 + 2 * retry.workers as u64
+        initial_charges + 2 * retry.workers as u64
     );
+    assert_run_accounting(&root_b, &stopped, 2 + retry.workers);
     let mut stopped_db = RuntimeDb::inspect_existing(&root_b).unwrap();
     assert_eq!(
         stopped_db.checkpoint_history().unwrap()[0].generation,
@@ -325,7 +430,8 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     assert_eq!(second["epochs"], 2);
     assert_eq!(first["logical_digest"], second["logical_digest"]);
     assert_ne!(first["actual_cost_digest"], second["actual_cost_digest"]);
-    assert_eq!(second["accounting"]["charges"], 6);
+    let final_charges = initial_charges + 4;
+    assert_eq!(assert_run_accounting(&root_b, &second, 4), final_charges);
     // Corruption is reported; fallback can reconcile canonical accepted results and continue.
     let meta = metadata(&root_b).unwrap();
     let mut db = RuntimeDb::inspect_existing(&root_b).unwrap();
@@ -343,7 +449,7 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     assert_eq!(fallback["rejected_newer"].as_array().unwrap().len(), 1);
     let recovered = call(&base, &["run", retry_path, "--resume", rb, "--continue"], 0);
     assert_eq!(recovered["logical_digest"], first["logical_digest"]);
-    assert_eq!(recovered["accounting"]["charges"], 6);
+    assert_eq!(assert_run_accounting(&root_b, &recovered, 4), final_charges);
     let before = status(&root_b).unwrap()["accounting"].clone();
     let forked = call(&base, &["fork", rb, "--weights", "-1,1"], 0);
     assert_eq!(forked["observations_reused"], 4);
@@ -354,7 +460,7 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
         .restore_latest(&open_store(&root_b).unwrap(), &meta.experiment)
         .unwrap();
     assert_eq!(restored.checkpoint.state.lineage.weights, [-1, 1]);
-    assert_eq!(restored.checkpoint.ledger.accounting.charges, 6);
+    assert_eq!(restored.checkpoint.ledger.accounting.charges, final_charges);
     let seed = base.join("seed.json");
     std::fs::write(
         &seed,

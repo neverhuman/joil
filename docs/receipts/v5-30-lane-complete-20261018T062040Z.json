@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "packet": "V5-30",
+  "tasks": ["V5-30-01", "V5-30-02", "V5-30-03", "V5-30-04", "V5-30-05"],
+  "state": "lane_complete_software_proof_with_open_canonical_admission_and_physical_inputs",
+  "packet_acceptance": "software_fixture_and_draft_protocol_delivered; integrator must reconcile canonical DecisionProfile admission; no physical qualification",
+  "worker": "308711.joil_v5_codex_lane3",
+  "model": "gpt-6-luna medium",
+  "worktree": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane3",
+  "branch": "codex/v5-lane3",
+  "base_commit": "c63c74e8316d70406a8b3d78ad59a95691cacc03",
+  "tested_commit": "1b150c2ff0ebad728ecfc8587066730ef6e74679",
+  "changed_paths": [
+    "analysis/validation/v5/__init__.py",
+    "analysis/validation/v5/protocol.py",
+    "analysis/validation/v5/tests/test_protocol.py",
+    "analysis/validation/v5/dossier.schema.json",
+    "analysis/validation/v5/public_export.schema.json",
+    "experiments/rig/v5/protocol.json",
+    "experiments/rig/v5/calibration_manifest.json",
+    "experiments/rig/v5/README.md",
+    "experiments/holdout/v5/manifest.json",
+    "docs/rig/V5_CONFIRMATION.md",
+    "docs/receipts/v5-30-claim-20261018T061500Z.json",
+    ".agent/handoffs/V5-30.md (local ignored handoff)"
+  ],
+  "commands": [
+    {
+      "name": "v5_30_python_fixtures_final",
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "analysis/validation/v5/tests", "-v"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-unit.log",
+      "log_sha256": "ba0e8f3087d00379054b1c9672784e06b23dc4f3fa60fe8d621790110aa51ab1",
+      "summary": "10 tests passed; synthetic fixtures only."
+    },
+    {
+      "name": "json_syntax",
+      "argv": ["rtk", "proxy", "python3", "-c", "import json, pathlib; paths=[pathlib.Path(\"experiments/rig/v5/protocol.json\"),pathlib.Path(\"experiments/rig/v5/calibration_manifest.json\"),pathlib.Path(\"experiments/holdout/v5/manifest.json\"),pathlib.Path(\"analysis/validation/v5/dossier.schema.json\"),pathlib.Path(\"analysis/validation/v5/public_export.schema.json\")]; [json.loads(p.read_text()) for p in paths]; print(f\"valid JSON: {len(paths)} files\")"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-json.log",
+      "log_sha256": "d04c0c8ab9d91b6a3f1acfcd4f91ea11b067733b8a3c39ae9edbf69d2f36cf0e"
+    },
+    {
+      "name": "public_scan",
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-public.log",
+      "log_sha256": "afaede0b3f0fd10824d849484808d5c620cd01d131838ee832c6e4e8971a3108",
+      "summary": "703 public candidate files checked; scan passed."
+    },
+    {
+      "name": "cached_diff_check",
+      "argv": ["rtk", "git", "diff", "--cached", "--check"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-diff-cached.log",
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "name": "worktree_diff_check",
+      "argv": ["rtk", "git", "diff", "--check"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-diff.log",
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "name": "public_scan_including_completion_receipt",
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-public-final.log",
+      "log_sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801",
+      "summary": "704 public candidate files checked; completion receipt included."
+    },
+    {
+      "name": "completion_receipt_cached_diff_check",
+      "argv": ["rtk", "git", "diff", "--cached", "--check"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-diff-receipt.log",
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "name": "completion_receipt_json_syntax",
+      "argv": ["rtk", "proxy", "python3", "-c", "import json,pathlib; p=pathlib.Path(\"docs/receipts/v5-30-lane-complete-20261018T062040Z.json\"); d=json.loads(p.read_text()); print(\"valid completion receipt:\", d[\"packet\"], len(d[\"commands\"]), \"command records\")"],
+      "exit_code": 0,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-receipt-json.log",
+      "log_sha256": "147c6dd989cba1993635a36f092bcc0a874748069303e3693db1c16cd9ed0155"
+    },
+    {
+      "name": "receipt_syntax_invocation_corrected",
+      "argv": ["rtk", "proxy", "python3", "-c", "initial f-string shell quoting attempt"],
+      "exit_code": 1,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-receipt-json-initial-failure.log",
+      "log_sha256": "aec317d25dc80e277c1987274d4ca2d474dfe146107ff00e9bee3cbd111e5fd9",
+      "development_iteration": true,
+      "resolution": "Used a simple print call; completion receipt JSON then parsed successfully."
+    },
+    {
+      "name": "development_iteration_before_vector_validation_fix",
+      "argv": ["rtk", "proxy", "python3", "-m", "unittest", "discover", "-s", "analysis/validation/v5/tests", "-v"],
+      "exit_code": 1,
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane3/v5-30-unit-initial.log",
+      "log_sha256": "029a260dbd83f3a76165825b5e85ab3c79e39d2a197ac2fb155300c70d450578",
+      "development_iteration": true,
+      "resolution": "Fixed DSD uncertainty-vector validation; final fixture rerun passed."
+    }
+  ],
+  "artifacts": [
+    {"path": "analysis/validation/v5/__init__.py", "sha256": "5b8257f37c314bb1367711019ffa842fe17b901e5f6dc4a202b2a02712ce7b75"},
+    {"path": "analysis/validation/v5/protocol.py", "sha256": "c921a6b7a66227c60db202e4f45e88d8c5a48d8748a75aea1e741d425de691f1"},
+    {"path": "analysis/validation/v5/tests/test_protocol.py", "sha256": "833bf7a31b43b1b4944539f65a49f35392ec3e336ca28e9faf53ebb0b6f859a6"},
+    {"path": "analysis/validation/v5/dossier.schema.json", "sha256": "e6ee0ed68bb29a7f8f70576b335d18c5238f09fdfa11fce3004f04305d68e7fb"},
+    {"path": "analysis/validation/v5/public_export.schema.json", "sha256": "3ea888082c88f8a5b001f5d7cca84068de5e4479ddb11aa1ab3f080ffe27568b"},
+    {"path": "experiments/rig/v5/protocol.json", "sha256": "ff5ae3a0cb03418309ced085458f3fb5c2b172048be88fa0d71a4f22ba538edd"},
+    {"path": "experiments/rig/v5/calibration_manifest.json", "sha256": "8ae32c4305ae5e5f06508bd5a982ab5c8711301d36e266e13cd0295054fc9652"},
+    {"path": "experiments/rig/v5/README.md", "sha256": "3985cc611142fdeaa215607138f4b46d98d51f26931a496e14791e68f04ae294"},
+    {"path": "experiments/holdout/v5/manifest.json", "sha256": "0aa0bce8f46a989018adfb3f288797ada9fa9699d7112ff5694223482748afde"},
+    {"path": "docs/rig/V5_CONFIRMATION.md", "sha256": "9883c9e28926060917bd5f16af5829f891271be95d91d5cc9b0f7dcc02192ef9"},
+    {"path": "docs/receipts/v5-30-claim-20261018T061500Z.json", "sha256": "10a35b507a24f236fb29be15ca2d7939740477852c279bd290496d26ac527ee0"}
+  ],
+  "positive_checks": [
+    "Synthetic lagged concentration streams reduce to expected synchronized mass; oil volume DSD bins, water closure, inventory changes and random/systematic uncertainty are retained.",
+    "Power sizing requires three strictly distinct build/preparation pilot pairs; confirmation binds exact decision-profile/requirements/duty/band/pressure identities and independent build/batch IDs.",
+    "The paired interval uses a Student-t lower bound; a 10% claim is eligible only when that lower bound is at least 10% and all required scenarios and A/A drift gates pass.",
+    "Changed as-built subject digest explicitly requests reevaluation; calibration and holdout manifests are separately identified and reject subject/preparation leakage.",
+    "Private dossier writes use restrictive file mode under an explicit .private root; public export emits exact reviewed allowlist fields only."
+  ],
+  "negative_checks": [
+    "Unsynchronized streams, missing evidence hashes, censored windows, extrapolation, malformed DSD vectors, and overlapping windows are rejected.",
+    "Three nominal repetitions of a specimen or fluid batch are rejected as non-independent pilot/confirmation evidence.",
+    "A favorable mean with lower bound below 10% does not support the >=10% claim; a failed scenario, profile mismatch, pressure-policy mismatch, or A/A drift failure blocks the claim.",
+    "Unreviewed export and synthetic customer/facility identifier strings are rejected; research/software evidence cannot set industrial installation authorization."
+  ],
+  "resources": {"cpus": [90, 91], "rss_cap_gib": 6, "scratch_cap_gib": 2.5, "gpu": false, "simulation": false},
+  "limitations": [
+    "The analysis module is synthetic software proof, not canonical joil-evidence DecisionProfile admission; no crucible-cli rig-analysis-fixtures suite is wired in this lane.",
+    "No rig measurements, independent builds, fluid preparations, calibration certificates, material allowables, or actual pilot variance are available; both partition manifests are empty.",
+    "The packet read-first paths docs/rig/MATERIAL_INPUTS.md, experiments/v5-study/, and packs/hydrocyclone/materials/ are absent in this checkout.",
+    "Cross-sensor covariance and richer censoring interval estimates are not modeled; current censored windows abstain conservatively.",
+    "No fabrication, purchase, external messaging, physical qualification, commercial comparison, or industrial installation is authorized."
+  ],
+  "next_dependency": "Integrator reviews and reconciles the fixture analysis with canonical DecisionProfile admission and evidence storage; project owner and responsible engineers provide approved material/site inputs and preregistration before any physical activity."
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "subject_sha256", "variant_id", "evidence_summary", "review_id", "reviewed_by_role", "reviewed_utc"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "subject_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "variant_id": {"type": "string", "minLength": 1},
+    "evidence_summary": {"type": "array"},
+    "review_id": {"type": "string", "minLength": 1},
+    "reviewed_by_role": {"type": "string", "minLength": 1},
+    "reviewed_utc": {"type": "string", "format": "date-time"}
+  }
+}

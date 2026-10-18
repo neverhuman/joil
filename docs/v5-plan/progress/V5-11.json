@@ -49,8 +49,14 @@
     "V5-11-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
-      "evidence": []
+      "note": "Integrated software evidence only; original source-bound defect closure and packet acceptance remain open. Audit023 supporting reference preserves G008 receipt7f49b3c2; additive timer/tooling followup recorded separately.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

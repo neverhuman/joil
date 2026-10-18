@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "task": "V5-27",
+  "tasks": ["V5-27-01", "V5-27-02", "V5-27-03", "V5-27-04", "V5-27-05"],
+  "lane": "484638.joil_v5_codex_lane4",
+  "state": "lane_complete",
+  "tested_commit": "210361189d244d38007d2eebc04194c71986dca0",
+  "changed_paths": [
+    "apps/explorer/package.json",
+    "apps/explorer/src/Viewport3D.tsx",
+    "apps/explorer/src/contracts.ts",
+    "apps/explorer/src/main.tsx",
+    "apps/explorer/src/style.css",
+    "apps/explorer/tests/manifest.test.ts",
+    "crates/crucible-cli/src/explore.rs",
+    "crates/crucible-cli/src/lib.rs",
+    "crates/crucible-cli/src/main.rs"
+  ],
+  "commands": [
+    {
+      "command": "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only taskset -c 110,111 rtk cargo test --locked -p crucible-cli",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-27-cargo-test-final.log",
+      "log_sha256": "161410c7443784a341aab96e12f27c2c6dc4ad8ef7d96be981827ac66d6395d6"
+    },
+    {
+      "command": "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane4/target CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only taskset -c 110,111 rtk cargo clippy --locked -p crucible-cli --all-targets -- -D warnings",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-27-clippy.log",
+      "log_sha256": "caa636ec9c7cba2c4f265005f356629e3a1e8fe35395de581375a782de9931bc"
+    },
+    {
+      "command": "rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-27-fmt-check.log",
+      "log_sha256": "d570cda26f397eb57f7661c01c7004b9a912e49f7a8bc2e490f1a4391d1bfe20"
+    },
+    {
+      "command": "cd apps/explorer && npm run test && npm run build (using a temporary symlink to the exact lockfile-matched preinstalled node_modules; symlink removed after build)",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-27-explorer-final.log",
+      "log_sha256": "21cfa524899e4eac03e6c4d69569ab6c84ea549321dbcc32a9056effe45955e4"
+    },
+    {
+      "command": "rtk proxy python3 tools/check_public.py",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-27-public-check.log",
+      "log_sha256": "4b800ae6ec824782118665557ac62c1cc76646ab4e117112b0e6cbd538d52c28"
+    },
+    {
+      "command": "rtk git diff --check",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane4/v5-27-diff-check.log",
+      "log_sha256": "42b82e5c160669039f05467c95b00e2a37b90d8b3b710d0ac9a3d858e1dbcecc"
+    }
+  ],
+  "positive_checks": [
+    "The Explorer manifest tests passed (3): an exact revision/subject resolves; missing observations remain null; registry revocation marks current root and subject values revoked and marks offline dossier metadata stale.",
+    "The CLI Rust tests passed (2 new read-only explorer controls): exact revision and subject return observations without modifying the input manifest.",
+    "Strict Explorer validation rejects unsupported schema versions and overlays whose geometry digest differs from their subject.",
+    "Explorer shows source, unit, uncertainty and tier per value, explicit missing/failed/revoked states, task/attempt/budget/capability/blocker fields, exact geometry identity, discrete ancestry, archive points, offline dossier metadata, and scratch-only weights.",
+    "Responsive CSS, keyboard focus indicators, reduced-motion rules, TypeScript build and Vite production build passed."
+  ],
+  "negative_checks": [
+    "A stale revision and unknown subject resolve to no subject; no replacement/champion is selected.",
+    "Wrong-geometry overlay and schema-version negative fixtures are rejected.",
+    "Revoked values lose current eligibility in cached root/subject data and offline dossier metadata.",
+    "No interpolated ancestors, authored or reconstructed particle paths, retracted pressure-gain claims, or coupled-trajectory claims are rendered from static imports.",
+    "Browser weight sliders are explicitly unregistered scratch views and cannot modify stored decisions or requirements."
+  ],
+  "artifact_sha256": {
+    "apps/explorer/package.json": "aba37b84f7b751cb253261c03cfe75c4dca1c2b1303bc041be8aeda70f02a100",
+    "apps/explorer/src/Viewport3D.tsx": "ef07e4b4964195f8f252bf08be9d3d6472019163aed731039908d079cafe77ad",
+    "apps/explorer/src/contracts.ts": "4d2744d83ecc4017e7e8aabd6b711311e92cd05708dba859cd3ea7c44f57cba3",
+    "apps/explorer/src/main.tsx": "cd03afa68deb670575354c4222ffc536c3aa561b5691e42d5626a65a2e3c4c04",
+    "apps/explorer/src/style.css": "97e677cc9c25daad325071330dcabce55c6478ea59a0920fe44fb6bbcc11bbf2",
+    "apps/explorer/tests/manifest.test.ts": "8d3f3bc282475224f668caaa1493dbd9344629d336797bebe278a4e3b2ea105f",
+    "crates/crucible-cli/src/explore.rs": "1607278a24cba08e497a328d45b82a8295218c932409c9e5dc0c43a78cfd2c26",
+    "crates/crucible-cli/src/lib.rs": "02a656583b774138597a58565d5e14255519c120545bdd37acdc796c5a3d2bbf",
+    "crates/crucible-cli/src/main.rs": "5500e82d57c69cd0dc41d36eb86d1c0a6817447e65fde6b73fa4db1fe66bc4e4"
+  },
+  "resources": {
+    "cpus": [110, 111],
+    "rss_gib_cap": 6,
+    "scratch_gib_cap": 2.5,
+    "target_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "target_size_after_gates": "413 MiB",
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "No live manifest/registry backend is configured in this repository; deployment must provide a versioned read-only manifest URL or reviewed bundle and registry event stream.",
+    "No browser automation or screen-reader session was available; accessibility evidence is from semantic markup, focus/reduced-motion/responsive styles, and successful build, not an interactive browser audit.",
+    "The CLI validates version, requested revision, exact subject, and read-only operation; the full strict v1 shape checks are in the Explorer TypeScript contract.",
+    "No physical validation, scientific release, or engineering performance claim is established."
+  ],
+  "next_dependency": "Integrator provides the read-only manifest/registry producer, reviews this contract, and updates generated V5-27 progress views."
+}

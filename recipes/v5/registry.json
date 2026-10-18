@@ -1,0 +1,605 @@
+{
+  "schema_version": 1,
+  "catalogue_ids": [
+    "CAD-01",
+    "CAD-02",
+    "CAD-03",
+    "CAD-04",
+    "CAD-05",
+    "CAD-06",
+    "CAD-07",
+    "CAD-08",
+    "CAD-09",
+    "CAD-10",
+    "CARRIER-01",
+    "CARRIER-02",
+    "CARRIER-03",
+    "CARRIER-04",
+    "CARRIER-05",
+    "CARRIER-06",
+    "CARRIER-07",
+    "CARRIER-08",
+    "CARRIER-09",
+    "CARRIER-10",
+    "CARRIER-11",
+    "CARRIER-12",
+    "OIL-01",
+    "OIL-02",
+    "OIL-03",
+    "OIL-04",
+    "OIL-05",
+    "OIL-06",
+    "OIL-07",
+    "OIL-08",
+    "OIL-09",
+    "OIL-10",
+    "OIL-11",
+    "OIL-12",
+    "OIL-13",
+    "OIL-14",
+    "OIL-15",
+    "METRIC-01",
+    "METRIC-02",
+    "METRIC-03",
+    "METRIC-04",
+    "METRIC-05",
+    "METRIC-06",
+    "METRIC-07",
+    "METRIC-08",
+    "METRIC-09",
+    "EXPERIMENT-01",
+    "EXPERIMENT-02",
+    "EXPERIMENT-03",
+    "EXPERIMENT-04",
+    "EXPERIMENT-05",
+    "EXPERIMENT-06",
+    "STRUCTURE-01",
+    "STRUCTURE-02",
+    "STRUCTURE-03",
+    "STRUCTURE-04",
+    "STRUCTURE-05",
+    "ENGINE-01",
+    "ENGINE-02",
+    "ENGINE-03",
+    "ENGINE-04",
+    "ENGINE-05",
+    "OPS_VIEW-01",
+    "OPS_VIEW-02",
+    "OPS_VIEW-03",
+    "OPS_VIEW-04",
+    "absolute_pressure",
+    "vortex_validation",
+    "buckling",
+    "decision_family",
+    "artifact_only_observation",
+    "native_recovery",
+    "accelerator_admission",
+    "liner_operator_admission"
+  ],
+  "recipes": {
+    "CAD-01": {
+      "id": "CAD-01",
+      "recipe": "P02",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-02": {
+      "id": "CAD-02",
+      "recipe": "P06",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-03": {
+      "id": "CAD-03",
+      "recipe": "P06",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-04": {
+      "id": "CAD-04",
+      "recipe": "P01",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-05": {
+      "id": "CAD-05",
+      "recipe": "P01",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-06": {
+      "id": "CAD-06",
+      "recipe": "P06",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-07": {
+      "id": "CAD-07",
+      "recipe": "P03/P04",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-08": {
+      "id": "CAD-08",
+      "recipe": "P05",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-09": {
+      "id": "CAD-09",
+      "recipe": "P05",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CAD-10": {
+      "id": "CAD-10",
+      "recipe": "P02",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-01": {
+      "id": "CARRIER-01",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-02": {
+      "id": "CARRIER-02",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-03": {
+      "id": "CARRIER-03",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-04": {
+      "id": "CARRIER-04",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-05": {
+      "id": "CARRIER-05",
+      "recipe": "P08/P09/P11",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-06": {
+      "id": "CARRIER-06",
+      "recipe": "P08/P09/P11",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-07": {
+      "id": "CARRIER-07",
+      "recipe": "P08/P09/P11",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-08": {
+      "id": "CARRIER-08",
+      "recipe": "P08/P09/P11",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-09": {
+      "id": "CARRIER-09",
+      "recipe": "P18",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-10": {
+      "id": "CARRIER-10",
+      "recipe": "P18",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-11": {
+      "id": "CARRIER-11",
+      "recipe": "P08/P09/P11",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "CARRIER-12": {
+      "id": "CARRIER-12",
+      "recipe": "P08/P09/P11",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-01": {
+      "id": "OIL-01",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-02": {
+      "id": "OIL-02",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-03": {
+      "id": "OIL-03",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-04": {
+      "id": "OIL-04",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-05": {
+      "id": "OIL-05",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-06": {
+      "id": "OIL-06",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-07": {
+      "id": "OIL-07",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-08": {
+      "id": "OIL-08",
+      "recipe": "P12/P13",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-09": {
+      "id": "OIL-09",
+      "recipe": "P12/P13",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-10": {
+      "id": "OIL-10",
+      "recipe": "P12/P13",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-11": {
+      "id": "OIL-11",
+      "recipe": "P12/P13",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-12": {
+      "id": "OIL-12",
+      "recipe": "P12/P13",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-13": {
+      "id": "OIL-13",
+      "recipe": "P12/P13",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-14": {
+      "id": "OIL-14",
+      "recipe": "P12/P13",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OIL-15": {
+      "id": "OIL-15",
+      "recipe": "P12/P13",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-01": {
+      "id": "METRIC-01",
+      "recipe": "P23/DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-02": {
+      "id": "METRIC-02",
+      "recipe": "P23/DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-03": {
+      "id": "METRIC-03",
+      "recipe": "P23/DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-04": {
+      "id": "METRIC-04",
+      "recipe": "DC-PROV",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-05": {
+      "id": "METRIC-05",
+      "recipe": "P23/DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-06": {
+      "id": "METRIC-06",
+      "recipe": "DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-07": {
+      "id": "METRIC-07",
+      "recipe": "DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-08": {
+      "id": "METRIC-08",
+      "recipe": "P23/DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "METRIC-09": {
+      "id": "METRIC-09",
+      "recipe": "DC-PROV",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "EXPERIMENT-01": {
+      "id": "EXPERIMENT-01",
+      "recipe": "DC-RIG",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "EXPERIMENT-02": {
+      "id": "EXPERIMENT-02",
+      "recipe": "DC-RIG",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "EXPERIMENT-03": {
+      "id": "EXPERIMENT-03",
+      "recipe": "DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "EXPERIMENT-04": {
+      "id": "EXPERIMENT-04",
+      "recipe": "DC-RIG",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "EXPERIMENT-05": {
+      "id": "EXPERIMENT-05",
+      "recipe": "P21",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "EXPERIMENT-06": {
+      "id": "EXPERIMENT-06",
+      "recipe": "DC-RIG",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "STRUCTURE-01": {
+      "id": "STRUCTURE-01",
+      "recipe": "P14",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "STRUCTURE-02": {
+      "id": "STRUCTURE-02",
+      "recipe": "P14",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "STRUCTURE-03": {
+      "id": "STRUCTURE-03",
+      "recipe": "P18",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "STRUCTURE-04": {
+      "id": "STRUCTURE-04",
+      "recipe": "P16/P17",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "STRUCTURE-05": {
+      "id": "STRUCTURE-05",
+      "recipe": "DC-ENVELOPE",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "ENGINE-01": {
+      "id": "ENGINE-01",
+      "recipe": "DC-FRONT",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "ENGINE-02": {
+      "id": "ENGINE-02",
+      "recipe": "DC-TIMELINE",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "ENGINE-03": {
+      "id": "ENGINE-03",
+      "recipe": "DC-LEDGER",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "ENGINE-04": {
+      "id": "ENGINE-04",
+      "recipe": "DC-STATS",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "ENGINE-05": {
+      "id": "ENGINE-05",
+      "recipe": "P22/P23",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OPS_VIEW-01": {
+      "id": "OPS_VIEW-01",
+      "recipe": "DC-LEASE",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OPS_VIEW-02": {
+      "id": "OPS_VIEW-02",
+      "recipe": "DC-PROV",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OPS_VIEW-03": {
+      "id": "OPS_VIEW-03",
+      "recipe": "P25",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "OPS_VIEW-04": {
+      "id": "OPS_VIEW-04",
+      "recipe": "DC-ALLOW",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "absolute_pressure": {
+      "id": "absolute_pressure",
+      "recipe": "v5_gate_card",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "vortex_validation": {
+      "id": "vortex_validation",
+      "recipe": "v5_gate_card",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "buckling": {
+      "id": "buckling",
+      "recipe": "v5_gate_card",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "decision_family": {
+      "id": "decision_family",
+      "recipe": "v5_gate_card",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "artifact_only_observation": {
+      "id": "artifact_only_observation",
+      "recipe": "v5_gate_card",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "native_recovery": {
+      "id": "native_recovery",
+      "recipe": "v5_gate_card",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "accelerator_admission": {
+      "id": "accelerator_admission",
+      "recipe": "v5_gate_card",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    },
+    "liner_operator_admission": {
+      "id": "liner_operator_admission",
+      "recipe": "v5_gate_card",
+      "evidence_available": false,
+      "render_completed": false,
+      "data_card": null
+    }
+  },
+  "counts": {
+    "recipe_implemented": 74,
+    "evidence_available": 0,
+    "render_completed": 0
+  },
+  "oil_data_policy": "unavailable_data_card_only; authored trajectories are prohibited"
+}

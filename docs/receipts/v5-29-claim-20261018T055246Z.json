@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "packet": "V5-29",
+  "tasks": [
+    "V5-29-01",
+    "V5-29-02",
+    "V5-29-03",
+    "V5-29-04",
+    "V5-29-05"
+  ],
+  "state": "in_progress",
+  "worker": "308711.joil_v5_codex_lane3",
+  "model": "gpt-6-luna medium",
+  "worktree": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane3",
+  "branch": "codex/v5-lane3",
+  "base_commit": "04dbed016264cda067d2a1f981aca015e9dbaefb",
+  "write_paths": [
+    "packs/bracket/",
+    "campaigns/bracket-v5-fixture.toml",
+    "tests/fixtures/v5-bracket/",
+    "docs/receipts/v5-29-*.json",
+    "Cargo.toml",
+    "Cargo.lock",
+    ".agent/CHANGELOG.md",
+    ".agent/handoffs/V5-29.md"
+  ],
+  "cpus": [
+    90,
+    91
+  ],
+  "rss_limit_gib": 6,
+  "scratch_limit_gib": 2.5,
+  "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/target",
+  "incremental": false,
+  "gpu": false,
+  "dependencies": [
+    "V5-07",
+    "V5-12",
+    "V5-19",
+    "V5-21",
+    "V5-26"
+  ],
+  "stop_conditions": [
+    "scope conflict",
+    "stale lease",
+    "resource pressure",
+    "identity or unit ambiguity",
+    "failed required gate"
+  ],
+  "known_contract_boundary": "Current runtime runner accepts synthetic integer fixtures only; no general partition/observer/native structural runner is registered. Pack will use shared contract/store/cache/ledger primitives where available and label missing runner/adapter integration explicitly."
+}

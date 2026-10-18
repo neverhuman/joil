@@ -1,4 +1,3 @@
-# DRAFT LANE SCAFFOLD: integrator owns final workspace registration.
 [package]
 name = "crucible-adapters"
 version.workspace = true

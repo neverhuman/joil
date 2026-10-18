@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "kind": "lane_complete_v5_25_optional_frozen_liner_operator",
+  "packet": "V5-25",
+  "task_ids": ["V5-25-01", "V5-25-02", "V5-25-03", "V5-25-04", "V5-25-05"],
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "branch": "codex/v5-claude-truth",
+  "input_head": "6eda2c09ad8d530aa4f238dd8034462669e6ce55",
+  "tested_commit": "09f2ffbab4219b5a2e5862d0967f1f0d0c2c841b",
+  "tested_commit_subject": "V5-25 optional frozen-liner response operator (V5-25-01..05)",
+  "created_utc": "2026-10-18T06:38:32Z",
+  "claim_receipt": "docs/receipts/v5-25-claim-20261018T061625Z.json",
+  "claim_note": "The claim was written after the first source edits. Disclosed in the claim receipt and in .agent/handoffs/V5-25.md.",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/src/liner_operator.rs",
+    "packs/hydrocyclone/judges/tests/liner_operator.rs",
+    "experiments/v5-liner-operator.toml"
+  ],
+  "artifacts": [
+    {"path": "packs/hydrocyclone/judges/src/liner_operator.rs", "sha256": "0a08431ef98ca4799aec38ea077f7a66dc6ab82d760a5a28c37ae624606dc848", "source": "git show 09f2ffb"},
+    {"path": "packs/hydrocyclone/judges/src/lib.rs", "sha256": "5fd0175090a806d85218467810a41f962445542c563c748c0e89f71b1826b2fe", "source": "git show 09f2ffb"},
+    {"path": "packs/hydrocyclone/judges/tests/liner_operator.rs", "sha256": "07da9139857c5417004d4ee676e6421273b3d7cefbd1e3bde6a2f8d162c7697a", "source": "git show 09f2ffb"},
+    {"path": "experiments/v5-liner-operator.toml", "sha256": "59596cddd49d05e57ed152518a925cc97f53bd4ad9b0529c95454d8e75d647fb", "source": "git show 09f2ffb"}
+  ],
+  "commands": [
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "liner_operator"], "cwd": ".", "exit_code": 0, "log_sha256": "673e1759639a0b95c1c23091ea5a372e7ededf7603d9d0190406dd34cdf3d77f", "log": "logs/claude/v5-25-01-test-liner-operator.log", "note": "45 passed, 0 failed"},
+    {"argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges"], "cwd": ".", "exit_code": 0, "log_sha256": "66288512547dc7ab3096400e23b5b76ce7e9d4b00ea97bb0c49e067e8db57a56", "log": "logs/claude/v5-25-test-package.log", "note": "8 result blocks, all ok, 0 failed; includes liner_operator 45"},
+    {"argv": ["cargo", "clippy", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--all-targets", "--", "-D", "warnings"], "cwd": ".", "exit_code": 0, "log_sha256": "4e4260d372f231413c3de3f2210ef4df9dce4e3a61e8609dd9dc4caecbcafcc8", "log": "logs/claude/v5-25-clippy.log", "note": "clean with -D warnings"},
+    {"argv": ["cargo", "fmt", "--all", "--", "--check"], "cwd": ".", "exit_code": 1, "log_sha256": "aea5521d16aca5d9af8c1b4fa9e77d54d1713fa574ac1718cb117e704233eae0", "log": "logs/claude/v5-25-fmt-check.log", "note": "first run, before formatting: liner_operator tests needed rustfmt; kept as the failing record"},
+    {"argv": ["cargo", "fmt", "--all"], "cwd": ".", "exit_code": 0, "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b", "log": "logs/claude/v5-25-fmt-apply.log", "note": "changed only tests/liner_operator.rs; committed in 09f2ffb"},
+    {"argv": ["cargo", "fmt", "--all", "--", "--check"], "cwd": ".", "exit_code": 0, "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b", "log": "logs/claude/v5-25-fmt-check-2.log", "note": "exit 0 after formatting"},
+    {"argv": ["python3", "tools/check_public.py"], "cwd": ".", "exit_code": 0, "log_sha256": "ff22b9aca2c2ddb2c5b8ff7ed6d99075057f9ffb6ec85eebe31fd09643b663fd", "log": "logs/claude/v5-25-check-public.log", "note": "PASS: 747 public candidate files checked; private deny rules applied=True"},
+    {"argv": ["git", "diff", "--check", "HEAD~1", "HEAD"], "cwd": ".", "exit_code": 0, "log_sha256": "418a5c17f33c70e99b0cc0a07fce69191489cfedc94164bfa903785777c5bd4b", "log": "logs/claude/v5-25-diff-check.log", "note": "empty output, exit 0, over the source commit"}
+  ],
+  "executed_mutation_reds": [
+    {
+      "mutation": "M1",
+      "description": "liner_operator.rs route(): out-of-envelope check disabled (`if false && e.hull_distance != 0.0`)",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "liner_operator"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_sha256": "fa62ecb19765c3351d129385900daee06d94c24e5a527f75f8967d0035be5263",
+      "log": "logs/claude/v5-25-mutation-M1-red.log",
+      "failed_tests": ["candidate_outside_the_envelope_dispatches_full_liner"],
+      "note": "44 passed, 1 failed; source restored with git checkout to 09f2ffb"
+    },
+    {
+      "mutation": "M2",
+      "description": "liner_operator.rs check_balances(): axial mass tolerance replaced by f64::INFINITY",
+      "argv": ["cargo", "test", "--locked", "--offline", "-p", "pack-hydrocyclone-judges", "--test", "liner_operator"],
+      "cwd": ".",
+      "exit_code": 101,
+      "log_sha256": "843e81fff128d472e926e79ec89bc1120cb9a9569f7734136e168b6280de5be9",
+      "log": "logs/claude/v5-25-mutation-M2-red.log",
+      "failed_tests": ["mass_imbalance_fails_the_balance"],
+      "note": "44 passed, 1 failed; source restored with git checkout to 09f2ffb"
+    }
+  ],
+  "positive_checks": [
+    "consistent_state_closes_every_balance_against_analytic_targets passes",
+    "in_envelope_candidate_with_closed_interface_uses_the_operator passes",
+    "coupling_converges_and_reports_measured_exchange_count passes",
+    "full_audit_counts_false_omissions_and_abstentions passes",
+    "wilson_upper_bound_matches_reference_value passes",
+    "synthetic_protocol_passes_with_declared_gap_and_is_not_science passes"
+  ],
+  "negative_checks": [
+    "mass_imbalance_fails_the_balance (mutation M2 turns it red)",
+    "candidate_outside_the_envelope_dispatches_full_liner (mutation M1 turns it red)",
+    "pressure_only_tail_relation_cannot_replace_full_downstream_physics passes",
+    "reverse_core_inflow_omission_is_refused passes",
+    "unflagged_reverse_flow_is_an_invalid_state passes",
+    "scalar_pressure_agreement_cannot_qualify_oil_grade passes",
+    "depleted_budget_abstains_and_never_assumes_a_pass passes",
+    "divergent_iteration_stops_at_the_exchange_cap_as_numerical_failure passes",
+    "held_out_carrier_evidence_reused_from_training_is_refused passes",
+    "lease_beyond_initial_allocation_fails passes"
+  ],
+  "resource_allocation": {
+    "cpus": [34, 35],
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "gpu": false,
+    "simulation": false,
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target (shared worker target, not cleaned)",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only"
+  },
+  "scientific_eligibility": "software judge with SYNTHETIC fixtures only; scientific_admission = false; no full-liner reference run; no oil-grade or downstream physics claim",
+  "limitations": [
+    "All coupled head and tail maps in the tests are synthetic linear maps; they show convergence, closure and fallback mechanics, not liner physics",
+    "The envelope is a feature box, not a convex hull; a point inside it is not proof of domain membership",
+    "No full-liner reference was run and no geometry, carrier or transport evidence was admitted",
+    "The audit population is 7 synthetic candidates; its rates are not statistically meaningful",
+    "The state carries axial velocity, which the packet list does not name; this is a design choice for the integrator to confirm",
+    "The handoff .agent/handoffs/V5-25.md said 50 tests and 'never compiled'; the file has 45 #[test] functions and the 45 pass. The handoff is corrected in this lane"
+  ],
+  "not_touched": [
+    "docs/v5-plan/progress/",
+    "docs/v5-plan/TASKS.json",
+    "PR #6"
+  ],
+  "next_dependency": "Integrator review of the state-axial-velocity choice and of the absent-operator routing; then a full-liner reference case and admitted geometry/carrier evidence before any scientific admission. No push or merge performed."
+}

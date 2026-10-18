@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "observations": [{
+    "id":"obs-synthetic-search-001", "subject_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "scenario_id":"synthetic-search-fixture", "estimand_id":"best-feasible-quality-at-fixed-cost",
+    "unit":"dimensionless", "denominator":"independent_search_seed", "independent_unit_ids":["seed-2301","seed-2302"], "tier":"F1_screen",
+    "tier_current":true, "value":"0.0", "interpretation":"synthetic negative result; no optimizer advantage observed"
+  }],
+  "queries": [{
+    "observation_id":"obs-synthetic-search-001", "subject_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "scenario_id":"synthetic-search-fixture", "estimand_id":"best-feasible-quality-at-fixed-cost",
+    "unit":"dimensionless", "denominator":"independent_search_seed", "tier":"F1_screen",
+    "allowed_interpretation":"synthetic negative result; no optimizer advantage observed"
+  }],
+  "figures": [{"id":"fig-negative-result", "observation_ids":["obs-synthetic-search-001"], "generator":"paper/build_figures.py", "source_sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}],
+  "attempted_finalist_ids":["synthetic-arm"],
+  "cost_quality":[{"finalist_id":"synthetic-arm", "attempt_id":"attempt-001", "confirmation_data_id":"synthetic-confirmation-only", "normalized_resource_cost":"1.0", "quality_estimate":"0.0", "uncertainty_low":"-0.1", "uncertainty_high":"0.1", "independent_unit_ids":["seed-2301","seed-2302"], "outcome":"negative"}]
+}

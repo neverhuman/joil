@@ -1,0 +1,123 @@
+{
+  "schema": "joil.v5.lane-receipt.v1",
+  "packet": "V5-21",
+  "tasks": [
+    "V5-21-01",
+    "V5-21-02",
+    "V5-21-03",
+    "V5-21-04",
+    "V5-21-05"
+  ],
+  "state": "deterministic_software_controls_complete_acceptance_open",
+  "utc": "2026-10-18T05:52:17Z",
+  "tested_commit": "5a53c816e9e8f4b61dd3c1dfd8663eaa625aebcf",
+  "source_commits": [
+    "5a53c816e9e8f4b61dd3c1dfd8663eaa625aebcf"
+  ],
+  "branch": "codex/v5-lane1",
+  "implementation_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "crates/crucible-search/Cargo.toml",
+    "crates/crucible-search/src/lib.rs",
+    "crates/crucible-search/src/reference.rs",
+    "crates/crucible-search/src/archive.rs",
+    "crates/crucible-search/src/emitters.rs",
+    "crates/crucible-search/tests/reference.rs",
+    "policies/reference-search-v1.toml"
+  ],
+  "commands": [
+    {
+      "command": "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane1/target CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 taskset -c 36,37 rtk cargo test --locked -p crucible-search --test reference",
+      "exit_code": 0,
+      "result": "9 passed",
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-21-reference-test-acceptance.log",
+      "sha256": "a27f5253e250d5df88527d65dc7f5b970fa818d300f8ae34f1d5878372a2e84a"
+    },
+    {
+      "command": "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane1/target CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 taskset -c 36,37 rtk cargo test --locked -p crucible-search",
+      "exit_code": 0,
+      "result": "9 passed across 3 suites",
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-21-package-test-acceptance.log",
+      "sha256": "90378878780eec4d636ea034e9269a93747ab5e9de64961283b09d38869e5"
+    },
+    {
+      "command": "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane1/target CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only CARGO_BUILD_JOBS=2 taskset -c 36,37 rtk cargo clippy --locked -p crucible-search --all-targets -- -D warnings",
+      "exit_code": 0,
+      "result": "No issues found",
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-21-clippy-acceptance.log",
+      "sha256": "2a826e9fd3ebc6e3a1883a515e0a773ce9657ae09b7280ace609105a991f25f6"
+    },
+    {
+      "command": "taskset -c 36,37 rtk cargo fmt --all -- --check",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-21-fmt-acceptance.log",
+      "sha256": "3c696c094e2a1323fa00cf0974a861af0cd6824b1672248c1d12791a70a61e4e"
+    },
+    {
+      "command": "taskset -c 36,37 rtk proxy python3 tools/check_public.py",
+      "exit_code": 0,
+      "result": "PASS: 685 public candidate files checked; private deny rules applied=False",
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-21-public-final.log",
+      "sha256": "6d333c31e32a04b8fa153ed0343acf8aebffa4ea66b02b520b0249e094b40174"
+    },
+    {
+      "command": "taskset -c 36,37 rtk git diff --check",
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane1/v5-21-diff-acceptance.log",
+      "sha256": "6f48a953ca86c24a0a39f4b2c41a7c4ab83af844ef1fc0b59b4ca66df266e87c"
+    }
+  ],
+  "positive_checks": [
+    "TOML policy parses and freezes 4x32 islands/populations, 32 attempts per island/epoch, 40/20/10/10/10/10 operators, 50/30/20 parents, and bounded initialization/refill.",
+    "Known constrained front and exact 2D hypervolume oracle produce the expected front and area; attempt IDs, failed attempts, inference, audits, confirmation and checkpoint resume are charged deterministically.",
+    "Evidence classes remain isolated; qualified QD bins use evaluator-measured descriptor values; complete evidence history can be published/read through crucible-store.",
+    "Operator schedule, source fallback, ring migration, protection expiry, fixed-dimensional CMA-ES/GP-EI controls, random grammar-sampler hook and cost curves have deterministic fixtures."
+  ],
+  "negative_checks": [
+    "Inapplicable refill attempts stop at the policy bound, charge every failed attempt, and do not trigger hidden resampling.",
+    "Unknown, numerical-failure and unsupported candidates do not enter qualified archive pools or dominate physical candidates.",
+    "Empty source fallback returns None and constructs no parent or baseline after mutation failure.",
+    "Checkpoint resume preserves proposal IDs and epoch progress; budget exhaustion cannot reset the epoch count."
+  ],
+  "resource_allocation": {
+    "cpus_pinned": [
+      36,
+      37
+    ],
+    "rss_cap_bytes": 6442450944,
+    "scratch_cap_bytes": 2684354560,
+    "gpu": false,
+    "campaign_or_physics_run": false,
+    "cargo_incremental": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/target",
+    "target_tree_bytes": 639041048,
+    "rss_peak_instrumented": false
+  },
+  "scientific_admission": false,
+  "packet_acceptance": false,
+  "limitations": [
+    "V5-07, V5-12 and V5-18 are not accepted; this lane demonstrates deterministic optimizer software on synthetic fixtures only.",
+    "No native physics, campaign, performance-selected candidate, or engineering discovery claim was made.",
+    "CMA-ES and BO implementations are fixed-dimensional software controls; their comparative optimizer tuning and multi-seed cost-quality curves remain unrun.",
+    "The archive persistence API is tested by compilation and calls crucible-store, but this pass did not run a full recovery/revocation drill against a durable store instance.",
+    "Island migration is a deterministic ID transfer primitive; search integration must supply selected island membership and bind migrated IDs to the candidate/evidence store.",
+    "No full-system optimizer comparison or experiment-family inference was run."
+  ],
+  "next_dependency": [
+    "Integrate with accepted genome/evaluator contracts from V5-12 and objective/gate contracts from V5-18.",
+    "Run independent multi-seed ZDT/DTLZ/constrained/QD experiments and report all attempt, initialization, inference, audit and confirmation costs, including cases where random wins.",
+    "Validate durable evidence-front checkpoint/recovery with crucible-store and confirm selection/migration is bound to stored proposal records.",
+    "Physical campaigns remain gated on V5-07/V5-12/V5-18 and independent physics admission."
+  ],
+  "raw_log_manifest_sha256": {
+    "v5-21-reference-test-acceptance.log": "a27f5253e250d5df88527d65dc7f5b970fa818d300f8ae34f1d5878372a2e84a",
+    "v5-21-package-test-acceptance.log": "90378878780eec4d636ea034e9269a93747ab5e9de64961283b09d38869e5",
+    "v5-21-clippy-acceptance.log": "2a826e9fd3ebc6e3a1883a515e0a773ce9657ae09b7280ace609105a991f25f6",
+    "v5-21-fmt-acceptance.log": "3c696c094e2a1323fa00cf0974a861af0cd6824b1672248c1d12791a70a61e4e",
+    "v5-21-public-acceptance.log": "bec199d80fc86a78e0dad7df59afc810580d632c7948b96cff0002a13e3ba28e",
+    "v5-21-diff-acceptance.log": "6f48a953ca86c24a0a39f4b2c41a7c4ab83af844ef1fc0b59b4ca66df266e87c",
+    "v5-21-public-final.log": "6d333c31e32a04b8fa153ed0343acf8aebffa4ea66b02b520b0249e094b40174",
+    "v5-21-diff-final.log": "6f48a953ca86c24a0a39f4b2c41a7c4ab83af844ef1fc0b59b4ca66df266e87c"
+  }
+}

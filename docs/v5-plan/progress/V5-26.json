@@ -3,34 +3,64 @@
   "packet": "V5-26",
   "tasks": {
     "V5-26-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Exact scene/registry bytes checked; accepted observer/export pipeline remains incomplete.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-26-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Catalogue mappings exist; evidence availability and actual render completion remain separate.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-26-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Stand-in adapter tested; no Blender build/render admitted under this lease.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-26-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Only explicit linear_blue_red scalar mapping supported; native field/tensor/human semantic review absent.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     },
     "V5-26-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "codex-v5-integrator",
+      "note": "Software integrated with positive/negative controls; acceptance open: Frame hash/resume controls tested; no actual Blender plate/layout approval.",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "purpose": "integration_only"
+        }
+      ]
     }
   }
 }

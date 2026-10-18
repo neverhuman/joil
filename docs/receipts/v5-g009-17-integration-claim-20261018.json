@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "packet": "V5-17",
+  "kind": "integration_claim_not_completion",
+  "owner": "codex-v5-integrator",
+  "base_commit": "b9966a2740efdb346a026ce782e6f50487196799",
+  "authority": "Direct G009 user assignment; Addendum2 permits isolated lane software before physical acceptance.",
+  "state": "in_progress_private_integration_not_canonical_activation",
+  "write_scope": [
+    "crates/crucible-particles/src/dispersion.rs",
+    "crates/crucible-particles/src/population.rs",
+    "crates/crucible-particles/src/transfer.rs",
+    "crates/crucible-particles/tests/models.rs"
+  ],
+  "serialized_contracts": "Integrator alone reconciles Cargo root/lock/shared exports, progress tools, generated views and CI. See V5-G009-INTEGRATION-SCOPE.md.",
+  "boundaries": [
+    "No native simulation or GPU campaign",
+    "No scientific admission or fabricated receipt",
+    "Historical receipts immutable; root COORD append under both locks",
+    "One draft PR6; owner alone merges"
+  ],
+  "resources": {
+    "physical_cores": 2,
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "cargo_build_jobs": 2,
+    "numerical_threads": 1,
+    "gpu": false
+  },
+  "next_dependency": "Review source and lane raw evidence; run independent controls and current-head integration gate."
+}

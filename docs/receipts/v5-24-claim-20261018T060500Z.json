@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "packet_claim",
+  "packet": "V5-24",
+  "owner": "61562.joil_v5_codex_lane2",
+  "created_utc": "2026-10-18T06:05:00Z",
+  "input_head": "602748bc22ce547a76ab4a40930905a68e35f9d6",
+  "write_scope": [
+    "crates/crucible-gpu/",
+    "crates/crucible-lbm/",
+    "crates/crucible-fea/",
+    "experiments/v5-accelerator-admission.toml",
+    "docs/receipts/v5-24-lane-complete-*.json",
+    "Cargo.toml",
+    "Cargo.lock",
+    ".agent/CHANGELOG.md",
+    ".agent/handoffs/V5-24.md"
+  ],
+  "purpose": "Implement V5-24-01..05 optional accelerator admission software and reference-only fallback; no GPU execution.",
+  "resources": {
+    "cpus": [
+      38,
+      39
+    ],
+    "rss_cap_gib": 6,
+    "scratch_cap_gib": 2.5,
+    "gpu": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target"
+  },
+  "boundaries": [
+    "Keep V5-14/V5-16/V5-17 adapter and particle files/tests intact.",
+    "Workspace and lockfile edits are lane-only scaffolding, offline, no dependency upgrades.",
+    "No GPU execution or physical admission; no large simulation.",
+    "Do not alter criteria, requirements, schemas or status."
+  ]
+}
