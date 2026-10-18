@@ -235,3 +235,25 @@ JSON and OS diagnostics remain language-specific, and CLI usage names are native
 Original Python files and consumer entrypoints remain unchanged. No Python LOC
 reduction or scientific admission is claimed. Exact check results are recorded in
 `docs/receipts/i014-rust-ci-20261018.json`.
+
+## I015 additive ports
+
+`v5-baseline-audit [--source-check]` audits the 31 frozen baseline allegations,
+15 recorded probes and 12 retained deferrals. Optional historical Git reads
+verify source digests and anchors. `gen-status [--check]` imports byte-pinned
+software receipts, validates the requirement/preregistration/objective contract
+and preserves conservative public STATUS bytes and scientific hash identity.
+Both accept `--root ROOT` for isolated replay and default to this source checkout.
+Production binaries invoke no Python. Python files and legacy callers remain.
+
+`baseline_audit_parity` and `gen_status_parity` compare unchanged Python oracles,
+output bytes/exits, status SHA-256 and frozen-source checks, plus tampered/missing
+inventory, stale/malformed evidence and attempted promotion controls. Error text
+for syntax, missing keys/files and Git failures remains implementation-specific;
+semantic status errors retain exact parity. Baseline Python CLI tracebacks are
+normalized by the test oracle to the Rust `FAIL:` diagnostic. No Python LOC
+reduction, consumer migration or physical qualification is claimed.
+
+The insertion-order codec is shared internally in `ordered_json.rs` with
+`v5-plan`; its extraction preserves existing plan wire behavior and is checked
+by `plan_parity` as well as the full Foundation gate.

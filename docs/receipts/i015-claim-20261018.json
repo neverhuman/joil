@@ -1,0 +1,25 @@
+{
+  "packet": "I015",
+  "worker": "1052075.joil_v5_codex",
+  "base": "d20064ee4ed1899b0e95072ce96e031c6cce9b21",
+  "scope": [
+    "crates/crucible-cli/src/bin/v5-baseline-audit.rs",
+    "crates/crucible-cli/src/bin/gen-status.rs",
+    "crates/crucible-cli/tests/baseline_audit_parity.rs",
+    "crates/crucible-cli/tests/gen_status_parity.rs",
+    "PY_TO_RUST_PLAN.md",
+    "docs/release.md",
+    "docs/testing.md",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i015-*"
+  ],
+  "resources": {
+    "cargo_jobs": 2,
+    "test_threads": 2,
+    "physical_cores_max": 4,
+    "ram_gib": 12,
+    "output_gib": 5,
+    "gpu": false
+  },
+  "scientific_admission": false
+}

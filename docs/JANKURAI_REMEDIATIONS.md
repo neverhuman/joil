@@ -271,3 +271,30 @@ gate passed. Foundation completed all 10 steps, including workspace Rust tests
 The initial Clippy failure for redundant renderer string conversions is retained;
 those conversions were removed before successful checks. No runtime thresholds
 or scientific acceptance rules changed.
+
+## I015 scoped review: I010-J055 through I010-J068
+
+Release documentation now specifies the owner/reviewer, exact-head evidence,
+version and artifact identity, staged smoke verification, stop triggers and
+rollback verification. Testing documentation now specifies the failed-log →
+negative-control → repair-commit → successful-receipt chain and a zero-paid-work
+budget with concurrency, memory, output, timeout and resource-expansion limits.
+These procedures are not fabricated operational launch or resource-enforcement
+receipts. The scan below determines detector closure; remaining findings stay open.
+
+| ID | Source inspection and remaining dependency |
+| --- | --- |
+| I010-J055 | `crucible-stats::analysis::order::Observation` is a measured/left-censored scalar (`kind`); `joil-evidence::observation::Observation` is a provenance-bearing measurement/failure/unknown envelope (`status`). Merging them changes serialized contracts and statistical meaning. Retain pending a crate-owner API migration with consumer and frozen-wire parity. |
+| I010-J056 | `crucible-units::Unit` carries dimensional/quantity-kind arithmetic; evidence `Unit` enumerates reported measurement units (including micrometre, Hertz and cubic millimetre). Their supported sets differ. Retain pending explicit conversion/compatibility design; do not rename units or rehash historical measurements for a score. |
+| I010-J057 | `crates/domain` is a detector routing path, not an existing crate. Runtime and evidence errors already exist, but no uniform purpose/reason/common-fixes/docs-url/repair-hint contract spans them. Documentation alone does not supply a typed error API. Retain for exclusive shared-contract work and failure-path integration tests. |
+| I010-J058 | The historical EV13 receipt script compiles/executes the selected AST `main` from the figure generator. It remains executable dynamic Python, not a closed detector finding. Replacing a source-bound receipt script requires a successor native verifier, figure/trace parity and explicit historical migration; retain original bytes. |
+| I010-J059 | `legacy-status-before-v4.json` is a digest-pinned historical input to status generation, explicitly emitted under `legacy_status_is_historical_not_authoritative`. It is not an alternate active status implementation. Rename/removal would invalidate the registry reference and frozen hashes. Retain pending detector classification review or a versioned registry migration. |
+| I010-J060 | Campaign admission uses `Sandbox/ClaimBearing`; decision requests use `Sandbox/Qualified`. These are different gates and wire values. Consolidation without an explicit conversion could grant or deny admission incorrectly. Retain until crate-owner migration and negative admission tests. |
+| I010-J061 | Evidence `Verdict` has six lifecycle states; the hydrocyclone judge has `Pass`, reason-bearing `Fail`, and `Unresolved`. They do not have equivalent payloads or state semantics. Retain pending a reviewed mapping, not mechanical deduplication. |
+| I010-J062 | `db/` is a dimension routing label. Actual durable state is in `crucible-runtime/src/db.rs`: STRICT tables, foreign keys/check constraints and immediate transactions. Moving schema/transactions is shared-contract work requiring migration/recovery proof; current aggregate dimension deficiency remains open. |
+| I010-J063 | Release structure expanded in `docs/release.md`. Historical fingerprint presence is reported below; a different launch-artifact finding is not waived by documenting procedure. |
+| I010-J064 | Repair evidence guidance expanded in `docs/testing.md`; typed error/telemetry integration remains a technical dependency. An aggregate-score fingerprint changing is not full observability closure. |
+| I010-J065 | Budget proof procedure now names zero paid operations, explicit quotas, stop conditions and measured receipt/size evidence. No kernel memory cap or paid-service kill-switch execution is claimed. Retain any current detector finding until its evidence requirement is actually met. |
+| I010-J066 | Two additive native binaries now exist; Python remains in active legacy callers. No rare-ML exception or Python LOC reduction is asserted. P1b/P2 consumer migration and later ports remain required. |
+| I010-J067 | `python/ai-service` is a detector dimension label, not a newly created service. Python containment remains incomplete while product-truth consumers use the legacy tools. Retain the migration blocker. |
+| I010-J068 | `tools/claims_audit.py::_check_declared` evaluates arithmetic after a restrictive token regex and empty builtins. That limits accepted input but does not remove dynamic evaluation. Replacing it requires a bounded expression evaluator plus precedence, numerical-failure and receipt parity tests in the claims-audit migration packet. No active source or frozen hash is changed here. |
