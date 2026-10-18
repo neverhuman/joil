@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "kind": "v5_14_lane_completion_software_adapter_not_scientific_acceptance",
+  "task_ids": [
+    "V5-14-01",
+    "V5-14-02",
+    "V5-14-03",
+    "V5-14-04",
+    "V5-14-05"
+  ],
+  "owner": "codex_lane2",
+  "state": "lane_complete",
+  "created_utc": "2026-10-18T05:10:03Z",
+  "tested_commit": "5a3ac6ef667157a7442ca811513dec8892866e79",
+  "base_commit": "f46085849a5f6540bbfe9a355a64869af018dc64",
+  "acceptance_state": "software controls implemented and bounded tests pass; native case acceptance, full geometry qualification, and interrupted native restart remain open",
+  "changed_paths": [
+    "Cargo.toml",
+    "Cargo.lock",
+    "crates/crucible-adapters/Cargo.toml",
+    "crates/crucible-adapters/src/lib.rs",
+    "crates/crucible-adapters/src/openfoam/mod.rs",
+    "crates/crucible-adapters/tests/openfoam.rs",
+    "docs/rig/PDR_STUDY.md",
+    "physics/openfoam/verification/v5/capability-card.json",
+    "physics/openfoam/verification/v5/control-volume-fixtures.json"
+  ],
+  "source_sha256": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "eb80c28676d4637a94b6c0ed050b51c386ff57280aaf7afb4f0bd3e1e00b0f7d"
+    },
+    {
+      "path": "Cargo.lock",
+      "sha256": "34a7fe464071d6e75fbdf4beff368b54c163f2784369c2fde31b84932894d5ce"
+    },
+    {
+      "path": "crates/crucible-adapters/Cargo.toml",
+      "sha256": "74610ee58f5d75ae289507c2aae5040327c9017c459aef3f1293e19932180da5"
+    },
+    {
+      "path": "crates/crucible-adapters/src/lib.rs",
+      "sha256": "dab5800a75bb3aae80e2a924c55e1971c4898a21a6d4915dc16ea7e31a02586b"
+    },
+    {
+      "path": "crates/crucible-adapters/src/openfoam/mod.rs",
+      "sha256": "961dd83dd74117c5c2f5d65678dd86de4aa8d03e554e417ff332e640cf70cf97"
+    },
+    {
+      "path": "crates/crucible-adapters/tests/openfoam.rs",
+      "sha256": "0f60bb12ba27e8da23ae2126c126d02519e4c885b8be1f28beab640f09997813"
+    },
+    {
+      "path": "docs/rig/PDR_STUDY.md",
+      "sha256": "63121ceb12c51849988d6e381a8d5a3b8d14bf705994836ffe1f78daf86b132f"
+    },
+    {
+      "path": "physics/openfoam/verification/v5/capability-card.json",
+      "sha256": "d83fd2c26af097f3d800fbe24776327fa32f98da2aabefee40b4ec9bd4ee26ce"
+    },
+    {
+      "path": "physics/openfoam/verification/v5/control-volume-fixtures.json",
+      "sha256": "ca8fbe60486877ccc39b4d46741fe149070e1b3438cc9966eac7579138d81768"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-adapters",
+        "--test",
+        "openfoam"
+      ],
+      "exit_code": 0,
+      "summary": "8 passed, 0 failed",
+      "log_identifier": "private:codex_lane2/logs/v5-14-test-openfoam.log",
+      "log_sha256": "38c5776efc30576ee169f2ff25cbc4caf30c2b09dff42345828e666aa99d9337"
+    },
+    {
+      "argv": [
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-adapters",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/v5-14-clippy.log",
+      "log_sha256": "267234d49ec46bb399f684412f508e0e999f8da1b5a51bf367419ac8c62404c3"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/v5-14-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "summary": "689 public candidate files checked",
+      "log_identifier": "private:codex_lane2/logs/v5-14-public-final.log",
+      "log_sha256": "31eb06ce6b6305d4eb95472591ee3f1318376f390be5f55de13932bfce3280fd"
+    },
+    {
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+        "--format",
+        "{{.Id}} {{.Os}}/{{.Architecture}}"
+      ],
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/v5-14-image-probe.log",
+      "log_sha256": "7419dc999a6a92c766277aa0e94982624ca19645bf66a76638f61239cd160559"
+    },
+    {
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "--network=none",
+        "--read-only",
+        "--cpuset-cpus=38,39",
+        "--cpus=2",
+        "--memory=6g",
+        "--memory-swap=6g",
+        "--pids-limit=128",
+        "--entrypoint",
+        "/bin/bash",
+        "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+        "-lc",
+        "read-only Foundation14 identity, compiler/MPI/package, SSG/LRR symbol and solver executable digest probe; script retained in log"
+      ],
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/v5-14-native-probe.log",
+      "log_sha256": "3143121044046d608981bd5c2cc98d77b3632da5297c4456fabb81a5f94bbe8b"
+    }
+  ],
+  "positive_checks": [
+    "Capability card parses and binds source revision, build, image digest, compiler, MPI, model names, and executable SHA-256.",
+    "Dimension-aware synthetic controls reconstruct static, total and p_rgh pressures, gauge/absolute pressure, hydrostatics at two outlet elevations, and separate tap drop from integrated mechanical flux.",
+    "Controller rejects unreachable targets and saturated output, applies anti-windup, and requires a settled history and frozen sample count.",
+    "A convergent refinement sequence can be screened against a preallocated error budget; restart observables within tolerances pass the software gate.",
+    "Pinned image and linux/amd64 identity, Foundation14 build/package, compiler, MPI, SSG/LRR library symbols, and solver executable digest were probed read-only."
+  ],
+  "negative_checks": [
+    "PATH executable without matching pinned source/build/image/compiler/MPI/model identity is refused; executable digest mismatch is refused.",
+    "Unsupported dimensions, wrong control density, 1000-fold pressure mismatch, missing datum for absolute pressure, and invalid density fail the independent fixture comparisons.",
+    "Unreachable split, saturation, unsettled state, or changed sample count blocks accepted statistics.",
+    "Oscillatory/non-asymptotic refinement sequences are refused; incomplete fields, unknown absolute pressure, unhealthy mesh, or out-of-tolerance restart observables fail.",
+    "Read-only runtime probe does not launch a CFD case and does not claim model construction/convergence or restart support."
+  ],
+  "artifacts": [
+    {
+      "identifier": "private:codex_lane2/logs/v5-14-clippy.log",
+      "sha256": "267234d49ec46bb399f684412f508e0e999f8da1b5a51bf367419ac8c62404c3"
+    },
+    {
+      "identifier": "private:codex_lane2/logs/v5-14-fmt.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "identifier": "private:codex_lane2/logs/v5-14-image-probe.log",
+      "sha256": "7419dc999a6a92c766277aa0e94982624ca19645bf66a76638f61239cd160559"
+    },
+    {
+      "identifier": "private:codex_lane2/logs/v5-14-native-probe.log",
+      "sha256": "3143121044046d608981bd5c2cc98d77b3632da5297c4456fabb81a5f94bbe8b"
+    },
+    {
+      "identifier": "private:codex_lane2/logs/v5-14-public.log",
+      "sha256": "6452de15b641eb380a25b262740e531da7c62326c5cac42957a1f81de37f57d6"
+    },
+    {
+      "identifier": "private:codex_lane2/logs/v5-14-test-openfoam.log",
+      "sha256": "38c5776efc30576ee169f2ff25cbc4caf30c2b09dff42345828e666aa99d9337"
+    },
+    {
+      "identifier": "private:codex_lane2/logs/v5-14-public-final.log",
+      "sha256": "31eb06ce6b6305d4eb95472591ee3f1318376f390be5f55de13932bfce3280fd"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      38,
+      39
+    ],
+    "container_probe_memory_limit_gib": 6,
+    "cargo_target_directory": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+    "scratch_bytes_after_build": 632792790,
+    "gpu": false,
+    "cfd_simulation": false,
+    "unbounded_campaign": false,
+    "duplicate_test_binaries_pruned": false,
+    "prune_reason": "No duplicate/stale lane-local test binaries; target stayed 423 MiB.",
+    "scratch_human": "603 MiB target; below 2.5 GiB lane cap."
+  },
+  "environment": {
+    "image_id": "sha256:8866eda29be2bcbc05e0fa9536cacb3c63ff25c97179e058959ffbeb90da7199",
+    "package": "Foundation14 20261008",
+    "build": "14-a4867fc914c1",
+    "compiler": "g++ 13.3.0-6ubuntu2~24.04.1",
+    "mpi": "Open MPI 4.1.6",
+    "models_symbol_checked": [
+      "SSG",
+      "LRR"
+    ],
+    "native_restart_supported": false
+  },
+  "scientific_eligibility": "synthetic software fixtures and pinned runtime identity only; no CFD or physical qualification",
+  "limitations": [
+    "No native pipe, hydrostatics, conservation, rotation, controller, or interrupted-restart case was executed; capability card correctly keeps native restart false.",
+    "SSG/LRR symbols in the library do not establish model dictionary construction, convergence, RSM realizability, or independent validation.",
+    "Full-liner mesh/prism/wall/domain-extension, convection, timestep/corrector, stress-realizability and sampling-stationarity error budgets remain unexecuted.",
+    "The controller is software-only; PDR remains an outcome and no pressure-drop claim is made.",
+    "Root workspace member and lockfile changes are draft scaffolding for integrator reconciliation.",
+    "rtk is not installed in this shell; equivalent direct commands were used. No push was made."
+  ],
+  "next_dependency": "Integrator reconciles draft workspace registration/lock; a renewed bounded native fixture lease and run harness are needed for actual pipe/hydrostatic/conservation/rotation/controller and interrupted restart verification, followed by full-liner numerical/model qualification."
+}
