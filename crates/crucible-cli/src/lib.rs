@@ -1,4 +1,5 @@
 //! Explicit local software fixture lifecycle. No installer, fleet or physical evaluator.
+pub mod explore;
 use crucible_runtime::{
     checkpoint::quarantine_staging, db::RuntimeDb, lease::*, ledger::Resources, replay::*, task::*,
     BlobDigest, Result, RuntimeError, SemanticId,
