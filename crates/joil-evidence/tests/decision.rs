@@ -697,7 +697,8 @@ fn complete_bound(edit: impl FnOnce(&mut toml::Value, &mut Pending, &ContentRef)
         let source = pending_artifact(
             &mut pending,
             &format!("synthetic-limit-source-{id}"),
-            &SourceValue {
+            &LimitSource {
+                limit_id: id.clone(),
                 value: value.clone(),
                 comparison,
                 applicability: scope.clone(),
@@ -835,13 +836,14 @@ fn borrowed_machined_overflow_source_cannot_admit_a_printed_passage_limit() {
 
 #[test]
 fn proper_printed_context_admits_without_a_numeric_ban_and_proposed_3mm_stays_blocked() {
-    // 1.4 mm from a printed-process source with the printed comparison is not banned by value.
+    // 1.4 mm from a printed-process source bound to the printed limit is not banned by value.
     let mut x = complete_bound(|raw, pending, scope| {
         let value = bounded(DecisionUnit::Millimetre, 1.4, 1.4);
         let source = pending_artifact(
             pending,
             "synthetic-printed-process-passage-source",
-            &SourceValue {
+            &LimitSource {
+                limit_id: "printed_min_passage_mm".into(),
                 value: value.clone(),
                 comparison: Comparison::AtLeast,
                 applicability: scope.clone(),
@@ -874,19 +876,19 @@ fn proper_printed_context_admits_without_a_numeric_ban_and_proposed_3mm_stays_bl
     assert_eq!(admit(&mut x, "protected_export"), Ok(()));
 }
 
-/// Contract blocker, kept as a failing control (run with `--ignored`): `SourceValue` carries no
-/// limit, quantity or feature/process identity and applicability is one set-wide reference, so a
-/// record restating the machined 1.4 mm with the printed comparison is indistinguishable from a
-/// proper printed-process record and is admitted.
+/// Formerly the G-004 ignored contract-blocker control (red log 2ef2a8f2…12c6 at 794d044): a
+/// record restating the machined 1.4 mm with the printed comparison was admitted. With
+/// `LimitSource.limit_id` the machined identity is refused even though value, comparison and
+/// applicability all match the printed limit, in both directions.
 #[test]
-#[ignore = "V5-02 contract blocker: SourceValue has no limit/feature identity; restated machined 1.4 mm is admitted"]
-fn contract_blocker_restated_machined_value_is_refused_as_printed_limit() {
+fn restated_machined_limit_identity_is_refused_for_the_printed_limit() {
     let mut x = complete_bound(|raw, pending, scope| {
         let value = bounded(DecisionUnit::Millimetre, 1.4, 1.4);
         let source = pending_artifact(
             pending,
             "synthetic-machined-overflow-1.4mm-restated-at-least",
-            &SourceValue {
+            &LimitSource {
+                limit_id: "machined_overflow_nominal_mm".into(),
                 value: value.clone(),
                 comparison: Comparison::AtLeast,
                 applicability: scope.clone(),
@@ -899,11 +901,127 @@ fn contract_blocker_restated_machined_value_is_refused_as_printed_limit() {
                 applicability: scope.clone(),
             });
     });
-    let result = admit(&mut x, "computational_comparator");
-    assert!(
-        matches!(result, Err(DecisionError::Invalid(_))),
-        "restated machined overflow admitted as a printed passage limit: {result:?}"
+    x.valid().unwrap();
+    assert_eq!(
+        admit(&mut x, "computational_comparator"),
+        Err(DecisionError::Invalid(
+            "limit_source_drift:printed_min_passage_mm".into()
+        ))
     );
+    // Reverse borrow: a printed-passage record restated as the machined "within" value.
+    let mut x = complete_bound(|raw, pending, scope| {
+        let value = bounded(DecisionUnit::Millimetre, 1.4, 1.4);
+        let source = pending_artifact(
+            pending,
+            "synthetic-printed-passage-1.4mm-restated-within",
+            &LimitSource {
+                limit_id: "printed_min_passage_mm".into(),
+                value: value.clone(),
+                comparison: Comparison::Within,
+                applicability: scope.clone(),
+            },
+        );
+        entry_mut(raw, "limits", "machined_overflow_nominal_mm")["value"] =
+            toml_of(&RequirementValue::Admitted {
+                value,
+                source,
+                applicability: scope.clone(),
+            });
+    });
+    assert_eq!(
+        admit(&mut x, "computational_comparator"),
+        Err(DecisionError::Invalid(
+            "limit_source_drift:machined_overflow_nominal_mm".into()
+        ))
+    );
+}
+
+/// Old generic limit records (a `SourceValue` without `limit_id`) are not migrated automatically.
+#[test]
+fn generic_limit_record_without_limit_id_is_refused_not_migrated() {
+    for (limit, unit, lower, upper, comparison) in [
+        (
+            "printed_min_passage_mm",
+            DecisionUnit::Millimetre,
+            1.4,
+            1.4,
+            Comparison::AtLeast,
+        ),
+        (
+            "pressure_budget_pa",
+            DecisionUnit::Pascal,
+            1.0e5,
+            1.0e5,
+            Comparison::AtMost,
+        ),
+    ] {
+        let mut x = complete_bound(|raw, pending, scope| {
+            let value = bounded(unit, lower, upper);
+            let source = pending_artifact(
+                pending,
+                &format!("synthetic-generic-limit-record-{limit}"),
+                &SourceValue {
+                    value: value.clone(),
+                    comparison,
+                    applicability: scope.clone(),
+                },
+            );
+            entry_mut(raw, "limits", limit)["value"] = toml_of(&RequirementValue::Admitted {
+                value,
+                source,
+                applicability: scope.clone(),
+            });
+        });
+        x.valid().unwrap();
+        let err = admit(&mut x, "computational_comparator").unwrap_err();
+        assert!(
+            matches!(&err, DecisionError::Invalid(m) if m.contains("missing field `limit_id`")),
+            "{limit}: {err}"
+        );
+    }
+}
+
+/// Integrator counterexample (Codex 01:05Z, red log 40b33dff…5056 at 63c93dd): a reviewed
+/// `LimitSource` whose lower bound is -0.0 equalled a valid +0.0 requirement under float equality.
+/// The source bound is now checked before comparison; a genuine +0.0 source still admits.
+#[test]
+fn zero_limit_source_admits_and_negative_zero_source_is_refused_before_equality() {
+    let with_source_lower = |lower: f64| {
+        complete_bound(move |raw, pending, scope| {
+            let source = pending_artifact(
+                pending,
+                &format!("synthetic-external-demand-source-lower-{lower:?}"),
+                &LimitSource {
+                    limit_id: "external_demand_pa".into(),
+                    value: bounded(DecisionUnit::Pascal, lower, 2.5e6),
+                    comparison: Comparison::Within,
+                    applicability: scope.clone(),
+                },
+            );
+            entry_mut(raw, "limits", "external_demand_pa")["value"] =
+                toml_of(&RequirementValue::Admitted {
+                    value: bounded(DecisionUnit::Pascal, 0.0, 2.5e6),
+                    source,
+                    applicability: scope.clone(),
+                });
+        })
+    };
+    let mut x = with_source_lower(0.0);
+    x.valid().unwrap();
+    for claim in CLAIM_SCOPES {
+        assert_eq!(admit(&mut x, claim), Ok(()), "{claim}");
+    }
+    let mut x = with_source_lower(-0.0);
+    x.valid().unwrap();
+    for claim in COMPUTATIONAL {
+        assert_eq!(
+            admit(&mut x, claim),
+            Err(DecisionError::Invalid(
+                "reversed_bound_or_negative_zero".into()
+            )),
+            "{claim}"
+        );
+    }
 }
 
 #[test]
