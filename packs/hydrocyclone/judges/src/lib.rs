@@ -9,6 +9,7 @@ pub mod manufacturing;
 pub mod mass;
 pub mod material;
 pub mod metrology;
+pub mod structure;
 pub mod surface;
 
 use serde::{Deserialize, Serialize};
