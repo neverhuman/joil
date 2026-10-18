@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "kind": "v5_15_05_ct35_measurement_protocol",
+  "status": "defined_not_launched",
+  "launched": false,
+  "replicates": 3,
+  "drift_gates": {"concentration_rel": 0.10, "pressure_rel": 0.05},
+  "taps_frozen": false,
+  "source_protocol": "experiments/rig/protocol_v1.md",
+  "frozen_points": {"feed_m3_h": [3.0, 3.5, 4.0, 4.5, 5.0], "reject_split_nominal": 0.02, "reject_split_sensitivity": [0.01, 0.02, 0.03, 0.05]},
+  "judge": "pack_hydrocyclone_judges::validation::judge_protocol -> Unresolved ct35_protocol:taps_not_frozen until the physical tap positions are frozen",
+  "not_authorized_here": "No rig, pump, flowmeter or CT-35 build is run by this packet"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "v5_15_03_coverage_cards",
+  "status": "no_measurements_available",
+  "model_family": "ct35-full-liner",
+  "measured": {"observables": [], "geometry_family": null, "note": "No CT-35 or literature measurement is admitted in this repository. The numerical baseline is not a measurement."},
+  "cards": [
+    {"observable": "TangentialProfile", "regime": "none", "supported": false, "reason": "no_measurement_of_this_observable"},
+    {"observable": "AxialProfile", "regime": "none", "supported": false, "reason": "no_measurement_of_this_observable"},
+    {"observable": "ReverseCore", "regime": "none", "supported": false, "reason": "no_measurement_of_this_observable"},
+    {"observable": "PressureSplit", "regime": "none", "supported": false, "reason": "no_measurement_of_this_observable"},
+    {"observable": "OilGrade", "regime": "none", "supported": false, "reason": "no_measurement_of_this_observable", "note": "Pressure agreement can never support this card"}
+  ],
+  "discrepancy": {
+    "numerical": null,
+    "input": null,
+    "experimental": null,
+    "judge": "Unresolved: discrepancy_unquantified (all three components)"
+  },
+  "rule": "pack_hydrocyclone_judges::validation::coverage: supported only by a measurement of the same observable on the same geometry family"
+}

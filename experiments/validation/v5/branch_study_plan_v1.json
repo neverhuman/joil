@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "v5_15_04_branch_study_plan",
+  "status": "planned_not_run",
+  "initializations": ["init-low", "init-high"],
+  "ramps": [
+    {"ramp": "Up", "duty": "unresolved: duty ladder not admitted"},
+    {"ramp": "Down", "duty": "unresolved: duty ladder not admitted"}
+  ],
+  "branches": [
+    {"initialization": "init-low", "ramp": "Up", "converged": null},
+    {"initialization": "init-high", "ramp": "Up", "converged": null},
+    {"initialization": "init-high", "ramp": "Down", "converged": null},
+    {"initialization": "init-low", "ramp": "Down", "converged": null}
+  ],
+  "startup_condition": null,
+  "best_of_selection": false,
+  "calibration": ["ct35-chamber-wall-field-v1"],
+  "held_out": ["ct35-exotic-head-v2"],
+  "judge": "Unresolved: branch_not_converged for every branch, startup_control_selection_missing; no branch has been run",
+  "notes": [
+    "Geometry names are the candidate heads from experiments/rig/protocol_v1.md; calibration and held-out roles are fixed here before any run.",
+    "Retain every converged branch. Do not keep only the best initialized branch."
+  ]
+}
