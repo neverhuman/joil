@@ -408,7 +408,7 @@ fn inventory_guard_size_closure_and_display_only_markers_preserve_valid_accounti
     let per_size = inventory
         .closure_by_size(&[1.0], &[1.0], &[0.0], &[0.0])
         .unwrap();
-    assert_eq!(per_size, [whole.clone()]);
+    assert_eq!(per_size.as_slice(), std::slice::from_ref(&whole));
     assert!(grade_qualified(true, &whole, 30.0));
     inventory.parcels[0].marker_diameter_px = 0.0;
     assert_eq!(inventory.closure(1.0, 1.0, 0.0).unwrap(), whole);
