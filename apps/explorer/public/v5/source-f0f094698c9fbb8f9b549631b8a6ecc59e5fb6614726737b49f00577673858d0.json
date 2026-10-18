@@ -1,0 +1,2231 @@
+{
+  "kind": "canonical_public_software_progress_not_physical_evidence",
+  "progress": {
+    "V5-00": {
+      "packet": "V5-00",
+      "schema_version": 1,
+      "tasks": {
+        "V5-00-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-01-completed-20261017.json",
+              "sha256": "306cb4244dc212e2de2b7daef7b3ef69de7bd78e9671e9c8051f9a84a10a5ab5"
+            }
+          ],
+          "note": "Baseline committed at 8268533; source SHA mutation controls pass. Scoped Git metadata blocker resolved; historical review receipt preserved.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-00-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-02-completed-20261017.json",
+              "sha256": "b1e8f4de0d8f499aba2cf2386f478610821f83679afb361d3f87ac8451f70cf3"
+            }
+          ],
+          "note": "Historical records retained; present/incomplete/pruned mesh availability explicit; no tag and no scalar-only qualification.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-00-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-owner-disposition-D28-D29-20261018.json",
+              "sha256": "d98565712d2cfce293778bcb085c1134fa048293835df0679cdca61ebd48ded4"
+            }
+          ],
+          "note": "AUDIT-HELD, not verified: original criterion unchanged. C006/F1 22 tests/no skips;11 partial source controls retain limitations. D-28/D-29 owner-dispositioned (not executed fixtures); D-07/18/21 remain blocked. ff4d9d8d official8/8 suites,10/10 steps passed; pushed exact head CI pending. Historical receipts/gate unchanged. Ordered later-done tasks prevent review transition; raw recorded done is not current acceptance.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-00-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-audit-inventory-20261018.json",
+              "sha256": "96e554401030e953cf9191e80a92acc39a9ccd5414a39bb0ce68fd72020136ca"
+            }
+          ],
+          "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-00-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-00-05-completed-20261017.json",
+              "sha256": "52f14d3e9320be991874b6b57ebe219c29a4f651d49445213ddb634a324b302a"
+            }
+          ],
+          "note": "Primary dirty bytes preserved; scoped ownership correction and Claude preflight reviewed. Publish gate only after final acceptance commit/checks; no assumed concurrency.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-01": {
+      "packet": "V5-01",
+      "schema_version": 1,
+      "tasks": {
+        "V5-01-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-01-20261018.json",
+              "sha256": "b67d8f6367d23f93aea7aafda9b3aecada37b03e1ee94dc41685161d06d1a911"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-01-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-02-20261018.json",
+              "sha256": "c27d5cbfd82cb0080859e107c1042333c56542330c34c4d0d5a2b4aa991fb095"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-01-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-03-20261018.json",
+              "sha256": "225ce6450379a207b0fe53a99e4b472c693880e84100dc0adb18afa55c3c4ef2"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-01-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-04-20261018.json",
+              "sha256": "acceba8b48c662c925f5443fcb2ea5cd4abbee308d4b9599acb45fa35d2d5ccf"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-01-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-01-integrator-05-20261018.json",
+              "sha256": "d9baed45d754e55094a8f9972691d9643821643186899007ca9264a339865abe"
+            }
+          ],
+          "note": "Scoped worker commits independently reviewed and full combined71f5905 gate passes; original receipts retained, new integrator receipt has actual timestamp/current source binding.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-02": {
+      "packet": "V5-02",
+      "schema_version": 1,
+      "tasks": {
+        "V5-02-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-01-completed-20261017.json",
+              "sha256": "aa6eb687f2f02bcc59719e827229c2cd0ded141cb91e6dd72e036e6bf4cb4732"
+            }
+          ],
+          "note": "Committed ad4193d: source-bound statuses and non-runnable qualified draft; proposed values cannot self-admit.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-02-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-limit-source-combined-acceptance-20261018.json",
+              "sha256": "a237723506de9e868602a0e5908ce60dba197a162d2429362447f22072ffd1bc"
+            }
+          ],
+          "note": "Accepted engineering source96d: exact feature-bound LimitSource and strict zero bounds;22 active tracked decision tests in full8-suite/all10-step gate, independent provided-target red controls and exact9/9CI39088444745. Combined receipt preserves G004/G005/original evidence. Synthetic controls do not resolve real physical inputs.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-02-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-03-completed-20261017.json",
+              "sha256": "86f4db193d5f0ec8bb70914ac9c18f7de05645a1616736e3a6191d5377b8c09a"
+            }
+          ],
+          "note": "Strict source-reviewed DecisionProfile validation; complete family/uncertainty/source negative controls passed.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-02-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-04-completed-20261017.json",
+              "sha256": "efe43a975dbb79d403dc2a030701d19fafeaab6e758b9734ef8b114f5cec07e4"
+            }
+          ],
+          "note": "Planning precision separated from declared inference; simultaneous/IUT/adaptive/fork policies tested without physical confidence claims.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-02-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-02-limit-source-combined-acceptance-20261018.json",
+              "sha256": "a237723506de9e868602a0e5908ce60dba197a162d2429362447f22072ffd1bc"
+            }
+          ],
+          "note": "Accepted source96d: nine-input/four-scope blocking matrix and timeout-reason preservation; current22 tracked controls/fulllocalgate/exact9CI plus combined source-bound receipt. Real missing inputs remain unresolved, never zero uncertainty or infeasible.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-03": {
+      "packet": "V5-03",
+      "schema_version": 1,
+      "tasks": {
+        "V5-03-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-01-completed-20261017.json",
+              "sha256": "9fa1e98b8343fe724a43811587d451aa81b58c86f4fc24eb55cdc0ef0e031548"
+            }
+          ],
+          "note": "Implemented and tested software contract; physical qualification remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-03-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-02-completed-20261017.json",
+              "sha256": "7f0d12b31f97b02a90c0eba5e2b6d77bc4db2b7adfc5ee3072ecfef436ad7539"
+            }
+          ],
+          "note": "Implemented and tested software contract; physical qualification remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-03-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-03-completed-20261017.json",
+              "sha256": "83f6ef2db4e5eac0128e4d429086dfb38550f954989ac040bac502565d034538"
+            }
+          ],
+          "note": "Implemented and tested software contract; physical qualification remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-03-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-04-completed-20261017.json",
+              "sha256": "c4efad98883902c47d57495133e331b696bde17b4bbe1ba30541ac8f96fa4843"
+            }
+          ],
+          "note": "Implemented and tested software contract; physical qualification remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-03-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-03-combined-acceptance-20261018.json",
+              "sha256": "92c43aab2b7d7ab955583ec5e1a473bf171dda3ecab29471bfd95594e9d0e49b"
+            }
+          ],
+          "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-04": {
+      "packet": "V5-04",
+      "schema_version": 1,
+      "tasks": {
+        "V5-04-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-04-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-04-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-04-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-04-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-04-integrator-acceptance-20261018.json",
+              "sha256": "cfe1d04e6950d026816cf68a3cdaa21f55b334a1ff6d8af014eccae600ca29ff"
+            }
+          ],
+          "note": "Accepted software statistics contract: current-source40tests include independent critical values, weighted/dependent cohorts, four-margin bounds, tails/censoring and preregistered calibration. No physical/scientific admission.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-05": {
+      "packet": "V5-05",
+      "schema_version": 1,
+      "tasks": {
+        "V5-05-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-01-completed-20261017.json",
+              "sha256": "afe1581c5878ac334591abce0b31037f7534938f76b5f3203bd60fdf260ab2a4"
+            }
+          ],
+          "note": "Implemented and tested private software store; physical admission remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-05-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-02-completed-20261017.json",
+              "sha256": "8554689a45dc1b5afd52b8c5ee071402009bb256196cca37417625246b49bd55"
+            }
+          ],
+          "note": "Implemented and tested private software store; physical admission remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-05-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-03-completed-20261017.json",
+              "sha256": "f9d37b5fdd650bf7f01f80d93bb790a2289a2fb201114fa60600dedb020f2b23"
+            }
+          ],
+          "note": "Implemented and tested private software store; physical admission remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-05-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-04-completed-20261017.json",
+              "sha256": "e0a9ef9dd17fb8b10486913ba99787c46c42b9937fde8ac34e195cc462be3d2a"
+            }
+          ],
+          "note": "Implemented and tested private software store; physical admission remains separate.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-05-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-05-combined-retention-export-20261018.json",
+              "sha256": "1c5b32b09dc53f52eac8bdbaeac8d0276ece7f3faf4cf9e8eaee537613255304"
+            }
+          ],
+          "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-06": {
+      "packet": "V5-06",
+      "schema_version": 1,
+      "tasks": {
+        "V5-06-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-01-completed-20261017.json",
+              "sha256": "54f395f67e9f7b2217a767facb41ddc698d374b21b1238b3bff30b4325273ff8"
+            }
+          ],
+          "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-06-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-02-completed-20261017.json",
+              "sha256": "774936603a23cb1f0b057050a5baee7c28381b08854707b026a4b80084a3cd59"
+            }
+          ],
+          "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-06-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-03-completed-20261017.json",
+              "sha256": "311fb67be4d46515baae44b03311ba79f8c993f78bca2d297d107795ecf7c6b5"
+            }
+          ],
+          "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-06-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-04-completed-20261017.json",
+              "sha256": "3185d72560f238c375cc82e6c29b09a2a4985735a1764f74a07d26f43f56e51f"
+            }
+          ],
+          "note": "Real transactional/native software fixture controls and full publication gate pass; physical execution remains Unsupported.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-06-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-06-timer-current-20261018.json",
+              "sha256": "0def60803cacd4e96ccdb3ef21a3a4ea931111e03512860603d826e3e112bd48"
+            }
+          ],
+          "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        }
+      }
+    },
+    "V5-07": {
+      "packet": "V5-07",
+      "schema_version": 1,
+      "tasks": {
+        "V5-07-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-01-completed-20261017.json",
+              "sha256": "d78f59240ea4b1e2e734cf546208258ec709cdca8f579508e0054b45c1c95daa"
+            }
+          ],
+          "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-07-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-02-completed-20261017.json",
+              "sha256": "eb79b40184975e7d7a36b26aa94c03832a0c68a7f6b6440cc6049f4c1ed4d11f"
+            }
+          ],
+          "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-07-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-03-completed-20261017.json",
+              "sha256": "10d02079d34c7f802042078ec65824c90b91be8f4ec3b4f31ff1c873cfb024fa"
+            }
+          ],
+          "note": "Actual complete-state/native fixture/kill/replay controls and full canonical publication gate pass; declared crash-accounting halt and physical Unsupported retained.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-07-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-current-combined-acceptance-20261018.json",
+              "sha256": "047eceeb69c9c26166d6bb86299669fb6a109ec3213f17cf6af96a64a3b83998"
+            }
+          ],
+          "note": "Accepted source96d: actual fresh-origin full1/2-worker runs and resumed run match logical state, retain distinct real costs;13 commands, raw343-file inventory, full workspace and exact9CI pass. No physical performance claim.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-07-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-07-complete-epoch-checkpoint-followup-20261018.json",
+              "sha256": "b1850a682c3bda2db7383da642655dd3c13845443b94ce3c5aeb247a332a52fc"
+            }
+          ],
+          "note": "New8f9 checkpoint source: real full2core lifecycle2/2 and recovery9/9 pass; new pipe/origin follow-up receipts preserve actual earlier reds. Held in review until combined integrated full gate and exact pushed-head CI; no physical claim.",
+          "owner": "codex-v5-integrator",
+          "status": "review"
+        }
+      }
+    },
+    "V5-08": {
+      "packet": "V5-08",
+      "schema_version": 1,
+      "tasks": {
+        "V5-08-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-08-01-integrator-acceptance-20261018.json",
+              "sha256": "26d56f1b123e467097133980c085c511b036dafff60615a0b7b1af0539c5ccef"
+            }
+          ],
+          "note": "Accepted only ADR diagnostic CPU prototype:17tests, four90point VM/JIT/reference cases with sampled error/compile times. Experimental and no global certification. V5-08 packet/CAD authority not accepted.",
+          "owner": "codex-v5-integrator",
+          "status": "done"
+        },
+        "V5-08-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "D-16 frozen positive/red execution verified; accepted boundary corpus and third CAD authority remain unavailable. No partition-authority or physical repair closure.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-08-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-08-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-08-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Kernel software controls available; ordered predecessor V5-08-02 is not accepted. Original authority/conformance criteria remain mandatory; no packet admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-09": {
+      "packet": "V5-09",
+      "schema_version": 1,
+      "tasks": {
+        "V5-09-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "D-05 frozen source control and15observer tests verified; dependency V5-08 remains unaccepted. Source/artifact and downstream capability acceptance is not supplied by schema normalization.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-09-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "D-05 frozen source control and15observer tests verified; dependency V5-08 remains unaccepted. Source/artifact and downstream capability acceptance is not supplied by schema normalization.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-09-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "D-05 frozen source control and15observer tests verified; dependency V5-08 remains unaccepted. Source/artifact and downstream capability acceptance is not supplied by schema normalization.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-09-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "D-05 frozen source control and15observer tests verified; dependency V5-08 remains unaccepted. Source/artifact and downstream capability acceptance is not supplied by schema normalization.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-09-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "D-05 frozen source control and15observer tests verified; dependency V5-08 remains unaccepted. Source/artifact and downstream capability acceptance is not supplied by schema normalization.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-10": {
+      "packet": "V5-10",
+      "schema_version": 1,
+      "tasks": {
+        "V5-10-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Fourteen artifact/export software tests verified; dependency V5-08 remains unaccepted. Same-subject mesh/coverage/export admission remains open.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-10-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Fourteen artifact/export software tests verified; dependency V5-08 remains unaccepted. Same-subject mesh/coverage/export admission remains open.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-10-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Fourteen artifact/export software tests verified; dependency V5-08 remains unaccepted. Same-subject mesh/coverage/export admission remains open.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-10-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Fourteen artifact/export software tests verified; dependency V5-08 remains unaccepted. Same-subject mesh/coverage/export admission remains open.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-10-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Fourteen artifact/export software tests verified; dependency V5-08 remains unaccepted. Same-subject mesh/coverage/export admission remains open.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-11": {
+      "packet": "V5-11",
+      "schema_version": 1,
+      "tasks": {
+        "V5-11-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-11-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-11-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-11-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-11-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software evidence only; original source-bound defect closure and packet acceptance remain open. Audit023 supporting reference preserves G008 receipt7f49b3c2; additive timer/tooling followup recorded separately. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-12": {
+      "packet": "V5-12",
+      "schema_version": 1,
+      "tasks": {
+        "V5-12-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-12-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-12-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-12-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-12-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Frozen corpus realization and physical-neutrality evidence remain open; no broad mutation campaign was run. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-13": {
+      "packet": "V5-13",
+      "schema_version": 1,
+      "tasks": {
+        "V5-13-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-13-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "D-07 remains kind:blocked: no frozen accepted-solid/integrated-volume seam. Assertion-inversion control is explicitly withdrawn; manufacturing tests provide integration-only support.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-13-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-13-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-13-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Caller-supplied solid measurements still need accepted observer/artifact binding and real process/material inputs; D-07 remains held. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-14": {
+      "packet": "V5-14",
+      "schema_version": 1,
+      "tasks": {
+        "V5-14-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Pinned capability/pressure/controller software and harmless process stand-ins only; no native CFD, numerical qualification or native restart. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-14-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Pinned capability/pressure/controller software and harmless process stand-ins only; no native CFD, numerical qualification or native restart. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-14-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Pinned capability/pressure/controller software and harmless process stand-ins only; no native CFD, numerical qualification or native restart. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-14-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Pinned capability/pressure/controller software and harmless process stand-ins only; no native CFD, numerical qualification or native restart. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-14-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Pinned capability/pressure/controller software and harmless process stand-ins only; no native CFD, numerical qualification or native restart. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-15": {
+      "packet": "V5-15",
+      "schema_version": 1,
+      "tasks": {
+        "V5-15-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Original benchmark data/license/accession inputs remain incomplete.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-15-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Prospective study plan is not an executed anomaly study.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-15-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Measured observable coverage and discrepancy inputs are absent.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-15-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Native initialization/ramp branches have not run.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-15-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Reference ranking admission remains disabled without matching validation evidence.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-16": {
+      "packet": "V5-16",
+      "schema_version": 1,
+      "tasks": {
+        "V5-16-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Analytic/synthetic force, injection, inventory and restart controls only; native parity, production-field extraction and measured residence evidence remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-16-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Frozen D-14 positive/red execution and24transport tests verified. Original task/packet criteria and dependency V5-15 remain unaccepted; no physical transport/seeding admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-16-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Analytic/synthetic force, injection, inventory and restart controls only; native parity, production-field extraction and measured residence evidence remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-16-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Analytic/synthetic force, injection, inventory and restart controls only; native parity, production-field extraction and measured residence evidence remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-16-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Analytic/synthetic force, injection, inventory and restart controls only; native parity, production-field extraction and measured residence evidence remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-17": {
+      "packet": "V5-17",
+      "schema_version": 1,
+      "tasks": {
+        "V5-17-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Toy tracer ensembles do not qualify the production native adapter. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-17-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: RSM/LES software inputs are not matched measured carrier-field evidence. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-17-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Breakup exposure/calibration data remain unavailable. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-17-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Transfer reuse has only synthetic held-out/noninteraction controls. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-17-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Caller cluster/time-block/critical-value metadata still needs independent statistical admission. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-18": {
+      "packet": "V5-18",
+      "schema_version": 1,
+      "tasks": {
+        "V5-18-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Exact concentration fixtures pass; native cohort/DSD evidence is not admitted.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-18-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Operating-map intersections are software; required native scenarios remain open.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-18-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Port-flux arithmetic is synthetic; integrated native flux measurements are absent.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-18-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Objective bounds and mandatory physical gates lack accepted measurements.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-18-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Canonical statistical DecisionProfile integration and qualified baseline inputs remain open.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-19": {
+      "packet": "V5-19",
+      "schema_version": 1,
+      "tasks": {
+        "V5-19-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-19-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-19-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-19-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-19-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Native solver runs, installation loads and qualified tractions remain missing; original four command logs remain unrecoverable and are not reconstructed. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-20": {
+      "packet": "V5-20",
+      "schema_version": 1,
+      "tasks": {
+        "V5-20-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Synthetic software checks only; wet loads, material fatigue data, metrology and upstream physical admissions remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-20-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Synthetic software checks only; wet loads, material fatigue data, metrology and upstream physical admissions remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-20-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Synthetic software checks only; wet loads, material fatigue data, metrology and upstream physical admissions remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-20-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Synthetic software checks only; wet loads, material fatigue data, metrology and upstream physical admissions remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-20-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
+              "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Synthetic software checks only; wet loads, material fatigue data, metrology and upstream physical admissions remain missing. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-21": {
+      "packet": "V5-21",
+      "schema_version": 1,
+      "tasks": {
+        "V5-21-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Fixed policy bookkeeping is not an end-to-end qualified grammar/evaluator search. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-21-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Qualified archive classes/descriptors still require admitted observer/evidence bindings. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-21-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Charged scheduling/operator interfaces have not driven a qualified native campaign. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-21-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Conventional controls are prototypes; competent tuning/fair useful-cost comparisons remain open. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-21-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Finite-front fixtures do not complete the full landscape/comparison programme. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-22": {
+      "packet": "V5-22",
+      "schema_version": 1,
+      "tasks": {
+        "V5-22-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Independent qualified labels unavailable; EV-09/EV-12 remain deferred. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-22-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Allocation arithmetic lacks a measured charged native campaign. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-22-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Random audit ranking fixtures do not admit a physical pruning screen. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-22-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Held-out/OOD controls are synthetic and registry admission remains open. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-22-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Exploit challenge bookkeeping is not executed native geometry/resolution qualification. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-23": {
+      "packet": "V5-23",
+      "schema_version": 1,
+      "tasks": {
+        "V5-23-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-23-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-23-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-23-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "D-18 remains kind:blocked: no frozen fake-evaluator injection seam or authorized performance evidence. Withdrawn assertion inversion supplies no closure; worker tests are integration-only support.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-23-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Production authenticated transport, resource-enforcement drills and measured native benchmark/packing evidence remain open; no selected configuration. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-24": {
+      "packet": "V5-24",
+      "schema_version": 1,
+      "tasks": {
+        "V5-24-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: No measured native acceleration capability comparison or GPU lease. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-24-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Bounded CPU spring/LBM references exist; GPU kernels and production parity absent. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-24-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Elementary fixtures do not qualify turbulent deoiling or continuum collapse. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-24-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: No held-out paired decision-quality/speedup admission evidence. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-24-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Reference fallback software exists; mature native reference qualification still required. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-25": {
+      "packet": "V5-25",
+      "schema_version": 1,
+      "tasks": {
+        "V5-25-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: No admitted measured cut-plane/full-liner interface dataset. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-25-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Training/held-out protocol has no qualified native dataset. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-25-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Coupled iteration controls are synthetic; held-out full-liner parity missing. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-25-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Random audit labels are synthetic; no admitted operator/model/observer scope. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-25-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Fallback planning abstains correctly but a qualified full-liner solver remains external. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-26": {
+      "packet": "V5-26",
+      "schema_version": 1,
+      "tasks": {
+        "V5-26-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Exact scene/registry bytes checked; accepted observer/export pipeline remains incomplete. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-26-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Catalogue mappings exist; evidence availability and actual render completion remain separate. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-26-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Stand-in adapter tested; no Blender build/render admitted under this lease. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-26-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Only explicit linear_blue_red scalar mapping supported; native field/tensor/human semantic review absent. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-26-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Frame hash/resume controls tested; no actual Blender plate/layout approval. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-27": {
+      "packet": "V5-27",
+      "schema_version": 1,
+      "tasks": {
+        "V5-27-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Strict manually authored view contracts and canonical progress source exist; generated shared schema remains incomplete. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-27-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Software progress is real; live campaign exporter/event service remains absent. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-27-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Inspection/link views do not complete shared-scale 3D/qualified archive integration. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-27-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Revocation frontier tests pass; real registry service and reviewed offline dossiers still external. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-27-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Build/contract controls pass; targeted browser/keyboard/reduced-motion acceptance not executed. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-28": {
+      "packet": "V5-28",
+      "schema_version": 1,
+      "tasks": {
+        "V5-28-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Preregistration inputs remain proposed and no qualified study has started. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-28-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Confirmation explicitly blocked; no winner or campaign claimed. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-28-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Mechanistic intervention plans unexecuted. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-28-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Exact query/figure controls exist; independent scientific observations remain missing. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-28-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Negative-result fixture builds do not establish full governing evidence/license/disclosure approval. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-29": {
+      "packet": "V5-29",
+      "schema_version": 1,
+      "tasks": {
+        "V5-29-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Independent bolt/material fixture contract is not admitted manufacturing/load evidence. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-29-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Elementary screen is not shared native development/observer/FEA evaluation. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-29-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Store/cache/nonempty checkpoint controls pass; full shared-runtime/native reuse acceptance open. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-29-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Pack SVG is a software data card, not a qualified common-scene physical render. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-29-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Generalization boundaries recorded; full engine/pack programme acceptance remains open. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-30": {
+      "packet": "V5-30",
+      "schema_version": 1,
+      "tasks": {
+        "V5-30-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Concrete protocol remains unsigned/unapproved; no spending/collection authority. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-30-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Exact synchronized reduction verified on fixtures; real calibration/recovery/covariance evidence absent. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-30-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Passport validators have no independent as-built specimens/metrology. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-30-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Software bounds never grant canonical DecisionProfile/physical qualification. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-30-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Software integrated with positive/negative controls; acceptance open: Private storage/allowlist controls tested; owner review/disclosure decisions not supplied. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    },
+    "V5-31": {
+      "packet": "V5-31",
+      "schema_version": 1,
+      "tasks": {
+        "V5-31-01": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Original upstream acceptance dependencies remain open. D-30 execution is recorded, but two normalization artifacts do not bind to the declared source. Current release scope/handoff and exact successor gate/publication records remain separate; no R2/R3/R4 admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-31-02": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Original upstream acceptance dependencies remain open. D-30 execution is recorded, but two normalization artifacts do not bind to the declared source. Current release scope/handoff and exact successor gate/publication records remain separate; no R2/R3/R4 admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-31-03": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Original upstream acceptance dependencies remain open. D-30 execution is recorded, but two normalization artifacts do not bind to the declared source. Current release scope/handoff and exact successor gate/publication records remain separate; no R2/R3/R4 admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-31-04": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Original upstream acceptance dependencies remain open. D-30 execution is recorded, but two normalization artifacts do not bind to the declared source. Current release scope/handoff and exact successor gate/publication records remain separate; no R2/R3/R4 admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        },
+        "V5-31-05": {
+          "evidence": [
+            {
+              "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+              "purpose": "integration_only",
+              "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d"
+            }
+          ],
+          "note": "Original upstream acceptance dependencies remain open. D-30 execution is recorded, but two normalization artifacts do not bind to the declared source. Current release scope/handoff and exact successor gate/publication records remain separate; no R2/R3/R4 admission.",
+          "owner": "codex-v5-integrator",
+          "status": "blocked"
+        }
+      }
+    }
+  },
+  "schema_version": 1,
+  "scientific_status": {
+    "campaign_admission": "sandbox_only",
+    "campaign_blockers": [
+      "unresolved pressure/energy/absolute-pressure limits and continuous duty band",
+      "unqualified oil transport and independent validation",
+      "unresolved installation and material/process requirements",
+      "current tail samples insufficient for physical p95 claims"
+    ],
+    "claims": {
+      "oil_grade_evaluated": {
+        "missing": [
+          "full-residence-oil-inventory",
+          "size-resolved-grade"
+        ],
+        "state": "incomplete"
+      },
+      "physical_validation": {
+        "missing": [
+          "as-built-metrology",
+          "paired-independent-physical-comparator"
+        ],
+        "state": "incomplete"
+      },
+      "qualified_baseline": {
+        "missing": [
+          "baseline-numerics",
+          "baseline-oil-grade",
+          "baseline-validation"
+        ],
+        "state": "incomplete"
+      },
+      "structural_qualification": {
+        "missing": [
+          "solid-fea",
+          "load-transfer",
+          "material-process-validation"
+        ],
+        "state": "incomplete"
+      }
+    },
+    "customer_or_site_data_public": false,
+    "evidence_registry_sha256": "97ca1ca4bb35e3e541ef8455bec5f855a4ff35700c10ea2af43e7228bcc55796",
+    "generated_by": "tools/gen_status.py",
+    "legacy_status": {
+      "cad_baseline": "passed_brep_roundtrip_declared_units_scale_terminal_and_orientation_audit",
+      "campaign_admission": "blocked_mesh_transient_oil_requirements_and_independent_validation",
+      "cfd_executed": true,
+      "customer_or_site_data_public": false,
+      "flexible_graph_cad_implemented": true,
+      "geometry_proposals_audited": 9,
+      "implemented": [
+        "baseline analytic genotype",
+        "Rust metric arithmetic",
+        "CAD baseline builder",
+        "publication guard",
+        "ordered implementation plan",
+        "STEP/STL/glTF baseline exports",
+        "read-only React research console",
+        "immutable evidence and adverse inventory helpers",
+        "pinned Foundation14 CPU environment",
+        "native channel and light-drop rise/response checks",
+        "full-liner SST diagnostic cases and native mechanical flux",
+        "flexible chamber-wall CAD proposals",
+        "source-bound CAD and CFD saved-field views",
+        "Rust/CUDA 3-node multi-island NSGA-II + 4D MAP-Elites evolutionary engine (119,235 3D evaluations)",
+        "P07 GP surrogate LOFO-CV and Constrained Expected Improvement acquisition",
+        "P08 Ti-6Al-4V / 316L structural, modal lock-in, and LPBF manufacturability gate",
+        "P05/P06 population-balance and blinded A/B/A crossover power qualification",
+        "Interactive 3D HTML5 Canvas hydrocyclone & Lagrangian droplet-vortex explorer",
+        "OpenFOAM 14 3D snappyHexMesh + kOmegaSST pilot execution on promoted trifurcated 6-jet elite",
+        "OpenFOAM 14 3-grid systematic refinement (G0 140k, G1 306k, G2 553k cells) with Roache GCI and dual 7-equation LRR/SSG RSM turbulence cross-checks",
+        "Comprehensive scientific white paper (docs/WHITEPAPER.md) with 6 publication-grade figure plates",
+        "Wave-2 exotic 3D genome (TpmsInsertField3D, HelicalRibbon3D, 11 canonical families, validity-preserving operators) and pre-registered 10-seed 4-arm equal-budget ablation (B0/B1/B2/B3) + held-out duties (D1..D4)"
+      ],
+      "native_elementary_passed": {
+        "channel_resolutions": 2,
+        "light_drop_rise_timesteps": 2,
+        "scope": "elementary only; no hydrocyclone qualification"
+      },
+      "next_packet": "P04_mesh_and_carrier_qualification_with_P03_P05_elementary_tests",
+      "oil_grade_evaluated": false,
+      "particle_capability_probe_executed": true,
+      "phase": "baseline_hydraulic_diagnostics_executed_oil_fitness_unqualified",
+      "physical_validation": false,
+      "planned_challenge_families": 66,
+      "planned_packets": 11,
+      "python_checks_passed": 23,
+      "qualified_baseline": false,
+      "qualified_capacity_gain": null,
+      "qualified_fitness": null,
+      "receipts": [
+        "docs/receipts/foundation_local.json",
+        "docs/receipts/foundation_xbabe2.json",
+        "docs/receipts/supplied_geometry_audit.json",
+        "docs/receipts/native-elementary-20261015.json",
+        "docs/receipts/environment-20261015.json",
+        "docs/receipts/cad-proposals-20261015.json",
+        "docs/receipts/negative-cfd-20261015.json",
+        "docs/receipts/research-pilot-20261015.json",
+        "docs/receipts/capability-probes-20261015.json",
+        "docs/receipts/cluster-evolution-and-cfd-20261015.json",
+        "docs/receipts/gci-and-rsm-verification-20261015.json",
+        "docs/receipts/ssg-rsm-and-vortex-plate-20261015.json",
+        "docs/receipts/wave2-genome-and-10seed-ablation-20261015.json"
+      ],
+      "remaining": "P01-P10 remain partially implemented or planned; no science promotion gates waived. See BASELINE_RUN.md and WHITEPAPER.md.",
+      "results": [
+        "docs/results/baseline-hydraulics-v1.json",
+        "docs/results/rust-evolution-qualification-v1.json",
+        "docs/results/exotic-vs-baseline-cfd-benchmark-v1.json",
+        "docs/results/interactive-3d-archetypes-v1.json",
+        "docs/results/elite-3grid-gci-and-rsm-verification-v1.json",
+        "docs/results/wave2-multiseed-ablation-and-holdout-v1.json"
+      ],
+      "rust_regressions_passed": 36,
+      "schema_version": 1,
+      "search_engine_implemented": true,
+      "source_input_audit": "known_negative_latest_head_stl_inward_winding_detected_and_preserved",
+      "structural_qualification": true,
+      "ui_build": "passed_macos_and_ubuntu",
+      "wall_field_cad_implemented": true
+    },
+    "legacy_status_is_historical_not_authoritative": true,
+    "objective_sha256": "8fa5a06d18e128c8320e6ea566d90746a20b0cce1c356476b69439c65c0ecf28",
+    "oil_grade_evaluated": false,
+    "phase": "software_truth_repair_scientific_claim_inventory_incomplete",
+    "physical_validation": false,
+    "qualified_baseline": false,
+    "qualified_capacity_gain": null,
+    "qualified_fitness": null,
+    "requirements_sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca",
+    "schema_version": 2,
+    "software": [
+      {
+        "id": "evidence_identity_observation_and_claim_kernel",
+        "receipt": {
+          "path": "crates/joil-evidence/receipts/EV-01-05.json",
+          "sha256": "629c7cc0ed5750888e53fa5fa92d25faab35d7a2daf98d8dffede153fb4c79a3"
+        },
+        "state": "software_contract_verified"
+      },
+      {
+        "id": "sandbox_campaign_contract_and_generated_status",
+        "receipt": {
+          "path": "crates/joil-evidence/receipts/EV-06-07-10.json",
+          "sha256": "f552d5c5c4002be9ed7e9499309335c8a0d1215b3dad4d13ae925668a33d8c7d"
+        },
+        "state": "software_contract_verified"
+      },
+      {
+        "id": "rust_python_observation_schema_parity",
+        "receipt": {
+          "path": "crates/joil-evidence/receipts/EV-11-12.json",
+          "sha256": "bdd8811afa8e94ee63fe69e50d35709381236fd09eef1e4c76ae25b23b091dd6"
+        },
+        "state": "software_contract_verified"
+      },
+      {
+        "id": "surrogate_abstention_and_independent_admission_software",
+        "receipt": {
+          "path": "crates/joil-evidence/receipts/EV-08-09.json",
+          "sha256": "38379bf2d9ae044b79ae71342468b9e747f5edb6dadc45faa6680fac7c20a180"
+        },
+        "state": "software_contract_verified"
+      }
+    ],
+    "structural_qualification": false
+  },
+  "task_registry_sha256": "91547730018b7bda9efd3cb2bc7810f294e50b3b7696c91dbb0077c6786fdd56"
+}

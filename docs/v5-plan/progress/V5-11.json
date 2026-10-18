@@ -5,55 +5,59 @@
     "V5-11-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-11-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-11-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-11-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json.",
+      "note": "Integrated software checkpoint be2c46e; full gate/CI and acceptance pending. Staged MPG data is not an evaluated V5-08 material partition; primitive/backend realization and certified baseline bounds remain open. See docs/receipts/v5-g008-selected-software-integration-20261018.json. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d"
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
+          "purpose": "integration_only"
         }
       ]
     },
     "V5-11-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Integrated software evidence only; original source-bound defect closure and packet acceptance remain open. Audit023 supporting reference preserves G008 receipt7f49b3c2; additive timer/tooling followup recorded separately.",
+      "note": "Integrated software evidence only; original source-bound defect closure and packet acceptance remain open. Audit023 supporting reference preserves G008 receipt7f49b3c2; additive timer/tooling followup recorded separately. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g008-selected-software-integration-20261018.json",
-          "sha256": "7f49b3c2e794573c746c3500e03a165f099540498a76f076ae814dbc6a869d3d",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]

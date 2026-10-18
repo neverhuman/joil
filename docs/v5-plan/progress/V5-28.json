@@ -5,11 +5,11 @@
     "V5-28-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Preregistration inputs remain proposed and no qualified study has started.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Preregistration inputs remain proposed and no qualified study has started. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
@@ -17,11 +17,11 @@
     "V5-28-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Confirmation explicitly blocked; no winner or campaign claimed.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Confirmation explicitly blocked; no winner or campaign claimed. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
@@ -29,11 +29,11 @@
     "V5-28-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Mechanistic intervention plans unexecuted.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Mechanistic intervention plans unexecuted. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
@@ -41,11 +41,11 @@
     "V5-28-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Exact query/figure controls exist; independent scientific observations remain missing.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Exact query/figure controls exist; independent scientific observations remain missing. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
@@ -53,11 +53,11 @@
     "V5-28-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Negative-result fixture builds do not establish full governing evidence/license/disclosure approval.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Negative-result fixture builds do not establish full governing evidence/license/disclosure approval. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]

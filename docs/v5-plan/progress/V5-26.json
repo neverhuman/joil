@@ -5,11 +5,11 @@
     "V5-26-01": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Exact scene/registry bytes checked; accepted observer/export pipeline remains incomplete.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Exact scene/registry bytes checked; accepted observer/export pipeline remains incomplete. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
@@ -17,11 +17,11 @@
     "V5-26-02": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Catalogue mappings exist; evidence availability and actual render completion remain separate.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Catalogue mappings exist; evidence availability and actual render completion remain separate. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
@@ -29,11 +29,11 @@
     "V5-26-03": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Stand-in adapter tested; no Blender build/render admitted under this lease.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Stand-in adapter tested; no Blender build/render admitted under this lease. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
@@ -41,11 +41,11 @@
     "V5-26-04": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Only explicit linear_blue_red scalar mapping supported; native field/tensor/human semantic review absent.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Only explicit linear_blue_red scalar mapping supported; native field/tensor/human semantic review absent. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
@@ -53,11 +53,11 @@
     "V5-26-05": {
       "status": "blocked",
       "owner": "codex-v5-integrator",
-      "note": "Software integrated with positive/negative controls; acceptance open: Frame hash/resume controls tested; no actual Blender plate/layout approval.",
+      "note": "Software integrated with positive/negative controls; acceptance open: Frame hash/resume controls tested; no actual Blender plate/layout approval. Audited receipt/log bindings reviewed additively; original task criteria and accepted dependency requirements are unchanged.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-g009-selected-software-integration-20261018.json",
-          "sha256": "afef8f0ad93fab3f23ee01767533e4513a8f47f5dcf74fac7cc619ced1253ffc",
+          "path": "docs/receipts/v5-r003-wave34-integration-review-20261018.json",
+          "sha256": "70cef07d32a5691b1b44d8d408b79bc5568acfdc0773b46d2962400d599a1a2d",
           "purpose": "integration_only"
         }
       ]
