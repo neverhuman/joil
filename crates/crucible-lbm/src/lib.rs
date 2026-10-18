@@ -232,7 +232,7 @@ impl D2Q9 {
         ];
         let rates: [f64; Q] = [0., s_e, s_eps, 0., s_q, 0., s_q, sv, sv];
         let mut next = self.f.clone();
-        for i in 0..self.f.len() {
+        for (i, next_cell) in next.iter_mut().enumerate().take(self.f.len()) {
             if self.solid[i] {
                 continue;
             }
@@ -268,9 +268,7 @@ impl D2Q9 {
             // Invert the fixed basis by solving its small dense linear system.
             let mut a = [[0.; Q + 1]; Q];
             for r in 0..Q {
-                for c in 0..Q {
-                    a[r][c] = M[r][c]
-                }
+                a[r][..Q].copy_from_slice(&M[r]);
                 a[r][Q] = m[r];
             }
             for c in 0..Q {
@@ -282,20 +280,22 @@ impl D2Q9 {
                 }
                 a.swap(c, pivot);
                 let d = a[c][c];
-                for j in c..=Q {
-                    a[c][j] /= d
+                for val in a[c].iter_mut().take(Q + 1).skip(c) {
+                    *val /= d;
                 }
-                for r in 0..Q {
+                let pivot_row = a[c];
+                for (r, row) in a.iter_mut().enumerate().take(Q) {
                     if r != c {
-                        let f = a[r][c];
-                        for j in c..=Q {
-                            a[r][j] -= f * a[c][j]
+                        let f = row[c];
+                        for (val, &piv) in row.iter_mut().zip(pivot_row.iter()).take(Q + 1).skip(c)
+                        {
+                            *val -= f * piv;
                         }
                     }
                 }
             }
-            for q in 0..Q {
-                next[i][q] = a[q][Q];
+            for (q, row) in a.iter().enumerate().take(Q) {
+                next_cell[q] = row[Q];
             }
         }
         if next.iter().flatten().any(|v| !v.is_finite()) {
@@ -346,8 +346,8 @@ pub fn restrict_block_conservative(
     if ratio == 0
         || fine_width == 0
         || fine_height == 0
-        || fine_width % ratio != 0
-        || fine_height % ratio != 0
+        || !fine_width.is_multiple_of(ratio)
+        || !fine_height.is_multiple_of(ratio)
         || fine_width.checked_mul(fine_height) != Some(fine.len())
     {
         return Err(LbmError::InvalidShape);

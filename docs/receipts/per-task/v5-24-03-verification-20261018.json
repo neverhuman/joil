@@ -53,11 +53,11 @@
   "artifacts": [
     {
       "path": "crates/crucible-gpu/src/lib.rs",
-      "sha256": "8637fb7775ca9a54066670e48c74520e6225bf092be202897a90792ac9c69b46"
+      "sha256": "d844a1ca54a1e33484483a2898be31102a86acf42e78e6438917188f2f064e0f"
     },
     {
       "path": "crates/crucible-lbm/src/lib.rs",
-      "sha256": "a523c3ecb37f3465baa06b40e8a587aaf88f242001bb857dddb7a768a546fd90"
+      "sha256": "17f2a446ceee30cfe93e070c71ff1059f5401bd53cd7d08681ea54c9b4bf571a"
     }
   ],
   "resource_allocation": {

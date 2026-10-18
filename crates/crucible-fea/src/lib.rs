@@ -203,8 +203,8 @@ impl VoxelNetwork {
         }
         let mut d = vec![[0.0; 3]; self.nodes()];
         for e in &self.edges {
-            for c in 0..3 {
-                let v = e.k * e.n[c] * e.n[c];
+            for (c, &nc) in e.n.iter().enumerate() {
+                let v = e.k * nc * nc;
                 d[e.a][c] += v;
                 d[e.b][c] += v;
             }

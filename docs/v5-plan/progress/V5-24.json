@@ -9,7 +9,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-24-01-verification-20261018.json",
-          "sha256": "7a0fdfb2117e127b0fe322c606077193aeec38c2c796113304a05236df3d7ab9"
+          "sha256": "7358941a1f226049508b77ef369fb0c9ff03786032f7d6104d74c950d21a214a"
         }
       ]
     },
@@ -20,7 +20,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-24-02-verification-20261018.json",
-          "sha256": "54d4f98d922d9003a7ec8781dac77e317e1e21a7bdc131ceb0ea96375f3e7af0"
+          "sha256": "a1cd1b6c527d7ca96f170b0119fcc2250c45a30be9e1cd29762ad99ff1947da4"
         }
       ]
     },
@@ -31,7 +31,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-24-03-verification-20261018.json",
-          "sha256": "d0cbce761d34b52e326e0cd2f1aeaa878954755c119d627e2b5ce18e8bf9adac"
+          "sha256": "903caf2e1d259443aa8f3e1f643fc506309a6849fa71b20502bd6704f7770709"
         }
       ]
     },
@@ -42,7 +42,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-24-04-verification-20261018.json",
-          "sha256": "e639f745d5fc24118aeeacc49eb3fd79eeaec7eb9aba6b834ba90662b07ccfa9"
+          "sha256": "b6d9d02ca7cb1ae525ee0826083804d15718bf226289e8d2ffd3bec4b42740da"
         }
       ]
     },
