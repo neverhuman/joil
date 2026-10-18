@@ -1,0 +1,74 @@
+{
+  "schema": "joil.v5-04-02.capture-fixture.v1",
+  "synthetic": true,
+  "purpose": "SYNTHETIC weighted clustered capture fixtures; arithmetic, refusal and preregistered coverage behaviour only, not physical evidence",
+  "t_0975_df2": 4.302652729911275,
+  "one_stratum": {
+    "stratum_mass_fractions": {"coarse": 1.0},
+    "clusters": ["A", "B", "C"],
+    "parcels": [
+      {"parcel_id": "A1", "root_id": "A-r1", "stratum": "coarse", "cluster": "A", "represented_mass": 2.0, "captured": true},
+      {"parcel_id": "A2", "root_id": "A-r2", "stratum": "coarse", "cluster": "A", "represented_mass": 1.0, "captured": false},
+      {"parcel_id": "B1", "root_id": "B-r1", "stratum": "coarse", "cluster": "B", "represented_mass": 0.5, "captured": true},
+      {"parcel_id": "B2", "root_id": "B-r1", "stratum": "coarse", "cluster": "B", "represented_mass": 0.5, "captured": true},
+      {"parcel_id": "B3", "root_id": "B-r2", "stratum": "coarse", "cluster": "B", "represented_mass": 3.0, "captured": false},
+      {"parcel_id": "C1", "root_id": "C-r1", "stratum": "coarse", "cluster": "C", "represented_mass": 3.0, "captured": true},
+      {"parcel_id": "C2", "root_id": "C-r2", "stratum": "coarse", "cluster": "C", "represented_mass": 1.0, "captured": false}
+    ],
+    "hand_derived": {
+      "estimate_fraction": [6, 11],
+      "variance_fraction": [399, 14641],
+      "degrees_of_freedom": 2,
+      "count_shortcut_fraction": [4, 7],
+      "derivation": "y=[2,1,3], x=[3,4,4], R=6/11; residuals y-Rx=[4/11,-13/11,9/11], sum of squares 266/121, xbar^2=121/9; v=(266/121)/(3*2*121/9)=399/14641"
+    }
+  },
+  "two_strata": {
+    "stratum_mass_fractions": {"coarse": 0.75, "fine": 0.25},
+    "clusters": ["A", "B", "C"],
+    "extra_fine_parcels": [
+      {"parcel_id": "A3", "root_id": "A-r3", "stratum": "fine", "cluster": "A", "represented_mass": 1.0, "captured": true},
+      {"parcel_id": "A4", "root_id": "A-r4", "stratum": "fine", "cluster": "A", "represented_mass": 1.0, "captured": false},
+      {"parcel_id": "B4", "root_id": "B-r3", "stratum": "fine", "cluster": "B", "represented_mass": 1.0, "captured": false},
+      {"parcel_id": "C3", "root_id": "C-r3", "stratum": "fine", "cluster": "C", "represented_mass": 1.0, "captured": true}
+    ],
+    "hand_derived": {
+      "estimate_fraction": [47, 88],
+      "variance_fraction": [1396233, 44977152],
+      "degrees_of_freedom": 2,
+      "derivation": "coarse R=6/11 (w .75), fine y=[1,0,1] x=[2,1,1] R=1/2 (w .25); u_c=sum_h w_h (y_hc-R_h x_hc)/xbar_h = [288,-1299,1011]/3872; v=sum u^2/(3*2)=1396233/44977152 (includes between-stratum covariance)"
+    }
+  },
+  "preregistered_coverage": {
+    "registered_before_execution": true,
+    "nominal_confidence": 0.95,
+    "rng": "SplitMix64 (tests/common/mod.rs), uniform = (next >> 11) * 2^-53, normal by Box-Muller",
+    "correlated_cohort": {
+      "seed": 20261018004,
+      "trials": 1000,
+      "carrier_clusters": 12,
+      "strata": {"fine": {"mass_fraction": 0.4, "logit_mean": -0.5}, "coarse": {"mass_fraction": 0.6, "logit_mean": 1.0}},
+      "cluster_logit_effect_sd": 0.8,
+      "cluster_effect_shared_across_strata": true,
+      "roots_per_stratum_per_cluster": 6,
+      "root_mass": "lognormal(0, 0.75)",
+      "daughters_per_root": "uniform {1,2,3}, mass shares = normalized uniform(0.1,1) draws",
+      "daughter_fate": "independent Bernoulli(logistic(logit_mean + cluster_effect)) per daughter",
+      "truth": "sum_h w_h E[logistic(logit_mean_h + b)], b ~ N(0, 0.8^2), by 4001-point trapezoid integration over b in [-8 sd, 8 sd]",
+      "acceptance": {"coverage_min": 0.925, "coverage_max": 0.975},
+      "demonstration": "naive Wilson over daughter counts on the same trials must cover below 0.85 (why that method is refused)"
+    },
+    "randomized_lattice": {
+      "seed": 20261018005,
+      "trials": 1000,
+      "replicates": 10,
+      "points_per_replicate": 64,
+      "point_u": "frac(j/64 + shift_r), shift_r ~ uniform(0,1) independently per replicate",
+      "represented_mass": "0.5 + u",
+      "captured": "u > 0.37",
+      "truth": "integral_0.37^1 (0.5+u) du / integral_0^1 (0.5+u) du = 0.74655",
+      "acceptance": {"coverage_min": 0.925, "coverage_max": 0.975}
+    },
+    "trial_budget": "2000 of the 10000 packet trial bound; at most 12 independent units per trial"
+  }
+}

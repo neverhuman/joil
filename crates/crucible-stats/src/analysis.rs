@@ -2,6 +2,7 @@
 //! assert independence, coverage or power; each submodule states its applicability.
 use crate::StatsError;
 
+pub mod capture;
 pub mod pilot;
 
 /// Return the arithmetic mean and unbiased sample variance. No artificial
