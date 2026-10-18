@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "kind": "v5_14_append_only_followup_receipt",
+  "task_ids": [
+    "V5-14-03"
+  ],
+  "owner": "codex_lane2",
+  "state": "lane_complete_followup",
+  "created_utc": "2026-10-18T05:11:21Z",
+  "tested_commit": "86ee4edb98a9c80546c0e2194860b9e9d55e6e8c",
+  "base_commit": "5a3ac6ef667157a7442ca811513dec8892866e79",
+  "prior_receipt": {
+    "path": "docs/receipts/v5-14-lane-complete-20261018T051003Z.json",
+    "sha256": "1ab96ce45cae4b350eb15fd6fb5f8bc34e1292286c692ddbdbdc53eb7467169e"
+  },
+  "change": "Expose a serializable ControllerRecord that retains controller history with frozen target, reachability, pressure limits, settling and sampling settings.",
+  "changed_paths": [
+    "crates/crucible-adapters/src/openfoam/mod.rs",
+    "crates/crucible-adapters/tests/openfoam.rs"
+  ],
+  "source_sha256": [
+    {
+      "path": "crates/crucible-adapters/src/openfoam/mod.rs",
+      "sha256": "a9f42cf5632c07b46e63542f5eec62da8f34b0ab6bcdf6c08d3dfc1bbc659bbb"
+    },
+    {
+      "path": "crates/crucible-adapters/tests/openfoam.rs",
+      "sha256": "8a8a57844868824d392028683f9a686c564a8348a8714378c3f64a2a49c6e8a7"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-adapters",
+        "--test",
+        "openfoam"
+      ],
+      "exit_code": 0,
+      "summary": "8 passed, 0 failed",
+      "log_identifier": "private:codex_lane2/logs/v5-14-test-openfoam.log",
+      "log_sha256": "877e83a937d891b3b5aee9dae7afe555be5c6ebcab5b794ce05104d7032a315b"
+    },
+    {
+      "argv": [
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "taskset",
+        "-c",
+        "38,39",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-adapters",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/v5-14-clippy.log",
+      "log_sha256": "87bebfe77da804940c50257d3c064e64537ccdf433dcdc76f4ffbab615091734"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_identifier": "private:codex_lane2/logs/v5-14-fmt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "summary": "689 public candidate files checked",
+      "log_identifier": "private:codex_lane2/logs/v5-14-public-final.log",
+      "log_sha256": "31eb06ce6b6305d4eb95472591ee3f1318376f390be5f55de13932bfce3280fd"
+    }
+  ],
+  "positive_checks": [
+    "ControllerRecord retains and serializes both complete controller history and frozen sample_count/sample_interval_s.",
+    "All eight OpenFOAM adapter tests still pass."
+  ],
+  "negative_checks": [
+    "Existing unreachable/saturated/unsettled and oscillatory controller/refinement controls still block accepted statistics."
+  ],
+  "scientific_eligibility": "software controls only; native case and restart limitations from prior receipt remain unchanged.",
+  "limitations": [
+    "Follow-up adds no native solver execution, physical validation, or restart evidence.",
+    "The prior receipt remains immutable; its hashes bind the first bounded pass. This follow-up binds the final source commit and latest rerun logs."
+  ]
+}
