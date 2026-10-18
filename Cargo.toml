@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/joil-core", "crates/joil-cli", "crates/joil-evidence", "crates/joil-ir", "crates/crucible-units", "crates/crucible-contract", "crates/crucible-architecture", "crates/crucible-store", "crates/crucible-runtime", "crates/crucible-cli", "crates/crucible-stats", "crates/crucible-geom", "crates/crucible-adapters"]
+members = ["crates/joil-core", "crates/joil-cli", "crates/joil-evidence", "crates/joil-ir", "crates/crucible-units", "crates/crucible-contract", "crates/crucible-architecture", "crates/crucible-store", "crates/crucible-runtime", "crates/crucible-cli", "crates/crucible-stats", "crates/crucible-geom", "crates/crucible-adapters", "crates/crucible-particles"]
 
 [workspace.package]
 version = "0.1.0"

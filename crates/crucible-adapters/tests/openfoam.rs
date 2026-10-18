@@ -1,4 +1,39 @@
 use crucible_adapters::openfoam::*;
+use crucible_particles::{
+    forces::{DropState, FluidState},
+    inject::InletFace,
+};
+
+#[test]
+fn production_oil_adapter_reports_force_convention_and_normal_flux() {
+    let drop = DropState {
+        velocity: [0.0; 3],
+        diameter: 20e-6,
+        rho: 850.0,
+    };
+    let fluid = FluidState {
+        velocity: [1.0, 0.0, 0.0],
+        material_acceleration: [0.0; 3],
+        pressure_gradient: [0.0; 3],
+        gravity: [0.0, 0.0, -9.81],
+        rho: 998.0,
+        mu: 0.001,
+    };
+    let (a, evidence) = oil::force_adapter(drop, fluid).unwrap();
+    assert!(a[0] > 0.0);
+    assert!(evidence.pressure_convention.contains("-grad(p)"));
+    assert!(!evidence.separate_centrifugal_force);
+    let faces = [InletFace {
+        semantic_id: "feed-a".into(),
+        outward_normal: [-1.0, 0.0, 0.0],
+        area_m2: 0.5,
+        liquid_velocity_m_s: [2.0, 0.0, 0.0],
+        oil_concentration_kg_m3: 0.01,
+        size_mass_fractions: vec![1.0],
+    }];
+    let q = oil::face_injection(&faces, 1.0).unwrap();
+    assert!((q[0].represented_oil_mass_kg - 0.01).abs() < 1e-12);
+}
 
 fn ref_at_datum() -> PressureReference {
     PressureReference {

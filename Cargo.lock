@@ -67,6 +67,7 @@ dependencies = [
 name = "crucible-adapters"
 version = "0.1.0"
 dependencies = [
+ "crucible-particles",
  "serde",
  "serde_json",
  "sha2",
@@ -110,6 +111,14 @@ dependencies = [
  "crucible-contract",
  "crucible-units",
  "joil-evidence",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "crucible-particles"
+version = "0.1.0"
+dependencies = [
  "serde",
  "serde_json",
 ]
