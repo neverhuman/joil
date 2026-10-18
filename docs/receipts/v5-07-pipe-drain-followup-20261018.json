@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "kind": "additive_tested_source_followup_pending_combined_exact_head_acceptance",
+  "packet": "V5-07",
+  "task_ids": [
+    "V5-07-05"
+  ],
+  "tested_commit": "fd89cc18e625f39415430e2860fb98128be58087",
+  "created_utc": "2026-10-18T05:11:47.474944+00:00",
+  "changed_paths": [
+    "crates/crucible-cli/tests/lifecycle.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle",
+        "bounded_wait_drains_small_pipes_before_child_exit",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 0,
+      "log_sha256": "dd987938c6c6b133dcc8a74bf9cfda0d438a7f4105990713ad84aed3ef41cbdb",
+      "wall_seconds": 1.4553452520049177
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3c8c9d1e435aee8f5e18929a3326a4710782006010f10651077dbc988122f8b",
+      "wall_seconds": 18.846727798052598
+    }
+  ],
+  "positive_checks": [
+    "Forced 4096-byte stdout/stderr pipes drain 128 KiB per stream before child completion within the unchanged two-second bound."
+  ],
+  "negative_checks": [
+    "Old helper independently times out with the same child and pipe capacities; old red exit101 retained."
+  ],
+  "negative_controls": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle",
+        "bounded_wait_drains_small_pipes_before_child_exit",
+        "--",
+        "--exact"
+      ],
+      "exit_code": 101,
+      "log_sha256": "84dad58e5b37c686e976a2edb6bbfd9927abcc4342bf940135726a5dd8e96f9f",
+      "wall_seconds": 31.178919555968605
+    }
+  ],
+  "diagnostics": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 101,
+      "log_sha256": "d0ce266ff98585d95b6602cdf15922afabdd9605ef792406beb2d0fdb0e4cc4f",
+      "wall_seconds": 96.02449957298813
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-cli/tests/lifecycle.rs",
+      "sha256": "ebaa7c3f87502fc049772af0894ef1b4f96d9f844858f96f5b88fa45f59e121c"
+    }
+  ],
+  "resource_allocation": {
+    "cpus": [
+      32,
+      33
+    ],
+    "ram_bytes": 6442450944,
+    "scratch_bytes": 2684354560,
+    "cargo_build_jobs": 2,
+    "numeric_threads": 1,
+    "gpu": false
+  },
+  "limitations": [
+    "This repairs test harness pipe drainage only; a later full lifecycle still failed at the unchanged60s boundary and is separately disclosed.",
+    "No historical receipts rewritten and no task completion or physical validation inferred from this supplement."
+  ],
+  "next_dependency": "Combined official eight-suite gate on integrated exact source head, public scan, cached-diff review and exact pushed-head CI."
+}
