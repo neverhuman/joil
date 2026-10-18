@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "kind": "task_receipt_v5_15_03_coverage",
+  "packet": "V5-15",
+  "task_ids": [
+    "V5-15-03"
+  ],
+  "status_claimed": "blocked",
+  "owner": "1052087.joil_v5_claude (claude-haiku-5-5 medium, C0)",
+  "assignment": "Captain stage G-014 (v5-15-validation-C012)",
+  "input_head": "1cbcd7149c8e97f999c75f30010b59f70a23c178",
+  "tested_commit": "6ec58361b9359b0f1cd7188095b4010ed8abbede",
+  "created_utc": "2026-10-18T05:50:05Z",
+  "changed_paths": [
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/src/validation.rs",
+    "packs/hydrocyclone/judges/tests/validation.rs",
+    "experiments/validation/v5/coverage_cards_v1.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "validation"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-test-validation.log",
+      "log_sha256": "a16f44ece8e5e5aad25d8696a88593d05faa78d661787171995a69c64b4b416c"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-test-crate.log",
+      "log_sha256": "01b1030dc37b032838565b4046c37a864e388c7dc92ed6be747757f9addbf164"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-clippy.log",
+      "log_sha256": "5bee8d5e54ec9a77998cc34f616f58405e7aaf5d5bc5e66a828207d9206dd9fd"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-fmt.log",
+      "log_sha256": "1ca4a13146b2891c0e462123ac0cb848f92e6221f18b870a1b78c232d1956c35"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/logs/claude/v5-15-check-public.log",
+      "log_sha256": "e93bb65cbefb03e2d9fb12370509e1e0fc112fbf9f71b9fdd08fe3e710e33428"
+    }
+  ],
+  "task_tests": [
+    "v5_15_03_pressure_agreement_cannot_qualify_oil_grade",
+    "v5_15_03_good_pressure_cannot_qualify_a_different_geometry_family",
+    "v5_15_03_discrepancy_components_are_quantified_separately"
+  ],
+  "executed_mutation_reds": [],
+  "artifacts": [
+    {
+      "path": "packs/hydrocyclone/judges/src/lib.rs",
+      "sha256": "d16b6484bf7a51cefe76e5b55e52197f8ffc345112b2ccba42bd7a7fdfe14f40"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/validation.rs",
+      "sha256": "deefcb7a46eae8187113a01c546fc8b83b56acc6d814fa3c978f34250d6adfe5"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/validation.rs",
+      "sha256": "e5e7583bf13967d2f7341e9a49ad969e66ff3138f6dd470789ae545da364cfab"
+    },
+    {
+      "path": "experiments/validation/v5/coverage_cards_v1.json",
+      "sha256": "18eddaa7887f9d4d8d7cafc5d65df0d50207f744e8833ae4fc6c4414c45755ca"
+    }
+  ],
+  "positive_checks": [
+    "Coverage cards are generated for all five observables as unsupported because no measurement exists (coverage_cards_v1.json)",
+    "Discrepancy components are reported as unquantified rather than netted (coverage_cards_v1.json)"
+  ],
+  "negative_checks": [
+    "Pressure agreement cannot qualify oil grade (v5_15_03_pressure_agreement_cannot_qualify_oil_grade)",
+    "Good pressure cannot qualify a different geometry family (v5_15_03_good_pressure_cannot_qualify_a_different_geometry_family)",
+    "A missing or negative discrepancy component is Unresolved (v5_15_03_discrepancy_components_are_quantified_separately)"
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35 (taskset)",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "CARGO_INCREMENTAL": 0,
+    "cargo_target": "/home/ubuntu/joil/.private/v5-workers/claude/target (shared worker target, not cleaned)",
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "scientific_eligibility": "software judges on SYNTHETIC fixtures only; no literature, CT-35 or physical validation; task is blocked, not done, and not a scientific PASS",
+  "limitations": [
+    "No observable is measured for CT-35 or any literature source, so every coverage card is unsupported.",
+    "Discrepancy components are all unquantified. Agreement is not claimed.",
+    "No mutation red was executed for this task; it is covered only by the full suite."
+  ],
+  "next_dependency": "CT-35 measurements or admitted literature on the same geometry family, then quantified numerical, input and experimental discrepancy."
+}

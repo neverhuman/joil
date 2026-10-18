@@ -3,34 +3,59 @@
   "packet": "V5-15",
   "tasks": {
     "V5-15-01": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "Judge and register done; Bai/Young sources not accessed, Zhou/Hsieh unregistered",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-15-01-accession-20261018T055005Z.json",
+          "sha256": "f7c6f6df62dbe2f90d3b391739fa777845c8e7b8d2b03b1a2f0583923235d0e2"
+        }
+      ]
     },
     "V5-15-02": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "Preregistration drafted; CT-35 geometry, taps and arm values unresolved",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-15-02-preregistration-20261018T055005Z.json",
+          "sha256": "7853b2a93503b2ba9fc225fda29ae04b87b2e155039b067a2896632a86c9e7c9"
+        }
+      ]
     },
     "V5-15-03": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "No observable measured; all coverage cards unsupported",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-15-03-coverage-20261018T055005Z.json",
+          "sha256": "0d54fc17b93fd8186e16290eeb733e9e38324f723f3a0c809eb1ebfca305620c"
+        }
+      ]
     },
     "V5-15-04": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "No branch run; plan declared only",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-15-04-branches-20261018T055005Z.json",
+          "sha256": "343b75c7ea93cf9634a4c9b9eff62c57a2cdec41545e1106ae640d11ff56e90a"
+        }
+      ]
     },
     "V5-15-05": {
-      "status": "todo",
-      "owner": null,
-      "note": "",
-      "evidence": []
+      "status": "blocked",
+      "owner": "1052087.joil_v5_claude",
+      "note": "G-VTX not admitted; flow archives disabled; CT-35 taps not frozen, protocol not launched",
+      "evidence": [
+        {
+          "path": "docs/receipts/v5-15-05-admission-20261018T055005Z.json",
+          "sha256": "f16515225882fb186e29b101bd8180404f4049983038604b326a84577ec345ef"
+        }
+      ]
     }
   }
 }
