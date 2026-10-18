@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "owner": "484638.joil_v5_codex_lane4",
+  "model": "gpt-6-luna medium",
+  "tested_commit": "8d8d67c44658e615ea588666edba60a704acb78b",
+  "changed_paths": [
+    "tools/v5_d18_scheduler_control.py",
+    "docs/receipts/v5-23-04-d18-control-20261018.json",
+    "docs/receipts/v5-23-software-acceptance-20261018.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_d18_scheduler_control.py",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+      "log_sha256": "461b296892a93f15891367e8d0e7669de29c2e82056c643c9999f93e4447e56e",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "D-18 positive passed: assertion_holds=true, three evaluations, one active synchronous evaluator task, zero child evaluator processes."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "workers"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/crucible-runtime-workers.log",
+      "log_sha256": "75dd0e8fb4b51cf952d12382a01ca99997bff863a7447dfe58c6ecfc1e903f0d",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Locked offline crucible-runtime workers test passed (8 tests)."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "recovery"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/crucible-runtime-recovery.log",
+      "log_sha256": "a8fe093c1e61a942ceb2b3965efa7dc62a232fca7f85df35aba9dea8df8c6e52",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Locked offline crucible-runtime recovery test passed (9 tests)."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/check-public.log",
+      "log_sha256": "fec65d5deedd7b65edc60e17b1420a89c3d4de41c6b04d6ceed0fc3fbd8ca188",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Public-content check passed."
+    }
+  ],
+  "executed_logs": [
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_d18_scheduler_control.py",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+      "log_sha256": "461b296892a93f15891367e8d0e7669de29c2e82056c643c9999f93e4447e56e",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "D-18 positive passed: assertion_holds=true, three evaluations, one active synchronous evaluator task, zero child evaluator processes."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "workers"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/crucible-runtime-workers.log",
+      "log_sha256": "75dd0e8fb4b51cf952d12382a01ca99997bff863a7447dfe58c6ecfc1e903f0d",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Locked offline crucible-runtime workers test passed (8 tests)."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-runtime",
+        "--test",
+        "recovery"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/crucible-runtime-recovery.log",
+      "log_sha256": "a8fe093c1e61a942ceb2b3965efa7dc62a232fca7f85df35aba9dea8df8c6e52",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Locked offline crucible-runtime recovery test passed (9 tests)."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/check-public.log",
+      "log_sha256": "fec65d5deedd7b65edc60e17b1420a89c3d4de41c6b04d6ceed0fc3fbd8ca188",
+      "exit_code": 0,
+      "scientific_admission": false,
+      "note": "Public-content check passed."
+    },
+    {
+      "argv": [
+        "python3",
+        "-I",
+        "tools/v5_d18_scheduler_control.py",
+        "red",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+      ],
+      "cwd": "/home/ubuntu/joil/.private/worktrees/v5-codex-lane4",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red.log",
+      "log_sha256": "4314becba7d61bd485cd39c43e6436122aa473acf0a2c19f2a78cc5e198e25c1",
+      "exit_code": 1,
+      "scientific_admission": false,
+      "expected_result": "exit 1 and C006-RED D-18: unleased_serial_island_loop"
+    }
+  ],
+  "positive_checks": [
+    "Frozen D-18 positive returned assertion_holds=true, total_evaluations=3, active_concurrent_evaluator_tasks=1, and unleased_child_evaluator_processes=0.",
+    "crucible-runtime workers and recovery targets passed; check_public.py passed."
+  ],
+  "negative_checks": [
+    "Frozen D-18 red returned assertion_holds=false and exit 1 with C006-RED D-18: unleased_serial_island_loop; fake evaluator invocations include PID and monotonic timestamps."
+  ],
+  "artifacts": [
+    {
+      "path": "tools/v5_d18_scheduler_control.py",
+      "sha256": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": [
+      110,
+      111
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "CARGO_BUILD_JOBS": 2,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false,
+    "micro_campaign_authority": "renewal-004 / SC-DEC-016"
+  },
+  "limitations": [
+    "Software controls only. No physical validation, qualification, performance claim, campaign admission, or measured speedup.",
+    "Frozen D-18 source retains a serial island loop and invokes configured evaluator processes without lease/concurrency admission. Positive evidence is bounded to a single-island serial invocation.",
+    "The active concurrent evaluator count is the single synchronous run_campaign invocation; this is not evidence of qualified multi-core throughput."
+  ],
+  "next_dependency": "Independent review and any D-18 scheduler repair/acceptance required for packet completion; physical and scientific admission remain separate.",
+  "defect_controls": [
+    {
+      "defect_id": "D-18",
+      "fixture": {
+        "path": "tools/v5_d18_scheduler_control.py",
+        "sha256": "74fdc5e0bfc67b12ebca5f25d53ff37cdba29c1901c5e473cc4caf13cf8b7bbd"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/evolve.rs",
+        "symbol": "island offspring loop",
+        "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      },
+      "positive": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_d18_scheduler_control.py",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+        ],
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+        "log_sha256": "461b296892a93f15891367e8d0e7669de29c2e82056c643c9999f93e4447e56e",
+        "exit_code": 0,
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-positive.log",
+        "expected_result": "assertion_holds=true; total_evaluations=3; active_concurrent_evaluator_tasks=1; unleased_child_evaluator_processes=0"
+      },
+      "red": {
+        "argv": [
+          "python3",
+          "-I",
+          "tools/v5_d18_scheduler_control.py",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+        ],
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red.log",
+        "log_sha256": "4314becba7d61bd485cd39c43e6436122aa473acf0a2c19f2a78cc5e198e25c1",
+        "exit_code": 1,
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/defect-controls/lane4/d18-red.log",
+        "expected_result": "C006-RED D-18: unleased_serial_island_loop; fake evaluator invocations recorded with monotonic timestamps"
+      }
+    }
+  ],
+  "packet_acceptance": false,
+  "scientific_admission": false,
+  "kind": "v5_software_acceptance_receipt",
+  "task_ids": [
+    "V5-23-01",
+    "V5-23-02",
+    "V5-23-03",
+    "V5-23-04",
+    "V5-23-05"
+  ],
+  "software_scope": "Limited software evidence for the scheduler controls and crucible-runtime regressions; full V5-23 packet acceptance remains false."
+}
