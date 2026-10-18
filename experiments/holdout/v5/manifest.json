@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "partition_id": "joil-v5-physical-holdout-draft",
+  "status": "sealed_empty_manifest_not_registered",
+  "purpose": "Reserved independent confirmation holdout; no outcomes or site identities are present.",
+  "forbidden_inputs": ["calibration_subjects", "calibration_preparations", "post-hoc_selection", "unreviewed_customer_or_facility_identity"],
+  "records": [],
+  "opening_condition": "Open only after the DecisionProfile, reduction version, required scenarios and analysis commit are frozen and an accountable human records the decision."
+}

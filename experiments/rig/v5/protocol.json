@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "protocol_id": "JOIL-V5-CONFIRMATION-DRAFT-01",
+  "status": "unsigned_draft_not_registered_not_approved",
+  "purpose": "Prospective blinded A/B/A comparison of a computational subject against a conventional removable-head comparator under common measured duty.",
+  "authority_boundary": "Planning only. This document does not authorize fabrication, purchase, lab booking, data collection, or external messaging.",
+  "containment": {
+    "device": "Candidate and comparator heads are inserts only; a separately engineered and pressure-rated containment assembly carries pressure loads.",
+    "review": ["responsible pressure systems engineer", "materials/manufacturing engineer", "experimental lead", "process owner"],
+    "proof_before_wet_test": true,
+    "site_specific_design_required": true
+  },
+  "comparator": {
+    "selection": "Freeze the best available conventional removable head before preregistration. CT-35 reconstruction is a research comparator only unless a responsible reviewer documents its provenance and applicability.",
+    "identity": "Exact geometry hash, as-built subject hash, build passport, fluid batch, and measurement chain are bound per specimen."
+  },
+  "pilot_power": {
+    "method": "Estimate paired percent-effect standard deviation from independent pilot build/preparation pairs; compute n with analysis/validation/v5 sample_size_from_pilot; round up and obtain statistician review.",
+    "minimum_independent_pairs": 3,
+    "power_inputs": "Useful effect, alpha, power, paired pilot observations and their independent-unit identities are frozen before the confirmation sample size is accepted.",
+    "replication_unit": "independently manufactured specimen paired within an independently prepared fluid batch; nominal repeats from one build or batch do not count."
+  },
+  "design": {
+    "blocks": "Each independent unit uses blinded A1/B/A2 slots; the order of independent units and coded specimens is randomized from a committed allocation by a person outside measurement and analysis. The allocation stays concealed until data lock.",
+    "randomization": "An independent statistician records the generator, seed commitment, permitted sequence and mapping custodian in the preregistration before the first unit; sequence disclosure occurs only after data lock.",
+    "A1": "Comparator head; establish stabilization and collect common-duty data.",
+    "B": "Candidate head; identical frozen duty, sampling locations, and measurement chain.",
+    "A2": "Comparator repeat; a treated-oil concentration drift above 10% from A1 or pressure drift above 5% invalidates that paired block. These are the draft v1 drift limits and require approval in preregistration.",
+    "operator_blinding": "Specimen coding hides candidate/comparator identity from analyzer, reduction analyst, and decision reviewer until data lock.",
+    "duty": "Flow band, reject split, absolute and differential pressure limits, temperature, and control policy are frozen in a reviewed DecisionProfile before collection."
+  },
+  "measurement": {
+    "channels": "Inlet/treated/reject oil concentration and volume-weighted DSD; feed/treated/reject flow; inlet/treated/reject pressure taps; temperature; oil and water inventory.",
+    "clock": "One synchronized clock; record per-instrument and per-sample-line delay with calibration evidence. Corrected process time is instrument time minus measured delay.",
+    "calibration": "Traceable pre/post calibration, span/zero, drift, sample recovery, analyzer LOQ, sample-line lag and mixing/recovery controls are required.",
+    "steady_window": "Window edges, stabilization criterion, censoring rules and mass/volume alignment are preregistered. No extrapolation across missing or censored samples."
+  },
+  "separation": {
+    "calibration": "Use calibration partition only for measurement/reduction and model calibration; preserve its manifest and hashes.",
+    "holdout": "Holdout labels and outcomes remain sealed until analysis code and DecisionProfile are frozen. Do not tune on holdout.",
+    "independence": "A preparation or specimen appearing in calibration cannot appear in holdout."
+  },
+  "review_and_release": {
+    "preregistration_required_before_collection": true,
+    "registered_experiment": false,
+    "approval_required": ["project owner", "responsible pressure engineer", "experimental lead", "independent statistician"],
+    "public_disclosure": "Only deliberately reviewed allowlisted material may be exported; private subject/build evidence remains private."
+  }
+}
