@@ -1,5 +1,6 @@
 [package]
 name = "crucible-cli"
+default-run = "crucible"
 version.workspace = true
 edition.workspace = true
 
