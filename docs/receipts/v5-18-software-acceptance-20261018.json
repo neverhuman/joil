@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-18T11:48:00Z",
+  "owner": "codex_lane2",
+  "model": "gpt-6-luna medium",
+  "tested_commit": "06417e982272c46bc6df88b57f2c67484ceb9ef9",
+  "changed_paths": [
+    "docs/receipts/v5-18-software-acceptance-20261018.json"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/tests/models.rs",
+      "sha256": "fb369f9f80188072dda05915a58c1f3de7399de43107ecfe7c1f9d8e7829400c"
+    },
+    {
+      "path": "crates/crucible-particles/tests/transport.rs",
+      "sha256": "f7357ebbebd7acb2c7261c9e647a161ed303adf24582a612a27ea04b835a12b1"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/liner_operator.rs",
+      "sha256": "6123c04965827bb3a70d5e91f185afb3ef4b24486cbe1dde635d06769abe1746"
+    },
+    {
+      "path": "tools/v5_baseline_source_controls.py",
+      "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpu_ids": [
+      38,
+      39
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "gpu_lease_control": "D-17 synthetic recording stand-in; no physical GPU or CUDA child was launched",
+    "lease_id": "renewal-004 / SC-DEC-016"
+  },
+  "limitations": [
+    "Software and synthetic frozen-component harness verification only; scientific_admission is false.",
+    "No physical dispersion, transport, capacity, structural, material, FEA, or validation claim is made.",
+    "D-17 confirms the frozen GPU audit boundary can launch a child without an explicit lease; this receipt does not claim that the frozen component was repaired."
+  ],
+  "next_dependency": "Continue upstream scientific and external evidence dependencies; integrate only with independent review and preserve scientific admission as false.",
+  "kind": "v5_18_software_acceptance",
+  "packet": "V5-18",
+  "task_ids": [
+    "V5-18-01",
+    "V5-18-02",
+    "V5-18-03",
+    "V5-18-04",
+    "V5-18-05"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "commands": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_BUILD_JOBS=2",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/crucible-particles-models.log",
+      "log_sha256": "4e577b74ac739f93e436bfd81ad1ed8e43b627004eeed0077fa73394935a5549",
+      "note": "9 model tests passed.",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/crucible-particles-models.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_BUILD_JOBS=2",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "liner_operator"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/pack-judges-liner-operator.log",
+      "log_sha256": "7a1a724d120643d437bc83831e6dfc18ec3292246a61d461c0bd631988ab78c1",
+      "note": "46 liner-operator tests passed, including common-flow budget, fallback, balances, and synthetic protocol controls.",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/pack-judges-liner-operator.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/check-public.log",
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "note": "Public content policy scan passed.",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/check-public.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    }
+  ],
+  "positive_checks": [
+    "All 9 models tests passed.",
+    "All 46 liner operator tests passed.",
+    "Synthetic fixtures preserve explicit non-admission and unresolved states."
+  ],
+  "negative_checks": [
+    "No physical operating map, energy measurement, or capacity decision was admitted.",
+    "No physical fluid, load, or validation data were exercised."
+  ]
+}

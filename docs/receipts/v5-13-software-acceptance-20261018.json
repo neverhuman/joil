@@ -4,7 +4,11 @@
   "owner": "codex_lane2",
   "model": "gpt-6-luna medium",
   "task_ids": [
-    "V5-13-02"
+    "V5-13-01",
+    "V5-13-02",
+    "V5-13-03",
+    "V5-13-04",
+    "V5-13-05"
   ],
   "tested_commit": "8d8d67c44658e615ea588666edba60a704acb78b",
   "changed_paths": [

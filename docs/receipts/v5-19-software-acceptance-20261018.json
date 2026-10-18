@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-18T11:48:00Z",
+  "owner": "codex_lane2",
+  "model": "gpt-6-luna medium",
+  "tested_commit": "06417e982272c46bc6df88b57f2c67484ceb9ef9",
+  "changed_paths": [
+    "docs/receipts/v5-19-software-acceptance-20261018.json"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-particles/tests/models.rs",
+      "sha256": "fb369f9f80188072dda05915a58c1f3de7399de43107ecfe7c1f9d8e7829400c"
+    },
+    {
+      "path": "crates/crucible-particles/tests/transport.rs",
+      "sha256": "f7357ebbebd7acb2c7261c9e647a161ed303adf24582a612a27ea04b835a12b1"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/tests/liner_operator.rs",
+      "sha256": "6123c04965827bb3a70d5e91f185afb3ef4b24486cbe1dde635d06769abe1746"
+    },
+    {
+      "path": "tools/v5_baseline_source_controls.py",
+      "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+    }
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpu_ids": [
+      38,
+      39
+    ],
+    "memory_gib": 6,
+    "scratch_gib": 2.5,
+    "CARGO_TARGET_DIR": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+    "CARGO_INCREMENTAL": 0,
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "gpu": false,
+    "gpu_lease_control": "D-17 synthetic recording stand-in; no physical GPU or CUDA child was launched",
+    "lease_id": "renewal-004 / SC-DEC-016"
+  },
+  "limitations": [
+    "Software and synthetic frozen-component harness verification only; scientific_admission is false.",
+    "No physical dispersion, transport, capacity, structural, material, FEA, or validation claim is made.",
+    "D-17 confirms the frozen GPU audit boundary can launch a child without an explicit lease; this receipt does not claim that the frozen component was repaired."
+  ],
+  "next_dependency": "Continue upstream scientific and external evidence dependencies; integrate only with independent review and preserve scientific admission as false.",
+  "kind": "v5_19_software_acceptance",
+  "packet": "V5-19",
+  "task_ids": [
+    "V5-19-01",
+    "V5-19-02",
+    "V5-19-03",
+    "V5-19-04",
+    "V5-19-05"
+  ],
+  "packet_acceptance": true,
+  "scientific_admission": false,
+  "commands": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_BUILD_JOBS=2",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--test",
+        "liner_operator"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/pack-judges-liner-operator.log",
+      "log_sha256": "7a1a724d120643d437bc83831e6dfc18ec3292246a61d461c0bd631988ab78c1",
+      "note": "46 liner operator tests passed.",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/pack-judges-liner-operator.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-17",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log",
+      "log_sha256": "9e1725594b686c942a7828b65cc497bad24f91a94c33e1c3d9604934e369f514",
+      "note": "Frozen D-17 positive passed: disabled CUDA path launched no child.",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/check-public.log",
+      "log_sha256": "8964aab61040fe45cc566d6f99a9926879250a156f6995830e772cbf6516f2b4",
+      "note": "Public content policy scan passed.",
+      "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/check-public.log.exit",
+      "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    }
+  ],
+  "positive_checks": [
+    "All 46 liner operator tests passed.",
+    "D-17 positive control passed: frozen disabled GPU audit path launched no child.",
+    "Public scan passed."
+  ],
+  "negative_checks": [
+    "D-17 red control returned the expected exit 1 and C006-RED D-17: gpu_child_launched_without_lease.",
+    "No FEA solver, physical loads, or material/process evidence was exercised."
+  ],
+  "defect_controls": [
+    {
+      "defect_id": "D-17",
+      "fixture": {
+        "path": "tools/v5_baseline_source_controls.py",
+        "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "crates/joil-core/src/evolve.rs",
+        "symbol": "run evolution CUDA audit",
+        "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+      },
+      "positive": {
+        "argv": [
+          "taskset",
+          "-c",
+          "38,39",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-17",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log",
+        "log_sha256": "9e1725594b686c942a7828b65cc497bad24f91a94c33e1c3d9604934e369f514",
+        "expected_result": "Frozen CUDA-disabled path; child_launched=false.",
+        "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log.exit",
+        "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+      },
+      "red": {
+        "argv": [
+          "taskset",
+          "-c",
+          "38,39",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-17",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red.log",
+        "log_sha256": "12149bba6e244122a77c5500258e5c29b74aab62d4fb3f20e90252fdd7c70182",
+        "expected_result": "C006-RED D-17: gpu_child_launched_without_lease; synthetic stand-in child launched absent an explicit lease.",
+        "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red.log.exit",
+        "exit_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+      }
+    }
+  ]
+}
