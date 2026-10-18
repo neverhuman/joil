@@ -492,3 +492,22 @@ fn actual_cli_lifecycle_kills_worker_replay_retry_cost_stop_fork_and_seed_import
     call(&base, &["run", b, "--resume", absent.to_str().unwrap()], 78);
     assert!(!absent.join("runtime.sqlite").exists());
 }
+
+#[test]
+fn writer_lock_conflict_failure_and_drop_release_descriptor() {
+    let _scratch = TestScratch::new();
+    let root = base();
+    let first = WriterLock::acquire(&root).unwrap();
+    assert!(matches!(
+        WriterLock::acquire(&root),
+        Err(crucible_runtime::RuntimeError::Conflict(
+            "campaign_already_has_writer"
+        ))
+    ));
+    drop(first);
+    let reacquired = WriterLock::acquire(&root).unwrap();
+    assert!(WriterLock::acquire(&root).is_err());
+    drop(reacquired);
+    assert!(WriterLock::acquire(&root).is_ok());
+    assert!(WriterLock::acquire(&root.join("absent")).is_err());
+}

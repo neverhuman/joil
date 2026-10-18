@@ -67,3 +67,10 @@ export function mergeRefreshedManifest(previous: Manifest | null, incoming: Mani
   const merged = applyRevocation(incoming, frontier, ids);
   return { ...merged, current: incoming.current && (incoming.registry_event?.sequence ?? -1) >= frontier };
 }
+
+/** Narrow an untrusted SSE payload before it can invalidate cached evidence. */
+export function isRegistryEvent(value: unknown): value is { sequence: number; revoked_claim_ids: string[] } {
+  return obj(value) && typeof value.sequence === 'number' && Number.isSafeInteger(value.sequence)
+    && value.sequence >= 0 && Array.isArray(value.revoked_claim_ids)
+    && value.revoked_claim_ids.every(id => typeof id === 'string');
+}

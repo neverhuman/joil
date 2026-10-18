@@ -123,3 +123,33 @@ Absence means the old exact fingerprint is no longer observed; dimension-score c
 | agent/boundaries.toml: `Contract and boundary integrity` scored 63 below the standard floor of 85 | `sha256:ed023acdcb8f3c1710aea494ab21c2989c629e6a50074915ca7e12b28a3846ef` |
 | agent/owner-map.json: `Ownership and navigation surface` scored 78 below the standard floor of 85 | `sha256:91cfdb02b0a23fe5036eb59a8d50ece86f01196f41dffc4e2d5c76f8c5805f4d` |
 | agent/test-map.json: `Proof lanes and test routing` scored 78 below the standard floor of 85 | `sha256:58be05a7ef8771f9dd43f9de38ff8776c926e255df1be4e6778a986dcfbfd5b3` |
+
+## I013 scoped dispositions (18 October 2026)
+
+These dispositions preserve scientific contracts and distinguish detector closure
+from technical resolution. No rule is suppressed and no audit threshold is lowered.
+The receipt `docs/receipts/i013-rust-ci-20261018.json` binds commands and logs.
+
+| IDs | Inspection, action, and remaining boundary |
+| --- | --- |
+| I010-J016 | `analysis/__init__.py` is part of the frozen Python inventory. Two additional native CLI ports reduce migration work, but do not retire analysis or close this stack finding. P2/P4 consumer migration remains required. |
+| I010-J017 | `analysis/kpi_fitness.py` mixes legacy KPI extraction/fallback behavior. It is outside this packet's implementation paths; changing its fallback policy requires source-bound numerical negatives and the P4 port. Remains open. |
+| I010-J018 | SSE data now passes `MessageEvent`/string checks, parses as `unknown`, and narrows with `isRegistryEvent` before use. Tests reject null, arrays, missing fields, string/fractional/negative/nonfinite/unsafe-integer sequences and non-string revoked IDs; accept zero and maximum safe integer. |
+| I010-J019/J020 | The cited long JSX line is a browser subject selector, with no shell or SQL execution. Selection now checks membership in validated subjects, then builds navigation with `URL`/`URLSearchParams`. The handler is separate from JSX. Existing encoded navigation and read-only semantics remain. |
+| I010-J021 | The scanner's `apps/web` rendered-QA requirement is not satisfied by a TypeScript build. The actual surface is `apps/explorer`; this packet adds runtime boundary tests and runs the UI suite, but does not claim new browser/assistive-technology review. Remains open. |
+| I010-J022 | Existing Rust integration/fault tests and new CLI parity controls provide scoped proof. Repository-wide property-test routing/conformance remains a separate requirement; no broad closure claimed. |
+| I010-J023 | Detector evidence is the error return `explorer_missing_value_fabricated` in `verify_accessibility_and_truthful_content`, not a claim of human review. That static checker rejects invented missing values and explicitly disclaims browser certification. Preserve the error contract; retain the fingerprint pending detector review. No human-review receipt is fabricated. |
+| I010-J024/J025/J026 | Each `unsafe` block now records exact local preconditions: C ABI/static signal handler using only a lock-free atomic store; owned live descriptor and valid flock flags; unlock before File drop. New lock test covers contention, failed open, release, reacquisition and a second contention. Existing lifecycle test exercises SIGINT cleanup and worker failure/replay. |
+| I010-J027 | The original fingerprint cites `bounded_wait_drains_small_pipes_before_child_exit`. Its `--exact` subprocess is a deliberate self-reexec fixture, not a focused top-level test run. It forces 4096-byte pipes and asserts successful exit plus both full output streams. Keep that deadlock regression and its bounded timeout; the new lock regression adds failure/cleanup coverage. |
+| I010-J028 | Both LengthUnit enums serialize metre/millimetre, but live in separate identity systems with different variant ordering/trait surfaces. Consolidation needs shared-contract owner approval, dependency review and canonical/hash regression coverage for both consumers. No rename or frozen identity change in I013. |
+| I010-J029 | Contract MaterialState uses `Identified { passport: BlobDigest }` / unit `Unknown`; evidence MaterialState uses `ContentRef` and `Unknown { reason }`. Unification would alter wire shape and evidence requirements. Blocked on an explicit versioned migration. |
+| I010-J030 | Geometry AttemptOutcome records artifact acceptance plus error strings; runtime bench AttemptOutcome records qualified/rejected/timeout outcomes without those payloads and with snake_case serialization. Different state machines; preserve both until a domain-qualified API migration. |
+| I010-J031 | GPU Admission carries reasons or a judge identity; evidence decision Admission is SandboxOnly/AdmittedForEvidenceReview. They are not interchangeable gates. No shared enum without a redesigned contract. |
+| I010-J032 | Render EvidenceClass distinguishes measured/model/synthetic/illustration availability; search EvidenceClass distinguishes exploration/screen/qualified/failure admission. Consolidation would conflate presentation provenance with search eligibility. |
+| I010-J033 | Render Disclosure is PublicResearch/PrivateGeometry; store Disclosure is PublicCandidate/Private. Public-candidate storage is not reviewed publication authority. Retain the explicit conversion boundary; a shared enum would require policy and wire migration. |
+
+The new native validator retains the canonical `todo` status string. A dead-marker
+finding on that literal is a detector limitation, not permission to rename a frozen
+progress state. General malformed-JSON and OS error wording remains native to each
+language; tested semantic failures and supported D28 controls have exact output/exit
+parity. Existing Python entrypoints remain for legacy consumers.

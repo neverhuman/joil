@@ -1,0 +1,36 @@
+{
+  "kind": "packet_claim",
+  "packet": "I013",
+  "owner": "1052075.joil_v5_codex",
+  "base_commit": "74928fa8b0f38885238884edb4fc53c4a0e765a8",
+  "scope": [
+    "crates/crucible-cli/src/bin/v5-d28-ownership-control.rs",
+    "crates/crucible-cli/src/bin/v5-explorer-manifest.rs",
+    "crates/crucible-cli/src/plan_validation.rs",
+    "crates/crucible-cli/tests/d28_ownership_parity.rs",
+    "crates/crucible-cli/tests/explorer_manifest_parity.rs",
+    "crates/crucible-cli/src/lib.rs",
+    "crates/crucible-cli/src/explore.rs",
+    "crates/crucible-cli/tests/lifecycle.rs",
+    "apps/explorer/src/main.tsx",
+    "apps/explorer/src/contracts.ts",
+    "apps/explorer/tests",
+    "PY_TO_RUST_PLAN.md",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i013-*"
+  ],
+  "resources": {
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "max_physical_cores": 4,
+    "ram_gib": 12,
+    "output_gib": 5,
+    "gpu": false
+  },
+  "boundaries": [
+    "No subagents",
+    "No frozen contract/hash changes",
+    "Python retained",
+    "No simulations"
+  ]
+}
