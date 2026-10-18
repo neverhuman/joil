@@ -47,9 +47,9 @@
       ]
     },
     "V5-07-05": {
-      "status": "done",
+      "status": "review",
       "owner": "codex-v5-integrator",
-      "note": "Audit supplement preserves original evidence; scope and executed controls qualified explicitly. Milestone awaits remaining02 follow-up and final exact-head CI.",
+      "note": "Reopened: current d8 required gate failed at SIGINT drain. Joined-batch repair passes focused controls; final current-source suites and exact-head CI remain required. Baseline criterion acknowledgement and G005 tracked tests are pending.",
       "evidence": [
         {
           "path": "docs/receipts/v5-07-fresh-clone-20261018.json",
