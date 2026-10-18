@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "kind": "audit_followup_tests_not_task_acceptance_or_scientific_validation",
+  "packet": "V5-02",
+  "task_ids": [
+    "V5-02-02",
+    "V5-02-05"
+  ],
+  "owner": "existing-claude-v5-worker",
+  "assignment": "Gorkbot G-004 under integrator grant 3c8dd09874a2102287e8baeff459833d5e757dfb (docs/v5-plan/execution/V5-02-AUDIT-FOLLOWUP-SCOPE.md, docs/receipts/v5-02-audit-scope-20261018.json)",
+  "audit_finding": "gorkbot/validator/audit-20261017T235714Z.md: V5-02-02 WEAK (1.4 mm printed-passage negative not executable; tests used 3 mm); V5-02-05 WEAK (1 of 9 external inputs tested; timeout only Unresolved)",
+  "input_head": "3c8dd09874a2102287e8baeff459833d5e757dfb",
+  "tested_commit": "df7c0726543160eee75e53208a6647deaa1ac10f",
+  "created_utc": "2026-10-18T00:44:00Z",
+  "changed_paths": [
+    "crates/joil-evidence/tests/decision.rs"
+  ],
+  "commands": [
+    {
+      "argv": ["rtk", "proxy", "cargo", "test", "--locked", "-p", "joil-evidence", "--test", "decision"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 1.546,
+      "log_sha256": "f103c02a088eb22d47714fab20105710d70e55a177b4cd521d613cdb76852063",
+      "note": "19 passed (13 pre-existing unchanged + 6 new), 1 ignored contract-blocker control, at the tested commit"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "fmt", "--all", "--", "--check"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.716,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "note": "tree byte-identical to the tested commit (git diff HEAD empty after commit)"
+    },
+    {
+      "argv": ["rtk", "proxy", "cargo", "clippy", "--locked", "-p", "joil-evidence", "--all-targets", "--", "-D", "warnings"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 2.914,
+      "log_sha256": "f81ae787703bdc1268d760cc624466bcb26eeedf6f0b06e0ba0678abbac4cd8c"
+    },
+    {
+      "argv": ["rtk", "proxy", "python3", "tools/check_public.py"],
+      "cwd": ".", "exit_code": 0, "wall_seconds": 0.484,
+      "log_sha256": "a9635a261b9c8aac748d41fe02c913f99bdf819dacb60d8ac726f98d24063050"
+    }
+  ],
+  "failing_contract_control": {
+    "argv": ["rtk", "proxy", "cargo", "test", "--locked", "-p", "joil-evidence", "--test", "decision", "--", "--ignored", "contract_blocker_restated_machined_value_is_refused_as_printed_limit"],
+    "exit_code": 101,
+    "log_sha256": "2ef2a8f234138ad8482a48c5685eb1c21d4a40094935e5cb72b716abb44f12c6",
+    "result": "FAILED as expected: 'restated machined overflow admitted as a printed passage limit: Ok(())'",
+    "blocker": "SourceValue {value, comparison, applicability} carries no limit, quantity or feature/process identity, and applicability is one requirement-set-wide reference. qualified_admission therefore checks only value, comparison and set-wide applicability equality, so an approved record restating the machined-overflow 1.4 mm with the printed at_least comparison is indistinguishable from a proper printed-process record and is admitted. Requires an integrator contract change (e.g. a bound limit/feature identity in the source record checked against LimitSpec.id) before this control can pass; kept #[ignore] so the suite stays green."
+  },
+  "environment": {
+    "CARGO_BUILD_JOBS": "2",
+    "RAYON_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "positive_checks": [
+    "Complete bound SYNTHETIC policy (admission for evidence review; all nine limits, seven conflicts and nine external inputs bound to sources approved in the test registry) validates and qualified_admission returns Ok for all four claim scopes",
+    "1.4 mm printed-passage limit from a printed-process SYNTHETIC source with the at_least comparison is admitted: no numeric ban on the value",
+    "With exactly one external input missing, every claim scope outside that input's independently stated row is still admitted",
+    "Waiting-data timeout on laboratory_access leaves computational_comparator and protected_export admitted and the policy semantically valid"
+  ],
+  "negative_checks": [
+    "Exact borrow: the machined-overflow source record (1.4 mm, within) reused as the printed-passage source is refused with Invalid(limit_source_drift:printed_min_passage_mm)",
+    "Borrowing the machined overflow's draft source (the baseline genome) as an admitted printed-passage source is refused as Invalid (not a limit source record)",
+    "The draft's proposed 3 mm printed passage is not silently admitted: each computational, physical and commercial claim returns exactly Unresolved([limit:printed_min_passage_mm])",
+    "Each of the nine external inputs, missing alone, returns exactly Unresolved([external:<input>:<owner>]) for the claim scopes in the independent matrix and nothing for the others; with all nine missing, each claim lists exactly the matrix inputs",
+    "Waiting-data timeout returns Unresolved([external:laboratory_access:experimental_lead]) for physical_candidate and commercial_claim, not Invalid; the reviewed record keeps the timeout reason and owner, is not admitted, and the numerical and model-discrepancy bounds are unchanged",
+    "A timeout recorded with no affected claims is refused with Invalid(unresolved_input_needs_affected_claims)"
+  ],
+  "artifacts": [
+    {"path": "crates/joil-evidence/tests/decision.rs", "sha256": "402f806675c968af0847457d84b5cf8788fe798f2c734040dc02d0c3a98e2083"}
+  ],
+  "resource_allocation": {
+    "physical_cores": 2,
+    "cpus": "34,35",
+    "memory_limit_gib": 6,
+    "scratch_limit_gib": 2.5,
+    "observed_worker_scratch_bytes_approx": 1161524902,
+    "CARGO_BUILD_JOBS": 2,
+    "numerical_threads": 1,
+    "gpu": false,
+    "native_solver_or_campaign_executed": false
+  },
+  "limitations": [
+    "Tests only; library, requirements, schemas, manifests, progress and generated views unchanged",
+    "The exact-borrow refusal arises from the comparison mismatch between the machined record (within) and the printed limit (at_least); a restated record with the printed comparison is admitted (failing control above)",
+    "qualified_admission blockers name input and owner but not the unresolved reason; the timeout reason is asserted on the reviewed requirement record",
+    "All admitted values and sources are SYNTHETIC test-registry fixtures with no physical authority"
+  ],
+  "next_dependency": "Integrator review of these controls for the V5-02-02/05 audit gaps and a decision on the SourceValue identity contract blocker"
+}
