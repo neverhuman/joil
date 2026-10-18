@@ -343,6 +343,13 @@ pub struct ControllerSample {
     pub settled: bool,
 }
 
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ControllerRecord {
+    pub config: SplitControllerConfig,
+    pub history: Vec<ControllerSample>,
+}
+
 pub struct SplitController {
     config: SplitControllerConfig,
     integral: f64,
@@ -451,6 +458,13 @@ impl SplitController {
     }
     pub fn history(&self) -> &[ControllerSample] {
         &self.history
+    }
+
+    pub fn record(&self) -> ControllerRecord {
+        ControllerRecord {
+            config: self.config.clone(),
+            history: self.history.clone(),
+        }
     }
 }
 

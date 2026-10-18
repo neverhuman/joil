@@ -293,6 +293,14 @@ fn controller_enforces_reachability_settling_saturation_and_frozen_sampling() {
     c.observe(3.0, 0.25, 1.0).unwrap();
     c.observe(4.0, 0.25, 1.0).unwrap();
     c.accepted_statistics(4).unwrap();
+    let record = c.record();
+    assert_eq!(record.config.sample_count, 4);
+    assert_eq!(record.config.sample_interval_s, 1.0);
+    assert_eq!(record.history.len(), 5);
+    assert!(serde_json::to_value(record)
+        .unwrap()
+        .get("history")
+        .is_some());
     assert!(c.accepted_statistics(3).is_err());
     let mut saturated_config = controller_config();
     saturated_config.kp_pa_per_fraction = 10_000.0;
