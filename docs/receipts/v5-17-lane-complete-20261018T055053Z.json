@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "kind": "v5_17_lane_complete_receipt",
+  "task_ids": [
+    "V5-17-01",
+    "V5-17-02",
+    "V5-17-03",
+    "V5-17-04",
+    "V5-17-05"
+  ],
+  "owner": "61562.joil_v5_codex_lane2",
+  "model": "gpt-6-luna medium",
+  "state": "lane_complete_software_controls_only",
+  "created_utc": "2026-10-18T05:50:53.407552+00:00",
+  "base_commit": "a6887024a2993de56c710d93dc94d84f7ce21c77",
+  "tested_commit": "669e283101dbca6776973045ec653fb598ec074d",
+  "branch": "codex/v5-lane2",
+  "resources": {
+    "cpus": [
+      38,
+      39
+    ],
+    "rss_cap_gib": 6,
+    "scratch_cap_gib": 2.5,
+    "gpu": false,
+    "native_cfd_launched": false,
+    "cargo_target_dir": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target"
+  },
+  "changed_paths": [
+    "crates/crucible-particles/src/dispersion.rs",
+    "crates/crucible-particles/src/population.rs",
+    "crates/crucible-particles/src/transfer.rs",
+    "crates/crucible-particles/src/lib.rs",
+    "crates/crucible-particles/tests/models.rs",
+    "docs/receipts/v5-17-claim-20261018T060000Z.json",
+    ".agent/CHANGELOG.md",
+    ".agent/handoffs/V5-17.md",
+    "docs/receipts/v5-17-lane-complete-20261018T055053Z.json"
+  ],
+  "source_sha256": [
+    {
+      "path": "crates/crucible-particles/src/dispersion.rs",
+      "sha256": "3e960016a91d0dd4855aa30abe3f91cefd2e03cd41a4ec8719d5a3990049cc75"
+    },
+    {
+      "path": "crates/crucible-particles/src/population.rs",
+      "sha256": "48519157f2c3bd95492bb231c73df420613e7da6204222ef2107d81d05d7cb9d"
+    },
+    {
+      "path": "crates/crucible-particles/src/transfer.rs",
+      "sha256": "7aef57db828a5c1a8d83d701fab4ae3d0b2cbe2a12eed199d2c91512fb946077"
+    },
+    {
+      "path": "crates/crucible-particles/src/lib.rs",
+      "sha256": "75b993f40d6d4d8caef31bb241c27582c8aa6a9ee5f43693b85153310af93dae"
+    },
+    {
+      "path": "crates/crucible-particles/tests/models.rs",
+      "sha256": "909dc71889fb5af491c58f76b619fbef354a90df500823a39c38a2ee8e34ab65"
+    },
+    {
+      "path": "docs/receipts/v5-17-claim-20261018T060000Z.json",
+      "sha256": "4957a5afc9eebbd3510f0374075a33ee807a2e371a84aeda5ebfc79d3a55a146"
+    },
+    {
+      "path": ".agent/CHANGELOG.md",
+      "sha256": "1e65369f5f84f4236a97dfea1791724657bf270ea8eb226d5e55b68f96f43e23"
+    },
+    {
+      "path": ".agent/handoffs/V5-17.md",
+      "sha256": "f0b7d369a5f1152c05050549fb02ca7cfe5f9379d90a7370a6fbf4d2a4ef97c8"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-particles",
+        "--test",
+        "models"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/07-models-final.log",
+      "log_sha256": "af035ac784364f82013e065c9e554a90204fe2304700b19dfae3d15344dd99f1"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-particles"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/08-particles-final.log",
+      "log_sha256": "cba04b1cde793204ab1c66b590bb1f0c88ca3664a4be88011896c4bd083f80de"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "crucible-particles",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/09-clippy-final.log",
+      "log_sha256": "59639588a6f1826f129cbcd121edc07279dab94786f5fa5bde6b3439b2e845cc"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/10-fmt-final.log",
+      "log_sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/11-public-final.log",
+      "log_sha256": "afaede0b3f0fd10824d849484808d5c620cd01d131838ee832c6e4e8971a3108"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "rtk",
+        "proxy",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/12-diff-check-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "38,39",
+        "env",
+        "CARGO_TARGET_DIR=/home/ubuntu/joil/.private/v5-workers/codex_lane2/target",
+        "CARGO_INCREMENTAL=0",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/13-public-receipt.log",
+      "log_sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801",
+      "summary": "post-receipt publication scan passed with 704 public candidates"
+    }
+  ],
+  "all_raw_log_sha256": [
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/01-models-initial.log",
+      "sha256": "da86c6fff4444c613739dbef2cff987c573e43dd0953dff9ad5ac494ea4dc6fd"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/02-fmt-apply.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/03-models.log",
+      "sha256": "ec122bfa5a0ab990c6db7583cd294fc2e91257f2fcbd1fe2970e5658f3df7d89"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/04-particles.log",
+      "sha256": "db43161f076c5f3ddc14f523bc0dcf9c591300fc0a49a5b7ebf459bc27fecbe8"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/05-clippy.log",
+      "sha256": "80c61131b57847372309b2662da07496acc67fe29832c07e649743b16dfbf44e"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/06-clippy-fixed.log",
+      "sha256": "a4f0ff64a8c34f116d4ed1b7618505ed8524d885132de8f8252edddf44709dcc"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/07-models-final.log",
+      "sha256": "af035ac784364f82013e065c9e554a90204fe2304700b19dfae3d15344dd99f1"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/08-particles-final.log",
+      "sha256": "cba04b1cde793204ab1c66b590bb1f0c88ca3664a4be88011896c4bd083f80de"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/09-clippy-final.log",
+      "sha256": "59639588a6f1826f129cbcd121edc07279dab94786f5fa5bde6b3439b2e845cc"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/10-fmt-final.log",
+      "sha256": "bde294368bfed77c2cddf8cec271d398aee9cdbab3b26e1059281bd33adb0120"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/11-public-final.log",
+      "sha256": "afaede0b3f0fd10824d849484808d5c620cd01d131838ee832c6e4e8971a3108"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/12-diff-check-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/13-public-receipt.log",
+      "sha256": "817223decdd508b82e73747be33da3d439d9cc4b72f5619304401c5652e78801"
+    }
+  ],
+  "positive_checks": [
+    "Deterministic anisotropic covariance increments match independent empirical variance/covariance tolerances.",
+    "Inhomogeneous periodic tracer ensemble passes uniform invariant-density, boundary-wrap, refinement and inlet-skew controls with corrected Ito drift.",
+    "Realizability repair is recorded; LES energy closure rejects isotropic/full-energy modeled-noise double counting.",
+    "Exposure-dependent breakup returns bounded probabilities and daughter mass closes; Hinze clipping is rejected as calibration; constant-kernel Smoluchowski and size/velocity refinement controls pass.",
+    "Mass-weighted DSD matrix conserves injected mass and matches direct held-out outcomes within budget only in declared linear noninteracting conditions.",
+    "Grade interval aggregates by independent cluster and carries units, concentration basis, sampling design, critical-value source, separate numerical/model errors and applicability exclusions.",
+    "All 10 existing transport tests from V5-16 continue to pass."
+  ],
+  "negative_checks": [
+    "Intentionally wrong drift fails the invariant-density criterion.",
+    "Anisotropic covariance fixture rejects isotropic noise; LES control rejects modeled energy exceeding unresolved TKE or failed energy closure.",
+    "Non-closing daughter fractions are rejected and instantaneous Hinze clipping cannot create calibrated status.",
+    "Coalescence/concentration coupling, invalid transfer rows and held-out outcomes outside budget reject shortcut reuse.",
+    "Replicating daughter ancestry within an existing cluster does not increase independent cluster count or shrink its interval."
+  ],
+  "limitations": [
+    "Synthetic software controls only. No native OpenFOAM dispersion adapter execution, physical measurements, native transport, or scientific PASS.",
+    "No native turbulence field source binding or measured RSM/LES inputs; inlet sensitivity is a bounded analytic periodic fixture, not a device inlet test.",
+    "`crucible-particles` has no `crucible-stats` dependency. Root/subcrate manifest and lockfile integration are integrator-owned; this lane requires an explicit stats dependency/API integration. Critical quantile is caller supplied and provenance is recorded but not computed in-crate.",
+    "Breakup rate and daughter law are uncalibrated and must remain adverse bounds. Films, local enrichment, free gas, solids and two-way coupling are excluded by the declared applicability contract."
+  ],
+  "next_dependency": "Integrator to review V5-17 APIs and reconcile crucible-stats dependency; native source-bound turbulence adapter and calibrated breakup data are required before physical eligibility.",
+  "intermediate_attempts": [
+    {
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/05-clippy.log",
+      "exit_code": 101,
+      "disposition": "initial clippy style findings were fixed; superseded by final passing clippy log"
+    },
+    {
+      "log": "/home/ubuntu/joil/.private/v5-workers/logs/codex_lane2/06-clippy-fixed.log",
+      "exit_code": 0,
+      "disposition": "clippy passed after style fixes"
+    }
+  ]
+}
