@@ -75,10 +75,10 @@ fn absent_oil_judge_cannot_be_marked_not_applicable_by_caller_alone() {
 #[test]
 fn nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts() {
     let campaign: Campaign = toml::from_str(CAMPAIGN).unwrap();
-    let root = std::env::var_os("CARGO_TARGET_DIR")
-        .map(std::path::PathBuf::from)
-        .expect("lane target directory required");
-    let path = root.join(format!("bracket-kill-resume-{}.json", std::process::id()));
+    let _scratch = scratch::TestScratch::new();
+    let root = scratch::TestScratch::path("bracket-kill-resume");
+    std::fs::create_dir_all(&root).unwrap();
+    let path = root.join("checkpoint.json");
     let mut child = Command::new(std::env::current_exe().unwrap())
         .args([
             "--exact",
@@ -108,7 +108,6 @@ fn nonempty_checkpoint_round_trips_and_resumes_without_losing_attempts() {
     let mut restored: pack_bracket::CampaignCheckpoint = serde_json::from_slice(&bytes).unwrap();
     assert_eq!(restored.next_ordinal, 1);
     assert_eq!(restored.attempts.len(), 1);
-    std::fs::remove_file(path).unwrap();
     pack_bracket::advance_campaign(&campaign, &mut restored, 8).unwrap();
     assert_eq!(restored.next_ordinal, 3);
     assert_eq!(
