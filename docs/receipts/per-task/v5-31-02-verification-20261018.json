@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-31-02"
+  ],
+  "tested_commit": "ee70637afdb03b6155ad207ca86b1a28162d0f24",
+  "tested_commit_semantics": "Committed implementation/test bytes; successor evidence and generated views do not change Rust source.",
+  "decision_resolution": "Legacy parity validates golden identity and finite nonnegative discrepancy/tolerance; missing mesh requires explicit unavailable-input disposition and forbids restored provenance.",
+  "changed_paths": [
+    "crates/crucible-paper/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::v5_31_02_legacy_migration_parity_rejects_scalar_match_without_mesh_provenance",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.077,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-31-02.log",
+      "log_sha256": "055f43a29fcb7d9c55214dfd9fab20599923432d13354d64495ad7947510b91a"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "-I",
+        "tools/v5_baseline_source_controls.py",
+        "run",
+        "D-30",
+        "positive",
+        "--scratch",
+        "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-pos",
+        "--frozen-rust",
+        "/home/ubuntu/joil/.private/v5-workers/claude/target/c006frozen"
+      ],
+      "exit_code": 0,
+      "log_sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82",
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+      "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+      "expected_result": "C006 frozen-source positive control: assertion_holds=true.",
+      "evidence_origin": "Historical executed D-30 control retained from docs/receipts/v5-31-software-acceptance-20261018.json; raw log hash independently checked in I008, not rerun."
+    }
+  ],
+  "positive_checks": [
+    "positive: complete synthetic metadata accepted",
+    "positive: explicit unavailable-input disposition accepted without restored provenance"
+  ],
+  "negative_checks": [
+    "negative: empty records rejected",
+    "negative: scalar match without mesh rejected",
+    "negative: absent disposition rejected",
+    "negative: blank disposition rejected",
+    "negative: above tolerance rejected",
+    "negative: NaN discrepancy rejected",
+    "negative: infinite tolerance rejected",
+    "negative: negative tolerance rejected",
+    "negative: negative discrepancy rejected",
+    "negative: invalid golden identity rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
+    },
+    {
+      "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
+      "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Synthetic metadata and software contract verification only; no physical evidence, historical mesh restoration or actual remote release approval established.",
+    "Caller must authenticate referenced evidence; these functions validate supplied metadata.",
+    "Frozen D-30 red control remains an observed historical discrepancy, not proof of missing-mesh restoration or legacy retirement."
+  ],
+  "next_dependency": "Independent integrator review, exact-head remote CI and owner-controlled merge; physical inputs remain absent.",
+  "defect_controls": [
+    {
+      "defect_id": "D-30",
+      "fixture": {
+        "path": "docs/receipts/v5-g012-frozen-wave6-control-driver.py",
+        "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
+      },
+      "source": {
+        "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+        "path": "tools/generate_gci_rsm_report_and_figures.py",
+        "symbol": "compute_roache_3grid_gci_v2",
+        "sha256": "ee090ae4396ff2d0dc43aaa6cf2282a78a6aa7e6a76b84cb79b8abe08672e77d"
+      },
+      "positive": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-30",
+          "positive",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-pos",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/claude/target/c006frozen"
+        ],
+        "exit_code": 0,
+        "log_sha256": "1cac68033e58cea292ac8206bec9344d6b4ea13c647363eb89502e7addaadc82",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-positive.log",
+        "expected_result": "C006 frozen-source positive control: assertion_holds=true."
+      },
+      "red": {
+        "argv": [
+          "rtk",
+          "proxy",
+          "python3",
+          "-I",
+          "tools/v5_baseline_source_controls.py",
+          "run",
+          "D-30",
+          "red",
+          "--scratch",
+          "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red",
+          "--frozen-rust",
+          "/home/ubuntu/joil/.private/v5-workers/claude/target/c006frozen"
+        ],
+        "exit_code": 1,
+        "log_sha256": "4baf2b89ee51fededa04a471f5a4f65e3bb4f2d6df0e33f225fe5a54ad0241c9",
+        "log_path": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
+        "raw_log": "/home/ubuntu/joil/.private/v5-workers/claude/logs/wave6-28-31/d30-red.log",
+        "expected_result": "C006-RED D-30: explicit_state_disagrees (Rust and Python disagree on an overflow concentration)."
+      }
+    }
+  ]
+}

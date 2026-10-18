@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-31-05"
+  ],
+  "tested_commit": "ee70637afdb03b6155ad207ca86b1a28162d0f24",
+  "tested_commit_semantics": "Committed implementation/test bytes; successor evidence and generated views do not change Rust source.",
+  "decision_resolution": "Exact PR/CI/review head identity, 160 completed tasks, no unacknowledged items and immutable receipt presence are checked on synthetic metadata; actual remote CI/review and merge remain owner/integrator dependencies.",
+  "changed_paths": [
+    "crates/crucible-paper/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::v5_31_05_exact_head_handoff_rejects_stale_sha_and_unreconciled_tasks",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.083,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-31-05.log",
+      "log_sha256": "639fc7a31a8cd3fec78f913b81b9a74aec400ae67f19fc78dca8675c07b522a6"
+    }
+  ],
+  "positive_checks": [
+    "positive: complete synthetic metadata accepted"
+  ],
+  "negative_checks": [
+    "negative: stale CI rejected",
+    "negative: stale review rejected",
+    "negative: short SHA rejected",
+    "negative: matching nonhex SHAs rejected",
+    "negative: incomplete tasks rejected",
+    "negative: wrong total rejected",
+    "negative: unacknowledged item rejected",
+    "negative: no immutable receipts rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Synthetic metadata and software contract verification only; no physical evidence, historical mesh restoration or actual remote release approval established.",
+    "Caller must authenticate referenced evidence; these functions validate supplied metadata."
+  ],
+  "next_dependency": "Independent integrator review, exact-head remote CI and owner-controlled merge; physical inputs remain absent."
+}

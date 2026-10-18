@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "kind": "I008_P010_software_completion",
+  "task_ids": [
+    "V5-31-01",
+    "V5-31-02",
+    "V5-31-03",
+    "V5-31-04",
+    "V5-31-05"
+  ],
+  "tested_commit": "ee70637afdb03b6155ad207ca86b1a28162d0f24",
+  "packet_acceptance": true,
+  "packet_acceptance_scope": "User-authorized production release verifier implementation, synthetic metadata proofs and progress/evidence hygiene only; actual remote release approval is not established.",
+  "scientific_admission": false,
+  "changed_paths": [
+    "apps/explorer/public/evidence-manifest.json",
+    "apps/explorer/public/v5/source-20ecdb4d76bb6e08e58d05aff9f829bbb19750d4b81921004cf6cad654764103.json",
+    "crates/crucible-paper/src/lib.rs",
+    "docs/receipts/per-task/v5-28-01-verification-20261018.json",
+    "docs/receipts/per-task/v5-28-02-verification-20261018.json",
+    "docs/receipts/per-task/v5-28-04-verification-20261018.json",
+    "docs/receipts/per-task/v5-31-01-verification-20261018.json",
+    "docs/receipts/per-task/v5-31-02-verification-20261018.json",
+    "docs/receipts/per-task/v5-31-03-verification-20261018.json",
+    "docs/receipts/per-task/v5-31-04-verification-20261018.json",
+    "docs/receipts/per-task/v5-31-05-verification-20261018.json",
+    "docs/receipts/v5-28-d31-completion-20261018.json",
+    "docs/receipts/v5-28-lane-complete-20261018T060938Z.json",
+    "docs/receipts/v5-31-d30-completion-20261018.json",
+    "docs/receipts/v5-i008-p010-claim-20261018.json",
+    "docs/v5-plan/TODO.md",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/progress/V5-07.json",
+    "docs/v5-plan/progress/V5-09.json",
+    "docs/v5-plan/progress/V5-11.json",
+    "docs/v5-plan/progress/V5-12.json",
+    "docs/v5-plan/progress/V5-13.json",
+    "docs/v5-plan/progress/V5-14.json",
+    "docs/v5-plan/progress/V5-15.json",
+    "docs/v5-plan/progress/V5-16.json",
+    "docs/v5-plan/progress/V5-17.json",
+    "docs/v5-plan/progress/V5-18.json",
+    "docs/v5-plan/progress/V5-19.json",
+    "docs/v5-plan/progress/V5-20.json",
+    "docs/v5-plan/progress/V5-21.json",
+    "docs/v5-plan/progress/V5-22.json",
+    "docs/v5-plan/progress/V5-23.json",
+    "docs/v5-plan/progress/V5-24.json",
+    "docs/v5-plan/progress/V5-25.json",
+    "docs/v5-plan/progress/V5-26.json",
+    "docs/v5-plan/progress/V5-27.json",
+    "docs/v5-plan/progress/V5-28.json",
+    "docs/v5-plan/progress/V5-29.json",
+    "docs/v5-plan/progress/V5-30.json",
+    "docs/v5-plan/progress/V5-31.json",
+    "docs/v5-plan/todos/V5-07.md",
+    "docs/v5-plan/todos/V5-09.md",
+    "docs/v5-plan/todos/V5-11.md",
+    "docs/v5-plan/todos/V5-12.md",
+    "docs/v5-plan/todos/V5-13.md",
+    "docs/v5-plan/todos/V5-14.md",
+    "docs/v5-plan/todos/V5-15.md",
+    "docs/v5-plan/todos/V5-16.md",
+    "docs/v5-plan/todos/V5-17.md",
+    "docs/v5-plan/todos/V5-18.md",
+    "docs/v5-plan/todos/V5-19.md",
+    "docs/v5-plan/todos/V5-20.md",
+    "docs/v5-plan/todos/V5-21.md",
+    "docs/v5-plan/todos/V5-22.md",
+    "docs/v5-plan/todos/V5-23.md",
+    "docs/v5-plan/todos/V5-24.md",
+    "docs/v5-plan/todos/V5-25.md",
+    "docs/v5-plan/todos/V5-26.md",
+    "docs/v5-plan/todos/V5-27.md",
+    "docs/v5-plan/todos/V5-28.md",
+    "docs/v5-plan/todos/V5-29.md",
+    "docs/v5-plan/todos/V5-30.md",
+    "docs/v5-plan/todos/V5-31.md"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.618,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-0.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.786,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-1.log",
+      "log_sha256": "e68dbb831082090d6aab9641584d06498d66907f4c3e3d2d36c4824da23e94c8"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "build"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.919,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-2.log",
+      "log_sha256": "fd1fa04081fbdddd51b924d6989f00d826f39f156a326242594e826d155136fd"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.72,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-3.log",
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "build"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.663,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-4.log",
+      "log_sha256": "ae03a920acc7797fd7f2f8fa629e85f394a3a8d00d22e3cd5f97d143fa82ccac"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.62,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-5.log",
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 21.915,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-6.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.511,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-7.log",
+      "log_sha256": "cde13dbe940a01cae359f1615b23f5366d4d4d08e85ea58ce9f4fd04878221ad"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.024,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/gate-8.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper",
+        "--lib"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 2.772331638028845,
+      "log_path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/initial-2.log",
+      "log_sha256": "2137d345a2c5421cb723631c8fce3a8e7353d5cf2d169ca6c7c61bcca1bd446f"
+    }
+  ],
+  "positive_checks": [
+    "16 crucible-paper library tests passed; five exact release tests each executed one test.",
+    "31 generic notes replaced; 87 per-task evidence entries moved first.",
+    "32 packets fully complete and 160/160 software tasks done.",
+    "260 non-test production lines added; source/log/receipt hash and evidence-order checks passed."
+  ],
+  "negative_checks": [
+    "53 task-specific mutation controls reject absent packet evidence, forbidden paths, scalar-only provenance restoration, invalid discrepancy/tolerance, stale/missing CI, manual science promotion, unsupported R4 and unreconciled exact-head handoff."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/receipts/per-task/v5-31-01-verification-20261018.json",
+      "sha256": "e3510f764f9e41fdedc9704484ad1e0dd3eb14b50ef6a25be27138be7cdd0528"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-31-02-verification-20261018.json",
+      "sha256": "a9331642954b076598a2f16dd69091cd7efb24bdebd8a0f7834eb498c8f07cde"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-31-03-verification-20261018.json",
+      "sha256": "2968d5fb3be31638fb509be80c115df165fd0bf5cde6be080947ca911bafbb80"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-31-04-verification-20261018.json",
+      "sha256": "707f432abb0ee292f42d5ec37eb02629dc861dc6d7dc2c9d7897a5a57593fc51"
+    },
+    {
+      "path": "docs/receipts/per-task/v5-31-05-verification-20261018.json",
+      "sha256": "6c2e6d668bafec9d84f88a211a1e5bab79b6f75a6b9e7f4f7c57945a36ed0f7c"
+    },
+    {
+      "path": "/home/ubuntu/joil/.private/worktrees/v5-engineering-plan/.private/i008/integrity.json",
+      "sha256": "a51eae3d79dd6c9c03778244e85370ef281630c2d2813fdd1815c5d802b4215f"
+    },
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cpu_affinity": [
+      32,
+      33
+    ]
+  },
+  "limitations": [
+    "Metadata verifiers rely on authenticated evidence supplied by callers; synthetic test records do not establish real PR approval or physical qualification.",
+    "Historical D-30 control retained with verified hashes, not rerun; missing historical inputs and physical/native qualification remain explicitly unavailable.",
+    "No push, external message, PR approval or merge performed."
+  ],
+  "next_dependency": "Integrator exact-head remote CI/review and owner-controlled merge; physical programme and external inputs remain separate dependencies."
+}

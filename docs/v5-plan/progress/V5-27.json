@@ -8,12 +8,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-27-software-acceptance-20261018.json (sha256 b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993); task-specific verification tests and execution receipts in docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json (sha256 ac3ee7356ec2f135ad076abae89ea3503af31508f1b01966aaaf467dcf967fc9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
-        },
-        {
           "path": "docs/receipts/per-task/v5-27-01-verification-20261018.json",
           "sha256": "3a586914a965ff2eb93816d3874a1962302b991e18820978178243b04a3465e2"
+        },
+        {
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
         }
       ]
     },
@@ -23,12 +23,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-27-software-acceptance-20261018.json (sha256 b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993); task-specific verification tests and execution receipts in docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json (sha256 ac3ee7356ec2f135ad076abae89ea3503af31508f1b01966aaaf467dcf967fc9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
-        },
-        {
           "path": "docs/receipts/per-task/v5-27-02-verification-20261018.json",
           "sha256": "d0a4acf750b410d5887aa5c7bda0aec3a8c03c2be22c6fdbf0554ef85c046091"
+        },
+        {
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
         }
       ]
     },
@@ -38,12 +38,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-27-software-acceptance-20261018.json (sha256 b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993); task-specific verification tests and execution receipts in docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json (sha256 ac3ee7356ec2f135ad076abae89ea3503af31508f1b01966aaaf467dcf967fc9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
-        },
-        {
           "path": "docs/receipts/per-task/v5-27-03-verification-20261018.json",
           "sha256": "e0e00da8b45da0fba28dbed7b22d5bb3e3557fb0e3547ae586305ef49850f028"
+        },
+        {
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
         }
       ]
     },
@@ -53,12 +53,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane4: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-27-software-acceptance-20261018.json (sha256 b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993); task-specific verification tests and execution receipts in docs/receipts/v5-27-02-05-sc-dec-045-verification-20261018.json (sha256 ac3ee7356ec2f135ad076abae89ea3503af31508f1b01966aaaf467dcf967fc9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
-          "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
-        },
-        {
           "path": "docs/receipts/per-task/v5-27-04-verification-20261018.json",
           "sha256": "70279b3b9408fd5729f01ed03f65e4b63b822a7f55c4ac8a8bf5a450945f45df"
+        },
+        {
+          "path": "docs/receipts/v5-27-software-acceptance-20261018.json",
+          "sha256": "b1b79726907d4aa69b5e43fb0c26b64a2d71cf4570f68a2fd87ef41da179b993"
         }
       ]
     },

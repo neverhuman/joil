@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-31-01"
+  ],
+  "tested_commit": "ee70637afdb03b6155ad207ca86b1a28162d0f24",
+  "tested_commit_semantics": "Committed implementation/test bytes; successor evidence and generated views do not change Rust source.",
+  "decision_resolution": "Upstream packet metadata completeness checks all 31 packet IDs, exact commit identities, scoped paths, successful commands, raw-log presence and positive/negative controls.",
+  "changed_paths": [
+    "crates/crucible-paper/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::v5_31_01_packet_integration_completeness_rejects_unscoped_paths_and_missing_logs",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.081,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-31-01.log",
+      "log_sha256": "ace40790a1c951b0db81ffcdc80c461e0ce69219605f6eb935daaaed2fe60594"
+    }
+  ],
+  "positive_checks": [
+    "positive: complete synthetic metadata accepted"
+  ],
+  "negative_checks": [
+    "negative: missing packet rejected",
+    "negative: duplicate packet rejected",
+    "negative: unknown packet rejected",
+    "negative: short commit rejected",
+    "negative: nonhex commit rejected",
+    "negative: empty scope rejected",
+    "negative: private scope rejected",
+    "negative: runs scope rejected",
+    "negative: artifacts scope rejected",
+    "negative: wildcard rejected",
+    "negative: path traversal rejected",
+    "negative: missing commands rejected",
+    "negative: failed command rejected",
+    "negative: missing raw logs rejected",
+    "negative: missing positive rejected",
+    "negative: missing negative rejected",
+    "negative: blank dependency rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Synthetic metadata and software contract verification only; no physical evidence, historical mesh restoration or actual remote release approval established.",
+    "Caller must authenticate referenced evidence; these functions validate supplied metadata."
+  ],
+  "next_dependency": "Independent integrator review, exact-head remote CI and owner-controlled merge; physical inputs remain absent."
+}

@@ -5,75 +5,75 @@
     "V5-12-01": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact attempts_are_charged_local_and_replayable_with_stable_innovations in packet V5-12 (Variation, expressiveness and operator-yield audit). Exact task command: cargo test --locked --offline -p crucible-genome --test operators -- --exact attempts_are_charged_local_and_replayable_with_stable_innovations. Per-task receipt docs/receipts/per-task/v5-12-01-verification-20261018.json (sha256 5061e844fc85cd0f0a6bdb08811b368bb12197077e5315a0d6a86eccbed4fc0d); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
-          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
-        },
         {
           "path": "docs/receipts/per-task/v5-12-01-verification-20261018.json",
           "sha256": "5061e844fc85cd0f0a6bdb08811b368bb12197077e5315a0d6a86eccbed4fc0d"
+        },
+        {
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     },
     "V5-12-02": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact structural_merge_and_graph_symmetry_are_explicit_topology_changes in packet V5-12 (Variation, expressiveness and operator-yield audit). Exact task command: cargo test --locked --offline -p crucible-genome --test operators -- --exact structural_merge_and_graph_symmetry_are_explicit_topology_changes. Per-task receipt docs/receipts/per-task/v5-12-02-verification-20261018.json (sha256 4df6d9b0b15152b0872ac691e1baad3c063bc95357146841e13d6052f60c2b89); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
-          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
-        },
         {
           "path": "docs/receipts/per-task/v5-12-02-verification-20261018.json",
           "sha256": "4df6d9b0b15152b0872ac691e1baad3c063bc95357146841e13d6052f60c2b89"
+        },
+        {
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     },
     "V5-12-03": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact bounded_operator_sequence_preserves_interface_process_and_graph_validity in packet V5-12 (Variation, expressiveness and operator-yield audit). Exact task command: cargo test --locked --offline -p crucible-genome --test operators -- --exact bounded_operator_sequence_preserves_interface_process_and_graph_validity. Per-task receipt docs/receipts/per-task/v5-12-03-verification-20261018.json (sha256 d1ebc0c5918d6bb21f8c18d49a1d62920b89fdfef74ec66ec182e0fec6c1630f); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
-          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
-        },
         {
           "path": "docs/receipts/per-task/v5-12-03-verification-20261018.json",
           "sha256": "d1ebc0c5918d6bb21f8c18d49a1d62920b89fdfef74ec66ec182e0fec6c1630f"
+        },
+        {
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     },
     "V5-12-04": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact expressiveness_registry_is_frozen_and_not_campaign_seed_material in packet V5-12 (Variation, expressiveness and operator-yield audit). Exact task command: cargo test --locked --offline -p crucible-genome --test operators -- --exact expressiveness_registry_is_frozen_and_not_campaign_seed_material. Per-task receipt docs/receipts/per-task/v5-12-04-verification-20261018.json (sha256 80c867d050008538afcc9df963ec4858d8e9199b8aa532186e35f13d489ba35b); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
-          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
-        },
         {
           "path": "docs/receipts/per-task/v5-12-04-verification-20261018.json",
           "sha256": "80c867d050008538afcc9df963ec4858d8e9199b8aa532186e35f13d489ba35b"
+        },
+        {
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     },
     "V5-12-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test operators -- --exact operator_smoke_yield_denominator_reconciles_every_proposal in packet V5-12 (Variation, expressiveness and operator-yield audit). Exact task command: cargo test --locked --offline -p crucible-genome --test operators -- --exact operator_smoke_yield_denominator_reconciles_every_proposal. Per-task receipt docs/receipts/per-task/v5-12-05-verification-20261018.json (sha256 6f1a50667e8d48621f7d9d4cc7f0c71b19e317799b914be2f675760ab2fa1f0a); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
-          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
-        },
         {
           "path": "docs/receipts/per-task/v5-12-05-verification-20261018.json",
           "sha256": "6f1a50667e8d48621f7d9d4cc7f0c71b19e317799b914be2f675760ab2fa1f0a"
+        },
+        {
+          "path": "docs/receipts/v5-12-software-acceptance-20261018.json",
+          "sha256": "8351d5e1bb7de397ba9f69156f1f2d30ddac62c321bd9d29af626b9b0526ae65"
         }
       ]
     }

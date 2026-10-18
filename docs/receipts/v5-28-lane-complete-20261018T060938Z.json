@@ -152,7 +152,7 @@
     },
     {
       "path": "crates/crucible-paper/src/lib.rs",
-      "sha256": "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
+      "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
     },
     {
       "path": "docs/receipts/v5-28-claim-20261018T061000Z.json",
@@ -245,5 +245,14 @@
     "Historical WHITEPAPER and correction records were left unchanged.",
     "tools/v5_plan.py correctly prevents marking V5-28 tasks done because all named prerequisite packets remain todo in this checkout progress registry; no progress task is self-declared done."
   ],
-  "next_dependency": "Qualified fresh confirmation observations, frozen family-level admission policy and an explicitly authorized research-compute/data allocation; integrator review of draft workspace/lock registration."
+  "next_dependency": "Qualified fresh confirmation observations, frozen family-level admission policy and an explicitly authorized research-compute/data allocation; integrator review of draft workspace/lock registration.",
+  "i008_source_refresh": {
+    "tested_commit": "ee70637afdb03b6155ad207ca86b1a28162d0f24",
+    "source_path": "crates/crucible-paper/src/lib.rs",
+    "source_sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024",
+    "prior_source_sha256": [
+      "8b76b28751374f7f284b84795825043ae7e52091716ccb2ec7952a876e83ca40"
+    ],
+    "verification": "Full crucible-paper library regression passed; original command outcomes and tested_commit remain historical. Current source digest refreshed by explicit I008 order."
+  }
 }

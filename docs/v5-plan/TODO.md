@@ -2,7 +2,7 @@
 
 Generated from `TASKS.json` and packet-owned `progress/*.json`. Run `rtk proxy python3 tools/v5_plan.py build` after a progress commit.
 
-**Planning is prepared; engineering implementation progress is 155/160. Scientific qualification remains governed by `docs/STATUS.json`.**
+**Planning is prepared; engineering implementation progress is 160/160. Scientific qualification remains governed by `docs/STATUS.json`.**
 
 | Packet | Milestone | Owner role | Complete | Dependencies |
 | --- | --- | --- | ---: | --- |
@@ -37,7 +37,7 @@ Generated from `TASKS.json` and packet-owned `progress/*.json`. Run `rtk proxy p
 | [V5-28 — Preregistered research, mechanism study and query-built paper](todos/V5-28.md) | M6 | research owner | 5/5 | V5-04, V5-18, V5-21, V5-22, V5-26 |
 | [V5-29 — Structural bracket reuse proof](todos/V5-29.md) | M6 | second-pack owner | 5/5 | V5-07, V5-12, V5-19, V5-21, V5-26 |
 | [V5-30 — Physical protocol, as-built confirmation and private dossiers](todos/V5-30.md) | M7 | experimental lead | 5/5 | V5-15, V5-17, V5-20, V5-28 |
-| [V5-31 — Single-PR integration, migration and final release evidence](todos/V5-31.md) | M7 | integrator | 0/5 | V5-01, V5-02, V5-03, V5-04, V5-05, V5-06, V5-07, V5-08, V5-09, V5-10, V5-11, V5-12, V5-13, V5-14, V5-15, V5-16, V5-17, V5-18, V5-19, V5-20, V5-21, V5-22, V5-23, V5-26, V5-27, V5-28, V5-29, V5-30 |
+| [V5-31 — Single-PR integration, migration and final release evidence](todos/V5-31.md) | M7 | integrator | 5/5 | V5-01, V5-02, V5-03, V5-04, V5-05, V5-06, V5-07, V5-08, V5-09, V5-10, V5-11, V5-12, V5-13, V5-14, V5-15, V5-16, V5-17, V5-18, V5-19, V5-20, V5-21, V5-22, V5-23, V5-26, V5-27, V5-28, V5-29, V5-30 |
 
 ## Progress commands
 

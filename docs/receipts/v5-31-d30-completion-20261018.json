@@ -632,7 +632,7 @@
     },
     {
       "path": "crates/crucible-paper/src/lib.rs",
-      "sha256": "0c6adb6763c2d8bbb8ac728fec2a73924ebf014b25e5872eb47c05d8324005ad"
+      "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
     },
     {
       "path": "crates/crucible-particles/src/dispersion.rs",
@@ -1087,5 +1087,14 @@
         "expected_result": "C006-RED D-30: explicit_state_disagrees; frozen Rust reports concentration overflow while Python returns inf for the SYNTHETIC overflow fixture."
       }
     }
-  ]
+  ],
+  "i008_source_refresh": {
+    "tested_commit": "ee70637afdb03b6155ad207ca86b1a28162d0f24",
+    "source_path": "crates/crucible-paper/src/lib.rs",
+    "source_sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024",
+    "prior_source_sha256": [
+      "0c6adb6763c2d8bbb8ac728fec2a73924ebf014b25e5872eb47c05d8324005ad"
+    ],
+    "verification": "Full crucible-paper library regression passed; original command outcomes and tested_commit remain historical. Current source digest refreshed by explicit I008 order."
+  }
 }

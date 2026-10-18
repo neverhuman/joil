@@ -5,11 +5,11 @@
     "V5-28-01": {
       "status": "done",
       "owner": "1052075.joil_v5_codex",
-      "note": "SC-DEC-046 governance_signoff; substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies the prospective arm/seed matrix and frozen estimand against experiments/v5-study/preregistration-v1.json; rejects unfrozen and post-result substituted endpoints. Owner dossier remains unsigned; no physical campaign admission. Verified by tests::v5_28_01_prospective_estimand_and_all_arm_seed_matrix_are_frozen; per-task receipt docs/receipts/per-task/v5-28-01-verification-20261018.json SHA-256 396b7f4121da4d07944c9060504244053f5c33f89e6ab2900e6bf9f69a88dd66. scientific_admission=false.",
+      "note": "SC-DEC-046 governance_signoff; substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies the prospective arm/seed matrix and frozen estimand against experiments/v5-study/preregistration-v1.json; rejects unfrozen and post-result substituted endpoints. Owner dossier remains unsigned; no physical campaign admission. Verified by tests::v5_28_01_prospective_estimand_and_all_arm_seed_matrix_are_frozen; per-task receipt docs/receipts/per-task/v5-28-01-verification-20261018.json SHA-256 3a611ee9abc841f758740ac5b7f9462c86990983cb40fb1544e4a07d3e706f6a. scientific_admission=false.",
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-28-01-verification-20261018.json",
-          "sha256": "396b7f4121da4d07944c9060504244053f5c33f89e6ab2900e6bf9f69a88dd66"
+          "sha256": "3a611ee9abc841f758740ac5b7f9462c86990983cb40fb1544e4a07d3e706f6a"
         },
         {
           "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
@@ -20,11 +20,11 @@
     "V5-28-02": {
       "status": "done",
       "owner": "1052075.joil_v5_codex",
-      "note": "substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies all six arms over two search seeds, fresh confirmation seeds/data, every attempted finalist and unchanged cost/quality intervals including null, negative, dominated and failed outcomes. Synthetic campaign ledger execution only. Verified by tests::v5_28_02_confirmation_campaign_enforces_fresh_confirmation_seeds_and_retains_negative_finalists; per-task receipt docs/receipts/per-task/v5-28-02-verification-20261018.json SHA-256 89a4fa316e6636df67c55251d65d2a4a6f7891db48fb9458bb0a5ec396df8140. scientific_admission=false.",
+      "note": "substitute:synthetic_fixture: crucible-paper::evaluate_confirmation_campaign_without_winner_leakage verifies all six arms over two search seeds, fresh confirmation seeds/data, every attempted finalist and unchanged cost/quality intervals including null, negative, dominated and failed outcomes. Synthetic campaign ledger execution only. Verified by tests::v5_28_02_confirmation_campaign_enforces_fresh_confirmation_seeds_and_retains_negative_finalists; per-task receipt docs/receipts/per-task/v5-28-02-verification-20261018.json SHA-256 ee6e9f070c9e4f032d8dba80df737cf140a874b29cb1b43d8eecb5d02a42f562. scientific_admission=false.",
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-28-02-verification-20261018.json",
-          "sha256": "89a4fa316e6636df67c55251d65d2a4a6f7891db48fb9458bb0a5ec396df8140"
+          "sha256": "ee6e9f070c9e4f032d8dba80df737cf140a874b29cb1b43d8eecb5d02a42f562"
         }
       ]
     },
@@ -34,12 +34,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-28-software-acceptance-20261018.json (sha256 5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
-          "sha256": "5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511"
-        },
-        {
           "path": "docs/receipts/per-task/v5-28-03-verification-20261018.json",
           "sha256": "cf83a6eb1486fc2f2dcc01c4adf47e20d18de2dc3618ad14b2ee6b16e5a53375"
+        },
+        {
+          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
+          "sha256": "5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511"
         }
       ]
     },
@@ -50,7 +50,7 @@
       "evidence": [
         {
           "path": "docs/receipts/per-task/v5-28-04-verification-20261018.json",
-          "sha256": "87dc8aa3deadfea6732f49b6fbc3393167378b46822c19d2ee9968843525a166"
+          "sha256": "2882feaea33b645a3a0841b559b753ca1c116fd6e3840c995a682d15cdc7c4b1"
         }
       ]
     },
@@ -60,12 +60,12 @@
       "note": "SC-DEC-047 (governance_signoff): Delegate governance sign-off for internal reproducible review bundles, allowlisted offline reproduction and the inventory. Third-party licensing and external publication remain reserved to Jepson. Owner dossier 3 remains unsigned in the repo, and its manufacturing versus publication scope mismatch is unresolved. | Completed and verified in Wave 7-13 on codex_lane1: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-28-software-acceptance-20261018.json (sha256 5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511); task-specific verification tests and execution receipts in docs/receipts/v5-28-29-30-sc-dec-verification-20261018.json (sha256 f14f6ad4404287e27884c4afd9343eb72a5a0a8bf56e6e616d75a351ebf47744). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
-          "sha256": "5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511"
-        },
-        {
           "path": "docs/receipts/per-task/v5-28-05-verification-20261018.json",
           "sha256": "a4c2be3650b930fce6a2220385c01cb7b27dcfc1f4777908b7452b021cd5cc1c"
+        },
+        {
+          "path": "docs/receipts/v5-28-software-acceptance-20261018.json",
+          "sha256": "5efa95a97d6d7d452ee175d00c84361b8fc7fa902e4552c50eb4d0de768c2511"
         }
       ]
     }

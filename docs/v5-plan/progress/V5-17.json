@@ -8,12 +8,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
-          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
-        },
-        {
           "path": "docs/receipts/per-task/v5-17-01-verification-20261018.json",
           "sha256": "981941160c1a8db4b7613ac2fe0cfb0c4571dd0c1d6a8ef6efcb0cdb4b33607c"
+        },
+        {
+          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
         }
       ]
     },
@@ -23,12 +23,12 @@
       "note": "SC-DEC-030 (substitute:native_les_rsm_carrier_field+substitute:synthetic_fixture): Anisotropic dispersion and LES unresolved-energy partition are checked against substitute:synthetic_fixture resolved-turbulence carrier fixtures with zero double-counting. Labelled a synthetic numerical carrier-field substitute, never physical PIV or LDV. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
-          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
-        },
-        {
           "path": "docs/receipts/per-task/v5-17-02-verification-20261018.json",
           "sha256": "71b607afd94a7d1432bb7f8b2a3fe02a22b8e5c2ad7ec510200c3a58716c69d0"
+        },
+        {
+          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
         }
       ]
     },
@@ -38,12 +38,12 @@
       "note": "SC-DEC-031 (public_open_data+substitute:bounded_breakup_sensitivity): Daughter droplet mass conservation is enforced with no hidden clipping. Uncalibrated exposure rates are bracketed by off, calibrated-on and adverse bounds. | Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
-          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
-        },
-        {
           "path": "docs/receipts/per-task/v5-17-03-verification-20261018.json",
           "sha256": "ab0191131e74395dcaea09f67d4a1edd59af7b4264aa08eef6e312c8a2d66c61"
+        },
+        {
+          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
         }
       ]
     },
@@ -53,12 +53,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
-          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
-        },
-        {
           "path": "docs/receipts/per-task/v5-17-04-verification-20261018.json",
           "sha256": "f929daca34ee7ed0cf05d7e6e111ab9391bcda0bfa9f35268c38412c01066262"
+        },
+        {
+          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
         }
       ]
     },
@@ -68,12 +68,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane2: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-17-software-acceptance-20261018.json (sha256 a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9); task-specific verification tests and execution receipts in docs/receipts/v5-13-01-17-02-sc-dec-verification-20261018.json (sha256 67875b3968e38c481dd86a8e1605176043d4b30612a6c3de54a05a1f812b8f3c), docs/receipts/v5-13-02-05-17-03-05-sc-dec-verification-20261018.json (sha256 efa472730081c0dbf6fb56a358e400d20b827855b0fb4a4bcc4391a989a48cf9). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
-          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
-        },
-        {
           "path": "docs/receipts/per-task/v5-17-05-verification-20261018.json",
           "sha256": "50782fc4cdbb1243bb8c6f084b9d10dfd925c106179a428a1cd2b218ead7bae2"
+        },
+        {
+          "path": "docs/receipts/v5-17-software-acceptance-20261018.json",
+          "sha256": "a9a6a0a60a462b35d4ea15c818e177993cf14accb67b3fb6e1bcf1b734fc2ff9"
         }
       ]
     }

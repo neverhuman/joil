@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "task_ids": [
+    "V5-31-03"
+  ],
+  "tested_commit": "ee70637afdb03b6155ad207ca86b1a28162d0f24",
+  "tested_commit_semantics": "Committed implementation/test bytes; successor evidence and generated views do not change Rust source.",
+  "decision_resolution": "All eight Foundation suite records must pass on the status head; absent physical rig evidence prohibits structural, baseline and scientific qualification flips.",
+  "changed_paths": [
+    "crates/crucible-paper/src/lib.rs"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-paper",
+        "--lib",
+        "--",
+        "--exact",
+        "tests::v5_31_03_ci_tiers_enforce_conservative_status_and_forbid_manual_qualification_flip",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.091,
+      "log_path": "/home/ubuntu/joil/.private/v5-workers/per-task-logs/V5-31-03.log",
+      "log_sha256": "e77800d2bb25d654f981e3f092ceaf767ace0421a80f85eb5307e16164cc3db7"
+    }
+  ],
+  "positive_checks": [
+    "positive: complete synthetic metadata accepted"
+  ],
+  "negative_checks": [
+    "negative: missing suite rejected",
+    "negative: failed suite rejected",
+    "negative: stale suite rejected",
+    "negative: duplicate suite rejected",
+    "negative: invalid head rejected",
+    "negative: manual structural flip rejected",
+    "negative: manual baseline flip rejected",
+    "negative: manual scientific flip rejected"
+  ],
+  "artifacts": [
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
+    }
+  ],
+  "resource_allocation": {
+    "lease_id": "renewal-004",
+    "physical_cores": 2,
+    "ram_gib": 12,
+    "disk_gib": 6,
+    "gpu": false,
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cpu_affinity": [
+      32,
+      33
+    ]
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Synthetic metadata and software contract verification only; no physical evidence, historical mesh restoration or actual remote release approval established.",
+    "Caller must authenticate referenced evidence; these functions validate supplied metadata."
+  ],
+  "next_dependency": "Independent integrator review, exact-head remote CI and owner-controlled merge; physical inputs remain absent."
+}

@@ -8,12 +8,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
-        },
-        {
           "path": "docs/receipts/per-task/v5-21-01-verification-20261018.json",
           "sha256": "cfa4d2d2860ac7add3290f668877619c001ef546cb31ed578fb2157b4372d04e"
+        },
+        {
+          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
         }
       ]
     },
@@ -23,12 +23,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
-        },
-        {
           "path": "docs/receipts/per-task/v5-21-02-verification-20261018.json",
           "sha256": "38e86ec3d5751bee4b7bffaac8df327467060f7817ab97afdcbf5a1ccdebe9db"
+        },
+        {
+          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
         }
       ]
     },
@@ -38,12 +38,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
-        },
-        {
           "path": "docs/receipts/per-task/v5-21-03-verification-20261018.json",
           "sha256": "5d3c0ed024f6a1bc12c052f3ebf83c94b0974ff759f1866fe662d3f56aac46ce"
+        },
+        {
+          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
         }
       ]
     },
@@ -53,12 +53,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
-        },
-        {
           "path": "docs/receipts/per-task/v5-21-04-verification-20261018.json",
           "sha256": "2ccf6b0cc0e6fcb354af3afc8601145734b9620ca85a49f0787ec538dfd78581"
+        },
+        {
+          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
         }
       ]
     },
@@ -68,12 +68,12 @@
       "note": "Completed and verified in Wave 7-13 on codex_lane3: software acceptance + Fleet Admiral dispositions in docs/receipts/v5-21-software-acceptance-20261018.json (sha256 94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca); task-specific verification tests and execution receipts in docs/receipts/v5-21-01-05-sc-dec-038-verification-20261018.json (sha256 9ec4dfa9b9315a3d8d2d2b4e4707cbde258006e07c2d463a6133727dadae562b). scientific_admission=false preserved.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
-          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
-        },
-        {
           "path": "docs/receipts/per-task/v5-21-05-verification-20261018.json",
           "sha256": "d286742e50f6b055b2db17a75e9924ad83dabea95f57399f7dfccb11b99888d1"
+        },
+        {
+          "path": "docs/receipts/v5-21-software-acceptance-20261018.json",
+          "sha256": "94f8db7bbe7848013a68eeb5533acc9bd339a9786000513f6efdaf2c57a122ca"
         }
       ]
     }

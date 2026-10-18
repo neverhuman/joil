@@ -5,75 +5,75 @@
     "V5-11-01": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test development -- --exact strict_canonical_roundtrip_and_branch_rejoin in packet V5-11 (MPG schema, bounded development and legacy lowering). Exact task command: cargo test --locked --offline -p crucible-genome --test development -- --exact strict_canonical_roundtrip_and_branch_rejoin. Per-task receipt docs/receipts/per-task/v5-11-01-verification-20261018.json (sha256 d6d1d4cf9caad53ae892f03a20dc1840d79c2a202141172c91826bfb2e3b78c0); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
-          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
-        },
         {
           "path": "docs/receipts/per-task/v5-11-01-verification-20261018.json",
           "sha256": "d6d1d4cf9caad53ae892f03a20dc1840d79c2a202141172c91826bfb2e3b78c0"
+        },
+        {
+          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
         }
       ]
     },
     "V5-11-02": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test development -- --exact rejects_forward_construction_and_cyclic_evaluation in packet V5-11 (MPG schema, bounded development and legacy lowering). Exact task command: cargo test --locked --offline -p crucible-genome --test development -- --exact rejects_forward_construction_and_cyclic_evaluation. Per-task receipt docs/receipts/per-task/v5-11-02-verification-20261018.json (sha256 bc4713010282a3e42ceee2b3be9539befaaf1049a026dcc5452b3ac4acf0589b); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
-          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
-        },
         {
           "path": "docs/receipts/per-task/v5-11-02-verification-20261018.json",
           "sha256": "bc4713010282a3e42ceee2b3be9539befaaf1049a026dcc5452b3ac4acf0589b"
+        },
+        {
+          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
         }
       ]
     },
     "V5-11-03": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test development -- --exact stable_development_identity_and_labels_are_sidecar_only in packet V5-11 (MPG schema, bounded development and legacy lowering). Exact task command: cargo test --locked --offline -p crucible-genome --test development -- --exact stable_development_identity_and_labels_are_sidecar_only. Per-task receipt docs/receipts/per-task/v5-11-03-verification-20261018.json (sha256 e1e080a7052f8417568a43d9e420a339759f582cbdff1b1a6720355c0aaab547); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
-          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
-        },
         {
           "path": "docs/receipts/per-task/v5-11-03-verification-20261018.json",
           "sha256": "e1e080a7052f8417568a43d9e420a339759f582cbdff1b1a6720355c0aaab547"
+        },
+        {
+          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
         }
       ]
     },
     "V5-11-04": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test development -- --exact staged_fields_reject_neural_high_frequency_and_bad_resolution in packet V5-11 (MPG schema, bounded development and legacy lowering). Exact task command: cargo test --locked --offline -p crucible-genome --test development -- --exact staged_fields_reject_neural_high_frequency_and_bad_resolution. Per-task receipt docs/receipts/per-task/v5-11-04-verification-20261018.json (sha256 905ce07b82f00d70fb003e4e37b6c8cb08c99340fe04ba876ceaa295d7ca5317); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
-          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
-        },
         {
           "path": "docs/receipts/per-task/v5-11-04-verification-20261018.json",
           "sha256": "905ce07b82f00d70fb003e4e37b6c8cb08c99340fe04ba876ceaa295d7ca5317"
+        },
+        {
+          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
         }
       ]
     },
     "V5-11-05": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "G010 user-authorized bounded software acceptance: source-bound positive/negative controls and independently verified receipt logs/artifacts; dependencies complete in the canonical software ledger. Scientific admission and physical qualification remain false.",
+      "note": "Verified under SC-DEC-071 red-team remediation audit by exact domain test cargo test --locked --offline -p crucible-genome --test development -- --exact ct35_migration_preserves_all_genes_and_marks_reference_unqualified in packet V5-11 (MPG schema, bounded development and legacy lowering). Exact task command: cargo test --locked --offline -p crucible-genome --test development -- --exact ct35_migration_preserves_all_genes_and_marks_reference_unqualified. Per-task receipt docs/receipts/per-task/v5-11-05-verification-20261018.json (sha256 14ec762a27a088a9ec8bfa349f55ff0214b7feba97b3cb3c2e1ecfa0ef733764); scientific_admission=false.",
       "evidence": [
-        {
-          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
-          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
-        },
         {
           "path": "docs/receipts/per-task/v5-11-05-verification-20261018.json",
           "sha256": "14ec762a27a088a9ec8bfa349f55ff0214b7feba97b3cb3c2e1ecfa0ef733764"
+        },
+        {
+          "path": "docs/receipts/v5-11-software-acceptance-20261018.json",
+          "sha256": "394a74e5842397f12ce576f1d0846cef68e7ce4d79181afc4c5312284cbf207b"
         }
       ]
     }
