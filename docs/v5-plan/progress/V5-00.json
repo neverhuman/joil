@@ -27,11 +27,11 @@
     "V5-00-03": {
       "status": "done",
       "owner": "codex-v5-integrator",
-      "note": "AUDIT-HELD, not verified: original criterion unchanged. C006/F1 integrated;22 independent tests execute without skips,11 partial source controls (9 runtime/2 static),5 blocked D-07/18/21/28/29. Partial positive limitations remain explicit. Ordered later-done tasks prevent review transition; raw recorded done is not current acceptance. Historical gate/receipts unchanged; new-head full gate and CI pending.",
+      "note": "AUDIT-HELD, not verified: original criterion unchanged. C006/F1 22 tests/no skips;11 partial source controls retain limitations. D-28/D-29 owner-dispositioned (not executed fixtures); D-07/18/21 remain blocked. ff4d9d8d official8/8 suites,10/10 steps passed; pushed exact head CI pending. Historical receipts/gate unchanged. Ordered later-done tasks prevent review transition; raw recorded done is not current acceptance.",
       "evidence": [
         {
-          "path": "docs/receipts/v5-00-source-controls-integrated-partial-20261018.json",
-          "sha256": "4b61064a9df52105a15c54c3238f05429a6213d64e246837092cd74e28e04dbe"
+          "path": "docs/receipts/v5-00-owner-disposition-D28-D29-20261018.json",
+          "sha256": "d98565712d2cfce293778bcb085c1134fa048293835df0679cdca61ebd48ded4"
         }
       ]
     },
