@@ -7,8 +7,8 @@
     "SC-DEC-185B"
   ],
   "base_commit": "4edaf567350aaff1f2b899a52b92d73a76af0ccc",
-  "created_at_utc": "2026-10-19T20:15:30Z",
-  "summary": "Split the remaining 5 >1000 LOC Rust integration test files (packs/hydrocyclone/judges/tests/{liner_operator,manufacturing,structure}.rs, crates/joil-evidence/tests/decision.rs, crates/joil-core/tests/regression.rs) into 10 semantic test modules all <= 800 LOC, retiring all >1000 LOC Rust files across both src/ and tests/ in the repository (0 tracked .rs files >1000 LOC remain; max 973 LOC).",
+  "created_at_utc": "2026-10-19T20:22:45Z",
+  "summary": "Split the remaining 5 >1000 LOC Rust integration test files (packs/hydrocyclone/judges/tests/{liner_operator,manufacturing,structure}.rs, crates/joil-evidence/tests/decision.rs, crates/joil-core/tests/regression.rs) into 10 semantic test modules all <= 838 LOC while retaining claims-audit literal anchors inside crates/joil-core/tests/regression.rs, retiring all >1000 LOC Rust files across both src/ and tests/ in the repository (0 tracked .rs files >1000 LOC remain; max 973 LOC).",
   "changed_paths": [
     {
       "path": "packs/hydrocyclone/judges/tests/liner_operator.rs",
@@ -52,13 +52,13 @@
     },
     {
       "path": "crates/joil-core/tests/regression.rs",
-      "sha256": "bafd6d278bdfb4a30e54f14b31eafe866654cb57ae073b7d7e9eddabd957fc95",
-      "lines": 754
+      "sha256": "8083a759871c85bc37f621b3fcf5fccfc8a2975780835aff0fe3c4e2b5267172",
+      "lines": 838
     },
     {
       "path": "crates/joil-core/tests/regression/wave2_and_surrogate.rs",
-      "sha256": "aa3804b32674face5c8396abf000b74cc001b4a27f7049e5860b8a8c5c1692e7",
-      "lines": 358
+      "sha256": "ef48532cb70aaf843d08e17ce18a971f6b39e1017df69490ab5c696cd1faccf9",
+      "lines": 274
     },
     {
       "path": "docs/JANKURAI_FINDINGS.md",
@@ -80,11 +80,19 @@
       "exit_code": 0
     },
     {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- /home/ubuntu/.cargo/bin/cargo test --locked -p crucible-cli --test explorer_manifest_parity --test plan_parity",
+      "exit_code": 0
+    },
+    {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- bash scripts/ci-local.sh --suite claims-audit",
+      "exit_code": 0
+    },
+    {
       "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- python3 tools/v5_plan.py check",
       "exit_code": 0
     },
     {
-      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- python3 -m unittest tests/test_v5_plan.py tests/test_v5_defect_closure.py",
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- python3 -m unittest tests/test_v5_plan.py tests/test_v5_defect_closure.py tests/test_doc_numbers_trace.py",
       "exit_code": 0
     }
   ],
