@@ -220,6 +220,38 @@
     "docs/receipts/i020-rust-ci-20261019.json": {
       "command": "python3 tools/check_public.py",
       "purpose": "I020 publication and security entrypoint checks"
+    },
+    "crates/crucible-cli/src/bin/mesh-prepare.rs": {
+      "command": "cargo test -j 2 -p crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity -- --test-threads=2",
+      "purpose": "I021 native Python oracle parity; synthetic software evidence only"
+    },
+    "crates/crucible-cli/src/bin/carrier-snapshot.rs": {
+      "command": "cargo test -j 2 -p crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity -- --test-threads=2",
+      "purpose": "I021 native Python oracle parity; synthetic software evidence only"
+    },
+    "crates/crucible-cli/src/bin/propose-wall-field.rs": {
+      "command": "cargo test -j 2 -p crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity -- --test-threads=2",
+      "purpose": "I021 native Python oracle parity; synthetic software evidence only"
+    },
+    "crates/crucible-cli/tests/mesh_prepare_parity.rs": {
+      "command": "cargo test -j 2 -p crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity -- --test-threads=2",
+      "purpose": "I021 native Python oracle parity; synthetic software evidence only"
+    },
+    "crates/crucible-cli/tests/carrier_snapshot_parity.rs": {
+      "command": "cargo test -j 2 -p crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity -- --test-threads=2",
+      "purpose": "I021 native Python oracle parity; synthetic software evidence only"
+    },
+    "crates/crucible-cli/tests/propose_wall_field_parity.rs": {
+      "command": "cargo test -j 2 -p crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity -- --test-threads=2",
+      "purpose": "I021 native Python oracle parity; synthetic software evidence only"
+    },
+    "crates/crucible-cli/tests/mesh_support/prepare_shim.py": {
+      "command": "cargo test -j 2 -p crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity -- --test-threads=2",
+      "purpose": "I021 native Python oracle parity; synthetic software evidence only"
+    },
+    "docs/receipts/i021-rust-ci-20261019.json": {
+      "command": "cargo test -j 2 -p crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity -- --test-threads=2",
+      "purpose": "I021 native Python oracle parity; synthetic software evidence only"
     }
   }
 }

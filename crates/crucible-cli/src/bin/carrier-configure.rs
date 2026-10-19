@@ -21,10 +21,11 @@ pub struct Options {
     pub model: String,
 }
 pub fn g(value: f64, digits: i32) -> String {
-    let mut b = [0i8; 128]; // SAFETY: buffer and printf arguments match the format.
+    let mut b: [libc::c_char; 128] = [0; 128]; // SAFETY: buffer and printf arguments match the format.
     let n = unsafe { libc::snprintf(b.as_mut_ptr(), b.len(), c"%.*g".as_ptr(), digits, value) };
     assert!(n >= 0 && (n as usize) < b.len());
-    String::from_utf8(b[..n as usize].iter().map(|&c| c as u8).collect()).expect("ASCII number")
+    String::from_utf8(b[..n as usize].iter().map(|c| c.to_ne_bytes()[0]).collect())
+        .expect("ASCII number")
 }
 fn py(v: f64) -> String {
     let s = if v != 0. && (v.abs() < 1e-4 || v.abs() >= 1e16) {
