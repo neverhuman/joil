@@ -1,0 +1,88 @@
+{
+  "schema": "joil.v5.slice-receipt.v1",
+  "slice_id": "I024-S3",
+  "directive": "SC-DEC-185",
+  "finding_ids": [
+    "F-01",
+    "HLT-001-DEAD-MARKER:shape",
+    "D-29",
+    "D-18"
+  ],
+  "recorded_utc": "2026-10-19T17:21:00Z",
+  "base_commit": "6b7ebae1f5871e8e12fa66df93ad3625158bfd69",
+  "summary": "Split crates/joil-core/src/evolve.rs (4,063 LOC) into 7 semantic modules all < 1,000 LOC while preserving all NUMBERS_TRACE.md literal bindings in crates/joil-core/src/evolve.rs, Wave-4 raw capture compiled_sources_sha256 bindings, and D-18/D-29 baseline controls.",
+  "modules": [
+    {
+      "path": "crates/joil-core/src/evolve.rs",
+      "lines": 574,
+      "sha256": "be9f794c183c053b619c4a24aa959ed191e2c37629485b11fbc2e0300bde3c92"
+    },
+    {
+      "path": "crates/joil-core/src/evolve/types.rs",
+      "lines": 237,
+      "sha256": "544446459bb574e5f5cf70cfedd63c79d3e3898f820200059f9e4d056678f9fe"
+    },
+    {
+      "path": "crates/joil-core/src/evolve/campaign.rs",
+      "lines": 844,
+      "sha256": "905c28e54dfc5efc447deef7a51efff5c524a774d9e5d1ed33b6fc4bbc33f374"
+    },
+    {
+      "path": "crates/joil-core/src/evolve/wave2.rs",
+      "lines": 729,
+      "sha256": "cf9384ab5a86f515fd80c18385016167baa57326e0987bb897b68a1bb2278540"
+    },
+    {
+      "path": "crates/joil-core/src/evolve/wave3_arm.rs",
+      "lines": 812,
+      "sha256": "7cec7e8accc9d3d66452532ed0ba87f5c281df6d862a4a87bb8cce245b8d4543"
+    },
+    {
+      "path": "crates/joil-core/src/evolve/wave3_proof.rs",
+      "lines": 487,
+      "sha256": "f0b3c755bb62763e82d1948e9bf334cf54ab47d55ec1a0fe65e138726f041ec1"
+    },
+    {
+      "path": "crates/joil-core/src/evolve/raw_capture.rs",
+      "lines": 427,
+      "sha256": "ad5b805a9f5f11343fe57e2fdfd88c8c512abc0bcddf853fe7145222c11ae01a"
+    }
+  ],
+  "max_module_lines": 844,
+  "python_files_modified": 0,
+  "verification": {
+    "clippy": {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- env CARGO_BUILD_JOBS=2 cargo clippy -p joil-core --all-targets --locked -- -D warnings",
+      "exit_code": 0
+    },
+    "joil_core_tests": {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- env CARGO_BUILD_JOBS=2 RUST_TEST_THREADS=2 cargo test -p joil-core --locked",
+      "exit_code": 0,
+      "tests_passed": 89
+    },
+    "d18_d29_parity_tests": {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- env CARGO_BUILD_JOBS=2 RUST_TEST_THREADS=2 cargo test -p crucible-cli --test d18_scheduler_parity --test d29_blind_judge_parity --locked",
+      "exit_code": 0,
+      "tests_passed": 3
+    },
+    "numbers_trace": {
+      "command": "python3 -m unittest tests/test_doc_numbers_trace.py",
+      "exit_code": 0,
+      "tests_passed": 16
+    },
+    "claims_audit": {
+      "command": "python3 tools/claims_audit.py",
+      "exit_code": 0
+    },
+    "check_public": {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0
+    }
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software module refactor only; no physical validation or new CFD/FEA execution is claimed.",
+    "Remaining files > 1,000 LOC in crates/joil-core and packs/hydrocyclone/judges continue in subsequent F-01 slices."
+  ],
+  "next_dependency": "I024-S4 (remaining F-01 large-file module splits and Wave P1b consumer cutover)"
+}
