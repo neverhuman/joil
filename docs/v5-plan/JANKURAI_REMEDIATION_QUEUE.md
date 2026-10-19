@@ -30,3 +30,21 @@ on 2026-10-19: its D-07 / V5-13-02 fixture SHA-256 remains
 The exit-token rewrite in that one file is deferred. No historical receipt or
 acceptance pin changes. The remaining joil-cli fallback expressions were also
 converted to explicit matches under the coordination follow-up.
+
+## I019 — data, contracts, adoption and rendered UX
+
+Database and generated-contract boundaries now have owners, proof routing and
+migration/constraint/rollback discipline. They reserve future implementations;
+no live database or new generated client is introduced. Explorer strict mode was
+already enabled and remains so.
+
+The tool-adoption manifest declares auto applicability for the auditor catalogue.
+Matching comments in the workflow and local audit script preserve command/artifact
+references without silently running source-workspace examples. Scanner recognition
+of those references is not proof that every suggested tool ran. Executed evidence
+is limited to commands and artifacts in the [I019 receipt](../receipts/i019-rust-ci-20261019.json).
+
+The rendered UX lane runs a synthetic Chrome page with Playwright and axe, checks
+layout/accessibility and rejects deliberately broken controls. It records a private
+screenshot and receipt. Full explorer stories and application-wide UX coverage
+remain dependencies. Frozen scientific evidence and numeric trace files are unchanged.

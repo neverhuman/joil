@@ -1,0 +1,14 @@
+schema_version = "1.0.0"
+mode = "advisory"
+owner = "visualization-owner"
+contract = "docs/testing.md"
+fixture_kind = "synthetic software evidence only"
+story_format = "component story format (.storybook/)"
+screenshot_api = "page.screenshot"
+layout_checks = ["getBoundingClientRect", "expectNoUxViolations", "edge clearance", "target size"]
+accessibility = "@axe-core accessibility testing"
+tokens = "design-tokens and semantic tokens"
+status = "synthetic rendered positive and negative controls active; full explorer coverage not claimed"
+command = "npm --prefix apps/explorer run test:ux"
+artifacts = ["target/ux-qa/synthetic.png", "target/ux-qa/receipt.json"]
+visual_review = "Visual review: inspect target/ux-qa/synthetic.png alongside the machine receipt; synthetic scope only"

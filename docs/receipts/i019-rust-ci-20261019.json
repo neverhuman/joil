@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "packet": "I019",
+  "kind": "targeted_software_verification_not_physical_validation",
+  "created_utc": "2026-10-19T03:01:46.790296+00:00",
+  "branch": "codex/v5-i019-jankurai-and-rust-port",
+  "base_head": "6d75b74f5b8e1af897f05dd35feeef7d64bb3bb4",
+  "commit_binding": "The commit first adding this receipt contains the listed source hashes. Final publication checks follow receipt creation; completion commit and PR are recorded in coordination.",
+  "changed_paths": [
+    ".github/workflows/jankurai.yml",
+    "agent/boundaries.toml",
+    "agent/generated-zones.toml",
+    "agent/owner-map.json",
+    "agent/test-map.json",
+    "agent/tool-adoption.toml",
+    "agent/ux-qa.toml",
+    "apps/explorer/package-lock.json",
+    "apps/explorer/package.json",
+    "apps/explorer/tests/rendered-ux.mjs",
+    "contracts/AGENTS.md",
+    "contracts/README.md",
+    "contracts/generated/README.md",
+    "crates/crucible-cli/Cargo.toml",
+    "crates/crucible-cli/src/bin/bench-cfd.rs",
+    "crates/crucible-cli/src/bin/mesh-extend-outlet.rs",
+    "crates/crucible-cli/src/bin/mesh-reference-plane.rs",
+    "crates/crucible-cli/src/foam_mesh.rs",
+    "crates/crucible-cli/src/foam_runtime.rs",
+    "crates/crucible-cli/tests/extend_outlet_parity.rs",
+    "crates/crucible-cli/tests/mesh_support/mod.rs",
+    "crates/crucible-cli/tests/reference_plane_parity.rs",
+    "db/AGENTS.md",
+    "db/README.md",
+    "db/constraints/README.md",
+    "db/migrations/README.md",
+    "docs/receipts/i019-claim-20261019.json",
+    "docs/receipts/i019-rust-ci-20261019.json",
+    "docs/testing.md",
+    "docs/v5-plan/JANKURAI_REMEDIATION_QUEUE.md",
+    "docs/v5-plan/PYTHON_TO_RUST_MIGRATION.md",
+    "ops/ci/audit.sh"
+  ],
+  "source_sha256": {
+    ".github/workflows/jankurai.yml": "9f922d4cdfb552de5d5121077efb6283600f1ca766104aad90de76d6460ce250",
+    "agent/boundaries.toml": "a3308e8d7947fb59754a65039a17d1319e83d1a36600800922946c96ef48b631",
+    "agent/generated-zones.toml": "1cd558afdc3a33139486852fd1c0a7b715dfcdadbf033969b5252b74749aa08b",
+    "agent/owner-map.json": "6e4703a431c4354492e3ee28114a399f40b065db679523a875616e8208a5797c",
+    "agent/test-map.json": "e61f7133922916285c4a03a9e4614e8f7bb92eb30cd57733c3dfbf1333bd2283",
+    "agent/tool-adoption.toml": "3d7388840054186a1e74d7ca88f835b18a423c28fd4f58e22c18922b59e13faf",
+    "agent/ux-qa.toml": "34bc0c55089937240f46775c67206c8b98efd9198bf11eed07636c4447044b50",
+    "apps/explorer/package-lock.json": "9215affd6150072dc37617647c092e59a97cb5f5253e0bff749ef6c8bad9fe2e",
+    "apps/explorer/package.json": "b4b01a133642ab6d4ebd72a1c1d584ddb8210b70afec5e45dbbfebe11a5afddd",
+    "apps/explorer/tests/rendered-ux.mjs": "7f83cead252f5032d7b57a0a2a44400fa8a731621c2204935c9e7a559d45a06f",
+    "contracts/AGENTS.md": "328395db4b3dd259480a12e231ef2d7ac99b29869d81f34e263d28fb388c705f",
+    "contracts/README.md": "2a53fc3f445c817e7129d767b4397f469e59edaa461a37cc2a76cb6875dd3a49",
+    "contracts/generated/README.md": "c36b7dbfc87e716108570b2bb1c4edb15db821f5479ccf9bf223b8b2e4a2829e",
+    "crates/crucible-cli/Cargo.toml": "89bdbb17eb0017521166b8258d73b637ed97de15701623093d9f31c88e05d552",
+    "crates/crucible-cli/src/bin/bench-cfd.rs": "6aeea135916feaeefc9f8a08816d68281b455fab6ae9efe29b7fd0e4a98484e6",
+    "crates/crucible-cli/src/bin/mesh-extend-outlet.rs": "9eb026b2b20a8ed432aa6899e7bcadff99034f5a4fc415f9cceb0190fc0e8204",
+    "crates/crucible-cli/src/bin/mesh-reference-plane.rs": "4c15c9170a30eda225241f5299b62d5e280aff5652904eddd6829dca2f1ee529",
+    "crates/crucible-cli/src/foam_mesh.rs": "5386204dd54f952bcbea59e9ee00e014f6005d5b4b99dd76c92eb3ed5bb180bc",
+    "crates/crucible-cli/src/foam_runtime.rs": "d18b3a24e8a553f4c8281cecf446ee8b494a988c4296005e6e9992366125eafd",
+    "crates/crucible-cli/tests/extend_outlet_parity.rs": "84129252699372e6381d635c87d651b8ab737c74c79972a29949c65457c27c8a",
+    "crates/crucible-cli/tests/mesh_support/mod.rs": "d3f747b7b2e2193edf215e217eed2039bcc8590ba6ee95ff776040470813a155",
+    "crates/crucible-cli/tests/reference_plane_parity.rs": "6bdcc81dce57571d07accf1f3e23b555a8536a6d39d4927e243470d005bcd415",
+    "db/AGENTS.md": "e71fe25966a49bdbbc05e9987d8dbd9b29fdd691d30f58e032bb0073ca4f3acc",
+    "db/README.md": "bae064ecf126c0dfc897da552fd14a8e00842d560de7647844cf6d99e5bc7175",
+    "db/constraints/README.md": "5496454a580a37f5961f08901733d25d7e6d15b3de43a1171ded082edc841111",
+    "db/migrations/README.md": "a2acfa2dd8395c7edfe9b88f0688f888ae4c4290c2e1636cb98ae40dba86c747",
+    "docs/receipts/i019-claim-20261019.json": "0acdaaf7d8b59d8a36f43ceaae09f3fa8da00e6d7db3bfffb9d90049d14985be",
+    "docs/testing.md": "610657438f15b01c9f21418a06f18ec81d172ef7c16ed544c85d3c55f8f107c6",
+    "docs/v5-plan/JANKURAI_REMEDIATION_QUEUE.md": "c2dc8d2b4af9967d50ed81d1b898758be4dbd55f074dd5fcb1dc97e624cd3773",
+    "docs/v5-plan/PYTHON_TO_RUST_MIGRATION.md": "b16da10fb5a647a2641a1a17fe8936229165235085b041799f1e27660438fef9",
+    "ops/ci/audit.sh": "03bb256f844ab20e9f30887973c8ad3d91bb6fc1d0202fc2cc2c373badddbfc3"
+  },
+  "protected_source_sha256": {
+    "docs/NUMBERS_TRACE.md": "cd10ca9a31c9627819a341d879ad16d26bfc05c2dfb8ed7744a9bc1a3cedd347",
+    "tools/claims_audit.py": "c86d2b75c6f1b804b505050ddc7d77fcbd6c0e7b08453a9a49fbfa2a566c0fa3",
+    "tests/test_v5_baseline_source_controls.py": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+  },
+  "commands": [
+    {
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "1.383629s",
+      "log": ".private/i019-logs/fmt-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cargo",
+        "clippy",
+        "-j",
+        "2",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "2.174459s",
+      "log": ".private/i019-logs/clippy-complete.log",
+      "log_sha256": "531dbb27f5797caca69218226ff762a2216c204e2ef26d2268de3ad148f350af"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-j",
+        "2",
+        "--package",
+        "crucible-cli",
+        "--test",
+        "reference_plane_parity",
+        "--test",
+        "extend_outlet_parity",
+        "--",
+        "--test-threads=2"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "11.176406s",
+      "log": ".private/i019-logs/mesh-parity-final.log",
+      "log_sha256": "05c245f7db857d1210f15515130af25e7a20d17ef4034c638a2bf89569747e03"
+    },
+    {
+      "command": [
+        "cargo",
+        "test",
+        "-j",
+        "2",
+        "--package",
+        "crucible-cli",
+        "--test",
+        "reference_plane_parity",
+        "--test",
+        "extend_outlet_parity",
+        "--test",
+        "bench_cfd_parity",
+        "--",
+        "--test-threads=2"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "21.092625s",
+      "log": ".private/i019-logs/mesh-parity.log",
+      "log_sha256": "0465f0ba7fd6984da3612034dc3f7d1425c8f07130311d456a88b3cfe4213ad1"
+    },
+    {
+      "command": [
+        "npm",
+        "--prefix",
+        "apps/explorer",
+        "run",
+        "test:ux"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "6.527219s",
+      "log": ".private/i019-logs/rendered-ux-final.log",
+      "log_sha256": "03603013c85d603e73b8fb7d7be0aa653806d51522825e62eb57105170e861f9"
+    },
+    {
+      "command": [
+        "/home/ubuntu/joil/.venv/bin/python",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "0.964344s",
+      "log": ".private/i019-logs/plan.log",
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+    },
+    {
+      "command": [
+        "/home/ubuntu/joil/.venv/bin/python",
+        "tools/v5_explorer_manifest.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "0.602327s",
+      "log": ".private/i019-logs/explorer.log",
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+    },
+    {
+      "command": [
+        "/home/ubuntu/joil/.venv/bin/python",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "32.538199s",
+      "log": ".private/i019-logs/claims.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "command": [
+        "/home/ubuntu/joil/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_v5_trace_boundary.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "34.480984s",
+      "log": ".private/i019-logs/trace-final.log",
+      "log_sha256": "fbb7304f62322a89dd3a947ae10654276f6d46810e8a273c835e658d0871d413"
+    },
+    {
+      "command": [
+        "bash",
+        "ops/ci/audit.sh"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "39.510206s",
+      "log": ".private/i019-logs/audit-verified.log",
+      "log_sha256": "72b7c48d835c6c6efe4bb1e2c6cae4db6b7df7b1833ac97d8f45969710bf3a8d"
+    },
+    {
+      "command": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "1.570568s",
+      "log": ".private/i019-logs/public-before-receipt.log",
+      "log_sha256": "2ae9c70c40fb91a2baf1ced4a00c4f40028265ace897a997e37099d055efe583"
+    }
+  ],
+  "earlier_attempts": [
+    {
+      "command": [
+        "/home/ubuntu/joil/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_v5_trace_boundary.py"
+      ],
+      "exit_code": 1,
+      "wall_seconds": "0.022984s",
+      "log": ".private/i019-logs/trace.log",
+      "log_sha256": "e2a978109fba7256ab6ff8b8dc8d029685639e6765bc0a41effb4d82c2b01292"
+    },
+    {
+      "command": [
+        "bash",
+        "ops/ci/audit.sh"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "40.593190s",
+      "log": ".private/i019-logs/audit-initial.log",
+      "log_sha256": "00bf8ba8d9f9ab15f97d9dd649a5d1ece5481f4bf33a41e16ccc005f6c446d7a"
+    },
+    {
+      "command": [
+        "bash",
+        "ops/ci/audit.sh"
+      ],
+      "exit_code": 0,
+      "wall_seconds": "43.629961s",
+      "log": ".private/i019-logs/audit-final.log",
+      "log_sha256": "01c80412b3327b68cbf2f15f9103f2e46d54ac896ede25190baa4d0f57eae18f"
+    },
+    {
+      "command": [
+        "just",
+        "required"
+      ],
+      "exit_code": 1,
+      "wall_seconds": "611.225887s",
+      "log": ".private/i019-logs/required.log",
+      "log_sha256": "5550972652d0a229c3f11e971b9a1836ac808de2428d70ea36fc2854deca7f90"
+    },
+    {
+      "command": [
+        "just",
+        "required"
+      ],
+      "exit_code": 143,
+      "wall_seconds": "89.387445s",
+      "log": ".private/i019-logs/required-retry.log",
+      "log_sha256": "7c298596975b7d937696ef4fdd4389f8af59197c98b769406660ce02c6a51922"
+    }
+  ],
+  "earlier_attempt_notes": [
+    "Requested pytest invocation initially lacked pytest; installed pytest in the existing project virtual environment and reran successfully.",
+    "Initial adoption manifest used a table rather than the required tools array; corrected it. Advisory catalogue references did not match ratchet reference commands; restored exact references in both comment catalogues.",
+    "Extra sequential just required reached its Rust-suite wrapper timeout. Retry terminated with exit 143. Coordination at 2026-10-19T02:57:25Z explicitly directs targeted local gates and full Foundation in fleet CI; neither incomplete full run is a PASS."
+  ],
+  "resource_controls": {
+    "CARGO_BUILD_JOBS": "2",
+    "RUST_TEST_THREADS": "2",
+    "CARGO_INCREMENTAL": "0",
+    "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+    "solver_execution": "fake Docker only; no simulation"
+  },
+  "audit": {
+    "version": "1.7.5",
+    "score": "70",
+    "raw_score": "80",
+    "caps": [
+      "python-direct-product-truth-or-db-ownership",
+      "non-optimal-product-language-found",
+      "false-green-test-risk",
+      "ci-bad-behavior",
+      "repo-rot-bad-behavior"
+    ],
+    "findings_count": "12",
+    "dimensions": {
+      "Ownership and navigation surface": "90",
+      "Contract and boundary integrity": "100",
+      "Proof lanes and test routing": "100",
+      "Security and supply-chain posture": "72",
+      "Code shape and semantic surface": "20",
+      "Data truth and workflow safety": "100",
+      "Observability and repair evidence": "88",
+      "Context economy and agent instructions": "100",
+      "Jankurai tool adoption and CI replacement": "100",
+      "Python containment and polyglot hygiene": "0",
+      "Build speed signals": "90"
+    },
+    "has_rendered_ux_lane": true,
+    "ci_local_parity_findings": "none",
+    "private_archive": "i019-audit-tmp/jankurai-out-verified",
+    "artifact_sha256": {
+      "repair-queue.jsonl": "8c2f9ce5258aa26fc4b287a13a3c135cbbee59d549e54b92a18db951108138d3",
+      "repo-score.json": "7fc412dc8936c2386dc94bfb98f6a6eea5b2f14024e35900ee9fafc87daf9b00",
+      "repo-score.md": "39bf6533a754fea706b43eaa3a728229b8e51a6a5626d8457fd2a9eceac63974"
+    },
+    "interpretation": "Tool adoption ci_evidence and artifact_verified are static reference recognition here, not proof that every catalogue command executed. Only commands listed above were executed for this packet."
+  },
+  "rendered_ux": {
+    "scope": "synthetic browser fixture only",
+    "positive_layout_and_accessibility": "passed",
+    "negative_target_size_edge_clearance_and_unnamed_button": "rejected",
+    "screenshot_review": "Heading and labelled button visible and unclipped; synthetic viewport only",
+    "artifact_sha256": {
+      "target/ux-qa/receipt.json": "69d87a34868bbcb3e73fb10e9e7c708a773ab23498606c529340c2456b6a1aca",
+      "target/ux-qa/synthetic.png": "f28bc991dbf24bad97e7c1acb9a06fe7c72963a163691827a78fe97de1e73160"
+    }
+  },
+  "positive_checks": [
+    "Python/Rust face-set, stdout and receipt byte parity with reordered coordinates and connectivity.",
+    "Python/Rust extension dictionaries, mesh-input and domain-extension byte parity including small exponents, integer metadata, Unicode and optional plane omission.",
+    "Both fake Docker commands and runtime receipts match; volatile wall time removed and preceding receipt byte-size deltas asserted.",
+    "Existing bench-cfd parity passes after extracting unchanged runtime function bodies.",
+    "Canonical plan and explorer non-regression checks pass; physical observations remain absent."
+  ],
+  "negative_checks": [
+    "Ambiguous, missing or boundary-only recovered faces; NaN coordinates; mismatched source; project-run and symlink boundary; exclusive face-set and receipt collisions.",
+    "Extension length/layer budgets, reused cases and extended sources, changed original points, NaN preservation and Docker failure.",
+    "Synthetic rendered layout violations and unnamed button rejected."
+  ],
+  "limitations": [
+    "No physical validation, real OpenFOAM extrusion or solver job.",
+    "Long runtime timeout and output-growth termination are inherited controls, not exercised by these bounded synthetic tests.",
+    "Database and generated-contract zones are policy reservations; no database service or client generator introduced.",
+    "No Storybook deployment or full explorer rendered/accessibility coverage.",
+    "Python originals and callers remain; generator/runtime compatibility hashes deliberately identify Python source, with native identities separately bound above.",
+    "Native CLI usage, parser and OS diagnostics may differ.",
+    "Full sequential local Foundation did not complete; exact-head CI remains required. Remaining audit caps/findings are retained, including frozen-evidence and runner-security findings."
+  ],
+  "next_dependency": "Exact-head Foundation, Security and Jankurai CI plus independent PR review; later consumer cutover and real mesh/physics qualification.",
+  "qualified_baseline": false,
+  "campaign_admission": false,
+  "physical_validation": false
+}
