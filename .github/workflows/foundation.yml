@@ -29,6 +29,7 @@ jobs:
     env:
       RUSTUP_TOOLCHAIN: 1.95.0
       CARGO_INCREMENTAL: '0'
+      CARGO_PROFILE_DEV_DEBUG: line-tables-only
       MPLCONFIGDIR: ${{ github.workspace }}/.private/matplotlib
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
