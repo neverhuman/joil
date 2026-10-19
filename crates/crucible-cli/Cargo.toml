@@ -14,6 +14,9 @@ crucible-runtime = { path = "../crucible-runtime" }
 crucible-store = { path = "../crucible-store" }
 joil-evidence = { path = "../joil-evidence" }
 
+[dev-dependencies]
+proptest = { version = "=1.11.0", default-features = false, features = ["std"] }
+
 [[bin]]
 name = "crucible"
 path = "src/main.rs"

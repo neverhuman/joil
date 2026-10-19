@@ -12,6 +12,39 @@ use std::{
     path::{Path, PathBuf},
     process::ExitCode,
 };
+fn utc_timestamp(ms: u64) -> String {
+    let Ok(secs) = libc::time_t::try_from(ms / 1000) else {
+        return "unknown".into();
+    };
+    let mut tm = libc::tm {
+        tm_sec: 0,
+        tm_min: 0,
+        tm_hour: 0,
+        tm_mday: 0,
+        tm_mon: 0,
+        tm_year: 0,
+        tm_wday: 0,
+        tm_yday: 0,
+        tm_isdst: 0,
+        tm_gmtoff: 0,
+        tm_zone: std::ptr::null(),
+    };
+    // SAFETY: secs and the fully initialized tm are valid for the duration of
+    // this call. gmtime_r writes only to tm; a null result is handled below.
+    if unsafe { libc::gmtime_r(&secs, &mut tm) }.is_null() {
+        return "unknown".into();
+    }
+    format!(
+        "{:04}-{:02}-{:02}T{:02}:{:02}:{:02}.{:03}+00:00",
+        i64::from(tm.tm_year) + 1900,
+        tm.tm_mon + 1,
+        tm.tm_mday,
+        tm.tm_hour,
+        tm.tm_min,
+        tm.tm_sec,
+        ms % 1000
+    )
+}
 fn read(p: impl AsRef<Path>) -> Result<Value> {
     Ok(serde_json::from_slice(&fs::read(p)?)?)
 }
@@ -228,28 +261,8 @@ fn run() -> Result<()> {
     } else {
         "SSG".into()
     };
-    let created = created.unwrap_or_else(|| {
-        let ms = crucible_runtime::utc_millis().unwrap_or(0); // UTC formatting uses the system C library without spawning a process.
-        let secs = (ms / 1000) as libc::time_t;
-        let mut tm = std::mem::MaybeUninit::<libc::tm>::uninit();
-        // SAFETY: valid input and writable tm storage; gmtime_r initializes tm on success.
-        let ok = unsafe { libc::gmtime_r(&secs, tm.as_mut_ptr()) };
-        if ok.is_null() {
-            return "unknown".into();
-        }
-        // SAFETY: checked successful initialization above.
-        let tm = unsafe { tm.assume_init() };
-        format!(
-            "{:04}-{:02}-{:02}T{:02}:{:02}:{:02}.{:03}+00:00",
-            tm.tm_year + 1900,
-            tm.tm_mon + 1,
-            tm.tm_mday,
-            tm.tm_hour,
-            tm.tm_min,
-            tm.tm_sec,
-            ms % 1000
-        )
-    });
+    let created =
+        created.unwrap_or_else(|| utc_timestamp(crucible_runtime::utc_millis().unwrap_or(0)));
     let flows: Map<String, Value> = ports
         .iter()
         .zip(q)
@@ -266,12 +279,44 @@ fn run() -> Result<()> {
     println!("{bytes}");
     Ok(())
 }
+
 fn main() -> ExitCode {
     match run() {
         Ok(()) => ExitCode::SUCCESS,
         Err(e) => {
             eprintln!("FAIL: {e}");
             ExitCode::FAILURE
+        }
+    }
+}
+
+#[cfg(test)]
+mod timestamp_tests {
+    use super::utc_timestamp;
+    use proptest::prelude::*;
+
+    proptest! {
+        // Limit the generator to four-digit UTC years, through the last
+        // millisecond of 9999. Fixed-width timestamps must sort by time.
+        #[test]
+        fn utc_order_and_fraction_are_preserved(ms in 0u64..253_402_300_799_999) {
+            let timestamp = utc_timestamp(ms);
+            prop_assert_eq!(timestamp.len(), 29);
+            prop_assert_eq!(&timestamp[20..23], format!("{:03}", ms % 1000));
+            prop_assert!(timestamp.ends_with("+00:00"));
+            prop_assert!(timestamp < utc_timestamp(ms + 1));
+        }
+    }
+
+    #[test]
+    fn utc_calendar_boundaries_preserve_milliseconds() {
+        for (millis, expected) in [
+            (0, "1970-01-01T00:00:00.000+00:00"),
+            (951_782_400_123, "2000-02-29T00:00:00.123+00:00"),
+            (4_107_542_399_999, "2100-02-28T23:59:59.999+00:00"),
+            (4_107_542_400_000, "2100-03-01T00:00:00.000+00:00"),
+        ] {
+            assert_eq!(utc_timestamp(millis), expected);
         }
     }
 }
