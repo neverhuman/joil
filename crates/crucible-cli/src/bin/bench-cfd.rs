@@ -239,7 +239,7 @@ fn probe(
 // Python's default :g is six significant digits, including scientific exponents.
 fn time_label(value: f64) -> Result<String> {
     let format = b"%.6g\0";
-    let mut buffer = [0i8; 64];
+    let mut buffer = [0 as libc::c_char; 64];
     // SAFETY: fixed format expects one double; buffer capacity is supplied exactly.
     let n = unsafe {
         libc::snprintf(

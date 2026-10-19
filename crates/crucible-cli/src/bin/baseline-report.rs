@@ -25,7 +25,7 @@ fn number(v: &Value) -> Result<f64> {
     v.as_f64().ok_or("expected number".into())
 }
 fn time_label(value: f64) -> Result<String> {
-    let mut buffer = [0i8; 64];
+    let mut buffer = [0 as libc::c_char; 64];
     // SAFETY: fixed format expects one double and the buffer size is exact.
     let n = unsafe { libc::snprintf(buffer.as_mut_ptr(), buffer.len(), c"%.6g".as_ptr(), value) };
     require(n >= 0 && (n as usize) < buffer.len(), "invalid saved time")?;
