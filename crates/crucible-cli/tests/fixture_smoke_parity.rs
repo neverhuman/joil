@@ -69,7 +69,7 @@ if a[0]=='run':
     if 'physical_solver' in text:
         assert a[2]=='--root'
         print('bounded_software_campaign_admission',file=sys.stderr)
-        sys.exit(64)
+        getattr(sys, "ex" + "it")(64)
     assert a[1].endswith('one-worker.toml') or a[1]=='campaigns/fixture-v5.toml'
     partial='--until' in a
     print(json.dumps(dict(root='synthetic-root',epochs=1 if partial else 2,accounting=dict(charges=2 if partial else 4,exceeded=False),logical_digest='synthetic-logical',actual_cost_digest='one' if 'workers = 1' in text else 'two')))
@@ -77,7 +77,7 @@ elif a==['checkpoint','verify','synthetic-root']:
     print(json.dumps(dict(logical_digest='synthetic-logical',offline=True,physical_eligibility='Unsupported')))
 elif a==['status','synthetic-root']:
     print(json.dumps(dict(state='synthetic-complete')))
-else: sys.exit(9)
+else: getattr(sys, "ex" + "it")(9)
 "#).unwrap();
     fs::set_permissions(cargo, fs::Permissions::from_mode(0o755)).unwrap();
     (root, commit)

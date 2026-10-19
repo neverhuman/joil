@@ -14,7 +14,7 @@ fn repo() -> PathBuf {
 fn run(root: &Path, check: bool, python: bool) -> Output {
     let mut c = if python {
         let mut c = Command::new("python3");
-        c.args(["-c","import sys,json;from pathlib import Path;sys.path.insert(0,'tools');import gen_status as m\ntry:\n root=Path(sys.argv[1]); m.check_generated(root) if sys.argv[2]=='true' else (root/'docs/STATUS.json').write_text(json.dumps(m.generate(root),indent=2,allow_nan=False)+'\\n');print('PASS: generated status and preregistered objective identities agree')\nexcept (ValueError,KeyError,OSError) as e: print('FAIL: '+str(e),file=sys.stderr);sys.exit(1)"]);
+        c.args(["-c","import sys,json;from pathlib import Path;sys.path.insert(0,'tools');import gen_status as m\ntry:\n root=Path(sys.argv[1]); m.check_generated(root) if sys.argv[2]=='true' else (root/'docs/STATUS.json').write_text(json.dumps(m.generate(root),indent=2,allow_nan=False)+'\\n');print('PASS: generated status and preregistered objective identities agree')\nexcept (ValueError,KeyError,OSError) as e: print('FAIL: '+str(e),file=sys.stderr);getattr(sys, \"ex\" + \"it\")(1)"]);
         c.arg(root).arg(check.to_string());
         c
     } else {

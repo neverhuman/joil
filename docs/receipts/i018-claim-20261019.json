@@ -1,0 +1,16 @@
+{
+  "packet": "I018",
+  "branch": "codex/v5-i018-jankurai-and-rust-port",
+  "claimed_utc": "2026-10-19T01:09:35.437014+00:00",
+  "base": "f19a8f7a9af309f628c9aa687fa3e4c8d0ce8cb3",
+  "scope": "User-specified bench-cfd and baseline-report native ports, parity tests, six audit remediations, migration/remediation documentation and receipts",
+  "resources": {
+    "cargo_jobs": 2,
+    "test_threads": 2,
+    "memory_gib": 12,
+    "new_output_gib": 5,
+    "gpu": false
+  },
+  "verification": "User-authorized targeted local gates; full Foundation matrix remains CI dependency",
+  "delegation": false
+}

@@ -2,17 +2,24 @@ use crucible_paper::PaperBundle;
 use std::{env, fs, process};
 
 fn main() {
-    let path = env::args()
-        .nth(1)
-        .unwrap_or_else(|| "paper/fixtures/negative-result.json".into());
-    let bytes = fs::read(&path).unwrap_or_else(|error| {
-        eprintln!("cannot read paper bundle {path}: {error}");
-        process::exit(2);
-    });
-    let bundle: PaperBundle = serde_json::from_slice(&bytes).unwrap_or_else(|error| {
-        eprintln!("invalid paper bundle: {error}");
-        process::exit(1);
-    });
+    let path = match env::args().nth(1) {
+        Some(path) => path,
+        None => "paper/fixtures/negative-result.json".into(),
+    };
+    let bytes = match fs::read(&path) {
+        Ok(bytes) => bytes,
+        Err(error) => {
+            eprintln!("cannot read paper bundle {path}: {error}");
+            process::exit(2);
+        }
+    };
+    let bundle: PaperBundle = match serde_json::from_slice(&bytes) {
+        Ok(bundle) => bundle,
+        Err(error) => {
+            eprintln!("invalid paper bundle: {error}");
+            process::exit(1);
+        }
+    };
     if let Err(error) = bundle.validate() {
         eprintln!("paper query failed: {error}");
         process::exit(1);

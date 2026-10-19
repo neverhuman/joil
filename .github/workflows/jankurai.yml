@@ -21,7 +21,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Audit repository
-        run: bash ops/ci/audit.sh
+        run: bash ops/ci/audit.sh && test -s .jankurai/repo-score.json && printf '%s\n' "jankurai audit repo-score verified"
       - name: Retain audit reports
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
