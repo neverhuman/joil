@@ -262,8 +262,8 @@ by `plan_parity` as well as the full Foundation gate.
 
 `v5-d21-trajectory-control --mode positive|red [--root ROOT]` binds the two
 frozen source digests, D-21 inventory and renderer contract. It runs the real
-locked offline renderer regression by default. `--skip-renderer-test` is only
-for isolated synthetic replay tests; it makes no renderer-test claim.
+locked offline renderer regression. I017 removes the test bypass; isolated
+negative controls reject source/contract tampering before renderer execution.
 Native manifest validation preserves the subject/time/field and scope boundary.
 
 `v5-d18-scheduler-control positive|red --scratch DIR --frozen-rust DIR
@@ -286,3 +286,31 @@ ports 11–12, not physical validation or resolution of the frozen defects.
 I016 uses the user-authorized targeted local gate set with two build jobs/test
 threads; the full Foundation matrix remains a PR CI dependency. Exact evidence
 is in `docs/receipts/i016-rust-ci-20261018.json`.
+
+## I017 additive ports (13–14)
+
+`verify-environment --case PATH [--root ROOT] [--doctor-source PATH]` verifies
+the locked recipe/key, native image identity and four restricted Docker probes,
+then writes capability and command receipts. The source identity defaults to the
+Python doctor, preserving the original evidence contract. Runtime source identity
+continues to bind `runtime.py`; this is compatibility metadata, not the Rust
+implementation digest (recorded separately in the I017 receipt). The Docker
+invocation, resource lease checks, timeout and shared output budget are retained.
+
+`v5-fixture-smoke --checkout PATH --evidence PATH --expected-commit SHA`
+checks clean source/origin/independent Git objects, private evidence/cache and
+physical core availability, then executes whole/partial/resumed/offline/status,
+one-worker and invalid-input controls. It preserves the ordered source, worker,
+report, command and inventory formats. Both production ports invoke native
+programs directly, with no Python subprocess. Python sources and callers remain.
+
+Parity uses synthetic Docker/Cargo executables, explicitly not solver or campaign
+validation. Environment tests compare stable receipt fields and exact log bytes,
+excluding measured wall time and observed output bytes. Fixture tests compare
+source/capability/report bytes exactly at the same paths, verify every raw
+inventory hash, then compare inventory after normalizing command wall times and
+its bound hash/size; summary comparison normalizes only the resulting inventory
+hash. Independent measured timings preclude unconditional raw inventory/stdout
+byte equality. Native parser/OS diagnostics and non-ASCII JSON escaping are not
+byte-parity promises. Full Foundation remains CI work; local verification uses
+the user-authorized targeted gates, recorded in the I017 receipt.

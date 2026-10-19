@@ -16,11 +16,12 @@ pub struct CapabilityCard {
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub enum Admission {
+pub enum GpuAdmission {
     ReferenceOnly { reasons: Vec<&'static str> },
     Exploratory { reasons: Vec<&'static str> },
     Admitted { judge_identity: String },
 }
+pub type Admission = GpuAdmission;
 
 impl CapabilityCard {
     pub fn judge_identity(&self) -> Result<String, &'static str> {

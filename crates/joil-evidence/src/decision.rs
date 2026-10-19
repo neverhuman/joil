@@ -961,10 +961,12 @@ impl DecisionProfile {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum CampaignMode {
+pub enum DecisionCampaignMode {
     Sandbox,
     Qualified,
 }
+pub type CampaignMode = DecisionCampaignMode;
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct CampaignRequest {

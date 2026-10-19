@@ -4,7 +4,7 @@ use std::collections::BTreeMap;
 /// Search evidence class is explicit. Unknown or failed evidence is never feasible.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum EvidenceClass {
+pub enum ArchiveEvidenceClass {
     Exploration,
     Screen,
     Qualified,
@@ -12,6 +12,7 @@ pub enum EvidenceClass {
     NumericalFailure,
     Unsupported,
 }
+pub type EvidenceClass = ArchiveEvidenceClass;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Candidate {

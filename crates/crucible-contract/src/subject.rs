@@ -70,10 +70,12 @@ pub enum ArtifactFormat {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum LengthUnit {
+pub enum SubjectLengthUnit {
     Metre,
     Millimetre,
 }
+pub type LengthUnit = SubjectLengthUnit;
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ArtifactRef {
@@ -120,10 +122,12 @@ pub struct FrozenRegion {
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "status", rename_all = "snake_case", deny_unknown_fields)]
-pub enum MaterialState {
+pub enum SubjectMaterialState {
     Identified { passport: BlobDigest },
     Unknown,
 }
+pub type MaterialState = SubjectMaterialState;
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "status", rename_all = "snake_case", deny_unknown_fields)]
 pub enum RoughnessState {

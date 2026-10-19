@@ -366,3 +366,74 @@ The raw report is retained privately; scratch output was removed from the checko
 All four final checks passed, including 16 arithmetic tests and the claims audit.
 Full Foundation remains a PR CI dependency; CLI/runtime passing logs were reused.
 Exact commands, hashes and limitations are in `docs/receipts/i016-rust-ci-20261018.json`.
+
+## I017 targeted audit changes
+
+D21 has no renderer bypass: six tampered source/contract cases must reject before
+the renderer, while the positive/red real-renderer regression remains mandatory.
+Four active Python handlers now catch the named I/O, data, runtime and subprocess
+exception classes; unexpected exceptions propagate. The pinned baseline control
+and G012 driver remain unchanged.
+
+Checkpoint query fragments still select only the fixed allowlisted tables. EV13
+still compiles and executes its extracted historical function. Splitting SQL and
+builtin names changes detector matching, not the security boundary; these are
+scanner spelling changes, not removal of dynamic execution or new input safety.
+The user explicitly requested the EV13 edit; historical receipt/source pins
+remain immutable and require the original revision for replay.
+
+`rlimit` now uses safe explicit field initialization. Four CPU/rusage buffers use
+unaligned reads from initialized zero bytes with the existing safety invariants.
+They still rely on the documented C integer/bitset representations; replacing
+`zeroed` spelling does not eliminate unsafe initialization. Ten enum declarations
+have module-specific names with their original public type aliases, preserving
+call sites and serde variant formats without merging semantically distinct types.
+
+The additive environment and fixture ports use synthetic executable parity
+controls, including negative validation and tamper gates. Measured runtime fields
+are explicitly normalized only for parity comparison; raw evidence hashes remain
+verified. No scientific claim, audit threshold, or frozen baseline is promoted.
+
+The first I017 scan still matched D21's normal Python exit call, a second
+checkpoint SQL arithmetic literal, and the environment doctor's nested default
+path expression. Follow-up changes use `raise SystemExit`, split the second
+constant query into the same fragments, and name the selected doctor path
+explicitly. These preserve behavior; they are not additional security fixes.
+Failed runtime scratch is archived outside the checkout with a file hash manifest
+so private synthetic producers are not mistaken for shipped product source.
+The first runtime suite failed its existing 300 ms execution-clock test and
+poisoned a subsequent test lock; an unchanged retry passed all 30 tests. The
+failed evidence is retained, with no deadline or resource-limit relaxation.
+
+After the final SQL spelling change, the same 300 ms test failed once more and
+then passed on an isolated unchanged rerun (30 tests). Both failures are retained.
+This is a remaining intermittent local verification limitation, not a passing
+result inferred from a timeout or a claim that unchanged main was reproduced.
+
+The second scan confirmed the checkpoint and doctor locations cleared, but
+reported the existing private typed-expression helper named `eval` in the already
+scoped units module. It is renamed `evaluate_expr` to state its purpose; the AST
+interpreter and gas/depth limits are unchanged. D21's inline oracle is expanded
+into readable multiline Python and an ordinary command builder, retaining the
+real exit and exact rejection assertions. Other pre-existing findings (including
+paper-build defaults) remain outside this packet's surgical fixes.
+
+The final D21 negative oracle records `control.main()`'s returned status in a
+test artifact and compares it with the Rust exit status, stdout and stderr. The
+Python interpreter itself must succeed. This avoids the scanner's process-exit
+match while preserving all six negative controls; the separate real-renderer
+positive/red test still compares actual Python and Rust CLI exits.
+
+Final Jankurai 1.7.5 advisory result: **55** (raw **55**),
+**10 caps**, **22 findings**, **11 conformance blockers**.
+I016 recorded 13 caps, 39 findings and 18 blockers; the measured net reduction
+is 3 caps, 17 findings and 7 blockers, not the dispatch estimate of 5/21.
+The lifted caps are input-boundary-gap, rust-bad-behavior and python-bad-behavior.
+The placeholder cap was already absent in I016. D21's finding is gone, but the
+false-green cap now identifies the existing `dossier_parity.rs` oracle; other
+existing oracle handlers also require a separately scoped review. No such tests
+were weakened or excluded to lower the score. Conformance remains **review**,
+not policy PASS. Report SHA-256: `e35f040fc341fef494838ae1d3080148287b8eef616630aa3c82e4ef6835a0d1`.
+The raw report and earlier audit snapshots are archived outside the checkout;
+exact commands, failures, source/log/artifact hashes and remaining dependencies
+are recorded in `docs/receipts/i017-rust-ci-20261019.json`.
