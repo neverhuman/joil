@@ -1,0 +1,16 @@
+# Audit authored sources, including every tracked Python migration source.
+# These roots contain ignored private inputs, build output and synthetic run
+# fixtures. Keep them for evidence replay; they are not product implementations.
+# No finding severity, conformance floor or score cap is changed here.
+[scan]
+extra_excluded_paths = [
+    ".private/",
+    ".venv/",
+    ".jankurai/",
+    ".agent/worktrees/",
+    "target/",
+    "runs/",
+    "artifacts/",
+    "apps/explorer/node_modules/",
+    "apps/explorer/dist/",
+]

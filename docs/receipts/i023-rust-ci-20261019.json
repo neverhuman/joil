@@ -1,0 +1,445 @@
+{
+  "packet": "I023",
+  "owner": "rust-integrator",
+  "events": [
+    {
+      "event": "claim",
+      "utc": "2026-10-19T14:39:54.958768+00:00",
+      "base_commit": "1b1facdd11f2a931a5ee6c94d7e218fdce873fdf",
+      "branch": "codex/v5-i023-jankurai-and-rust-port",
+      "scope": [
+        "Cargo.lock",
+        "crates/crucible-cli/Cargo.toml",
+        "crates/crucible-cli/src/bin/carrier-snapshot.rs",
+        "agent/audit-policy.toml",
+        "docs/JANKURAI_FINDINGS.md",
+        "docs/receipts/i023-rust-ci-20261019.json"
+      ],
+      "budget": "All compute through fleetcap/run-capped; two Cargo jobs/test threads; at most four cores, twelve GiB RAM, five GiB new outputs; no solver or GPU",
+      "authority": "User request and captain acknowledged exclusive I023 handoff; captain retains sole review/merge"
+    },
+    {
+      "event": "targeted_verification",
+      "command": "cargo test --offline -p crucible-cli --bin carrier-snapshot --test carrier_snapshot_parity",
+      "exit_code": "0",
+      "log_sha256": "11e490c8a3f5cac7469efb973292870591769d2d0df04b1dfc1b50afd13b1705",
+      "result": "Three binary tests including UTC calendar gold cases and actual proptest invariants; three integration tests including positive and negative Python parity pass",
+      "positive_controls": [
+        "Epoch, leap day and non-leap century formatting",
+        "Generated UTC ordering and exact milliseconds",
+        "Source audit retains every tracked file"
+      ],
+      "negative_controls": [
+        "Snapshot parity rejects tampered manifests, traversal, duplicate rows, missing common iteration, nonfinite/empty streams and invalid pressure",
+        "No ignored scratch is claimed to be product duplication",
+        "Every tracked Python source and frozen numeric/audit/status control remains byte-identical"
+      ],
+      "protected_file_count": "118"
+    },
+    {
+      "event": "standard_audit",
+      "command": "jankurai audit . --read-only --no-badge --no-score-history --mode standard --json <fresh-private-output> --md <fresh-private-output> --repair-queue-jsonl <fresh-private-output>",
+      "exit_code": "1",
+      "score": "70",
+      "raw_score": "82",
+      "findings": "10",
+      "conformance_blockers": [
+        "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/foundation.yml",
+        "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/jankurai.yml",
+        "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/security.yml",
+        "HLT-000-SCORE-DIMENSION:stack on analysis/__init__.py",
+        "HLT-008-FALSE-GREEN-RISK on crates/joil-core/tests/truth_ev12_capture.py",
+        "HLT-005-PYTHON-PRODUCT-TRUTH on python/"
+      ],
+      "caps": [
+        "python-direct-product-truth-or-db-ownership",
+        "non-optimal-product-language-found",
+        "false-green-test-risk",
+        "ci-bad-behavior",
+        "repo-rot-bad-behavior"
+      ],
+      "report_sha256": "977b5ff0b379604854c81676bb8bfb8cac2629b3add239cc38a7a15b7cba892a",
+      "report_fingerprint": "sha256:960b398880b7c3e7c3bfa2314636844c69fa0ccea8f0f1d28fd9e254c3c46312",
+      "findings_register": "docs/JANKURAI_FINDINGS.md",
+      "limitations": [
+        "Standard mode remains blocked; advisory success is not conformance",
+        "No Python implementation retired; actual tracked count remains one hundred fourteen",
+        "CI isolation and frozen-evidence review dispositions do not suppress scanner findings",
+        "Physical/scientific eligibility unchanged"
+      ],
+      "finding_fingerprints": [
+        {
+          "check_id": "HLT-001-DEAD-MARKER:shape",
+          "path": ".",
+          "fingerprint": "sha256:9cd722d6ab5588e7d0e28d827a9ef3d06430507ec51c97bb46bc3953a086f03f",
+          "hardness": "soft"
+        },
+        {
+          "check_id": "HLT-034-CI-BAD-BEHAVIOR:security",
+          "path": ".github/workflows/foundation.yml",
+          "fingerprint": "sha256:289aadc74ca4b9d3d58c90b43932546bfaf2033efca10fb35c2435dff29c5077",
+          "hardness": "hard"
+        },
+        {
+          "check_id": "HLT-034-CI-BAD-BEHAVIOR:security",
+          "path": ".github/workflows/jankurai.yml",
+          "fingerprint": "sha256:4498ca8c1256e8e49a97c1a670d3b8e6efb814c937e7badb82d76766fb790a07",
+          "hardness": "hard"
+        },
+        {
+          "check_id": "HLT-034-CI-BAD-BEHAVIOR:security",
+          "path": ".github/workflows/security.yml",
+          "fingerprint": "sha256:bb0285ec2b243cdcd8814d700e0a0a7dcbcf27ac532af67e240c995262a29270",
+          "hardness": "hard"
+        },
+        {
+          "check_id": "HLT-000-SCORE-DIMENSION:stack",
+          "path": "analysis/__init__.py",
+          "fingerprint": "sha256:e3de85f3144b1d5a9831cce0a0528dfdf63804b2a2c34c62e86fea281f63e9d1",
+          "hardness": "hard"
+        },
+        {
+          "check_id": "HLT-008-FALSE-GREEN-RISK:test",
+          "path": "crates/joil-core/tests/truth_ev12_capture.py",
+          "fingerprint": "sha256:4222c3c0e54917d63f1fd31a17f7b4bd7c8129c155aea28b2d609e1a7fa56d5a",
+          "hardness": "hard"
+        },
+        {
+          "check_id": "HLT-027-HUMAN-REVIEW-EVIDENCE-GAP:proof",
+          "path": "crates/joil-core/tests/truth_numtrace_audit.json",
+          "fingerprint": "sha256:0e1590ea5167c23f1033cce5c5858a87874ec32ab0d47d5b9ff2115653459217",
+          "hardness": "soft"
+        },
+        {
+          "check_id": "HLT-040-REPO-ROT-BAD-BEHAVIOR:context",
+          "path": "crates/joil-evidence/registry/legacy-status-before-v4.json",
+          "fingerprint": "sha256:5aed6448da5acd015ce0672c37538cd7b9cd1d84c4abd5ad1824ac75878eade2",
+          "hardness": "soft"
+        },
+        {
+          "check_id": "HLT-005-PYTHON-PRODUCT-TRUTH:python",
+          "path": "python/",
+          "fingerprint": "sha256:a9ed62b36b036c9cc50ca8f42844065f4bb44a12c1b6a715d99db7453617b019",
+          "hardness": "hard"
+        },
+        {
+          "check_id": "HLT-005-PYTHON-PRODUCT-TRUTH:python",
+          "path": "python/ai-service",
+          "fingerprint": "sha256:7a9fc46994de2ac6e7b4bb09d94a91c5692a5a181059e32af4e218601a7d722e",
+          "hardness": "soft"
+        }
+      ]
+    },
+    {
+      "event": "additional_evidence",
+      "commands": [
+        {
+          "command": "cargo fmt --all --check",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "1",
+          "elapsed_s": "8.211032507009804",
+          "log_sha256": "fa221dd8c27631232efe7c4bdd4bc319f9ee4e2608cbe719d11d56a799bee6f6"
+        },
+        {
+          "command": "cargo fmt --all --check",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "1.6999005099060014",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": "cargo clippy --locked -p crucible-cli --all-targets -- -D warnings",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "101",
+          "elapsed_s": "17.527900362969376",
+          "log_sha256": "2389587e37d976c366df3d144edce986b6182cd8eb0d45e1313cca61693dedbe"
+        },
+        {
+          "command": "cargo fmt --all --check",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "1.5265809609554708",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": "cargo clippy --locked -p crucible-cli --all-targets -- -D warnings",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "5.990587836946361",
+          "log_sha256": "0cfd2e05cc2bc572ad7a6afd523ac483de0d351d1af2af91a4fbc0658b830045"
+        },
+        {
+          "command": "python3 -m unittest discover -s crates/joil-core/tests -p truth_ev12_capture_test.py -v",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "0.7745165380183607",
+          "log_sha256": "c00c905953f3d854aa84a302bf066d56ae6d072ab48dc6fa167315f7e798b66e"
+        },
+        {
+          "command": "python tools/claims_audit.py",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "35.165969312074594",
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        },
+        {
+          "command": "python3 tools/check_public.py",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "1.032197481021285",
+          "log_sha256": "ef5244814c28a3c1424a3b35066ae8455f5ca536561e155a27e6f1327d05d314"
+        },
+        {
+          "command": "python3 tools/v5_plan.py check",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "1.2035350410733372",
+          "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+        },
+        {
+          "command": "python3 tools/v5_explorer_manifest.py check",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "0.9768501040525734",
+          "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+        },
+        {
+          "command": "just required",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "1",
+          "elapsed_s": "215.55503405700438",
+          "log_sha256": "dcafaeb2300f7144b253adb4e8c9126bf2296ab9cdf3c0cdda66f4ab9d2ba893"
+        },
+        {
+          "command": "cargo fetch --locked",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "0.7881223519798368",
+          "log_sha256": "908eca5230a6e35718e039824b4d9d44e3b70a75f0ae73cd8f9df25eb6fdac12"
+        },
+        {
+          "command": "just security",
+          "launcher": "fleetcap/run-capped",
+          "exit_code": "0",
+          "elapsed_s": "31.66432140499819",
+          "log_sha256": "8214be2f610aa5448216e2b35e830cb662326117eac4ab86bf0aa7b473215048"
+        }
+      ],
+      "numtrace_replay": {
+        "command_source": "crates/joil-core/tests/truth_numtrace_audit.json:recheck_python",
+        "adaptation": "Only output namespace redirected to fresh ignored storage; historical script and inputs unchanged",
+        "exit_code": "0",
+        "log_sha256": "9d49db3527fedfa0b91145e1d5f503d7a7b94ed98f66df434b8f97a6fa253e75",
+        "result_sha256": "9d49db3527fedfa0b91145e1d5f503d7a7b94ed98f66df434b8f97a6fa253e75"
+      },
+      "earlier_attempts": [
+        "Initial launcher without explicit PATH could not resolve cargo (exit one hundred twenty-seven); no test executed",
+        "Cached pre-move integration binaries failed before behavior because their compiled source directory no longer existed; mtime refresh rebuilt them without deleting target",
+        "Initial formatting and Clippy layout failures retained; corrected formatting and moved main before test module",
+        "First full required gate stopped at an uncached locked zerocopy-derive package in the offline architecture metadata check; cargo fetch --locked succeeded, then same gate retried without source or threshold changes"
+      ],
+      "required_gate": "Retry running; completion event follows",
+      "dependency_security": "Existing cargo-audit scanner; zero vulnerabilities; required security lane exit zero"
+    },
+    {
+      "event": "cgroup_correction_and_final_audit",
+      "limitation": "The Snap just launcher moved the required gate and initial security check out of the fleetcap scope despite being launched through run-capped. Continuous cgroup enforcement for those initial portions is not claimed. Only the verified owned task tree was adopted into a new capped scope, with zero owned descendants outside after adoption. No other process was signaled, reprioritized or reconfigured. Future recipes invoke direct shell entry points.",
+      "adoption_evidence_sha256": "ea5429ab8f03ee66575dd9332eb9cf1521042184fdd95277928ef54c1934d66b",
+      "security_replay": {
+        "command": "bash ops/ci/security.sh",
+        "launcher": "fleetcap/run-capped with explicit PATH; cgroup membership printed before exec",
+        "exit_code": "0",
+        "elapsed_s": "20.94155834906269",
+        "log_sha256": "f993402464b6f79648aa5073e49931c9e33e457a7bc597d3b33589388bb3d266",
+        "result": "Existing cargo-audit zero vulnerabilities; required security script completed successfully"
+      },
+      "final_audit": {
+        "command": "jankurai audit . --read-only --no-badge --no-score-history --mode standard --json <fresh-private-output> --md <fresh-private-output> --repair-queue-jsonl <fresh-private-output>",
+        "launcher": "fleetcap/run-capped; RAYON_NUM_THREADS=1",
+        "exit_code": "1",
+        "log_sha256": "15d7cb63c8e128d30f528dc1a648f7cbc33c45644ea821bae9759fccbc1cbcd2",
+        "report_sha256": "90e2faa62d046bccb93e376bc6f3a6eeebc9fe30917b8e42be6cc8704f06ca5e",
+        "report_fingerprint": "sha256:b03a45bdbc21f491438a03b0e471cfcbebbdfd897f0f2580bffe5e57eb4ca7cb",
+        "score": "70",
+        "raw_score": "82",
+        "findings": "10",
+        "blockers": "6",
+        "conformance": "blocked; no suppression of source findings"
+      }
+    },
+    {
+      "event": "required_gate_complete",
+      "utc": "2026-10-19T14:59:10.904830+00:00",
+      "command": "just required",
+      "launcher": "fleetcap/run-capped; Snap escape corrected by adopting only owned processes as recorded above",
+      "exit_code": "0",
+      "foundation_receipt": ".private/checks/20261019T144400Z-57d3186c/receipt.json",
+      "foundation_receipt_sha256": "c22f5b3524abdecc4ae2a18f08e9d65331d4ed6c4e8020beae014ebb455c3039",
+      "all_requested_pass": true,
+      "steps": [
+        {
+          "name": "generated-status",
+          "command": [
+            "python3",
+            "tools/gen_status.py",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": "0",
+          "wall_seconds": "0.10453617200255394",
+          "log_bytes": "68",
+          "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+        },
+        {
+          "name": "fmt",
+          "command": [
+            "cargo",
+            "fmt",
+            "--all",
+            "--",
+            "--check"
+          ],
+          "cwd": ".",
+          "exit_code": "0",
+          "wall_seconds": "1.5101293780608103",
+          "log_bytes": "0",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "clippy",
+          "command": [
+            "cargo",
+            "clippy",
+            "--workspace",
+            "--locked",
+            "--all-targets",
+            "--",
+            "-D",
+            "warnings"
+          ],
+          "cwd": ".",
+          "exit_code": "0",
+          "wall_seconds": "1.6072112919064239",
+          "log_bytes": "72",
+          "log_sha256": "9489f44a20008616cc15f27632fb39b5fe7792c37ff432551e93bc1a95eab550"
+        },
+        {
+          "name": "rust-tests",
+          "command": [
+            "cargo",
+            "test",
+            "--workspace",
+            "--locked"
+          ],
+          "cwd": ".",
+          "exit_code": "0",
+          "wall_seconds": "639.9646333609708",
+          "log_bytes": "87139",
+          "log_sha256": "bfb87e56b0767373262b66cd276198aa66e6eebaadb729b807c393db941e6a71"
+        },
+        {
+          "name": "baseline",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "-p",
+            "joil-cli",
+            "--",
+            "baseline"
+          ],
+          "cwd": ".",
+          "exit_code": "0",
+          "wall_seconds": "10.872075935010798",
+          "log_bytes": "1440",
+          "log_sha256": "b5f83f80894b0f7bd3fbbe71a26204ef7ce85d5c0538a9de95f8457974b8f9a1"
+        },
+        {
+          "name": "python-tests",
+          "command": [
+            "python3",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ],
+          "cwd": ".",
+          "exit_code": "0",
+          "wall_seconds": "151.45111084799282",
+          "log_bytes": "35792",
+          "log_sha256": "265ba57584066f42178d400365a09c789d1fdda3a58cda5373b83a50d1fb8ad1"
+        },
+        {
+          "name": "public-check",
+          "command": [
+            "python3",
+            "tools/check_public.py"
+          ],
+          "cwd": ".",
+          "exit_code": "0",
+          "wall_seconds": "0.2791752020129934",
+          "log_bytes": "75",
+          "log_sha256": "30a79ca9cbe9bcf9fd486e735a9293f08fdeac61e6e55dcdb01646b33a2735b6"
+        },
+        {
+          "name": "claims-audit",
+          "command": [
+            "python3",
+            "tools/claims_audit.py"
+          ],
+          "cwd": ".",
+          "exit_code": "0",
+          "wall_seconds": "19.93923774699215",
+          "log_bytes": "256",
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        },
+        {
+          "name": "npm-ci",
+          "command": [
+            "npm",
+            "ci",
+            "--no-audit",
+            "--no-fund"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": "0",
+          "wall_seconds": "2.1999353879364207",
+          "log_bytes": "25",
+          "log_sha256": "fef89b3137d5389dff79f8846110475d3ef917163071f5ab5ef6fb303b164062"
+        },
+        {
+          "name": "ui-build",
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "cwd": "apps/explorer",
+          "exit_code": "0",
+          "wall_seconds": "2.9356730800354853",
+          "log_bytes": "1711",
+          "log_sha256": "ba6777b0759b2127fecd1f47c4124b42693146161dac174cdffef4674617dd5a"
+        }
+      ],
+      "implementation_hashes_match_gate_snapshot": true,
+      "source_sha256": {
+        "Cargo.lock": "77e6e89428a372b04fc598215ea48d8edd15401cf65f10693dcad889adc57dc6",
+        "crates/crucible-cli/Cargo.toml": "32732588e79017fc8cdbe9c1b7845be74f26d6b275bae46592bcb1aec8cf9e94",
+        "crates/crucible-cli/src/bin/carrier-snapshot.rs": "df01da8373d1447114c03567c2e2cce25621c09f83613853dae5e22eca4dddec",
+        "agent/audit-policy.toml": "1c8cc5b80731ddb11c16612bd354708e67f98970fffee8ce1f6a96721d687d96",
+        "docs/JANKURAI_FINDINGS.md": "d390fca3f4f9dd2df978e19c8947dad21092c15343a3b99a85920cfb67dd1225"
+      },
+      "documentation_after_snapshot": "Findings-register replay commands were corrected to direct shell recipes to bypass Snap. Final documentation and receipt are covered by post-receipt claims/public checks.",
+      "positive_and_negative_checks": "All Foundation suites passed; targeted UTC gold/property and positive/negative snapshot parity passed. Historical numeric-audit replay and capture refusal controls passed.",
+      "remaining_limitations": [
+        "Standard audit remains blocked with ten findings and six blockers; register retains owners and dates",
+        "All existing Python and frozen controls remain byte-identical; broader retirement and module splits are dependencies",
+        "The initial Snap-launched portions lack continuous cgroup-enforcement proof; corrected tree and direct-shell security proof retained",
+        "No physical or scientific qualification granted"
+      ],
+      "next_dependency": "Publish reviewed six-file commit; captain exact-head approval and rebase merge; next migration/review packets follow the register"
+    }
+  ]
+}
