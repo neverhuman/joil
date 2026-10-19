@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "kind": "v5_00_03_audit_hold_reconciliation_supplement_not_physical_validation",
+  "packet": "V5-00",
+  "work_id": "I024-S1",
+  "task_ids": [
+    "V5-00-03",
+    "V5-00-04"
+  ],
+  "owner": "codex-v5-integrator",
+  "created_utc": "2026-10-19T16:17:30Z",
+  "tested_commit": "a0911d4f4adad65f07a20c68d140efdd206606c3",
+  "scientific_admission": false,
+  "changed_paths": [
+    "apps/explorer/public/evidence-manifest.json",
+    "docs/JANKURAI_FINDINGS.md",
+    "docs/receipts/v5-00-03-reconciliation-20261019.json",
+    "docs/receipts/v5-00-03-reconciliation-claim-20261019.json",
+    "docs/v5-plan/dashboard.html",
+    "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+    "docs/v5-plan/progress/V5-00.json",
+    "docs/v5-plan/todos/V5-00.md"
+  ],
+  "reconciled_counts": {
+    "recorded_complete_tasks": "160/160",
+    "recorded_complete_packets": "32/32",
+    "independently_verified_software_complete_tasks": "150/160",
+    "independently_verified_software_complete_packets": "22/32",
+    "audit_held_tasks": "1/160 (V5-00-03 in V5-00)",
+    "deferred_physical_or_synthetic_fixture_tasks": "9/160 across 9/32 packets under SC-DEC-071 plus 12 V4_DEFERRALS.json entries (TR-16, TR-16-threshold-audit, EV-09, EV-12, TR-12, G-01, G-04, G-05, INT-06, F2-Oil, F4, V4-follow-on-program)"
+  },
+  "follow_up_to": [
+    {
+      "path": "docs/receipts/v5-00-owner-disposition-D28-D29-20261018.json",
+      "sha256": "d98565712d2cfce293778bcb085c1134fa048293835df0679cdca61ebd48ded4"
+    },
+    {
+      "path": "docs/receipts/v5-00-audit-inventory-20261018.json",
+      "sha256": "96e554401030e953cf9191e80a92acc39a9ccd5414a39bb0ce68fd72020136ca"
+    },
+    {
+      "path": "docs/receipts/i023-rust-ci-20261019.json",
+      "sha256": "b11b2a69116461e286f6be3fa0f1fd77397fc49aafa4004e20c0d2647ea7a642"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/v5_baseline_audit.py",
+        "--source-check"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/v5-baseline-audit-source-check.log",
+      "log_sha256": "95a97e0ded711d2252aa7f6ec6ec0311ceafcd4c33bca53f6508c71ab747af41",
+      "expected_result": "31 allegations, 15 recorded_behavior_probes, 16 source_only_inventory, 12 retained_deferrals, frozen_source_bytes_checked=true, physical_qualification=false."
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests/test_v5_baseline_audit.py",
+        "tests/test_v5_defect_closure.py",
+        "tests/test_v5_plan.py",
+        "tests/test_v5_explorer_manifest.py",
+        "tests/test_v5_trace_boundary.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/v5-python-audit-tests.log",
+      "log_sha256": "8f2442831ec59d2b845347dc47f61ce84e2a43d235134ac604e7d2327014dfdb",
+      "expected_result": "All baseline audit, defect closure, plan, explorer manifest, and trace boundary unit tests pass."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "plan_parity",
+        "--test",
+        "explorer_manifest_parity",
+        "--test",
+        "baseline_audit_parity"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/rust-parity-tests.log",
+      "log_sha256": "31cd5124ac51868d2184a66721008584d65233930b137bd7325fb18d70444155",
+      "expected_result": "Rust plan_parity, explorer_manifest_parity, and baseline_audit_parity tests pass with exact Python parity."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "expected_result": "claims_audit: OK."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/check-public.log",
+      "log_sha256": "4cc188560d1bb86da24fea4ba8b8a5868b4d3b7a85de8f83fcee2d6e73c75254",
+      "expected_result": "PASS public candidate files checked."
+    }
+  ],
+  "positive_checks": [
+    "All 16 source_only_inventory rows in docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json now bind their committed post-baseline software positive/red control receipts (D-05, D-07, D-10, D-14, D-16, D-17, D-18, D-21, D-22, D-24, D-25, D-27, D-28, D-29, D-30, D-31).",
+    "12 of the 16 source-only rows (including D-07 and D-25) are runnable in tools/v5_baseline_source_controls.py against frozen source e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0.",
+    "docs/JANKURAI_FINDINGS.md binds deduplicated finding IDs F-01..F-10, exact fingerprints, and work IDs (I024-S1, I024-S2, I025-CI, Wave P1b..P5, I025-EV12, I025-EVIDENCE)."
+  ],
+  "negative_checks": [
+    "Historical receipts and baseline inventory classifications (15 behavior_probe_recorded, 16 source_only_inventory, 12 V4_DEFERRALS.json rows) remain immutable; false runtime or physical promotion mutants continue to fail.",
+    "4 of the 16 source-only rows (D-18, D-21, D-28, D-29) remain kind=blocked inside tools/v5_baseline_source_controls.py on the literal frozen e1e9203 component and exit 3 when invoked directly there; they are instead covered by dedicated post-baseline software control harnesses and owner disposition.",
+    "D-21 positive control uses a synthetic software trajectory manifest (real native subject/time/field-bound trajectory manifest remains open), and D-29 oversized-module design debt remains open under F-01 (HLT-001-DEAD-MARKER:shape)."
+  ],
+  "artifacts": [
+    {
+      "path": "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+      "sha256": "c3b8f03a82cc7b525594930125e0b69688735d52829cdfc5010233c83fb4b1c1"
+    },
+    {
+      "path": "docs/JANKURAI_FINDINGS.md",
+      "sha256": "98c7cea499e1aad400b40edae282d746bbdcdaa755b1becdf9e35c1e9046b447"
+    },
+    {
+      "path": "docs/receipts/v5-00-03-reconciliation-claim-20261019.json",
+      "sha256": "9a4837d26a0bc2fd854e539e49a143b70623f59420deb96d8f8e5f7b2feb865a"
+    }
+  ],
+  "resource_allocation": {
+    "wrapper": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+    "physical_cores": "2",
+    "ram_gib": "6",
+    "scratch_gib": "2.5",
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Software ledger and defect-gate reconciliation only; scientific_admission remains false and all physical claims in docs/STATUS.json remain incomplete.",
+    "V5-00-03 retains its explicit AUDIT-HELD qualification because 4/16 source-only rows (D-18, D-21, D-28, D-29) remain blocked on the literal frozen e1e9203 component inside tools/v5_baseline_source_controls.py (covered by dedicated post-baseline software control harnesses), D-21 real native trajectory manifest remains absent, and D-29/F-01 module split remains open.",
+    "All 114 tracked Python files remain untouched per PY_TO_RUST_PLAN.md; the hardcoded summary string in tools/v5_explorer_manifest.py and crates/crucible-cli/src/bin/v5-explorer-manifest.rs is scheduled for retirement with the Python script in Wave P1b/P2."
+  ],
+  "next_dependency": "Execute Slice 2 (I024-S2: F-01 / D-29 crates/joil-ir/src/lib.rs semantic module split preserving truth_numtrace_audit.json bindings + Wave P1b consumer cutover); supply real native trajectory manifest for D-21 when physical/CFD campaign lease is admitted."
+}
