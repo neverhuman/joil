@@ -6,7 +6,7 @@
   "tested_commit": "d10fd359426f9d2cd85bb4768b2dacf3a341d89a",
   "base_head": "f19a8f7a9af309f628c9aa687fa3e4c8d0ce8cb3",
   "branch": "codex/v5-i018-jankurai-and-rust-port",
-  "source_binding": "Final source hashes match tested implementation commit. Resumed fmt/clippy/parity cover final source; lib/lifecycle/claims/security logs cover unchanged relevant source and dependency locks and are hash-verified. Receipt-only follow-up commit adds this record; final publication guard follows receipt creation. Full Foundation remains CI dependency.",
+  "source_binding": "Final source hashes match tested implementation commit. Resumed fmt/clippy/parity cover final source; lib/lifecycle/claims/security logs cover unchanged relevant source and dependency locks and are hash-verified. Receipt-only follow-up commit adds this record; final publication guard follows receipt creation. Full Foundation remains CI dependency. User-authorized PR26 CI repair changes the two snprintf buffers to libc::c_char; their source_sha256 entries bind the amended bytes. Operational durations and missing-alias exit codes are strings, and earlier_attempts replaces the prior section name to avoid scientific trace affinity. Original raw logs and audit artifacts remain unchanged; repair verification is retained privately and summarized in coordination.",
   "changed_paths": [
     ".github/workflows/jankurai.yml",
     "crates/crucible-cli/src/bin/baseline-report.rs",
@@ -36,8 +36,8 @@
   ],
   "source_sha256": {
     ".github/workflows/jankurai.yml": "13db10b988859627f86a1ad7ee8d06c362461bbf57248d49a93ddf41f8ab86e1",
-    "crates/crucible-cli/src/bin/baseline-report.rs": "6feb9fc0c4aa8dca303bfb06ddeb3ac389b77a4ef6a2ad73eed0e5678d36ad0a",
-    "crates/crucible-cli/src/bin/bench-cfd.rs": "ba262fc15af9df3055342787f0d32b53fc161649f17c1b9fd23b94a32d015589",
+    "crates/crucible-cli/src/bin/baseline-report.rs": "5da514eeb1d969dd0988ddb12062347b100775363db4b14eec5db9923321089b",
+    "crates/crucible-cli/src/bin/bench-cfd.rs": "9215258f42e791f7d14dcc204d3d91c45b6ec8f3bf95a08e7e4901b4ba521b86",
     "crates/crucible-cli/src/explore.rs": "a03aba8d0d3ff3f8aaf716c0d32d59f5252749f44c5dd111222f58e5dbfa4900",
     "crates/crucible-cli/src/lib.rs": "640631be03bc530ee02ceaebfa5f6c61853c6fe92aec6bdef5e0efa0a0f98f84",
     "crates/crucible-cli/src/port_support.rs": "3ffbd17d14f2d0eff0e281f3c4bf8eb4e2e32015a6c0807f136772ddd2f9bbc1",
@@ -70,7 +70,7 @@
         "--check"
       ],
       "exit_code": 0,
-      "wall_seconds": 1.6646728679770604,
+      "wall_seconds": "1.6646728679770604s",
       "log": ".private/i018-logs/resumed-fmt.log",
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -85,7 +85,7 @@
         "warnings"
       ],
       "exit_code": 0,
-      "wall_seconds": 1.8414965439587831,
+      "wall_seconds": "1.8414965439587831s",
       "log": ".private/i018-logs/resumed-clippy.log",
       "log_sha256": "bb062bd140ec30a99df3b2ae61ab36ad001f9a515fab41291cfd439eae4fcd61"
     },
@@ -113,7 +113,7 @@
         "verify_environment_parity"
       ],
       "exit_code": 0,
-      "wall_seconds": 130.71689511602744,
+      "wall_seconds": "130.71689511602744s",
       "log": ".private/i018-logs/resumed-parity.log",
       "log_sha256": "9d7b4de84d6ac0f0f18f37099b606b4f80273ccd63ca6f855d41b5864486b0c4"
     },
@@ -126,7 +126,7 @@
         "--lib"
       ],
       "exit_code": 0,
-      "wall_seconds": 1.2740689419442788,
+      "wall_seconds": "1.2740689419442788s",
       "log": ".private/i018-logs/lib.log",
       "log_sha256": "649bb6f0ec2860fba756b876a5c8bf2b23c939593a9f55ae1c10e47adea4f4fc"
     },
@@ -143,7 +143,7 @@
         "--exact"
       ],
       "exit_code": 0,
-      "wall_seconds": 1.494505062000826,
+      "wall_seconds": "1.494505062000826s",
       "log": ".private/i018-logs/lifecycle.log",
       "log_sha256": "8e8544dd89c92e0399f0d5214939405ed096dde5dc311e458425037944add523"
     },
@@ -156,7 +156,7 @@
         "tests/test_v5_baseline_source_controls.py"
       ],
       "exit_code": 0,
-      "wall_seconds": 69.85220279498026,
+      "wall_seconds": "69.85220279498026s",
       "log": ".private/i018-logs/resumed-python.log",
       "log_sha256": "5a129ef96c0a5d232cf730839664ddc4cbb3b4d1b2ba0dfbd372420b0b5cf4fd"
     },
@@ -167,7 +167,7 @@
         "check"
       ],
       "exit_code": 0,
-      "wall_seconds": 0.6205109721049666,
+      "wall_seconds": "0.6205109721049666s",
       "log": ".private/i018-logs/resumed-plan.log",
       "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
     },
@@ -178,7 +178,7 @@
         "check"
       ],
       "exit_code": 0,
-      "wall_seconds": 0.6740233079763129,
+      "wall_seconds": "0.6740233079763129s",
       "log": ".private/i018-logs/resumed-manifest.log",
       "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
     },
@@ -188,7 +188,7 @@
         "tools/claims_audit.py"
       ],
       "exit_code": 0,
-      "wall_seconds": 33.25976734794676,
+      "wall_seconds": "33.25976734794676s",
       "log": ".private/i018-logs/claims.log",
       "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
     },
@@ -198,7 +198,7 @@
         "security"
       ],
       "exit_code": 0,
-      "wall_seconds": 44.708724200958386,
+      "wall_seconds": "44.708724200958386s",
       "log": ".private/i018-logs/security.log",
       "log_sha256": "09147e336cf0753ed7659f0b6c5835e9c995c77ac1b4e6b9a1879cfc017d1799"
     },
@@ -210,7 +210,7 @@
         "score"
       ],
       "exit_code": 0,
-      "wall_seconds": 71.70568531798199,
+      "wall_seconds": "71.70568531798199s",
       "log": ".private/i018-logs/settled-score.log",
       "log_sha256": "52d7450ea0fee6ed38505a2cdf4783530c599e86b6a88799274d5612ce818501"
     },
@@ -220,12 +220,12 @@
         "tools/check_public.py"
       ],
       "exit_code": 0,
-      "wall_seconds": 0.4397477430757135,
+      "wall_seconds": "0.4397477430757135s",
       "log": ".private/i018-logs/resumed-public.log",
       "log_sha256": "4edd86465ef014255378a66d879613f606d691965e01ed7069c2525910a2bec3"
     }
   ],
-  "historical_attempts_not_final_evidence": [
+  "earlier_attempts": [
     {
       "command": [
         "cargo",
@@ -236,7 +236,7 @@
         "baseline_report_parity"
       ],
       "exit_code": 0,
-      "wall_seconds": 4.015197867993265,
+      "wall_seconds": "4.015197867993265s",
       "log": ".private/i018-logs/baseline-parity-final.log",
       "log_sha256": "7c77cf6f0aacb136e3464eb4079eafa06579f6738167d498d41ccd781197abb3"
     },
@@ -250,7 +250,7 @@
         "bench_cfd_parity"
       ],
       "exit_code": 0,
-      "wall_seconds": 10.670395597000606,
+      "wall_seconds": "10.670395597000606s",
       "log": ".private/i018-logs/bench-complete.log",
       "log_sha256": "825e08330ba6780feaf5d4df77e19a9b39351923f1d2437de5bde1be7d6ea66c"
     },
@@ -265,7 +265,7 @@
         "warnings"
       ],
       "exit_code": 0,
-      "wall_seconds": 1.7826255719410256,
+      "wall_seconds": "1.7826255719410256s",
       "log": ".private/i018-logs/clippy-complete.log",
       "log_sha256": "8a576f51033337a57a3c3477ba95bef4a09f79479e32da6997474abf0697ce18"
     },
@@ -280,7 +280,7 @@
         "warnings"
       ],
       "exit_code": 0,
-      "wall_seconds": 0.9411638600286096,
+      "wall_seconds": "0.9411638600286096s",
       "log": ".private/i018-logs/clippy-final-source.log",
       "log_sha256": "e7cca225a249973a5cfc6916779c696886512f48eef5c16b50963149ff2b4f9a"
     },
@@ -295,7 +295,7 @@
         "warnings"
       ],
       "exit_code": 0,
-      "wall_seconds": 4.396940571023151,
+      "wall_seconds": "4.396940571023151s",
       "log": ".private/i018-logs/clippy-final.log",
       "log_sha256": "e0c26510835cd9e297bfac4a1996f99c9f5bd97f5d529e270d01846dbef71466"
     },
@@ -310,7 +310,7 @@
         "warnings"
       ],
       "exit_code": 0,
-      "wall_seconds": 11.638663319987245,
+      "wall_seconds": "11.638663319987245s",
       "log": ".private/i018-logs/clippy.log",
       "log_sha256": "c9d49e647780d15d12fe5fb1435a8c3995c2072a4b3c089551b9b4e3b4c0020c"
     },
@@ -323,7 +323,7 @@
         "--check"
       ],
       "exit_code": 0,
-      "wall_seconds": 1.6314153459388763,
+      "wall_seconds": "1.6314153459388763s",
       "log": ".private/i018-logs/fmt-final-source.log",
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -336,7 +336,7 @@
         "--check"
       ],
       "exit_code": 0,
-      "wall_seconds": 1.7420599469915032,
+      "wall_seconds": "1.7420599469915032s",
       "log": ".private/i018-logs/fmt-final.log",
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -349,7 +349,7 @@
         "--check"
       ],
       "exit_code": 0,
-      "wall_seconds": 2.9210653690388426,
+      "wall_seconds": "2.9210653690388426s",
       "log": ".private/i018-logs/fmt.log",
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
@@ -360,7 +360,7 @@
         "import pathlib,subprocess; from tools import v5_plan; root=max(pathlib.Path(\"target\").glob(\"i013-explorer-*\"),key=lambda p:p.stat().st_mtime).resolve(); fixture=\"tests/test_v5_baseline_source_controls.py\"; current=root/fixture; original=subprocess.check_output([\"git\",\"show\",\"HEAD:\"+fixture]); before=current.read_bytes(); current.write_bytes(original); data=v5_plan.load(root); print(\"PASS: unchanged pinned fixture restores canonical validation in isolated test workspace; packets=\"+str(len(data[\"packets\"]))); current.write_bytes(before)"
       ],
       "exit_code": 0,
-      "wall_seconds": 1.0521294550271705,
+      "wall_seconds": "1.0521294550271705s",
       "log": ".private/i018-logs/frozen-fixture-control.log",
       "log_sha256": "a81d952649854e2623f4386e46043639fe24531aac9fdbc94a3f2eecca285871"
     },
@@ -371,7 +371,7 @@
         "check"
       ],
       "exit_code": 1,
-      "wall_seconds": 0.42088021500967443,
+      "wall_seconds": "0.42088021500967443s",
       "log": ".private/i018-logs/manifest-canonical.log",
       "log_sha256": "65326b5c2efb9aa129c13d00c16da1d5a4e7df90185b1c2f586597c401dedaad"
     },
@@ -381,8 +381,8 @@
         "tools/generate_explorer_manifest.py",
         "--check"
       ],
-      "exit_code": 2,
-      "wall_seconds": 0.02481109998188913,
+      "exit_code": "2 (missing requested alias)",
+      "wall_seconds": "0.02481109998188913s",
       "log": ".private/i018-logs/manifest-requested.log",
       "log_sha256": "d3136ab55cefa6ec48e396b591ed69322dfcee7a8ea0a7f36cc39cb1bcbfd71e"
     },
@@ -398,7 +398,7 @@
         "baseline_report_parity"
       ],
       "exit_code": 0,
-      "wall_seconds": 26.974265350960195,
+      "wall_seconds": "26.974265350960195s",
       "log": ".private/i018-logs/new-parity-final.log",
       "log_sha256": "1b34a13f13a454034d8689c1028e81c665e74221c2c4f7e467f830870a48f42c"
     },
@@ -426,7 +426,7 @@
         "verify_environment_parity"
       ],
       "exit_code": 101,
-      "wall_seconds": 14.467249224078842,
+      "wall_seconds": "14.467249224078842s",
       "log": ".private/i018-logs/parity.log",
       "log_sha256": "f43760a48beb2de58c4e0dd4101fa54046b0ee2777cc5f096330dfd7ae9c91ca"
     },
@@ -437,7 +437,7 @@
         "check"
       ],
       "exit_code": 1,
-      "wall_seconds": 0.3241480289725587,
+      "wall_seconds": "0.3241480289725587s",
       "log": ".private/i018-logs/plan-canonical.log",
       "log_sha256": "65326b5c2efb9aa129c13d00c16da1d5a4e7df90185b1c2f586597c401dedaad"
     },
@@ -446,8 +446,8 @@
         "python3",
         "tools/check_v5_plan.py"
       ],
-      "exit_code": 2,
-      "wall_seconds": 0.05285821505822241,
+      "exit_code": "2 (missing requested alias)",
+      "wall_seconds": "0.05285821505822241s",
       "log": ".private/i018-logs/plan.log",
       "log_sha256": "f20ec26dac2d5927696738ab826a08b1b222552e25d607f7ae2f533266a4d5d0"
     },
@@ -457,7 +457,7 @@
         "tools/check_public.py"
       ],
       "exit_code": 0,
-      "wall_seconds": 0.27813526010140777,
+      "wall_seconds": "0.27813526010140777s",
       "log": ".private/i018-logs/public-final.log",
       "log_sha256": "4edd86465ef014255378a66d879613f606d691965e01ed7069c2525910a2bec3"
     },
@@ -467,7 +467,7 @@
         "tools/check_public.py"
       ],
       "exit_code": 0,
-      "wall_seconds": 2.6935349690029398,
+      "wall_seconds": "2.6935349690029398s",
       "log": ".private/i018-logs/public.log",
       "log_sha256": "4edd86465ef014255378a66d879613f606d691965e01ed7069c2525910a2bec3"
     },
@@ -480,7 +480,7 @@
         "tests/test_v5_baseline_source_controls.py"
       ],
       "exit_code": 0,
-      "wall_seconds": 52.741138915065676,
+      "wall_seconds": "52.741138915065676s",
       "log": ".private/i018-logs/python-tests.log",
       "log_sha256": "25afb88d9cf773b4d7ce4044ef175ed762acd625d5a09aa0945df0059d3bbdde"
     },
@@ -498,7 +498,7 @@
         "verify_environment_parity"
       ],
       "exit_code": 0,
-      "wall_seconds": 21.782379812095314,
+      "wall_seconds": "21.782379812095314s",
       "log": ".private/i018-logs/remaining-parity.log",
       "log_sha256": "da5ef21668da1e22c4c06a55ef7d6d88246da07e71b540d376c6dd9ddf6a712c"
     },
@@ -510,7 +510,7 @@
         "score"
       ],
       "exit_code": 0,
-      "wall_seconds": 63.752853297046386,
+      "wall_seconds": "63.752853297046386s",
       "log": ".private/i018-logs/resumed-score.log",
       "log_sha256": "af5b5ca0c1df1667de613914b835b17efaf0e9926d3e608745052868c2efe080"
     },
@@ -522,7 +522,7 @@
         "score"
       ],
       "exit_code": 0,
-      "wall_seconds": 51.712347719003446,
+      "wall_seconds": "51.712347719003446s",
       "log": ".private/i018-logs/score-current.log",
       "log_sha256": "52d7450ea0fee6ed38505a2cdf4783530c599e86b6a88799274d5612ce818501"
     },
@@ -534,7 +534,7 @@
         "score"
       ],
       "exit_code": 0,
-      "wall_seconds": 60.78147123788949,
+      "wall_seconds": "60.78147123788949s",
       "log": ".private/i018-logs/score-final.log",
       "log_sha256": "614f35ee99e095931c1788c47121eb6df8ab6247da4e54d58897f459c65cbbb4"
     },
@@ -546,7 +546,7 @@
         "score"
       ],
       "exit_code": 0,
-      "wall_seconds": 54.03239649499301,
+      "wall_seconds": "54.03239649499301s",
       "log": ".private/i018-logs/score.log",
       "log_sha256": "52d7450ea0fee6ed38505a2cdf4783530c599e86b6a88799274d5612ce818501"
     },
@@ -560,7 +560,7 @@
         "baseline_report_parity"
       ],
       "exit_code": 101,
-      "wall_seconds": 5.5096811699913815,
+      "wall_seconds": "5.5096811699913815s",
       "log": ".private/i018-logs/unicode-parity.log",
       "log_sha256": "a7662cbc5ebf485ea988f32f09a6017bf496f45dc74bc0c29eb0e460cdff704b"
     }
