@@ -1,0 +1,15 @@
+{
+  "packet": "I017",
+  "claimed_utc": "2026-10-19T00:03:21.149314+00:00",
+  "base": "ca0526e36e24e8c52a2dd1d744c6c043d1ef3bae",
+  "scope": "User ordered two CLI ports and parity tests; named Python/runtime/enum/D21 audit fixes; migration/remediation docs and receipt",
+  "resources": {
+    "cargo_jobs": 2,
+    "test_threads": 2,
+    "memory_gib": 12,
+    "new_output_gib": 5,
+    "gpu": false
+  },
+  "verification": "User authorized targeted checks replace full required locally; full matrix remains CI dependency",
+  "delegation": false
+}

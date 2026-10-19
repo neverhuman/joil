@@ -5,10 +5,12 @@ use std::collections::BTreeSet;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum Disclosure {
+pub enum ManifestDisclosure {
     PublicCandidate,
     Private,
 }
+pub type Disclosure = ManifestDisclosure;
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum ObjectKind {

@@ -7,6 +7,7 @@ Each row's timestamp is the instrument timestamp; corrected process time is
 
 from __future__ import annotations
 
+import subprocess
 from copy import deepcopy
 from datetime import datetime
 import hashlib
@@ -618,7 +619,7 @@ def store_private_dossier(data: dict[str, Any], private_root: str | Path, filena
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())
-    except Exception:
+    except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError):
         target.unlink(missing_ok=True)
         raise
     return target

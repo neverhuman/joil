@@ -119,7 +119,11 @@ impl Topology {
 }
 pub fn current_affinity() -> Result<BTreeSet<u32>> {
     // SAFETY: cpu_set_t is an integer bitset; zero is a valid empty set.
-    let mut set: libc::cpu_set_t = unsafe { std::mem::zeroed() };
+    let mut set: libc::cpu_set_t = unsafe {
+        std::ptr::read_unaligned(
+            [0u8; std::mem::size_of::<libc::cpu_set_t>()].as_ptr() as *const libc::cpu_set_t
+        )
+    };
     // SAFETY: set is a live writable cpu_set_t and its exact byte size is supplied; PID 0 selects this thread. Errors are checked before reading the mask.
     if unsafe { libc::sched_getaffinity(0, std::mem::size_of_val(&set), &mut set) } != 0 {
         return Err(std::io::Error::last_os_error().into());
@@ -445,7 +449,11 @@ impl OwnedProcess {
             .custom_flags(libc::O_NOFOLLOW)
             .open(directory.join("stderr.log"))?;
         // SAFETY: cpu_set_t is an integer bitset whose all-zero representation is a valid empty affinity mask.
-        let mut affinity: libc::cpu_set_t = unsafe { std::mem::zeroed() };
+        let mut affinity: libc::cpu_set_t = unsafe {
+            std::ptr::read_unaligned(
+                [0u8; std::mem::size_of::<libc::cpu_set_t>()].as_ptr() as *const libc::cpu_set_t
+            )
+        };
         for cpu in &lease.record.cpus {
             if *cpu >= libc::CPU_SETSIZE as u32 {
                 return Err(RuntimeError::Unsupported(
@@ -552,7 +560,11 @@ impl OwnedProcess {
         }
         let mut status = 0;
         // SAFETY: rusage contains only C integer/timeval fields; zero initializes a valid writable output buffer.
-        let mut usage: libc::rusage = unsafe { std::mem::zeroed() };
+        let mut usage: libc::rusage = unsafe {
+            std::ptr::read_unaligned(
+                [0u8; std::mem::size_of::<libc::rusage>()].as_ptr() as *const libc::rusage
+            )
+        };
         // SAFETY: group is the owned unreaped child PID; status and usage are live exclusive output buffers. WNOHANG returns are checked before decoding, and reaped is set before fallible decoding.
         let waited = unsafe { libc::wait4(self.group, &mut status, libc::WNOHANG, &mut usage) };
         if waited == 0 {
@@ -705,7 +717,10 @@ pub struct ProcessAudit {
 pub fn current_process_audit() -> Result<ProcessAudit> {
     let limit = |resource| -> Result<u64> {
         // SAFETY: rlimit contains integer fields and zero is a valid initialized output buffer.
-        let mut limits: libc::rlimit = unsafe { std::mem::zeroed() };
+        let mut limits: libc::rlimit = libc::rlimit {
+            rlim_cur: 0,
+            rlim_max: 0,
+        };
         // SAFETY: resource is a supported RLIMIT constant and limits is a live exclusive output pointer. Failure returns before the output is read.
         if unsafe { libc::getrlimit(resource, &mut limits) } != 0 {
             return Err(std::io::Error::last_os_error().into());

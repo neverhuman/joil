@@ -636,13 +636,15 @@ impl RetentionClosure {
     }
 }
 #[derive(Clone, Debug, Serialize, Deserialize)]
-pub enum AttemptOutcome {
+pub enum ExportAttemptOutcome {
     AcceptedArtifact,
     NumericalArtifactFailure(String),
     Unsupported(String),
     InvalidInput(String),
     InfrastructureFailure(String),
 }
+pub type AttemptOutcome = ExportAttemptOutcome;
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct AttemptRecord {
     pub fixture: String,

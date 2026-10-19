@@ -73,7 +73,7 @@ fn validate(m: &Value) -> (bool, String) {
         ),
     )
 }
-fn run(root: &Path, mode: &str, skip: bool) -> Result<i32, String> {
+fn run(root: &Path, mode: &str) -> Result<i32, String> {
     let gates: Value = serde_json::from_str(&read(
         root.join("docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json"),
     )?)
@@ -141,7 +141,7 @@ fn run(root: &Path, mode: &str, skip: bool) -> Result<i32, String> {
     if root.join("crates/crucible-web").exists() {
         return Err("crates/crucible-web exists; its policy must be added to this control".into());
     }
-    if !skip {
+    {
         let status = Command::new("cargo")
             .args([
                 "test",
@@ -202,21 +202,19 @@ fn main() {
     let mut args = std::env::args().skip(1);
     let mut root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let mut mode = None;
-    let mut skip = false;
     while let Some(arg) = args.next() {
         match arg.as_str() {
             "--root" => root = PathBuf::from(args.next().unwrap_or_default()),
             "--mode" => mode = args.next(),
-            "--skip-renderer-test" => skip = true,
             _ => {
                 eprintln!("invalid argument: {arg}");
                 std::process::exit(2)
             }
         }
     }
-    let code=match mode.as_deref() {
-        Some(m @ ("positive"|"red"))=>run(&root,m,skip),
-        _=>Err("usage: v5-d21-trajectory-control --mode positive|red [--root ROOT] [--skip-renderer-test]".into())
+    let code = match mode.as_deref() {
+        Some(m @ ("positive" | "red")) => run(&root, m),
+        _ => Err("usage: v5-d21-trajectory-control --mode positive|red [--root ROOT]".into()),
     };
     std::process::exit(match code {
         Ok(c) => c,

@@ -332,7 +332,7 @@ def update(root, task_id, status, owner, note, receipt, *, supporting=False):
     path.write_text(json.dumps(state, indent=2, ensure_ascii=False) + '\n')
     try:
         load(root)
-    except Exception:
+    except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError):
         path.write_bytes(old)
         raise
 

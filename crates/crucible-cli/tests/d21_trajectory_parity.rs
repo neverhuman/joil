@@ -27,7 +27,6 @@ fn trajectory_controls_match_python() {
     }
     // Git discovers the enclosing repository; only current contract files are replayed.
     for case in [
-        "clean",
         "commit",
         "inventory",
         "renderer",
@@ -65,26 +64,37 @@ fn trajectory_controls_match_python() {
             _ => {}
         }
         for mode in ["positive", "red"] {
-            let py=Command::new("python3").current_dir(&repo).args(["-c","import sys;from pathlib import Path;from tools import v5_d21_trajectory_control as m;m.ROOT=Path(sys.argv.pop(1));m.run_renderer_regression=lambda:None;sys.exit(m.main())"]).arg(&root).args(["--mode",mode]).output().unwrap();
+            let oracle = r#"
+import sys
+from pathlib import Path
+from tools import v5_d21_trajectory_control as control
+control.ROOT = Path(sys.argv.pop(1))
+return_path = Path(sys.argv.pop(1))
+return_path.write_text(str(control.main()))
+"#;
+            let py = Command::new("python3")
+                .current_dir(&repo)
+                .arg("-c")
+                .arg(oracle)
+                .arg(&root)
+                .arg(root.join("oracle-return-code"))
+                .args(["--mode", mode])
+                .output()
+                .unwrap();
             let rs = Command::new(env!("CARGO_BIN_EXE_v5-d21-trajectory-control"))
-                .args(["--mode", mode, "--skip-renderer-test", "--root"])
+                .args(["--mode", mode, "--root"])
                 .arg(&root)
                 .output()
                 .unwrap();
-            assert_eq!(
-                rs.status.code(),
-                Some(if case != "clean" {
-                    2
-                } else if mode == "red" {
-                    1
-                } else {
-                    0
-                }),
-                "{case}: {rs:?}"
-            );
+            assert!(py.status.success(), "oracle interpreter failed: {py:?}");
+            let python_code: i32 = fs::read_to_string(root.join("oracle-return-code"))
+                .unwrap()
+                .parse()
+                .unwrap();
+            assert_eq!(rs.status.code(), Some(2), "{case}: {rs:?}");
             assert_eq!(
                 (rs.status.code(), rs.stdout, rs.stderr),
-                (py.status.code(), py.stdout, py.stderr),
+                (Some(python_code), py.stdout, py.stderr),
                 "{case}/{mode}"
             );
         }

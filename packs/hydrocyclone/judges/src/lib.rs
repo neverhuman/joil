@@ -126,11 +126,12 @@ impl<T> Field<T> {
 /// missing evidence or thresholds are `Unresolved`, never `Pass` and never a physical `Fail`.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "verdict", content = "reasons", rename_all = "snake_case")]
-pub enum Verdict {
+pub enum HydrocycloneVerdict {
     Pass,
     Fail(Vec<String>),
     Unresolved(Vec<String>),
 }
+pub type Verdict = HydrocycloneVerdict;
 
 impl Verdict {
     pub fn is_pass(&self) -> bool {

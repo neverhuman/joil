@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Compile/audit proposal CAD and export metre scenes. No flow or strength claims."""
+import subprocess
 import argparse
 import hashlib
 import json
@@ -42,7 +43,7 @@ def main():
                               'stl_relative_volume_error':float(mesh.volume/(shape.Volume()*1e-9)-1),
                               'triangles':len(mesh.faces),'valid_single_solid':True}
             report['status']='geometry_audited_proposal_not_performance_qualified'
-        except Exception as e:
+        except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError) as e:
             report.update(status='geometry_or_kernel_failure',error=str(e))
         report['elapsed_seconds']=time.perf_counter()-start
         for f in dest.iterdir():

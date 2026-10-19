@@ -146,7 +146,7 @@ pub enum QuantityKind {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
-pub enum Unit {
+pub enum PhysicalUnit {
     Metre,
     Millimetre,
     Second,
@@ -162,6 +162,8 @@ pub enum Unit {
     TreatedCubicMetrePerSecond,
     JoulePerTreatedCubicMetre,
 }
+pub type Unit = PhysicalUnit;
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct QuantityType {
     pub dimensions: Dimensions,
@@ -349,7 +351,7 @@ impl Expr {
         parameters: &BTreeMap<String, Quantity>,
         gas: u32,
     ) -> Result<SiValue, UnitError> {
-        fn eval(
+        fn evaluate_expr(
             e: &Expr,
             p: &BTreeMap<String, Quantity>,
             gas: &mut u32,
@@ -359,7 +361,7 @@ impl Expr {
                 return Err(UnitError::GasExhausted);
             }
             *gas -= 1;
-            let recurse = |e: &Expr, gas: &mut u32| eval(e, p, gas, depth + 1);
+            let recurse = |e: &Expr, gas: &mut u32| evaluate_expr(e, p, gas, depth + 1);
             match e {
                 Expr::Constant { quantity } => quantity.si(),
                 Expr::Parameter { name } => p
@@ -484,7 +486,7 @@ impl Expr {
             }
         }
         let mut remaining = gas;
-        eval(self, parameters, &mut remaining, 0)
+        evaluate_expr(self, parameters, &mut remaining, 0)
     }
 }
 

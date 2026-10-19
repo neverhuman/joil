@@ -125,7 +125,7 @@ pub fn cliffs_delta_permutation(a: &[f64], b: &[f64]) -> Result<PermutationTest,
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case")]
-pub enum Observation {
+pub enum OrderObservation {
     Measured {
         value: f64,
     },
@@ -134,6 +134,7 @@ pub enum Observation {
         loq: f64,
     },
 }
+pub type Observation = OrderObservation;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]

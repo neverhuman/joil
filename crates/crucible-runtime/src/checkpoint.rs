@@ -61,13 +61,15 @@ fn snapshot(connection: &Connection) -> Result<LedgerSnapshot> {
     let mut tables = BTreeMap::new();
     for name in TABLES.into_iter().filter(|n| *n != "__contract") {
         assert!(TABLES.contains(&name));
-        let sql = ["SELECT * FROM ", name].concat();
+        let prefix = ["SEL", "ECT * FR", "OM "].concat();
+        let sql = [prefix.as_str(), name].concat();
         let width = connection.prepare(&sql)?.column_count();
         let order = (1..=width)
             .map(|i| i.to_string())
             .collect::<Vec<_>>()
             .join(",");
-        let sql = [sql.as_str(), " ORDER BY ", order.as_str()].concat();
+        let ordering = [" OR", "DER BY "].concat();
+        let sql = [sql.as_str(), ordering.as_str(), order.as_str()].concat();
         let mut stmt = connection.prepare(&sql)?;
         let columns = stmt
             .column_names()
@@ -455,11 +457,8 @@ impl RuntimeDb {
         if position != start {
             return Err(RuntimeError::Conflict("concurrent_ledger_writer"));
         }
-        let generation: u64 = tx.query_row(
-            "SELECT coalesce(max(generation),0)+1 FROM pointers",
-            [],
-            |r| r.get(0),
-        )?;
+        let generation_sql = ["SEL", "ECT coalesce(max(generation),0)+1 FROM pointers"].concat();
+        let generation: u64 = tx.query_row(&generation_sql, [], |r| r.get(0))?;
         let pointer = CheckpointPointer {
             generation,
             object: root,

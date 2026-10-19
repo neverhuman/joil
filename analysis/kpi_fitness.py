@@ -17,6 +17,7 @@ Strictly follows AGENTS.md, docs/SCIENCE.md, requirements/RS-joil-research-v1.js
 """
 from __future__ import annotations
 
+import subprocess
 import argparse
 import hashlib
 import json
@@ -419,7 +420,7 @@ def evaluate_measured_cfd_kpis_and_fitness(
                 verified_oil_cohort = True
             else:
                 ineligibility_reasons.append('oil_cohort_file_is_capability_probe_or_unqualified')
-        except Exception as exc:
+        except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError) as exc:
             ineligibility_reasons.append(f'invalid_oil_cohort_file:{exc}')
 
     hydraulics_and_terminal_backflow_pass = (
