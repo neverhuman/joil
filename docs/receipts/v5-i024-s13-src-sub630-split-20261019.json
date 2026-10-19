@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "receipt_id": "v5-i024-s13-src-sub630-split-20261019",
+  "packet": "I024-S13",
+  "directive": "SC-DEC-185B",
+  "base_commit": "7ef6c778a146fa7191bae55e123a2f12460e16ab",
+  "created_at_utc": "2026-10-19T23:41:30Z",
+  "summary": "Split the remaining 6 >630 LOC non-frozen authored Rust src/*.rs files (crates/crucible-genome/src/operators/mod.rs, crates/joil-evidence/src/decision/profile.rs, crates/joil-ir/src/observe.rs, crates/joil-core/src/surrogate/qualification.rs, crates/crucible-stats/src/analysis.rs, crates/joil-core/src/program/archetypes.rs) into 12 semantic modules all <= 424 LOC so 0 non-frozen authored Rust src/*.rs files > 630 LOC remain in neverhuman/joil (largest non-frozen authored src/*.rs file is now 627 LOC).",
+  "changed_modules": [
+    {
+      "parent": "crates/crucible-genome/src/operators/mod.rs",
+      "parent_loc_after": 424,
+      "extracted_module": "crates/crucible-genome/src/operators/graph_ops.rs",
+      "extracted_loc": 260
+    },
+    {
+      "parent": "crates/joil-evidence/src/decision/profile.rs",
+      "parent_loc_after": 397,
+      "extracted_module": "crates/joil-evidence/src/decision/profile_inference.rs",
+      "extracted_loc": 257
+    },
+    {
+      "parent": "crates/joil-ir/src/observe.rs",
+      "parent_loc_after": 331,
+      "extracted_module": "crates/joil-ir/src/observe_taxon.rs",
+      "extracted_loc": 316
+    },
+    {
+      "parent": "crates/joil-core/src/surrogate/qualification.rs",
+      "parent_loc_after": 422,
+      "extracted_module": "crates/joil-core/src/surrogate/qualification_fold.rs",
+      "extracted_loc": 224
+    },
+    {
+      "parent": "crates/crucible-stats/src/analysis.rs",
+      "parent_loc_after": 420,
+      "extracted_module": "crates/crucible-stats/src/analysis/v5_30_tests.rs",
+      "extracted_loc": 215
+    },
+    {
+      "parent": "crates/joil-core/src/program/archetypes.rs",
+      "parent_loc_after": 240,
+      "extracted_module": "crates/joil-core/src/program/archetypes_seeding.rs",
+      "extracted_loc": 398
+    }
+  ],
+  "verification": {
+    "non_frozen_authored_src_files_over_630_loc_remaining": 0,
+    "largest_non_frozen_authored_src_file_loc": 627,
+    "frozen_fixture_preserved": "crates/crucible-render/src/lib.rs (720 LOC, V5-26-04/D-22)",
+    "fmt": "PASS",
+    "clippy": "PASS",
+    "claims_audit": "PASS",
+    "v5_plan_check": "PASS",
+    "public_check": "PASS"
+  },
+  "limitations": [
+    "Pure semantic module decomposition preserving 100% of public APIs, test paths, and hashes; zero edits to the 114 tracked Python files."
+  ],
+  "next_dependency": "Rebase-merge PR #43 (I024-S12) onto origin/main once CI passes, then rebase codex/v5-i024-s13-sub630-split onto origin/main and open PR #44."
+}
