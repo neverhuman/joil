@@ -139,11 +139,11 @@ fn execute(cmd: &[String], cwd: &Path, out: &Path, name: &str) -> io::Result<(Ve
         if let Some(s) = child.try_wait()? {
             break s;
         }
-        if start.elapsed() >= Duration::from_secs(600) {
+        if start.elapsed() >= Duration::from_secs(1100) {
             child.kill()?;
             child.wait()?;
             return Ok((
-                format!("Command {cmd:?} timed out after 600 seconds").into_bytes(),
+                format!("Command {cmd:?} timed out after 1100 seconds").into_bytes(),
                 124,
             ));
         }

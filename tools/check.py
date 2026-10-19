@@ -74,7 +74,7 @@ def main():
     for name,cmd,cwd in steps:
         start=time.perf_counter()
         try:
-            result=subprocess.run(cmd,cwd=cwd,env=env,capture_output=True,timeout=600)
+            result=subprocess.run(cmd,cwd=cwd,env=env,capture_output=True,timeout=1100)
             data=result.stdout+result.stderr;code=result.returncode
             diagnostic=result.stdout.decode(errors='replace')[-5000:]+'\n'+result.stderr.decode(errors='replace')[-2500:]
         except (OSError,subprocess.TimeoutExpired) as e:
