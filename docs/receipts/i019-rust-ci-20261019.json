@@ -41,6 +41,9 @@
     "ops/ci/audit.sh"
   ],
   "source_sha256": {
+    ".github/workflows/foundation.yml": "95e7925dfb2d40efb74f42bbd7893b064d2df2531a768329b0fa0d315302245f",
+    "tools/check.py": "a6ccfe7cdb1ef445aad455da9ed8de4e1ae7772775976bb1c0c7d3baef814c8b",
+    "crates/crucible-cli/src/bin/check-foundation.rs": "2cdd2e9ddf5afe57f69a4741d0ee553f8906cd3b61eebcb18d66dbda5a70e266",
     ".github/workflows/jankurai.yml": "9f922d4cdfb552de5d5121077efb6283600f1ca766104aad90de76d6460ce250",
     "agent/boundaries.toml": "a3308e8d7947fb59754a65039a17d1319e83d1a36600800922946c96ef48b631",
     "agent/generated-zones.toml": "1cd558afdc3a33139486852fd1c0a7b715dfcdadbf033969b5252b74749aa08b",

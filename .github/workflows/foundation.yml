@@ -77,6 +77,9 @@ jobs:
       - name: Fetch complete locked graph for offline architecture controls
         if: contains(fromJSON('["rust-tests", "python-tests"]'), matrix.suite)
         run: cargo fetch --locked
+      - name: Precompile Rust workspace test binaries outside suite timer
+        if: matrix.suite == 'rust-tests'
+        run: cargo test --workspace --locked --no-run
       - name: Run suite with exact logs and receipt
         env:
           CHECK_SUITE: ${{ matrix.suite }}
