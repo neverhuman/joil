@@ -50,6 +50,37 @@ pub fn setup() -> PathBuf {
             .unwrap()
             .as_nanos()
     ));
+    // Test-only subset for ASCII mesh arrays; prefer installed NumPy by default.
+    put(
+        &root,
+        "pyshim/numpy.py",
+        r#"import re
+int64 = int
+class _Arr(list):
+    def reshape(self, _r, c):
+        if len(self) % c:
+            raise ValueError("array size is not divisible by the column count")
+        return _Arr(self[i : i + c] for i in range(0, len(self), c))
+    def __getitem__(self, idx):
+        if isinstance(idx, list):
+            return [super(_Arr, self).__getitem__(i) for i in idx]
+        return super().__getitem__(idx)
+def fromstring(s, sep=" ", dtype=float):
+    # Match the numeric-prefix behavior used by NumPy's ASCII text parser.
+    if sep != " ":
+        raise ValueError("mesh shim supports whitespace-separated text only")
+    pattern = r"[+-]?\d+" if dtype is int else r"[+-]?(?:(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|inf(?:inity)?|nan)"
+    result = _Arr()
+    for token in s.split():
+        match = re.match(pattern, token, re.IGNORECASE)
+        if match is None:
+            break
+        result.append(dtype(match.group()))
+        if match.end() != len(token):
+            break
+    return result
+"#,
+    );
     for name in [
         "physics/openfoam/mesh/reference_plane.py",
         "physics/openfoam/mesh/extend_outlet.py",
@@ -128,6 +159,21 @@ pub fn invoke(root: &Path, python: bool, tool: &str, args: &[&str], mode: &str) 
     let mut cmd = if python {
         let mut c = Command::new("python3");
         c.arg(format!("physics/openfoam/mesh/{tool}.py"));
+        static NUMPY_AVAILABLE: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+        let forced = std::env::var_os("JOIL_MESH_FORCE_PYSHIM").is_some();
+        let available = *NUMPY_AVAILABLE.get_or_init(|| {
+            Command::new("python3")
+                .args(["-c", "import numpy"])
+                .output()
+                .is_ok_and(|output| output.status.success())
+        });
+        if forced || !available {
+            let mut paths = vec![root.join("pyshim")];
+            if let Some(existing) = std::env::var_os("PYTHONPATH") {
+                paths.extend(std::env::split_paths(&existing));
+            }
+            c.env("PYTHONPATH", std::env::join_paths(paths).unwrap());
+        }
         c
     } else {
         let bin = match tool {
@@ -183,4 +229,38 @@ pub fn compare_cases(root: &Path) {
             assert_eq!(av, bv, "{an}");
         }
     }
+}
+
+#[test]
+fn shim_handles_mesh_numeric_prefixes_and_array_indexing() {
+    let root = setup();
+    let output = Command::new("python3")
+        .args([
+            "-c",
+            r#"import numpy as np
+import math
+assert np.__file__.endswith('/pyshim/numpy.py')
+assert np.fromstring('1 broken 2', sep=' ') == [1.0]
+assert np.fromstring('1 2oops 3', sep=' ') == [1.0, 2.0]
+assert np.fromstring('1 1e 3', sep=' ') == [1.0, 1.0]
+assert np.fromstring('1 2.5 3', sep=' ', dtype=np.int64) == [1, 2]
+assert np.fromstring('1 nan 3', sep=' ', dtype=np.int64) == [1]
+assert np.fromstring('', sep=' ') == []
+values = np.fromstring('nan -0.0 1e-7 1 2 3', sep=' ').reshape(-1, 3)
+assert math.isnan(values[0][0])
+assert values[[1, 0]][0] == [1.0, 2.0, 3.0]
+assert values[0][2] == 1e-7
+try:
+    np.fromstring('1 2', sep=' ').reshape(-1, 3)
+except ValueError:
+    pass
+else:
+    raise AssertionError('invalid reshape accepted')
+"#,
+        ])
+        .env("PYTHONPATH", root.join("pyshim"))
+        .env("PYTHONDONTWRITEBYTECODE", "1")
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
 }

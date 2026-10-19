@@ -61,7 +61,7 @@
     "crates/crucible-cli/src/foam_mesh.rs": "5386204dd54f952bcbea59e9ee00e014f6005d5b4b99dd76c92eb3ed5bb180bc",
     "crates/crucible-cli/src/foam_runtime.rs": "d18b3a24e8a553f4c8281cecf446ee8b494a988c4296005e6e9992366125eafd",
     "crates/crucible-cli/tests/extend_outlet_parity.rs": "84129252699372e6381d635c87d651b8ab737c74c79972a29949c65457c27c8a",
-    "crates/crucible-cli/tests/mesh_support/mod.rs": "d3f747b7b2e2193edf215e217eed2039bcc8590ba6ee95ff776040470813a155",
+    "crates/crucible-cli/tests/mesh_support/mod.rs": "6164bd3870063b5276380ab7afec7a400098230fe436e7ab63484231c70c4587",
     "crates/crucible-cli/tests/reference_plane_parity.rs": "6bdcc81dce57571d07accf1f3e23b555a8536a6d39d4927e243470d005bcd415",
     "db/AGENTS.md": "e71fe25966a49bdbbc05e9987d8dbd9b29fdd691d30f58e032bb0073ca4f3acc",
     "db/README.md": "bae064ecf126c0dfc897da552fd14a8e00842d560de7647844cf6d99e5bc7175",
