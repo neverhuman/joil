@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "kind": "v5_i024_s2_joil_ir_semantic_module_split_not_physical_validation",
+  "work_id": "I024-S2",
+  "finding_ids": [
+    "F-01",
+    "D-29"
+  ],
+  "owner": "rust-integrator",
+  "created_utc": "2026-10-19T16:36:15Z",
+  "tested_commit": "6938705d479cdf69a03eb8b439f83d8abafa5d97",
+  "scientific_admission": false,
+  "changed_paths": [
+    "crates/joil-ir/src/compile.rs",
+    "crates/joil-ir/src/corpus.rs",
+    "crates/joil-ir/src/coverage.rs",
+    "crates/joil-ir/src/descriptors.rs",
+    "crates/joil-ir/src/design.rs",
+    "crates/joil-ir/src/lib.rs",
+    "crates/joil-ir/src/mesh_audit.rs",
+    "crates/joil-ir/src/observe.rs",
+    "crates/joil-ir/src/types.rs",
+    "docs/receipts/v5-i024-s2-joil-ir-split-20261019.json"
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "-p",
+        "joil-ir",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/joil-ir-clippy.log",
+      "log_sha256": "1353f3740d3bfcd52c2deaf9a8506107913619790b4b2cbe567dba507a94ad24",
+      "expected_result": "Zero warnings across all joil-ir library and test targets."
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "-p",
+        "joil-ir"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/joil-ir-test.log",
+      "log_sha256": "d67a8ad8a7fd540e0dedaf40d4f5dc6d3b9c0425453bb098b32d4f28ef153fc9",
+      "expected_result": "12/12 ir_suite integration tests pass with zero warnings."
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "tests/test_doc_numbers_trace.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/joil-ir-numtrace-test.log",
+      "log_sha256": "3f2c1bcc2609e6b67168e07e698954521b156e538f0263ac49e5b8746d4b6bff",
+      "expected_result": "14/14 NUMBERS_TRACE.md literal and provenance tests pass."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/joil-ir-claims-audit.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+      "expected_result": "claims_audit: OK."
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_path": "/home/ubuntu/joil/.private/i024/joil-ir-check-public.log",
+      "log_sha256": "264e4725c0a5f1e914c2b3a4c84f5168a724305b5db60dd3dd262beed5e436e7",
+      "expected_result": "PASS public candidate files checked."
+    }
+  ],
+  "positive_checks": [
+    "crates/joil-ir/src/lib.rs split from 4,141 lines into 9 semantic modules (lib.rs 34 LOC, types.rs 369 LOC, design.rs 895 LOC, coverage.rs 201 LOC, descriptors.rs 395 LOC, compile.rs 792 LOC, mesh_audit.rs 519 LOC, observe.rs 644 LOC, corpus.rs 336 LOC), with every module under 1,000 lines.",
+    "100% of public joil_ir::* types, functions, constants, and traits remain re-exported at the crate root with zero downstream API changes.",
+    "All 12 ir_suite tests, clippy -D warnings, test_doc_numbers_trace.py, claims_audit.py, and check_public.py pass."
+  ],
+  "negative_checks": [
+    "Negative geometry corpus (22 fixtures) and dropped-feature enactment checks in ir_suite continue to reject invalid geometries.",
+    "Declared NUMBERS_TRACE.md source literals in crates/joil-ir/src/lib.rs remain verified by test_doc_numbers_trace.py; planted literal mutations continue to fail.",
+    "Zero tracked Python files modified; scientific_admission remains false."
+  ],
+  "artifacts": [
+    {
+      "path": "crates/joil-ir/src/compile.rs",
+      "sha256": "a29aab0c485e3d8c81a60a70cdbacc2a5781f8c1d6e830eb367c370ed0816f18"
+    },
+    {
+      "path": "crates/joil-ir/src/corpus.rs",
+      "sha256": "916936e7708cb715b9b2f594eac081c30433e50812ab9625dcb856148174f5e2"
+    },
+    {
+      "path": "crates/joil-ir/src/coverage.rs",
+      "sha256": "f1eedded3a3cc177a0652b572f377afb28889ebfb4939d7bf67c70b42f022233"
+    },
+    {
+      "path": "crates/joil-ir/src/descriptors.rs",
+      "sha256": "e6b79126b5d48baa26e200d0fd7ecff528f3d574d1a1ae63e3924d53f2d5357f"
+    },
+    {
+      "path": "crates/joil-ir/src/design.rs",
+      "sha256": "1f6fbf5fa6b078693cf4f8ddea721f2bc2d171265335c1cd2663316420f20120"
+    },
+    {
+      "path": "crates/joil-ir/src/lib.rs",
+      "sha256": "f883cc797d35981c8fe53e1163b3841138ca221b4d8dcc7b949427794fb990e7"
+    },
+    {
+      "path": "crates/joil-ir/src/mesh_audit.rs",
+      "sha256": "71fef044965a1c36c30c69c01aacab7288a568f1857698b5dfeaf5f07c01ebfb"
+    },
+    {
+      "path": "crates/joil-ir/src/observe.rs",
+      "sha256": "2177f95afa13276e0a7c8cee11f2ae6d8bfda1e49ae3160b0738cd924752d09f"
+    },
+    {
+      "path": "crates/joil-ir/src/types.rs",
+      "sha256": "7be57541b8e30a532c62497c70dcbf40635a55d4ba200f44027fa34e7ef412ce"
+    }
+  ],
+  "resource_allocation": {
+    "wrapper": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+    "physical_cores": "2",
+    "ram_gib": "6",
+    "scratch_gib": "2.5",
+    "gpu": false,
+    "simulation": false
+  },
+  "limitations": [
+    "Structural module split of crates/joil-ir/src/lib.rs only; other large Rust modules and legacy Python surfaces remain governed by docs/JANKURAI_FINDINGS.md and PY_TO_RUST_PLAN.md.",
+    "No physical or CFD simulation executed; scientific_admission remains false."
+  ],
+  "next_dependency": "Rebase codex/v5-i024-s2-joil-ir-split onto main after PR #32 (I024-S1) merges, open PR #33, review with neverhumanbot, and merge on green CI."
+}
