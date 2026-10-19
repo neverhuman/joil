@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "slice_id": "I024-S7",
+  "directive_ids": [
+    "JOIL-ADMIRAL-RETAKE-20261019",
+    "SC-DEC-185",
+    "SC-DEC-185B"
+  ],
+  "base_commit": "c8e9f374783a33ac64129984d60727badedd6d35",
+  "created_at_utc": "2026-10-19T20:58:25Z",
+  "summary": "Split the 3 largest authored Rust src/*.rs files (crates/joil-core/src/phenotype.rs 958 LOC, packs/hydrocyclone/judges/src/validation.rs 913 LOC, packs/hydrocyclone/judges/src/structure.rs 870 LOC) into 6 semantic modules all < 600 LOC.",
+  "changed_paths": [
+    {
+      "path": "crates/joil-core/src/phenotype.rs",
+      "sha256": "d5177fdb23ff59d3ec4681378b2bdd03dd0eb554d39ec59ea3a16491c25ee707",
+      "lines": 590
+    },
+    {
+      "path": "crates/joil-core/src/phenotype/surface.rs",
+      "sha256": "4f2c4a5cd5bfd8e75a5e2ebdc34e206a21ae8911fa8e5e3dab70d6d360f8b4df",
+      "lines": 373
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/validation.rs",
+      "sha256": "b7fd4aace160d2c8b807ee90cb032b1c678f3ffa0db2dfb3b38c09cc95eac475",
+      "lines": 454
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/validation/accession.rs",
+      "sha256": "e93d8d4e083ffe498306aa8a1c906205c9cefe037da747983bdc43cbe4de2669",
+      "lines": 465
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/structure.rs",
+      "sha256": "8f07a0b950014959f49b0c1633fd5e60f0de1f1140b3fa8bd2fd7f0e919883f3",
+      "lines": 517
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/structure/fixtures.rs",
+      "sha256": "6d6144cfafab19a100268c0fe913f1cc588ce176ed8e82517419c755e9320ac6",
+      "lines": 357
+    }
+  ],
+  "commands": [
+    {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- /home/ubuntu/.cargo/bin/cargo clippy --workspace --all-targets --locked -- -D warnings",
+      "exit_code": 0
+    },
+    {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- /home/ubuntu/.cargo/bin/cargo test --locked -p pack-hydrocyclone-judges --lib --test structure --test validation",
+      "exit_code": 0
+    },
+    {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- /home/ubuntu/.cargo/bin/cargo test --locked -p joil-core --lib",
+      "exit_code": 0
+    },
+    {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- /home/ubuntu/.cargo/bin/cargo test --locked -p crucible-cli --test explorer_manifest_parity --test plan_parity",
+      "exit_code": 0
+    },
+    {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- bash scripts/ci-local.sh --suite claims-audit",
+      "exit_code": 0
+    },
+    {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- python3 tools/v5_plan.py check",
+      "exit_code": 0
+    },
+    {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- python3 tools/check_public.py",
+      "exit_code": 0
+    }
+  ],
+  "scientific_admission": false
+}
