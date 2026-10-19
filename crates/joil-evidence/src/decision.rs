@@ -16,10 +16,10 @@ impl fmt::Display for DecisionError {
     }
 }
 impl std::error::Error for DecisionError {}
-pub(super) fn invalid(message: impl Into<String>) -> DecisionError {
+pub(crate) fn invalid(message: impl Into<String>) -> DecisionError {
     DecisionError::Invalid(message.into())
 }
-pub(super) fn id(value: &str) -> Result<(), DecisionError> {
+pub(crate) fn id(value: &str) -> Result<(), DecisionError> {
     check_id(value).map_err(invalid)
 }
 
@@ -76,7 +76,7 @@ pub enum RequirementValue<T> {
     },
 }
 impl<T> RequirementValue<T> {
-    fn check(&self) -> Result<(), DecisionError> {
+    pub(crate) fn check(&self) -> Result<(), DecisionError> {
         match self {
             Self::Admitted {
                 source,
