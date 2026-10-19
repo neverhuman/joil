@@ -1,0 +1,309 @@
+{
+  "packet": "I021",
+  "owner": "joil_v5_codex",
+  "events": [
+    {
+      "event": "claim",
+      "base_commit": "77d990a1dd9f5bb7044c6625de7c25458fe5e5e5",
+      "branch": "codex/v5-i021-jankurai-and-rust-port",
+      "scope": [
+        "crates/crucible-cli/src/bin/mesh-prepare.rs",
+        "crates/crucible-cli/src/bin/carrier-snapshot.rs",
+        "crates/crucible-cli/src/bin/propose-wall-field.rs",
+        "crates/crucible-cli/tests/mesh_prepare_parity.rs",
+        "crates/crucible-cli/tests/carrier_snapshot_parity.rs",
+        "crates/crucible-cli/tests/propose_wall_field_parity.rs",
+        "crates/crucible-cli/tests/mesh_support/prepare_shim.py",
+        "agent/owner-map.json",
+        "agent/test-map.json",
+        "docs/receipts/i021-rust-ci-20261019.json"
+      ],
+      "budget": "two Cargo jobs/two test threads; at most four physical cores, twelve GiB RAM, five GiB new outputs; no simulation/GPU/paid operations",
+      "protected_sha256": {
+        "docs/NUMBERS_TRACE.md": "cd10ca9a31c9627819a341d879ad16d26bfc05c2dfb8ed7744a9bc1a3cedd347",
+        "tools/claims_audit.py": "c86d2b75c6f1b804b505050ddc7d77fcbd6c0e7b08453a9a49fbfa2a566c0fa3",
+        "tests/test_v5_baseline_source_controls.py": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+      }
+    },
+    {
+      "event": "targeted_verification",
+      "utc": "2026-10-19T05:04:41.254701+00:00",
+      "commands": [
+        {
+          "command": "cargo fmt --all -- --check",
+          "cwd": ".",
+          "environment": {
+            "CARGO_BUILD_JOBS": "2",
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "JOIL_MESH_PYTHON": "/home/ubuntu/joil/.venv/bin/python"
+          },
+          "exit_code": "0",
+          "seconds": "2.1374499797821045s",
+          "log": ".private/i021-logs/fmt-1792386085420230026.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": "cargo clippy -j 2 --workspace --all-targets -- -D warnings",
+          "cwd": ".",
+          "environment": {
+            "CARGO_BUILD_JOBS": "2",
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "JOIL_MESH_PYTHON": "/home/ubuntu/joil/.venv/bin/python"
+          },
+          "exit_code": "0",
+          "seconds": "2.016771078109741s",
+          "log": ".private/i021-logs/clippy-1792386087558845752.log",
+          "log_sha256": "f36109031e764308eb2b562394ff1bccf3aa992b3a9be0109fdbec6a805e2507"
+        },
+        {
+          "command": "cargo test -j 2 --package crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity --test mesh_audit_parity --test carrier_parity -- --test-threads=2",
+          "cwd": ".",
+          "environment": {
+            "CARGO_BUILD_JOBS": "2",
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "JOIL_MESH_PYTHON": "/home/ubuntu/joil/.venv/bin/python"
+          },
+          "exit_code": "0",
+          "seconds": "24.783042192459106s",
+          "log": ".private/i021-logs/parity-1792386089576555627.log",
+          "log_sha256": "6a3319331930f8ef077142d9e05c81d9de4a4ed79bc7c91a866f38856b1323c4"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python -m unittest tests/test_v5_trace_boundary.py tests/test_evidence.py",
+          "cwd": ".",
+          "environment": {
+            "CARGO_BUILD_JOBS": "2",
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "JOIL_MESH_PYTHON": "/home/ubuntu/joil/.venv/bin/python"
+          },
+          "exit_code": "0",
+          "seconds": "90.00873160362244s",
+          "log": ".private/i021-logs/unittest-1792386114361270449.log",
+          "log_sha256": "ff626e17d5388ef555ee066a94ede52a7601f83997977c984500fd4f83ce857c"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python tools/claims_audit.py",
+          "cwd": ".",
+          "environment": {
+            "CARGO_BUILD_JOBS": "2",
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "JOIL_MESH_PYTHON": "/home/ubuntu/joil/.venv/bin/python"
+          },
+          "exit_code": "0",
+          "seconds": "45.175812005996704s",
+          "log": ".private/i021-logs/claims-1792386204372335437.log",
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        },
+        {
+          "command": "python3 tools/check_public.py",
+          "cwd": ".",
+          "environment": {
+            "CARGO_BUILD_JOBS": "2",
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "JOIL_MESH_PYTHON": "/home/ubuntu/joil/.venv/bin/python"
+          },
+          "exit_code": "0",
+          "seconds": "0.6788561344146729s",
+          "log": ".private/i021-logs/public-1792386249552364315.log",
+          "log_sha256": "056ee77c370d1f7abbb64c1c81aa72e3e1131def15284b3a0bb9fba8aae7b533"
+        }
+      ],
+      "source_sha256": {
+        "crates/crucible-cli/src/bin/mesh-prepare.rs": "be26b442356f5ecebea15176e0674ec804cd1093440f86c0017514970f3142b0",
+        "crates/crucible-cli/src/bin/carrier-snapshot.rs": "1ae40b8f4777dcb6c610b05033e8d2975e9830c40850236570aa2600a3fd8128",
+        "crates/crucible-cli/src/bin/propose-wall-field.rs": "08e062b84a98613cb3b15f57c1431bbcdb1f4d3972a40fe4cc9949ac1cd98b9e",
+        "crates/crucible-cli/tests/mesh_prepare_parity.rs": "26b0b92a50bef8c0fe5b0ecaa7e2754ba7f9d4caf846e74e992cf4f35fa4f613",
+        "crates/crucible-cli/tests/carrier_snapshot_parity.rs": "54c9f49f9e071681fd1d082e9e808dc541565117797c4a37b9c614015a1b5a01",
+        "crates/crucible-cli/tests/propose_wall_field_parity.rs": "cdafba26df2efcdbac1f37a74c593538fbc3608d989fc3975169be4a17d18749",
+        "crates/crucible-cli/tests/mesh_support/prepare_shim.py": "cc181a3bcd5f3f3f73c6fd5ed7ced7b31cf584b5e9215272b868e236c994a623",
+        "agent/owner-map.json": "877f04cdd010a380bb1af395edca37abaeb79388b6f4386d44f3d2c91fc6a6c5",
+        "agent/test-map.json": "fb5c96e5acdd176c7fcfc4ab0b759eea68b1985128a86d431288d5f64c41cceb"
+      },
+      "oracle_sha256": {
+        "physics/openfoam/mesh/prepare.py": "e2519bf00d93e4eb5a8045fe2996edd4f1b289e61e5fefdfa070eb688825850d",
+        "cad/ct35/geometry.py": "6ed669efcd26afa81cfe98fe7752e872cd2dc47e5aeff3ce3d32cffc3b93bfce",
+        "analysis/carrier_snapshot.py": "569612941db73436cc763b555bfd8cfb652e6ba6757b5e99524c66993f497db3",
+        "analysis/units.py": "13330409bd87f6ca799dd0f9e1267c7787eb7d3703931620d8fd3f68890b9c43",
+        "analysis/evidence.py": "647a599810b92fc2ba605d73764ded8653c8e9771a229c9feae6ca98c07f09fe",
+        "cad/program/propose.py": "091c709b18c4461d9701fd7459a7708a21a774215b974b7c28bb4282e3a44887",
+        "cad/program/wall_field.py": "98efa48597f6e5edb00abf3810359d9b826d30ecac21342c2b244631cca28460",
+        "baselines/ct35/genome.json": "9d03400f48b68043c125611de927983efafb73122c9b03278e31f81b2c666ad5"
+      },
+      "positive_checks": [
+        "Native mesh preparation against installed NumPy/trimesh and pure-Python shim under python3 -S, ASCII/binary closed synthetic surfaces, both refinement levels; exact dictionary and vertex bytes, independently verified labelled-surface digests.",
+        "Snapshot kinematic/dynamic pressure; passing/failing/missing mesh audit; reverse flow; split mismatch; carrier model; deterministic JSON values and exact raw archived bytes/canonical extractor digest.",
+        "Python integer-seeded MT19937 exact proposal bytes across zero, negative, multiword and arbitrary-size integer seeds, baseline-only/negative counts and up to count:256. Generated programmes enforce wall-field coefficient/order/amplitude constraints.",
+        "Requested Rust suites: tests:14 passed; Python suite: tests:27, skipped:3 conditional private-data checks."
+      ],
+      "negative_checks": [
+        "Outside-runs and existing case/output refusal; open/inward STL, wrong full length, unsupported genome, inlet count/angle/dimension/diameter/collar/plenum validation.",
+        "Manifest tamper and path escape; baseline digest mismatch; duplicate/nonfinite/empty streams; no common timestamp; unsupported pressure dimensions; outside-runs snapshot.",
+        "Existing proposal output refuses without changing bytes."
+      ],
+      "earlier_failed_attempts": [
+        {
+          "log": ".private/i021-first-tests.log",
+          "log_sha256": "5d612e4105ad61ca46fc57369082b2ff19f5eeca34935ee4a66d238a40fa2202",
+          "exit_code": "101",
+          "reason_and_repair": "Snapshot closure roundoff comparison was too strict; repaired by explicit absolute floating tolerance."
+        },
+        {
+          "log": ".private/i021-real-tests.log",
+          "log_sha256": "332153fe809ff29017f43517ba0299ebd9def5ef2d3bb65a6553e1dcdabcad2c",
+          "exit_code": "101",
+          "reason_and_repair": "Compilation rejected accidental invocation of is_finite instead of passing the function; repaired."
+        },
+        {
+          "log": ".private/i021-clippy-first.log",
+          "log_sha256": "8be0fca4de9ef8362dd6abd75cc386e78425fd4c46070c9a50de0d1ca858e935",
+          "exit_code": "101",
+          "reason_and_repair": "Same compilation error retained."
+        },
+        {
+          "log": ".private/i021-clippy-second.log",
+          "log_sha256": "dd3925eadedd37b52853f5faef3c722f12fd11744f27bcdfb53d641caf12126c",
+          "exit_code": "101",
+          "reason_and_repair": "Clippy duplicate modules; reused configure module imports instead."
+        }
+      ],
+      "resource_observation": {
+        "target_before": "7.5G reused cache (measured after initial drafts)",
+        "target_after": "7.6G reused cache",
+        "retained_gate_logs": "20K at measurement",
+        "bounds": "No fresh target directory or global installation; no solver/GPU executed."
+      },
+      "limitations": [
+        "Synthetic software parity only; disconnected test boxes are not qualified CT35 CAD.",
+        "Absolute outlet-length tolerance is the user-requested stricter limit; canonical Python allclose additionally has a relative allowance. Binary positive fixture adjusts genome length to a representable float32 outlet.",
+        "Mesh/snapshot floating values permit documented roundoff; labelled-surface digests are verified against each implementation output, not assumed equal across arbitrary tessellation processing.",
+        "Python scripts and legacy consumers remain; no Python LOC removal or physical qualification.",
+        "Malformed JSON and native OS/CLI diagnostic wording can differ; both reject. Proposal exact-byte checks depend on platform libm agreement, tested on this host.",
+        "User-requested targeted local gates executed; full Foundation matrix and independent exact-head PR review remain next dependencies."
+      ],
+      "next_dependency": "Commit and push reviewed sources, then exact-head Foundation CI and independent PR review; no merge or release authorization inferred."
+    },
+    {
+      "event": "finalization_claim",
+      "utc": "2026-10-19T05:15:33.189105+00:00",
+      "scope": [
+        "crates/crucible-cli/src/bin/carrier-configure.rs"
+      ],
+      "authorization": "User requests c_char portability repair, six targeted gates only, receipt, eleven-file commit, push and PR. Full Foundation delegated to GitHub Actions."
+    },
+    {
+      "event": "portability_finalization_verification",
+      "utc": "2026-10-19T05:17:46.408150+00:00",
+      "source_sha256": {
+        "crates/crucible-cli/src/bin/mesh-prepare.rs": "be26b442356f5ecebea15176e0674ec804cd1093440f86c0017514970f3142b0",
+        "crates/crucible-cli/src/bin/carrier-snapshot.rs": "1ae40b8f4777dcb6c610b05033e8d2975e9830c40850236570aa2600a3fd8128",
+        "crates/crucible-cli/src/bin/propose-wall-field.rs": "08e062b84a98613cb3b15f57c1431bbcdb1f4d3972a40fe4cc9949ac1cd98b9e",
+        "crates/crucible-cli/tests/mesh_prepare_parity.rs": "26b0b92a50bef8c0fe5b0ecaa7e2754ba7f9d4caf846e74e992cf4f35fa4f613",
+        "crates/crucible-cli/tests/carrier_snapshot_parity.rs": "54c9f49f9e071681fd1d082e9e808dc541565117797c4a37b9c614015a1b5a01",
+        "crates/crucible-cli/tests/propose_wall_field_parity.rs": "cdafba26df2efcdbac1f37a74c593538fbc3608d989fc3975169be4a17d18749",
+        "crates/crucible-cli/tests/mesh_support/prepare_shim.py": "cc181a3bcd5f3f3f73c6fd5ed7ced7b31cf584b5e9215272b868e236c994a623",
+        "agent/owner-map.json": "877f04cdd010a380bb1af395edca37abaeb79388b6f4386d44f3d2c91fc6a6c5",
+        "agent/test-map.json": "fb5c96e5acdd176c7fcfc4ab0b759eea68b1985128a86d431288d5f64c41cceb",
+        "crates/crucible-cli/src/bin/carrier-configure.rs": "7ffe6d402f4e59eecf9a02c92b45ae0451922454dd129132e0e5f83d941a71d5"
+      },
+      "commands": [
+        {
+          "command": "cargo fmt --all -- --check",
+          "exit_code": "0",
+          "seconds": "1.1486793690128252",
+          "log": ".private/i021-finalization/gate-0.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": "cargo clippy -j 2 --workspace --all-targets -- -D warnings",
+          "exit_code": "0",
+          "seconds": "1.4131425579544157",
+          "log": ".private/i021-finalization/gate-1.log",
+          "log_sha256": "fb0053cda4885d3950b81e8d5f6724edffbce99a5b69764eca3d147c101bdbd3"
+        },
+        {
+          "command": "cargo test -j 2 --package crucible-cli --test mesh_prepare_parity --test carrier_snapshot_parity --test propose_wall_field_parity --test mesh_audit_parity --test carrier_parity -- --test-threads=2",
+          "exit_code": "0",
+          "seconds": "19.500789814046584",
+          "log": ".private/i021-finalization/gate-2.log",
+          "log_sha256": "20b768110b68ee97b56e7d10b5ea2302ccfb99994a3af7b100e99b58eccc0c2c"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python -m unittest tests/test_v5_trace_boundary.py tests/test_evidence.py",
+          "exit_code": "0",
+          "seconds": "47.86517760006245",
+          "log": ".private/i021-finalization/gate-3.log",
+          "log_sha256": "f4e1e312d958845713d59a15a04e07387c2c4fdecbad68d3191f2f7f6fb37724"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python tools/claims_audit.py",
+          "exit_code": "0",
+          "seconds": "21.371802742010914",
+          "log": ".private/i021-finalization/gate-4.log",
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        },
+        {
+          "command": "python3 tools/check_public.py",
+          "exit_code": "0",
+          "seconds": "0.3351114030228928",
+          "log": ".private/i021-finalization/gate-5.log",
+          "log_sha256": "9d496b32c2e52661c8e7daf153b256958274108c62a312f6fdcc6ceb7f18ff00"
+        }
+      ],
+      "positive_checks": [
+        "Fourteen Rust parity tests passed; Python suite ran twenty-seven tests with three conditional skips.",
+        "All snprintf buffers in crucible-cli use libc::c_char; no i8 or 0i8 remains.",
+        "Protected trace, auditor and baseline source controls retain claim hashes."
+      ],
+      "negative_checks": [
+        "Outside-runs and existing case/output refusal; open/inward STL, wrong full length, unsupported genome, inlet count/angle/dimension/diameter/collar/plenum validation.",
+        "Manifest tamper and path escape; baseline digest mismatch; duplicate/nonfinite/empty streams; no common timestamp; unsupported pressure dimensions; outside-runs snapshot.",
+        "Existing proposal output refuses without changing bytes."
+      ],
+      "earlier_failed_attempts": [
+        {
+          "command": "cargo fmt --all -- --check",
+          "exit_code": "1",
+          "log": ".private/i021-finalization/first-fmt.log",
+          "log_sha256": "7c8c72566820b4a677d16edc353554639e2aa7d99bc1ee810709566d92bed16c",
+          "repair": "Wrapped expect line as required by rustfmt; subsequent format check passes."
+        }
+      ],
+      "limitations": [
+        "Full Foundation and aarch64 compilation are delegated to exact-head GitHub Actions PR CI by direct user instruction.",
+        "Earlier full Foundation attempt failed in unchanged runtime recovery timeout controls; retained private evidence described in COORD. No full Foundation command run during this finalization.",
+        "Synthetic software parity only; no physical qualification."
+      ],
+      "next_dependency": "Exact-head Foundation CI and independent PR review; no merge or release."
+    }
+  ]
+}

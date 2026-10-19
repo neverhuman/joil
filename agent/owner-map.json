@@ -55,6 +55,14 @@
     "crates/crucible-cli/tests/carrier_parity.rs": "rust-integrator",
     "crates/crucible-cli/tests/mesh_support/mod.rs": "rust-integrator",
     "tools/security-lane.sh": "integrator",
-    "docs/receipts/i020-rust-ci-20261019.json": "integrator"
+    "docs/receipts/i020-rust-ci-20261019.json": "integrator",
+    "crates/crucible-cli/src/bin/mesh-prepare.rs": "rust-integrator",
+    "crates/crucible-cli/src/bin/carrier-snapshot.rs": "rust-integrator",
+    "crates/crucible-cli/src/bin/propose-wall-field.rs": "rust-integrator",
+    "crates/crucible-cli/tests/mesh_prepare_parity.rs": "rust-integrator",
+    "crates/crucible-cli/tests/carrier_snapshot_parity.rs": "rust-integrator",
+    "crates/crucible-cli/tests/propose_wall_field_parity.rs": "rust-integrator",
+    "crates/crucible-cli/tests/mesh_support/prepare_shim.py": "rust-integrator",
+    "docs/receipts/i021-rust-ci-20261019.json": "rust-integrator"
   }
 }
