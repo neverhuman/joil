@@ -1,0 +1,100 @@
+{
+  "schema": "joil.v5.slice-receipt.v1",
+  "slice_id": "I024-S4",
+  "directive": "SC-DEC-185",
+  "finding_ids": [
+    "F-01",
+    "HLT-001-DEAD-MARKER:shape"
+  ],
+  "recorded_utc": "2026-10-19T18:05:30Z",
+  "base_commit": "b255862323e2f910d91dbca2239d685bb856c00d",
+  "summary": "Split all four remaining > 1,000 LOC source files in crates/joil-core/src/ (program.rs 2,680 LOC, cfd_case.rs 1,906 LOC, surrogate.rs 1,200 LOC, openfoam.rs 1,020 LOC) into 11 semantic modules all < 1,000 LOC (max 820 LOC), retiring 100% of > 1,000 LOC source files in crates/joil-core/src/ while preserving NUMBERS_TRACE.md literal bindings and Wave-4 raw capture compiled_sources_sha256 bindings.",
+  "modules": [
+    {
+      "path": "crates/joil-core/src/program.rs",
+      "lines": 820,
+      "sha256": "258e3ebf3069a4dfa2d63f6ab73ec8d5182e4c234dbfee494ae0921f46a45227"
+    },
+    {
+      "path": "crates/joil-core/src/program/archetypes.rs",
+      "lines": 632,
+      "sha256": "876cf03d4f630959bc86bda42cd1eeecc4aa2196006232e96461b66bf4b52cac"
+    },
+    {
+      "path": "crates/joil-core/src/program/variation.rs",
+      "lines": 658,
+      "sha256": "5edcd9f8a3bb88ed08ab9dea1bb305c95c3fda241a8165376d1ae13fbc5bf06a"
+    },
+    {
+      "path": "crates/joil-core/src/program/catalog.rs",
+      "lines": 604,
+      "sha256": "6843c368d0deec19374d56a2057d52a7a8e080659e00bc4bf1e784402db57bae"
+    },
+    {
+      "path": "crates/joil-core/src/cfd_case.rs",
+      "lines": 627,
+      "sha256": "e7e256f7b18d985876724d395fa593aa7f34dc9db26b52adb045953f403f35d1"
+    },
+    {
+      "path": "crates/joil-core/src/cfd_case/identity.rs",
+      "lines": 708,
+      "sha256": "81b8fb417be8fce266043bc4715934e826be724557d979634570bb723c423e47"
+    },
+    {
+      "path": "crates/joil-core/src/cfd_case/tests.rs",
+      "lines": 577,
+      "sha256": "b2325b1ba641485151ff7ea69a82237ee40202af927b1b763d987d2713418f7d"
+    },
+    {
+      "path": "crates/joil-core/src/surrogate.rs",
+      "lines": 567,
+      "sha256": "c12ad982fdfe81d39328ab4fdc00f9a46efb1e38e413b6ec9006fe924db28a61"
+    },
+    {
+      "path": "crates/joil-core/src/surrogate/qualification.rs",
+      "lines": 641,
+      "sha256": "8155ace5063779e0dfbbd31dd2ba89d97b343458deeac3e73639ebcbaad09392"
+    },
+    {
+      "path": "crates/joil-core/src/openfoam.rs",
+      "lines": 494,
+      "sha256": "ba02449e4eaca3f6b53ade23a7da74b300dcaaa0948acd48faab4d5994cb8758"
+    },
+    {
+      "path": "crates/joil-core/src/openfoam/kpi.rs",
+      "lines": 534,
+      "sha256": "0efb9a798c0c059226e79e6b80e9d26dd4b377924ec22af7761ce8517adcec3e"
+    }
+  ],
+  "max_module_lines": 820,
+  "python_files_modified": 0,
+  "verification": {
+    "clippy": {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- env CARGO_BUILD_JOBS=2 cargo clippy -p joil-core --all-targets --locked -- -D warnings",
+      "exit_code": 0
+    },
+    "joil_core_tests": {
+      "command": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped -- env CARGO_BUILD_JOBS=2 RUST_TEST_THREADS=2 cargo test -p joil-core --locked",
+      "exit_code": 0,
+      "tests_passed": 89
+    },
+    "numbers_trace": {
+      "command": "python3 -m unittest tests/test_doc_numbers_trace.py",
+      "exit_code": 0,
+      "tests_passed": 16
+    },
+    "claims_audit": {
+      "command": "python3 tools/claims_audit.py",
+      "exit_code": 0
+    },
+    "check_public": {
+      "command": "python3 tools/check_public.py",
+      "exit_code": 0
+    }
+  },
+  "scientific_admission": false,
+  "limitations": [
+    "Software module refactor only; no physical validation or new CFD/FEA execution is claimed."
+  ],
+  "next_dependency": "I024-S5 (remaining F-01 large-file module splits in packs/hydrocyclone/judges, crates/joil-cli, crates/crucible-paper, crates/joil-evidence)"
+}
