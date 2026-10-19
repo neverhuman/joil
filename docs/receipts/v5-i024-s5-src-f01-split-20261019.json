@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "packet_id": "I024-S5",
+  "authority": [
+    "JOIL-ADMIRAL-RETAKE-20261019",
+    "SC-DEC-185",
+    "SC-DEC-186A"
+  ],
+  "recorded_utc": "2026-10-19T18:56:00Z",
+  "author_lane": "2708475.captain_joil",
+  "base_commit": "f22f7005c779296b6bbfeb3c91e7ae27ca308024",
+  "finding_ids": [
+    "F-01"
+  ],
+  "defect_ids": [
+    "D-29"
+  ],
+  "summary": "Split the remaining 5 >1,000 LOC Rust src/*.rs files in the workspace (packs/hydrocyclone/judges/src/liner_operator.rs 1,735 LOC, crates/joil-cli/src/main.rs 1,505 LOC, packs/hydrocyclone/judges/src/structure.rs 1,410 LOC, crates/crucible-paper/src/lib.rs 1,357 LOC, crates/joil-evidence/src/decision.rs 1,002 LOC) into 11 semantic modules all <1,000 LOC (max 870 LOC), retiring 100% of >1,000 LOC authored Rust src/*.rs files across the entire repository.",
+  "modules": [
+    {
+      "path": "crates/crucible-paper/src/lib.rs",
+      "lines": 771,
+      "bytes": 28074,
+      "sha256": "56b334f5cbb9c2cb0c8218b433cff397149be75bbea1690127ca6f18d1e5afca"
+    },
+    {
+      "path": "crates/crucible-paper/src/tests.rs",
+      "lines": 583,
+      "bytes": 22116,
+      "sha256": "c7be6dc44730af26dfdb6011353de02874d181f646934236420a6c221b9e4f3d"
+    },
+    {
+      "path": "crates/joil-cli/src/main.rs",
+      "lines": 804,
+      "bytes": 40466,
+      "sha256": "8eac6cdb45634a982f41d5b00ee37087ce474f6f88e199b84971d1fc180d34f9"
+    },
+    {
+      "path": "crates/joil-cli/src/cli_support.rs",
+      "lines": 706,
+      "bytes": 27405,
+      "sha256": "714d1e0034f17d9e6f413e6bbeef698519d69dd2322e1f87a94cb2be40fa3583"
+    },
+    {
+      "path": "crates/joil-evidence/src/decision.rs",
+      "lines": 363,
+      "bytes": 12062,
+      "sha256": "7da7af08b43177d04733955b46fd071a5d0a2c15b75979bf1d5bc007c5c1b492"
+    },
+    {
+      "path": "crates/joil-evidence/src/decision/profile.rs",
+      "lines": 646,
+      "bytes": 24438,
+      "sha256": "5c62ed7df31b72bb3d7b5de89da3337276f1c98ed96cd2339f02c99a19810d7b"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/liner_operator.rs",
+      "lines": 738,
+      "bytes": 25620,
+      "sha256": "e9d85df87db17d9103a1c389694433e68c0e2c84b51573a6c2eeb9d5c250a670"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/liner_operator/audit.rs",
+      "lines": 436,
+      "bytes": 14716,
+      "sha256": "36704e4030f9f32c4ecd36d00dfd1331e16ca013fe7619d2d518ef7b2818b208"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/liner_operator/coupling.rs",
+      "lines": 572,
+      "bytes": 19902,
+      "sha256": "07f8909c5a371aedce0110ca6e050cac66ca09d7576b3f559c493540b1f29fd7"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/structure.rs",
+      "lines": 870,
+      "bytes": 29878,
+      "sha256": "ea1dedd1ac65c8faee225d70fedfb3699d319a84db9d26b0ac0e70385e7497ee"
+    },
+    {
+      "path": "packs/hydrocyclone/judges/src/structure/qualification.rs",
+      "lines": 546,
+      "bytes": 18883,
+      "sha256": "55226c2b8dc36d71958cf1789f9c8487496192994a91689c0e395d3e37aa7068"
+    },
+    {
+      "path": "docs/JANKURAI_FINDINGS.md",
+      "lines": 76,
+      "bytes": 10235,
+      "sha256": "d001f28da9fcfafc67b0b28eb07c40161166cc726c4181040c82abeb55fc5126"
+    }
+  ],
+  "commands": [
+    {
+      "command": "cargo fmt --all --check",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "cargo clippy --locked -p pack-hydrocyclone-judges -p joil-cli -p crucible-paper -p joil-evidence --all-targets -- -D warnings",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "5a887958fb18bd4378150bd7e0dbaec2d28a2e8fcf1fb2cb354f021070229d6f"
+    },
+    {
+      "command": "cargo test --locked -p pack-hydrocyclone-judges -p joil-cli -p crucible-paper -p joil-evidence",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "cf53b0c102bbcea4cb755a7f8055c5157ea515afd0e21f6575933ea16471d425"
+    },
+    {
+      "command": "python3 -m unittest tests/test_doc_numbers_trace.py",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "5e5e0eb616ed0d77623bc23ed40bf827ce5ece58db0cf65a8e9b08176d710eed"
+    },
+    {
+      "command": "python3 tools/claims_audit.py",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "command": "python3 tools/check_public.py",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "a3161868906524e75ebe63dc8f05d59eb883d48df458c0bd0fe9a98cd70d1a6a"
+    },
+    {
+      "command": "/home/ubuntu/.jeryu/bin/jankurai audit . --read-only --no-badge --no-score-history --mode advisory --json /tmp/joil_s5_jankurai.json --md /tmp/joil_s5_jankurai.md --repair-queue-jsonl /tmp/joil_s5_jankurai.jsonl",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "ec3ae782d2671d63c737ec453cd41918e81d261da0f4fddab721f0857c9b0d39",
+      "report_sha256": "eb3e02414b35e49e30c4e6ab5518763339c1e38ff8c1e97548c6721db4820ad0"
+    }
+  ],
+  "positive_checks": [
+    "All 11 modules across pack-hydrocyclone-judges, joil-cli, crucible-paper, and joil-evidence are < 1,000 LOC (max 870 LOC in packs/hydrocyclone/judges/src/structure.rs); 0 authored Rust src/*.rs files in the entire repository exceed 1,000 LOC (max 958 LOC in crates/joil-core/src/phenotype.rs)",
+    "All unit and integration tests pass across pack-hydrocyclone-judges (167 tests), joil-evidence (41 tests), crucible-paper (16 tests), and joil-cli (10 tests)",
+    "tests/test_doc_numbers_trace.py (16/16), tools/claims_audit.py, and tools/check_public.py pass with 0 tracked Python files modified",
+    "jankurai copy-code advisory classes reduced from 41 to 38 and largest authored code file in repository is now physics/openfoam/oil/oil_grade.py (1201 LOC, Wave P2)"
+  ],
+  "negative_checks": [
+    "0 of 114 tracked Python files modified",
+    "No scientific_admission or docs/STATUS.json gate promoted; standard jankurai audit remains exit 1 while hard blockers remain"
+  ],
+  "remaining_limitations": [
+    "Legacy Python files >1,000 LOC (tools/claims_audit.py 1,722 LOC, tools/generate_wave2_figures_and_animations.py 1,417 LOC, physics/openfoam/oil/oil_grade.py 1,201 LOC) remain protected by frozen source hashes until Waves P2-P4",
+    "Rust modules between 500 and 958 LOC remain tracked under F-01 / I025"
+  ],
+  "next_dependency": "I024-S6 (Wave P1b consumer audit & integration or >1,000 LOC test file decomposition)"
+}
