@@ -82,7 +82,64 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-09-software-acceptance-20261018.json",
+          "sha256": "635bd7a636860a335be98857d74d69ec6499159a9271a30fce6f81cd59e348bf"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "crates/joil-ir/src/lib.rs",
+          "symbol": "VoxelSdfObserver::run_voxel_flood_fill",
+          "sha256": "8926748a21966751dc40d12a7ab4227b294cb7dd05b6ec9a9b7949aca1be43ec"
+        },
+        "fixture": {
+          "path": "crates/crucible-geom/tests/observers.rs",
+          "sha256": "d044eda78e6a06d12cb76db7a600e7b3b42af93ce7cb41f28803ee5722295ffd"
+        },
+        "positive": {
+          "argv": [
+            "rtk",
+            "proxy",
+            "python3",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-05",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+          ],
+          "exit_code": 0,
+          "log_sha256": "fa2644d55b6ce2674cbd2b9279581fee54f5741ff7f9e8e91da8488c77a72994",
+          "expected_result": "Frozen open connected cavity is reachable; trapped powder is zero.",
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-pos.log"
+        },
+        "red": {
+          "argv": [
+            "rtk",
+            "proxy",
+            "python3",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-05",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-red",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+          ],
+          "exit_code": 1,
+          "log_sha256": "41ea7191bc82a68554faf968bcd435b278dc13e918a5fe318a919f93cb8a72cb",
+          "expected_result": "C006-RED D-05 reports a sealed synthetic shell missed as powder; exit 1.",
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d05-red.log"
+        },
+        "integration_source_commit": "4917c8935b8af39fa3063b9af0bd201ca9a77abd",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-06",
@@ -117,7 +174,8 @@
       "post_baseline_software_execution": {
         "receipt": {
           "path": "docs/receipts/v5-13-software-acceptance-20261018.json",
-          "sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306"
+          "sha256": "49612934a71116f0620789a5539be0d9dae0247663728a984ec3cb71d9cd3161",
+          "prior_sha256": "832b88fb64e24a743f02c1321768a5bea56754a9d40df152af41f1fcf44f0306"
         },
         "source": {
           "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
@@ -216,7 +274,57 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-00-source-controls-integrated-partial-20261018.json",
+          "sha256": "4b61064a9df52105a15c54c3238f05429a6213d64e246837092cd74e28e04dbe"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "requirements/joil-hydrocyclone-v1.toml",
+          "symbol": "sandbox thresholds",
+          "sha256": "af4e7d916f30fec836bf087590e383439247d5e4057a17a4ecf27efcb2cb69ca"
+        },
+        "fixture": {
+          "path": "tests/test_v5_baseline_source_controls.py",
+          "sha256": "13fe8b2f4492d481a78e32c22d865c635e50756df59202825947472ff7b40920"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-10",
+            "positive",
+            "--scratch",
+            "<private-scratch>/D-10-positive"
+          ],
+          "exit_code": 0,
+          "log_sha256": "6d1a105e27adae261356c53cc1d345e673e0b764119bf02ef1411785ff91b82e",
+          "expected_result": "exit 0; assertion holds on: Quality and stretch limits (v1 thresholds vs RS-v1 quality)."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-10",
+            "red",
+            "--scratch",
+            "<private-scratch>/D-10-red"
+          ],
+          "exit_code": 1,
+          "log_sha256": "a2ce232ec6f9c99b94f6d49823bfa7851fa34a8a98f913bd84cf8329895050c9",
+          "expected_result": "exit 1 with C006-RED D-10: <exact code>; counterexample: PDR: v1 sandbox_pdr_min vs RS-v1 limits.pdr_draft_range.",
+          "observed_reason": "C006-RED D-10: requirement_sources_disagree pdr v1_sandbox_pdr_min=4.5 outside rs_pdr_draft_range=[1.4, 2.5]"
+        },
+        "integration_source_commit": "dbc0854f5bd6cdf366929d48062327b87e0cffcc",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-11",
@@ -443,7 +551,72 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-01-04-d21-control-20261018.json",
+          "sha256": "0eb8020aadb6d4fd9e1ad63386166aeef7241a99bf3357095c24b2ea9e8ed620"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "crates/joil-core/src/evolve.rs",
+          "symbol": "run evolution CUDA audit",
+          "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+        },
+        "fixture": {
+          "path": "tools/v5_baseline_source_controls.py",
+          "sha256": "8d57e7ba9c3bb8cb08d868b097c03cede7e707c0c599476701ed447cac3409fd"
+        },
+        "positive": {
+          "argv": [
+            "taskset",
+            "-c",
+            "38,39",
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-17",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-pos",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+          ],
+          "exit_code": 0,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log",
+          "log_sha256": "9e1725594b686c942a7828b65cc497bad24f91a94c33e1c3d9604934e369f514",
+          "expected_result": "Frozen CUDA-disabled path; child_launched=false.",
+          "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-positive.log.exit",
+          "exit_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+        },
+        "red": {
+          "argv": [
+            "taskset",
+            "-c",
+            "38,39",
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-17",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/target/c006frozen"
+          ],
+          "exit_code": 1,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red.log",
+          "log_sha256": "12149bba6e244122a77c5500258e5c29b74aab62d4fb3f20e90252fdd7c70182",
+          "expected_result": "C006-RED D-17: gpu_child_launched_without_lease; synthetic stand-in child launched absent an explicit lease.",
+          "exit_path": "/home/ubuntu/joil/.private/v5-workers/native-runs/lane2/d17-red.log.exit",
+          "exit_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+        },
+        "integration_source_commit": "c75ec565a2c2a34243d386b72097ae3816431c42",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-18",
@@ -558,7 +731,50 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-01-04-d21-control-20261018.json",
+          "sha256": "0eb8020aadb6d4fd9e1ad63386166aeef7241a99bf3357095c24b2ea9e8ed620"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "apps/explorer/src/main.tsx",
+          "symbol": "Evidence and Proposals panels",
+          "sha256": "77d32c1c3474d06e0fe90af5f9a4ef808f5874f8d4c5c6a834b5d446a25373db"
+        },
+        "fixture": {
+          "path": "tools/v5_d21_trajectory_control.py",
+          "sha256": "5e5d9ece3b5a5700841823df2c9b5ff5b907b67dc196284172de059845e9f777"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "tools/v5_d21_trajectory_control.py",
+            "--mode",
+            "positive"
+          ],
+          "exit_code": 0,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d21-pos.log",
+          "log_sha256": "5df03eae64a675750e7356c0226a5df4dd8641a04b8fd1ba074edc7a0758f15a",
+          "expected_result": "Bound subject/time/field software fixture accepted and authored path labeled schematic; the fixture is synthetic and not a real native trajectory."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "tools/v5_d21_trajectory_control.py",
+            "--mode",
+            "red"
+          ],
+          "exit_code": 1,
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d21-red.log",
+          "log_sha256": "16f4a94c361d6abcb3ea5414bdad2584b55f5a0f74d2d0c025d257c30634f853",
+          "expected_result": "Scene without native trajectory evidence rejected coupled-transport/cross-pipeline -38.5% claim; expected exit 1."
+        },
+        "integration_source_commit": "c75ec565a2c2a34243d386b72097ae3816431c42",
+        "scientific_admission": false,
+        "disposition": "Executed software positive and red controls via tools/v5_d21_trajectory_control.py; positive fixture is synthetic software test data (real native subject/time/field-bound trajectory manifest remains open). Baseline inventory status is historical; scientific_admission is false."
+      }
     },
     {
       "id": "D-22",
@@ -573,7 +789,58 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-26-d22-completion-20261018.json",
+          "sha256": "490d30ac6d5a7d4e5c1f361afbaa87411161bac6d26cdc46ab216a73630c4c9e"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "tools/generate_wave2_figures_and_animations.py",
+          "symbol": "modal plot",
+          "sha256": "1676df59aa0d671a1d8c211cff1ecdc46a4f34f0c662df317ef6bd5d0a1e5d28"
+        },
+        "fixture": {
+          "path": "crates/crucible-render/src/lib.rs",
+          "sha256": "5738ec9164dcfca830b246848c14a12c786f1a7032c150167430352e686f1daf"
+        },
+        "positive": {
+          "argv": [
+            "rtk",
+            "proxy",
+            "python3",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-22",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-pos"
+          ],
+          "exit_code": 0,
+          "log_sha256": "5d37ba0b6153b96af89b4979b53cf91718522b5ed3f7568cc3f80e15a8e578fd",
+          "expected_result": "The synthetic evidence-bound modal family changes only its corresponding plotted bar; positive control passed."
+        },
+        "red": {
+          "argv": [
+            "rtk",
+            "proxy",
+            "python3",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-22",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d22-red"
+          ],
+          "exit_code": 1,
+          "log_sha256": "f4a90f9537e1e4c4d1b8a8e99e6a9f889f2f64666e07229e4a7cf939b6e202a8",
+          "expected_result": "C006-RED D-22 reports a modal series without evidence; exit 1."
+        },
+        "integration_source_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-23",
@@ -605,7 +872,61 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-00-source-controls-integrated-partial-20261018.json",
+          "sha256": "4b61064a9df52105a15c54c3238f05429a6213d64e246837092cd74e28e04dbe"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "crates/joil-cli/src/main.rs",
+          "symbol": "CLI output defaults",
+          "sha256": "eba322816ff0ad357f4fa60f589e1a22aac910a7bc0b3cc8eeef22e82afcb710"
+        },
+        "fixture": {
+          "path": "tests/test_v5_baseline_source_controls.py",
+          "sha256": "13fe8b2f4492d481a78e32c22d865c635e50756df59202825947472ff7b40920"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-24",
+            "positive",
+            "--scratch",
+            "<private-scratch>/D-24-positive",
+            "--frozen-rust",
+            "<worker-target>/c006frozen"
+          ],
+          "exit_code": 0,
+          "log_sha256": "29a712896c2f6c050661a62858a657400a3dd0c338fc8b174e94ed06cd11f94b",
+          "expected_result": "exit 0; assertion holds on: Frozen joil-cli verify-rotation --out <fresh private path>."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-24",
+            "red",
+            "--scratch",
+            "<private-scratch>/D-24-red",
+            "--frozen-rust",
+            "<worker-target>/c006frozen"
+          ],
+          "exit_code": 1,
+          "log_sha256": "bbe559a52f9abe16d76f9e7b72c54f5e2fb94f27a582e42c53b8891dbe1b7b50",
+          "expected_result": "exit 1 with C006-RED D-24: <exact code>; counterexample: Frozen joil-cli verify-rotation --out <existing SYNTHETIC private sentinel>.",
+          "observed_reason": "C006-RED D-24: existing_destination_overwritten exit=0 sha_before=dc5467e8ed580050e357aaad46772008ba9e5ccd55df645bdea36eebbf5c7bd7 sha_after=e572234bbd02f8c4ddaed1226fd496b078ff6d322d5ec6c0642efcb9b47bc209"
+        },
+        "integration_source_commit": "dbc0854f5bd6cdf366929d48062327b87e0cffcc",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-25",
@@ -702,7 +1023,57 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-00-source-controls-integrated-partial-20261018.json",
+          "sha256": "4b61064a9df52105a15c54c3238f05429a6213d64e246837092cd74e28e04dbe"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "docs/v5-plan/INPUTS_AND_RISKS.md",
+          "symbol": "project owner input",
+          "sha256": "f99661ec0885b4bbc9016606c6bf941e4e98f71c79a19004728720f38a381710"
+        },
+        "fixture": {
+          "path": "tests/test_v5_baseline_source_controls.py",
+          "sha256": "13fe8b2f4492d481a78e32c22d865c635e50756df59202825947472ff7b40920"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-27",
+            "positive",
+            "--scratch",
+            "<private-scratch>/D-27-positive"
+          ],
+          "exit_code": 0,
+          "log_sha256": "b80ab84a423b6f742487d1361add7740c48ce793b1fcd2d2597f98f2aa8636e2",
+          "expected_result": "exit 0; assertion holds on: Frozen check_public.violations on the frozen docs/v5-plan/INPUTS_AND_RISKS.md bytes."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "-I",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-27",
+            "red",
+            "--scratch",
+            "<private-scratch>/D-27-red"
+          ],
+          "exit_code": 1,
+          "log_sha256": "a65c705c660b8c45cb3968218e3f5728045f9e2cc18c1dd1915c27646152083b",
+          "expected_result": "exit 1 with C006-RED D-27: <exact code>; counterexample: Frozen check_public.violations on a SYNTHETIC private candidate geometry export placed on a public path.",
+          "observed_reason": "C006-RED D-27: candidate_without_disclosure_class_admitted path=docs/results/synthetic-candidate-geometry.glb violations=[]"
+        },
+        "integration_source_commit": "dbc0854f5bd6cdf366929d48062327b87e0cffcc",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-28",
@@ -718,7 +1089,50 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-00-05-d28-control-20261018.json",
+          "sha256": "20f76b3f6d5d11c1a7d854d6a766aedc6f3944ffd6fc36883126f4f29445d91d"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "docs/COORDINATION.md",
+          "symbol": "authoritative channel",
+          "sha256": "08b88ff8ea3853745fac524fa387f6dc90ed65b441e49b24f228b2d40ca72b0a"
+        },
+        "fixture": {
+          "path": "tools/v5_d28_ownership_control.py",
+          "sha256": "5a0b8ad55eba32a6609da45673ccc1f47c75806033e200fe57a9edc47b9d099b"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "tools/v5_d28_ownership_control.py",
+            "--mode",
+            "positive"
+          ],
+          "exit_code": 0,
+          "log_sha256": "37c9118986596b82bc70ae68a8bad5c49822c869adf5601aeca7428bbfb507c4",
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d28-pos.log",
+          "expected_result": "Synthetic acknowledged, actively leased, disjoint allocation accepted."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "tools/v5_d28_ownership_control.py",
+            "--mode",
+            "red"
+          ],
+          "exit_code": 1,
+          "log_sha256": "d3207f4e04e9aea8e40611d8e69256881846076c6924995cd1a474091f4ec9ab",
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane1/controls/d28-red.log",
+          "expected_result": "Synthetic proposal without target acknowledgement rejected; program exits 1."
+        },
+        "integration_source_commit": "20955633ac30eaf4eab0349628a06e35fafdc291",
+        "scientific_admission": false,
+        "disposition": "Owner-dispositioned in docs/receipts/v5-00-owner-disposition-D28-D29-20261018.json and verified by dedicated post-baseline software positive/red control harness; remains blocked inside tools/v5_baseline_source_controls.py on the literal frozen e1e9203 component."
+      }
     },
     {
       "id": "D-29",
@@ -734,7 +1148,50 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-03-05-d29-control-20261018.json",
+          "sha256": "46364579bac001742d4e8068eead2fceecf5876f637185c826320ef76d820bfd"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "crates/joil-core/src/evolve.rs",
+          "symbol": "legacy monolith",
+          "sha256": "62cb5c8c30186155d09fb816a0e42ad7da615738cfdc11cb27348a16f94778ab"
+        },
+        "fixture": {
+          "path": "tools/v5_d29_blind_judge_control.py",
+          "sha256": "115336ccd96d8686392ab7eda686b901e1dbb5e22137e7163219f3cf86c31dd8"
+        },
+        "positive": {
+          "argv": [
+            "python3",
+            "tools/v5_d29_blind_judge_control.py",
+            "--mode",
+            "positive"
+          ],
+          "exit_code": 0,
+          "log_sha256": "77b96e2d769a289afc98544701b7715efdfaca5087ddc01cdf6387a8538b78e6",
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/controls/d29-pos.log",
+          "expected_result": "Frozen source bindings verify and the actual blind-judge dependency graph has no forbidden transitive path."
+        },
+        "red": {
+          "argv": [
+            "python3",
+            "tools/v5_d29_blind_judge_control.py",
+            "--mode",
+            "red"
+          ],
+          "exit_code": 1,
+          "log_sha256": "e3515e0e7a52d8976bc5cb4bc5d0369fe3739f34da322d961b1af8cea0fb1fc8",
+          "log_path": "/home/ubuntu/joil/.private/v5-workers/codex_lane3/controls/d29-red.log",
+          "expected_result": "Synthetic indirect dependency from the blind judge to crucible-genome is rejected."
+        },
+        "integration_source_commit": "358c2bb6cdaa970be4c5cd93b4d6868266ad6a27",
+        "scientific_admission": false,
+        "disposition": "Owner-dispositioned in docs/receipts/v5-00-owner-disposition-D28-D29-20261018.json and verified by dedicated post-baseline software positive/red control harness; remains blocked inside tools/v5_baseline_source_controls.py on the literal frozen e1e9203 component."
+      }
     },
     {
       "id": "D-30",
@@ -751,7 +1208,64 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-31-d30-completion-20261018.json",
+          "sha256": "b5164cf70ca9e79e0448c4d6bfbc061d2a9e11c61f1135620b85d213e31c7724"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "crates/joil-core/src/structure.rs",
+          "symbol": "Rust GCI helpers",
+          "sha256": "06c733a8e3002baf49416a2b8e6288b795fb9730ff114fef9ca7a8677fa0e69c"
+        },
+        "fixture": {
+          "path": "tools/v5_baseline_source_controls.py",
+          "sha256": "dd6c56583a54a33905a85923d3d2df5e4dfd3d86247d08242948c680cb361c3f"
+        },
+        "positive": {
+          "argv": [
+            "rtk",
+            "proxy",
+            "python3",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-30",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d30-pos",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+          ],
+          "exit_code": 0,
+          "log_sha256": "26c9995e6ee72ae0aedf3b7d4320885f05d26525c64f175139e688f18df1e0f6",
+          "raw_log": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d30-positive.log",
+          "expected_result": "C006 frozen-source positive control: assertion_holds=true for analytic GCI and passive-tracer fixtures."
+        },
+        "red": {
+          "argv": [
+            "rtk",
+            "proxy",
+            "python3",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-30",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d30-red",
+            "--frozen-rust",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane4/target/c006frozen"
+          ],
+          "exit_code": 1,
+          "log_sha256": "3faa8472aa62be8d6f12a922e95344f76c4ccf027fe87052f393b521e4a8fe52",
+          "raw_log": "/home/ubuntu/joil/.private/v5-workers/codex_lane4/controls/d30-red.log",
+          "expected_result": "C006-RED D-30: explicit_state_disagrees; frozen Rust reports concentration overflow while Python returns inf for the SYNTHETIC overflow fixture."
+        },
+        "integration_source_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     },
     {
       "id": "D-31",
@@ -767,7 +1281,58 @@
       "behavior_probe_recorded_at_baseline": false,
       "runtime_probe": null,
       "primary_repair_closure": "Requires executed source-bound independent positive/red controls and actual receipts; this inventory alone cannot close it",
-      "physical_qualification": false
+      "physical_qualification": false,
+      "post_baseline_software_execution": {
+        "receipt": {
+          "path": "docs/receipts/v5-28-d31-completion-20261018.json",
+          "sha256": "aa24ed415f0a22b010f795f56bfc69c7905ccc2f33c9e589316ba51b11b458a7"
+        },
+        "source": {
+          "commit": "e1e9203872f07e0f7cd47f50c7a3da6b4fb5ffc0",
+          "path": "tools/claims_audit.py",
+          "symbol": "claim audit pipeline",
+          "sha256": "45b3f5fd9d8362674f1f52b46d5aeefe0e4581ecb7d371fb84ce43d653c81b6c"
+        },
+        "fixture": {
+          "path": "crates/crucible-paper/src/lib.rs",
+          "sha256": "0160aa3c115156d84f9108a07d5b705c643db3c2eea4008541ae50a496a96024"
+        },
+        "positive": {
+          "argv": [
+            "rtk",
+            "proxy",
+            "python3",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-31",
+            "positive",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-pos"
+          ],
+          "exit_code": 0,
+          "log_sha256": "d717dfeda5ddd2a81654859393378b7b2c525cfc94ee493c895f336b9e6f1138",
+          "expected_result": "Synthetic same-subject, same-unit supported claim accepted and unbound numeral refused."
+        },
+        "red": {
+          "argv": [
+            "rtk",
+            "proxy",
+            "python3",
+            "tools/v5_baseline_source_controls.py",
+            "run",
+            "D-31",
+            "red",
+            "--scratch",
+            "/home/ubuntu/joil/.private/v5-workers/codex_lane2/controls/d31-red"
+          ],
+          "exit_code": 1,
+          "log_sha256": "368a1dfcc7fe38c951b68d7708f399821f05306e4ecb0d370170137fa5c09414",
+          "expected_result": "C006-RED D-31 reports acceptance after source revocation using an unrelated matching numeral; exit 1."
+        },
+        "integration_source_commit": "c007fa576878e9cd870a2ed0dee5444733d9585d",
+        "scientific_admission": false,
+        "disposition": "Executed frozen source/runtime positive and red controls. Baseline inventory status is historical; these runs do not claim physical validation or that the frozen component was repaired."
+      }
     }
   ],
   "accepted_prior_primary_receipts": [
@@ -835,5 +1400,5 @@
       "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
     }
   ],
-  "closure_gate": "Every new source-only primary repair receipt requires tracked/hash-bound independent fixture, frozen source binding, executed positive and nonzero red-control command/log identities. Seven exact already accepted primary software row/receipt references are retained at cutover; nine remaining source-only primary tasks are open."
+  "closure_gate": "Every new source-only primary repair receipt requires tracked/hash-bound independent fixture, frozen source binding, executed positive and nonzero red-control command/log identities. Seven exact already accepted primary software row/receipt references are retained at cutover; all sixteen source-only rows record post-baseline software positive/red control executions (twelve runnable via tools/v5_baseline_source_controls.py including D-07 and D-25, and four—D-18, D-21, D-28, D-29—via dedicated software control harnesses while remaining blocked in v5_baseline_source_controls.py on the literal frozen e1e9203 component; D-21 real native trajectory manifest and D-29/HLT-001 module split remain open; scientific_admission remains false)."
 }
