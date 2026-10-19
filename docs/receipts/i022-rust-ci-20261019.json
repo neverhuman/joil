@@ -1,0 +1,78 @@
+{
+  "packet": "I022",
+  "owner": "captain_joil",
+  "events": [
+    {
+      "event": "claim",
+      "base_commit": "8b169aaef7be7c86b1986dd5de8eada979cba5fe",
+      "branch": "codex/v5-i022-py-to-rust-plan-sync",
+      "scope": [
+        "PY_TO_RUST_PLAN.md",
+        "docs/PY_TO_RUST_PLAN.md",
+        "docs/PYTHON_EXCEPTIONS.md",
+        "docs/receipts/i022-rust-ci-20261019.json"
+      ],
+      "budget": "documentation and index sync only; zero simulation or GPU usage",
+      "protected_sha256": {
+        "docs/NUMBERS_TRACE.md": "cd10ca9a31c9627819a341d879ad16d26bfc05c2dfb8ed7744a9bc1a3cedd347",
+        "tools/claims_audit.py": "c86d2b75c6f1b804b505050ddc7d77fcbd6c0e7b08453a9a49fbfa2a566c0fa3",
+        "tests/test_v5_baseline_source_controls.py": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+      }
+    },
+    {
+      "event": "targeted_verification",
+      "utc": "2026-10-19T13:36:50+00:00",
+      "source_sha256": {
+        "PY_TO_RUST_PLAN.md": "22ace7126ef34ed9568f359ccc3135ee27e7238304b666ed998e6573bc4003dd",
+        "PYTHON_EXCEPTIONS.md": "13d8b74d01c670cd05e3238a5885a69ce5f6146ac319edb1e38392bfcba7efd6",
+        "docs/PY_TO_RUST_PLAN.md": "d959785a485ce9306ea48d7bb301ae39d747541e4ced467e825cc4a83d36fca5",
+        "docs/PYTHON_EXCEPTIONS.md": "7307d189967e1faa93beaaf6a10cff920d7e4731cff909c1d1a1fb5fcdca60cf"
+      },
+      "commands": [
+        {
+          "command": "python3 tools/check_public.py",
+          "exit_code": "0",
+          "log": ".private/i022-logs/public.log",
+          "log_sha256": "f11e6ee272c871f37a8eb4d60f44887dd7b1385287928728bf3bf21b670f5cf6"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python tools/claims_audit.py",
+          "exit_code": "0",
+          "log": ".private/i022-logs/claims.log",
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python tools/v5_plan.py check",
+          "exit_code": "0",
+          "log": ".private/i022-logs/plan.log",
+          "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python tools/v5_explorer_manifest.py check",
+          "exit_code": "0",
+          "log": ".private/i022-logs/explorer.log",
+          "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python -m unittest tests/test_v5_trace_boundary.py tests/test_doc_numbers_trace.py",
+          "exit_code": "0",
+          "log": ".private/i022-logs/unittest.log",
+          "log_sha256": "9e4e994c810cb3ce0ac32394f7a485befa9deebe24932751850b86f86c49c706"
+        }
+      ],
+      "positive_checks": [
+        "Root PY_TO_RUST_PLAN.md documents additive Rust CLI ports through Wave I021 (twenty-four ported CLI binaries).",
+        "docs/PY_TO_RUST_PLAN.md and docs/PYTHON_EXCEPTIONS.md provide docs-directory indexes to root PY_TO_RUST_PLAN.md and PYTHON_EXCEPTIONS.md.",
+        "Publication guard, claims audit, V5 plan check, explorer manifest check, and eighteen trace/doc tests pass."
+      ],
+      "negative_checks": [
+        "No raw numeric JSON values introduced into docs/receipts/i022-rust-ci-20261019.json; NUMBERS_TRACE.md remains byte-identical.",
+        "Protected baseline source control fixture hash remains unchanged."
+      ],
+      "limitations": [
+        "Documentation and index synchronization only; no Python source removal or physical qualification."
+      ],
+      "next_dependency": "Exact-head GitHub Actions CI and independent PR review on PR #30."
+    }
+  ]
+}

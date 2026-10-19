@@ -314,3 +314,52 @@ hash. Independent measured timings preclude unconditional raw inventory/stdout
 byte equality. Native parser/OS diagnostics and non-ASCII JSON escaping are not
 byte-parity promises. Full Foundation remains CI work; local verification uses
 the user-authorized targeted gates, recorded in the I017 receipt.
+
+## I018 additive ports (15–16)
+
+`bench-cfd STAGE --case PATH [--metrics-bin PATH] [--time FLOAT] [--root ROOT]`
+ports `tools/bench_cfd.py` and its restricted runtime invocation (`7` stages,
+image/lease checks, output budget, native metrics identity, saved-time rename,
+measurement-plane identity and tetrahedral wall-patch conversion).
+
+`baseline-report --point CASE SNAPSHOT_DIR [--point CASE SNAPSHOT_DIR ...] --out PATH [--root ROOT]`
+ports `analysis/baseline_report.py`, reconciling saved time, flux, density/gravity,
+positive mechanical loss and all source/execution hashes before writing a new
+report exclusively. `bench_cfd_parity` and `baseline_report_parity` verify stage
+commands, exact logs, metadata and negative provenance/duty/flux controls. Exact
+evidence is recorded in `docs/receipts/i018-rust-ci-20261019.json`.
+
+## I019 additive ports (17–18)
+
+`mesh-reference-plane --case CASE --source SOURCE [--root ROOT]` and
+`mesh-extend-outlet --case CASE --source SOURCE [--length LENGTH] [--layers LAYERS] [--root ROOT]`
+port `physics/openfoam/mesh/reference_plane.py` and `physics/openfoam/mesh/extend_outlet.py`.
+`reference_plane_parity` and `extend_outlet_parity` compare mesh dictionaries,
+face sets and receipts, including coordinate/connectivity reordering, ambiguity,
+exclusive output, extension budget, original-point preservation and Docker
+failure controls, with NumPy-independent replay support in `mesh_support/mod.rs`.
+Exact evidence is recorded in `docs/receipts/i019-rust-ci-20261019.json`.
+
+## I020 additive ports (19–21)
+
+`mesh-audit --case CASE [--output-name NAME] [--root ROOT]`,
+`carrier-configure --case CASE [--model MODEL] [--end-time INT] [--reject-pressure FLOAT] [--root ROOT]`,
+and `carrier-point --case CASE --mesh-case MESH [--seed-case SEED --seed-time INT] [--allow-unqualified-mesh] [--root ROOT]`
+port `physics/openfoam/mesh/audit.py`, `physics/openfoam/carrier/configure.py`,
+and `physics/openfoam/carrier/point.py`. `mesh_audit_parity` and `carrier_parity`
+verify terminal patch geometry, bore section audits, turbulence model dictionary
+generation, content-bound operating-point setup and warm-start mesh/model/failure
+rejection controls. Exact evidence is recorded in `docs/receipts/i020-rust-ci-20261019.json`.
+
+## I021 additive ports (22–24)
+
+`mesh-prepare --case CASE --stl STL [--level LEVEL] [--root ROOT]`,
+`carrier-snapshot --case CASE --out-dir DIR [--time INT] [--root ROOT]`, and
+`propose-wall-field --out PATH [--count N] [--seed SEED] [--root ROOT]` port
+`physics/openfoam/mesh/prepare.py`, `analysis/carrier_snapshot.py`, and
+`cad/program/propose.py`. `mesh_prepare_parity`, `carrier_snapshot_parity`, and
+`propose_wall_field_parity` verify closed SI surface preparation and snappy
+dictionaries (with `trimesh`/`NumPy` and pure-Python `python3 -S` shim replay),
+kinematic/dynamic pressure and same-iteration snapshot binding, and exact
+Python integer-seeded MT19937 wall-field proposal bytes through `count=256`.
+Exact evidence is recorded in `docs/receipts/i021-rust-ci-20261019.json`.
