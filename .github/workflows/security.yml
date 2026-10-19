@@ -33,4 +33,7 @@ jobs:
       - name: Provision pinned project-local scanner
         run: bash ops/ci/security-bootstrap.sh
       - name: Secret and dependency scans
-        run: bash ops/ci/security.sh
+        run: bash tools/security-lane.sh
+
+# Optional declared checks: syft/grype SBOM and provenance; actionlint/zizmor workflow-lint.
+# See tools/security-lane.sh; no execution or attestation is claimed for these scanners.

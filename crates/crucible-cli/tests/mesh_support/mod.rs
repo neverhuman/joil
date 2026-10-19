@@ -55,16 +55,54 @@ pub fn setup() -> PathBuf {
         &root,
         "pyshim/numpy.py",
         r#"import re
+import math
+import builtins
 int64 = int
 class _Arr(list):
     def reshape(self, _r, c):
         if len(self) % c:
             raise ValueError("array size is not divisible by the column count")
-        return _Arr(self[i : i + c] for i in range(0, len(self), c))
+        return array(self[i : i + c] for i in range(0, len(self), c))
     def __getitem__(self, idx):
+        if isinstance(idx, tuple):
+            rows, cols = idx
+            values = self[rows]
+            return array(row[cols] for row in values)
         if isinstance(idx, list):
-            return [super(_Arr, self).__getitem__(i) for i in idx]
-        return super().__getitem__(idx)
+            return array(list.__getitem__(self, i) for i in idx)
+        result = list.__getitem__(self, idx)
+        return array(result) if isinstance(result, list) else result
+    def _op(self, other, fn):
+        return array(fn(a, b) for a, b in zip(self, other)) if isinstance(other, list) else array(fn(a, other) for a in self)
+    def __add__(self, other): return self._op(other, lambda a,b: a+b)
+    def __sub__(self, other): return self._op(other, lambda a,b: a-b)
+    def __mul__(self, other): return self._op(other, lambda a,b: a*b)
+    __rmul__ = __mul__
+    def __abs__(self): return array(builtins.abs(a) for a in self)
+    def min(self): return builtins.min(self)
+    def max(self): return builtins.max(self)
+    def sum(self, axis=None): return sum(self, axis)
+    def tolist(self): return list(self)
+def array(values):
+    return _Arr(array(v) if isinstance(v, (list, tuple)) else v for v in values)
+def roll(a, n, axis=0):
+    if axis != 0: raise ValueError('shim supports axis 0 only')
+    if not a: return array([])
+    n %= len(a)
+    return array(list(a[-n:]) + list(a[:-n])) if n else array(a)
+def sum(a, axis=None):
+    if axis == 0: return array(builtins.sum(row[i] for row in a) for i in range(len(a[0])))
+    return builtins.sum(a)
+def max(a): return builtins.max(a)
+def abs(a): return builtins.abs(a)
+def dot(a,b): return builtins.sum(x*y for x,y in zip(a,b))
+def cross(a,b):
+    return array([x[1]*y[2]-x[2]*y[1], x[2]*y[0]-x[0]*y[2], x[0]*y[1]-x[1]*y[0]] for x,y in zip(a,b))
+class linalg:
+    @staticmethod
+    def norm(a, axis=1):
+        if axis != 1: raise ValueError('shim supports row norms only')
+        return array(math.sqrt(builtins.sum(x*x for x in row)) for row in a)
 def fromstring(s, sep=" ", dtype=float):
     # Match the numeric-prefix behavior used by NumPy's ASCII text parser.
     if sep != " ":

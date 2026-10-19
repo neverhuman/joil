@@ -63,7 +63,8 @@ jq -e '.score >= 45' .jankurai/repo-score.json >/dev/null
 # Artifacts: target/jankurai/proofmark/proofmark-receipt.json, target/jankurai/proofmark/proof-receipt.json
 # copy-code: cargo run -p jankurai -- copy-code . --json target/jankurai/copy-code.json --md target/jankurai/copy-code.md
 # Artifacts: target/jankurai/copy-code.json, target/jankurai/copy-code.md
-# security: jankurai security run . --out target/jankurai/security/evidence.json
+# security: jankurai security run . --strict --profile ci --out target/jankurai/security/evidence.json
+# tool-adoption compatibility reference: jankurai security run . --out target/jankurai/security/evidence.json
 # Artifacts: target/jankurai/security/evidence.json
 # ci-bad-behavior: cargo test -p jankurai --test language_bad_behavior
 # Artifacts: target/jankurai/language-bad-behavior.log

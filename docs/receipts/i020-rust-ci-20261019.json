@@ -1,0 +1,581 @@
+{
+  "packet": "I020",
+  "events": [
+    {
+      "event": "claim",
+      "utc": "2026-10-19T04:08:29.879556+00:00",
+      "base_commit": "7b9793fbb340b5940bc824924708a559af141646",
+      "branch": "codex/v5-i020-jankurai-and-rust-port",
+      "scope": [
+        "crates/crucible-cli/src/bin/{mesh-audit,carrier-configure,carrier-point}.rs",
+        "crates/crucible-cli/tests/{mesh_audit_parity,carrier_parity}.rs",
+        "crates/crucible-cli/tests/mesh_support/mod.rs",
+        ".github/workflows/{security,jankurai}.yml",
+        "ops/ci/{audit,security}.sh",
+        "tools/security-lane.sh",
+        "agent/{owner-map,test-map}.json",
+        "docs/receipts/i020-rust-ci-20261019.json"
+      ],
+      "budget": "2 Cargo jobs/test threads; no simulations/GPU; 12 GiB RAM, 5 GiB new outputs",
+      "protected_sha256": {
+        "docs/NUMBERS_TRACE.md": "cd10ca9a31c9627819a341d879ad16d26bfc05c2dfb8ed7744a9bc1a3cedd347",
+        "tools/claims_audit.py": "c86d2b75c6f1b804b505050ddc7d77fcbd6c0e7b08453a9a49fbfa2a566c0fa3",
+        "tests/test_v5_baseline_source_controls.py": "840a5482567f4b3ad7f86d9618135abf63e3f8d29c899dc4a936e415b2b45174"
+      }
+    },
+    {
+      "event": "targeted_verification",
+      "utc": "2026-10-19T04:18:28.140868+00:00",
+      "commands": [
+        {
+          "command": "cargo fmt --all -- --check",
+          "exit_code": "0",
+          "seconds": "1.8994393348693848s",
+          "log": ".private/i020-logs/fmt-1792383220647068817.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo clippy -j 2 --workspace --all-targets -- -D warnings",
+          "exit_code": "101",
+          "seconds": "2.773296594619751s",
+          "log": ".private/i020-logs/clippy-1792383222546922977.log",
+          "log_sha256": "e4268be058deff912951758ce40cb425f8cb044265847838bfc7143ecc66f385",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo fmt --all -- --check",
+          "exit_code": "0",
+          "seconds": "1.7568871974945068s",
+          "log": ".private/i020-logs/fmt-1792383243987107735.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo clippy -j 2 --workspace --all-targets -- -D warnings",
+          "exit_code": "101",
+          "seconds": "2.254277467727661s",
+          "log": ".private/i020-logs/clippy-1792383245750843976.log",
+          "log_sha256": "f4669c7c110e62be33bdc5ca5b20afa1b2653d9900bc3b2707f13b3c5348b597",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo fmt --all -- --check",
+          "exit_code": "0",
+          "seconds": "1.7071218490600586s",
+          "log": ".private/i020-logs/fmt-1792383264575852901.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo clippy -j 2 --workspace --all-targets -- -D warnings",
+          "exit_code": "0",
+          "seconds": "2.1114914417266846s",
+          "log": ".private/i020-logs/clippy-1792383266283496439.log",
+          "log_sha256": "cb5b9e8a5cc4b9240db041699e75466a5cab6dc30ffa11e13ad0d74fdf571263",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo test -j 2 --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+          "exit_code": "0",
+          "seconds": "24.542662858963013s",
+          "log": ".private/i020-logs/parity-1792383268395561925.log",
+          "log_sha256": "1c89aa2ae72d95961b87667f974931c1f142114affb294a8fc80ca87a8d95b66",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "JOIL_MESH_FORCE_PYSHIM=1 cargo test -j 2 --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+          "exit_code": "0",
+          "seconds": "15.011245250701904s",
+          "log": ".private/i020-logs/forced-shim-1792383293116646402.log",
+          "log_sha256": "7a826ba951788d75eede58a13e635b80079d978d34497096bc97b158c58f39e5",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "python3 tools/v5_plan.py build",
+          "exit_code": "0",
+          "seconds": "1.0971014499664307s",
+          "log": ".private/i020-logs/plan-1792383308128534830.log",
+          "log_sha256": "fd1fa04081fbdddd51b924d6989f00d826f39f156a326242594e826d155136fd",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "python3 tools/v5_explorer_manifest.py --check",
+          "exit_code": "2",
+          "seconds": "0.13917136192321777s",
+          "log": ".private/i020-logs/explorer-1792383309227091807.log",
+          "log_sha256": "ee024468fba3fa5170f2c422d9685d80dcdf6f8bc91e4476fd85651d744f7e16",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo fmt --all -- --check",
+          "exit_code": "0",
+          "seconds": "1.7195351123809814s",
+          "log": ".private/i020-logs/fmt-1792383322007466831.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo clippy -j 2 --workspace --all-targets -- -D warnings",
+          "exit_code": "0",
+          "seconds": "1.783294916152954s",
+          "log": ".private/i020-logs/clippy-1792383323727718708.log",
+          "log_sha256": "6da1d04c27ca2f2915f5177d0e83750415e60366441acfc3924a67d52242ec80",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "jankurai audit . --json /tmp/jankurai-i020.json --md /tmp/jankurai-i020.md",
+          "exit_code": "1",
+          "seconds": "60.12866425514221s",
+          "log": ".private/i020-logs/audit-1792383269900514001.log",
+          "log_sha256": "0dce3891e42624bf9fd316d1c16ea884a66a60d64200d8e9386bca686afad58f",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "cargo test -j 2 --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+          "exit_code": "0",
+          "seconds": "20.106555461883545s",
+          "log": ".private/i020-logs/parity-1792383325511502124.log",
+          "log_sha256": "91c4e6a82e9d4088e7a96476181b0f0349ebb97864462318e62fb9e714247aca",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "JOIL_MESH_FORCE_PYSHIM=1 cargo test -j 2 --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+          "exit_code": "0",
+          "seconds": "14.299537658691406s",
+          "log": ".private/i020-logs/forced-shim-1792383345618879734.log",
+          "log_sha256": "832e4f4500258d227c096741df94d9defe0bcbe82f9817f2eaa66fc600ae93e0",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "python3 tools/v5_explorer_manifest.py check",
+          "exit_code": "0",
+          "seconds": "0.8697984218597412s",
+          "log": ".private/i020-logs/explorer-correct-1792383359919157974.log",
+          "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python tools/claims_audit.py",
+          "exit_code": "0",
+          "seconds": "41.604886054992676s",
+          "log": ".private/i020-logs/claims-1792383360789442240.log",
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "python3 tools/check_public.py",
+          "exit_code": "0",
+          "seconds": "0.5997195243835449s",
+          "log": ".private/i020-logs/public-1792383402394949759.log",
+          "log_sha256": "1eb3ba75106476d570750508425504b02a448fea71bf22b5c2cadeede2220107",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        },
+        {
+          "command": "bash -n tools/security-lane.sh ops/ci/security.sh ops/ci/audit.sh",
+          "exit_code": "0",
+          "seconds": "0.007017850875854492s",
+          "log": ".private/i020-logs/shell-1792383402998209025.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "environment": {
+            "CARGO_INCREMENTAL": "0",
+            "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+            "CARGO_BUILD_JOBS": "2",
+            "RUST_TEST_THREADS": "2",
+            "RAYON_NUM_THREADS": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1"
+          }
+        }
+      ],
+      "initial_attempts": [
+        {
+          "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only cargo check -j 2 -p crucible-cli --bin mesh-audit --bin carrier-configure --bin carrier-point",
+          "exit_code": "0",
+          "log": ".private/i020-logs/initial-check.log",
+          "log_sha256": "1774d05e74b82bced878017219a351a3a49350f20cf1636d87d4241cf51096b7"
+        },
+        {
+          "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only RUST_TEST_THREADS=2 cargo test -j 2 -p crucible-cli --test mesh_audit_parity --test carrier_parity",
+          "exit_code": "101",
+          "log": ".private/i020-logs/first-parity.log",
+          "log_sha256": "18bd036b20c8f13876bbb633d2eab87dfc1958a392503e539f5a2dfe440f0fa3",
+          "diagnosis": "Near-zero numeric accumulation differs by ULP; compare metrics at declared absolute+relative tolerance without altering acceptance thresholds."
+        },
+        {
+          "command": "CARGO_INCREMENTAL=0 CARGO_PROFILE_DEV_DEBUG=line-tables-only RUST_TEST_THREADS=2 cargo test -j 2 -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+          "exit_code": "0",
+          "log": ".private/i020-logs/parity-retry.log",
+          "log_sha256": "b70978393b2f4a92633707c4df59c5da65909fa0f8f8a6bc8be79b9693beb101"
+        }
+      ],
+      "changed_paths": [
+        "crates/crucible-cli/src/bin/carrier-configure.rs",
+        "crates/crucible-cli/src/bin/carrier-point.rs",
+        "crates/crucible-cli/src/bin/mesh-audit.rs",
+        "crates/crucible-cli/tests/carrier_parity.rs",
+        "crates/crucible-cli/tests/mesh_audit_parity.rs",
+        "docs/receipts/i020-rust-ci-20261019.json",
+        "tools/security-lane.sh",
+        ".github/workflows/jankurai.yml",
+        ".github/workflows/security.yml",
+        "agent/owner-map.json",
+        "agent/test-map.json",
+        "crates/crucible-cli/tests/mesh_support/mod.rs",
+        "ops/ci/audit.sh",
+        "ops/ci/security.sh"
+      ],
+      "source_sha256": {
+        "crates/crucible-cli/src/bin/carrier-configure.rs": "84e22d60439514385a218ba8ec94ad97c0e574654a38e174451299ace1d58ee4",
+        "crates/crucible-cli/src/bin/carrier-point.rs": "701f534746d440825d49d734fd46bcd914109c8520c505bbc1e9bc1543a668b6",
+        "crates/crucible-cli/src/bin/mesh-audit.rs": "dd838c6ad4afacb9fc917f747ffef32884550b54fef9d7f1839b06e0afd3c6a8",
+        "crates/crucible-cli/tests/carrier_parity.rs": "22dac4d1826ed4b0a0cf5fadd4e8d4122d54cf7e172063b6659067c62ea0151d",
+        "crates/crucible-cli/tests/mesh_audit_parity.rs": "f1d372b585a0840dde272573b53edf288e076b8212e6a404d6a3f53219e051c1",
+        "tools/security-lane.sh": "42d290bf1d2a6d6d16505bc262130c253c0aa72e1a5eeead93593af1d45df2ee",
+        ".github/workflows/jankurai.yml": "0679126ba2e7aabf3f1fd581151edff05b843c923f8f21f6b3f2b364fb29c87e",
+        ".github/workflows/security.yml": "5b98028960d28190ca5fe3f15240276d9f86049b016c263346ec40984d2a2a5b",
+        "agent/owner-map.json": "6aa9aeb96cb9cd230166ada538869a7f2ccb84e1799676ce57d65a0a31f93e95",
+        "agent/test-map.json": "0fb64f3718a442b93254ff72f9aa071883824d91cf772fd2c6ebcff8f55f3a1a",
+        "crates/crucible-cli/tests/mesh_support/mod.rs": "f4ad800845679b6f8b71808b109af7ec423853d8d80d9704c1131c288716391a",
+        "ops/ci/audit.sh": "4ac921663bd3bdad935fd332b4207cd9bd0a5bcbc49bdea7606bfc1f2a9dd2b7",
+        "ops/ci/security.sh": "49e745032ba3bb7d5a3d1582e7eeac61a7e5e845c8cd648228d712136aa20e3b"
+      },
+      "audit": {
+        "version": "1.7.5",
+        "score": "70",
+        "raw_score": "82",
+        "security_score": "88",
+        "findings": "10",
+        "conformance_blockers": [
+          "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/foundation.yml",
+          "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/jankurai.yml",
+          "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/security.yml",
+          "HLT-000-SCORE-DIMENSION:stack on analysis/__init__.py",
+          "HLT-008-FALSE-GREEN-RISK on crates/joil-core/tests/truth_ev12_capture.py",
+          "HLT-005-PYTHON-PRODUCT-TRUTH on python/"
+        ],
+        "caps": [
+          "python-direct-product-truth-or-db-ownership",
+          "non-optimal-product-language-found",
+          "false-green-test-risk",
+          "ci-bad-behavior",
+          "repo-rot-bad-behavior"
+        ],
+        "before": {
+          "receipt": "docs/receipts/i019-rust-ci-20261019.json",
+          "score": "70",
+          "raw_score": "80",
+          "security_score": "72",
+          "findings": "12",
+          "blockers": "7"
+        },
+        "resolved": [
+          "ci.security.strict-missing",
+          "HLT-016-SUPPLY-CHAIN-DRIFT:security"
+        ],
+        "report_sha256": {
+          "jankurai-i020.json": "62eb2a85b9fb36055db61056216666ffe8454068a5a8a870475c564b56f26801",
+          "jankurai-i020.md": "bd2c5646735f4141ef4acf1f08887aaaf5dd2124dd1f4d23c72f42e11e2ced3e"
+        },
+        "retained_archive": "project-private i020-audit; reports also emitted at requested /tmp paths",
+        "interpretation": "Static command/tool declarations are not evidence that optional scanners ran. Standard-mode audit exits 1 for six remaining conformance blockers."
+      },
+      "positive_checks": [
+        "Synthetic closed bore mesh, terminal geometry and exact inclusive quality thresholds",
+        "SSG, LRR and kOmegaSST dictionary configuration",
+        "Pilot and explicit diagnostic points; identical-mesh warm start and pressure boundary rewrite",
+        "Each input manifest checked against its own output file bytes and exact file inventory",
+        "All new parity suites exercise python3 -S; mesh audit also compares installed NumPy when present and forced fixture-local shim",
+        "Existing reference-plane and outlet-extension parity regressions"
+      ],
+      "negative_checks": [
+        "Quality limit exceeded, missing metrics, cell cap, volume, normal, terminal plane, area, missing patch, open section, point count, output overwrite/path escape",
+        "Nonfinite/nonpositive flow/pressure, invalid iterations/model/genome, bound inputs, outside project and symlink escape",
+        "Unqualified mesh without diagnostic mode, existing/outside point case, failed/cross-model/nonzero-exit/changed-mesh warm source, missing fields/time, unidentified pressure boundary"
+      ],
+      "limitations": [
+        "Additive Rust ports; Python sources and legacy consumers remain, no Python LOC reduction claimed.",
+        "Mesh numeric comparison: 1e-15 absolute plus 1e-12 relative; carrier numeric dictionary values: 2e-14 relative, with exact nonnumeric tokens. JSON key order/whitespace and floating-point bytes are not a parity guarantee; output manifests bind actual emitted bytes.",
+        "Native usage and parser/OS diagnostic text/usage exit codes may differ. Malformed nonfinite mesh coordinates and overflow/underflow turbulence fail closed earlier in Rust.",
+        "configuration_source_sha256 intentionally binds the unchanged Python oracle for compatibility; native implementation hashes are recorded in this receipt.",
+        "The NumPy shim is test-only, limited to the ASCII mesh array operations used by these oracles.",
+        "Optional syft/grype and actionlint/zizmor are declared only; no SBOM scan, workflow lint execution or signed provenance attestation is claimed.",
+        "Requested explorer --check is unsupported (exit2); supported check subcommand passes.",
+        "No solver/simulation, physical validation, or campaign admission. Full Foundation gate still running at this event."
+      ],
+      "resource_observations": {
+        "cargo_jobs": "2",
+        "rust_test_threads": "2",
+        "initial_target_du_sh": "6.8G",
+        "current_target_du_sh": "7.2G",
+        "verification_logs_du_sh": "100K",
+        "budget": "12 GiB RAM, 5 GiB new outputs, no GPU/simulation/paid operations; reuse existing target cache; memory limit is an operational budget, not claimed kernel enforcement."
+      }
+    },
+    {
+      "event": "completion_claim",
+      "utc": "2026-10-19T04:33:25.539131+00:00",
+      "scope": [
+        ".github/workflows/foundation.yml",
+        "docs/receipts/i020-rust-ci-20261019.json"
+      ],
+      "authorization": "User requests receipt numeric tagging, matching CI Cargo debug profile, six targeted gates only, commit, push and PR; no sequential full gate.",
+      "budget": "Two Cargo jobs and test threads; existing lane target; no simulation/GPU."
+    },
+    {
+      "event": "completion_verification",
+      "utc": "2026-10-19T04:36:09.671652+00:00",
+      "changed_paths": [
+        ".github/workflows/foundation.yml",
+        ".github/workflows/jankurai.yml",
+        ".github/workflows/security.yml",
+        "agent/owner-map.json",
+        "agent/test-map.json",
+        "crates/crucible-cli/src/bin/carrier-configure.rs",
+        "crates/crucible-cli/src/bin/carrier-point.rs",
+        "crates/crucible-cli/src/bin/mesh-audit.rs",
+        "crates/crucible-cli/tests/carrier_parity.rs",
+        "crates/crucible-cli/tests/mesh_audit_parity.rs",
+        "crates/crucible-cli/tests/mesh_support/mod.rs",
+        "docs/receipts/i020-rust-ci-20261019.json",
+        "ops/ci/audit.sh",
+        "ops/ci/security.sh",
+        "tools/security-lane.sh"
+      ],
+      "source_sha256": {
+        ".github/workflows/foundation.yml": "fb06136b5685878f9ffef8dab52b0c43e29771eb44c87a413aa5b56d3bc13e07",
+        ".github/workflows/jankurai.yml": "0679126ba2e7aabf3f1fd581151edff05b843c923f8f21f6b3f2b364fb29c87e",
+        ".github/workflows/security.yml": "5b98028960d28190ca5fe3f15240276d9f86049b016c263346ec40984d2a2a5b",
+        "agent/owner-map.json": "6aa9aeb96cb9cd230166ada538869a7f2ccb84e1799676ce57d65a0a31f93e95",
+        "agent/test-map.json": "0fb64f3718a442b93254ff72f9aa071883824d91cf772fd2c6ebcff8f55f3a1a",
+        "crates/crucible-cli/src/bin/carrier-configure.rs": "84e22d60439514385a218ba8ec94ad97c0e574654a38e174451299ace1d58ee4",
+        "crates/crucible-cli/src/bin/carrier-point.rs": "701f534746d440825d49d734fd46bcd914109c8520c505bbc1e9bc1543a668b6",
+        "crates/crucible-cli/src/bin/mesh-audit.rs": "dd838c6ad4afacb9fc917f747ffef32884550b54fef9d7f1839b06e0afd3c6a8",
+        "crates/crucible-cli/tests/carrier_parity.rs": "22dac4d1826ed4b0a0cf5fadd4e8d4122d54cf7e172063b6659067c62ea0151d",
+        "crates/crucible-cli/tests/mesh_audit_parity.rs": "f1d372b585a0840dde272573b53edf288e076b8212e6a404d6a3f53219e051c1",
+        "crates/crucible-cli/tests/mesh_support/mod.rs": "f4ad800845679b6f8b71808b109af7ec423853d8d80d9704c1131c288716391a",
+        "ops/ci/audit.sh": "4ac921663bd3bdad935fd332b4207cd9bd0a5bcbc49bdea7606bfc1f2a9dd2b7",
+        "ops/ci/security.sh": "49e745032ba3bb7d5a3d1582e7eeac61a7e5e845c8cd648228d712136aa20e3b",
+        "tools/security-lane.sh": "42d290bf1d2a6d6d16505bc262130c253c0aa72e1a5eeead93593af1d45df2ee"
+      },
+      "commands": [
+        {
+          "command": "cargo fmt --all -- --check",
+          "exit_code": "0",
+          "seconds": "2.131184s",
+          "log": ".private/i020-completion/gate-0.log",
+          "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": "cargo clippy -j 2 --workspace --all-targets -- -D warnings",
+          "exit_code": "0",
+          "seconds": "1.305147s",
+          "log": ".private/i020-completion/gate-1.log",
+          "log_sha256": "fc5b16bc4342f093a52115087c240e1f6fe65f972486e7cac73e26a2ac51b1c9"
+        },
+        {
+          "command": "cargo test -j 2 --package crucible-cli --test mesh_audit_parity --test carrier_parity -- --test-threads=2",
+          "exit_code": "0",
+          "seconds": "11.385601s",
+          "log": ".private/i020-completion/gate-2.log",
+          "log_sha256": "531d90227e8268e77d3b22e453c6d39f702e5f1e8c514bd59ba7ca3b1903decd"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python -m unittest tests/test_v5_trace_boundary.py tests/test_evidence.py",
+          "exit_code": "0",
+          "seconds": "73.930469s",
+          "log": ".private/i020-completion/gate-3.log",
+          "log_sha256": "6f0ea681a9a1745f70b49a56901c2ba7273e3fe9e784f2b030f713c70ce49a65"
+        },
+        {
+          "command": "/home/ubuntu/joil/.venv/bin/python tools/claims_audit.py",
+          "exit_code": "0",
+          "seconds": "47.851158s",
+          "log": ".private/i020-completion/gate-4.log",
+          "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+        },
+        {
+          "command": "python3 tools/check_public.py",
+          "exit_code": "0",
+          "seconds": "1.331193s",
+          "log": ".private/i020-completion/gate-5.log",
+          "log_sha256": "1eb3ba75106476d570750508425504b02a448fea71bf22b5c2cadeede2220107"
+        }
+      ],
+      "environment": {
+        "CARGO_INCREMENTAL": "0",
+        "CARGO_PROFILE_DEV_DEBUG": "line-tables-only",
+        "CARGO_BUILD_JOBS": "2",
+        "RUST_TEST_THREADS": "2",
+        "RAYON_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1"
+      },
+      "positive_checks": [
+        "All six user-requested targeted gates passed.",
+        "Trace and evidence unittest suite passed; 27 tests, three conditional skips.",
+        "Protected NUMBERS_TRACE, claims auditor and baseline source control hashes match the original claim.",
+        "Foundation precompile and tools/check.py use the same dev debug profile."
+      ],
+      "negative_checks": [
+        "Quality limit exceeded, missing metrics, cell cap, volume, normal, terminal plane, area, missing patch, open section, point count, output overwrite/path escape",
+        "Nonfinite/nonpositive flow/pressure, invalid iterations/model/genome, bound inputs, outside project and symlink escape",
+        "Unqualified mesh without diagnostic mode, existing/outside point case, failed/cross-model/nonzero-exit/changed-mesh warm source, missing fields/time, unidentified pressure boundary"
+      ],
+      "limitations": [
+        "No full sequential Foundation gate run for this completion; full exact-head Foundation remains CI work.",
+        "Conditional external/local evidence tests skipped as reported in the unittest log; no missing evidence promoted to PASS.",
+        "Prior standard-mode Jankurai conformance blockers remain; no new scanner execution or physical validation claimed."
+      ],
+      "next_dependency": "Exact-head Foundation, Security and Jankurai CI and independent PR review; later consumer migration and physical qualification.",
+      "receipt_encoding": "Operational numeric evidence uses strings; elapsed seconds have an s suffix, matching I019. Schema version remains a JSON integer."
+    }
+  ],
+  "schema_version": 1,
+  "kind": "additive_native_ports_and_static_security_posture_not_physical_validation",
+  "commit_binding": "The commit first adding this receipt contains the listed source hashes. Final publication checks follow receipt creation; completion commit and PR are recorded in coordination."
+}

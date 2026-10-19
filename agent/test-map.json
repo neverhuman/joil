@@ -188,6 +188,38 @@
     "contracts/": {
       "command": "bash ops/ci/audit.sh",
       "purpose": "Check declared database constraints, migration and generated-contract boundaries; executable migration or generation changes additionally require their own positive and negative proof."
+    },
+    "crates/crucible-cli/src/bin/mesh-audit.rs": {
+      "command": "cargo test --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+      "purpose": "I020 native CLI positive/negative parity and NumPy-free replay"
+    },
+    "crates/crucible-cli/src/bin/carrier-configure.rs": {
+      "command": "cargo test --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+      "purpose": "I020 native CLI positive/negative parity and NumPy-free replay"
+    },
+    "crates/crucible-cli/src/bin/carrier-point.rs": {
+      "command": "cargo test --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+      "purpose": "I020 native CLI positive/negative parity and NumPy-free replay"
+    },
+    "crates/crucible-cli/tests/mesh_audit_parity.rs": {
+      "command": "cargo test --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+      "purpose": "I020 native CLI positive/negative parity and NumPy-free replay"
+    },
+    "crates/crucible-cli/tests/carrier_parity.rs": {
+      "command": "cargo test --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+      "purpose": "I020 native CLI positive/negative parity and NumPy-free replay"
+    },
+    "crates/crucible-cli/tests/mesh_support/mod.rs": {
+      "command": "cargo test --locked -p crucible-cli --test mesh_audit_parity --test carrier_parity --test reference_plane_parity --test extend_outlet_parity",
+      "purpose": "I020 native CLI positive/negative parity and NumPy-free replay"
+    },
+    "tools/security-lane.sh": {
+      "command": "bash tools/security-lane.sh",
+      "purpose": "I020 publication and security entrypoint checks"
+    },
+    "docs/receipts/i020-rust-ci-20261019.json": {
+      "command": "python3 tools/check_public.py",
+      "purpose": "I020 publication and security entrypoint checks"
     }
   }
 }

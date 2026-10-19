@@ -47,6 +47,14 @@
     "runs/": "integrator",
     "artifacts/": "integrator",
     "db/": "integrator",
-    "contracts/": "integrator"
+    "contracts/": "integrator",
+    "crates/crucible-cli/src/bin/mesh-audit.rs": "rust-integrator",
+    "crates/crucible-cli/src/bin/carrier-configure.rs": "rust-integrator",
+    "crates/crucible-cli/src/bin/carrier-point.rs": "rust-integrator",
+    "crates/crucible-cli/tests/mesh_audit_parity.rs": "rust-integrator",
+    "crates/crucible-cli/tests/carrier_parity.rs": "rust-integrator",
+    "crates/crucible-cli/tests/mesh_support/mod.rs": "rust-integrator",
+    "tools/security-lane.sh": "integrator",
+    "docs/receipts/i020-rust-ci-20261019.json": "integrator"
   }
 }
