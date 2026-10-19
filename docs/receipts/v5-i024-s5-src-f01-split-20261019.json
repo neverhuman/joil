@@ -6,14 +6,15 @@
     "SC-DEC-185",
     "SC-DEC-186A"
   ],
-  "recorded_utc": "2026-10-19T18:56:00Z",
+  "recorded_utc": "2026-10-19T19:10:30Z",
   "author_lane": "2708475.captain_joil",
   "base_commit": "f22f7005c779296b6bbfeb3c91e7ae27ca308024",
   "finding_ids": [
     "F-01"
   ],
   "defect_ids": [
-    "D-29"
+    "D-29",
+    "D-31"
   ],
   "summary": "Split the remaining 5 >1,000 LOC Rust src/*.rs files in the workspace (packs/hydrocyclone/judges/src/liner_operator.rs 1,735 LOC, crates/joil-cli/src/main.rs 1,505 LOC, packs/hydrocyclone/judges/src/structure.rs 1,410 LOC, crates/crucible-paper/src/lib.rs 1,357 LOC, crates/joil-evidence/src/decision.rs 1,002 LOC) into 11 semantic modules all <1,000 LOC (max 870 LOC), retiring 100% of >1,000 LOC authored Rust src/*.rs files across the entire repository.",
   "modules": [
@@ -84,6 +85,12 @@
       "sha256": "55226c2b8dc36d71958cf1789f9c8487496192994a91689c0e395d3e37aa7068"
     },
     {
+      "path": "docs/v5-plan/execution/DEFECT_ACCEPTANCE_GATES.json",
+      "lines": 1413,
+      "bytes": 72919,
+      "sha256": "deef7c2daec339ae7ecde60c1e9a0697ace35d4242e41ee9eb6c45e53bcfe51b"
+    },
+    {
       "path": "docs/JANKURAI_FINDINGS.md",
       "lines": 76,
       "bytes": 10235,
@@ -133,6 +140,24 @@
       "exit_code": 0,
       "log_sha256": "ec3ae782d2671d63c737ec453cd41918e81d261da0f4fddab721f0857c9b0d39",
       "report_sha256": "eb3e02414b35e49e30c4e6ab5518763339c1e38ff8c1e97548c6721db4820ad0"
+    },
+    {
+      "command": "python3 tools/v5_plan.py check",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+    },
+    {
+      "command": "python3 -m unittest tests/test_v5_plan.py tests/test_v5_defect_closure.py",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "91ea15c8fdbf9a897e853b8371cc01123f47d3dc74930249deb3d4c35e099507"
+    },
+    {
+      "command": "cargo test --locked -p crucible-cli --test explorer_manifest_parity --test plan_parity",
+      "launcher": "/home/ubuntu/xbabe2_kicker/fleetcap/run-capped",
+      "exit_code": 0,
+      "log_sha256": "2616c23ecd809d03c4daa232ba014497cf3da2e57177f93fbd0eb6ff50ec61d4"
     }
   ],
   "positive_checks": [
