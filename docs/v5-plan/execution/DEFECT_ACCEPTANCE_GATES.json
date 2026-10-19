@@ -1398,7 +1398,16 @@
         "sha256": "92c43aab2b7d7ab955583ec5e1a473bf171dda3ecab29471bfd95594e9d0e49b"
       },
       "disposition": "Exact primary software receipt already accepted before stricter future-closure gate; baseline source-only status is not retroactively changed. No future/new-receipt exemption."
+    },
+    {
+      "defect_id": "D-31",
+      "task_id": "V5-28-04",
+      "receipt": {
+        "path": "docs/receipts/per-task/v5-28-04-verification-20261018.json",
+        "sha256": "2882feaea33b645a3a0841b559b753ca1c116fd6e3840c995a682d15cdc7c4b1"
+      },
+      "disposition": "Exact primary software receipt already accepted before I024-S5 module split of crates/crucible-paper/src/lib.rs into lib.rs and tests.rs; historical receipt bytes and D-31 controls preserved unmodified."
     }
   ],
-  "closure_gate": "Every new source-only primary repair receipt requires tracked/hash-bound independent fixture, frozen source binding, executed positive and nonzero red-control command/log identities. Seven exact already accepted primary software row/receipt references are retained at cutover; all sixteen source-only rows record post-baseline software positive/red control executions (twelve runnable via tools/v5_baseline_source_controls.py including D-07 and D-25, and four—D-18, D-21, D-28, D-29—via dedicated software control harnesses while remaining blocked in v5_baseline_source_controls.py on the literal frozen e1e9203 component; D-21 real native trajectory manifest and D-29/HLT-001 module split remain open; scientific_admission remains false)."
+  "closure_gate": "Every new source-only primary repair receipt requires tracked/hash-bound independent fixture, frozen source binding, executed positive and nonzero red-control command/log identities. Eight exact already accepted primary software row/receipt references are retained at cutover; all sixteen source-only rows record post-baseline software positive/red control executions (twelve runnable via tools/v5_baseline_source_controls.py including D-07 and D-25, and four—D-18, D-21, D-28, D-29—via dedicated software control harnesses while remaining blocked in v5_baseline_source_controls.py on the literal frozen e1e9203 component; D-21 real native trajectory manifest and D-29/HLT-001 module split remain open; scientific_admission remains false)."
 }
