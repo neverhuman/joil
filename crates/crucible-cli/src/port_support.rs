@@ -128,3 +128,40 @@ pub fn capture(command: &mut Command, timeout: Duration) -> Result<Output> {
         stderr: stderr.ok_or("missing stderr")??,
     })
 }
+
+/// A repairable command failure with stable context for people and agents.
+#[derive(Debug)]
+pub enum Error {
+    Diagnostic {
+        purpose: String,
+        reason: String,
+        common_fixes: Vec<String>,
+        docs_url: String,
+        repair_hint: String,
+    },
+}
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Diagnostic { purpose, reason, common_fixes, docs_url, repair_hint } => write!(f,
+                "purpose: {purpose}; reason: {reason}; common fixes: {}; docs_url: {docs_url}; repair_hint: {repair_hint}", common_fixes.join("; ")),
+        }
+    }
+}
+impl std::error::Error for Error {}
+#[cfg(test)]
+mod diagnostic_tests {
+    use super::Error;
+    #[test]
+    fn diagnostic_preserves_repair_context() {
+        let error = Error::Diagnostic {
+            purpose: "verify receipt".into(),
+            reason: "digest mismatch".into(),
+            common_fixes: vec!["restore original input".into()],
+            docs_url: "docs/testing.md".into(),
+            repair_hint: "rerun the parity test".into(),
+        };
+        assert_eq!(error.to_string(), "purpose: verify receipt; reason: digest mismatch; common fixes: restore original input; docs_url: docs/testing.md; repair_hint: rerun the parity test");
+        assert!(std::error::Error::source(&error).is_none());
+    }
+}

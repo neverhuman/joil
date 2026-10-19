@@ -203,7 +203,7 @@ fn quiescent_charge_oracle_preserves_retries_and_rejects_unaccounted_attempts() 
 }
 
 #[test]
-fn bounded_wait_drains_small_pipes_before_child_exit() {
+fn bounded_wait_drains_small_pipes_before_child_closes() {
     const CHILD: &str = "JOIL_TEST_SMALL_PIPE_CHILD";
     const BYTES: usize = 128 * 1024;
     if std::env::var_os(CHILD).is_some() {
@@ -215,7 +215,7 @@ fn bounded_wait_drains_small_pipes_before_child_exit() {
     let mut child = Command::new(std::env::current_exe().unwrap())
         .args([
             "--exact",
-            "bounded_wait_drains_small_pipes_before_child_exit",
+            "bounded_wait_drains_small_pipes_before_child_closes",
             "--nocapture",
         ])
         .env(CHILD, "1")

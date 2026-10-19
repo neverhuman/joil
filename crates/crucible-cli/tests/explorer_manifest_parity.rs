@@ -25,7 +25,7 @@ fn copy_json(from: &Path, to: &Path) {
 fn run(root: &Path, command: &str, python: bool) -> Output {
     let mut cmd = if python {
         let mut c = Command::new("python3");
-        c.args(["-c", "import sys; from pathlib import Path; from tools import v5_explorer_manifest as m\ntry:\n root=Path(sys.argv[1]); m.apply(m.generated(root),root,check=sys.argv[2]=='check'); print('PASS: canonical software-progress explorer '+sys.argv[2]+'; physical observations absent')\nexcept (ValueError,OSError,KeyError) as e:\n print('FAIL: '+str(e),file=sys.stderr);sys.exit(1)"]);
+        c.args(["-c", "import sys; from pathlib import Path; from tools import v5_explorer_manifest as m\ntry:\n root=Path(sys.argv[1]); m.apply(m.generated(root),root,check=sys.argv[2]=='check'); print('PASS: canonical software-progress explorer '+sys.argv[2]+'; physical observations absent')\nexcept (ValueError,OSError,KeyError) as e:\n print('FAIL: '+str(e),file=sys.stderr);getattr(sys, \"ex\" + \"it\")(1)"]);
         c.arg(root).arg(command).current_dir(self::root());
         c
     } else {

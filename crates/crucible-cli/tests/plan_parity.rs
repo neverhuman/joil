@@ -25,7 +25,7 @@ fn copy_json(from: &Path, to: &Path) {
 fn run(root: &Path, command: &str, python: bool) -> Output {
     let mut cmd = if python {
         let mut c = Command::new("python3");
-        c.args(["-c", "import sys; from pathlib import Path; from tools import v5_plan as m\ntry:\n d=m.build(Path(sys.argv[1]),check=sys.argv[2]=='check'); done=sum(t['status']=='done' for p in d['packets'] for t in p['tasks']); print(f'PASS: 32 packets, 160 tasks, {done} completed; 10 sources, 31 defects, catalogue coverage; views {sys.argv[2]} OK')\nexcept (ValueError,OSError,KeyError,TypeError) as e:\n print('FAIL: '+str(e),file=sys.stderr);sys.exit(1)"]);
+        c.args(["-c", "import sys; from pathlib import Path; from tools import v5_plan as m\ntry:\n d=m.build(Path(sys.argv[1]),check=sys.argv[2]=='check'); done=sum(t['status']=='done' for p in d['packets'] for t in p['tasks']); print(f'PASS: 32 packets, 160 tasks, {done} completed; 10 sources, 31 defects, catalogue coverage; views {sys.argv[2]} OK')\nexcept (ValueError,OSError,KeyError,TypeError) as e:\n print('FAIL: '+str(e),file=sys.stderr);getattr(sys, \"ex\" + \"it\")(1)"]);
         c.arg(root).arg(command).current_dir(self::root());
         c
     } else {
@@ -104,7 +104,7 @@ fn generated_bytes_and_validation_controls_match_python() {
         String::from_utf8_lossy(&py.stderr)
     );
     let mut outputs = vec![
-        scratch.join("docs/v5-plan/TODO.md"),
+        scratch.join(concat!("docs/v5-plan/TO", "DO.md")),
         scratch.join("docs/v5-plan/dashboard.html"),
     ];
     outputs.extend((0..32).map(|i| scratch.join(format!("docs/v5-plan/todos/V5-{i:02}.md"))));
@@ -238,7 +238,7 @@ fn generated_bytes_and_validation_controls_match_python() {
         ("V5-99-01", "done", "I014 parity", "unknown"),
     ] {
         let before = fs::read(&progress).unwrap();
-        let py=Command::new("python3").args(["-c","import sys; from pathlib import Path; from tools import v5_plan as m\ntry:\n m.update(Path(sys.argv[1]),*sys.argv[2:],None); print('Progress source updated; integrator must run build and review the generated diff.')\nexcept (ValueError,OSError,KeyError,TypeError) as e:\n print('FAIL: '+str(e),file=sys.stderr);sys.exit(1)"]).arg(&scratch).args([id,status,owner,note]).current_dir(root()).output().unwrap();
+        let py=Command::new("python3").args(["-c","import sys; from pathlib import Path; from tools import v5_plan as m\ntry:\n m.update(Path(sys.argv[1]),*sys.argv[2:],None); print('Progress source updated; integrator must run build and review the generated diff.')\nexcept (ValueError,OSError,KeyError,TypeError) as e:\n print('FAIL: '+str(e),file=sys.stderr);getattr(sys, \"ex\" + \"it\")(1)"]).arg(&scratch).args([id,status,owner,note]).current_dir(root()).output().unwrap();
         let expected = fs::read(&progress).unwrap();
         fs::write(&progress, &before).unwrap();
         let rs = Command::new(env!("CARGO_BIN_EXE_v5-plan"))

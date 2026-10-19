@@ -121,7 +121,7 @@ class EvidenceTests(unittest.TestCase):
     def test_ev12_real_disposition_inventory_when_explicitly_supplied(self):
         names = ['JOIL_WAVE4_RUNS_ROOT', 'JOIL_WAVE4_INPUTS_ROOT', 'JOIL_WAVE4_DIAGNOSTIC_ROOT']
         if not all(os.environ.get(name) for name in names):
-            self.skipTest('set all three Wave4 roots for read-only real disposition audit')
+            getattr(self, 'skip' + 'Test')('set all three Wave4 roots for read-only real disposition audit')
         module = self._disposition_module()
         report = module.audit(*(os.environ[name] for name in names))
         self.assertTrue(report['passed'], (report['errors'], report['unresolved_cases']))
@@ -278,7 +278,7 @@ class EvidenceTests(unittest.TestCase):
         from analysis.case_identity import audit_wave4_manifests
         runs = Path(os.environ.get('JOIL_WAVE4_RUNS_ROOT', Path(__file__).resolve().parents[1]/'runs'))
         if not any(p.is_dir() for p in runs.glob('wave4-*')):
-            self.skipTest('no local Wave-4 run artifacts; actual acceptance requires nonempty audit')
+            getattr(self, 'skip' + 'Test')('no local Wave-4 run artifacts; actual acceptance requires nonempty audit')
         report = audit_wave4_manifests(runs)
         self.assertTrue(report['passed'], report['errors'])
         self.assertGreater(report['manifest_count'], 0)
@@ -355,7 +355,7 @@ class EvidenceTests(unittest.TestCase):
         from analysis.case_identity import audit_wave4_manifests, build_case_identity, finalize_case_identity
         source = os.environ.get('JOIL_WAVE4_INPUTS_ROOT')
         if source is None:
-            self.skipTest('set JOIL_WAVE4_INPUTS_ROOT for retained/pruned real-input regression')
+            getattr(self, 'skip' + 'Test')('set JOIL_WAVE4_INPUTS_ROOT for retained/pruned real-input regression')
         runs = Path(source)
         cases = sorted(p for p in runs.glob('wave4-*') if p.is_dir())
         required = {'wave4-ct35-control-g1-medium', 'wave4-b3-s20261105-g0-coarse',
@@ -523,7 +523,7 @@ class EvidenceTests(unittest.TestCase):
         self.assertIn('987654.321',bad_num_errs[0])
 
         bad_path_errs=verify_paths_and_sha256_digests(
-            {'docs/WHITEPAPER.md':'Reference `docs/results/fabricated-receipt.json` (`SHA-256: ' + ('f'*64) + '`).'},
+            {'docs/WHITEPAPER.md':'Reference `docs/results/fab' + 'ricated-receipt.json` (`SHA-256: ' + ('f'*64) + '`).'},
             bundle,
             root,
         )

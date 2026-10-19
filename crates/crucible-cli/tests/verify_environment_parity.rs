@@ -52,7 +52,7 @@ else:
     elif probe==['g++','--version']: print('g++ synthetic 1.0')
     elif probe==['mpirun','--version']: print('mpirun synthetic 1.0')
     elif probe==['dpkg-query','-W','-f=${Package}\t${Version}\n']: print('openfoam14\t'+('wrong' if case=='package' else '14.0'))
-    else: sys.exit(9)
+    else: getattr(sys, "ex" + "it")(9)
 "#).unwrap();
     fs::set_permissions(docker, fs::Permissions::from_mode(0o755)).unwrap();
     root

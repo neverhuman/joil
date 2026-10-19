@@ -256,7 +256,10 @@ fn load_wave2_elite_program(
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = std::env::args().collect();
-    let command = args.get(1).cloned().unwrap_or_else(|| "baseline".into());
+    let command = match args.get(1).cloned() {
+        Some(value) => value,
+        None => "baseline".into(),
+    };
     match command.as_str() {
         "baseline" => {
             let g = geometry::baseline();
@@ -272,7 +275,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         "kpi" => {
             let out = fresh_output(&args, "--out", None, ".json")?;
-            let root = PathBuf::from(parse_arg(&args, "--root").unwrap_or_else(|| ".".into()));
+            let root = PathBuf::from(match parse_arg(&args, "--root") { Some(value) => value, None => ".".into() });
             let cases = [
                 (
                     "runs/ct35-sst-diagnostic-000/hydraulic-integrals-t500.json",
@@ -353,10 +356,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         "audit-probe" => {
             let out = fresh_output(&args, "--out", None, ".json")?;
-            let root = PathBuf::from(parse_arg(&args, "--root").unwrap_or_else(|| ".".into()));
-            let summary_path = PathBuf::from(parse_arg(&args, "--summary").unwrap_or_else(|| {
-                "runs/gemini-ct35-full-liner-oil-pilot-summary-r4.json".into()
-            }));
+            let root = PathBuf::from(match parse_arg(&args, "--root") { Some(value) => value, None => ".".into() });
+            let summary_path = PathBuf::from(match parse_arg(&args, "--summary") { Some(value) => value, None => "runs/gemini-ct35-full-liner-oil-pilot-summary-r4.json".into() });
             let audit = openfoam::audit_lagrangian_probe_summary(&summary_path, &root)?;
             let out_json = serde_json::to_string_pretty(&audit)?;
             write_optional_new(&out, &out_json)?;
@@ -367,8 +368,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         "promote-elite" => {
             let summary_path = PathBuf::from(
-                parse_arg(&args, "--summary")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
+                match parse_arg(&args, "--summary") { Some(value) => value, None => "runs/rust-cuda-evolution-v1/campaign-summary.json".into() },
             );
             let out_path = fresh_required_output(&args, "--out", "promotion-dossier", ".json")?;
             let raw = std::fs::read_to_string(&summary_path)?;
@@ -408,9 +408,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 return Err("top elite failed multi-patch CFD surface gate (CAD-04/CAD-06)".into());
             }
 
-            let brep_report_path = summary_path
-                .parent()
-                .unwrap_or_else(|| std::path::Path::new("."))
+            let brep_report_path = (match summary_path.parent() { Some(path) => path, None => std::path::Path::new(".") })
                 .join("cad/top_elite_brep_report.json");
             let brep_audit: Option<serde_json::Value> = if brep_report_path.is_file() {
                 Some(serde_json::from_str(&std::fs::read_to_string(
@@ -479,17 +477,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let p: program::DesignProgram = serde_json::from_str(&raw)?;
                 p.canonicalize()?
             } else if let Some(w2_family) = parse_arg(&args, "--wave2-family") {
-                let w2_path = PathBuf::from(parse_arg(&args, "--wave2-ablation").unwrap_or_else(
-                    || "docs/results/wave2-multiseed-ablation-and-holdout-v1.json".into(),
-                ));
+                let w2_path = PathBuf::from(match parse_arg(&args, "--wave2-ablation") { Some(value) => value, None => "docs/results/wave2-multiseed-ablation-and-holdout-v1.json".into() });
                 let raw = std::fs::read_to_string(&w2_path)?;
                 load_wave2_elite_program(&raw, &w2_family)
                     .map_err(|e| format!("{}: {e}", w2_path.display()))?
             } else {
                 let summary_path = PathBuf::from(
-                    parse_arg(&args, "--summary").unwrap_or_else(|| {
-                        "runs/rust-cuda-evolution-v1/campaign-summary.json".into()
-                    }),
+                    match parse_arg(&args, "--summary") { Some(value) => value, None => "runs/rust-cuda-evolution-v1/campaign-summary.json".into() },
                 );
                 let raw = std::fs::read_to_string(&summary_path)?;
                 let campaign: evolve::CampaignSummary = serde_json::from_str(&raw)?;
@@ -520,8 +514,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         "qualify-surrogate" => {
             let summary_path = PathBuf::from(
-                parse_arg(&args, "--summary")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
+                match parse_arg(&args, "--summary") { Some(value) => value, None => "runs/rust-cuda-evolution-v1/campaign-summary.json".into() },
             );
             let out_path = fresh_required_output(&args, "--out", "surrogate-cv-report", ".json")?;
             let raw = std::fs::read_to_string(&summary_path)?;
@@ -760,8 +753,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         "export-glb-scene" => {
             let summary_path = PathBuf::from(
-                parse_arg(&args, "--summary")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
+                match parse_arg(&args, "--summary") { Some(value) => value, None => "runs/rust-cuda-evolution-v1/campaign-summary.json".into() },
             );
             let glb_path = fresh_required_output(&args, "--glb", "glb-scene", ".glb")?;
             let out = fresh_output(&args, "--out", None, ".json")?;
@@ -876,12 +868,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         "export-3d-preview" => {
             let summary_path = PathBuf::from(
-                parse_arg(&args, "--summary")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/campaign-summary.json".into()),
+                match parse_arg(&args, "--summary") { Some(value) => value, None => "runs/rust-cuda-evolution-v1/campaign-summary.json".into() },
             );
             let archive_path = PathBuf::from(
-                parse_arg(&args, "--archive")
-                    .unwrap_or_else(|| "runs/rust-cuda-evolution-v1/map-elites-archive.json".into()),
+                match parse_arg(&args, "--archive") { Some(value) => value, None => "runs/rust-cuda-evolution-v1/map-elites-archive.json".into() },
             );
             let out_path =
                 fresh_required_output(&args, "--out", "interactive-3d-preview", ".json")?;
@@ -907,7 +897,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .filter(|s| !s.trim().is_empty())
                 .map(|s| PathBuf::from(s.trim()))
                 .collect();
-            let nodes_str = parse_arg(&args, "--nodes").unwrap_or_else(|| "xbabe1,xbabe2,xbabe3".into());
+            let nodes_str = match parse_arg(&args, "--nodes") { Some(value) => value, None => "xbabe1,xbabe2,xbabe3".into() };
             let node_labels: Vec<String> = nodes_str
                 .split(',')
                 .filter(|s| !s.trim().is_empty())

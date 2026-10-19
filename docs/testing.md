@@ -69,3 +69,33 @@ a 600-second command timeout; a timeout is failed evidence requiring diagnosis.
 Any paid service or expansion requires a new explicit user allocation. The
 integrator reviews actual usage, failures and outstanding resource limits in the
 packet receipt before approving further work.
+
+## Agent-Friendly Diagnostic & Repair Evidence Contract
+
+Structured CLI errors carry `purpose` (the attempted operation), `reason` (the
+observed failure), `common fixes` (bounded repair options), `docs_url` (the
+relevant contract), and `repair_hint` (the next concrete action). The native
+`port_support::Error::Diagnostic` type preserves these fields in its display.
+It is an additive diagnostic contract; existing errors retain their messages.
+Record a phase completion receipt with the input revision, exact rerun command,
+exit status, source and log hashes, positive and negative controls, and remaining
+limitations. A repair requires both the original failure and the successful
+rerun command evidence; a formatted error alone proves no repair.
+
+## Release Readiness, Rollback, and Cost/Budget Controls
+
+The launch gate is the bounded synthetic smoke test under an acknowledged lease.
+The release gate requires `just required`, `just security`, advisory `just score`
+review, publication review and CI on the exact commit, followed by integrator
+release authorization. A PR does not authorize a release or physical campaign.
+Keep a backup of source/artifact identities and failed evidence; verify restore
+against its hashes. Use a reviewed revert for rollback and rerun the same gates.
+Monitoring covers command exits, elapsed time, memory pressure and output growth.
+The rate limit is two Cargo jobs and two test threads within the current lease;
+abuse or unexpected expansion is a stop condition, never a reason to raise caps.
+The budget and spend cap are zero paid operations, quota is 12 GiB RAM and 5 GiB
+new output, and the token limit for paid model/API calls is zero. No such calls
+are part of these gates. The kill switch is an operator stop of owned jobs only;
+retain evidence and respect other workers. Missing evidence, exceeded quota,
+expired lease or conflicting ownership is a stop condition. See release.md for
+release ownership, restore verification and rollback handoff.

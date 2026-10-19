@@ -43,3 +43,23 @@ rollback procedure above; verify the restored artifact with the same smoke and
 required checks. The integrator records the incident, repair PR and verification
 receipt before resuming. Historical scientific results never inherit release
 qualification from a software rollback or a passing smoke test.
+
+## Release Readiness, Rollback, and Cost/Budget Controls
+
+The launch gate is a successful isolated synthetic smoke with source/artifact
+hashes and an acknowledged resource lease. The release gate is the complete
+required/security gate, reviewed advisory audit, exact-commit CI and explicit
+integrator release approval. Before rollout, retain a backup of the accepted
+source, locks, artifacts and receipt hashes. Test restore by verifying those
+hashes and the smoke command. Rollback uses a reviewed revert and repeats the
+release gates while preserving failed evidence and historical qualifications.
+
+Monitoring records exit status, wall time, memory pressure and output growth.
+Enforce a rate limit of two Cargo jobs and two test threads in this lane; treat
+abuse or unexpected workload expansion as a stop condition. The budget and spend
+cap are zero paid operations; quota is 12 GiB RAM and 5 GiB new outputs, with no
+GPU. The token limit for paid API/model calls is zero. These checks require no
+paid calls. The kill switch stops owned jobs under operator authority; it must
+not affect other projects or workers. Any missing receipt, failed gate, digest
+change, expired lease or quota breach is a stop condition. The integrator records
+the rollback target, restore evidence, incident and repair receipt before resume.

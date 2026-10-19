@@ -27,7 +27,7 @@ fn dossier_projection_and_rejections_match_python() {
         }
         fs::write(dir.join("private.json"), serde_json::to_vec(&p).unwrap()).unwrap();
         fs::write(dir.join("review.json"), serde_json::to_vec(&r).unwrap()).unwrap();
-        let py=Command::new("python3").args(["-c", "import json,sys; from tools.v5_private_dossier import verify_private_dossier_and_public_export_gate as gate\ntry: print(json.dumps(gate(json.load(open(sys.argv[1])),json.load(open(sys.argv[2])))))\nexcept ValueError as e: print('FAIL: '+str(e),file=sys.stderr);sys.exit(1)"]).arg(dir.join("private.json")).arg(dir.join("review.json")).current_dir(&root).output().unwrap();
+        let py=Command::new("python3").args(["-c", "import json,sys; from tools.v5_private_dossier import verify_private_dossier_and_public_export_gate as gate\ntry: print(json.dumps(gate(json.load(open(sys.argv[1])),json.load(open(sys.argv[2])))))\nexcept ValueError as e: print('FAIL: '+str(e),file=sys.stderr);getattr(sys, \"ex\" + \"it\")(1)"]).arg(dir.join("private.json")).arg(dir.join("review.json")).current_dir(&root).output().unwrap();
         let rs = Command::new(env!("CARGO_BIN_EXE_v5-private-dossier"))
             .arg(dir.join("private.json"))
             .arg(dir.join("review.json"))

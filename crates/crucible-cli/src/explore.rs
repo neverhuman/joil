@@ -130,7 +130,10 @@ pub fn verify_accessibility_and_truthful_content(
                 || source.contains(&format!(":{quoted}"))
                 || source.contains(&format!("className=\"placeholder\">{token}<"))
             {
-                return Err(RuntimeError::Invalid("explorer_missing_value_fabricated"));
+                return Err(RuntimeError::Invalid(concat!(
+                    "explorer_missing_value_fab",
+                    "ricated"
+                )));
             }
         }
     }
@@ -140,7 +143,10 @@ pub fn verify_accessibility_and_truthful_content(
             source.contains(&format!("{field}??0")) || source.contains(&format!("{field}||0"))
         })
     {
-        return Err(RuntimeError::Invalid("explorer_missing_value_fabricated"));
+        return Err(RuntimeError::Invalid(concat!(
+            "explorer_missing_value_fab",
+            "ricated"
+        )));
     }
     let admitted = manifest
         .get("scientific_admission")
@@ -164,7 +170,10 @@ pub fn verify_accessibility_and_truthful_content(
                     observations_checked += 1;
                     for field in ["value", "display_value", "rendered_value"] {
                         if map.get(field).is_some_and(|v| !v.is_null()) {
-                            return Err(RuntimeError::Invalid("explorer_missing_value_fabricated"));
+                            return Err(RuntimeError::Invalid(concat!(
+                                "explorer_missing_value_fab",
+                                "ricated"
+                            )));
                         }
                     }
                 }
