@@ -1,0 +1,769 @@
+{
+  "schema_version": 1,
+  "packet": "I017",
+  "kind": "targeted_software_verification_not_physical_validation",
+  "created_utc": "2026-10-19T00:25:22.660255+00:00",
+  "input_head": "888f65e511c08a2b75df9f464f853c1eb4f348ef",
+  "base_head": "ca0526e36e24e8c52a2dd1d744c6c043d1ef3bae",
+  "source_binding": "Final fmt/clippy/parity cover committed implementation. Runtime-final covers unchanged runtime source before the private units eval-to-evaluate_expr identifier rename; final units tests, clippy and CLI parity cover that rename. Security dependency audit has unchanged manifests/lockfiles; final publication guard covers final source. Informational audit summary was appended after scanning. Historical attempts are not treated as proof of final bytes.",
+  "changed_paths": [
+    "PY_TO_RUST_PLAN.md",
+    "analysis/kpi_fitness.py",
+    "analysis/validation/v5/protocol.py",
+    "cad/program/build_proposals.py",
+    "crates/crucible-cli/src/bin/v5-d21-trajectory-control.rs",
+    "crates/crucible-cli/src/bin/v5-fixture-smoke.rs",
+    "crates/crucible-cli/src/bin/verify-environment.rs",
+    "crates/crucible-cli/src/port_support.rs",
+    "crates/crucible-cli/tests/d21_trajectory_parity.rs",
+    "crates/crucible-cli/tests/fixture_smoke_parity.rs",
+    "crates/crucible-cli/tests/verify_environment_parity.rs",
+    "crates/crucible-contract/src/subject.rs",
+    "crates/crucible-geom/src/export.rs",
+    "crates/crucible-gpu/src/lib.rs",
+    "crates/crucible-runtime/src/checkpoint.rs",
+    "crates/crucible-runtime/src/lease.rs",
+    "crates/crucible-runtime/src/task.rs",
+    "crates/crucible-search/src/archive.rs",
+    "crates/crucible-stats/src/analysis/order.rs",
+    "crates/crucible-store/src/manifest.rs",
+    "crates/crucible-units/src/lib.rs",
+    "crates/joil-evidence/receipts/ev13_figure_trace.py",
+    "crates/joil-evidence/src/decision.rs",
+    "docs/JANKURAI_REMEDIATIONS.md",
+    "docs/receipts/i017-claim-20261019.json",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "tools/v5_plan.py",
+    "docs/receipts/i017-rust-ci-20261019.json"
+  ],
+  "source_sha256": {
+    "PY_TO_RUST_PLAN.md": "04fe0c0313210abfdd6f2a8e2ce75b849fd87ea643181832bf7f2e904a96978c",
+    "analysis/kpi_fitness.py": "ecf8020e4483396aec074184536d2dc8bd67b7d1a872eb6d8d3ca1e2977eeba1",
+    "analysis/validation/v5/protocol.py": "f7ec82559a0c8db253d74a615fadba47de13bc3246b687cffef062254d336076",
+    "cad/program/build_proposals.py": "a1f42f488d1a808afdbb55cfbcfe036072bc6936cf9c4f9cafeb5c4ab3dbedd4",
+    "crates/crucible-cli/src/bin/v5-d21-trajectory-control.rs": "04f57aa3d05b0df7405ea350878adcf753f9205aaa1e1f715ff8c9be426b9157",
+    "crates/crucible-cli/src/bin/v5-fixture-smoke.rs": "502b6364bcfeeebf2ae999b769f0d85271b73ac8508f5212d2c3c27f3b77714c",
+    "crates/crucible-cli/src/bin/verify-environment.rs": "99af48e48db28e73be80110b1d7d4c12010f084d167b31cd778381f5c32d18b7",
+    "crates/crucible-cli/src/port_support.rs": "1c748e2474ee669930856425121bbc6ed3eee7940bd04b4405bbbc86d9ffaa00",
+    "crates/crucible-cli/tests/d21_trajectory_parity.rs": "b5e1388e434dee7cdbe477935419e7883c71aadde3c4bc170ef2081d403699a8",
+    "crates/crucible-cli/tests/fixture_smoke_parity.rs": "922f268b05d16547548f29a4b8de3585fad00536062273fe50ff51c549d3a5d0",
+    "crates/crucible-cli/tests/verify_environment_parity.rs": "3fda33f9a2aa6c08f632a67f9aa65668761d796fdd059e17b3e68bfe39557983",
+    "crates/crucible-contract/src/subject.rs": "7fb511dfcc29c5be7e99a3215ede1d1f79757d3b86bb7b5a7f000351ac1cb060",
+    "crates/crucible-geom/src/export.rs": "194b8a3af373ce2f69c58d39b96db0826a0c95d4caacefa619161ce03684e02f",
+    "crates/crucible-gpu/src/lib.rs": "ab6584e6f6cfbc4732235a8c2e785967abe94bd1a09d54f60a58d87eff178bf6",
+    "crates/crucible-runtime/src/checkpoint.rs": "c3163390e2387f561bfdd0603bebbb3862438cf9daf71938c058119c5edfbe51",
+    "crates/crucible-runtime/src/lease.rs": "1dd9962610d5c263da8e97cdd69696ce1f7eff5afa4f18fa495b2dc296789aa9",
+    "crates/crucible-runtime/src/task.rs": "fac0a3464d02f3c6175d5fd815f04ae82f4c7280e6d6f06a8079bcbe57fa198c",
+    "crates/crucible-search/src/archive.rs": "9f19166e19320c01b9d0de1ff838497b2e30163f32544fb50c3b1041c3f1dcdc",
+    "crates/crucible-stats/src/analysis/order.rs": "c22c082f35b28d11faa07170e2031b450e08af97487c3323373efc710e2e6b0e",
+    "crates/crucible-store/src/manifest.rs": "e94f9e68b6a15bfe22f2d8e117483a8c1522b153d559519fae8159e8f63f8624",
+    "crates/crucible-units/src/lib.rs": "5992fdb849725716c421745541eaaabf2491c3a4e1e9b58119347c614e62630d",
+    "crates/joil-evidence/receipts/ev13_figure_trace.py": "383a873c094d76f6b9b507ace20eb4eb3f071179aade4a3224285817c3ffa237",
+    "crates/joil-evidence/src/decision.rs": "a4d0c91bce039f6c7fd4b0e5da932dd46453dca60c0718c3a449c61cfc3aa65b",
+    "docs/JANKURAI_REMEDIATIONS.md": "6e99ec6aa5a497d3433fa4e68be3afe94eb199182cbce4d2cbc355c0006922e6",
+    "docs/receipts/i017-claim-20261019.json": "4b8f18b0bf9d34ba8ce5f963811ce6c0aba175f9f597cff75f60464c8ffd6281",
+    "packs/hydrocyclone/judges/src/lib.rs": "b5b49195bae0b22bdc869f56299fbc11113850a92384cd02190b065c2250d1a4",
+    "tools/v5_plan.py": "eecda27b90561a2917ab2af7666dd8707c9ba9151382c2e11fa90dd0ab7deba6"
+  },
+  "commands": [
+    {
+      "name": "fmt-handoff",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.04864050692413,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "clippy-handoff",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 2.411542318062857,
+      "log_sha256": "c16dd9ca4e9abf1e1d1c1bfc4ebf4552996d220d073ca50da5a9901b6a30014e"
+    },
+    {
+      "name": "parity-handoff",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "verify_environment_parity",
+        "--test",
+        "fixture_smoke_parity",
+        "--test",
+        "d21_trajectory_parity"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 14.35451167402789,
+      "log_sha256": "6beb5028f7374ab8f9af81f483f8ad2b716cc1430518bbd559c04aa4dfb4abd9"
+    },
+    {
+      "name": "runtime-final",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-runtime"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 33.500947974971496,
+      "log_sha256": "7ce2861f8a6b13fd37994dcacaf70723e7eddc0b51c152b1fdc9d3c7898a566c"
+    },
+    {
+      "name": "units-release",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-units"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.1288372100098059,
+      "log_sha256": "1562f31edb0c368406d1f410483f092f53763197501d517334cae483734de081"
+    },
+    {
+      "name": "public-final",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.429097663029097,
+      "log_sha256": "e4b81f466c902f1e5730206f22e67bf11f8c0558fdb1b9111d32e6cc6d770e5e"
+    },
+    {
+      "name": "plan",
+      "argv": [
+        "python3",
+        "tools/v5_plan.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.4635089689400047,
+      "log_sha256": "c26dcc3467fb3083d62d89e9b54d0f78d676327dc10ec31b211052d022c04132"
+    },
+    {
+      "name": "manifest",
+      "argv": [
+        "python3",
+        "tools/v5_explorer_manifest.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.43933339591603726,
+      "log_sha256": "b9840a47c035e8c2616482d022727563a7d2992bc4b236375e3b882b8fec4e9b"
+    },
+    {
+      "name": "claims",
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 20.65843796893023,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "name": "security",
+      "argv": [
+        "just",
+        "security"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 22.00060642103199,
+      "log_sha256": "5eda95b666d8770e619aeb30e6be29dcee04f798dfcc755367c619c3f2643bca"
+    },
+    {
+      "name": "score-handoff",
+      "argv": [
+        "just",
+        "score"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 42.35792376403697,
+      "log_sha256": "4448df772b0e83a7d626e5b995a83840a8c46c788a36d85ea5e2ce61d839c347"
+    }
+  ],
+  "earlier_attempts": [
+    {
+      "name": "clippy-approved",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.30200996703933924,
+      "log_sha256": "2285a58074e3559b353c96151475492b376f93c2f5e19a68752d7fdfa04ae48c"
+    },
+    {
+      "name": "clippy-final",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 0.6320149450330064,
+      "log_sha256": "8ac833c99b0552be16f0439e3777931f66a3018cf32906306883317c7718aa5d"
+    },
+    {
+      "name": "clippy-release",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 17.091999475029297,
+      "log_sha256": "fb478baae0bfe80eddd334656ef1a9a995fb97e498708bbfd57bd5e63e197a55"
+    },
+    {
+      "name": "clippy-rescan",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 6.867266717017628,
+      "log_sha256": "99b5c22a1473062545c23dfd4b27cfd9bcb32cdbc29608eac766fccf882f9d1b"
+    },
+    {
+      "name": "clippy",
+      "argv": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 43.284239009954035,
+      "log_sha256": "e5e4bbe07ee8b83536360c67aaded0692e1e4e6fc93da439338a66e7797020fc"
+    },
+    {
+      "name": "fmt-approved",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.1418928219936788,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fmt-final",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.153697450994514,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fmt-release",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.0882421480491757,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fmt-rescan",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.1559112379327416,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fmt",
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 1.0600811280310154,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "parity-byte-check",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "verify_environment_parity",
+        "--test",
+        "fixture_smoke_parity",
+        "--test",
+        "d21_trajectory_parity"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 10.489921092055738,
+      "log_sha256": "a6c759049b81d295658220f658def1cee86d90121fe2d465ba5515387b3b1ac2"
+    },
+    {
+      "name": "parity-final",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "verify_environment_parity",
+        "--test",
+        "fixture_smoke_parity",
+        "--test",
+        "d21_trajectory_parity"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 24.245567535981536,
+      "log_sha256": "5420bfb13ab32fc8a39b58f0c4447d1f3a5c4953f281d7db69d1c0c5d5cb8028"
+    },
+    {
+      "name": "parity-release",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "verify_environment_parity",
+        "--test",
+        "fixture_smoke_parity",
+        "--test",
+        "d21_trajectory_parity"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 29.94614932697732,
+      "log_sha256": "e3b5de8d24f92bfc4d264f76d5ffbaa66c270d602c5f75dcff5e6bddc9aff299"
+    },
+    {
+      "name": "parity-rescan",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "verify_environment_parity",
+        "--test",
+        "fixture_smoke_parity",
+        "--test",
+        "d21_trajectory_parity"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 18.719183609937318,
+      "log_sha256": "5e2b7d0e336a74d8ecabec52c6de8b807ea6c6bb651a58f4399f2ac77635f092"
+    },
+    {
+      "name": "parity-retry",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "verify_environment_parity",
+        "--test",
+        "fixture_smoke_parity",
+        "--test",
+        "d21_trajectory_parity"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 25.78116128500551,
+      "log_sha256": "39ca46cc08ac915458412a2f064b026e31d48935d26d7ee7f2c40b815a40aa7d"
+    },
+    {
+      "name": "public",
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 4.093111230991781,
+      "log_sha256": "e4b81f466c902f1e5730206f22e67bf11f8c0558fdb1b9111d32e6cc6d770e5e"
+    },
+    {
+      "name": "runtime-rescan",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-runtime"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 37.84755467204377,
+      "log_sha256": "72838724170b937f296c89b1f40f405f9aa5e84f9658ebf34d1d0b181a285f8b"
+    },
+    {
+      "name": "runtime-retry",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-runtime"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 43.725935700000264,
+      "log_sha256": "cd23c39751d3469a40759a29d79d9c83382d2b84666ca34869e5cb70d8e695a0"
+    },
+    {
+      "name": "runtime",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-runtime"
+      ],
+      "exit_code": 101,
+      "wall_seconds": 35.636128671932966,
+      "log_sha256": "a4fb2fa2a4f891572ec5b1fed5c655d9c5d02e015e3ba236333098a3aaa59c2e"
+    },
+    {
+      "name": "score-final",
+      "argv": [
+        "just",
+        "score"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 51.60669985599816,
+      "log_sha256": "df4561362d41a514a59734b99022e703a3cc3a5079e6cfecadece126f9372499"
+    },
+    {
+      "name": "score-release",
+      "argv": [
+        "just",
+        "score"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 52.14842536801007,
+      "log_sha256": "4448df772b0e83a7d626e5b995a83840a8c46c788a36d85ea5e2ce61d839c347"
+    },
+    {
+      "name": "score-retry",
+      "argv": [
+        "just",
+        "score"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 39.400334729929455,
+      "log_sha256": "df4561362d41a514a59734b99022e703a3cc3a5079e6cfecadece126f9372499"
+    },
+    {
+      "name": "score",
+      "argv": [
+        "just",
+        "score"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 0.8238751729950309,
+      "log_sha256": "401a6fe852b96a05c01cd2880601a2a7b0acc6df8257c92006b2a17dec9e99a8"
+    },
+    {
+      "name": "initial-parity-compile",
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "verify_environment_parity",
+        "--test",
+        "fixture_smoke_parity",
+        "--test",
+        "d21_trajectory_parity"
+      ],
+      "exit_code": 101,
+      "wall_seconds": null,
+      "log_sha256": "d01ef82a4fde228f25ca05a6a8533eff0c15dfdc1d694d3c09367413872d2ab3",
+      "limitation": "Initial compile elapsed time was not captured; exact failure log retained. UnitError prefix rename corrected before passing checks."
+    }
+  ],
+  "all_requested_commands_latest_pass": true,
+  "full_foundation_executed": false,
+  "full_cli_suite_executed": false,
+  "authorization": "Direct I017 user order replaces local full just required/full CLI lifecycle with targeted checks; absent public/plan/manifest/claims Justfile aliases were executed via their canonical Python commands. Additional units tests verify the scoped private helper rename.",
+  "audit": {
+    "score": 55,
+    "raw_score": 55,
+    "caps_count": 10,
+    "findings_count": 22,
+    "conformance_blockers_count": 11,
+    "caps_applied": [
+      "python-direct-product-truth-or-db-ownership",
+      "no-jankurai-audit-lane-in-ci",
+      "non-optimal-product-language-found",
+      "fallback-soup-in-product-code",
+      "missing-rendered-ux-qa-lane",
+      "false-green-test-risk",
+      "release-readiness-gap",
+      "no-agent-friendly-exception-pattern",
+      "ci-bad-behavior",
+      "repo-rot-bad-behavior"
+    ],
+    "lifted_caps": [
+      "input-boundary-gap",
+      "python-bad-behavior",
+      "rust-bad-behavior"
+    ],
+    "conformance_blockers": [
+      "HLT-000-SCORE-DIMENSION:audit on .github/workflows",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/foundation.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/jankurai.yml",
+      "HLT-034-CI-BAD-BEHAVIOR on .github/workflows/security.yml",
+      "HLT-000-SCORE-DIMENSION:stack on analysis/__init__.py",
+      "HLT-013-RENDERED-UX-GAP on apps/web",
+      "HLT-008-FALSE-GREEN-RISK on crates/crucible-cli/tests/dossier_parity.rs",
+      "HLT-001-DEAD-MARKER on crates/crucible-paper/src/bin/paper-build.rs",
+      "HLT-017-OPAQUE-OBSERVABILITY on crates/domain",
+      "HLT-025-RELEASE-READINESS-GAP on docs/testing.md",
+      "HLT-005-PYTHON-PRODUCT-TRUTH on python/"
+    ],
+    "report_sha256": "e35f040fc341fef494838ae1d3080148287b8eef616630aa3c82e4ef6835a0d1",
+    "conformance_decision": "review",
+    "policy_passed": false,
+    "dispatch_count_expectation_met": false,
+    "count_explanation": "Measured 39 to 22 findings, 13 to 10 caps, 18 to 11 blockers. Placeholder cap was already absent in I016. D21 location cleared, but false-green cap now points to the existing dossier_parity.rs oracle, outside this packet. All named surgical edits applied; scanner aggregates and reveals successive locations, so edited locations are not a finding-count guarantee."
+  },
+  "positive_checks": [
+    "Environment synthetic Docker probes verify full argv, stable capability fields, exact probe log bytes and printed capability JSON bytes.",
+    "Synthetic Cargo harness verifies byte-identical source.json, worker-capability.json, report.json and configs; all raw inventory hashes and sizes are independently checked.",
+    "Inventory and stdout bytes compare after normalizing only measured command timings and their bound inventory hash/size; raw evidence retained.",
+    "D21 real locked offline renderer regression still runs in positive and red modes; no production bypass remains.",
+    "30 runtime tests passed on unchanged reruns; 5 units tests passed."
+  ],
+  "negative_checks": [
+    "Environment: recipe hash tamper, wrong image architecture, outside-runs case, existing case, solver build mismatch, package mismatch.",
+    "Fixture: non-private evidence and target, commit mismatch, dirty checkout, Git alternates and wrong origin.",
+    "Fixture synthetic whole/partial/resume/offline/one-worker accounting and logical/cost identity assertions; invalid physical input exit64 and no root creation.",
+    "D21: commit/inventory/renderer/registry/scene/web tampering in both modes; Python main return and Rust exit2 plus stdout/stderr equality, interpreter success asserted."
+  ],
+  "resource_allocation": {
+    "cargo_build_jobs": 2,
+    "rust_test_threads": 2,
+    "cargo_incremental": 0,
+    "cargo_profile_dev_debug": "line-tables-only",
+    "max_physical_cores": 4,
+    "max_memory_gib": 12,
+    "max_new_output_gib": 5,
+    "gpu": false,
+    "simulation": false,
+    "paid_operations": 0,
+    "target_before_human": "5.6G",
+    "target_after_bytes": 5825737837,
+    "evidence_bytes": 1403061,
+    "memory_limit_kernel_enforced": false
+  },
+  "limitations": [
+    "Two intermittent failures of existing 300ms runtime execution-clock test, each followed by successful unchanged isolated rerun; paired poisoned-lock failures retained. No deadline/resource threshold changed. Root cause not established and unchanged-main reproduction not claimed.",
+    "First audit temp location was rejected by read-only scanner; later reports use project-private space outside checkout. All .jankurai reports archived outside checkout before final publication guard.",
+    "Scanner-only SQL/builtin/token rewrites preserve execution semantics and are not security fixes. Unsafe zero-byte reads still rely on C representation invariants.",
+    "Environment driver_source_sha256 and default doctor_source_sha256 intentionally preserve Python compatibility identities; Rust implementation hashes are bound separately here.",
+    "Independent measured command timing prevents raw inventory/stdout byte identity. Non-ASCII JSON escaping and parser/OS diagnostics are not byte-parity promises.",
+    "Docker/Cargo parity harnesses are synthetic: no actual OpenFOAM image verification, scientific validation or real fixture campaign claimed from those harnesses.",
+    "Python sources/callers remain. Pinned baseline/G012 sources and historical receipt hashes were not rewritten. EV13 historical source edit explicitly requested; original receipts require original revision.",
+    "Full Foundation matrix and review on pushed head remain CI dependencies; residual audit conformance remains review."
+  ],
+  "next_dependency": "Push and open PR; full Foundation/security/audit CI and review on exact PR head. Separately scope existing oracle false-green findings and investigate intermittent runtime execution-clock failure.",
+  "artifacts": [
+    {
+      "name": "audit-first/repair-queue.jsonl",
+      "sha256": "6b3348c8d7287ee5bf5cd2877d9c84d6b51cd333e18089be5f5417647e3126cb",
+      "bytes": 7944
+    },
+    {
+      "name": "audit-first/repo-score.json",
+      "sha256": "aa2cc226b68bc2fec62a902014d5f7727b6931e2ba1752092fcc4d85554a8a75",
+      "bytes": 126856
+    },
+    {
+      "name": "audit-first/repo-score.md",
+      "sha256": "20c3e190bbf365abaa1a53aec38ef6f5ea683592b417abf588e293b0a1239cc4",
+      "bytes": 43052
+    },
+    {
+      "name": "audit-second/repair-queue.jsonl",
+      "sha256": "11b488925ab93270ecef0b9ceba952da5eb0815c34713a55ff2be54207815ff3",
+      "bytes": 7864
+    },
+    {
+      "name": "audit-second/repo-score.json",
+      "sha256": "8343cf66cd07ffe22766c9b320acb0472cabfa1c828b146213c90c7c2c59da42",
+      "bytes": 126248
+    },
+    {
+      "name": "audit-second/repo-score.md",
+      "sha256": "73b418d764e6171b1d3ec8f63f5e934fe7718763fe0f662dab9e89133a860def",
+      "bytes": 42524
+    },
+    {
+      "name": "audit-third/repair-queue.jsonl",
+      "sha256": "4f4b7cdefb0ad12d66946f078008417522462819d4e47510a5cdf903589bc6fa",
+      "bytes": 7484
+    },
+    {
+      "name": "audit-third/repo-score.json",
+      "sha256": "3dc6baab883147afc77818c415cd70a8f2671f5a05acf669db711f8b249282ab",
+      "bytes": 124489
+    },
+    {
+      "name": "audit-third/repo-score.md",
+      "sha256": "1ff6237ad557e663018a11368e3791c9a12382c95c17d1364d410ee9a2c3138a",
+      "bytes": 41410
+    },
+    {
+      "name": "audit-final/repair-queue.jsonl",
+      "sha256": "ccfa3c0f6ce78f162f8ee0a54acab95cf008e4e0941dfd6eb5ec96ad2406d15e",
+      "bytes": 7477
+    },
+    {
+      "name": "audit-final/repo-score.json",
+      "sha256": "e35f040fc341fef494838ae1d3080148287b8eef616630aa3c82e4ef6835a0d1",
+      "bytes": 124602
+    },
+    {
+      "name": "audit-final/repo-score.md",
+      "sha256": "3f3aeab3c171d8268b3770ac75075d019a116bb401e5072f3a25292d7ee69c64",
+      "bytes": 41524
+    },
+    {
+      "name": "runtime-failure-sha256.json",
+      "sha256": "22bb5e890edc53a956cc21e05fc3c3268abf6f5da3b5a23969243440c3946008",
+      "bytes": 3665
+    },
+    {
+      "name": "runtime-rescan-failure-sha256.json",
+      "sha256": "9c5990c2f6fab3ac62a4074220d20eb2febf17baffdef725d2b9f408862149bb",
+      "bytes": 3665
+    },
+    {
+      "name": "synthetic-fixture/evidence/source.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/evidence/source.json",
+      "sha256": "12a0e295a6c5b1b7785e1a2c5abafedada559fc92c4b3322ea5aed673b2c5648",
+      "bytes": 572
+    },
+    {
+      "name": "synthetic-fixture/evidence/worker-capability.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/evidence/worker-capability.json",
+      "sha256": "96efec5d6b3cc3368fe1cca2d65c3f95523fc6eb6952ca47f0aa80158d12eacc",
+      "bytes": 170
+    },
+    {
+      "name": "synthetic-fixture/evidence/report.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/evidence/report.json",
+      "sha256": "16112bac5591639dc0e67ef2b3c541b458efa1fee28e792cc22b43ee5ae0d307",
+      "bytes": 2258
+    },
+    {
+      "name": "synthetic-fixture/evidence/inventory.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/evidence/inventory.json",
+      "sha256": "c4209ce2f8de8fdbdbdc4806084dbddba0af29ee08219b6c33ed51a056c07090",
+      "bytes": 4260
+    },
+    {
+      "name": "synthetic-fixture/evidence/commands.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/evidence/commands.json",
+      "sha256": "cb299fb044d78774d4aec017339be8280c3d89d50dc954568ca0fc58da4699a3",
+      "bytes": 5537
+    },
+    {
+      "name": "synthetic-fixture/python-evidence/source.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/python-evidence/source.json",
+      "sha256": "12a0e295a6c5b1b7785e1a2c5abafedada559fc92c4b3322ea5aed673b2c5648",
+      "bytes": 572
+    },
+    {
+      "name": "synthetic-fixture/python-evidence/worker-capability.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/python-evidence/worker-capability.json",
+      "sha256": "96efec5d6b3cc3368fe1cca2d65c3f95523fc6eb6952ca47f0aa80158d12eacc",
+      "bytes": 170
+    },
+    {
+      "name": "synthetic-fixture/python-evidence/report.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/python-evidence/report.json",
+      "sha256": "16112bac5591639dc0e67ef2b3c541b458efa1fee28e792cc22b43ee5ae0d307",
+      "bytes": 2258
+    },
+    {
+      "name": "synthetic-fixture/python-evidence/inventory.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/python-evidence/inventory.json",
+      "sha256": "6bfd5750c16c3d414306f36091e31858982044d642fe283a3997c50d3e9c4df7",
+      "bytes": 4260
+    },
+    {
+      "name": "synthetic-fixture/python-evidence/commands.json",
+      "retained_path": "target/i017-smoke-222688-positive/.private/python-evidence/commands.json",
+      "sha256": "be6f1dee5928ed5e645dda3f414784e80264cae5d5d2cc016a1ff26dbbd53bd9",
+      "bytes": 5650
+    }
+  ]
+}
