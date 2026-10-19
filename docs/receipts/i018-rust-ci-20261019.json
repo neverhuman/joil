@@ -36,8 +36,8 @@
   ],
   "source_sha256": {
     ".github/workflows/jankurai.yml": "13db10b988859627f86a1ad7ee8d06c362461bbf57248d49a93ddf41f8ab86e1",
-    "crates/crucible-cli/src/bin/baseline-report.rs": "5da514eeb1d969dd0988ddb12062347b100775363db4b14eec5db9923321089b",
-    "crates/crucible-cli/src/bin/bench-cfd.rs": "9215258f42e791f7d14dcc204d3d91c45b6ec8f3bf95a08e7e4901b4ba521b86",
+    "crates/crucible-cli/src/bin/baseline-report.rs": "61b5c06bcb212bd8fb451825b156d848b5938882e729497315a47f8dc303417f",
+    "crates/crucible-cli/src/bin/bench-cfd.rs": "efdf4ee6b0c742a7e5726a5b1979b001c84647bd64b9ac3d1b945da5eaa7d805",
     "crates/crucible-cli/src/explore.rs": "a03aba8d0d3ff3f8aaf716c0d32d59f5252749f44c5dd111222f58e5dbfa4900",
     "crates/crucible-cli/src/lib.rs": "640631be03bc530ee02ceaebfa5f6c61853c6fe92aec6bdef5e0efa0a0f98f84",
     "crates/crucible-cli/src/port_support.rs": "3ffbd17d14f2d0eff0e281f3c4bf8eb4e2e32015a6c0807f136772ddd2f9bbc1",

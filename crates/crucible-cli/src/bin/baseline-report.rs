@@ -25,13 +25,13 @@ fn number(v: &Value) -> Result<f64> {
     v.as_f64().ok_or("expected number".into())
 }
 fn time_label(value: f64) -> Result<String> {
-    let mut buffer = [0 as libc::c_char; 64];
+    let mut buffer: [libc::c_char; 64] = [0; 64];
     // SAFETY: fixed format expects one double and the buffer size is exact.
     let n = unsafe { libc::snprintf(buffer.as_mut_ptr(), buffer.len(), c"%.6g".as_ptr(), value) };
     require(n >= 0 && (n as usize) < buffer.len(), "invalid saved time")?;
     Ok(buffer[..n as usize]
         .iter()
-        .map(|b| *b as u8 as char)
+        .map(|b| char::from(b.to_ne_bytes()[0]))
         .collect())
 }
 fn point(root: &Path, case: &Path, snapshot: &str) -> Result<Value> {

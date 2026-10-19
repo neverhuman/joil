@@ -239,7 +239,7 @@ fn probe(
 // Python's default :g is six significant digits, including scientific exponents.
 fn time_label(value: f64) -> Result<String> {
     let format = b"%.6g\0";
-    let mut buffer = [0 as libc::c_char; 64];
+    let mut buffer: [libc::c_char; 64] = [0; 64];
     // SAFETY: fixed format expects one double; buffer capacity is supplied exactly.
     let n = unsafe {
         libc::snprintf(
@@ -252,7 +252,7 @@ fn time_label(value: f64) -> Result<String> {
     require(n >= 0 && (n as usize) < buffer.len(), "invalid saved time")?;
     Ok(buffer[..n as usize]
         .iter()
-        .map(|b| *b as u8 as char)
+        .map(|b| char::from(b.to_ne_bytes()[0]))
         .collect())
 }
 fn rewrite_boundary(case: &Path) -> Result<()> {
