@@ -180,6 +180,14 @@
     "artifacts/": {
       "command": "python3 tools/check_public.py",
       "purpose": "Ensure local evidence and generated output never enter public Git candidates"
+    },
+    "db/": {
+      "command": "bash ops/ci/audit.sh",
+      "purpose": "Check declared database constraints, migration and generated-contract boundaries; executable migration or generation changes additionally require their own positive and negative proof."
+    },
+    "contracts/": {
+      "command": "bash ops/ci/audit.sh",
+      "purpose": "Check declared database constraints, migration and generated-contract boundaries; executable migration or generation changes additionally require their own positive and negative proof."
     }
   }
 }

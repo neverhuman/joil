@@ -1,0 +1,7 @@
+{
+  "packet": "I019",
+  "branch": "codex/v5-i019-jankurai-and-rust-port",
+  "base_commit": "6d75b74f5b8e1af897f05dd35feeef7d64bb3bb4",
+  "scope": "Native mesh CLI ports, synthetic parity tests, database and contract boundaries, audit tool adoption and rendered UX lane",
+  "physical_validation": false
+}

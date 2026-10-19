@@ -1,0 +1,7 @@
+schema_version = "1.0.0"
+[[zones]]
+path = "contracts/generated"
+owner = "integrator"
+source_paths = ["schemas", "crates/crucible-contract/src"]
+policy = "No handwritten generated contracts; require pinned generation and zero-drift proof before client adoption."
+status = "reserved; documentation only, no generator activated"

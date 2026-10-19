@@ -99,3 +99,30 @@ are part of these gates. The kill switch is an operator stop of owned jobs only;
 retain evidence and respect other workers. Missing evidence, exceeded quota,
 expired lease or conflicting ownership is a stop condition. See release.md for
 release ownership, restore verification and rollback handoff.
+
+## Rendered UX QA lane
+
+`agent/ux-qa.toml` declares the rendered UX contract. Run
+`cd apps/explorer && npm run test:ux` with `CHROME_BIN` pointing to a local Chrome
+binary. The pinned playwright-core and axe-core dependencies run locally; the
+lane does not download a browser. It produces `target/ux-qa/synthetic.png` using
+`page.screenshot` and a receipt beside it. These outputs are private build evidence.
+
+The synthetic lane exercises `getBoundingClientRect` and `expectNoUxViolations`
+with positive and negative checks for edge clearance and target size. It injects
+the axe-core browser engine (the engine used by `@axe-core` integrations) for
+accessibility testing, including rejection of an unnamed button. CSS design-tokens
+use semantic tokens for the surface, text, target size and edge clearance.
+
+This is a rendered check of the QA contract, not full explorer visual coverage.
+Future explorer component story format cases under `.storybook/` must include
+empty, missing, failed and populated evidence states, narrow viewports, keyboard
+focus and reduced motion. The repository does not yet have a Storybook deployment.
+The integration owner must connect those stories before claiming application-wide
+UX coverage. A screenshot alone never grants scientific validation.
+
+The I019 tool-adoption catalogue uses `mode = "auto"` for applicability routing.
+Matching CI comments document the auditor's suggested commands and artifact names;
+they do not prove those commands ran. Only commands and hashed outputs in the
+packet receipt are executed evidence. Database and generated-contract directories
+are reserved policy boundaries, with no live database or client generator added.

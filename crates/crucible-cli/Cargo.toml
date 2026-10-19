@@ -17,3 +17,11 @@ joil-evidence = { path = "../joil-evidence" }
 [[bin]]
 name = "crucible"
 path = "src/main.rs"
+
+[[bin]]
+name = "mesh-reference-plane"
+path = "src/bin/mesh-reference-plane.rs"
+
+[[bin]]
+name = "mesh-extend-outlet"
+path = "src/bin/mesh-extend-outlet.rs"

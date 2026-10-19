@@ -45,6 +45,8 @@
     ".jankurai/": "integrator",
     "target/": "integrator",
     "runs/": "integrator",
-    "artifacts/": "integrator"
+    "artifacts/": "integrator",
+    "db/": "integrator",
+    "contracts/": "integrator"
   }
 }

@@ -34,7 +34,24 @@ forbidden_domain_imports = ["std::fs", "std::net", "std::process", "sqlx::", "re
 [typescript]
 web_paths = ["apps/explorer/src"]
 forbidden_web_imports = ["pg", "postgres", "mysql", "better-sqlite3", "@aws-sdk/client-s3"]
-generated_contract_paths = []
+generated_contract_paths = ["contracts/generated"]
 
 [python]
 allowed_truth_paths = []
+
+[db]
+root_paths = ["db"]
+migration_paths = ["db/migrations"]
+constraint_paths = ["db/constraints"]
+
+[[boundaries]]
+name = "database"
+paths = ["db/"]
+owner = "integrator"
+rule = "Migrations and database constraints require reviewed backup, restore and rollback proof; no direct UI database access."
+
+[[boundaries]]
+name = "contracts"
+paths = ["contracts/"]
+owner = "integrator"
+rule = "Generate clients from reviewed source contracts; never hand-edit generated output."

@@ -41,3 +41,24 @@ synthetic tests. Software parity is not physical validation. Full Foundation CI,
 review of the pushed commit and later consumer migration remain dependencies.
 Exact commands, failures, hashes and results are in
 [the I018 receipt](../receipts/i018-rust-ci-20261019.json).
+
+## I019 — mesh CLI ports
+
+`mesh-reference-plane --case CASE --source SOURCE` and
+`mesh-extend-outlet --case CASE --source SOURCE [--length LENGTH] [--layers LAYERS]`
+provide native Rust implementations of the original mesh utilities. Both accept
+`--root ROOT` for isolated replay. Python entrypoints remain for compatibility;
+there is no consumer cutover or Python source removal in this packet.
+
+Synthetic parity tests compare mesh dictionaries, face sets and receipts, including
+coordinate/connectivity reordering, ambiguity, exclusive output, extension budget,
+original-point preservation and Docker failure controls. The extension port shares
+the existing restricted runtime with bench-cfd; its parity suite is rerun. Receipts
+retain Python generator/runtime hashes for compatibility; the packet receipt binds
+the native Rust sources. Wall time is volatile; later output-size measurements are
+compared after asserting the exact preceding timing-receipt byte delta.
+
+No real extrusion, solver or physical validation is claimed. Long-running timeout
+and output-growth stops are inherited runtime behavior, not exercised by these
+bounded tests. Native argument/parser/OS error wording may differ. See the
+[I019 receipt](../receipts/i019-rust-ci-20261019.json) for commands and evidence.
