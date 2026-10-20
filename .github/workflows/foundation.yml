@@ -75,6 +75,28 @@ jobs:
           python3 -m venv .private/ci-python
           .private/ci-python/bin/python -m pip install --disable-pip-version-check --cache-dir .private/pip-cache 'matplotlib==3.10.8'
           echo "$GITHUB_WORKSPACE/.private/ci-python/bin" >> "$GITHUB_PATH"
+      - name: Provision lifecycle-only software scratch and record fsync observations
+        if: matrix.suite == 'rust-tests' || matrix.suite == 'all'
+        env:
+          LIFECYCLE_SCRATCH: /dev/shm/.private/joil-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.suite }}
+        run: |
+          test "$(stat -f -c %T /dev/shm)" = tmpfs
+          umask 077
+          test ! -L /dev/shm/.private
+          mkdir -p /dev/shm/.private .private/lifecycle-fsync-probe
+          mkdir -m 700 "$LIFECYCLE_SCRATCH"
+          test ! -L "$LIFECYCLE_SCRATCH"
+          test "$(readlink -f "$LIFECYCLE_SCRATCH")" = "$LIFECYCLE_SCRATCH"
+          test "$(stat -c %u "$LIFECYCLE_SCRATCH")" = "$(id -u)"
+          available="$(df --output=avail -B1 /dev/shm | tail -n 1 | tr -d ' ')"
+          test "$available" -ge 536870912
+          stat -f -c '%T %S' .private/lifecycle-fsync-probe "$LIFECYCLE_SCRATCH"
+          for directory in .private/lifecycle-fsync-probe "$LIFECYCLE_SCRATCH"; do
+            for sample in 1 2 3; do
+              timeout 15s /usr/bin/time -f "$directory fsync_seconds=%e" dd if=/dev/zero of="$directory/probe-$sample" bs=4096 count=1 conv=fsync status=none
+            done
+          done
+          echo "JOIL_LIFECYCLE_TEST_SCRATCH=$LIFECYCLE_SCRATCH" >> "$GITHUB_ENV"
       # Architecture checks resolve the entire locked graph (including non-host dependencies).
       # A host-only build does not warm those packages for their offline metadata control.
       - name: Fetch complete locked graph for offline architecture controls
@@ -93,6 +115,13 @@ jobs:
         env:
           RUST_TEST_THREADS: '2'
         run: bash scripts/ci-local.sh
+      - name: Record and bound retained lifecycle scratch
+        if: always() && (matrix.suite == 'rust-tests' || matrix.suite == 'all')
+        run: |
+          test -n "$JOIL_LIFECYCLE_TEST_SCRATCH"
+          bytes="$(du -sb "$JOIL_LIFECYCLE_TEST_SCRATCH" | cut -f 1)"
+          echo "lifecycle_retained_apparent_bytes=$bytes limit_bytes=536870912"
+          test "$bytes" -le 536870912
       - name: Retain reviewed check receipts
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
