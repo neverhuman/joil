@@ -64,6 +64,16 @@ publication scan and independent review on the resulting source. Each execution
 must retain its command, exit status, source hashes and log hashes. A previous
 hosted pass or isolated rerun does not replace that final run.
 
+The independent Captain review also found that `tools/check.py` initialized
+`ui_executed` from the selected plan before running any steps. An early failure
+could therefore claim UI execution without launching the build. The correction
+records selection, attempt, actual process execution and success separately for
+UI and optional CAD. A missing executable remains unexecuted; a timed-out
+process counts as executed and failed. Regression tests cover early abort,
+successful and failed builds, missing executables and timeout. Original failed
+receipts remain unchanged and their selection flags must not be cited as proof
+that later suites ran.
+
 ## Git and worktree custody
 
 An all-ref bundle preserves 146 refs, including the two recovered tested
