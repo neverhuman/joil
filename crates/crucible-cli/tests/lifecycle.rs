@@ -1,7 +1,10 @@
+#[path = "common/lifecycle_diagnostics.rs"]
+mod lifecycle_diagnostics;
 #[path = "../../crucible-contract/tests/common/scratch.rs"]
 mod scratch;
 use crucible_cli::*;
 use crucible_runtime::{checkpoint::*, db::RuntimeDb, task::Phase};
+use lifecycle_diagnostics::failure_context;
 use scratch::TestScratch;
 use serde_json::Value;
 use std::{
@@ -90,8 +93,8 @@ fn call(base: &Path, args: &[&str], code: i32) -> Value {
     assert_eq!(
         out.status.code(),
         Some(code),
-        "{}",
-        String::from_utf8_lossy(&out.stderr)
+        "synthetic CLI failure context: {}",
+        failure_context(base, args, &out, code)
     );
     if code == 0 || code == 130 {
         serde_json::from_slice(&out.stdout).unwrap()

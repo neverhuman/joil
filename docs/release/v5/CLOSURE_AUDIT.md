@@ -136,3 +136,38 @@ cleanup target, resource pressure, a failed test or an unresolved review finding
 Retain the failure. Never claim the scientific programme complete while any
 required native, measurement or signature gate above is missing. A software-only
 review verdict must state that scope explicitly.
+
+## Receiving-main lifecycle incident and diagnostic follow-up
+
+Receiving main `17aeed4c4ab34f2f18c28ecdf600047a0c2ad231` subsequently failed
+[Foundation run 39371990991](https://github.com/neverhuman/joil/actions/runs/39371990991).
+The real lifecycle test expected exit 0 and received exit 78,
+`Conflict("fixture_retry_limit")`. This supersedes the earlier pending
+receiving-main observation. The prior eleven passing PR checks and full local
+pass remain historical evidence; they do not clear the receiving-main failure.
+
+Independent source review establishes two charged, retryable, noncommitted
+fixture executions, followed by the existing retry-exhaustion error. The uploaded
+log identifies neither the failing invocation nor those attempts' phases or
+diagnostic payloads. The disposable runner's teardown record confirms its
+workspace was destroyed. Its retained public artifact contains only the selected
+suite receipt. A fresh run of all four unchanged lifecycle tests passed, with
+zero failures or ignored tests, in 258.13 seconds. This is non-reproduction,
+not evidence that the original cause was repaired. Timing, load, memory and a
+particular source regression remain unproven explanations.
+
+The follow-up changes only test failure reporting. An unexpected CLI exit now
+includes its synthetic invocation, expected/actual exit, bounded stdout/stderr,
+recent failed attempt phases and bounded, hash-verified diagnostic text. It reads
+a consistent existing ledger snapshot and never recreates missing evidence.
+Host/lease inventories and raw databases are excluded from this context. Corrupt,
+missing or symlinked diagnostic payloads are reported as unavailable; they cannot
+replace the original failure. The regression uses a real numerical-failure/retry
+run and a real refused fresh-root invocation, verifies the ledger stays unchanged,
+and checks corrupt, missing and symlinked evidence controls.
+
+No production executable, retry count, timeout, admission rule, charge, resource
+budget or scientific gate changes. Required source-bound local CI, security,
+publication review and independent review still apply to the resulting source.
+Any later runtime repair must follow demonstrated causal evidence. This
+diagnostic improvement alone does not close the original incident or programme.
