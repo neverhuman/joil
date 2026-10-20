@@ -74,6 +74,13 @@ successful and failed builds, missing executables and timeout. Original failed
 receipts remain unchanged and their selection flags must not be cited as proof
 that later suites ran.
 
+A subsequent full run passed Rust, baseline, Python, publication and claims
+checks, then exposed a local runtime lookup gap: the integration worktree fell
+back to system Node instead of the existing shared project-local Node runtime.
+The runner now searches the shared runtime's `node_modules/.bin` alongside the
+other project-local paths. A regression verifies that this executable resolves
+before system Node from a separate worktree. No global runtime is installed.
+
 ## Git and worktree custody
 
 An all-ref bundle preserves 146 refs, including the two recovered tested

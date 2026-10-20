@@ -7,6 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 import subprocess
+import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('foundation_check', ROOT / 'tools/check.py')
@@ -29,7 +30,7 @@ class CheckRunnerTests(unittest.TestCase):
         self.assertEqual(len(check.check_steps(ROOT, skip_ui=True)), 8)
         self.assertEqual(check.check_steps(ROOT, cad=True)[-1][0], 'cad')
 
-    def run_fake_suite(self, suite, fail, *, fail_command=None, error=None, cad=False):
+    def run_fake_suite(self, suite, fail, *, fail_command=None, error=None, cad=False, expected_node=None):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
 
@@ -41,6 +42,8 @@ class CheckRunnerTests(unittest.TestCase):
                 self.assertEqual(kwargs['env']['CARGO_PROFILE_DEV_DEBUG'], os.environ.get('CARGO_PROFILE_DEV_DEBUG', 'line-tables-only'))
                 for key in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'RAYON_NUM_THREADS'):
                     self.assertEqual(kwargs['env'][key], '1')
+                if expected_node is not None:
+                    self.assertEqual(shutil.which('node', path=kwargs['env']['PATH']), str(expected_node))
                 failed = fail and (fail_command is None or command == fail_command)
                 if failed and error is not None:
                     raise error
@@ -105,6 +108,18 @@ class CheckRunnerTests(unittest.TestCase):
         for feature in ('ui', 'cad'):
             for flag in ('selected', 'attempted', 'executed', 'passed'):
                 self.assertTrue(receipt[f'{feature}_{flag}'])
+
+    def test_worktree_finds_shared_project_local_node_before_system_node(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            node = home / 'joil/.private/node-runtime/node_modules/.bin/node'
+            node.parent.mkdir(parents=True)
+            node.write_text('#!/bin/sh\nexit 0\n')
+            node.chmod(0o700)
+            with patch.object(check.Path, 'home', return_value=home):
+                status, receipt = self.run_fake_suite('ui', fail=False, expected_node=node)
+            self.assertEqual(status, 0)
+            self.assertTrue(receipt['ui_passed'])
 
     def test_clean_ci_build_defaults_and_explicit_profile_override(self):
         from contextlib import redirect_stdout
