@@ -52,7 +52,7 @@ def main():
     out=ROOT/'.private/checks'/runid;out.mkdir(parents=True)
     (ROOT/'.private').chmod(0o700)
     env=os.environ.copy()
-    env['PATH']=os.pathsep.join([str(ROOT/'.private/node-runtime/bin'),str(ROOT/'.private/node-runtime/node_modules/.bin'),str(Path.home()/'joil/.private/node-runtime/bin'),str(Path.home()/'.cargo/bin'),env['PATH']])
+    env['PATH']=os.pathsep.join([str(ROOT/'.private/node-runtime/bin'),str(ROOT/'.private/node-runtime/node_modules/.bin'),str(Path.home()/'joil/.private/node-runtime/bin'),str(Path.home()/'joil/.private/node-runtime/node_modules/.bin'),str(Path.home()/'.cargo/bin'),env['PATH']])
     env.update(CARGO_BUILD_JOBS='2',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',MKL_NUM_THREADS='1',RAYON_NUM_THREADS='1')
     env.setdefault('CARGO_INCREMENTAL','0')
     env.setdefault('CARGO_PROFILE_DEV_DEBUG','line-tables-only')
