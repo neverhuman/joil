@@ -104,9 +104,10 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
-  # Preserve the required-check name; failed/cancelled/skipped lanes cannot pass.
+  # Preserve the PR/main required name; manual receipts use a distinct check.
+  # Failed/cancelled/skipped lanes cannot pass in either route.
   foundation:
-    name: foundation
+    name: ${{ github.event_name == 'workflow_dispatch' && 'foundation (full receipt)' || 'foundation' }}
     needs: checks
     if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on:

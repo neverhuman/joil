@@ -27,8 +27,9 @@ grant scientific qualification. No runner service, pool or permissions change.
 
 Dispatch `gh workflow run Foundation --ref BRANCH` against the proposed branch,
 then verify the returned run's exact head. A passing `check (all)` and aggregate
-`foundation` require the actual complete run; a queued, skipped or failed lane is
-not acceptance. Security and independent review remain separate required gates.
+`foundation (full receipt)` require the actual complete run; a queued, skipped or
+failed lane is not acceptance. Its distinct name cannot replace the PR's normal
+`foundation` check. Security and independent review remain separate required gates.
 The receipt artifact is `foundation-all-ATTEMPT`, retaining selected JSON only.
 
 New commits cancel obsolete runs for that PR/ref. Different PRs
