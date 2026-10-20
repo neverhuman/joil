@@ -181,5 +181,16 @@ execution and independent review remain necessary before acceptance.
 No production executable, retry count, timeout, admission rule, charge, resource
 budget or scientific gate changes. Required source-bound local CI, security,
 publication review and independent review still apply to the resulting source.
+The instrumented successor reproduced a numerical-failure attempt followed by a
+timed-out retry, and a separate unchanged 60-second CLI watchdog failure. The
+generic bound diagnostic does not establish disk latency as the underlying cause.
+CI now declares lifecycle-only guest-tmpfs scratch for these bounded software
+process-crash/replay fixtures and records comparative own-file fsync observations;
+all other disk durability tests remain on disk. Existing native deadlines,
+watchdogs, retries and charges stay unchanged, including real timeout controls.
+Ordinary local runs keep their existing disk default. This is no claim of
+power-loss persistence, physical validation or a reconstructed original cause.
+The watchdog also records the command/context before raising its timeout failure.
+
 Any later runtime repair must follow demonstrated causal evidence. This
 diagnostic improvement alone does not close the original incident or programme.

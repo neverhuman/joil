@@ -15,7 +15,13 @@ use std::{
     time::{Duration, Instant},
 };
 fn base() -> PathBuf {
-    let p = TestScratch::path("cli-lifecycle");
+    let p = match std::env::var_os("JOIL_LIFECYCLE_TEST_SCRATCH") {
+        Some(root) => {
+            let root = PathBuf::from(root).canonicalize().unwrap();
+            TestScratch::path_in(&root, "cli-lifecycle")
+        }
+        None => TestScratch::path("cli-lifecycle"),
+    };
     open_store(&p).unwrap();
     p
 }
@@ -38,7 +44,10 @@ fn record(base: &Path, args: &[&str], out: &Output) {
         .unwrap();
     writeln!(f, "{row}").unwrap();
 }
-fn wait(mut child: Child, limit: Duration) -> Output {
+fn wait(child: Child, limit: Duration) -> Output {
+    wait_observed(child, limit, |_, _| {})
+}
+fn wait_observed(mut child: Child, limit: Duration, observe: impl FnOnce(&Output, bool)) -> Output {
     // Drain both streams while the process is alive. A blocked pipe writer
     // cannot exit, so polling exit before reading can deadlock the test itself.
     let drain = |pipe: Option<_>| {
@@ -80,6 +89,7 @@ fn wait(mut child: Child, limit: Duration) -> Output {
             .map(|thread| thread.join().unwrap())
             .unwrap_or_default(),
     };
+    observe(&output, timed_out);
     assert!(
         !timed_out,
         "owned CLI exceeded bound: {}",
@@ -88,19 +98,64 @@ fn wait(mut child: Child, limit: Duration) -> Output {
     output
 }
 fn call(base: &Path, args: &[&str], code: i32) -> Value {
-    let out = wait(command(args).spawn().unwrap(), Duration::from_secs(60));
-    record(base, args, &out);
+    let out = wait_observed(
+        command(args).spawn().unwrap(),
+        Duration::from_secs(60),
+        |out, timed_out| {
+            if timed_out || out.status.code() != Some(code) {
+                eprintln!(
+                    "synthetic CLI failure context: {}",
+                    failure_context(base, args, out, code)
+                );
+            }
+            record(base, args, out);
+        },
+    );
     assert_eq!(
         out.status.code(),
         Some(code),
-        "synthetic CLI failure context: {}",
-        failure_context(base, args, &out, code)
+        "{}",
+        String::from_utf8_lossy(&out.stderr)
     );
     if code == 0 || code == 130 {
         serde_json::from_slice(&out.stdout).unwrap()
     } else {
         Value::Null
     }
+}
+
+#[test]
+fn watchdog_records_owned_exit_before_raising_its_failure() {
+    let _scratch = TestScratch::new();
+    let base = base();
+    let child = Command::new(std::env::current_exe().unwrap())
+        .args([
+            "--exact",
+            "bounded_wait_drains_small_pipes_before_child_closes",
+            "--nocapture",
+        ])
+        .env("JOIL_TEST_SMALL_PIPE_CHILD", "1")
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .unwrap();
+    // Keep stdin open and empty: the owned fixture cannot complete its read.
+    let observed = std::cell::Cell::new(false);
+    let failure = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        wait_observed(child, Duration::from_millis(30), |out, timed_out| {
+            assert!(timed_out);
+            observed.set(true);
+            record(&base, &["controlled-watchdog"], out);
+        });
+    }));
+    assert!(failure.is_err());
+    assert!(observed.get());
+    let row: Value =
+        serde_json::from_str(&std::fs::read_to_string(base.join("commands.jsonl")).unwrap())
+            .unwrap();
+    assert_eq!(row["argv"], serde_json::json!(["controlled-watchdog"]));
+    assert_eq!(row["exit_code"], Value::Null);
 }
 
 fn checked_attempt_charges(

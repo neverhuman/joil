@@ -24,12 +24,6 @@ impl TestScratch {
         }
     }
     pub fn path(label: &str) -> PathBuf {
-        assert!(
-            !label.is_empty()
-                && label
-                    .bytes()
-                    .all(|c| c.is_ascii_alphanumeric() || b"-_".contains(&c))
-        );
         let base = std::env::var_os("CARGO_TARGET_DIR")
             .map(PathBuf::from)
             .filter(|p| p.is_absolute() && p.components().any(|c| c.as_os_str() == ".private"))
@@ -41,6 +35,16 @@ impl TestScratch {
                     .unwrap()
                     .join(".private/test-evidence")
             });
+        Self::path_in(&base, label)
+    }
+    pub fn path_in(base: &Path, label: &str) -> PathBuf {
+        assert!(base.is_absolute() && base.components().any(|c| c.as_os_str() == ".private"));
+        assert!(
+            !label.is_empty()
+                && label
+                    .bytes()
+                    .all(|c| c.is_ascii_alphanumeric() || b"-_".contains(&c))
+        );
         let path = base.join(format!(
             "v5-test-{label}-{}-{}-{}",
             std::process::id(),

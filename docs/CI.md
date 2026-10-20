@@ -38,8 +38,8 @@ the workflow does not reserve hosts or change controller lane counts. ARM64
 workers run inside disposable Linux VMs, including when their physical host runs
 macOS. Host files, SSH agents and controller credentials are not available to jobs.
 
-Rust suites install pinned Rust 1.95.0, bootstrapping rustup when absent. Only the
-UI suite installs pinned Node 22.22.0. Rust caches are separated by OS release,
+Rust suites install pinned Rust 1.95.0, bootstrapping rustup when absent. The UI
+and full-entrypoint suites install pinned Node 22.22.0. Rust caches are separated by OS release,
 architecture, toolchain, suite, and lockfile, with a new entry per commit and
 restore from the preceding compatible entry. npm's cache follows the UI lockfile.
 The existing check runner caps Rust builds/Rayon at four threads and unrelated
@@ -64,6 +64,20 @@ archives are excluded. Command failures show their diagnostic tail in the Action
 log; missing setup tools fail their setup step and may leave no check receipt.
 A suite receipt proves only its requested checks; it is not full foundation or
 physical validation.
+
+Lifecycle CLI tests exercise bounded synthetic execution and process-crash/replay
+protocols. CI gives only those fixtures a private root on the guest's existing
+tmpfs through `JOIL_LIFECYCLE_TEST_SCRATCH`; ordinary local runs retain their disk
+default. Other store/runtime durability tests stay on disk. The job records small
+comparative file-fsync observations, each bounded at 15 seconds, and fails if the
+declared tmpfs prerequisite or 512 MiB available capacity is absent. A final
+always-run check records retained scratch size and fails above 512 MiB; this is a
+retained-output check, not a claim of a separately mounted filesystem quota.
+No host mount or runner configuration changes.
+These tests do not qualify power-loss persistence or filesystem performance.
+Native execution deadlines, CLI watchdog bounds, retries, charging and real
+injected-timeout controls remain unchanged. Watchdog failures record their actual
+command/output and bounded context before raising the original timeout failure.
 
 If jobs queue while the pool is idle, inspect repository access to the runner
 group first, then matching labels and online status. CLI access to organization
