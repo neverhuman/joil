@@ -628,19 +628,12 @@ fn charged_preparation_does_not_consume_native_deadline_and_real_slow_child_stil
                 utc_millis().unwrap(),
             )
             .unwrap();
-        let result = execute_fixture_checked(
-            &mut db,
-            &s,
-            &a,
-            &l,
-            &executable,
-            native_deadline,
-            || {
+        let result =
+            execute_fixture_checked(&mut db, &s, &a, &l, &executable, native_deadline, || {
                 FixtureExecutable::from_operator_binary(binary, &frozen).unwrap();
                 std::thread::sleep(preparation_delay);
-            },
-        )
-        .unwrap();
+            })
+            .unwrap();
         assert_eq!(
             result.phase, expected,
             "preparation is charged but not native execution time"
