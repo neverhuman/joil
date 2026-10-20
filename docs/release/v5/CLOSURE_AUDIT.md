@@ -80,6 +80,9 @@ back to system Node instead of the existing shared project-local Node runtime.
 The runner now searches the shared runtime's `node_modules/.bin` alongside the
 other project-local paths. A regression verifies that this executable resolves
 before system Node from a separate worktree. No global runtime is installed.
+The native `check-foundation` runner implements the same receipt and runtime
+lookup semantics. Its existing end-to-end Python/Rust parity test is retained
+and extended with a missing absolute CAD executable negative control.
 
 ## Git and worktree custody
 
