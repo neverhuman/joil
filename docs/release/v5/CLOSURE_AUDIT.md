@@ -160,11 +160,16 @@ The follow-up changes only test failure reporting. An unexpected CLI exit now
 includes its synthetic invocation, expected/actual exit, bounded stdout/stderr,
 recent failed attempt phases and bounded, hash-verified diagnostic text. It reads
 a consistent existing ledger snapshot and never recreates missing evidence.
-Host/lease inventories and raw databases are excluded from this context. Corrupt,
-missing or symlinked diagnostic payloads are reported as unavailable; they cannot
-replace the original failure. The regression uses a real numerical-failure/retry
-run and a real refused fresh-root invocation, verifies the ledger stays unchanged,
-and checks corrupt, missing and symlinked evidence controls.
+Host/lease inventories and raw databases are excluded from this context. The
+test-only reader opens with nonblocking/no-follow flags and checks the opened
+descriptor is a bounded regular file. Corrupt, missing, symlinked or special-file
+diagnostics are reported as unavailable; they cannot replace the original failure.
+Text limits preserve UTF-8 boundaries and report truncation; row limits report
+omitted counts. The regression uses a real numerical-failure/retry run and a real
+refused fresh-root invocation, verifies the ledger stays unchanged, and checks
+corrupt, missing and symlinked evidence. Manifest/payload FIFOs without writers
+are checked in owned children with a finite wait while preserving the original
+CLI failure. An oversized-text/multirow control checks the reporting limits.
 
 No production executable, retry count, timeout, admission rule, charge, resource
 budget or scientific gate changes. Required source-bound local CI, security,
