@@ -17,8 +17,21 @@ suites, so all diagnostics remain available. The final `foundation` check passes
 only when every suite succeeds; failed, skipped, or cancelled work cannot pass it.
 Retain `foundation` when configuring required branch checks.
 
-PR updates run once through `pull_request`; pushes to `main` and manual dispatch
-also run checks. New commits cancel obsolete runs for that PR/ref. Different PRs
+PR updates run once through `pull_request`; pushes to `main` also run the eight
+parallel suites. Manual dispatch selects one `all` lane and executes the exact
+`bash scripts/ci-local.sh` entrypoint. It provisions all pinned prerequisites,
+fetches the complete locked Cargo graph and precompiles tests before producing
+one full receipt with all requested steps. Its two test threads stay within the
+existing isolated VM allocation. It does not combine partial suite receipts or
+grant scientific qualification. No runner service, pool or permissions change.
+
+Dispatch `gh workflow run Foundation --ref BRANCH` against the proposed branch,
+then verify the returned run's exact head. A passing `check (all)` and aggregate
+`foundation` require the actual complete run; a queued, skipped or failed lane is
+not acceptance. Security and independent review remain separate required gates.
+The receipt artifact is `foundation-all-ATTEMPT`, retaining selected JSON only.
+
+New commits cancel obsolete runs for that PR/ref. Different PRs
 retain separate concurrency groups. Jobs use whichever matching VM becomes free;
 the workflow does not reserve hosts or change controller lane counts. ARM64
 workers run inside disposable Linux VMs, including when their physical host runs

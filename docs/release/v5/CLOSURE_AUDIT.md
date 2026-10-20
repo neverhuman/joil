@@ -156,7 +156,7 @@ zero failures or ignored tests, in 258.13 seconds. This is non-reproduction,
 not evidence that the original cause was repaired. Timing, load, memory and a
 particular source regression remain unproven explanations.
 
-The follow-up changes only test failure reporting. An unexpected CLI exit now
+The Rust follow-up changes only test failure reporting. An unexpected CLI exit now
 includes its synthetic invocation, expected/actual exit, bounded stdout/stderr,
 recent failed attempt phases and bounded, hash-verified diagnostic text. It reads
 a consistent existing ledger snapshot and never recreates missing evidence.
@@ -170,6 +170,13 @@ refused fresh-root invocation, verifies the ledger stays unchanged, and checks
 corrupt, missing and symlinked evidence. Manifest/payload FIFOs without writers
 are checked in owned children with a finite wait while preserving the original
 CLI failure. An oversized-text/multirow control checks the reporting limits.
+
+Manual Foundation dispatch also runs the unchanged local entrypoint as one full
+lane on the existing isolated local runner pool. PR/main checks retain their
+eight parallel suites. The complete lane provisions every existing prerequisite
+and emits its own full receipt; it does not synthesize acceptance from selected
+suite results or bypass a stopped manual-host allocation. Its source-bound
+execution and independent review remain necessary before acceptance.
 
 No production executable, retry count, timeout, admission rule, charge, resource
 budget or scientific gate changes. Required source-bound local CI, security,

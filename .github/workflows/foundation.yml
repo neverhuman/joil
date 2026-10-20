@@ -25,7 +25,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        suite: [fmt, clippy, rust-tests, baseline, python-tests, public-check, claims-audit, ui]
+        # Manual validation emits one complete local-entrypoint receipt.
+        # PR/main validation retains the eight independent parallel suites.
+        suite: ${{ fromJSON(github.event_name == 'workflow_dispatch' && '["all"]' || '["fmt","clippy","rust-tests","baseline","python-tests","public-check","claims-audit","ui"]') }}
     env:
       RUSTUP_TOOLCHAIN: 1.95.0
       CARGO_INCREMENTAL: '0'
@@ -38,19 +40,19 @@ jobs:
           # Frozen baseline controls execute the pinned historical plan commit.
           fetch-depth: 0
       - name: Install pinned Rust, including rustup on clean VMs
-        if: contains(fromJSON('["fmt", "clippy", "rust-tests", "baseline", "python-tests"]'), matrix.suite)
+        if: contains(fromJSON('["all", "fmt", "clippy", "rust-tests", "baseline", "python-tests"]'), matrix.suite)
         uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # master, 2026-10-16
         with:
           toolchain: 1.95.0
           components: rustfmt, clippy
       - name: Identify build-cache platform
         id: platform
-        if: contains(fromJSON('["clippy", "rust-tests", "baseline", "python-tests"]'), matrix.suite)
+        if: contains(fromJSON('["all", "clippy", "rust-tests", "baseline", "python-tests"]'), matrix.suite)
         run: |
           . /etc/os-release
           echo "os=$ID-$VERSION_ID" >> "$GITHUB_OUTPUT"
       - name: Restore Rust build cache
-        if: contains(fromJSON('["clippy", "rust-tests", "baseline", "python-tests"]'), matrix.suite)
+        if: contains(fromJSON('["all", "clippy", "rust-tests", "baseline", "python-tests"]'), matrix.suite)
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: |
@@ -62,13 +64,13 @@ jobs:
           restore-keys: |
             ${{ steps.platform.outputs.os }}-${{ runner.arch }}-rust-1.95.0-${{ matrix.suite }}-${{ hashFiles('Cargo.lock') }}-
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        if: matrix.suite == 'ui'
+        if: matrix.suite == 'ui' || matrix.suite == 'all'
         with:
           node-version: 22.22.0
           cache: npm
           cache-dependency-path: apps/explorer/package-lock.json
       - name: Install pinned plotting dependency for Python checks
-        if: matrix.suite == 'python-tests'
+        if: matrix.suite == 'python-tests' || matrix.suite == 'all'
         run: |
           python3 -m venv .private/ci-python
           .private/ci-python/bin/python -m pip install --disable-pip-version-check --cache-dir .private/pip-cache 'matplotlib==3.10.8'
@@ -76,15 +78,21 @@ jobs:
       # Architecture checks resolve the entire locked graph (including non-host dependencies).
       # A host-only build does not warm those packages for their offline metadata control.
       - name: Fetch complete locked graph for offline architecture controls
-        if: contains(fromJSON('["rust-tests", "python-tests"]'), matrix.suite)
+        if: contains(fromJSON('["all", "rust-tests", "python-tests"]'), matrix.suite)
         run: cargo fetch --locked
       - name: Precompile Rust workspace test binaries outside suite timer
-        if: matrix.suite == 'rust-tests'
+        if: matrix.suite == 'rust-tests' || matrix.suite == 'all'
         run: cargo test --workspace --locked --no-run
       - name: Run suite with exact logs and receipt
+        if: matrix.suite != 'all'
         env:
           CHECK_SUITE: ${{ matrix.suite }}
         run: bash ops/ci/foundation.sh --suite "$CHECK_SUITE"
+      - name: Run complete local entrypoint with one source-bound receipt
+        if: matrix.suite == 'all'
+        env:
+          RUST_TEST_THREADS: '2'
+        run: bash scripts/ci-local.sh
       - name: Retain reviewed check receipts
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
