@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "receipt_id": "v5-i024-s14-src-sub585-split-20261019",
+  "packet": "I024-S14",
+  "directive": "SC-DEC-185B",
+  "base_commit": "4af49a1be06581f90114bb490f88fb97ecc1ff24",
+  "created_at_utc": "2026-10-20T00:02:45Z",
+  "summary": "Split the remaining 6 >585 LOC non-frozen authored Rust src/*.rs files (crates/joil-core/src/cfd_case.rs, crates/crucible-lbm/src/lib.rs, crates/joil-core/src/program/catalog.rs, crates/crucible-geom/src/tet.rs, crates/joil-core/src/phenotype.rs, crates/crucible-runtime/src/replay.rs) into 12 semantic modules all <= 395 LOC so 0 non-frozen authored Rust src/*.rs files > 585 LOC (and > 600 LOC) remain in neverhuman/joil (largest non-frozen authored src/*.rs file is now 584 LOC).",
+  "changed_modules": [
+    {
+      "parent": "crates/joil-core/src/cfd_case.rs",
+      "parent_loc_after": 286,
+      "extracted_module": "crates/joil-core/src/cfd_case/dictionaries.rs",
+      "extracted_loc": 366
+    },
+    {
+      "parent": "crates/crucible-lbm/src/lib.rs",
+      "parent_loc_after": 395,
+      "extracted_module": "crates/crucible-lbm/src/multigrid.rs",
+      "extracted_loc": 231
+    },
+    {
+      "parent": "crates/joil-core/src/program/catalog.rs",
+      "parent_loc_after": 315,
+      "extracted_module": "crates/joil-core/src/program/wave3_de_novo.rs",
+      "extracted_loc": 297
+    },
+    {
+      "parent": "crates/crucible-geom/src/tet.rs",
+      "parent_loc_after": 391,
+      "extracted_module": "crates/crucible-geom/src/tet/p2.rs",
+      "extracted_loc": 223
+    },
+    {
+      "parent": "crates/joil-core/src/phenotype.rs",
+      "parent_loc_after": 313,
+      "extracted_module": "crates/joil-core/src/phenotype/compiler.rs",
+      "extracted_loc": 284
+    },
+    {
+      "parent": "crates/crucible-runtime/src/replay.rs",
+      "parent_loc_after": 258,
+      "extracted_module": "crates/crucible-runtime/src/replay/search_state.rs",
+      "extracted_loc": 337
+    }
+  ],
+  "verification": {
+    "non_frozen_authored_src_files_over_585_loc_remaining": 0,
+    "largest_non_frozen_authored_src_file_loc": 584,
+    "frozen_fixture_preserved": "crates/crucible-render/src/lib.rs (720 LOC, V5-26-04/D-22)",
+    "fmt": "PASS",
+    "clippy": "PASS",
+    "claims_audit": "PASS",
+    "v5_plan_check": "PASS",
+    "public_check": "PASS"
+  },
+  "limitations": [
+    "Pure semantic module decomposition preserving 100% of public APIs, test paths, and hashes; zero edits to the 114 tracked Python files."
+  ],
+  "next_dependency": "Rebase-merge PR #44 (I024-S13) onto origin/main once CI passes, then rebase codex/v5-i024-s14-sub585-split onto origin/main and open PR #45."
+}
