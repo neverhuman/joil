@@ -1,7 +1,7 @@
 use super::scratch::TestScratch;
 use super::{base, call, command, record, wait};
 use crucible_cli::{read_private_or_source, Campaign};
-use crucible_runtime::{checkpoint::*, db::RuntimeDb};
+use crucible_runtime::db::RuntimeDb;
 use serde_json::Value;
 use std::{path::Path, process::Output, time::Duration};
 
