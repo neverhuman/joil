@@ -110,4 +110,32 @@ fn all_suite_receipts_and_failures_match_python() {
         assert_eq!(rs.status.code(), py.status.code());
         assert!(!rs.status.success());
     }
+    // CAD uses an absolute project-local executable, so this missing producer
+    // cannot silently fall back to a system command. An attempt is not execution.
+    assert!(!root.join(".venv/bin/python").exists());
+    let py = Command::new("python3")
+        .args(["tools/check.py", "--skip-ui", "--cad"])
+        .current_dir(&root)
+        .output()
+        .unwrap();
+    let rs = Command::new(env!("CARGO_BIN_EXE_check-foundation"))
+        .args(["--skip-ui", "--cad"])
+        .current_dir(&root)
+        .output()
+        .unwrap();
+    assert_eq!(py.status.code(), Some(1));
+    assert_eq!(rs.status.code(), Some(1));
+    for value in [receipt(&py.stdout), receipt(&rs.stdout)] {
+        assert_eq!(value["cad_selected"], true);
+        assert_eq!(value["cad_attempted"], true);
+        assert_eq!(value["cad_executed"], false);
+        assert_eq!(value["cad_passed"], false);
+        assert_eq!(value["ui_selected"], false);
+        assert_eq!(value["ui_executed"], false);
+        assert_eq!(value["all_requested_pass"], false);
+        assert_eq!(
+            value["steps"].as_array().unwrap().last().unwrap()["executed"],
+            false
+        );
+    }
 }

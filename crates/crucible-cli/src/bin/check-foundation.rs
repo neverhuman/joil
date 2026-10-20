@@ -125,7 +125,13 @@ fn steps(
     }
     result
 }
-fn execute(cmd: &[String], cwd: &Path, out: &Path, name: &str) -> io::Result<(Vec<u8>, i32)> {
+fn execute(
+    cmd: &[String],
+    cwd: &Path,
+    out: &Path,
+    name: &str,
+    executed: &mut bool,
+) -> io::Result<(Vec<u8>, i32)> {
     let stdout = out.join(format!("{name}.stdout"));
     let stderr = out.join(format!("{name}.stderr"));
     let mut child = Command::new(&cmd[0])
@@ -134,6 +140,7 @@ fn execute(cmd: &[String], cwd: &Path, out: &Path, name: &str) -> io::Result<(Ve
         .stdout(Stdio::from(fs::File::create(&stdout)?))
         .stderr(Stdio::from(fs::File::create(&stderr)?))
         .spawn()?;
+    *executed = true;
     let start = Instant::now();
     let status = loop {
         if let Some(s) = child.try_wait()? {
@@ -208,6 +215,7 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
         root.join(".private/node-runtime/bin"),
         root.join(".private/node-runtime/node_modules/.bin"),
         home.join("joil/.private/node-runtime/bin"),
+        home.join("joil/.private/node-runtime/node_modules/.bin"),
         home.join(".cargo/bin"),
     ];
     paths.extend(env::split_paths(
@@ -258,14 +266,15 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
             hashes.insert(name.into(), json!(sha(&fs::read(path)?)));
         }
     }
-    let mut receipt = json!({"schema_version":1,"run_id":runid,"kind":"foundation_checks_not_physical_validation","steps":[],"requested_suite":suite.as_deref().unwrap_or("all"),"ui_executed":steps.iter().any(|(n,_,_)| n == "ui-build"),"cad_executed":cad,"cfd_executed":false,"input_head":head,"source_files_sha256":hashes,"environment":{"CARGO_BUILD_JOBS":"2","OMP_NUM_THREADS":"1","OPENBLAS_NUM_THREADS":"1","RAYON_NUM_THREADS":"1"}});
+    let mut receipt = json!({"schema_version":1,"run_id":runid,"kind":"foundation_checks_not_physical_validation","steps":[],"requested_suite":suite.as_deref().unwrap_or("all"),"ui_selected":steps.iter().any(|(n,_,_)| n == "ui-build"),"cad_selected":cad,"cfd_executed":false,"input_head":head,"source_files_sha256":hashes,"environment":{"CARGO_BUILD_JOBS":"2","OMP_NUM_THREADS":"1","OPENBLAS_NUM_THREADS":"1","RAYON_NUM_THREADS":"1"}});
     for (name, cmd, cwd) in &steps {
         let start = Instant::now();
-        let (data, code) =
-            execute(cmd, cwd, &out, name).unwrap_or_else(|e| (e.to_string().into_bytes(), 124));
+        let mut executed = false;
+        let (data, code) = execute(cmd, cwd, &out, name, &mut executed)
+            .unwrap_or_else(|e| (e.to_string().into_bytes(), 124));
         fs::write(out.join(format!("{name}.log")), &data)?;
         let relative = cwd.strip_prefix(&root)?.to_string_lossy();
-        receipt["steps"].as_array_mut().unwrap().push(json!({"name":name,"command":cmd,"cwd":if relative.is_empty(){"."}else{&relative},"exit_code":code,"wall_seconds":start.elapsed().as_secs_f64(),"log_bytes":data.len(),"log_sha256":sha(&data)}));
+        receipt["steps"].as_array_mut().unwrap().push(json!({"name":name,"command":cmd,"cwd":if relative.is_empty(){"."}else{&relative},"exit_code":code,"executed":executed,"wall_seconds":start.elapsed().as_secs_f64(),"log_bytes":data.len(),"log_sha256":sha(&data)}));
         println!("{name}: exit {code}, {:.3}s", start.elapsed().as_secs_f64());
         if code != 0 {
             eprintln!(
@@ -277,6 +286,19 @@ fn run() -> Result<bool, Box<dyn std::error::Error>> {
     }
     let actual = receipt["steps"].as_array().unwrap();
     let passed = actual.len() == steps.len() && actual.iter().all(|s| s["exit_code"] == 0);
+    for (feature, step_name) in [("ui", "ui-build"), ("cad", "cad")] {
+        let step = receipt["steps"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|s| s["name"] == step_name);
+        let attempted = step.is_some();
+        let executed = step.is_some_and(|s| s["executed"] == true);
+        let succeeded = step.is_some_and(|s| s["executed"] == true && s["exit_code"] == 0);
+        receipt[format!("{feature}_attempted")] = json!(attempted);
+        receipt[format!("{feature}_executed")] = json!(executed);
+        receipt[format!("{feature}_passed")] = json!(succeeded);
+    }
     receipt["all_requested_pass"] = Value::Bool(passed);
     fs::write(
         out.join("receipt.json"),
