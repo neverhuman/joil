@@ -59,8 +59,8 @@ def main():
     steps=check_steps(ROOT,suite=args.suite,skip_ui=args.skip_ui,cad=args.cad,runid=runid)
     receipt={'schema_version':1,'run_id':runid,'kind':'foundation_checks_not_physical_validation',
              'steps':[],'requested_suite':args.suite or 'all',
-             'ui_executed':any(name=='ui-build' for name,_,_ in steps),
-             'cad_executed':args.cad,'cfd_executed':False}
+             'ui_selected':any(name=='ui-build' for name,_,_ in steps),
+             'cad_selected':args.cad,'cfd_executed':False}
     revision=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True)
     receipt['input_head']=revision.stdout.strip() if revision.returncode==0 else None
     names=subprocess.check_output(['git','ls-files','-z','--cached','--others','--exclude-standard'],cwd=ROOT).split(b'\0')
@@ -73,19 +73,31 @@ def main():
     receipt['environment']={k:env[k] for k in ['CARGO_BUILD_JOBS','OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','RAYON_NUM_THREADS']}
     for name,cmd,cwd in steps:
         start=time.perf_counter()
+        executed=False
         try:
             result=subprocess.run(cmd,cwd=cwd,env=env,capture_output=True,timeout=1100)
+            executed=True
             data=result.stdout+result.stderr;code=result.returncode
             diagnostic=result.stdout.decode(errors='replace')[-5000:]+'\n'+result.stderr.decode(errors='replace')[-2500:]
-        except (OSError,subprocess.TimeoutExpired) as e:
+        except subprocess.TimeoutExpired as e:
+            executed=True
+            data=str(e).encode();code=124;diagnostic=str(e)
+        except OSError as e:
             data=str(e).encode();code=124;diagnostic=str(e)
         (out/f'{name}.log').write_bytes(data)
         receipt['steps'].append({'name':name,'command':cmd,'cwd':str(cwd.relative_to(ROOT)) or '.',
-            'exit_code':code,'wall_seconds':time.perf_counter()-start,'log_bytes':len(data),
+            'exit_code':code,'executed':executed,'wall_seconds':time.perf_counter()-start,'log_bytes':len(data),
             'log_sha256':hashlib.sha256(data).hexdigest()})
         print(f'{name}: exit {code}, {receipt["steps"][-1]["wall_seconds"]:.3f}s',flush=True)
         if code:
             print(diagnostic);break
+    # Selection is not execution: a prior failed step may prevent UI/CAD launch.
+    # A missing executable is attempted but unexecuted; a timed-out child ran.
+    for feature,step_name in [('ui','ui-build'),('cad','cad')]:
+        attempted=[step for step in receipt['steps'] if step['name']==step_name]
+        receipt[feature+'_attempted']=bool(attempted)
+        receipt[feature+'_executed']=any(step['executed'] for step in attempted)
+        receipt[feature+'_passed']=any(step['executed'] and step['exit_code']==0 for step in attempted)
     receipt['all_requested_pass']=len(receipt['steps'])==len(steps) and all(x['exit_code']==0 for x in receipt['steps'])
     (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
     print('receipt:',out/'receipt.json',flush=True)

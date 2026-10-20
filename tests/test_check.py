@@ -29,7 +29,7 @@ class CheckRunnerTests(unittest.TestCase):
         self.assertEqual(len(check.check_steps(ROOT, skip_ui=True)), 8)
         self.assertEqual(check.check_steps(ROOT, cad=True)[-1][0], 'cad')
 
-    def run_fake_suite(self, suite, fail):
+    def run_fake_suite(self, suite, fail, *, fail_command=None, error=None, cad=False):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
 
@@ -41,17 +41,21 @@ class CheckRunnerTests(unittest.TestCase):
                 self.assertEqual(kwargs['env']['CARGO_PROFILE_DEV_DEBUG'], os.environ.get('CARGO_PROFILE_DEV_DEBUG', 'line-tables-only'))
                 for key in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS', 'RAYON_NUM_THREADS'):
                     self.assertEqual(kwargs['env'][key], '1')
-                return subprocess.CompletedProcess(command, 1 if fail else 0, stdout=b'fixture output', stderr=b'')
+                failed = fail and (fail_command is None or command == fail_command)
+                if failed and error is not None:
+                    raise error
+                return subprocess.CompletedProcess(command, 1 if failed else 0, stdout=b'fixture output', stderr=b'')
 
-            with patch.object(check, 'ROOT', root), patch('sys.argv', ['check.py', '--suite', suite]), \
+            argv = ['check.py'] + (['--suite', suite] if suite else []) + (['--cad'] if cad else [])
+            with patch.object(check, 'ROOT', root), patch('sys.argv', argv), \
                     patch.object(check.subprocess, 'run', side_effect=run), \
                     patch.object(check.subprocess, 'check_output', return_value=b''):
                 status = check.main()
             receipts = list((root / '.private/checks').glob('*/receipt.json'))
             self.assertEqual(len(receipts), 1)
             receipt = json.loads(receipts[0].read_text())
-            self.assertEqual(receipt['requested_suite'], suite)
-            self.assertEqual(receipt['ui_executed'], suite == 'ui')
+            self.assertEqual(receipt['requested_suite'], suite or 'all')
+            self.assertEqual(receipt['ui_selected'], suite in (None, 'ui'))
             self.assertFalse(receipt['cfd_executed'])
             for step in receipt['steps']:
                 log = receipts[0].parent / (step['name'] + '.log')
@@ -63,6 +67,44 @@ class CheckRunnerTests(unittest.TestCase):
         self.assertEqual(status, 1)
         self.assertFalse(receipt['all_requested_pass'])
         self.assertEqual([step['name'] for step in receipt['steps']], ['npm-ci'])
+        self.assertFalse(receipt['ui_attempted'])
+        self.assertFalse(receipt['ui_executed'])
+        self.assertFalse(receipt['ui_passed'])
+
+    def test_early_abort_keeps_selected_ui_and_cad_unexecuted(self):
+        status, receipt = self.run_fake_suite(None, fail=True, cad=True)
+        self.assertEqual(status, 1)
+        self.assertTrue(receipt['ui_selected'])
+        self.assertTrue(receipt['cad_selected'])
+        for feature in ('ui', 'cad'):
+            for flag in ('attempted', 'executed', 'passed'):
+                self.assertFalse(receipt[f'{feature}_{flag}'])
+
+    def test_ui_build_selection_attempt_execution_and_success_are_distinct(self):
+        build = ['npm', 'run', 'build']
+        cases = [
+            (False, None, 0, True, True),
+            (True, None, 1, True, False),
+            (True, FileNotFoundError('missing build executable'), 1, False, False),
+            (True, subprocess.TimeoutExpired(build, 1100), 1, True, False),
+        ]
+        for fail, error, expected_status, executed, passed in cases:
+            with self.subTest(fail=fail, error=error):
+                status, receipt = self.run_fake_suite('ui', fail=fail, fail_command=build, error=error)
+                self.assertEqual(status, expected_status)
+                self.assertTrue(receipt['ui_selected'])
+                self.assertTrue(receipt['ui_attempted'])
+                self.assertEqual(receipt['ui_executed'], executed)
+                self.assertEqual(receipt['ui_passed'], passed)
+                self.assertEqual(receipt['all_requested_pass'], passed)
+
+    def test_complete_suite_records_actual_ui_and_optional_cad_execution(self):
+        status, receipt = self.run_fake_suite(None, fail=False, cad=True)
+        self.assertEqual(status, 0)
+        self.assertTrue(receipt['all_requested_pass'])
+        for feature in ('ui', 'cad'):
+            for flag in ('selected', 'attempted', 'executed', 'passed'):
+                self.assertTrue(receipt[f'{feature}_{flag}'])
 
     def test_clean_ci_build_defaults_and_explicit_profile_override(self):
         from contextlib import redirect_stdout
