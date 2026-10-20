@@ -41,7 +41,11 @@ macOS. Host files, SSH agents and controller credentials are not available to jo
 Rust suites install pinned Rust 1.95.0, bootstrapping rustup when absent. The UI
 and full-entrypoint suites install pinned Node 22.22.0. Rust caches are separated by OS release,
 architecture, toolchain, suite, and lockfile, with a new entry per commit and
-restore from the preceding compatible entry. npm's cache follows the UI lockfile.
+restore from the preceding compatible entry. The `rust-tests` and `all` lanes
+build directly instead of restoring/saving the large workspace target cache:
+observed restore time exceeded twelve minutes on the general pool, while fresh
+precompilation completed in under two minutes. Their locked fetch, workspace
+precompile and complete test commands remain required. npm's cache follows the UI lockfile.
 The existing check runner caps Rust builds/Rayon at four threads and unrelated
 math libraries at one. Each job stays inside its existing ephemeral VM budget;
 no CFD, CAD campaign, or GPU allocation is implied.
