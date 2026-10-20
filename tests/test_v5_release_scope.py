@@ -35,11 +35,18 @@ class V5ReleaseScopeTests(unittest.TestCase):
         self.assertEqual(generated.returncode, 0, generated.stdout + generated.stderr)
 
         workflow = (ROOT / ".github/workflows/foundation.yml").read_text(encoding="utf-8")
-        matrix = re.search(r"(?m)^\s*suite:\s*\[([^\]]+)\]", workflow)
-        self.assertIsNotNone(matrix, "foundation workflow must define its suite matrix")
-        suites = {item.strip() for item in matrix.group(1).split(",")}
+        matrix = re.search(
+            r"(?m)^[ \t]*suite:[ \t]*\$\{\{ fromJSON\("
+            r"github\.event_name == 'workflow_dispatch' && '(\[[^'\n]+\])' "
+            r"\|\| '(\[[^'\n]+\])'\) \}\}[ \t]*$",
+            workflow,
+        )
+        self.assertIsNotNone(matrix, "foundation must select manual and PR/main suite matrices")
+        self.assertEqual(json.loads(matrix.group(1)), ["all"])
+        suites = json.loads(matrix.group(2))
+        self.assertEqual(len(suites), 8, "PR/main suites must execute once each")
         self.assertEqual(
-            suites,
+            set(suites),
             {"fmt", "clippy", "rust-tests", "python-tests", "baseline", "ui", "claims-audit", "public-check"},
         )
 
