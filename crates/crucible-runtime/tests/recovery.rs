@@ -594,9 +594,14 @@ fn charged_preparation_does_not_consume_native_deadline_and_real_slow_child_stil
     let (mut db, s, _, state) = context("execution-clock");
     let binary = Path::new(env!("CARGO_BIN_EXE_runtime-fixture"));
     let frozen = BlobDigest::of_bytes(&std::fs::read(binary).unwrap());
+    // Leave room for interpreter startup and durable fixture writes on a shared
+    // host. The ordering is the oracle: preparation exceeds the native deadline,
+    // while the slow child independently exceeds that same deadline.
+    let native_deadline = Duration::from_secs(2);
+    let preparation_delay = Duration::from_secs(3);
     for (name, delay, expected) in [
         ("fast", 0.08, Phase::Committed),
-        ("slow", 0.6, Phase::TimedOut),
+        ("slow", 4.0, Phase::TimedOut),
     ] {
         // Trusted, single-PID software fixture: Python sleeps then execs the byte-bound Rust fixture.
         // Verify the Rust producer in charged preparation, not again inside the native deadline.
@@ -629,10 +634,10 @@ fn charged_preparation_does_not_consume_native_deadline_and_real_slow_child_stil
             &a,
             &l,
             &executable,
-            Duration::from_millis(300),
+            native_deadline,
             || {
                 FixtureExecutable::from_operator_binary(binary, &frozen).unwrap();
-                std::thread::sleep(Duration::from_millis(700));
+                std::thread::sleep(preparation_delay);
             },
         )
         .unwrap();
@@ -640,7 +645,7 @@ fn charged_preparation_does_not_consume_native_deadline_and_real_slow_child_stil
             result.phase, expected,
             "preparation is charged but not native execution time"
         );
-        assert!(result.charge.wall_ns >= 700_000_000);
+        assert!(u128::from(result.charge.wall_ns) >= preparation_delay.as_nanos());
         assert!(result.charge.measured.cpu_ms > 0);
         if expected == Phase::Committed {
             let observation: FixtureObservation =
