@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "evidence_class": "synthetic_fixture",
+  "diameter_edges_m": [
+    1e-05,
+    5e-05
+  ],
+  "stages": [
+    {
+      "id": "first",
+      "response_source_sha256": "20b6654c21b1b586b9d561da961758bfdc99af099cc5ab3d83590d19dc21f9ba",
+      "routes": [
+        {
+          "id": "water",
+          "destination": {
+            "kind": "stage",
+            "stage_id": "second"
+          },
+          "liquid_fraction": 0.98,
+          "oil_mass_transfer": [
+            [
+              0.2
+            ]
+          ]
+        },
+        {
+          "id": "oil",
+          "destination": {
+            "kind": "reject"
+          },
+          "liquid_fraction": 0.02,
+          "oil_mass_transfer": [
+            [
+              0.8
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "second",
+      "response_source_sha256": "20b6654c21b1b586b9d561da961758bfdc99af099cc5ab3d83590d19dc21f9ba",
+      "routes": [
+        {
+          "id": "water",
+          "destination": {
+            "kind": "product"
+          },
+          "liquid_fraction": 0.98,
+          "oil_mass_transfer": [
+            [
+              0.2
+            ]
+          ]
+        },
+        {
+          "id": "oil",
+          "destination": {
+            "kind": "reject"
+          },
+          "liquid_fraction": 0.02,
+          "oil_mass_transfer": [
+            [
+              0.8
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "feeds": [
+    {
+      "stage_id": "first",
+      "cohort": {
+        "liquid_volume_m3": 0.001,
+        "oil_mass_kg": [
+          0.0005
+        ]
+      }
+    }
+  ],
+  "budget": {
+    "max_steps": 256,
+    "max_stage_visits": 10000,
+    "max_matrix_terms": 10000000,
+    "relative_tail_tolerance": 1e-10
+  }
+}

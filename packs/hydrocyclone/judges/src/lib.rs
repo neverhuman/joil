@@ -16,6 +16,7 @@ pub mod material;
 pub mod metrics;
 pub mod metrology;
 pub mod objectives;
+pub mod process_network;
 pub mod structure;
 pub mod surface;
 pub mod validation;
