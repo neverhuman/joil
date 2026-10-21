@@ -85,6 +85,7 @@ Known limitations of re-runs on the current code:
 
 ## Read more
 
+- [Chemical engineering process networks](docs/design/PROCESS_NETWORKS.md): executable synthetic series, parallel and recycle accounting, genuine swept-channel geometry, and the remaining integration steps
 - [WHITEPAPER](docs/WHITEPAPER.md): methods, results, corrections and limitations
 - [Results and evidence detail](docs/RESULTS.md): Wave-4 and Wave-3 tables, figure plates, evidence tiers
 - [Design language](docs/GENOME.md) · [Physics and validation contract](docs/SCIENCE.md) · [Evidence kernel](docs/EVIDENCE.md)

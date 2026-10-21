@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "chambers": [
+    {
+      "id": "feed",
+      "centre_m": [
+        -0.04,
+        0,
+        0
+      ],
+      "geometry": {
+        "shape": "sphere",
+        "radius_m": 0.006
+      }
+    },
+    {
+      "id": "upper",
+      "centre_m": [
+        0,
+        0.02,
+        0.01
+      ],
+      "geometry": {
+        "shape": "sphere",
+        "radius_m": 0.007
+      }
+    },
+    {
+      "id": "lower",
+      "centre_m": [
+        0,
+        -0.02,
+        -0.01
+      ],
+      "geometry": {
+        "shape": "sphere",
+        "radius_m": 0.005
+      }
+    },
+    {
+      "id": "product",
+      "centre_m": [
+        0.04,
+        0,
+        0
+      ],
+      "geometry": {
+        "shape": "sphere",
+        "radius_m": 0.006
+      }
+    }
+  ],
+  "channels": [
+    {
+      "id": "feed-upper",
+      "from_chamber": "feed",
+      "to_chamber": "upper",
+      "via_m": [],
+      "radius_m": 0.003
+    },
+    {
+      "id": "feed-lower",
+      "from_chamber": "feed",
+      "to_chamber": "lower",
+      "via_m": [],
+      "radius_m": 0.003
+    },
+    {
+      "id": "upper-product",
+      "from_chamber": "upper",
+      "to_chamber": "product",
+      "via_m": [],
+      "radius_m": 0.003
+    },
+    {
+      "id": "lower-product",
+      "from_chamber": "lower",
+      "to_chamber": "product",
+      "via_m": [],
+      "radius_m": 0.003
+    }
+  ]
+}

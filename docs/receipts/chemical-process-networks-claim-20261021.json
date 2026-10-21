@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "packet": "chemical-process-networks",
+  "base_commit": "be2ac4f4016b8928fa3424f5d45668e26129fede",
+  "authorization": "User requested implementation and an approval-ready pull request in this conversation",
+  "plan_dependencies": ["P02", "P05", "P07"],
+  "scope": ["crates/joil-geometry/src/channel_network.rs", "crates/joil-geometry/tests/channel_network.rs", "crates/joil-geometry/src/lib.rs", "packs/hydrocyclone/judges/src/process_network/", "packs/hydrocyclone/judges/src/process_network.rs", "packs/hydrocyclone/judges/src/lib.rs", "packs/hydrocyclone/judges/tests/process_network.rs", "packs/hydrocyclone/judges/examples/process_network.rs", "tests/fixtures/process-network/", "docs/design/PROCESS_NETWORKS.md", "docs/receipts/chemical-process-networks-implementation-20261021.json", "README.md"],
+  "evidence_class": "software_only",
+  "scientific_admission": false,
+  "compute": {"cargo_jobs": 2, "test_threads": 2, "gpu": false, "simulation": false, "new_output_limit_gib": 5}
+}
