@@ -64,9 +64,21 @@ comparing a run against plain sampling).
 states, innovation counter, history) and continues bit-for-bit: a run of 4 generations
 equals a run of 2 plus a resume to 4, and results do not depend on the thread count
 (both are tests). JSON floats round-trip exactly. A changed campaign or model version is
-refused unless `--fork` is given, which records the parent manifest. `--seed-from` takes
+refused unless `--fork` is given. A fork records the parent manifest, preserves its exact
+checkpoint and history under `lineage/<parent-manifest-sha256>/`, and recomputes every
+population, archive and best-design score before saving or selecting new parents. Its
+new trajectory starts empty; generation, genomes, innovation counter and RNG streams
+continue from the parent. Re-evaluations count toward the evaluation total. Forge
+`1.1.1` requires a fork for older scoring versions. `--seed-from` takes
 a run directory, a checkpoint, or a genome / list of genomes and starts a new lineage
 from its archive elites, best design and island leaders.
+
+Failed duty or closure evaluations keep an unknown outlet and their original error;
+they cannot produce a feasible objective. Numerical failure remains explicit. The
+rating duty is checked again at the actual common rated flow. Campaign inputs must
+have finite, valid weights, dimensions, properties, limits and terminal settings.
+Historical demo receipts retain their original code identity and results; these
+software repairs add no physical validation.
 
 ## The genome: a process network, not a parameter vector
 

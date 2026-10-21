@@ -46,6 +46,19 @@ impl Default for Envelope {
 
 impl Envelope {
     pub fn validate(&self) -> Result<(), String> {
+        if ![
+            self.radius_mm,
+            self.length_mm,
+            self.wall_mm,
+            self.min_bore_mm,
+            self.max_cell_aspect,
+            self.bridge_mm,
+        ]
+        .iter()
+        .all(|x| x.is_finite())
+        {
+            return Err("envelope dimensions and print rules must be finite".into());
+        }
         if self.wall_mm < 1.0 {
             return Err("wall thickness below the 1.0 mm printable minimum".into());
         }

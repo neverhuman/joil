@@ -9,7 +9,7 @@ use joil_forge_judges::MODEL_VERSION;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 
-pub const FORGE_VERSION: &str = "joil-forge/1.1.0";
+pub const FORGE_VERSION: &str = "joil-forge/1.1.1";
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -170,6 +170,7 @@ impl Campaign {
         }
         if !(0.0..=1.0).contains(&self.crossover_rate)
             || !(0.0..=1.0).contains(&self.structural_rate)
+            || !(0.0..=1.0).contains(&self.archive_parent_rate)
         {
             return Err("rates must lie in [0, 1]".into());
         }
@@ -177,8 +178,28 @@ impl Campaign {
             return Err("at least one duty with positive weight is required".into());
         }
         for d in &self.duties {
-            if d.weight < 0.0 {
-                return Err(format!("duty '{}': negative weight", d.name));
+            if !d.weight.is_finite() || d.weight < 0.0 {
+                return Err(format!(
+                    "duty '{}': weight must be finite and nonnegative",
+                    d.name
+                ));
+            }
+            if ![
+                d.fluids.rho_water_kg_m3,
+                d.fluids.mu_water_pa_s,
+                d.fluids.rho_oil_kg_m3,
+                d.fluids.mu_oil_pa_s,
+                d.fluids.interfacial_tension_n_m,
+                d.feed.dsd.volume_median_um,
+                d.feed.dsd.geometric_sd,
+            ]
+            .iter()
+            .all(|x| x.is_finite())
+            {
+                return Err(format!(
+                    "duty '{}': properties and drop sizes must be finite",
+                    d.name
+                ));
             }
             d.fluids
                 .validate()
@@ -187,9 +208,62 @@ impl Campaign {
                 .validate()
                 .map_err(|e| format!("duty '{}': {e}", d.name))?;
         }
+        let weight_sum: f64 = self.duties.iter().map(|d| d.weight).sum();
+        if !weight_sum.is_finite() || weight_sum <= 0.0 {
+            return Err("total duty weight must be finite and positive".into());
+        }
         self.envelope.validate()?;
-        if self.objective.floor_mg_l.is_nan() || self.objective.floor_mg_l <= 0.0 {
-            return Err("separation floor must be positive".into());
+        if !self.objective.floor_mg_l.is_finite() || self.objective.floor_mg_l <= 0.0 {
+            return Err("separation floor must be finite and positive".into());
+        }
+        if ![
+            self.objective.separation,
+            self.objective.capacity,
+            self.objective.energy,
+            self.objective.mass,
+            self.objective.per_unit,
+        ]
+        .iter()
+        .all(|x| x.is_finite() && *x >= 0.0)
+        {
+            return Err("objective weights must be finite and nonnegative".into());
+        }
+        let l = &self.limits;
+        if ![
+            l.pressure_budget_pa,
+            l.quality_limit_mg_l,
+            l.q_min_m3_h,
+            l.q_max_m3_h,
+            l.max_amplification,
+        ]
+        .iter()
+        .all(|x| x.is_finite() && *x > 0.0)
+            || l.q_max_m3_h < l.q_min_m3_h
+            || l.max_amplification < 1.0
+            || !(0.0..1.0).contains(&l.reject_budget)
+            || !(0.0..1.0).contains(&l.quality_probe_ratio)
+            || l.quality_probe_ratio == 0.0
+            || l.quality_probes == 0
+        {
+            return Err(
+                "invalid pressure, quality, reject, flow, amplification or probe limits".into(),
+            );
+        }
+        if ![
+            self.terminals.product_pa,
+            self.terminals.reject_pa,
+            self.terminals.pump_suction_min_pa,
+        ]
+        .iter()
+        .all(|x| x.is_finite())
+            || !self.terminals.pump_efficiency.is_finite()
+            || !(0.0..=1.0).contains(&self.terminals.pump_efficiency)
+            || self.terminals.pump_efficiency == 0.0
+        {
+            return Err("terminal pressures must be finite and pump efficiency in (0, 1]".into());
+        }
+        if self.resolution.nz == 0 || self.resolution.ns == 0 {
+            return Err("resolution dimensions must be positive".into());
         }
         Ok(())
     }
