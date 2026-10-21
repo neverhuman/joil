@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "packet": "chemical-process-networks",
+  "evidence_class": "software_verification_only",
+  "implementation_commit": "0a724b7de4514288219200bfa9d82bc1cc247645",
+  "implementation_tree": "949ee2266801f87f0419bc610d8afaf3f93e5244",
+  "local_test_commit": "87d05515e73007dc8067488650d1b9e1a126ccb3",
+  "tree_identity_verified": true,
+  "changed_paths": [
+    "README.md",
+    "crates/joil-geometry/examples/channel_network.rs",
+    "crates/joil-geometry/src/channel_network.rs",
+    "crates/joil-geometry/src/lib.rs",
+    "crates/joil-geometry/tests/channel_network.rs",
+    "docs/design/PROCESS_NETWORKS.md",
+    "docs/receipts/chemical-process-networks-claim-20261021.json",
+    "packs/hydrocyclone/judges/examples/process_network.rs",
+    "packs/hydrocyclone/judges/src/lib.rs",
+    "packs/hydrocyclone/judges/src/process_network.rs",
+    "packs/hydrocyclone/judges/src/process_network/schema.rs",
+    "packs/hydrocyclone/judges/src/process_network/transport.rs",
+    "packs/hydrocyclone/judges/src/process_network/validate.rs",
+    "packs/hydrocyclone/judges/tests/process_network.rs",
+    "tests/fixtures/process-network/branch-rejoin-geometry.json",
+    "tests/fixtures/process-network/recycle.json",
+    "tests/fixtures/process-network/series.json"
+  ],
+  "source_sha256": {
+    "README.md": "6f97ff1ce6b045ef5783d31034cbc2858e1e9bc5dbf3cefe6c4d9f9cfcb16d30",
+    "crates/joil-geometry/examples/channel_network.rs": "46b7d36cc543080891e1d3891d2548794805d43a4dd0731820a65650470c9864",
+    "crates/joil-geometry/src/channel_network.rs": "fb8a8bb99aa5f4c50340ea2b1f1841d605dcb9b79f071e81e84c5df14f367852",
+    "crates/joil-geometry/src/lib.rs": "57c952778b0f8b5d1eeccd8aadbe207bfcad756549dd748bc39cb0ef9902333b",
+    "crates/joil-geometry/tests/channel_network.rs": "bf05c5685ee7905a305596d5dfda91f691ecacd11c6b998c34140ce1630bd5eb",
+    "docs/design/PROCESS_NETWORKS.md": "f4e416f912122109c17e080f28d3c1015978a7a0cd01e44d0b4dbaef7a6f7adf",
+    "docs/receipts/chemical-process-networks-claim-20261021.json": "4597b3b5377c6567148ebcafbf103ac82900334112a22a7d0ac6b28a3fdafd57",
+    "packs/hydrocyclone/judges/examples/process_network.rs": "2803a061aeeea22949768c3255e2a63c4341225c5115c3446bbbb997a09c55a4",
+    "packs/hydrocyclone/judges/src/lib.rs": "d2c8a0fc112e58b2c08f14435725500963cc6b46d39a08aca1ed58ba21793bd7",
+    "packs/hydrocyclone/judges/src/process_network.rs": "63fe10d6a3c214e95cb450c5d2ad0271ca8b128c6e5e9a6a335dcc926ed24937",
+    "packs/hydrocyclone/judges/src/process_network/schema.rs": "e1d374faa7afbc88a3f32fb764aa380e1df20ae8b77be700b23ec7961ac47675",
+    "packs/hydrocyclone/judges/src/process_network/transport.rs": "a81e2c2b3bf0beb7f057f1a390971ec3a970bb5738d6473e16298af5fd56a260",
+    "packs/hydrocyclone/judges/src/process_network/validate.rs": "d17a8ce5acfebfe4fc15a8e7a1b0379e556f15510d150099d023c8c71f0d995b",
+    "packs/hydrocyclone/judges/tests/process_network.rs": "0772e04b0fa828f0cbfe8c837144582c32b2b22ffce872327f8b42bb0f552a48",
+    "tests/fixtures/process-network/branch-rejoin-geometry.json": "e48f9499e24f2c9c75249966758a88970ecb42ae4db4807140c9f48f7878509c",
+    "tests/fixtures/process-network/recycle.json": "3eaab0dd4f814557e65c17efa854f7f25cf2b133b215bf18116cd2a8749751a7",
+    "tests/fixtures/process-network/series.json": "b63977debd7e8a49baf080ae105603b7b4b4b7ea562ca77c0ca45829d1d45290"
+  },
+  "checks": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-geometry",
+        "-p",
+        "pack-hydrocyclone-judges"
+      ],
+      "exit_code": 0,
+      "log_sha256": "81f7a1c8acf48a1614604c214e852f2e515033334f33dd9f5354243cd7d05f8c",
+      "passed": 231,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "argv": [
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "joil-geometry",
+        "-p",
+        "pack-hydrocyclone-judges",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log_sha256": "4207db24bea1168e42ecf268d1d3767327eb10d15968a8bdcdaa61929fcd46ae"
+    },
+    {
+      "argv": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "68764c24f3cd65f549d92c9509efef409fa7a2cee0ea63aff123941b9d3ecbb6"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    }
+  ],
+  "new_independent_controls": 26,
+  "examples": [
+    {
+      "name": "series",
+      "argv": [
+        "target/debug/examples/process_network"
+      ],
+      "fixture": "tests/fixtures/process-network/series.json",
+      "exit_code": 0,
+      "wall_seconds": 0.078,
+      "stdout_sha256": "35eed37b40bd5e53bf96fe7d42f6d15904a14bcee8095d055e6d1cc063563387",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "recycle",
+      "argv": [
+        "target/debug/examples/process_network"
+      ],
+      "fixture": "tests/fixtures/process-network/recycle.json",
+      "exit_code": 0,
+      "wall_seconds": 0.061,
+      "stdout_sha256": "fba0b4e8d0464b0123e8ab6f12c4c41a8a964878a29078bbb39154b00892d077",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "geometry",
+      "argv": [
+        "target/debug/examples/channel_network"
+      ],
+      "fixture": "tests/fixtures/process-network/branch-rejoin-geometry.json",
+      "exit_code": 0,
+      "wall_seconds": 0.115,
+      "stdout_sha256": "41b12eab53bf842142243689e67464989898d8773beefc7f0495b253a5b4a0e9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "initial_workspace_failure": {
+    "log_sha256": "86549a8f961760e15b9a27a328f574905b4a50bef529d30b59a70b8dd6aae2e3",
+    "reason": "shallow checkout omitted pinned historical regression source",
+    "repair": "fetched full main history; original failed log retained; no test or threshold changed"
+  },
+  "workspace_gate": "Existing Foundation workflow on the current PR head; see PR checks",
+  "pull_request": "https://github.com/neverhuman/joil/pull/51",
+  "limits": {
+    "cargo_jobs": 2,
+    "test_threads": 2,
+    "gpu": false,
+    "simulation": false,
+    "new_output_limit_gib": 5
+  },
+  "limitations": [
+    "Independent geometry and fixed-response transport building blocks; no production genome/mesh/CFD integration",
+    "Hydraulic splits are supplied, not solved",
+    "No nonlinear coalescence or residence-time model",
+    "No manufacturing or physical performance qualification"
+  ],
+  "next_dependencies": [
+    "Independent topology and frozen-interface observers on exported artifacts",
+    "Conservative coupling to actual hydraulic and size-resolved oil transport observations",
+    "Physical benchmark and paired validation under the declared campaign envelope"
+  ],
+  "additional_local_workspace_results": [
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "exit_code": 101,
+      "log_sha256": "94b31f4237e4b031a8a24cda38a7eb07a7a06b102481de63695c1d89b27c1e44",
+      "failed_target": "crucible-cli lifecycle",
+      "reason": "Two unchanged process-identity controls report owned_process_disappeared in this container; no failure in the new targets"
+    },
+    {
+      "argv": [
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "crucible-cli",
+        "--test",
+        "lifecycle"
+      ],
+      "environment": {
+        "JOIL_LIFECYCLE_TEST_SCRATCH": "owned tmpfs directory"
+      },
+      "exit_code": 101,
+      "log_sha256": "1c14eea4b7bdd29a040d1d6b246cb466d21d6278589a65d4cdad932f6bdb66cd",
+      "passed": 5,
+      "failed": 2,
+      "reason": "Same process-identity failure with the supported tmpfs setting; retained diagnostics, no gate or test changes"
+    }
+  ]
+}
