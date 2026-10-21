@@ -174,6 +174,40 @@ fn update_best(state: &mut RunState, cands: &[Individual]) {
     }
 }
 
+/// A changed campaign/model invalidates every cached score, including archive and
+/// best-so-far records. Preserve genomes, lineage, generation and RNG streams.
+pub(crate) fn rescore(ev: &Evaluator, cache: &mut Cache, state: &mut RunState) {
+    let mut candidates: Vec<Individual> = state.archive.cells.values().cloned().collect();
+    candidates.extend(state.best.iter().cloned());
+    for island in &mut state.islands {
+        for ind in &mut island.pop {
+            let (score, behavior) = cache
+                .0
+                .entry(ind.hash.clone())
+                .or_insert_with(|| ev.evaluate(&ind.genome));
+            ind.score = score.clone();
+            ind.behavior = *behavior;
+        }
+        sort(&mut island.pop);
+        candidates.extend(island.pop.iter().cloned());
+    }
+    state.archive = Archive::default();
+    state.best = None;
+    for ind in &mut candidates {
+        let (score, behavior) = cache
+            .0
+            .entry(ind.hash.clone())
+            .or_insert_with(|| ev.evaluate(&ind.genome));
+        ind.score = score.clone();
+        ind.behavior = *behavior;
+        state.archive.offer(ind);
+    }
+    update_best(state, &candidates);
+    state.evaluations += cache.0.len() as u64;
+    // Old trajectory belongs to the archived parent manifest, not the new objective.
+    state.history.clear();
+}
+
 /// Initial state: seeds (e.g. elites of a previous run) + optional archetype mutants + random.
 pub fn init(ev: &Evaluator, cache: &mut Cache, seeds: Vec<Genome>) -> RunState {
     let c = &ev.campaign;

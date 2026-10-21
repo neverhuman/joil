@@ -42,6 +42,9 @@ pub struct Behavior {
     pub coalescer: bool,
     pub splitters: usize,
     pub min_cyclone_d_mm: f64,
+    /// Swirl-chamber diameter of the deepest cyclone stage over that of the shallowest
+    /// (1 when there is no cyclone chain): whether later stages differ from the first.
+    pub stage_ratio: f64,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -57,6 +60,8 @@ pub struct Phenotype {
     pub plant: Plant,
     pub layout: Layout,
     pub violations: Vec<String>,
+    /// Summed relative overshoot of the build height, bore and aspect limits (0 inside).
+    pub excess: f64,
     pub behavior: Behavior,
     pub stats: Stats,
 }
@@ -74,19 +79,38 @@ pub fn develop(genome: &Genome, env: &Envelope) -> Result<Phenotype, String> {
     if g.units.is_empty() {
         return Err("genome has no reachable units".into());
     }
-    let t = env.wall_mm;
-    let depth = ranks(&g);
-    let mut levels: Vec<usize> = depth.clone();
+    let rank = ranks(&g);
+    let mut levels: Vec<usize> = rank.clone();
     levels.sort_unstable();
     levels.dedup();
-    let bay_of: Vec<usize> = depth
+    let stacked: Vec<usize> = rank
         .iter()
-        .map(|d| levels.binary_search(d).expect("depth listed"))
+        .map(|d| levels.binary_search(d).expect("rank listed"))
         .collect();
-    let nbays = levels.len();
-    let d_in = inlet_channel(&g);
+    let mut ph = place(&g, env, &stacked);
+    // Folded alternative: consecutive ranks share a bay, side by side, whenever their
+    // footprints fit the build footprint. Streams then turn back up through vertical
+    // lanes instead of stacking stage under stage. Development keeps whichever layout
+    // has fewer violations, then the shorter one; the genome does not choose.
+    let folded = crate::compact::fold(&g, env, &stacked);
+    if folded != stacked {
+        let alt = place(&g, env, &folded);
+        let key = |p: &Phenotype| (p.violations.len(), p.layout.length_mm);
+        if key(&alt).0 < key(&ph).0 || (key(&alt).0 == key(&ph).0 && key(&alt).1 < key(&ph).1) {
+            ph = alt;
+        }
+    }
+    crate::compact::print_gates(&g, env, &mut ph);
+    Ok(ph)
+}
+
+/// Lay out units bay by bay (`bay_of`), route channels and build the plant.
+fn place(g: &Genome, env: &Envelope, bay_of: &[usize]) -> Phenotype {
+    let t = env.wall_mm;
+    let nbays = bay_of.iter().copied().max().unwrap_or(0) + 1;
+    let d_in = inlet_channel(g);
     let mut units: Vec<Placed> = (0..g.units.len())
-        .map(|i| unit_shape(&g, i, d_in[i], t))
+        .map(|i| unit_shape(g, i, d_in[i], t))
         .collect();
     let mut violations = Vec::new();
     for b in 0..nbays {
@@ -115,7 +139,7 @@ pub fn develop(genome: &Genome, env: &Envelope) -> Result<Phenotype, String> {
     }
     // Channel requests (gap indices only, before z is known).
     let mut gap_pairs = Vec::new();
-    let feed_end = end_of(g.feed.to, &g);
+    let feed_end = end_of(g.feed.to, g);
     let gap_end = |e: End| match e {
         End::Unit(v) => bay_of[v],
         End::Product => nbays,
@@ -129,7 +153,7 @@ pub fn develop(genome: &Genome, env: &Envelope) -> Result<Phenotype, String> {
             } else {
                 bay_of[i] + 1
             };
-            gap_pairs.push((start, gap_end(end_of(r.to, &g))));
+            gap_pairs.push((start, gap_end(end_of(r.to, g))));
         }
     }
     let runs = runs_per_gap(&gap_pairs, nbays + 1);
@@ -161,11 +185,13 @@ pub fn develop(genome: &Genome, env: &Envelope) -> Result<Phenotype, String> {
         }
     }
     let length_mm = z;
+    let mut excess = 0.0;
     if length_mm > env.length_mm {
         violations.push(format!(
-            "cartridge length {length_mm:.0} mm exceeds {:.0} mm",
+            "part height {length_mm:.0} mm exceeds the {:.0} mm build height",
             env.length_mm
         ));
+        excess += length_mm / env.length_mm - 1.0;
     }
     let reject_d = g
         .units
@@ -205,7 +231,7 @@ pub fn develop(genome: &Genome, env: &Envelope) -> Result<Phenotype, String> {
     let mut gi = 1;
     for (i, u) in g.units.iter().enumerate() {
         for (k, r) in u.routes.iter().enumerate() {
-            let to = end_of(r.to, &g);
+            let to = end_of(r.to, g);
             let (e, ring, ctr) = end_point(to);
             reqs.push(Request {
                 from: Some((i, k)),
@@ -229,10 +255,10 @@ pub fn develop(genome: &Genome, env: &Envelope) -> Result<Phenotype, String> {
     };
     let (channels, route_violations) = router.route(&mut reqs);
     violations.extend(route_violations);
-    let plant = build_plant(&g, &channels);
-    let behavior = measure(&g, &units, nbays);
-    let stats = estimate(&g, &units, &channels, t);
-    Ok(Phenotype {
+    let plant = build_plant(g, &channels);
+    let behavior = measure(g);
+    let stats = estimate(g, &units, &channels, t);
+    Phenotype {
         plant,
         layout: Layout {
             envelope: *env,
@@ -244,9 +270,10 @@ pub fn develop(genome: &Genome, env: &Envelope) -> Result<Phenotype, String> {
             ports,
         },
         violations,
+        excess,
         behavior,
         stats,
-    })
+    }
 }
 
 fn build_plant(g: &Genome, channels: &[Channel]) -> Plant {
@@ -318,7 +345,7 @@ fn build_plant(g: &Genome, channels: &[Channel]) -> Plant {
     }
 }
 
-fn measure(g: &Genome, units: &[Placed], nbays: usize) -> Behavior {
+fn measure(g: &Genome) -> Behavior {
     let depth = depths(g);
     let mut recycles = 0;
     for (i, u) in g.units.iter().enumerate() {
@@ -331,7 +358,27 @@ fn measure(g: &Genome, units: &[Placed], nbays: usize) -> Behavior {
             }
         }
     }
-    let _ = units;
+    let cyclones: Vec<(usize, f64)> = g
+        .units
+        .iter()
+        .zip(&depth)
+        .filter_map(|(u, d)| match &u.body {
+            Body::Cyclone(c) => Some((*d, c.diameter_mm)),
+            _ => None,
+        })
+        .collect();
+    // Shallowest and deepest cyclone stages (ties: the larger and the smaller diameter,
+    // so the ratio is deterministic).
+    let first = cyclones
+        .iter()
+        .min_by(|a, b| a.0.cmp(&b.0).then(b.1.total_cmp(&a.1)));
+    let last = cyclones
+        .iter()
+        .max_by(|a, b| a.0.cmp(&b.0).then(b.1.total_cmp(&a.1)));
+    let stage_ratio = match (first, last) {
+        (Some(f), Some(l)) if l.0 > f.0 => l.1 / f.1,
+        _ => 1.0,
+    };
     Behavior {
         cyclone_cells: g
             .units
@@ -339,7 +386,7 @@ fn measure(g: &Genome, units: &[Placed], nbays: usize) -> Behavior {
             .filter(|u| matches!(u.body, Body::Cyclone(_)))
             .map(|u| u.body.cells())
             .sum(),
-        series_depth: nbays,
+        series_depth: depth.iter().copied().max().unwrap_or(0) + 1,
         recycles,
         coalescer: g.units.iter().any(|u| matches!(u.body, Body::Coalescer(_))),
         splitters: g
@@ -347,18 +394,12 @@ fn measure(g: &Genome, units: &[Placed], nbays: usize) -> Behavior {
             .iter()
             .filter(|u| matches!(u.body, Body::Splitter { .. }))
             .count(),
-        min_cyclone_d_mm: g
-            .units
+        min_cyclone_d_mm: cyclones
             .iter()
-            .filter_map(|u| {
-                if let Body::Cyclone(c) = &u.body {
-                    Some(c.diameter_mm)
-                } else {
-                    None
-                }
-            })
+            .map(|c| c.1)
             .fold(f64::INFINITY, f64::min)
             .min(1.0e3),
+        stage_ratio,
     }
 }
 

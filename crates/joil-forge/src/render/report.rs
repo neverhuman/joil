@@ -1,7 +1,7 @@
 //! Report orchestration: design figures, CT-35 control and the run dashboard.
 
 use super::html::{dashboard, MeshPayload};
-use super::svg::{comparison_chart, evolution_chart, grade_chart, pfd};
+use super::svg::{comparison_chart, evolution_chart, grade_chart, pfd, stage_dsd_chart};
 use super::views::{plate, thumbnail};
 use crate::cad::{self, write_outputs};
 use crate::campaign::Campaign;
@@ -38,9 +38,38 @@ pub fn reference_evaluation(
     let ph = ph.ok_or_else(|| score.reasons.join("; "))?;
     let at = match cap.and_then(|cap| cap.reference) {
         Some(e) => Some(e),
-        None => evaluate(&ph.plant, &c.feed, &ev.settings(0, Resolution::report())).ok(),
+        None => evaluate(
+            &ph.plant,
+            &c.rating().feed,
+            &ev.settings(0, Resolution::report()),
+        )
+        .ok(),
     };
     Ok((score, ph, at))
+}
+
+/// Every duty evaluated at the design's rated feed flow under the nominal closure, at
+/// report resolution (for the duty table and the stage drop-size charts).
+pub fn duty_evaluations(
+    c: &Campaign,
+    ph: &crate::develop::Phenotype,
+    score: &crate::score::Score,
+) -> Vec<(String, Option<PlantEvaluation>)> {
+    let ev = Evaluator::new(c);
+    c.duties
+        .iter()
+        .enumerate()
+        .map(|(d, duty)| {
+            let q = score.q_feed_m3_h.max(1e-6);
+            let at = evaluate(
+                &ph.plant,
+                &duty.feed.with_flow(q),
+                &ev.duty_settings(d, 0, Resolution::report()),
+            )
+            .ok();
+            (duty.name.clone(), at)
+        })
+        .collect()
 }
 
 /// Window of the head region for detail views (mm from the top face).
@@ -81,6 +110,19 @@ pub fn design_figures(
             &serde_json::to_vec_pretty(e).map_err(|e| e.to_string())?,
         )?);
     }
+    for (d, (name, e)) in duty_evaluations(c, &ph, &score).iter().enumerate() {
+        if let Some(e) = e {
+            files.push(write(
+                &out.join(format!("stage-dsd-{d}.svg")),
+                stage_dsd_chart(
+                    e,
+                    &joil_forge_judges::sizes::SizeGrid::standard(),
+                    &format!("What each stage receives: {name}"),
+                )
+                .as_bytes(),
+            )?);
+        }
+    }
     files.push(write(
         &out.join("score.json"),
         &serde_json::to_vec_pretty(&score).map_err(|e| e.to_string())?,
@@ -101,7 +143,7 @@ pub fn baseline_json(c: &Campaign) -> Result<serde_json::Value, String> {
     for k in 0..ev.closures.len() {
         let cap = capacity(
             &plant,
-            &c.feed,
+            &c.rating().feed,
             &ev.settings(k, Resolution::report()),
             &c.limits,
         )
@@ -114,8 +156,12 @@ pub fn baseline_json(c: &Campaign) -> Result<serde_json::Value, String> {
             "shortfall": cap.shortfall,
         }));
     }
-    let at4 = evaluate(&plant, &c.feed, &ev.settings(0, Resolution::report()))
-        .map_err(|e| e.to_string())?;
+    let at4 = evaluate(
+        &plant,
+        &c.rating().feed,
+        &ev.settings(0, Resolution::report()),
+    )
+    .map_err(|e| e.to_string())?;
     let arche = archetypes()
         .into_iter()
         .find(|(n, _)| *n == "ct35")
@@ -127,7 +173,7 @@ pub fn baseline_json(c: &Campaign) -> Result<serde_json::Value, String> {
         "model_version": joil_forge_judges::MODEL_VERSION,
         "liner_only": {
             "at_reference_flow": {
-                "flow_m3_h": c.feed.flow_m3_h,
+                "flow_m3_h": c.rating().feed.flow_m3_h,
                 "cout_mg_l": at4.cout_mg_l,
                 "oil_capture": at4.oil_capture,
                 "feed_pressure_pa": at4.feed_pressure_pa,
@@ -202,6 +248,18 @@ pub fn run_report(
         .map(|e| grade_chart(e, &joil_forge_judges::sizes::SizeGrid::standard()))
         .unwrap_or_default();
     write(&out.join("best-grade.svg"), grade_svg.as_bytes())?;
+    let mut stage_svgs = Vec::new();
+    for (d, (name, e)) in duty_evaluations(c, &ph, &score).iter().enumerate() {
+        if let Some(e) = e {
+            let svg = stage_dsd_chart(
+                e,
+                &joil_forge_judges::sizes::SizeGrid::standard(),
+                &format!("What each stage receives: {name}"),
+            );
+            write(&out.join(format!("best-stage-dsd-{d}.svg")), svg.as_bytes())?;
+            stage_svgs.push(svg);
+        }
+    }
     let mut evo_svg = evolution_chart(&cp.state.history, &format!("Search progress: {}", c.name));
     write(&out.join("evolution.svg"), evo_svg.as_bytes())?;
     if let Some(r) = &control {
@@ -311,6 +369,7 @@ pub fn run_report(
         &pfd_svg,
         &grade_svg,
         &evo_svg,
+        &stage_svgs,
         &gallery,
     );
     let index = out.join("index.html");

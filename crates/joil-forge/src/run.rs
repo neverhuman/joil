@@ -3,7 +3,7 @@
 
 use crate::campaign::{Campaign, Manifest};
 use crate::checkpoint::{self, write_atomic, Checkpoint, FORMAT};
-use crate::evolve::{init, step, Cache, Individual, RunState};
+use crate::evolve::{init, rescore, step, Cache, Individual, RunState};
 use crate::genome::Genome;
 use crate::score::Evaluator;
 use std::io::Write;
@@ -116,16 +116,32 @@ pub fn run(opts: &Options) -> Result<RunState, String> {
     let run = &opts.run_dir;
     let ckpt = checkpoint::checkpoint_path(run);
     let mut cache = Cache::default();
-    let (campaign, manifest, mut state) = if opts.resume {
+    let (campaign, manifest, mut state, forked) = if opts.resume {
         let cp = checkpoint::load(&ckpt)?;
         let campaign = match &opts.campaign {
             Some(p) => load_campaign(Some(p))?,
             None => cp.campaign.clone(),
         };
+        campaign.validate()?;
         let fresh = Manifest::new(&campaign);
-        let manifest = if fresh.identity() == cp.manifest.identity() {
+        let changed = fresh.identity() != cp.manifest.identity();
+        let manifest = if !changed {
             cp.manifest.clone()
         } else if opts.fork {
+            let parent_dir = run.join("lineage").join(cp.manifest.sha256());
+            std::fs::create_dir_all(&parent_dir).map_err(|e| e.to_string())?;
+            // Keep the exact parent bytes before replacing any manifest or checkpoint.
+            write_atomic(
+                &parent_dir.join("checkpoint.json"),
+                &std::fs::read(&ckpt).map_err(|e| e.to_string())?,
+            )?;
+            let history = run.join("history.jsonl");
+            if history.exists() {
+                write_atomic(
+                    &parent_dir.join("history.jsonl"),
+                    &std::fs::read(&history).map_err(|e| e.to_string())?,
+                )?;
+            }
             Manifest {
                 parent_manifest_sha256: Some(cp.manifest.sha256()),
                 seeded_from: cp.manifest.seeded_from.clone(),
@@ -134,7 +150,7 @@ pub fn run(opts: &Options) -> Result<RunState, String> {
         } else {
             return Err("campaign or model version differs from the checkpoint manifest; pass --fork to continue as a new lineage".into());
         };
-        (campaign, manifest, cp.state)
+        (campaign, manifest, cp.state, changed)
     } else {
         if ckpt.exists() {
             return Err(format!(
@@ -154,8 +170,12 @@ pub fn run(opts: &Options) -> Result<RunState, String> {
         std::fs::create_dir_all(run).map_err(|e| format!("create {}: {e}", run.display()))?;
         let ev = Evaluator::new(&campaign);
         let state = init(&ev, &mut cache, seeds);
-        (campaign, manifest, state)
+        (campaign, manifest, state, false)
     };
+    let ev = Evaluator::new(&campaign);
+    if forked {
+        rescore(&ev, &mut cache, &mut state);
+    }
     std::fs::create_dir_all(run).map_err(|e| e.to_string())?;
     write_atomic(
         &run.join("forge-campaign.json"),
@@ -165,7 +185,6 @@ pub fn run(opts: &Options) -> Result<RunState, String> {
         &run.join("manifest.json"),
         &serde_json::to_vec_pretty(&manifest).map_err(|e| e.to_string())?,
     )?;
-    let ev = Evaluator::new(&campaign);
     let save = |state: &RunState, manifest: &Manifest| {
         checkpoint::save(
             run,
@@ -177,8 +196,11 @@ pub fn run(opts: &Options) -> Result<RunState, String> {
             },
         )
     };
-    if !opts.resume {
+    if !opts.resume || forked {
         save(&state, &manifest)?;
+        if forked {
+            write_atomic(&run.join("history.jsonl"), b"")?;
+        }
         if let Some(b) = &state.best {
             write_best(run, b)?;
         }

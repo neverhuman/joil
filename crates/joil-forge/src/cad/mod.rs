@@ -9,6 +9,7 @@ pub mod audit;
 pub mod export;
 pub mod mesh;
 pub mod model;
+pub mod print;
 pub mod sdf;
 
 use crate::campaign::Campaign;
@@ -38,6 +39,7 @@ pub struct CadReport {
     /// Under-sampling warnings: a wall or passage spanning fewer than two voxels can
     /// pinch shut or open spurious holes, which changes the mesh topology.
     pub resolution_warnings: Vec<String>,
+    pub print: print::PrintAudit,
     pub geometry_violations: Vec<String>,
     pub note: String,
 }
@@ -98,6 +100,7 @@ pub fn build(g: &Genome, c: &Campaign, voxel: f64) -> Result<Meshed, String> {
             ));
         }
     }
+    let print = print::audit(&model, &fluid, c.envelope.length_mm, voxel);
     let report = CadReport {
         genome_sha256: g.canonical_sha256(),
         voxel_mm: voxel,
@@ -112,6 +115,7 @@ pub fn build(g: &Genome, c: &Campaign, voxel: f64) -> Result<Meshed, String> {
         lattice_represented: model.lattice,
         min_feature_mm: min_feature,
         resolution_warnings,
+        print,
         geometry_violations: ph.violations.clone(),
         note: "Geometry observations only; rendering and meshing are not validation. The \
                volume estimate is the layout's analytic sum, which double-counts overlaps."

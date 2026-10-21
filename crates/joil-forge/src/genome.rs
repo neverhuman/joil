@@ -17,7 +17,7 @@ pub const SCHEMA: &str = "joil-forge-genome/1";
 pub mod bounds {
     pub const MAX_UNITS: usize = 10;
     pub const MAX_TOTAL_CELLS: u32 = 48;
-    pub const DIAMETER_MM: (f64, f64) = (8.0, 72.0);
+    pub const DIAMETER_MM: (f64, f64) = (5.0, 72.0);
     pub const CHAMBER_LEN_RATIO: (f64, f64) = (0.3, 3.0);
     pub const SEGMENTS: (usize, usize) = (1, 6);
     pub const SEG_LEN_RATIO: (f64, f64) = (0.1, 30.0);

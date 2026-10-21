@@ -1,0 +1,214 @@
+{
+  "schema_version": "joil-forge-software-repair-v1",
+  "created_at": "2026-10-21T16:56:18.271168+00:00",
+  "packet": "FORGE-REGRESSION-CLOSURE-20261021",
+  "base_commit": "55175e705aa5202f3f7469eaa47299a999932ff4",
+  "pull_requests": [
+    52,
+    53
+  ],
+  "changed_sources": {
+    "crates/joil-forge/src/campaign.rs": "762c18164f9fee574f4f0778d42fadf687840f57e39c0bf3b93872356b4b33cf",
+    "crates/joil-forge/src/evolve.rs": "1c2360c6a73138e5021daf94367b00088bae71d27d1159029c268320a3d56845",
+    "crates/joil-forge/src/layout.rs": "d5388a0741b3a3aa0d3c54d2b9d3f2e34067a27581853677083dc0402600d1c5",
+    "crates/joil-forge/src/run.rs": "a727c508775ea1d5b8606df2e60702d918726ed0afc6e211f370f043da863181",
+    "crates/joil-forge/src/score.rs": "da6cd457d93037587ff73b0df0ef74bee647bcdd7c4a23e8573e141cd993cbb7",
+    "crates/joil-forge/tests/score_safety.rs": "097bb9dc6836de7467c16bbcfa9c44ac8d95f9fc11aeda9fc52ae6785c58e33e",
+    "docs/forge/README.md": "4d4a2d9834771d392c4e2889e27d1376c771eeed7b99675fe04e7731d49c9f91"
+  },
+  "repairs": [
+    "JFORGE53-SCORE-DUTY-ERROR-01: preserve unknown duty outlet and exact duty/closure error, classify numerical failure, refuse objective eligibility",
+    "Check actual common rated flow against rating-duty quality and pressure limits; report its actual feed flow",
+    "Reject nonfinite and invalid campaign weights, properties, geometry, budgets, probabilities and terminal settings; refuse overflowing objective arithmetic",
+    "Forks archive exact parent checkpoint/history, recompute all live population/archive/best scores, charge distinct recomputations, clear old objective history and save before any selection; version 1.1.1 invalidates older scoring identity"
+  ],
+  "validation": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.102,
+      "log": "fmt-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/claims_audit.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 5.344,
+      "log": "claims-final.log",
+      "log_sha256": "f3a7798e5ea37450bbc166cc3c1e9a10d4d34cee33dc35e59f7db49f8cde45b1"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/gen_status.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.057,
+      "log": "status-final.log",
+      "log_sha256": "f8066a306dae8868161ef5908453f76ca66f91734a237fe607d9f84859301949"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "python3",
+        "tools/check_public.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.18,
+      "log": "public-final.log",
+      "log_sha256": "3e6a6d4a988b75093080e40e66988b55eeaf2f001f01158d832e60f2d0f9f856"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.016,
+      "log": "diff-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "CARGO_HOME=.private/gap-closure/cargo-home",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "RAYON_NUM_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG=line-tables-only",
+        "TMPDIR=.private/gap-closure/tmp (absolute checkout path at execution)",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-forge",
+        "--test",
+        "score_safety"
+      ],
+      "exit_code": 101,
+      "log": "before-safety.log",
+      "log_sha256": "30808b2eee90306883fc5c62163be0423ed912013ae0736fcc43d34f37518b99"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "CARGO_HOME=.private/gap-closure/cargo-home",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "RAYON_NUM_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG=line-tables-only",
+        "TMPDIR=.private/gap-closure/tmp (absolute checkout path at execution)",
+        "cargo",
+        "test",
+        "--locked",
+        "-p",
+        "joil-forge-judges",
+        "-p",
+        "joil-forge"
+      ],
+      "exit_code": 0,
+      "log": "forge-suite-final.log",
+      "log_sha256": "e185741c9d02b2d881e0ed0a76b02d3026ee8e7a0dea1ffcd44840b982d06ae3"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "CARGO_HOME=.private/gap-closure/cargo-home",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "RAYON_NUM_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG=line-tables-only",
+        "TMPDIR=.private/gap-closure/tmp (absolute checkout path at execution)",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "joil-forge-judges",
+        "-p",
+        "joil-forge",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 101,
+      "log": "clippy.log",
+      "log_sha256": "1af0a299468b828b8108014ebf02331ade2a2e0335105ab03376457e67f8c228"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "CARGO_HOME=.private/gap-closure/cargo-home",
+        "CARGO_BUILD_JOBS=2",
+        "RUST_TEST_THREADS=2",
+        "RAYON_NUM_THREADS=2",
+        "CARGO_PROFILE_DEV_DEBUG=line-tables-only",
+        "CARGO_PROFILE_TEST_DEBUG=line-tables-only",
+        "TMPDIR=.private/gap-closure/tmp (absolute checkout path at execution)",
+        "cargo",
+        "clippy",
+        "--locked",
+        "-p",
+        "joil-forge-judges",
+        "-p",
+        "joil-forge",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "log": "clippy-final.log",
+      "log_sha256": "bb162b3f7fe564bfacfa1f8420b92637de97abbdc39f8786733b0b62a3432635"
+    }
+  ],
+  "rust_tests_passed": 44,
+  "rust_tests_failed": 0,
+  "rust_tests_ignored": 0,
+  "regression_controls": "Initial four controls reproduced three failures on the published implementation; final five controls all pass. Initial controls were uncommitted; final source hashes above bind delivered controls. Clippy found one new test initializer lint; corrected without suppression.",
+  "scope": "Software and analytic/numerical controls only. Historical demo receipts and figures unchanged. No native CFD, physical validation, optimizer superiority, lattice qualification or hardware eligibility asserted.",
+  "limits": {
+    "cargo_jobs": 2,
+    "test_threads": 2,
+    "rayon_threads": 2,
+    "new_output_limit_gib": 5,
+    "ram_limit_gib": 12,
+    "gpu": false
+  },
+  "remaining": [
+    "Exact new-head hosted Foundation, Security and Jankurai checks before merging PR53",
+    "Larger unified-evolution integration remains separately owned and not qualified by this receipt",
+    "Native full-residence oil closure and independent physical validation remain open"
+  ]
+}

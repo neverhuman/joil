@@ -24,7 +24,7 @@ fn tiny() -> Campaign {
         islands: 2,
         migrate_every: 2,
         closure_samples: 1,
-        scenarios: Vec::new(),
+        duties: vec![joil_forge::campaign::Duty::produced_water()],
         ..Campaign::default()
     }
 }
@@ -222,7 +222,8 @@ fn cad_meshes_are_closed_oriented_single_parts() {
         .find(|(n, _)| *n == "mini-cells")
         .unwrap()
         .1;
-    let m = joil_forge::cad::build(&g, &Campaign::default(), 1.2).unwrap();
+    // 0.8 mm: coarse enough for a debug test, fine enough that the 1 mm jets stay open.
+    let m = joil_forge::cad::build(&g, &Campaign::default(), 0.8).unwrap();
     for (name, a) in [("fluid", &m.report.fluid), ("part", &m.report.part)] {
         assert!(a.closed, "{name} open");
         assert!(a.consistently_oriented, "{name} misoriented");
@@ -236,17 +237,68 @@ fn cad_meshes_are_closed_oriented_single_parts() {
     );
     // Seven cells sharing three chambers make loops: the fluid domain has positive genus.
     assert!(m.report.fluid.genus[0] >= 6);
+    // Printed standing on its head: plenum posts and teardrop runs leave little ceiling
+    // beyond the bridge limit.
+    let pa = &m.report.print;
+    assert!(pa.support_posts > 0);
+    assert!(
+        pa.unsupported_ceiling_area_mm2 < 0.1 * pa.ceiling_area_mm2,
+        "{} of {} mm2 unsupported",
+        pa.unsupported_ceiling_area_mm2,
+        pa.ceiling_area_mm2
+    );
+}
+
+#[test]
+fn folding_puts_series_stages_side_by_side_when_they_fit() {
+    // Two small one-cell stages in series: stacked they need two bays; folded, one.
+    let mut g = archetypes()
+        .into_iter()
+        .find(|(n, _)| *n == "series-pair")
+        .unwrap()
+        .1;
+    for u in &mut g.units {
+        if let joil_forge::genome::Body::Cyclone(c) = &mut u.body {
+            c.diameter_mm = 10.0;
+            c.cells = 1;
+            c.chamber_len_ratio = 0.5;
+            c.segments = vec![
+                joil_forge::genome::Segment {
+                    len_ratio: 1.0,
+                    end_ratio: 0.5,
+                },
+                joil_forge::genome::Segment {
+                    len_ratio: 12.0,
+                    end_ratio: 0.4,
+                },
+            ];
+            c.orifice_ratio = 0.15;
+        }
+        for r in &mut u.routes {
+            r.channel_mm = 4.0;
+        }
+    }
+    g.feed.channel_mm = 4.0;
+    let c = Campaign::default();
+    let ph = develop(&g, &c.envelope).unwrap();
+    assert!(ph.violations.is_empty(), "{:?}", ph.violations);
+    assert_eq!(
+        ph.layout.bays.len(),
+        1,
+        "series stages should share one bay"
+    );
+    assert_eq!(ph.behavior.series_depth, 2);
 }
 
 #[test]
 fn committed_campaign_matches_the_documented_defaults() {
-    let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../campaigns/forge-v1.json");
+    let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../campaigns/forge-v2.json");
     let text = std::fs::read_to_string(path).unwrap();
     let committed: Campaign = serde_json::from_str(&text).unwrap();
     assert_eq!(
         committed,
         Campaign::default(),
-        "regenerate campaigns/forge-v1.json"
+        "regenerate campaigns/forge-v2.json"
     );
 }
 

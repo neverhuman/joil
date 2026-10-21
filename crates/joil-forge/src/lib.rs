@@ -16,6 +16,7 @@ pub mod archive;
 pub mod cad;
 pub mod campaign;
 pub mod checkpoint;
+pub mod compact;
 pub mod control;
 pub mod crossover;
 pub mod develop;

@@ -5,6 +5,7 @@
 //! the channel dilated by the wall, so the two stay separated by solid material.
 
 use serde::{Deserialize, Serialize};
+use std::collections::BTreeSet;
 
 pub type V3 = [f64; 3];
 
@@ -39,6 +40,55 @@ pub enum Shape {
         c: V3,
         r: f64,
     },
+    /// Horizontal channel with a 45° roof: a capsule whose cross-section is a teardrop
+    /// with its apex up (+z), so the printed ceiling never overhangs more than 45°.
+    Teardrop {
+        a: V3,
+        b: V3,
+        r: f64,
+    },
+}
+
+/// Support posts left solid inside a plenum: a hexagonal lattice of vertical pillars of
+/// radius `r` and pitch `pitch` about `(x, y)`, keeping only the listed lattice sites.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Posts {
+    pub x: f64,
+    pub y: f64,
+    pub pitch: f64,
+    pub r: f64,
+    pub keep: BTreeSet<(i32, i32)>,
+}
+
+impl Posts {
+    pub fn site(&self, i: i32, j: i32) -> [f64; 2] {
+        [
+            self.x + self.pitch * (i as f64 + 0.5 * j as f64),
+            self.y + self.pitch * 0.5 * 3.0_f64.sqrt() * j as f64,
+        ]
+    }
+
+    /// Signed distance to the nearest kept post (negative inside a post).
+    pub fn distance(&self, p: V3) -> f64 {
+        let h = self.pitch * 0.5 * 3.0_f64.sqrt();
+        let fj = (p[1] - self.y) / h;
+        let fi = (p[0] - self.x) / self.pitch - 0.5 * fj;
+        let mut best = f64::INFINITY;
+        for j in [fj.floor() as i32, fj.ceil() as i32] {
+            for i in [
+                fi.floor() as i32 - 1,
+                fi.floor() as i32,
+                fi.ceil() as i32,
+                fi.ceil() as i32 + 1,
+            ] {
+                if self.keep.contains(&(i, j)) {
+                    let c = self.site(i, j);
+                    best = best.min((p[0] - c[0]).hypot(p[1] - c[1]) - self.r);
+                }
+            }
+        }
+        best
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -68,6 +118,8 @@ pub struct Feature {
     pub carve: Vec<usize>,
     /// Optional lattice inside a bed: (cell size, level) of a gyroid network.
     pub lattice: Option<(f64, f64)>,
+    /// Optional support posts left solid inside a plenum.
+    pub posts: Option<Posts>,
     pub lo: V3,
     pub hi: V3,
 }
@@ -82,6 +134,19 @@ fn dot(a: V3, b: V3) -> f64 {
 
 fn len(a: V3) -> f64 {
     dot(a, a).sqrt()
+}
+
+/// 2D teardrop (disc of radius `r` with a 45° roof whose apex is at `v = r√2`), `u ≥ 0`.
+/// The union of the disc and the roof triangle; exact outside.
+fn teardrop2(u: f64, v: f64, r: f64) -> f64 {
+    let disc = u.hypot(v) - r;
+    let k = r * std::f64::consts::FRAC_1_SQRT_2;
+    let apex = r * std::f64::consts::SQRT_2;
+    let q = [u, v];
+    let edge = seg2(q, [0.0, k], [k, k]).min(seg2(q, [k, k], [0.0, apex]));
+    let inside = v >= k && u + v <= apex;
+    let tri = if inside { -edge } else { edge };
+    disc.min(tri)
 }
 
 fn seg2(p: [f64; 2], a: [f64; 2], b: [f64; 2]) -> f64 {
@@ -149,6 +214,21 @@ impl Shape {
                     + q[0].max(q[1]).max(q[2]).min(0.0)
             }
             Shape::Sphere { c, r } => len(sub(p, *c)) - r,
+            Shape::Teardrop { a, b, r } => {
+                let pa = sub(p, *a);
+                let ba = sub(*b, *a);
+                let l2 = dot(ba, ba);
+                let t = if l2 <= 0.0 {
+                    0.0
+                } else {
+                    (dot(pa, ba) / l2).clamp(0.0, 1.0)
+                };
+                let q = [pa[0] - t * ba[0], pa[1] - t * ba[1], pa[2] - t * ba[2]];
+                // Cross-section coordinates: v up, u horizontal distance from the axis.
+                let v = q[2];
+                let u = q[0].hypot(q[1]);
+                teardrop2(u, v, *r)
+            }
         }
     }
 
@@ -181,6 +261,14 @@ impl Shape {
                 [c[0] - r, c[1] - r, c[2] - r],
                 [c[0] + r, c[1] + r, c[2] + r],
             ),
+            Shape::Teardrop { a, b, r } => (
+                [a[0].min(b[0]) - r, a[1].min(b[1]) - r, a[2].min(b[2]) - r],
+                [
+                    a[0].max(b[0]) + r,
+                    a[1].max(b[1]) + r,
+                    a[2].max(b[2]) + r * std::f64::consts::SQRT_2,
+                ],
+            ),
         }
     }
 }
@@ -195,6 +283,7 @@ impl Feature {
             channel: None,
             carve: Vec::new(),
             lattice: None,
+            posts: None,
             lo,
             hi,
         }
@@ -218,6 +307,9 @@ pub fn feature_distance(fs: &[Feature], i: usize, p: V3, wall: f64) -> f64 {
     }
     for &c in &f.carve {
         d = d.max(wall - fs[c].shape.distance(p));
+    }
+    if let Some(posts) = &f.posts {
+        d = d.max(-posts.distance(p));
     }
     d
 }
