@@ -1,0 +1,185 @@
+//! Campaign configuration and the run manifest that binds a checkpoint to it.
+
+use crate::layout::Envelope;
+use joil_forge_judges::capacity::Limits;
+use joil_forge_judges::cyclone::Resolution;
+use joil_forge_judges::fluid::{FeedState, Fluids, Lognormal};
+use joil_forge_judges::pressure::Terminals;
+use joil_forge_judges::MODEL_VERSION;
+use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
+
+pub const FORGE_VERSION: &str = "joil-forge/1.0.0";
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Seeding {
+    /// Random genomes only (no agent-authored designs).
+    DeNovo,
+    /// Random genomes plus mutants of the archetypes in [`crate::random::archetypes`].
+    Archetypes,
+}
+
+/// Weights of the scalar objective applied to feasible designs.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Objective {
+    /// On `ln(conservative treated capacity / 1 m³/h)`.
+    pub capacity: f64,
+    /// On `-ln(specific energy / 100 kJ/m³)` at the capacity point.
+    pub energy: f64,
+    /// On `-ln(printed shell mass / 1 kg)`.
+    pub mass: f64,
+    /// On `ln(min over feed scenarios of min(1, limit / C_out))`, each scenario run at the
+    /// design's rated flow: the share of capacity that survives a finer or dirtier feed.
+    pub robustness: f64,
+    /// Per unit (Occam pressure on part count).
+    pub per_unit: f64,
+}
+
+impl Default for Objective {
+    fn default() -> Self {
+        Self {
+            capacity: 1.0,
+            energy: 0.25,
+            mass: 0.15,
+            robustness: 1.0,
+            per_unit: 0.02,
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Campaign {
+    pub name: String,
+    pub seed: u64,
+    pub population: usize,
+    pub islands: usize,
+    pub migrate_every: usize,
+    pub migrants: usize,
+    pub tournament: usize,
+    pub crossover_rate: f64,
+    pub structural_rate: f64,
+    pub archive_parent_rate: f64,
+    pub seeding: Seeding,
+    /// Latin-hypercube closure samples in addition to the nominal closure.
+    pub closure_samples: usize,
+    pub allow_pumps: bool,
+    pub objective: Objective,
+    pub limits: Limits,
+    pub feed: FeedState,
+    /// Off-design feeds run at the rated flow with the nominal closure (robustness term).
+    pub scenarios: Vec<FeedState>,
+    pub envelope: Envelope,
+    pub fluids: Fluids,
+    pub terminals: Terminals,
+    pub resolution: Resolution,
+}
+
+impl Default for Campaign {
+    fn default() -> Self {
+        let feed = FeedState::reference();
+        Self {
+            name: "forge-v1".into(),
+            seed: 20_261_021,
+            population: 48,
+            islands: 2,
+            migrate_every: 5,
+            migrants: 2,
+            tournament: 3,
+            crossover_rate: 0.3,
+            structural_rate: 0.45,
+            archive_parent_rate: 0.3,
+            seeding: Seeding::DeNovo,
+            closure_samples: 3,
+            allow_pumps: true,
+            objective: Objective::default(),
+            limits: Limits::default(),
+            feed,
+            scenarios: vec![FeedState {
+                dsd: Lognormal {
+                    volume_median_um: 8.0,
+                    geometric_sd: 1.6,
+                },
+                ..feed
+            }],
+            envelope: Envelope::default(),
+            fluids: Fluids::reference(),
+            terminals: Terminals::default(),
+            resolution: Resolution::default(),
+        }
+    }
+}
+
+impl Campaign {
+    pub fn validate(&self) -> Result<(), String> {
+        if self.population < 4 || self.islands == 0 || self.tournament == 0 {
+            return Err("population >= 4, islands >= 1 and tournament >= 1 are required".into());
+        }
+        if !(0.0..=1.0).contains(&self.crossover_rate)
+            || !(0.0..=1.0).contains(&self.structural_rate)
+        {
+            return Err("rates must lie in [0, 1]".into());
+        }
+        if self.envelope.wall_mm < 1.0 {
+            return Err("wall thickness below the 1.0 mm printable minimum".into());
+        }
+        self.fluids.validate().map_err(|e| e.to_string())?;
+        self.feed.validate().map_err(|e| e.to_string())?;
+        Ok(())
+    }
+
+    pub fn sha256(&self) -> String {
+        format!(
+            "{:x}",
+            Sha256::digest(serde_json::to_vec(self).expect("campaign serialises"))
+        )
+    }
+}
+
+/// Identity of a run: campaign content plus code/model versions. A checkpoint resumes
+/// only under the same manifest unless the caller explicitly forks.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Manifest {
+    pub campaign_sha256: String,
+    pub model_version: String,
+    pub forge_version: String,
+    pub evidence_class: String,
+    pub parent_manifest_sha256: Option<String>,
+    pub seeded_from: Option<String>,
+}
+
+impl Manifest {
+    pub fn new(c: &Campaign) -> Self {
+        Self {
+            campaign_sha256: c.sha256(),
+            model_version: MODEL_VERSION.into(),
+            forge_version: FORGE_VERSION.into(),
+            evidence_class: joil_forge_judges::EVIDENCE_CLASS.into(),
+            parent_manifest_sha256: None,
+            seeded_from: None,
+        }
+    }
+
+    /// Identity used for resume checks (lineage fields excluded).
+    pub fn identity(&self) -> String {
+        let core = (
+            &self.campaign_sha256,
+            &self.model_version,
+            &self.forge_version,
+        );
+        format!(
+            "{:x}",
+            Sha256::digest(serde_json::to_vec(&core).expect("serialises"))
+        )
+    }
+
+    pub fn sha256(&self) -> String {
+        format!(
+            "{:x}",
+            Sha256::digest(serde_json::to_vec(self).expect("serialises"))
+        )
+    }
+}

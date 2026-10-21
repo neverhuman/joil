@@ -1,0 +1,9 @@
+[package]
+name = "joil-forge-judges"
+version.workspace = true
+edition.workspace = true
+description = "Genome-blind reduced-order physics judges for the joil forge lane: swirl, droplet migration, breakup, coalescence and process networks with recycle."
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
