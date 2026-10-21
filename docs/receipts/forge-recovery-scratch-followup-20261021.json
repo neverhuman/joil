@@ -1,0 +1,31 @@
+{
+  "schema_version": "joil-test-scratch-followup-v1",
+  "at": "2026-10-21T17:20:40.073780+00:00",
+  "parent_head": "cb327afc378051856204cb18f83bace22b02dad9",
+  "failed_ci": {
+    "run": 39639477487,
+    "job": 119360673968,
+    "result": "recovery::complete_nonempty_checkpoint_restores_real_results_and_detects_missing_state: TimedOut, expected Committed; eight other recovery tests passed",
+    "job_log_sha256": "d0d54150125ee2620ce09df2e040b73997090a2cb281f3cb550185b8b1d33f3a"
+  },
+  "repair": "Honor the existing explicitly provisioned private lifecycle scratch in recovery tests, preserve default scratch fallback, reject invalid roots, and include actual execution accounting in failure diagnostics. Production runtime, deadlines, budgets, expected outcomes and physical gates unchanged.",
+  "cause_limit": "Slow disk fsync and the one-second fixture deadline support this source-level repair; the exact timeout cause is not independently established from the retained job log. Successful native Linux controls remain required.",
+  "changed_path": "crates/crucible-runtime/tests/recovery.rs",
+  "source_sha256": "b17b8a7d9cff9231981aa2eb6be037e418590126f92ab62f27c59694a152205a",
+  "portable_control": {
+    "build": "rustc --test --edition=2021 -D warnings (exact selector/test extracted with the original shared TestScratch module)",
+    "build_exit": 0,
+    "test_exit": 0,
+    "tests_passed": 1,
+    "scope": "Portable scratch-selection boundary only; not the Linux runtime/recovery suite"
+  },
+  "logs_sha256": {
+    "linux-rust-failure.log": "d0d54150125ee2620ce09df2e040b73997090a2cb281f3cb550185b8b1d33f3a",
+    "recovery-selector-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "recovery-selector-test.log": "b9c4d0a870f846105d0729fab1b00b5cfeb153377e31cc3e9323fb671365bf6e",
+    "recovery-scratch.patch": "f43cb74a0e21764336a3fc45add6e2c7833e7043ea6931e0925115790f143b8d"
+  },
+  "linux_validation": "pending exact new-head whole Foundation CI",
+  "merge_gate": "Do not merge until actual required new-head checks pass",
+  "integration_note": "Unified branch relocates this file to crucible-search/tests/runtime_recovery.rs (99% rename); preserve relocation and search imports during composition."
+}

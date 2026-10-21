@@ -19,7 +19,46 @@ use std::{
 };
 static NATIVE: Mutex<()> = Mutex::new(());
 fn path(label: &str) -> PathBuf {
-    TestScratch::path(&format!("v5-recovery-{label}"))
+    recovery_scratch(
+        std::env::var_os("JOIL_LIFECYCLE_TEST_SCRATCH").as_deref(),
+        &format!("v5-recovery-{label}"),
+    )
+}
+fn recovery_scratch(root: Option<&std::ffi::OsStr>, label: &str) -> PathBuf {
+    match root {
+        // CI provisions and bounds this private tmpfs for real lifecycle checks.
+        // Keep durable output off the runner's slow disk without relaxing deadlines.
+        Some(root) => TestScratch::path_in(&PathBuf::from(root).canonicalize().unwrap(), label),
+        None => TestScratch::path(label),
+    }
+}
+
+#[test]
+fn recovery_scratch_honors_private_override_and_preserves_default_and_refusals() {
+    let _scratch = TestScratch::new();
+    let root = TestScratch::path("recovery-scratch-selection").join(".private");
+    std::fs::create_dir_all(&root).unwrap();
+    let selected = recovery_scratch(Some(root.as_os_str()), "selected");
+    assert_eq!(selected.parent().unwrap(), root.canonicalize().unwrap());
+    std::fs::create_dir_all(&selected).unwrap();
+    std::fs::write(selected.join("probe"), b"owned scratch").unwrap();
+    assert_eq!(
+        std::fs::read(selected.join("probe")).unwrap(),
+        b"owned scratch"
+    );
+    let fallback = recovery_scratch(None, "default");
+    assert!(fallback.is_absolute());
+    assert!(!fallback.starts_with(&root));
+    assert!(std::panic::catch_unwind(|| recovery_scratch(
+        Some(std::ffi::OsStr::new("/")),
+        "public-root"
+    ))
+    .is_err());
+    assert!(std::panic::catch_unwind(|| recovery_scratch(
+        Some(root.join("missing").as_os_str()),
+        "missing-root"
+    ))
+    .is_err());
 }
 fn budget() -> Resources {
     Resources {
@@ -124,7 +163,12 @@ fn execute(db: &mut RuntimeDb, s: &Store, t: &PlannedTask, binary: &Path, digest
         .unwrap();
     let x = FixtureExecutable::from_operator_binary(binary, digest).unwrap();
     let result = execute_fixture(db, s, &a, &l, &x, Duration::from_secs(1)).unwrap();
-    assert_eq!(result.phase, Phase::Committed);
+    assert_eq!(
+        result.phase,
+        Phase::Committed,
+        "recovery fixture in {}: {result:?}",
+        s.path().display()
+    );
 }
 fn collect(db: &RuntimeDb, s: &Store, state: &mut SearchState, name: &str) {
     let row = db.task(name).unwrap();
