@@ -1,6 +1,8 @@
 //! MAP-Elites archive over *measured* hardware descriptors: total cyclone cells, series
-//! depth, recycle count, and auxiliary units. Each niche keeps its best design, so the
-//! run retains unfamiliar topologies instead of converging on one family.
+//! depth, recycle count, auxiliary units, and whether later cyclone stages are smaller,
+//! alike or larger than the first. Each niche keeps its best design, so the run retains
+//! unfamiliar topologies, including chains of unlike stages, long enough to be tested.
+//! The archive shapes diversity only; it never adds to fitness.
 
 use crate::develop::Behavior;
 use crate::evolve::Individual;
@@ -24,7 +26,15 @@ pub fn niche(b: &Behavior) -> String {
     let depth = b.series_depth.clamp(1, 4);
     let rec = b.recycles.min(2);
     let aux = usize::from(b.coalescer) * 2 + usize::from(b.splitters > 0);
-    format!("c{cells}-d{depth}-r{rec}-x{aux}")
+    // Stage taper: 0 alike (within 15 %), 1 later stages smaller, 2 later stages larger.
+    let taper = if (b.stage_ratio.ln()).abs() < 1.15_f64.ln() {
+        0
+    } else if b.stage_ratio < 1.0 {
+        1
+    } else {
+        2
+    };
+    format!("c{cells}-d{depth}-r{rec}-x{aux}-s{taper}")
 }
 
 impl Archive {

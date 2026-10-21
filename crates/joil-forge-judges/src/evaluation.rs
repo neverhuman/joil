@@ -24,6 +24,9 @@ pub struct UnitReport {
     pub tracer_error: f64,
     pub budget: Option<PressureBudget>,
     pub oil_in_kg_s: f64,
+    /// Oil mass flow per size class arriving at the unit (kg/s), before its inlet breakup:
+    /// the drop population this stage actually receives.
+    pub inlet_dsd: Vec<f64>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

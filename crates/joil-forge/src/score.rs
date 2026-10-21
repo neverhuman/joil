@@ -1,6 +1,7 @@
-//! Scoring: hard gates, conservative capacity across closure samples, and the weighted
-//! objective. Feasible means: geometry gates pass and the plant meets the quality limit
-//! inside the pressure and reject budgets for *every* sampled closure.
+//! Scoring: hard gates, conservative capacity across closure samples, and the weighted,
+//! separation-first objective. Feasible means: geometry and print gates pass and the plant
+//! meets the quality limit on the rating duty inside the pressure and reject budgets for
+//! *every* sampled closure. The objective then rewards the oil removed on every duty.
 
 use crate::campaign::Campaign;
 use crate::develop::{develop, Behavior, Phenotype};
@@ -32,8 +33,11 @@ pub struct Score {
     pub specific_energy_kj_m3: Option<f64>,
     pub shell_mass_kg: f64,
     pub reject_fraction: Option<f64>,
-    /// Worst feed-scenario margin `min(1, limit / C_out)` at the rated flow (1 = compliant).
-    pub robustness: f64,
+    /// Weighted mean over duties of `ln(C_in / max(C_out, floor))` at the rated flow, each
+    /// duty under its worst closure sample (0 when not feasible).
+    pub separation: f64,
+    /// Worst-closure outlet concentration of each duty at the rated flow (mg/L).
+    pub duty_cout_mg_l: Vec<Option<f64>>,
     pub units: usize,
     pub per_closure_q_m3_h: Vec<f64>,
     pub reasons: Vec<String>,
@@ -54,7 +58,8 @@ impl Score {
             specific_energy_kj_m3: None,
             shell_mass_kg: 0.0,
             reject_fraction: None,
-            robustness: 0.0,
+            separation: 0.0,
+            duty_cout_mg_l: Vec::new(),
             units,
             per_closure_q_m3_h: Vec::new(),
             reasons: vec![reason],
@@ -93,9 +98,15 @@ impl Evaluator {
         }
     }
 
+    /// Physics settings of the rating duty under closure sample `k`.
     pub fn settings(&self, k: usize, res: Resolution) -> Settings {
+        self.duty_settings(0, k, res)
+    }
+
+    /// Physics settings of duty `d` under closure sample `k`.
+    pub fn duty_settings(&self, d: usize, k: usize, res: Resolution) -> Settings {
         Settings {
-            fluids: self.campaign.fluids,
+            fluids: self.campaign.duties[d].fluids,
             grid: self.grid.clone(),
             closure: self.closures[k],
             resolution: res,
@@ -129,11 +140,10 @@ impl Evaluator {
         let mut violation = 0.0;
         let mut reasons = Vec::new();
         if !ph.violations.is_empty() {
-            violation += 10.0 + 2.0 * ph.violations.len() as f64;
+            // Graded: how far past the build height, bore and aspect limits it lies, so
+            // search can climb back inside them.
+            violation += 10.0 + 2.0 * ph.violations.len() as f64 + 5.0 * ph.excess;
             reasons.extend(ph.violations.iter().map(|v| format!("geometry: {v}")));
-            if ph.layout.length_mm > c.envelope.length_mm {
-                violation += 5.0 * (ph.layout.length_mm / c.envelope.length_mm - 1.0);
-            }
         }
         let pumped = ph
             .plant
@@ -145,7 +155,8 @@ impl Evaluator {
             violation += 10.0;
             reasons.push("policy: recycle pumps are not allowed in this campaign".into());
         }
-        let nominal = match capacity(&ph.plant, &c.feed, &self.settings(0, res), &c.limits) {
+        let rating = &c.rating().feed;
+        let nominal = match capacity(&ph.plant, rating, &self.settings(0, res), &c.limits) {
             Ok(cap) => cap,
             Err(e) => {
                 let mut s = Score::failed(
@@ -198,7 +209,8 @@ impl Evaluator {
             specific_energy_kj_m3: reference.map(|r| r.specific_energy_j_m3 / 1e3),
             shell_mass_kg: ph.stats.shell_mass_kg,
             reject_fraction: Some(nominal.reject_fraction),
-            robustness: 0.0,
+            separation: 0.0,
+            duty_cout_mg_l: Vec::new(),
             units,
             per_closure_q_m3_h: vec![nominal.q_treated_m3_h],
             reasons,
@@ -211,7 +223,7 @@ impl Evaluator {
         let mut q_min = nominal.q_treated_m3_h;
         let mut robust_shortfall = 0.0;
         for k in 1..self.closures.len() {
-            match capacity(&ph.plant, &c.feed, &self.settings(k, res), &c.limits) {
+            match capacity(&ph.plant, rating, &self.settings(k, res), &c.limits) {
                 Ok(cap) => {
                     score.per_closure_q_m3_h.push(cap.q_treated_m3_h);
                     q_min = q_min.min(cap.q_treated_m3_h);
@@ -230,7 +242,7 @@ impl Evaluator {
         if q_min > 0.0 && res != Resolution::report() {
             match capacity(
                 &ph.plant,
-                &c.feed,
+                rating,
                 &self.settings(0, Resolution::report()),
                 &c.limits,
             ) {
@@ -251,26 +263,40 @@ impl Evaluator {
                 .push("not compliant for every closure sample".into());
             return (score, Some(ph), Some(nominal));
         }
-        // Off-design feeds at the rated flow. Continuous: a scenario that misses the limit by
-        // a factor k keeps 1/k of the capacity credit, so there is no cliff at the limit.
-        let q_rated = nominal.q_star_m3_h.unwrap_or(0.0);
-        let mut worst = 1.0_f64;
-        for sc in &c.scenarios {
-            let margin = evaluate(&ph.plant, &sc.with_flow(q_rated), &self.settings(0, res))
-                .map(|ev| (c.limits.quality_limit_mg_l / ev.cout_mg_l.max(1e-9)).min(1.0))
-                .unwrap_or(0.0);
-            worst = worst.min(margin);
+        // Separation on every duty at the rated (conservative) feed flow, each duty under
+        // its worst closure sample. Pressure is fixed by the rating duty at this flow.
+        let q_rated = q_min / (1.0 - nominal.reject_fraction).max(1e-9);
+        let floor = c.objective.floor_mg_l;
+        let (mut sep, mut wsum) = (0.0, 0.0);
+        let mut duty_cout = Vec::with_capacity(c.duties.len());
+        for (d, duty) in c.duties.iter().enumerate() {
+            let mut worst: Option<f64> = None;
+            for k in 0..self.closures.len() {
+                let cout = evaluate(
+                    &ph.plant,
+                    &duty.feed.with_flow(q_rated),
+                    &self.duty_settings(d, k, res),
+                )
+                .map(|ev| ev.cout_mg_l)
+                .unwrap_or(duty.feed.cin_mg_l);
+                worst = Some(worst.map_or(cout, |w: f64| w.max(cout)));
+            }
+            let cout = worst.unwrap_or(duty.feed.cin_mg_l);
+            sep += duty.weight * (duty.feed.cin_mg_l.max(floor) / cout.max(floor)).ln();
+            wsum += duty.weight;
+            duty_cout.push(Some(cout));
         }
+        let separation = sep / wsum.max(1e-12);
         let w = &c.objective;
         let energy = score.specific_energy_kj_m3.unwrap_or(1e3).max(1e-6) * 1e3;
         score.feasible = true;
         score.violation = 0.0;
         score.q_treated_m3_h = q_min;
-        score.robustness = worst;
-        score.fitness = w.capacity * q_min.ln()
+        score.separation = separation;
+        score.duty_cout_mg_l = duty_cout;
+        score.fitness = w.separation * separation + w.capacity * q_min.ln()
             - w.energy * (energy / 1e5).ln()
             - w.mass * score.shell_mass_kg.max(1e-3).ln()
-            + w.robustness * worst.max(1e-3).ln()
             - w.per_unit * units as f64;
         (score, Some(ph), Some(nominal))
     }

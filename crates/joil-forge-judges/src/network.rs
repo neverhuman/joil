@@ -193,6 +193,7 @@ pub fn evaluate(plant: &Plant, feed: &FeedState, s: &Settings) -> Result<PlantEv
             tracer_error: 0.0,
             budget: None,
             oil_in_kg_s: 0.0,
+            inlet_dsd: Vec::new(),
         };
         let port_ops = match &u.spec {
             UnitSpec::Cyclone(c) => {
@@ -321,6 +322,7 @@ pub fn evaluate(plant: &Plant, feed: &FeedState, s: &Settings) -> Result<PlantEv
     }
     for r in &mut units {
         r.oil_in_kg_s = m_in[r.index].iter().sum();
+        r.inlet_dsd = m_in[r.index].clone();
     }
     let total_in: f64 = feed_mass.iter().sum();
     let (sum_p, sum_r): (f64, f64) = (m_p.iter().sum(), m_r.iter().sum());

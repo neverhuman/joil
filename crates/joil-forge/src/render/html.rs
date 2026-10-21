@@ -98,6 +98,7 @@ pub fn dashboard(
     pfd_svg: &str,
     grade_svg: &str,
     evo_svg: &str,
+    stage_svgs: &[String],
     gallery: &[(String, String, Individual)],
 ) -> String {
     let c = &cp.campaign;
@@ -135,20 +136,28 @@ pub fn dashboard(
     );
     h.push_str("<main class='wrap'>");
     h.push_str("<section class='tiles'>");
+    for (d, duty) in c.duties.iter().enumerate() {
+        let cout = score.duty_cout_mg_l.get(d).copied().flatten();
+        let note = match cout {
+            Some(v) => format!(
+                "from {:.0} mg/L ({:.1}% removed), worst closure at the rated flow",
+                duty.feed.cin_mg_l,
+                100.0 * (1.0 - v / duty.feed.cin_mg_l)
+            ),
+            None => format!("from {:.0} mg/L", duty.feed.cin_mg_l),
+        };
+        h.push_str(&tile(
+            &format!("Outlet oil: {}", duty.name),
+            fmt_opt(cout, 1),
+            "mg/L",
+            &note,
+        ));
+    }
     h.push_str(&tile(
         "Conservative treated capacity",
         format!("{:.2}", score.q_treated_m3_h),
         "m³/h",
         "minimum over closure samples, at the pressure budget",
-    ));
-    h.push_str(&tile(
-        "Outlet oil at Q*",
-        fmt_opt(score.cout_mg_l, 1),
-        "mg/L",
-        &format!(
-            "limit {:.0} mg/L, feed {:.0} mg/L",
-            c.limits.quality_limit_mg_l, c.feed.cin_mg_l
-        ),
     ));
     h.push_str(&tile(
         "Pressure used",
@@ -166,30 +175,20 @@ pub fn dashboard(
         "per m³ treated, pumps included",
     ));
     h.push_str(&tile(
+        "Part height",
+        format!("{:.0}", cad.length_mm),
+        "mm",
+        &format!(
+            "build height {:.0} mm; Ø{:.0} mm footprint",
+            c.envelope.length_mm,
+            2.0 * c.envelope.radius_mm
+        ),
+    ));
+    h.push_str(&tile(
         "Printed mass",
         format!("{:.2}", cad.printed_mass_kg),
         "kg",
         &format!("Ti-6Al-4V shell, {:.1} mm walls", cad.wall_mm),
-    ));
-    let scen = c
-        .scenarios
-        .iter()
-        .map(|f| format!("{:.0} µm", f.dsd.volume_median_um))
-        .collect::<Vec<_>>()
-        .join(", ");
-    h.push_str(&tile(
-        "Fine-feed margin",
-        if score.feasible {
-            format!("{:.2}", score.robustness)
-        } else {
-            "–".into()
-        },
-        "",
-        &if scen.is_empty() {
-            "no off-design feeds in this campaign".to_string()
-        } else {
-            format!("limit / Cu at Q* for the {scen} median feed; 1 = compliant")
-        },
     ));
     h.push_str(&tile(
         "Reject fraction",
@@ -215,19 +214,29 @@ pub fn dashboard(
         strip_xml_decl(evo_svg),
         strip_xml_decl(grade_svg)
     );
+    if !stage_svgs.is_empty() {
+        h.push_str("<section class='panel'><h2>What each stage receives</h2><p class='lede'>Oil drop sizes arriving at every unit of the best design on each duty, at its rated flow. Downstream stages see less oil and finer drops, which is why a chain can use stages unlike the first.</p><div class='grid2 inner'>");
+        for svg in stage_svgs {
+            let _ = write!(h, "<div class='scroll'>{}</div>", strip_xml_decl(svg));
+        }
+        h.push_str("</div></section>");
+    }
     if !gallery.is_empty() {
-        h.push_str("<section class='panel'><h2>Archive: best design in each niche</h2><p class='lede'>Each niche groups designs by measured hardware: total cyclone cells (c), series depth (d), recycles (r) and auxiliaries (x). The archive keeps unfamiliar topologies alive instead of letting one family take over.</p><div class='zoo'>");
+        h.push_str("<section class='panel'><h2>Archive: best design in each niche</h2><p class='lede'>Each niche groups designs by measured hardware: total cyclone cells (c), series depth (d), recycles (r), auxiliaries (x) and stage taper (s: 0 alike, 1 later stages smaller, 2 larger). The archive keeps unfamiliar topologies alive instead of letting one family take over; it never adds to fitness.</p><div class='zoo'>");
         for (uri, svg, ind) in gallery {
             let s = &ind.score;
             let _ = write!(
                 h,
-                "<figure class='card'><img src='{uri}' alt='X-ray render of the best design in niche {}'><figcaption><b>{}</b> · {} · q {:.2} m³/h · Cu {} mg/L · margin {:.2} · {} unit{}<details><summary>Process network</summary><div class='scroll'>{}</div></details></figcaption></figure>",
+                "<figure class='card'><img src='{uri}' alt='X-ray render of the best design in niche {}'><figcaption><b>{}</b> · {} · q {:.2} m³/h · outlet {} mg/L · {} unit{}<details><summary>Process network</summary><div class='scroll'>{}</div></details></figcaption></figure>",
                 esc(&ind.behavior.as_ref().map(crate::archive::niche).unwrap_or_default()),
                 esc(&ind.behavior.as_ref().map(crate::archive::niche).unwrap_or_default()),
                 if s.feasible { "compliant" } else { "infeasible" },
                 s.q_treated_m3_h,
-                fmt_opt(s.cout_mg_l, 1),
-                s.robustness,
+                s.duty_cout_mg_l
+                    .iter()
+                    .map(|v| fmt_opt(*v, 1))
+                    .collect::<Vec<_>>()
+                    .join(" / "),
                 s.units,
                 if s.units == 1 { "" } else { "s" },
                 svg
@@ -242,6 +251,8 @@ pub fn dashboard(
 <dt>Model</dt><dd><code>{}</code>, {} closure samples (nominal + Latin hypercube) with common random numbers; feasibility requires compliance for every sample.</dd>\
 <dt>Run identity</dt><dd>campaign <code>{}</code><br>best genome <code>{}</code></dd>\
 <dt>Mesh audit</dt><dd>fluid: closed {} · {} components · genus {:?} · {:.0} cm³ (analytic estimate differs by {:+.1}%)<br>printed part: closed {} · {} components · {:.0} cm³ · voxel {:.2} mm</dd>\
+<dt>Print audit</dt><dd>printed standing on its head; part {:.0} mm of a {:.0} mm build height · {} support posts · {} teardrop channel runs · {:.0} mm² downward-facing internal surface, {:.0} mm² of it beyond the {:.0} mm bridge from any support (screen, not a print simulation)</dd>\
+<dt>Duties</dt><dd>{}</dd>\
 <dt>Open gates</dt><dd>Independent CFD of the evolved geometry, droplet-resolved oil transport, structural and print qualification, and physical rig tests have not been done. The closure ranges, the CT-35 anchor and the scoring weights are declared assumptions.</dd></dl></section>",
         joil_forge_judges::EVIDENCE_CLASS,
         joil_forge_judges::MODEL_VERSION,
@@ -256,7 +267,27 @@ pub fn dashboard(
         cad.part.closed,
         cad.part.components,
         cad.part.volume_mm3 / 1e3,
-        cad.voxel_mm
+        cad.voxel_mm,
+        cad.print.part_height_mm,
+        cad.print.build_height_mm,
+        cad.print.support_posts,
+        cad.print.teardrop_runs,
+        cad.print.ceiling_area_mm2,
+        cad.print.unsupported_ceiling_area_mm2,
+        cad.print.bridge_mm,
+        c.duties
+            .iter()
+            .map(|d| format!(
+                "{}: water {:.1} kg/m³, oil {:.0} kg/m³, {:.0} mg/L, median {:.0} µm (weight {})",
+                esc(&d.name),
+                d.fluids.rho_water_kg_m3,
+                d.fluids.rho_oil_kg_m3,
+                d.feed.cin_mg_l,
+                d.feed.dsd.volume_median_um,
+                d.weight
+            ))
+            .collect::<Vec<_>>()
+            .join("<br>")
     );
     h.push_str("</main>");
     let _ = write!(

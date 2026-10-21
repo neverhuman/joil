@@ -1,9 +1,10 @@
 //! Fluid-domain features of a developed cartridge.
 
-use super::sdf::{Feature, Role, Shape, V3};
+use super::sdf::{feature_distance, Feature, Posts, Role, Shape, V3};
 use crate::develop::Phenotype;
 use crate::layout::Hardware;
 use crate::routing::End;
+use std::collections::BTreeSet;
 
 /// Extension of port channels beyond the end faces, so the planar cut opens them.
 pub const PORT_STUB_MM: f64 = 3.0;
@@ -15,6 +16,10 @@ pub struct Model {
     pub radius: f64,
     /// Whether coalescer lattices are represented (needs voxel ≤ strut / 2.5).
     pub lattice: bool,
+    /// Support posts left in plenums and teardrop-roofed channel runs (printability).
+    pub posts: usize,
+    pub teardrops: usize,
+    pub bridge: f64,
 }
 
 fn overlaps(a: &Feature, b: &Feature, m: f64) -> bool {
@@ -201,6 +206,8 @@ pub fn build(ph: &Phenotype, voxel: f64) -> Model {
             }
         }
     }
+    let bridge = lay.envelope.bridge_mm;
+    let mut teardrops = 0usize;
     // Channels, with port stubs extended through the end faces.
     let mut channel_feats: Vec<(usize, usize)> = Vec::new();
     for (ci, ch) in lay.channels.iter().enumerate() {
@@ -216,15 +223,23 @@ pub fn build(ph: &Phenotype, voxel: f64) -> Model {
             pts[n - 1][2] += PORT_STUB_MM;
         }
         for w in pts.windows(2) {
-            let mut f = Feature::new(
+            // Horizontal runs wider than the bridge limit get a 45° teardrop roof.
+            let horizontal = (w[0][2] - w[1][2]).abs() < 1e-6;
+            let shape = if horizontal && ch.d > bridge {
+                teardrops += 1;
+                Shape::Teardrop {
+                    a: w[0],
+                    b: w[1],
+                    r: 0.5 * ch.d,
+                }
+            } else {
                 Shape::Capsule {
                     a: w[0],
                     b: w[1],
                     r: 0.5 * ch.d,
-                },
-                Role::Channel,
-                None,
-            );
+                }
+            };
+            let mut f = Feature::new(shape, Role::Channel, None);
             f.channel = Some(ci);
             channel_feats.push((ci, fs.len()));
             fs.push(f);
@@ -255,11 +270,91 @@ pub fn build(ph: &Phenotype, voxel: f64) -> Model {
             }
         }
     }
+    // Plenum ceilings: leave solid posts on a hexagonal lattice at the bridge pitch, so no
+    // ceiling spans further than the printer bridges. A site is kept only where it sits
+    // well inside the plenum fluid and clear of every other passage (jets, orifices,
+    // channels, cells), so posts never block a mouth.
+    let mut posts = 0usize;
+    for &(_, _, fi) in &slabs {
+        let (x, y, z0, z1, r) = match fs[fi].shape {
+            Shape::Slab { x, y, z0, z1, r } => (x, y, z0, z1, r),
+            _ => continue,
+        };
+        let post_r = t;
+        let pitch = bridge;
+        let mut keep = BTreeSet::new();
+        let n = (r / pitch).ceil() as i32 + 2;
+        let proto = Posts {
+            x,
+            y,
+            pitch,
+            r: post_r,
+            keep: BTreeSet::new(),
+        };
+        for j in -n..=n {
+            for i in -2 * n..=2 * n {
+                let c = proto.site(i, j);
+                if (c[0] - x).hypot(c[1] - y) > r - post_r - 1.0 {
+                    continue;
+                }
+                let zs: Vec<f64> = (0..5)
+                    .map(|k| z0 + (z1 - z0) * (k as f64 + 0.5) / 5.0)
+                    .collect();
+                // Inside the plenum fluid, and either clear of every carved wall by at least
+                // 1 mm: a post that nearly touches two cell walls would seal off a sliver
+                // of fluid (a powder trap), so it is not placed at all.
+                let zm = 0.5 * (z0 + z1);
+                let own_ok = feature_distance(&fs, fi, [c[0], c[1], zm], t) < -0.5
+                    && fs[fi]
+                        .carve
+                        .iter()
+                        .all(|k| fs[*k].shape.distance([c[0], c[1], zm]) - t >= post_r + 1.0);
+                let clear = own_ok
+                    && fs.iter().enumerate().all(|(k, f)| {
+                        k == fi
+                            || matches!(f.shape, Shape::Slab { .. })
+                                && f.role != Role::Exit
+                                && f.role != Role::Bed
+                            || zs.iter().all(|z| {
+                                // Only passages present at this height count: a cell
+                                // below the plenum floor is not blocked by a post.
+                                *z < f.lo[2]
+                                    || *z > f.hi[2]
+                                    || f.shape.distance([c[0], c[1], *z]) >= post_r + 1.0
+                            })
+                    });
+                if clear {
+                    keep.insert((i, j));
+                }
+            }
+        }
+        if !keep.is_empty() {
+            posts += keep.len();
+            fs[fi].posts = Some(Posts { keep, ..proto });
+        }
+    }
     Model {
         features: fs,
         wall: t,
         length: lay.length_mm,
         radius: lay.envelope.radius_mm,
         lattice,
+        posts,
+        teardrops,
+        bridge,
     }
+}
+
+/// Fluid-domain signed distance of the whole model (negative in the fluid), with the
+/// planar cuts at the end faces.
+pub fn fluid_distance(m: &Model, p: V3) -> f64 {
+    let margin = m.wall;
+    let mut best = f64::INFINITY;
+    for (i, f) in m.features.iter().enumerate() {
+        if (0..3).any(|k| f.lo[k] - margin > p[k] || f.hi[k] + margin < p[k]) {
+            continue;
+        }
+        best = best.min(feature_distance(&m.features, i, p, m.wall));
+    }
+    best.max((-p[2]).max(p[2] - m.length))
 }

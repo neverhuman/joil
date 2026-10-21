@@ -119,22 +119,40 @@ search is allowed to discover, not a bias.
 * **Outlet concentration.** `Cu = 1000 m_product / Q_product` (mg/L), which reproduces
   `Cu = Ci(1 − E)/(1 − r)` for a single stage.
 
-## 6. Capacity: the objective the repository already defined
+## 6. Duties, capacity and the separation objective
 
-`Q*` is the largest **tested** feed flow at which the plant meets the quality limit with
-pressure inside the budget. The pressure-limited flow `Q_p` comes from bisection on the
-hydraulic solve; quality is probed at `Q_p · 0.85^j` with no interpolation across failed
-or untested gaps. Treated capacity is `Q*(1 − r_total)`. When nothing complies, capacity
-is zero and the search ranks by the log shortfall `ln(Cu/limit)`.
+**Duties.** A campaign lists duties, each with its own carrier water, oil and feed. The
+default set has two:
 
-**Off-design feeds.** Inlet drop sizes move with upstream shear, so a campaign lists
-off-design feeds (default: the reference feed with an 8 µm oil-volume median). Each runs
-once at the rated flow `Q*` under the nominal closure, and the margin
-`m = min over scenarios of min(1, limit/Cu)` enters the objective as `ln m`: missing the
-limit by a factor `k` costs as much as losing a factor `k` of capacity. A pass/fail form
-of this term (capacity search on the scenario, credit or nothing) was tried first and
-removed: search parked designs exactly on the limit, where a 0.5 % change in `Cu` between
-resolutions flipped the verdict. The continuous margin has no such cliff.
+| Duty | Water | Oil | Feed |
+|---|---|---|---|
+| produced water (reference, rates the design) | 998 kg/m³, 1.00 mPa·s | 850 kg/m³, 5 mPa·s, 0.025 N/m | 500 mg/L, median 15 µm, GSD 1.6 |
+| seawater oil spill | seawater at 15 °C and 35 g/kg: 1025.89 kg/m³, 1.220 mPa·s ([ITTC 7.5-02-01-03](https://home.hvl.no/ansatte/gste/ftp/MarinLab_files/Litteratur/ITTC/ITTC-75-02-01-03_Freshwater_Seawater_properties.pdf)) | 900 kg/m³, 20 mPa·s, 0.020 N/m (authored: a medium, lightly weathered crude) | 1000 mg/L, median 10 µm (pump-sheared skimmer water), GSD 1.6 |
+
+Seawater is denser than fresh water, which helps, but spilled oil is heavier than the
+reference oil, so the density difference drops from 148 to 126 kg/m³; the finer drops and
+the doubled load make the spill duty the harder separation. The spill oil and drop sizes
+are screen assumptions, not site data.
+
+**Capacity.** `Q*` is the largest **tested** feed flow at which the plant meets the quality
+limit on the rating duty with pressure inside the budget. The pressure-limited flow `Q_p`
+comes from bisection on the hydraulic solve; quality is probed at `Q_p · 0.85^j` with no
+interpolation across failed or untested gaps. Treated capacity is `Q*(1 − r_total)`,
+minimised over closure samples and the refined resolution. When nothing complies, the
+search ranks by the log shortfall `ln(Cu/limit)`.
+
+**Separation.** Every duty then runs at the conservative rated flow under every closure
+sample, and its worst outlet `Cu_d` counts. The separation score is the weighted mean of
+`ln(C_in,d / max(Cu_d, floor))`, with a 1 mg/L floor (about the bottom of routine
+oil-in-water measurement), and it carries the largest weight in the objective. Nothing in
+the objective mentions stages: a chain of unlike stages earns credit only through the
+oil it removes, and the judges compose stages on the drop population each actually
+receives (§5), so downstream stages see less and finer oil.
+
+Two earlier forms were tried and removed. A pass/fail fine-feed term (credit or nothing)
+parked designs exactly on the limit, where a 0.5 % change in `Cu` between resolutions
+flipped the verdict. A capacity-led objective rewarded no cleaning beyond compliance and
+favoured long single stages.
 
 ## 7. Closures and their declared ranges
 
@@ -181,6 +199,14 @@ The model refuses (error class `applicability`, never "infeasible") cells whose 
 converge faster than 25° or diverge faster than 8° half-angle, where separation, vortex
 breakdown and contraction losses would dominate. The genome repairs segments into this
 envelope (24.5° / 7.8°) during normalisation, and the repair is part of the canonical form.
+
+Development adds two graded gates. A cyclone cell may be at most **30 swirl-chamber
+diameters** long: CT-35, the geometry behind the only CFD anchor, is about 23, and the
+screen assumes oil reaching the reverse-flow core is carried back to the overflow, which
+gets less certain the longer and thinner the core. The narrowest swirl passage must be at
+least **3 mm**, for powder removal after printing and for sand in service. Both limits are
+campaign settings.
+
 Everything else in the repository's envelope (dilute oil, single-phase carrier, 2.6–5.4
 m³/h reference band, LPBF surfaces) applies unchanged; the forge's capacity search may
 probe flows outside the reference band, and those numbers are extrapolations.
@@ -222,5 +248,9 @@ zero. Reproduce with `joil-forge baseline`.
 Gas, solids, fouling, concentration-dependent coalescence in the bulk, time dependence,
 vortex precession, short-circuit flow under the roof, structural loads and print
 distortion. The layout's channel routing and plenum shapes enter the physics only through
-channel length, diameter and losses. None of the forge's outputs closes any of the open
-gates in `docs/STATUS.json`.
+channel length, diameter and losses; the printability posts left in plenums and the
+teardrop roofs of channels are CAD conventions the physics does not see. For an oil spill
+the screen also leaves out emulsified "mousse", debris, wide temperature swings and
+dispersant chemistry; the off-rating duties run at the rating duty's flow, whose pressure
+differs slightly with seawater density. None of the forge's outputs closes any of the
+open gates in `docs/STATUS.json`.

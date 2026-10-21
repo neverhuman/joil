@@ -13,20 +13,51 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Envelope {
+    /// Printer build footprint radius (the part is printed standing on its head).
     pub radius_mm: f64,
+    /// Printer build height: the longest part that prints in one piece.
     pub length_mm: f64,
     pub wall_mm: f64,
+    /// Narrowest swirl passage allowed (powder removal after printing, sand in service).
+    pub min_bore_mm: f64,
+    /// Longest cyclone cell, in swirl-chamber diameters, the screen is trusted for.
+    pub max_cell_aspect: f64,
+    /// Widest ceiling the printer bridges without support. Wider horizontal channels get
+    /// teardrop roofs and plenum ceilings get support posts at this pitch.
+    pub bridge_mm: f64,
 }
 
 impl Default for Envelope {
-    /// Declared full-cartridge research scope: Ø100 mm admits the CT-35 head with its
-    /// inlet manifold (the supplied CT-35 inlet faces sit at x = ±47 mm), and 1800 mm is
-    /// the CT-35 axial length plus about 160 mm of plenum and manifold allowance.
+    /// Ø100 mm admits the CT-35 head with its inlet manifold (the supplied CT-35 inlet
+    /// faces sit at x = ±47 mm). 400 mm is a typical large powder-bed build height; set it
+    /// to the machine. CT-35, the geometry behind the model's CFD anchor, is about 23
+    /// swirl-chamber diameters long, so 30 allows some extrapolation and no more.
     fn default() -> Self {
         Self {
             radius_mm: 50.0,
-            length_mm: 1800.0,
+            length_mm: 400.0,
             wall_mm: 1.5,
+            min_bore_mm: 3.0,
+            max_cell_aspect: 30.0,
+            bridge_mm: 8.0,
+        }
+    }
+}
+
+impl Envelope {
+    pub fn validate(&self) -> Result<(), String> {
+        if self.wall_mm < 1.0 {
+            return Err("wall thickness below the 1.0 mm printable minimum".into());
+        }
+        let ok = self.radius_mm > 0.0
+            && self.length_mm > 0.0
+            && self.min_bore_mm > 0.0
+            && self.max_cell_aspect > 1.0
+            && self.bridge_mm > 2.0;
+        if ok {
+            Ok(())
+        } else {
+            Err("envelope dimensions and print rules must be positive".into())
         }
     }
 }

@@ -85,7 +85,7 @@ Known limitations of re-runs on the current code:
 
 ## Read more
 
-- [Forge lane](docs/forge/README.md): a separate, self-contained search lane whose genome is an open-ended process network (series stages, numbered-up cells, reject scavengers, pumped recycles, coalescer beds and free-form walls) scored by genome-blind reduced-order physics, with exact resume, seeding from the last best design, watertight STL and GLB output and a rendered run report; its numbers are unvalidated screen outputs ([forge science](docs/forge/SCIENCE.md))
+- [Forge lane](docs/forge/README.md): a separate, self-contained search lane whose genome is an open-ended process network (series stages, numbered-up cells, reject scavengers, pumped recycles, coalescer beds and free-form walls), scored first on the oil it removes in produced water and in seawater (oil-spill recovery) by genome-blind reduced-order physics, held to a printer's build volume with self-supporting internal geometry, with exact resume, seeding from the last best design, watertight STL and GLB output and a rendered run report; its numbers are unvalidated screen outputs ([forge science](docs/forge/SCIENCE.md))
 - [Chemical engineering process networks](docs/design/PROCESS_NETWORKS.md): executable synthetic series, parallel and recycle accounting, genuine swept-channel geometry, and the remaining integration steps
 - [WHITEPAPER](docs/WHITEPAPER.md): methods, results, corrections and limitations
 - [Results and evidence detail](docs/RESULTS.md): Wave-4 and Wave-3 tables, figure plates, evidence tiers
