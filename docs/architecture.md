@@ -9,7 +9,10 @@ source inventory live in ../PY_TO_RUST_PLAN.md; exceptions are per-file in
 crucible-cli orchestrates execution; crucible-runtime owns resource leases and
 process lifecycle; crucible-store owns durable software evidence; joil-evidence
 owns claims and provenance; joil-geometry owns geometry; crucible-stats owns
-statistical operations. Follow each packet's exclusive write paths in
+statistical operations. joil-forge-judges (genome-blind process-network physics)
+and joil-forge (process genome, evolution, CAD, reports) form a self-contained
+search lane documented in forge/README.md; they depend on no other workspace
+crate. Follow each packet's exclusive write paths in
 WORK_PACKETS.json. Integrator owns shared contracts and manifests.
 
 Generated plan/dashboard/explorer views must be regenerated through their

@@ -23,3 +23,22 @@ score:
 
 portability:
     cargo run --locked -p crucible-cli --bin check-portability
+
+# Forge lane (docs/forge/README.md): evolve, resume exactly, start from the last best, report, random-search control.
+forge-evolve run="runs/forge/demo" gens="300" threads="4":
+    cargo run --release --locked -p joil-forge -- evolve --campaign campaigns/forge-v1.json --run {{run}} --generations {{gens}} --threads {{threads}}
+
+forge-resume run="runs/forge/demo" gens="600" threads="4":
+    cargo run --release --locked -p joil-forge -- evolve --run {{run}} --resume --generations {{gens}} --threads {{threads}}
+
+forge-from-best from="runs/forge/demo" run="runs/forge/next" gens="300" threads="4":
+    cargo run --release --locked -p joil-forge -- evolve --campaign campaigns/forge-v1.json --seed-from {{from}} --run {{run}} --generations {{gens}} --threads {{threads}}
+
+forge-report run="runs/forge/demo":
+    cargo run --release --locked -p joil-forge -- report --run {{run}}
+
+forge-control out="runs/forge/control.json" evals="28896" threads="4":
+    cargo run --release --locked -p joil-forge -- control --campaign campaigns/forge-v1.json --evaluations {{evals}} --out {{out}} --threads {{threads}}
+
+forge-test:
+    cargo test --locked -p joil-forge-judges -p joil-forge

@@ -1,0 +1,21 @@
+joil-forge: evolutionary design of multi-stage deoiling cartridges (screen model, not validated)
+
+USAGE
+  joil-forge evolve   --run DIR [--campaign FILE] [--generations N] [--seed-from PATH] [--threads N] [--quiet]
+  joil-forge evolve   --run DIR --resume [--fork] [--generations N]     continue a run exactly where it stopped
+  joil-forge eval     --genome FILE [--campaign FILE] [--report]        score one design (report resolution)
+  joil-forge baseline [--campaign FILE]                                  CT-35 same-model control
+  joil-forge cad      --genome FILE --out DIR [--voxel MM]               fluid + printed-part STL/GLB and mesh audit
+  joil-forge render   --genome FILE --out DIR [--voxel MM]               PNG renders and SVG diagrams of one design
+  joil-forge report   --run DIR [--out DIR] [--voxel MM] [--top N] [--control FILE]
+                                                                         HTML dashboard of a run (+ control comparison)
+  joil-forge seeds    --out DIR                                          write the archetype genomes
+  joil-forge best     --run DIR                                          print the best genome of a run
+  joil-forge control  --out FILE [--campaign FILE] [--evaluations N]      equal-budget random-search control
+  joil-forge campaign                                                    print the default campaign (edit, then --campaign)
+
+  --voxel defaults to two samples across the wall and the smallest passage (0.5–1 mm).
+
+  --seed-from accepts a run directory, a checkpoint file, or a JSON genome / list of genomes,
+  and starts a NEW run from those designs (pick up from the last best). --resume continues the
+  same run bit-for-bit; it refuses a changed campaign unless --fork is given.

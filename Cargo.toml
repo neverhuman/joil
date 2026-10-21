@@ -7,7 +7,7 @@ members = [
     "crates/crucible-search",
     "crates/crucible-fea",
     "crates/crucible-gpu",
-    "crates/crucible-lbm","crates/joil-core", "crates/joil-cli", "crates/joil-evidence", "crates/joil-ir", "crates/crucible-units", "crates/crucible-contract", "crates/crucible-architecture", "crates/crucible-store", "crates/crucible-runtime", "crates/crucible-cli", "crates/crucible-stats", "crates/joil-geometry", "crates/crucible-geom", "crates/crucible-genome", "packs/hydrocyclone/judges", "crates/crucible-adapters", "crates/crucible-particles"]
+    "crates/crucible-lbm","crates/joil-core", "crates/joil-cli", "crates/joil-evidence", "crates/joil-ir", "crates/crucible-units", "crates/crucible-contract", "crates/crucible-architecture", "crates/crucible-store", "crates/crucible-runtime", "crates/crucible-cli", "crates/crucible-stats", "crates/joil-geometry", "crates/crucible-geom", "crates/crucible-genome", "packs/hydrocyclone/judges", "crates/crucible-adapters", "crates/crucible-particles", "crates/joil-forge-judges", "crates/joil-forge"]
 
 [workspace.package]
 version = "0.1.0"

@@ -1,0 +1,493 @@
+{
+  "archive_feasible": 9,
+  "archive_niches": 177,
+  "best": {
+    "behavior": {
+      "coalescer": false,
+      "cyclone_cells": 7,
+      "min_cyclone_d_mm": 14.8134,
+      "recycles": 0,
+      "series_depth": 1,
+      "splitters": 0
+    },
+    "genome": {
+      "feed": {
+        "channel_mm": 13.0042,
+        "pumped": false,
+        "to": {
+          "unit": 1608
+        }
+      },
+      "schema": "joil-forge-genome/1",
+      "units": [
+        {
+          "body": {
+            "cells": 7,
+            "chamber_len_ratio": 0.3,
+            "diameter_mm": 14.8134,
+            "inlet_area_ratio": 0.086508,
+            "inlet_aspect": 1.1421,
+            "involute": false,
+            "jets": 8,
+            "kind": "cyclone",
+            "orifice_ratio": 0.136881,
+            "segments": [
+              {
+                "end_ratio": 0.233,
+                "len_ratio": 0.8416
+              },
+              {
+                "end_ratio": 0.2093,
+                "len_ratio": 0.5989
+              },
+              {
+                "end_ratio": 0.2633,
+                "len_ratio": 10.0777
+              },
+              {
+                "end_ratio": 0.4191,
+                "len_ratio": 30.0
+              },
+              {
+                "end_ratio": 0.7135,
+                "len_ratio": 1.197
+              }
+            ],
+            "split": 0.003
+          },
+          "id": 1608,
+          "routes": [
+            {
+              "channel_mm": 4.3754,
+              "pumped": false,
+              "to": "reject"
+            },
+            {
+              "channel_mm": 22.1428,
+              "pumped": false,
+              "to": "product"
+            }
+          ]
+        }
+      ]
+    },
+    "genome_sha256": "9aefcbd46efe84ab2068d4ca198c4935d41d96a9866b46459736f568b519d591",
+    "report_score": {
+      "cout_mg_l": 10.768157288086853,
+      "feasible": true,
+      "feed_pressure_kpa": 399.99983542290414,
+      "fitness": 0.1843208840448439,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        2.636338088087463,
+        2.5803991691050667,
+        2.7311662408626844,
+        2.579234807848532
+      ],
+      "q_feed_m3_h": 2.6442709007898326,
+      "q_treated_m3_h": 2.579234807848532,
+      "q_treated_nominal_m3_h": 2.636338088087463,
+      "reasons": [],
+      "reject_fraction": 0.003,
+      "robustness": 0.6414543592250773,
+      "shell_mass_kg": 0.7253266586159873,
+      "specific_energy_kj_m3": 401.20344576018465,
+      "units": 1,
+      "violation": 0.0
+    },
+    "search_score": {
+      "cout_mg_l": 10.791720877182051,
+      "feasible": true,
+      "feed_pressure_kpa": 399.98934981709897,
+      "fitness": 0.18604415371624808,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        2.636294019151443,
+        2.5803991691050667,
+        2.7311662408626844,
+        2.579191693448963
+      ],
+      "q_feed_m3_h": 2.6442266992491907,
+      "q_treated_m3_h": 2.579191693448963,
+      "q_treated_nominal_m3_h": 2.636294019151443,
+      "reasons": [],
+      "reject_fraction": 0.003,
+      "robustness": 0.6425672411300463,
+      "shell_mass_kg": 0.7253266586159873,
+      "specific_energy_kj_m3": 401.1929286029077,
+      "units": 1,
+      "violation": 0.0
+    }
+  },
+  "cad_best": {
+    "envelope_radius_mm": 50.0,
+    "fluid": {
+      "area_mm2": 107225.0889047452,
+      "boundary_edges": 0,
+      "closed": true,
+      "components": 1,
+      "consistently_oriented": true,
+      "euler_characteristic": -158,
+      "genus": [
+        80
+      ],
+      "misoriented_edges": 0,
+      "nonmanifold_edges": 0,
+      "triangles": 2238524,
+      "vertices": 1119104,
+      "volume_mm3": 225052.19197117173
+    },
+    "fluid_volume_estimate_mm3": 228972.38842556972,
+    "fluid_volume_rel_diff": -0.017120826145691766,
+    "genome_sha256": "9aefcbd46efe84ab2068d4ca198c4935d41d96a9866b46459736f568b519d591",
+    "geometry_violations": [],
+    "lattice_represented": false,
+    "length_mm": 796.43356368,
+    "min_feature_mm": 1.2774113401684055,
+    "note": "Geometry observations only; rendering and meshing are not validation. The volume estimate is the layout's analytic sum, which double-counts overlaps.",
+    "part": {
+      "area_mm2": 253390.77874858977,
+      "boundary_edges": 0,
+      "closed": true,
+      "components": 1,
+      "consistently_oriented": true,
+      "euler_characteristic": -174,
+      "genus": [
+        88
+      ],
+      "misoriented_edges": 0,
+      "nonmanifold_edges": 0,
+      "triangles": 5332436,
+      "vertices": 2666044,
+      "volume_mm3": 191261.86672654032
+    },
+    "printed_mass_kg": 0.8472900695985737,
+    "resolution_warnings": [],
+    "voxel_mm": 0.6387056700842028,
+    "wall_mm": 1.5
+  },
+  "campaign": {
+    "allow_pumps": true,
+    "archive_parent_rate": 0.3,
+    "closure_samples": 3,
+    "crossover_rate": 0.3,
+    "envelope": {
+      "length_mm": 1800.0,
+      "radius_mm": 50.0,
+      "wall_mm": 1.5
+    },
+    "feed": {
+      "cin_mg_l": 500.0,
+      "dsd": {
+        "geometric_sd": 1.6,
+        "volume_median_um": 15.0
+      },
+      "flow_m3_h": 4.0
+    },
+    "fluids": {
+      "interfacial_tension_n_m": 0.025,
+      "mu_oil_pa_s": 0.005,
+      "mu_water_pa_s": 0.001,
+      "rho_oil_kg_m3": 850.0,
+      "rho_water_kg_m3": 998.0
+    },
+    "islands": 2,
+    "limits": {
+      "max_amplification": 8.0,
+      "pressure_budget_pa": 400000.0,
+      "q_max_m3_h": 40.0,
+      "q_min_m3_h": 0.5,
+      "quality_limit_mg_l": 30.0,
+      "quality_probe_ratio": 0.85,
+      "quality_probes": 8,
+      "reject_budget": 0.02
+    },
+    "migrants": 2,
+    "migrate_every": 5,
+    "name": "forge-v1",
+    "objective": {
+      "capacity": 1.0,
+      "energy": 0.25,
+      "mass": 0.15,
+      "per_unit": 0.02,
+      "robustness": 1.0
+    },
+    "population": 48,
+    "resolution": {
+      "ns": 12,
+      "nz": 60
+    },
+    "scenarios": [
+      {
+        "cin_mg_l": 500.0,
+        "dsd": {
+          "geometric_sd": 1.6,
+          "volume_median_um": 8.0
+        },
+        "flow_m3_h": 4.0
+      }
+    ],
+    "seed": 20261021,
+    "seeding": "de_novo",
+    "structural_rate": 0.45,
+    "terminals": {
+      "product_pa": 0.0,
+      "pump_efficiency": 0.6,
+      "pump_suction_min_pa": 20000.0,
+      "reject_pa": 0.0
+    },
+    "tournament": 3
+  },
+  "ct35_same_model": {
+    "evidence_class": "unvalidated_reduced_order_screen",
+    "forge_archetype": {
+      "cout_mg_l": 190.12828830488297,
+      "feasible": false,
+      "feed_pressure_kpa": 399.9971540232469,
+      "fitness": 0.0,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        0.0
+      ],
+      "q_feed_m3_h": 0.0,
+      "q_treated_m3_h": 0.0,
+      "q_treated_nominal_m3_h": 0.0,
+      "reasons": [
+        "no compliant tested flow (shortfall 1.847)"
+      ],
+      "reject_fraction": 0.02,
+      "robustness": 0.0,
+      "shell_mass_kg": 1.0623548350406116,
+      "specific_energy_kj_m3": 408.16036124821113,
+      "units": 1,
+      "violation": 1.84650166425693
+    },
+    "liner_only": {
+      "at_reference_flow": {
+        "cout_mg_l": 157.70977239092136,
+        "dp_overflow_pa": 212525.8107498712,
+        "dp_underflow_pa": 67621.43870935106,
+        "feed_pressure_pa": 217046.30136678065,
+        "flow_m3_h": 4.0,
+        "oil_capture": 0.6908888461137944,
+        "reduced_d50_um": 10.720564149401087
+      },
+      "capacity_by_closure": [
+        {
+          "cleanest_probe_cout_mg_l": 120.40055727405696,
+          "closure": 0,
+          "q_pressure_limit_m3_h": 5.430277645399091,
+          "q_star_m3_h": null,
+          "shortfall": 1.3896267797239215
+        },
+        {
+          "cleanest_probe_cout_mg_l": 151.85147644556568,
+          "closure": 1,
+          "q_pressure_limit_m3_h": 4.968048730526811,
+          "q_star_m3_h": null,
+          "shortfall": 1.6217055328351206
+        },
+        {
+          "cleanest_probe_cout_mg_l": 162.10065317408117,
+          "closure": 2,
+          "q_pressure_limit_m3_h": 6.085611632705409,
+          "q_star_m3_h": null,
+          "shortfall": 1.6870200765228138
+        },
+        {
+          "cleanest_probe_cout_mg_l": 149.12457683280613,
+          "closure": 3,
+          "q_pressure_limit_m3_h": 5.221881943697935,
+          "q_star_m3_h": null,
+          "shortfall": 1.6035846610842113
+        }
+      ]
+    },
+    "model_version": "joil-forge-judges/1.0.0"
+  },
+  "evaluations": 28896,
+  "evidence_class": "unvalidated_reduced_order_screen",
+  "figures_sha256": {
+    "best-grade.svg": "504488d392bce0491017fc04d88b151f188f10d39ed2b4225752e8242387a36f",
+    "best-pfd.svg": "3c2c168b02932a83cd29135d2840c0b7fcce664f7dc92560e32cd2d8d7ccee02",
+    "best-plate.png": "2502c8d04f038bfb7a683dfd544f58dc7300539b1b6698b8cf6b15d9531f9d96",
+    "evolution.svg": "3a25cdca5777998db183b9988a48504327bb38eacf2192d48ffa296ff888fe1f",
+    "search-vs-random.svg": "f12812150be608c84d2e054c00e3dbcf2b870466a55cf4b8cdb5da6b9ba3690a",
+    "zoo-0.png": "1c92cb577db6536e90933d75413bf9ff163ca52584d8ed23a0d284af8ae6d91a",
+    "zoo-0.svg": "50abfa6ae9972f4fdab1cf38c561f087736defe6e7a5a1358ab005615c7299ce",
+    "zoo-1.png": "64da4af15683c61ec662d327a112bd452e1ecf63bff083495c35367c3e62e18e",
+    "zoo-1.svg": "a7ec069469c67760950d2edf183c1a7c78e53d0cd8effcf7137c794968eacef9",
+    "zoo-2.png": "22585285ab165a4120572fff493ec195e89c45863ea46232137a828dde72ffe5",
+    "zoo-2.svg": "5ca64d3d871990a779d0b4631ba42d648961c6398c8ac70fc818d769ce8bf11a",
+    "zoo-3.png": "170195fb43baf56ffeb19ef7b6eac4e15c2aee7ecc7c22207de79d233ec55d99",
+    "zoo-3.svg": "892c6ae113c35d2450963080b92184b3ba69902c1466701c1cc7ee9becaa520d",
+    "zoo-4.png": "dd928e8671469df1b5528390e904770a1e361c954977738c6b8df90e3122b831",
+    "zoo-4.svg": "aabee3c796ee2eff88a2567902eeefffeb6af4d50a01c4f22f55c016c58e5568",
+    "zoo-5.png": "3d0589466c336ed3a4d307408d89fddf410bfbfa9237ae4ff8d1a394e4cb99b3",
+    "zoo-5.svg": "983a23be036131946bc8d6a9aa179f52e84dd0d85fad9f6e0876088f986daaa7",
+    "zoo.png": "1bc6af8fdfad72ae0ebab0144db9da89c68b06166eaa23a09aed27e87be0cd54"
+  },
+  "forge_version": "joil-forge/1.0.0",
+  "gallery": [
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 7,
+        "min_cyclone_d_mm": 14.8134,
+        "recycles": 0,
+        "series_depth": 1,
+        "splitters": 0
+      },
+      "cout_mg_l": 10.791720877182051,
+      "feasible": true,
+      "genome_sha256": "9aefcbd46efe84ab2068d4ca198c4935d41d96a9866b46459736f568b519d591",
+      "niche": "c2-d1-r0-x0",
+      "q_treated_m3_h": 2.579191693448963,
+      "units": 1
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 6,
+        "min_cyclone_d_mm": 23.5245,
+        "recycles": 0,
+        "series_depth": 2,
+        "splitters": 0
+      },
+      "cout_mg_l": 3.3869052650195144,
+      "feasible": true,
+      "genome_sha256": "e459555f275ebef2121ffebc61b3ba53d97dec88f4e572047e1dbedd621c0fb5",
+      "niche": "c2-d2-r0-x0",
+      "q_treated_m3_h": 1.5027005043750594,
+      "units": 2
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 3,
+        "min_cyclone_d_mm": 24.6024,
+        "recycles": 0,
+        "series_depth": 1,
+        "splitters": 0
+      },
+      "cout_mg_l": 12.830072310123946,
+      "feasible": true,
+      "genome_sha256": "123ed074289a509df93b40be57e8810c17e923052e8c518aa02a2d5183cc12a4",
+      "niche": "c1-d1-r0-x0",
+      "q_treated_m3_h": 2.2505837983522436,
+      "units": 1
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 10,
+        "min_cyclone_d_mm": 15.175,
+        "recycles": 0,
+        "series_depth": 2,
+        "splitters": 0
+      },
+      "cout_mg_l": 2.0361886404121132,
+      "feasible": true,
+      "genome_sha256": "e212c07302efb8197be3bcf65011a0f2bed723339d36842d1a9dfa050c4bdc96",
+      "niche": "c3-d2-r0-x0",
+      "q_treated_m3_h": 1.212014958716949,
+      "units": 2
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 6,
+        "min_cyclone_d_mm": 23.4581,
+        "recycles": 1,
+        "series_depth": 2,
+        "splitters": 0
+      },
+      "cout_mg_l": 3.95397219714234,
+      "feasible": true,
+      "genome_sha256": "aa1d4c374b0e3c9dc1956a29480405133106a33f9f0a02df297b3101fb28ae03",
+      "niche": "c2-d2-r1-x0",
+      "q_treated_m3_h": 1.5074063984425363,
+      "units": 2
+    },
+    {
+      "behavior": {
+        "coalescer": true,
+        "cyclone_cells": 4,
+        "min_cyclone_d_mm": 17.4726,
+        "recycles": 0,
+        "series_depth": 2,
+        "splitters": 0
+      },
+      "cout_mg_l": 8.229042517144515,
+      "feasible": true,
+      "genome_sha256": "50ce2c3fc31b4ad4feadb73164ce96724202f3c66ac78153e9e2d1c050827905",
+      "niche": "c2-d2-r0-x2",
+      "q_treated_m3_h": 0.8355918232142284,
+      "units": 2
+    }
+  ],
+  "generation": 300,
+  "history_last": {
+    "archive_feasible": 9,
+    "archive_niches": 177,
+    "best_cout_mg_l": 10.791720877182051,
+    "best_feasible": true,
+    "best_fitness": 0.18604415371624808,
+    "best_hash": "9aefcbd46efe84ab2068d4ca198c4935d41d96a9866b46459736f568b519d591",
+    "best_q_treated_m3_h": 2.579191693448963,
+    "best_violation": 0.0,
+    "evaluations": 28896,
+    "feasible_fraction": 1.0,
+    "generation": 300,
+    "median_violation": 0.0,
+    "wall_s": 2.449585803
+  },
+  "manifest": {
+    "campaign_sha256": "e3363206b8c63111cf8467724b8b495955b85b5a5236f4bfba03198c983a837c",
+    "evidence_class": "unvalidated_reduced_order_screen",
+    "forge_version": "joil-forge/1.0.0",
+    "model_version": "joil-forge-judges/1.0.0",
+    "parent_manifest_sha256": null,
+    "seeded_from": null
+  },
+  "model_version": "joil-forge-judges/1.0.0",
+  "note": "Screen-model search output. Not CFD, not a measurement, not physical validation.",
+  "random_search_control": {
+    "best_genome_sha256": "76ff7712fe9776eb5a8159934a2a123d54d7e0098817fc47b729401ef2bd6a2a",
+    "best_score": {
+      "cout_mg_l": 12.097699814527894,
+      "feasible": true,
+      "feed_pressure_kpa": 399.99799978109615,
+      "fitness": -0.9970482272046637,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        0.8982248608504705,
+        0.7796421475875634,
+        1.0087463889515558,
+        0.870610556521741
+      ],
+      "q_feed_m3_h": 0.9071154998646438,
+      "q_treated_m3_h": 0.7796421475875634,
+      "q_treated_nominal_m3_h": 0.8982248608504705,
+      "reasons": [],
+      "reject_fraction": 0.009801,
+      "robustness": 0.5745093950079355,
+      "shell_mass_kg": 0.31110125199147726,
+      "specific_energy_kj_m3": 403.9571841428805,
+      "units": 1,
+      "violation": 0.0
+    },
+    "campaign_sha256": "e3363206b8c63111cf8467724b8b495955b85b5a5236f4bfba03198c983a837c",
+    "evaluations": 28896,
+    "feasible_designs": 2,
+    "final": {
+      "best_fitness": -0.9970482272046637,
+      "best_q_treated_m3_h": 0.7796421475875634,
+      "evaluations": 28896,
+      "feasible_niches": 2,
+      "feasible_so_far": 2,
+      "niches": 155
+    },
+    "kind": "equal_budget_random_search"
+  }
+}

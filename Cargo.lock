@@ -746,6 +746,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "joil-forge"
+version = "0.1.0"
+dependencies = [
+ "joil-forge-judges",
+ "rayon",
+ "serde",
+ "serde_json",
+ "sha2",
+]
+
+[[package]]
+name = "joil-forge-judges"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "joil-geometry"
 version = "0.1.0"
 dependencies = [

@@ -1,0 +1,72 @@
+{
+  "name": "forge-v1",
+  "seed": 20261021,
+  "population": 48,
+  "islands": 2,
+  "migrate_every": 5,
+  "migrants": 2,
+  "tournament": 3,
+  "crossover_rate": 0.3,
+  "structural_rate": 0.45,
+  "archive_parent_rate": 0.3,
+  "seeding": "de_novo",
+  "closure_samples": 3,
+  "allow_pumps": true,
+  "objective": {
+    "capacity": 1.0,
+    "energy": 0.25,
+    "mass": 0.15,
+    "robustness": 1.0,
+    "per_unit": 0.02
+  },
+  "limits": {
+    "pressure_budget_pa": 400000.0,
+    "reject_budget": 0.02,
+    "quality_limit_mg_l": 30.0,
+    "max_amplification": 8.0,
+    "q_min_m3_h": 0.5,
+    "q_max_m3_h": 40.0,
+    "quality_probe_ratio": 0.85,
+    "quality_probes": 8
+  },
+  "feed": {
+    "flow_m3_h": 4.0,
+    "cin_mg_l": 500.0,
+    "dsd": {
+      "volume_median_um": 15.0,
+      "geometric_sd": 1.6
+    }
+  },
+  "scenarios": [
+    {
+      "flow_m3_h": 4.0,
+      "cin_mg_l": 500.0,
+      "dsd": {
+        "volume_median_um": 8.0,
+        "geometric_sd": 1.6
+      }
+    }
+  ],
+  "envelope": {
+    "radius_mm": 50.0,
+    "length_mm": 1800.0,
+    "wall_mm": 1.5
+  },
+  "fluids": {
+    "rho_water_kg_m3": 998.0,
+    "mu_water_pa_s": 0.001,
+    "rho_oil_kg_m3": 850.0,
+    "mu_oil_pa_s": 0.005,
+    "interfacial_tension_n_m": 0.025
+  },
+  "terminals": {
+    "product_pa": 0.0,
+    "reject_pa": 0.0,
+    "pump_suction_min_pa": 20000.0,
+    "pump_efficiency": 0.6
+  },
+  "resolution": {
+    "nz": 60,
+    "ns": 12
+  }
+}

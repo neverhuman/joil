@@ -1,0 +1,16 @@
+[package]
+name = "joil-forge"
+version.workspace = true
+edition.workspace = true
+description = "Developmental process-network genome, resumable evolution, CAD and visuals for multi-stage deoiling cartridges."
+
+[[bin]]
+name = "joil-forge"
+path = "src/main.rs"
+
+[dependencies]
+joil-forge-judges = { path = "../joil-forge-judges" }
+serde.workspace = true
+serde_json = { workspace = true, features = ["float_roundtrip"] }
+sha2.workspace = true
+rayon = "1"
