@@ -341,7 +341,7 @@ fn closure_seed_lets_replicates_share_one_objective() {
     };
     assert_eq!(closures(&replicate), closures(&base));
     // Every committed fleet campaign is forge-v2 with only its search settings changed.
-    for n in 1..=9u64 {
+    for n in 1..=12u64 {
         let path = format!(
             "{}/../../campaigns/forge-v2-fleet/seed-{}.json",
             env!("CARGO_MANIFEST_DIR"),

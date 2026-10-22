@@ -1,0 +1,72 @@
+{
+ "schema": "joil-forge-fleet-extension-preregistration/1",
+ "registered_utc": "2026-10-22T07:13:35Z",
+ "evidence_class": "unvalidated_reduced_order_screen",
+ "purpose": "Extend the merged Forge v2 fleet run (docs/forge/results/forge-v2-fleet-preregistration.json) five-fold for the paper and README: continue every replicate exactly from its 2000-generation checkpoint to 10000 generations, rerun the random controls at the new equal budget, then breed a final winner in three pooled replicates. All 16 S/D runs were still improving when the fleet run stopped (each last improved after generation 1700). Registered before any extension job starts; the original 2000-generation endpoints and receipts stay as they are.",
+ "source": {
+  "base_commit": "452246cf588a67120d1ebacdd4b727fc841a5ca3",
+  "registration_change": "adds campaigns/forge-v2-fleet/seed-20261110..20261112.json (seed-20261109.json with only name and seed changed) and this file",
+  "forge_version": "joil-forge/1.1.1",
+  "model_version": "joil-forge-judges/1.0.0",
+  "run_binaries": "the fleet run binaries, so continuations are exact: Linux x86_64 f96400b0c2176a463d350c76e2a8a1d77a3750d8469392eb8260a46b02593e94 and macOS aarch64 cabcbb204459272f4a91faa6aa603e771b8030f2affcaec4b7e99dfd418248e9 (both built from 75b069e; see forge-v2-fleet-run-receipt.json)"
+ },
+ "objective": "unchanged: campaigns/forge-v2-fleet/seed-<seed>.json, closure_seed 20261021. No threshold, duty, weight, limit, envelope, resolution or closure changes.",
+ "starting_checkpoints": {
+  "note": "SHA-256 of checkpoint.json at generation 2000, measured on the copy the extension resumes; each copy is byte-identical to the original run directory, which is left untouched. P matches P_final_checkpoint in forge-v2-fleet-run-receipt.json.",
+  "D-20261101": "ecc9bceebbdccb4b73dcf474ce918b686bc9f6417cf5ce4753bfbb01d766f183",
+  "D-20261102": "528fc4198b02c46ac7c64c40c1cabf91f2d820651be1f70eb015455af98ade5f",
+  "D-20261103": "07294ec5d0e42675c435685b68b7870f8878d7dfae726321362147490b4cf3d5",
+  "D-20261104": "2f3a54a5679d972f00ec104796c4bf8b6ec6815be272c49b3bc00a226470f2c7",
+  "D-20261105": "d6825c711554f3b664c831a86087f6e0f0f570a345b26341e5dd078e6675e1e7",
+  "D-20261106": "91cfaac060f71a505b5cb25f71f26c4a5bedb44be9fe6cfa529d55cffba39702",
+  "D-20261107": "054e34c715ed050211693fb3d255eca3f24c27d8ec381dcd2e89bb3e245c5bfa",
+  "D-20261108": "2377499eb9aea5f806c99a6751c128b27276bec7ccce7557e87b03979944eab3",
+  "S-20261101": "a551f1696953a00292194416b80c29759f8af8cf156dc09a97a746b6231ac8c4",
+  "S-20261102": "94471bb1dc1586239a753b8cf605a3a8e29770ae4930c23797b8992a4a020e95",
+  "S-20261103": "e71bbb715b349c800903f1f00687441e273ceb31baef5b0afdc284c8e6e188ff",
+  "S-20261104": "c86bf00ad68f00d8f01d9d98440166af6d70cca8882faf387c12517a636f26f6",
+  "S-20261105": "eef34c6ea8006b9723e74457da61bca378b03c3f3e4291c74164a992c883fb6f",
+  "S-20261106": "40779403398dc44c72f8469367cb0acef28b97ca2f053ad7ef47622f23726e4c",
+  "S-20261107": "2ac9f0ee0a923396023fd22fc07a353bef6c360de7eaa096cb89ac9e53b4c232",
+  "S-20261108": "336ec19669d6dc62f813eb9aee8075525327c5ae3999f5706fb8932cad2957ff",
+  "P": "5149aebf8b16848c99a0e893dedcdb31a8e1474dbdcf590f834789bc7181b24c"
+ },
+ "arms": {
+  "D": "evolve --run <copy of D-N> --resume --generations 10000 (96 x 4 x 10001 = 3840384 evaluations)",
+  "S": "evolve --run <copy of S-N> --resume --generations 10000",
+  "R": "control --campaign seed-N.json --evaluations 3840384, on the platform of the original control (seed 20261108 on macOS). The control draws one fixed random stream in batches of 384, so its first 768384 evaluations must reproduce the fleet control exactly; this is checked against forge-v2-fleet-summary-v1.json and any mismatch is reported.",
+  "P": "exploratory: evolve --run <copy of P> --resume --generations 10000",
+  "F": "final pooled replicates F-20261110, F-20261111, F-20261112: evolve --campaign seed-<seed>.json --seed-from pool-ext.json --generations 10000, where pool-ext.json is `joil-forge fleet-summary --pool` over the 16 extended S/D runs after they all finish"
+ },
+ "placement": {
+  "xbabe1": ["D/S-20261101..20261103", "R-20261101..20261103"],
+  "xbabe3": ["D/S-20261104..20261107", "R-20261104..20261107", "F (two replicates)"],
+  "xbabe2": ["P"],
+  "xbabe4 (macOS)": ["D/S-20261108", "R-20261108"],
+  "xbabe1 or xbabe3": ["F (third replicate)"],
+  "note": "results do not depend on thread count or host for Linux runs (tests/forge.rs; exactness replay in the fleet run receipt); runs may move between Linux hosts at a consistent checkpoint, recorded with digests"
+ },
+ "endpoints": {
+  "primary": "Per replicate N: D-N best at 3840384 evaluations versus R-N best at the same budget, by the engine's order (feasible first, then higher fitness, else lower violation). One-sided exact sign test over 8 replicates, H1 = evolution better; ties and missing count against H1; p <= 0.05 needs 7 of 8.",
+  "secondary": [
+   "S-N versus D-N at 10000 generations (one-sided sign test, H1 = seeding better), reported either way",
+   "continuation gain: for each of the 16 S/D runs, best at generation 10000 versus generation 2000; the number that improved and by how much",
+   "D versus R best-so-far at every logged budget up to 3840384 evaluations (descriptive curves)",
+   "the winner: the single best feasible design across D, S, P and F by the engine's order on the registered objective. It gets a report-resolution re-evaluation, per-duty outlet at the worst closure, treated capacity, mass, print audit and CAD from `joil-forge report`, and is compared under the same model with the CT-35 same-model baseline, the v2 demo leader, C0 and the generation-2000 fleet leader",
+   "closure robustness of the winner and of the generation-2000 leader under closure_seed 20261101..20261108; the worst case is reported, because the winner is selected on one 3-sample closure set and its absolute score is therefore optimistic"
+  ],
+  "exploratory": [
+   "whether the three F replicates converge on the same design family (stages, cells, topology)",
+   "P continued to 10000 generations",
+   "the primary test with replicate 20261108 (macOS) excluded"
+  ]
+ },
+ "reporting": "Every run is reported, including unfavourable ones. Numbers are unvalidated reduced-order screen outputs, not physical performance. Budgets, seeds and thresholds are fixed here and are not tuned after seeing outcomes.",
+ "invalidation_and_stops": {
+  "crash_or_interruption": "an evolve run is resumed exactly from its checkpoint and the interruption is recorded; an interrupted control is rerun with the identical command",
+  "missing_data": "a replicate without both D and R at budget is reported as missing and counted against H1",
+  "numerical_failures": "kept as recorded by the engine; never hidden or rescored",
+  "host_guards": "fleetcap run-capped on Linux; pause our own processes on memory/disk/freeze breaches or an Admiral/owner stop; no early stopping on performance"
+ },
+ "allocation": ".private/coordination/forge-fleet-20261022/ALLOCATION-EXT.json sha256 436334868f89c71d2158edef14ee25f5274856f4bd711b10f23a0507cda93e5e (private, owner-authorized)"
+}
