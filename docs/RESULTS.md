@@ -35,6 +35,27 @@ Six external reviews ([verbatim inputs](review-inputs/2026-10-15/INDEX.md), [fin
 - **Software contract.** `220 / 220` closed-catalog validity samples and an operator random walk with `85` label changes ([`docs/receipts/wave2-genome-and-10seed-ablation-20261015.json`](receipts/wave2-genome-and-10seed-ablation-20261015.json)). Both are upper bounds, because failed operators silently returned `CT-35` before workplan item TR-01.
 
 
+## Forge v2 fleet: evolution against equal-budget random sampling (Forge screen, `8` seeds)
+
+Source: [`docs/results/forge-v2-fleet-summary-v1.json`](results/forge-v2-fleet-summary-v1.json), written by `joil-forge fleet-summary` from the run directories. Seeds, budgets, arms and the test were registered in [`docs/forge/results/forge-v2-fleet-preregistration.json`](forge/results/forge-v2-fleet-preregistration.json) before the first fleet run. This is the separate [Forge lane](forge/README.md): an open-ended process-network genome scored by its own reduced-order screen (`unvalidated_reduced_order_screen`), not the `F1` screen of the Wave studies below. Each seed ran three arms on one shared objective, and each arm spent exactly `768384` scored evaluations: `S` continues from the rebuilt last best design (`C0`), `D` evolves from random networks, and `R` draws the same number of networks from the same random generator without selection.
+
+| Seed | `S` best fitness | `D` best fitness | `R` best fitness | `D` feasible niches | `R` feasible niches | `D` first feasible (evaluations) | `R` first feasible (evaluations) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `20261101` | `2.502` | `2.764` | `2.114` | `17` | `2` | `49536` | `152064` |
+| `20261102` | `2.919` | `2.700` | `2.123` | `61` | `3` | `4224` | `122112` |
+| `20261103` | `2.509` | `3.099` | `1.949` | `53` | `1` | `316416` | `270720` |
+| `20261104` | `2.508` | `3.010` | `1.989` | `34` | `1` | `5376` | `33792` |
+| `20261105` | `2.510` | `2.942` | `2.150` | `12` | `2` | `8448` | `267648` |
+| `20261106` | `2.507` | `3.039` | `1.968` | `60` | `3` | `19968` | `19200` |
+| `20261107` | `2.536` | `2.587` | `2.051` | `23` | `3` | `7296` | `160896` |
+| `20261108` | `2.514` | `2.884` | `1.934` | `21` | `3` | `85632` | `110592` |
+
+`D` ranked above `R` in all `8` seeds (one-sided exact sign test, `p = 0.0039`), which clears the registered threshold. `D` also ended with more feasible archive niches in every seed and found its first feasible design sooner in six; in seeds `20261103` and `20261106` random sampling found one first. Seeding from the last best design did not help at this budget: `S` ranked above `D` only in seed `20261102` (one-sided sign test for `S` over `D`, `p = 0.9961`), where one seeded run left the inherited two-stage designs for a single stage at `2.919`. The other seven seeded runs ended between `2.502` and `2.536`, near the `2.499` of `C0` they started from, while de novo runs ended between `2.587` and `3.099`. `C`, the exact continuation of `C0` to `2000` generations, moved only to `2.501`.
+
+The pooled run `P` started from the deduplicated archives of all sixteen `S` and `D` runs and reached `3.105` after `2000` generations with `99` feasible niches, the best of the fleet. Its leader refines the seed `20261103` de novo leader (`3.099`) rather than replacing it: two stages in series that, at search resolution and the worst closure sample, discharge `5.10` mg/L in the produced-water duty and `84.0` mg/L in the seawater spill duty while treating `0.77` m³/h at `400` kPa. Re-scored at report resolution under eight further closure seeds ([`docs/results/forge-v2-fleet-closure-sensitivity-v1.json`](results/forge-v2-fleet-closure-sensitivity-v1.json); registered as exploratory for the leader, with five reference designs added afterwards), every design scores lower than under the registered closure seed, but under each one the leader and the seeded single stage of seed `20261102` stay ahead of the `C` leader, the demo leader and the best random sample: the `P` leader stays feasible in all of them with fitness between `2.332` and `2.953`, the `C` leader and the demo leader each fail one, and the best random sample (from seed `20261105`) fails all eight.
+
+These are search statistics on a reduced-order screen. They show that the Forge search optimizes its own objective far better than unselected sampling from its generator; they say nothing about physical separation. Seed `20261108` ran on macOS (aarch64) rather than Linux. The contrast with Wave-4 below, where uniform random search beat `B3` on the `F1` screen, is not like for like: genome, screen, objective and budget all differ. Hosts, run moves, report-resolution scores and the print audit: [Forge fleet run](forge/README.md#fleet-run-eight-replicates).
+
 ## Wave-4: the same study on repaired operators (`F1` screen, sandbox, workplan INT-04)
 
 Source: [`docs/results/wave4-evolution-proof-v1.json`](results/wave4-evolution-proof-v1.json) (`SHA-256: 2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885`). The design matches Wave-3: `10` seeds, `450` charged proposals per seed and arm, `22,500` screen evaluations and `72` Monte Carlo samples per candidate. It ran after the truth repairs. Every proposal is now charged to the budget, a failed variation no longer becomes `CT-35`, and `B3`'s acquisition no longer picks from extra uncharged proposals. The result reverses the Wave-3 comparison with random search:
