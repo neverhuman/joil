@@ -252,7 +252,7 @@ pub fn evolution_figure(s: &FleetSummary, marks: &[Mark], refs: &[Reference]) ->
     let _ = write!(o, "<text class='t2' x='{}' y='{}' font-size='12' text-anchor='middle'>evaluations (log scale)</text><text class='t2' x='{}' y='{}' font-size='12' text-anchor='middle' transform='rotate(-90 {} {})'>best weighted score (higher is better)</text>", x0 + pw / 2.0, top + ph + 40.0, x0 - 46.0, top + ph / 2.0, x0 - 46.0, top + ph / 2.0);
     for m in marks {
         let xx = x.at(m.evaluations);
-        let _ = write!(o, "<line x1='{xx:.1}' x2='{xx:.1}' y1='{top}' y2='{}' stroke='{GREY}' stroke-width='1' stroke-dasharray='2 3'/><text class='mu' x='{:.1}' y='{}' font-size='11' text-anchor='end'>{}</text>", top + ph, xx - 5.0, top + 14.0, esc(&m.label));
+        let _ = write!(o, "<line x1='{xx:.1}' x2='{xx:.1}' y1='{top}' y2='{}' stroke='{GREY}' stroke-width='1' stroke-dasharray='2 3'/><text class='mu' x='{:.1}' y='{}' font-size='11' text-anchor='end'>{}</text>", top + ph, xx - 5.0, top + ph - 8.0, esc(&m.label));
     }
     for a in &arms {
         for r in &a.runs {
@@ -359,7 +359,7 @@ fn dot_panel(
             match final_fitness(r) {
                 Some(f) if winner.is_some_and(|w| w.source == r.source) => {
                     let cx = x.across(f);
-                    let _ = write!(o, "{}<text x='{cx:.1}' y='{:.1}' font-size='12' font-weight='600' text-anchor='end'>winner {f:.3}</text><text class='t2' x='{cx:.1}' y='{:.1}' font-size='11' text-anchor='end'>{}</text>", star(cx, cy, 9.0), cy - 14.0, cy + 24.0, esc(&r.source));
+                    let _ = write!(o, "{}<text x='{cx:.1}' y='{:.1}' font-size='12' font-weight='600' text-anchor='end'>winner ({}) {f:.3}</text>", star(cx, cy, 9.0), cy - 14.0, esc(&r.source));
                 }
                 Some(f) => {
                     let _ = write!(o, "<circle cx='{:.1}' cy='{cy:.1}' r='4.5' {fill} fill-opacity='0.85'><title>{}: {f:.3}</title></circle>", x.across(f), esc(&r.source));

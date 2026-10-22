@@ -269,11 +269,9 @@ fn evolution_figure_draws_every_run_and_stars_the_winner() {
             "{run}: line and dot"
         );
     }
-    assert!(svg.contains(">winner 3.200<") && svg.contains(">F-9<"));
-    assert!(
-        svg.contains(">winner (F-9) 3.200<"),
-        "winner line in the trajectory panel"
-    );
+    // The winner is labelled at its star and at its line across the trajectory panel, where the
+    // label is drawn twice (background halo, then text).
+    assert_eq!(svg.matches(">winner (F-9) 3.200<").count(), 3);
     assert!(svg.contains("previous best 2.500") && svg.contains("end of the first run"));
     assert!(svg.contains(">1k<") && svg.contains(">100k<"));
     assert!(svg.contains("De novo evolution (D) · median 2.950"));
