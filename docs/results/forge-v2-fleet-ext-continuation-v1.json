@@ -1,0 +1,215 @@
+{
+  "schema": "joil-forge-fleet-ext-continuation/1",
+  "evidence_class": "unvalidated_reduced_order_screen",
+  "sources": {
+    "fleet_run": "docs/results/forge-v2-fleet-summary-v1.json",
+    "extension": "docs/results/forge-v2-fleet-ext-summary-v1.json"
+  },
+  "replicates": [
+    {
+      "seed": 20261101,
+      "de_novo": {
+        "generation_2000": 2.764405233308902,
+        "generation_10000": 2.921136622774225,
+        "gain": 0.15673138946532283
+      },
+      "seeded": {
+        "generation_2000": 2.50199312640746,
+        "generation_10000": 2.560821667452833,
+        "gain": 0.05882854104537261
+      },
+      "random": {
+        "evaluations_768384": 2.114477391615775,
+        "evaluations_3840384": 2.114477391615775
+      }
+    },
+    {
+      "seed": 20261102,
+      "de_novo": {
+        "generation_2000": 2.700438754917122,
+        "generation_10000": 2.709493592953797,
+        "gain": 0.009054838036675061
+      },
+      "seeded": {
+        "generation_2000": 2.91886468132336,
+        "generation_10000": 3.0996683975463566,
+        "gain": 0.1808037162229965
+      },
+      "random": {
+        "evaluations_768384": 2.122829219047055,
+        "evaluations_3840384": 2.2040893606717504
+      }
+    },
+    {
+      "seed": 20261103,
+      "de_novo": {
+        "generation_2000": 3.098871702472149,
+        "generation_10000": 3.1016267381994855,
+        "gain": 0.0027550357273367077
+      },
+      "seeded": {
+        "generation_2000": 2.5085632055213827,
+        "generation_10000": 2.6470994586394485,
+        "gain": 0.13853625311806583
+      },
+      "random": {
+        "evaluations_768384": 1.9490170001221625,
+        "evaluations_3840384": 2.0096559148926745
+      }
+    },
+    {
+      "seed": 20261104,
+      "de_novo": {
+        "generation_2000": 3.0098694577475045,
+        "generation_10000": 3.0115251986921625,
+        "gain": 0.0016557409446580351
+      },
+      "seeded": {
+        "generation_2000": 2.507634289922017,
+        "generation_10000": 2.73991242434108,
+        "gain": 0.23227813441906298
+      },
+      "random": {
+        "evaluations_768384": 1.9892967118962286,
+        "evaluations_3840384": 2.1498606113508565
+      }
+    },
+    {
+      "seed": 20261105,
+      "de_novo": {
+        "generation_2000": 2.941622237245419,
+        "generation_10000": 2.9859612833864806,
+        "gain": 0.044339046141061544
+      },
+      "seeded": {
+        "generation_2000": 2.5097532363731094,
+        "generation_10000": 2.5114909950034794,
+        "gain": 0.0017377586303699566
+      },
+      "random": {
+        "evaluations_768384": 2.149690846507422,
+        "evaluations_3840384": 2.149690846507422
+      }
+    },
+    {
+      "seed": 20261106,
+      "de_novo": {
+        "generation_2000": 3.0389438690550783,
+        "generation_10000": 3.055322061342041,
+        "gain": 0.0163781922869628
+      },
+      "seeded": {
+        "generation_2000": 2.5073250984013176,
+        "generation_10000": 2.509000615496437,
+        "gain": 0.001675517095119261
+      },
+      "random": {
+        "evaluations_768384": 1.9679222084177996,
+        "evaluations_3840384": 2.0971703730421
+      }
+    },
+    {
+      "seed": 20261107,
+      "de_novo": {
+        "generation_2000": 2.586817959156355,
+        "generation_10000": 2.7803487371086555,
+        "gain": 0.19353077795230034
+      },
+      "seeded": {
+        "generation_2000": 2.535845811160852,
+        "generation_10000": 2.536705244452277,
+        "gain": 0.0008594332914251268
+      },
+      "random": {
+        "evaluations_768384": 2.050827444984481,
+        "evaluations_3840384": 2.3461722666657407
+      }
+    },
+    {
+      "seed": 20261108,
+      "de_novo": {
+        "generation_2000": 2.8844045413185118,
+        "generation_10000": 3.0047816668850684,
+        "gain": 0.12037712556655666
+      },
+      "seeded": {
+        "generation_2000": 2.514295918003575,
+        "generation_10000": 2.5222262143824894,
+        "gain": 0.007930296378914292
+      },
+      "random": {
+        "evaluations_768384": 1.934422985464909,
+        "evaluations_3840384": 2.185694227782559
+      }
+    }
+  ],
+  "runs_improved": 16,
+  "runs_continued": 16,
+  "de_novo_gain_max": 0.19353077795230034,
+  "seeded_gain_max": 0.23227813441906298,
+  "ranges_at_extension": {
+    "de_novo": [
+      2.709493592953797,
+      3.1016267381994855
+    ],
+    "seeded": [
+      2.509000615496437,
+      3.0996683975463566
+    ],
+    "random": [
+      2.0096559148926745,
+      2.3461722666657407
+    ]
+  },
+  "medians_at_extension": {
+    "de_novo": 2.9953714751357747,
+    "seeded": 2.548763455952555,
+    "random": 2.1497757289291393
+  },
+  "seeded_runs_above_c0_basin": 3,
+  "random_control_prefix_check": [
+    {
+      "control": "R-20261101",
+      "first_768384_evaluations_identical": true
+    },
+    {
+      "control": "R-20261102",
+      "first_768384_evaluations_identical": true
+    },
+    {
+      "control": "R-20261103",
+      "first_768384_evaluations_identical": true
+    },
+    {
+      "control": "R-20261104",
+      "first_768384_evaluations_identical": true
+    },
+    {
+      "control": "R-20261105",
+      "first_768384_evaluations_identical": true
+    },
+    {
+      "control": "R-20261106",
+      "first_768384_evaluations_identical": true
+    },
+    {
+      "control": "R-20261107",
+      "first_768384_evaluations_identical": true
+    },
+    {
+      "control": "R-20261108",
+      "first_768384_evaluations_identical": true
+    }
+  ],
+  "note": "Screen-model search statistics (unvalidated reduced-order screen), not physical evidence. seeded_runs_above_c0_basin counts seeded runs that ended above 2.6, clear of the 2.50-2.54 band where the rebuilt last best design C0 (2.499) and its descendants sat.",
+  "budgets": {
+    "fleet_run": {
+      "generations": 2000,
+      "evaluations": 768384
+    },
+    "extension": {
+      "generations": 10000,
+      "evaluations": 3840384
+    }
+  }
+}

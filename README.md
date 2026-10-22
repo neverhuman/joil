@@ -1,14 +1,22 @@
 # joil
 
-Evidence-driven evolutionary design of deoiling hydrocyclone cartridges.
+joil evolves 3D-printable deoiling cartridges: hydrocyclone networks that take oil out of produced water and out of seawater after a spill. Designs are bred in software, scored by reduced-order physics, held to a printer's build volume and exported as watertight CAD. A claims audit fails the build when a number in these documents does not trace to a committed receipt. Nothing has been printed or tested in water yet, so every performance number below is a screen result, not a measurement.
 
-joil searches for 3D-printable internal geometries for deoiling hydrocyclone liners. The goal is more compliant treated water per liner at a fixed pressure budget and reject fraction than `CT-35`, a research baseline reconstructed from the Colman–Thew patent example, without rewarding simulation errors. The pipeline combines a bounded design genome, a reduced-order screen, an evolutionary search, OpenFOAM carrier CFD on compiled surfaces, and a claims audit that fails when a number in these documents does not trace to a committed receipt. So far the answer is negative, and the documents say so: on the repaired code, evolution does not beat uniform random search on the screen's best score; the CFD shells show no pressure-drop advantage over `CT-35` built by the same pipeline; and nothing has been tested physically. On the separate [Forge lane](docs/forge/README.md), whose open-ended process-network genome is scored by a different reduced-order screen, island evolution beat equal-budget random sampling of the same generator in all `8` preregistered seeds ([`docs/results/forge-v2-fleet-summary-v1.json`](docs/results/forge-v2-fleet-summary-v1.json)); that is a screen result too, not physical evidence. The [WHITEPAPER](docs/WHITEPAPER.md) gives the full account, and [`docs/RESULTS.md`](docs/RESULTS.md) holds the result tables, figure plates and evidence tiers.
+The repository holds two search lanes, and they give different answers:
 
-![Wave-4 screen search diagnostics on repaired operators: per-generation KPI trajectory, gene-label schematic and archived carrier CFD](docs/figures/wave4-readme-hero-kpi-and-elite.png)
-*Figure 0 (Wave-4, `F1` screen, sandbox): per-generation screen `KPI_score` across `10` seeds on repaired operators, with `72` Monte Carlo samples per candidate. Panels A and B: uniform random search (`B1`) ends with the higher best score, and `B3` leads only on population median. Panel C is a gene-label schematic, not compiled geometry; its labels are read from the receipt (`CT-35` Hinze diameter `64.0 µm`). Panel D repeats archived Wave-1/2 carrier CFD of different subjects ([`docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json`](docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v2.json)), not Wave-4 designs, and its percentages compare with the different-pipeline `CT-35` case; against the same-pipeline control there is no detectable difference (WHITEPAPER §4.6). Source: [`docs/results/wave4-evolution-proof-v1.json`](docs/results/wave4-evolution-proof-v1.json); figure `SHA-256: fab2f5f59ab5dc75cb90416dc24aaa2beafab4dee1a97888c6b783bdeb9602b0`. The pre-repair Wave-3 hero is listed with the figure plates in [`docs/RESULTS.md`](docs/RESULTS.md). Only `A1`, `A2` and `B3` start from the same generation 0; `B2` starts from conventionalized copies of those programs and `B1` from random samples. The dashed line in Panel B is an authored research-screen threshold, not a permit limit.*
+- **[Forge lane](docs/forge/README.md)** (open-ended process-network genome, its own reduced-order screen). In a preregistered fleet run over `8` seeds, island evolution beat equal-budget random sampling of the same generator in every seed, at `768384` and again at `3840384` evaluations per run (one-sided sign test `p = 0.0039` each). Three final runs bred from all sixteen extended archives could not beat the fleet run's own pooled run continued to `10000` generations, which is the winner in Figure 2: two cyclone stages with `13` cells in one `400` mm printed part that, at report resolution, takes produced water from `500` to `6.2` mg/L and seawater-spill water from `1000` to `80.9` mg/L while treating `0.81` m³/h.
+- **Original lane** (bounded liner genome, `F1` screen, OpenFOAM carrier CFD). On repaired code, evolution does not beat uniform random search on the screen's best score, and the CFD shells show no pressure-drop advantage over a `CT-35` baseline built by the same pipeline (Figure 3).
 
-![Forge fleet: best weighted fitness found so far against scored evaluations for eight seeds, seeded, de novo and random sampling on one scale](docs/forge/figures/v2-fleet/fleet.svg)
-*Figure 1 (Forge lane, screen only): best weighted fitness found so far against scored evaluations, one line per seed, for `8` preregistered seeds. Every arm of a seed spends `768384` evaluations on one objective: seeded from the last best design (`S`), de novo search (`D`) and random sampling of the same generator (`R`), all on one scale. Source: [`docs/results/forge-v2-fleet-summary-v1.json`](docs/results/forge-v2-fleet-summary-v1.json); details in [`docs/RESULTS.md`](docs/RESULTS.md) and the [Forge fleet run](docs/forge/README.md#fleet-run-eight-replicates).*
+The [WHITEPAPER](docs/WHITEPAPER.md) gives the full account and [`docs/RESULTS.md`](docs/RESULTS.md) the tables.
+
+![Forge fleet: best design score found so far against evaluations for every run, and the final score of every run with the winner starred](docs/forge/figures/v2-fleet-ext/evolution.svg)
+*Figure 1 (Forge lane, screen only). Left: best weighted score found so far against evaluations (log scale) for every run of the `8` preregistered seeds, de novo evolution (`D`), evolution seeded from the previous best design (`S`) and random sampling of the same generator (`R`), each spending `3840384` evaluations; lines pass exactly through the points where a run's best changed, and the dotted line marks the end of the `2000`-generation fleet run. Right: the final score of every run, with the winner starred. Sources: [`docs/results/forge-v2-fleet-ext-summary-v1.json`](docs/results/forge-v2-fleet-ext-summary-v1.json), [`docs/results/forge-v2-fleet-ext-continuation-v1.json`](docs/results/forge-v2-fleet-ext-continuation-v1.json).*
+
+![The winning design: rendered printable CAD, process network, screen numbers and the evolution of its lineage](docs/forge/figures/v2-fleet-ext/winner.svg)
+*Figure 2 (Forge lane, screen only). The winner rendered from its printable CAD, its process network, its report-resolution numbers and how its lineage evolved. Its search score is `3.133`; at report resolution it scores `3.040`, below its `2000`-generation ancestor (`3.100`), and above that ancestor under each of eight further closure sets. Rendering is not validation. Source: [`docs/results/forge-v2-fleet-ext-winner-v1.json`](docs/results/forge-v2-fleet-ext-winner-v1.json).*
+
+![Wave-4 KPI score per generation for B3 against uniform random search B1, with the CT-35 reference](docs/figures/wave4-readme-hero-kpi-and-elite.png)
+*Figure 3 (original lane, `F1` screen, sandbox). Best screen `KPI_score` per generation across `10` seeds on repaired operators: uniform random search (`B1`) ends with the higher best score, and evolution (`B3`) leads only on population median. Panel C is a gene-label schematic, not compiled geometry; Panel D repeats archived carrier CFD of earlier designs, which shows no difference from the same-pipeline `CT-35` control (WHITEPAPER §4.6). Source: [`docs/results/wave4-evolution-proof-v1.json`](docs/results/wave4-evolution-proof-v1.json).*
 
 ## Status
 
@@ -34,65 +42,38 @@ Phase: `software_truth_repair_scientific_claim_inventory_incomplete`.
 
 ## Install
 
-Requirements: Rust (stable, `cargo`), Python 3 with `numpy` and `matplotlib`, and Node.js `>=22.12.0` for the explorer (`apps/explorer/package.json`). Omit `rtk` / `rtk proxy` if `rtk` is not installed.
-
-From the repository root, install the Python requirements in an isolated environment (use Python 3.12 if you also want exact CAD):
+Rust (stable, with `cargo`), Python 3 with `numpy` and `matplotlib` for the audit and figure tools, and Node.js `>=22.12.0` for the explorer app (`apps/explorer`). From the repository root:
 
 ```bash
-python3 -m venv .private/quickstart-python
-. .private/quickstart-python/bin/activate
+python3 -m venv .private/venv && . .private/venv/bin/activate
 python3 -m pip install numpy matplotlib
 ```
 
-Optional exact CAD, inside a project environment with **Python 3.12** (on macOS, `uv venv --python 3.12 .venv` can create it):
-
-```bash
-rtk proxy python3 -m venv .venv
-rtk proxy .venv/bin/pip install -r requirements-cad.txt
-rtk proxy python3 tools/check.py --cad
-```
-
-CAD outputs include canonical mm STEP, mm and metre STL previews, metre glTF, terminal patch definitions and an audit report. Each check run uses a fresh output directory. Labelled conformal CFD tessellation is a later acceptance gate. See the report before using geometry downstream; scaling STEP coordinates without changing declared units is not a unit conversion.
+Exact CAD export (STEP, STL and glTF of the original lane) additionally needs Python 3.12 and [`requirements-cad.txt`](requirements-cad.txt); run it with `python3 tools/check.py --cad`.
 
 ## Quick start
 
-**1. Check the repository.** Every command below writes only to ignored paths. Runtime varies with available cores; individual checks can take over a minute, and `cargo test --workspace` and `tools/check.py` take several minutes on a fresh clone. Workplan item DOC-05 runs this list from a clean checkout; the log is kept in ignored `.private/checks/`.
+Every command writes only to ignored paths (`runs/`, `artifacts/`, `.private/`).
 
 ```bash
-rtk cargo test --workspace --locked
-rtk proxy cargo test -p joil-core --test regression closed_catalog_validity_11family_sampling -- --nocapture --exact
-rtk proxy cargo test -p joil-core --test regression operator_chain_validity_20step_11family -- --nocapture --exact
-rtk cargo run --locked -p joil-cli -- baseline
-rtk proxy python3 analysis/kpi_fitness.py --wave3-results docs/results/wave3-evolution-proof-v1.json
-rtk proxy python3 tools/run_elite_3grid_gci_and_rsm.py --interpret-existing
-rtk proxy python3 -m unittest discover -s tests -v
-rtk proxy python3 tools/check_public.py
-rtk proxy python3 tools/claims_audit.py
-rtk proxy sh -c 'cd apps/explorer && npm ci && npm run build'
-rtk proxy python3 tools/check.py
+cargo test --workspace --locked      # Rust tests
+python3 tools/claims_audit.py        # every number in these documents traces to a receipt
+just required                        # the full local gate that CI runs
+
+# Forge lane: evolve, continue exactly where it stopped, then the report and CAD
+just forge-evolve runs/forge/demo 300
+just forge-resume runs/forge/demo 600
+just forge-report runs/forge/demo
 ```
 
-`tools/run_elite_3grid_gci_and_rsm.py --interpret-existing` prints each committed elite GCI dossier's recorded historical gate value next to its corrected admission. The gate now reads only the frozen preregistration block, applies no improvement threshold, and admits only a resolved difference from a same-pipeline `CT-35` control with bound pipeline, grid-ladder, subject and solver identities. No committed dossier records those identities, so every one is `not_admitted` and `--verify-existing` exits nonzero. The historical `PASS ... certified` line came from a single-point analysis against the different-pipeline `CT-35` case. It is not a current claim: see WHITEPAPER correction C2 and §4.6.
-
-**2. Re-run a screen study (optional, slow).** Pass `--out` into the ignored `artifacts/` directory, or omit it: CLI output defaults are unique paths under the ignored `runs/` directory, and every command refuses an existing output path, so the committed, hash-bound receipts in `docs/results/` are never overwritten. On repaired code the regenerated numbers differ from those historical receipts. Pass `--mc 72`: the p05/p95 objectives need `72` Monte Carlo samples for a distribution-free bound, and at the default of `12` they are reported insufficient, so no candidate is ranked and every hypervolume is zero ([TR fresh-clone check](docs/reviews/2026-10-16-TR-readme-freshclone.md)).
-
-```bash
-RAYON_NUM_THREADS=4 rtk cargo run --release --locked -p joil-cli -- wave2-benchmark --seeds 20261101,20261102,20261103,20261104,20261105 --mc 72 --out artifacts/wave2-rerun.json
-```
-
-Known limitations of re-runs on the current code:
-
-- `wave3-proof` runs on the current code and wrote the Wave-4 receipt. Its default output is a unique path under `runs/`; it never replaces the historical Wave-3 receipt.
-- `export-3d-preview` reads ignored campaign files under `runs/`, so it cannot run from a fresh checkout.
-- `tools/generate_wave3_proof_figures.py` rewrites the committed, hash-bound figures, so run it only when regenerating figures together with a new receipt.
+The Forge commands, the fleet run and how to reproduce it are in the [Forge README](docs/forge/README.md); local check commands and their time budgets are in [`docs/testing.md`](docs/testing.md).
 
 ## Read more
 
-- [Forge lane](docs/forge/README.md): a separate, self-contained search lane whose genome is an open-ended process network (series stages, numbered-up cells, reject scavengers, pumped recycles, coalescer beds and free-form walls), scored first on the oil it removes in produced water and in seawater (oil-spill recovery) by genome-blind reduced-order physics, held to a printer's build volume with self-supporting internal geometry, with exact resume, seeding from the last best design, watertight STL and GLB output and a rendered run report; its numbers are unvalidated screen outputs ([forge science](docs/forge/SCIENCE.md)); its preregistered eight-seed fleet run is summarized in [RESULTS](docs/RESULTS.md)
-- [Chemical engineering process networks](docs/design/PROCESS_NETWORKS.md): executable synthetic series, parallel and recycle accounting, genuine swept-channel geometry, and the remaining integration steps
-- [WHITEPAPER](docs/WHITEPAPER.md): methods, results, corrections and limitations
-- [Results and evidence detail](docs/RESULTS.md): Forge fleet, Wave-4 and Wave-3 tables, figure plates, evidence tiers
-- [Design language](docs/GENOME.md) · [Physics and validation contract](docs/SCIENCE.md) · [Evidence kernel](docs/EVIDENCE.md)
-- [Review synthesis](docs/reviews/2026-10-15-SYNTHESIS.md) · [Final PR review](docs/reviews/2026-10-16-PR3-FINAL-REVIEW.md) · [Workplan](docs/WORKPLAN-2026-10-15.md) · [Master plan](docs/MASTER_PLAN.md)
+- [Forge lane](docs/forge/README.md) and its [physics](docs/forge/SCIENCE.md): the process-network genome, scoring, printable CAD, the fleet run and its extension
+- [WHITEPAPER](docs/WHITEPAPER.md): methods, results, corrections and limitations of both lanes
+- [Results](docs/RESULTS.md): result tables, figure plates and evidence tiers
+- [Design language](docs/GENOME.md) · [Physics and validation contract](docs/SCIENCE.md) · [Evidence kernel](docs/EVIDENCE.md) · [Process networks](docs/design/PROCESS_NETWORKS.md)
+- [Review synthesis](docs/reviews/2026-10-15-SYNTHESIS.md) · [Master plan](docs/MASTER_PLAN.md)
 
-No jarambit code or shared environment is modified or required at runtime. Raw supplied material and installation details stay in ignored private storage. No project software license has been selected yet; dependency licenses remain their own.
+No project software license has been selected yet; dependency licenses remain their own. Supplied raw material and installation details stay in ignored private storage.

@@ -1,0 +1,421 @@
+{
+ "schema": "joil-forge-fleet-ext-run/1",
+ "evidence_class": "unvalidated_reduced_order_screen",
+ "registration": {
+  "file": "docs/forge/results/forge-v2-fleet-ext-preregistration.json",
+  "commit": "0fabb820f358349c7cf1900d68b665a0c8b07c95",
+  "pushed_before_launch": "2026-10-22T07:14Z (branch claude/forge-fleet-ext-20261022); phase A launched 07:35Z"
+ },
+ "window_utc": {
+  "phase_a": [
+   "2026-10-22T07:35:08Z",
+   "2026-10-22T11:02:58Z"
+  ],
+  "phase_b": [
+   "2026-10-22T11:04:10Z",
+   "2026-10-22T12:53:45Z"
+  ]
+ },
+ "allocation": ".private/coordination/forge-fleet-20261022/ALLOCATION-EXT.json sha256 436334868f89c71d2158edef14ee25f5274856f4bd711b10f23a0507cda93e5e (private, owner-authorized); xbabe3 cap raised 64 -> 88 threads at 10:19Z while xbabe1 carried none of our work (Admiral and COORD notified)",
+ "binaries_sha256": {
+  "run_linux_x86_64": {
+   "sha256": "f96400b0c2176a463d350c76e2a8a1d77a3750d8469392eb8260a46b02593e94",
+   "built_from": "75b069e (fleet registration commit)",
+   "used_for": "every Linux evolve and control job"
+  },
+  "run_macos_aarch64": {
+   "sha256": "cabcbb204459272f4a91faa6aa603e771b8030f2affcaec4b7e99dfd418248e9",
+   "built_from": "75b069e",
+   "used_for": "seed 20261108 (D, S, R)"
+  },
+  "pool": {
+   "sha256": "d70665cb2e3ea987fcd33e1140d932cb409ed1344a46818e13abd186add966e7",
+   "used_for": "fleet-summary --pool (pool-ext.json)"
+  },
+  "report": {
+   "sha256": "3e6c1df21662e2ac5e5d0b2456b11195c52430ac2bce7b7278bd0ab6ab0113ed",
+   "built_from": "9e4048f",
+   "used_for": "joil-forge report of the winner, the closure re-evaluations; its eval output for the fleet leader and campaign is byte-identical to the run binary's"
+  },
+  "figures": {
+   "sha256": "a7638380ee2b8085782db97dc0ca2445f95286fe3c4860e1d1fcd6d6330a0eb7",
+   "built_from": "599ccc1",
+   "used_for": "fleet-summary of the extension and fleet-figures"
+  }
+ },
+ "inputs_sha256": {
+  "starting_checkpoints": "listed per run in the preregistration",
+  "pool-ext.json": "4a5cf9ebc3143e158eaadec8dc1129f24553e67e4debac4a6567d3439b086ea7"
+ },
+ "placement_at_launch": {
+  "xbabe1": "D/S-20261101..03 (8 threads each), R-20261101..03",
+  "xbabe3": "D-20261104..07 (8), S-20261104..07 (6), R-20261104..07",
+  "xbabe2": "P (6 threads, CPUs 38,39,90,91,110,111)",
+  "xbabe4 (macOS)": "D/S-20261108 (6 each), then R-20261108",
+  "phase_b": "F-20261110..12 on xbabe3 (16 threads, then 28)"
+ },
+ "incidents": [
+  "07:47Z xbabe2 load rose to 108-135 (other work) and fleetcap froze its slice; P moved to xbabe1 at generation 2251 (07:50Z).",
+  "09:16Z CI rust-tests job of PR 55 failed because self-hosted runner xbabe3-lan-2 lost contact; the rerun passed.",
+  "Our memory guard first paused slot scripts, which screen resumes under sudo (one pause hit only a mirror loop); from 10:12Z it pauses the joil-forge compute process. No run was affected beyond time.",
+  "xbabe1 MemAvailable fell below our 25 GiB guard (other tenants and runner VMs) and fleetcap froze jarambit-evo.slice 10:17:16-10:24:49Z; xbabe1's seven remaining runs moved to xbabe3 10:20-10:54Z.",
+  "11:05Z three restart attempts of the final runs found no process (their command line differs) and changed nothing; the restarts at 11:06Z succeeded."
+ ],
+ "moves_and_restarts": [
+  "2026-10-22T09:16:59Z RETHREAD xbabe3 S-20261107 at generation 5304: restarted with 14 threads",
+  "2026-10-22T09:18:57Z MOVED S-20261106 xbabe3 -> xbabe1 at generation 5422, checkpoint 80d3e350c303474ca5deee37128f041fd1dcff74f080e524f718e737cb1fa238, history 064fd9f9c6a022436a1e55eac6d5e6fc26f38d1d6dbf3db805befc6ecfbcbc9e; resumed with 8 threads",
+  "2026-10-22T09:33:46Z MOVED S-20261105 xbabe3 -> xbabe1 at generation 5811, checkpoint c5cd89fc72c3e1e3f804140253b7a852a2199eb3fa3eb86ff17155518182c010, history 6c93b599c87a9821a2bcb772bea5131dd4a4125e0170ec3fd4748d76bce8e2f0; resumed with 8 threads",
+  "2026-10-22T09:34:19Z RETHREAD xbabe3 S-20261104 at generation 5974: restarted with 12 threads",
+  "2026-10-22T09:34:28Z RETHREAD xbabe3 D-20261107 at generation 6391: restarted with 12 threads",
+  "2026-10-22T09:35:25Z RETHREAD xbabe3 D-20261106 at generation 6672: restarted with 16 threads",
+  "2026-10-22T09:57:12Z RETHREAD xbabe3 S-20261104 at generation 7211: restarted with 20 threads",
+  "2026-10-22T10:04:50Z RETHREAD xbabe1 S-20261105 at generation 7151: restarted with 16 threads",
+  "2026-10-22T10:20:06Z MOVED S-20261105 xbabe1 -> xbabe3 at generation 7494, checkpoint 5a6ba7f0ea9c3d344004563749aa49ca0204dd7f20f8993615ce8b2f67002d08, history d324e49d8444ed326196de5844eb066c0706a2954cc2c23e87eb5783f5211e3c; resumed with 16 threads",
+  "2026-10-22T10:21:18Z MOVED S-20261106 xbabe1 -> xbabe3 at generation 7773, checkpoint 84b93f7cd5f2ec3808a97e296fb40d4c9c5818dbaa2c175bc7c7dc709dee3f0c, history 3596efdd6d96848994a4bca72ac39f365aa8211b35af0c36cdca5ea46218c6ed; resumed with 10 threads",
+  "2026-10-22T10:26:37Z MOVED P xbabe1 -> xbabe3 at generation 8231, checkpoint 023e4c73f0073b0bac2a955f3b380f889d23c8a919bd12ebe2256b310fb0a328, history 3942ea32d7cc44ee3db13e2f7c0b133158d79505545cdd4ecf704023d755e6d4; resumed with 16 threads",
+  "2026-10-22T10:29:52Z MOVED D-20261102 xbabe1 -> xbabe3 at generation 8438, checkpoint a7034a58b0b346bc2dfd14acab38f19d87cb48351fdfbacd4e6f04061ca71a30, history 60550e73a8172faaa5ee263bf46e0936bda34624ea695264e944f7a3221278e9; resumed with 14 threads",
+  "2026-10-22T10:36:10Z MOVED D-20261103 xbabe1 -> xbabe3 at generation 8930, checkpoint f6d3574dc7147aedd4cafa2cdf0ab0626d41f59605d7396b7558874288af61c2, history 37a2a0f3669881a0fd8d2e4c870b5f7630341e888533c2c0eed0b822deaa7b3e; resumed with 16 threads",
+  "2026-10-22T10:44:32Z MOVED S-20261101 xbabe1 -> xbabe3 at generation 8989, checkpoint 8d15f4e810c0070d6e24e17fec626ef2da1112bab3dcb142051203885667d48a, history c0b6410f9a4ee8a3e7cc4ff0265d9151955c22fd7bf040997cca5f058663243d; resumed with 16 threads",
+  "2026-10-22T10:53:49Z MOVED S-20261102 xbabe1 -> xbabe3 at generation 9805, checkpoint 17c80b3c2a3d967fa9da8c64d355b4805afe31e8eb06161a5dc15309c42f3d70, history 4a90088a2d418b11de21c75799d860510b687201aa4a78b26c16cbe4446c0a04; resumed with 16 threads",
+  "2026-10-22T10:59:27Z RETHREAD xbabe3 S-20261106 at generation 9630: restarted with 24 threads",
+  "2026-10-22T11:05:15Z RETHREAD F-20261110: no unique evolve PID ()",
+  "2026-10-22T11:05:17Z RETHREAD F-20261111: no unique evolve PID ()",
+  "2026-10-22T11:05:17Z RETHREAD F-20261112: no unique evolve PID ()",
+  "2026-10-22T11:06:11Z RETHREAD xbabe3 F-20261110 at generation 137: restarted with 28 threads",
+  "2026-10-22T11:06:20Z RETHREAD xbabe3 F-20261111 at generation 133: restarted with 28 threads",
+  "2026-10-22T11:06:30Z RETHREAD xbabe3 F-20261112 at generation 124: restarted with 28 threads",
+  "2026-10-22T07:50:26Z MOVED P to xbabe1 at generation 2251 (checkpoint 4f63e6e5a39d67746fce43138a6b6b8eed1ffd74072e09cce765365dd975979f): xbabe2 load above 70 and fleetcap froze the slice"
+ ],
+ "move_rule": "Each move or restart stopped the run, required checkpoint generation == last history line and no checkpoint.tmp, killed the run, copied it with matching checkpoint and history SHA-256, and continued with evolve --resume (bit for bit and independent of the thread count: resume_continues_bit_for_bit_and_refuses_a_changed_campaign and evolution_is_independent_of_thread_count in crates/joil-forge/tests/forge.rs). Every history was checked to be gap-free afterwards.",
+ "jobs": {
+  "D-20261101": {
+   "exit": 0,
+   "finished_on": "xbabe1",
+   "wall_clock_last_segment": "1:57:53",
+   "peak_rss_mib": 2283
+  },
+  "R-20261101": {
+   "exit": 0,
+   "finished_on": "xbabe1",
+   "wall_clock_last_segment": "31:47.72",
+   "peak_rss_mib": 5396
+  },
+  "R-20261102": {
+   "exit": 0,
+   "finished_on": "xbabe1",
+   "wall_clock_last_segment": "33:10.56",
+   "peak_rss_mib": 5392
+  },
+  "R-20261103": {
+   "exit": 0,
+   "finished_on": "xbabe1",
+   "wall_clock_last_segment": "33:36.96",
+   "peak_rss_mib": 5390
+  },
+  "S-20261103": {
+   "exit": 0,
+   "finished_on": "xbabe1",
+   "wall_clock_last_segment": "2:26:10",
+   "peak_rss_mib": 2283
+  },
+  "D-20261102": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "28:02.39",
+   "peak_rss_mib": 540
+  },
+  "D-20261103": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "16:34.11",
+   "peak_rss_mib": 250
+  },
+  "D-20261104": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "2:22:06",
+   "peak_rss_mib": 2274
+  },
+  "D-20261105": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "1:40:41",
+   "peak_rss_mib": 2284
+  },
+  "D-20261106": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "50:12.62",
+   "peak_rss_mib": 1098
+  },
+  "D-20261107": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "1:09:28",
+   "peak_rss_mib": 1110
+  },
+  "F-20261110": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "1:47:21",
+   "peak_rss_mib": 4514
+  },
+  "F-20261111": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "1:45:20",
+   "peak_rss_mib": 4521
+  },
+  "F-20261112": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "1:44:06",
+   "peak_rss_mib": 4510
+  },
+  "P": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "28:43.77",
+   "peak_rss_mib": 546
+  },
+  "R-20261104": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "34:14.93",
+   "peak_rss_mib": 5384
+  },
+  "R-20261105": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "34:08.17",
+   "peak_rss_mib": 5399
+  },
+  "R-20261106": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "34:25.84",
+   "peak_rss_mib": 5405
+  },
+  "R-20261107": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "34:52.56",
+   "peak_rss_mib": 5401
+  },
+  "S-20261101": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "14:36.36",
+   "peak_rss_mib": 251
+  },
+  "S-20261102": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "3:00.34",
+   "peak_rss_mib": 70
+  },
+  "S-20261104": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "38:23.30",
+   "peak_rss_mib": 1101
+  },
+  "S-20261105": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "36:48.80",
+   "peak_rss_mib": 1125
+  },
+  "S-20261106": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "3:31.03",
+   "peak_rss_mib": 128
+  },
+  "S-20261107": {
+   "exit": 0,
+   "finished_on": "xbabe3",
+   "wall_clock_last_segment": "1:12:25",
+   "peak_rss_mib": 1123
+  },
+  "D-20261108": {
+   "exit": 0,
+   "finished_on": "xbabe4",
+   "wall_clock_last_segment_s": 9199.01,
+   "peak_rss_mib": 2290
+  },
+  "R-20261108": {
+   "exit": 0,
+   "finished_on": "xbabe4",
+   "wall_clock_last_segment_s": 1504.08,
+   "peak_rss_mib": 5041
+  },
+  "S-20261108": {
+   "exit": 0,
+   "finished_on": "xbabe4",
+   "wall_clock_last_segment_s": 7887.77,
+   "peak_rss_mib": 2374
+  }
+ },
+ "jobs_note": "Wall clock and peak RSS are of each job's last segment (the time file is rewritten on every restart); seed 20261108 ran under macOS time -l. The winner report took 33.71 s at 714 MiB peak.",
+ "runs_final": {
+  "D-20261101": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "0f58773e3de30d4bb9c48a7081e2cd1becdaeb2e3c27c913a476ee806cfc1f0a",
+   "history_sha256": "44945a9418e04e475b5482370b386955b8ab97cff5cec8c282290cadb337cf08"
+  },
+  "D-20261102": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "064abe0f5adfc3562a86b2899f8e9bf81cf36ac29156b15bce04de87f8b8127f",
+   "history_sha256": "951b2cced7ddff24d875b47d7ee0643c859a34a2e6d3665790b4a099fafd76d0"
+  },
+  "D-20261103": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "977264a4632bef35f6d9d748c401270bb4b2816c47c9e2bd602d63923d7bc58f",
+   "history_sha256": "8dc8a54d21f8bc052b09d757a99e366c4dd4946def0f033f79eda72cb8d39135"
+  },
+  "D-20261104": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "e306531d26f269ed02aa33cc6d1683e8402f18cbfe1b5e0c3a188b3425268539",
+   "history_sha256": "3bc9d9782685beaf2af75d634844865efd77139d23c8ff54b79ab1a53b7a619b"
+  },
+  "D-20261105": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "7f5c243c5c2f290c5f0c398a9b73341f6fac5638abebaa3d4c6ff5724fce49fe",
+   "history_sha256": "d607ccef60d6f63d7ef5a22d69da873d7706bc13e274876e0a1fc584fb0f639b"
+  },
+  "D-20261106": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "3b5086c8a9ccf6284cc414c12ea80d171f1fb3cc371843062c52beeb5ce485eb",
+   "history_sha256": "80ed37d6ab993231f82cab4247d5cccf0dae3a56792fd66b322bb5cf088a5717"
+  },
+  "D-20261107": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "e612fb3c384c6abf86728ee23544cc509339ed8a505427e8403686604585f3a6",
+   "history_sha256": "a161288c492b959e655cd9276c9d89f1aca6f622826ba3ae3285cc9b9af94b70"
+  },
+  "D-20261108": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "df45f959778c521e73e48285983e569de573a0bacd1d0064c34d795a2283e4cb",
+   "history_sha256": "8d60587abc30d304a3929d89eca82912b6e47a26e531341c1b8dbeaf667cb6a2"
+  },
+  "F-20261110": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "3d8b74994af66da022ca73828ef48593dc5e89c9f77faf00c259c1517224d3f2",
+   "history_sha256": "9674f2cd57397e60e84bced4604d40ad2832dac6d9f866699e0f711042ed115b"
+  },
+  "F-20261111": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "055722a188bd12cc78fe4eb9e7b613b78f4aa6e5a80ba70676356e547af06c93",
+   "history_sha256": "b9c7cc481d4df216a2a701a14fa992887691e4905d067bb18cd8313c09f65141"
+  },
+  "F-20261112": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "d21f4b3ea58681852575f33d873c3e9cd5dd7e7d0032bb60187951f95ad72b5e",
+   "history_sha256": "3f72b7a9f8e1e34fadf18194213ee20dce0ffe225f416f44a1923b6f716033ba"
+  },
+  "P": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "ab1186e3148fb04192b7e2ac348fddac62e460656464cd763c4d0fa91d4232e0",
+   "history_sha256": "66de782c0a04be231f764387dc35ef5296f010b1c8d4d0b4f83ca51b0f9fc0de"
+  },
+  "S-20261101": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "08395e6ea9b634a5498b1c713871135a7a12a75c9588522694bd9e735d471e51",
+   "history_sha256": "72ada178a2892ed76be7d2b20b4d84dd0aa40f6bc20f06d248b60d6853278d48"
+  },
+  "S-20261102": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "0b809418d31645d60bb308e44348032beb4912b6ea837b2c5bc051166795057d",
+   "history_sha256": "0676a7ec27c8841a7e5280b493caf5a7f5e03e476e65af956ae38712d281f07b"
+  },
+  "S-20261103": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "69dcdfc20c0dc7b728a62fc5f74911885f97397878369204e36c52d25062e2f3",
+   "history_sha256": "b94cc91d6b569561290adbab1feca21e51e588d33d1fef8ef868801614575ab9"
+  },
+  "S-20261104": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "c2c7c6ccc29c9095c86f83f7a0352555dcd908bb4e86cd252a98a8f4f98908a8",
+   "history_sha256": "96e17a6a79430e4aedf7e5d779344c0a5b96f4581c8abe3d6ac034cafe70df43"
+  },
+  "S-20261105": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "eeff6f7a1b35d35461b6a9995b53890fcff855a622dd1e25336df163245ce1af",
+   "history_sha256": "d1ca15b9475a30ca1d5b6c431c9bfe2342b7ebe9b050a893a4abbf4599fb89a8"
+  },
+  "S-20261106": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "00416c25b0823acdfb77e0d5aa3790121ffaa8011d598ff2ac5f9181d2096930",
+   "history_sha256": "3a555f6fe2cf4142479ed89bdd0732d419da317fb050406bbe9a19a7e362db73"
+  },
+  "S-20261107": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "99561a165c84d5c7765070db5a6ed05c6f5f082f62bd19886f2ca16b363d6737",
+   "history_sha256": "40f895646fb5658a2799056a4a9fe8f877b5e2e715664194a01d3566ffc440ac"
+  },
+  "S-20261108": {
+   "generation": 10000,
+   "evaluations": 3840384,
+   "checkpoint_sha256": "9b7a68a8d7cbca656e582a0abcff864d0a44bfd5cc6a7149ec8e343052c5b28c",
+   "history_sha256": "6b0fcbff54af557ee98c7674b91d95bc4e26b2aea8b8e5a870033d06aaafb925"
+  }
+ },
+ "controls_final": {
+  "R-20261101": {
+   "sha256": "4e1adb83512b9c33fddebdfee0722ce3cf876c0ec17cf7cbb206a6ce41b08195"
+  },
+  "R-20261102": {
+   "sha256": "a1835764cfd46346c55f0719b80abb6740a6bcc80920746d6fd5ff63fe63b217"
+  },
+  "R-20261103": {
+   "sha256": "5d7d9c3203ea2571173aa3d0360eaffe7cf9206409967e10a38864fdd8c8c785"
+  },
+  "R-20261104": {
+   "sha256": "a8134c1f1443aa2d02c2c43a23cbff3c763e3893a20b450bb09a01d29fddee98"
+  },
+  "R-20261105": {
+   "sha256": "7b5a4ba606ab069aa71d474eb9d4016236d88bb8067a60a176351d39c4740ac1"
+  },
+  "R-20261106": {
+   "sha256": "4e0922b795b6aaea0a6ba91afa891f8a57f10fd6176bfc3a6cbb735bf37f2d07"
+  },
+  "R-20261107": {
+   "sha256": "00fb83c54769f9c3404c973e9d6c4f89467ba761489a92fcb0a5cfb585ccced0"
+  },
+  "R-20261108": {
+   "sha256": "3785b1536edfb9d017ce5b7a949ee2137ffa830ec916207abf6e235de74cad61"
+  }
+ },
+ "random_control_prefix_check": "all 8 extended controls repeat their fleet control exactly over the first 2001 batches (768384 evaluations); see docs/results/forge-v2-fleet-ext-continuation-v1.json",
+ "outputs_sha256": {
+  "docs/results/forge-v2-fleet-ext-summary-v1.json": "d7b2f8ef82481b6add33f1bb2f061c1fbab8d2ebdb6aa968c653fe57b03fec76",
+  "docs/results/forge-v2-fleet-ext-continuation-v1.json": "efcd0c9b2c39c817d968cfdeb6a4ecd820231782e36799329fffb8afe1036c28",
+  "docs/results/forge-v2-fleet-ext-winner-v1.json": "e546480ecadddfe0570c5e0aa1983d24ce621b6310fab678dba9cd2bb214b6d2",
+  "docs/forge/results/forge-v2-fleet-ext-P-receipt.json": "4d888ca8dbb1804bd9a1e5f517d8b6e7996f606720e5db402e4ca264d1c8d224",
+  "docs/forge/figures/v2-fleet-ext/evolution.svg": "7b0c2b126c07a0c3731be29f728bf817b9143e976ca2a052ee0c6b68515c091a",
+  "docs/forge/figures/v2-fleet-ext/seeds.svg": "b80689a3cc16aeb23449514cb4240fceb58c96ce7ee68ab7efe3c7f0590d6deb",
+  "docs/forge/figures/v2-fleet-ext/winner.svg": "d6e4bc3f766ad461ccdfe012ceed47c3d18f2a3b14e23e459f70fab07cfc0fc8"
+ },
+ "retained_privately": "run directories, controls, logs and the winner's STL/GLB stay on the external drives (xbabe3 /mnt/xbabe3-external/joil-forge-fleet-20261022/ext, xbabe1 /mnt/amphora-backup/xbabe1-overflow/joil-forge-fleet-20261022/ext, xbabe4 lane dir).",
+ "note": "Screen-model search runs of an unvalidated reduced-order model; not physical evidence."
+}
