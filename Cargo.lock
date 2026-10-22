@@ -149,7 +149,7 @@ checksum = "a31eee39dddec8330830986fcd7625edb5a24ec90ea038215273bbc3adb08ac6"
 
 [[package]]
 name = "crucible-adapters"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-particles",
  "serde",
@@ -159,7 +159,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-architecture"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-contract",
  "serde_json",
@@ -167,7 +167,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-cli"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-runtime",
  "crucible-store",
@@ -182,7 +182,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-contract"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-units",
  "joil-evidence",
@@ -192,11 +192,11 @@ dependencies = [
 
 [[package]]
 name = "crucible-fea"
-version = "0.1.0"
+version = "1.0.0"
 
 [[package]]
 name = "crucible-genome"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "joil-evidence",
  "serde",
@@ -206,7 +206,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-geom"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-contract",
  "crucible-units",
@@ -219,15 +219,15 @@ dependencies = [
 
 [[package]]
 name = "crucible-gpu"
-version = "0.1.0"
+version = "1.0.0"
 
 [[package]]
 name = "crucible-lbm"
-version = "0.1.0"
+version = "1.0.0"
 
 [[package]]
 name = "crucible-paper"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -236,7 +236,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-particles"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -244,7 +244,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-render"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-units",
  "joil-evidence",
@@ -255,7 +255,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-runtime"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-contract",
  "crucible-store",
@@ -269,7 +269,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-search"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-store",
  "serde",
@@ -279,7 +279,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-stats"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-runtime",
  "crucible-units",
@@ -291,7 +291,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-store"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-contract",
  "crucible-units",
@@ -303,7 +303,7 @@ dependencies = [
 
 [[package]]
 name = "crucible-units"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "joil-evidence",
  "serde",
@@ -716,7 +716,7 @@ checksum = "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682"
 
 [[package]]
 name = "joil-cli"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "joil-core",
  "serde_json",
@@ -724,7 +724,7 @@ dependencies = [
 
 [[package]]
 name = "joil-core"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-stats",
  "joil-evidence",
@@ -736,7 +736,7 @@ dependencies = [
 
 [[package]]
 name = "joil-evidence"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -747,7 +747,7 @@ dependencies = [
 
 [[package]]
 name = "joil-forge"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "joil-forge-judges",
  "rayon",
@@ -758,7 +758,7 @@ dependencies = [
 
 [[package]]
 name = "joil-forge-judges"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -766,7 +766,7 @@ dependencies = [
 
 [[package]]
 name = "joil-geometry"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-contract",
  "crucible-units",
@@ -778,7 +778,7 @@ dependencies = [
 
 [[package]]
 name = "joil-ir"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -942,7 +942,7 @@ dependencies = [
 
 [[package]]
 name = "pack-bracket"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "crucible-contract",
  "crucible-runtime",
@@ -957,7 +957,7 @@ dependencies = [
 
 [[package]]
 name = "pack-hydrocyclone-judges"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "serde",
  "serde_json",

@@ -60,63 +60,63 @@
     },
     {
       "name": "crucible-architecture",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "crucible-cli",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "crucible-contract",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "crucible-paper",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "crucible-render",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "crucible-runtime",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "crucible-stats",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "crucible-store",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "crucible-units",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
@@ -214,28 +214,28 @@
     },
     {
       "name": "joil-cli",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "joil-core",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "joil-evidence",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
     },
     {
       "name": "joil-ir",
-      "version": "0.1.0",
+      "version": "1.0.0",
       "license": "UNDECLARED",
       "license_file": null,
       "source": "workspace"
