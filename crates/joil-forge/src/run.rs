@@ -34,6 +34,20 @@ pub fn load_campaign(path: Option<&Path>) -> Result<Campaign, String> {
     Ok(c)
 }
 
+/// The designs a run hands on as seeds: archive elites, the best design and the four
+/// leaders of each island, best first and deduplicated.
+pub fn seed_individuals(cp: &Checkpoint) -> Vec<&Individual> {
+    let mut inds: Vec<&Individual> = cp.state.archive.elites();
+    inds.extend(cp.state.best.iter());
+    for isl in &cp.state.islands {
+        inds.extend(isl.pop.iter().take(4));
+    }
+    inds.sort_by(|a, b| a.score.compare(&b.score).then_with(|| a.hash.cmp(&b.hash)));
+    let mut seen = std::collections::HashSet::new();
+    inds.retain(|i| seen.insert(i.hash.clone()));
+    inds
+}
+
 /// Genomes to seed from: a run directory or checkpoint (archive elites, best, island
 /// leaders), or a JSON file holding one genome or a list of genomes.
 pub fn load_seeds(path: &Path) -> Result<Vec<Genome>, String> {
@@ -43,16 +57,8 @@ pub fn load_seeds(path: &Path) -> Result<Vec<Genome>, String> {
             .is_some_and(|n| n.to_string_lossy().starts_with("checkpoint"));
     if is_ckpt {
         let cp = checkpoint::load(path)?;
-        let mut inds: Vec<&Individual> = cp.state.archive.elites();
-        inds.extend(cp.state.best.iter());
-        for isl in &cp.state.islands {
-            inds.extend(isl.pop.iter().take(4));
-        }
-        inds.sort_by(|a, b| a.score.compare(&b.score).then_with(|| a.hash.cmp(&b.hash)));
-        let mut seen = std::collections::HashSet::new();
-        return Ok(inds
+        return Ok(seed_individuals(&cp)
             .into_iter()
-            .filter(|i| seen.insert(i.hash.clone()))
             .map(|i| i.genome.clone())
             .collect());
     }

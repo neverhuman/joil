@@ -209,6 +209,29 @@ fn main() {
             );
             Ok(())
         })(),
+        "fleet-summary" => (|| {
+            let root = need(&a, "root");
+            let summary = joil_forge::fleet::summarize(&root)?;
+            std::fs::write(
+                need(&a, "out"),
+                serde_json::to_vec_pretty(&summary).map_err(|e| e.to_string())?,
+            )
+            .map_err(|e| e.to_string())?;
+            if let Some(p) = path(&a, "svg") {
+                std::fs::write(p, joil_forge::fleet::chart(&summary)).map_err(|e| e.to_string())?;
+            }
+            if let Some(p) = path(&a, "pool") {
+                let genomes = joil_forge::fleet::pool(&root)?;
+                std::fs::write(p, serde_json::to_vec(&genomes).map_err(|e| e.to_string())?)
+                    .map_err(|e| e.to_string())?;
+            }
+            let t = &summary.search_vs_random;
+            println!(
+                "{} replicates: search beat random in {}, random beat search in {}, {} tied or not comparable (one-sided sign test p = {:.4})",
+                t.replicates, t.first_better, t.second_better, t.ties_or_not_comparable, t.p_one_sided
+            );
+            Ok(())
+        })(),
         _ => usage(),
     };
     if let Err(e) = result {

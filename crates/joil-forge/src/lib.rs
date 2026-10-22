@@ -7,6 +7,7 @@
 //!   samples, combined into one weighted objective.
 //! * [`evolve`] / [`run`]: island evolution with a MAP-Elites archive, deterministic and
 //!   resumable from atomic manifest-bound checkpoints.
+//! * [`fleet`]: replicate runs against equal-budget random controls, and pooled seeds.
 //! * [`cad`] and [`render`]: watertight fluid and printed-part meshes, STL/GLB, PNG renders,
 //!   SVG diagrams and an HTML report.
 //!
@@ -21,6 +22,7 @@ pub mod control;
 pub mod crossover;
 pub mod develop;
 pub mod evolve;
+pub mod fleet;
 pub mod genome;
 pub mod layout;
 pub mod mutate;
