@@ -12,7 +12,7 @@ use crate::checkpoint::{self, Checkpoint};
 use crate::control::ControlReport;
 use crate::evolve::Individual;
 use crate::genome::Genome;
-use crate::render::charts::{comparison_chart, Line};
+use crate::render::charts::{comparison_chart_shared_y, Line};
 use crate::run::seed_individuals;
 use crate::score::Score;
 use serde::Serialize;
@@ -392,7 +392,7 @@ pub fn chart(s: &FleetSummary) -> String {
             (*title, lines)
         })
         .collect();
-    comparison_chart(
+    comparison_chart_shared_y(
         "Best weighted fitness found so far, per replicate seed",
         "Evaluations. Lines start once a replicate's best is feasible; every arm of a seed shares one campaign.",
         &panels,

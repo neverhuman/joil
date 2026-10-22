@@ -362,6 +362,20 @@ pub fn evolution_chart(hist: &[GenStats], title: &str) -> String {
 pub type Line<'a> = (&'a str, Vec<(f64, f64)>);
 
 pub fn comparison_chart(title: &str, x_label: &str, panels: &[(&str, Vec<Line>)]) -> String {
+    comparison(title, x_label, panels, false)
+}
+
+/// As [`comparison_chart`], with one y range for every panel, for panels that plot the same
+/// quantity, so their heights compare directly.
+pub fn comparison_chart_shared_y(
+    title: &str,
+    x_label: &str,
+    panels: &[(&str, Vec<Line>)],
+) -> String {
+    comparison(title, x_label, panels, true)
+}
+
+fn comparison(title: &str, x_label: &str, panels: &[(&str, Vec<Line>)], shared_y: bool) -> String {
     let (w, ph, gap) = (760.0, 150.0, 58.0);
     let h = 84.0 + panels.len() as f64 * (ph + gap);
     let xmax = panels
@@ -380,9 +394,15 @@ pub fn comparison_chart(title: &str, x_label: &str, panels: &[(&str, Vec<Line>)]
         esc(title)
     );
     let (xticks, xdec) = nice_ticks(0.0, xmax, 6);
+    let all: Vec<&Line> = panels.iter().flat_map(|p| p.1.iter()).collect();
     for (pi, (label, lines)) in panels.iter().enumerate() {
         let y0 = 52.0 + pi as f64 * (ph + gap);
-        let (mut lo, mut hi) = lines
+        let scope: Vec<&Line> = if shared_y {
+            all.clone()
+        } else {
+            lines.iter().collect()
+        };
+        let (mut lo, mut hi) = scope
             .iter()
             .flat_map(|l| l.1.iter())
             .fold((f64::MAX, f64::MIN), |m, v| (m.0.min(v.1), m.1.max(v.1)));
@@ -395,7 +415,7 @@ pub fn comparison_chart(title: &str, x_label: &str, panels: &[(&str, Vec<Line>)]
         if hi - lo < 1e-9 {
             hi = lo + 1.0;
         }
-        let integer = lines
+        let integer = scope
             .iter()
             .flat_map(|l| l.1.iter())
             .all(|v| v.1.fract() == 0.0);
@@ -451,12 +471,17 @@ pub fn comparison_chart(title: &str, x_label: &str, panels: &[(&str, Vec<Line>)]
                 ends.push((ys(last.1) + 4.0, format!("{name} {v}"), si));
             }
         }
-        // Keep end labels at least 13 px apart.
+        // Keep end labels at least 13 px apart and above the panel's x axis labels.
         ends.sort_by(|a, b| a.0.total_cmp(&b.0));
         for i in 1..ends.len() {
             if ends[i].0 - ends[i - 1].0 < 13.0 {
                 ends[i].0 = ends[i - 1].0 + 13.0;
             }
+        }
+        let mut floor = y0 + ph;
+        for e in ends.iter_mut().rev() {
+            e.0 = e.0.min(floor);
+            floor = e.0 - 13.0;
         }
         for (y, text, _) in ends {
             let _ = write!(
