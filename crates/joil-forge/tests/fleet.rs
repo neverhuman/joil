@@ -128,3 +128,27 @@ fn fleet_pairs_replicates_at_equal_budget_and_refuses_mixed_campaigns() {
     let _ = std::fs::remove_dir_all(&dir);
     let _ = std::fs::remove_dir_all(&pooled);
 }
+
+#[test]
+fn fleet_chart_panels_share_one_fitness_scale() {
+    use joil_forge::render::charts::{comparison_chart, comparison_chart_shared_y};
+    let panels = vec![
+        ("high panel", vec![("s", vec![(0.0, 0.5), (10.0, 3.0)])]),
+        ("low panel", vec![("s", vec![(0.0, 0.5), (10.0, 1.5)])]),
+    ];
+    // y tick labels are the only right-anchored text; split them at the second panel's title.
+    let ticks = |svg: String| {
+        let (a, b) = svg.split_once(">low panel<").unwrap();
+        let t = |s: &str| -> Vec<String> {
+            s.split("text-anchor='end'>")
+                .skip(1)
+                .map(|t| t.split('<').next().unwrap().to_string())
+                .collect()
+        };
+        (t(a), t(b))
+    };
+    let (high, low) = ticks(comparison_chart_shared_y("t", "x", &panels));
+    assert_eq!(high, low);
+    let (high, low) = ticks(comparison_chart("t", "x", &panels));
+    assert_ne!(high, low);
+}
