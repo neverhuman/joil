@@ -266,7 +266,17 @@ pub fn evolution_figure(s: &FleetSummary, marks: &[Mark], refs: &[Reference]) ->
     for r in refs {
         let (yy, x1, tx) = (y.at(r.value), x0 + pw, x0 + 6.0);
         let text = esc(&format!("{} {:.3}", r.label, r.value));
-        let _ = write!(o, "<line x1='{x0}' x2='{x1}' y1='{yy:.1}' y2='{yy:.1}' class='kk' stroke='#52514e' stroke-width='1.2' stroke-dasharray='6 4'/>{}", halo_text(tx, yy - 6.0, 11.0, &text));
+        let _ = write!(o, "<line x1='{x0}' x2='{x1}' y1='{yy:.1}' y2='{yy:.1}' class='kk' stroke='#52514e' stroke-width='1.2' stroke-dasharray='6 4'/>{}", halo_text(tx, yy - 6.0, 11.0, &text, "start"));
+    }
+    // The winner's score across the whole panel, so every run reads against it.
+    if let Some((w, f)) = s
+        .overall_best
+        .as_ref()
+        .and_then(|w| final_fitness(w).map(|f| (w, f)))
+    {
+        let yy = y.at(f);
+        let text = esc(&format!("winner ({}) {f:.3}", w.source));
+        let _ = write!(o, "<line x1='{x0}' x2='{}' y1='{yy:.1}' y2='{yy:.1}' class='kk' stroke='#52514e' stroke-width='1.6'/>{}", x0 + pw, halo_text(x0 + pw - 4.0, yy - 6.0, 12.0, &text, "end"));
     }
     dot_panel(&mut o, s, &arms, &y, refs, (790.0, top, 370.0, ph));
     let _ = write!(o, "<text class='mu' x='{x0}' y='{}' font-size='11'>Every run of a seed scores designs under one shared objective; D, S and R spend equal evaluations. Pooled runs start from the elites of all S and D runs.</text><text class='mu' x='{x0}' y='{}' font-size='11'>Forge reduced-order screen ({}): search statistics, not physical performance.</text>", h - 30.0, h - 13.0, esc(&s.evidence_class));
@@ -333,6 +343,7 @@ fn dot_panel(
             ry + 16.0,
             12.0,
             &format!("{}{med}", esc(label)),
+            "start",
         ));
         let fill = stroke
             .replacen("stroke=", "fill=", 1)
@@ -361,9 +372,9 @@ fn dot_panel(
     }
 }
 
-/// Secondary text with a background-coloured halo, readable over lines.
-fn halo_text(x: f64, y: f64, size: f64, text: &str) -> String {
-    format!("<text class='halo' x='{x:.1}' y='{y:.1}' font-size='{size}' fill='none' stroke='#fcfcfb' stroke-width='4' stroke-linejoin='round'>{text}</text><text class='t2' x='{x:.1}' y='{y:.1}' font-size='{size}'>{text}</text>")
+/// Text with a background-coloured halo, readable over lines; `anchor` is the SVG text-anchor.
+fn halo_text(x: f64, y: f64, size: f64, text: &str, anchor: &str) -> String {
+    format!("<text class='halo' x='{x:.1}' y='{y:.1}' font-size='{size}' text-anchor='{anchor}' fill='none' stroke='#fcfcfb' stroke-width='4' stroke-linejoin='round'>{text}</text><text class='t2' x='{x:.1}' y='{y:.1}' font-size='{size}' text-anchor='{anchor}'>{text}</text>")
 }
 
 /// Five-pointed star centred at (`cx`, `cy`).
@@ -390,7 +401,7 @@ pub fn seed_panels(s: &FleetSummary, marks: &[Mark]) -> String {
     let rows = n.div_ceil(cols).max(1);
     let (pw, ph, gx, gy, left, top) = (232.0, 150.0, 58.0, 78.0, 64.0, 150.0);
     let w = 1200.0;
-    let h = top + rows as f64 * (ph + gy) + 20.0;
+    let h = top + (rows - 1) as f64 * (ph + gy) + ph + 56.0;
     let (ticks, dec) = score_range(s, &[]);
     let mut o = String::new();
     header(&mut o, w, h, "Best score so far in each replicate seed");
