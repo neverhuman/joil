@@ -12,6 +12,9 @@ USAGE
   joil-forge seeds    --out DIR                                          write the archetype genomes
   joil-forge best     --run DIR                                          print the best genome of a run
   joil-forge control  --out FILE [--campaign FILE] [--evaluations N]      equal-budget random-search control
+  joil-forge fleet-summary --root DIR --out FILE [--svg FILE] [--pool FILE]
+                                                                         replicates (runs/S-<seed>, runs/D-<seed>,
+                                                                         controls/R-<seed>.json) and pooled seeds
   joil-forge campaign                                                    print the default campaign (edit, then --campaign)
 
   --voxel defaults to two samples across the wall and the smallest passage (0.5–1 mm).
