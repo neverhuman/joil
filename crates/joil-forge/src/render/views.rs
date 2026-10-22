@@ -181,6 +181,24 @@ pub fn plate(fluid: &Mesh, part: &Mesh, length: f64, radius: f64, window: (f64, 
     img
 }
 
+/// Hero view: the whole cartridge seen from above and in front, the printed part as a
+/// translucent shell over the colour-coded fluid network.
+pub fn hero(fluid: &Mesh, part: &Mesh, length: f64, radius: f64, w: usize, h: usize) -> Image {
+    let fc = |o: u16| owner_color(o);
+    let pc = |_: u16| TITANIUM;
+    let ls = layers(fluid, part, true, &fc, &pc);
+    let cam = camera_for(
+        [0.0, 0.0, 0.0],
+        0.86 * length,
+        h as f64 / w as f64,
+        3.0 * radius,
+        0.40,
+        0.62,
+        20.0,
+    );
+    render(&ls, &cam, &xf(length), w, h, 2, BG)
+}
+
 /// Small x-ray thumbnail for galleries.
 pub fn thumbnail(fluid: &Mesh, part: &Mesh, length: f64, radius: f64, w: usize, h: usize) -> Image {
     strip(fluid, part, length, radius, w, h, true)

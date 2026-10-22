@@ -15,6 +15,9 @@ USAGE
   joil-forge fleet-summary --root DIR --out FILE [--svg FILE] [--pool FILE]
                                                                          replicates (runs/S-<seed>, runs/D-<seed>,
                                                                          controls/R-<seed>.json) and pooled seeds
+  joil-forge fleet-figures --root DIR --out DIR [--mark EVALS:LABEL] [--previous SCORE:LABEL]
+                           [--winner-report DIR [--closures DIR]]
+                                                                         evolution, per-seed and winner figures (SVG)
   joil-forge campaign                                                    print the default campaign (edit, then --campaign)
 
   --voxel defaults to two samples across the wall and the smallest passage (0.5–1 mm).

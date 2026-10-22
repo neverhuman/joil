@@ -232,6 +232,42 @@ fn main() {
             );
             Ok(())
         })(),
+        "fleet-figures" => (|| {
+            use joil_forge::render::fleet_figures::{Mark, Reference};
+            let pair = |k: &str| -> Result<Option<(f64, String)>, String> {
+                a.kv.get(k)
+                    .map(|v| {
+                        let (n, label) = v
+                            .split_once(':')
+                            .ok_or(format!("--{k} takes VALUE:LABEL"))?;
+                        let n = n.parse::<f64>().map_err(|e| format!("--{k}: {e}"))?;
+                        Ok((n, label.to_string()))
+                    })
+                    .transpose()
+            };
+            let (report, closures) = (path(&a, "winner-report"), path(&a, "closures"));
+            let opts = joil_forge::render::fleet_report::FigureOptions {
+                marks: pair("mark")?
+                    .map(|(evaluations, label)| Mark { evaluations, label })
+                    .into_iter()
+                    .collect(),
+                references: pair("previous")?
+                    .map(|(value, label)| Reference { value, label })
+                    .into_iter()
+                    .collect(),
+                winner_report: report.as_deref(),
+                closures: closures.as_deref(),
+            };
+            let files = joil_forge::render::fleet_report::write_figures(
+                &need(&a, "root"),
+                &need(&a, "out"),
+                &opts,
+            )?;
+            for f in files {
+                println!("{}", f.display());
+            }
+            Ok(())
+        })(),
         _ => usage(),
     };
     if let Err(e) = result {
