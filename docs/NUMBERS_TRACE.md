@@ -1185,10 +1185,12 @@ cited source wins; a short integer such as a seed count can still match by coinc
 
 | Numeral | Count | Source | JSON pointer | Match |
 |---|---|---|---|---|
+| `8` | 2 | declared | - | see table (`8@`8` preregistered seeds`) |
 | `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `72` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/samples` | printed |
 | `64.0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/nominal_metrics/hinze_dmax_um` | printed |
 | `0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
+| `768384` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/evaluations` | printed |
 | `3` | 1 | declared | - | see table (`3@Python 3 with`) |
 | `3.12` | 1 | declared | - | see table (`3.12@use Python 3.12`) |
 | `3.12` | 2 | declared | - | see table (`3.12@project environment with **Python 3.12**`) |
@@ -1209,6 +1211,83 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `119,235` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/total_evaluations` | printed |
 | `220` | 8 | declared | - | see table (`220@220 / 220`) |
 | `85` | 2 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/operator_random_walk_family_transitions` | printed |
+| `8` | 2 | declared | - | see table (`8@`8` seeds`) |
+| `768384` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/evaluations` | printed |
+| `20261101` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seed` | printed |
+| `2.502` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/best/fitness` | printed |
+| `2.764` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/de_novo/best/fitness` | printed |
+| `2.114` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/random/best/fitness` | printed |
+| `17` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/de_novo/feasible_niches` | printed |
+| `2` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/random/feasible_niches` | printed |
+| `49536` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/de_novo/first_feasible_evaluations` | printed |
+| `152064` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/random/first_feasible_evaluations` | printed |
+| `20261102` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/1/seed` | printed |
+| `2.919` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/1/seeded/best/fitness` | printed |
+| `2.700` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/1/de_novo/best/fitness` | printed |
+| `2.123` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/1/random/best/fitness` | printed |
+| `61` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/1/de_novo/feasible_niches` | printed |
+| `3` | 4 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/1/random/feasible_niches` | printed |
+| `4224` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/1/de_novo/first_feasible_evaluations` | printed |
+| `122112` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/1/random/first_feasible_evaluations` | printed |
+| `20261103` | 3 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/seed` | printed |
+| `2.509` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/seeded/best/fitness` | printed |
+| `3.099` | 3 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/de_novo/best/fitness` | printed |
+| `1.949` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/random/best/fitness` | printed |
+| `53` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/de_novo/feasible_niches` | printed |
+| `1` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/random/feasible_niches` | printed |
+| `316416` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/de_novo/first_feasible_evaluations` | printed |
+| `270720` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/random/first_feasible_evaluations` | printed |
+| `20261104` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/3/seed` | printed |
+| `2.508` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/3/seeded/best/fitness` | printed |
+| `3.010` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/3/de_novo/best/fitness` | printed |
+| `1.989` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/3/random/best/fitness` | printed |
+| `34` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/3/de_novo/feasible_niches` | printed |
+| `5376` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/3/de_novo/first_feasible_evaluations` | printed |
+| `33792` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/3/random/first_feasible_evaluations` | printed |
+| `20261105` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/4/seed` | printed |
+| `2.510` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/4/seeded/best/fitness` | printed |
+| `2.942` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/4/de_novo/best/fitness` | printed |
+| `2.150` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/4/random/best/fitness` | printed |
+| `12` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/4/seeded/feasible_niches` | printed |
+| `8448` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/4/de_novo/first_feasible_evaluations` | printed |
+| `267648` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/4/random/first_feasible_evaluations` | printed |
+| `20261106` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/5/seed` | printed |
+| `2.507` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/5/seeded/best/fitness` | printed |
+| `3.039` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/5/de_novo/best/fitness` | printed |
+| `1.968` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/5/random/best/fitness` | printed |
+| `60` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/5/de_novo/feasible_niches` | printed |
+| `19968` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/5/de_novo/first_feasible_evaluations` | printed |
+| `19200` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/5/random/first_feasible_evaluations` | printed |
+| `20261107` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/seed` | printed |
+| `2.536` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/seeded/best/fitness` | printed |
+| `2.587` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/de_novo/best/fitness` | printed |
+| `2.051` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/random/best/fitness` | printed |
+| `23` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/de_novo/feasible_niches` | printed |
+| `7296` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/de_novo/first_feasible_evaluations` | printed |
+| `160896` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/random/first_feasible_evaluations` | printed |
+| `20261108` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/7/seed` | printed |
+| `2.514` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/7/seeded/best/fitness` | printed |
+| `2.884` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/7/de_novo/best/fitness` | printed |
+| `1.934` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/7/random/best/fitness` | printed |
+| `21` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/7/de_novo/feasible_niches` | printed |
+| `85632` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/7/de_novo/first_feasible_evaluations` | printed |
+| `110592` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/7/random/first_feasible_evaluations` | printed |
+| `0.0039` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/search_vs_random/p_one_sided` | printed |
+| `0.9961` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/seeded_vs_de_novo/p_one_sided` | printed |
+| `2.499` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/other_runs/1/best/fitness` | printed |
+| `2000` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/generation` | printed |
+| `2.501` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/other_runs/0/best/fitness` | printed |
+| `3.105` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/other_runs/2/best/fitness` | printed |
+| `99` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/other_runs/2/feasible_niches` | printed |
+| `5.10` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/other_runs/2/best/duty_cout_mg_l/0` | printed |
+| `84.0` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/other_runs/2/best/duty_cout_mg_l/1` | printed |
+| `0.77` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/de_novo/best/q_treated_m3_h` | printed |
+| `400` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/best/feed_pressure_kpa` | printed |
+| `20261102` | 1 | `docs/results/forge-v2-fleet-closure-sensitivity-v1.json` | `/closure_seeds/2` | printed |
+| `2.332` | 1 | `docs/results/forge-v2-fleet-closure-sensitivity-v1.json` | `/designs/0/scores/4/fitness` | printed |
+| `2.953` | 1 | `docs/results/forge-v2-fleet-closure-sensitivity-v1.json` | `/designs/0/scores/2/fitness` | printed |
+| `20261105` | 1 | `docs/results/forge-v2-fleet-closure-sensitivity-v1.json` | `/closure_seeds/5` | printed |
+| `20261108` | 1 | `docs/results/forge-v2-fleet-closure-sensitivity-v1.json` | `/closure_seeds/8` | printed |
 | `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `450` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/evaluations_per_seed_per_arm` | printed |
 | `22,500` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/total_3d_evaluations_across_arms` | printed |
@@ -1516,6 +1595,8 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `825@\sigma_y = 825` | literal | `crates/joil-core/src/structure.rs` | `TI64_YIELD_STRENGTH_MPA: f64 = 825.0` |
 | `848.47` | literal | `crates/joil-core/src/population.rs` | `RHO_OIL_KG_M3: f64 = 848.46966` |
 | `890` | literal | `docs/SCIENCE.md` (declared applicability envelope) | `\rho_d \in [820, 890]` |
+| `8@`8` preregistered seeds` | count | replicate seeds of the Forge v2 fleet run | `len(docs/results/forge-v2-fleet-summary-v1.json#/replicates)` |
+| `8@`8` seeds` | count | replicate seeds of the Forge v2 fleet run | `len(docs/results/forge-v2-fleet-summary-v1.json#/replicates)` |
 | `8@labelled 4, 6 and 8 jets` | protocol constant | `crates/joil-core/src/program.rs` `inlet_split` | two inlet ports × `branches_per_port` ∈ {2, 3, 4} |
 | `9,941.69` | derived | `CT-35` minus elite `G1` pressure drop | `docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/grids/1/dp_u_pa` |
 | `90.0@$\ge 90.0\%$ statistical power` | protocol constant | `docs/results/rust-evolution-qualification-v1.json` key `required_blocks_for_90pct_power` | the power target appears only in the key name, not as a value |

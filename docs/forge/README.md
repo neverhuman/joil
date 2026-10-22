@@ -46,9 +46,11 @@ cargo run --release --locked -p joil-forge -- report --run runs/forge/demo
 `just forge-test` wrap the same commands. Other subcommands: `eval` (score one genome at
 report resolution), `baseline` (CT-35 same-model control), `cad` (meshes and audit),
 `render` (PNG plate and SVG diagrams), `seeds` (archetype genomes), `best` (print the
-best genome of a run), `campaign` (print the default campaign to edit) and `control`
+best genome of a run), `campaign` (print the default campaign to edit), `control`
 (equal-budget random search: the generation-0 sampler and the same evaluator, for
-comparing a run against plain sampling).
+comparing a run against plain sampling) and `fleet-summary` (pairs replicate runs with
+their controls, writes the sign tests, a chart and a pooled seed list; see
+[Fleet run](#fleet-run-eight-replicates)).
 
 ### What a run directory holds
 
@@ -302,6 +304,146 @@ roofs.
 limit; built in the forge layout it is about 1.7 m tall and does not fit the build height. A gain over CT-35 is undefined and
 none is claimed.
 
+## Fleet run (eight replicates)
+
+The demo was one seed. The fleet run asks two questions across independent seeds, with
+the design, seeds, budgets and test registered before the first run in
+[`results/forge-v2-fleet-preregistration.json`](results/forge-v2-fleet-preregistration.json):
+does island evolution beat sampling its own random generator at equal budget, and does
+starting from the last best design help? `joil-forge fleet-summary` writes the result,
+[`../results/forge-v2-fleet-summary-v1.json`](../results/forge-v2-fleet-summary-v1.json),
+from the run directories. Hosts, binaries, run moves and the exploratory checks are in
+[`results/forge-v2-fleet-run-receipt.json`](results/forge-v2-fleet-run-receipt.json); the
+report receipts of the pooled run, the best de novo run and arm `C` sit next to it. All
+numbers are screen-model search outputs.
+
+**Setup.** Each seed has its own campaign in
+[`campaigns/forge-v2-fleet/`](../../campaigns/forge-v2-fleet/): `forge-v2` unchanged except
+four islands of 96 and a fixed `closure_seed`, so every run is scored under the same
+closure samples while its search randomness follows the seed. Per seed:
+
+- `S` starts from `C0`, the rebuilt last best design, and runs 2000 generations. No
+  checkpoint of the demo survived, so `C0` re-scored the v2 and v1 demo leaders under
+  1.1.1 (2.48, and infeasible for the v1 leader's 796 mm part) and evolved from them for
+  300 generations to 2.499;
+- `D` starts from random networks and runs 2000 generations;
+- `R` is `joil-forge control` with the same 768 384 evaluations (96 × 4 × 2001; both
+  tallies count every scored proposal).
+
+Two further runs: `C` continues `C0` exactly to 2000 generations at its own two islands
+of 48, and `P`, on a ninth seed, starts from the pool of every `S` and `D` archive (7 159
+distinct designs) and runs 2000 generations.
+
+![Best fitness against evaluations for every seed and arm, on one scale](figures/v2-fleet/fleet.svg)
+
+**Search beats sampling in every seed.** `D` ranked above `R` in 8 of 8 seeds, a
+one-sided exact sign test of p = 1/256 ≈ 0.0039 (registered threshold: 7 of 8). Without
+the macOS replicate, a registered sensitivity check, it is 7 of 7 (p = 1/128 ≈ 0.0078).
+De novo search ended between 2.587 and 3.099, random sampling between 1.934 and 2.150, and
+`D` kept 12 to 61 feasible archive niches against 1 to 3 for `R`. `D` found its first
+feasible design sooner in six seeds; in seeds 20261103 and 20261106 sampling got there
+first (270 720 against 316 416 evaluations, and 19 200 against 19 968). The per-seed table
+is in [RESULTS.md](../RESULTS.md#forge-v2-fleet-evolution-against-equal-budget-random-sampling-forge-screen-8-seeds).
+
+![The best de novo run (seed 20261103) against its random-sampling control](figures/v2-fleet/D-20261103-search-vs-random.svg)
+
+**Starting from the last best did not pay.** This is unfavourable to the seeding we
+built, and it is reported as registered. `S` beat `D` only in seed 20261102. Seeded
+populations inherit `C0`'s two-stage chains near 2.50 and stayed there in seven seeds
+(2.502 to 2.536), while de novo populations, which start without a dominant leader, kept
+exploring. In seed 20261102 one seeded run left the chains after about 390 000
+evaluations for a single stage of four 19.3 mm cells and ended at 2.919. `C`, continuing
+`C0` at its small population, moved from 2.499 to 2.501. At this budget a restart from
+the last best design keeps it rather than beats it; pooling the archives of many runs is
+how the fleet run reuses earlier work.
+
+**The pooled run and the best design.** `P` started from the pool's best design (3.099,
+the de novo leader of seed 20261103) and ended at 3.105 after 2000 generations with 99
+feasible archive niches, the most of any run. Its leader refines that design rather than
+replacing it: two stages in series of seven cells each, 14.8 mm cells feeding 12.6 mm
+cells, each about 130 mm long, with no recycle and no coalescer. The part is 400 mm tall,
+inside the build height, and its shell weighs about 0.55 kg. At report resolution it
+scores 3.10 (receipt [`results/forge-v2-fleet-P-receipt.json`](results/forge-v2-fleet-P-receipt.json)):
+
+| | Produced water (reference) | Seawater oil spill |
+|---|---|---|
+| Inlet | 500 mg/L | 1000 mg/L |
+| Outlet, worst closure at the rated flow | 5.2 mg/L | 83.5 mg/L |
+| Removed | 99.0 % | 91.6 % |
+
+Treated capacity is 0.77 m³/h at 400 kPa. Against the demo leader (12.8 and 151 mg/L at
+1.10 m³/h) the produced-water outlet falls by about 60 % and the spill outlet by about
+45 % at 30 % less flow: the objective rates oil removed before capacity.
+
+![Best design of the fleet run (pooled run P): full cutaway, head cutaway and x-ray](figures/v2-fleet/P-best-plate.png)
+
+*Seven 14.8 mm cells (blue) feed seven 12.6 mm cells (orange); each stage sits in its own
+plenums, and the posts under the plenum ceilings are the print supports.*
+
+![Process network of the fleet's best design](figures/v2-fleet/P-best-pfd.svg)
+
+![Search progress of the pooled run](figures/v2-fleet/P-evolution.svg)
+
+![The six best archive niches of the pooled run, x-ray views](figures/v2-fleet/P-zoo.png)
+
+**CAD and print audit.** The fluid domain and the printed part are each one closed,
+consistently oriented component; the smallest feature is 1.01 mm. Of 15 683 mm² of
+downward-facing internal surface, 283 mm² (1.8 %) lies farther than half the 8 mm bridge
+from a support; 219 posts carry the plenum ceilings and two horizontal runs have teardrop
+roofs.
+
+**Closure sensitivity (registered as exploratory).** Every fleet campaign scores under
+the closure samples of `closure_seed` 20261021. Re-scored at report resolution under the
+eight closure seeds 20261101 to 20261108 (24 further samples,
+[`../results/forge-v2-fleet-closure-sensitivity-v1.json`](../results/forge-v2-fleet-closure-sensitivity-v1.json)),
+the leader stays feasible in all of them, with fitness from 2.33 to 2.95 and worst outlets
+of 17.0 mg/L in produced water and 129 mg/L in the spill duty. The registered closure set
+is a mild one: the five reference designs, added after the run, all score lower under the
+other closure seeds too. Under every closure seed the leader and the seed 20261103 design
+it refines (within 0.005 of each other) come first and the seeded single stage of seed
+20261102 next (2.28 to 2.74, feasible everywhere), ahead of the `C` leader and the demo
+leader, which swap places under some seeds and both become infeasible under closure seed
+20261104; the best random sample, from seed 20261105, is infeasible under all eight. The leader was selected on one closure set of three
+samples; its absolute score is optimistic for that reason, and a campaign that redraws
+closures during search is the obvious next step.
+
+**The best de novo run against its control** (receipt
+[`results/forge-v2-fleet-D-20261103-receipt.json`](results/forge-v2-fleet-D-20261103-receipt.json))
+is drawn above; arm `C`'s report receipt is
+[`results/forge-v2-fleet-C-receipt.json`](results/forge-v2-fleet-C-receipt.json).
+
+**How it ran.** On 2026-10-22 from 00:20 to 04:16 UTC, CPU only (the engine has no GPU
+path), on four shared hosts under their fleet caps and our own memory guards: seeds
+20261101 to 20261103 on xbabe1, 20261104 to 20261107 on xbabe3, 20261108 on xbabe4
+(macOS aarch64, rustc 1.97.1 and the platform libm), `C` on xbabe2 and `P` on xbabe3.
+The Linux runs used one binary built from the registration commit; each job peaked below
+0.7 GB of memory. One deviation from the registered placement: the four xbabe3 `D` runs
+were held back by the external exFAT disk (each generation writes and syncs a 2 MB
+checkpoint: about 4.7 s per generation against 1 s of compute). At 03:20 UTC they were
+stopped at consistent checkpoints and resumed on xbabe1. When xbabe1 ran short of memory
+from other work seven minutes later, its fleet cap froze them, and they were resumed
+again on xbabe3 with working copies in RAM, mirrored to the external disk; two of them
+were later restarted with more threads. Every move copied a checkpoint with matching
+SHA-256 and continued with `--resume`, which is bit for bit and independent of the thread
+count (`resume_continues_bit_for_bit_and_refuses_a_changed_campaign` and
+`evolution_is_independent_of_thread_count` in `crates/joil-forge/tests/forge.rs`). As a
+direct check, the moved segment of seed 20261104 (generations 1117 to 1171) was replayed
+on xbabe3 with three threads from the pre-move checkpoint; its state equals the one xbabe1
+produced with five threads, wall-clock fields aside.
+
+**Reproduce.** `C0` comes from the two demo receipts: write their `best.genome` objects
+into one JSON list and run `evolve --campaign campaigns/forge-v2.json --seed-from
+<that list> --run runs/C0 --generations 300`. Then, per seed `N`:
+
+```bash
+joil-forge evolve  --campaign campaigns/forge-v2-fleet/seed-N.json --run runs/S-N --seed-from runs/C0 --generations 2000
+joil-forge evolve  --campaign campaigns/forge-v2-fleet/seed-N.json --run runs/D-N --generations 2000
+joil-forge control --campaign campaigns/forge-v2-fleet/seed-N.json --out controls/R-N.json --evaluations 768384
+# summary, chart and pooled seeds over a directory holding runs/ and controls/
+joil-forge fleet-summary --root . --out summary.json --svg fleet.svg --pool pool.json
+joil-forge evolve  --campaign campaigns/forge-v2-fleet/seed-20261109.json --run runs/P --seed-from pool.json --generations 2000
+```
+
 ## First campaign (v1): why these constraints exist
 
 The first campaign (receipt
@@ -338,6 +480,7 @@ fail on dense layouts; the plenum, post and jet geometry is a design convention,
 optimised manifold, and the physics does not see the posts; the print audit is a
 geometric screen, not a build simulation, and says nothing about distortion, residual
 stress or surface finish; masses are shell estimates without mounting features. No forge
-geometry has been meshed for CFD, printed or tested. The demo and its random-search
-control are one seed each; a multi-seed comparison is the next measurement before any
-claim about average search performance.
+geometry has been meshed for CFD, printed or tested. The fleet run compares search with
+sampling over eight seeds of one objective, one closure set and one screen; it says how
+well the search optimizes that screen, not whether the screen ranks designs the way CFD or
+a printed test would, which is the next measurement.

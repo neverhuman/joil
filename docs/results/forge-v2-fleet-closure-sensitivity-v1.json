@@ -1,0 +1,698 @@
+{
+  "schema": "joil-forge-closure-sensitivity/1",
+  "evidence_class": "unvalidated_reduced_order_screen",
+  "forge_version": "joil-forge/1.1.1",
+  "model_version": "joil-forge-judges/1.0.0",
+  "run_binary_sha256": "f96400b0c2176a463d350c76e2a8a1d77a3750d8469392eb8260a46b02593e94",
+  "campaign": "campaigns/forge-v2-fleet/seed-20261109.json with only closure_seed changed; 20261021 is the registered closure seed of every fleet campaign, and each closure seed draws three closure samples plus the nominal closure",
+  "resolution": "report resolution (joil-forge eval --genome G --campaign C --report)",
+  "registration": "The overall best (P) under closure seeds 20261101 to 20261108 is exploratory endpoint 1 of docs/forge/results/forge-v2-fleet-preregistration.json. The five reference designs were added after the fleet run and are exploratory.",
+  "closure_seeds": [
+    20261021,
+    20261101,
+    20261102,
+    20261103,
+    20261104,
+    20261105,
+    20261106,
+    20261107,
+    20261108
+  ],
+  "designs": [
+    {
+      "design": "P best (overall best)",
+      "genome_sha256": "687e39640453fc77066636ba5d398484addf950950ddeb49c50e85843415a453",
+      "scores": [
+        {
+          "closure_seed": 20261021,
+          "feasible": true,
+          "fitness": 3.099511239997704,
+          "duty_cout_mg_l": [
+            5.173978329855518,
+            83.5286350192701
+          ],
+          "q_treated_m3_h": 0.7720518659065615,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261101,
+          "feasible": true,
+          "fitness": 2.567041600896988,
+          "duty_cout_mg_l": [
+            12.854569673013286,
+            97.25599163957503
+          ],
+          "q_treated_m3_h": 0.7699511000991547,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261102,
+          "feasible": true,
+          "fitness": 2.9531020443828417,
+          "duty_cout_mg_l": [
+            8.417627130324234,
+            68.87141428212009
+          ],
+          "q_treated_m3_h": 0.7727620058067779,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261103,
+          "feasible": true,
+          "fitness": 2.641239328390127,
+          "duty_cout_mg_l": [
+            11.207231141601344,
+            96.51856799490156
+          ],
+          "q_treated_m3_h": 0.7727620058067779,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261104,
+          "feasible": true,
+          "fitness": 2.332231652221889,
+          "duty_cout_mg_l": [
+            17.027646506622045,
+            115.91872509901101
+          ],
+          "q_treated_m3_h": 0.7600534358821608,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261105,
+          "feasible": true,
+          "fitness": 2.42897424824935,
+          "duty_cout_mg_l": [
+            12.368769005816358,
+            129.43395009615793
+          ],
+          "q_treated_m3_h": 0.7480663859488513,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261106,
+          "feasible": true,
+          "fitness": 2.792390167895557,
+          "duty_cout_mg_l": [
+            9.142574048304727,
+            87.44857991679757
+          ],
+          "q_treated_m3_h": 0.7727620058067779,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261107,
+          "feasible": true,
+          "fitness": 2.6887906686930467,
+          "duty_cout_mg_l": [
+            10.171328631862323,
+            96.70054974493283
+          ],
+          "q_treated_m3_h": 0.7727620058067779,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261108,
+          "feasible": true,
+          "fitness": 2.6111289490315635,
+          "duty_cout_mg_l": [
+            9.163705747409217,
+            111.42100663334584
+          ],
+          "q_treated_m3_h": 0.6867856812677274,
+          "numerical_failure": false,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "design": "D-20261103 best",
+      "genome_sha256": "98b8a3683eeecdc2f2a7bcd7a4512ef42558c72e591d5ac7e28d3b46b3a03c65",
+      "scores": [
+        {
+          "closure_seed": 20261021,
+          "feasible": true,
+          "fitness": 3.097523015064852,
+          "duty_cout_mg_l": [
+            5.184904688626416,
+            83.64234448871801
+          ],
+          "q_treated_m3_h": 0.7730850125658996,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261101,
+          "feasible": true,
+          "fitness": 2.5654234602837187,
+          "duty_cout_mg_l": [
+            12.870593579766197,
+            97.3890317780857
+          ],
+          "q_treated_m3_h": 0.7708912261808673,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261102,
+          "feasible": true,
+          "fitness": 2.9511717106654793,
+          "duty_cout_mg_l": [
+            8.431197607867675,
+            68.97774653941583
+          ],
+          "q_treated_m3_h": 0.7736409000470416,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261103,
+          "feasible": true,
+          "fitness": 2.6392708137956498,
+          "duty_cout_mg_l": [
+            11.226188410257064,
+            96.66730710824875
+          ],
+          "q_treated_m3_h": 0.7736409000470416,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261104,
+          "feasible": true,
+          "fitness": 2.33062539176357,
+          "duty_cout_mg_l": [
+            17.047195046393046,
+            116.08401716300322
+          ],
+          "q_treated_m3_h": 0.7609687561729398,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261105,
+          "feasible": true,
+          "fitness": 2.4273232698140825,
+          "duty_cout_mg_l": [
+            12.388669004338018,
+            129.5791276908475
+          ],
+          "q_treated_m3_h": 0.7490173513621275,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261106,
+          "feasible": true,
+          "fitness": 2.79070615742333,
+          "duty_cout_mg_l": [
+            9.155412700311123,
+            87.55862908943278
+          ],
+          "q_treated_m3_h": 0.7736409000470416,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261107,
+          "feasible": true,
+          "fitness": 2.6871843177682213,
+          "duty_cout_mg_l": [
+            10.184938014112598,
+            96.81361039981829
+          ],
+          "q_treated_m3_h": 0.7736409000470416,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261108,
+          "feasible": true,
+          "fitness": 2.6154832872479377,
+          "duty_cout_mg_l": [
+            9.128921090080269,
+            111.11641436230585
+          ],
+          "q_treated_m3_h": 0.6895465071734789,
+          "numerical_failure": false,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "design": "S-20261102 best",
+      "genome_sha256": "b160fe6ab6bb5498876f2b2496d23769c9bb5c0395fa108524ea62c2e270ac83",
+      "scores": [
+        {
+          "closure_seed": 20261021,
+          "feasible": true,
+          "fitness": 2.8674269651691837,
+          "duty_cout_mg_l": [
+            8.869308824330915,
+            103.22519591832248
+          ],
+          "q_treated_m3_h": 0.9015564404802725,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261101,
+          "feasible": true,
+          "fitness": 2.497366066230404,
+          "duty_cout_mg_l": [
+            15.451681886859266,
+            124.078051398289
+          ],
+          "q_treated_m3_h": 0.900652663056689,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261102,
+          "feasible": true,
+          "fitness": 2.7415279272624375,
+          "duty_cout_mg_l": [
+            12.134620142385556,
+            97.06320776078145
+          ],
+          "q_treated_m3_h": 0.901661940237551,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261103,
+          "feasible": true,
+          "fitness": 2.5554023921750195,
+          "duty_cout_mg_l": [
+            14.266516011689955,
+            119.79245993986936
+          ],
+          "q_treated_m3_h": 0.901661940237551,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261104,
+          "feasible": true,
+          "fitness": 2.2754014450796736,
+          "duty_cout_mg_l": [
+            20.843318643780165,
+            141.7560136686475
+          ],
+          "q_treated_m3_h": 0.8904282991342973,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261105,
+          "feasible": true,
+          "fitness": 2.3369675459852415,
+          "duty_cout_mg_l": [
+            16.382392327337044,
+            157.6326585980412
+          ],
+          "q_treated_m3_h": 0.8802170013244653,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261106,
+          "feasible": true,
+          "fitness": 2.5321909738355086,
+          "duty_cout_mg_l": [
+            15.808344628177428,
+            113.24582450195454
+          ],
+          "q_treated_m3_h": 0.901661940237551,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261107,
+          "feasible": true,
+          "fitness": 2.5416497028765437,
+          "duty_cout_mg_l": [
+            13.88726582458046,
+            126.49579733832276
+          ],
+          "q_treated_m3_h": 0.901661940237551,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261108,
+          "feasible": true,
+          "fitness": 2.470557983253183,
+          "duty_cout_mg_l": [
+            12.707381833160296,
+            140.76352879964364
+          ],
+          "q_treated_m3_h": 0.7964300446377964,
+          "numerical_failure": false,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "design": "C best",
+      "genome_sha256": "188c8b38b1e7cbe5f398a3ce4bea0ee88caeb1c84097714098e0252080ef1513",
+      "scores": [
+        {
+          "closure_seed": 20261021,
+          "feasible": true,
+          "fitness": 2.515921961522249,
+          "duty_cout_mg_l": [
+            12.687276054601194,
+            149.9023935808353
+          ],
+          "q_treated_m3_h": 1.1605591994353064,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261101,
+          "feasible": true,
+          "fitness": 2.144545908248226,
+          "duty_cout_mg_l": [
+            24.270776708284778,
+            165.48446136290863
+          ],
+          "q_treated_m3_h": 1.1661598786048346,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261102,
+          "feasible": true,
+          "fitness": 2.362996181331097,
+          "duty_cout_mg_l": [
+            20.75873602775008,
+            126.41869937647141
+          ],
+          "q_treated_m3_h": 1.1794320378931906,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261103,
+          "feasible": true,
+          "fitness": 2.176430436655696,
+          "duty_cout_mg_l": [
+            21.884436106893347,
+            173.4043805263152
+          ],
+          "q_treated_m3_h": 1.1743760200728004,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261104,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261105,
+          "feasible": true,
+          "fitness": 1.93197191779677,
+          "duty_cout_mg_l": [
+            28.7286313915743,
+            208.7384716451474
+          ],
+          "q_treated_m3_h": 1.1381387615848853,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261106,
+          "feasible": true,
+          "fitness": 2.298252589205386,
+          "duty_cout_mg_l": [
+            20.545533775874002,
+            144.4293707303467
+          ],
+          "q_treated_m3_h": 1.1716504797369731,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261107,
+          "feasible": true,
+          "fitness": 2.232876530100264,
+          "duty_cout_mg_l": [
+            22.043605366303115,
+            154.4365494833856
+          ],
+          "q_treated_m3_h": 1.1794320378931906,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261108,
+          "feasible": true,
+          "fitness": 2.071131926091716,
+          "duty_cout_mg_l": [
+            21.920898260244886,
+            185.1843360076713
+          ],
+          "q_treated_m3_h": 1.0176846418647978,
+          "numerical_failure": false,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "design": "v2 demo leader",
+      "genome_sha256": "502bd6d68f6268a9fff166b28625cc7874782fd5394fa17047d616364388e36d",
+      "scores": [
+        {
+          "closure_seed": 20261021,
+          "feasible": true,
+          "fitness": 2.479878543960991,
+          "duty_cout_mg_l": [
+            12.826218290268187,
+            151.01261130765585
+          ],
+          "q_treated_m3_h": 1.102185768611347,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261101,
+          "feasible": true,
+          "fitness": 2.118385572289959,
+          "duty_cout_mg_l": [
+            24.304577786216637,
+            165.76488141949977
+          ],
+          "q_treated_m3_h": 1.1125889885900375,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261102,
+          "feasible": true,
+          "fitness": 2.47335132225091,
+          "duty_cout_mg_l": [
+            16.29539082943759,
+            124.5232593951952
+          ],
+          "q_treated_m3_h": 1.1396952622245888,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261103,
+          "feasible": true,
+          "fitness": 2.1424742474009015,
+          "duty_cout_mg_l": [
+            22.044946623198367,
+            174.5972327530281
+          ],
+          "q_treated_m3_h": 1.1153822121697965,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261104,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261105,
+          "feasible": true,
+          "fitness": 1.8974399638894779,
+          "duty_cout_mg_l": [
+            28.978959692369553,
+            210.17454085062477
+          ],
+          "q_treated_m3_h": 1.0812002317948999,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261106,
+          "feasible": true,
+          "fitness": 2.2490320056325714,
+          "duty_cout_mg_l": [
+            21.67076748766192,
+            148.47289560418307
+          ],
+          "q_treated_m3_h": 1.1538614664134454,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261107,
+          "feasible": true,
+          "fitness": 2.1871180034946343,
+          "duty_cout_mg_l": [
+            23.086393473488222,
+            158.81998811639426
+          ],
+          "q_treated_m3_h": 1.1617578956399288,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261108,
+          "feasible": true,
+          "fitness": 2.034517953606209,
+          "duty_cout_mg_l": [
+            22.169127328009136,
+            186.7343951195648
+          ],
+          "q_treated_m3_h": 0.9666752024199392,
+          "numerical_failure": false,
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "design": "R-20261105 best (best random sample)",
+      "genome_sha256": "51db47239f08a07853a8492d0bc9f234ddf0c95710959fa2816f1db6feddb837",
+      "scores": [
+        {
+          "closure_seed": 20261021,
+          "feasible": true,
+          "fitness": 2.15931083617818,
+          "duty_cout_mg_l": [
+            28.40831871819393,
+            191.47963522218305
+          ],
+          "q_treated_m3_h": 1.2902089976039683,
+          "numerical_failure": false,
+          "reasons": []
+        },
+        {
+          "closure_seed": 20261101,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261102,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261103,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261104,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261105,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261106,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261107,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        },
+        {
+          "closure_seed": 20261108,
+          "feasible": false,
+          "fitness": 0.0,
+          "duty_cout_mg_l": [],
+          "q_treated_m3_h": 0.0,
+          "numerical_failure": false,
+          "reasons": [
+            "not compliant for every closure sample"
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "Screen-model re-evaluation of fixed genomes, not physical evidence."
+}

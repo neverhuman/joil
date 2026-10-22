@@ -1,0 +1,264 @@
+{
+  "schema": "joil-forge-fleet-run-receipt/1",
+  "evidence_class": "unvalidated_reduced_order_screen",
+  "registration": "docs/forge/results/forge-v2-fleet-preregistration.json (registered 2026-10-22T00:26:23Z, before the first fleet job)",
+  "window_utc": {
+    "pilots_start": "2026-10-22T00:20:51Z",
+    "first_fleet_job": "2026-10-22T00:33:46Z",
+    "last_S_or_D_done": "2026-10-22T03:50:33Z",
+    "P_done": "2026-10-22T04:15:28Z",
+    "reports_done": "2026-10-22T04:16:13Z"
+  },
+  "source": {
+    "registration_commit": "75b069e51f31ff3e0866dbfedfb149bb122222af",
+    "fleet_summary_commit": "b89b989dff2de55d68f9f070dc2c788358f17540",
+    "chart_commit": "f4e3d6fef3e66935955389975b02f2e96c720180",
+    "forge_version": "joil-forge/1.1.1",
+    "model_version": "joil-forge-judges/1.0.0"
+  },
+  "binaries_sha256": {
+    "run_linux_x86_64": {
+      "sha256": "f96400b0c2176a463d350c76e2a8a1d77a3750d8469392eb8260a46b02593e94",
+      "built_from": "75b069e (rustc 1.95.0)",
+      "used_for": "every Linux S, D, R, C and P job, the reports and the closure re-evaluations"
+    },
+    "run_macos_aarch64": {
+      "sha256": "cabcbb204459272f4a91faa6aa603e771b8030f2affcaec4b7e99dfd418248e9",
+      "built_from": "75b069e (rustc 1.97.1, platform libm)",
+      "used_for": "seed 20261108 (S, D, R); the v2 demo leader re-scores bit-identically (2.479878543960991)"
+    },
+    "pilot_linux_x86_64": {
+      "sha256": "c665422351428df95f133142b8edb11e496b62cbc626860f3c18e126c2b86a20",
+      "built_from": "fc26a40",
+      "used_for": "pilots C0 and P-repro (identical engine and model versions)"
+    },
+    "fleet_summary_linux_x86_64": {
+      "sha256": "d70665cb2e3ea987fcd33e1140d932cb409ed1344a46818e13abd186add966e7",
+      "built_from": "f4e3d6f",
+      "used_for": "fleet-summary; the S/D summary and pool it writes are byte-identical to those of the b89b989 build"
+    }
+  },
+  "inputs_sha256": {
+    "receipt_bests_seed_list": "945d37d22438449e5cd677d58584fb24828150365ebec38b22a964b0696340f9",
+    "C0_checkpoint": "cbd27d51b203cbbc2fda1b6940b8be70acc55c6ec1eaa8a2523cc0a2dc3a47ba",
+    "P_seed_pool": "f81b7ffe6de4ae97d4f8b301b8c625b3ce61e09b7ac7f862c3ad0c0c8b793b6a",
+    "P_seed_pool_genomes": 7159
+  },
+  "placement": {
+    "xbabe1": "S, D and R for seeds 20261101 to 20261103, 8 threads per seed; D-20261104 to D-20261107 for 7 minutes (see moves)",
+    "xbabe3": "S and R for seeds 20261104 to 20261107 and their D runs before and after the moves, 6 to 15 threads; P with 16 threads; pilots, reports and closure re-evaluations",
+    "xbabe4": "S, D and R for seed 20261108 (macOS aarch64), 8 threads",
+    "xbabe2": "arm C, 6 threads",
+    "gpu": "none: the engine has no GPU path"
+  },
+  "deviations": {
+    "summary": "The four xbabe3 D runs were I/O bound on the external exFAT disk (a 2 MB checkpoint written and synced every generation: about 4.7 s per generation against 1 s of compute). They were stopped at consistent checkpoints (checkpoint generation equal to the last history line), copied with matching SHA-256 and continued with evolve --resume: first on xbabe1, then, when other work left xbabe1 short of memory and its fleet cap froze them, back on xbabe3 with working copies in RAM mirrored to the external disk every 120 s. Their R controls ran on xbabe3 as registered. Resume is bit for bit and thread-count invariant (tests resume_continues_bit_for_bit_and_refuses_a_changed_campaign and evolution_is_independent_of_thread_count).",
+    "moves": [
+      {
+        "run": "D-20261107",
+        "from": "xbabe3",
+        "to": "xbabe1",
+        "at_generation": 650,
+        "checkpoint_sha256": "d9b3e1ea8760de73296fb33fb304a7721b831f7e6c12bf83b5c8d41b2ceedce7",
+        "resumed_utc": "2026-10-22T03:20:21Z"
+      },
+      {
+        "run": "D-20261106",
+        "from": "xbabe3",
+        "to": "xbabe1",
+        "at_generation": 833,
+        "checkpoint_sha256": "14b9ba5138360e923f1de88d56c229f43521daa1a677f084bb5a612f4d769233",
+        "resumed_utc": "2026-10-22T03:20:28Z"
+      },
+      {
+        "run": "D-20261105",
+        "from": "xbabe3",
+        "to": "xbabe1",
+        "at_generation": 1093,
+        "checkpoint_sha256": "708617fe8a2b246108106cffe798644a03ffc495fde23dabb5450311ef1645d9",
+        "resumed_utc": "2026-10-22T03:20:35Z"
+      },
+      {
+        "run": "D-20261104",
+        "from": "xbabe3",
+        "to": "xbabe1",
+        "at_generation": 1116,
+        "checkpoint_sha256": "438c7007416d43f33460662bdc317dfa08c6ec3d7c8b6d6e0f326d5ba59f006b",
+        "resumed_utc": "2026-10-22T03:20:42Z"
+      },
+      {
+        "run": "D-20261104",
+        "from": "xbabe1",
+        "to": "xbabe3 (RAM working copy)",
+        "at_generation": 1171,
+        "checkpoint_sha256": "cb389663ede428d52b887a9c696b6dbbe5a0d1d316b36989db32eb397b04827e",
+        "resumed_utc": "2026-10-22T03:27:50Z"
+      },
+      {
+        "run": "D-20261105",
+        "from": "xbabe1",
+        "to": "xbabe3 (RAM working copy)",
+        "at_generation": 1199,
+        "checkpoint_sha256": "f78337cc296bb64e64a7e2aadff08d48969f6f59dbd1efde2fbece8898fe8d08",
+        "resumed_utc": "2026-10-22T03:27:48Z"
+      },
+      {
+        "run": "D-20261106",
+        "from": "xbabe1",
+        "to": "xbabe3 (RAM working copy)",
+        "at_generation": 904,
+        "checkpoint_sha256": "f2cff6fdfcfee5a8d6ac625412653f7483c046accb40c7711b6fd929e6333669",
+        "resumed_utc": "2026-10-22T03:27:46Z"
+      },
+      {
+        "run": "D-20261107",
+        "from": "xbabe1",
+        "to": "xbabe3 (RAM working copy)",
+        "at_generation": 732,
+        "checkpoint_sha256": "66eb23a72a80f83a492c45b1bba52a188b9784ad85172d0edc54789a670507ae",
+        "resumed_utc": "2026-10-22T03:27:44Z"
+      }
+    ],
+    "thread_changes": [
+      {
+        "run": "D-20261107",
+        "at_generation": 1140,
+        "threads": "8 -> 15",
+        "utc": "2026-10-22T03:37:36Z"
+      },
+      {
+        "run": "D-20261106",
+        "at_generation": 1550,
+        "threads": "7 -> 13",
+        "utc": "2026-10-22T03:44:00Z"
+      }
+    ],
+    "exactness_replay": {
+      "what": "D-20261104 resumed on xbabe3 with 3 threads from its pre-move checkpoint (generation 1116) to generation 1171, compared with the generation-1171 checkpoint xbabe1 produced with 5 threads, wall_s fields removed and keys sorted",
+      "replay_state_sha256": "eaa977fdaa18815c90fe0bc3cff2f757f4ce8533d9214ec91dfe904da7b63647",
+      "xbabe1_state_sha256": "eaa977fdaa18815c90fe0bc3cff2f757f4ce8533d9214ec91dfe904da7b63647",
+      "history_1117_1171_replay_sha256": "8785cf2b4c57989ece009d9623d52a61bedd97e35a5654483eef141a77193da9",
+      "history_1117_1171_final_run_sha256": "8785cf2b4c57989ece009d9623d52a61bedd97e35a5654483eef141a77193da9",
+      "equal": true
+    }
+  },
+  "jobs": {
+    "C0": {
+      "wall_clock": "5:10",
+      "peak_rss_mib": 33
+    },
+    "P-repro": {
+      "wall_clock": "6:29",
+      "peak_rss_mib": 34
+    },
+    "C": {
+      "wall_clock": "19:45",
+      "peak_rss_mib": 153
+    },
+    "S-20261101": {
+      "wall_clock": "57:02",
+      "peak_rss_mib": 541
+    },
+    "S-20261102": {
+      "wall_clock": "51:56",
+      "peak_rss_mib": 541
+    },
+    "S-20261103": {
+      "wall_clock": "58:21",
+      "peak_rss_mib": 544
+    },
+    "S-20261104": {
+      "wall_clock": "1:14:23",
+      "peak_rss_mib": 551
+    },
+    "S-20261105": {
+      "wall_clock": "1:22:24",
+      "peak_rss_mib": 554
+    },
+    "S-20261106": {
+      "wall_clock": "1:22:05",
+      "peak_rss_mib": 548
+    },
+    "S-20261107": {
+      "wall_clock": "1:31:12",
+      "peak_rss_mib": 546
+    },
+    "S-20261108": {
+      "wall_clock": "26:59",
+      "peak_rss_mib": 568
+    },
+    "D-20261101": {
+      "wall_clock": "1:00:22",
+      "peak_rss_mib": 543
+    },
+    "D-20261102": {
+      "wall_clock": "1:13:51",
+      "peak_rss_mib": 530
+    },
+    "D-20261103": {
+      "wall_clock": "1:06:16",
+      "peak_rss_mib": 554
+    },
+    "D-20261108": {
+      "wall_clock": "29:31",
+      "peak_rss_mib": 569
+    },
+    "R-20261101": {
+      "wall_clock": "5:44",
+      "peak_rss_mib": 670
+    },
+    "R-20261102": {
+      "wall_clock": "5:50",
+      "peak_rss_mib": 672
+    },
+    "R-20261103": {
+      "wall_clock": "5:50",
+      "peak_rss_mib": 680
+    },
+    "R-20261104": {
+      "wall_clock": "6:37",
+      "peak_rss_mib": 678
+    },
+    "R-20261105": {
+      "wall_clock": "6:38",
+      "peak_rss_mib": 680
+    },
+    "R-20261106": {
+      "wall_clock": "6:37",
+      "peak_rss_mib": 679
+    },
+    "R-20261107": {
+      "wall_clock": "6:36",
+      "peak_rss_mib": 677
+    },
+    "R-20261108": {
+      "wall_clock": "3:45",
+      "peak_rss_mib": 677
+    },
+    "P": {
+      "wall_clock": "23:23",
+      "peak_rss_mib": 547
+    }
+  },
+  "jobs_note": "Moved D runs (20261104 to 20261107) ran in segments; their wall clock is not comparable and is omitted.",
+  "outputs_sha256": {
+    "docs/results/forge-v2-fleet-summary-v1.json": "035658ee46be81768fa9864819f243fdc218617061db30605dc38e17ab021243",
+    "docs/results/forge-v2-fleet-closure-sensitivity-v1.json": "82009005f8a2ad45fc6492980f552abf398585fcd1ba53d06185d91ee5256df6",
+    "docs/forge/results/forge-v2-fleet-P-receipt.json": "814c1ede1bebb7de1e894aabba427dedf41bccf3d58ea36d2018aaf7ccf6da43",
+    "docs/forge/results/forge-v2-fleet-D-20261103-receipt.json": "cacc847aa39a5ef5daaa91cd533ed2c5e7ef144f7f14a4c54d25c29a8da94ef0",
+    "docs/forge/results/forge-v2-fleet-C-receipt.json": "fcdf652e151471a635f87ea8094abbf72fa3c32900dae52606e8f1bbcbbc9838",
+    "P_final_checkpoint": "5149aebf8b16848c99a0e893dedcdb31a8e1474dbdcf590f834789bc7181b24c"
+  },
+  "figures": "docs/forge/figures/v2-fleet/: fleet.svg is written by fleet-summary; P-*.{png,svg} are report figures of the pooled run and D-20261103-search-vs-random.svg of the best de novo run, byte-identical to the files their report receipts list in figures_sha256 (the prefix names the run).",
+  "exploratory": {
+    "macos_replicate_excluded": {
+      "search_better": 7,
+      "replicates": 7,
+      "p_one_sided": 0.0078125
+    },
+    "closure_sensitivity": "docs/results/forge-v2-fleet-closure-sensitivity-v1.json",
+    "extension_to_4000_generations": "not run (the owner asked to wrap up)"
+  },
+  "retained_privately": "run directories, checkpoints, controls, logs, CAD meshes (STL/GLB) and HTML reports stay on the hosts' external drives; they are not public Git content",
+  "note": "Screen-model search run; not physical evidence."
+}

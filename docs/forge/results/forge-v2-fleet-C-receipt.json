@@ -1,0 +1,590 @@
+{
+  "archive_feasible": 8,
+  "archive_niches": 427,
+  "best": {
+    "behavior": {
+      "coalescer": false,
+      "cyclone_cells": 32,
+      "min_cyclone_d_mm": 6.0422,
+      "recycles": 0,
+      "series_depth": 2,
+      "splitters": 0,
+      "stage_ratio": 1.156532388864983
+    },
+    "genome": {
+      "feed": {
+        "channel_mm": 10.0423,
+        "pumped": false,
+        "to": {
+          "unit": 1208
+        }
+      },
+      "schema": "joil-forge-genome/1",
+      "units": [
+        {
+          "body": {
+            "cells": 16,
+            "chamber_len_ratio": 0.446,
+            "diameter_mm": 6.0422,
+            "inlet_area_ratio": 0.092326,
+            "inlet_aspect": 2.4877,
+            "involute": true,
+            "jets": 1,
+            "kind": "cyclone",
+            "orifice_ratio": 0.167158,
+            "segments": [
+              {
+                "end_ratio": 0.5131,
+                "len_ratio": 0.5343
+              },
+              {
+                "end_ratio": 0.5131,
+                "len_ratio": 3.0035
+              },
+              {
+                "end_ratio": 0.5131,
+                "len_ratio": 8.003
+              },
+              {
+                "end_ratio": 0.5131,
+                "len_ratio": 7.6749
+              }
+            ],
+            "split": 0.003
+          },
+          "id": 1208,
+          "routes": [
+            {
+              "channel_mm": 3.0,
+              "pumped": false,
+              "to": "reject"
+            },
+            {
+              "channel_mm": 9.4531,
+              "pumped": false,
+              "to": {
+                "unit": 3235
+              }
+            }
+          ]
+        },
+        {
+          "body": {
+            "cells": 16,
+            "chamber_len_ratio": 0.373,
+            "diameter_mm": 6.988,
+            "inlet_area_ratio": 0.077883,
+            "inlet_aspect": 2.063,
+            "involute": true,
+            "jets": 1,
+            "kind": "cyclone",
+            "orifice_ratio": 0.144533,
+            "segments": [
+              {
+                "end_ratio": 0.4436,
+                "len_ratio": 0.6106
+              },
+              {
+                "end_ratio": 0.4436,
+                "len_ratio": 0.9423
+              },
+              {
+                "end_ratio": 0.4436,
+                "len_ratio": 8.1544
+              },
+              {
+                "end_ratio": 0.4436,
+                "len_ratio": 8.4055
+              }
+            ],
+            "split": 0.003
+          },
+          "id": 3235,
+          "routes": [
+            {
+              "channel_mm": 3.0,
+              "pumped": false,
+              "to": "reject"
+            },
+            {
+              "channel_mm": 5.03,
+              "pumped": false,
+              "to": "product"
+            }
+          ]
+        }
+      ]
+    },
+    "genome_sha256": "188c8b38b1e7cbe5f398a3ce4bea0ee88caeb1c84097714098e0252080ef1513",
+    "report_score": {
+      "cout_mg_l": 7.999722675950692,
+      "duty_cout_mg_l": [
+        12.687276054601194,
+        149.9023935808353
+      ],
+      "feasible": true,
+      "feed_pressure_kpa": 399.9952111419859,
+      "fitness": 2.515921961522249,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        1.1794320378931906,
+        1.1605591994353064,
+        1.2165365662860719,
+        1.164484629063986
+      ],
+      "q_feed_m3_h": 1.1675540155424209,
+      "q_treated_m3_h": 1.1605591994353064,
+      "q_treated_nominal_m3_h": 1.1794320378931906,
+      "reasons": [],
+      "reject_fraction": 0.005991,
+      "separation": 2.7858896993975515,
+      "shell_mass_kg": 0.7474950710839904,
+      "specific_energy_kj_m3": 402.40602564160474,
+      "units": 2,
+      "violation": 0.0
+    },
+    "search_score": {
+      "cout_mg_l": 8.070798593154302,
+      "duty_cout_mg_l": [
+        12.972543894266227,
+        151.11837579870823
+      ],
+      "feasible": true,
+      "feed_pressure_kpa": 399.99107997524,
+      "fitness": 2.5008006694250824,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        1.1797475282384404,
+        1.160636802147552,
+        1.2169230069578394,
+        1.1648740070962997
+      ],
+      "q_feed_m3_h": 1.1676320859746259,
+      "q_treated_m3_h": 1.160636802147552,
+      "q_treated_nominal_m3_h": 1.1797475282384404,
+      "reasons": [],
+      "reject_fraction": 0.005991,
+      "separation": 2.770732393066881,
+      "shell_mass_kg": 0.7474950710839904,
+      "specific_energy_kj_m3": 402.40186957586906,
+      "units": 2,
+      "violation": 0.0
+    }
+  },
+  "cad_best": {
+    "envelope_radius_mm": 50.0,
+    "fluid": {
+      "area_mm2": 124621.94347476853,
+      "boundary_edges": 0,
+      "closed": true,
+      "components": 1,
+      "consistently_oriented": true,
+      "euler_characteristic": -848,
+      "genus": [
+        425
+      ],
+      "misoriented_edges": 0,
+      "nonmanifold_edges": 0,
+      "triangles": 4109480,
+      "vertices": 2053892,
+      "volume_mm3": 172327.91650153662
+    },
+    "fluid_volume_estimate_mm3": 194361.6705482838,
+    "fluid_volume_rel_diff": -0.11336470809594885,
+    "genome_sha256": "188c8b38b1e7cbe5f398a3ce4bea0ee88caeb1c84097714098e0252080ef1513",
+    "geometry_violations": [],
+    "lattice_represented": false,
+    "length_mm": 399.84249414000004,
+    "min_feature_mm": 1.0099966040000001,
+    "note": "Geometry observations only; rendering and meshing are not validation. The volume estimate is the layout's analytic sum, which double-counts overlaps.",
+    "part": {
+      "area_mm2": 262863.96813004557,
+      "boundary_edges": 0,
+      "closed": true,
+      "components": 1,
+      "consistently_oriented": true,
+      "euler_characteristic": -918,
+      "genus": [
+        460
+      ],
+      "misoriented_edges": 0,
+      "nonmanifold_edges": 0,
+      "triangles": 8716980,
+      "vertices": 4357572,
+      "volume_mm3": 204628.86688008395
+    },
+    "print": {
+      "bridge_mm": 8.0,
+      "build_height_mm": 400.0,
+      "ceiling_area_mm2": 23039.389973417758,
+      "fits_build_height": true,
+      "note": "Orientation: head on the plate, built along +z. A ceiling is a downward-facing internal surface within 40° of horizontal; supported means solid within half the bridge length in the plane just below. A screen, not a print simulation.",
+      "part_height_mm": 399.84249414000004,
+      "sampled_ceiling_faces": 4013,
+      "support_posts": 329,
+      "teardrop_runs": 2,
+      "unsupported_ceiling_area_mm2": 403.4983110518142,
+      "unsupported_examples_mm": [
+        [
+          -23.8,
+          14.0,
+          57.2
+        ],
+        [
+          -2.6,
+          -19.4,
+          57.2
+        ],
+        [
+          0.9,
+          26.3,
+          57.2
+        ],
+        [
+          22.0,
+          -6.9,
+          57.2
+        ],
+        [
+          -10.5,
+          28.7,
+          62.2
+        ],
+        [
+          14.8,
+          -26.0,
+          234.5
+        ],
+        [
+          6.7,
+          -19.5,
+          239.5
+        ],
+        [
+          41.3,
+          7.3,
+          239.5
+        ]
+      ]
+    },
+    "printed_mass_kg": 0.9065058802787719,
+    "resolution_warnings": [],
+    "voxel_mm": 0.5049983020000001,
+    "wall_mm": 1.5
+  },
+  "campaign": {
+    "allow_pumps": true,
+    "archive_parent_rate": 0.3,
+    "closure_samples": 3,
+    "crossover_rate": 0.3,
+    "duties": [
+      {
+        "feed": {
+          "cin_mg_l": 500.0,
+          "dsd": {
+            "geometric_sd": 1.6,
+            "volume_median_um": 15.0
+          },
+          "flow_m3_h": 4.0
+        },
+        "fluids": {
+          "interfacial_tension_n_m": 0.025,
+          "mu_oil_pa_s": 0.005,
+          "mu_water_pa_s": 0.001,
+          "rho_oil_kg_m3": 850.0,
+          "rho_water_kg_m3": 998.0
+        },
+        "name": "produced water (reference)",
+        "weight": 1.0
+      },
+      {
+        "feed": {
+          "cin_mg_l": 1000.0,
+          "dsd": {
+            "geometric_sd": 1.6,
+            "volume_median_um": 10.0
+          },
+          "flow_m3_h": 4.0
+        },
+        "fluids": {
+          "interfacial_tension_n_m": 0.02,
+          "mu_oil_pa_s": 0.02,
+          "mu_water_pa_s": 0.00122,
+          "rho_oil_kg_m3": 900.0,
+          "rho_water_kg_m3": 1025.89
+        },
+        "name": "seawater oil spill",
+        "weight": 1.0
+      }
+    ],
+    "envelope": {
+      "bridge_mm": 8.0,
+      "length_mm": 400.0,
+      "max_cell_aspect": 30.0,
+      "min_bore_mm": 3.0,
+      "radius_mm": 50.0,
+      "wall_mm": 1.5
+    },
+    "islands": 2,
+    "limits": {
+      "max_amplification": 8.0,
+      "pressure_budget_pa": 400000.0,
+      "q_max_m3_h": 40.0,
+      "q_min_m3_h": 0.5,
+      "quality_limit_mg_l": 30.0,
+      "quality_probe_ratio": 0.85,
+      "quality_probes": 8,
+      "reject_budget": 0.02
+    },
+    "migrants": 2,
+    "migrate_every": 5,
+    "name": "forge-v2",
+    "objective": {
+      "capacity": 0.5,
+      "energy": 0.25,
+      "floor_mg_l": 1.0,
+      "mass": 0.15,
+      "per_unit": 0.02,
+      "separation": 1.0
+    },
+    "population": 48,
+    "resolution": {
+      "ns": 12,
+      "nz": 60
+    },
+    "seed": 20261021,
+    "seeding": "de_novo",
+    "structural_rate": 0.45,
+    "terminals": {
+      "product_pa": 0.0,
+      "pump_efficiency": 0.6,
+      "pump_suction_min_pa": 20000.0,
+      "reject_pa": 0.0
+    },
+    "tournament": 3
+  },
+  "ct35_same_model": {
+    "evidence_class": "unvalidated_reduced_order_screen",
+    "forge_archetype": {
+      "cout_mg_l": 190.12828830488297,
+      "duty_cout_mg_l": [],
+      "feasible": false,
+      "feed_pressure_kpa": 399.9971540232469,
+      "fitness": 0.0,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        0.0
+      ],
+      "q_feed_m3_h": 0.0,
+      "q_treated_m3_h": 0.0,
+      "q_treated_nominal_m3_h": 0.0,
+      "reasons": [
+        "geometry: part height 1727 mm exceeds the 400 mm build height",
+        "no compliant tested flow (shortfall 1.847)"
+      ],
+      "reject_fraction": 0.02,
+      "separation": 0.0,
+      "shell_mass_kg": 1.0623548350406116,
+      "specific_energy_kj_m3": 408.16036124821113,
+      "units": 1,
+      "violation": 30.43707666425693
+    },
+    "liner_only": {
+      "at_reference_flow": {
+        "cout_mg_l": 157.70977239092136,
+        "dp_overflow_pa": 212525.8107498712,
+        "dp_underflow_pa": 67621.43870935106,
+        "feed_pressure_pa": 217046.30136678065,
+        "flow_m3_h": 4.0,
+        "oil_capture": 0.6908888461137944,
+        "reduced_d50_um": 10.720564149401087
+      },
+      "capacity_by_closure": [
+        {
+          "cleanest_probe_cout_mg_l": 120.40055727405696,
+          "closure": 0,
+          "q_pressure_limit_m3_h": 5.430277645399091,
+          "q_star_m3_h": null,
+          "shortfall": 1.3896267797239215
+        },
+        {
+          "cleanest_probe_cout_mg_l": 151.85147644556568,
+          "closure": 1,
+          "q_pressure_limit_m3_h": 4.968048730526811,
+          "q_star_m3_h": null,
+          "shortfall": 1.6217055328351206
+        },
+        {
+          "cleanest_probe_cout_mg_l": 162.10065317408117,
+          "closure": 2,
+          "q_pressure_limit_m3_h": 6.085611632705409,
+          "q_star_m3_h": null,
+          "shortfall": 1.6870200765228138
+        },
+        {
+          "cleanest_probe_cout_mg_l": 149.12457683280613,
+          "closure": 3,
+          "q_pressure_limit_m3_h": 5.221881943697935,
+          "q_star_m3_h": null,
+          "shortfall": 1.6035846610842113
+        }
+      ]
+    },
+    "model_version": "joil-forge-judges/1.0.0"
+  },
+  "evaluations": 192096,
+  "evidence_class": "unvalidated_reduced_order_screen",
+  "figures_sha256": {
+    "best-grade.svg": "6a98dc50b65934617c32d155434690b91211ae6e02046a482f790ecbc79d1ad1",
+    "best-pfd.svg": "5b7a61f70d856fea992b89b29742d990985368df440121352d253ca26c60611c",
+    "best-plate.png": "18f0291550119c2f2f84cf997a4ee45bcc35d87f2de1cbd235412c1e1f559230",
+    "best-stage-dsd-0.svg": "7ac9b55790a070960ff4aa77089474b4ba90547b9cf17a34f462aacd7706f68c",
+    "best-stage-dsd-1.svg": "ba62f0acefa5e8d5304b08c3f8fab509adaadda98e5d66f97de5f0429699dd4a",
+    "evolution.svg": "c250919e3b71ebdc21be49fc7603fa54e90995d3cdfd8d47a923a14516563d6f",
+    "zoo-0.png": "b8d0f2814f68ba708fe7ae61dc7e2dad244f9a8613eacfbc32d7f72b2259f5bd",
+    "zoo-0.svg": "42e8292608a96083f508224ed049e38b387a371a4e1d598a015d38bf81b434aa",
+    "zoo-1.png": "cece736be2d890777dc8f7db6e57ee15b29087c59bce96b4a15226551cc91848",
+    "zoo-1.svg": "b254278d5ab25a0dc5bfed4cfcc80e708154067e9e77e50bada272b1683db4b8",
+    "zoo-2.png": "a47cc285bcc6c812e6b39796714ea9407218c40364f3c0f67b7dcbb7710281d3",
+    "zoo-2.svg": "9c0c345ea75ba0b3dbbdaf7da1d5e5a9fdcf69e56754ea7fbcd813edb5bdc48e",
+    "zoo-3.png": "7aa5190646bd84a19085ecae0fd48947cd46be8eee1a59949418ac7d3bf37d6b",
+    "zoo-3.svg": "3e37b966d9d37d4c6ad43fdfe18d9a48eb5999e0e2c54f75078c48b1a243f8c7",
+    "zoo-4.png": "c3f60e67b11e6fae534751388cf15446eab70fa37e81e0e8c4302c82d1f4e68d",
+    "zoo-4.svg": "7b8d4cbf6cc6b89c64f12fcf0db103494b19d579775c343e8d6cd041ac018157",
+    "zoo-5.png": "eeaab6df8b22aee02287b67da72c24d4c15dbc849ee768bacf8d569390359d09",
+    "zoo-5.svg": "31e480eda6d4c802fd1868afab6acd856cd13b997b7a309dd33eb71c52ff264a",
+    "zoo.png": "6b920be2b8343b81a2dac6ad0d8cba244fa51cb189b9fe0d9fe8f93a5587dd9d"
+  },
+  "forge_version": "joil-forge/1.1.1",
+  "gallery": [
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 32,
+        "min_cyclone_d_mm": 6.0422,
+        "recycles": 0,
+        "series_depth": 2,
+        "splitters": 0,
+        "stage_ratio": 1.156532388864983
+      },
+      "cout_mg_l": 8.070798593154302,
+      "feasible": true,
+      "genome_sha256": "188c8b38b1e7cbe5f398a3ce4bea0ee88caeb1c84097714098e0252080ef1513",
+      "niche": "c4-d2-r0-x0-s2",
+      "q_treated_m3_h": 1.160636802147552,
+      "units": 2
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 32,
+        "min_cyclone_d_mm": 6.0422,
+        "recycles": 0,
+        "series_depth": 2,
+        "splitters": 0,
+        "stage_ratio": 1.1488530667637615
+      },
+      "cout_mg_l": 8.102671444426498,
+      "feasible": true,
+      "genome_sha256": "f1f0e6bd0c45161f8bd12d466685e1a35e1a4cc2b30b01f85c71a162ed7cf343",
+      "niche": "c4-d2-r0-x0-s0",
+      "q_treated_m3_h": 1.1604315236125777,
+      "units": 2
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 33,
+        "min_cyclone_d_mm": 5.0,
+        "recycles": 0,
+        "series_depth": 2,
+        "splitters": 0,
+        "stage_ratio": 0.8275131574592036
+      },
+      "cout_mg_l": 10.452028635327979,
+      "feasible": true,
+      "genome_sha256": "348cfeeaac03a281822eb8c787ba2be4edfae3b9d126b42e39ba240ce85696cd",
+      "niche": "c4-d2-r0-x0-s1",
+      "q_treated_m3_h": 1.1682028026820288,
+      "units": 2
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 32,
+        "min_cyclone_d_mm": 6.0422,
+        "recycles": 1,
+        "series_depth": 2,
+        "splitters": 0,
+        "stage_ratio": 1.156532388864983
+      },
+      "cout_mg_l": 10.512237395010855,
+      "feasible": true,
+      "genome_sha256": "277534f50bfe4ebdb147f2e012a4d936183af0745f42c809bdf3d6e11e123342",
+      "niche": "c4-d2-r1-x0-s2",
+      "q_treated_m3_h": 1.1578501908548116,
+      "units": 2
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 32,
+        "min_cyclone_d_mm": 6.0422,
+        "recycles": 1,
+        "series_depth": 2,
+        "splitters": 0,
+        "stage_ratio": 1.143772135976962
+      },
+      "cout_mg_l": 11.070386734462389,
+      "feasible": true,
+      "genome_sha256": "fd7c039f6a73581cb7119dc92e289e5d822bc2e377b4f9bbcd021fdf25a3d76e",
+      "niche": "c4-d2-r1-x0-s0",
+      "q_treated_m3_h": 1.111924968866255,
+      "units": 2
+    },
+    {
+      "behavior": {
+        "coalescer": false,
+        "cyclone_cells": 33,
+        "min_cyclone_d_mm": 5.0,
+        "recycles": 1,
+        "series_depth": 2,
+        "splitters": 0,
+        "stage_ratio": 0.8365400702693658
+      },
+      "cout_mg_l": 13.99178328526124,
+      "feasible": true,
+      "genome_sha256": "8d863988603b95aef89a041a6b8a5f1a7b8525882dad07acbee960a13940fca4",
+      "niche": "c4-d2-r1-x0-s1",
+      "q_treated_m3_h": 1.1290380962249167,
+      "units": 2
+    }
+  ],
+  "generation": 2000,
+  "history_last": {
+    "archive_feasible": 8,
+    "archive_niches": 427,
+    "best_cout_mg_l": 8.070798593154302,
+    "best_feasible": true,
+    "best_fitness": 2.5008006694250824,
+    "best_hash": "188c8b38b1e7cbe5f398a3ce4bea0ee88caeb1c84097714098e0252080ef1513",
+    "best_q_treated_m3_h": 1.160636802147552,
+    "best_violation": 0.0,
+    "evaluations": 192096,
+    "feasible_fraction": 1.0,
+    "generation": 2000,
+    "median_violation": 0.0,
+    "wall_s": 0.442531133
+  },
+  "manifest": {
+    "campaign_sha256": "29875952c998a3c40f466730b1e957dad14d1aa375485efbfab47a54eb0b9c28",
+    "evidence_class": "unvalidated_reduced_order_screen",
+    "forge_version": "joil-forge/1.1.1",
+    "model_version": "joil-forge-judges/1.0.0",
+    "parent_manifest_sha256": null,
+    "seeded_from": "seeds/receipt-bests.json"
+  },
+  "model_version": "joil-forge-judges/1.0.0",
+  "note": "Screen-model search output. Not CFD, not a measurement, not physical validation.",
+  "random_search_control": null
+}

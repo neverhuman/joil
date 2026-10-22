@@ -1,0 +1,1138 @@
+{
+  "format": "joil-forge-fleet-summary/1",
+  "evidence_class": "unvalidated_reduced_order_screen",
+  "forge_version": "joil-forge/1.1.1",
+  "model_version": "joil-forge-judges/1.0.0",
+  "replicates": [
+    {
+      "seed": 20261101,
+      "seeded": {
+        "source": "S-20261101",
+        "campaign_sha256": "3dcd499effb70e9224e656bb470382dce1e46e812bdd9e190a5b5685b7d6eb9e",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "a56cd615725e22aa062f73a75d0baca446bc8ad8f33ff9150f38739964e12ff7",
+        "best": {
+          "feasible": true,
+          "fitness": 2.50199312640746,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.1629672979760242,
+          "q_treated_nominal_m3_h": 1.181306499281728,
+          "q_feed_m3_h": 1.169976627954097,
+          "cout_mg_l": 8.092687065077254,
+          "feed_pressure_kpa": 399.9875070941655,
+          "specific_energy_kj_m3": 402.39827516065293,
+          "shell_mass_kg": 0.7470557321349097,
+          "reject_fraction": 0.005991,
+          "separation": 2.7708314624754307,
+          "duty_cout_mg_l": [
+            12.97139814895148,
+            151.10178177728417
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            1.181306499281728,
+            1.1629672979760242,
+            1.2188163040234201,
+            1.166452320031948
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 446,
+        "feasible_niches": 20,
+        "first_feasible_evaluations": 768
+      },
+      "de_novo": {
+        "source": "D-20261101",
+        "campaign_sha256": "3dcd499effb70e9224e656bb470382dce1e46e812bdd9e190a5b5685b7d6eb9e",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "41e8eb7b4eea756a8cad80e0066db568e244f2af7ce1a177241250c2542acfff",
+        "best": {
+          "feasible": true,
+          "fitness": 2.764405233308902,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.9032157218680409,
+          "q_treated_nominal_m3_h": 0.903850070975025,
+          "q_feed_m3_h": 0.905933522435347,
+          "cout_mg_l": 5.399525021676714,
+          "feed_pressure_kpa": 399.9915257079426,
+          "specific_energy_kj_m3": 401.19511104106584,
+          "shell_mass_kg": 0.390990558658088,
+          "reject_fraction": 0.003,
+          "separation": 3.0417608041873567,
+          "duty_cout_mg_l": [
+            9.509454261943288,
+            119.88767704640566
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            0.903850070975025,
+            0.9032157218680409,
+            0.9463217584551642,
+            0.9040767321811787
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 443,
+        "feasible_niches": 17,
+        "first_feasible_evaluations": 49536
+      },
+      "random": {
+        "source": "R-20261101",
+        "campaign_sha256": "3dcd499effb70e9224e656bb470382dce1e46e812bdd9e190a5b5685b7d6eb9e",
+        "generation": null,
+        "evaluations": 768384,
+        "best_genome_sha256": "18ad59bd533ff39d3b4de23dd1737cd69f9805b0968d6f8c62ba916c94cf5bff",
+        "best": {
+          "feasible": true,
+          "fitness": 2.114477391615775,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.8483648891192561,
+          "q_treated_nominal_m3_h": 0.9952391620818405,
+          "q_feed_m3_h": 0.8545656172379346,
+          "cout_mg_l": 8.44763755078081,
+          "feed_pressure_kpa": 399.9980859827706,
+          "specific_energy_kj_m3": 402.9216857344599,
+          "shell_mass_kg": 0.40714046204435433,
+          "reject_fraction": 0.007256000000000001,
+          "separation": 2.4303030641939483,
+          "duty_cout_mg_l": [
+            19.53257618131629,
+            198.27869745321462
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            0.9952391620818405,
+            0.8483648891192561,
+            1.2641523567169102,
+            0.9305423738920449
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 421,
+        "feasible_niches": 2,
+        "first_feasible_evaluations": 152064
+      },
+      "search_vs_random": "first_better",
+      "seeded_vs_de_novo": "second_better"
+    },
+    {
+      "seed": 20261102,
+      "seeded": {
+        "source": "S-20261102",
+        "campaign_sha256": "70b81954fc87b44d8a49d704973ccb69ad44fc5a54272dd12d9f1e18e752aafe",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "b160fe6ab6bb5498876f2b2496d23769c9bb5c0395fa108524ea62c2e270ac83",
+        "best": {
+          "feasible": true,
+          "fitness": 2.91886468132336,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.9015564404802725,
+          "q_treated_nominal_m3_h": 0.9026119937756366,
+          "q_feed_m3_h": 0.9042692482249474,
+          "cout_mg_l": 4.171645509779732,
+          "feed_pressure_kpa": 399.99725192787645,
+          "specific_energy_kj_m3": 401.20085449135047,
+          "shell_mass_kg": 0.4062034500478719,
+          "reject_fraction": 0.003,
+          "separation": 3.2028688263469096,
+          "duty_cout_mg_l": [
+            7.879294970300251,
+            104.83495911649119
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            0.9026119937756366,
+            0.9015564404802725,
+            0.9758969392270487,
+            0.918532989926464
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 446,
+        "feasible_niches": 38,
+        "first_feasible_evaluations": 768
+      },
+      "de_novo": {
+        "source": "D-20261102",
+        "campaign_sha256": "70b81954fc87b44d8a49d704973ccb69ad44fc5a54272dd12d9f1e18e752aafe",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "522ae30cbeade26cfd5c6085699063ffbec322e1ca4038088b7c58a88647f134",
+        "best": {
+          "feasible": true,
+          "fitness": 2.700438754917122,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.6618659031029276,
+          "q_treated_nominal_m3_h": 0.6691637088700515,
+          "q_feed_m3_h": 0.6658550406514705,
+          "cout_mg_l": 4.760831148408049,
+          "feed_pressure_kpa": 399.9943388713214,
+          "specific_energy_kj_m3": 402.4051481136704,
+          "shell_mass_kg": 0.4222504574892588,
+          "reject_fraction": 0.005991,
+          "separation": 3.1655337189271826,
+          "duty_cout_mg_l": [
+            7.940442688251514,
+            112.09277892761182
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            0.6691637088700515,
+            0.6618659031029276,
+            0.696148030624631,
+            0.662463619109493
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 440,
+        "feasible_niches": 61,
+        "first_feasible_evaluations": 4224
+      },
+      "random": {
+        "source": "R-20261102",
+        "campaign_sha256": "70b81954fc87b44d8a49d704973ccb69ad44fc5a54272dd12d9f1e18e752aafe",
+        "generation": null,
+        "evaluations": 768384,
+        "best_genome_sha256": "9e8cf2e7c9b14a10339ca071966d5f5760e730fa1564b03b7ed2ed4bc86cb94d",
+        "best": {
+          "feasible": true,
+          "fitness": 2.122829219047055,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.8789589566662325,
+          "q_treated_nominal_m3_h": 1.0275509060051822,
+          "q_feed_m3_h": 0.8956192662571479,
+          "cout_mg_l": 14.095211470301102,
+          "feed_pressure_kpa": 399.99277383364597,
+          "specific_energy_kj_m3": 407.57447420276577,
+          "shell_mass_kg": 0.3380947739755864,
+          "reject_fraction": 0.018602,
+          "separation": 2.395936775076618,
+          "duty_cout_mg_l": [
+            22.014310668958625,
+            188.44328766257368
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            1.0275509060051822,
+            0.8789589566662325,
+            1.2905720705019743,
+            0.9423191943546527
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 415,
+        "feasible_niches": 3,
+        "first_feasible_evaluations": 122112
+      },
+      "search_vs_random": "first_better",
+      "seeded_vs_de_novo": "first_better"
+    },
+    {
+      "seed": 20261103,
+      "seeded": {
+        "source": "S-20261103",
+        "campaign_sha256": "d41f62482354bbfd3f01a25cce43303dd7eba5d3049f813c294328eca27621ff",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "dc1344396ce9c5ac9066078961fddf1be33fb8a2b11a8ac43dba5c16b04867bc",
+        "best": {
+          "feasible": true,
+          "fitness": 2.5085632055213827,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.1678375381912551,
+          "q_treated_nominal_m3_h": 1.1911018280272523,
+          "q_feed_m3_h": 1.1748762216350708,
+          "cout_mg_l": 7.989536881884877,
+          "feed_pressure_kpa": 399.9979365353812,
+          "specific_energy_kj_m3": 402.40876746124144,
+          "shell_mass_kg": 0.7484340802896245,
+          "reject_fraction": 0.005991,
+          "separation": 2.7755950480712612,
+          "duty_cout_mg_l": [
+            12.894578494272086,
+            150.56070073164292
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            1.1911018280272523,
+            1.1678375381912551,
+            1.2289637483013398,
+            1.176360425044763
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 446,
+        "feasible_niches": 16,
+        "first_feasible_evaluations": 768
+      },
+      "de_novo": {
+        "source": "D-20261103",
+        "campaign_sha256": "d41f62482354bbfd3f01a25cce43303dd7eba5d3049f813c294328eca27621ff",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "98b8a3683eeecdc2f2a7bcd7a4512ef42558c72e591d5ac7e28d3b46b3a03c65",
+        "best": {
+          "feasible": true,
+          "fitness": 3.098871702472149,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.7736279678925957,
+          "q_treated_nominal_m3_h": 0.7744042799164353,
+          "q_feed_m3_h": 0.7782907075213561,
+          "cout_mg_l": 2.8513698781657366,
+          "feed_pressure_kpa": 399.9923247656792,
+          "specific_energy_kj_m3": 402.4031218687951,
+          "shell_mass_kg": 0.5515829938597102,
+          "reject_fraction": 0.005991,
+          "separation": 3.5260303968714934,
+          "duty_cout_mg_l": [
+            5.130954103722354,
+            84.3530491092777
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            0.7744042799164353,
+            0.7736279678925957,
+            0.8346805506790644,
+            0.7819881225899323
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 446,
+        "feasible_niches": 53,
+        "first_feasible_evaluations": 316416
+      },
+      "random": {
+        "source": "R-20261103",
+        "campaign_sha256": "d41f62482354bbfd3f01a25cce43303dd7eba5d3049f813c294328eca27621ff",
+        "generation": null,
+        "evaluations": 768384,
+        "best_genome_sha256": "93e318d86d95e8bf4510e56235b5174b5040335ccb327099588d5f8950b96094",
+        "best": {
+          "feasible": true,
+          "fitness": 1.9490170001221625,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.78233801006143,
+          "q_treated_nominal_m3_h": 0.78889104713407,
+          "q_feed_m3_h": 0.7866749490555733,
+          "cout_mg_l": 14.96443333589005,
+          "feed_pressure_kpa": 399.9922803079111,
+          "specific_energy_kj_m3": 402.2096621754845,
+          "shell_mass_kg": 0.2434013988987219,
+          "reject_fraction": 0.005513,
+          "separation": 2.2277455229943746,
+          "duty_cout_mg_l": [
+            26.61546970579412,
+            218.19293990126974
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            0.78889104713407,
+            0.78233801006143,
+            0.8499254312353642,
+            0.8168847471649635
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 418,
+        "feasible_niches": 1,
+        "first_feasible_evaluations": 270720
+      },
+      "search_vs_random": "first_better",
+      "seeded_vs_de_novo": "second_better"
+    },
+    {
+      "seed": 20261104,
+      "seeded": {
+        "source": "S-20261104",
+        "campaign_sha256": "559328ce968b5d0d943a294f38b2d615ef2fa20bdb3651d987feef375cc0ad3d",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "ab773164a39e4a54b4eb8a85fe31300167127a076a3aa7a4729eab00c9751853",
+        "best": {
+          "feasible": true,
+          "fitness": 2.507634289922017,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.1669008726621597,
+          "q_treated_nominal_m3_h": 1.1905245610443633,
+          "q_feed_m3_h": 1.173933910721291,
+          "cout_mg_l": 7.987792349977352,
+          "feed_pressure_kpa": 399.9887034874548,
+          "specific_energy_kj_m3": 402.39947876473434,
+          "shell_mass_kg": 0.7484694210338845,
+          "reject_fraction": 0.005991,
+          "separation": 2.775068631011124,
+          "duty_cout_mg_l": [
+            12.902880177361153,
+            150.62232720230818
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            1.1905245610443633,
+            1.1669008726621597,
+            1.22840919930313,
+            1.1756723805850262
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 446,
+        "feasible_niches": 10,
+        "first_feasible_evaluations": 768
+      },
+      "de_novo": {
+        "source": "D-20261104",
+        "campaign_sha256": "559328ce968b5d0d943a294f38b2d615ef2fa20bdb3651d987feef375cc0ad3d",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "dc3aa1a188d4b2362387a8de1d4dec57b0e38b5906b0e53b6fb18ee5a1b4c7c0",
+        "best": {
+          "feasible": true,
+          "fitness": 3.0098694577475045,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.7451445597605637,
+          "q_treated_nominal_m3_h": 1.7561771381866789,
+          "q_feed_m3_h": 1.7503957470015685,
+          "cout_mg_l": 5.768411392107968,
+          "feed_pressure_kpa": 399.98833634097963,
+          "specific_energy_kj_m3": 401.19191207721127,
+          "shell_mass_kg": 0.5494328264151147,
+          "reject_fraction": 0.003,
+          "separation": 3.008937874512954,
+          "duty_cout_mg_l": [
+            9.856488607577255,
+            123.51438761427893
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            1.7561771381866789,
+            1.7451445597605637,
+            1.8434388854120363,
+            1.7464869887265946
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 440,
+        "feasible_niches": 34,
+        "first_feasible_evaluations": 5376
+      },
+      "random": {
+        "source": "R-20261104",
+        "campaign_sha256": "559328ce968b5d0d943a294f38b2d615ef2fa20bdb3651d987feef375cc0ad3d",
+        "generation": null,
+        "evaluations": 768384,
+        "best_genome_sha256": "935de64096bd79c443f82a188e9ba5caf0ea40145a3c973240ce21b392db8666",
+        "best": {
+          "feasible": true,
+          "fitness": 1.9892967118962286,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.8278972292109005,
+          "q_treated_nominal_m3_h": 0.9788722226590533,
+          "q_feed_m3_h": 0.8373704005523492,
+          "cout_mg_l": 16.673142775763967,
+          "feed_pressure_kpa": 399.98775246573194,
+          "specific_energy_kj_m3": 404.5645916915383,
+          "shell_mass_kg": 0.31575214439394345,
+          "reject_fraction": 0.011313,
+          "separation": 2.280220483889885,
+          "duty_cout_mg_l": [
+            25.373648003529684,
+            206.0690391879336
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            0.9788722226590533,
+            0.8278972292109005,
+            1.1584435199948688,
+            0.913390051337889
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 417,
+        "feasible_niches": 1,
+        "first_feasible_evaluations": 33792
+      },
+      "search_vs_random": "first_better",
+      "seeded_vs_de_novo": "second_better"
+    },
+    {
+      "seed": 20261105,
+      "seeded": {
+        "source": "S-20261105",
+        "campaign_sha256": "90e90578276b60bc922e480daf4e8ae7d89ecd92421e61f4429c8a8e34f532ee",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "79abae61b8843db7bd06642f8ebda06c928cf841951ca8e606b53110cddece32",
+        "best": {
+          "feasible": true,
+          "fitness": 2.5097532363731094,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.1609084525063296,
+          "q_treated_nominal_m3_h": 1.1761834608771087,
+          "q_feed_m3_h": 1.1679053735995646,
+          "cout_mg_l": 8.048886250041722,
+          "feed_pressure_kpa": 399.9910390220501,
+          "specific_energy_kj_m3": 402.4018283758498,
+          "shell_mass_kg": 0.7476975480940087,
+          "reject_fraction": 0.005991,
+          "separation": 2.779608547287528,
+          "duty_cout_mg_l": [
+            12.830383130080387,
+            150.10427850534583
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            1.1761834608771087,
+            1.1609084525063296,
+            1.2131655105769201,
+            1.161840307949558
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 446,
+        "feasible_niches": 12,
+        "first_feasible_evaluations": 768
+      },
+      "de_novo": {
+        "source": "D-20261105",
+        "campaign_sha256": "90e90578276b60bc922e480daf4e8ae7d89ecd92421e61f4429c8a8e34f532ee",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "e0b48c07db588b8195fb1f95a36c344610195984accdad25c98142fcada81308",
+        "best": {
+          "feasible": true,
+          "fitness": 2.941622237245419,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.9088197526808388,
+          "q_treated_nominal_m3_h": 0.9102489163036253,
+          "q_feed_m3_h": 0.9125145239884681,
+          "cout_mg_l": 4.070471925252671,
+          "feed_pressure_kpa": 399.9951275765795,
+          "specific_energy_kj_m3": 401.6212921886513,
+          "shell_mass_kg": 0.4092264204310914,
+          "reject_fraction": 0.004049,
+          "separation": 3.2229883331250204,
+          "duty_cout_mg_l": [
+            7.685995547191245,
+            103.23281717218484
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            0.9102489163036253,
+            0.9088197526808388,
+            0.9820339984630769,
+            0.9244947370623111
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 445,
+        "feasible_niches": 12,
+        "first_feasible_evaluations": 8448
+      },
+      "random": {
+        "source": "R-20261105",
+        "campaign_sha256": "90e90578276b60bc922e480daf4e8ae7d89ecd92421e61f4429c8a8e34f532ee",
+        "generation": null,
+        "evaluations": 768384,
+        "best_genome_sha256": "51db47239f08a07853a8492d0bc9f234ddf0c95710959fa2816f1db6feddb837",
+        "best": {
+          "feasible": true,
+          "fitness": 2.149690846507422,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.2903599773207934,
+          "q_treated_nominal_m3_h": 1.4926058168729563,
+          "q_feed_m3_h": 1.3034505310036633,
+          "cout_mg_l": 15.93429323561248,
+          "feed_pressure_kpa": 399.9931540489474,
+          "specific_energy_kj_m3": 404.0510386299076,
+          "shell_mass_kg": 0.391788718096733,
+          "reject_fraction": 0.010043,
+          "separation": 2.250768099658752,
+          "duty_cout_mg_l": [
+            28.656502680647794,
+            193.53275817271737
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            1.4926058168729563,
+            1.4005315159531992,
+            1.5988375002072301,
+            1.2903599773207934
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 421,
+        "feasible_niches": 2,
+        "first_feasible_evaluations": 267648
+      },
+      "search_vs_random": "first_better",
+      "seeded_vs_de_novo": "second_better"
+    },
+    {
+      "seed": 20261106,
+      "seeded": {
+        "source": "S-20261106",
+        "campaign_sha256": "e16484a6bf16f6a4f87cc65b1f6d7bc199226a6641e16d11168ff3a455dbc2b7",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "d09f0ee04af199e1b4cd985365f2dbf383812adb7a417c69c21a825974f2a2c3",
+        "best": {
+          "feasible": true,
+          "fitness": 2.5073250984013176,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.162831223952952,
+          "q_treated_nominal_m3_h": 1.179589772518276,
+          "q_feed_m3_h": 1.1698397337981365,
+          "cout_mg_l": 8.049513434881062,
+          "feed_pressure_kpa": 399.9920552458382,
+          "specific_energy_kj_m3": 402.4028507245289,
+          "shell_mass_kg": 0.7486442129453771,
+          "reject_fraction": 0.005991,
+          "separation": 2.77654339314512,
+          "duty_cout_mg_l": [
+            12.879202798722769,
+            150.45480902853174
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            1.179589772518276,
+            1.162831223952952,
+            1.2167602801364206,
+            1.1648934794152892
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 446,
+        "feasible_niches": 18,
+        "first_feasible_evaluations": 768
+      },
+      "de_novo": {
+        "source": "D-20261106",
+        "campaign_sha256": "e16484a6bf16f6a4f87cc65b1f6d7bc199226a6641e16d11168ff3a455dbc2b7",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "855a11b4daa3abf1a02252d86f62d430b85dc2cf38bce28b0bd60f6291d714dd",
+        "best": {
+          "feasible": true,
+          "fitness": 3.0389438690550783,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.8415172704779333,
+          "q_treated_nominal_m3_h": 0.842911045651179,
+          "q_feed_m3_h": 0.8465891862930147,
+          "cout_mg_l": 3.461079496761831,
+          "feed_pressure_kpa": 399.98954509147836,
+          "specific_energy_kj_m3": 402.40032544119657,
+          "shell_mass_kg": 0.5378597009149992,
+          "reject_fraction": 0.005991,
+          "separation": 3.420263920731407,
+          "duty_cout_mg_l": [
+            5.851658257874131,
+            91.38765941300859
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            0.842911045651179,
+            0.8415172704779333,
+            0.8991673578597942,
+            0.8433479547208207
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 444,
+        "feasible_niches": 60,
+        "first_feasible_evaluations": 19968
+      },
+      "random": {
+        "source": "R-20261106",
+        "campaign_sha256": "e16484a6bf16f6a4f87cc65b1f6d7bc199226a6641e16d11168ff3a455dbc2b7",
+        "generation": null,
+        "evaluations": 768384,
+        "best_genome_sha256": "ad8f9569ca76ccf2a663ff8de1e242a92a584ea22528924948180fcd82a7fa58",
+        "best": {
+          "feasible": true,
+          "fitness": 1.9679222084177996,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.7832790734433066,
+          "q_treated_nominal_m3_h": 0.8559838984892723,
+          "q_feed_m3_h": 0.7931980146160806,
+          "cout_mg_l": 13.577207651570859,
+          "feed_pressure_kpa": 399.9972103087805,
+          "specific_energy_kj_m3": 405.0625170849275,
+          "shell_mass_kg": 0.29059332252232284,
+          "reject_fraction": 0.012505,
+          "separation": 2.274398555987252,
+          "duty_cout_mg_l": [
+            23.836405568264247,
+            221.9278230790511
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            0.8559838984892723,
+            0.7832790734433066,
+            0.9594777546587872,
+            0.8803338319413098
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 417,
+        "feasible_niches": 3,
+        "first_feasible_evaluations": 19200
+      },
+      "search_vs_random": "first_better",
+      "seeded_vs_de_novo": "second_better"
+    },
+    {
+      "seed": 20261107,
+      "seeded": {
+        "source": "S-20261107",
+        "campaign_sha256": "71efd0116cbc363873e0b30909d498c084393dad6b6f536c4e6548a64b3b03c0",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "0b42300701fdc86cbaa7cbd85eae1b76ed4e1107d21579fcdd1c845f369f0d00",
+        "best": {
+          "feasible": true,
+          "fitness": 2.535845811160852,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.168483093086742,
+          "q_treated_nominal_m3_h": 1.1899089744596314,
+          "q_feed_m3_h": 1.1756424061745505,
+          "cout_mg_l": 7.749360979862326,
+          "feed_pressure_kpa": 399.9911839941868,
+          "specific_energy_kj_m3": 402.4419358583089,
+          "shell_mass_kg": 0.7561398576677529,
+          "reject_fraction": 0.006089703,
+          "separation": 2.804158430148513,
+          "duty_cout_mg_l": [
+            12.453219809908118,
+            147.24050059509423
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            1.1899089744596314,
+            1.168483093086742,
+            1.224576513023891,
+            1.1727685469090527
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 445,
+        "feasible_niches": 14,
+        "first_feasible_evaluations": 768
+      },
+      "de_novo": {
+        "source": "D-20261107",
+        "campaign_sha256": "71efd0116cbc363873e0b30909d498c084393dad6b6f536c4e6548a64b3b03c0",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "45a6507899bdb89fabfc74764422e2cb22a544238610bf862dfe630cf3243717",
+        "best": {
+          "feasible": true,
+          "fitness": 2.586817959156355,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.9935300659035579,
+          "q_treated_nominal_m3_h": 1.0057617695465628,
+          "q_feed_m3_h": 0.999518179315839,
+          "cout_mg_l": 7.245773472223636,
+          "feed_pressure_kpa": 399.9880257803707,
+          "specific_energy_kj_m3": 402.39879697303616,
+          "shell_mass_kg": 0.5900115565966557,
+          "reject_fraction": 0.005991,
+          "separation": 2.898989824142675,
+          "duty_cout_mg_l": [
+            11.090641823223669,
+            136.76745233878293
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            1.0057617695465628,
+            0.9935300659035579,
+            1.045095945483019,
+            0.9947265583945959
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 443,
+        "feasible_niches": 23,
+        "first_feasible_evaluations": 7296
+      },
+      "random": {
+        "source": "R-20261107",
+        "campaign_sha256": "71efd0116cbc363873e0b30909d498c084393dad6b6f536c4e6548a64b3b03c0",
+        "generation": null,
+        "evaluations": 768384,
+        "best_genome_sha256": "5bc92606bcdc13d7796075261663a03ea6b62ed6fbf26efc136df49f260db175",
+        "best": {
+          "feasible": true,
+          "fitness": 2.050827444984481,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.8450871309019085,
+          "q_treated_nominal_m3_h": 0.8918956792507643,
+          "q_feed_m3_h": 0.8501771414477561,
+          "cout_mg_l": 16.5040281874822,
+          "feed_pressure_kpa": 399.99550199699974,
+          "specific_energy_kj_m3": 402.40469892949056,
+          "shell_mass_kg": 0.2788055194795845,
+          "reject_fraction": 0.005987,
+          "separation": 2.3114711237526646,
+          "duty_cout_mg_l": [
+            24.477078405246036,
+            200.67446651635308
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            0.8918956792507643,
+            0.8450871309019085,
+            0.9985289837756267,
+            0.9369797627071407
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 416,
+        "feasible_niches": 3,
+        "first_feasible_evaluations": 160896
+      },
+      "search_vs_random": "first_better",
+      "seeded_vs_de_novo": "second_better"
+    },
+    {
+      "seed": 20261108,
+      "seeded": {
+        "source": "S-20261108",
+        "campaign_sha256": "f5aef6fa1ff9c14115991ef25b7264ed4f004a64ac512cc3d5a5989769badcc9",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "57867df735627d1bfb8336a63a5725851fdf10d5bf24d42a870b2f68dbd704b0",
+        "best": {
+          "feasible": true,
+          "fitness": 2.514295918003575,
+          "violation": 0.0,
+          "q_treated_m3_h": 1.1710239134929106,
+          "q_treated_nominal_m3_h": 1.188615603525176,
+          "q_feed_m3_h": 1.178081801566093,
+          "cout_mg_l": 8.0186904718658,
+          "feed_pressure_kpa": 399.98728721993416,
+          "specific_energy_kj_m3": 402.3980539612158,
+          "shell_mass_kg": 0.7508158157327668,
+          "reject_fraction": 0.005991,
+          "separation": 2.780435327864428,
+          "duty_cout_mg_l": [
+            12.819494946922703,
+            149.9835567881173
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            1.188615603525176,
+            1.1710239134929106,
+            1.2228774534017177,
+            1.1714742241034837
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 446,
+        "feasible_niches": 9,
+        "first_feasible_evaluations": 768
+      },
+      "de_novo": {
+        "source": "D-20261108",
+        "campaign_sha256": "f5aef6fa1ff9c14115991ef25b7264ed4f004a64ac512cc3d5a5989769badcc9",
+        "generation": 2000,
+        "evaluations": 768384,
+        "best_genome_sha256": "0dc8e008c14da155be1be7aee9aa77ba2ba006614f2f82338b3b8a7f85cb03b8",
+        "best": {
+          "feasible": true,
+          "fitness": 2.8844045413185118,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.7112491608073515,
+          "q_treated_nominal_m3_h": 0.7856675815593214,
+          "q_feed_m3_h": 0.7182824027674288,
+          "cout_mg_l": 3.902278431476589,
+          "feed_pressure_kpa": 399.98821629832173,
+          "specific_energy_kj_m3": 403.94353049962433,
+          "shell_mass_kg": 0.4651510756084016,
+          "reject_fraction": 0.009791750338000001,
+          "separation": 3.328988049727906,
+          "duty_cout_mg_l": [
+            6.527770948772475,
+            98.32927035619537
+          ],
+          "units": 2,
+          "per_closure_q_m3_h": [
+            0.7856675815593214,
+            0.7112491608073515,
+            0.8411631492818096,
+            0.7616154910483748
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 443,
+        "feasible_niches": 21,
+        "first_feasible_evaluations": 85632
+      },
+      "random": {
+        "source": "R-20261108",
+        "campaign_sha256": "f5aef6fa1ff9c14115991ef25b7264ed4f004a64ac512cc3d5a5989769badcc9",
+        "generation": null,
+        "evaluations": 768384,
+        "best_genome_sha256": "b287ea7af88a1b95c983d344c879889dee6de5d8eb3ec353e57f3dc7feed2af6",
+        "best": {
+          "feasible": true,
+          "fitness": 1.934422985464909,
+          "violation": 0.0,
+          "q_treated_m3_h": 0.9395978549919544,
+          "q_treated_nominal_m3_h": 1.024926022705247,
+          "q_feed_m3_h": 0.9456376426153386,
+          "cout_mg_l": 17.07577754460169,
+          "feed_pressure_kpa": 399.99997405068757,
+          "specific_energy_kj_m3": 402.57119628133654,
+          "shell_mass_kg": 0.3282922414528409,
+          "reject_fraction": 0.006387,
+          "separation": 2.166672422025261,
+          "duty_cout_mg_l": [
+            27.654585071189167,
+            237.27670548115924
+          ],
+          "units": 1,
+          "per_closure_q_m3_h": [
+            1.024926022705247,
+            0.9395978549919544,
+            1.0590624153148014,
+            1.0113448554692195
+          ],
+          "reasons": [],
+          "numerical_failure": false
+        },
+        "niches": 420,
+        "feasible_niches": 3,
+        "first_feasible_evaluations": 110592
+      },
+      "search_vs_random": "first_better",
+      "seeded_vs_de_novo": "second_better"
+    }
+  ],
+  "search_vs_random": {
+    "replicates": 8,
+    "first_better": 8,
+    "second_better": 0,
+    "ties_or_not_comparable": 0,
+    "p_one_sided": 0.00390625
+  },
+  "seeded_vs_de_novo": {
+    "replicates": 8,
+    "first_better": 1,
+    "second_better": 7,
+    "ties_or_not_comparable": 0,
+    "p_one_sided": 0.99609375
+  },
+  "other_runs": [
+    {
+      "source": "C",
+      "campaign_sha256": "29875952c998a3c40f466730b1e957dad14d1aa375485efbfab47a54eb0b9c28",
+      "generation": 2000,
+      "evaluations": 192096,
+      "best_genome_sha256": "188c8b38b1e7cbe5f398a3ce4bea0ee88caeb1c84097714098e0252080ef1513",
+      "best": {
+        "feasible": true,
+        "fitness": 2.5008006694250824,
+        "violation": 0.0,
+        "q_treated_m3_h": 1.160636802147552,
+        "q_treated_nominal_m3_h": 1.1797475282384404,
+        "q_feed_m3_h": 1.1676320859746259,
+        "cout_mg_l": 8.070798593154302,
+        "feed_pressure_kpa": 399.99107997524,
+        "specific_energy_kj_m3": 402.40186957586906,
+        "shell_mass_kg": 0.7474950710839904,
+        "reject_fraction": 0.005991,
+        "separation": 2.770732393066881,
+        "duty_cout_mg_l": [
+          12.972543894266227,
+          151.11837579870823
+        ],
+        "units": 2,
+        "per_closure_q_m3_h": [
+          1.1797475282384404,
+          1.160636802147552,
+          1.2169230069578394,
+          1.1648740070962997
+        ],
+        "reasons": [],
+        "numerical_failure": false
+      },
+      "niches": 427,
+      "feasible_niches": 8,
+      "first_feasible_evaluations": 192
+    },
+    {
+      "source": "C0",
+      "campaign_sha256": "29875952c998a3c40f466730b1e957dad14d1aa375485efbfab47a54eb0b9c28",
+      "generation": 300,
+      "evaluations": 28896,
+      "best_genome_sha256": "a936a948205fadd103c7d0eab20488a38f6a76e207522f4d8c6948f2c38785eb",
+      "best": {
+        "feasible": true,
+        "fitness": 2.4992286804406945,
+        "violation": 0.0,
+        "q_treated_m3_h": 1.1604816019117477,
+        "q_treated_nominal_m3_h": 1.1795109025690247,
+        "q_feed_m3_h": 1.1674759503301757,
+        "cout_mg_l": 8.086729191062437,
+        "feed_pressure_kpa": 399.9916502022942,
+        "specific_energy_kj_m3": 402.4024432397435,
+        "shell_mass_kg": 0.7475707909170732,
+        "reject_fraction": 0.005991,
+        "separation": 2.76924281884816,
+        "duty_cout_mg_l": [
+          12.996924160522363,
+          151.28493013334995
+        ],
+        "units": 2,
+        "per_closure_q_m3_h": [
+          1.1795109025690247,
+          1.1604816019117477,
+          1.2166789248858232,
+          1.1646598330691291
+        ],
+        "reasons": [],
+        "numerical_failure": false
+      },
+      "niches": 363,
+      "feasible_niches": 6,
+      "first_feasible_evaluations": 192
+    },
+    {
+      "source": "P",
+      "campaign_sha256": "1b2229ea3784602d6edcf7351aa5852c3effc8763cd5a3461e76508836a50391",
+      "generation": 2000,
+      "evaluations": 768384,
+      "best_genome_sha256": "687e39640453fc77066636ba5d398484addf950950ddeb49c50e85843415a453",
+      "best": {
+        "feasible": true,
+        "fitness": 3.1046109073669363,
+        "violation": 0.0,
+        "q_treated_m3_h": 0.7725811809745751,
+        "q_treated_nominal_m3_h": 0.7734986582370794,
+        "q_feed_m3_h": 0.7772376115051021,
+        "cout_mg_l": 2.8307579940855057,
+        "feed_pressure_kpa": 399.9866991555814,
+        "specific_energy_kj_m3": 402.39746235253546,
+        "shell_mass_kg": 0.5481810133764385,
+        "reject_fraction": 0.005991,
+        "separation": 3.531515073007368,
+        "duty_cout_mg_l": [
+          5.096367711898018,
+          83.99902223844535
+        ],
+        "units": 2,
+        "per_closure_q_m3_h": [
+          0.7734986582370794,
+          0.7725811809745751,
+          0.833899570241043,
+          0.7812042080406327
+        ],
+        "reasons": [],
+        "numerical_failure": false
+      },
+      "niches": 446,
+      "feasible_niches": 99,
+      "first_feasible_evaluations": 768
+    },
+    {
+      "source": "P-repro",
+      "campaign_sha256": "29875952c998a3c40f466730b1e957dad14d1aa375485efbfab47a54eb0b9c28",
+      "generation": 300,
+      "evaluations": 28896,
+      "best_genome_sha256": "bbaf3bbc3cf96f42f1f2bc626e73711a9e854d3a02399c77988742816410074d",
+      "best": {
+        "feasible": true,
+        "fitness": 2.350931783432413,
+        "violation": 0.0,
+        "q_treated_m3_h": 0.9001743851884887,
+        "q_treated_nominal_m3_h": 1.0208189538436565,
+        "q_feed_m3_h": 0.9113102779097896,
+        "cout_mg_l": 6.662106913310862,
+        "feed_pressure_kpa": 399.98747963099765,
+        "specific_energy_kj_m3": 404.93565160336675,
+        "shell_mass_kg": 0.7162792231406473,
+        "reject_fraction": 0.012219650092,
+        "separation": 2.743101884138571,
+        "duty_cout_mg_l": [
+          13.462878910711074,
+          153.88774705497764
+        ],
+        "units": 2,
+        "per_closure_q_m3_h": [
+          1.0208189538436565,
+          0.9001743851884887,
+          1.1623251896383573,
+          0.9588570005185183
+        ],
+        "reasons": [],
+        "numerical_failure": false
+      },
+      "niches": 372,
+      "feasible_niches": 7,
+      "first_feasible_evaluations": 3456
+    }
+  ],
+  "overall_best": {
+    "source": "P",
+    "campaign_sha256": "1b2229ea3784602d6edcf7351aa5852c3effc8763cd5a3461e76508836a50391",
+    "generation": 2000,
+    "evaluations": 768384,
+    "best_genome_sha256": "687e39640453fc77066636ba5d398484addf950950ddeb49c50e85843415a453",
+    "best": {
+      "feasible": true,
+      "fitness": 3.1046109073669363,
+      "violation": 0.0,
+      "q_treated_m3_h": 0.7725811809745751,
+      "q_treated_nominal_m3_h": 0.7734986582370794,
+      "q_feed_m3_h": 0.7772376115051021,
+      "cout_mg_l": 2.8307579940855057,
+      "feed_pressure_kpa": 399.9866991555814,
+      "specific_energy_kj_m3": 402.39746235253546,
+      "shell_mass_kg": 0.5481810133764385,
+      "reject_fraction": 0.005991,
+      "separation": 3.531515073007368,
+      "duty_cout_mg_l": [
+        5.096367711898018,
+        83.99902223844535
+      ],
+      "units": 2,
+      "per_closure_q_m3_h": [
+        0.7734986582370794,
+        0.7725811809745751,
+        0.833899570241043,
+        0.7812042080406327
+      ],
+      "reasons": [],
+      "numerical_failure": false
+    },
+    "niches": 446,
+    "feasible_niches": 99,
+    "first_feasible_evaluations": 768
+  },
+  "note": "Screen-model search statistics over replicate runs that share one objective; not physical evidence. Rankings use the engine's order: feasible before infeasible, then higher fitness, else lower violation. Ties and incomparable replicates count against the first side of each sign test."
+}
