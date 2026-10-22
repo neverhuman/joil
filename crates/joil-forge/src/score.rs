@@ -88,7 +88,7 @@ pub struct Evaluator {
 impl Evaluator {
     pub fn new(c: &Campaign) -> Self {
         let mut closures = vec![Closure::nominal()];
-        for u in latin_hypercube::<14>(c.closure_samples, c.seed) {
+        for u in latin_hypercube::<14>(c.closure_samples, c.closure_seed()) {
             closures.push(Closure::from_unit(&u));
         }
         Self {

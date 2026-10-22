@@ -114,6 +114,10 @@ impl Duty {
 pub struct Campaign {
     pub name: String,
     pub seed: u64,
+    /// Seed of the Latin-hypercube closure samples; `seed` when absent. Replicate runs set
+    /// it so they share one objective while their search randomness differs.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub closure_seed: Option<u64>,
     pub population: usize,
     pub islands: usize,
     pub migrate_every: usize,
@@ -142,6 +146,7 @@ impl Default for Campaign {
         Self {
             name: "forge-v2".into(),
             seed: 20_261_021,
+            closure_seed: None,
             population: 48,
             islands: 2,
             migrate_every: 5,
@@ -164,6 +169,11 @@ impl Default for Campaign {
 }
 
 impl Campaign {
+    /// Seed of the closure samples every candidate is scored under.
+    pub fn closure_seed(&self) -> u64 {
+        self.closure_seed.unwrap_or(self.seed)
+    }
+
     pub fn validate(&self) -> Result<(), String> {
         if self.population < 4 || self.islands == 0 || self.tournament == 0 {
             return Err("population >= 4, islands >= 1 and tournament >= 1 are required".into());
