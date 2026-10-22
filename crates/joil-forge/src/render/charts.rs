@@ -194,7 +194,7 @@ pub fn stage_dsd_chart(ev: &PlantEvaluation, grid: &SizeGrid, title: &str) -> St
 }
 
 /// Round tick values: steps of 1, 2, 2.5 or 5 times a power of ten covering `[lo, hi]`.
-fn nice_ticks(lo: f64, hi: f64, target: usize) -> (Vec<f64>, usize) {
+pub(crate) fn nice_ticks(lo: f64, hi: f64, target: usize) -> (Vec<f64>, usize) {
     ticks_with(lo, hi, target, false)
 }
 

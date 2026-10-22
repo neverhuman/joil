@@ -2,7 +2,7 @@
 
 use super::html::{dashboard, MeshPayload};
 use super::svg::{comparison_chart, evolution_chart, grade_chart, pfd, stage_dsd_chart};
-use super::views::{plate, thumbnail};
+use super::views::{hero, plate, thumbnail};
 use crate::cad::{self, write_outputs};
 use crate::campaign::Campaign;
 use crate::checkpoint;
@@ -73,6 +73,9 @@ pub fn duty_evaluations(
 }
 
 /// Window of the head region for detail views (mm from the top face).
+/// Size of the hero render (pixels).
+const HERO: (usize, usize) = (1600, 900);
+
 fn head_window(ph: &crate::develop::Phenotype) -> (f64, f64) {
     let first = ph.layout.bays.first().copied().unwrap_or([0.0, 200.0]);
     let span = (first[1] - 0.0).clamp(120.0, 260.0);
@@ -96,6 +99,15 @@ pub fn design_figures(
         head_window(&ph),
     );
     files.push(write(&out.join("plate.png"), &img.png())?);
+    let img = hero(
+        &meshed.fluid,
+        &meshed.part,
+        meshed.report.length_mm,
+        meshed.report.envelope_radius_mm,
+        HERO.0,
+        HERO.1,
+    );
+    files.push(write(&out.join("hero.png"), &img.png())?);
     files.push(write(
         &out.join("pfd.svg"),
         pfd(&ph, at.as_ref(), Some(&score), "Evolved process network").as_bytes(),
@@ -236,6 +248,15 @@ pub fn run_report(
         head_window(&ph),
     );
     write(&out.join("best-plate.png"), &plate_img.png())?;
+    let hero_img = hero(
+        &meshed.fluid,
+        &meshed.part,
+        meshed.report.length_mm,
+        meshed.report.envelope_radius_mm,
+        HERO.0,
+        HERO.1,
+    );
+    write(&out.join("best-hero.png"), &hero_img.png())?;
     let pfd_svg = pfd(
         &ph,
         at.as_ref(),
