@@ -1,0 +1,59 @@
+{
+  "schema": "joil-forge-fleet-preregistration/1",
+  "registered_utc": "2026-10-22T00:26:23Z",
+  "evidence_class": "unvalidated_reduced_order_screen",
+  "purpose": "Fleet-scale Forge v2 search for the paper and README: (1) does island evolution beat equal-budget random search on the forge-v2 objective across independent replicates, and (2) how far does search seeded from the last best design (Forge v2 demo) improve on it. Registered before any fleet run starts; only the pilots C0 and P-repro below were run before registration.",
+  "source": {
+    "base_commit": "fc26a4095ed57c4f6eda653f4db2720719c5d38e",
+    "registration_change": "adds the optional campaign field closure_seed (absent: closure samples come from seed, exactly as before; forge-v2 digest unchanged and pinned by test closure_seed_lets_replicates_share_one_objective) and campaigns/forge-v2-fleet/seed-20261101..20261109.json",
+    "forge_version": "joil-forge/1.1.1",
+    "model_version": "joil-forge-judges/1.0.0",
+    "run_binary": "built from this registration commit with `cargo build --release --locked -p joil-forge` (Rust 1.95.0, x86_64-unknown-linux-gnu); its SHA-256 is recorded in the launch receipt before the first fleet job starts. Replicate 8 runs on macOS aarch64 (rustc 1.97.1, platform libm) and is disclosed as a platform difference."
+  },
+  "objective": {
+    "campaign_base": "campaigns/forge-v2.json (sha256 of the campaign struct 29875952c998a3c40f466730b1e957dad14d1aa375485efbfab47a54eb0b9c28)",
+    "fleet_campaigns": "campaigns/forge-v2-fleet/seed-<seed>.json: forge-v2 with name, seed (search randomness), population 96 and islands 4 changed and closure_seed fixed at 20261021, so every run is scored under the forge-v2 closure samples. Objective weights, limits, duties, envelope, terminals and resolution are identical (checked by test).",
+    "no_tuning": "No threshold, duty, weight, limit, envelope, resolution or closure is changed after registration."
+  },
+  "last_best_spot": {
+    "receipt_seeds": "seeds/receipt-bests.json = [best.genome of docs/forge/results/forge-v2-demo-receipt.json (genome 502bd6d6...), best.genome of forge-v1-demo-receipt.json (genome 9aefcbd4...)], file sha256 945d37d22438449e5cd677d58584fb24828150365ebec38b22a964b0696340f9",
+    "rescored_under_1_1_1": "v2 best: feasible, report fitness 2.479878543960991 (identical to the receipt); v1 best: infeasible under forge-v2 (796 mm part > 400 mm build height; cell 43 diameters long > 30)",
+    "C0": "pilot: evolve --campaign campaigns/forge-v2.json --seed-from seeds/receipt-bests.json --generations 300 (2 x 48), binary c665422351428df95f133142b8edb11e496b62cbc626860f3c18e126c2b86a20 built from fc26a40; final checkpoint sha256 cbd27d51b203cbbc2fda1b6940b8be70acc55c6ec1eaa8a2523cc0a2dc3a47ba (300 generations, 28896 evaluations, best search fitness 2.499, 363 niches of which 6 feasible, peak RSS 33.6 MB)",
+    "P_repro": "pilot: de novo evolve --campaign campaigns/forge-v2.json --generations 300 (replays the v2 demo protocol on 1.1.1, run straight through rather than 150 + resume); compared with the demo receipt, not used as a seed"
+  },
+  "arms": {
+    "S": "seeded continuation: evolve --campaign seed-N.json --seed-from <C0 run dir> --generations 2000",
+    "D": "de novo: evolve --campaign seed-N.json --generations 2000",
+    "R": "equal-budget random search: control --campaign seed-N.json --evaluations 768384 (batches of 384). Evolve counts every scored proposal including cache hits, so D and R spend exactly 96 x 4 x 2001 = 768384 evaluations.",
+    "C": "exact continuation of the rebuilt last best: evolve --run <copy of C0> --resume --generations 2000 (forge-v2, 2 x 48)",
+    "P": "pooled final run: evolve --campaign seed-20261109.json --seed-from pool.json --generations 2000, where pool.json is the deduplicated union of archive elites, best and island leaders (run::load_seeds) of S-1..8 and D-1..8 after they finish"
+  },
+  "replicates": {
+    "seeds": [20261101, 20261102, 20261103, 20261104, 20261105, 20261106, 20261107, 20261108],
+    "placement": {"xbabe1": [20261101, 20261102, 20261103], "xbabe3": [20261104, 20261105, 20261106, 20261107], "xbabe4 (macOS)": [20261108], "xbabe2 or xbabe3": ["C"], "xbabe3 or xbabe1": ["P"]},
+    "order_per_slot": "S then D then R for one seed; results do not depend on thread count (tests/forge.rs)"
+  },
+  "endpoints": {
+    "primary": "Per replicate N: D-N best at 768384 evaluations versus R-N best at the same budget, ranked by the engine's own order (feasible before infeasible, then higher fitness, else lower violation). One-sided exact sign test over the 8 replicates, H1 = evolution better; ties count against H1. p <= 0.05 needs at least 7 of 8 wins.",
+    "secondary": [
+      "evaluations to the first feasible design, D-N vs R-N (R censored at the budget if never feasible)",
+      "feasible archive niches at the end, D-N vs R-N",
+      "S-N vs D-N best fitness at 2000 generations (does seeding from the last best help at equal budget)",
+      "S-N, C and P best search fitness versus the rebuilt last best (C0 start and the v2 receipt best, 2.4799 at report resolution)",
+      "overall best design across S, D, C and P: report-resolution re-evaluation, per-duty outlet at the worst closure, treated capacity, mass, print audit and CAD from `joil-forge report`"
+    ],
+    "exploratory": [
+      "re-evaluate the overall best under closure_seed 20261101..20261108 (24 further closure samples) and report the worst case",
+      "sensitivity of the primary test with replicate 8 (macOS) excluded",
+      "if the fleet window allows, resume S-N and P to 4000 generations; reported as exploratory, never replacing the 2000-generation endpoints"
+    ]
+  },
+  "reporting": "Every replicate is reported, including unfavourable ones. Numbers are unvalidated reduced-order screen outputs, not physical performance. Seed choice, budgets and thresholds are fixed here and are not tuned after seeing outcomes.",
+  "invalidation_and_stops": {
+    "crash_or_interruption": "an evolve run is resumed exactly from its checkpoint and the interruption is recorded; an interrupted R control is rerun with the identical command (deterministic) and recorded",
+    "missing_data": "a replicate without both D and R at budget is reported as missing and counted against H1",
+    "numerical_failures": "kept as recorded by the engine; never hidden or rescored",
+    "host_guards": "fleetcap run-capped on Linux; pause our own processes on memory/disk/freeze breaches or an Admiral/owner stop; no early stopping on performance"
+  },
+  "allocation": ".private/coordination/forge-fleet-20261022/ALLOCATION.json sha256 370addcef3483250c6f6eed194e598b7b682e6d382bb64ecc4b93698ec5586e2 (private, owner-authorized)"
+}

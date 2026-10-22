@@ -1,0 +1,92 @@
+{
+  "name": "forge-v2-fleet-s20261105",
+  "seed": 20261105,
+  "closure_seed": 20261021,
+  "population": 96,
+  "islands": 4,
+  "migrate_every": 5,
+  "migrants": 2,
+  "tournament": 3,
+  "crossover_rate": 0.3,
+  "structural_rate": 0.45,
+  "archive_parent_rate": 0.3,
+  "seeding": "de_novo",
+  "closure_samples": 3,
+  "allow_pumps": true,
+  "objective": {
+    "separation": 1.0,
+    "capacity": 0.5,
+    "energy": 0.25,
+    "mass": 0.15,
+    "per_unit": 0.02,
+    "floor_mg_l": 1.0
+  },
+  "limits": {
+    "pressure_budget_pa": 400000.0,
+    "reject_budget": 0.02,
+    "quality_limit_mg_l": 30.0,
+    "max_amplification": 8.0,
+    "q_min_m3_h": 0.5,
+    "q_max_m3_h": 40.0,
+    "quality_probe_ratio": 0.85,
+    "quality_probes": 8
+  },
+  "duties": [
+    {
+      "name": "produced water (reference)",
+      "fluids": {
+        "rho_water_kg_m3": 998.0,
+        "mu_water_pa_s": 0.001,
+        "rho_oil_kg_m3": 850.0,
+        "mu_oil_pa_s": 0.005,
+        "interfacial_tension_n_m": 0.025
+      },
+      "feed": {
+        "flow_m3_h": 4.0,
+        "cin_mg_l": 500.0,
+        "dsd": {
+          "volume_median_um": 15.0,
+          "geometric_sd": 1.6
+        }
+      },
+      "weight": 1.0
+    },
+    {
+      "name": "seawater oil spill",
+      "fluids": {
+        "rho_water_kg_m3": 1025.89,
+        "mu_water_pa_s": 0.00122,
+        "rho_oil_kg_m3": 900.0,
+        "mu_oil_pa_s": 0.02,
+        "interfacial_tension_n_m": 0.02
+      },
+      "feed": {
+        "flow_m3_h": 4.0,
+        "cin_mg_l": 1000.0,
+        "dsd": {
+          "volume_median_um": 10.0,
+          "geometric_sd": 1.6
+        }
+      },
+      "weight": 1.0
+    }
+  ],
+  "envelope": {
+    "radius_mm": 50.0,
+    "length_mm": 400.0,
+    "wall_mm": 1.5,
+    "min_bore_mm": 3.0,
+    "max_cell_aspect": 30.0,
+    "bridge_mm": 8.0
+  },
+  "terminals": {
+    "product_pa": 0.0,
+    "reject_pa": 0.0,
+    "pump_suction_min_pa": 20000.0,
+    "pump_efficiency": 0.6
+  },
+  "resolution": {
+    "nz": 60,
+    "ns": 12
+  }
+}

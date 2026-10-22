@@ -315,3 +315,53 @@ fn random_search_control_spends_exactly_its_budget() {
         serde_json::to_value(&again).unwrap()
     );
 }
+
+#[test]
+fn closure_seed_lets_replicates_share_one_objective() {
+    use joil_forge::score::Evaluator;
+    // Absent, the field changes nothing: forge-v2 keeps its bytes and its digest.
+    let base = Campaign::default();
+    let text = serde_json::to_string(&base).unwrap();
+    assert!(!text.contains("closure_seed"));
+    assert_eq!(
+        base.sha256(),
+        "29875952c998a3c40f466730b1e957dad14d1aa375485efbfab47a54eb0b9c28"
+    );
+    assert_eq!(base.closure_seed(), base.seed);
+    let closures = |c: &Campaign| Evaluator::new(c).closures;
+    // Another search seed alone draws other closures; pinning the closure seed restores them.
+    let other = Campaign {
+        seed: base.seed + 80,
+        ..base.clone()
+    };
+    assert_ne!(closures(&other), closures(&base));
+    let replicate = Campaign {
+        closure_seed: Some(base.seed),
+        ..other
+    };
+    assert_eq!(closures(&replicate), closures(&base));
+    // Every committed fleet campaign is forge-v2 with only its search settings changed.
+    for n in 1..=9u64 {
+        let path = format!(
+            "{}/../../campaigns/forge-v2-fleet/seed-{}.json",
+            env!("CARGO_MANIFEST_DIR"),
+            20_261_100 + n
+        );
+        let c: Campaign = serde_json::from_str(&std::fs::read_to_string(&path).unwrap()).unwrap();
+        c.validate().unwrap();
+        assert_eq!(c.seed, 20_261_100 + n, "{path}");
+        assert_eq!(closures(&c), closures(&base), "{path}");
+        let scoring = Campaign {
+            name: base.name.clone(),
+            seed: base.seed,
+            closure_seed: None,
+            population: base.population,
+            islands: base.islands,
+            ..c
+        };
+        assert_eq!(
+            scoring, base,
+            "{path}: only name, seeds, population and islands may differ"
+        );
+    }
+}
