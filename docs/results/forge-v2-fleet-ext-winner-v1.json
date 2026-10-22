@@ -1,0 +1,434 @@
+{
+  "schema": "joil-forge-fleet-ext-winner/1",
+  "evidence_class": "unvalidated_reduced_order_screen",
+  "forge_version": "joil-forge/1.1.1",
+  "model_version": "joil-forge-judges/1.0.0",
+  "registration": "docs/forge/results/forge-v2-fleet-ext-preregistration.json",
+  "summary": "docs/results/forge-v2-fleet-ext-summary-v1.json",
+  "report_receipt": {
+    "path": "docs/forge/results/forge-v2-fleet-ext-P-receipt.json",
+    "sha256": "4d888ca8dbb1804bd9a1e5f517d8b6e7996f606720e5db402e4ca264d1c8d224"
+  },
+  "run_binary_sha256": "f96400b0c2176a463d350c76e2a8a1d77a3750d8469392eb8260a46b02593e94",
+  "report_binary_sha256": "3e6c1df21662e2ac5e5d0b2456b11195c52430ac2bce7b7278bd0ab6ab0113ed",
+  "winner": {
+    "run": "P",
+    "generation": 10000,
+    "evaluations": 3840384,
+    "genome_sha256": "79220bb4fa47a2ce75fe55318b8a9ab9df309fa2404533790c331f10cad59a76",
+    "behavior": {
+      "coalescer": false,
+      "cyclone_cells": 13,
+      "min_cyclone_d_mm": 13.5397,
+      "recycles": 0,
+      "series_depth": 2,
+      "splitters": 0,
+      "stage_ratio": 0.9179395393929533
+    },
+    "search_score": {
+      "cout_mg_l": 2.83041352743338,
+      "duty_cout_mg_l": [
+        5.1403695742590525,
+        81.42789264334228
+      ],
+      "feasible": true,
+      "feed_pressure_kpa": 399.9928593436716,
+      "fitness": 3.13345885067314,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        0.8095609289195952,
+        0.8084114657629667,
+        0.8738873716842614,
+        0.8227533925071927
+      ],
+      "q_feed_m3_h": 0.8132838493041479,
+      "q_treated_m3_h": 0.8084114657629667,
+      "q_treated_nominal_m3_h": 0.8095609289195952,
+      "reasons": [],
+      "reject_fraction": 0.005991,
+      "separation": 3.5427602615678246,
+      "shell_mass_kg": 0.5669900594649597,
+      "specific_energy_kj_m3": 402.4036596687471,
+      "units": 2,
+      "violation": 0.0
+    },
+    "report_score": {
+      "cout_mg_l": 2.8075096696790403,
+      "duty_cout_mg_l": [
+        6.232352672233282,
+        80.88644823269237
+      ],
+      "feasible": true,
+      "feed_pressure_kpa": 399.98807206700207,
+      "fitness": 3.0401404922922297,
+      "numerical_failure": false,
+      "per_closure_q_m3_h": [
+        0.8088034520041952,
+        0.8078576024531674,
+        0.8730113314921885,
+        0.8219286122627871
+      ],
+      "q_feed_m3_h": 0.812726647800138,
+      "q_treated_m3_h": 0.8078576024531674,
+      "q_treated_nominal_m3_h": 0.8088034520041952,
+      "reasons": [],
+      "reject_fraction": 0.005991,
+      "separation": 3.4497815912206105,
+      "shell_mass_kg": 0.5669900594649597,
+      "specific_energy_kj_m3": 402.39884353864204,
+      "units": 2,
+      "violation": 0.0
+    },
+    "duty_names": [
+      "produced water (reference)",
+      "seawater oil spill"
+    ],
+    "duty_cin_mg_l": [
+      500.0,
+      1000.0
+    ],
+    "removed_fraction_by_duty": [
+      0.9875352946555335,
+      0.9191135517673076
+    ],
+    "cad": {
+      "length_mm": 399.99803248999996,
+      "envelope_radius_mm": 50.0,
+      "printed_mass_kg": 0.6405198562086561,
+      "min_feature_mm": 1.0099939215,
+      "print": {
+        "bridge_mm": 8.0,
+        "build_height_mm": 400.0,
+        "ceiling_area_mm2": 17207.334762308277,
+        "fits_build_height": true,
+        "note": "Orientation: head on the plate, built along +z. A ceiling is a downward-facing internal surface within 40° of horizontal; supported means solid within half the bridge length in the plane just below. A screen, not a print simulation.",
+        "part_height_mm": 399.99803248999996,
+        "sampled_ceiling_faces": 4023,
+        "support_posts": 246,
+        "teardrop_runs": 2,
+        "unsupported_ceiling_area_mm2": 313.6952981509718,
+        "unsupported_examples_mm": [
+          [
+            -21.8,
+            0.4,
+            52.7
+          ],
+          [
+            -37.5,
+            -12.4,
+            57.5
+          ],
+          [
+            12.7,
+            20.8,
+            188.9
+          ],
+          [
+            1.0,
+            2.6,
+            240.1
+          ],
+          [
+            -24.4,
+            -31.1,
+            244.6
+          ],
+          [
+            -3.4,
+            -12.9,
+            244.6
+          ],
+          [
+            15.1,
+            29.9,
+            244.6
+          ],
+          [
+            32.0,
+            -2.4,
+            244.6
+          ]
+        ]
+      },
+      "fluid_closed": true,
+      "part_closed": true
+    },
+    "removed_percent_by_duty": [
+      98.75352946555334,
+      91.91135517673075
+    ],
+    "first_generation_above_3_12": 9169
+  },
+  "closure_sensitivity": {
+    "note": "Report-resolution re-evaluation under closure_seed 20261101..20261108 (three samples each), from seed-20261109.json with only closure_seed changed, as for the merged fleet run.",
+    "scores": [
+      {
+        "closure_seed": 20261101,
+        "feasible": true,
+        "fitness": 2.590406417380359,
+        "duty_cout_mg_l": [
+          12.936127750978876,
+          95.20278920796359
+        ],
+        "q_treated_m3_h": 0.8028361944977208,
+        "numerical_failure": false,
+        "reasons": []
+      },
+      {
+        "closure_seed": 20261102,
+        "feasible": true,
+        "fitness": 2.9867187632520014,
+        "duty_cout_mg_l": [
+          8.251033763762594,
+          68.06582714693538
+        ],
+        "q_treated_m3_h": 0.8088034520041952,
+        "numerical_failure": false,
+        "reasons": []
+      },
+      {
+        "closure_seed": 20261103,
+        "feasible": true,
+        "fitness": 2.676483585486662,
+        "duty_cout_mg_l": [
+          10.96496207383946,
+          95.25706770678367
+        ],
+        "q_treated_m3_h": 0.8088034520041952,
+        "numerical_failure": false,
+        "reasons": []
+      },
+      {
+        "closure_seed": 20261104,
+        "feasible": true,
+        "fitness": 2.381691019907822,
+        "duty_cout_mg_l": [
+          16.686504400745093,
+          112.04087494226583
+        ],
+        "q_treated_m3_h": 0.8028361944977208,
+        "numerical_failure": false,
+        "reasons": []
+      },
+      {
+        "closure_seed": 20261105,
+        "feasible": true,
+        "fitness": 2.477570339004903,
+        "duty_cout_mg_l": [
+          11.911783004052484,
+          125.80590148238095
+        ],
+        "q_treated_m3_h": 0.7795475133677171,
+        "numerical_failure": false,
+        "reasons": []
+      },
+      {
+        "closure_seed": 20261106,
+        "feasible": true,
+        "fitness": 2.8172331941723425,
+        "duty_cout_mg_l": [
+          9.013902697442985,
+          87.4455915365258
+        ],
+        "q_treated_m3_h": 0.8088034520041952,
+        "numerical_failure": false,
+        "reasons": []
+      },
+      {
+        "closure_seed": 20261107,
+        "feasible": true,
+        "fitness": 2.7135879732202635,
+        "duty_cout_mg_l": [
+          10.100768884140697,
+          96.01110024793991
+        ],
+        "q_treated_m3_h": 0.8088034520041952,
+        "numerical_failure": false,
+        "reasons": []
+      },
+      {
+        "closure_seed": 20261108,
+        "feasible": true,
+        "fitness": 2.6432434598530805,
+        "duty_cout_mg_l": [
+          9.018426577567142,
+          110.08628428468185
+        ],
+        "q_treated_m3_h": 0.719334077189286,
+        "numerical_failure": false,
+        "reasons": []
+      }
+    ],
+    "feasible": 8,
+    "of": 8,
+    "fitness_min": 2.381691019907822,
+    "fitness_max": 2.9867187632520014,
+    "worst_duty_cout_mg_l": [
+      16.686504400745093,
+      125.80590148238095
+    ]
+  },
+  "note": "Screen-model numbers of an unvalidated reduced-order model, not physical performance. The winner is the best feasible design of the fleet by the engine order on the registered objective; it was selected under one closure set of three samples, so its absolute score is optimistic.",
+  "comparison_with_fleet_run_leader": {
+    "note": "The 2000-generation fleet leader (run P at generation 2000) re-evaluated at report resolution under the same closure seeds, copied from docs/results/forge-v2-fleet-closure-sensitivity-v1.json.",
+    "leader_genome_sha256": "687e39640453fc77066636ba5d398484addf950950ddeb49c50e85843415a453",
+    "leader_registered_closure": {
+      "closure_seed": 20261021,
+      "feasible": true,
+      "fitness": 3.099511239997704,
+      "duty_cout_mg_l": [
+        5.173978329855518,
+        83.5286350192701
+      ],
+      "q_treated_m3_h": 0.7720518659065615,
+      "numerical_failure": false,
+      "reasons": []
+    },
+    "per_closure_seed": [
+      {
+        "closure_seed": 20261101,
+        "winner_fitness": 2.590406417380359,
+        "leader_fitness": 2.567041600896988,
+        "difference": 0.023364816483371076
+      },
+      {
+        "closure_seed": 20261102,
+        "winner_fitness": 2.9867187632520014,
+        "leader_fitness": 2.9531020443828417,
+        "difference": 0.03361671886915962
+      },
+      {
+        "closure_seed": 20261103,
+        "winner_fitness": 2.676483585486662,
+        "leader_fitness": 2.641239328390127,
+        "difference": 0.03524425709653478
+      },
+      {
+        "closure_seed": 20261104,
+        "winner_fitness": 2.381691019907822,
+        "leader_fitness": 2.332231652221889,
+        "difference": 0.04945936768593295
+      },
+      {
+        "closure_seed": 20261105,
+        "winner_fitness": 2.477570339004903,
+        "leader_fitness": 2.42897424824935,
+        "difference": 0.04859609075555271
+      },
+      {
+        "closure_seed": 20261106,
+        "winner_fitness": 2.8172331941723425,
+        "leader_fitness": 2.792390167895557,
+        "difference": 0.024843026276785363
+      },
+      {
+        "closure_seed": 20261107,
+        "winner_fitness": 2.7135879732202635,
+        "leader_fitness": 2.6887906686930467,
+        "difference": 0.024797304527216735
+      },
+      {
+        "closure_seed": 20261108,
+        "winner_fitness": 2.6432434598530805,
+        "leader_fitness": 2.6111289490315635,
+        "difference": 0.03211451082151706
+      }
+    ],
+    "winner_higher_count": 8,
+    "leader_fitness_min": 2.332231652221889,
+    "leader_fitness_max": 2.9531020443828417,
+    "leader_run": "P",
+    "leader_generation": 2000,
+    "leader_search_fitness": 3.1046109073669363
+  },
+  "pooled_stage": {
+    "note": "Best design of each pooled final run, of P (the winner) and of the pool best they started from (the seed 20261103 de novo leader), from their final checkpoints.",
+    "runs": [
+      {
+        "run": "F-20261110",
+        "generation": 10000,
+        "best_fitness": 3.108471788272057,
+        "series_depth": 2,
+        "cyclone_cells": 14,
+        "cyclone_stages": [
+          {
+            "cells": 7,
+            "diameter_mm": 14.724
+          },
+          {
+            "cells": 7,
+            "diameter_mm": 12.5904
+          }
+        ]
+      },
+      {
+        "run": "F-20261111",
+        "generation": 10000,
+        "best_fitness": 3.1030562861255904,
+        "series_depth": 2,
+        "cyclone_cells": 14,
+        "cyclone_stages": [
+          {
+            "cells": 7,
+            "diameter_mm": 14.7276
+          },
+          {
+            "cells": 7,
+            "diameter_mm": 12.5904
+          }
+        ]
+      },
+      {
+        "run": "F-20261112",
+        "generation": 10000,
+        "best_fitness": 3.103207296435703,
+        "series_depth": 2,
+        "cyclone_cells": 14,
+        "cyclone_stages": [
+          {
+            "cells": 7,
+            "diameter_mm": 14.7276
+          },
+          {
+            "cells": 7,
+            "diameter_mm": 12.5904
+          }
+        ]
+      },
+      {
+        "run": "P",
+        "generation": 10000,
+        "best_fitness": 3.13345885067314,
+        "series_depth": 2,
+        "cyclone_cells": 13,
+        "cyclone_stages": [
+          {
+            "cells": 7,
+            "diameter_mm": 14.7501
+          },
+          {
+            "cells": 6,
+            "diameter_mm": 13.5397
+          }
+        ]
+      },
+      {
+        "run": "D-20261103",
+        "generation": 10000,
+        "best_fitness": 3.1016267381994855,
+        "series_depth": 2,
+        "cyclone_cells": 14,
+        "cyclone_stages": [
+          {
+            "cells": 7,
+            "diameter_mm": 14.7276
+          },
+          {
+            "cells": 7,
+            "diameter_mm": 12.5904
+          }
+        ]
+      }
+    ]
+  }
+}

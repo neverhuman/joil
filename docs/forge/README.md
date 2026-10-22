@@ -48,9 +48,10 @@ report resolution), `baseline` (CT-35 same-model control), `cad` (meshes and aud
 `render` (PNG plate and SVG diagrams), `seeds` (archetype genomes), `best` (print the
 best genome of a run), `campaign` (print the default campaign to edit), `control`
 (equal-budget random search: the generation-0 sampler and the same evaluator, for
-comparing a run against plain sampling) and `fleet-summary` (pairs replicate runs with
+comparing a run against plain sampling), `fleet-summary` (pairs replicate runs with
 their controls, writes the sign tests, a chart and a pooled seed list; see
-[Fleet run](#fleet-run-eight-replicates)).
+[Fleet run](#fleet-run-eight-replicates)) and `fleet-figures` (the evolution, per-seed and
+winner figures of a fleet; see [Fleet extension](#fleet-extension-five-times-the-budget-and-a-pooled-winner)).
 
 ### What a run directory holds
 
@@ -444,6 +445,107 @@ joil-forge fleet-summary --root . --out summary.json --svg fleet.svg --pool pool
 joil-forge evolve  --campaign campaigns/forge-v2-fleet/seed-20261109.json --run runs/P --seed-from pool.json --generations 2000
 ```
 
+## Fleet extension: five times the budget and a pooled winner
+
+Every run of the fleet was still improving when it stopped at 2000 generations: each last
+raised its best score after generation 1700, and seed 20261101 jumped from 2.634 to 2.764
+in its last 250 generations. The extension, registered before it started in
+[`results/forge-v2-fleet-ext-preregistration.json`](results/forge-v2-fleet-ext-preregistration.json),
+continues every replicate exactly to 10 000 generations and then breeds the final design
+from all of them:
+
+- the 16 `S` and `D` runs resume from SHA-verified copies of their 2000-generation
+  checkpoints (the originals, which the merged receipts describe, stay untouched) and run to
+  10 000 generations, 3 840 384 evaluations each (96 × 4 × 10 001);
+- the 8 random controls rerun with the fleet command at that budget. A control draws one
+  fixed random stream in batches of 384, so its first 768 384 evaluations must repeat the
+  fleet control exactly; all eight did;
+- `P` continues to 10 000 generations (exploratory);
+- three final runs `F-20261110` to `F-20261112` start from the pool of all 16 extended
+  archives and run 10 000 generations each.
+
+`joil-forge fleet-figures` draws the figures below from the run directories and the winner's
+report, without smoothing: each line passes through the points where a run's best score
+changed, so it redraws the logged values exactly.
+
+![Best score found so far against evaluations for every run, and the final score of every run with the winner starred](figures/v2-fleet-ext/evolution.svg)
+
+**Search beats sampling again, at five times the budget.** `D` ranked above `R` in 8 of 8
+seeds at 3 840 384 evaluations (p = 1/256 ≈ 0.0039). More samples lifted random sampling
+from 1.934–2.150 to 2.010–2.346, but de novo search ended between 2.709 and 3.102 and kept
+29 to 149 feasible archive niches against 3 or 4.
+
+**Seeding still loses, but it no longer stays stuck.** `S` beat `D` only in seed 20261102
+again (p ≈ 0.996). With the time, three seeded runs left `C0`'s two-stage chains: seed
+20261102 reached 3.100, seed 20261104 2.740 and seed 20261103 2.647; the other five ended
+between 2.509 and 2.561. All 16 continued runs improved, the most by 0.194 (de novo, seed
+20261107, 2.587 to 2.780) and 0.232 (seeded, seed 20261104).
+
+![Every replicate seed: de novo, seeded and random runs on shared axes](figures/v2-fleet-ext/seeds.svg)
+
+**The pooled stage and the winner.** The three final runs started from the pool's best
+design (3.102, the seed 20261103 de novo leader) and ended at 3.108, 3.103 and 3.103: all
+three refined that design's family of two stages of seven cells. None beat `P`, the fleet
+run's pooled run continued to 10 000 generations, which rose from 3.105 to 3.133, mostly
+after generation 9169, by dropping one cell from its second stage. By the registered rule
+(the best feasible design of the fleet on the registered objective) it is the winner; its
+report receipt is [`results/forge-v2-fleet-ext-P-receipt.json`](results/forge-v2-fleet-ext-P-receipt.json)
+and its numbers are in [`../results/forge-v2-fleet-ext-winner-v1.json`](../results/forge-v2-fleet-ext-winner-v1.json).
+
+![The winner: rendered printable CAD, process network, screen numbers and the evolution of its lineage](figures/v2-fleet-ext/winner.svg)
+
+| | Winner (`P`, generation 10 000) | Fleet-run leader (`P`, generation 2000) |
+|---|---|---|
+| Search score | 3.133 | 3.105 |
+| Report-resolution score | 3.040 | 3.100 |
+| Produced water out (from 500 mg/L) | 6.2 mg/L (98.8 % removed) | 5.2 mg/L (99.0 %) |
+| Seawater spill out (from 1000 mg/L) | 80.9 mg/L (91.9 %) | 83.5 mg/L (91.6 %) |
+| Treated flow at 400 kPa | 0.81 m³/h | 0.77 m³/h |
+| Cyclone cells | 7 of 14.8 mm, then 6 of 13.5 mm | 7 of 14.8 mm, then 7 of 12.6 mm |
+| Printed part | 400 mm, 0.64 kg | 400 mm, 0.62 kg |
+| Print audit | 246 posts; 314 of 17 207 mm² of ceiling unsupported | 219 posts; 283 of 15 683 mm² |
+| Eight further closure sets | feasible in all; 2.38 to 2.99 | feasible in all; 2.33 to 2.95 |
+
+The winner trades a little produced-water quality for spill quality and 5 % more flow.
+At report resolution under the registered closure set it scores below the leader it
+descends from, so part of its search-score gain is specific to the coarser search
+resolution; under each of the eight further closure sets it scores higher than that leader,
+by 0.023 to 0.049. Both are screen numbers; which of the two separates oil better is a
+question for CFD and a printed test.
+
+**How it ran.** On 2026-10-22 from 07:35 to 12:54 UTC, CPU only, under the
+hosts' fleet caps and our own memory guards. Every evolve and control job used the fleet
+run's binaries (Linux and macOS, built from the fleet registration commit), so each run
+continues exactly the computation it began; the reports and figures used a binary built
+from this branch, whose `eval` output for the same design and campaign is byte-identical.
+Working copies lived in RAM and were mirrored to the external drives. Seed 20261108 ran
+on xbabe4 (macOS) throughout. The Linux runs moved between hosts as the hosts' load
+changed: `P` left xbabe2 when other work pushed its load above our limit and fleetcap froze
+its slice; two seeded runs moved from xbabe3 into slots freed on xbabe1; and when xbabe1
+ran short of memory (other tenants; fleetcap froze its slice at 10:17 UTC) its seven
+remaining runs moved to xbabe3 as threads freed there. Several runs were restarted with
+more threads. Every move and restart stopped the run at a consistent checkpoint, copied it
+with matching SHA-256 and continued with `--resume`, which is bit for bit and independent
+of the thread count; every history was checked to be gap-free afterwards. One fix during the
+run: our memory guard paused a slot by stopping its script, which `screen` resumes under
+`sudo`; it now stops the compute process itself. The three final runs ran on xbabe3 (the
+registration allows xbabe1 or xbabe3). Each evolve job peaked at about 2.4 GB of memory and each control at 5.4 GB. Hosts, binaries,
+every move with its checkpoint digest, and job times are in
+[`results/forge-v2-fleet-ext-run-receipt.json`](results/forge-v2-fleet-ext-run-receipt.json).
+
+**Reproduce.** Continue the fleet runs, then pool and breed:
+
+```bash
+joil-forge evolve  --run runs/D-N --resume --generations 10000     # likewise runs/S-N and runs/P
+joil-forge control --campaign campaigns/forge-v2-fleet/seed-N.json --out controls/R-N.json --evaluations 3840384
+joil-forge fleet-summary --root . --out summary.json --pool pool-ext.json
+joil-forge evolve  --campaign campaigns/forge-v2-fleet/seed-20261110.json --run runs/F-20261110 \
+    --seed-from pool-ext.json --generations 10000            # likewise 20261111 and 20261112
+joil-forge report  --run runs/<winner> --out report
+joil-forge fleet-figures --root . --out figures --mark "768384:end of the 2000-generation fleet run" \
+    --previous "2.4992286804406945:previous best design (C0)" --winner-report report --closures closure/
+```
+
 ## First campaign (v1): why these constraints exist
 
 The first campaign (receipt
@@ -480,7 +582,7 @@ fail on dense layouts; the plenum, post and jet geometry is a design convention,
 optimised manifold, and the physics does not see the posts; the print audit is a
 geometric screen, not a build simulation, and says nothing about distortion, residual
 stress or surface finish; masses are shell estimates without mounting features. No forge
-geometry has been meshed for CFD, printed or tested. The fleet run compares search with
-sampling over eight seeds of one objective, one closure set and one screen; it says how
-well the search optimizes that screen, not whether the screen ranks designs the way CFD or
-a printed test would, which is the next measurement.
+geometry has been meshed for CFD, printed or tested. The fleet run and its extension
+compare search with sampling over eight seeds of one objective, one closure set and one
+screen; they say how well the search optimizes that screen, not whether the screen ranks
+designs the way CFD or a printed test would, which is the next measurement.

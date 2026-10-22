@@ -56,6 +56,29 @@ The pooled run `P` started from the deduplicated archives of all sixteen `S` and
 
 These are search statistics on a reduced-order screen. They show that the Forge search optimizes its own objective far better than unselected sampling from its generator; they say nothing about physical separation. Seed `20261108` ran on macOS (aarch64) rather than Linux. The contrast with Wave-4 below, where uniform random search beat `B3` on the `F1` screen, is not like for like: genome, screen, objective and budget all differ. Hosts, run moves, report-resolution scores and the print audit: [Forge fleet run](forge/README.md#fleet-run-eight-replicates).
 
+## Forge v2 fleet extension: five times the budget and a pooled winner (Forge screen, `8` seeds)
+
+Source: [`docs/results/forge-v2-fleet-ext-summary-v1.json`](results/forge-v2-fleet-ext-summary-v1.json), written by `joil-forge fleet-summary`; per-run gains in [`docs/results/forge-v2-fleet-ext-continuation-v1.json`](results/forge-v2-fleet-ext-continuation-v1.json); the winner in [`docs/results/forge-v2-fleet-ext-winner-v1.json`](results/forge-v2-fleet-ext-winner-v1.json). Registered before it started ([`docs/forge/results/forge-v2-fleet-ext-preregistration.json`](forge/results/forge-v2-fleet-ext-preregistration.json)): every run of the table above was still improving, so each `S` and `D` run was continued exactly from generation `2000` to `10000` (`3840384` evaluations), each control was rerun at that budget, and three final runs (`F`) were bred from the pooled archives of all sixteen.
+
+| Seed | `D` best, generation `2000` → `10000` | `S` best, generation `2000` → `10000` | `R` best, `768384` → `3840384` evaluations | `D` feasible niches | `R` feasible niches |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| `20261101` | `2.764` → `2.921` | `2.502` → `2.561` | `2.114` → `2.114` | `41` | `3` |
+| `20261102` | `2.700` → `2.709` | `2.919` → `3.100` | `2.123` → `2.204` | `83` | `3` |
+| `20261103` | `3.099` → `3.102` | `2.509` → `2.647` | `1.949` → `2.010` | `149` | `4` |
+| `20261104` | `3.010` → `3.012` | `2.508` → `2.740` | `1.989` → `2.150` | `49` | `4` |
+| `20261105` | `2.942` → `2.986` | `2.510` → `2.511` | `2.150` → `2.150` | `29` | `3` |
+| `20261106` | `3.039` → `3.055` | `2.507` → `2.509` | `1.968` → `2.097` | `122` | `4` |
+| `20261107` | `2.587` → `2.780` | `2.536` → `2.537` | `2.051` → `2.346` | `41` | `3` |
+| `20261108` | `2.884` → `3.005` | `2.514` → `2.522` | `1.934` → `2.186` | `83` | `3` |
+
+At `3840384` evaluations `D` again ranked above `R` in all `8` seeds (one-sided sign test `p = 0.0039`). Every extended control reproduced its fleet control exactly over the first `768384` evaluations, a check registered in advance. Five times the samples lifted random sampling to between `2.010` and `2.346`; de novo search ended between `2.709` and `3.102` and kept `29` to `149` feasible archive niches against `3` or `4`.
+
+Seeding from the last best design still did not beat de novo search: `S` ranked above `D` only in seed `20261102` (`p = 0.9961`), the same seed as before. Given the time, though, three seeded runs left the two-stage designs inherited from `C0`: seed `20261102` reached `3.100`, seed `20261104` `2.740` and seed `20261103` `2.647`, while the other five ended between `2.509` and `2.561`. All `16` continued runs improved; the largest gains were `0.194` (de novo, seed `20261107`) and `0.232` (seeded, seed `20261104`).
+
+The three final runs started from the pooled archives' best design (`3.102`, the de novo leader of seed `20261103`) and ended at `3.108`, `3.103` and `3.103`, all refining that two-stage design. None of them beat `P`, the fleet run's pooled run continued to `10000` generations: it rose from `3.105` to `3.133`, mostly after generation `9169`, and is the winner by the registered rule, the best feasible design of the fleet on the registered objective. It has two cyclone stages in series with `13` cells in one printed part, `400` mm long and `0.64` kg. Re-scored at report resolution it reaches `3.040`, taking produced water from `500` to `6.2` mg/L (`98.8` % removed) and the seawater spill duty from `1000` to `80.9` mg/L (`91.9` %) while treating `0.81` m³/h at `400` kPa. That is below the `3.100` of the `2000`-generation leader at report resolution, so part of the winner's search-score gain is specific to the coarser search resolution. Under the eight further closure sets, though, it stays feasible and scores above that leader under every one (`2.382` to `2.987` against `2.332` to `2.953`).
+
+Seed `20261108` ran on macOS (aarch64) throughout, its control included. These are search statistics on a reduced-order screen: they show how well the search optimizes its own objective, not how well any design separates oil. Hosts, run moves and the reproduction commands: [Forge fleet extension](forge/README.md#fleet-extension-five-times-the-budget-and-a-pooled-winner).
+
 ## Wave-4: the same study on repaired operators (`F1` screen, sandbox, workplan INT-04)
 
 Source: [`docs/results/wave4-evolution-proof-v1.json`](results/wave4-evolution-proof-v1.json) (`SHA-256: 2e7192e2aff6ceceadc1f1efc03682ac602d784138cde05fc9dc265efdbd0885`). The design matches Wave-3: `10` seeds, `450` charged proposals per seed and arm, `22,500` screen evaluations and `72` Monte Carlo samples per candidate. It ran after the truth repairs. Every proposal is now charged to the budget, a failed variation no longer becomes `CT-35`, and `B3`'s acquisition no longer picks from extra uncharged proposals. The result reverses the Wave-3 comparison with random search:
@@ -91,7 +114,10 @@ $$\text{KPI}_{\text{score}}(\mathbf{g}) = \left(30.0 - C_{\text{out,p95}}(\mathb
 ## Figure plates and documents
 
 - **[Scientific White Paper (Process, Methods, 3D Topologies, GCI, LRR/SSG RSM, Hostile-Referee Audit & Figures)](WHITEPAPER.md)**
-  - [Figure 0 (Hero): Wave-4 Screen Search Diagnostics on Repaired Operators](figures/wave4-readme-hero-kpi-and-elite.png)
+  - [README Figure 1: Forge Fleet Evolution Against Equal-Budget Random Sampling, `8` Seeds, Winner Starred](forge/figures/v2-fleet-ext/evolution.svg)
+  - [README Figure 2: The Forge Winner, Rendered Printable CAD, Process Network and Screen Numbers](forge/figures/v2-fleet-ext/winner.svg)
+  - [Forge Fleet: Every Replicate Seed, `D`, `S` and `R` on Shared Axes](forge/figures/v2-fleet-ext/seeds.svg)
+  - [README Figure 3: Wave-4 Screen Search Diagnostics on Repaired Operators](figures/wave4-readme-hero-kpi-and-elite.png)
   - [Figure Plate 0 (historical, pre-repair): Wave-3 Per-Generation Screen KPI Trajectory (`n = 10` Seeds) & 15-Run OpenFOAM 14 Carrier CFD](figures/wave3-readme-hero-kpi-and-elite.png)
   - [Figure Plate 1: 7-Topology Compositional 3D Hydrocyclone Atlas](figures/rust-3d-topology-atlas.png)
   - [Figure Plate 2: Multi-Objective Pareto Front & 4D MAP-Elites Convergence](figures/pareto-map-elites-convergence.png)

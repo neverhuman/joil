@@ -120,13 +120,21 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `45.936820` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/generation_band_curves/B1_Random_Search/24/best_kpi_score/mean` | printed |
 | `1.0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/pairwise_tests/0/p_value_holm_bonferroni` | printed |
 | `-0.68` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/pairwise_tests/0/cliffs_delta` | printed |
+| `8` | 2 | declared | - | see table (`8@`8` seeds`) |
+| `768384` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/budgets/fleet_run/evaluations` | printed |
+| `3840384` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/evaluations` | printed |
+| `0.0039` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/search_vs_random/p_one_sided` | printed |
+| `0.9961` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/seeded_vs_de_novo/p_one_sided` | printed |
+| `13` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/behavior/cyclone_cells` | printed |
+| `400` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/feed_pressure_kpa` | printed |
+| `3.040` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/fitness` | printed |
 
 ## §1–§4.5
 
 | Numeral | Count | Source | JSON pointer | Match |
 |---|---|---|---|---|
 | `1` | 10 | `baselines/ct35/genome.json` | `/schema_version` | printed |
-| `500` | 2 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_held_out_duties/0/cin_mg_l` | printed |
+| `500` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/duty_cin_mg_l/0` | printed |
 | `0` | 5 | `baselines/ct35/genome.json` | `/parameters/d3_over_d2` | printed |
 | `0.02` | 1 | `docs/results/baseline-hydraulics-v1.json` | `/points/0/observations/reject_fraction` | printed |
 | `30` | 1 | declared | - | see table (`30@$C_u \le 30\text{ mg/L}$`) |
@@ -495,6 +503,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `22,500` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/total_3d_evaluations_across_arms` | printed |
 | `11` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_tpms_gyroid_elite_5run_dossier/grids/0/pdr` | printed |
 | `8` | 1 | `docs/results/wave2-tpms-elite-gci-rsm-and-f2-oil-v1.json` | `/wave2_octa_branch_8jet_elite_5run_dossier/f1_surrogate_screen_metrics/cout_p95_mg_l` | printed |
+| `8` | 1 | declared | - | see table (`8@`8` seeds`) |
 
 ## §5
 
@@ -519,7 +528,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `35` | 3 | declared | - | see table (`35@$k_s \le 35\ \mu\text{m}$`) |
 | `0.10` | 2 | `experiments/wave2-preregistration-v1.json` | `/multiseed_statistical_protocol/rejected_cohort_random_audit_fraction` | printed |
 | `100` | 3 | `docs/results/wave2-multiseed-ablation-and-holdout-v1.json` | `/baseline_b0_ct35/structural_qualification/vane_strouhal_shedding_freq_hz` | printed |
-| `1000` | 1 | `docs/receipts/native-elementary-20261015.json` | `/cases/0/result/density_kg_m3` | printed |
+| `1000` | 3 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/duty_cin_mg_l/1` | printed |
 | `2.60` | 2 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/0/q_in_m3_h` | printed |
 | `5.40` | 2 | `experiments/wave2-preregistration-v1.json` | `/held_out_operating_duties/1/q_in_m3_h` | printed |
 | `1.50` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/A2_No_Selection_Random_Walk/0/generation_trace/17/shannon_diversity_bits` | printed |
@@ -1180,22 +1189,81 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `2.38` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/5/sandbox_authored_family_rmse_cout_mg_l` | printed |
 | `23.931038` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/0/held_out_best_kpi_score` | printed |
 | `5.66` | 1 | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json` | `/authored_family_diagnostics/0/sandbox_authored_family_rmse_cout_mg_l` | printed |
+| `8` | 6 | declared | - | see table (`8@`8` seeds`) |
+| `2000` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/generation` | printed |
+| `500` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/duty_cin_mg_l/0` | printed |
+| `400` | 3 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/feed_pressure_kpa` | printed |
+| `2.499` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/other_runs/1/best/fitness` | printed |
+| `2000` | 4 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/leader_generation` | printed |
+| `768384` | 3 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/evaluations` | printed |
+| `10000` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/generation` | printed |
+| `3840384` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/evaluations` | printed |
+| `0.0039` | 2 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/search_vs_random/p_one_sided` | printed |
+| `7` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/pooled_stage/runs/0/cyclone_stages/0/cells` | printed |
+| `2.587` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/de_novo/best/fitness` | printed |
+| `3.099` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/2/de_novo/best/fitness` | printed |
+| `1.934` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/7/random/best/fitness` | printed |
+| `2.150` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/3/random/best/fitness` | printed |
+| `2.709` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/1/de_novo/best/fitness` | printed |
+| `3.102` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/pooled_stage/runs/4/best_fitness` | printed |
+| `2.010` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/2/random/best/fitness` | printed |
+| `2.346` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/6/random/best/fitness` | printed |
+| `29` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/0/seeded/feasible_niches` | printed |
+| `149` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/2/de_novo/feasible_niches` | printed |
+| `3` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/cout_mg_l` | printed |
+| `4` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/separation` | printed |
+| `20261102` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/1/closure_seed` | printed |
+| `0.9961` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/seeded_vs_de_novo/p_one_sided` | printed |
+| `2.502` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/best/fitness` | printed |
+| `2.536` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/6/seeded/best/fitness` | printed |
+| `3.100` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/leader_registered_closure/fitness` | printed |
+| `2.740` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/3/seeded/best/fitness` | printed |
+| `2.647` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/2/seeded/best/fitness` | printed |
+| `16` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/2/seeded/best/duty_cout_mg_l/0` | printed |
+| `3.108` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/pooled_stage/runs/0/best_fitness` | printed |
+| `3.103` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/pooled_stage/runs/1/best_fitness` | printed |
+| `3.105` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/leader_search_fitness` | printed |
+| `3.133` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/fitness` | printed |
+| `13` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/behavior/cyclone_cells` | printed |
+| `0.64` | 1 | declared | - | see table |
+| `0.81` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/per_closure_q_m3_h/0` | printed |
+| `3.040` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/fitness` | printed |
+| `6.2` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/duty_cout_mg_l/0` | printed |
+| `98.8` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/removed_fraction_by_duty/0` | x100 |
+| `80.9` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/duty_cout_mg_l/1` | printed |
+| `91.9` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/removed_fraction_by_duty/1` | x100 |
+| `24` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/5/random/best/duty_cout_mg_l/0` | printed |
+| `2.382` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/3/fitness` | printed |
+| `2.987` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/1/fitness` | printed |
+| `2.332` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/per_closure_seed/3/leader_fitness` | printed |
+| `2.953` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/per_closure_seed/1/leader_fitness` | printed |
 
 ## README
 
 | Numeral | Count | Source | JSON pointer | Match |
 |---|---|---|---|---|
-| `8` | 2 | declared | - | see table (`8@`8` preregistered seeds`) |
+| `8` | 1 | declared | - | see table (`8@`8` seeds`) |
+| `768384` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/budgets/fleet_run/evaluations` | printed |
+| `3840384` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/0/seeded/evaluations` | printed |
+| `0.0039` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/search_vs_random/p_one_sided` | printed |
+| `10000` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/0/seeded/generation` | printed |
+| `13` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/behavior/cyclone_cells` | printed |
+| `400` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/0/seeded/best/feed_pressure_kpa` | printed |
+| `500` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/duty_cin_mg_l/0` | printed |
+| `6.2` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/duty_cout_mg_l/0` | printed |
+| `1000` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/duty_cin_mg_l/1` | printed |
+| `80.9` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/duty_cout_mg_l/1` | printed |
+| `0.81` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/7/random/best/per_closure_q_m3_h/3` | printed |
+| `8` | 1 | declared | - | see table (`8@`8` preregistered seeds`) |
+| `3840384` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/budgets/extension/evaluations` | printed |
+| `2000` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/budgets/fleet_run/generations` | printed |
+| `3.133` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/fitness` | printed |
+| `3.040` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/fitness` | printed |
+| `2000` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/leader_generation` | printed |
+| `3.100` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/leader_registered_closure/fitness` | printed |
 | `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
-| `72` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/mc_robustness/samples` | printed |
-| `64.0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/nominal_metrics/hinze_dmax_um` | printed |
-| `0` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/baseline_b0_ct35/program/inlet_ramp/axial_drop_mm` | printed |
-| `768384` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/evaluations` | printed |
 | `3` | 1 | declared | - | see table (`3@Python 3 with`) |
-| `3.12` | 1 | declared | - | see table (`3.12@use Python 3.12`) |
-| `3.12` | 2 | declared | - | see table (`3.12@project environment with **Python 3.12**`) |
-| `72` | 2 | declared | - | see table (`72@need `72` Monte Carlo samples`) |
-| `12` | 1 | declared | - | see table (`12@at the default of `12`) |
+| `3.12` | 1 | declared | - | see table (`3.12@needs Python 3.12`) |
 
 ## RESULTS
 
@@ -1211,7 +1279,7 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `119,235` | 1 | `docs/results/rust-evolution-qualification-v1.json` | `/campaign_metrics/total_evaluations` | printed |
 | `220` | 8 | declared | - | see table (`220@220 / 220`) |
 | `85` | 2 | `docs/receipts/wave2-genome-and-10seed-ablation-20261015.json` | `/key_findings/operator_random_walk_family_transitions` | printed |
-| `8` | 2 | declared | - | see table (`8@`8` seeds`) |
+| `8` | 4 | declared | - | see table (`8@`8` seeds`) |
 | `768384` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/evaluations` | printed |
 | `20261101` | 1 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seed` | printed |
 | `2.502` | 2 | `docs/results/forge-v2-fleet-summary-v1.json` | `/replicates/0/seeded/best/fitness` | printed |
@@ -1288,6 +1356,98 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `2.953` | 1 | `docs/results/forge-v2-fleet-closure-sensitivity-v1.json` | `/designs/0/scores/2/fitness` | printed |
 | `20261105` | 1 | `docs/results/forge-v2-fleet-closure-sensitivity-v1.json` | `/closure_seeds/5` | printed |
 | `20261108` | 1 | `docs/results/forge-v2-fleet-closure-sensitivity-v1.json` | `/closure_seeds/8` | printed |
+| `2000` | 4 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/leader_generation` | printed |
+| `10000` | 4 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/generation` | printed |
+| `3840384` | 3 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/evaluations` | printed |
+| `768384` | 2 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/budgets/fleet_run/evaluations` | printed |
+| `20261101` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/0/closure_seed` | printed |
+| `2.764` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/0/de_novo/generation_2000` | printed |
+| `2.921` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/0/de_novo/generation_10000` | printed |
+| `2.502` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/0/seeded/generation_2000` | printed |
+| `2.561` | 2 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/0/seeded/generation_10000` | printed |
+| `2.114` | 2 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/0/random/evaluations_768384` | printed |
+| `41` | 2 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/0/de_novo/feasible_niches` | printed |
+| `3` | 5 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/0/random/feasible_niches` | printed |
+| `20261102` | 3 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/1/closure_seed` | printed |
+| `2.700` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/1/de_novo/generation_2000` | printed |
+| `2.709` | 2 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/1/de_novo/generation_10000` | printed |
+| `2.919` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/1/seeded/generation_2000` | printed |
+| `3.100` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/1/seeded/generation_10000` | printed |
+| `2.123` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/1/random/evaluations_768384` | printed |
+| `2.204` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/1/random/evaluations_3840384` | printed |
+| `83` | 2 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/1/de_novo/feasible_niches` | printed |
+| `20261103` | 3 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/2/closure_seed` | printed |
+| `3.099` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/2/de_novo/generation_2000` | printed |
+| `3.102` | 3 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/pooled_stage/runs/4/best_fitness` | printed |
+| `2.509` | 3 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/2/seeded/generation_2000` | printed |
+| `2.647` | 2 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/2/seeded/generation_10000` | printed |
+| `1.949` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/2/random/evaluations_768384` | printed |
+| `2.010` | 2 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/2/random/evaluations_3840384` | printed |
+| `149` | 2 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/2/de_novo/feasible_niches` | printed |
+| `4` | 3 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/2/random/feasible_niches` | printed |
+| `20261104` | 3 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/3/closure_seed` | printed |
+| `3.010` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/3/de_novo/generation_2000` | printed |
+| `3.012` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/3/de_novo/generation_10000` | printed |
+| `2.508` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/3/seeded/generation_2000` | printed |
+| `2.740` | 2 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/3/seeded/generation_10000` | printed |
+| `1.989` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/3/random/evaluations_768384` | printed |
+| `2.150` | 3 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/3/random/evaluations_3840384` | printed |
+| `49` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/3/de_novo/feasible_niches` | printed |
+| `20261105` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/4/closure_seed` | printed |
+| `2.942` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/4/de_novo/generation_2000` | printed |
+| `2.986` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/4/de_novo/generation_10000` | printed |
+| `2.510` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/4/seeded/generation_2000` | printed |
+| `2.511` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/4/seeded/generation_10000` | printed |
+| `29` | 2 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/0/seeded/feasible_niches` | printed |
+| `20261106` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/5/closure_seed` | printed |
+| `3.039` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/5/de_novo/generation_2000` | printed |
+| `3.055` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/5/de_novo/generation_10000` | printed |
+| `2.507` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/5/seeded/generation_2000` | printed |
+| `1.968` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/5/random/evaluations_768384` | printed |
+| `2.097` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/5/random/evaluations_3840384` | printed |
+| `122` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/replicates/5/de_novo/feasible_niches` | printed |
+| `20261107` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/6/closure_seed` | printed |
+| `2.587` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/6/de_novo/generation_2000` | printed |
+| `2.780` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/6/de_novo/generation_10000` | printed |
+| `2.536` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/6/seeded/generation_2000` | printed |
+| `2.537` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/6/seeded/generation_10000` | printed |
+| `2.051` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/6/random/evaluations_768384` | printed |
+| `2.346` | 2 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/6/random/evaluations_3840384` | printed |
+| `20261108` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/7/closure_seed` | printed |
+| `2.884` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/7/de_novo/generation_2000` | printed |
+| `3.005` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/7/de_novo/generation_10000` | printed |
+| `2.514` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/7/seeded/generation_2000` | printed |
+| `2.522` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/7/seeded/generation_10000` | printed |
+| `1.934` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/7/random/evaluations_768384` | printed |
+| `2.186` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/7/random/evaluations_3840384` | printed |
+| `0.0039` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/search_vs_random/p_one_sided` | printed |
+| `3` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/cout_mg_l` | printed |
+| `4` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/separation` | printed |
+| `0.9961` | 1 | `docs/results/forge-v2-fleet-ext-summary-v1.json` | `/seeded_vs_de_novo/p_one_sided` | printed |
+| `3.100` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/leader_registered_closure/fitness` | printed |
+| `16` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/runs_improved` | printed |
+| `0.194` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/6/de_novo/gain` | printed |
+| `0.232` | 1 | `docs/results/forge-v2-fleet-ext-continuation-v1.json` | `/replicates/3/seeded/gain` | printed |
+| `3.108` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/pooled_stage/runs/0/best_fitness` | printed |
+| `3.103` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/pooled_stage/runs/1/best_fitness` | printed |
+| `3.105` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/leader_search_fitness` | printed |
+| `3.133` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/fitness` | printed |
+| `9169` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/first_generation_above_3_12` | printed |
+| `13` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/behavior/cyclone_cells` | printed |
+| `400` | 2 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/feed_pressure_kpa` | printed |
+| `0.64` | 1 | declared | - | see table |
+| `3.040` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/fitness` | printed |
+| `500` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/duty_cin_mg_l/0` | printed |
+| `6.2` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/duty_cout_mg_l/0` | printed |
+| `98.8` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/removed_fraction_by_duty/0` | x100 |
+| `1000` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/duty_cin_mg_l/1` | printed |
+| `80.9` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/report_score/duty_cout_mg_l/1` | printed |
+| `91.9` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/removed_fraction_by_duty/1` | x100 |
+| `0.81` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/winner/search_score/per_closure_q_m3_h/0` | printed |
+| `2.382` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/3/fitness` | printed |
+| `2.987` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/closure_sensitivity/scores/1/fitness` | printed |
+| `2.332` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/per_closure_seed/3/leader_fitness` | printed |
+| `2.953` | 1 | `docs/results/forge-v2-fleet-ext-winner-v1.json` | `/comparison_with_fleet_run_leader/per_closure_seed/1/leader_fitness` | printed |
 | `10` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/n_seeds` | printed |
 | `450` | 2 | `docs/results/wave4-evolution-proof-v1.json` | `/evaluations_per_seed_per_arm` | printed |
 | `22,500` | 1 | `docs/results/wave4-evolution-proof-v1.json` | `/total_3d_evaluations_across_arms` | printed |
@@ -1398,8 +1558,8 @@ cited source wins; a short integer such as a seed count can still match by coinc
 | `47.745321` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/final_best_kpi_score` | printed |
 | `7.438085` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/final_best_cout_p95_mg_l` | printed |
 | `-70.37` | 1 | `docs/results/wave3-evolution-proof-v1.json` | `/held_out_geometry_generalization/4/cout_reduction_pct_vs_ct35` | printed |
+| `8` | 2 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/derived_taxon/measured_dominant_azimuthal_order` | printed |
 | `11` | 2 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/grids/2/pdr` | printed |
-| `8` | 1 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/derived_taxon/measured_dominant_azimuthal_order` | printed |
 | `220` | 1 | declared | - | see table (`220@Closed-Catalog Validity Audit`) |
 | `35` | 1 | `baselines/ct35/genome.json` | `/parameters/d2_mm` | printed |
 | `20` | 4 | `docs/results/wave4-gci-v1.json` | `/same_pipeline_ct35_control/grids/2/background_hex_grid/1` | printed |
@@ -1516,7 +1676,6 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `11@giving **11 gene-activation labels**` | literal | `crates/joil-core/src/program.rs` | `across all 11 families` |
 | `128@`1024` stations` | literal | `crates/joil-core/src/structure.rs` | `[int_128, int_256, int_512, int_1024]` |
 | `12@$R_a \le 12\ \mu\text{m}$` | literal | `docs/SCIENCE.md` | `$R_a \le 12\ \mu\text{m}$` |
-| `12@at the default of `12` | literal | `crates/joil-cli/src/main.rs` (`--mc` default) | `.unwrap_or(12)` |
 | `14,243@compared `14,243` fields with this section's receipt` | derived | fields compared between the raw-log reproduction and the published receipt | `crates/joil-evidence/receipts/Wave4-raw-capture-consumption.json#/vs_original_published_summary/comparison/compared_leaves` |
 | `14@`14` incumbent-improvement milestones` | count | incumbent-improvement milestones of seed `20261108` | `len(docs/results/wave4-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/lineage_milestones)` |
 | `150.4` | derived | mean cross-family label changes per `B3` seed | `(docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/0/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/1/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/2/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/3/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/4/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/5/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/6/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/7/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/8/total_cross_family_lineage_jumps + docs/results/wave3-evolution-proof-v1.json#/arm_outcomes/B3_Wave3_Exotic3D_QD_CEI/9/total_cross_family_lineage_jumps) / 10` |
@@ -1551,8 +1710,7 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `2@z \in [2, 55]` | historical | Figure Plate 10 plot setting | axis window chosen in the figure script, not a result |
 | `3.0@$F_s = 3.0$` | protocol constant | Roache conservative safety factor (Appendix A) | convention; not a receipt value |
 | `3.10` | derived | `G2` vs `LRR` pressure drop | `(docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/grids/2/dp_u_pa - docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/rsm_turbulence_closure_crosscheck/0/dp_u_pa) / docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/grids/2/dp_u_pa` |
-| `3.12@project environment with **Python 3.12**` | protocol constant | `requirements-cad.txt` CAD lock (TR fresh-clone check) | interpreter version the CAD lock was tested with |
-| `3.12@use Python 3.12` | protocol constant | `requirements-cad.txt` CAD lock (TR fresh-clone check) | interpreter version the CAD lock was tested with |
+| `3.12@needs Python 3.12` | protocol constant | `requirements-cad.txt` CAD lock (TR fresh-clone check) | interpreter version the CAD lock was tested with |
 | `30@$C_u \le 30\text{ mg/L}$` | literal | `experiments/rig/protocol_v1.md` | `C_u(B_k) \le 30\text{ mg/L}` |
 | `33.89` | derived | sandbox pressure cap in kPa | `1.15 * docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/baseline_ct35_comparator/dp_u_pa / 1000` |
 | `35@$k_s \le 35\ \mu\text{m}$` | literal | `docs/SCIENCE.md` | `$k_s \le 35\ \mu\text{m}$` |
@@ -1586,7 +1744,6 @@ not machine-checked); `count` checks the length of a receipt list. A numeral wri
 | `62.7` | derived | oscillation amplitude contraction, Δp_u (1 + R) | `1 + docs/results/elite-3grid-gci-and-rsm-verification-v1.json#/roache_gci_analysis/dp_u_pa/convergence_ratio_R` |
 | `64@breakup diameter of 64` | literal | `crates/joil-core/src/evolve.rs` | `64.0_f64 * shear_ratio.powf(-0.62)` |
 | `6@labelled 4, 6 and 8 jets` | protocol constant | `crates/joil-core/src/program.rs` `inlet_split` | two inlet ports × `branches_per_port` ∈ {2, 3, 4} |
-| `72@need `72` Monte Carlo samples` | derived | sample count the tail estimator requires for p05/p95 | `docs/results/wave4-evolution-proof-v1.json#/promoted_wave3_top_elite/mc_robustness/tail_quantiles/capture_p05/minimum_n` |
 | `7@archetype labels; rendered ring surfaces` | historical | Figure Plate 1 caption | count of Wave-1 labels drawn on the plate; not a receipt value |
 | `8.00@\Delta_0 = 8.00` | historical | `G0` background spacing set by the case generator | not recorded in a committed receipt |
 | `80@`gate in [80%, 100%]` | historical | `P07` surrogate qualification text | the gate is stated in the qualification narrative; no committed code constant was found |
